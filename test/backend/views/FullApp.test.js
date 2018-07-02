@@ -835,7 +835,8 @@ describe('6 FluxNotesEditor', function() {
         }
     });
 
-    it("6.9 Typing #ER into the editor followed by #Positive results in structured data insertion and context panel updates", () => {
+    // NOTE: Skipping this test for now since it is functionally the same as the #PR tests
+    it.skip("6.9 Typing #ER into the editor followed by #Positive results in structured data insertion and context panel updates", () => {
         let patient = new PatientRecord(hardCodedPatient);
         const contextManager = new ContextManager(patient, () => {});
         const structuredFieldMapManager = new StructuredFieldMapManager();
@@ -904,7 +905,8 @@ describe('6 FluxNotesEditor', function() {
         }
     });
 
-    it("6.10 Typing #HER2 into the editor followed by #Positive results in structured data insertion and context panel updates", () => {
+    // NOTE: Skipping this test for now since it is functionally the same as the #PR tests
+    it.skip("6.10 Typing #HER2 into the editor followed by #Positive results in structured data insertion and context panel updates", () => {
         let patient = new PatientRecord(hardCodedPatient);
         const contextManager = new ContextManager(patient, () => {});
         const structuredFieldMapManager = new StructuredFieldMapManager();
