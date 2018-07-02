@@ -195,7 +195,7 @@ class MedicationRangeChartVisualizer extends Component {
                             <Col sm={numColsChart}>
                                 <div className="range-chart-container">
                                     <svg width="100%" height="6em" viewBox="0 0 340 100">
-                                        <text x="40" y="20" fontFamily="sans-serif" fontSize="0.9em" fill="#333">{name}</text>
+                                        <text x="40" y="28" fontFamily="sans-serif" fontSize="0.9em" fill="#333">{name}</text>
                                     </svg>                                
                                 </div>
                             </Col>
