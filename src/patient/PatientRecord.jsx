@@ -311,7 +311,7 @@ class PatientRecord {
         return result + ".";
     }
 
-    getEligibleClinicalTrials = (currentConditionEntry, currentlyEnrolledTrials) => {
+    getEligibleClinicalTrials(currentConditionEntry, currentlyEnrolledTrials) {
         if (!this.refreshClinicalTrials && (_.isEqual(this.enrolledClinicalTrials, this.getEnrolledClinicalTrials()))) {
             return this.eligibleTrials;
         }
