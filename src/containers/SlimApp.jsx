@@ -11,7 +11,7 @@ import ShortcutViewer from '../viewer/ShortcutViewer';
 import ShortcutManager from '../shortcuts/ShortcutManager';
 import '../styles/SlimApp.css';
 
-class SlimApp extends Component {
+export class SlimApp extends Component {
     constructor(props) {
         super(props);
 

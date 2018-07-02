@@ -1,5 +1,5 @@
 import React from 'react';
-import Enzyme, { shallow, mount } from 'enzyme';
+import Enzyme, { shallow, mount, render } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import { expect } from 'chai'
 
@@ -22,11 +22,12 @@ import NotesPanel from '../../../src/panels/NotesPanel';
 import NoteAssistant from '../../../src/notes/NoteAssistant';
 import hardCodedPatient from '../../../src/dataaccess/HardCodedPatient.json';
 import PatientRecord from '../../../src/patient/PatientRecord.jsx';
+import FluxInjury from '../../../src/model/condition/FluxInjury';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe('UpdateErrors', function () {
-    it('should set state.errors to equal the provided argument', function () {
+describe('1 UpdateErrors', function () {
+    it('1.1 should set state.errors to equal the provided argument', function () {
         const wrapper = shallow(<FullApp display='test' />);
         const emptyErrors = [];
         wrapper.instance().updateErrors(emptyErrors);
@@ -41,8 +42,8 @@ describe('UpdateErrors', function () {
     });
 });
 
-describe('setFullAppState', function() {
-    it('sets the state on the component', function() {
+describe('2 setFullAppState', function() {
+    it('2.1 sets the state on the component', function() {
         const wrapper = shallow(<FullApp display='test'/>);
 
         wrapper.instance().setFullAppState('testKey', 'testValue');
@@ -67,8 +68,8 @@ describe('setFullAppState', function() {
 //     });
 // });
 
-describe('TargetedDataControl', function() {
-    it('noteDisplayMode buttons update state', function() {
+describe('3 TargetedDataControl', function() {
+    it('3.1 noteDisplayMode buttons update state', function() {
         const summaryMetadata = new SummaryMetadata();
         // Look for the first NameValuePair section which should be Summary. Assumes it does not have a defaultVisualizer property
         const section = summaryMetadata.hardCodedMetadata["http://snomed.info/sct/408643008"].sections.find((section) => {
@@ -101,8 +102,8 @@ describe('TargetedDataControl', function() {
             .to.eq('narrative');
     });
 });
-describe('TargetedDataControl - correct default visualizer Medications', function() {
-    it('correct default visualizer', function() {
+describe('4 TargetedDataControl - correct default visualizer Medications', function() {
+    it('4.1 correct default visualizer', function() {
         const summaryMetadata = new SummaryMetadata();
         // Look for the first NameValuePair section which should be Summary. Assumes it does not have a defaultVisualizer property
         const section = summaryMetadata.hardCodedMetadata["http://snomed.info/sct/408643008"].sections.find((section) => {
@@ -121,28 +122,177 @@ describe('TargetedDataControl - correct default visualizer Medications', functio
     });
 });
 
-describe('FluxNotesEditor', function() {
+describe('5 FullApp', function() {
     beforeEach(() => {
-      // Set up window and document to be used by Slate in test
-      window.getSelection = () => {
+        window.getSelection = () => {
           return {
-              addRange: () => {},
-              extend: () => {},
-              removeAllRanges: () => {}
-          }
-      }
-      // window.document.createRange = jest.fn();
-      document.createRange = function() {
-          return {
-              setEnd: function(){},
-              setStart: function(){},
-              getBoundingClientRect: function(){
-                  return {right: 0};
-              }
-          }
-      };
+            removeAllRanges: () => {},
+            addRange: () => {}
+          };
+        },
+        window.document.createRange = () => {
+            return {
+                setStart: () => {}
+            };
+        }
+    });
+    it('5.1 Selecting a condition changes the active condition', () => {
+        const wrapper = mount(<FullApp 
+                display='Flux Notes' 
+                dataSource='HardCodedReadOnlyDataSource' 
+                patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
+        const conditionSelector = wrapper.find('SelectInput');
+        expect(conditionSelector.exists()).to.equal(true);
+        expect(conditionSelector.text()).to.equal('Invasive ductal carcinoma of breast');
+
+        conditionSelector.at(0).props().onChange({target: { value: 1}});
+        expect(conditionSelector.text()).to.equal('Fracture');
+
+        expect(wrapper.state('condition') instanceof FluxInjury);
+        //const conditionName = wrapper.find('[data-test-summary-section="Summary"] [data-test-summary-item="Name"]');
+       //expect(conditionName.exists()).to.equal(true);
+       //expect(conditionName.text()).to.equal('Fracture');
+    });
+    it('5.2 Clicking "New Note" button in pre-encounter mode changes layout and displays the note editor', () => {
+        const wrapper = mount(<FullApp 
+            display='Flux Notes' 
+            dataSource='HardCodedReadOnlyDataSource' 
+            patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
+        const e1 = wrapper.find('div.editor-content');
+        expect(e1.exists()).to.equal(false);
+    
+        const newNoteButton = wrapper.find('.note-new');
+    
+        // Click on new note button to open the editor
+        newNoteButton.at(0).props().onClick();
+        wrapper.update();
+        //const editor = wrapper.find("div[data-slate-editor='true']");
+        const e2 = wrapper.find('div.editor-content');
+        expect(e2.exists()).to.equal(true);
+    });
+    it('5.3 Clicking clinical notes toggle button in Note Assistant switches view to clinical notes', () => {
+        const wrapper = mount(<FullApp 
+            display='Flux Notes' 
+            dataSource='HardCodedReadOnlyDataSource' 
+            patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
+
+        // Click on new note button to open the editor
+        const newNoteButton = wrapper.find('.note-new');
+        newNoteButton.at(0).props().onClick();
+        wrapper.update();
+
+        // no new note button now
+        const newNoteButton2 = wrapper.find('.note-new');
+        expect(newNoteButton2.exists()).to.equal(false);
+
+        // clinical notes button is selected
+        const clinicalNotesButton = wrapper.find('#notes-btn');
+        expect(clinicalNotesButton.exists()).to.equal(true);
+        clinicalNotesButton.at(0).props().onClick();
+        wrapper.update();
+
+        // do we have new note button available?
+        const newNoteButton3 = wrapper.find('.note-new');
+        expect(newNoteButton3.exists()).to.equal(true);
+    });
+    it('5.4 Clicking context toggle button in Note Assistant switches view to context tray', () => {
+        const wrapper = mount(<FullApp 
+            display='Flux Notes' 
+            dataSource='HardCodedReadOnlyDataSource' 
+            patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
+
+        // Mimic post-encounter view
+        const newNoteButton = wrapper.find('.note-new');
+        newNoteButton.at(0).props().onClick();
+        wrapper.update();
+
+        // Select clinical notes
+        const clinicalNotesButton = wrapper.find('#notes-btn');
+        clinicalNotesButton.at(0).props().onClick();
+        wrapper.update();
+    
+        // Select context button
+        const contextButton = wrapper.find('#context-btn');
+        contextButton.at(0).props().onClick();
+        wrapper.update();
+
+        // context tray should be showing
+        const contextTray = wrapper.find('.context-tray');
+        expect(contextTray.exists()).to.equal(true);
+    });
+    // it.only('In pre-encounter mode, clicking the "New Note" button clears the editor content', () => {
+    //     const wrapper = mount(<FullApp 
+    //         display='Flux Notes' 
+    //         dataSource='HardCodedReadOnlyDataSource' 
+    //         patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
+
+    //     // click new note button
+    //     const newNoteButton = wrapper.find('.note-new');
+    //     newNoteButton.at(0).props().onClick();
+    //     wrapper.update();
+
+    //     // editor
+    //     //const e1 = wrapper.find('div.editor-content');
+    //     const e1 = wrapper.find('Editor.editor-panel');
+    //     expect(e1.exists()).to.equal(true);
+    //     // console.log(e1.at(0).debug());
+           
+    //     // Enter some text in the editor
+    //     e1.at(0).props().onInput(null, "@name ");
+    
+    //     // Select clinical notes
+    //     const clinicalNotesButton = wrapper.find('#notes-btn');
+    //     clinicalNotesButton.at(0).props().onClick();
+    //     wrapper.update();
+    
+    //     // Click on new note button to clear the editor
+    //     newNoteButton.at(0).props().onClick();
+    //     wrapper.update();
+
+    //     //console.log(e1.at(0).debug());
+    //     // await t
+    //     //     .expect(editor.textContent)
+    //     //     .eql("Enter your clinical note here or choose a template to start from...");
+    // });
+});
+
+describe('6 FluxNotesEditor', function() {
+    beforeEach(() => {
+        let range = {
+            cloneRange: () => { return range; },
+            setStart: () => {},
+            getBoundingClientRect: () => {
+                return {
+                    left: 0,
+                    right: 0,
+                    width: 0,
+                    height: 0
+                };
+            }
+        };
+        // Set up window and document to be used by Slate in test
+        window.getSelection = () => {
+            return {
+                addRange: () => {},
+                extend: () => {},
+                removeAllRanges: () => {},
+                getRangeAt: () => {
+                    return range;
+                }
+            };
+        }
+        // window.document.createRange = jest.fn();
+        document.createRange = function() {
+            return {
+                setEnd: function(){},
+                setStart: function(){},
+                getBoundingClientRect: function(){
+                    return {right: 0};
+                }
+            }
+        };
     })
-    it('inserts supplied text for inserter shortcuts', () => {
+    it('6.1 inserts supplied text for inserter shortcuts', () => {
         // Set up Managers that are needed by FluxNotesEditor
         let patient = new PatientRecord(hardCodedPatient);
         const contextManager = new ContextManager(patient, () => {});
@@ -192,7 +342,88 @@ describe('FluxNotesEditor', function() {
         expect(wrapper.find('.editor-content').text()).to.contains('Test Name  is a  49  year old  Female  coming in for follow up.')
     });
 
-    it('renders notes panel and typing an inserterShortcut in the editor results in a structured data insertion', () => {
+    // it.only('In pre-encounter mode, clicking the "New Note" button clears the editor content', () => {
+    //     let patient = new PatientRecord(hardCodedPatient);
+    //     const contextManager = new ContextManager(patient, () => {});
+    //     const structuredFieldMapManager = new StructuredFieldMapManager();
+    //     const shortcutManager = new ShortcutManager();
+
+    //     // Mock function to create a new shortcut and set text on shortcut. Allows Editor to update correctly.
+    //     let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
+    //         let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, {}, shortcutData, this.handleShortcutUpdate);
+    //         newShortcut.initialize(contextManager, shortcutType, updatePatient, shortcutData);
+    //         return newShortcut;
+    //     }
+
+    //     let appState = { documentText : ''};
+    //     let setFullAppStateWithCallback = (state, callback) => {
+    //         appState = state;
+    //     };
+
+    //     const notesPanelWrapper = mount(<NotesPanel
+    //         patient={patient}
+    //         contextManager={contextManager}
+    //         structuredFieldMapManager={structuredFieldMapManager}
+    //         shortcutManager={shortcutManager}
+    //         newCurrentShortcut={mockNewCurrentShortcut}
+    //         setFullAppState={jest.fn()}
+    //         isNoteViewerVisible={true}
+    //         isNoteViewerEditable={true}
+    //         //Others that are required but not used in test
+    //         currentViewMode={''}
+    //         dataAccess={{}}
+    //         documentText={appState.documentText}
+    //         errors={[]}
+    //         handleSummaryItemSelected={jest.fn()}
+    //         itemInserted={jest.fn()}
+    //         loginUser={''}
+    //         noteClosed={false}
+    //         setDocumentText={jest.fn()}
+    //         setDocumentTextWithCallback={jest.fn()}
+    //         setFullAppStateWithCallback={setFullAppStateWithCallback}
+    //         setLayout={jest.fn()}
+    //         setOpenClinicalNote={jest.fn()}
+    //         setNoteClosed={jest.fn()}
+    //         setNoteViewerEditable={jest.fn()}
+    //         setNoteViewerVisible={jest.fn()}
+    //         setSearchSelectedItem={jest.fn()}
+    //         summaryItemToInsert={''}
+    //         updateErrors={jest.fn()}
+    //     />);
+    //     expect(notesPanelWrapper).to.have.lengthOf(1);
+    //     expect(notesPanelWrapper.find(FluxNotesEditor)).to.have.lengthOf(1);
+    //     notesPanelWrapper.setState({ updatedEditorNote: { content: '@name' } });
+
+    //     expect(notesPanelWrapper.find('.structured-field')).to.have.length(1);
+    //     expect(notesPanelWrapper.find('.structured-field').text()).to.contain(patient.getName());
+
+    //     // clinical notes button is selected
+    //     const clinicalNotesButton = notesPanelWrapper.find('#notes-btn');
+    //     expect(clinicalNotesButton.exists()).to.equal(true);
+    //     clinicalNotesButton.at(0).props().onClick();
+    //     notesPanelWrapper.update();
+        
+    //     // Click on new note button to open the editor
+    //     // const newNoteButton = notesPanelWrapper.find('.note-new');
+    //     // newNoteButton.at(0).props().onClick();
+    //     // notesPanelWrapper.update();
+
+    //     // simulate new note button being clicked
+    //     const noteAssistant = notesPanelWrapper.find(NoteAssistant);
+    //     //console.log(noteAssistant.at(0).instance());
+    //     noteAssistant.at(0).instance().handleOnNewNoteButtonClick();
+    //     notesPanelWrapper.update();
+
+    //     //expect(notesPanelWrapper.find('.structured-field')).to.have.length(0);
+    //     /*expect(notesPanelWrapper.find('span[contenteditable=false]').at(0).text()).
+    //         to.contain("Enter your clinical note here or choose a template to start from...");*/
+
+    //     console.log(notesPanelWrapper.find('div[data-slate-editor=true]').debug());
+    //     expect(notesPanelWrapper.find('div[data-slate-editor=true]').text()).to.
+    //         contain("Enter your clinical note here or choose a template o start from...");
+    // });    
+
+    it('6.2 renders notes panel and typing an inserterShortcut in the editor results in a structured data insertion', () => {
         let patient = new PatientRecord(hardCodedPatient);
         const contextManager = new ContextManager(patient, () => {});
         const structuredFieldMapManager = new StructuredFieldMapManager();
@@ -224,6 +455,7 @@ describe('FluxNotesEditor', function() {
             loginUser={''}
             noteClosed={false}
             setDocumentText={jest.fn()}
+            setDocumentTextWithCallback={jest.fn()}
             setFullAppStateWithCallback={jest.fn()}
             setLayout={jest.fn()}
             setOpenClinicalNote={jest.fn()}
@@ -242,7 +474,7 @@ describe('FluxNotesEditor', function() {
         expect(notesPanelWrapper.find('.structured-field').text()).to.contain(patient.getName());
     });
 
-    it('renders notes panel, clicking "@condition" and choosing "Invasive ductal carcinoma of breast" creates a new condition section in the context tray and adds structured data.', () => {
+    it('6.3 renders notes panel, clicking "@condition" and choosing "Invasive ductal carcinoma of breast" creates a new condition section in the context tray and adds structured data.', () => {
         let patient = new PatientRecord(hardCodedPatient);
         const contextManager = new ContextManager(patient, () => {});
         const structuredFieldMapManager = new StructuredFieldMapManager();
@@ -304,9 +536,62 @@ describe('FluxNotesEditor', function() {
 
         expect(notesPanelWrapper.find('.structured-field')).to.have.length(1);
         expect(notesPanelWrapper.find('.structured-field').text()).to.contain('Invasive ductal carcinoma of breast');
+    });
+
+    it('6.4 Typing an inserterShortcut that is not currently valid in the editor does not result in a structured data insertion ', () => {
+        // Set up Managers that are needed by FluxNotesEditor
+        let patient = new PatientRecord(hardCodedPatient);
+        const contextManager = new ContextManager(patient, () => {});
+        const shortcutManager = new ShortcutManager();
+        const structuredFieldMapManager = new StructuredFieldMapManager();
+
+        // Mock function to create a new shortcut and set text on shortcut. Allows Editor to update correctly.
+        let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
+            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, {}, shortcutData, this.handleShortcutUpdate);
+            newShortcut.initialize(contextManager, shortcutType, updatePatient, shortcutData);
+            return newShortcut;
+        }
+
+        const wrapper = mount(<FluxNotesEditor
+            closeNote={() => {}}
+            updatedEditorNote={{ content: '' }}
+            shortcutManager={shortcutManager}
+            contextManager={contextManager}
+            structuredFieldMapManager={structuredFieldMapManager}
+            newCurrentShortcut={mockNewCurrentShortcut}
+            updatedEditorNote={null}
+            handleUpdateEditorWithNote={jest.fn()}
+            isNoteViewerVisible={true}
+            isNoteViewerEditable={true}
+            setFullAppState={jest.fn()}
+            setFullAppStateWithCallback={jest.fn()}
+            setLayout={jest.fn()}
+            setDocumentTextWithCallback={jest.fn()}
+            saveNoteUponKeypress={jest.fn()}
+            shouldEditorContentUpdate={true}
+            setNoteViewerEditable={jest.fn()}
+            setNoteViewerVisible={jest.fn()}
+        />);
+        expect(wrapper).to.exist;
+        // wrapper.find('.editor-content').simulate('click'); //goes into on change
+
+        // let noteContent = '#imaging ';
+        const arrayOfStructuredDataToEnter = ["#imaging "]
+        const updatedEditorNote = { content: arrayOfStructuredDataToEnter.join(' ') };
+        // Set updatedEditorNote props because this triggers that a change is coming in to the editor and inserts text with structured phrases.
+        wrapper.instance().onFocus();
+        wrapper.setProps({ updatedEditorNote });
+
+        // Check structured phrases
+        const structuredField = wrapper.find('.structured-field');
+        expect(structuredField).to.have.lengthOf(0)
+
+        // Check full text
+        const editorContent = wrapper.find('.editor-content');
+        expect(editorContent.text()).to.contain("");
     });    
     
-    it('captures staging data using singleKeywordHashtag method', () => {
+    it('6.5 captures staging data using singleKeywordHashtag method', () => {
         // Set up Managers that are needed by FluxNotesEditor
         let patient = new PatientRecord(hardCodedPatient);
         const contextManager = new ContextManager(patient, () => {});
@@ -362,7 +647,335 @@ describe('FluxNotesEditor', function() {
         }
     });
 
-    it('Switches contexts without closing a context chooses the correct parent context and successfully enters information in editor', () => {
+    it('6.6 Typing a date in the editor results in a structured data insertion ', () => {
+        // Set up Managers that are needed by FluxNotesEditor
+        let patient = new PatientRecord(hardCodedPatient);
+        const contextManager = new ContextManager(patient, () => {});
+        const shortcutManager = new ShortcutManager();
+        const structuredFieldMapManager = new StructuredFieldMapManager();
+
+        // Mock function to create a new shortcut and set text on shortcut. Allows Editor to update correctly.
+        let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
+            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, {}, shortcutData, this.handleShortcutUpdate);
+            newShortcut.initialize(contextManager, shortcutType, updatePatient, shortcutData);
+            return newShortcut;
+        }
+
+        const wrapper = mount(<FluxNotesEditor
+            closeNote={() => {}}
+            updatedEditorNote={{ content: '' }}
+            shortcutManager={shortcutManager}
+            contextManager={contextManager}
+            structuredFieldMapManager={structuredFieldMapManager}
+            newCurrentShortcut={mockNewCurrentShortcut}
+            updatedEditorNote={null}
+            handleUpdateEditorWithNote={jest.fn()}
+            isNoteViewerVisible={true}
+            isNoteViewerEditable={true}
+            setFullAppState={jest.fn()}
+            setFullAppStateWithCallback={jest.fn()}
+            setLayout={jest.fn()}
+            saveNoteUponKeypress={jest.fn()}
+            shouldEditorContentUpdate={true}
+            setNoteViewerEditable={jest.fn()}
+            setNoteViewerVisible={jest.fn()}
+        />);
+        expect(wrapper).to.exist;
+        // wrapper.find('.editor-content').simulate('click'); //goes into on change
+
+        // let noteContent = ' #staging t2 n2 m1';
+        const arrayOfStructuredDataToEnter = ["#12/20/2015 "];
+        const arrayOfExpectedStructuredData = ["#12/20/2015 "];
+        const updatedEditorNote = { content: arrayOfStructuredDataToEnter.join(' ') };
+        // Set updatedEditorNote props because this triggers that a change is coming in to the editor and inserts text with structured phrases.
+        wrapper.setProps({ updatedEditorNote });
+
+        // Check structured phrases
+        const structuredField = wrapper.find('.structured-field');
+        expect(structuredField).to.have.lengthOf(arrayOfExpectedStructuredData.length)
+        for (let index = 0; index < arrayOfExpectedStructuredData.length; index++) {
+            expect(structuredField.at(index).text()).to.contain(arrayOfExpectedStructuredData[index]);
+        }
+        // Check full text
+        const editorContent = wrapper.find('.editor-content');
+        for (let index = 0; index < arrayOfExpectedStructuredData.length; index++) {
+            expect(editorContent.text()).to.contain(arrayOfExpectedStructuredData[index]);
+        }
+    });
+
+    it("6.7 Typing '#deceased' in the editor results in a structured data insertion and the context panel updates", () => {
+        let patient = new PatientRecord(hardCodedPatient);
+        const contextManager = new ContextManager(patient, () => {});
+        const structuredFieldMapManager = new StructuredFieldMapManager();
+        const shortcutManager = new ShortcutManager();
+
+        // Mock function to create a new shortcut and set text on shortcut. Allows Editor to update correctly.
+        let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
+            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, {}, shortcutData, this.handleShortcutUpdate);
+            newShortcut.initialize(contextManager, shortcutType, updatePatient, shortcutData);
+            return newShortcut;
+        }
+
+        const notesPanelWrapper = mount(<NotesPanel
+            patient={patient}
+            contextManager={contextManager}
+            structuredFieldMapManager={structuredFieldMapManager}
+            shortcutManager={shortcutManager}
+            newCurrentShortcut={mockNewCurrentShortcut}
+            setFullAppState={jest.fn()}
+            isNoteViewerVisible={true}
+            isNoteViewerEditable={true}
+            //Others that are required but not used in test
+            currentViewMode={''}
+            dataAccess={{}}
+            documentText={''}
+            errors={[]}
+            handleSummaryItemSelected={jest.fn()}
+            itemInserted={jest.fn()}
+            loginUser={''}
+            noteClosed={false}
+            setDocumentText={jest.fn()}
+            setDocumentTextWithCallback={jest.fn()}
+            setFullAppStateWithCallback={jest.fn()}
+            setLayout={jest.fn()}
+            setOpenClinicalNote={jest.fn()}
+            setNoteClosed={jest.fn()}
+            setNoteViewerEditable={jest.fn()}
+            setNoteViewerVisible={jest.fn()}
+            setSearchSelectedItem={jest.fn()}
+            setOpenClinicalNote={jest.fn()}
+            summaryItemToInsert={''}
+            updateErrors={jest.fn()}
+        />);
+        const fluxNotesEditor = notesPanelWrapper.find(FluxNotesEditor);
+        expect(fluxNotesEditor).to.have.lengthOf(1);
+        expect(notesPanelWrapper.find(NoteAssistant)).to.have.lengthOf(1);
+
+        const arrayOfStructuredDataToEnter = ["#deceased "];
+        const updatedEditorNote = { content: arrayOfStructuredDataToEnter.join(' ') };
+        // Set updatedEditorNote props because this triggers that a change is coming in to the editor and inserts text with structured phrases.
+        fluxNotesEditor.instance().onFocus();
+        //fluxNotesEditor.setProps({ updatedEditorNote });
+        notesPanelWrapper.setState({ updatedEditorNote });
+
+
+        expect(notesPanelWrapper.find('.structured-field')).to.have.length(1);
+        expect(notesPanelWrapper.find('.structured-field').text()).to.contain('#deceased');        
+
+        const deceasedChild = notesPanelWrapper.find('.context-tray').find('div.context-options-header[title="Date"]');
+        expect(deceasedChild).to.have.lengthOf(1);
+    });
+
+    it("6.8 Typing #PR into the editor followed by #Positive results in structured data insertion and context panel updates", () => {
+        let patient = new PatientRecord(hardCodedPatient);
+        const contextManager = new ContextManager(patient, () => {});
+        const structuredFieldMapManager = new StructuredFieldMapManager();
+        const shortcutManager = new ShortcutManager();
+
+        // Mock function to create a new shortcut and set text on shortcut. Allows Editor to update correctly.
+        let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
+            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, {}, shortcutData, this.handleShortcutUpdate);
+            newShortcut.initialize(contextManager, shortcutType, updatePatient, shortcutData);
+            return newShortcut;
+        }
+
+        const notesPanelWrapper = mount(<NotesPanel
+            patient={patient}
+            contextManager={contextManager}
+            structuredFieldMapManager={structuredFieldMapManager}
+            shortcutManager={shortcutManager}
+            newCurrentShortcut={mockNewCurrentShortcut}
+            setFullAppState={jest.fn()}
+            isNoteViewerVisible={true}
+            isNoteViewerEditable={true}
+            //Others that are required but not used in test
+            currentViewMode={''}
+            dataAccess={{}}
+            documentText={''}
+            errors={[]}
+            handleSummaryItemSelected={jest.fn()}
+            itemInserted={jest.fn()}
+            loginUser={''}
+            noteClosed={false}
+            setDocumentText={jest.fn()}
+            setDocumentTextWithCallback={jest.fn()}
+            setFullAppStateWithCallback={jest.fn()}
+            setLayout={jest.fn()}
+            setOpenClinicalNote={jest.fn()}
+            setNoteClosed={jest.fn()}
+            setNoteViewerEditable={jest.fn()}
+            setNoteViewerVisible={jest.fn()}
+            setSearchSelectedItem={jest.fn()}
+            setOpenClinicalNote={jest.fn()}
+            summaryItemToInsert={''}
+            updateErrors={jest.fn()}
+        />);
+        const fluxNotesEditor = notesPanelWrapper.find(FluxNotesEditor);
+        expect(fluxNotesEditor).to.have.lengthOf(1);
+        expect(notesPanelWrapper.find(NoteAssistant)).to.have.lengthOf(1);
+
+        const arrayOfStructuredDataToEnter = ["@condition[[Invasive ductal carcinoma of breast]] ", "#PR ", "#Positive "];
+        const arrayOfExpectedStructuredData = ["Invasive ductal carcinoma of breast ", "#PR ", "#Positive "]
+        const updatedEditorNote = { content: arrayOfStructuredDataToEnter.join(' ') };
+        // Set updatedEditorNote props because this triggers that a change is coming in to the editor and inserts text with structured phrases.
+        fluxNotesEditor.instance().onFocus();
+        //fluxNotesEditor.setProps({ updatedEditorNote });
+        notesPanelWrapper.setState({ updatedEditorNote });
+
+        // Check structured phrases
+        const structuredField = notesPanelWrapper.find('.structured-field');
+        expect(structuredField).to.have.lengthOf(arrayOfExpectedStructuredData.length)
+        for (let index = 0; index < arrayOfExpectedStructuredData.length; index++) {
+            expect(structuredField.at(index).text()).to.contain(arrayOfExpectedStructuredData[index]);
+        }
+        // Check full text
+        const editorContent = notesPanelWrapper.find('.editor-content');
+        for (let index = 0; index < arrayOfExpectedStructuredData.length; index++) {
+            expect(editorContent.text()).to.contain(arrayOfExpectedStructuredData[index]);
+        }
+    });
+
+    // NOTE: Skipping this test for now since it is functionally the same as the #PR tests
+    it.skip("6.9 Typing #ER into the editor followed by #Positive results in structured data insertion and context panel updates", () => {
+        let patient = new PatientRecord(hardCodedPatient);
+        const contextManager = new ContextManager(patient, () => {});
+        const structuredFieldMapManager = new StructuredFieldMapManager();
+        const shortcutManager = new ShortcutManager();
+
+        // Mock function to create a new shortcut and set text on shortcut. Allows Editor to update correctly.
+        let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
+            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, {}, shortcutData, this.handleShortcutUpdate);
+            newShortcut.initialize(contextManager, shortcutType, updatePatient, shortcutData);
+            return newShortcut;
+        }
+
+        const notesPanelWrapper = mount(<NotesPanel
+            patient={patient}
+            contextManager={contextManager}
+            structuredFieldMapManager={structuredFieldMapManager}
+            shortcutManager={shortcutManager}
+            newCurrentShortcut={mockNewCurrentShortcut}
+            setFullAppState={jest.fn()}
+            isNoteViewerVisible={true}
+            isNoteViewerEditable={true}
+            //Others that are required but not used in test
+            currentViewMode={''}
+            dataAccess={{}}
+            documentText={''}
+            errors={[]}
+            handleSummaryItemSelected={jest.fn()}
+            itemInserted={jest.fn()}
+            loginUser={''}
+            noteClosed={false}
+            setDocumentText={jest.fn()}
+            setDocumentTextWithCallback={jest.fn()}
+            setFullAppStateWithCallback={jest.fn()}
+            setLayout={jest.fn()}
+            setOpenClinicalNote={jest.fn()}
+            setNoteClosed={jest.fn()}
+            setNoteViewerEditable={jest.fn()}
+            setNoteViewerVisible={jest.fn()}
+            setSearchSelectedItem={jest.fn()}
+            setOpenClinicalNote={jest.fn()}
+            summaryItemToInsert={''}
+            updateErrors={jest.fn()}
+        />);
+        const fluxNotesEditor = notesPanelWrapper.find(FluxNotesEditor);
+        expect(fluxNotesEditor).to.have.lengthOf(1);
+        expect(notesPanelWrapper.find(NoteAssistant)).to.have.lengthOf(1);
+
+        const arrayOfStructuredDataToEnter = ["@condition[[Invasive ductal carcinoma of breast]] ", "#ER ", "#Positive "];
+        const arrayOfExpectedStructuredData = ["Invasive ductal carcinoma of breast ", "#ER ", "#Positive "]
+        const updatedEditorNote = { content: arrayOfStructuredDataToEnter.join(' ') };
+        // Set updatedEditorNote props because this triggers that a change is coming in to the editor and inserts text with structured phrases.
+        fluxNotesEditor.instance().onFocus();
+        //fluxNotesEditor.setProps({ updatedEditorNote });
+        notesPanelWrapper.setState({ updatedEditorNote });
+
+        // Check structured phrases
+        const structuredField = notesPanelWrapper.find('.structured-field');
+        expect(structuredField).to.have.lengthOf(arrayOfExpectedStructuredData.length)
+        for (let index = 0; index < arrayOfExpectedStructuredData.length; index++) {
+            expect(structuredField.at(index).text()).to.contain(arrayOfExpectedStructuredData[index]);
+        }
+        // Check full text
+        const editorContent = notesPanelWrapper.find('.editor-content');
+        for (let index = 0; index < arrayOfExpectedStructuredData.length; index++) {
+            expect(editorContent.text()).to.contain(arrayOfExpectedStructuredData[index]);
+        }
+    });
+
+    // NOTE: Skipping this test for now since it is functionally the same as the #PR tests
+    it.skip("6.10 Typing #HER2 into the editor followed by #Positive results in structured data insertion and context panel updates", () => {
+        let patient = new PatientRecord(hardCodedPatient);
+        const contextManager = new ContextManager(patient, () => {});
+        const structuredFieldMapManager = new StructuredFieldMapManager();
+        const shortcutManager = new ShortcutManager();
+
+        // Mock function to create a new shortcut and set text on shortcut. Allows Editor to update correctly.
+        let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
+            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, {}, shortcutData, this.handleShortcutUpdate);
+            newShortcut.initialize(contextManager, shortcutType, updatePatient, shortcutData);
+            return newShortcut;
+        }
+
+        const notesPanelWrapper = mount(<NotesPanel
+            patient={patient}
+            contextManager={contextManager}
+            structuredFieldMapManager={structuredFieldMapManager}
+            shortcutManager={shortcutManager}
+            newCurrentShortcut={mockNewCurrentShortcut}
+            setFullAppState={jest.fn()}
+            isNoteViewerVisible={true}
+            isNoteViewerEditable={true}
+            //Others that are required but not used in test
+            currentViewMode={''}
+            dataAccess={{}}
+            documentText={''}
+            errors={[]}
+            handleSummaryItemSelected={jest.fn()}
+            itemInserted={jest.fn()}
+            loginUser={''}
+            noteClosed={false}
+            setDocumentText={jest.fn()}
+            setDocumentTextWithCallback={jest.fn()}
+            setFullAppStateWithCallback={jest.fn()}
+            setLayout={jest.fn()}
+            setOpenClinicalNote={jest.fn()}
+            setNoteClosed={jest.fn()}
+            setNoteViewerEditable={jest.fn()}
+            setNoteViewerVisible={jest.fn()}
+            setSearchSelectedItem={jest.fn()}
+            setOpenClinicalNote={jest.fn()}
+            summaryItemToInsert={''}
+            updateErrors={jest.fn()}
+        />);
+        const fluxNotesEditor = notesPanelWrapper.find(FluxNotesEditor);
+        expect(fluxNotesEditor).to.have.lengthOf(1);
+        expect(notesPanelWrapper.find(NoteAssistant)).to.have.lengthOf(1);
+
+        const arrayOfStructuredDataToEnter = ["@condition[[Invasive ductal carcinoma of breast]] ", "#HER2 ", "#Positive "];
+        const arrayOfExpectedStructuredData = ["Invasive ductal carcinoma of breast ", "#HER2 ", "#Positive "]
+        const updatedEditorNote = { content: arrayOfStructuredDataToEnter.join(' ') };
+        // Set updatedEditorNote props because this triggers that a change is coming in to the editor and inserts text with structured phrases.
+        fluxNotesEditor.instance().onFocus();
+        //fluxNotesEditor.setProps({ updatedEditorNote });
+        notesPanelWrapper.setState({ updatedEditorNote });
+
+        // Check structured phrases
+        const structuredField = notesPanelWrapper.find('.structured-field');
+        expect(structuredField).to.have.lengthOf(arrayOfExpectedStructuredData.length)
+        for (let index = 0; index < arrayOfExpectedStructuredData.length; index++) {
+            expect(structuredField.at(index).text()).to.contain(arrayOfExpectedStructuredData[index]);
+        }
+        // Check full text
+        const editorContent = notesPanelWrapper.find('.editor-content');
+        for (let index = 0; index < arrayOfExpectedStructuredData.length; index++) {
+            expect(editorContent.text()).to.contain(arrayOfExpectedStructuredData[index]);
+        }
+    });
+
+    it('6.11 Switches contexts without closing a context chooses the correct parent context and successfully enters information in editor', () => {
         // Set up Managers that are needed by FluxNotesEditor
         let patient = new PatientRecord(hardCodedPatient);
         const contextManager = new ContextManager(patient, () => {});
@@ -417,4 +1030,129 @@ describe('FluxNotesEditor', function() {
             expect(editorContent.text()).to.contain(arrayOfParsedShortcutText[index]);
         }
     });
+
+    it('6.12 Clicking New Note button adds a new in progress note to the list', () => {
+        let patient = new PatientRecord(hardCodedPatient);
+        const contextManager = new ContextManager(patient, () => {});
+        const structuredFieldMapManager = new StructuredFieldMapManager();
+        const shortcutManager = new ShortcutManager();
+
+        // Mock function to create a new shortcut and set text on shortcut. Allows Editor to update correctly.
+        let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
+            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, {}, shortcutData, this.handleShortcutUpdate);
+            newShortcut.initialize(contextManager, shortcutType, updatePatient, shortcutData);
+            return newShortcut;
+        }
+
+        const notesPanelWrapper = mount(<NotesPanel
+            patient={patient}
+            contextManager={contextManager}
+            structuredFieldMapManager={structuredFieldMapManager}
+            shortcutManager={shortcutManager}
+            newCurrentShortcut={mockNewCurrentShortcut}
+            setFullAppState={jest.fn()}
+            isNoteViewerVisible={true}
+            isNoteViewerEditable={true}
+            //Others that are required but not used in test
+            currentViewMode={''}
+            dataAccess={{}}
+            documentText={''}
+            errors={[]}
+            handleSummaryItemSelected={jest.fn()}
+            itemInserted={jest.fn()}
+            loginUser={''}
+            noteClosed={false}
+            setDocumentText={jest.fn()}
+            setDocumentTextWithCallback={jest.fn()}
+            setFullAppStateWithCallback={jest.fn()}
+            setLayout={jest.fn()}
+            setOpenClinicalNote={jest.fn()}
+            setNoteClosed={jest.fn()}
+            setNoteViewerEditable={jest.fn()}
+            setNoteViewerVisible={jest.fn()}
+            setSearchSelectedItem={jest.fn()}
+            setOpenClinicalNote={jest.fn()}
+            summaryItemToInsert={''}
+            updateErrors={jest.fn()}
+        />);
+
+        const clinicalNotesButton = notesPanelWrapper.find('#notes-btn');
+        expect(clinicalNotesButton.exists()).to.equal(true);
+        clinicalNotesButton.at(0).props().onClick();
+        notesPanelWrapper.update();
+
+        const inProgressNotes = notesPanelWrapper.find('.in-progress-note');
+    
+        // There are no unsigned notes on the patient's record initially
+        expect(inProgressNotes).to.have.length(0);
+    
+        const newNoteButton = notesPanelWrapper.find('.note-new');
+        newNoteButton.at(0).props().onClick();
+        notesPanelWrapper.update();
+    
+        clinicalNotesButton.at(0).props().onClick();
+        notesPanelWrapper.update();
+    
+        const inProgressNotesAfter = notesPanelWrapper.find('.in-progress-note');
+        expect(inProgressNotesAfter).to.have.length(1);
+    });
+
+    // it.only('6.?? Clicking on an existing note in post encounter mode loads the note in the editor', () => {
+    //     let patient = new PatientRecord(hardCodedPatient);
+    //     const contextManager = new ContextManager(patient, () => {});
+    //     const structuredFieldMapManager = new StructuredFieldMapManager();
+    //     const shortcutManager = new ShortcutManager();
+
+    //     // Mock function to create a new shortcut and set text on shortcut. Allows Editor to update correctly.
+    //     let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
+    //         let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, {}, shortcutData, this.handleShortcutUpdate);
+    //         newShortcut.initialize(contextManager, shortcutType, updatePatient, shortcutData);
+    //         return newShortcut;
+    //     }
+
+    //     const notesPanelWrapper = mount(<NotesPanel
+    //         patient={patient}
+    //         contextManager={contextManager}
+    //         structuredFieldMapManager={structuredFieldMapManager}
+    //         shortcutManager={shortcutManager}
+    //         newCurrentShortcut={mockNewCurrentShortcut}
+    //         setFullAppState={jest.fn()}
+    //         isNoteViewerVisible={true}
+    //         isNoteViewerEditable={true}
+    //         //Others that are required but not used in test
+    //         currentViewMode={''}
+    //         dataAccess={{}}
+    //         documentText={''}
+    //         errors={[]}
+    //         handleSummaryItemSelected={jest.fn()}
+    //         itemInserted={jest.fn()}
+    //         loginUser={''}
+    //         noteClosed={false}
+    //         setDocumentText={jest.fn()}
+    //         setDocumentTextWithCallback={jest.fn()}
+    //         setFullAppStateWithCallback={jest.fn()}
+    //         setLayout={jest.fn()}
+    //         setOpenClinicalNote={jest.fn()}
+    //         setNoteClosed={jest.fn()}
+    //         setNoteViewerEditable={jest.fn()}
+    //         setNoteViewerVisible={jest.fn()}
+    //         setSearchSelectedItem={jest.fn()}
+    //         setOpenClinicalNote={jest.fn()}
+    //         summaryItemToInsert={''}
+    //         updateErrors={jest.fn()}
+    //     />);
+
+    //     const clinicalNotesButton = notesPanelWrapper.find('#notes-btn');
+    //     expect(clinicalNotesButton.exists()).to.equal(true);
+    //     clinicalNotesButton.at(0).props().onClick();
+    //     notesPanelWrapper.update();
+
+    //     // Click on one of the existing notes
+    //     const note = notesPanelWrapper.find('.existing-note');
+    //     note.at(0).props().onClick();
+    //     notesPanelWrapper.update();
+
+    //     const editorContent = notesPanelWrapper.find('.editor-content');
+    //     expect(editorContent.text()).to.not.contain("Enter your clinical note here or choose a template to start from...");
+    // });
 });

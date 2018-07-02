@@ -423,6 +423,16 @@ class FluxNotesEditor extends React.Component {
     }
 
     onInput = (event, data) => {
+        if (typeof data === 'string') {
+            const str = data;
+            data = {
+                anchorKey: this.state.state.selection.anchorKey,
+                anchorOffset: this.state.state.selection.anchorOffset,
+                focusKey: this.state.state.selection.focusKey,
+                focusOffset: this.state.state.selection.focusOffset,
+                newText: str
+            }
+        }
         // Create an updated state with the text replaced.
         var nextState = this.state.state.transform().select({
             anchorKey: data.anchorKey,
