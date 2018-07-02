@@ -1,7 +1,9 @@
 import Lang from 'lodash'
+import _ from 'lodash'
 import moment from 'moment';
 import FluxTumorDimensions from '../model/oncology/FluxTumorDimensions';
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx';
+
 
 /*
     Each section has the following properties:
@@ -13,6 +15,7 @@ import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx';
         data                Provides the retrieval of the source data to be displayed in the section in the format dictated by the type property
                             above. The data is a list of subsections which each have the following possible properties:
                                 name            The name of the subsection. Some visualizers display the subsection names.
+                                nameFunction    Used to dynamically name the subsection.  Tabular list visualizer uses this when included.
                                 items           The list of data items in the format dictated by the type
                                 itemsFunction   A function that returns the list of data items in the format dictated by the type
                                 headings        Indicates the a set of column heading labels for tabular visualizers
@@ -929,13 +932,14 @@ export default class SummaryMetadata {
     }
 
     getItemListForClinicalTrialEligibility = (patient, currentConditionEntry) => {
-        const trialsList = new ClinicalTrialsList();
-        const clinicalTrialsAndCriteriaList = trialsList.getListOfEligibleClinicalTrials(patient, currentConditionEntry);
+        let clinicalTrialsAndCriteriaList = patient.getEligibleClinicalTrials(currentConditionEntry, this.getItemListForEnrolledClinicalTrials(patient, currentConditionEntry));
         let eligibleTrials = [];
         clinicalTrialsAndCriteriaList.forEach((trial) => {
             eligibleTrials.push([{ value: trial.info.name }, (trial.numSatisfiedCriteria + " of " + trial.numTotalCriteria), trial.info.studyStartDate, trial.info.description]);
         });
-        return eligibleTrials;
+        this.eligibleTrials = eligibleTrials;
+        this.refreshClinicalTrials = false;
+        return this.eligibleTrials;
     }
 
     handleViewMissingCriteria = (item) => {
@@ -948,14 +952,14 @@ export default class SummaryMetadata {
     }
 
     getItemListToDisplayMissingCriteria = () => {
-        let trialsList = new ClinicalTrialsList();
+       let trialsList = new ClinicalTrialsList();
         if (this.trialDisplayMissingCriteria !== "") {
             this.missingEligibleTrialData = trialsList.getMissingCriteriaListTrialEligibility(this.trialDisplayMissingCriteria);
             return this.missingEligibleTrialData.map((data) => {
                 return [{value : data}]
             });
-        }
-        return [];
+       }
+       return [];
     }
 
     getItemListForAllergies = (patient, currentConditionEntry) => {

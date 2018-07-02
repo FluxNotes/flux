@@ -22,9 +22,14 @@ import mapper from '../lib/FHIRMapper';
 import Lang from 'lodash';
 import moment from 'moment';
 import Guid from 'guid';
+import _ from 'lodash';
 
 class PatientRecord {
     constructor(shrJson = null) {
+        this.enrolledClinicalTrials = [];
+        this.missingEligibleTrialData = [];
+        this.eligibleTrials = [];
+        this.refreshClinicalTrials = true;
         if (!Lang.isNull(shrJson)) { // load existing from JSON
             this.entries = this._loadJSON(shrJson);
             this.patient = this.getPatient();
@@ -134,6 +139,7 @@ class PatientRecord {
         entry.entryInfo.lastUpdated = new LastUpdated();
         entry.entryInfo.lastUpdated.instant = today;
         this.entries.push(entry);
+        this.refreshClinicalTrials = true;
         return entry; //entry.entryInfo.entryId;
     }
 
@@ -303,6 +309,21 @@ class PatientRecord {
         }
 
         return result + ".";
+    }
+
+    getEligibleClinicalTrials(currentConditionEntry, currentlyEnrolledTrials) {
+        if (!this.refreshClinicalTrials && (_.isEqual(this.enrolledClinicalTrials, this.getEnrolledClinicalTrials()))) {
+            return this.eligibleTrials;
+        }
+
+        this.enrolledClinicalTrials = currentlyEnrolledTrials;
+        const trialsList = new ClinicalTrialsList();
+        const clinicalTrialsAndCriteriaList = trialsList.getListOfEligibleClinicalTrials(this, currentConditionEntry);
+        this.eligibleTrials = clinicalTrialsAndCriteriaList;
+        this.refreshClinicalTrials = false;
+        return clinicalTrialsAndCriteriaList;
+
+
     }
 
     getEnrolledClinicalTrials(){

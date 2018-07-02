@@ -134,6 +134,7 @@ export default class TabularListVisualizer extends Component {
 
         let subsectionName = null;
         let subsectionNameHTML = null;
+
         if (transformedSubsection.nameFunction) {
             subsectionName = transformedSubsection.nameFunction();
         } else {
