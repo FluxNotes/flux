@@ -1028,4 +1028,129 @@ describe('6 FluxNotesEditor', function() {
             expect(editorContent.text()).to.contain(arrayOfParsedShortcutText[index]);
         }
     });
+
+    it('6.12 Clicking New Note button adds a new in progress note to the list', () => {
+        let patient = new PatientRecord(hardCodedPatient);
+        const contextManager = new ContextManager(patient, () => {});
+        const structuredFieldMapManager = new StructuredFieldMapManager();
+        const shortcutManager = new ShortcutManager();
+
+        // Mock function to create a new shortcut and set text on shortcut. Allows Editor to update correctly.
+        let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
+            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, {}, shortcutData, this.handleShortcutUpdate);
+            newShortcut.initialize(contextManager, shortcutType, updatePatient, shortcutData);
+            return newShortcut;
+        }
+
+        const notesPanelWrapper = mount(<NotesPanel
+            patient={patient}
+            contextManager={contextManager}
+            structuredFieldMapManager={structuredFieldMapManager}
+            shortcutManager={shortcutManager}
+            newCurrentShortcut={mockNewCurrentShortcut}
+            setFullAppState={jest.fn()}
+            isNoteViewerVisible={true}
+            isNoteViewerEditable={true}
+            //Others that are required but not used in test
+            currentViewMode={''}
+            dataAccess={{}}
+            documentText={''}
+            errors={[]}
+            handleSummaryItemSelected={jest.fn()}
+            itemInserted={jest.fn()}
+            loginUser={''}
+            noteClosed={false}
+            setDocumentText={jest.fn()}
+            setDocumentTextWithCallback={jest.fn()}
+            setFullAppStateWithCallback={jest.fn()}
+            setLayout={jest.fn()}
+            setOpenClinicalNote={jest.fn()}
+            setNoteClosed={jest.fn()}
+            setNoteViewerEditable={jest.fn()}
+            setNoteViewerVisible={jest.fn()}
+            setSearchSelectedItem={jest.fn()}
+            setOpenClinicalNote={jest.fn()}
+            summaryItemToInsert={''}
+            updateErrors={jest.fn()}
+        />);
+
+        const clinicalNotesButton = notesPanelWrapper.find('#notes-btn');
+        expect(clinicalNotesButton.exists()).to.equal(true);
+        clinicalNotesButton.at(0).props().onClick();
+        notesPanelWrapper.update();
+
+        const inProgressNotes = notesPanelWrapper.find('.in-progress-note');
+    
+        // There are no unsigned notes on the patient's record initially
+        expect(inProgressNotes).to.have.length(0);
+    
+        const newNoteButton = notesPanelWrapper.find('.note-new');
+        newNoteButton.at(0).props().onClick();
+        notesPanelWrapper.update();
+    
+        clinicalNotesButton.at(0).props().onClick();
+        notesPanelWrapper.update();
+    
+        const inProgressNotesAfter = notesPanelWrapper.find('.in-progress-note');
+        expect(inProgressNotesAfter).to.have.length(1);
+    });
+
+    // it.only('6.?? Clicking on an existing note in post encounter mode loads the note in the editor', () => {
+    //     let patient = new PatientRecord(hardCodedPatient);
+    //     const contextManager = new ContextManager(patient, () => {});
+    //     const structuredFieldMapManager = new StructuredFieldMapManager();
+    //     const shortcutManager = new ShortcutManager();
+
+    //     // Mock function to create a new shortcut and set text on shortcut. Allows Editor to update correctly.
+    //     let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
+    //         let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, {}, shortcutData, this.handleShortcutUpdate);
+    //         newShortcut.initialize(contextManager, shortcutType, updatePatient, shortcutData);
+    //         return newShortcut;
+    //     }
+
+    //     const notesPanelWrapper = mount(<NotesPanel
+    //         patient={patient}
+    //         contextManager={contextManager}
+    //         structuredFieldMapManager={structuredFieldMapManager}
+    //         shortcutManager={shortcutManager}
+    //         newCurrentShortcut={mockNewCurrentShortcut}
+    //         setFullAppState={jest.fn()}
+    //         isNoteViewerVisible={true}
+    //         isNoteViewerEditable={true}
+    //         //Others that are required but not used in test
+    //         currentViewMode={''}
+    //         dataAccess={{}}
+    //         documentText={''}
+    //         errors={[]}
+    //         handleSummaryItemSelected={jest.fn()}
+    //         itemInserted={jest.fn()}
+    //         loginUser={''}
+    //         noteClosed={false}
+    //         setDocumentText={jest.fn()}
+    //         setDocumentTextWithCallback={jest.fn()}
+    //         setFullAppStateWithCallback={jest.fn()}
+    //         setLayout={jest.fn()}
+    //         setOpenClinicalNote={jest.fn()}
+    //         setNoteClosed={jest.fn()}
+    //         setNoteViewerEditable={jest.fn()}
+    //         setNoteViewerVisible={jest.fn()}
+    //         setSearchSelectedItem={jest.fn()}
+    //         setOpenClinicalNote={jest.fn()}
+    //         summaryItemToInsert={''}
+    //         updateErrors={jest.fn()}
+    //     />);
+
+    //     const clinicalNotesButton = notesPanelWrapper.find('#notes-btn');
+    //     expect(clinicalNotesButton.exists()).to.equal(true);
+    //     clinicalNotesButton.at(0).props().onClick();
+    //     notesPanelWrapper.update();
+
+    //     // Click on one of the existing notes
+    //     const note = notesPanelWrapper.find('.existing-note');
+    //     note.at(0).props().onClick();
+    //     notesPanelWrapper.update();
+
+    //     const editorContent = notesPanelWrapper.find('.editor-content');
+    //     expect(editorContent.text()).to.not.contain("Enter your clinical note here or choose a template to start from...");
+    // });
 });

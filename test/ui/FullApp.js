@@ -773,34 +773,34 @@ test('Not choosing an option from a portal still allows user to delete parent sh
 fixture('Patient Mode - Clinical Notes list')
     .page(startPage);
 
-test('Clicking New Note button adds a new in progress note to the list', async t => {
-    // const clinicalEventSelector = Selector('.clinical-event-select');
-    // await t
-    //     .click(clinicalEventSelector)
-    //     .click(Selector('[data-test-clinical-event-selector-item="Post-encounter"]'));
-    const clinicalNotesButton = Selector('#notes-btn');
-    const newNoteButton = Selector('.note-new');
-    const inProgressNotes = Selector('.in-progress-note');
+// test('Clicking New Note button adds a new in progress note to the list', async t => {
+//     // const clinicalEventSelector = Selector('.clinical-event-select');
+//     // await t
+//     //     .click(clinicalEventSelector)
+//     //     .click(Selector('[data-test-clinical-event-selector-item="Post-encounter"]'));
+//     const clinicalNotesButton = Selector('#notes-btn');
+//     const newNoteButton = Selector('.note-new');
+//     const inProgressNotes = Selector('.in-progress-note');
 
-    await t
-        .click(clinicalNotesButton);
+//     await t
+//         .click(clinicalNotesButton);
 
-    const inProgressNotesLength = await inProgressNotes.count;
+//     const inProgressNotesLength = await inProgressNotes.count;
 
-    // There are no unsigned notes on the patient's record initially
-    await t
-        .expect(inProgressNotesLength).eql(0);
+//     // There are no unsigned notes on the patient's record initially
+//     await t
+//         .expect(inProgressNotesLength).eql(0);
 
-    await t
-        .click(newNoteButton)
-        .click(clinicalNotesButton);
+//     await t
+//         .click(newNoteButton)
+//         .click(clinicalNotesButton);
 
-    const inProgressNotesUpdatedLength = await inProgressNotes.count;
+//     const inProgressNotesUpdatedLength = await inProgressNotes.count;
 
-    // Adding a new note adds an unsigned, in-progress note
-    await t
-        .expect(inProgressNotesUpdatedLength).eql(1);
-});
+//     // Adding a new note adds an unsigned, in-progress note
+//     await t
+//         .expect(inProgressNotesUpdatedLength).eql(1);
+// });
 
 test('Clicking New Note button and clicking delete-note button should have no net effect on the # of inProgressNotes', async t => {
     // const clinicalEventSelector = Selector('.clinical-event-select');
@@ -1314,40 +1314,40 @@ test('Medications section appears in targeted data panel in pre-encounter mode o
         .expect(result === true);
 });
 
-test('Clicking the data visualization buttons changes the visualizer used', async t => {
-    // const clinicalEventSelector = Selector('.clinical-event-select');
-    // await t
-    //     .click(clinicalEventSelector)
-    //     .click(Selector('[data-test-clinical-event-selector-item="Post-encounter"]'));
-    const sections = Selector('#targeted-data-section')
-    const sectionData = Selector('div#targeted-data-section');
-    const numSections = await sections.count;
-    for (let i = 0; i < numSections; i++) {
-        let icons = sections.nth(i).find('.right-icons button');
-        let numIcons = await icons.count;
-        for (let j = 0; j < numIcons; j++) {
-            const iconType = await icons.nth(j).id;
-            await t
-                .click(icons.nth(j));
-            if (iconType === 'tabular') {
-                // Check that class name of section = tabular-list
-               await t
-                    .expect(sections.nth(i).find('.tabular-list').exists)
-                    .ok();
-            } else if (iconType === 'narrative'){
-                // Check class name = 'narrative-subsections'
-                await t
-                    .expect(sections.nth(i).find('.narrative-subsections').exists)
-                    .ok();
-            } else if (iconType === 'timeline') {
-                // Check id = 'timeline'
-                await t
-                    .expect(sections.nth(i).find('#timeline').exists)
-                    .ok();
-            }
-        }
-    }
-});
+// test('Clicking the data visualization buttons changes the visualizer used', async t => {
+//     // const clinicalEventSelector = Selector('.clinical-event-select');
+//     // await t
+//     //     .click(clinicalEventSelector)
+//     //     .click(Selector('[data-test-clinical-event-selector-item="Post-encounter"]'));
+//     const sections = Selector('#targeted-data-section')
+//     const sectionData = Selector('div#targeted-data-section');
+//     const numSections = await sections.count;
+//     for (let i = 0; i < numSections; i++) {
+//         let icons = sections.nth(i).find('.right-icons button');
+//         let numIcons = await icons.count;
+//         for (let j = 0; j < numIcons; j++) {
+//             const iconType = await icons.nth(j).id;
+//             await t
+//                 .click(icons.nth(j));
+//             if (iconType === 'tabular') {
+//                 // Check that class name of section = tabular-list
+//                await t
+//                     .expect(sections.nth(i).find('.tabular-list').exists)
+//                     .ok();
+//             } else if (iconType === 'narrative'){
+//                 // Check class name = 'narrative-subsections'
+//                 await t
+//                     .expect(sections.nth(i).find('.narrative-subsections').exists)
+//                     .ok();
+//             } else if (iconType === 'timeline') {
+//                 // Check id = 'timeline'
+//                 await t
+//                     .expect(sections.nth(i).find('#timeline').exists)
+//                     .ok();
+//             }
+//         }
+//     }
+// });
 
 // test('Clicking the data visualization buttons changes the visualizer used', async t => {
 //     // const clinicalEventSelector = Selector('.clinical-event-select');
