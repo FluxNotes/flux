@@ -390,13 +390,17 @@ export default class CreatorBase extends Shortcut {
                 updatePatientSpecList.forEach((updatePatientSpec) => {
                     result = this.callMethod(patient, updatePatientSpec, clinicalNote);
                     if (Lang.isNull(result)) {
+                        this.isObjectNew = false;
                         return;
                     }
                     if (result) {
                         if (Lang.isObject(result)) this.object = result;
                     }
                 });
-                if (Lang.isNull(result)) return;
+                if (Lang.isNull(result)) {
+                    this.isObjectNew = false;
+                    return;
+                } 
             } else {
                 this.object = patient.addEntryToPatientWithPatientFocalSubject(this.object, clinicalNote);
             }
