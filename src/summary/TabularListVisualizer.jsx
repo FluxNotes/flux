@@ -131,6 +131,10 @@ export default class TabularListVisualizer extends Component {
             preTableCount = `${list.length} total ${transformedSubsection.preTableCount}`;
         }
 
+        if (transformedSubsection.displayFunction && !transformedSubsection.displayFunction()) {
+            return <div key={subsectionindex}></div>;
+        }
+
         let subsectionName = null;
         let subsectionNameHTML = null;
 
@@ -138,17 +142,6 @@ export default class TabularListVisualizer extends Component {
             subsectionName = transformedSubsection.nameFunction();
         } else {
             subsectionName = transformedSubsection.name;
-        }
-
-        // Hides table is display boolean is set to false.
-        let display = null;
-        if (transformedSubsection.displayFunction) {
-            display = transformedSubsection.displayFunction();
-        } else {
-            display = true;
-        }
-        if (!display) {
-            return <h2 className="subsection list-subsection-header" key={subsectionindex}></h2>;
         }
 
 
