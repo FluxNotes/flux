@@ -117,6 +117,10 @@ class FluxCondition {
         this.addObservation(toxicity, clinicalNote);
     }
 
+    removeToxicity(toxicity) {
+        this.removeObservation(toxicity);
+    }
+
     addObservation(observation, clinicalNote) {
         this._patientRecord.addEntryToPatientWithPatientFocalSubject(observation, clinicalNote);
         let ref = this._patientRecord.createEntryReferenceTo(observation);

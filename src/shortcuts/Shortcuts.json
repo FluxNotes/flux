@@ -168,6 +168,7 @@
                                 {"name":"adverseEvent", "attribute":"adverseEvent", "isSettable":"true", "setMethod": "adverseEvent", "childShortcut": "ToxicityAdverseEventCreator"},
                                 {"name":"attribution", "attribute":"causeCategory", "isSettable":"true", "setMethod": "causeCategory", "childShortcut": "ToxicityAttributionCreator"} ],
     "updatePatient": [{"object":"$parentValueObject", "method": "addToxicity", "args": [ "$valueObject", "$clinicalNote" ]}],
+    "undoUpdatePatient": [{"object":"$parentValueObject", "method": "removeToxicity", "args": [ "$valueObject" ]}],
     "isContext": true,
     "stringTriggers": [{ "name": "#toxicity", "description": "Side effects to treatment, important for effective evaluation of disease and treatment, based on Common Terminology Criteria for Adverse Events (CTCAE) version 4.03 (June 14, 2010)."}],
     "regexpTrigger": null,
