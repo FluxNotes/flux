@@ -618,7 +618,7 @@ export default class SummaryMetadata {
                                             valueExists: true,
                                             existingValueSigned: "either",
                                             editableNoteOpen: "either", 
-                                            displayForColumns: [0]
+                                            displayForColumns: [0, 1]
                                         }
                                     }
                                 ]
@@ -942,8 +942,9 @@ export default class SummaryMetadata {
         return this.eligibleTrials;
     }
 
-    handleViewMissingCriteria = (item) => {
-        this.trialDisplayMissingCriteria = item.value;
+    handleViewMissingCriteria = (item, rowId) => {
+        // rowId is the name of the current section or item - in this case the name of the clinical trial displayed)
+        this.trialDisplayMissingCriteria = rowId;
         this.setForceRefresh(true);
     }
 
