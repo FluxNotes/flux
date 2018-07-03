@@ -15,11 +15,7 @@ import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx';
         data                Provides the retrieval of the source data to be displayed in the section in the format dictated by the type property
                             above. The data is a list of subsections which each have the following possible properties:
                                 name            The name of the subsection. Some visualizers display the subsection names.
-<<<<<<< HEAD
                                 nameFunction    Used to dynamically name the subsection.  Tabular list visualizer uses this when included.
-=======
-                                nameFunction    A function that returns the name of the subsection. Some visualizers display the subsection names.
->>>>>>> added display boolean to summary metadata missing criteria.
                                 items           The list of data items in the format dictated by the type
                                 itemsFunction   A function that returns the list of data items in the format dictated by the type
                                 headings        Indicates the a set of column heading labels for tabular visualizers

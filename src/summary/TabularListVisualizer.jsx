@@ -123,7 +123,7 @@ export default class TabularListVisualizer extends Component {
 
     // Render each subsection as a table of values
     renderedSubsection(transformedSubsection, subsectionindex) {
-        // console.log(transformedSubsection);
+
         const list = this.getList(transformedSubsection);
 
         let preTableCount = null;
@@ -143,7 +143,6 @@ export default class TabularListVisualizer extends Component {
         } else {
             subsectionName = transformedSubsection.name;
         }
-
 
         if (subsectionName && subsectionName.length > 0) {
             subsectionNameHTML = <h2 className="subsection list-subsection-header"><span>{subsectionName}</span></h2>;
