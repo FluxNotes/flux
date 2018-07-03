@@ -43,7 +43,7 @@ export default class VisualizerMenu extends Component {
                         return (
                             <MenuItem
                                 key={`${this.props.elementId}-${index}`}
-                                onClick={() => this.props.onMenuItemClicked(a.handler, this.props.element, this.props.subsectionName)}
+                                onClick={() => this.props.onMenuItemClicked(a.handler, this.props.element, this.props.rowId)}
                                 className="narrative-inserter-box"
                             >
                                 {icon}
@@ -71,6 +71,9 @@ VisualizerMenu.propTypes = {
     onMenuItemClicked: PropTypes.func.isRequired,
     positionLeft: PropTypes.number.isRequired,
     positionTop: PropTypes.number.isRequired,
+    rowId: PropTypes.oneOfType([
+        PropTypes.array.isRequired,
+        PropTypes.string.isRequired]),
     subsectionName: PropTypes.string,
     unfilteredActions: PropTypes.array.isRequired
 }

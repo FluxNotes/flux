@@ -62,7 +62,6 @@ export default class TabularListVisualizer extends Component {
                 return subsection;
             }
         });
-
         let list = this.getList(transformedSubsections[0]);
         const numColumns = (list.length === 0) ? 1 : list[0].length;
 
@@ -181,6 +180,7 @@ export default class TabularListVisualizer extends Component {
 
     // Get a formatted list of objects corresponding to every item to be displayed
     getList(subsection) {
+        
         const {patient, condition, conditionSection } = this.props;
         if (patient == null || condition == null || conditionSection == null) {
             return [];
@@ -271,6 +271,8 @@ export default class TabularListVisualizer extends Component {
         const numColumns = item.length;
         const colSize = (100 / numColumns) + "%";
         let isUnsigned;
+
+        // console.log(item[0].value);
 
         item.forEach((element, arrayIndex) => {
             const elementId = `${subsectionindex}-${index}-item-${arrayIndex}`
@@ -378,6 +380,12 @@ export default class TabularListVisualizer extends Component {
     // renders Menu for element and associated actions as Menu items
     // Will check whether an action should be rendered as a Menu item based on criteria of each action
     renderedMenu = (item, element, elementId, elementText, subsectionName, subsectionActions, arrayIndex) => {
+        // console.log(item);
+        // console.log(element);
+        // console.log(subsectionName);
+        // if (item == null) {
+        //     console.log(element);
+        // }
         const { elementToDisplayMenu, positionLeft, positionTop } = this.state;
         // Item represents the name of the row/section of the current element.
         const onMenuItemClicked = (fn, element, item) => {
@@ -386,7 +394,6 @@ export default class TabularListVisualizer extends Component {
             }
             this.closeInsertionMenu(callback);
         }
-
         let isSigned = true;
         if (Lang.isArray(element.value)) isSigned = !element.value[1];
         return (
@@ -402,7 +409,8 @@ export default class TabularListVisualizer extends Component {
                 onMenuItemClicked={onMenuItemClicked}
                 positionLeft={positionLeft}
                 positionTop={positionTop}
-                subsectionName={item}
+                rowId={item}
+                subsectionName={subsectionName}
                 unfilteredActions={this.props.actions.concat(subsectionActions)}
             />);
     }
