@@ -97,10 +97,11 @@ class ClinicalTrialsList {
     getMissingCriteriaListTrialEligibility(trialName) {
             const patient_id = '3cb09ecb-e927-4946-82b3-89957e193215';
             const trial = this.getClinicalTrialByName(trialName.toLowerCase());
+
+            // Ensuring that only existing trial names are passed into the CQL execution engine
             if (trial) {
                 const result = CQLExecutionEngine.getCQLResults(trial.inclusionCriteriaCQL, [PALLAS_eligiblePatient, PATINA_eligiblePatient]);
                 const missingCriteria = result.patientResults[patient_id].findMissingData;
-
                 let missingFields = [];
                 for (let property in missingCriteria) {
                     if (missingCriteria[property] === true) {
@@ -109,7 +110,7 @@ class ClinicalTrialsList {
                 }
                 return missingFields.concat(this.getClinicalTrialByName(trialName).additionalCriteria);
             }
-        return [];
+            return [];
     }
 
     getClinicalTrialByName(name) {

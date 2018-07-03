@@ -272,8 +272,6 @@ export default class TabularListVisualizer extends Component {
         const colSize = (100 / numColumns) + "%";
         let isUnsigned;
 
-        // console.log(item[0].value);
-
         item.forEach((element, arrayIndex) => {
             const elementId = `${subsectionindex}-${index}-item-${arrayIndex}`
             let columnItem = null;
@@ -380,12 +378,6 @@ export default class TabularListVisualizer extends Component {
     // renders Menu for element and associated actions as Menu items
     // Will check whether an action should be rendered as a Menu item based on criteria of each action
     renderedMenu = (item, element, elementId, elementText, subsectionName, subsectionActions, arrayIndex) => {
-        // console.log(item);
-        // console.log(element);
-        // console.log(subsectionName);
-        // if (item == null) {
-        //     console.log(element);
-        // }
         const { elementToDisplayMenu, positionLeft, positionTop } = this.state;
         // Item represents the name of the row/section of the current element.
         const onMenuItemClicked = (fn, element, item) => {
