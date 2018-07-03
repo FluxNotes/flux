@@ -1,11 +1,12 @@
 import NoteParser from '../../../src/noteparser/NoteParser';
 import { stagingJSON, diseaseStatusJSON, diseaseStatus2JSON, toxicityJSON, deceasedJSON,
-    clinicalTrialEnrollmentJSON, clinicalTrialEnrollmentMinimalJSON, clinicalTrialUnenrolledJSON } from './NoteParserUtils';
+    clinicalTrialEnrollmentJSON, clinicalTrialEnrollmentMinimalJSON, clinicalTrialUnenrolledJSON, stopMedicationJSON } from './NoteParserUtils';
 import FluxDiseaseProgression from '../../../src/model/condition/FluxDiseaseProgression';
 import FluxTNMStage from '../../../src/model/oncology/FluxTNMStage';
 import FluxToxicReaction from '../../../src/model/adverse/FluxToxicReaction';
 import FluxDeceased from '../../../src/model/entity/FluxDeceased';
 import FluxResearchSubject from '../../../src/model/research/FluxResearchSubject';
+import FluxMedicationChange from '../../../src/model/medication/FluxMedicationChange';
 import moment from 'moment';
 import {expect} from 'chai';
 import util from 'util';
@@ -24,6 +25,7 @@ const sampleTextClinicalTrialEnrollment = "Debra Hernandez672 is presenting with
 const sampleTextClinicalTrialEnrollmentMinimal = "Debra Hernandez672 is presenting with carcinoma of the breast.\n\n #enrollment";
 const sampleTextClinicalTrialUnenrolled = "Debra Hernandez672 is presenting with carcinoma of the breast. \n\n Patient #unenrolled from #PATINA on #10/06/2017";
 const sampleTextClinicalTrialUnenrolledMinimal = "Debra Hernandez672 is presenting with carcinoma of the breast.\n\n #unenrolled";
+const sampleTextStopMedication = "#stop medication @active medication[[ibuprofen 600mg tablet]]";
 
 const expectedOutputEmpty = [[], []];
 const expectedOutputPlain = [[], []];
@@ -36,6 +38,7 @@ const expectedOutputDeceased = [[ new FluxDeceased(deceasedJSON) ], []];
 const expectedOutputClinicalTrialEnrollment = [[ new FluxResearchSubject(clinicalTrialEnrollmentJSON) ], []];
 const expectedOutputClinicalTrialEnrollmentMinimal = [[ new FluxResearchSubject(clinicalTrialEnrollmentMinimalJSON) ], []];
 const expectedOutputClinicalTrialUnenrolled = [[ new FluxResearchSubject(clinicalTrialUnenrolledJSON) ], []];
+const expectedOutputStopMedication = [[ new FluxMedicationChange(stopMedicationJSON) ], []];
 
 let noteParser;
 
@@ -183,6 +186,22 @@ describe('parse', function() {
         expect(record)
             .to.be.an('array')
             .and.to.eql([[],[]]);
+    });
+    it('should return a patient record with medication change with type set to stop and a medication when parsing a note with #stop medication and a medication ', function () {
+        const record = noteParser.parse(sampleTextStopMedication);
+        // Because stop medication structured phrase is a bit different from the other shortcuts, this test checks for certian attributes intead of doing a deep equals
+        
+        removeAttributes(record[0][0], "_medicationChange");
+        delete record[0][0]._patientRecord;
+
+        expect(record)
+            .to.be.an('array');
+        expect(record[0][0]._medicationChange._entryInfo.entryType)
+            .eql(expectedOutputStopMedication[0][0]._medicationChange._entryInfo.entryType);
+        expect(record[0][0]._medicationChange._type._codeableConcept._coding)
+            .eql(expectedOutputStopMedication[0][0]._medicationChange._type._codeableConcept._coding);
+        expect(record[0][0]._medicationChange._medicationBeforeChange)
+            .to.exist;
     });
 });
 
