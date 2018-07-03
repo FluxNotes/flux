@@ -1,11 +1,13 @@
 import AdverseEvent from '../shr/adverse/AdverseEvent';
 import AdverseEventGrade from '../shr/adverse/AdverseEventGrade';
 import CauseCategory from '../shr/adverse/CauseCategory';
+import FluxEntry from '../base/FluxEntry';
 import lookup from '../../lib/toxicreaction_lookup.jsx';
 
-class FluxAdverseEvent {
+class FluxAdverseEvent extends FluxEntry {
     constructor(json) {
-        this._adverseEvent = AdverseEvent.fromJSON(json);
+        super(json);
+        this._entry = this._adverseEvent = AdverseEvent.fromJSON(json);
     }
 
     get entryInfo() {

@@ -239,26 +239,26 @@ export default class SummaryMetadata {
                                     {
                                         name: "Peripheral motor neuropathy",
                                         value: (patient, currentConditionEntry) => {
-                                            return [currentConditionEntry.getToxicityValueByName("Peripheral motor neuropathy"), patient.isUnsigned(currentConditionEntry)] ;
+                                            return this.getKeyToxicityAndUnsignedFromCodes(patient, currentConditionEntry, ["10034580"]);
                                         }
 
                                     },
                                     {
                                         name: "Blood clots",
                                         value: (patient, currentConditionEntry) => {
-                                            return [currentConditionEntry.getToxicityValueByName("Blood clots"), patient.isUnsigned(currentConditionEntry)] ;
+                                            return this.getKeyToxicityAndUnsignedFromCodes(patient, currentConditionEntry, ["10042554", "10036206","10013442"]);
                                         }
                                     },
                                     {
                                         name: "Neutropenia",
                                         value: (patient, currentConditionEntry) => {
-                                            return [currentConditionEntry.getToxicityValueByName("Neutropenia"), patient.isUnsigned(currentConditionEntry)] ;
+                                            return this.getKeyToxicityAndUnsignedFromCodes(patient, currentConditionEntry, ["10016288"]);
                                         }
                                     },
                                     {
                                         name: "Nausea/Vomiting",
                                         value: (patient, currentConditionEntry) => {
-                                            return [currentConditionEntry.getToxicityValueByName("Nausea/Vomiting"), patient.isUnsigned(currentConditionEntry)] ;
+                                            return this.getKeyToxicityAndUnsignedFromCodes(patient, currentConditionEntry, ["10028813", "10047700", "10013946", "10018043", "10001598", "10047386"]);
                                         }
                                     }
                                 ]
@@ -823,6 +823,22 @@ export default class SummaryMetadata {
 
     getMetadata = () => {
         return this.hardCodedMetadata;
+    }
+
+    getKeyToxicityAndUnsignedFromCodes(patient, currentConditionEntry, codes) {
+        //console.log(codes);
+        const tox = currentConditionEntry.getToxicitiesByCodes(codes);
+        let val, unsigned, noteRef;
+        if (tox.length > 0) {
+            val = tox[0].adverseEventGrade;
+            unsigned = patient.isUnsigned(tox[0]);
+            noteRef = tox[0].sourceClinicalNoteReference;
+        } else {
+            val = 'None';
+            unsigned = false;
+            noteRef = null;
+        }
+        return [val, unsigned, noteRef];
     }
 
     getItemListForConditions = (patient, currentConditionEntry, subsection) => {

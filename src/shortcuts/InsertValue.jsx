@@ -206,7 +206,7 @@ export default class InsertValue extends Shortcut {
 
     onBeforeDeleted() {
         let result = super.onBeforeDeleted();
-        if (result && !Lang.isUndefined(this.parentContext)) {
+        if (result && !Lang.isUndefined(this.parentContext) && this.metadata.parentAttribute) {
             this.parentContext.setAttributeValue(this.metadata.parentAttribute, null, false);
             this.parentContext.removeChild(this);
         }

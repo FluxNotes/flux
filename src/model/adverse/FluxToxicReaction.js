@@ -8,7 +8,7 @@ class FluxToxicReaction extends FluxAdverseEvent {
     constructor(json) {
         super(json);
 
-        this._adverseEvent = ToxicReaction.fromJSON(json);
+        this._entry = this._adverseEvent = ToxicReaction.fromJSON(json);
         if (!this._adverseEvent.entryInfo) {
             let entry = new Entry();
             entry.entryType = new EntryType();
