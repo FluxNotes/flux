@@ -76,32 +76,19 @@ class FluxCondition {
 
 
     // Given a toxicity adverse event, return the grade value
-    getToxicityValueByName(name) {
+    getToxicitiesByCodes(codes) {
 
         // Get all the toxicities
-        const toxicities = this.getToxicities();
+        let toxicities = this.getToxicities().filter((toxicity) => {
+            //console.log(toxicity._adverseEvent.value.coding);
+            return toxicity._adverseEvent.value.coding.some((code) => {
+                return codes.includes(code.value);
+            });
+        });
 
-        // Loop through the toxicities and save the ones that match the name
-        let arrayOfCurrentToxicities = [];
+        toxicities.sort(this._toxicitiesTimeSorter);
 
-        for (var i = 0; i < toxicities.length; i++) {
-            let allCapsAdverseEvent = toxicities[i].adverseEvent.toUpperCase();
-            let allCapsName = name.toUpperCase();
-
-            if (allCapsAdverseEvent === allCapsName) {
-                arrayOfCurrentToxicities.push(toxicities[i]);
-            }
-        }
-
-        arrayOfCurrentToxicities.sort(this._toxicitiesTimeSorter);
-
-        // Return grade for the toxicity. If there is no toxicity for the adverse event, return "None"
-        if (arrayOfCurrentToxicities[0]) {
-            return arrayOfCurrentToxicities[0].adverseEventGrade;
-        }
-        else {
-            return "None";
-        }
+        return toxicities;
     }
 
     // Returns sorted array of toxicities. Most recent toxicity is at index 0
@@ -125,7 +112,13 @@ class FluxCondition {
         });
     }
 
-    addObservation(observation, clinicalNote) {   
+    addToxicity(toxicity, clinicalNote) {
+        toxicity._adverseEvent.focalSubjectReference = this._patientRecord.createEntryReferenceTo(this);
+        this.addObservation(toxicity, clinicalNote);
+    }
+
+    addObservation(observation, clinicalNote) {
+        this._patientRecord.addEntryToPatientWithPatientFocalSubject(observation, clinicalNote);
         let ref = this._patientRecord.createEntryReferenceTo(observation);
         let currentObservations = this._condition.evidence || [];
         currentObservations.push(ref);
