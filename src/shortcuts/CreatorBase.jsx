@@ -10,8 +10,8 @@ export default class CreatorBase extends Shortcut {
         this.metadata = metadata;
         this.text = this.getPrefixCharacter() + this.metadata["name"];
         this.patient = patient;
-        if (Lang.isUndefined(shortcutData) || shortcutData.length === 0) {
-            this.object = FluxObjectFactory.createInstance({}, this.metadata["valueObject"]);
+        if (Lang.isUndefined(shortcutData) || !shortcutData || shortcutData.length === 0) {
+            this.object = FluxObjectFactory.createInstance({}, this.metadata["valueObject"], patient);
             this.isObjectNew = true;
         } else {
             const dataObj = JSON.parse(shortcutData);
@@ -19,7 +19,7 @@ export default class CreatorBase extends Shortcut {
             // We want to try and get this object -- if there is none, make a new one
             this.isObjectNew = !this.object;
             if (!this.object) { 
-                this.object = FluxObjectFactory.createInstance({}, this.metadata["valueObject"]);
+                this.object = FluxObjectFactory.createInstance({}, this.metadata["valueObject"], patient);
             }
         }
         this.setValueObject(this.object);
@@ -307,7 +307,13 @@ export default class CreatorBase extends Shortcut {
         const argSpecs = spec["args"];
         let args = argSpecs.map((argSpec) => {
             if (argSpec === "$valueObject") return this.object;
-            if (argSpec === "$parentValueObject") return this.parentContext.getValueObject();
+            if (argSpec === "$parentValueObject") {
+               
+                if(!this.parentContext){
+                    return null;
+                } 
+                return this.parentContext.getValueObject();
+            } 
             if (argSpec === "$clinicalNote") return clinicalNote;
             return argSpec;
         });
@@ -384,13 +390,17 @@ export default class CreatorBase extends Shortcut {
                 updatePatientSpecList.forEach((updatePatientSpec) => {
                     result = this.callMethod(patient, updatePatientSpec, clinicalNote);
                     if (Lang.isNull(result)) {
+                        this.isObjectNew = false;
                         return;
                     }
                     if (result) {
                         if (Lang.isObject(result)) this.object = result;
                     }
                 });
-                if (Lang.isNull(result)) return;
+                if (Lang.isNull(result)) {
+                    this.isObjectNew = false;
+                    return;
+                } 
             } else {
                 this.object = patient.addEntryToPatientWithPatientFocalSubject(this.object, clinicalNote);
             }

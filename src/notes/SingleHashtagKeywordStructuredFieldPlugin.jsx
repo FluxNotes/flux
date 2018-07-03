@@ -109,7 +109,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 	}
 
 	// Given a list of singleHastagKeywordShortcut key:shortcut mappings, editor state and current text-node key,
-	// Filter our mappings to only shorcuts who are directly next to our current text-node  
+	// Filter our mappings to only shortcuts who are directly next to our current text-node
 	function getRelevantSingleHashtagKeywordMappings(listOfSingleHashtagKeywordShortcutMappings, state, currentNodeKey) {
 		return listOfSingleHashtagKeywordShortcutMappings.filter((mapping) => {
 			let closestBlock;
@@ -122,7 +122,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 				return false;
 			}
 
-			// We want to get the closest block to the keyword's 
+			// We want to get the closest block to the keyword's
 			return closestBlock.key === currentNodeKey;
 		});
 	}

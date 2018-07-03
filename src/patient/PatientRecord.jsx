@@ -25,6 +25,7 @@ import Guid from 'guid';
 import _ from 'lodash';
 
 class PatientRecord {
+
     constructor(shrJson = null) {
         this.enrolledClinicalTrials = [];
         this.missingEligibleTrialData = [];
@@ -68,11 +69,6 @@ class PatientRecord {
             return !clinicalNote.signed;
         }
         return false;
-/*        var key = this.shrId + ":" + entry.entryInfo.entryId;
-        if(!Lang.isUndefined(this.unsignedEntries[key]) && Lang.isEqual(this.unsignedEntries[key], true)){
-            return true;
-        }
-        return false;*/
     }
 
 	fromFHIR(fhirJson) {
@@ -122,11 +118,12 @@ class PatientRecord {
             return this.addEntryToPatientWithPatientFocalSubject(entry, clinicalNote);
         }
     }
+
     reAddEntryToPatient(entry){
         this.entries.push(entry);
     }
 
-    addEntryToPatient(entry, clinicalNote) {
+    addEntryToPatient(entry, clinicalNote) {       
         entry.entryInfo.shrId = this.shrId;
         entry.entryInfo.entryId = this.nextEntryId;
         this.nextEntryId = this.nextEntryId + 1;
@@ -144,7 +141,6 @@ class PatientRecord {
     }
 
     addEntryToPatientWithPatientFocalSubject(entry, clinicalNote) {
-        //entry.personOfRecord = this.patientReference;
         return this.addEntryToPatient(entry, clinicalNote);
     }
 
@@ -159,7 +155,7 @@ class PatientRecord {
     }
 
     setDeceased(deceased) {
-        this.patient.deceased = deceased;
+        if (this.patient) this.patient.deceased = deceased;       
     }
 
     static isEntryOfType(entry, type) {
@@ -248,8 +244,6 @@ class PatientRecord {
         let encounters = this.getEntriesOfType(FluxEncounterRequested);
         encounters.sort(this._encounterTimeSorter);
         return encounters;
-
-
     }
 
     getNextEncounterReasonAsText() {
@@ -341,7 +335,6 @@ class PatientRecord {
 
         return result;
     }
-
 
     getConditions() {
         return this.getEntriesIncludingType(FluxCondition);
@@ -447,7 +440,6 @@ class PatientRecord {
             }
         );
 
-
         return this.addEntryToPatientWithPatientFocalSubject(clinicalNote, null).entryInfo.entryId;
     }
 
@@ -520,7 +512,12 @@ class PatientRecord {
         const allmeds = this.getMedications();
         const today = new moment();
         return allmeds.filter((med) => {
-            return med.isActiveAsOf(today);
+            let medChanges = this.getMedicationChanges();
+            let stopMedicationFound = medChanges.some((medChange) => { 
+                return ((medChange.medicationBeforeChange) && (med === this.getEntryFromReference(medChange.medicationBeforeChange.value)) && (medChange.type === "stop"));
+            });
+
+            return med.isActiveAsOf(today) && !stopMedicationFound;
         });
     }
 
@@ -555,16 +552,35 @@ class PatientRecord {
         let medicationsChanges = this.getMedicationChangesChronologicalOrder();
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         medicationsChanges = medicationsChanges.filter((change) => {
-            const medBeforeChange = this.getEntryFromReference(change.medicationBeforeChange.reference);
-            const medAfterChange = this.getEntryFromReference(change.medicationAfterChange.reference);
-            const eitherChangeIsRelated = medBeforeChange.reasons.some((r) => {
-                return r.value.entryId && r.value.entryId === conditionEntryId;
-            }) || medAfterChange.reasons.some((r) => {
-                return r.value.entryId && r.value.entryId === conditionEntryId;
-            });
+            const medBeforeChange = change.medicationBeforeChange ? this.getEntryFromReference(change.medicationBeforeChange.value) : null;
+            const medAfterChange = change.medicationAfterChange ? this.getEntryFromReference(change.medicationAfterChange.value) : null;
+
+            let eitherChangeIsRelated;
+
+            if (medAfterChange) {
+                eitherChangeIsRelated = medBeforeChange.reasons.some((r) => {
+                        return r.value.entryId && r.value.entryId === conditionEntryId;
+                    }) || medAfterChange.reasons.some((r) => {
+                        return r.value.entryId && r.value.entryId === conditionEntryId;
+                    });
+            } else if (medBeforeChange){
+                eitherChangeIsRelated = medBeforeChange.reasons.some((r) => {
+                    return r.value.entryId && r.value.entryId === conditionEntryId;
+                });
+            } else {
+                return false;
+            }
             return change instanceof FluxMedicationChange && eitherChangeIsRelated;
         });
         return medicationsChanges;
+    }
+
+    createActiveMedication(selectedValue) {       
+        let medication = FluxObjectFactory.createInstance({}, "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested", this);
+        medication.medication = selectedValue;
+        medication.startDate = new Date();
+     
+        return medication;
     }
 
     getProcedures() {
@@ -650,11 +666,12 @@ class PatientRecord {
             return p;
         }
     }
-    _medChangesTimeSorter (a, b) {
-        const a_medicationAfter_performanceTime = this.getEntryFromReference(a.medicationAfterChange.value).expectedPerformanceTime;
-        const b_medicationAfter_performanceTime = this.getEntryFromReference(b.medicationAfterChange.value).expectedPerformanceTime;
-        const a_startTime = new moment(a_medicationAfter_performanceTime.timePeriodStart, "D MMM YYYY");
-        const b_startTime = new moment(b_medicationAfter_performanceTime.timePeriodStart, "D MMM YYYY");
+
+    _medChangesTimeSorter(a, b) {
+        const a_time = a.entryInfo.creationTime.dateTime;
+        const b_time = b.entryInfo.creationTime.dateTime;
+        const a_startTime = new moment(a_time.timePeriodStart, "D MMM YYYY");
+        const b_startTime = new moment(b_time.timePeriodStart, "D MMM YYYY");
         if (a_startTime < b_startTime) {
             return -1;
         }
@@ -855,6 +872,10 @@ class PatientRecord {
         return this.entries.find((entry) => {
             return entry.entryInfo.entryId === entryId;
         });
+    }
+
+    getEntries() {
+        return this.entries;
     }
 
     static getMostRecentEntryFromList(list) {

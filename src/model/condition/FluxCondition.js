@@ -125,8 +125,7 @@ class FluxCondition {
         });
     }
 
-    addObservation(observation, clinicalNote) {
-        this._patientRecord.addEntryToPatientWithPatientFocalSubject(observation, clinicalNote);
+    addObservation(observation, clinicalNote) {   
         let ref = this._patientRecord.createEntryReferenceTo(observation);
         let currentObservations = this._condition.evidence || [];
         currentObservations.push(ref);

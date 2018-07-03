@@ -1,3 +1,21 @@
+import codeableConceptUtils from '../model/CodeableConceptUtils.jsx';
+
+// List of medications 
+// (Note: this is currently used only by the note parser to look up active medications when parsing a #stop medication note)
+// Add more medications here as needed
+const medications = [
+    {
+        name: 'ibuprofen 600mg tablet', 
+        description: "",
+        code: "316077",
+        codeSystem: ""
+    }
+];    
+
+exports.getCodeableConceptFromName = (name) => {
+    return codeableConceptUtils.getCodeableConceptFromOptions(name, medications);
+}
+
 exports.getRangeValues = (medication, units) => {
     if (typeof(medication) !== 'string') {return null;}
 

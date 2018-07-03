@@ -75,8 +75,6 @@ function addKeywordsForCurrentShortcut(keywordObject, currentShortcut) {
                 return (item.childShortcut === currentShortcut.id);
             });
             if (!Lang.isUndefined(voa)) {
-                // console.log("voa")
-                // console.log(voa)
                 voa["numberOfItems"] = list.length;
             }
         }
@@ -251,6 +249,7 @@ class ShortcutManager {
 
     getValidChildShortcutsInContext(context, recurse = false) {
         const currentContextId = context.getId();
+    
         // Let's get all child shortcuts registered in shortcuts metadata via the current context
         // They can be registered in 2 ways:
         //      as a childShortcut on valueObjectAttributes
@@ -259,6 +258,7 @@ class ShortcutManager {
         let result = this.childShortcuts[currentContextId], parentAttribute;
         let value, parentVOAs, voa, isSettable, isSet, parentIdVOAs;
         if (Lang.isUndefined(result)) return [];
+
         result = result.filter((shortcutId) => {
             // to determine if a shortcut should be valid right now, we need to get its value
             // from its parent. If it's settable and not set, it's valid. If it's not settable, then it's
@@ -356,8 +356,8 @@ class ShortcutManager {
         return this.shortcuts[shortcutId]
     }
 
-    isShortcutInstanceOfSingleHashtagKeyword(shortcut) { 
-        return shortcut instanceof SingleHashtagKeyword 
+    isShortcutInstanceOfSingleHashtagKeyword(shortcut) {
+        return shortcut instanceof SingleHashtagKeyword;
     }
 }
 

@@ -393,7 +393,7 @@ export default class UpdaterBase extends Shortcut {
 
     getValueObject() {
         if (!this.valueObject) {
-            this.object = FluxObjectFactory.createInstance({}, this.metadata["valueObject"]);
+            this.object = FluxObjectFactory.createInstance({}, this.metadata["valueObject"], this.patient);
             Object.keys(this.valueObjectAttributes).forEach((voa) => {
                 this._setAttributeValue(voa, this.values[voa]);
             });
@@ -445,7 +445,7 @@ export default class UpdaterBase extends Shortcut {
         });
 
         if (filteredEntries.length === 0) {
-            this.object = FluxObjectFactory.createInstance({}, this.metadata["valueObject"]);
+            this.object = FluxObjectFactory.createInstance({}, this.metadata["valueObject"], patient);
             patient.addEntryToPatientWithPatientFocalSubject(this.object, clinicalNote);
             this.isObjectNew = true;
         } else {

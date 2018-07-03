@@ -303,6 +303,7 @@ describe('6 FluxNotesEditor', function() {
         let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
             let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, {}, shortcutData, this.handleShortcutUpdate);
             newShortcut.initialize(contextManager, shortcutType, updatePatient, shortcutData);
+
             return newShortcut;
         }
 

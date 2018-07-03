@@ -1,5 +1,6 @@
 import Shortcut from './Shortcut';
 import Lang from 'lodash';
+import CreatorBase from './CreatorBase';
 
 export default class InsertValue extends Shortcut {
     constructor(onUpdate, metadata, patient, shortcutData) {
@@ -10,6 +11,8 @@ export default class InsertValue extends Shortcut {
 
     initialize(contextManager, trigger = undefined, updatePatient = true, shortcutData = "") {
         super.initialize(contextManager, trigger, updatePatient);
+        super.determineParentContext(contextManager, this.metadata["knownParentContexts"], this.metadata["parentAttribute"]);
+
         let text = this.determineText(contextManager);
         if (Lang.isArray(text)) {
             this.flagForTextSelection(text);
@@ -41,7 +44,7 @@ export default class InsertValue extends Shortcut {
         return result;
     }
 
-    _resolveCallSpec(callSpec, contextManager) {
+    _resolveCallSpec(callSpec, contextManager, selectedValue) {
         let result;
         const callObject = callSpec["object"];
         const string = callSpec["string"];
@@ -72,7 +75,16 @@ export default class InsertValue extends Shortcut {
             }
         } else if (callObject === "patient") {
             //"getData": [ {"object": "patient", "method": "getAge"}]
-            result = contextManager.getPatient()[callSpec["method"]]();
+            let args = callSpec["args"] || [];
+
+            args = args.map((arg) => {
+                if (arg === "$selectedValue") {
+                    return selectedValue;
+                }                
+                return arg;            
+            });
+
+            result = contextManager.getPatient()[callSpec["method"]](...args);
             if (Lang.isArray(result)) {
                 if (!Lang.isUndefined(callSpec["itemKey"])) {
                     const itemKey = callSpec["itemKey"].split(".");
@@ -164,12 +176,40 @@ export default class InsertValue extends Shortcut {
         return `${this.initiatingTrigger}[[${text}]]`;
     }
 
+    createObjectForParsing(selectedValue, contextManager) {
+        const callSpec = this.metadata["createObjectForParsing"];
+
+        const object = this._resolveCallSpec(callSpec, contextManager, selectedValue);
+        // this.setValueObject(object);
+        return object;    
+    }
+
     setText(text) {
         this.text = text;
+       
+    }
+
+    setValueObject(valueObject) {
+        this.valueObject = valueObject;
+        const parentAttribute = this.metadata["parentAttribute"]; 
+        
+        // Check parent of shortcut and setAttributeValue 
+        if (parentAttribute && this.parentContext instanceof CreatorBase && this.parentContext.isAttributeSupported(parentAttribute)) {
+            this.parentContext.setAttributeValue(parentAttribute, this.valueObject);
+        }     
     }
 
     isGlobalContext() {
         const isGlobalContext = this.metadata["isGlobalContext"];
         return Lang.isUndefined(isGlobalContext) ? false : isGlobalContext;
+    }
+
+    onBeforeDeleted() {
+        let result = super.onBeforeDeleted();
+        if (result && !Lang.isUndefined(this.parentContext)) {
+            this.parentContext.setAttributeValue(this.metadata.parentAttribute, null, false);
+            this.parentContext.removeChild(this);
+        }
+        return result;
     }
 }

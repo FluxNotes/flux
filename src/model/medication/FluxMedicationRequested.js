@@ -1,12 +1,23 @@
 import MedicationRequested from '../shr/medication/MedicationRequested';
+import MedicationOrCode from '../shr/entity/MedicationOrCode';
 import RecurrencePattern from '../shr/core/RecurrencePattern';
+import Entry from '../shr/base/Entry';
+import EntryType from '../shr/base/EntryType';
 import TimePeriod from '../shr/core/TimePeriod';
 import Timing from '../shr/core/Timing';
+import ExpectedPerformanceTime from '../shr/action/ExpectedPerformanceTime';
 import moment from 'moment';
-
+import lookup from '../../lib/MedicationInformationService.jsx';
+import ActionContext from '../shr/action/ActionContext';
 class FluxMedicationRequested {
     constructor(json) {
         this._medicationRequested = MedicationRequested.fromJSON(json);
+        if (!this._medicationRequested.entryInfo) {
+            let entry = new Entry();
+            entry.entryType = new EntryType();
+            entry.entryType.uri = 'http://standardhealthrecord.org/spec/shr/medication/MedicationRequested';
+            this._medicationRequested.entryInfo = entry;
+          }
     }
 
     /*
@@ -39,6 +50,22 @@ class FluxMedicationRequested {
         return this.expectedPerformanceTime.timePeriodStart || null;
     }
 
+    /**
+     *  Set the start date and create new objects on medicationRequested object if none exist so that the timePeriodStart can be set
+     */
+    set startDate(date) {
+        if (!this._medicationRequested.actionContext) {
+            this._medicationRequested.actionContext = new ActionContext();
+        }
+        if (!this._medicationRequested.actionContext.expectedPerformanceTime) {
+            this._medicationRequested.actionContext.expectedPerformanceTime = new ExpectedPerformanceTime();
+        }
+        if (!this._medicationRequested.actionContext.expectedPerformanceTime.value) {
+            this._medicationRequested.actionContext.expectedPerformanceTime.value = new TimePeriod();
+        }
+        this._medicationRequested.actionContext.expectedPerformanceTime.value.timePeriodStart = date;
+    }
+
     isActiveAsOf(date) {
         const expectedPerformanceTime = this.expectedPerformanceTime;
         if (!expectedPerformanceTime || !(this._medicationRequested.actionContext.expectedPerformanceTime.value instanceof TimePeriod)) return null;
@@ -67,6 +94,14 @@ class FluxMedicationRequested {
      */
     get medication() {
         return this._displayTextOrCode(this._medicationRequested.medicationOrCode.value.coding[0]);
+    }
+
+    /**
+     *  Setter for medication
+     */
+    set medication(medicationName) {
+        this._medicationRequested.medicationOrCode = new MedicationOrCode();
+        this._medicationRequested.medicationOrCode.value = lookup.getCodeableConceptFromName(medicationName);
     }
 
     /*
@@ -122,15 +157,15 @@ class FluxMedicationRequested {
     get status() {
         return this._medicationRequested.actionContext.status.value.coding[0].displayText.value.value;
     }
-    
+
     /*
      * Getter for prescribed by, using Author as the prescribing doctor
      * Returns author string
      */
     get prescribedBy() {
-        return this._medicationRequested.author ? this._medicationRequested.author.value: null;
+        return this._medicationRequested.author ? this._medicationRequested.author.value : null;
     }
-    
+
     /*
      * Getter for when prescribed, using the creation time of the entry as the time prescribed
      * Returns date as a string
@@ -146,16 +181,16 @@ class FluxMedicationRequested {
     get reasons() {
         return this._medicationRequested.actionContext.reason || [];
     }
-    
+
     get code() {
         return this._medicationRequested.medicationOrCode.value.coding[0].code;
     }
-    
+
     get routeIntoBody() {
         if (!this._medicationRequested.dosage || !this._medicationRequested.dosage.routeIntoBody) return null;
         return this._displayTextOrCode(this._medicationRequested.dosage.routeIntoBody.value.coding[0]);
     }
-    
+
     get numberOfRefillsAllowed() {
         if (!this._medicationRequested.numberOfRefillsAllowed) return null;
         return this._medicationRequested.numberOfRefillsAllowed.value;

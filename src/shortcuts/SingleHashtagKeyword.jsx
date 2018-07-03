@@ -10,7 +10,7 @@ export default class SingleHashtagKeyword extends Shortcut {
         this.metadata = metadata;
         this.text = this.getPrefixCharacter() + this.metadata["name"];
         this.patient = patient;
-        if (Lang.isUndefined(shortcutData) || shortcutData.length === 0) {
+        if (Lang.isUndefined(shortcutData) || !shortcutData || shortcutData.length === 0) {
             this.object = FluxObjectFactory.createInstance({}, this.metadata["valueObject"]);
             this.isObjectNew = true;
         } else {
@@ -319,8 +319,11 @@ export default class SingleHashtagKeyword extends Shortcut {
             } else if (obj === "$valueObject") {
                 return this.object[method](...args);
             } else if (obj === "$parentValueObject") {
-                if (!Lang.isUndefined(this.parentContext))
+                if (!Lang.isUndefined(this.parentContext)) {
                     return this.parentContext.getValueObject()[method](...args);
+                } else {
+                    console.error("no parent context for " + this.getId());
+                }
             } else {
                 console.error("unsupported object type: " + obj + " for updatePatient");
             }
@@ -384,13 +387,17 @@ export default class SingleHashtagKeyword extends Shortcut {
                 updatePatientSpecList.forEach((updatePatientSpec) => {
                     result = this.callMethod(patient, updatePatientSpec, clinicalNote);
                     if (Lang.isNull(result)) {
+                        this.isObjectNew = false;
                         return;
                     }
                     if (result) {
                         if (Lang.isObject(result)) this.object = result;
                     }
                 });
-                if (Lang.isNull(result)) return;
+                if (Lang.isNull(result)){
+                    this.isObjectNew = false;
+                    return;
+                }
             } else {
                 this.object = patient.addEntryToPatientWithPatientFocalSubject(this.object, clinicalNote);
             }

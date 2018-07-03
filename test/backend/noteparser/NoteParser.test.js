@@ -1,17 +1,15 @@
 import NoteParser from '../../../src/noteparser/NoteParser';
 import { stagingJSON, diseaseStatusJSON, diseaseStatus2JSON, toxicityJSON, deceasedJSON,
-    clinicalTrialEnrollmentJSON, clinicalTrialEnrollmentMinimalJSON, clinicalTrialUnenrolledJSON,
-    clinicalTrialUnenrolledMinimalJSON } from './NoteParserUtils';
+    clinicalTrialEnrollmentJSON, clinicalTrialEnrollmentMinimalJSON, clinicalTrialUnenrolledJSON, stopMedicationJSON } from './NoteParserUtils';
 import FluxDiseaseProgression from '../../../src/model/condition/FluxDiseaseProgression';
 import FluxTNMStage from '../../../src/model/oncology/FluxTNMStage';
 import FluxToxicReaction from '../../../src/model/adverse/FluxToxicReaction';
 import FluxDeceased from '../../../src/model/entity/FluxDeceased';
 import FluxResearchSubject from '../../../src/model/research/FluxResearchSubject';
+import FluxMedicationChange from '../../../src/model/medication/FluxMedicationChange';
 import moment from 'moment';
 import {expect} from 'chai';
 import util from 'util';
-
-const noteParser = new NoteParser();
 
 const today = new moment().format("D MMM YYYY");
 
@@ -27,6 +25,7 @@ const sampleTextClinicalTrialEnrollment = "Debra Hernandez672 is presenting with
 const sampleTextClinicalTrialEnrollmentMinimal = "Debra Hernandez672 is presenting with carcinoma of the breast.\n\n #enrollment";
 const sampleTextClinicalTrialUnenrolled = "Debra Hernandez672 is presenting with carcinoma of the breast. \n\n Patient #unenrolled from #PATINA on #10/06/2017";
 const sampleTextClinicalTrialUnenrolledMinimal = "Debra Hernandez672 is presenting with carcinoma of the breast.\n\n #unenrolled";
+const sampleTextStopMedication = "#stop medication @active medication[[ibuprofen 600mg tablet]]";
 
 const expectedOutputEmpty = [[], []];
 const expectedOutputPlain = [[], []];
@@ -39,17 +38,40 @@ const expectedOutputDeceased = [[ new FluxDeceased(deceasedJSON) ], []];
 const expectedOutputClinicalTrialEnrollment = [[ new FluxResearchSubject(clinicalTrialEnrollmentJSON) ], []];
 const expectedOutputClinicalTrialEnrollmentMinimal = [[ new FluxResearchSubject(clinicalTrialEnrollmentMinimalJSON) ], []];
 const expectedOutputClinicalTrialUnenrolled = [[ new FluxResearchSubject(clinicalTrialUnenrolledJSON) ], []];
-const expectedOutputClinicalTrialUnenrolledMinimal = [[ new FluxResearchSubject(clinicalTrialUnenrolledMinimalJSON) ], []];
+const expectedOutputStopMedication = [[ new FluxMedicationChange(stopMedicationJSON) ], []];
+
+let noteParser;
+
+beforeEach(function() {
+    noteParser = new NoteParser();
+});
+
+// This function takes in a patient record and an entry then removes the following attributes from the record:
+// shrId, entryId, creationTime, lastUpdated 
+function removeAttributes(record, entry) {    
+
+    if (record && record[entry].entryInfo._shrId) {
+        delete record[entry].entryInfo._shrId;
+    }
+    if (record && record[entry].entryInfo._entryId) {
+        delete record[entry].entryInfo._entryId;
+    } 
+    if (record && record[entry].entryInfo._creationTime) {
+        delete record[entry].entryInfo._creationTime;
+    }
+    if (record && record[entry].entryInfo._lastUpdated && entry !== "_deceased") {
+        delete record[entry].entryInfo._lastUpdated;
+    } 
+}
 
 describe('getAllTriggersRegularExpression', function () { 
-
+   
     it('should return allStringTriggersRegExp of the parser used', function () { 
         const expectedTriggers = noteParser.allStringTriggersRegExp; 
         expect(noteParser.getAllTriggersRegularExpression())
             .to.eql(expectedTriggers);
     });
 });
-
 
 describe('parse', function() { 
 
@@ -78,14 +100,15 @@ describe('parse', function() {
         const record = noteParser.parse(sampleTextStaging);
         // This test is different from the others because Observation sets the _value property which we cannot set in TNMStage using getters and setters.
         // Instead this test will compare all the properties in each object expect _value property.
+
         expect(record)
             .to.be.an('array');
         expect(record[0][1])
             .eql(expectedOutputStaging[0][1]);
         expect(record[0][0].stage)
             .eql(expectedOutputStaging[0][0].stage);
-        expect(record[0][0].entryInfo)
-            .eql(expectedOutputStaging[0][0].entryInfo);
+        expect(record[0][0].entryType)
+            .eql(expectedOutputStaging[0][0].entryType);         
         expect(record[0][0].t_Stage)
             .eql(expectedOutputStaging[0][0].t_Stage);
         expect(record[0][0].n_Stage)
@@ -96,51 +119,89 @@ describe('parse', function() {
 
     it('should return a patient record with disease status data when parsing a note with disease status phrases', function () {
         const record = noteParser.parse(sampleTextDiseaseStatus);
+
+        removeAttributes(record[0][0], "_diseaseProgression");
+
         expect(record)
             .to.be.an('array')
-            .and.to.eql(expectedOutputDiseaseStatus);
+            .and.to.eql(expectedOutputDiseaseStatus);      
     });
     it('should return a patient record with disease status data when parsing a note with disease status phrases including dates', function () {
         const record = noteParser.parse(sampleTextDiseaseStatus2);
+      
+        removeAttributes(record[0][0], "_diseaseProgression");
+        
         expect(record)
             .to.be.an('array')
             .and.to.eql(expectedOutputDiseaseStatus2);
     });
     it('should return a patient record with toxicity data when parsing a note with toxicity phrases', function () {
         const record = noteParser.parse(sampleTextToxicity);
+
+        removeAttributes(record[0][0], "_adverseEvent");
+       
         expect(record)
             .to.be.an('array')
             .and.to.eql(expectedOutputToxicity);
     });
     it('should return a patient record with deceased data when parsing a note with deceased phrases', function () {
         const record = noteParser.parse(sampleTextDeceased);
+    
+        removeAttributes(record[0][0], "_deceased");
+
         expect(record)
             .to.be.an('array')
             .and.to.eql(expectedOutputDeceased);
     });
     it('should return a patient record with study enrollment data when parsing a note with clinical trial phrases', function () {
         const record = noteParser.parse(sampleTextClinicalTrialEnrollment);
+
+        removeAttributes(record[0][0], "_researchSubject");
+       
         expect(record)
             .to.be.an('array')
             .and.to.eql(expectedOutputClinicalTrialEnrollment);
     });
     it('should return a patient record with study enrollment data correctly defaulted when parsing a note with only #enrollment', function () {
         const record = noteParser.parse(sampleTextClinicalTrialEnrollmentMinimal);
+        
+        removeAttributes(record[0][0], "_researchSubject");
+          
         expect(record)
             .to.be.an('array')
             .and.to.eql(expectedOutputClinicalTrialEnrollmentMinimal);
     });
     it('should return a patient record with study unenrolled data when parsing a note with clinical trial phrases', function () {
         const record = noteParser.parse(sampleTextClinicalTrialUnenrolled);
+       
+        removeAttributes(record[0][0], "_researchSubject");
+
         expect(record)
             .to.be.an('array')
             .and.to.eql(expectedOutputClinicalTrialUnenrolled);
     });
     it('should return a patient record with study unenrolled data correctly defaulted when parsing a note with only #unenrolled', function () {
         const record = noteParser.parse(sampleTextClinicalTrialUnenrolledMinimal);
+                      
         expect(record)
             .to.be.an('array')
-            .and.to.eql(expectedOutputClinicalTrialUnenrolledMinimal);
+            .and.to.eql([[],[]]);
+    });
+    it('should return a patient record with medication change with type set to stop and a medication when parsing a note with #stop medication and a medication ', function () {
+        const record = noteParser.parse(sampleTextStopMedication);
+        // Because stop medication structured phrase is a bit different from the other shortcuts, this test checks for certian attributes intead of doing a deep equals
+        
+        removeAttributes(record[0][0], "_medicationChange");
+        delete record[0][0]._patientRecord;
+
+        expect(record)
+            .to.be.an('array');
+        expect(record[0][0]._medicationChange._entryInfo.entryType)
+            .eql(expectedOutputStopMedication[0][0]._medicationChange._entryInfo.entryType);
+        expect(record[0][0]._medicationChange._type._codeableConcept._coding)
+            .eql(expectedOutputStopMedication[0][0]._medicationChange._type._codeableConcept._coding);
+        expect(record[0][0]._medicationChange._medicationBeforeChange)
+            .to.exist;
     });
 });
 

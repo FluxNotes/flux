@@ -10,6 +10,10 @@ class FluxMedicationBeforeChange {
     get value() {
         return this._medicationBeforeChange.value;
     }
+
+    set value(value) {
+        this._medicationBeforeChange.value = value;
+    }
     /**
      * Get the entryId of the referenced Medication.
      */

@@ -1,10 +1,14 @@
 import ShortcutManager from '../shortcuts/ShortcutManager';
 import ContextManager from '../context/ContextManager';
 import DataAccess from '../dataaccess/DataAccess';
-import Lang from 'lodash'
-//import util from 'util';
+import Lang from 'lodash';
+import InsertValue from '../shortcuts/InsertValue';
+import CreatorBase from '../shortcuts/CreatorBase';
+import UpdaterBase from '../shortcuts/UpdaterBase';
+import SingleHashtagKeyword from '../shortcuts/SingleHashtagKeyword';
 
 export default class NoteParser {
+
     constructor(shortcutManager = undefined, contextManager = undefined) {
         if (Lang.isUndefined(shortcutManager)) {
             this.shortcutManager = new ShortcutManager();
@@ -13,8 +17,8 @@ export default class NoteParser {
         }
         if (Lang.isUndefined(contextManager)) {
             let dataAccess = new DataAccess("NewPatientOnlyDataSource");
-            let patient = dataAccess.newPatient();
-            this.contextManager = new ContextManager(patient);
+            this.patient = dataAccess.newPatient();
+            this.contextManager = new ContextManager(this.patient);
             this.contextManager.setIsBlock1BeforeBlock2(() => {
                 return true;
             });
@@ -40,22 +44,39 @@ export default class NoteParser {
                 this.allTriggersRegExps.push({regexp: regexp, definition: def});
             }
         });
-
-        this.patientRecord = [];
     }
 
     getAllTriggersRegularExpression() {
         return this.allStringTriggersRegExp;
     }
 
-    createShortcut(triggerOrKeywordObject) {
-        const triggerOrKeywordText = (Lang.isUndefined(triggerOrKeywordObject.trigger)) ? triggerOrKeywordObject.keyword : triggerOrKeywordObject.trigger
-
-        const shortcut = this.shortcutManager.createShortcut(triggerOrKeywordObject.definition, triggerOrKeywordText); //, onUpdate, object
-        shortcut.initialize(this.contextManager, triggerOrKeywordText);
-        shortcut.setKey("1");
-        return shortcut;
+    // Update shortcuts and update patients accordingly
+    handleShortcutUpdate = (s) => {
+        s.updatePatient(this.patient, this.contextManager, null);
     }
+    
+    createShortcut(triggerOrKeywordObject) {     
+        const triggerOrKeywordText = (Lang.isUndefined(triggerOrKeywordObject.trigger)) ? triggerOrKeywordObject.keyword : triggerOrKeywordObject.trigger
+        const shortcut = this.shortcutManager.createShortcut(
+            triggerOrKeywordObject.definition, triggerOrKeywordText, this.patient, 
+            triggerOrKeywordObject.selectedValue, this.handleShortcutUpdate);
+       
+        shortcut.initialize(this.contextManager, triggerOrKeywordText, true, triggerOrKeywordObject.selectedValue);
+     
+        if (shortcut instanceof CreatorBase || shortcut instanceof SingleHashtagKeyword || shortcut instanceof UpdaterBase) {
+            shortcut.updatePatient(this.patient, this.contextManager, null);
+        }
+        
+        if (shortcut instanceof InsertValue ) {          
+            const object = shortcut.createObjectForParsing(triggerOrKeywordObject.selectedValue, this.contextManager);       
+            this.patient.addEntryToPatient(object);
+            shortcut.setValueObject(object);
+        }
+               
+        shortcut.setKey("1");
+        
+        return shortcut;
+    }    
 
     // This method takes in a trigger. If the trigger is a pick list (a shortcut that has multiple options) return true, otherwise return false
     isPickList(trigger) {
@@ -95,10 +116,15 @@ export default class NoteParser {
                     unrecognizedTriggers.push(substr);
                 }
             } else {
-                //console.log(match[0]);
-                // this.allTriggersRegExps.forEach(checkForTriggerRegExpMatch);
-                matches.push({trigger: match[0], definition: this.shortcutManager.getMetadataForTrigger(match[0])}); // new line that sets definition
-                // matches.push({trigger: match[0], definition: null}); // Original line
+                let possibleValue = substr.substring(match[0].length);
+                let selectedValue = null;
+
+                 // Check if the shortcut is an inserter (check for '[['). If it is, grab the selected value
+                if (possibleValue.startsWith("[[")) {
+                    let posOfEndBrackets = possibleValue.indexOf("]]");
+                    selectedValue = possibleValue.substring(2, posOfEndBrackets);                 
+                }
+                matches.push({trigger: match[0], definition: this.shortcutManager.getMetadataForTrigger(match[0]), selectedValue: selectedValue});
             }
             pos = hashPos + 1;
             hashPos = nextPos;
@@ -175,24 +201,14 @@ export default class NoteParser {
         return this.shortcutManager.getValidChildShortcutsInContext(singleHashtagKeywordShortcut)
     }
     
-    parse(note) {
-        this.patientRecord = [];
-        // console.log("parse: " + note);
+    parse(note) {         
+        this.note = note; 
         const result = this.getListOfTriggersFromText(note);
-        const structuredPhrases = result[0];
-        //console.log(structuredPhrases);
-        let data = structuredPhrases.map(this.createShortcut.bind(this));
+        const structuredPhrases = result[0];      
+        structuredPhrases.map(this.createShortcut.bind(this));
         const foundKeywords = this.getAllKeywordsFromText(note);
-        data = data.concat(foundKeywords.map(this.createShortcut.bind(this)));
-        // console.log(data)
-        let dataObj;
-        data.forEach((item) => {
-            dataObj = item.getValueObject();
-            if (!Lang.isUndefined(dataObj)) {
-                //console.log(util.inspect(dataObj, false, null));
-                this.patientRecord.push(dataObj);
-            }
-        });
-        return [this.patientRecord, result[1]];
+        foundKeywords.map(this.createShortcut.bind(this));
+
+        return [this.patient.getEntries(), result[1]];
     }
 }

@@ -44,7 +44,8 @@ class ContextManager {
     
     getActiveSingleHashtagKeywordShortcuts(shortcutManager) { 
         return this.getActiveContexts().reduce((listOfSingleHashtagKeywordShortcuts, currentActiveShortcut) => { 
-            if (shortcutManager.isShortcutInstanceOfSingleHashtagKeyword(currentActiveShortcut)) { 
+
+            if (shortcutManager.isShortcutInstanceOfSingleHashtagKeyword(currentActiveShortcut)) {
                 listOfSingleHashtagKeywordShortcuts.push(currentActiveShortcut);
             }
             return listOfSingleHashtagKeywordShortcuts

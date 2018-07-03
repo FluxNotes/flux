@@ -28,7 +28,7 @@ export default class FluxObjectFactory {
             case 'shr.encounter': return FluxEncounterObjectFactory.createInstance(json, type);
             case 'shr.entity': return FluxEntityObjectFactory.createInstance(json, type);
             case 'shr.finding': return FluxFindingObjectFactory.createInstance(json, type);
-            case 'shr.medication': return FluxMedicationObjectFactory.createInstance(json, type);
+            case 'shr.medication': return FluxMedicationObjectFactory.createInstance(json, type, patientRecord);
             case 'shr.oncology': return FluxOncologyObjectFactory.createInstance(json, type, patientRecord);
             case 'shr.procedure': return FluxProcedureObjectFactory.createInstance(json, type);
             case 'shr.research': return FluxResearchObjectFactory.createInstance(json, type);
