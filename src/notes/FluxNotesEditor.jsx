@@ -853,7 +853,8 @@ class FluxNotesEditor extends React.Component {
         if (returnIndex === -1) {
             divReturnIndex = text.indexOf('</div>');
         }
-        
+        const placeholderStartIndex = text.indexOf('<');
+
         if (returnIndex >= 0) {
             let result = this.insertPlainText(transform, text.substring(0, returnIndex));
             result = this.insertNewLine(result);
@@ -862,13 +863,22 @@ class FluxNotesEditor extends React.Component {
             let result = this.insertPlainText(transform, text.substring(0, divReturnIndex));
             result = this.insertNewLine(result);
             return this.insertPlainText(result, text.substring(divReturnIndex + 6)); // cuts off </div>
-        } else {
-            this.insertTextWithStyles(transform, text);
-            // FIXME: Need a trailing character for replacing keywords -- insert temporarily and then delete
-            transform.insertText(' ')
-            const [newTransform, ] = this.singleHashtagKeywordStructuredFieldPlugin.utils.replaceAllRelevantKeywordsInBlock(transform.state.anchorBlock, transform, transform.state)
-            return newTransform.deleteBackward(1).focus();
+        } else if (placeholderStartIndex >= 0) {
+            const placeholderEndIndex = text.indexOf('>', placeholderStartIndex);
+            const placeholderText = text.slice(placeholderStartIndex, placeholderEndIndex + 1);
+
+            if (this.placeholderCheck(placeholderText)) {
+                let result = this.insertPlainText(transform, text.substring(0, placeholderStartIndex));
+                result = this.insertPlaceholder(placeholderText, transform);
+                return this.insertPlainText(result, text.substring(placeholderEndIndex + 1));
+            }
         }
+
+        this.insertTextWithStyles(transform, text);
+        // FIXME: Need a trailing character for replacing keywords -- insert temporarily and then delete
+        transform.insertText(' ')
+        const [newTransform,] = this.singleHashtagKeywordStructuredFieldPlugin.utils.replaceAllRelevantKeywordsInBlock(transform.state.anchorBlock, transform, transform.state)
+        return newTransform.deleteBackward(1).focus();
     }
 
     /*
@@ -929,11 +939,7 @@ class FluxNotesEditor extends React.Component {
             });
         }
         if (!Lang.isUndefined(remainder) && remainder.length > 0) {
-            if (this.placeholderCheck(remainder)) {
-                transform = this.insertPlaceholder(remainder, transform);
-            } else {
                 transform = this.insertPlainText(transform, remainder);
-            }
         }
 
         state = transform.apply();
