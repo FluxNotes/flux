@@ -18,8 +18,8 @@ import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx';
                                 nameFunction    Used to dynamically name the subsection.  Tabular list visualizer uses this when included.
                                 items           The list of data items in the format dictated by the type
                                 itemsFunction   A function that returns the list of data items in the format dictated by the type
-                                headings        Indicates the a set of column heading labels for tabular visualizers
                                 displayFunction A function that returns a boolean indicating whether or not data should be displayed.
+                                headings        Indicates the a set of column heading labels for tabular visualizers
                                 shortcut        Indicates a shortcut name to use for the first column of insertable data.
                                 code            Indicates a code to be used by an itemsFunction. This allows multiple sections to share the same
                                                 itemsFunction
@@ -626,7 +626,7 @@ export default class SummaryMetadata {
                             },
                             {   nameFunction: this.getMissingCriteriaSubsectionName, 
                                 itemsFunction: this.getItemListToDisplayMissingCriteria,
-                                displayFunction: this.getMissingCriteriaDisplay,
+                                displayFunction: this.getMissingCriteriaDisplay
                             }*/
                         ]   
                     },
