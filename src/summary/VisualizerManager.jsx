@@ -16,23 +16,23 @@ class VisualizerManager {
         newsection.name = "";
         newsection.headings = ["Medication", "Dosage", "Timing", "Start", "End"];
         newsection.items = itemList.map((med) => {
-            const dose = med.amountPerDose ? `${med.amountPerDose.value} ${med.amountPerDose.units}` : "";
+            const dose = med.medication.amountPerDose ? `${med.medication.amountPerDose.value} ${med.medication.amountPerDose.units}` : "";
             let timing;
-            if (med.timingOfDoses) {
-                if (!Lang.isNull(med.timingOfDoses.units)) {
-                    timing = `${med.timingOfDoses.value} ${med.timingOfDoses.units}`;
+            if (med.medication.timingOfDoses) {
+                if (!Lang.isNull(med.medication.timingOfDoses.units)) {
+                    timing = `${med.medication.timingOfDoses.value} ${med.medication.timingOfDoses.units}`;
                 } else {
-                    timing = med.timingOfDoses.value;
+                    timing = med.medication.timingOfDoses.value;
                 }
             } else {
                 timing = "";
             }
 
-            return [    med.medication,
+            return [    med.medication.medication,
                         dose,
                         timing,
-                        med.expectedPerformanceTime.timePeriodStart,
-                        med.expectedPerformanceTime.timePeriodEnd ];
+                        med.medication.expectedPerformanceTime.timePeriodStart,
+                        med.medication.expectedPerformanceTime.timePeriodEnd ];
         });
         return newsection;
     };
