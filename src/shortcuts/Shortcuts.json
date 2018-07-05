@@ -211,7 +211,7 @@
     "valueObject": "http://standardhealthrecord.org/spec/shr/research/ResearchSubject",
     "valueObjectAttributes": [  
         {"name":"title", "attribute":"title", "isSettable":"true", "setMethod": "title", "childShortcut": "ClinicalTrialTitleCreator"},
-        {"name":"date", "attribute":"enrollmentDate", "isSettable":"true", "setMethod": "enrollmentDate", "childShortcut": "DateCreator"}
+        {"name":"date", "attribute":"enrollmentDate", "isSettable":"true", "setMethod": "enrollmentDate", "default": "$today", "childShortcut": "DateCreator"}
     ],
     "updatePatient": [  {"object":"$valueObject", "attribute": "status", "args": [ "enrolled"]},
                         {"object":"patient", "method": "addEntryToPatientWithPatientFocalSubject", "args": [ "$valueObject", "$clinicalNote" ]}],
