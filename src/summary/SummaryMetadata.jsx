@@ -1006,7 +1006,7 @@ export default class SummaryMetadata {
     }
 
     getMissingCriteriaDisplay = () => {
-        return (this.trialDisplayMissingCriteria !== "") ? true : false;
+        return this.trialDisplayMissingCriteria !== "";
     }
 
     getItemListToDisplayMissingCriteria = () => {
