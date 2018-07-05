@@ -637,7 +637,7 @@ export const clinicalTrialEnrollmentMinimalJSON = {
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
                 },
-                "Value": null
+                "Value": today
             }
         }
     }
