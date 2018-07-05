@@ -22,7 +22,7 @@ export default class LandingPage extends Component {
                     </div>
 
                     <div className="landing-tagline-text">
-                        Flux Notes™ demonstrates an approach to capturing treatment data in a structured form as a
+                        Flux Notes™ is an open source approach to capturing treatment data in a structured form as a
                         clinician authors a clinical note in the preferred narrative form.
                     </div>
                 </div>
@@ -205,7 +205,7 @@ export default class LandingPage extends Component {
                             <p>
                                 This tool is one of multiple prototypes in development by MITRE with the
                                 end goal of providing complete, accurate, and computable records to inform the best
-                                care for each individual.
+                                care for each individual. Help grow Flux Notes™ by committing to the <a href="https://github.com/standardhealth/flux" alt="Flux Notes Repository">repository</a> today.
                             </p>
 
                             <p>
