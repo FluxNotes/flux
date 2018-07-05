@@ -939,8 +939,6 @@ export default class SummaryMetadata {
             }
         });
         
-
-        console.log(medsToVisualize);
         // instead of returning meds, return list of medsToVisualize
         return medsToVisualize;
     }
