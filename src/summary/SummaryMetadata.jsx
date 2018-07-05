@@ -907,7 +907,7 @@ export default class SummaryMetadata {
                     // Add the medBeforeChange to the med, for use in visualization
                     const medBeforeChangeRef = change.medicationBeforeChange.reference;
                     const medBeforeChange = patient.getEntryFromReference(medBeforeChangeRef);
-                    // medAfterChange.medicationBeforeChange = medBeforeChange;              
+                    // medAfterChange.medicationBeforeChange = medBeforeChange;
                     medToViz.medicationChange = {
                         type: change.type,
                         date: change.whenChanged,
