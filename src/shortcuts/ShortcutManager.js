@@ -8,6 +8,7 @@ import Keyword from './Keyword';
 import ValueSetManager from '../lib/ValueSetManager';
 import shortcutMetadata from './Shortcuts.json';
 import Lang from 'lodash';
+import NLPHashtag from './NLPHashtag';
 
 // Given a trigger object, add it and any subsidiary trigger objects to our triggersPerShortcut map
 function addTriggerForCurrentShortcut(triggerObject, currentShortcut) {
@@ -156,6 +157,8 @@ class ShortcutManager {
             newShortcut = new InsertValue(onUpdate, metadata, patient, shortcutData);
         } else if (className === "SingleHashtagKeyword") {
             newShortcut = new SingleHashtagKeyword(onUpdate, metadata, patient, shortcutData);
+        } else if (className === "NLPHashtag") {
+            newShortcut = new NLPHashtag(onUpdate, metadata, patient, shortcutData);
         } else if (className === "Keyword") {
             newShortcut = new Keyword(onUpdate, metadata, patient, shortcutData);
         } else {
@@ -364,6 +367,10 @@ class ShortcutManager {
 
     isShortcutInstanceOfSingleHashtagKeyword(shortcut) {
         return shortcut instanceof SingleHashtagKeyword;
+    }
+
+    isShortcutInstanceOfNLPHashtag(shortcut) {
+        return shortcut instanceof NLPHashtag
     }
 }
 

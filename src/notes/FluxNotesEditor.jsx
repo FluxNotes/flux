@@ -121,12 +121,18 @@ class FluxNotesEditor extends React.Component {
         // setup NLPHashtagPlugin
         const NLPHashtagPluginOptions = {
             shortcutManager: this.props.shortcutManager,
+            contextManager: this.props.contextManager,
             structuredFieldMapManager: this.structuredFieldMapManager,
             createShortcut: this.props.newCurrentShortcut,
             insertStructuredFieldTransform: this.insertStructuredFieldTransform,
-            editorValue: this.state.state,
+            getEditorValue: () => this.state.state,
+            setEditorValue: (state) => {
+                console.log('setting editorVAlue')
+                console.log(this.setState)
+                this.setState({state})
+            },
         };
-        this.NLPHashtagPlugin = NLPHashtagPlugin(singleHashtagKeywordStructuredFieldPluginOptions);
+        this.NLPHashtagPlugin = NLPHashtagPlugin(NLPHashtagPluginOptions);
         this.plugins.push(this.NLPHashtagPlugin)
         
         // setup creator suggestions plugin (autocomplete)

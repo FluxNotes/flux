@@ -1,17 +1,22 @@
 import NLPHashtag from '../shortcuts/NLPHashtag'
 import Lang from 'lodash';
 
+const API_ENDPOINT = "http://localhost:8000/api"
+
 function createOpts(opts) {
-    opts = opts || {};
+	opts = opts || {};
 	return opts;
 }
 
 function SingleHashtagKeywordStructuredFieldPlugin(opts) {
     opts = createOpts(opts);
     const shortcutManager = opts.shortcutManager;
+    const contextManager = opts.contextManager;
 	const createShortcut = opts.createShortcut;
 	const insertStructuredFieldTransform = opts.insertStructuredFieldTransform;
 	const structuredFieldMapManager = opts.structuredFieldMapManager;
+	const getEditorValue = opts.getEditorValue;
+	const setEditorValue = opts.setEditorValue;
 	const stopCharacters = [
 		'.',
 		'?',
@@ -23,30 +28,100 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		'\n',
 	]
 
-	let count = 0;
-	function containsNLPHashtag(editorValue) { 
-		return true
+	// Retur
+	function containsNLPHashtag() { 
+		// Check the map for anything of class NLPHashtag	
+		let containsNLPHashtag = false;
+		console.log(contextManager.getActiveContexts())
+		contextManager.getActiveContexts.forEach((shortcut, id, i) => {
+			console.log(shortcut)
+			console.log(id)
+			containsNLPHashtag = containsNLPHashtag || shortcutManager.isShortcutInstanceOfNLPHashtag(shortcut);	
+		})
+		return containsNLPHashtag
 	} 
+	
+	// Extracts a NLP hashtag 
 	function extractNLPHashtagFullPhrase(editorValue) { 
-		count += 1;
-		if (count > 30) { 
-			return 'anything'
-		} else { 
+		// Find the sentence that contains the NLP hashtag
+		// Check if that sentence contains a stopCharacter followed by a finishedTokenSymbol
+		// If so: 
+		// 	return a sliced string starting at NLP hashtag and ending at stopcharacter followed by finishedTokenSymbol
+		// Else: 
+		// 	return nothing
+ 
+
+		// Given a list of singleHastagKeywordShortcut key:shortcut mappings, editor state and current text-node key,
+		// Filter our mappings to only shorcuts who are directly next to our current text-node  
+		// return listOfSingleHashtagKeywordShortcutMappings.filter((mapping) => {
+		// 	let closestBlock;
+
+		// 	// Added try catch statement to catch error when adding template after SingleHashtagKeyword shortcut
+		// 	// returns false to filter out if error occurs
+		// 	try {
+		// 		closestBlock = state.document.getClosestBlock(Object.keys(mapping)[0]);
+		// 	} catch (error) {
+		// 		return false;
+		// 	}
+
+		// 	// We want to get the closest block to the keyword's 
+		// 	return closestBlock.key === currentNodeKey;
+		// });
+	}
+
+	// Performs the transformations to the editor based on the return data
+	function addNLPContentToEditor(data) { 
+		// perform some changes on the editor.
+		const editorValue = getEditorValue();
+		const transformedEditorValue = getEditorValue().transform().insertText('this is like adding NLP shit righT?').apply()
+		setEditorValue(transformedEditorValue)
+	}
+
+	// Sends off a request to the NLP endpoint
+	// Define a flag here so we don't send multiple requests while we're just waiting for a return value.
+	let isFetching = false
+	function fetchNLPExtraction(NLPHashtagPhrase) { 
+		// fetch(`${API_ENDPOINT}?foo=${encodeURIComponent(data.foo)}&bar=${encodeURIComponent(data.bar)}`)
+		if (isFetching) {
+			console.log('already fetching')
 			return
 		}
-	}	
-	function onChange (change) { 
-		if (containsNLPHashtag(change.value)) { 
+		// Else, we want to fetch data
+		isFetching = true;
+		console.log('call to fetchNLPExtraction')
+		fetch(`${API_ENDPOINT}`)
+			.then((res) => res.json())
+			.then(
+				(data) => { 
+					isFetching = false;
+					console.log('finsihed parsing here');
+					addNLPContentToEditor(data);
+				},
+				// Note: it's important to handle errors here
+				// instead of a catch() block so that we don't swallow
+				// exceptions from actual bugs in components. 
+				(error) => {
+					isFetching = false;
+					console.log('error in request here -- expected')
+					console.log('NLPHashtagPhrase')
+					console.log(NLPHashtagPhrase)
+					console.log(getEditorValue().texts)
+					addNLPContentToEditor(error);
+				}
+			);
+	}
+	
+	// Everytime a change is made to the editor, check to see if NLP should be parsed
+	function onChange (change) {
+		// Check the structuredFieldMapManager for NLP Hashtags 
+		if (containsNLPHashtag()) { 
+			console.log('contains NLP hashtag')
 			// Pull out NLP hashtag phrase if there is one
 			const NLPHashtagPhrase = extractNLPHashtagFullPhrase(change.value)
 			if (!Lang.isUndefined(NLPHashtagPhrase)) { 
 				// send this data somewhere 
 				// Somehow make the change after the fact. 
-				console.log('change')
-				console.log(change)
-				console.log('change.value')
-				console.log(change.value)
-				console.log('onChange')
+				fetchNLPExtraction(NLPHashtagPhrase)
 			} else { 
 				return
 			}
@@ -64,98 +139,6 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		// no: 
 		//	  exit -- no change to make
 	}
-
-	// // Get the slate Range of the freeText associated with a given keywordText
-	// function getRangeForKeyword (curNode, keywordText) { 
-	// 	// Return nothing if text is not found in this node
-	// 	if (curNode.text.toLowerCase().indexOf(keywordText) === -1) {
-	// 		return;  
-	// 	} else { 
-	// 		const anchorKey = curNode.key;
-	// 		const anchorOffset = curNode.text.toLowerCase().indexOf(keywordText);
-	// 		const focusKey = anchorKey;
-	// 		const focusOffset = anchorOffset + keywordText.length;
-	// 		const isBackward = false;
-	// 		const isFocused = false;
-
-	// 		return {
-	// 			anchorKey: anchorKey,
-	// 			anchorOffset: anchorOffset,
-	// 			focusKey: focusKey,
-	// 			focusOffset: focusOffset,
-	// 			isFocused: isFocused,
-	// 			isBackward: isBackward,
-	// 		}
-	// 	}
-	// }
-
-	// // Given block-node's text & keywordObjects asso. w/ a SingleHashtagKeywordShortcut , return first keyword found in that text (if any)
-	// function scanTextForKeywordObject(text, keywordObjects) { 
-	// 	const trailingCharacterRegex = /[\s\r\n.!?;,)}\]]/;
-	// 	const textToMatch = text.toLowerCase();
-	// 	// We only want to match if there is a 'phrase finishing' character at the end of the text
-	// 	for (const keywordObj of keywordObjects) { 
-	// 		const keywordTextToMatch = new RegExp(keywordObj.name.toLowerCase() + trailingCharacterRegex.source)
-	// 		if (textToMatch.search(keywordTextToMatch) !== -1) { 
-	// 			return keywordObj
-	// 		}
-	// 	}
-	// }
-
-	// // Given a list of singleHastagKeywordShortcut key:shortcut mappings, editor state and current text-node key,
-	// // Filter our mappings to only shorcuts who are directly next to our current text-node  
-	// function getRelevantSingleHashtagKeywordMappings(listOfSingleHashtagKeywordShortcutMappings, state, currentNodeKey) {
-	// 	return listOfSingleHashtagKeywordShortcutMappings.filter((mapping) => {
-	// 		let closestBlock;
-
-	// 		// Added try catch statement to catch error when adding template after SingleHashtagKeyword shortcut
-	// 		// returns false to filter out if error occurs
-	// 		try {
-	// 			closestBlock = state.document.getClosestBlock(Object.keys(mapping)[0]);
-	// 		} catch (error) {
-	// 			return false;
-	// 		}
-
-	// 		// We want to get the closest block to the keyword's 
-	// 		return closestBlock.key === currentNodeKey;
-	// 	});
-	// }
-
-	// // Sort keywords based on name length 
-	// function _sortKeywordByNameLength(keywordA, keywordB) { 
-	// 	return keywordB.name.length - keywordA.name.length;
-	// }
-
-	// // Given a keywordShortcutClass, get all of the associated keywords
-	// function getKeywordsBasedOnShortcutClass(keywordShortcutClass) { 
-	// 	return shortcutManager.getKeywordsForShortcut(keywordShortcutClass)
-	// }
-
-	// // Given a list of singlehashtagkeyword shortcuts mappings, get all of the relevant keywords
-	// function findRelevantKeywordShortcutClasses(listOfSingleHashtagKeywordShortcutMappings) { 
-	// 	// Returns a list 
-	// 	return listOfSingleHashtagKeywordShortcutMappings.map((mapping) => { 
-	// 		// We know the mapping is a single k-v pair, just get all the keys, use the first
-	// 		const keys = Object.keys(mapping)
-	// 		const shortcut = mapping[keys[0]]
-	// 		return shortcutManager.getValidChildShortcutsInContext(shortcut)
-	// 	})
-	// }
-
-	// // Get a slateKey:shortcut mapping of all active single hashtag keyword shortcuts
-	// function getKeyToActiveSingleHashtagKeywordShortcutMappings() { 
-	// 	const listOfSingleHashtagKeywordShortcutMappings = [];
-		
-	// 	structuredFieldMapManager.keyToShortcutMap.forEach((shortcut, key, map) => { 
-	// 		// Only list mappings for SingleHashtagKeyword shortcuts
-	// 		if (shortcut instanceof SingleHashtagKeyword) {
-	// 			const mapping = {};
-	// 			mapping[key] = shortcut;
-	// 			listOfSingleHashtagKeywordShortcutMappings.push(mapping)
-	// 		}
-	// 	})
-	// 	return listOfSingleHashtagKeywordShortcutMappings;
-	// }
 
 	return {
 		onChange,

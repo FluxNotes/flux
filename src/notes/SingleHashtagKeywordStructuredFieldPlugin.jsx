@@ -1,4 +1,3 @@
-import SingleHashtagKeyword from '../shortcuts/SingleHashtagKeyword'
 import Lang from 'lodash';
 
 function createOpts(opts) {
@@ -154,7 +153,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		
 		structuredFieldMapManager.keyToShortcutMap.forEach((shortcut, key, map) => { 
 			// Only list mappings for SingleHashtagKeyword shortcuts
-			if (shortcut instanceof SingleHashtagKeyword) {
+			if (shortcutManager.isShortcutInstanceOfSingleHashtagKeyword(shortcut)) {
 				const mapping = {};
 				mapping[key] = shortcut;
 				listOfSingleHashtagKeywordShortcutMappings.push(mapping)
