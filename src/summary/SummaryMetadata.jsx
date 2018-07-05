@@ -878,7 +878,9 @@ export default class SummaryMetadata {
     // TODO: fix bug. not displaying medication change in targeted data panel. make sure we are getting medication
     getItemListForMedications = (patient, condition) => {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
-        let meds = patient.getActiveMedicationsChronologicalOrder();
+        
+        // Only showing active medications
+        let meds = patient.getActiveMedicationsForConditionChronologicalOrder(condition);
         const medicationChanges = patient.getMedicationChangesForConditionChronologicalOrder(condition);
 
         // For every medication in meds, create a new medToVisualize object that has the medication object and a medicationChange object
