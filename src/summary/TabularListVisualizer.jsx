@@ -123,11 +123,16 @@ export default class TabularListVisualizer extends Component {
 
     // Render each subsection as a table of values
     renderedSubsection(transformedSubsection, subsectionindex) {
+
         const list = this.getList(transformedSubsection);
 
         let preTableCount = null;
         if (transformedSubsection.preTableCount) {
             preTableCount = `${list.length} total ${transformedSubsection.preTableCount}`;
+        }
+
+        if (transformedSubsection.displayFunction && !transformedSubsection.displayFunction()) {
+            return <div key={subsectionindex}></div>;
         }
 
         let subsectionName = null;
