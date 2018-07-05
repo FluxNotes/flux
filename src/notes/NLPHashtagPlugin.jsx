@@ -1,5 +1,5 @@
-import NLPHashtag from '../shortcuts/NLPHashtag'
 import Lang from 'lodash';
+import Collection from 'lodash';
 
 const API_ENDPOINT = "http://localhost:8000/api"
 
@@ -30,15 +30,10 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 
 	// Retur
 	function containsNLPHashtag() { 
-		// Check the map for anything of class NLPHashtag	
-		let containsNLPHashtag = false;
-		console.log(contextManager.getActiveContexts())
-		contextManager.getActiveContexts.forEach((shortcut, id, i) => {
-			console.log(shortcut)
-			console.log(id)
-			containsNLPHashtag = containsNLPHashtag || shortcutManager.isShortcutInstanceOfNLPHashtag(shortcut);	
-		})
-		return containsNLPHashtag
+		// Check the activeContexts for anything that is an instance of NLPHashtag
+		return Collection.some(contextManager.getActiveContexts(), ((shortcut, i) => {
+			return shortcutManager.isShortcutInstanceOfNLPHashtag(shortcut);	
+		}))
 	} 
 	
 	// Extracts a NLP hashtag 
