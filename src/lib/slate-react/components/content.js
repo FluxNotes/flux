@@ -139,6 +139,7 @@ class Content extends React.Component {
    */
 
   updateSelection = () => {
+    console.log('updateSelection being called')
     const { editor } = this.props
     const { value } = editor
     const { selection } = value
@@ -159,14 +160,14 @@ class Content extends React.Component {
       debug('updateSelection', { selection, native })
       return
     }
-
+    console.log('selection is Not blurred')
     // If the selection isn't set, do nothing.
     if (selection.isUnset) return
-
+    
     // Otherwise, figure out which DOM nodes should be selected...
     const current = !!rangeCount && native.getRangeAt(0)
     const range = findDOMRange(selection, window)
-
+    
     if (!range) {
       logger.error(
         'Unable to find a native DOM range from the current selection.',
@@ -174,14 +175,16 @@ class Content extends React.Component {
       )
       return
     }
-
+    console.log('not range')
+    
     const { startContainer, startOffset, endContainer, endOffset } = range
-
+    
     // If the new range matches the current selection, there is nothing to fix.
     // COMPAT: The native `Range` object always has it's "start" first and "end"
     // last in the DOM. It has no concept of "backwards/forwards", so we have
     // to check both orientations here. (2017/10/31)
     if (current) {
+      console.log('--- is current')
       if (
         (startContainer == current.startContainer &&
           startOffset == current.startOffset &&
@@ -195,11 +198,12 @@ class Content extends React.Component {
         return
       }
     }
-
+    console.log('not current')
+    
     // Otherwise, set the `isUpdatingSelection` flag and update the selection.
     this.tmp.isUpdatingSelection = true
     removeAllRanges(native)
-
+    
     // COMPAT: IE 11 does not support Selection.setBaseAndExtent
     if (native.setBaseAndExtent) {
       // COMPAT: Since the DOM range has no concept of backwards/forwards
@@ -222,6 +226,7 @@ class Content extends React.Component {
     } else {
       // COMPAT: IE 11 does not support Selection.extend, fallback to addRange
       native.addRange(range)
+      console.log('adding range')
     }
 
     // Scroll to the selection, in case it's out of view.
@@ -293,14 +298,21 @@ class Content extends React.Component {
     // already up to date, but we do want to update the native selection again
     // to make sure it is in sync. (2017/10/16)
     if (handler == 'onSelect') {
+      console.log('handleOnSelectt')
       const { editor } = this.props
       const { value } = editor
+      console.log(value)
       const { selection } = value
+      console.log(selection)
       const window = getWindow(event.target)
+      console.log(window)
       const native = window.getSelection()
+      console.log(native)
       const range = findRange(native, value)
-
+      console.log(range)
+      
       if (range && range.equals(selection)) {
+        console.log('calling update selection')
         this.updateSelection()
         return
       }
@@ -481,6 +493,8 @@ class Content extends React.Component {
       whiteSpace: 'pre-wrap',
       // Allow words to break if they are too long.
       wordWrap: 'break-word',
+      // COMPAT: In iOS, a formatting menu with bold, italic and underline
+      // buttons is shown which causes our internal value to get out of sync in
       // COMPAT: In iOS, a formatting menu with bold, italic and underline
       // buttons is shown which causes our internal value to get out of sync in
       // weird ways. This hides that. (2016/06/21)
