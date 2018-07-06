@@ -78,6 +78,7 @@ class MedicationRangeChartVisualizer extends Component {
 
         // If the medication change type is "stop", change how the medication change string is displayed
         if (medChange.type === "stop") {
+            //NOTE FOR LUCY: inside of here we want to check whether or not the note is signed! 
             return (
                 <Row center="xs">
                     <Col xs={12} className="medication-change">

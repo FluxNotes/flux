@@ -76,6 +76,9 @@ class NarrativeNameValuePairsVisualizer extends Component {
     // for the given subsection object, return the list of data items it specifies
     // includes resolve value functions (value) per item (items) and item list functions (itemsFunction)
     getList(subsection) {
+        //NOTE FOR LUCY: Subsection is one table that is displaying in narrative view.
+        //NOTE FOR LUCY: Items are each value under a table. Each item has a name and a value.
+        console.log("Subsection:", subsection);
         const {patient, condition, conditionSection} = this.props;
         if (patient == null || condition == null || conditionSection == null) {
             return [];
@@ -94,6 +97,8 @@ class NarrativeNameValuePairsVisualizer extends Component {
                 } else {
                     let val = item.value(patient, condition);
                     if (val) {
+                        //NOTE FOR LUCY: val[1] is true if unsigned! And val returns an array with two items: the first the text and the second whether signed.
+                        // console.log(val);
                         return {name: item.name, value: val[0], shortcut: item.shortcut, unsigned: val[1], sourceNote: val[2]};
                     } else {
                         return {name: item.name, value: null};
