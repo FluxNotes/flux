@@ -195,10 +195,14 @@ class MedicationRangeChartVisualizer extends Component {
                     <Grid className="FullApp-content" fluid>
                         <Row top="xs">
                             <Col sm={numColsChart}>
-                                <div className="range-chart-container">
+                                {/* <div className="range-chart-container">
                                     <svg width="100%" height="6em" viewBox="0 0 340 100">
                                         <text x="40" y="28" fontFamily="sans-serif" fontSize="0.9em" fill="#333">{name}</text>
                                     </svg>                                
+                                    
+                                </div> */}
+                                <div className='medication-title'>
+                                            {name}
                                 </div>
                             </Col>
                             <Col sm={numColsInfo}>
@@ -214,6 +218,9 @@ class MedicationRangeChartVisualizer extends Component {
                     <Grid className="FullApp-content" fluid>
                         <Row top="xs">
                             <Col sm={numColsChart}>
+                            <div className='medication-title'>
+                                            {name + " " + value + " " + unit}
+                            </div>
                                 <div className="range-chart-container">                                    
                                     <RangeChart
                                         lowerValue={lowerValue}

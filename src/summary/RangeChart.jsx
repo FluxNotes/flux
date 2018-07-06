@@ -12,7 +12,7 @@ class RangeChart extends Component {
         // Calculate typical value tick mark placement
         const lineLengthPixels = 240;
         // x position in pixels for where the line begins
-        const lineStartXPixels = 50;
+        const lineStartXPixels = 10;
         let numberOfPixelsPerUnit;
         if (Lang.isNull(this.props.upperValue) || Lang.isNull(this.props.lowerValue)) {
             numberOfPixelsPerUnit = 0;
@@ -65,7 +65,7 @@ class RangeChart extends Component {
                 dotColor = 'black'
 
                 // Calculate the x position of the dot
-                valueXPixels =  ((this.props.value - this.props.lowerValue) * numberOfPixelsPerUnit)+ 50;
+                valueXPixels =  ((this.props.value - this.props.lowerValue) * numberOfPixelsPerUnit)+ lineStartXPixels;
             }
             svgForDataPoint = <circle cx={valueXPixels} cy="50" r="5" strokeWidth="3" fill={dotColor} />;
         }
@@ -79,10 +79,10 @@ class RangeChart extends Component {
             svgForTypicalTick2 = <text x={typicalValueXPixels - 15} y="75" fontFamily="sans-serif" fontSize="12px" fill="#333">{this.props.typicalValue} {this.props.unit}</text>;
         }
         return (
-            <svg width="100%" height="6em" viewBox="0 0 340 100">
+            <svg width="100%" height="6em" viewBox="0 0 330 100">
 
-                {/*Header*/}
-                <text x="40" y="28" fontFamily="sans-serif" fontSize="0.9em" fill="#333">{this.props.name} <tspan fill={valueColor}>{this.props.value}</tspan> <tspan fontSize="12px"> {this.props.unit}</tspan></text>
+                {/* Header
+                <text x="40" y="28" fontFamily="sans-serif" fontSize="0.9em" fill="#333">{this.props.name} <tspan fill={valueColor}>{this.props.value}</tspan> <tspan fontSize="12px"> {this.props.unit}</tspan></text> */}
 
                 {/*Main line*/}
                 <line x1={lineStartXPixels} y1="50" x2={lineStartXPixels + lineLengthPixels} y2="50" stroke="#000" strokeWidth="0.5"  />
