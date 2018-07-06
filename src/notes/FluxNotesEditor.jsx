@@ -164,7 +164,7 @@ class FluxNotesEditor extends React.Component {
 
         // now add an AutoReplace plugin instance for each shortcut we're supporting as well
         // can switch to the commented out trigger to support non-space characters but need to put
-        // character used instead of always space when inserting the structured field. 
+        // character used instead of always space when inserting the structured field.
         this.plugins.push(AutoReplace({
             "trigger": /[\s\r\n.!?;,)}\]]/,
             // "trigger": 'space',
@@ -217,40 +217,41 @@ class FluxNotesEditor extends React.Component {
 
     suggestionFunction(initialChar, text) {
         if (Lang.isUndefined(text)) return [];
-        let shortcuts = this.contextManager.getCurrentlyValidShortcuts(this.props.shortcutManager);
-        let suggestionsShortcuts = [];
+
+        const { shortcutManager } = this.props;
+        const shortcuts = this.contextManager.getCurrentlyValidShortcuts(shortcutManager);
+        const suggestionsShortcuts = [];
         const textLowercase = text.toLowerCase();
-        
+
         shortcuts.forEach((shortcut) => {
-            //const triggers = shortcut.getStringTriggers();
-            const triggers = this.props.shortcutManager.getTriggersForShortcut(shortcut);
+            const triggers = shortcutManager.getTriggersForShortcut(shortcut);
             triggers.forEach((trigger) => {
                 const triggerNoPrefix = trigger.name.substring(1);
                 if (trigger.name.substring(0, 1) === initialChar && triggerNoPrefix.toLowerCase().includes(textLowercase)) {
                     suggestionsShortcuts.push({
-                        "key": triggerNoPrefix,
-                        "value": trigger,
-                        "suggestion": triggerNoPrefix,
+                        key: triggerNoPrefix,
+                        value: trigger,
+                        suggestion: triggerNoPrefix,
                     });
                 }
             });
         });
-        const placeHolderShortcuts = this.props.shortcutManager.getAllPlaceholderShortcuts();
-        
+        const placeHolderShortcuts = shortcutManager.getAllPlaceholderShortcuts();
+
         placeHolderShortcuts.forEach((shortcut) => {
-            const triggers = this.props.shortcutManager.getTriggersForShortcut(shortcut.id);
+            const triggers = shortcutManager.getTriggersForShortcut(shortcut.id);
             triggers.forEach((trigger) => {
                 const triggerNoPrefix = trigger.name.substring(1);
-                if (initialChar === "<" && triggerNoPrefix.toLowerCase().includes(textLowercase)) {
+                if (initialChar === '<' && triggerNoPrefix.toLowerCase().includes(textLowercase)) {
                     suggestionsShortcuts.push({
-                        "key": triggerNoPrefix,
-                        "value": `${initialChar}${triggerNoPrefix}>`,
-                        "suggestion": triggerNoPrefix,
+                        key: triggerNoPrefix,
+                        value: `${initialChar}${triggerNoPrefix}>`,
+                        suggestion: triggerNoPrefix,
                     });
                 }
             });
         });
-        
+
         return suggestionsShortcuts.slice(0, 10);
     }
 
@@ -267,9 +268,9 @@ class FluxNotesEditor extends React.Component {
     }
 
     choseSuggestedPlaceholder(suggestion) {
-        const {state} = this.state;
-        
-        const transformBeforeInsert = this.suggestionDeleteExistingTransform(state.transform(), "<");
+        const { state } = this.state;
+
+        const transformBeforeInsert = this.suggestionDeleteExistingTransform(state.transform(), '<');
         return this.insertPlaceholder(suggestion.value, transformBeforeInsert).apply();
     }
 
@@ -859,11 +860,13 @@ class FluxNotesEditor extends React.Component {
             let result = this.insertPlainText(transform, text.substring(0, returnIndex));
             result = this.insertNewLine(result);
             return this.insertPlainText(result, text.substring(returnIndex + 1));
-        } else if (divReturnIndex >= 0) {
+        }
+        if (divReturnIndex >= 0) {
             let result = this.insertPlainText(transform, text.substring(0, divReturnIndex));
             result = this.insertNewLine(result);
             return this.insertPlainText(result, text.substring(divReturnIndex + 6)); // cuts off </div>
-        } else if (placeholderStartIndex >= 0) {
+        }
+        if (placeholderStartIndex >= 0) {
             const placeholderEndIndex = text.indexOf('>', placeholderStartIndex);
             const placeholderText = text.slice(placeholderStartIndex, placeholderEndIndex + 1);
 
@@ -876,7 +879,7 @@ class FluxNotesEditor extends React.Component {
 
         this.insertTextWithStyles(transform, text);
         // FIXME: Need a trailing character for replacing keywords -- insert temporarily and then delete
-        transform.insertText(' ')
+        transform.insertText(' ');
         const [newTransform,] = this.singleHashtagKeywordStructuredFieldPlugin.utils.replaceAllRelevantKeywordsInBlock(transform.state.anchorBlock, transform, transform.state)
         return newTransform.deleteBackward(1).focus();
     }
@@ -885,7 +888,6 @@ class FluxNotesEditor extends React.Component {
      * Handle updates when we have a new insert text with structured phrase
      */
     insertTextWithStructuredPhrases = (textToBeInserted, currentTransform = undefined, updatePatient = true, shouldPortalOpen = true) => {
-        let state;
         const currentState = this.state.state;
 
         let transform = (currentTransform) ? currentTransform : currentState.transform();
@@ -939,11 +941,11 @@ class FluxNotesEditor extends React.Component {
             });
         }
         if (!Lang.isUndefined(remainder) && remainder.length > 0) {
-                transform = this.insertPlainText(transform, remainder);
+            transform = this.insertPlainText(transform, remainder);
         }
 
-        state = transform.apply();
-        this.setState({state: state});
+        const state = transform.apply();
+        this.setState({ state });
     }
 
     /**
@@ -1340,7 +1342,7 @@ FluxNotesEditor.propTypes = {
     updateLocalDocumentText: PropTypes.func.isRequired,
     updateSelectedNote: PropTypes.func.isRequired,
     updateNoteAssistantMode: PropTypes.func.isRequired,
-    updateContextTrayItemToInsert: PropTypes.func.isRequired
-}
+    updateContextTrayItemToInsert: PropTypes.func.isRequired,
+};
 
 export default FluxNotesEditor;
