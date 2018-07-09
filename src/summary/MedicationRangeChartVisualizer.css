@@ -22,11 +22,19 @@
 
 .medication-change { 
     font-size: 12px;
-    padding: 10px;
+    padding-left: 12px;
+    padding-bottom: 10px;
+}
+
+.medication-change-wide { 
+    font-size: 12px;
+    padding-left: 4px;
+    padding-bottom: 10px;
 }
 
 .medication-change-type{ 
     font-weight: 700;
+    padding-left: 50px;
 }
 
 .medication-title{

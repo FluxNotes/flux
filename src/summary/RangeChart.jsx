@@ -78,31 +78,64 @@ class RangeChart extends Component {
             svgForTypicalTick1 = <line x1={typicalValueXPixels} y1="40" x2={typicalValueXPixels} y2="60" stroke="#000" strokeWidth="0.5"  />;
             svgForTypicalTick2 = <text x={typicalValueXPixels - 15} y="75" fontFamily="sans-serif" fontSize="12px" fill="#333">{this.props.typicalValue} {this.props.unit}</text>;
         }
-        return (
-            <svg width="100%" height="6em" viewBox="0 0 330 100">
+        if (Lang.isNull(this.props.name)) {
+            return (
+                <svg width="100%" height="6em" viewBox="0 0 300 50">
 
-                {/* Header
-                <text x="40" y="28" fontFamily="sans-serif" fontSize="0.9em" fill="#333">{this.props.name} <tspan fill={valueColor}>{this.props.value}</tspan> <tspan fontSize="12px"> {this.props.unit}</tspan></text> */}
+                    {/* Header */}
+                    <text x="40" y="28" fontFamily="sans-serif" fontSize="0.9em" fill="#333">{this.props.name} <tspan fill={valueColor}>{this.props.value}</tspan> <tspan fontSize="12px"> {this.props.unit}</tspan></text> 
 
-                {/*Main line*/}
-                <line x1={lineStartXPixels} y1="50" x2={lineStartXPixels + lineLengthPixels} y2="50" stroke="#000" strokeWidth="0.5"  />
+                    {/*Main line*/}
+                    <line x1={lineStartXPixels} y1="50" x2={lineStartXPixels + lineLengthPixels} y2="50" stroke="#000" strokeWidth="0.5"  />
 
-                {/*Lower value tick*/}
-                <line x1={lineStartXPixels} y1="40" x2={lineStartXPixels} y2="60" stroke="#000" strokeWidth="0.5"  />
-                <text x={lineStartXPixels - 20} y="75" fontFamily="sans-serif" fontSize="12px" fill="#333">{this.props.lowerValue} {this.props.unit}</text>
+                    {/*Lower value tick*/}
+                    <line x1={lineStartXPixels} y1="40" x2={lineStartXPixels} y2="60" stroke="#000" strokeWidth="0.5"  />
+                    <text x={lineStartXPixels - 20} y="75" fontFamily="sans-serif" fontSize="12px" fill="#333">{this.props.lowerValue} {this.props.unit}</text>
 
-                {/*Upper value tick*/}
-                <line x1={lineStartXPixels + lineLengthPixels} y1="40" x2={lineStartXPixels + lineLengthPixels} y2="60" stroke="#000" strokeWidth="0.5"  />
-                <text x={lineStartXPixels + lineLengthPixels - 20} y="75" fontFamily="sans-serif" fontSize="12px" fill="#333">{this.props.upperValue} {this.props.unit}</text>
+                    {/*Upper value tick*/}
+                    <line x1={lineStartXPixels + lineLengthPixels} y1="40" x2={lineStartXPixels + lineLengthPixels} y2="60" stroke="#000" strokeWidth="0.5"  />
+                    <text x={lineStartXPixels + lineLengthPixels - 20} y="75" fontFamily="sans-serif" fontSize="12px" fill="#333">{this.props.upperValue} {this.props.unit}</text>
 
-                {/*Typical value tick*/}
-                {svgForTypicalTick1}
-                {svgForTypicalTick2}
-                
-                {/*Data point for the value*/}
-                {svgForDataPoint}
-            </svg>
-        );
+                    {/*Typical value tick*/}
+                    {svgForTypicalTick1}
+                    {svgForTypicalTick2}
+                    
+                    {/*Data point for the value*/}
+                    {svgForDataPoint}
+                </svg>
+            );
+        } else {
+            return (
+                <div>
+                    <div className='medication-title'>
+                        {this.props.name + " " + this.props.value + " " + this.props.unit}
+                    </div>
+                    <svg width="100%" height="6em" viewBox="0 0 280 100">
+
+                        {/* Header
+                         <text x="40" y="28" fontFamily="sans-serif" fontSize="0.9em" fill="#333">{this.props.name} <tspan fill={valueColor}>{this.props.value}</tspan> <tspan fontSize="12px"> {this.props.unit}</tspan></text>  */}
+
+                        {/*Main line*/}
+                        <line x1={lineStartXPixels} y1="50" x2={lineStartXPixels + lineLengthPixels} y2="50" stroke="#000" strokeWidth="0.5" />
+
+                        {/*Lower value tick*/}
+                        <line x1={lineStartXPixels} y1="40" x2={lineStartXPixels} y2="60" stroke="#000" strokeWidth="0.5" />
+                        <text x={lineStartXPixels - 20} y="75" fontFamily="sans-serif" fontSize="12px" fill="#333">{this.props.lowerValue} {this.props.unit}</text>
+
+                        {/*Upper value tick*/}
+                        <line x1={lineStartXPixels + lineLengthPixels} y1="40" x2={lineStartXPixels + lineLengthPixels} y2="60" stroke="#000" strokeWidth="0.5" />
+                        <text x={lineStartXPixels + lineLengthPixels - 20} y="75" fontFamily="sans-serif" fontSize="12px" fill="#333">{this.props.upperValue} {this.props.unit}</text>
+
+                        {/*Typical value tick*/}
+                        {svgForTypicalTick1}
+                        {svgForTypicalTick2}
+
+                        {/*Data point for the value*/}
+                        {svgForDataPoint}
+                    </svg>
+                </div>
+            );
+        }
     }
 }
 

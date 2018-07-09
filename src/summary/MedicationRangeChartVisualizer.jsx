@@ -11,7 +11,7 @@ import './MedicationRangeChartVisualizer.css';
 class MedicationRangeChartVisualizer extends Component {
     constructor(props) {
         super(props);
-
+        
         this.updateState = true;
 
         this.state = { medicationVisWide: true };
@@ -74,16 +74,24 @@ class MedicationRangeChartVisualizer extends Component {
         return rows;
     }
 
-    renderMedicationChange = (medChange, medBefore) => {
-
+    renderMedicationChange = (medChange, medBefore) => {     
         // If the medication change type is "stop", change how the medication change string is displayed
+        let medChangeClassName = "";
+       
+        // Wide view has different stylings for the medication change
+        if (this.props.isWide) {
+            medChangeClassName = "medication-change-wide";
+        } else {
+            medChangeClassName = "medication-change";
+        }
+
         if (medChange.type === "stop") {
             let medChangeTypeSigned = "medication-change-type";
             if (medChange.unsigned) medChangeTypeSigned = "medication-change-type-unsigned";
             return (
-                <Row center="xs">
-                    <Col xs={12} className="medication-change">
-                        <span className={medChangeTypeSigned}>
+                <Row top="xs">
+                    <Col xs={13} className={medChangeClassName}>
+                        <span className='medication-change-type'>
                             {this.stringForMedicationChangeType(medChange.type)}
                         </span>
                         <span className='medication-change-date'>
@@ -97,8 +105,8 @@ class MedicationRangeChartVisualizer extends Component {
             );
         } else {
             return (
-                <Row center="xs">
-                    <Col xs={12} className="medication-change">
+                <Row top="xs">
+                    <Col sm={0} className={medChangeClassName}>
                         <span className='medication-change-type'>
                             {this.stringForMedicationChangeType(medChange.type)}
                         </span>
@@ -172,6 +180,7 @@ class MedicationRangeChartVisualizer extends Component {
     }
 
     renderMedication = (med, i) => {
+        
         // Grab range values based on medication
         let rangeValues = MedicationInformationService.getRangeValues(med.medication.code, (med.medication.amountPerDose ? med.medication.amountPerDose.units : null));
 
@@ -188,6 +197,7 @@ class MedicationRangeChartVisualizer extends Component {
         const numColsInfo = this.state.medicationVisWide ? 7 : 12;
         const medicationIsChange = (med.medicationChange ? true : false);
 
+
         // If there is a medication change and it is of type "stop", don't render the medication chart or the table
         if (med.medicationChange && med.medicationChange.type === 'stop') {
             return (
@@ -201,9 +211,9 @@ class MedicationRangeChartVisualizer extends Component {
                                     </svg>                                
                                     
                                 </div> */}
-                                <div className='medication-title'>
+                                {/* <div className='medication-title'>
                                             {name}
-                                </div>
+                                </div> */}
                             </Col>
                             <Col sm={numColsInfo}>
                                 {medicationIsChange ? this.renderMedicationChange(med.medicationChange, med.medicationChange.medBeforeChange) : null}                            
@@ -218,9 +228,6 @@ class MedicationRangeChartVisualizer extends Component {
                     <Grid className="FullApp-content" fluid>
                         <Row top="xs">
                             <Col sm={numColsChart}>
-                            <div className='medication-title'>
-                                            {name + " " + value + " " + unit}
-                            </div>
                                 <div className="range-chart-container">                                    
                                     <RangeChart
                                         lowerValue={lowerValue}
