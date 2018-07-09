@@ -77,7 +77,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 	// Extracts the fully-formed phrase for an NLP shortcut if there is one, else return nothing
 	function extractNLPHashtagFullPhrase(editorState, editor, nlpShortcut) { 
 		// Find the sentence that contains the NLP hashtag
-		const nodes = getSentenceContainingNLPHashtag(editorState, nlpShortcut)
+		const textRepresentation = getSentenceContainingNLPHashtag(editorState, nlpShortcut)
 		// Check if that sentence contains a stopCharacter followed by a finishedTokenSymbol
 		const matches = textRepresentation.match(endOfSentenceRegexp);
 		if (matches) { 
@@ -89,7 +89,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 	function addNLPContentToEditor(data) { 
 		// Placeholder - perform some changes on the editor.
 		const editorValue = getEditorValue();
-		const transformedEditorValue = getEditorValue().transform().insertText('this is like adding NLP shit righT?').apply()
+		const transformedEditorValue = getEditorValue().transform().insertText('Example of inserted NLP text?').apply()
 		setEditorValue(transformedEditorValue)
 	}
 
@@ -119,9 +119,6 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 				(error) => {
 					isFetching = false;
 					console.log('error in request here -- expected')
-					console.log('NLPHashtagPhrase')
-					console.log(NLPHashtagPhrase)
-					console.log(getEditorValue().texts)
 					addNLPContentToEditor(error);
 				}
 			);
@@ -131,10 +128,8 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 	function onChange (editorState, editor) {
 		// Check the structuredFieldMapManager for NLP Hashtags 
 		const nlpShortcut = getNLPHashtag()
-		console.log(nlpShortcut)
 		// is there an nlp hashtag?
-		if (!Lang.isUndefined(nlpShortcut)) { 
-			console.log('contains NLP hashtag')
+		if (!Lang.isUndefined(nlpShortcut)) {
 			// Pull out NLP hashtag phrase if there is one
 			const NLPHashtagPhrase = extractNLPHashtagFullPhrase(editorState, editor, nlpShortcut)
 			// is there a stopCharacter followed by a finishedTokenSymbol
