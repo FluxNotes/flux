@@ -18,50 +18,71 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 	const getEditorValue = opts.getEditorValue;
 	const setEditorValue = opts.setEditorValue;
 	const stopCharacters = [
-		'.',
-		'?',
+		'\\.',
+		'\\?',
 		'!',
 	]
 	const phraseDelimiters = [
-		'\s',
-		'\r',
-		'\n',
+		'\\s',
+		'\\r',
+		'\\n',
 	]
+	const endOfSentenceRegexp = new RegExp(`(.*)(${stopCharacters.join('|')})(${phraseDelimiters.join('|')})`, 'i')
 
 	// Retur
-	function containsNLPHashtag() { 
+	function getNLPHashtag() { 
 		// Check the activeContexts for anything that is an instance of NLPHashtag
-		return Collection.some(contextManager.getActiveContexts(), ((shortcut, i) => {
+		return Collection.find(contextManager.getActiveContexts(), ((shortcut, i) => {
 			return shortcutManager.isShortcutInstanceOfNLPHashtag(shortcut);	
 		}))
 	} 
+
+	function getSentenceContainingNLPHashtag(editorState, nlpShortcut) { 
+		// Get the current block 
+		const curBlock = editorState.startBlock;
+		const nodesFollowingNLPShortcut = [];
+		let seenNLPShortcut = false;
+		// For every node of that block: 
+		for (const node of curBlock.nodes) {
+			// if key === shortcut.key, or if a previous key matched, accumulate this nodes
+			if (node.key === nlpShortcut.key || seenNLPShortcut) { 
+				seenNLPShortcut = true;
+				nodesFollowingNLPShortcut.push(node.toJSON())
+			}
+		}
+		// return all accumulated nodes
+		return nodesFollowingNLPShortcut
+	}
+
+	function convertToText (nodes) { 
+		let resultText = "";
+		nodes.forEach((node) => { 
+			if (node.type === 'structured_field') {
+				let shortcut = node.data.shortcut;
+                resultText += shortcut.getResultText();
+			} else if (node.characters && node.characters.length > 0) {
+				node.characters.forEach(char => {
+					resultText += char.text;
+				});
+			} else { 
+				//nothing
+				console.error(`Do not currently handle a case for type: ${node.type}`)
+			}
+		})
+		return resultText
+	}
 	
 	// Extracts a NLP hashtag 
-	function extractNLPHashtagFullPhrase(editorValue) { 
+	function extractNLPHashtagFullPhrase(editorState, editor, nlpShortcut) { 
+		
 		// Find the sentence that contains the NLP hashtag
+		const nodes = getSentenceContainingNLPHashtag(editorState, nlpShortcut)
+		const textRepresentation = convertToText(nodes)
 		// Check if that sentence contains a stopCharacter followed by a finishedTokenSymbol
-		// If so: 
-		// 	return a sliced string starting at NLP hashtag and ending at stopcharacter followed by finishedTokenSymbol
-		// Else: 
-		// 	return nothing
- 
-
-		// Given a list of singleHastagKeywordShortcut key:shortcut mappings, editor state and current text-node key,
-		// Filter our mappings to only shorcuts who are directly next to our current text-node  
-		// return listOfSingleHashtagKeywordShortcutMappings.filter((mapping) => {
-		// 	let closestBlock;
-
-		// 	// Added try catch statement to catch error when adding template after SingleHashtagKeyword shortcut
-		// 	// returns false to filter out if error occurs
-		// 	try {
-		// 		closestBlock = state.document.getClosestBlock(Object.keys(mapping)[0]);
-		// 	} catch (error) {
-		// 		return false;
-		// 	}
-
-		// 	// We want to get the closest block to the keyword's 
-		// 	return closestBlock.key === currentNodeKey;
-		// });
+		const matches = textRepresentation.match(endOfSentenceRegexp);
+		if (matches) { 
+			return matches[0]
+		} 
 	}
 
 	// Performs the transformations to the editor based on the return data
@@ -107,15 +128,18 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 	}
 	
 	// Everytime a change is made to the editor, check to see if NLP should be parsed
-	function onChange (change) {
+	function onChange (editorState, editor) {
 		// Check the structuredFieldMapManager for NLP Hashtags 
-		if (containsNLPHashtag()) { 
+		const nlpShortcut = getNLPHashtag()
+		console.log(nlpShortcut)
+		// is there an nlp hashtag?
+		if (!Lang.isUndefined(nlpShortcut)) { 
 			console.log('contains NLP hashtag')
 			// Pull out NLP hashtag phrase if there is one
-			const NLPHashtagPhrase = extractNLPHashtagFullPhrase(change.value)
+			const NLPHashtagPhrase = extractNLPHashtagFullPhrase(editorState, editor, nlpShortcut)
+			// is there a stopCharacter followed by a finishedTokenSymbol
 			if (!Lang.isUndefined(NLPHashtagPhrase)) { 
-				// send this data somewhere 
-				// Somehow make the change after the fact. 
+				// send message out to NLPEndpoint 
 				fetchNLPExtraction(NLPHashtagPhrase)
 			} else { 
 				return
@@ -123,16 +147,6 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		} else { 
 			return
 		}
-		// is there an nlp hashtag?
-		// yes: 
-		// 	  is there a stopCharacter followed by a finishedTokenSymbol
-		// 	  yes: 
-		// 		  send that slice of text off to be processed -- promise
-		// 		  once promise is fufilled, invoke a change on the editor based on the promise's return value.
-		//	  no: 
-		//		  nothing to do
-		// no: 
-		//	  exit -- no change to make
 	}
 
 	return {
