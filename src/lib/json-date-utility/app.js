@@ -26,7 +26,9 @@ const patientEntries = JSON.parse(fs.readFileSync(input, 'utf8'));
 
 const duration = moment.duration(deltaYears, 'y');
 patientEntries.forEach((entry, i) => {
+    // flatten each entry to have only one level of properties
     const flattenedEntry = flatten(entry);
+    let change = false;
 
     for (const key in flattenedEntry) {
         const value = flattenedEntry[key];
@@ -39,6 +41,7 @@ patientEntries.forEach((entry, i) => {
             // console.log(date.format('DD MMM YYYY'));
             // console.log(moment(value, 'DD MMM YYYY', true))
             flattenedEntry[key] = date.format('DD MMM YYYY');
+            change = true;
         } else if(moment(value, 'D MMM YYYY', true).isValid()) {
             // console.log(key)
             // console.log(value)
@@ -46,9 +49,21 @@ patientEntries.forEach((entry, i) => {
             date.add(deltaYears, 'year');
             // console.log(date.format('DD MMM YYYY'));
             flattenedEntry[key] = date.format('DD MMM YYYY');
+            change = true;
+        } else if(moment(value, 'D MMM YYYY HH:mm ZZ', true).isValid()) {
+            // console.log(key)
+            // console.log(value)
+            let date = moment(value, 'D MMM YYYY HH:mm ZZ');
+            date.add(deltaYears, 'year');
+            // console.log(date.format('D MMM YYYY HH:mm ZZ'));
+            flattenedEntry[key] = date.format('D MMM YYYY HH:mm ZZ');
+            change = true;
         }
     }
 
-    patientEntries[i] = flatten.unflatten(flattenedEntry);
+    // unflatten entry
+    if (change) {
+        patientEntries[i] = flatten.unflatten(flattenedEntry);
+    }
 });
 console.log(JSON.stringify(patientEntries));
