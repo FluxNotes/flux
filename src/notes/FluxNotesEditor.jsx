@@ -432,6 +432,10 @@ class FluxNotesEditor extends React.Component {
             // save note after documentText gets set
             this.props.saveNoteOnChange();
         });    
+        console.log('----------')
+        console.log(change)
+        console.log(change.history)
+        console.log('----------')
         this.adjustActiveContexts(editorValue.selection, editorValue);
         this.setState({
             editorValue: editorValue

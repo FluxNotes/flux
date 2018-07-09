@@ -73,6 +73,7 @@ function StructuredFieldPlugin(opts) {
         
         // Create a fake selection so that we can add an encoded copy of the
         // fragment to the HTML, to decode on future pastes.
+        // FLUX CHANGE
         const encoded = window.btoa(window.encodeURIComponent(fragment));
         // console.log(encoded)
         const range = native.getRangeAt(0)
@@ -80,7 +81,7 @@ function StructuredFieldPlugin(opts) {
         let attach = contents.childNodes[0]
                 
         // Make sure attach is a non-empty node, since empty nodes will not get copied
-        Array.from(contents.childNodes).forEach(node => {
+        contents.childNodes.forEach(node => {
             if (node.textContent && node.textContent.trim() !== '') {
                 attach = node
             }
@@ -108,7 +109,7 @@ function StructuredFieldPlugin(opts) {
         // show up elsewhere when pasted.
         const ZERO_WIDTH_ATTRIBUTE = 'data-slate-zero-width'
         const ZERO_WIDTH_SELECTOR = `[${ZERO_WIDTH_ATTRIBUTE}]`
-        ;[].slice.call(Array.from(contents.querySelectorAll(ZERO_WIDTH_SELECTOR))).forEach(zw => {
+        ;[].slice.call(contents.querySelectorAll(ZERO_WIDTH_SELECTOR)).forEach(zw => {
             const isNewline = zw.getAttribute(ZERO_WIDTH_ATTRIBUTE) === 'n'
             zw.textContent = isNewline ? '\n' : ''
         })
@@ -128,6 +129,7 @@ function StructuredFieldPlugin(opts) {
             attach = span
         }
         
+        // FLUX CHANGE
         attach.setAttribute('flux-string', encoded)
         
         // Add the phony content to a div element. This is needed to copy the
@@ -138,15 +140,11 @@ function StructuredFieldPlugin(opts) {
         // For browsers supporting it, we set the clipboard registers manually,
         // since the result is more predictable.
         if (event.clipboardData && event.clipboardData.setData && !IS_IE) {
-          try { 
-              event.preventDefault()
-              event.clipboardData.setData('text/plain', div.textContent)
-              event.clipboardData.setData('application/x-slate-fragment', encoded)
-              event.clipboardData.setData('text/html', div.innerHTML)
-              return
-            } catch (err) { 
-                // IE will fail on setData for types other than 'text' and 'url'
-            }
+            event.preventDefault()
+            event.clipboardData.setData('text/plain', div.textContent)
+            event.clipboardData.setData('application/x-slate-fragment', encoded)
+            event.clipboardData.setData('text/html', div.innerHTML)
+            return
         }
         
         // COMPAT: For browser that don't support the Clipboard API's setData method,

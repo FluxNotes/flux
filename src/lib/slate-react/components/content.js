@@ -139,7 +139,7 @@ class Content extends React.Component {
    */
 
   updateSelection = () => {
-    console.log('updateSelection being called')
+    // console.log('updateSelection being called')
     const { editor } = this.props
     const { value } = editor
     const { selection } = value
@@ -160,7 +160,6 @@ class Content extends React.Component {
       debug('updateSelection', { selection, native })
       return
     }
-    console.log('selection is Not blurred')
     // If the selection isn't set, do nothing.
     if (selection.isUnset) return
     
@@ -174,9 +173,7 @@ class Content extends React.Component {
         { selection }
       )
       return
-    }
-    console.log('not range')
-    
+    }    
     const { startContainer, startOffset, endContainer, endOffset } = range
     
     // If the new range matches the current selection, there is nothing to fix.
@@ -184,7 +181,6 @@ class Content extends React.Component {
     // last in the DOM. It has no concept of "backwards/forwards", so we have
     // to check both orientations here. (2017/10/31)
     if (current) {
-      console.log('--- is current')
       if (
         (startContainer == current.startContainer &&
           startOffset == current.startOffset &&
@@ -198,7 +194,6 @@ class Content extends React.Component {
         return
       }
     }
-    console.log('not current')
     
     // Otherwise, set the `isUpdatingSelection` flag and update the selection.
     this.tmp.isUpdatingSelection = true
@@ -226,7 +221,6 @@ class Content extends React.Component {
     } else {
       // COMPAT: IE 11 does not support Selection.extend, fallback to addRange
       native.addRange(range)
-      console.log('adding range')
     }
 
     // Scroll to the selection, in case it's out of view.
@@ -298,21 +292,15 @@ class Content extends React.Component {
     // already up to date, but we do want to update the native selection again
     // to make sure it is in sync. (2017/10/16)
     if (handler == 'onSelect') {
-      console.log('handleOnSelectt')
+      // console.log('handleOnSelectt')
       const { editor } = this.props
       const { value } = editor
-      console.log(value)
       const { selection } = value
-      console.log(selection)
       const window = getWindow(event.target)
-      console.log(window)
       const native = window.getSelection()
-      console.log(native)
       const range = findRange(native, value)
-      console.log(range)
       
       if (range && range.equals(selection)) {
-        console.log('calling update selection')
         this.updateSelection()
         return
       }
