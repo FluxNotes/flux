@@ -29,7 +29,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 	]
 	const endOfSentenceRegexp = new RegExp(`(.*)(${stopCharacters.join('|')})(${phraseDelimiters.join('|')})`, 'i')
 
-	// Retur
+	// Return the NLP hasgtag if there is one, else return nothing
 	function getNLPHashtag() { 
 		// Check the activeContexts for anything that is an instance of NLPHashtag
 		return Collection.find(contextManager.getActiveContexts(), ((shortcut, i) => {
@@ -37,6 +37,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		}))
 	} 
 
+	// Get a text representation of the sentence with the NLP hashtag
 	function getSentenceContainingNLPHashtag(editorState, nlpShortcut) { 
 		// Get the current block 
 		const curBlock = editorState.startBlock;
@@ -50,10 +51,12 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 				nodesFollowingNLPShortcut.push(node.toJSON())
 			}
 		}
-		// return all accumulated nodes
-		return nodesFollowingNLPShortcut
+		// return all accumulated nodes converted to text
+		return convertToText(nodesFollowingNLPShortcut)
+
 	}
 
+	// Given a list of Slate nodes, convert them to text
 	function convertToText (nodes) { 
 		let resultText = "";
 		nodes.forEach((node) => { 
@@ -65,19 +68,16 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 					resultText += char.text;
 				});
 			} else { 
-				//nothing
 				console.error(`Do not currently handle a case for type: ${node.type}`)
 			}
 		})
 		return resultText
 	}
 	
-	// Extracts a NLP hashtag 
+	// Extracts the fully-formed phrase for an NLP shortcut if there is one, else return nothing
 	function extractNLPHashtagFullPhrase(editorState, editor, nlpShortcut) { 
-		
 		// Find the sentence that contains the NLP hashtag
 		const nodes = getSentenceContainingNLPHashtag(editorState, nlpShortcut)
-		const textRepresentation = convertToText(nodes)
 		// Check if that sentence contains a stopCharacter followed by a finishedTokenSymbol
 		const matches = textRepresentation.match(endOfSentenceRegexp);
 		if (matches) { 
@@ -87,7 +87,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 
 	// Performs the transformations to the editor based on the return data
 	function addNLPContentToEditor(data) { 
-		// perform some changes on the editor.
+		// Placeholder - perform some changes on the editor.
 		const editorValue = getEditorValue();
 		const transformedEditorValue = getEditorValue().transform().insertText('this is like adding NLP shit righT?').apply()
 		setEditorValue(transformedEditorValue)
@@ -97,7 +97,6 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 	// Define a flag here so we don't send multiple requests while we're just waiting for a return value.
 	let isFetching = false
 	function fetchNLPExtraction(NLPHashtagPhrase) { 
-		// fetch(`${API_ENDPOINT}?foo=${encodeURIComponent(data.foo)}&bar=${encodeURIComponent(data.bar)}`)
 		if (isFetching) {
 			console.log('already fetching')
 			return
@@ -105,6 +104,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		// Else, we want to fetch data
 		isFetching = true;
 		console.log('call to fetchNLPExtraction')
+		// fetch(`${API_ENDPOINT}?foo=${encodeURIComponent(data.foo)}&bar=${encodeURIComponent(data.bar)}`)
 		fetch(`${API_ENDPOINT}`)
 			.then((res) => res.json())
 			.then(
@@ -151,10 +151,6 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 
 	return {
 		onChange,
-		
-        utils: {
-			// replaceAllRelevantKeywordsInBlock: replaceAllRelevantKeywordsInBlock
-        },
     };
 }
 
