@@ -79,11 +79,12 @@ class RangeChart extends Component {
             svgForTypicalTick2 = <text x={typicalValueXPixels - 15} y="75" fontFamily="sans-serif" fontSize="12px" fill="#333">{this.props.typicalValue} {this.props.unit}</text>;
         }
         if (Lang.isNull(this.props.name)) {
+            console.log("name is null");
             return (
                 <svg width="100%" height="6em" viewBox="0 0 300 50">
 
-                    {/* Header */}
-                    <text x="40" y="28" fontFamily="sans-serif" fontSize="0.9em" fill="#333">{this.props.name} <tspan fill={valueColor}>{this.props.value}</tspan> <tspan fontSize="12px"> {this.props.unit}</tspan></text> 
+                    {/* Header
+                    <text x="40" y="28" fontFamily="sans-serif" fontSize="0.9em" fill="#333">{this.props.name} <tspan fill={valueColor}>{this.props.value}</tspan> <tspan fontSize="12px"> {this.props.unit}</tspan></text>  */}
 
                     {/*Main line*/}
                     <line x1={lineStartXPixels} y1="50" x2={lineStartXPixels + lineLengthPixels} y2="50" stroke="#000" strokeWidth="0.5"  />
@@ -107,9 +108,6 @@ class RangeChart extends Component {
         } else {
             return (
                 <div>
-                    <div className='medication-title'>
-                        {this.props.name + " " + this.props.value + " " + this.props.unit}
-                    </div>
                     <svg width="100%" height="6em" viewBox="0 0 280 100">
 
                         {/* Header
