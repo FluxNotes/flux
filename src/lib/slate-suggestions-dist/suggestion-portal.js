@@ -73,7 +73,11 @@ class SuggestionPortal extends React.Component {
     }
 
     // Use new key-presses to update the current suggestion
-    onKeyDown = (keyCode, data) => {
+    onKeyDown = (event) => {
+        // Adjust position every keypress
+        this.adjustPosition()
+        // Handles browsers that use either keyCode or which, and handles case where which === 0 and triggers false neg in 1st case.
+        const keyCode = event.which || event.keyCode || 0;
         if (keyCode === DOWN_ARROW_KEY || keyCode === UP_ARROW_KEY) {
             const height = this.refs.suggestionPortal.offsetHeight;
             const numberOfElementsVisible = Math.floor(height/32);
@@ -88,7 +92,7 @@ class SuggestionPortal extends React.Component {
             this.refs.suggestionPortal.scrollTop = (newIndex - (numberOfElementsVisible - 1)) * 32 + 10;
         } else {
             // Else, determine character and update suggestions accordingly
-            const newFilteredSuggestions  = this.getFilteredSuggestions(data);
+            const newFilteredSuggestions  = this.getFilteredSuggestions(event);
             this.setSelectedIndex(0)
             if (typeof newFilteredSuggestions.then === 'function') {
                 newFilteredSuggestions.then(newFilteredSuggestions => {
@@ -147,7 +151,7 @@ class SuggestionPortal extends React.Component {
     }
 
     // Filter suggestions based on incoming data 
-    getFilteredSuggestions = (incomingData) => {
+    getFilteredSuggestions = (event) => {
         const { suggestions, state, capture, resultSize, trigger } = this.props
 
         if (!state.selection.anchorKey) return [];
@@ -156,9 +160,9 @@ class SuggestionPortal extends React.Component {
 
         let nextChar = "";
         // If there is incoming data from a keydown, include that as next char
-        if (incomingData !== undefined) { 
-            nextChar = this.convertSlateDataObjectToCharacter(incomingData);
-            if (nextChar == null) return [];
+        if (event !== undefined) { 
+            nextChar = this.convertEventToCharacter(event);
+            if (nextChar === null) return [];
         }
 
         // Put together newText based on nextCharacter; change offset if char is -
@@ -202,9 +206,9 @@ class SuggestionPortal extends React.Component {
     }
 
     // Turn event data into characters to match against
-    convertSlateDataObjectToCharacter = (data) => {
-        const code = data.code;
-        const isShift = data.isShift;
+    convertEventToCharacter = (event) => {
+        const code = event.which || event.keyCode || 0;
+        const isShift = event.shiftKey;
         if (code === 8) return "backspace";
         if (code < 48) return null;
         if (code < 58) { // number keys
