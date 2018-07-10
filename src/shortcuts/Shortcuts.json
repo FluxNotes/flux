@@ -480,6 +480,7 @@
   { "type": "NLPHashtag",
     "id": "NLPToxicityCreator",
     "name": "nlptoxicity",
+    "endpointName": "toxicity", 
     "getData": null,
     "valueObject": "http://standardhealthrecord.org/spec/shr/adverse/ToxicReaction",
     "valueObjectAttributes": [  {"name":"grade", "attribute":"adverseEventGrade", "isSettable":"true", "setMethod": "adverseEventGrade", "childShortcut": "NLPToxicityGradeCreator"},
