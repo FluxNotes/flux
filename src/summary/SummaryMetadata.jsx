@@ -883,7 +883,7 @@ export default class SummaryMetadata {
 
         // For every medication in meds, create a new medToVisualize object that has the medication object and a medicationChange object
         let medsToVisualize = meds.map((med) => {
-           return {
+            return {
                 "medication": med,
                 "medicationChange": null
             };
@@ -927,14 +927,14 @@ export default class SummaryMetadata {
 
                 const clinicalNoteRefId = change.entryInfo._sourceClinicalNote._entryId;
                 const clinicalNoteEntry = patient.getEntryById(clinicalNoteRefId);
-                const signedVal = clinicalNoteEntry._signed;
+                const clinicalNoteSigned = clinicalNoteEntry._signed;
 
                 if (medToViz) {
                     medToViz.medicationChange = {
                         type: change.type,
                         date: change.whenChanged,
                         medBeforeChange: medToViz.medication,
-                        signed: signedVal,
+                        signed: clinicalNotesigned,
                     }
                 }
             }

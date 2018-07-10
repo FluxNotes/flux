@@ -74,7 +74,7 @@ class MedicationRangeChartVisualizer extends Component {
         return rows;
     }
 
-    renderMedicationChange = (medChange, medBefore) => {     
+    renderMedicationChange = (medChange, medBefore) => {
 
         // If the medication change type is "stop", change how the medication change string is displayed
         if (medChange.type === "stop") {
@@ -85,15 +85,15 @@ class MedicationRangeChartVisualizer extends Component {
                     <Col xs={12} className="medication-change">
                         <span className={medChangeTypeSigned}>
                             {this.stringForMedicationChangeType(medChange.type)}
-                        </span>                         
+                        </span>
                         <span className='medication-change-date'>
                             {this.stringForMedicationChangeDate(medChange.date)}
-                        </span> 
+                        </span>
                         <span className='medication-change-prior-amount'>
                             {this.stringForMedicationChangePriorAmount(medChange.type, medBefore)}
-                        </span>            
+                        </span>
                     </Col>
-                </Row>  
+                </Row>
             );
         } else {
             return (
@@ -113,7 +113,7 @@ class MedicationRangeChartVisualizer extends Component {
             );
         }
 
-       
+
     }
 
     /**
