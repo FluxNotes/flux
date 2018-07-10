@@ -29,7 +29,7 @@
     font-weight: 700;
 }
 
-span.unsigned-data {
+.medication-change-type-unsigned {
     cursor: pointer;
     border-bottom: 1.5px dashed rgba(1, 130, 215, 0.8);
     text-decoration: none;

@@ -38,8 +38,6 @@ export default class NotesPanel extends Component {
     }
 
     updateSelectedNote = (note) => {
-        console.log("updating selected note: ", note);
-        // NOTE FOR LUCY: selectednote is the note currently being updated
         this.setState({selectedNote: note});
     }
 
@@ -94,7 +92,6 @@ export default class NotesPanel extends Component {
                 isNoteViewerEditable: !note.signed,
                 noteClosed: false
             }, () => {
-                console.log("This is the note", note);
                 const mode = note.signed ? "clinical-notes" : "context-tray";
                 this.setState({
                     selectedNote: note,
@@ -102,7 +99,6 @@ export default class NotesPanel extends Component {
                     noteAssistantMode: mode,
                     currentlyEditingEntryId: parseInt(note.entryInfo.entryId, 10)
                 });
-                console.log("Note after state update", note.content);
                 this.props.setDocumentText(note.content);
                 this.props.setOpenClinicalNote(note);
             });
@@ -119,7 +115,6 @@ export default class NotesPanel extends Component {
 
     // Save the note after every editor change. This function invokes the note saving logic in NoteAssistant
     saveNoteOnChange = () => {
-        console.log("saving note on change");
         this.saveNoteChild();
     }
 
@@ -166,7 +161,6 @@ export default class NotesPanel extends Component {
         // Set signed attribute on the selected note to be true
 
         const tempNote = this.state.selectedNote;
-        //NOTE FOR LUCY: here, the signed boolean for the note is set to true in state
         tempNote.signed = true;
         this.setState({selectedNote: tempNote});
         let inProg = this.props.patient.getInProgressNotes();

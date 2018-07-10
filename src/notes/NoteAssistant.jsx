@@ -142,9 +142,6 @@ export default class NoteAssistant extends Component {
             });
             if (!Lang.isNull(found) && !Lang.isUndefined(found)) {
                 found.content = this.props.documentText;
-                // NOTE FOR LUCY: found.content gives us what we are writing including the div container
-                // found itself is the note basically, inclduing date, and signed
-                // console.log("updateNote in NoteAssistant", found);
                 this.props.patient.updateExistingEntry(found);
                 this.props.updateSelectedNote(found);
             }

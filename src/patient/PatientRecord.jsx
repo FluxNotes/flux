@@ -96,14 +96,11 @@ class PatientRecord {
 
     // Finds an existing entry with the same entryId and replaces it with updatedEntry
     updateExistingEntry(updatedEntry){
-        //NOTE FOR LUCY: this.entries seem to return a list of all the entries
-        console.log("These are our entries:", this.entries);
         var found = this.entries.find(function(element){
             return Lang.isEqual(element.entryInfo.entryId, updatedEntry.entryInfo.entryId);
         });
         if(!Lang.isUndefined(found)){
             var index = this.entries.indexOf(found);
-            //NOTE FOR LUCY: if we do not find this note in what we already have, we will just append this to the end of our list.
             this.entries[index] = updatedEntry;
         }
     }
