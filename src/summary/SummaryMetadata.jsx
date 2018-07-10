@@ -934,7 +934,7 @@ export default class SummaryMetadata {
                         type: change.type,
                         date: change.whenChanged,
                         medBeforeChange: medToViz.medication,
-                        signed: clinicalNotesigned,
+                        signed: clinicalNoteSigned,
                     }
                 }
             }

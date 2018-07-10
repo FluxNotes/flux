@@ -209,12 +209,12 @@ export default class TabularListVisualizer extends Component {
 
         return list.map((item, index) => {
             // Handles case where this method is passed a NameValuePair or other type accidentally, or null
-            if (!Lang.isArray(item) || Lang.isEmpty(item)) {
+            if(!Lang.isArray(item) || Lang.isEmpty(item)){
                 itemClass = "list-missing";
-                item = ["Missing data"];
+                item = [ "Missing data" ];
                 onClick = null;
                 hoverClass = null;
-            } else if (item[0].unsigned) {
+            } else if(item[0].unsigned){
                 rowClass = "list-unsigned";
                 itemClass = "list-unsigned";
                 hoverClass = "list-button-hover";
@@ -223,7 +223,7 @@ export default class TabularListVisualizer extends Component {
                 itemClass = "list-captured";
                 hoverClass = "list-button-hover";
             }
-
+            
             return this.renderedListItem(item.slice(0, numberOfHeadings), subsectionindex, index, rowClass, itemClass, onClick, hoverClass, subsectionName, subsectionActions);
         });
     }
