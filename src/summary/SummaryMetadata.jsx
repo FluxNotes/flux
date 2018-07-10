@@ -891,6 +891,8 @@ export default class SummaryMetadata {
 
         medicationChanges.forEach(change => {
 
+            const clinicalNoteUnsigned = patient.isUnsigned(change);
+
             // If medicationChange has both medicationAfterChange and medicationBeforeChange
             if (change.medicationAfterChange && change.medicationBeforeChange) {
 
@@ -910,7 +912,8 @@ export default class SummaryMetadata {
                         type: change.type,
                         date: change.whenChanged,
                         medBeforeChange: medBeforeChange,
-                        medAfterChange: medToViz.medication
+                        medAfterChange: medToViz.medication,
+                        unsigned: clinicalNoteUnsigned,
                     }
                     // Remove the before-medication from vis
                     medsToVisualize = medsToVisualize.filter((medToVizObject) => {
@@ -925,16 +928,12 @@ export default class SummaryMetadata {
                     return medToVizObject.medication.entryId === medBeforeChangeRef.entryId;
                 });
 
-                const clinicalNoteRefId = change.entryInfo._sourceClinicalNote._entryId;
-                const clinicalNoteEntry = patient.getEntryById(clinicalNoteRefId);
-                const clinicalNoteSigned = clinicalNoteEntry._signed;
-
                 if (medToViz) {
                     medToViz.medicationChange = {
                         type: change.type,
                         date: change.whenChanged,
                         medBeforeChange: medToViz.medication,
-                        signed: clinicalNoteSigned,
+                        unsigned: clinicalNoteUnsigned,
                     }
                 }
             }
