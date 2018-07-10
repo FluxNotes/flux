@@ -20,7 +20,6 @@ class MedicationRangeChartVisualizer extends Component {
     componentDidMount() {
         window.addEventListener("resize", this.checkMedicationWidth);
         setTimeout(this.checkMedicationWidth, 450);
-        // console.log("Props ConditionSection", this.props.conditionSection);
     }
 
     componentDidUpdate = () => {
@@ -69,6 +68,7 @@ class MedicationRangeChartVisualizer extends Component {
     renderedSubsection(subsection, index) {
         const {patient, condition} = this.props;
         const items = subsection.itemsFunction(patient, condition, subsection);
+        
         if (items.length === 0) return <h2 key={index}>None</h2>;
         const rows = items.map((med, i) => this.renderMedication(med, i));
         return rows;
@@ -77,7 +77,6 @@ class MedicationRangeChartVisualizer extends Component {
     renderMedicationChange = (medChange, medBefore) => {     
 
         // If the medication change type is "stop", change how the medication change string is displayed
-        
         if (medChange.type === "stop") {
             let signed = "medication-change-type";
             if (!medChange.signed) signed = "medication-change-type-unsigned";

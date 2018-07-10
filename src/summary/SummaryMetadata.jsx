@@ -880,7 +880,6 @@ export default class SummaryMetadata {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         let meds = patient.getMedicationsForConditionChronologicalOrder(condition);
         const medicationChanges = patient.getMedicationChangesForConditionChronologicalOrder(condition);
-        console.log("Medication Changes", medicationChanges);
 
         // For every medication in meds, create a new medToVisualize object that has the medication object and a medicationChange object
         let medsToVisualize = meds.map((med) => {
@@ -906,13 +905,12 @@ export default class SummaryMetadata {
                     // Add the medBeforeChange to the med, for use in visualization
                     const medBeforeChangeRef = change.medicationBeforeChange.reference;
                     const medBeforeChange = patient.getEntryFromReference(medBeforeChangeRef);
-                    // medAfterChange.medicationBeforeChange = medBeforeChange;
-                
+                    // medAfterChange.medicationBeforeChange = medBeforeChange;              
                     medToViz.medicationChange = {
                         type: change.type,
                         date: change.whenChanged,
                         medBeforeChange: medBeforeChange,
-                        medAfterChange: medToViz.medication,
+                        medAfterChange: medToViz.medication
                     }
                     // Remove the before-medication from vis
                     medsToVisualize = medsToVisualize.filter((medToVizObject) => {
@@ -944,12 +942,6 @@ export default class SummaryMetadata {
 
         // instead of returning meds, return list of medsToVisualize
         return medsToVisualize;
-    }
-
-
-    getSignedValue(input) {
-        console.log("input", input);
-        return true;
     }
 
     getItemListForLabResults = (patient, currentConditionEntry) => {

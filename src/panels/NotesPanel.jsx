@@ -120,7 +120,6 @@ export default class NotesPanel extends Component {
 
     // invokes closing logic in NoteAssistant
     closeNote = () => {
-        console.log("Closed Note");
         this.closeNoteChild();
         this.props.setDocumentText("");
         this.props.setOpenClinicalNote(null);
