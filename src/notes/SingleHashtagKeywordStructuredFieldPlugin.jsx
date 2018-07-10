@@ -38,8 +38,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 	// Given a list of Slate nodes, convert them to text
 	function convertToText (nodes) { 
 		let resultText = "";
-		nodes.forEach((node) => { 
-			console.log(node)
+		nodes.forEach((node) => {
 			if (node.type === 'structured_field') {
 				let shortcut = node.data.shortcut;
                 resultText += shortcut.getResultText();
@@ -60,10 +59,8 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 	function extractSingleHashtagFullPhrase(editorState, curBlock) { 
 		// Find the sentence that contains the NLP hashtag
 		const textRepresentation = convertToText(curBlock.toJSON().nodes)
-		console.log(textRepresentation);
 		// Check if that sentence contains a stopCharacter followed by a finishedTokenSymbol
 		const matches = textRepresentation.match(endOfSentenceRegexp);
-		console.log(matches)
 		if (matches) { 
 			return matches[0]
 		} 
