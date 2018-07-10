@@ -5,13 +5,13 @@ const flatten = require('flat');
 const moment = require('moment');
 
 let input;
-let deltaYears;
+let entryid;
 program
-    .usage('<path-to-patient-json> [options]')
-    .arguments('<path-to-patient-json> <delta>')
-    .action(function (pathToPatientJson, delta) {
+    .usage('<path-to-patient-json> <encounter-entryid>')
+    .arguments('<path-to-patient-json> <encounter-entryid>')
+    .action(function (pathToPatientJson, encounterEntryid) {
         input = pathToPatientJson;
-        deltaYears = delta;
+        entryid = encounterEntryid;
     })
     .parse(process.argv);
 
@@ -23,39 +23,48 @@ if (typeof input === 'undefined') {
 }
 
 const patientEntries = JSON.parse(fs.readFileSync(input, 'utf8'));
+const encounter = patientEntries.find((entry) => {
+    return entry.EntryType.Value === "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested" && entry.EntryId === entryid;
+});
 
-const duration = moment.duration(deltaYears, 'y');
+// Encounter not found in patient entries so exit the program
+if (encounter === undefined) {
+    console.error(`Encounter with entryid ${entryid} not found.`);
+    process.exit(1);
+}
+
+const encounterDate = moment(encounter.ActionContext.ExpectedPerformanceTime.Value, 'D MMM YYYY HH:mm ZZ');
+const today = new moment();
+const deltaDuration = moment.duration(today.diff(encounterDate));
+
 patientEntries.forEach((entry, i) => {
-    // flatten each entry to have only one level of properties
+    // flatten each entry to have only one level of properties to make it easier to traverse
     const flattenedEntry = flatten(entry);
     let change = false;
 
     for (const key in flattenedEntry) {
         const value = flattenedEntry[key];
+
+        /*
+         *  Check for three different formats that dates in patient entries can have
+         *  If a date is found, a delta is added and date on the entry is changed to the new date
+         */
         if (moment(value, 'DD MMM YYYY', true).isValid()) {
-            // console.log(key)
-            // console.log(value);
-            let date = moment(value, 'DD MMM YYYY');
-            // console.log(date.format('DD MMM YYYY'))
-            date.add(deltaYears, 'year');
-            // console.log(date.format('DD MMM YYYY'));
-            // console.log(moment(value, 'DD MMM YYYY', true))
+            const date = moment(value, 'DD MMM YYYY');
+
+            date.add(deltaDuration);
             flattenedEntry[key] = date.format('DD MMM YYYY');
             change = true;
         } else if(moment(value, 'D MMM YYYY', true).isValid()) {
-            // console.log(key)
-            // console.log(value)
-            let date = moment(value, 'D MMM YYYY');
-            date.add(deltaYears, 'year');
-            // console.log(date.format('DD MMM YYYY'));
+            const date = moment(value, 'D MMM YYYY');
+
+            date.add(deltaDuration);
             flattenedEntry[key] = date.format('DD MMM YYYY');
             change = true;
         } else if(moment(value, 'D MMM YYYY HH:mm ZZ', true).isValid()) {
-            // console.log(key)
-            // console.log(value)
-            let date = moment(value, 'D MMM YYYY HH:mm ZZ');
-            date.add(deltaYears, 'year');
-            // console.log(date.format('D MMM YYYY HH:mm ZZ'));
+            const date = moment(value, 'D MMM YYYY HH:mm ZZ');
+
+            date.add(deltaDuration);
             flattenedEntry[key] = date.format('D MMM YYYY HH:mm ZZ');
             change = true;
         }
