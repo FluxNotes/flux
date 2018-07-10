@@ -1,5 +1,5 @@
 .FullApp {
-    min-height: 100vh;
+    max-height: 93vh;
     background-color: #FFFFFF;
     overflow: hidden;
 }
