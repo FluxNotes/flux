@@ -1,5 +1,4 @@
 const fs = require('fs');
-const path = require('path');
 const program = require('commander');
 const flatten = require('flat');
 const moment = require('moment');
@@ -15,7 +14,7 @@ program
     })
     .parse(process.argv);
 
-// Check that input folder is specified
+// Check that input file is specified
 if (typeof input === 'undefined') {
     // print error in red text (\x1b[31m) then reset color back to normal (\x1b[0m)
     console.error('\x1b[31m','Missing path to patient JSON','\x1b[0m');
@@ -34,10 +33,8 @@ if (encounter === undefined) {
 }
 
 // Save backup
-fs.writeFile(`${input}.backup`, JSON.stringify(patientEntries), "utf8", (err) => {
-    if (err) throw err;
-    console.log(`Saved backup JSON file to ${input}.backup`);
-});
+fs.writeFileSync(`${input}.backup`, JSON.stringify(patientEntries, null, 4), "utf8");
+console.log(`Saved backup JSON file to ${input}.backup`);
 
 const encounterDate = moment(encounter.ActionContext.ExpectedPerformanceTime.Value, 'D MMM YYYY HH:mm ZZ');
 const today = new moment();
@@ -82,7 +79,7 @@ patientEntries.forEach((entry, i) => {
     }
 });
 
-const resultJSON = JSON.stringify(patientEntries);
+const resultJSON = JSON.stringify(patientEntries, null, 4);
 fs.writeFile(input, resultJSON, "utf8", (err) => {
     if (err) throw err;
     console.log("DONE");
