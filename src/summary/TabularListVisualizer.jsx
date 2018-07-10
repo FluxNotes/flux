@@ -223,6 +223,7 @@ export default class TabularListVisualizer extends Component {
                 itemClass = "list-captured";
                 hoverClass = "list-button-hover";
             }
+            
             return this.renderedListItem(item.slice(0, numberOfHeadings), subsectionindex, index, rowClass, itemClass, onClick, hoverClass, subsectionName, subsectionActions);
         });
     }
