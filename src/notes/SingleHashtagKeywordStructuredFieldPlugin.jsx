@@ -47,6 +47,9 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 				node.characters.forEach(char => {
 					resultText += char.text;
 				});
+			} else if (Lang.isUndefined(node.type) && node.characters && node.characters.length === 0) {
+				// Zero-width element -- skip
+				continue;
 			} else { 
 				console.error(`Do not currently handle a case for type: ${node.type}`)
 			}
