@@ -1,4 +1,3 @@
-import SingleHashtagKeyword from '../shortcuts/SingleHashtagKeyword'
 import Lang from 'lodash';
 
 function createOpts(opts) {
@@ -12,8 +11,19 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 	const createShortcut = opts.createShortcut;
 	const insertStructuredFieldTransform = opts.insertStructuredFieldTransform;
 	const structuredFieldMapManager = opts.structuredFieldMapManager;
+	const stopCharacters = [
+		'\\.',
+		'\\?',
+		'!',
+	]
+	const phraseDelimiters = [
+		'\\s',
+		'\\r',
+		'\\n',
+	]
+	const endOfSentenceRegexp = new RegExp(`(.*)(${stopCharacters.join('|')})(${phraseDelimiters.join('|')})`, 'i')
 
-	function onBeforeInput (e, data, editorState) { 
+	function onBeforeInput (e, data, editorState, editor) { 
 		// Insert text and replace relevant keywords in results
 		const curTransform  = editorState.transform().insertText(e.data);
 		const curNode = curTransform.state.endBlock;
@@ -24,43 +34,79 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 			return newTransform.apply()
 		}
 	}
+	
+	// Given a list of Slate nodes, convert them to text
+	function convertToText (nodes) { 
+		let resultText = "";
+		nodes.forEach((node) => { 
+			console.log(node)
+			if (node.type === 'structured_field') {
+				let shortcut = node.data.shortcut;
+                resultText += shortcut.getResultText();
+			} else if (node.characters && node.characters.length > 0) {
+				node.characters.forEach(char => {
+					resultText += char.text;
+				});
+			} else { 
+				console.error(`Do not currently handle a case for type: ${node.type}`)
+			}
+		})
+		return resultText
+	}
 
-	function replaceAllRelevantKeywordsInBlock(curNode, curTransform, state) { 
+	// Extracts the fully-formed phrase for an NLP shortcut if there is one, else return nothing
+	function extractSingleHashtagFullPhrase(editorState, curBlock) { 
+		// Find the sentence that contains the NLP hashtag
+		const textRepresentation = convertToText(curBlock.toJSON().nodes)
+		console.log(textRepresentation);
+		// Check if that sentence contains a stopCharacter followed by a finishedTokenSymbol
+		const matches = textRepresentation.match(endOfSentenceRegexp);
+		console.log(matches)
+		if (matches) { 
+			return matches[0]
+		} 
+	}
+
+	function replaceAllRelevantKeywordsInBlock(curNode, curTransform, editorState) { 
 		const listOfSingleHashtagKeywordShortcutMappings = getKeyToActiveSingleHashtagKeywordShortcutMappings();
 		const curKey = curNode.key;
 		// To track if additional operations are done later
 		const startingNumberOfOperations = curTransform.operations.length;
 
 		// get all shortcuts relevant for this block key 
-		const relevantSingleHashtagKeywordMappings = getRelevantSingleHashtagKeywordMappings(listOfSingleHashtagKeywordShortcutMappings, state, curKey)
+		const relevantSingleHashtagKeywordMappings = getRelevantSingleHashtagKeywordMappings(listOfSingleHashtagKeywordShortcutMappings, editorState, curKey)
 		if (relevantSingleHashtagKeywordMappings.length !== 0) {
-			// Get all relevant keywordShortcuts, 
-			const listOfKeywordShortcutClasses = findRelevantKeywordShortcutClasses(listOfSingleHashtagKeywordShortcutMappings).reduce((accumulator, listOfKeywordsForShortcut) => accumulator.concat(listOfKeywordsForShortcut));
-			for (const keywordClass of listOfKeywordShortcutClasses) {
-				// Scan text to find any necessary replacements 
-				const keywords = getKeywordsBasedOnShortcutClass(keywordClass)
-				// Sort keywords based on length -- we want to match longest options first
-				keywords.sort(_sortKeywordByNameLength);
-				const keywordInClosetBlock = scanTextForKeywordObject(curNode.text, keywords)
-				if (!Lang.isUndefined(keywordInClosetBlock)) { 
-					const keywordText = keywordInClosetBlock.name.toLowerCase()
-					const newKeywordShortcut = createShortcut(null, keywordText)
-					// KeywordRange never be null -- we've already confirmed the existance of the keyword
-					let keywordRange;
-					if(curNode.nodes) { 
-						for (const childNode of curNode.nodes){
-							keywordRange = getRangeForKeyword(childNode, keywordText)
-							if (keywordRange) break;
+			// Only scan if this block ends with a endOfSentenceRegexp
+			const sentenceWorthParsing = extractSingleHashtagFullPhrase(editorState, curNode);
+			if (sentenceWorthParsing) { 
+				// Get all relevant keywordShortcuts, 
+				const listOfKeywordShortcutClasses = findRelevantKeywordShortcutClasses(listOfSingleHashtagKeywordShortcutMappings).reduce((accumulator, listOfKeywordsForShortcut) => accumulator.concat(listOfKeywordsForShortcut));
+				for (const keywordClass of listOfKeywordShortcutClasses) {
+					// Scan text to find any necessary replacements 
+					const keywords = getKeywordsBasedOnShortcutClass(keywordClass)
+					// Sort keywords based on length -- we want to match longest options first
+					keywords.sort(_sortKeywordByNameLength);
+					const keywordInClosetBlock = scanTextForKeywordObject(curNode.text, keywords)
+					if (!Lang.isUndefined(keywordInClosetBlock)) {
+						const keywordText = keywordInClosetBlock.name.toLowerCase()
+						const newKeywordShortcut = createShortcut(null, keywordText)
+						// KeywordRange never be null -- we've already confirmed the existance of the keyword
+						let keywordRange;
+						if(curNode.nodes) { 
+							for (const childNode of curNode.nodes){
+								keywordRange = getRangeForKeyword(childNode, keywordText)
+								if (keywordRange) break;
+							}
+						} else {
+							keywordRange = getRangeForKeyword(curNode, keywordText)
 						}
-					} else {
-						keywordRange = getRangeForKeyword(curNode, keywordText)
-					}
-					// Remove keyword from block, using first character as the prefix
-					curTransform = curTransform.select(keywordRange).delete();
-					// Add shortcut to text; update curNode and curText
-					curTransform = insertStructuredFieldTransform(curTransform, newKeywordShortcut)
-					curNode = curTransform.state.endBlock
-				} 
+						// Remove keyword from block, using first character as the prefix
+						curTransform = curTransform.select(keywordRange).delete();
+						// Add shortcut to text; update curNode and curText
+						curTransform = insertStructuredFieldTransform(curTransform, newKeywordShortcut)
+						curNode = curTransform.state.endBlock
+					} 
+				}
 			}
 		}
 		// If operations have been done, put selection at the end of recent insertion
@@ -154,7 +200,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		
 		structuredFieldMapManager.keyToShortcutMap.forEach((shortcut, key, map) => { 
 			// Only list mappings for SingleHashtagKeyword shortcuts
-			if (shortcut instanceof SingleHashtagKeyword) {
+			if (shortcutManager.isShortcutInstanceOfSingleHashtagKeyword(shortcut)) {
 				const mapping = {};
 				mapping[key] = shortcut;
 				listOfSingleHashtagKeywordShortcutMappings.push(mapping)
