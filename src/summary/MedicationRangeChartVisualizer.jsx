@@ -78,12 +78,12 @@ class MedicationRangeChartVisualizer extends Component {
 
         // If the medication change type is "stop", change how the medication change string is displayed
         if (medChange.type === "stop") {
-            let signed = "medication-change-type";
-            if (!medChange.signed) signed = "medication-change-type-unsigned";
+            let medChangeTypeSigned = "medication-change-type";
+            if (!medChange.signed) medChangeTypeSigned = "medication-change-type-unsigned";
             return (
                 <Row center="xs">
                     <Col xs={12} className="medication-change">
-                        <span className={signed}>
+                        <span className={medChangeTypeSigned}>
                             {this.stringForMedicationChangeType(medChange.type)}
                         </span>                         
                         <span className='medication-change-date'>
