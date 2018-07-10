@@ -33,6 +33,12 @@ if (encounter === undefined) {
     process.exit(1);
 }
 
+// Save backup
+fs.writeFile(`${input}.backup`, JSON.stringify(patientEntries), "utf8", (err) => {
+    if (err) throw err;
+    console.log(`Saved backup JSON file to ${input}.backup`);
+});
+
 const encounterDate = moment(encounter.ActionContext.ExpectedPerformanceTime.Value, 'D MMM YYYY HH:mm ZZ');
 const today = new moment();
 const deltaDuration = moment.duration(today.diff(encounterDate));
@@ -75,4 +81,9 @@ patientEntries.forEach((entry, i) => {
         patientEntries[i] = flatten.unflatten(flattenedEntry);
     }
 });
-console.log(JSON.stringify(patientEntries));
+
+const resultJSON = JSON.stringify(patientEntries);
+fs.writeFile(input, resultJSON, "utf8", (err) => {
+    if (err) throw err;
+    console.log("DONE");
+});
