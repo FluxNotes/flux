@@ -9,6 +9,7 @@ export default class NLPHashtag extends Shortcut {
         super();
         this.metadata = metadata;
         this.text = this.getPrefixCharacter() + this.metadata["name"];
+        this.endpointName = this.metadata["endpointName"];
         this.patient = patient;
         if (Lang.isUndefined(shortcutData) || shortcutData.length === 0) {
             this.object = FluxObjectFactory.createInstance({}, this.metadata["valueObject"]);

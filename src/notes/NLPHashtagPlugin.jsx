@@ -1,7 +1,7 @@
 import Lang from 'lodash';
 import Collection from 'lodash';
 
-const API_ENDPOINT = "http://localhost:8000/api"
+const API_ENDPOINT = "http://heliotrope.mitre.org:8551/api/parse_sentence"
 
 function createOpts(opts) {
 	opts = opts || {};
@@ -84,7 +84,6 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		const textRepresentation = getSentenceContainingNLPHashtag(editorState, NLPShortcut)
 		// Check if that sentence contains a stopCharacter followed by a finishedTokenSymbol
 		const matches = textRepresentation.match(endOfSentenceRegexp);
-		console.log(matches[0])
 		if (matches) { 
 			return matches[0]
 		} 
@@ -110,17 +109,14 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		isFetching = true;
 		console.log('call to fetchNLPExtraction')
 		const NLPShortcutName = NLPShortcut.endpointName;
-		console.log('NLPShortcutName')
-		console.log(NLPShortcutName)
-		console.log('NLPHashtagPhrase')
-		console.log(NLPHashtagPhrase)
-		fetch(`${API_ENDPOINT}?foo=${NLPShortcutName}&bar=${NLPHashtagPhrase}`)
+		fetch(`${API_ENDPOINT}?template=${NLPShortcutName}&sentence=${NLPHashtagPhrase}`)
 		// fetch(`${API_ENDPOINT}`)
 			.then((res) => res.json())
 			.then(
 				(data) => { 
+					console.log('successful case here')
 					isFetching = false;
-					console.log('finsihed parsing here');
+					console.log(data);
 					addNLPContentToEditor(data);
 				},
 				// Note: it's important to handle errors here
@@ -129,9 +125,14 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 				(error) => {
 					isFetching = false;
 					console.log('error in request here -- expected')
-					addNLPContentToEditor(error);
+					console.log(error)
+					// addNLPContentToEditor(error);
 				}
-			);
+			)
+			.catch((err) => { 
+				console.log('Catch statement: error is')
+				console.log(err)
+			});
 	}
 	
 	// Everytime a change is made to the editor, check to see if NLP should be parsed
