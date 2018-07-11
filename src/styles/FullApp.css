@@ -1,5 +1,7 @@
 .FullApp {
-    max-height: 93vh;
+    max-height: 96vh;
+    /* min-height: 100vh; */
+    /* padding-bottom: 0.3em; */
     background-color: #FFFFFF;
     overflow: hidden;
 }
