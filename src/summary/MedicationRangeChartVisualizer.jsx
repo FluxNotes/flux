@@ -77,7 +77,7 @@ class MedicationRangeChartVisualizer extends Component {
     renderMedicationInfo = (med) => {
         return (
            <div> 
-            <Row center='xs'>
+            <Row top='xs'>
                 <Col sm={3}>
                     <div className='medication-info-heading'>
                         Route
@@ -164,6 +164,98 @@ class MedicationRangeChartVisualizer extends Component {
 
     }
 
+    renderMedicationNarrowView = (med, i) => {
+        
+        // Grab range values based on medication
+        let rangeValues = MedicationInformationService.getRangeValues(med.medication.code, (med.medication.amountPerDose ? med.medication.amountPerDose.units : null));
+
+        // Set the values needed to render the range chart
+        const lowerValue = rangeValues ? rangeValues.lowerValue : null;
+        const upperValue = rangeValues ? rangeValues.upperValue : null;
+        const typicalValue = rangeValues ? rangeValues.typicalValue : null;
+        // Only want want the number part of the value, not the unit
+        const value = med.medication.amountPerDose ? med.medication.amountPerDose.value : null;
+        const unit = med.medication.amountPerDose ? med.medication.amountPerDose.units : null;
+        const name = med.medication.medication;
+
+        const numColsChart = this.state.medicationVisWide ? 5 : 12;
+        const numColsInfo = this.state.medicationVisWide ? 7 : 12;
+        const medicationIsChange = (med.medicationChange ? true : false);
+
+
+        // If there is a medication change and it is of type "stop", don't render the medication chart or the table
+        if (med.medicationChange && med.medicationChange.type === 'stop') {
+            return (
+                <div key={i} className="medication-chart-item" ref={(parent) => {this.parent = parent}}>
+                    <Grid className="FullApp-content" fluid>
+                    <Row top="xs">
+                            <Col md={6}>
+                                <div className='medication-title'>
+                                    {name + " " + value + " " + unit}
+                                </div>
+                            </Col>
+                    </Row>
+                    <Row top="xs">
+                        <Col xs={8}>
+                            <div className="medication-change-container">
+                                {medicationIsChange ? this.renderMedicationChange(med.medicationChange, med.medicationChange.medBeforeChange) : null}
+                            </div>
+                        </Col>
+                    </Row>
+                    </Grid>
+                </div>
+            );
+        } else {
+            console.log("In narrow view");
+            return (
+                <div key={i} className="medication-chart-item" ref={(parent) => {this.parent = parent}}>
+                    <Grid className="FullApp-content" fluid> 
+                        <Row top="xs">
+                            <Col md={6}>
+                                <div className='medication-title'>
+                                    {name + " " + value + " " + unit}
+                                </div>
+                            </Col>
+                        </Row>
+                        <Row top="xs">
+                            <Col xs={1}>
+                            </Col>
+                                <Col sm={7}>
+                                    <div className="medication-change-container">
+                                        {medicationIsChange ? this.renderMedicationChange(med.medicationChange, med.medicationChange.medBeforeChange) : null}
+                                    </div>
+                            </Col>
+                        </Row>  
+                        <Row top='xs'>
+                            <Col xs={1}>
+                            </Col>
+                            <Col sm={7}>
+                                <div className="range-chart-container">
+                                    <RangeChart
+                                        lowerValue={lowerValue}
+                                        upperValue={upperValue}
+                                        typicalValue={typicalValue}
+                                        value={value}
+                                        unit={unit}
+                                        name={name}
+                                    />
+                                </div>
+                            </Col>
+                        </Row>
+                        <Row top='xs'>
+                            <Col sm={1}>
+                            </Col>
+                                <Col sm={13}>
+                                    <div>
+                                        {this.renderMedicationInfo(med)}
+                                    </div>
+                                </Col>
+                        </Row>
+                    </Grid>
+                </div>
+            );
+        }        
+    }
     /**
      * Formats the medicationChange date for display
      * returns a string for displaying the medChange date
@@ -220,7 +312,10 @@ class MedicationRangeChartVisualizer extends Component {
     }
 
     renderMedication = (med, i) => {
-     
+        if (! this.props.isWide) {
+            return this.renderMedicationNarrowView(med, i);
+        }
+        
         // Grab range values based on medication
         let rangeValues = MedicationInformationService.getRangeValues(med.medication.code, (med.medication.amountPerDose ? med.medication.amountPerDose.units : null));
 
@@ -298,6 +393,8 @@ class MedicationRangeChartVisualizer extends Component {
             );
         }        
     }
+
+    
     
 
     render() {

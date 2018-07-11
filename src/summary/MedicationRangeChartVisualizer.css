@@ -3,7 +3,7 @@
 }
 
 .medication-chart-item {
-    padding: 12px 0;
+    padding: 0px 0; 
 }
 
 .medication-info-heading {
@@ -13,6 +13,7 @@
 
 .medication-info {
     font-size: 0.8em;
+    padding-bottom: 7px;
 }
 
 .range-chart-container {
@@ -23,6 +24,7 @@
 .medication-change { 
     font-size: 12px;
     padding-bottom: 10px;
+    padding-top: 10px;
 }
 
 .medication-change-wide { 
