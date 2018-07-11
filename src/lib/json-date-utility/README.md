@@ -11,11 +11,13 @@ node app.js <path-to-patient-json> <encounter-entryid>
 ```
 
 * The program expects the JSON file provided to be an array of SHR entries.
+* The program will overwrite the file that was passed in and will create a backup using the same path but adding `'.backup'` to the end.
+  * For example, the backup file that will be created for `HardCodedPatientMidYearDemo18.json` will named `HardCodedPatientMidYearDemo18.json.backup`.
 
 For example:
 
 ```bash
-node app.js ../../dataaccess/HardCodePatientMidYearDemo18.json 100
+node app.js ../../dataaccess/HardCodedPatientMidYearDemo18.json 100
 ```
 
 will search the patient entries for an `EncounterRequested` with an `entryid` of 100.  It will then use the `ActionContext.ExpectedPerformanceTime.Value` to calculate the difference to add to the dates.

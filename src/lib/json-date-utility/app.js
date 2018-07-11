@@ -65,10 +65,7 @@ patientEntries.forEach((entry, i) => {
         } else if (moment(value, 'D MMM YYYY HH:mm ZZ', true).isValid()) {
             const date = moment(value, 'D MMM YYYY HH:mm ZZ');
 
-            // Keep encounter time and timezone consistent
-            const oldUtcOffset = date.utcOffset();
-
-            date.utcOffset(oldUtcOffset);
+            // Keep encounter time
             date.add(deltaDuration.asDays(), 'd');
             flattenedEntry[key] = date.format('D MMM YYYY HH:mm ZZ');
             change = true;
