@@ -8,7 +8,7 @@ let entryid;
 program
     .usage('<path-to-patient-json> <encounter-entryid>')
     .arguments('<path-to-patient-json> <encounter-entryid>')
-    .action(function (pathToPatientJson, encounterEntryid) {
+    .action((pathToPatientJson, encounterEntryid) => {
         input = pathToPatientJson;
         entryid = encounterEntryid;
     })
@@ -17,14 +17,12 @@ program
 // Check that input file is specified
 if (typeof input === 'undefined') {
     // print error in red text (\x1b[31m) then reset color back to normal (\x1b[0m)
-    console.error('\x1b[31m','Missing path to patient JSON','\x1b[0m');
+    console.error('\x1b[31m', 'Missing path to patient JSON', '\x1b[0m');
     program.help();
 }
 
 const patientEntries = JSON.parse(fs.readFileSync(input, 'utf8'));
-const encounter = patientEntries.find((entry) => {
-    return entry.EntryType.Value === "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested" && entry.EntryId === entryid;
-});
+const encounter = patientEntries.find(entry => entry.EntryType.Value === 'http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested' && entry.EntryId === entryid);
 
 // Encounter not found in patient entries so exit the program
 if (encounter === undefined) {
@@ -33,11 +31,11 @@ if (encounter === undefined) {
 }
 
 // Save backup
-fs.writeFileSync(`${input}.backup`, JSON.stringify(patientEntries, null, 4), "utf8");
+fs.writeFileSync(`${input}.backup`, JSON.stringify(patientEntries, null, 4), 'utf8');
 console.log(`Saved backup JSON file to ${input}.backup`);
 
 const encounterDate = moment(encounter.ActionContext.ExpectedPerformanceTime.Value, 'D MMM YYYY HH:mm ZZ');
-const today = new moment();
+const today = moment();
 const deltaDuration = moment.duration(today.diff(encounterDate));
 
 patientEntries.forEach((entry, i) => {
@@ -58,13 +56,13 @@ patientEntries.forEach((entry, i) => {
             date.add(deltaDuration);
             flattenedEntry[key] = date.format('DD MMM YYYY');
             change = true;
-        } else if(moment(value, 'D MMM YYYY', true).isValid()) {
+        } else if (moment(value, 'D MMM YYYY', true).isValid()) {
             const date = moment(value, 'D MMM YYYY');
 
             date.add(deltaDuration);
             flattenedEntry[key] = date.format('DD MMM YYYY');
             change = true;
-        } else if(moment(value, 'D MMM YYYY HH:mm ZZ', true).isValid()) {
+        } else if (moment(value, 'D MMM YYYY HH:mm ZZ', true).isValid()) {
             const date = moment(value, 'D MMM YYYY HH:mm ZZ');
             
             // // Keep encounter time and timezone consistent
@@ -84,7 +82,7 @@ patientEntries.forEach((entry, i) => {
 });
 
 const resultJSON = JSON.stringify(patientEntries, null, 4);
-fs.writeFile(input, resultJSON, "utf8", (err) => {
+fs.writeFile(input, resultJSON, 'utf8', (err) => {
     if (err) throw err;
-    console.log("DONE");
+    console.log('DONE');
 });
