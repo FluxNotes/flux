@@ -125,23 +125,27 @@ export default class NoteAssistant extends Component {
 
     // Gets called when clicking on the "new note" button
     handleOnNewNoteButtonClick = () => {
-        this.updateExistingNote();
         this.createBlankNewNote();
     }
 
-    updateExistingNote = () => {
-        this.updateNote(this.props.currentlyEditingEntryId);
+    updateExistingNote = (content) => {
+        this.updateNote(this.props.currentlyEditingEntryId, content);
     }
 
-    updateNote = (entryId) => {
+    updateNote = (entryId, content) => {
+        console.log('update note')
         // Only update if there is a note in progress
         if (!Lang.isEqual(entryId, -1)) {
+            console.log('we have entry')
             // List the notes to verify that they are being updated each invocation of this function:
             var found = this.props.patient.getNotes().find(function (element) {
                 return Lang.isEqual(element.entryInfo.entryId, entryId);
             });
             if (!Lang.isNull(found) && !Lang.isUndefined(found)) {
-                found.content = this.props.documentText;
+                console.log('we  have a note with that id')
+                console.log('content')
+                console.log(content)
+                found.content = content;
                 this.props.patient.updateExistingEntry(found);
                 this.props.updateSelectedNote(found);
             }
@@ -175,10 +179,10 @@ export default class NoteAssistant extends Component {
     }
 
     // save the note after every editor change. Invoked by FluxNotesEditor.
-    saveNoteOnChange = () => {
+    saveNoteOnChange = (content) => {
         // Only save if note is currently open
         if (this.props.currentlyEditingEntryId !== -1) {
-            this.updateExistingNote();
+            this.updateExistingNote(content);
         }
     }
 
@@ -189,9 +193,9 @@ export default class NoteAssistant extends Component {
         this.props.setNoteViewerVisible(true);
 
         // Don't start saving until there is content in the editor
-        if (!Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText) && this.props.documentText.length > 0) {
-            this.updateExistingNote();
-        }
+        // if (!Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText) && this.props.documentText.length > 0) {
+        //     this.updateExistingNote();
+        // }
         this.props.updateCurrentlyEditingEntryId(note.entryInfo.entryId);
         // the lines below are duplicative
         this.props.updateSelectedNote(note);
@@ -284,7 +288,7 @@ export default class NoteAssistant extends Component {
                                 closeNote={this.props.closeNote}
                                 contextManager={this.props.contextManager}
                                 currentViewMode={'pre-encounter'}
-                                documentText={this.props.documentText}
+                                // documentText={this.props.documentText}
                                 errors={this.props.errors}
                                 handleUpdateEditorWithNote={this.props.handleUpdateEditorWithNote}
                                 isNoteViewerEditable={false}
@@ -583,7 +587,7 @@ NoteAssistant.propTypes = {
     contextManager: PropTypes.object.isRequired,
     contextTrayItemToInsert: PropTypes.string,
     deleteSelectedNote: PropTypes.func.isRequired,
-    documentText: PropTypes.string.isRequired,
+    // documentText: PropTypes.string.isRequired,
     handleSummaryItemSelected: PropTypes.func.isRequired,
     handleUpdateArrayOfPickLists: PropTypes.func.isRequired,
     handleUpdateEditorWithNote: PropTypes.func.isRequired,

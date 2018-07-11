@@ -410,6 +410,7 @@ class FluxNotesEditor extends React.Component {
     }
 
     onChange = (change) => {
+        // FIXME: Just used document.nodes instead of creating a whole doc selection
         const editorValue = change.value;
         let indexOfLastNode = editorValue.toJSON().document.nodes.length - 1;
         let endOfNoteKey = editorValue.toJSON().document.nodes[indexOfLastNode].key;
@@ -433,11 +434,9 @@ class FluxNotesEditor extends React.Component {
             endOffset: endOfNoteOffset
         };
         const documentText = this.structuredFieldPlugin.convertToText(editorValue, entireNote);
-
-        this.props.setDocumentTextWithCallback(documentText, () => {
-            // save note after documentText gets set
-            this.props.saveNoteOnChange();
-        });
+        console.log('documentText')
+        console.log(documentText)
+        this.props.saveNoteOnChange(documentText);
 
         this.setState({ editorValue });
     }

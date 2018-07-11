@@ -37,7 +37,7 @@ export default class NotesPanel extends Component {
         this.setState({noteAssistantMode: mode});
     }
 
-    updateSelectedNote = (note) => {
+    updateSelectedNote = (note) => {        
         this.setState({selectedNote: note});
     }
 
@@ -114,8 +114,8 @@ export default class NotesPanel extends Component {
     }
 
     // Save the note after every editor change. This function invokes the note saving logic in NoteAssistant
-    saveNoteOnChange = () => {
-        this.saveNoteChild();
+    saveNoteOnChange = (content) => {
+        this.saveNoteChild(content);
     }
 
     // invokes closing logic in NoteAssistant

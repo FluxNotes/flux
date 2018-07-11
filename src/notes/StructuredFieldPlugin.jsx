@@ -61,10 +61,13 @@ function StructuredFieldPlugin(opts) {
             if (node.type === 'line') {
                 result += `<div>${convertSlateNodesToText(node.nodes)}</div>`;
                 //FIXME: No longerf a Text.characters; now uses something else
-            } else if (node.characters && node.characters.length > 0) {
-                node.characters.forEach(char => {
-                    const inMarksNotLocal = Lang.differenceBy(char.marks, localStyle, 'type');
-                    const inLocalNotMarks = Lang.differenceBy(localStyle, char.marks, 'type');
+            } else if (node.type === getStructuredFieldType()) {
+                let shortcut = node.data.shortcut;
+                result += shortcut.getResultText();
+            } else if (node.object === "text" ) {
+                node.leaves.forEach(leaf => {
+                    const inMarksNotLocal = Lang.differenceBy(leaf.marks, localStyle, 'type');
+                    const inLocalNotMarks = Lang.differenceBy(localStyle, leaf.marks, 'type');
                     if (inMarksNotLocal.length > 0) {
                         inMarksNotLocal.forEach(mark => {
                             result += `<${markToHTMLTag[mark.type]}>`;
@@ -75,8 +78,8 @@ function StructuredFieldPlugin(opts) {
                             result += `</${markToHTMLTag[mark.type]}>`;
                         });
                     }
-                    localStyle = char.marks;
-                    result += char.text;
+                    localStyle = leaf.marks;
+                    result += leaf.text;
                 });
                 if (localStyle.length > 0) {
                     Lang.reverse(localStyle).forEach(mark => {
