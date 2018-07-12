@@ -129,7 +129,6 @@ class MedicationRangeChartVisualizer extends Component {
             let medChangeTypeSigned = "medication-change-type";
             if (medChange.unsigned) medChangeTypeSigned = "medication-change-type-unsigned";
             return (
-                <Row around="xs">
                     <Col xs={13} className={medChangeClassName}>
                         <span className='medication-change-type'>
                             {this.stringForMedicationChangeType(medChange.type)}
@@ -141,11 +140,9 @@ class MedicationRangeChartVisualizer extends Component {
                             {this.stringForMedicationChangePriorAmount(medChange.type, medBefore)}
                         </span>
                     </Col>
-                </Row>
             );
         } else {
             return (
-                <Row around="xs">
                     <Col sm={0} className={medChangeClassName}>
                         <span className='medication-change-type'>
                             {this.stringForMedicationChangeType(medChange.type)}
@@ -157,7 +154,6 @@ class MedicationRangeChartVisualizer extends Component {
                             {this.stringForMedicationChangeDate(medChange.date)}
                         </span>
                     </Col>
-                </Row>
             );
         }
 
@@ -183,53 +179,27 @@ class MedicationRangeChartVisualizer extends Component {
         const medicationIsChange = (med.medicationChange ? true : false);
 
 
-        // If there is a medication change and it is of type "stop", don't render the medication chart or the table
-        if (med.medicationChange && med.medicationChange.type === 'stop') {
-            return (
-                <div key={i} className="medication-chart-item" ref={(parent) => {this.parent = parent}}>
-                    <Grid className="FullApp-content" fluid>
+        return (
+            <div key={i} className="medication-chart-item" ref={(parent) => { this.parent = parent }}>
+                <Grid className="FullApp-content" fluid>
                     <Row top="xs">
-                            <Col md={6}>
-                                <div className='medication-title'>
-                                    {name + " " + value + " " + unit}
-                                </div>
-                            </Col>
+                        <Col around="md" md={8} xs={12}>
+                            <div className='medication-title'>
+                                {name + " " + value + " " + unit}
+                            </div>
+                        </Col>
                     </Row>
                     <Row top="xs">
-                        <Col xs={8}>
+                        <Col sm={7}>
                             <div className="medication-change-container">
                                 {medicationIsChange ? this.renderMedicationChange(med.medicationChange, med.medicationChange.medBeforeChange) : null}
                             </div>
                         </Col>
                     </Row>
-                    </Grid>
-                </div>
-            );
-        } else {
-            console.log("In narrow view");
-            return (
-                <div key={i} className="medication-chart-item" ref={(parent) => {this.parent = parent}}>
-                    <Grid className="FullApp-content" fluid> 
+                    {(med.medicationChange && med.medicationChange.type === 'stop') ? <div /> :
+                    <div>
                         <Row top="xs">
-                            <Col md={6}>
-                                <div className='medication-title'>
-                                    {name + " " + value + " " + unit}
-                                </div>
-                            </Col>
-                        </Row>
-                        <Row top="xs">
-                            <Col xs={1}>
-                            </Col>
-                                <Col sm={7}>
-                                    <div className="medication-change-container">
-                                        {medicationIsChange ? this.renderMedicationChange(med.medicationChange, med.medicationChange.medBeforeChange) : null}
-                                    </div>
-                            </Col>
-                        </Row>  
-                        <Row top='xs'>
-                            <Col xs={1}>
-                            </Col>
-                            <Col sm={7}>
+                            <Col around="sm" sm={7}>
                                 <div className="range-chart-container">
                                     <RangeChart
                                         lowerValue={lowerValue}
@@ -242,20 +212,19 @@ class MedicationRangeChartVisualizer extends Component {
                                 </div>
                             </Col>
                         </Row>
-                        <Row top='xs'>
-                            <Col sm={1}>
+                        <Row around="md" top="md">
+                            <Col around="sm" sm={11}>
+                                <div>
+                                    {this.renderMedicationInfo(med)}
+                                </div>
                             </Col>
-                                <Col sm={13}>
-                                    <div>
-                                        {this.renderMedicationInfo(med)}
-                                    </div>
-                                </Col>
                         </Row>
-                    </Grid>
-                </div>
-            );
-        }        
+                    </div>}
+            </Grid>
+            </div>);
+       
     }
+
     /**
      * Formats the medicationChange date for display
      * returns a string for displaying the medChange date
@@ -315,7 +284,6 @@ class MedicationRangeChartVisualizer extends Component {
         if (! this.props.isWide) {
             return this.renderMedicationNarrowView(med, i);
         }
-        
         // Grab range values based on medication
         let rangeValues = MedicationInformationService.getRangeValues(med.medication.code, (med.medication.amountPerDose ? med.medication.amountPerDose.units : null));
 
@@ -332,43 +300,22 @@ class MedicationRangeChartVisualizer extends Component {
         const numColsInfo = this.state.medicationVisWide ? 7 : 12;
         const medicationIsChange = (med.medicationChange ? true : false);
 
-
-        // If there is a medication change and it is of type "stop", don't render the medication chart or the table
-        if (med.medicationChange && med.medicationChange.type === 'stop') {
-            return (
-                <div key={i} className="medication-chart-item" ref={(parent) => {this.parent = parent}}>
-                    <Grid className="FullApp-content" fluid>
+        return (
+            <div key={i} className="medication-chart-item" ref={(parent) => { this.parent = parent }}>
+                <Grid className="FullApp-content" fluid>
                     <Row top="xs">
-                            <Col md={6}>
-                                <div className='medication-title'>
-                                    {name + " " + value + " " + unit}
-                                </div>
-                            </Col>
-                            <Col md={6}>
-                                <div className="medication-change-container">
-                                    {medicationIsChange ? this.renderMedicationChange(med.medicationChange, med.medicationChange.medBeforeChange) : null}
-                                </div>
-                            </Col>
-                        </Row>
-                    </Grid>
-                </div>
-            );
-        } else {
-            return (
-                <div key={i} className="medication-chart-item" ref={(parent) => {this.parent = parent}}>
-                    <Grid className="FullApp-content" fluid>
-                        <Row top="xs">
-                            <Col md={6}>
-                                <div className='medication-title'>
-                                    {name + " " + value + " " + unit}
-                                </div>
-                            </Col>
-                            <Col md={6}>
-                                <div className="medication-change-container">
-                                    {medicationIsChange ? this.renderMedicationChange(med.medicationChange, med.medicationChange.medBeforeChange) : null}
-                                </div>
-                            </Col>
-                        </Row>
+                        <Col md={6} xs={12}>
+                            <div className='medication-title'>
+                                {name + " " + value + " " + unit}
+                            </div>
+                        </Col>
+                        <Col md={6} xs={12}>
+                            <div className="medication-change-container">
+                                {medicationIsChange ? this.renderMedicationChange(med.medicationChange, med.medicationChange.medBeforeChange) : null}
+                            </div>
+                        </Col>
+                    </Row>
+                    {(med.medicationChange && med.medicationChange.type === 'stop') ? <div /> :
                         <Row around='xs'>
                             <Col md={6}>
                                 <div className="range-chart-container">
@@ -387,12 +334,10 @@ class MedicationRangeChartVisualizer extends Component {
                                     {this.renderMedicationInfo(med)}
                                 </div>
                             </Col>
-                        </Row>
-                    </Grid>
-                </div>
-            );
-        }        
-    }
+                        </Row>}
+            </Grid>
+            </div>)
+}
 
     
     

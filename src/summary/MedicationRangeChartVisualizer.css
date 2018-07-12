@@ -24,12 +24,12 @@
 .medication-change { 
     font-size: 12px;
     padding-bottom: 10px;
-    padding-top: 10px;
 }
 
 .medication-change-wide { 
     font-size: 12px;
-    padding-bottom: 10px;
+    align-self: center;
+    margin: auto;
 }
 
 .medication-change-type{ 
@@ -44,4 +44,9 @@
     cursor: pointer;
     border-bottom: 1.5px dashed rgba(1, 130, 215, 0.8);
     text-decoration: none;
+}
+
+.medication-change-container{
+    padding-bottom: 10px;
+    display: flex;
 }

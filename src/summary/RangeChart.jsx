@@ -108,7 +108,7 @@ class RangeChart extends Component {
         } else {
             return (
                 <div>
-                    <svg width="100%" height="6em" viewBox="0 0 250 110">
+                    <svg width="100%" height="6em" viewBox="0 36 250 100">
 
                         {/* Header
                          <text x="40" y="28" fontFamily="sans-serif" fontSize="0.9em" fill="#333">{this.props.name} <tspan fill={valueColor}>{this.props.value}</tspan> <tspan fontSize="12px"> {this.props.unit}</tspan></text>  */}
