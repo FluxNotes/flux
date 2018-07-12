@@ -883,13 +883,15 @@ export default class SummaryMetadata {
 
         // For every medication in meds, create a new medToVisualize object that has the medication object and a medicationChange object
         let medsToVisualize = meds.map((med) => {
-           return {
+            return {
                 "medication": med,
                 "medicationChange": null
             };
         })
 
         medicationChanges.forEach(change => {
+
+            const clinicalNoteUnsigned = patient.isUnsigned(change);
 
             // If medicationChange has both medicationAfterChange and medicationBeforeChange
             if (change.medicationAfterChange && change.medicationBeforeChange) {
@@ -905,12 +907,13 @@ export default class SummaryMetadata {
                     // Add the medBeforeChange to the med, for use in visualization
                     const medBeforeChangeRef = change.medicationBeforeChange.reference;
                     const medBeforeChange = patient.getEntryFromReference(medBeforeChangeRef);
-                    // medAfterChange.medicationBeforeChange = medBeforeChange;
+                    // medAfterChange.medicationBeforeChange = medBeforeChange;              
                     medToViz.medicationChange = {
                         type: change.type,
                         date: change.whenChanged,
                         medBeforeChange: medBeforeChange,
-                        medAfterChange: medToViz.medication
+                        medAfterChange: medToViz.medication,
+                        unsigned: clinicalNoteUnsigned,
                     }
                     // Remove the before-medication from vis
                     medsToVisualize = medsToVisualize.filter((medToVizObject) => {
@@ -929,7 +932,8 @@ export default class SummaryMetadata {
                     medToViz.medicationChange = {
                         type: change.type,
                         date: change.whenChanged,
-                        medBeforeChange: medToViz.medication
+                        medBeforeChange: medToViz.medication,
+                        unsigned: clinicalNoteUnsigned,
                     }
                 }
             }

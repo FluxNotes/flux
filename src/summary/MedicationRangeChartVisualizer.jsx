@@ -68,30 +68,32 @@ class MedicationRangeChartVisualizer extends Component {
     renderedSubsection(subsection, index) {
         const {patient, condition} = this.props;
         const items = subsection.itemsFunction(patient, condition, subsection);
-
+        
         if (items.length === 0) return <h2 key={index}>None</h2>;
         const rows = items.map((med, i) => this.renderMedication(med, i));
         return rows;
     }
 
-    renderMedicationChange = (medChange, medBefore) => {     
+    renderMedicationChange = (medChange, medBefore) => {
 
         // If the medication change type is "stop", change how the medication change string is displayed
         if (medChange.type === "stop") {
+            let medChangeTypeSigned = "medication-change-type";
+            if (medChange.unsigned) medChangeTypeSigned = "medication-change-type-unsigned";
             return (
                 <Row center="xs">
                     <Col xs={12} className="medication-change">
-                        <span className='medication-change-type'>
+                        <span className={medChangeTypeSigned}>
                             {this.stringForMedicationChangeType(medChange.type)}
-                        </span>                         
+                        </span>
                         <span className='medication-change-date'>
                             {this.stringForMedicationChangeDate(medChange.date)}
-                        </span> 
+                        </span>
                         <span className='medication-change-prior-amount'>
                             {this.stringForMedicationChangePriorAmount(medChange.type, medBefore)}
-                        </span>            
+                        </span>
                     </Col>
-                </Row>  
+                </Row>
             );
         } else {
             return (
@@ -111,7 +113,7 @@ class MedicationRangeChartVisualizer extends Component {
             );
         }
 
-       
+
     }
 
     /**
