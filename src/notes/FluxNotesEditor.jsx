@@ -61,6 +61,7 @@ class FluxNotesEditor extends React.Component {
 
         this.selectingForShortcut = null;
         this.onChange = this.onChange.bind(this);
+        this.onDictation = this.onDictation.bind(this);
 
         this.noteParser = new NoteParser(this.props.shortcutManager, this.props.contextManager);
         this.plugins = [];
@@ -403,6 +404,14 @@ class FluxNotesEditor extends React.Component {
         return result[0];
     }
 
+    onDictation = (event) => {
+        if (this.props.documentText === '' && event === '') return;
+        console.log('|' + this.props.documentText + '|(' + this.props.documentText.length + ') already have |' + event + '|(' + event.length + ')');
+        if (!this.props.documentText.includes(event)) {
+            console.log("onDictation " + event);
+        }
+    }
+
     onChange = (change) => {
         const editorValue = change.value
         let indexOfLastNode = editorValue.toJSON().document.nodes.length - 1;
@@ -426,16 +435,16 @@ class FluxNotesEditor extends React.Component {
             endKey: endOfNoteKey,
             endOffset: endOfNoteOffset
         };
-        const docText = this.structuredFieldPlugin.helpers.convertToText(editorValue, entireNote); 
+        const docText = this.structuredFieldPlugin.helpers.convertToText(editorValue, entireNote);
 
         this.props.setDocumentTextWithCallback(docText, () => {
             // save note after documentText gets set
             this.props.saveNoteOnChange();
-        });    
-        console.log('----------')
-        console.log(change)
-        console.log(change.history)
-        console.log('----------')
+        });
+        // console.log('----------')
+        // console.log(change)
+        // console.log(change.history)
+        // console.log('----------')
         this.adjustActiveContexts(editorValue.selection, editorValue);
         this.setState({
             editorValue: editorValue
@@ -1183,6 +1192,7 @@ class FluxNotesEditor extends React.Component {
                         <Editor
                             className="editor-panel"
                             onChange={this.onChange}
+                            onDictation={this.onDictation}
                             onInput={this.onInput}
                             onFocus={this.onFocus}
                             placeholder={'Enter your clinical note here or choose a template to start from...'}

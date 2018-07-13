@@ -28,6 +28,26 @@ import removeAllRanges from '../utils/remove-all-ranges'
 
 const debug = Debug('slate:content')
 
+var observeDOM = (function(){
+    var MutationObserver = window.MutationObserver || window.WebKitMutationObserver,
+        eventListenerSupported = window.addEventListener;
+
+    return function(obj, callback){
+        if( MutationObserver ){
+            // define a new observer
+            var obs = new MutationObserver(function(mutations, observer) {
+                callback(mutations);
+            });
+            // have the observer observe foo for changes in children
+            obs.observe( obj, { childList:true, characterData:true, subtree:true });
+        }
+        else if( eventListenerSupported ){
+            obj.addEventListener('DOMNodeInserted', callback, false);
+            obj.addEventListener('DOMNodeRemoved', callback, false);
+        }
+    };
+})();
+
 /**
  * Content.
  *
@@ -76,11 +96,60 @@ class Content extends React.Component {
     this.tmp = {}
     this.tmp.isUpdatingSelection = false
 
+    this.ignoreNextDOMChange = false;
+
     EVENT_HANDLERS.forEach(handler => {
       this[handler] = event => {
         this.onEvent(handler, event)
       }
     })
+    //document.getElementById('theEditor')
+    setTimeout(() => {
+        observeDOM( this.element, (mutations) => {
+            mutations.forEach((mutation) => {
+                // console.log("mutation:");
+                // console.log(mutation.target);
+                // console.log("type: " + mutation.type);
+                // console.log("# added nodes: " + mutation.addedNodes.length);
+                // console.log("# removed nodes: " + mutation.removedNodes.length);
+                if( mutation.addedNodes.length ) {
+                    if (this.ignoreNextDOMChange) {
+                        this.ignoreNextDOMChange = false;
+                        return;
+                    }
+                    const { editor } = this.props;
+                    const { value } = editor;
+                    const { selection } = value;
+                    const text = mutation.addedNodes[0].data;
+
+                    const native = window.getSelection()
+                    const range = findRange(native, value)
+            
+                    //console.log(mutation.target);
+                    //console.log("looking for |" + text + "|");
+                        if (mutation.target.textContent && mutation.target.textContent.indexOf(text) >= 0) {
+                            console.log(mutation);
+                            this.props.onDictation(text);
+                            //console.log("text content=|" + mutation.target.textContent + "|");
+                            const start = mutation.target.textContent.indexOf(text);
+                            const end = start + text.length;
+                            this.ignoreNextDOMChange = true;
+                            mutation.target.textContent = mutation.target.textContent.substring(start, end);
+                        }
+                    
+                    // editor.change(change => {
+                    //   change.insertTextAtRange(range, text, selection.marks)
+            
+                    //   // If the text was successfully inserted, and the selection had marks
+                    //   // on it, unset the selection's marks.
+                    //   if (selection.marks && value.document != change.value.document) {
+                    //     change.select({ marks: null })
+                    //   }
+                    // })
+                }
+            });
+        });
+    });
   }
 
   /**
@@ -321,6 +390,10 @@ class Content extends React.Component {
       if (targetEditorNode !== this.element) return
     }
 
+    // if (handler !== 'onFocus' && handler !== 'onBlur') {
+    //     console.log(handler);
+    //     console.log(event);
+    // }
     // Some events require being in editable in the editor, so if the event
     // target isn't, ignore them.
     if (
@@ -470,7 +543,9 @@ class Content extends React.Component {
     })
 
     const handlers = EVENT_HANDLERS.reduce((obj, handler) => {
-      obj[handler] = this[handler]
+      if (handler !== 'onDictation') {
+        obj[handler] = this[handler]
+      }
       return obj
     }, {})
 
