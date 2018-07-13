@@ -121,6 +121,7 @@ class MedicationRangeChartVisualizer extends Component {
         // Wide view has different stylings for the medication change
         if (this.props.isWide) {
             medChangeClassName = "medication-change-wide";
+            console.log("WIDE MEDICATION CHANGE");
         } else {
             medChangeClassName = "medication-change";
         }
@@ -129,7 +130,7 @@ class MedicationRangeChartVisualizer extends Component {
             let medChangeTypeSigned = "medication-change-type";
             if (medChange.unsigned) medChangeTypeSigned = "medication-change-type-unsigned";
             return (
-                    <Col xs={13} className={medChangeClassName}>
+                    <Col xs={12} className={medChangeClassName}>
                         <span className='medication-change-type'>
                             {this.stringForMedicationChangeType(medChange.type)}
                         </span>
@@ -143,7 +144,7 @@ class MedicationRangeChartVisualizer extends Component {
             );
         } else {
             return (
-                    <Col sm={0} className={medChangeClassName}>
+                    <Col xs={12} className={medChangeClassName}>
                         <span className='medication-change-type'>
                             {this.stringForMedicationChangeType(medChange.type)}
                         </span>
@@ -162,6 +163,7 @@ class MedicationRangeChartVisualizer extends Component {
 
     renderMedicationNarrowView = (med, i) => {
         
+        console.log("In Narrow view");
         // Grab range values based on medication
         let rangeValues = MedicationInformationService.getRangeValues(med.medication.code, (med.medication.amountPerDose ? med.medication.amountPerDose.units : null));
 
@@ -183,14 +185,14 @@ class MedicationRangeChartVisualizer extends Component {
             <div key={i} className="medication-chart-item" ref={(parent) => { this.parent = parent }}>
                 <Grid className="FullApp-content" fluid>
                     <Row top="xs">
-                        <Col around="md" md={8} xs={12}>
+                        <Col md={8} xs={12}>
                             <div className='medication-title'>
                                 {name + " " + value + " " + unit}
                             </div>
                         </Col>
                     </Row>
-                    <Row top="xs">
-                        <Col sm={7}>
+                    <Row around="xs" top="xs">
+                        <Col sm={10}>
                             <div className="medication-change-container">
                                 {medicationIsChange ? this.renderMedicationChange(med.medicationChange, med.medicationChange.medBeforeChange) : null}
                             </div>
@@ -198,8 +200,8 @@ class MedicationRangeChartVisualizer extends Component {
                     </Row>
                     {(med.medicationChange && med.medicationChange.type === 'stop') ? <div /> :
                     <div>
-                        <Row top="xs">
-                            <Col sm={7}>
+                        <Row around="xs" top="xs">
+                            <Col sm={11}>
                                 <div className="range-chart-container">
                                     <RangeChart
                                         lowerValue={lowerValue}
@@ -208,11 +210,14 @@ class MedicationRangeChartVisualizer extends Component {
                                         value={value}
                                         unit={unit}
                                         name={name}
+                                        chartXCoordinate={20}
+                                        chartYCoordinate={18}
+                                        isWide={this.props.isWide}
                                     />
                                 </div>
                             </Col>
                         </Row>
-                        <Row around="md" top="md">
+                        <Row around="xs" top="xs">
                             <Col sm={11}>
                                 <div>
                                     {this.renderMedicationInfo(med)}
@@ -281,7 +286,7 @@ class MedicationRangeChartVisualizer extends Component {
     }
 
     renderMedication = (med, i) => {
-        if (! this.props.isWide) {
+        if (!this.props.isWide) {
             return this.renderMedicationNarrowView(med, i);
         }
         // Grab range values based on medication
@@ -326,6 +331,7 @@ class MedicationRangeChartVisualizer extends Component {
                                         value={value}
                                         unit={unit}
                                         name={name}
+                                        isWide={this.props.isWide}
                                     />
                                 </div>
                             </Col>
