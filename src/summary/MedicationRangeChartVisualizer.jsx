@@ -199,7 +199,7 @@ class MedicationRangeChartVisualizer extends Component {
                     {(med.medicationChange && med.medicationChange.type === 'stop') ? <div /> :
                     <div>
                         <Row top="xs">
-                            <Col around="sm" sm={7}>
+                            <Col sm={7}>
                                 <div className="range-chart-container">
                                     <RangeChart
                                         lowerValue={lowerValue}
@@ -213,7 +213,7 @@ class MedicationRangeChartVisualizer extends Component {
                             </Col>
                         </Row>
                         <Row around="md" top="md">
-                            <Col around="sm" sm={11}>
+                            <Col sm={11}>
                                 <div>
                                     {this.renderMedicationInfo(med)}
                                 </div>
@@ -311,7 +311,7 @@ class MedicationRangeChartVisualizer extends Component {
                         </Col>
                         <Col md={6} xs={12}>
                             <div className="medication-change-container">
-                                {medicationIsChange ? this.renderMedicationChange(med.medicationChange, med.medicationChange.medBeforeChange) : null}
+                                {medicationIsChange ? this.renderMedicationChange(med.medicationChange, med.medicationChange.medBeforeChange) : <Col xs={13} />}
                             </div>
                         </Col>
                     </Row>

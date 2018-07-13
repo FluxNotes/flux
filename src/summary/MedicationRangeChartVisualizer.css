@@ -49,4 +49,5 @@
 .medication-change-container{
     padding-bottom: 10px;
     display: flex;
+    min-height: 20px;
 }
