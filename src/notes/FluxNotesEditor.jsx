@@ -405,11 +405,14 @@ class FluxNotesEditor extends React.Component {
     }
 
     onDictation = (event) => {
-        if (this.props.documentText === '' && event === '') return;
-        console.log('|' + this.props.documentText + '|(' + this.props.documentText.length + ') already have |' + event + '|(' + event.length + ')');
-        if (!this.props.documentText.includes(event)) {
-            console.log("onDictation " + event);
-        }
+        console.log("onDictation " + event);
+        const editorValue = this.state.editorValue;
+        console.log(editorValue);
+        // if (this.props.documentText === '' && event === '') return;
+        // console.log('|' + this.props.documentText + '|(' + this.props.documentText.length + ') already have |' + event + '|(' + event.length + ')');
+        // if (!this.props.documentText.includes(event)) {
+        //     console.log("onDictation " + event);
+        // }
     }
 
     onChange = (change) => {
@@ -426,6 +429,7 @@ class FluxNotesEditor extends React.Component {
             }
         }
 
+        //     console.log("onDictation " + event);
         // 'copy' the text every time into the note
         // Need to artificially set selection to the whole document
         // state.selection only has a getter for these values so create a new object

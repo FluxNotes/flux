@@ -127,15 +127,15 @@ class Content extends React.Component {
             
                     //console.log(mutation.target);
                     //console.log("looking for |" + text + "|");
-                        if (mutation.target.textContent && mutation.target.textContent.indexOf(text) >= 0) {
-                            console.log(mutation);
-                            this.props.onDictation(text);
-                            //console.log("text content=|" + mutation.target.textContent + "|");
-                            const start = mutation.target.textContent.indexOf(text);
-                            const end = start + text.length;
-                            this.ignoreNextDOMChange = true;
-                            mutation.target.textContent = mutation.target.textContent.substring(start, end);
-                        }
+                    if (mutation.target.textContent && mutation.target.textContent.indexOf(text) >= 0) {
+                        console.log(mutation);
+                        this.props.onDictation(text);
+                        //console.log("text content=|" + mutation.target.textContent + "|");
+                        const start = mutation.target.textContent.indexOf(text);
+                        const end = start + text.length;
+                        this.ignoreNextDOMChange = true;
+                        mutation.target.textContent = mutation.target.textContent.substring(start, end);
+                    }
                     
                     // editor.change(change => {
                     //   change.insertTextAtRange(range, text, selection.marks)
