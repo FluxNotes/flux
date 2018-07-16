@@ -1,7 +1,11 @@
 import Lang from 'lodash';
 import Collection from 'lodash';
 
-const API_ENDPOINT = "http://heliotrope.mitre.org:8551/api/parse_sentence"
+// const API_ENDPOINT = "http://heliotrope.mitre.org:8551/api/parse_sentence"
+const DOMAIN = "http://127.0.0.1"
+const PORT = "8551"
+const API_ROUTE = "/api/parse_sentence"
+const API_ENDPOINT = `${DOMAIN}:${PORT}${API_ROUTE}`
 
 function createOpts(opts) {
 	opts = opts || {};
