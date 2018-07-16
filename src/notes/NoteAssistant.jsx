@@ -54,12 +54,6 @@ export default class NoteAssistant extends Component {
         }
     }
 
-    componentDidMount() {
-        // set callback so the editor can signal a change and this class can save the note
-        this.props.saveNote(this.saveNoteOnChange);
-        this.props.closeNote(this.closeNote);
-    }
-
     componentWillReceiveProps(nextProps) {
         if (nextProps.searchSelectedItem) {
             const newNote = nextProps.searchSelectedItem;
@@ -125,15 +119,15 @@ export default class NoteAssistant extends Component {
 
     // Gets called when clicking on the "new note" button
     handleOnNewNoteButtonClick = () => {
-        this.updateExistingNote();
-        this.createBlankNewNote();
+        this.props.openNewNote();
+        this.toggleView("context-tray");
     }
 
-    updateExistingNote = () => {
-        this.updateNote(this.props.currentlyEditingEntryId);
+    updateExistingNote = (content) => {
+        this.updateNote(this.props.currentlyEditingEntryId, content);
     }
 
-    updateNote = (entryId) => {
+    updateNote = (entryId, content) => {
         // Only update if there is a note in progress
         if (!Lang.isEqual(entryId, -1)) {
             // List the notes to verify that they are being updated each invocation of this function:
@@ -141,7 +135,7 @@ export default class NoteAssistant extends Component {
                 return Lang.isEqual(element.entryInfo.entryId, entryId);
             });
             if (!Lang.isNull(found) && !Lang.isUndefined(found)) {
-                found.content = this.props.documentText;
+                found.content = content;
                 this.props.patient.updateExistingEntry(found);
                 this.props.updateSelectedNote(found);
             }
@@ -174,52 +168,22 @@ export default class NoteAssistant extends Component {
         this.toggleView("context-tray");
     }
 
-    // save the note after every editor change. Invoked by FluxNotesEditor.
-    saveNoteOnChange = () => {
-        // Only save if note is currently open
-        if (this.props.currentlyEditingEntryId !== -1) {
-            this.updateExistingNote();
-        }
-    }
-
     // Gets called when clicking on one of the notes in the clinical notes view
     openNote = (isInProgressNote, note) => {
-        this.props.setNoteClosed(false);
-        this.props.setLayout("split");
-        this.props.setNoteViewerVisible(true);
-
-        // Don't start saving until there is content in the editor
-        if (!Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText) && this.props.documentText.length > 0) {
-            this.updateExistingNote();
-        }
-        this.props.updateCurrentlyEditingEntryId(note.entryInfo.entryId);
-        // the lines below are duplicative
-        this.props.updateSelectedNote(note);
-        this.props.loadNote(note);
+        this.props.openExistingNote(isInProgressNote, note);
 
         // If the note selected is an In-Progress note, switch to the context tray else use the clinical-notes view
         if (isInProgressNote) {
-            this.props.setNoteViewerEditable(true);
             this.toggleView("context-tray");
         } else {
-            this.props.setNoteViewerEditable(false)
             this.toggleView("clinical-notes");
         }
     }
 
-    // invoked by FluxNotesEditor when the Close Note button is pressed
-    // removes the editor, deselects the selected note, expands right panel
-    closeNote = () => {
-        this.props.setNoteClosed(true);
-        this.props.setLayout("right-collapsed");
-        this.props.setNoteViewerVisible(false);
-        this.props.setNoteViewerEditable(false);
-        this.props.setOpenClinicalNote(null);
-    }
-
+    // TODO Support deleting notes
     deleteSelectedNote = () => {
         this.props.deleteSelectedNote();
-        this.closeNote();
+        // this.closeNote(); //TODO Need correct close note function.
     }
 
     // Render the content for the Note Assistant panel
@@ -293,7 +257,6 @@ export default class NoteAssistant extends Component {
                                 newCurrentShortcut={this.props.newCurrentShortcut}
                                 noteAssistantMode={this.props.noteAssistantMode}
                                 patient={this.props.patient}
-                                saveNoteOnChange={this.props.saveNoteOnChange}
                                 selectedNote={this.props.selectedNote}
                                 setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
                                 setNoteViewerEditable={this.props.setNoteViewerEditable}
@@ -594,8 +557,6 @@ NoteAssistant.propTypes = {
     noteAssistantMode: PropTypes.string.isRequired,
     noteClosed: PropTypes.bool.isRequired,
     patient: PropTypes.object.isRequired,
-    saveNote: PropTypes.func.isRequired,
-    saveNoteOnChange: PropTypes.func.isRequired,
     searchSelectedItem: PropTypes.object,
     selectedNote: PropTypes.object,
     setFullAppStateWithCallback: PropTypes.func.isRequired,

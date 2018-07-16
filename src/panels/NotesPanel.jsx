@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Row, Col} from 'react-flexbox-grid';
+import moment from 'moment';
+import Lang from 'lodash';
+
 import FluxNotesEditor from '../notes/FluxNotesEditor';
 import Button from '../elements/Button';
-import Lang from 'lodash';
 import NoteAssistant from '../notes/NoteAssistant';
 import NoteParser from '../noteparser/NoteParser';
 import './NotesPanel.css';
@@ -21,6 +23,7 @@ export default class NotesPanel extends Component {
             currentlyEditingEntryId: -1,
             arrayOfPickLists: [],
             contextTrayItemToInsert: null,
+            localDocumentText: ''
         };
 
         this.noteParser = new NoteParser(this.props.shortcutManager, this.props.contextManager);
@@ -31,6 +34,10 @@ export default class NotesPanel extends Component {
         if (!Lang.isNull(nextProps.openClinicalNote) && this.props.openClinicalNote !== nextProps.openClinicalNote) {
             this.handleUpdateEditorWithNote(nextProps.openClinicalNote);
         }
+    }
+
+    updateLocalDocumentText = (text) => {
+        this.setState({ localDocumentText: text });
     }
 
     updateNoteAssistantMode = (mode) => {
@@ -113,23 +120,100 @@ export default class NotesPanel extends Component {
         this.setState({arrayOfPickLists: array})
     }
 
-    // Save the note after every editor change. This function invokes the note saving logic in NoteAssistant
-    saveNoteOnChange = () => {
-        this.saveNoteChild();
+    updateNote = (entryId, noteContent) => {
+        // Only update if there is a note in progress
+        if (!Lang.isEqual(entryId, -1)) {
+            // List the notes to verify that they are being updated each invocation of this function:
+            var noteToUpdate = this.props.patient.getNotes().find(function (element) {
+                return Lang.isEqual(element.entryInfo.entryId, entryId);
+            });
+            if (!Lang.isNull(noteToUpdate) && !Lang.isUndefined(noteToUpdate)) {
+                noteToUpdate.content = noteContent;
+                this.props.patient.updateExistingEntry(noteToUpdate);
+                this.updateSelectedNote(noteToUpdate);
+            }
+        }
     }
 
-    // invokes closing logic in NoteAssistant
-    closeNote = () => {
-        this.closeNoteChild();
-        this.props.setDocumentText("");
+    updateExistingNote = (noteContent) => {
+        this.updateNote(this.state.currentlyEditingEntryId, noteContent);
+    }
+
+    // Save a note
+    saveNote = (noteContent) => {
+        if (this.state.currentlyEditingEntryId !== -1) {
+            this.updateExistingNote(noteContent);
+        }
+    }
+
+    // Close a note
+    closeNote = (noteContent = '') => {
+        this.saveNote(noteContent);
+
+        this.props.setDocumentText('');// TODO is this needed?
         this.props.setOpenClinicalNote(null);
-        this.setState({
+        this.setState({ // TODO are any of these state variables not needed?
             updatedEditorNote: null,
             noteAssistantMode: "context-tray",
             // selectedNote is the note that is selected in the clinical notes view in the NoteAssistant
             selectedNote: null,
             currentlyEditingEntryId: -1
         });
+        this.props.setNoteClosed(true);
+        this.props.setLayout('right-collapsed');
+        this.props.setNoteViewerVisible(false);
+        this.props.setNoteViewerEditable(false);
+    }
+
+    // Open a blank note
+    openNewNote = () => {
+        // Saves then closes the current note
+        this.saveNote(this.state.localDocumentText);
+
+        // Then open a blank note
+        this.props.setNoteClosed(false);
+
+        // Create info to be set for new note
+        const date = new moment().format("D MMM YYYY");
+        const subject = "New Note";
+        const hospital = "Dana Farber";
+        const clinician = this.props.loginUser;
+        const content = "";
+        const signed = false;
+
+        // Add new unsigned note to patient record
+        const currentlyEditingEntryId = this.props.patient.addClinicalNote(date, subject, hospital, clinician, content, signed);
+        this.handleUpdateCurrentlyEditingEntryId(currentlyEditingEntryId);
+
+        const newNote = this.props.patient.getNotes().find(function (curNote) {
+            return Lang.isEqual(curNote.entryInfo.entryId, currentlyEditingEntryId);
+        });
+
+        // Select note in the clinical notes view
+        this.updateSelectedNote(newNote);
+        this.handleUpdateEditorWithNote(newNote);
+        this.props.setNoteViewerEditable(true);
+    }
+
+    // Open an existing note
+    openExistingNote = (isInProgress, note) => {
+        this.saveNote(this.state.localDocumentText);
+
+        this.props.setNoteClosed(false);
+        this.props.setLayout('split');
+        this.props.setNoteViewerVisible(true);
+
+        // TODO skipped first if case in old note assistant openNote(). Needed?
+
+        // Old note above these lines: "the lines below are duplicative"
+        this.updateSelectedNote(note);
+        this.handleUpdateEditorWithNote(note);
+
+        if (isInProgress) {
+            this.props.setNoteViewerEditable(true);
+        } else {
+            this.props.setNoteViewerEditable(false);
+        }
     }
 
     // Removes a note from patient object if the note is unsigned 
@@ -172,7 +256,7 @@ export default class NotesPanel extends Component {
         });
 
         // Close the current note
-        this.closeNote();
+        this.closeNote(); //TODO Support closing note after signing
     }
 
     renderSignButton = () => {
@@ -251,8 +335,8 @@ export default class NotesPanel extends Component {
                     newCurrentShortcut={this.props.newCurrentShortcut}
                     noteAssistantMode={this.state.noteAssistantMode}
                     patient={this.props.patient}
-                    saveNoteOnChange={this.saveNoteOnChange}
                     selectedNote={this.state.selectedNote}
+                    updateLocalDocumentText={this.updateLocalDocumentText}
                     setDocumentTextWithCallback={this.props.setDocumentTextWithCallback}
                     setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
                     setNoteViewerEditable={this.props.setNoteViewerEditable}
@@ -279,12 +363,12 @@ export default class NotesPanel extends Component {
         return (
             <div className="fitted-panel panel-content dashboard-panel">
                 <NoteAssistant
-                    closeNote={click => this.closeNoteChild = click}
+                    closeNote={this.closeNote}
                     currentlyEditingEntryId={this.state.currentlyEditingEntryId}
                     contextManager={this.props.contextManager}
                     contextTrayItemToInsert={this.state.contextTrayItemToInsert}
                     deleteSelectedNote={this.deleteSelectedNote}
-                    documentText={this.props.documentText}
+                    documentText={this.state.localDocumentText}
                     handleSummaryItemSelected={this.props.handleSummaryItemSelected}
                     handleUpdateArrayOfPickLists={this.handleUpdateArrayOfPickLists}
                     handleUpdateEditorWithNote={this.handleUpdateEditorWithNote}
@@ -294,9 +378,9 @@ export default class NotesPanel extends Component {
                     newCurrentShortcut={this.props.newCurrentShortcut}
                     noteAssistantMode={this.state.noteAssistantMode}
                     noteClosed={this.props.noteClosed}
+                    openNewNote={this.openNewNote}
+                    openExistingNote={this.openExistingNote}
                     patient={this.props.patient}
-                    saveNote={click => this.saveNoteChild = click}
-                    saveNoteOnChange={this.saveNoteOnChange}
                     searchSelectedItem={this.props.searchSelectedItem}
                     selectedNote={this.state.selectedNote}
                     setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}

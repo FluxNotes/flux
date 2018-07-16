@@ -176,8 +176,14 @@ class FluxNotesEditor extends React.Component {
         });
     }
 
+    componentWillUnmount() {
+        // TODO: Save current note on unmounting to not lose content
+        console.log("FNE unmounting")
+    }
+
     // Reset the editor to the initial state when the app is first constructed.
     resetEditorState() {
+        // TODO Can we use resetEditorState as a way to trigger saving notes?
         this.state = {
             state: initialState,
             isPortalOpen: false,
@@ -380,6 +386,13 @@ class FluxNotesEditor extends React.Component {
     }
 
     onChange = (state) => {
+        let documentText = this.getNoteText(state);
+        this.props.updateLocalDocumentText(documentText);
+
+        this.setState({ state });
+    }
+
+    getNoteText = (state) => {
         let indexOfLastNode = state.toJSON().document.nodes.length - 1;
         let endOfNoteKey = state.toJSON().document.nodes[indexOfLastNode].key;
         let endOfNoteOffset = 0;
@@ -403,12 +416,20 @@ class FluxNotesEditor extends React.Component {
         };
         const documentText = this.structuredFieldPlugin.convertToText(state, entireNote);
 
-        this.props.setDocumentTextWithCallback(documentText, () => {
-            // save note after documentText gets set
-            this.props.saveNoteOnChange();
-        });
+        return documentText;
+    }
 
-        this.setState({ state });
+    closeNote = () => {
+        const documentText = this.getNoteText(this.state.state);
+        this.props.closeNote(documentText);
+
+        // this.props.saveNoteOnChange(documentText);
+        // this.props.setDocumentTextWithCallback(documentText, () => {
+        //     // save note after documentText gets set
+        //     this.props.saveNoteOnChange();
+        // });
+
+        // this.setState({ state });
     }
 
     onFocus = () => {
@@ -1112,7 +1133,7 @@ class FluxNotesEditor extends React.Component {
                                     raised 
                                     className="close-note-btn"
                                     disabled={this.context_disabled}
-                                    onClick={this.props.closeNote}
+                                    onClick={this.closeNote}
                                     style={{
                                         float: "right",
                                         lineHeight: "2.1rem"
@@ -1218,6 +1239,7 @@ class FluxNotesEditor extends React.Component {
     }
 }
 
+// TODO Update propTypes and make sure it's validating
 FluxNotesEditor.proptypes = {
     closeNote: PropTypes.func.isRequired,
     contextManager: PropTypes.object.isRequired,
@@ -1231,7 +1253,6 @@ FluxNotesEditor.proptypes = {
     newCurrentShortcut: PropTypes.func.isRequired,
     noteAssistantMode: PropTypes.string.isRequired,
     patient: PropTypes.object.isRequired,
-    saveNoteOnChange: PropTypes.func.isRequired,
     selectedNote: PropTypes.object,
     setDocumentTextWithCallback: PropTypes.func,
     setFullAppState: PropTypes.func.isRequired,
