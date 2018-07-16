@@ -24,8 +24,19 @@
 
 .medication-change { 
     font-size: 12px;
-    padding-bottom: 10px;
-    padding-top: 10px;
+}
+
+.medication-change-container {
+    display: flex;
+    padding-left: 0rem;
+}
+
+.medication-change-padding {
+    padding-left: 0rem;
+}
+
+.medication-change-type { 
+    font-weight: 700;
 }
 
 .medication-change-wide { 
@@ -34,11 +45,11 @@
     margin: auto;
 }
 
-.medication-change-type{ 
-    font-weight: 700;
+.out-of-range-medication {
+    color: red;
 }
 
-.medication-title{
+.medication-title {
     font-size: 13px;
     font-weight: 550;
 }
@@ -48,8 +59,7 @@
     text-decoration: none;
 }
 
-.medication-change-container{
-    padding-bottom: 10px;
-    display: flex;
-    min-height: 20px;
+.medication-heading {
+    padding: 10px;
 }
+

@@ -26,9 +26,6 @@ class RangeChart extends Component {
             typicalValueXPixels = ((this.props.typicalValue - this.props.lowerValue) * numberOfPixelsPerUnit)+ lineStartXPixels; // x=30 is where the line begins
         }
 
-        // Check if value is out of range
-        let valueColor = 'black';
-
         let dotColor = 'black';
 
         let valueXPixels = null;
@@ -43,7 +40,6 @@ class RangeChart extends Component {
             if (this.props.value < this.props.lowerValue || this.props.value > this.props.upperValue) {
 
                 // set the dot color
-                valueColor = 'red';
                 dotColor = 'red';
 
                 // If the value is below the lower bound, set the x position to the left of the line
@@ -61,7 +57,6 @@ class RangeChart extends Component {
             else {
 
                 // set the dot color
-                valueColor = 'black';
                 dotColor = 'black'
 
                 // Calculate the x position of the dot
@@ -81,10 +76,7 @@ class RangeChart extends Component {
         return (
             <div>
                 {this.props.isWide ? (
-                    <svg width="100%" height="6em" viewBox="0 36 250 100">
-                        {/* Header
-                         <text x="40" y="28" fontFamily="sans-serif" fontSize="0.9em" fill="#333">{this.props.name} <tspan fill={valueColor}>{this.props.value}</tspan> <tspan fontSize="12px"> {this.props.unit}</tspan></text>  */}
-
+                    <svg width="100%" height="6em" viewBox="10 36 250 110">
                         {/*Main line*/}
                         <line x1={lineStartXPixels} y1="50" x2={lineStartXPixels + lineLengthPixels} y2="50" stroke="#000" strokeWidth="0.5" />
 
@@ -104,9 +96,7 @@ class RangeChart extends Component {
                         {svgForDataPoint}
                     </svg>
 
-                ) : (<svg width="100%" height="6em" viewBox="10 18 250 100">
-                    {/* Header
-                         <text x="40" y="28" fontFamily="sans-serif" fontSize="0.9em" fill="#333">{this.props.name} <tspan fill={valueColor}>{this.props.value}</tspan> <tspan fontSize="12px"> {this.props.unit}</tspan></text>  */}
+                ) : (<svg width="100%" height="6em" viewBox="10 10 250 100">
 
                     {/*Main line*/}
                     <line x1={lineStartXPixels} y1="50" x2={lineStartXPixels + lineLengthPixels} y2="50" stroke="#000" strokeWidth="0.5" />
