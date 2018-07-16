@@ -99,7 +99,6 @@ class MedicationRangeChartVisualizer extends Component {
         // Wide view has different stylings for the medication change
         if (this.props.isWide) {
             medChangeClassName = "medication-change-wide";
-            console.log("WIDE MEDICATION CHANGE");
         } else {
             medChangeClassName = "medication-change";
         }
@@ -109,7 +108,7 @@ class MedicationRangeChartVisualizer extends Component {
             if (medChange.unsigned) medChangeTypeSigned = "medication-change-type-unsigned";
             return (
                     <Col xs={12} className={medChangeClassName}>
-                        <span className='medication-change-type'>
+                        <span className={medChangeTypeSigned}>
                             {this.stringForMedicationChangeType(medChange.type)}
                         </span>
                         <span className='medication-change-date'>
