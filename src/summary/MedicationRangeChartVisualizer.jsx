@@ -311,9 +311,7 @@ renderMedicationNarrowView = (med, i) => {
                 <div className="medication-heading">
                 <Row top="xs">
                     <Col md={8} xs={12}>
-                        <div className='medication-title'>
-                            {name + " " + value + " " + unit}
-                        </div>
+                        {this.renderMedicationTitle(lowerValue, upperValue, name, value, unit)}
                     </Col>
                 </Row>
                 </div>
