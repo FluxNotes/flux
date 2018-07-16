@@ -93,6 +93,41 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		} 
 	}
 
+	// Process the NLP HTTP Response so we can get the data we care about off of it
+	function processNLPEngineResponse(res) { 
+		// console.log(res)
+		return res.json()
+	}
+
+	// Used when processNLPEngineResponse throws an error; handle gracefully and alert console to failure
+	function failedToProcessNLPEngineResponse(error) { 
+		isFetching = false;
+		console.log('error in request here -- expected')
+		console.log(error)
+	}
+
+	// Given data extracted from NLP engine, parse it for meaningful feedback and use that to perform necessary insertions.
+	function processNLPEngineData(data) { 
+		isFetching = false;
+		console.log('successful case here')
+		console.log(data);
+		// Quit if phrases is empty
+		if (Lang.isEmpty(data.phrases)) { 
+			return 
+		} else { 
+
+		}
+
+		// addNLPContentToEditor(data);
+	}
+
+	// Used when fetch throws an error; handle failure gracefully.
+	function handleNLPEngineError(error) { 
+		isFetching = false;
+		console.log('Catch statement: error is')
+		console.log(error)
+	}	
+
 	// Performs the transformations to the editor based on the return data
 	function addNLPContentToEditor(data) { 
 		// Placeholder - perform some changes on the editor.
@@ -114,29 +149,15 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		console.log('call to fetchNLPExtraction')
 		const NLPShortcutName = NLPShortcut.endpointName;
 		fetch(`${API_ENDPOINT}?template=${NLPShortcutName}&sentence=${NLPHashtagPhrase}`)
-		// fetch(`${API_ENDPOINT}`)
-			.then((res) => res.json())
+			.then(processNLPEngineResponse)
 			.then(
-				(data) => { 
-					console.log('successful case here')
-					isFetching = false;
-					console.log(data);
-					addNLPContentToEditor(data);
-				},
+				processNLPEngineData,
 				// Note: it's important to handle errors here
 				// instead of a catch() block so that we don't swallow
 				// exceptions from actual bugs in components. 
-				(error) => {
-					isFetching = false;
-					console.log('error in request here -- expected')
-					console.log(error)
-					// addNLPContentToEditor(error);
-				}
+				failedToProcessNLPEngineResponse
 			)
-			.catch((err) => { 
-				console.log('Catch statement: error is')
-				console.log(err)
-			});
+			.catch(handleNLPEngineError);
 	}
 	
 	// Everytime a change is made to the editor, check to see if NLP should be parsed
