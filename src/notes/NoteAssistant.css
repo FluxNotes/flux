@@ -11,14 +11,14 @@
 /* For IE only */
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
     .note-assistant-wrapper {
-        max-height: calc(96vh - 106px - 16px);
+        max-height: calc(92vh - 106px - 16px);
     }
 }
 
 /* For IE Edge 12+ only */
 @supports (-ms-ime-align:auto) {
     .note-assistant-wrapper {
-        max-height: calc(96vh - 106px - 16px);
+        max-height: calc(92vh - 106px - 16px);
     }
 }
 

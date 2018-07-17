@@ -7,14 +7,14 @@
 /* For IE only */
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
     .FullApp {
-        max-height: 96vh;
+        max-height: 92vh;
     }
 }
 
 /* For IE Edge 12+ only */
 @supports (-ms-ime-align:auto) {
     .FullApp {
-        max-height: 96vh;
+        max-height: 92vh;
     }
 }
 

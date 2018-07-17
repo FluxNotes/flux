@@ -15,14 +15,14 @@
 /* For IE only */
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
     #clinician-dashboard-content .fitted-panel {
-        max-height: calc(96vh - 106px - 16px); 
+        max-height: calc(92vh - 106px - 16px);
     }
 }
 
 /* For IE Edge 12+ only */
 @supports (-ms-ime-align:auto) {
     #clinician-dashboard-content .fitted-panel {
-        max-height: calc(96vh - 106px - 16px); 
+        max-height: calc(92vh - 106px - 16px); 
     }
 }
 
