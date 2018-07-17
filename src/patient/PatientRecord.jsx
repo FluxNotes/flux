@@ -528,11 +528,7 @@ class PatientRecord {
         const sixMonthsAgo = new moment().subtract(6, "months");
 
         return allmeds.filter((med) => {
-            let medChanges = this.getMedicationChanges();
-            let expiredMedicationFound = medChanges.some((medChange) => {
-                return (medChange.medicationBeforeChange) && (med === this.getEntryFromReference(medChange.medicationBeforeChange.value))
-            });
-            return med.isActiveBetween(sixMonthsAgo, today) && !expiredMedicationFound;
+            return med.isActiveBetween(sixMonthsAgo, today);
         });
     }
 
