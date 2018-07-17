@@ -82,6 +82,7 @@
     "build": "npm-run-all build-css build-js",
     "eject": "react-scripts eject",
     "parse": "babel-node --presets es2015,react --plugins transform-class-properties,transform-es2015-destructuring,transform-object-rest-spread ./src/noteparser/app.js",
+    "patient-date-update": "node ./src/patient-date-update/app.js",
     "test": "run-script-os",
     "test:win32": "yarn test-backend:win32&&yarn test-ui:win32",
     "test::darwin:linux": "yarn test-backend:darwin:linux && yarn test-ui:darwin:linux",
