@@ -880,7 +880,7 @@ export default class SummaryMetadata {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         
         // Only showing active medications
-        let meds = patient.getActiveMedicationsForConditionChronologicalOrder(condition);
+        let meds = patient.getActiveAndRecentlyStoppedMedicationsForConditionChronologicalOrder(condition);
         const medicationChanges = patient.getMedicationChangesForConditionChronologicalOrder(condition);
 
         // For every medication in meds, create a new medToVisualize object that has the medication object and a medicationChange object

@@ -76,6 +76,21 @@ class FluxMedicationRequested {
         return true;
     }
 
+    isActiveBetween(lowerDate, upperDate) {
+        const expectedPerformanceTime = this.expectedPerformanceTime;
+        if (!expectedPerformanceTime || !(this._medicationRequested.actionContext.expectedPerformanceTime.value instanceof TimePeriod)) return null;
+        const start = new moment(expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
+        const end = new moment(expectedPerformanceTime.timePeriodEnd, "D MMM YYYY");
+        
+        // If the start date is in the future
+        if (start && start > upperDate) return false;
+
+        // If the medication ended before the lowerDate
+        if (end && end < lowerDate) return false;
+
+        return true;
+    }
+
     get entryInfo() {
         return this._medicationRequested.entryInfo;
     }

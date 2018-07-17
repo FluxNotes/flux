@@ -511,6 +511,7 @@ class PatientRecord {
     getActiveMedications() {
         const allmeds = this.getMedications();
         const today = new moment();
+
         return allmeds.filter((med) => {
             let medChanges = this.getMedicationChanges();
             let stopMedicationFound = medChanges.some((medChange) => { 
@@ -521,14 +522,45 @@ class PatientRecord {
         });
     }
 
+    getActiveAndRecentlyStoppedMedications() {
+        const allmeds = this.getMedications();
+        const today = new moment();
+        const sixMonthsAgo = new moment().subtract(6, "months");
+
+        return allmeds.filter((med) => {
+            let medChanges = this.getMedicationChanges();
+            let expiredMedicationFound = medChanges.some((medChange) => {
+                return (medChange.medicationBeforeChange) && (med === this.getEntryFromReference(medChange.medicationBeforeChange.value))
+            });
+            return med.isActiveBetween(sixMonthsAgo, today) && !expiredMedicationFound;
+        });
+    }
+
     getActiveMedicationsChronologicalOrder() {
         let list = this.getActiveMedications();
         list.sort(this._medsTimeSorter);
         return list;
     }
 
+    getActiveAndRecentlyStoppedMedicationsChronologicalOrder() {
+        let list = this.getActiveAndRecentlyStoppedMedications();
+        list.sort(this._medsTimeSorter);
+        return list;
+    }
+
     getActiveMedicationsForConditionChronologicalOrder(condition) {
         let medications = this.getActiveMedicationsChronologicalOrder();
+        const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
+        medications = medications.filter((med) => {
+            return med instanceof FluxMedicationRequested && med.reasons.some((r) => {
+                return r.value.entryId && r.value.entryId === conditionEntryId;
+            });
+        });
+        return medications;
+    }
+
+    getActiveAndRecentlyStoppedMedicationsForConditionChronologicalOrder(condition) {
+        let medications = this.getActiveAndRecentlyStoppedMedicationsChronologicalOrder();
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         medications = medications.filter((med) => {
             return med instanceof FluxMedicationRequested && med.reasons.some((r) => {
