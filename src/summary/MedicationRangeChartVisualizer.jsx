@@ -250,7 +250,7 @@ class MedicationRangeChartVisualizer extends Component {
 
         return (
             <div key={i} className="medication-chart-item" ref={(parent) => { this.parent = parent }}>
-                <Grid className="FullApp-content" fluid>
+                <Grid fluid>
                     <div className="medication-heading">
                     <Row bottom="xs">
                         <Col md={6} xs={12}>
