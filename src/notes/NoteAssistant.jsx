@@ -123,51 +123,6 @@ export default class NoteAssistant extends Component {
         this.toggleView("context-tray");
     }
 
-    updateExistingNote = (content) => {
-        this.updateNote(this.props.currentlyEditingEntryId, content);
-    }
-
-    updateNote = (entryId, content) => {
-        // Only update if there is a note in progress
-        if (!Lang.isEqual(entryId, -1)) {
-            // List the notes to verify that they are being updated each invocation of this function:
-            var found = this.props.patient.getNotes().find(function (element) {
-                return Lang.isEqual(element.entryInfo.entryId, entryId);
-            });
-            if (!Lang.isNull(found) && !Lang.isUndefined(found)) {
-                found.content = content;
-                this.props.patient.updateExistingEntry(found);
-                this.props.updateSelectedNote(found);
-            }
-        }
-    }
-
-    // creates blank new note and puts it on the screen
-    createBlankNewNote = () => {
-        this.props.setNoteClosed(false);
-        // Create info to be set for new note
-        let date = new moment().format("D MMM YYYY");
-        let subject = "New Note";
-        let hospital = "Dana Farber";
-        let clinician = this.props.loginUser;
-        let content = "";
-        let signed = false;
-
-        // Add new unsigned note to patient record
-        var currentlyEditingEntryId = this.props.patient.addClinicalNote(date, subject, hospital, clinician, content, signed);
-        this.props.updateCurrentlyEditingEntryId(currentlyEditingEntryId);
-
-        var newNote = this.props.patient.getNotes().find(function (curNote) {
-            return Lang.isEqual(curNote.entryInfo.entryId, currentlyEditingEntryId);
-        });
-
-        // Select note in the clinical notes view
-        this.props.updateSelectedNote(newNote);
-        this.props.loadNote(newNote);
-        this.props.setNoteViewerEditable(true);
-        this.toggleView("context-tray");
-    }
-
     // Gets called when clicking on one of the notes in the clinical notes view
     openNote = (isInProgressNote, note) => {
         this.props.openExistingNote(isInProgressNote, note);
@@ -566,7 +521,6 @@ NoteAssistant.propTypes = {
     shortcutManager: PropTypes.object.isRequired,
     shouldEditorContentUpdate: PropTypes.bool.isRequired,
     structuredFieldMapManager: PropTypes.object.isRequired,
-    updateCurrentlyEditingEntryId: PropTypes.func.isRequired,
     updateNoteAssistantMode: PropTypes.func.isRequired,
     updateSelectedNote: PropTypes.func.isRequired,
     arrayOfPickLists: PropTypes.array.isRequired,

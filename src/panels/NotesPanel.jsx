@@ -111,10 +111,6 @@ export default class NotesPanel extends Component {
         }
     }
 
-    handleUpdateCurrentlyEditingEntryId = (id) => {
-        this.setState({currentlyEditingEntryId: parseInt(id, 10)});
-    }
-
     handleUpdateArrayOfPickLists = (array) => {
         this.setState({arrayOfPickLists: array})
     }
@@ -161,16 +157,8 @@ export default class NotesPanel extends Component {
         this.props.setNoteViewerEditable(false);
     }
 
-    // TODO Can you consolidate openNewNote and openExistingNote?
-    // Open a blank note
+    // Create and open a blank note
     openNewNote = () => {
-        // Saves then closes the current note
-        this.saveNote(this.state.localDocumentText);
-        this.updateLocalDocumentText(''); // Reset localDocumentText when opening note
-
-        // Then open a blank note
-        this.props.setNoteClosed(false);
-
         // Create info to be set for new note
         const date = new moment().format("D MMM YYYY");
         const subject = "New Note";
@@ -181,28 +169,30 @@ export default class NotesPanel extends Component {
 
         // Add new unsigned note to patient record
         const currentlyEditingEntryId = this.props.patient.addClinicalNote(date, subject, hospital, clinician, content, signed);
-        this.handleUpdateCurrentlyEditingEntryId(currentlyEditingEntryId);
 
         const newNote = this.props.patient.getNotes().find(function (curNote) {
             return Lang.isEqual(curNote.entryInfo.entryId, currentlyEditingEntryId);
         });
 
-        // Select note in the clinical notes view
-        this.updateSelectedNote(newNote);
-        this.handleUpdateEditorWithNote(newNote);
-        this.props.setNoteViewerEditable(true);
+        this.openNote(newNote, true);
     }
 
     // Open an existing note
     openExistingNote = (isInProgress, note) => {
-        this.saveNote(this.state.localDocumentText);
-        this.updateLocalDocumentText(''); // Reset localDocumentText when opening note
+        this.openNote(note, isInProgress);
+    }
 
+    openNote = (note, isInProgress) => {
+        // Saves the current note and resets localDocumentText before opening the next note.
+        this.saveNote(this.state.localDocumentText);
+        this.updateLocalDocumentText('');
+
+        // Open a note
         this.props.setNoteClosed(false);
         this.props.setLayout('split');
         this.props.setNoteViewerVisible(true);
 
-        // Old note above these lines: "the lines below are duplicative"
+        // Old note above these lines: 'the lines below are duplicative'
         this.updateSelectedNote(note);
         this.handleUpdateEditorWithNote(note);
 
@@ -393,7 +383,6 @@ export default class NotesPanel extends Component {
                     shouldEditorContentUpdate={this.state.noteAssistantMode === 'pick-list-options-panel'}
                     structuredFieldMapManager={this.props.structuredFieldMapManager}
                     summaryItemToInsert={this.props.summaryItemToInsert}
-                    updateCurrentlyEditingEntryId={this.handleUpdateCurrentlyEditingEntryId}
                     updateLocalDocumentText={this.updateLocalDocumentText}
                     updateNoteAssistantMode={this.updateNoteAssistantMode}
                     updateSelectedNote={this.updateSelectedNote}
