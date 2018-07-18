@@ -65,6 +65,14 @@ class RangeChart extends Component {
             svgForDataPoint = <circle cx={valueXPixels} cy="50" r="5" strokeWidth="3" fill={dotColor} />;
         }
         
+        let viewBoxDimensions  = "";
+
+        if (this.props.isWide) {
+            viewBoxDimensions = "10 36 250 110";
+        } else {
+            viewBoxDimensions = "10 10 250 100";
+        }
+        
         let svgForTypicalTick1, svgForTypicalTick2;
         if (typicalValueXPixels === 0 || this.props.typicalValue === this.props.lowerValue || this.props.typicalValue === this.props.upperValue) {
             svgForTypicalTick1 = null;
@@ -75,29 +83,7 @@ class RangeChart extends Component {
         }
         return (
             <div>
-                {this.props.isWide ? (
-                    <svg width="100%" height="6em" viewBox="10 36 250 110">
-                        {/*Main line*/}
-                        <line x1={lineStartXPixels} y1="50" x2={lineStartXPixels + lineLengthPixels} y2="50" stroke="#000" strokeWidth="0.5" />
-
-                        {/*Lower value tick*/}
-                        <line x1={lineStartXPixels} y1="40" x2={lineStartXPixels} y2="60" stroke="#000" strokeWidth="0.5" />
-                        <text x={lineStartXPixels - 20} y="75" fontFamily="sans-serif" fontSize="12px" fill="#333">{this.props.lowerValue} {this.props.unit}</text>
-
-                        {/*Upper value tick*/}
-                        <line x1={lineStartXPixels + lineLengthPixels} y1="40" x2={lineStartXPixels + lineLengthPixels} y2="60" stroke="#000" strokeWidth="0.5" />
-                        <text x={lineStartXPixels + lineLengthPixels - 20} y="75" fontFamily="sans-serif" fontSize="12px" fill="#333">{this.props.upperValue} {this.props.unit}</text>
-
-                        {/*Typical value tick*/}
-                        {svgForTypicalTick1}
-                        {svgForTypicalTick2}
-
-                        {/*Data point for the value*/}
-                        {svgForDataPoint}
-                    </svg>
-
-                ) : (<svg width="100%" height="6em" viewBox="10 10 250 100">
-
+                <svg width="100%" height="6em" viewBox={viewBoxDimensions}>
                     {/*Main line*/}
                     <line x1={lineStartXPixels} y1="50" x2={lineStartXPixels + lineLengthPixels} y2="50" stroke="#000" strokeWidth="0.5" />
 
@@ -116,7 +102,6 @@ class RangeChart extends Component {
                     {/*Data point for the value*/}
                     {svgForDataPoint}
                 </svg>
-                    )}
             </div>
         );
     }

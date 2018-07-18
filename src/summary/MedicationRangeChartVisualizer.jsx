@@ -306,7 +306,7 @@ renderMedicationNarrowView = (med, i) => {
 
     return (
         <div key={i} className="medication-chart-item" ref={(parent) => { this.parent = parent }}>
-            <Grid className="FullApp-content" fluid>
+            <Grid fluid>
                 <div className="medication-heading">
                 <Row top="xs">
                     <Col md={8} xs={12}>
