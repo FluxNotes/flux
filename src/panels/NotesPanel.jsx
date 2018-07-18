@@ -106,6 +106,7 @@ export default class NotesPanel extends Component {
                     noteAssistantMode: mode,
                     currentlyEditingEntryId: parseInt(note.entryInfo.entryId, 10)
                 });
+                // TODO Get rid of all the old documentText references
                 this.props.setDocumentText(note.content);
                 this.props.setOpenClinicalNote(note);
             });
@@ -147,10 +148,7 @@ export default class NotesPanel extends Component {
     }
 
     // Close a note
-    closeNote = (noteContent = '') => {
-        this.saveNote(noteContent);
-
-        this.props.setDocumentText('');// TODO is this needed?
+    closeNote = () => {
         this.props.setOpenClinicalNote(null);
         this.setState({ // TODO are any of these state variables not needed?
             updatedEditorNote: null,
@@ -165,10 +163,12 @@ export default class NotesPanel extends Component {
         this.props.setNoteViewerEditable(false);
     }
 
+    // TODO Can you consolidate openNewNote and openExistingNote?
     // Open a blank note
     openNewNote = () => {
         // Saves then closes the current note
         this.saveNote(this.state.localDocumentText);
+        this.updateLocalDocumentText(''); // Reset localDocumentText when opening note
 
         // Then open a blank note
         this.props.setNoteClosed(false);
@@ -198,12 +198,11 @@ export default class NotesPanel extends Component {
     // Open an existing note
     openExistingNote = (isInProgress, note) => {
         this.saveNote(this.state.localDocumentText);
+        this.updateLocalDocumentText(''); // Reset localDocumentText when opening note
 
         this.props.setNoteClosed(false);
         this.props.setLayout('split');
         this.props.setNoteViewerVisible(true);
-
-        // TODO skipped first if case in old note assistant openNote(). Needed?
 
         // Old note above these lines: "the lines below are duplicative"
         this.updateSelectedNote(note);
@@ -218,9 +217,11 @@ export default class NotesPanel extends Component {
 
     // Removes a note from patient object if the note is unsigned 
     deleteSelectedNote = () => {
+        this.closeNote(this.state.localDocumentText);
         if (this.state.selectedNote && !this.state.selectedNote.signed) {
             // Find the shortcuts in the current note.
-            const recognizedShortcutsObjects = this.noteParser.getListOfTriggersFromText(this.state.selectedNote.content)[0].reverse();
+            // Use this.state.localDocumentText since note is not saved on every keypress and need full content here.
+            const recognizedShortcutsObjects = this.noteParser.getListOfTriggersFromText(this.state.localDocumentText)[0].reverse();
             for (const index in recognizedShortcutsObjects) {
                 // Get the actual shortcut obj from structuredFieldMapManager lookup -- need id of shortcut to retrieve
                 const currentShortcutTrigger = recognizedShortcutsObjects[index].trigger.toLowerCase();
@@ -256,7 +257,8 @@ export default class NotesPanel extends Component {
         });
 
         // Close the current note
-        this.closeNote(); //TODO Support closing note after signing
+        this.saveNote(this.state.localDocumentText);
+        this.closeNote();
     }
 
     renderSignButton = () => {
@@ -335,8 +337,8 @@ export default class NotesPanel extends Component {
                     newCurrentShortcut={this.props.newCurrentShortcut}
                     noteAssistantMode={this.state.noteAssistantMode}
                     patient={this.props.patient}
+                    saveNote={this.saveNote}
                     selectedNote={this.state.selectedNote}
-                    updateLocalDocumentText={this.updateLocalDocumentText}
                     setDocumentTextWithCallback={this.props.setDocumentTextWithCallback}
                     setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
                     setNoteViewerEditable={this.props.setNoteViewerEditable}
@@ -346,6 +348,7 @@ export default class NotesPanel extends Component {
                     structuredFieldMapManager={this.props.structuredFieldMapManager}
                     summaryItemToInsert={this.props.summaryItemToInsert}
                     contextTrayItemToInsert={this.state.contextTrayItemToInsert}
+                    updateLocalDocumentText={this.updateLocalDocumentText}
                     // Pass in note that the editor is to be updated with
                     updatedEditorNote={this.state.updatedEditorNote}
                     updateErrors={this.props.updateErrors}

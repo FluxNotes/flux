@@ -180,10 +180,8 @@ export default class NoteAssistant extends Component {
         }
     }
 
-    // TODO Support deleting notes
     deleteSelectedNote = () => {
         this.props.deleteSelectedNote();
-        // this.closeNote(); //TODO Need correct close note function.
     }
 
     // Render the content for the Note Assistant panel

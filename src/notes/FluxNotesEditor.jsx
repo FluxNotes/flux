@@ -176,14 +176,8 @@ class FluxNotesEditor extends React.Component {
         });
     }
 
-    componentWillUnmount() {
-        // TODO: Save current note on unmounting to not lose content
-        console.log("FNE unmounting")
-    }
-
     // Reset the editor to the initial state when the app is first constructed.
     resetEditorState() {
-        // TODO Can we use resetEditorState as a way to trigger saving notes?
         this.state = {
             state: initialState,
             isPortalOpen: false,
@@ -421,15 +415,8 @@ class FluxNotesEditor extends React.Component {
 
     closeNote = () => {
         const documentText = this.getNoteText(this.state.state);
-        this.props.closeNote(documentText);
-
-        // this.props.saveNoteOnChange(documentText);
-        // this.props.setDocumentTextWithCallback(documentText, () => {
-        //     // save note after documentText gets set
-        //     this.props.saveNoteOnChange();
-        // });
-
-        // this.setState({ state });
+        this.props.saveNote(documentText)
+        this.props.closeNote();
     }
 
     onFocus = () => {
@@ -1253,6 +1240,7 @@ FluxNotesEditor.proptypes = {
     newCurrentShortcut: PropTypes.func.isRequired,
     noteAssistantMode: PropTypes.string.isRequired,
     patient: PropTypes.object.isRequired,
+    saveNote: PropTypes.func.isRequired,
     selectedNote: PropTypes.object,
     setDocumentTextWithCallback: PropTypes.func,
     setFullAppState: PropTypes.func.isRequired,
