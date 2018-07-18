@@ -106,8 +106,6 @@ export default class NotesPanel extends Component {
                     noteAssistantMode: mode,
                     currentlyEditingEntryId: parseInt(note.entryInfo.entryId, 10)
                 });
-                // TODO Get rid of all the old documentText references
-                this.props.setDocumentText(note.content);
                 this.props.setOpenClinicalNote(note);
             });
         }
@@ -328,7 +326,6 @@ export default class NotesPanel extends Component {
                     closeNote={this.closeNote}
                     contextManager={this.props.contextManager}
                     currentViewMode={this.props.currentViewMode}
-                    documentText={this.props.documentText}
                     errors={this.props.errors}
                     handleUpdateEditorWithNote={this.handleUpdateEditorWithNote}
                     isNoteViewerEditable={this.props.isNoteViewerEditable}
@@ -339,10 +336,8 @@ export default class NotesPanel extends Component {
                     patient={this.props.patient}
                     saveNote={this.saveNote}
                     selectedNote={this.state.selectedNote}
-                    setDocumentTextWithCallback={this.props.setDocumentTextWithCallback}
-                    setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
                     setNoteViewerEditable={this.props.setNoteViewerEditable}
-                    setLayout={this.setLayout}
+                    setLayout={this.props.setLayout}
                     shortcutManager={this.props.shortcutManager}
                     shouldEditorContentUpdate={this.state.noteAssistantMode !== 'pick-list-options-panel'}
                     structuredFieldMapManager={this.props.structuredFieldMapManager}
@@ -371,11 +366,12 @@ export default class NotesPanel extends Component {
                     contextManager={this.props.contextManager}
                     contextTrayItemToInsert={this.state.contextTrayItemToInsert}
                     deleteSelectedNote={this.deleteSelectedNote}
-                    documentText={this.state.localDocumentText}
+                    errors={this.props.errors}
                     handleSummaryItemSelected={this.props.handleSummaryItemSelected}
                     handleUpdateArrayOfPickLists={this.handleUpdateArrayOfPickLists}
                     handleUpdateEditorWithNote={this.handleUpdateEditorWithNote}
                     isNoteViewerEditable={this.props.isNoteViewerEditable}
+                    itemInserted={this.props.itemInserted}
                     loadNote={this.handleUpdateEditorWithNote}
                     loginUser={this.props.loginUser}
                     newCurrentShortcut={this.props.newCurrentShortcut}
@@ -384,9 +380,9 @@ export default class NotesPanel extends Component {
                     openNewNote={this.openNewNote}
                     openExistingNote={this.openExistingNote}
                     patient={this.props.patient}
+                    saveNote={this.saveNote}
                     searchSelectedItem={this.props.searchSelectedItem}
                     selectedNote={this.state.selectedNote}
-                    setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
                     setLayout={this.props.setLayout} 
                     setNoteClosed={this.props.setNoteClosed}
                     setNoteViewerEditable={this.props.setNoteViewerEditable}
@@ -396,7 +392,9 @@ export default class NotesPanel extends Component {
                     shortcutManager={this.props.shortcutManager}
                     shouldEditorContentUpdate={this.state.noteAssistantMode === 'pick-list-options-panel'}
                     structuredFieldMapManager={this.props.structuredFieldMapManager}
+                    summaryItemToInsert={this.props.summaryItemToInsert}
                     updateCurrentlyEditingEntryId={this.handleUpdateCurrentlyEditingEntryId}
+                    updateLocalDocumentText={this.updateLocalDocumentText}
                     updateNoteAssistantMode={this.updateNoteAssistantMode}
                     updateSelectedNote={this.updateSelectedNote}
                     arrayOfPickLists={this.state.arrayOfPickLists}
@@ -422,7 +420,6 @@ NotesPanel.propTypes = {
     contextManager: PropTypes.object,
     currentViewMode: PropTypes.string.isRequired,
     dataAccess: PropTypes.object.isRequired,
-    documentText: PropTypes.string.isRequired,
     errors: PropTypes.array.isRequired,
     handleSummaryItemSelected: PropTypes.func.isRequired,
     isNoteViewerVisible: PropTypes.bool.isRequired,
@@ -434,8 +431,6 @@ NotesPanel.propTypes = {
     openClinicalNote: PropTypes.object,
     patient: PropTypes.object.isRequired,
     searchSelectedItem: PropTypes.object,
-    setDocumentText: PropTypes.func.isRequired,
-    setDocumentTextWithCallback: PropTypes.func.isRequired,
     setNoteClosed: PropTypes.func.isRequired,
     setNoteViewerEditable: PropTypes.func.isRequired,
     setFullAppStateWithCallback: PropTypes.func.isRequired,

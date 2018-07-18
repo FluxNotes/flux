@@ -246,7 +246,6 @@ export default class NoteAssistant extends Component {
                                 closeNote={this.props.closeNote}
                                 contextManager={this.props.contextManager}
                                 currentViewMode={'pre-encounter'}
-                                documentText={this.props.documentText}
                                 errors={this.props.errors}
                                 handleUpdateEditorWithNote={this.props.handleUpdateEditorWithNote}
                                 isNoteViewerEditable={false}
@@ -255,8 +254,9 @@ export default class NoteAssistant extends Component {
                                 newCurrentShortcut={this.props.newCurrentShortcut}
                                 noteAssistantMode={this.props.noteAssistantMode}
                                 patient={this.props.patient}
+                                saveNote={this.props.saveNote}
                                 selectedNote={this.props.selectedNote}
-                                setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
+                                setLayout={this.props.setLayout}
                                 setNoteViewerEditable={this.props.setNoteViewerEditable}
                                 shortcutManager={this.props.shortcutManager}
                                 shouldEditorContentUpdate={this.props.shouldEditorContentUpdate}
@@ -266,6 +266,7 @@ export default class NoteAssistant extends Component {
                                 // Pass in note that the editor is to be updated with
                                 updatedEditorNote={this.props.updatedEditorNote}
                                 updateErrors={this.props.updateErrors}
+                                updateLocalDocumentText={this.props.updateLocalDocumentText}
                                 updateSelectedNote={this.props.updateSelectedNote}
                                 updateNoteAssistantMode={this.props.updateNoteAssistantMode}
                                 arrayOfPickLists={this.props.arrayOfPickLists}
@@ -544,7 +545,6 @@ NoteAssistant.propTypes = {
     contextManager: PropTypes.object.isRequired,
     contextTrayItemToInsert: PropTypes.string,
     deleteSelectedNote: PropTypes.func.isRequired,
-    documentText: PropTypes.string.isRequired,
     handleSummaryItemSelected: PropTypes.func.isRequired,
     handleUpdateArrayOfPickLists: PropTypes.func.isRequired,
     handleUpdateEditorWithNote: PropTypes.func.isRequired,
@@ -557,7 +557,6 @@ NoteAssistant.propTypes = {
     patient: PropTypes.object.isRequired,
     searchSelectedItem: PropTypes.object,
     selectedNote: PropTypes.object,
-    setFullAppStateWithCallback: PropTypes.func.isRequired,
     setLayout: PropTypes.func.isRequired,
     setNoteClosed: PropTypes.func.isRequired,
     setNoteViewerEditable: PropTypes.func.isRequired,

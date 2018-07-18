@@ -321,10 +321,22 @@ describe('6 FluxNotesEditor', function() {
             setFullAppState={jest.fn()}
             setFullAppStateWithCallback={jest.fn()}
             setLayout={jest.fn()}
-            saveNoteUponKeypress={jest.fn()}
             shouldEditorContentUpdate={true}
             setNoteViewerEditable={jest.fn()}
             setNoteViewerVisible={jest.fn()}
+            currentViewMode={''}
+            errors={[]}
+            inModal={false}
+            itemInserted={jest.fn()}
+            noteAssistantMode={''}
+            patient={{}}
+            saveNote={jest.fn()}
+            summaryItemToInsert={''}
+            updateErrors={jest.fn()}
+            updateLocalDocumentText={jest.fn()}
+            updateSelectedNote={jest.fn()}
+            updateNoteAssistantMode={jest.fn()}
+            updateContextTrayItemToInsert={jest.fn()}
         />);
         expect(wrapper).to.exist;
         // wrapper.find('.editor-content').simulate('click'); //goes into on change
@@ -449,14 +461,11 @@ describe('6 FluxNotesEditor', function() {
             //Others that are required but not used in test
             currentViewMode={''}
             dataAccess={{}}
-            documentText={''}
             errors={[]}
             handleSummaryItemSelected={jest.fn()}
             itemInserted={jest.fn()}
             loginUser={''}
             noteClosed={false}
-            setDocumentText={jest.fn()}
-            setDocumentTextWithCallback={jest.fn()}
             setFullAppStateWithCallback={jest.fn()}
             setLayout={jest.fn()}
             setOpenClinicalNote={jest.fn()}
@@ -500,14 +509,11 @@ describe('6 FluxNotesEditor', function() {
             //Others that are required but not used in test
             currentViewMode={''}
             dataAccess={{}}
-            documentText={''}
             errors={[]}
             handleSummaryItemSelected={jest.fn()}
             itemInserted={jest.fn()}
             loginUser={''}
             noteClosed={false}
-            setDocumentText={jest.fn()}
-            setDocumentTextWithCallback={jest.fn()}
             setFullAppStateWithCallback={jest.fn()}
             setLayout={jest.fn()}
             setOpenClinicalNote={jest.fn()}
@@ -567,11 +573,22 @@ describe('6 FluxNotesEditor', function() {
             setFullAppState={jest.fn()}
             setFullAppStateWithCallback={jest.fn()}
             setLayout={jest.fn()}
-            setDocumentTextWithCallback={jest.fn()}
-            saveNoteUponKeypress={jest.fn()}
             shouldEditorContentUpdate={true}
             setNoteViewerEditable={jest.fn()}
             setNoteViewerVisible={jest.fn()}
+            currentViewMode={''}
+            errors={[]}
+            inModal={false}
+            itemInserted={jest.fn()}
+            noteAssistantMode={''}
+            patient={{}}
+            saveNote={jest.fn()}
+            summaryItemToInsert={''}
+            updateErrors={jest.fn()}
+            updateLocalDocumentText={jest.fn()}
+            updateSelectedNote={jest.fn()}
+            updateNoteAssistantMode={jest.fn()}
+            updateContextTrayItemToInsert={jest.fn()}
         />);
         expect(wrapper).to.exist;
         // wrapper.find('.editor-content').simulate('click'); //goes into on change
@@ -620,10 +637,22 @@ describe('6 FluxNotesEditor', function() {
             setFullAppState={jest.fn()}
             setFullAppStateWithCallback={jest.fn()}
             setLayout={jest.fn()}
-            saveNoteUponKeypress={jest.fn()}
             shouldEditorContentUpdate={true}
             setNoteViewerEditable={jest.fn()}
             setNoteViewerVisible={jest.fn()}
+            currentViewMode={''}
+            errors={[]}
+            inModal={false}
+            itemInserted={jest.fn()}
+            noteAssistantMode={''}
+            patient={{}}
+            saveNote={jest.fn()}
+            summaryItemToInsert={''}
+            updateErrors={jest.fn()}
+            updateLocalDocumentText={jest.fn()}
+            updateSelectedNote={jest.fn()}
+            updateNoteAssistantMode={jest.fn()}
+            updateContextTrayItemToInsert={jest.fn()}
         />);
         expect(wrapper).to.exist;
         // wrapper.find('.editor-content').simulate('click'); //goes into on change
@@ -676,10 +705,22 @@ describe('6 FluxNotesEditor', function() {
             setFullAppState={jest.fn()}
             setFullAppStateWithCallback={jest.fn()}
             setLayout={jest.fn()}
-            saveNoteUponKeypress={jest.fn()}
             shouldEditorContentUpdate={true}
             setNoteViewerEditable={jest.fn()}
             setNoteViewerVisible={jest.fn()}
+            currentViewMode={''}
+            errors={[]}
+            inModal={false}
+            itemInserted={jest.fn()}
+            noteAssistantMode={''}
+            patient={{}}
+            saveNote={jest.fn()}
+            summaryItemToInsert={''}
+            updateErrors={jest.fn()}
+            updateLocalDocumentText={jest.fn()}
+            updateSelectedNote={jest.fn()}
+            updateNoteAssistantMode={jest.fn()}
+            updateContextTrayItemToInsert={jest.fn()}
         />);
         expect(wrapper).to.exist;
         // wrapper.find('.editor-content').simulate('click'); //goes into on change
@@ -729,14 +770,11 @@ describe('6 FluxNotesEditor', function() {
             //Others that are required but not used in test
             currentViewMode={''}
             dataAccess={{}}
-            documentText={''}
             errors={[]}
             handleSummaryItemSelected={jest.fn()}
             itemInserted={jest.fn()}
             loginUser={''}
             noteClosed={false}
-            setDocumentText={jest.fn()}
-            setDocumentTextWithCallback={jest.fn()}
             setFullAppStateWithCallback={jest.fn()}
             setLayout={jest.fn()}
             setOpenClinicalNote={jest.fn()}
@@ -792,14 +830,11 @@ describe('6 FluxNotesEditor', function() {
             //Others that are required but not used in test
             currentViewMode={''}
             dataAccess={{}}
-            documentText={''}
             errors={[]}
             handleSummaryItemSelected={jest.fn()}
             itemInserted={jest.fn()}
             loginUser={''}
             noteClosed={false}
-            setDocumentText={jest.fn()}
-            setDocumentTextWithCallback={jest.fn()}
             setFullAppStateWithCallback={jest.fn()}
             setLayout={jest.fn()}
             setOpenClinicalNote={jest.fn()}
@@ -862,14 +897,11 @@ describe('6 FluxNotesEditor', function() {
             //Others that are required but not used in test
             currentViewMode={''}
             dataAccess={{}}
-            documentText={''}
             errors={[]}
             handleSummaryItemSelected={jest.fn()}
             itemInserted={jest.fn()}
             loginUser={''}
             noteClosed={false}
-            setDocumentText={jest.fn()}
-            setDocumentTextWithCallback={jest.fn()}
             setFullAppStateWithCallback={jest.fn()}
             setLayout={jest.fn()}
             setOpenClinicalNote={jest.fn()}
@@ -932,14 +964,11 @@ describe('6 FluxNotesEditor', function() {
             //Others that are required but not used in test
             currentViewMode={''}
             dataAccess={{}}
-            documentText={''}
             errors={[]}
             handleSummaryItemSelected={jest.fn()}
             itemInserted={jest.fn()}
             loginUser={''}
             noteClosed={false}
-            setDocumentText={jest.fn()}
-            setDocumentTextWithCallback={jest.fn()}
             setFullAppStateWithCallback={jest.fn()}
             setLayout={jest.fn()}
             setOpenClinicalNote={jest.fn()}
@@ -1004,10 +1033,22 @@ describe('6 FluxNotesEditor', function() {
             setFullAppState={jest.fn()}
             setFullAppStateWithCallback={jest.fn()}
             setLayout={jest.fn()}
-            saveNoteUponKeypress={jest.fn()}
             shouldEditorContentUpdate={true}
             setNoteViewerEditable={jest.fn()}
             setNoteViewerVisible={jest.fn()}
+            currentViewMode={''}
+            errors={[]}
+            inModal={false}
+            itemInserted={jest.fn()}
+            noteAssistantMode={''}
+            patient={{}}
+            saveNote={jest.fn()}
+            summaryItemToInsert={''}
+            updateErrors={jest.fn()}
+            updateLocalDocumentText={jest.fn()}
+            updateSelectedNote={jest.fn()}
+            updateNoteAssistantMode={jest.fn()}
+            updateContextTrayItemToInsert={jest.fn()}
         />);
         expect(wrapper).to.exist;
         // wrapper.find('.editor-content').simulate('click'); //goes into on change
@@ -1057,14 +1098,11 @@ describe('6 FluxNotesEditor', function() {
             //Others that are required but not used in test
             currentViewMode={''}
             dataAccess={{}}
-            documentText={''}
             errors={[]}
             handleSummaryItemSelected={jest.fn()}
             itemInserted={jest.fn()}
             loginUser={''}
             noteClosed={false}
-            setDocumentText={jest.fn()}
-            setDocumentTextWithCallback={jest.fn()}
             setFullAppStateWithCallback={jest.fn()}
             setLayout={jest.fn()}
             setOpenClinicalNote={jest.fn()}
@@ -1123,14 +1161,11 @@ describe('6 FluxNotesEditor', function() {
     //         //Others that are required but not used in test
     //         currentViewMode={''}
     //         dataAccess={{}}
-    //         documentText={''}
     //         errors={[]}
     //         handleSummaryItemSelected={jest.fn()}
     //         itemInserted={jest.fn()}
     //         loginUser={''}
     //         noteClosed={false}
-    //         setDocumentText={jest.fn()}
-    //         setDocumentTextWithCallback={jest.fn()}
     //         setFullAppStateWithCallback={jest.fn()}
     //         setLayout={jest.fn()}
     //         setOpenClinicalNote={jest.fn()}
