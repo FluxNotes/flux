@@ -480,12 +480,12 @@
   { "type": "NLPHashtag",
     "id": "NLPToxicityCreator",
     "name": "nlptoxicity",
-    "endpointName": "toxicity", 
+    "nlpTemplate": "toxicity", 
     "getData": null,
     "valueObject": "http://standardhealthrecord.org/spec/shr/adverse/ToxicReaction",
-    "valueObjectAttributes": [  {"name":"grade", "attribute":"adverseEventGrade", "isSettable":"true", "setMethod": "adverseEventGrade", "childShortcut": "NLPToxicityGradeCreator"},
-                                {"name":"adverseEvent", "attribute":"adverseEvent", "isSettable":"true", "setMethod": "adverseEvent", "childShortcut": "NLPToxicityAdverseEventCreator"},
-                                {"name":"attribution", "attribute":"causeCategory", "isSettable":"true", "setMethod": "causeCategory", "childShortcut": "NLPToxicityAttributionCreator"} ],
+    "valueObjectAttributes": [  {"name":"grade", "attribute":"adverseEventGrade", "isSettable":"true", "setMethod": "adverseEventGrade", "childShortcut": "ToxicityGradeCreator"},
+                                {"name":"adverseEvent", "attribute":"adverseEvent", "isSettable":"true", "setMethod": "adverseEvent", "childShortcut": "ToxicityAdverseEventCreator"},
+                                {"name":"attribution", "attribute":"causeCategory", "isSettable":"true", "setMethod": "causeCategory", "childShortcut": "ToxicityAttributionCreator"} ],
     "isContext": true,
     "stringTriggers": [{ "name": "#nlptoxicity", "description": "Side effects to treatment, important for effective evaluation of disease and treatment, based on Common Terminology Criteria for Adverse Events (CTCAE) version 4.03 (June 14, 2010)."}],
     "regexpTrigger": null,
@@ -495,26 +495,5 @@
     "knownParentContexts": "ConditionInserter",
     "description": "Side effects to treatment, important for effective evaluation of disease and treatment, based on Common Terminology Criteria for Adverse Events (CTCAE) version 4.03 (June 14, 2010).",
     "structuredPhraseDocumentation": "nlptoxicitySheet.pdf"
-  },
-  { "type": "NLPKeyword",
-    "id": "NLPToxicityGradeCreator",
-    "parentAttribute": "grade",
-    "knownParentContexts": "NLPToxicityCreator",
-    "description":"The severity of the adverse event. The CTCAE displays Grades 1 through 5 with unique clinical descriptions of severity for each adverse event.",
-    "shortcutGroupName":"NLPGrade"
-  },
-  { "type": "NLPKeyword",
-    "id": "NLPToxicityAdverseEventCreator",
-    "parentAttribute": "adverseEvent",
-    "knownParentContexts": "NLPToxicityCreator",
-    "description":"Any unfavorable and unintended sign, symptom, or disease temporally associated with the use of a medical treatment or procedure that may or may not be considered related to the medical treatment or procedure.",
-    "shortcutGroupName":"NLPAdverseEvent"
-  },
-  { "type": "NLPKeyword",
-    "id": "NLPToxicityAttributionCreator",
-    "parentAttribute": "attribution",
-    "knownParentContexts": "NLPToxicityCreator",
-    "description":"The relationship of the event or cause to the adverse event.",
-    "shortcutGroupName":"NLPAttribution"
   }
 ]

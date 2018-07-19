@@ -128,7 +128,6 @@ class FluxNotesEditor extends React.Component {
             getEditorValue: () => this.state.state,
             setEditorValue: (state) => {
                 console.log('setting editorVAlue')
-                console.log(this.setState)
                 this.setState({state})
             },
         };

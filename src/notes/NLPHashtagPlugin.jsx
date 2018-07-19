@@ -1,5 +1,8 @@
 import Lang from 'lodash';
 import Collection from 'lodash';
+import Shortcut from '../shortcuts/Shortcut';
+// import Slate from '../lib/slate'
+import { Selection } from '../lib/slate'
 
 // const API_ENDPOINT = "http://heliotrope.mitre.org:8551/api/parse_sentence"
 const DOMAIN = "http://127.0.0.1"
@@ -31,8 +34,8 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		'\\r',
 		'\\n',
 	]
-	const endOfSentenceRegexp = new RegExp(`(.*)(${stopCharacters.join('|')})(${phraseDelimiters.join('|')})`, 'i')
-
+	// '$' means this regexp only triggers when the phrase delimiter occurs at the end of the string.
+	const endOfSentenceRegexp = new RegExp(`(.*)(${stopCharacters.join('|')})(${phraseDelimiters.join('|')})\$`, 'i')
 	// Return the NLP hasgtag if there is one, else return nothing
 	function getNLPHashtag() { 
 		// Check the activeContexts for anything that is an instance of NLPHashtag
@@ -41,34 +44,69 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		}))
 	} 
 
-	// Get a text representation of the sentence following the NLPHashtag
-	function getSentenceContainingNLPHashtag(editorState, NLPShortcut) { 
-		// Get the current block 
-		const curBlock = editorState.startBlock;
-		const nodesFollowingNLPShortcut = [];
-		let seenNLPShortcut = false;
-		// For every node of that block: 
-		for (const node of curBlock.nodes) {
-			if (node.key === NLPShortcut.key) { 
-				// if key === shortcut.key, mark that we've seen the shortcuts
-				// So we can accumulate all blocks after
-				seenNLPShortcut = true;
-			} else if (seenNLPShortcut) { 
-				// If we've seent the shortcut, accumulate this node
-				nodesFollowingNLPShortcut.push(node.toJSON())
+	// Get the slate Range of the keywordText found within an Inline/Text Node
+	function getRangeForText (curNode, keywordText) { 
+		console.log(curNode)
+		console.log(keywordText)
+		// Return nothing if text is not found in this node
+		if (curNode.text.toLowerCase().indexOf(keywordText.toLowerCase()) === -1) {
+			return;
+		} else { 
+			const anchorKey = curNode.key;
+			const anchorOffset = curNode.text.toLowerCase().indexOf(keywordText);
+			const focusKey = anchorKey;
+			const focusOffset = anchorOffset + keywordText.length;
+			const isBackward = false;
+			const isFocused = false;
+
+			return {
+				anchorKey: anchorKey,
+				anchorOffset: anchorOffset,
+				focusKey: focusKey,
+				focusOffset: focusOffset,
+				isFocused: isFocused,
+				isBackward: isBackward,
 			}
 		}
+	}
+
+	// Get a text representation of the sentence following the NLPHashtag
+	function getSentenceContainingNLPHashtag(editorState, NLPShortcut) { 
+		// Get the block immediately following the NLPShortcut
+		const nodeAfterNLPShortcut = editorState.document.getNextSibling(NLPShortcut.key);
+		// Relevant selection is from the end of the shortcut to the end of my selection
+		const relevantSelection = { 
+			anchorKey: nodeAfterNLPShortcut.key,
+			anchorOffset: 0,
+			focusKey: editorState.endKey,
+			focusOffset: editorState.endOffset,
+			isFocused: false,
+			isBackward: false,
+		};
+		const relevantFragment = editorState.document.getFragmentAtRange(new Selection(relevantSelection))
+		// console.log(relevantFragment)
+		// For every node of that block: 
+		const nodesFollowingNLPShortcut = [];
+		for (const node of relevantFragment.nodes) {
+			// If we've seent the shortcut, accumulate this node
+			nodesFollowingNLPShortcut.push(node.toJSON())
+		}
+		const textRepresentationOfNodes = convertToTextForNLPEngine(nodesFollowingNLPShortcut);
+		// console.log(textRepresentationOfNodes)
 		// return all accumulated nodes converted to text
-		return convertToText(nodesFollowingNLPShortcut)
+		return convertToTextForNLPEngine(nodesFollowingNLPShortcut)
 	}
 
 	// Given a list of Slate nodes, convert them to text
-	function convertToText (nodes) { 
+	function convertToTextForNLPEngine (nodes) { 
 		let resultText = "";
 		nodes.forEach((node) => { 
-			if (node.type === 'structured_field') {
+			if (node.type === 'line') {
+                resultText += `\n${convertToTextForNLPEngine(node.nodes)}`;
+            } else if (node.type === 'structured_field') {
+				// We don't want to parse already structured data -- ignore
 				let shortcut = node.data.shortcut;
-                resultText += shortcut.getResultText();
+                // resultText += shortcut.getResultText();
 			} else if (node.characters && node.characters.length > 0) {
 				node.characters.forEach(char => {
 					resultText += char.text;
@@ -106,36 +144,110 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		console.log(error)
 	}
 
+	function parseAttribution(attributionArray, editorTransform, data, NLPShortcut) { 
+		console.log(attributionArray)
+		if (Lang.isUndefined(attributionArray)) { 
+			return editorTransform; 
+		} else { 
+			let editorState = editorTransform.state;
+			const nodeAfterNLPShortcut = editorState.document.getNextSibling(NLPShortcut.key);
+			let keywordRange;
+			for (const attribution of attributionArray) { 
+				const NLPKeyword = attribution.canonicalization;
+				const attributionNLPShortcut = createShortcut(null, NLPKeyword)
+				const NLPKeywordText = attributionNLPShortcut.text.toLowerCase();
+				let relevantSelection = { 
+					anchorKey: nodeAfterNLPShortcut.key,
+					anchorOffset: 0,
+					focusKey: editorState.endKey,
+					focusOffset: editorState.endOffset,
+					isFocused: false,
+					isBackward: false,
+				};
+				const relevantNodes = editorState.document.getTextsAtRange(new Selection(relevantSelection))
+				
+				// KeywordRange never be null -- we've already confirmed the existance of the keyword
+				for (const textNode of relevantNodes) { 
+					console.log(textNode)
+					keywordRange = getRangeForText(textNode, NLPKeywordText)
+					if (keywordRange) break;
+				}
+				// Remove keyword from block, using first character as the prefix
+				editorTransform = editorTransform.select(keywordRange).delete();
+				// Add shortcut to text; update relevantFragment and curText
+				editorTransform = insertStructuredFieldTransform(editorTransform, attributionNLPShortcut)
+				editorState = editorTransform.state;
+			}
+			return editorTransform
+		}
+		// TODO: Handle multiple values
+
+	}
+	function parseCTCAE(ctcaeArray, editorTransform, data, NLPShortcut) { 
+		console.log(ctcaeArray)
+		if (Lang.isUndefined(ctcaeArray)) { 
+			return editorTransform; 
+		} else { 
+			for (const attribution of ctcaeArray) { 
+			} 
+			return editorTransform;
+		} 
+	}
+	function parseGrade(gradeArray, editorTransform, data, NLPShortcut) { 
+		console.log(gradeArray)
+		if (Lang.isUndefined(gradeArray)) { 
+			return editorTransform; 
+		} else { 
+			for (const attribution of gradeArray) { 
+			} 
+			return editorTransform;
+		} 
+	}
+
+	function parsePhrases(phrases, data, NLPShortcut) { 
+		const editorState = getEditorValue()
+		let editorTransform = editorState.transform()
+		console.log(editorTransform)
+		editorTransform = parseAttribution(phrases["ATTRIBUTION"], editorTransform, data, NLPShortcut);
+		editorTransform = parseCTCAE(phrases["CTCAE"], editorTransform, data, NLPShortcut);
+		editorTransform = parseGrade(phrases["GRADE"], editorTransform, data, NLPShortcut);
+		if (editorTransform.operations.length > 0) { 
+			setEditorValue(editorTransform.collapseToEnd().focus().apply())
+		}
+	}
+
 	// Given data extracted from NLP engine, parse it for meaningful feedback and use that to perform necessary insertions.
-	function processNLPEngineData(data) { 
+	function processNLPEngineData(NLPShortcut, data) { 
+		if (!(NLPShortcut instanceof Shortcut) && typeof NLPShortcut === 'object' && NLPShortcut !== null && data === undefined) { 
+			// If we haven't bound a valid shortcut, and the first arg looks like data, we should define data as such
+			data = NLPShortcut
+		}
 		isFetching = false;
 		console.log('successful case here')
-		console.log(data);
-		// Quit if phrases is empty
-		if (Lang.isEmpty(data.phrases)) { 
-			return 
+		const phrases = data.phrases;
+		const success = data.success;
+		if (!success) { 
+			// If success is 'false', present the error message: 
+			console.error('Engine Error -- Response data from the NLP engine says an error occurred, provided this msg:')
+			console.error(data.error)
+			return
+		} else if (Lang.isEmpty(phrases)) { 
+			// Quit if phrases is empty
+			return  
 		} else { 
-
+			// There should be some phrases we want to insert.
+			console.log(data)
+			parsePhrases(phrases, data, NLPShortcut)	
 		}
-
-		// addNLPContentToEditor(data);
 	}
 
 	// Used when fetch throws an error; handle failure gracefully.
 	function handleNLPEngineError(error) { 
 		isFetching = false;
-		console.log('Catch statement: error is')
+		console.log('Error in Processing Response -- Available error message is: ')
 		console.log(error)
-	}	
-
-	// Performs the transformations to the editor based on the return data
-	function addNLPContentToEditor(data) { 
-		// Placeholder - perform some changes on the editor.
-		const editorValue = getEditorValue();
-		const transformedEditorValue = getEditorValue().transform().insertText('Example of inserted NLP text?').apply()
-		setEditorValue(transformedEditorValue)
-	}
-
+	}		
+	
 	// Sends off a request to the NLP endpoint
 	// Define a flag here so we don't send multiple requests while we're just waiting for a return value.
 	let isFetching = false
@@ -147,28 +259,28 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		// Else, we want to fetch data
 		isFetching = true;
 		console.log('call to fetchNLPExtraction')
-		const NLPShortcutName = NLPShortcut.endpointName;
+		const NLPShortcutName = NLPShortcut.nlpTemplate;
 		fetch(`${API_ENDPOINT}?template=${NLPShortcutName}&sentence=${NLPHashtagPhrase}`)
-			.then(processNLPEngineResponse)
+		.then(processNLPEngineResponse)
 			.then(
-				processNLPEngineData,
+				processNLPEngineData.bind(null,NLPShortcut),
+				// processNLPEngineData,
 				// Note: it's important to handle errors here
 				// instead of a catch() block so that we don't swallow
 				// exceptions from actual bugs in components. 
 				failedToProcessNLPEngineResponse
 			)
 			.catch(handleNLPEngineError);
-	}
-	
+		}
+
 	// Everytime a change is made to the editor, check to see if NLP should be parsed
 	function onChange (editorState, editor) {
 		// Check the structuredFieldMapManager for NLP Hashtags 
 		const NLPShortcut = getNLPHashtag()
 		// is there an NLP hashtag?
 		if (!Lang.isUndefined(NLPShortcut)) {
-			// Pull out NLP hashtag phrase if there is one
+			// Pull out NLP hashtag FullPhrase (one ending in a stop character) if there is one
 			const NLPHashtagPhrase = extractNLPHashtagFullPhrase(editorState, editor, NLPShortcut)
-			// is there a stopCharacter followed by a finishedTokenSymbol
 			if (!Lang.isUndefined(NLPHashtagPhrase)) { 
 				// send message out to NLPEndpoint 
 				fetchNLPExtraction(NLPShortcut, NLPHashtagPhrase)
