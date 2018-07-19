@@ -8,6 +8,20 @@
     min-height: 400px !important;
 }
 
+/* For IE only */
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .note-assistant-wrapper {
+        max-height: calc(92vh - 106px - 16px);
+    }
+}
+
+/* For IE Edge 12+ only */
+@supports (-ms-ime-align:auto) {
+    .note-assistant-wrapper {
+        max-height: calc(92vh - 106px - 16px);
+    }
+}
+
 .note-assistant-content-wrapper {
     margin-top: 5px;
     overflow-y: auto;
