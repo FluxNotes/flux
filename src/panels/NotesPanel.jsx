@@ -144,7 +144,7 @@ export default class NotesPanel extends Component {
     // Close a note
     closeNote = () => {
         this.props.setOpenClinicalNote(null);
-        this.setState({ // TODO are any of these state variables not needed?
+        this.setState({
             updatedEditorNote: null,
             noteAssistantMode: "context-tray",
             // selectedNote is the note that is selected in the clinical notes view in the NoteAssistant
