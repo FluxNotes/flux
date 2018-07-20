@@ -22,3 +22,16 @@ body {
     background-color: #F3F3F3;
     -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
 }
+
+/* Hide scrollbar for IE until a specific height or width is reached */
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    body {
+        overflow: hidden;
+    }
+}
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) and (max-height: 525px), (max-width: 1160px) {
+    body {
+        overflow: scroll;
+    }
+}
