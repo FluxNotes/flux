@@ -17,6 +17,4 @@ For easiest integration, we will generate a coffee file using cql-to-elm:
 For example:
 ./cql-to-elm/build/install/cql-to-elm/bin/cql-to-elm --format=JSON --input ${flux}/src/lib/cql-execution/example/cql/age.cql --output ./test.json
 
-
 We will now have a JSON representation of the ELM for our CQL file in our outputJSON path.  This JSON file can be passed to the `getCQLResults` function as the `cqlLogic` parameter.
-

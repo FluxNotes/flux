@@ -43,6 +43,28 @@ will parse all the sample notes in the samples directory. To only parse note 4:
 
 If a directory is specified, every file in that directory will be treated as a note and parsing will be attempted.
 
+## Patient Date Update
+
+This patient date updater is designed to change all of the dates in each of the entries in a patient JSON.  One of the parameters passed to the app is the entryid of an encounter.  The tool will calculate the difference of the current date and the date of the encounter and will add that difference to all of the dates.
+
+The patient date updater can be executed (local command line) by running the following command:
+
+```bash
+yarn patient-date-update <path-to-patient-json> <encounter-entryid>
+```
+
+* The program expects the JSON file provided to be an array of SHR entries.
+* The program will overwrite the file that was passed in and will create a backup using the same path but adding `'.backup'` to the end.
+  * For example, the backup file that will be created for `HardCodedPatientMidYearDemo18.json` will named `HardCodedPatientMidYearDemo18.json.backup`.
+
+For example:
+
+```bash
+yarn patient-date-update ./src/dataaccess/HardCodedPatientMidYearDemo18.json 100
+```
+
+will search the patient entries for an `EncounterRequested` with an `entryid` of 100.  It will then use the `ActionContext.ExpectedPerformanceTime.Value` to calculate the difference to add to the dates.
+
 ## Testing
 
 For docs on writing new tests, [see here in our wiki](https://github.com/standardhealth/flux/wiki/Testing#writing-tests). To run tests, go into the central project directory and run:
