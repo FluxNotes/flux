@@ -410,35 +410,24 @@ class FluxNotesEditor extends React.Component {
     }
 
     onChange = (change) => {
-        // FIXME: Just used document.nodes instead of creating a whole doc selection
-        const editorValue = change.value;
-        let indexOfLastNode = editorValue.toJSON().document.nodes.length - 1;
-        let endOfNoteKey = editorValue.toJSON().document.nodes[indexOfLastNode].key;
-        let endOfNoteOffset = 0;
-        // If the editor has no structured phrases, use the number of characters in the first 'node'
-        if (Lang.isEqual(indexOfLastNode, 0) && !Lang.isUndefined(editorValue.toJSON().document.nodes["0"].nodes["0"].characters)) {
-            endOfNoteOffset = editorValue.toJSON().document.nodes["0"].nodes["0"].characters.length;
-        } else {
-            if (!Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText)) {
-                endOfNoteOffset = this.props.documentText.length;
-            }
-        }
-
-        // 'copy' the text every time into the note
-        // Need to artificially set selection to the whole document
-        // editorValue.selection only has a getter for these values so create a new object
-        const entireNote = {
-            startKey: "0",
-            startOffset: 0,
-            endKey: endOfNoteKey,
-            endOffset: endOfNoteOffset
-        };
-        const documentText = this.structuredFieldPlugin.convertToText(editorValue, entireNote);
-        console.log('documentText')
-        console.log(documentText)
-        this.props.saveNoteOnChange(documentText);
+        let editorValue = change.value;
+        let documentText = this.getNoteText(editorValue);
+        // NOTE: Removing this function call allows selection to happen in IE.
+        // this.props.updateLocalDocumentText(documentText);
+        // NOTE: Will need to add in adjustActiveContexts - which will also break selection in IE.
 
         this.setState({ editorValue });
+    }
+
+    getNoteText = (change) => {
+        const documentText = this.structuredFieldPlugin.convertToText(change);
+        return documentText;
+    }
+
+    closeNote = () => {
+        const documentText = this.getNoteText(this.state.editorValue);
+        this.props.saveNote(documentText);
+        this.props.closeNote();
     }
 
     onFocus = () => {
@@ -1137,7 +1126,7 @@ class FluxNotesEditor extends React.Component {
                                     raised 
                                     className="close-note-btn"
                                     disabled={this.context_disabled}
-                                    onClick={this.props.closeNote}
+                                    onClick={this.closeNote}
                                     style={{
                                         float: "right",
                                         lineHeight: "2.1rem"

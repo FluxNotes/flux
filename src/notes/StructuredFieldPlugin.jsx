@@ -101,12 +101,11 @@ function StructuredFieldPlugin(opts) {
         return result;
     }
 
-    function convertToText(editorValue, selection) {
+    function convertToText(editorValue) {
         return `${convertSlateNodesToText(editorValue.document.toJSON().nodes)}`;
     }
 
     function onCopy(event, data, state, editor) {
-        let { selection } = state;
 
         const window = getWindow(event.target);
         const native = window.getSelection();
@@ -118,7 +117,7 @@ function StructuredFieldPlugin(opts) {
         // If the selection is collapsed, and it isn't inside a void node, abort.
         if (native.isCollapsed && !isVoid) return;
 
-        let fluxString = convertToText(state, selection);
+        let fluxString = convertToText(state);
         // console.log("copy: " + fluxString);
         const encoded = window.btoa(window.encodeURIComponent(fluxString));
         const range = native.getRangeAt(0);

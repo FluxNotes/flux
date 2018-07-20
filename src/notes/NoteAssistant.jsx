@@ -54,12 +54,6 @@ export default class NoteAssistant extends Component {
         }
     }
 
-    componentDidMount() {
-        // set callback so the editor can signal a change and this class can save the note
-        this.props.saveNote(this.saveNoteOnChange);
-        this.props.closeNote(this.closeNote);
-    }
-
     componentWillReceiveProps(nextProps) {
         if (nextProps.searchSelectedItem) {
             const newNote = nextProps.searchSelectedItem;
@@ -125,105 +119,24 @@ export default class NoteAssistant extends Component {
 
     // Gets called when clicking on the "new note" button
     handleOnNewNoteButtonClick = () => {
-        this.createBlankNewNote();
-    }
-
-    updateExistingNote = (content) => {
-        this.updateNote(this.props.currentlyEditingEntryId, content);
-    }
-
-    updateNote = (entryId, content) => {
-        console.log('update note')
-        // Only update if there is a note in progress
-        if (!Lang.isEqual(entryId, -1)) {
-            console.log('we have entry')
-            // List the notes to verify that they are being updated each invocation of this function:
-            var found = this.props.patient.getNotes().find(function (element) {
-                return Lang.isEqual(element.entryInfo.entryId, entryId);
-            });
-            if (!Lang.isNull(found) && !Lang.isUndefined(found)) {
-                console.log('we  have a note with that id')
-                console.log('content')
-                console.log(content)
-                found.content = content;
-                this.props.patient.updateExistingEntry(found);
-                this.props.updateSelectedNote(found);
-            }
-        }
-    }
-
-    // creates blank new note and puts it on the screen
-    createBlankNewNote = () => {
-        this.props.setNoteClosed(false);
-        // Create info to be set for new note
-        let date = new moment().format("D MMM YYYY");
-        let subject = "New Note";
-        let hospital = "Dana Farber";
-        let clinician = this.props.loginUser;
-        let content = "";
-        let signed = false;
-
-        // Add new unsigned note to patient record
-        var currentlyEditingEntryId = this.props.patient.addClinicalNote(date, subject, hospital, clinician, content, signed);
-        this.props.updateCurrentlyEditingEntryId(currentlyEditingEntryId);
-
-        var newNote = this.props.patient.getNotes().find(function (curNote) {
-            return Lang.isEqual(curNote.entryInfo.entryId, currentlyEditingEntryId);
-        });
-
-        // Select note in the clinical notes view
-        this.props.updateSelectedNote(newNote);
-        this.props.loadNote(newNote);
-        this.props.setNoteViewerEditable(true);
-        this.toggleView("context-tray");
-    }
-
-    // save the note after every editor change. Invoked by FluxNotesEditor.
-    saveNoteOnChange = (content) => {
-        // Only save if note is currently open
-        if (this.props.currentlyEditingEntryId !== -1) {
-            this.updateExistingNote(content);
-        }
+        this.props.openNewNote();
+        this.toggleView('context-tray');
     }
 
     // Gets called when clicking on one of the notes in the clinical notes view
     openNote = (isInProgressNote, note) => {
-        this.props.setNoteClosed(false);
-        this.props.setLayout("split");
-        this.props.setNoteViewerVisible(true);
-
-        // Don't start saving until there is content in the editor
-        // if (!Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText) && this.props.documentText.length > 0) {
-        //     this.updateExistingNote();
-        // }
-        this.props.updateCurrentlyEditingEntryId(note.entryInfo.entryId);
-        // the lines below are duplicative
-        this.props.updateSelectedNote(note);
-        this.props.loadNote(note);
+        this.props.openExistingNote(isInProgressNote, note);
 
         // If the note selected is an In-Progress note, switch to the context tray else use the clinical-notes view
         if (isInProgressNote) {
-            this.props.setNoteViewerEditable(true);
             this.toggleView("context-tray");
         } else {
-            this.props.setNoteViewerEditable(false)
             this.toggleView("clinical-notes");
         }
     }
 
-    // invoked by FluxNotesEditor when the Close Note button is pressed
-    // removes the editor, deselects the selected note, expands right panel
-    closeNote = () => {
-        this.props.setNoteClosed(true);
-        this.props.setLayout("right-collapsed");
-        this.props.setNoteViewerVisible(false);
-        this.props.setNoteViewerEditable(false);
-        this.props.setOpenClinicalNote(null);
-    }
-
     deleteSelectedNote = () => {
         this.props.deleteSelectedNote();
-        this.closeNote();
     }
 
     // Render the content for the Note Assistant panel
@@ -288,7 +201,6 @@ export default class NoteAssistant extends Component {
                                 closeNote={this.props.closeNote}
                                 contextManager={this.props.contextManager}
                                 currentViewMode={'pre-encounter'}
-                                // documentText={this.props.documentText}
                                 errors={this.props.errors}
                                 handleUpdateEditorWithNote={this.props.handleUpdateEditorWithNote}
                                 isNoteViewerEditable={false}
@@ -297,15 +209,16 @@ export default class NoteAssistant extends Component {
                                 newCurrentShortcut={this.props.newCurrentShortcut}
                                 noteAssistantMode={this.props.noteAssistantMode}
                                 patient={this.props.patient}
-                                saveNoteOnChange={this.props.saveNoteOnChange}
+                                saveNote={this.props.saveNote}
                                 selectedNote={this.props.selectedNote}
-                                setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
+                                setLayout={this.props.setLayout}
                                 setNoteViewerEditable={this.props.setNoteViewerEditable}
                                 shortcutManager={this.props.shortcutManager}
                                 shouldEditorContentUpdate={this.props.shouldEditorContentUpdate}
                                 structuredFieldMapManager={this.props.structuredFieldMapManager}
                                 summaryItemToInsert={this.props.summaryItemToInsert}
                                 contextTrayItemToInsert={this.props.contextTrayItemToInsert}
+                                updateLocalDocumentText={this.props.updateLocalDocumentText}
                                 // Pass in note that the editor is to be updated with
                                 updatedEditorNote={this.props.updatedEditorNote}
                                 updateErrors={this.props.updateErrors}
@@ -587,7 +500,6 @@ NoteAssistant.propTypes = {
     contextManager: PropTypes.object.isRequired,
     contextTrayItemToInsert: PropTypes.string,
     deleteSelectedNote: PropTypes.func.isRequired,
-    // documentText: PropTypes.string.isRequired,
     handleSummaryItemSelected: PropTypes.func.isRequired,
     handleUpdateArrayOfPickLists: PropTypes.func.isRequired,
     handleUpdateEditorWithNote: PropTypes.func.isRequired,

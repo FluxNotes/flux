@@ -61,7 +61,6 @@ export class FullApp extends Component {
             clinicalEvent: "pre-encounter",
             condition: null,
             contextManager: this.contextManager,
-            documentText: "",
             errors: [],
             layout: "",
             isNoteViewerVisible: false,
@@ -157,10 +156,6 @@ export class FullApp extends Component {
         this.setFullAppState('condition', condition)
     }
 
-    setDocumentText = (documentText) => {
-        this.setFullAppState('documentText', documentText);
-    }
-
     setNoteViewerVisible = (value) => {
         this.setFullAppState('isNoteViewerVisible', value);
     }
@@ -221,10 +216,6 @@ export class FullApp extends Component {
         this.setState({
             openClinicalNote: openClinicalNote
         });
-    }
-
-    setDocumentTextWithCallback = (documentText, callback) => {
-        this.setFullAppStateWithCallback({ documentText }, callback);
     }
 
     openReferencedNote = (item, arrayIndex = -1) => {
@@ -310,8 +301,6 @@ export class FullApp extends Component {
                             onContextUpdate={this.onContextUpdate}
                             possibleClinicalEvents={this.possibleClinicalEvents}
                             searchSelectedItem={this.state.searchSelectedItem}
-                            setDocumentText={this.setDocumentText}
-                            setDocumentTextWithCallback={this.setDocumentTextWithCallback}
                             setNoteClosed={this.setNoteClosed}
                             setNoteViewerEditable={this.setNoteViewerEditable}
                             setNoteViewerVisible={this.setNoteViewerVisible}
