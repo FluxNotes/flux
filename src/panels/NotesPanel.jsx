@@ -4,6 +4,7 @@ import {Row, Col} from 'react-flexbox-grid';
 import FluxNotesEditor from '../notes/FluxNotesEditor';
 import Button from '../elements/Button';
 import Lang from 'lodash';
+import moment from 'moment';
 import NoteAssistant from '../notes/NoteAssistant';
 import NoteParser from '../noteparser/NoteParser';
 import './NotesPanel.css';
@@ -21,6 +22,7 @@ export default class NotesPanel extends Component {
             currentlyEditingEntryId: -1,
             arrayOfPickLists: [],
             contextTrayItemToInsert: null,
+            localDocumentText: ''
         };
 
         this.noteParser = new NoteParser(this.props.shortcutManager, this.props.contextManager);
@@ -33,11 +35,15 @@ export default class NotesPanel extends Component {
         }
     }
 
+    updateLocalDocumentText = (text) => {
+        this.setState({ localDocumentText: text });
+    }
+
     updateNoteAssistantMode = (mode) => {
         this.setState({noteAssistantMode: mode});
     }
 
-    updateSelectedNote = (note) => {
+    updateSelectedNote = (note) => {        
         this.setState({selectedNote: note});
     }
 
@@ -99,29 +105,44 @@ export default class NotesPanel extends Component {
                     noteAssistantMode: mode,
                     currentlyEditingEntryId: parseInt(note.entryInfo.entryId, 10)
                 });
-                this.props.setDocumentText(note.content);
                 this.props.setOpenClinicalNote(note);
             });
         }
-    }
-
-    handleUpdateCurrentlyEditingEntryId = (id) => {
-        this.setState({currentlyEditingEntryId: parseInt(id, 10)});
     }
 
     handleUpdateArrayOfPickLists = (array) => {
         this.setState({arrayOfPickLists: array})
     }
 
-    // Save the note after every editor change. This function invokes the note saving logic in NoteAssistant
-    saveNoteOnChange = () => {
-        this.saveNoteChild();
+    updateNote = (entryId, noteContent) => {
+        // Only update if there is a note in progress
+        if (!Lang.isEqual(entryId, -1)) {
+            // List the notes to verify that they are being updated each invocation of this function:
+            var noteToUpdate = this.props.patient.getNotes().find(function (element) {
+                return Lang.isEqual(element.entryInfo.entryId, entryId);
+            });
+            if (!Lang.isNull(noteToUpdate) && !Lang.isUndefined(noteToUpdate)) {
+                noteToUpdate.content = noteContent;
+                this.props.patient.updateExistingEntry(noteToUpdate);
+                this.updateSelectedNote(noteToUpdate);
+            }
+        }
     }
 
-    // invokes closing logic in NoteAssistant
+    updateExistingNote = (noteContent) => {
+        this.updateNote(this.state.currentlyEditingEntryId, noteContent);
+    }
+
+    // Save a note
+    saveNote = (noteContent) => {
+        if (this.state.currentlyEditingEntryId !== -1) {
+            console.log('saving')
+            this.updateExistingNote(noteContent);
+        }
+    }
+
+    // Close a note
     closeNote = () => {
-        this.closeNoteChild();
-        this.props.setDocumentText("");
         this.props.setOpenClinicalNote(null);
         this.setState({
             updatedEditorNote: null,
@@ -130,13 +151,65 @@ export default class NotesPanel extends Component {
             selectedNote: null,
             currentlyEditingEntryId: -1
         });
+        this.props.setNoteClosed(true);
+        this.props.setLayout('right-collapsed');
+        this.props.setNoteViewerVisible(false);
+        this.props.setNoteViewerEditable(false);
+    }
+
+    // Create and open a blank note
+    openNewNote = () => {
+        // Create info to be set for new note
+        const date = new moment().format("D MMM YYYY");
+        const subject = "New Note";
+        const hospital = "Dana Farber";
+        const clinician = this.props.loginUser;
+        const content = "";
+        const signed = false;
+
+        // Add new unsigned note to patient record
+        const currentlyEditingEntryId = this.props.patient.addClinicalNote(date, subject, hospital, clinician, content, signed);
+
+        const newNote = this.props.patient.getNotes().find(function (curNote) {
+            return Lang.isEqual(curNote.entryInfo.entryId, currentlyEditingEntryId);
+        });
+
+        this.openNote(newNote, true);
+    }
+
+    // Open an existing note
+    openExistingNote = (isInProgress, note) => {
+        this.openNote(note, isInProgress);
+    }
+
+    openNote = (note, isInProgress) => {
+        // Saves the current note and resets localDocumentText before opening the next note.
+        this.saveNote(this.state.localDocumentText);
+        this.updateLocalDocumentText('');
+
+        // Open a note
+        this.props.setNoteClosed(false);
+        this.props.setLayout('split');
+        this.props.setNoteViewerVisible(true);
+
+        // Old note above these lines: 'the lines below are duplicative'
+        this.updateSelectedNote(note);
+        this.handleUpdateEditorWithNote(note);
+
+        if (isInProgress) {
+            this.props.setNoteViewerEditable(true);
+        } else {
+            this.props.setNoteViewerEditable(false);
+        }
     }
 
     // Removes a note from patient object if the note is unsigned 
     deleteSelectedNote = () => {
+        this.closeNote(this.state.localDocumentText);
         if (this.state.selectedNote && !this.state.selectedNote.signed) {
             // Find the shortcuts in the current note.
-            const recognizedShortcutsObjects = this.noteParser.getListOfTriggersFromText(this.state.selectedNote.content)[0].reverse();
+            // Use this.state.localDocumentText since note is not saved on every keypress and need full content here.
+            const recognizedShortcutsObjects = this.noteParser.getListOfTriggersFromText(this.state.localDocumentText)[0].reverse();
             for (const index in recognizedShortcutsObjects) {
                 // Get the actual shortcut obj from structuredFieldMapManager lookup -- need id of shortcut to retrieve
                 const currentShortcutTrigger = recognizedShortcutsObjects[index].trigger.toLowerCase();
@@ -172,6 +245,7 @@ export default class NotesPanel extends Component {
         });
 
         // Close the current note
+        this.saveNote(this.state.localDocumentText)
         this.closeNote();
     }
 
@@ -242,7 +316,6 @@ export default class NotesPanel extends Component {
                     closeNote={this.closeNote}
                     contextManager={this.props.contextManager}
                     currentViewMode={this.props.currentViewMode}
-                    documentText={this.props.documentText}
                     errors={this.props.errors}
                     handleUpdateEditorWithNote={this.handleUpdateEditorWithNote}
                     isNoteViewerEditable={this.props.isNoteViewerEditable}
@@ -251,12 +324,12 @@ export default class NotesPanel extends Component {
                     newCurrentShortcut={this.props.newCurrentShortcut}
                     noteAssistantMode={this.state.noteAssistantMode}
                     patient={this.props.patient}
-                    saveNoteOnChange={this.saveNoteOnChange}
+                    saveNote={this.saveNote}
                     selectedNote={this.state.selectedNote}
                     setDocumentTextWithCallback={this.props.setDocumentTextWithCallback}
                     setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
                     setNoteViewerEditable={this.props.setNoteViewerEditable}
-                    setLayout={this.setLayout}
+                    setLayout={this.props.setLayout}
                     shortcutManager={this.props.shortcutManager}
                     shouldEditorContentUpdate={this.state.noteAssistantMode !== 'pick-list-options-panel'}
                     structuredFieldMapManager={this.props.structuredFieldMapManager}
@@ -266,6 +339,7 @@ export default class NotesPanel extends Component {
                     updatedEditorNote={this.state.updatedEditorNote}
                     updateErrors={this.props.updateErrors}
                     updateSelectedNote={this.updateSelectedNote}
+                    updateLocalDocumentText={this.updateLocalDocumentText}
                     updateNoteAssistantMode={this.updateNoteAssistantMode}
                     arrayOfPickLists={this.arrayOfPickLists}
                     handleUpdateArrayOfPickLists={this.handleUpdateArrayOfPickLists}
@@ -279,12 +353,12 @@ export default class NotesPanel extends Component {
         return (
             <div className="fitted-panel panel-content dashboard-panel">
                 <NoteAssistant
-                    closeNote={click => this.closeNoteChild = click}
+                    closeNote={this.closeNote}
                     currentlyEditingEntryId={this.state.currentlyEditingEntryId}
                     contextManager={this.props.contextManager}
                     contextTrayItemToInsert={this.state.contextTrayItemToInsert}
                     deleteSelectedNote={this.deleteSelectedNote}
-                    documentText={this.props.documentText}
+                    errors={this.props.errors}
                     handleSummaryItemSelected={this.props.handleSummaryItemSelected}
                     handleUpdateArrayOfPickLists={this.handleUpdateArrayOfPickLists}
                     handleUpdateEditorWithNote={this.handleUpdateEditorWithNote}
@@ -294,8 +368,10 @@ export default class NotesPanel extends Component {
                     newCurrentShortcut={this.props.newCurrentShortcut}
                     noteAssistantMode={this.state.noteAssistantMode}
                     noteClosed={this.props.noteClosed}
+                    openNewNote={this.openNewNote}
+                    openExistingNote={this.openExistingNote}
                     patient={this.props.patient}
-                    saveNote={click => this.saveNoteChild = click}
+                    saveNote={this.saveNote}
                     saveNoteOnChange={this.saveNoteOnChange}
                     searchSelectedItem={this.props.searchSelectedItem}
                     selectedNote={this.state.selectedNote}
@@ -313,6 +389,7 @@ export default class NotesPanel extends Component {
                     updateNoteAssistantMode={this.updateNoteAssistantMode}
                     updateSelectedNote={this.updateSelectedNote}
                     arrayOfPickLists={this.state.arrayOfPickLists}
+                    updateLocalDocumentText={this.updateLocalDocumentText}
                     updateContextTrayItemToInsert={this.updateContextTrayItemToInsert}
                     updateContextTrayItemWithSelectedPickListOptions={this.updateContextTrayItemWithSelectedPickListOptions}
                     updatedEditorNote={this.state.updatedEditorNote}

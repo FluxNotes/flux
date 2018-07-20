@@ -1,5 +1,7 @@
 import React from 'react';
-import Slate from '../lib/slate';
+import { Inline, Range } from 'slate';
+import { findDOMNode } from 'slate-react'
+import { IS_IE, IS_CHROME, IS_SAFARI } from 'slate-dev-environment'
 import Lang from 'lodash';
 import getWindow from 'get-window';
 
@@ -17,11 +19,13 @@ function StructuredFieldPlugin(opts) {
     let insertText = opts.insertText;
     const clearStructuredFieldMap = opts.structuredFieldMapManager.clearStructuredFieldMap;
 
-    function onChange(state, editor) {
+    function onChange(change) {
+        if (change.operations.size === 0) return
+        const editorValue = change.value;
         var deletedKeys = [];
         const keyToShortcutMap = opts.structuredFieldMapManager.keyToShortcutMap;
         const idToShortcutMap = opts.structuredFieldMapManager.idToShortcutMap;
-        const nodes = state.document.getInlines();
+        const nodes = editorValue.document.getInlinesAsArray();
         if (nodes.size !== keyToShortcutMap.size) {
             var currentNodesMap = new Map(nodes.map((i) => [i.key, i]));
             keyToShortcutMap.forEach((value, key) => {
@@ -33,7 +37,7 @@ function StructuredFieldPlugin(opts) {
         // Sort the keys in reverse order of creation -- new keys are always > old keys
         deletedKeys.sort((a, b) => b - a)
         var shortcut;
-        let result = state;
+        const result = editorValue;
         deletedKeys.forEach((key) => {
             shortcut = keyToShortcutMap.get(key);
             if (shortcut.onBeforeDeleted()) {
@@ -41,45 +45,11 @@ function StructuredFieldPlugin(opts) {
                 idToShortcutMap.delete(shortcut.metadata.id)
                 contextManager.contextUpdated();
             } else {
-                result = editor.getState(); // don't allow state change
                 updateErrors([ "Unable to delete " + shortcut.getLabel() + " because " + shortcut.getChildren().map((child) => { return child.getText(); }).join() + " " + ((shortcut.getChildren().length > 1) ? "depend" : "depends") + " on it." ]);
             }
         });
         return result;
     }
-
-    const schema = {
-		nodes: {
-			structured_field:      props => {
-				let shortcut = props.node.get('data').get('shortcut');
-				return <span contentEditable={false} className='structured-field' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
-			},
-		},
-		rules: [
-			{
-				match: (node) => {
-					return node.kind === 'block' && node.type === 'inline'
-				},
-				render: (props) => {
-					return (
-						<span {...props.attributes} style={{ position: 'relative', width:'100%', height:'100%'}}>
-							{props.children}
-							{props.editor.props.placeholder
-								? <Slate.Placeholder
-									className={props.editor.props.placeholderClassName}
-									node={props.node}
-									parent={props.state.document}
-									state={props.state}
-									style={{position: 'relative',top:'-18px',width:'100%', height:'100%',opacity:'0.333',...props.editor.props.placeholderStyle}}
-								  >{props.editor.props.placeholder}
-								  </Slate.Placeholder>
-								: null}
-						</span>
-					);
-				}
-			}
-		]
-	};
 
     function convertSlateNodesToText(nodes) {
         let result = '';
@@ -90,10 +60,14 @@ function StructuredFieldPlugin(opts) {
             // console.log(node)
             if (node.type === 'line') {
                 result += `<div>${convertSlateNodesToText(node.nodes)}</div>`;
-            } else if (node.characters && node.characters.length > 0) {
-                node.characters.forEach(char => {
-                    const inMarksNotLocal = Lang.differenceBy(char.marks, localStyle, 'type');
-                    const inLocalNotMarks = Lang.differenceBy(localStyle, char.marks, 'type');
+                //FIXME: No longerf a Text.characters; now uses something else
+            } else if (node.type === getStructuredFieldType()) {
+                let shortcut = node.data.shortcut;
+                result += shortcut.getResultText();
+            } else if (node.object === "text" ) {
+                node.leaves.forEach(leaf => {
+                    const inMarksNotLocal = Lang.differenceBy(leaf.marks, localStyle, 'type');
+                    const inLocalNotMarks = Lang.differenceBy(localStyle, leaf.marks, 'type');
                     if (inMarksNotLocal.length > 0) {
                         inMarksNotLocal.forEach(mark => {
                             result += `<${markToHTMLTag[mark.type]}>`;
@@ -104,8 +78,8 @@ function StructuredFieldPlugin(opts) {
                             result += `</${markToHTMLTag[mark.type]}>`;
                         });
                     }
-                    localStyle = char.marks;
-                    result += char.text;
+                    localStyle = leaf.marks;
+                    result += leaf.text;
                 });
                 if (localStyle.length > 0) {
                     Lang.reverse(localStyle).forEach(mark => {
@@ -127,12 +101,11 @@ function StructuredFieldPlugin(opts) {
         return result;
     }
 
-    function convertToText(state, selection) {
-        return `${convertSlateNodesToText(state.document.toJSON().nodes)}`;
+    function convertToText(editorValue) {
+        return `${convertSlateNodesToText(editorValue.document.toJSON().nodes)}`;
     }
 
     function onCopy(event, data, state, editor) {
-        let { selection } = state;
 
         const window = getWindow(event.target);
         const native = window.getSelection();
@@ -144,7 +117,7 @@ function StructuredFieldPlugin(opts) {
         // If the selection is collapsed, and it isn't inside a void node, abort.
         if (native.isCollapsed && !isVoid) return;
 
-        let fluxString = convertToText(state, selection);
+        let fluxString = convertToText(state);
         // console.log("copy: " + fluxString);
         const encoded = window.btoa(window.encodeURIComponent(fluxString));
         const range = native.getRangeAt(0);
@@ -156,7 +129,7 @@ function StructuredFieldPlugin(opts) {
         if (isVoid) {
             //console.log("isVoid: " + isVoid);
             const r = range.cloneRange();
-            const node = Slate.Utils.findDOMNode(isVoidBlock ? endBlock : endInline);
+            const node = findDOMNode(isVoidBlock ? endBlock : endInline);
             r.setEndAfter(node);
             contents = r.cloneContents();
             attach = contents.childNodes[contents.childNodes.length - 1].firstChild;
@@ -170,7 +143,7 @@ function StructuredFieldPlugin(opts) {
         // COMPAT: In Chrome and Safari, if the last element in the selection to
         // copy has `contenteditable="false"` the copy will fail, and nothing will
         // be put in the clipboard. So we remove them all. (2017/05/04)
-        if (Slate.IS_CHROME || Slate.IS_SAFARI) {
+        if (IS_CHROME || IS_SAFARI) {
             const els = [].slice.call(contents.querySelectorAll('[contenteditable="false"]'));
             els.forEach(el => el.removeAttribute('contenteditable'));
         }
@@ -216,6 +189,9 @@ function StructuredFieldPlugin(opts) {
             native.addRange(range);
         })
         return state;
+    }
+    function isNodeStructuredField(node) { 
+        return node.type === getStructuredFieldType();
     }
 
     const FRAGMENT_MATCHER = / flux-string="([^\s]+)"/;
@@ -278,15 +254,19 @@ function StructuredFieldPlugin(opts) {
         onCut,
         onCopy,
         onPaste,
-        schema,
         convertToText,
 
         utils: {
             //isSelectionInStructuredField
             convertSlateNodesToText: convertSlateNodesToText,
         },
+        helpers: {
+            convertToText: convertToText,
+            convertSlateNodesToText: convertSlateNodesToText,
+            getStructuredFieldType: getStructuredFieldType,
+        },
 
-        transforms: {
+        changes: {
             insertStructuredField:     	insertStructuredField.bind(null, opts)
         }
     };
@@ -332,12 +312,15 @@ function createStructuredField(opts, shortcut) {
             shortcut: shortcut
         }
     };
-    let sf = Slate.Inline.create(properties);
+    let sf = Inline.create(properties);
     opts.structuredFieldMapManager.keyToShortcutMap.set(sf.key, shortcut);
     opts.structuredFieldMapManager.idToShortcutMap.set(shortcut.metadata.id, shortcut);
     // console.log("sf")
     // console.log(sf)
 	return sf;
+}
+function getStructuredFieldType () { 
+    return 'structured-field'
 }
 
 export default StructuredFieldPlugin

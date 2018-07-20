@@ -182,7 +182,6 @@ export default class ClinicianDashboard extends Component {
                         contextManager={this.props.contextManager}
                         currentViewMode={this.props.appState.clinicalEvent}
                         dataAccess={this.props.dataAccess}
-                        documentText={this.props.appState.documentText}
                         errors={this.props.appState.errors}
                         handleSummaryItemSelected={this.props.handleSummaryItemSelected}
                         isNoteViewerEditable={isNoteViewerEditable}
@@ -194,8 +193,6 @@ export default class ClinicianDashboard extends Component {
                         openClinicalNote={this.props.appState.openClinicalNote}
                         patient={this.props.appState.patient}
                         searchSelectedItem={this.props.searchSelectedItem}
-                        setDocumentText={this.props.setDocumentText}
-                        setDocumentTextWithCallback={this.props.setDocumentTextWithCallback}
                         setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
                         setLayout={this.props.setLayout}
                         setNoteClosed={this.props.setNoteClosed}
@@ -228,7 +225,6 @@ ClinicianDashboard.proptypes = {
     onContextUpdate: PropTypes.func.isRequired,
     possibleClinicalEvents: PropTypes.array.isRequired,
     searchSelectedItem: PropTypes.object,
-    setDocumentTextWithCallback: PropTypes.func.isRequired,
     setForceRefresh: PropTypes.func.isRequired,
     setFullAppStateWithCallback: PropTypes.func.isRequired,
     setLayout: PropTypes.func.isRequired,
