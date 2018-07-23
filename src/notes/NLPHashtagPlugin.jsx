@@ -44,6 +44,26 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		}))
 	} 
 
+	// Get the slate Range based on the NLPphrase
+	function getRangeBasedOnPhrase (keyAfterNLPShortcut, NLPphrase) { 
+		// Return nothing if text is not found in this node
+		const anchorKey = keyAfterNLPShortcut;
+		const anchorOffset = NLPphrase.orig_start;
+		const focusKey = keyAfterNLPShortcut;
+		const focusOffset = NLPphrase.orig_end;
+		const isBackward = false;
+		const isFocused = false;
+
+		return {
+			anchorKey: anchorKey,
+			anchorOffset: anchorOffset,
+			focusKey: focusKey,
+			focusOffset: focusOffset,
+			isFocused: isFocused,
+			isBackward: isBackward,
+		}
+	}
+
 	// Get the slate Range of the keywordText found within an Inline/Text Node
 	function getRangeForText (curNode, keywordText) { 
 		console.log(curNode)
@@ -144,73 +164,73 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		console.log(error)
 	}
 
-	function parseAttribution(attributionArray, editorTransform, data, NLPShortcut) { 
-		console.log(attributionArray)
-		if (Lang.isUndefined(attributionArray)) { 
+	// Parse canonicalization to retrieve keyword 	
+	function parseKeywordFromCanonicalizationBasedOnPhrase(canonicalization, typeOfPhrase) { 
+		switch (typeOfPhrase) {
+			case "ATTRIBUTION":
+				return canonicalization.toLowerCase();
+			case "CTCAE":
+				return `#${canonicalization.ctcae.toLowerCase()}`;
+			case "GRADE":
+				return canonicalization.toLowerCase();
+			default:
+				const err = {
+					name: "CanonicalizationParseError",
+					msg: `Failed to get keyword from canonoicalization ${canonicalization} for typeOfPhrase ${typeOfPhrase}`,
+				};
+				console.error(err.msg);
+				throw err;
+		}
+	}
+
+	function parseArryOfPhrases(arrayOfPhrases, editorTransform, NLPShortcut) { 
+		console.log(arrayOfPhrases);
+		if (Lang.isUndefined(arrayOfPhrases)) { 
 			return editorTransform; 
 		} else { 
 			let editorState = editorTransform.state;
 			const nodeAfterNLPShortcut = editorState.document.getNextSibling(NLPShortcut.key);
-			let keywordRange;
-			for (const attribution of attributionArray) { 
-				const NLPKeyword = attribution.canonicalization;
-				const attributionNLPShortcut = createShortcut(null, NLPKeyword)
-				const NLPKeywordText = attributionNLPShortcut.text.toLowerCase();
-				let relevantSelection = { 
-					anchorKey: nodeAfterNLPShortcut.key,
-					anchorOffset: 0,
-					focusKey: editorState.endKey,
-					focusOffset: editorState.endOffset,
-					isFocused: false,
-					isBackward: false,
-				};
-				const relevantNodes = editorState.document.getTextsAtRange(new Selection(relevantSelection))
-				
-				// KeywordRange never be null -- we've already confirmed the existance of the keyword
-				for (const textNode of relevantNodes) { 
-					console.log(textNode)
-					keywordRange = getRangeForText(textNode, NLPKeywordText)
-					if (keywordRange) break;
-				}
+			let originalTextRange;
+			for (const phraseValue of arrayOfPhrases) { 
+				const typeOfPhrase = phraseValue.name;
+				const NLPKeyword = parseKeywordFromCanonicalizationBasedOnPhrase(phraseValue.canonicalization, typeOfPhrase);
+				const NLPShortcut = createShortcut(null, NLPKeyword)
+				// console.log(NLPShortcut)
+				// get range for originalText
+				originalTextRange = getRangeBasedOnPhrase(nodeAfterNLPShortcut.key, phraseValue)
 				// Remove keyword from block, using first character as the prefix
-				editorTransform = editorTransform.select(keywordRange).delete();
+				editorTransform = editorTransform.select(originalTextRange).delete();
 				// Add shortcut to text; update relevantFragment and curText
-				editorTransform = insertStructuredFieldTransform(editorTransform, attributionNLPShortcut)
+				editorTransform = insertStructuredFieldTransform(editorTransform, NLPShortcut)
 				editorState = editorTransform.state;
 			}
 			return editorTransform
 		}
-		// TODO: Handle multiple values
-
-	}
-	function parseCTCAE(ctcaeArray, editorTransform, data, NLPShortcut) { 
-		console.log(ctcaeArray)
-		if (Lang.isUndefined(ctcaeArray)) { 
-			return editorTransform; 
-		} else { 
-			for (const attribution of ctcaeArray) { 
-			} 
-			return editorTransform;
-		} 
-	}
-	function parseGrade(gradeArray, editorTransform, data, NLPShortcut) { 
-		console.log(gradeArray)
-		if (Lang.isUndefined(gradeArray)) { 
-			return editorTransform; 
-		} else { 
-			for (const attribution of gradeArray) { 
-			} 
-			return editorTransform;
-		} 
 	}
 
+	// Comparison function that sorts phrases in reverse order of original_start location
+	// That is, orders them in reverse order of appearance in the sentence (last phrases come first)
+	// This ensures that inserting phrase-1 won't mangle the indicies used when inserting phrase-2 
+	// N.B. If compareFunction(a, b) is less than 0, sort a to an index lower than b, i.e. a comes first.
+	function sortPhrases(phraseA, phraseB) { 
+		return phraseB.end - phraseA.end;
+	}
+
+	// Returns a single array containing all phrases, listed in reverse order of appearance. 
+	function orderPhrasesForReverseInsertion(phrases) { 
+		// console.log(phrases);
+		return Collection.reduce(phrases, (result, value, key) => {
+			// Value should be an array of phrases of type 'key' (e.g. of type 'ATTRIBUTION')
+			return result.concat(value);
+		  }, []).sort(sortPhrases)
+	}
+
+	// Given a list of phrases, parse them and insert them all in reverse order, changing editor state accordingly.
 	function parsePhrases(phrases, data, NLPShortcut) { 
-		const editorState = getEditorValue()
-		let editorTransform = editorState.transform()
-		console.log(editorTransform)
-		editorTransform = parseAttribution(phrases["ATTRIBUTION"], editorTransform, data, NLPShortcut);
-		editorTransform = parseCTCAE(phrases["CTCAE"], editorTransform, data, NLPShortcut);
-		editorTransform = parseGrade(phrases["GRADE"], editorTransform, data, NLPShortcut);
+		const editorState = getEditorValue();
+		let editorTransform = editorState.transform();
+		const phrasesInOrder = orderPhrasesForReverseInsertion(phrases)
+		editorTransform = parseArryOfPhrases(phrasesInOrder, editorTransform, NLPShortcut);
 		if (editorTransform.operations.length > 0) { 
 			setEditorValue(editorTransform.collapseToEnd().focus().apply())
 		}
@@ -227,8 +247,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		const phrases = data.phrases;
 		const success = data.success;
 		if (!success) { 
-			// If success is 'false', present the error message: 
-			console.error('Engine Error -- Response data from the NLP engine says an error occurred, provided this msg:')
+			console.error('Engine Error: Response data from the NLP engine says an error occurred, provided this msg')
 			console.error(data.error)
 			return
 		} else if (Lang.isEmpty(phrases)) { 
