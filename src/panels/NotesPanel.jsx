@@ -122,7 +122,7 @@ export default class NotesPanel extends Component {
             var noteToUpdate = this.props.patient.getNotes().find(function (element) {
                 return Lang.isEqual(element.entryInfo.entryId, entryId);
             });
-            if (!Lang.isNull(noteToUpdate) && !Lang.isUndefined(noteToUpdate)) {
+            if (!Lang.isNull(noteToUpdate) && !Lang.isUndefined(noteToUpdate) && !noteToUpdate.signed) {
                 noteToUpdate.content = noteContent;
                 this.props.patient.updateExistingEntry(noteToUpdate);
                 this.updateSelectedNote(noteToUpdate);
@@ -230,8 +230,9 @@ export default class NotesPanel extends Component {
     }
 
     handleSignButtonClick = () => {
-        // Set signed attribute on the selected note to be true
+        this.saveNote(this.state.localDocumentText);
 
+        // Set signed attribute on the selected note to be true
         const tempNote = this.state.selectedNote;
         tempNote.signed = true;
         this.setState({selectedNote: tempNote});
@@ -245,7 +246,6 @@ export default class NotesPanel extends Component {
         });
 
         // Close the current note
-        this.saveNote(this.state.localDocumentText);
         this.closeNote();
     }
 
