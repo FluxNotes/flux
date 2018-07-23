@@ -12,7 +12,6 @@ const EVENT_HANDLERS = [
   'onCompositionStart',
   'onCopy',
   'onCut',
-  'onDictation',
   'onDragEnd',
   'onDragEnter',
   'onDragExit',
