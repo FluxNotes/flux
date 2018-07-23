@@ -1,6 +1,8 @@
 
 import Base64 from '../serializers/base-64'
 import TYPES from '../constants/types'
+import { IS_IE } from '../constants/environment'
+
 
 /**
  * Fragment matching regexp for HTML nodes.
@@ -18,11 +20,20 @@ const FRAGMENT_MATCHER = / data-slate-fragment="([^\s]+)"/
  */
 
 function getTransferData(transfer) {
-  let fragment = transfer.getData(TYPES.FRAGMENT) || null
-  let node = transfer.getData(TYPES.NODE) || null
-  const html = transfer.getData('text/html') || null
-  const rich = transfer.getData('text/rtf') || null
-  const text = transfer.getData('text/plain') || null
+  let fragment = null;
+  let node = null;
+  let rich = null;
+  let html = null;
+  let text = null;
+  if (IS_IE) { 
+    text = transfer.getData('text') || null
+  } else {
+    fragment = transfer.getData(TYPES.FRAGMENT) || null
+    node = transfer.getData(TYPES.NODE) || null
+    html = transfer.getData('text/html') || null
+    rich = transfer.getData('text/rtf') || null
+    text = transfer.getData('text/plain') || null
+  }
   let files
 
   // If there isn't a fragment, but there is HTML, check to see if the HTML is
