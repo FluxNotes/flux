@@ -1,6 +1,7 @@
 import FullApp from '../containers/FullApp';
 import SlimApp from '../containers/SlimApp';
 import LandingPage from '../components/LandingPage';
+import LaunchPage from '../components/LaunchPage';
 
 export default class AppManager {
     constructor() {
@@ -8,6 +9,12 @@ export default class AppManager {
                 path: '/',
                 display: 'Flux Notes™',
                 app: LandingPage,
+                isExact: true
+            },
+            {
+                path: '/launch',
+                display: 'Flux',
+                app: LaunchPage,
                 isExact: true
             },
             {

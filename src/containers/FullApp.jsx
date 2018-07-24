@@ -19,6 +19,9 @@ import DataAccess from '../dataaccess/DataAccess';
 import SummaryMetadata from '../summary/SummaryMetadata';
 import PatientControlPanel from '../panels/PatientControlPanel';
 
+
+import 'fhirclient';
+
 import '../styles/FullApp.css';
 
 const theme = createMuiTheme({
@@ -65,6 +68,7 @@ export class FullApp extends Component {
             layout: "",
             isNoteViewerVisible: false,
             isNoteViewerEditable: false,
+            userId: "",
             loginUser: "",
             noteClosed: false,
             openClinicalNote: null,
@@ -126,13 +130,22 @@ export class FullApp extends Component {
 
     // On component mount, grab the username of the logged in user
     componentDidMount() {
-        const userProfile = this.securityManager.getUserProfile();
+        window.FHIR.oauth2.ready((smart) => {
+            smart.user.read().then((user) => {
+                console.log(user.name);
+                let name = this.parseUserName(user.name);
+                const userProfile = this.securityManager.getUserProfile(name);
+                if (userProfile) {
+                    this.setState({loginUser: userProfile.getUserName()});
+                } else {
+                    console.error("Login failed");
+                }
+            })
+        });        
+    }
 
-        if (userProfile) {
-            this.setState({loginUser: userProfile.getUserName()});
-        } else {
-            console.error("Login failed");
-        }
+    parseUserName = (nameObject) => {
+        return nameObject.given[0] + " " + nameObject.family[0] + ", " + nameObject.suffix[0];
     }
 
     // pass this function to children to set full app global state
