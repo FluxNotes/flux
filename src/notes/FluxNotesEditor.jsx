@@ -380,35 +380,22 @@ class FluxNotesEditor extends React.Component {
     }
 
     onChange = (state) => {
-        let indexOfLastNode = state.toJSON().document.nodes.length - 1;
-        let endOfNoteKey = state.toJSON().document.nodes[indexOfLastNode].key;
-        let endOfNoteOffset = 0;
-        // If the editor has no structured phrases, use the number of characters in the first 'node'
-        if (Lang.isEqual(indexOfLastNode, 0) && !Lang.isUndefined(state.toJSON().document.nodes["0"].nodes["0"].characters)) {
-            endOfNoteOffset = state.toJSON().document.nodes["0"].nodes["0"].characters.length;
-        } else {
-            if (!Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText)) {
-                endOfNoteOffset = this.props.documentText.length;
-            }
-        }
-
-        // 'copy' the text every time into the note
-        // Need to artificially set selection to the whole document
-        // state.selection only has a getter for these values so create a new object
-        const entireNote = {
-            startKey: "0",
-            startOffset: 0,
-            endKey: endOfNoteKey,
-            endOffset: endOfNoteOffset
-        };
-        const documentText = this.structuredFieldPlugin.convertToText(state, entireNote);
-
-        this.props.setDocumentTextWithCallback(documentText, () => {
-            // save note after documentText gets set
-            this.props.saveNoteOnChange();
-        });
+        let documentText = this.getNoteText(state);
+        this.props.updateLocalDocumentText(documentText);
 
         this.setState({ state });
+    }
+
+    getNoteText = (state) => {
+        const documentText = this.structuredFieldPlugin.convertToText(state);
+
+        return documentText;
+    }
+
+    closeNote = () => {
+        const documentText = this.getNoteText(this.state.state);
+        this.props.saveNote(documentText)
+        this.props.closeNote();
     }
 
     onFocus = () => {
@@ -1112,7 +1099,7 @@ class FluxNotesEditor extends React.Component {
                                     raised 
                                     className="close-note-btn"
                                     disabled={this.context_disabled}
-                                    onClick={this.props.closeNote}
+                                    onClick={this.closeNote}
                                     style={{
                                         float: "right",
                                         lineHeight: "2.1rem"
@@ -1218,33 +1205,30 @@ class FluxNotesEditor extends React.Component {
     }
 }
 
-FluxNotesEditor.proptypes = {
+FluxNotesEditor.propTypes = {
     closeNote: PropTypes.func.isRequired,
     contextManager: PropTypes.object.isRequired,
     currentViewMode: PropTypes.string.isRequired,
-    documentText: PropTypes.object,
     errors: PropTypes.array.isRequired,
     handleUpdateEditorWithNote: PropTypes.func.isRequired,
     isNoteViewerEditable: PropTypes.bool.isRequired,
     inModal: PropTypes.bool.isRequired,
-    itemInserted: PropTypes.object,
+    itemInserted: PropTypes.func.isRequired,
     newCurrentShortcut: PropTypes.func.isRequired,
     noteAssistantMode: PropTypes.string.isRequired,
     patient: PropTypes.object.isRequired,
-    saveNoteOnChange: PropTypes.func.isRequired,
+    saveNote: PropTypes.func.isRequired,
     selectedNote: PropTypes.object,
-    setDocumentTextWithCallback: PropTypes.func,
-    setFullAppState: PropTypes.func.isRequired,
-    setFullAppStateWithCallback: PropTypes.func.isRequired,
     setLayout: PropTypes.func.isRequired,
     setNoteViewerEditable: PropTypes.func.isRequired,
     shortcutManager: PropTypes.object.isRequired,
     shouldEditorContentUpdate: PropTypes.bool.isRequired,
     structuredFieldMapManager: PropTypes.object.isRequired,
     summaryItemToInsert: PropTypes.string.isRequired,
-    contextTrayItemToInsert: PropTypes.string.isRequired,
+    contextTrayItemToInsert: PropTypes.string,
     updatedEditorNote: PropTypes.object,
     updateErrors: PropTypes.func.isRequired,
+    updateLocalDocumentText: PropTypes.func.isRequired,
     updateSelectedNote: PropTypes.func.isRequired,
     updateNoteAssistantMode: PropTypes.func.isRequired,
     updateContextTrayItemToInsert: PropTypes.func.isRequired

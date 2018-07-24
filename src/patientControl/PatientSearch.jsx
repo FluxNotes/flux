@@ -165,7 +165,7 @@ class PatientSearch extends React.Component {
     // Will be called every time suggestion is selected via mouse or keyboard.
     onSuggestionSelected = (event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) => { 
         const contextNotes = this.props.patient.getNotes();
-        const selectedNote = contextNotes.find(function(note){ return note.entryInfo.entryId === suggestion.note.entryInfo.entryId});
+        const selectedNote = contextNotes.find(note => note.entryInfo.entryId === suggestion.note.entryInfo.entryId);
 
         this.props.setSearchSelectedItem(selectedNote);
     }
