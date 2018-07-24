@@ -32,6 +32,7 @@ export default class NotesPanel extends Component {
     componentWillReceiveProps = (nextProps) => {
         // Logic to handle switching notes
         if (!Lang.isNull(nextProps.openClinicalNote) && this.props.openClinicalNote !== nextProps.openClinicalNote) {
+            this.saveNote(this.state.localDocumentText);
             this.handleUpdateEditorWithNote(nextProps.openClinicalNote);
         }
     }
@@ -104,7 +105,8 @@ export default class NotesPanel extends Component {
                     selectedNote: note,
                     updatedEditorNote: note,
                     noteAssistantMode: mode,
-                    currentlyEditingEntryId: parseInt(note.entryInfo.entryId, 10)
+                    currentlyEditingEntryId: parseInt(note.entryInfo.entryId, 10),
+                    localDocumentText: note.content
                 });
                 this.props.setOpenClinicalNote(note);
             });
@@ -185,7 +187,6 @@ export default class NotesPanel extends Component {
     openNote = (note, isInProgress) => {
         // Saves the current note and resets localDocumentText before opening the next note.
         this.saveNote(this.state.localDocumentText);
-        this.updateLocalDocumentText('');
 
         // Open a note
         this.props.setNoteClosed(false);

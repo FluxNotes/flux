@@ -1793,7 +1793,7 @@
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/SimpleQuantity"
                     },
-                    "Value": 6,
+                    "Value": 9,
                     "Units": {
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
