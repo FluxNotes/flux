@@ -127,28 +127,44 @@ class FluxNotesEditor extends React.Component {
             suggestions: this.suggestionFunction.bind(this, '@'),
             trigger: '@',
         });
+        this.suggestionsPluginPlaceholders = SuggestionsPlugin({
+            capture: /<([\w\s\-,>]*)/,
+            onEnter: this.choseSuggestedPlaceholder.bind(this),
+            suggestions: this.suggestionFunction.bind(this, '<'),
+            trigger: '<',
+        });
 
-        this.plugins.push(this.suggestionsPluginCreators)
-        this.plugins.push(this.suggestionsPluginInserters)
-        this.plugins.push(this.structuredFieldPlugin)
-        this.plugins.push(this.singleHashtagKeywordStructuredFieldPlugin)
+        this.plugins.push(this.suggestionsPluginCreators);
+        this.plugins.push(this.suggestionsPluginInserters);
+        this.plugins.push(this.suggestionsPluginPlaceholders);
+        this.plugins.push(this.structuredFieldPlugin);
+        this.plugins.push(this.singleHashtagKeywordStructuredFieldPlugin);
         // The logic below that builds the regular expression could possibly be replaced by the regular
         // expression stored in NoteParser (this.noteParser is instance variable). Only difference is
         // global flag it looks like? TODO: evaluate
         this.autoReplaceBeforeRegExp = undefined;
         let autoReplaceAfters = [];
         // Get all non-keyword shortcuts for autoreplace
-        let allNonKeywordShortcuts = this.props.shortcutManager.getAllShortcutsWithTriggers();
+        const allNonKeywordShortcuts = this.props.shortcutManager.getAllShortcutsWithTriggers();
+        const placeholderShortcuts = this.props.shortcutManager.getAllPlaceholderShortcuts();
+
         allNonKeywordShortcuts.forEach((def) => {
-            let triggers = this.props.shortcutManager.getTriggersForShortcut(def.id);
-            const shortcutNamesList = triggers.map(trigger => `${trigger.name}$`);
+            const triggers = this.props.shortcutManager.getTriggersForShortcut(def.id);
+            let shortcutNamesList = triggers.map(trigger => `${trigger.name}$`);
+
+            autoReplaceAfters = autoReplaceAfters.concat(shortcutNamesList);
+        });
+        placeholderShortcuts.forEach((def) => {
+            const triggers = this.props.shortcutManager.getTriggersForShortcut(def.id);
+            const shortcutNamesList = triggers.map(trigger => `<${trigger.name.slice(1)}>`);
+
             autoReplaceAfters = autoReplaceAfters.concat(shortcutNamesList);
         });
         this.autoReplaceBeforeRegExp = new RegExp("(" + autoReplaceAfters.join("|") + ")", 'i');
 
         // now add an AutoReplace plugin instance for each shortcut we're supporting as well
         // can switch to the commented out trigger to support non-space characters but need to put
-        // character used instead of always space when inserting the structured field. 
+        // character used instead of always space when inserting the structured field.
         this.plugins.push(AutoReplace({
             "trigger": /[\s\r\n.!?;,)}\]]/,
             // "trigger": 'space',
@@ -180,7 +196,7 @@ class FluxNotesEditor extends React.Component {
     resetEditorState() {
         this.state = {
             state: initialState,
-            isPortalOpen: false,
+            openedPortal: null,
             portalOptions: null,
         };
     }
@@ -201,23 +217,41 @@ class FluxNotesEditor extends React.Component {
 
     suggestionFunction(initialChar, text) {
         if (Lang.isUndefined(text)) return [];
-        let shortcuts = this.contextManager.getCurrentlyValidShortcuts(this.props.shortcutManager);
-        let suggestionsShortcuts = [];
+
+        const { shortcutManager } = this.props;
+        const shortcuts = this.contextManager.getCurrentlyValidShortcuts(shortcutManager);
+        const suggestionsShortcuts = [];
         const textLowercase = text.toLowerCase();
+
         shortcuts.forEach((shortcut) => {
-            //const triggers = shortcut.getStringTriggers();
-            const triggers = this.props.shortcutManager.getTriggersForShortcut(shortcut);
+            const triggers = shortcutManager.getTriggersForShortcut(shortcut);
             triggers.forEach((trigger) => {
                 const triggerNoPrefix = trigger.name.substring(1);
                 if (trigger.name.substring(0, 1) === initialChar && triggerNoPrefix.toLowerCase().includes(textLowercase)) {
                     suggestionsShortcuts.push({
-                        "key": triggerNoPrefix,
-                        "value": trigger,
-                        "suggestion": triggerNoPrefix
+                        key: triggerNoPrefix,
+                        value: trigger,
+                        suggestion: triggerNoPrefix,
                     });
                 }
             });
         });
+        const placeHolderShortcuts = shortcutManager.getAllPlaceholderShortcuts();
+
+        placeHolderShortcuts.forEach((shortcut) => {
+            const triggers = shortcutManager.getTriggersForShortcut(shortcut.id);
+            triggers.forEach((trigger) => {
+                const triggerNoPrefix = trigger.name.substring(1);
+                if (initialChar === '<' && triggerNoPrefix.toLowerCase().includes(textLowercase)) {
+                    suggestionsShortcuts.push({
+                        key: triggerNoPrefix,
+                        value: `${initialChar}${triggerNoPrefix}>`,
+                        suggestion: triggerNoPrefix,
+                    });
+                }
+            });
+        });
+
         return suggestionsShortcuts.slice(0, 10);
     }
 
@@ -231,6 +265,13 @@ class FluxNotesEditor extends React.Component {
             const transformAfterInsert = this.insertStructuredFieldTransform(transformBeforeInsert, shortcut).collapseToStartOfNextText().focus();
             return transformAfterInsert.apply();
         }
+    }
+
+    choseSuggestedPlaceholder(suggestion) {
+        const { state } = this.state;
+
+        const transformBeforeInsert = this.suggestionDeleteExistingTransform(state.transform(), '<');
+        return this.insertPlaceholder(suggestion.value, transformBeforeInsert).apply();
     }
 
     insertShortcut = (shortcutC, shortcutTrigger, text, transform = undefined, updatePatient = true, shouldPortalOpen = true) => {
@@ -250,9 +291,24 @@ class FluxNotesEditor extends React.Component {
         return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus();
     }
 
+    insertPlaceholder = (placeholderText, transform = undefined) => {
+        if (Lang.isUndefined(transform)) {
+            transform = this.state.state.transform();
+        }
+
+        const result = this.structuredFieldPlugin.transforms.insertPlaceholder(transform, placeholderText);
+        return result[0].collapseToStartOfNextText().focus();
+    }
+
     autoReplaceTransform(def, transform, e, data, matches) {
         // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
         const characterToAppend = e.data ? e.data : String.fromCharCode(data.code);
+
+        // if text starts with '<', insert placeholder
+        if (matches.before[0].startsWith("<")) {
+            return this.insertPlaceholder(matches.before[0], transform).insertText(characterToAppend);
+        }
+
         return this.insertShortcut(def, matches.before[0], "", transform).insertText(characterToAppend);
     }
 
@@ -280,7 +336,7 @@ class FluxNotesEditor extends React.Component {
         } else {
             const pos = position();
             // If position is calculated to be 0, 0, use our old method of calculating position.
-            if ((pos.top === 0 && pos.left === 0) || (pos.top === undefined && pos.left === undefined)) {
+            if (pos === null || ((pos.top === 0 && pos.left === 0) || (pos.top === undefined && pos.left === undefined))) {
                 this.lastPosition = positioningUsingSlateNodes();
             } else {
                 this.lastPosition = pos;
@@ -293,7 +349,7 @@ class FluxNotesEditor extends React.Component {
         // If the portal should not open, insert the plain text trigger instead. Will eventually be replaced.
         if (!shouldPortalOpen) {
             this.setState({
-                isPortalOpen: shouldPortalOpen,
+                openedPortal: null,
                 needToDelete: needToDelete,
             });
             this.selectingForShortcut = null;
@@ -304,7 +360,7 @@ class FluxNotesEditor extends React.Component {
         let portalOptions = shortcut.getValueSelectionOptions();
 
         this.setState({
-            isPortalOpen: shouldPortalOpen,
+            openedPortal: "ContextPortal",
             portalOptions: portalOptions,
             needToDelete: needToDelete,
         });
@@ -315,10 +371,13 @@ class FluxNotesEditor extends React.Component {
     // called from portal when an item is selected (selection is not null) or if portal is closed without
     // selection (selection is null)
     onPortalSelection = (state, selection) => {
-
         let shortcut = this.selectingForShortcut;
+
         this.selectingForShortcut = null;
-        this.setState({isPortalOpen: false});
+        this.setState({ 
+            openedPortal: null,
+            portalOptions: null, 
+        });
         if (Lang.isNull(selection)) {
             // Removes the shortcut from its parent
             shortcut.onBeforeDeleted();
@@ -337,6 +396,7 @@ class FluxNotesEditor extends React.Component {
         } else {
             transform = this.state.state.transform();
         }
+
         return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus().apply();
     }
 
@@ -794,28 +854,40 @@ class FluxNotesEditor extends React.Component {
         if (returnIndex === -1) {
             divReturnIndex = text.indexOf('</div>');
         }
-        
+        const placeholderStartIndex = text.indexOf('<');
+
         if (returnIndex >= 0) {
             let result = this.insertPlainText(transform, text.substring(0, returnIndex));
             result = this.insertNewLine(result);
             return this.insertPlainText(result, text.substring(returnIndex + 1));
-        } else if (divReturnIndex >= 0) {
+        }
+        if (divReturnIndex >= 0) {
             let result = this.insertPlainText(transform, text.substring(0, divReturnIndex));
             result = this.insertNewLine(result);
             return this.insertPlainText(result, text.substring(divReturnIndex + 6)); // cuts off </div>
-        } else {
-            this.insertTextWithStyles(transform, text);
-            // FIXME: Need a trailing character for replacing keywords -- insert temporarily and then delete
-            transform.insertText(' ')
-            const [newTransform, ] = this.singleHashtagKeywordStructuredFieldPlugin.utils.replaceAllRelevantKeywordsInBlock(transform.state.anchorBlock, transform, transform.state)
-            return newTransform.deleteBackward(1).focus();
         }
+        if (placeholderStartIndex >= 0) {
+            const placeholderEndIndex = text.indexOf('>', placeholderStartIndex);
+            const placeholderText = text.slice(placeholderStartIndex, placeholderEndIndex + 1);
+
+            if (this.placeholderCheck(placeholderText)) {
+                let result = this.insertPlainText(transform, text.substring(0, placeholderStartIndex));
+                result = this.insertPlaceholder(placeholderText, transform);
+                return this.insertPlainText(result, text.substring(placeholderEndIndex + 1));
+            }
+        }
+
+        this.insertTextWithStyles(transform, text);
+        // FIXME: Need a trailing character for replacing keywords -- insert temporarily and then delete
+        transform.insertText(' ');
+        const [newTransform,] = this.singleHashtagKeywordStructuredFieldPlugin.utils.replaceAllRelevantKeywordsInBlock(transform.state.anchorBlock, transform, transform.state)
+        return newTransform.deleteBackward(1).focus();
     }
+
     /*
      * Handle updates when we have a new insert text with structured phrase
      */
     insertTextWithStructuredPhrases = (textToBeInserted, currentTransform = undefined, updatePatient = true, shouldPortalOpen = true) => {
-        let state;
         const currentState = this.state.state;
 
         let transform = (currentTransform) ? currentTransform : currentState.transform();
@@ -829,6 +901,7 @@ class FluxNotesEditor extends React.Component {
         }
 
         const triggers = this.noteParser.getListOfTriggersFromText(textToBeInserted)[0];
+
         if (!Lang.isNull(triggers)) {
             triggers.forEach((trigger) => {
 
@@ -871,8 +944,8 @@ class FluxNotesEditor extends React.Component {
             transform = this.insertPlainText(transform, remainder);
         }
 
-        state = transform.apply();
-        this.setState({state: state});
+        const state = transform.apply();
+        this.setState({ state });
     }
 
     /**
@@ -968,6 +1041,28 @@ class FluxNotesEditor extends React.Component {
     }
 
     /**
+     *  Check if text is a placeholder
+     *  text should begin with '<' and end with '>'
+     *  text within the brackets should match text from placeholder shortcuts
+     */
+    placeholderCheck = (text) => {
+        const { shortcutManager } = this.props;
+
+        if (!text.startsWith("<") || !text.endsWith(">")) return false;
+        const placeholderShortcuts = shortcutManager.getAllPlaceholderShortcuts();
+        const remainderText = text.slice(1, -1).toLowerCase();
+
+        return placeholderShortcuts.some((placeholderShortcut) => {
+            const triggers = shortcutManager.getTriggersForShortcut(placeholderShortcut.id);
+
+            return triggers.some((trigger) => {
+                const triggerNoPrefix = trigger.name.slice(1);
+                return triggerNoPrefix.toLowerCase() === remainderText;
+            });
+        });
+    }
+
+    /**
      * Check if the current selection has a mark with `type` in it.
      */
     handleMarkCheck = (type) => {
@@ -1047,9 +1142,14 @@ class FluxNotesEditor extends React.Component {
         this.props.setLayout("right-collapsed");
     }
 
+    setOpenedPortal = (openedPortal) => {
+        this.setState({ openedPortal });
+    }
+
     render = () => {
         const CreatorsPortal = this.suggestionsPluginCreators.SuggestionPortal;
         const InsertersPortal = this.suggestionsPluginInserters.SuggestionPortal;
+        const PlaceholdersPortal = this.suggestionsPluginPlaceholders.SuggestionPortal;
 
         // Preset note header information
         let noteTitle = "New Note";
@@ -1178,13 +1278,24 @@ class FluxNotesEditor extends React.Component {
                     </div>
 
                     <CreatorsPortal
-                        contextPortalOpen={this.state.isPortalOpen}
                         getPosition={this.getTextCursorPosition}
+                        openedPortal={this.state.openedPortal}
+                        portalId={"CreatorsPortal"}
+                        setOpenedPortal={this.setOpenedPortal}
                         state={this.state.state}
                     />
                     <InsertersPortal
-                        contextPortalOpen={this.state.isPortalOpen}
                         getPosition={this.getTextCursorPosition}
+                        openedPortal={this.state.openedPortal}
+                        portalId={"InsertersPortal"}
+                        setOpenedPortal={this.setOpenedPortal}
+                        state={this.state.state}
+                    />
+                    <PlaceholdersPortal
+                        getPosition={this.getTextCursorPosition}
+                        openedPortal={this.state.openedPortal}
+                        portalId={"PlaceholdersPortal"}
+                        setOpenedPortal={this.setOpenedPortal}
                         state={this.state.state}
                     />
                     <ContextPortal
@@ -1193,8 +1304,8 @@ class FluxNotesEditor extends React.Component {
                         contextManager={this.contextManager}
                         contexts={this.state.portalOptions}
                         getPosition={this.getTextCursorPosition}
-                        isOpened={this.state.isPortalOpen}
                         onChange={this.onChange}
+                        openedPortal={this.state.openedPortal}
                         onSelected={this.onPortalSelection}
                         state={this.state.state}
                         trigger={"@"}
@@ -1231,7 +1342,7 @@ FluxNotesEditor.propTypes = {
     updateLocalDocumentText: PropTypes.func.isRequired,
     updateSelectedNote: PropTypes.func.isRequired,
     updateNoteAssistantMode: PropTypes.func.isRequired,
-    updateContextTrayItemToInsert: PropTypes.func.isRequired
-}
+    updateContextTrayItemToInsert: PropTypes.func.isRequired,
+};
 
 export default FluxNotesEditor;

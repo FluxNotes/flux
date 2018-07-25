@@ -6,6 +6,7 @@ import getWindow from 'get-window';
 function createOpts(opts) {
     opts = opts || {};
     opts.typeStructuredField = opts.typeStructuredField || 'structured_field';
+    opts.typePlaceholder = opts.typePlaceholder || 'placeholder';
 	return opts;
 }
 
@@ -49,37 +50,41 @@ function StructuredFieldPlugin(opts) {
     }
 
     const schema = {
-		nodes: {
-			structured_field:      props => {
-				let shortcut = props.node.get('data').get('shortcut');
-				return <span contentEditable={false} className='structured-field' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
-			},
-		},
-		rules: [
-			{
-				match: (node) => {
-					return node.kind === 'block' && node.type === 'inline'
-				},
-				render: (props) => {
-					return (
-						<span {...props.attributes} style={{ position: 'relative', width:'100%', height:'100%'}}>
-							{props.children}
-							{props.editor.props.placeholder
-								? <Slate.Placeholder
-									className={props.editor.props.placeholderClassName}
-									node={props.node}
-									parent={props.state.document}
-									state={props.state}
-									style={{position: 'relative',top:'-18px',width:'100%', height:'100%',opacity:'0.333',...props.editor.props.placeholderStyle}}
-								  >{props.editor.props.placeholder}
-								  </Slate.Placeholder>
-								: null}
-						</span>
-					);
-				}
-			}
-		]
-	};
+        nodes: {
+            structured_field: props => {
+                let shortcut = props.node.get('data').get('shortcut');
+                return <span contentEditable={false} className='structured-field' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
+            },
+            placeholder: props => {
+                const placeholderText = props.node.get('data').get('text');
+                return <span contentEditable={false} className='placeholder'>{placeholderText}</span>;
+            },
+        },
+        rules: [
+            {
+                match: (node) => {
+                    return node.kind === 'block' && node.type === 'inline'
+                },
+                render: (props) => {
+                    return (
+                        <span {...props.attributes} style={{ position: 'relative', width: '100%', height: '100%' }}>
+                            {props.children}
+                            {props.editor.props.placeholder
+                                ? <Slate.Placeholder
+                                    className={props.editor.props.placeholderClassName}
+                                    node={props.node}
+                                    parent={props.state.document}
+                                    state={props.state}
+                                    style={{ position: 'relative', top: '-18px', width: '100%', height: '100%', opacity: '0.333', ...props.editor.props.placeholderStyle }}
+                                >{props.editor.props.placeholder}
+                                </Slate.Placeholder>
+                                : null}
+                        </span>
+                    );
+                }
+            }
+        ]
+    };
 
     function convertSlateNodesToText(nodes) {
         let result = '';
@@ -115,6 +120,8 @@ function StructuredFieldPlugin(opts) {
             } else if (node.type === 'structured_field') {
                 let shortcut = node.data.shortcut;
                 result += shortcut.getResultText();
+            } else if (node.type === 'placeholder') {
+                result += node.data.text;
             } else if (node.type === 'bulleted-list') {
                 result += `<ul>${convertSlateNodesToText(node.nodes)}</ul>`;
             } else if (node.type === 'numbered-list') {
@@ -285,7 +292,8 @@ function StructuredFieldPlugin(opts) {
         },
 
         transforms: {
-            insertStructuredField:     	insertStructuredField.bind(null, opts)
+            insertStructuredField:     	insertStructuredField.bind(null, opts),
+            insertPlaceholder: insertPlaceholder.bind(null, opts),
         }
     };
 }
@@ -338,4 +346,33 @@ function createStructuredField(opts, shortcut) {
 	return sf;
 }
 
-export default StructuredFieldPlugin
+function insertPlaceholder(opts, transform, text) {
+    const { state } = transform;
+    if (!state.selection.startKey) return false;
+
+    // Create the placeholder node
+    const placeholder = createPlaceholder(opts, text);
+
+    if (placeholder.kind === 'block') {
+        return [transform.insertBlock(placeholder)];
+    } else {
+        return [transform.insertInline(placeholder)];
+    }
+}
+
+function createPlaceholder(opts, text) {
+    const nodes = [];
+    const properties = {
+        type: opts.typePlaceholder,
+        nodes: nodes,
+        isVoid: true,
+        data: {
+            text,
+        }
+    };
+    const placeholder = Slate.Inline.create(properties);
+
+    return placeholder;
+}
+
+export default StructuredFieldPlugin;

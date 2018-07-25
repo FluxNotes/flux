@@ -26,6 +26,15 @@ class ContextPortal extends React.Component {
     componentWillUnmount = () => {
         document.removeEventListener('keydown', this.handleKeydownCP);
     }
+
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { openedPortal } = nextProps;
+
+        if (openedPortal !== null && openedPortal !== this.portalId) return false;
+        
+        return true;
+    }
+
     /*
      * Adjust the portal position anytime the portal updates
      */
@@ -46,7 +55,7 @@ class ContextPortal extends React.Component {
      * Sets state to record current contexts and portal activity
      */
     constructor(props) {
-        super()
+        super();
         props.callback.onSelected = props.onSelected;
         props.callback.closePortal = this.closePortal;
         props.callback.readOnly = false;
@@ -55,6 +64,7 @@ class ContextPortal extends React.Component {
             active: false,
             justActive: false
         }
+        this.portalId = "ContextPortal";
     }
     /*
      * When the portal opens, set flags appropriately and a decay timer for justActive
@@ -67,8 +77,10 @@ class ContextPortal extends React.Component {
      * Call onSelected with null context to indicate nothing selected and just clean up state
      */
     onClose = () => {
-        if (this.props.isOpened) {
-            this.props.onChange(this.props.onSelected(this.props.state, null));
+        const { onChange, openedPortal, onSelected, state } = this.props;
+
+        if (openedPortal === this.portalId) {
+            onChange(onSelected(state, null));
         }
         this.setState({ active: false, justActive: false }); // TEST: menu: null, 
     }
@@ -206,7 +218,7 @@ class ContextPortal extends React.Component {
     render = () => {
         const TYPE_LIST = 0;
         const TYPE_CALENDAR = 1;
-        const { contexts } = this.props;
+        const { contexts, openedPortal } = this.props;
         let type;
         let className = "context-portal";
         if (Lang.isNull(contexts)) return null;
@@ -224,7 +236,7 @@ class ContextPortal extends React.Component {
             <Portal 
                 closeOnEsc 
                 closeOnOutsideClick 
-                isOpened={this.props.isOpened} 
+                isOpened={openedPortal === this.portalId} 
                 onOpen={this.onOpen} 
                 onClose={this.onClose}
             >
@@ -242,8 +254,8 @@ ContextPortal.proptypes = {
     contextManager: PropTypes.object.isRequired,
     contexts: PropTypes.object,
     getPosition: PropTypes.func.isRequired,
-    isOpened: PropTypes.bool.isRequired,
     onChange: PropTypes.func.isRequired,
+    openedPortal: PropTypes.string.isRequired,
     onSelected: PropTypes.func.isRequired,
     state: PropTypes.object.isRequired,
     trigger: PropTypes.string.isRequired,

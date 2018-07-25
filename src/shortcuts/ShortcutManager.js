@@ -107,6 +107,12 @@ class ShortcutManager {
     getAllShortcutsWithKeywords() {
         return this.shortcutDefinitions.filter((s) => s.keywords !== undefined);
     }
+
+    getAllPlaceholderShortcuts() {
+        return this.shortcutDefinitions.filter((s) => {
+            return s.type === "CreatorBase" || s.type === "SingleHashtagKeyword" || s.type === "UpdaterBase";
+        });
+    }
     
     getAllStringTriggers() {
         return Object.keys(this.shortcutMap);

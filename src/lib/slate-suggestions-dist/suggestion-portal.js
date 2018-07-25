@@ -15,9 +15,17 @@ class SuggestionPortal extends React.Component {
         this.adjustPosition()
     }
 
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { portalId, openedPortal } = nextProps;
+
+        if (openedPortal !== null && openedPortal !== portalId) return false;
+
+        return true;
+    }
+
     // Adjust position on each update
     componentDidUpdate = () => {
-        this.adjustPosition()
+        this.adjustPosition();
     }
 
     constructor(props) {
@@ -243,17 +251,14 @@ class SuggestionPortal extends React.Component {
     // Adjust menu styling and position when needed
     adjustPosition = () => {
         const { menu } = this.state;
+        const { openedPortal, portalId, setOpenedPortal } = this.props;
         // If there is no menu, return
         if (!menu) return;
 
-        // Prevent portal from opening when Context Portal is open
-        if (this.props.contextPortalOpen) {
-            this.closePortal();
-            return;
-        }
-
         const match = this.matchCapture();
         if (match === undefined) {
+            // if no match and opened portal is current portal, set it to null
+            if (openedPortal === portalId) setOpenedPortal(null);
             // No match: remove menu styling
             menu.removeAttribute('style');
             return;
@@ -265,6 +270,8 @@ class SuggestionPortal extends React.Component {
                 // menu.removeAttribute('style');
                 // menu.style.display = 'none'
             } else { 
+                if (openedPortal !== portalId) setOpenedPortal(portalId);
+                
                 menu.style.display = 'block'
                 menu.style.opacity = 1
                 if (window.innerHeight - rect.top < 230) {
@@ -288,6 +295,7 @@ class SuggestionPortal extends React.Component {
     // Closes portal
     closePortal = () => {
         const { menu } = this.state;
+
         // No menu to close: return
         if (!menu) return;
 
@@ -296,6 +304,8 @@ class SuggestionPortal extends React.Component {
         menu.style.display = 'none';
         // Reset default suggestion for elements
         this.setDefaultSuggestion();
+        this.setSelectedIndex(0);
+
         return;
     }
 
@@ -326,4 +336,4 @@ class SuggestionPortal extends React.Component {
     }
 }
 
-export default SuggestionPortal
+export default SuggestionPortal;
