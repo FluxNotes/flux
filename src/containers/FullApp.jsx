@@ -9,6 +9,7 @@ import green from 'material-ui/colors/green';
 import red from 'material-ui/colors/red';
 import Snackbar from 'material-ui/Snackbar';
 import Lang from 'lodash';
+import 'fhirclient';
 
 import SecurityManager from '../security/SecurityManager';
 import DashboardManager from '../dashboard/DashboardManager';
@@ -18,9 +19,6 @@ import ContextManager from '../context/ContextManager';
 import DataAccess from '../dataaccess/DataAccess';
 import SummaryMetadata from '../summary/SummaryMetadata';
 import PatientControlPanel from '../panels/PatientControlPanel';
-
-
-import 'fhirclient';
 
 import '../styles/FullApp.css';
 
@@ -132,7 +130,8 @@ export class FullApp extends Component {
     componentDidMount() {
         window.FHIR.oauth2.ready((smart) => {
             smart.user.read().then((user) => {
-                console.log(user.name);
+                console.log("The user is:", user);
+                console.log("Te user name is: ", user.name);
                 let name = this.parseUserName(user.name);
                 const userProfile = this.securityManager.getUserProfile(name);
                 if (userProfile) {
@@ -144,8 +143,9 @@ export class FullApp extends Component {
         });        
     }
 
+    // Return the user's name by concatenating the values inside the user's name object
     parseUserName = (nameObject) => {
-        return nameObject.given[0] + " " + nameObject.family[0] + ", " + nameObject.suffix[0];
+        return (nameObject.suffix) ? (`${nameObject.given[0]} ${nameObject.family[0]}, ${nameObject.suffix[0]}`) : (`${nameObject.given[0]} ${nameObject.family[0]}`);
     }
 
     // pass this function to children to set full app global state
