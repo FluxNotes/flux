@@ -22,6 +22,8 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 	const createShortcut = opts.createShortcut;
 	const insertStructuredFieldTransform = opts.insertStructuredFieldTransform;
 	const structuredFieldMapManager = opts.structuredFieldMapManager;
+	// Define a flag here so we don't send multiple requests while we're just waiting for a return value.
+	let isFetching = false
 	const getEditorValue = opts.getEditorValue;
 	const setEditorValue = opts.setEditorValue;
 	const stopCharacters = [
@@ -268,8 +270,6 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 	}		
 	
 	// Sends off a request to the NLP endpoint
-	// Define a flag here so we don't send multiple requests while we're just waiting for a return value.
-	let isFetching = false
 	function fetchNLPExtraction(NLPShortcut, NLPHashtagPhrase) { 
 		if (isFetching) {
 			console.log('already fetching')
