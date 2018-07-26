@@ -5,6 +5,7 @@ import BandedLineChartVisualizer from './BandedLineChartVisualizer';
 import ProgressionLineChartVisualizer from './ProgressionLineChartVisualizer';
 import TimelineEventsVisualizer from '../timeline/TimelineEventsVisualizer';
 import MedicationRangeChartVisualizer from './MedicationRangeChartVisualizer';
+import FormatMedicationChange from './FormatMedicationChange.js';
 import Lang from 'lodash';
 
 class VisualizerManager {
@@ -14,8 +15,11 @@ class VisualizerManager {
         const itemList = subsection.itemsFunction(patient, condition, subsection);
 
         newsection.name = "";
-        newsection.headings = ["Medication", "Dosage", "Timing", "Start", "End"];
+        newsection.headings = ["Medication", "Change", "Dosage", "Timing", "Start", "End"];
         newsection.items = itemList.map((med) => {
+            
+            const medicationChange = this.formatMedicationChange(med.medicationChange);
+
             const dose = med.medication.amountPerDose ? `${med.medication.amountPerDose.value} ${med.medication.amountPerDose.units}` : "";
             let timing;
             if (med.medication.timingOfDoses) {
@@ -28,14 +32,38 @@ class VisualizerManager {
                 timing = "";
             }
 
+            const endDate = this.getEndDate(med);
+
             return [    med.medication.medication,
+                        medicationChange,
                         dose,
                         timing,
                         med.medication.expectedPerformanceTime.timePeriodStart,
-                        med.medication.expectedPerformanceTime.timePeriodEnd ];
+                        endDate];
         });
         return newsection;
     };
+
+    getEndDate = (med) => {
+        let endDate = med.medication.expectedPerformanceTime.timePeriodEnd;
+        if (med.medicationChange && med.medicationChange.type === "stop") {
+            endDate = med.medicationChange.date;
+        }
+        return endDate;
+    }
+
+    formatMedicationChange = (medChange) => {
+        let formattedMedicationChange = " ";
+        if (medChange) {
+            if (medChange.type === "stop") {
+                formattedMedicationChange = FormatMedicationChange.stringForMedicationChangeType(medChange.type);
+            } else {
+                formattedMedicationChange = FormatMedicationChange.stringForMedicationChangeType(medChange.type) + FormatMedicationChange.stringForMedicationChangeDate(medChange.date) + FormatMedicationChange.stringForMedicationChangePriorAmount(medChange.type, medChange.medBeforeChange);
+            }
+        }
+
+        return formattedMedicationChange;
+    }
 
     transformNameValuePairToColumns = (patient, condition, subsection) => {
         let newsection = {};
@@ -190,6 +218,8 @@ class VisualizerManager {
             </svg>
         );
     }
+
+    
 }
 
 export default VisualizerManager;

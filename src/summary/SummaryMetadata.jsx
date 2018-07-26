@@ -892,7 +892,6 @@ export default class SummaryMetadata {
         })
 
         medicationChanges.forEach(change => {
-
             const clinicalNoteUnsigned = patient.isUnsigned(change);
 
             // If medicationChange has both medicationAfterChange and medicationBeforeChange

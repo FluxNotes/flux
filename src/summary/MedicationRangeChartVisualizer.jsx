@@ -4,6 +4,7 @@ import {Grid, Row, Col} from 'react-flexbox-grid';
 import RangeChart from './RangeChart';
 import MedicationInformationService from '../lib/MedicationInformationService';
 import './MedicationRangeChartVisualizer.css';
+import FormatMedicationChange from './FormatMedicationChange';
 
 /*
  A MedicationRangeChart with additional information displayed to the right.
@@ -109,13 +110,13 @@ class MedicationRangeChartVisualizer extends Component {
             return (
                     <Col xs={12} className={medChangeClassName}>
                         <span className={medChangeTypeSigned}>
-                            {this.stringForMedicationChangeType(medChange.type)}
+                            {FormatMedicationChange.stringForMedicationChangeType(medChange.type)}
                         </span>
                         <span className='medication-change-date'>
-                            {this.stringForMedicationChangeDate(medChange.date)}
+                            {FormatMedicationChange.stringForMedicationChangeDate(medChange.date)}
                         </span>
                         <span className='medication-change-prior-amount'>
-                            {this.stringForMedicationChangePriorAmount(medChange.type, medBefore)}
+                            {FormatMedicationChange.stringForMedicationChangePriorAmount(medChange.type, medChange.medBeforeChange)}
                         </span>
                     </Col>
             );
@@ -123,13 +124,13 @@ class MedicationRangeChartVisualizer extends Component {
             return (
                     <Col xs={12} className={medChangeClassName}>
                         <span className='medication-change-type'>
-                            {this.stringForMedicationChangeType(medChange.type)}
+                            {FormatMedicationChange.stringForMedicationChangeType(medChange.type)}
                         </span>
                         <span className='medication-change-prior-amount'>
-                            {this.stringForMedicationChangePriorAmount(medChange.type, medBefore)}
+                            {FormatMedicationChange.stringForMedicationChangePriorAmount(medChange.type, medChange.medBeforeChange)}
                         </span>
                         <span className='medication-change-date'>
-                            {this.stringForMedicationChangeDate(medChange.date)}
+                            {FormatMedicationChange.stringForMedicationChangeDate(medChange.date)}
                         </span>
                     </Col>
             );
