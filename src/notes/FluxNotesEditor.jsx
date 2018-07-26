@@ -1241,11 +1241,11 @@ class FluxNotesEditor extends React.Component {
          * Render the editor, toolbar, dropdown and description for note
          */
         return (
-            <div id="clinical-notes" className="dashboard-panel" onClick={(event) => {
-                editor.focus();
-            }}>
+            <div id="clinical-notes" className="dashboard-panel">
                 {noteDescriptionContent}
-                <div className="MyEditor-root">
+                <div className="MyEditor-root" onClick={(event) => {
+                    editor.focus();
+                }}>
                     { !this.props.inModal &&
                         <EditorToolbar
                             contextManager={this.props.contextManager}
