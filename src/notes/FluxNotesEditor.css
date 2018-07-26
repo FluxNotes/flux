@@ -21,7 +21,7 @@
     margin: 0;
 }
 
-#clinical-notes #note-description p.note-description-detail-value {
+#clinical-notes #note-description p.note-description-detail-value, #note-title-input {
     text-align: left;
     padding-top:0;
     font-size: .8rem;
