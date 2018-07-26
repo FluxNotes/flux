@@ -13,13 +13,18 @@ export default class ContextTray extends Component {
 
     constructor(props) {
         super(props);
-
+        const viewMode = this.props.showTemplateView ? this.TEMPLATE_VIEW : this.SHORTCUT_VIEW;
         this.state = {
             // viewMode keeps track of which context is active
             // 0 when Templates are selected. 1 when Patient is selected
             // In editor, viewMode is incremented by 1 for each context added (i.e @condition, #disease status)
-            viewMode: this.SHORTCUT_VIEW
+            viewMode,
         };
+    }
+
+    componentWillReceiveProps = (nextProps) => {
+        const viewMode = nextProps.showTemplateView ? this.TEMPLATE_VIEW : this.SHORTCUT_VIEW;
+        this.setState ({ viewMode });
     }
 
     handleTemplateSectionClick = () => {
@@ -116,5 +121,6 @@ ContextTray.propTypes = {
     onShortcutClicked: PropTypes.func.isRequired,
     patient: PropTypes.object.isRequired,
     setInsertingTemplate: PropTypes.func.isRequired,
-    shortcutManager: PropTypes.object.isRequired
-};
+    shortcutManager: PropTypes.object.isRequired,
+    showTemplateView: PropTypes.bool.isRequired,
+}

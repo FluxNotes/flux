@@ -9,8 +9,8 @@ const pagePort = "3000";
 const pageRoute = "/demo1"
 const startPage = `${pageDomain}:${pagePort}${pageRoute}`;
 
-fixture('Patient Mode - Patient Control Panel')
-    .page(startPage);
+// fixture('Patient Mode - Patient Control Panel')
+//     .page(startPage);
 
 // test('Clicking event buttons selects corresponding event', async t => {
 //     const clinicalEventSelector = Selector('.clinical-event-select');
@@ -486,8 +486,15 @@ test('Clicking "#enrollment", "#date" and choosing a date inserts "#enrollment #
     const editor = Selector("div[data-slate-editor='true']");
     const structuredField = editor.find("span[class='structured-field']");
     const contextPanelElements = Selector(".context-options-list").find('.context-option');
+    const templatesList = Selector(".context-tray").find('.template');
+    const template = await templatesList.withText(/op note/ig);
     const clinicalTrialButton = await contextPanelElements.withText(/#enrollment/ig);
 
+    // Select a template
+    await t
+        .click(template);
+
+    // In shortcuts, click on #enrollment 
     await t
         .click(clinicalTrialButton);
 
