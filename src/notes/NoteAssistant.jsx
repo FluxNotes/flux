@@ -24,8 +24,7 @@ export default class NoteAssistant extends Component {
             // insertingTemplate indicates whether a shortcut or template is being inserted
             // false indicates a shortcut is being inserted
             // true indicates a template is being inserted
-            insertingTemplate: false,
-            showTemplateView: false
+            insertingTemplate: false
         };
         // On creating of NoteAssistant, check if the note viewer is editable
         if (this.props.isNoteViewerEditable) {
@@ -83,6 +82,7 @@ export default class NoteAssistant extends Component {
     }
 
     setInsertingTemplate = (insertingTemplate) => {
+        console.log("in insert template");
         this.setState({ insertingTemplate }); 
         this.props.updateShowTemplateView(false);           
     }
@@ -159,6 +159,7 @@ export default class NoteAssistant extends Component {
                             setInsertingTemplate={this.setInsertingTemplate}
                             shortcutManager={this.props.shortcutManager}
                             showTemplateView={this.props.showTemplateView}
+                            updateShowTemplateView={this.props.updateShowTemplateView}
                         />
                         {this.props.isNoteViewerEditable ? this.renderDeleteNoteButton() : null}
                     </div>

@@ -43,6 +43,8 @@ export default class NotesPanel extends Component {
     }
 
     updateLocalDocumentText = (text) => {      
+
+        console.log(text);
         if (text) {
             this.setState({showTemplateView: false});
         } 
