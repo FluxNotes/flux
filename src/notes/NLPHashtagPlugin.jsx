@@ -37,7 +37,9 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		'\\n',
 	]
 	// '$' means this regexp only triggers when the phrase delimiter occurs at the end of the string.
-	const endOfSentenceRegexp = new RegExp(`(.*)(${stopCharacters.join('|')})(${phraseDelimiters.join('|')})\$`, 'i')
+	const stopRegexp = new RegExp(`(${stopCharacters.join('|')})(${phraseDelimiters.join('|')})`, 'i')
+	const endOfSentenceRegexp = new RegExp(stopRegexp.source + `\$`, 'i')
+	const NLPHashtagPhraseRegexp = new RegExp(`(.*)` + endOfSentenceRegexp.source, 'i')
 	// Return the NLP hasgtag if there is one, else return nothing
 	function getNLPHashtag() { 
 		// Check the activeContexts for anything that is an instance of NLPHashtag
@@ -49,46 +51,50 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 	// Get the slate Range based on the NLPphrase
 	function getRangeBasedOnPhrase (keyAfterNLPShortcut, NLPphrase) { 
 		// Return nothing if text is not found in this node
-		const anchorKey = keyAfterNLPShortcut;
-		const anchorOffset = NLPphrase.orig_start;
-		const focusKey = keyAfterNLPShortcut;
-		const focusOffset = NLPphrase.orig_end;
-		const isBackward = false;
-		const isFocused = false;
-
 		return {
-			anchorKey: anchorKey,
-			anchorOffset: anchorOffset,
-			focusKey: focusKey,
-			focusOffset: focusOffset,
-			isFocused: isFocused,
-			isBackward: isBackward,
+			anchorKey: keyAfterNLPShortcut,
+			anchorOffset: NLPphrase.orig_start,
+			focusKey: keyAfterNLPShortcut,
+			focusOffset: NLPphrase.orig_end,
+			isFocused: false,
+			isBackward: false,
 		}
 	}
 
 	// Get the slate Range of the keywordText found within an Inline/Text Node
 	function getRangeForText (curNode, keywordText) { 
-		console.log(curNode)
-		console.log(keywordText)
 		// Return nothing if text is not found in this node
-		if (curNode.text.toLowerCase().indexOf(keywordText.toLowerCase()) === -1) {
+		const indexOfText = curNode.text.toLowerCase().indexOf(keywordText);
+		if (indexOfText === -1) {
 			return;
 		} else { 
-			const anchorKey = curNode.key;
-			const anchorOffset = curNode.text.toLowerCase().indexOf(keywordText);
-			const focusKey = anchorKey;
-			const focusOffset = anchorOffset + keywordText.length;
-			const isBackward = false;
-			const isFocused = false;
-
 			return {
-				anchorKey: anchorKey,
-				anchorOffset: anchorOffset,
-				focusKey: focusKey,
-				focusOffset: focusOffset,
-				isFocused: isFocused,
-				isBackward: isBackward,
-			}
+				anchorKey: curNode.key,
+				anchorOffset: indexOfText,
+				focusKey: curNode.key,
+				focusOffset: indexOfText + keywordText.length,
+				isFocused: false,
+				isBackward: false,
+			};
+		}
+	}
+
+	function getRangeForRegexp (curNode, regexp) {
+		const indexOfRegexp = curNode.text.toLowerCase().search(regexp); 
+		console.log(curNode.text)
+		console.log(regexp)
+		if(indexOfRegexp === -1) { 
+			return
+		} else { 
+			const indexAfterRegexp = indexOfRegexp + 2;
+			return { 
+				anchorKey: curNode.key,
+				anchorOffset: indexAfterRegexp,
+				focusKey: curNode.key,
+				focusOffset: indexAfterRegexp,
+				isFocused: false,
+				isBackward: false,
+			};
 		}
 	}
 
@@ -147,7 +153,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		// Find the sentence that contains the NLP hashtag
 		const textRepresentation = getSentenceContainingNLPHashtag(editorState, NLPShortcut)
 		// Check if that sentence contains a stopCharacter followed by a finishedTokenSymbol
-		const matches = textRepresentation.match(endOfSentenceRegexp);
+		const matches = textRepresentation.match(NLPHashtagPhraseRegexp);
 		if (matches) { 
 			return matches[0]
 		} 
@@ -170,11 +176,10 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 	function parseKeywordFromCanonicalizationBasedOnPhrase(canonicalization, typeOfPhrase) { 
 		switch (typeOfPhrase) {
 			case "ATTRIBUTION":
+			case "GRADE":
 				return canonicalization.toLowerCase();
 			case "CTCAE":
 				return `#${canonicalization.ctcae.toLowerCase()}`;
-			case "GRADE":
-				return canonicalization.toLowerCase();
 			default:
 				const err = {
 					name: "CanonicalizationParseError",
@@ -192,7 +197,9 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		} else { 
 			let editorState = editorTransform.state;
 			const nodeAfterNLPShortcut = editorState.document.getNextSibling(NLPShortcut.key);
+			console.log(nodeAfterNLPShortcut.key)
 			let originalTextRange;
+			let keyOfFirstShortcut = null;
 			for (const phraseValue of arrayOfPhrases) { 
 				const typeOfPhrase = phraseValue.name;
 				const NLPKeyword = parseKeywordFromCanonicalizationBasedOnPhrase(phraseValue.canonicalization, typeOfPhrase);
@@ -205,8 +212,20 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 				// Add shortcut to text; update relevantFragment and curText
 				editorTransform = insertStructuredFieldTransform(editorTransform, NLPShortcut)
 				editorState = editorTransform.state;
+				if (keyOfFirstShortcut === null) { 
+					keyOfFirstShortcut = NLPShortcut.getKey();
+				}
 			}
-			return editorTransform
+			// We want to restore our cursor location back to how it was when we were last typing
+			// FIXME: WE have a hard time dealing with users triggering fetching in the middle of a sentence. 
+			const textAfterShortcuts = editorState.document.getNextSibling(keyOfFirstShortcut)
+			const rangeAssociatedWithStopRegexp = getRangeForRegexp(textAfterShortcuts, stopRegexp);
+			if (Lang.isUndefined(rangeAssociatedWithStopRegexp)) { 
+				// Then we created a new block; move to the next block
+				return editorTransform.collapseToStartOfNextBlock().focus();
+			} else { 
+				return editorTransform.collapseToEndOfNextText().focus();
+			}
 		}
 	}
 
@@ -214,7 +233,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 	// That is, orders them in reverse order of appearance in the sentence (last phrases come first)
 	// This ensures that inserting phrase-1 won't mangle the indicies used when inserting phrase-2 
 	// N.B. If compareFunction(a, b) is less than 0, sort a to an index lower than b, i.e. a comes first.
-	function sortPhrases(phraseA, phraseB) { 
+	function sortPhrasesInReverseOrderOfAppearance(phraseA, phraseB) { 
 		return phraseB.end - phraseA.end;
 	}
 
@@ -224,7 +243,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		return Collection.reduce(phrases, (result, value, key) => {
 			// Value should be an array of phrases of type 'key' (e.g. of type 'ATTRIBUTION')
 			return result.concat(value);
-		  }, []).sort(sortPhrases)
+		  }, []).sort(sortPhrasesInReverseOrderOfAppearance)
 	}
 
 	// Given a list of phrases, parse them and insert them all in reverse order, changing editor state accordingly.
@@ -234,7 +253,10 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		const phrasesInOrder = orderPhrasesForReverseInsertion(phrases)
 		editorTransform = parseArryOfPhrases(phrasesInOrder, editorTransform, NLPShortcut);
 		if (editorTransform.operations.length > 0) { 
-			setEditorValue(editorTransform.collapseToEnd().focus().apply())
+			console.log(editorTransform.state)
+			console.log(editorTransform.state.endBlock)
+			console.log(editorTransform.state.document.nodes)
+			setEditorValue(editorTransform.focus().apply())
 		}
 	}
 
@@ -300,6 +322,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		if (!Lang.isUndefined(NLPShortcut)) {
 			// Pull out NLP hashtag FullPhrase (one ending in a stop character) if there is one
 			const NLPHashtagPhrase = extractNLPHashtagFullPhrase(editorState, editor, NLPShortcut)
+			console.log(NLPHashtagPhrase)
 			if (!Lang.isUndefined(NLPHashtagPhrase)) { 
 				// send message out to NLPEndpoint 
 				fetchNLPExtraction(NLPShortcut, NLPHashtagPhrase)
