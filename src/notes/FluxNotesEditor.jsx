@@ -76,6 +76,7 @@ class FluxNotesEditor extends React.Component {
 
         this.contextManager.setIsBlock1BeforeBlock2(this.isBlock1BeforeBlock2.bind(this));
 
+        this.editor = null;
         this.didFocusChange = false;
         this.editorHasFocus = false;
         this.lastPosition = { top: 0, left: 0 };
@@ -1277,7 +1278,6 @@ class FluxNotesEditor extends React.Component {
             );
         }
         const callback = {}
-        let editor = null;
         let editorClassName = this.props.inModal ? 'editor-content-modal' : 'editor-content';
         /**
          * Render the editor, toolbar, dropdown and description for note
@@ -1286,7 +1286,7 @@ class FluxNotesEditor extends React.Component {
             <div id="clinical-notes" className="dashboard-panel">
                 {noteDescriptionContent}
                 <div className="MyEditor-root" onClick={(event) => {
-                    editor.focus();
+                    this.editor.focus();
                 }}>
                     { !this.props.inModal &&
                         <EditorToolbar
@@ -1306,8 +1306,8 @@ class FluxNotesEditor extends React.Component {
                             plugins={this.plugins}
                             readOnly={!this.props.isNoteViewerEditable}
                             state={this.state.state}
-                            ref={function (c) {
-                                editor = c;
+                            ref={(c) => {
+                                this.editor = c;
                             }}
                             onChange={this.onChange}
                             onInput={this.onInput}
