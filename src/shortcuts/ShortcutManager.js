@@ -5,6 +5,7 @@ import InsertValue from './InsertValue';
 import UpdaterBase from './UpdaterBase';
 import SingleHashtagKeyword from './SingleHashtagKeyword';
 import Keyword from './Keyword';
+import Placeholder from './Placeholder';
 import ValueSetManager from '../lib/ValueSetManager';
 import shortcutMetadata from './Shortcuts.json';
 import Lang from 'lodash';
@@ -129,6 +130,11 @@ class ShortcutManager {
 
     getMetadataForTrigger(trigger) {
         return this.shortcutMap[trigger.toLowerCase()];
+    }
+
+    createPlaceholder(shortcutName, placeholderText) {
+        const metadata = this.shortcutMap[shortcutName.toLowerCase()];
+        return new Placeholder(placeholderText, shortcutName, metadata);
     }
 
     createShortcut(definition, triggerOrKeyword, patient, shortcutData, onUpdate) {

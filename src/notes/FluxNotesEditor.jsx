@@ -317,6 +317,11 @@ class FluxNotesEditor extends React.Component {
         }
     }
 
+    newPlaceholder = (placeholderText) => {
+        const shortcutName = "#" + placeholderText.substring(1, placeholderText.length-1); // strip off < and > and add #
+        return this.props.shortcutManager.createPlaceholder(shortcutName, placeholderText);
+    }
+
     choseSuggestedPlaceholder(suggestion) {
         const { state } = this.state;
 
@@ -345,8 +350,9 @@ class FluxNotesEditor extends React.Component {
         if (Lang.isUndefined(transform)) {
             transform = this.state.state.transform();
         }
+        const placeholder = this.newPlaceholder(placeholderText);
 
-        const result = this.structuredFieldPlugin.transforms.insertPlaceholder(transform, placeholderText);
+        const result = this.structuredFieldPlugin.transforms.insertPlaceholder(transform, placeholder);
         return result[0].collapseToStartOfNextText().focus();
     }
 
@@ -1341,6 +1347,15 @@ class FluxNotesEditor extends React.Component {
                 </div>
             );
         }
+
+        if (this.props.noteAssistantMode === 'poc') {
+            return (
+                <div id="clinical-notes" className="dashboard-panel">
+                    {noteDescriptionContent}
+                </div>
+            );
+        }
+
         const callback = {}
         let editorClassName = this.props.inModal ? 'editor-content-modal' : 'editor-content';
         /**

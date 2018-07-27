@@ -9,6 +9,7 @@ import Button from '../elements/Button';
 import NoteAssistant from '../notes/NoteAssistant';
 import NoteParser from '../noteparser/NoteParser';
 import './NotesPanel.css';
+import PointOfCare from '../notes/PointOfCare';
 
 export default class NotesPanel extends Component {
     constructor(props) {
@@ -284,19 +285,39 @@ export default class NotesPanel extends Component {
 
             // If note viewer is editable and a note is selected, render the sign note button
             if (this.props.isNoteViewerEditable && this.state.selectedNote) {
-                return (
-                    <div>
-                        <Row center="xs">
-                            <Col sm={7} md={8} lg={9}>
-                                {this.renderFluxNotesEditor()}
-                                {this.renderSignButton()}
-                            </Col>
-                            <Col sm={5} md={4} lg={3}>
-                                {this.renderNoteAssistant()}
-                            </Col>
-                        </Row>
-                    </div>
-                );
+                if (this.state.noteAssistantMode === 'poc') {
+                    return (
+                        <div>
+                            <Row center="xs" style={{ height: '75px' }}>
+                                <Col sm={7} md={8} lg={9}>
+                                    {this.renderFluxNotesEditor()}
+                                </Col>
+                                <Col sm={5} md={4} lg={3}>
+                                    {this.renderNoteAssistant()}
+                                </Col>
+                            </Row>
+                            <Row start="xs" style={{ marginLeft:'10px'}}>
+                                <PointOfCare
+                                    structuredFieldMapManager={this.props.structuredFieldMapManager} />
+                            </Row>
+                        </div>
+
+                    );
+                } else {
+                    return (
+                        <div>
+                            <Row center="xs">
+                                <Col sm={7} md={8} lg={9}>
+                                    {this.renderFluxNotesEditor()}
+                                    {this.renderSignButton()}
+                                </Col>
+                                <Col sm={5} md={4} lg={3}>
+                                    {this.renderNoteAssistant()}
+                                </Col>
+                            </Row>
+                        </div>
+                    );
+                }
                 // Else don't render sign note button
             } else {
                 return (

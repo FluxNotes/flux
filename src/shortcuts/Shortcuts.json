@@ -111,7 +111,9 @@
     "form": "ProgressionForm",
     "formSpec": {   "title": "Disease Status",
                     "attributes": [ {   "title":"Status", "type":"radioButtons", "values": {"category":"progression", "valueSet":"status"} },
-                                    {   "title":"Rationale for status", "type":"checkboxes", "values": {"category":"progression", "valueSet":"reason"}}
+                                    {   "title":"Rationale for status", "type":"checkboxes", "values": {"category":"progression", "valueSet":"reason"} },
+                                    {   "title":"Reference Date", "type":"date" },
+                                    {   "title":"As Of Date", "type": "date" }
                                   ]
                 },
     "structuredPhrase": "#disease status${% is #${status}}${% based on #${reasons}}${% relative to #reference date #${referenceDateDate}}${% #as of #${asOfDateDate}}",

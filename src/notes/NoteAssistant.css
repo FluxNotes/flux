@@ -41,7 +41,7 @@
 
 /* Buttons */
 .toggle-button {
-    min-width: 70px !important;
+    min-width: 50px !important;
     min-height: 20px !important;
     width: 50% !important;
     display: inline-block !important;

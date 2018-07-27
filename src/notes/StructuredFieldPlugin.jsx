@@ -56,8 +56,8 @@ function StructuredFieldPlugin(opts) {
                 return <span contentEditable={false} className='structured-field' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
             },
             placeholder: props => {
-                const placeholderText = props.node.get('data').get('text');
-                return <span contentEditable={false} className='placeholder'>{placeholderText}</span>;
+                const placeholder = props.node.get('data').get('placeholder');
+                return <span contentEditable={false} className='placeholder'>{placeholder.placeholderText}</span>;
             },
         },
         rules: [
@@ -126,7 +126,7 @@ function StructuredFieldPlugin(opts) {
                 let shortcut = node.data.shortcut;
                 result += shortcut.getResultText();
             } else if (node.type === 'placeholder') {
-                result += node.data.text;
+                result += node.data.placeholder.placeholderText;
             } else if (node.type === 'bulleted-list') {
                 result += `<ul>${convertSlateNodesToText(node.nodes)}</ul>`;
             } else if (node.type === 'numbered-list') {
@@ -355,33 +355,34 @@ function createStructuredField(opts, shortcut) {
 	return sf;
 }
 
-function insertPlaceholder(opts, transform, text) {
+function insertPlaceholder(opts, transform, placeholder) {
     const { state } = transform;
     if (!state.selection.startKey) return false;
 
     // Create the placeholder node
-    const placeholder = createPlaceholder(opts, text);
+    const sf = createPlaceholder(opts, placeholder);
 
-    if (placeholder.kind === 'block') {
-        return [transform.insertBlock(placeholder)];
+    if (sf.kind === 'block') {
+        return [transform.insertBlock(sf)];
     } else {
-        return [transform.insertInline(placeholder)];
+        return [transform.insertInline(sf)];
     }
 }
 
-function createPlaceholder(opts, text) {
+function createPlaceholder(opts, placeholder) {
     const nodes = [];
     const properties = {
         type: opts.typePlaceholder,
         nodes: nodes,
         isVoid: true,
         data: {
-            text,
+            placeholder
         }
     };
-    const placeholder = Slate.Inline.create(properties);
-
-    return placeholder;
+    const sf = Slate.Inline.create(properties);
+    opts.structuredFieldMapManager.keyToPlaceholderMap.set(sf.key, placeholder);
+    opts.structuredFieldMapManager.idToShortcutMap.set(placeholder.metadata.id, placeholder);
+    return sf;
 }
 
 export default StructuredFieldPlugin;
