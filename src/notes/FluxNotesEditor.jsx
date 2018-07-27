@@ -1179,6 +1179,7 @@ class FluxNotesEditor extends React.Component {
                 <TextField
                     id="note-title-input"
                     autoFocus={true}
+                    fullWidth={true}
                     defaultValue={noteTitle}
                     onKeyPress={this.submitNoteNameChange}
                 />
