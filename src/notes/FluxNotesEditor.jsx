@@ -1174,6 +1174,12 @@ class FluxNotesEditor extends React.Component {
      * Render a TextField if the user wishes to edit the note name, otherwise render the note name as plain text
      */
     renderNoteNameEditor = (noteTitle) => {
+        let noteTag;
+        if(this.props.selectedNote.signed) {
+            noteTag = <p className="note-description-detail-value" id="note-title">{noteTitle}</p>;
+        } else {
+            noteTag = <p className="note-description-detail-value" id="note-title"><FontAwesome name="pencil" onClick={this.enableNoteNameEditing} />&nbsp;{noteTitle}</p>;
+        }
         if(this.state.isEditingNoteName) {
             return (
                 <TextField
@@ -1185,9 +1191,7 @@ class FluxNotesEditor extends React.Component {
                 />
             );
         } else {
-            return (
-                <p className="note-description-detail-value" id="note-title">{noteTitle}</p>
-            );
+            return noteTag;
         }
     }
 
@@ -1223,7 +1227,7 @@ class FluxNotesEditor extends React.Component {
                 <div id="note-description">
                     <Row end="xs">
                         <Col xs={2}>
-                            <p className="note-description-detail-name">Name <FontAwesome name="pencil" onClick={this.enableNoteNameEditing} /></p>
+                            <p className="note-description-detail-name">Name</p>
                             {this.renderNoteNameEditor(noteTitle)}
                         </Col>
                         <Col xs={2}>
