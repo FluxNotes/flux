@@ -39,6 +39,10 @@
     color: black;
 }
 
+#edit-note-name-btn:hover {
+    cursor: pointer;
+}
+
 .MyEditor-root {
     font-family: 'Georgia', serif;
 }
