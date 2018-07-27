@@ -1166,6 +1166,7 @@ class FluxNotesEditor extends React.Component {
             this.setState({
                 isEditingNoteName: false
             });
+            this.editor.focus();
         }
     }
 
