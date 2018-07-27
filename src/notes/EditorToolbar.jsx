@@ -68,8 +68,8 @@ class EditorToolbar extends React.Component {
 
         return (
             <span className="button" style={{cursor:cursorStyle}} onMouseDown={onMouseDown} data-active={isActive}>
-        <i className={"fa fa-fw " + icon} aria-label={"Make text " + type}></i>
-      </span>
+                <i className={"fa fa-fw " + icon} aria-label={"Make text " + type}></i>
+            </span>
         )
     }
     /**
@@ -89,8 +89,8 @@ class EditorToolbar extends React.Component {
 
         return (
             <span className="button" style={{cursor:cursorStyle}} onMouseDown={onMouseDown} data-active={isActive}>
-        <i className={"fa fa-fw " + icon} aria-label={"Make text " + type}></i>
-      </span>
+                <i className={"fa fa-fw " + icon} aria-label={"Make text " + type}></i>
+            </span>
         )
     }
     /**
@@ -107,25 +107,33 @@ class EditorToolbar extends React.Component {
             </div>
         )
     }
+    renderCopyButton = () => { 
+        let copyButton = "";
 
+        if (this.props.patient == null) {
+            return (
+                <span id="copy-button" style={{cursor:'pointer'}}>
+                    <i className="fa fa-files-o" aria-label="copy button" onClick={(e) => this.handleCopyClick(e)}></i>
+                </span>
+            );
+        } else {
+            return null;
+        }
+    }
+    renderLoadingNotification = () => { 
+        return (
+            <div id="loading-notification">
+                <span className="loading-breadcrumb-separator">|</span>
+                <p id="loading-text"> 
+                    Thinking...
+                </p>
+            </div>
+        );
+    }
     /**
      * Render the toolbar.
      */
     render = () => {
-
-        let content = "";
-
-        if (this.props.patient == null) {
-            content = (
-                <span id="copy-button" style={{cursor:'pointer'}}>
-                    <i className="fa fa-files-o" aria-label="copy button" onClick={(e) => this.handleCopyClick(e)}></i>
-                </span>
-            )
-
-        } else {
-            content = "";
-        }
-
         return (
             <div className="menu toolbar-menu">
                 {this.renderMarkButton('bold', 'fa-bold ')}
@@ -133,11 +141,12 @@ class EditorToolbar extends React.Component {
                 {this.renderMarkButton('underlined', 'fa-underline')}
                 {this.renderBlockButton('bulleted-list', 'fa-list')}
                 {this.renderBlockButton('numbered-list', 'fa-list-ol')}
-                 <hr className="toolbar-breadcrumbs-separator"/>
+                <hr className="toolbar-breadcrumbs-separator"/>
                 <ActiveContextsBreadcrumbs
                     contextManager={this.props.contextManager}
                 />
-                {content}
+                { this.props.loadingTimeWarrantsWarning && this.renderLoadingNotification()}
+                {this.renderCopyButton()}
             </div>
         )
     }

@@ -306,7 +306,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		console.log('call to fetchNLPExtraction')
 		const NLPShortcutName = NLPShortcut.nlpTemplate;
 		fetch(`${API_ENDPOINT}?template=${NLPShortcutName}&sentence=${NLPHashtagPhrase}`)
-		.then(processNLPEngineResponse)
+			.then(processNLPEngineResponse)
 			.then(
 				processNLPEngineData.bind(null,NLPShortcut),
 				// processNLPEngineData,
