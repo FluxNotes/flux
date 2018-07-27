@@ -20,10 +20,11 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
     const shortcutManager = opts.shortcutManager;
     const contextManager = opts.contextManager;
 	const createShortcut = opts.createShortcut;
-	const insertStructuredFieldTransform = opts.insertStructuredFieldTransform;
+	const insertStructuredFieldTransformAtRange = opts.insertStructuredFieldTransformAtRange;
 	const structuredFieldMapManager = opts.structuredFieldMapManager;
 	// Define a flag here so we don't send multiple requests while we're just waiting for a return value.
-	let isFetching = false
+	const isFetchingAsyncData = opts.isFetchingAsyncData;
+	const updateFetchingStatus = opts.updateFetchingStatus;
 	const getEditorValue = opts.getEditorValue;
 	const setEditorValue = opts.setEditorValue;
 	const stopCharacters = [
@@ -81,8 +82,10 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 
 	function getRangeForRegexp (curNode, regexp) {
 		const indexOfRegexp = curNode.text.toLowerCase().search(regexp); 
+		console.log(curNode)
 		console.log(curNode.text)
 		console.log(regexp)
+		console.log(indexOfRegexp)
 		if(indexOfRegexp === -1) { 
 			return
 		} else { 
@@ -159,19 +162,6 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		} 
 	}
 
-	// Process the NLP HTTP Response so we can get the data we care about off of it
-	function processNLPEngineResponse(res) { 
-		// console.log(res)
-		return res.json()
-	}
-
-	// Used when processNLPEngineResponse throws an error; handle gracefully and alert console to failure
-	function failedToProcessNLPEngineResponse(error) { 
-		isFetching = false;
-		console.log('error in request here -- expected')
-		console.log(error)
-	}
-
 	// Parse canonicalization to retrieve keyword 	
 	function parseKeywordFromCanonicalizationBasedOnPhrase(canonicalization, typeOfPhrase) { 
 		switch (typeOfPhrase) {
@@ -208,9 +198,10 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 				// get range for originalText
 				originalTextRange = getRangeBasedOnPhrase(nodeAfterNLPShortcut.key, phraseValue)
 				// Remove keyword from block, using first character as the prefix
-				editorTransform = editorTransform.select(originalTextRange).delete();
+				console.log(originalTextRange)
+				// editorTransform = editorTransform.deleteAtRange(new Selection(originalTextRange));
 				// Add shortcut to text; update relevantFragment and curText
-				editorTransform = insertStructuredFieldTransform(editorTransform, NLPShortcut)
+				editorTransform = insertStructuredFieldTransformAtRange(editorTransform, NLPShortcut, new Selection(originalTextRange))
 				editorState = editorTransform.state;
 				if (keyOfFirstShortcut === null) { 
 					keyOfFirstShortcut = NLPShortcut.getKey();
@@ -220,11 +211,14 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 			// FIXME: WE have a hard time dealing with users triggering fetching in the middle of a sentence. 
 			const textAfterShortcuts = editorState.document.getNextSibling(keyOfFirstShortcut)
 			const rangeAssociatedWithStopRegexp = getRangeForRegexp(textAfterShortcuts, stopRegexp);
+			console.log(getRangeForRegexp);
 			if (Lang.isUndefined(rangeAssociatedWithStopRegexp)) { 
 				// Then we created a new block; move to the next block
-				return editorTransform.collapseToStartOfNextBlock().focus();
+				// return editorTransform.collapseToStartOfNextBlock().focus();
+				return editorTransform.focus();
 			} else { 
-				return editorTransform.collapseToEndOfNextText().focus();
+				// return editorTransform.select(getRangeForRegexp).collapseToEnd().focus();
+				return editorTransform.focus();
 			}
 		}
 	}
@@ -253,21 +247,18 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		const phrasesInOrder = orderPhrasesForReverseInsertion(phrases)
 		editorTransform = parseArryOfPhrases(phrasesInOrder, editorTransform, NLPShortcut);
 		if (editorTransform.operations.length > 0) { 
-			console.log(editorTransform.state)
-			console.log(editorTransform.state.endBlock)
-			console.log(editorTransform.state.document.nodes)
 			setEditorValue(editorTransform.focus().apply())
 		}
 	}
 
 	// Given data extracted from NLP engine, parse it for meaningful feedback and use that to perform necessary insertions.
 	function processNLPEngineData(NLPShortcut, data) { 
+		console.log(JSON.stringify(data))
 		if (!(NLPShortcut instanceof Shortcut) && typeof NLPShortcut === 'object' && NLPShortcut !== null && data === undefined) { 
 			// If we haven't bound a valid shortcut, and the first arg looks like data, we should define data as such
 			data = NLPShortcut
 		}
-		isFetching = false;
-		console.log('successful case here')
+		updateFetchingStatus(false)
 		const phrases = data.phrases;
 		const success = data.success;
 		if (!success) { 
@@ -283,22 +274,35 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 			parsePhrases(phrases, data, NLPShortcut)	
 		}
 	}
+	
+	// Process the NLP HTTP Response so we can get the data we care about off of it
+	function processNLPEngineResponse(res) { 
+		// console.log(res)
+		return res.json()
+	}
+
+	// Used when processNLPEngineResponse throws an error; handle gracefully and alert console to failure
+	function failedToProcessNLPEngineResponse(error) { 
+		updateFetchingStatus(false)
+		console.log('error in request here -- expected')
+		console.log(error)
+	}
 
 	// Used when fetch throws an error; handle failure gracefully.
 	function handleNLPEngineError(error) { 
-		isFetching = false;
+		updateFetchingStatus(false)
 		console.log('Error in Processing Response -- Available error message is: ')
 		console.log(error)
 	}		
 	
 	// Sends off a request to the NLP endpoint
 	function fetchNLPExtraction(NLPShortcut, NLPHashtagPhrase) { 
-		if (isFetching) {
+		if (isFetchingAsyncData) {
 			console.log('already fetching')
 			return
 		}
 		// Else, we want to fetch data
-		isFetching = true;
+		updateFetchingStatus(true)
 		console.log('call to fetchNLPExtraction')
 		const NLPShortcutName = NLPShortcut.nlpTemplate;
 		fetch(`${API_ENDPOINT}?template=${NLPShortcutName}&sentence=${NLPHashtagPhrase}`)
