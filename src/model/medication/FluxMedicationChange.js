@@ -25,7 +25,7 @@ class FluxMedicationChange {
     }
     /**
      * Get the MedicationBeforeChange object.
-     * Returns medicaitonRequested object
+     * Returns medicationRequested object
      */
     get medicationBeforeChange() {     
       return this._medicationChange.medicationBeforeChange;

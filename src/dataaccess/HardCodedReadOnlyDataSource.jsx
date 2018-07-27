@@ -8,6 +8,10 @@ import curationPatient from './sample_curation_output.json';
 
 class HardCodedReadOnlyDataSource extends IDataSource {
     getPatient(id) {
+        console.log("Current Id: ", id);
+        console.log("Demo Id: ", DataAccess.DEMO_PATIENT_ID);
+        console.log("Hardcoded Id: ", hardCodedPatientMidYearDemo18[0]["ShrId"]);
+        console.log("Curation Id: ", curationPatient[0]["ShrId"].Value);
         if (id === DataAccess.DEMO_PATIENT_ID) {
             return new PatientRecord(hardCodedPatient);
         } else if (hardCodedPatientMidYearDemo18[0]["ShrId"] === id) {

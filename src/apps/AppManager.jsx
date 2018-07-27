@@ -124,7 +124,15 @@ export default class AppManager {
                 dataSource: 'HardCodedReadOnlyDataSource',
                 patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7f',
                 shortcuts: []
-            },            
+            },     
+            {
+                path: '/smart',
+                display: 'Flux Notes™',
+                app: SmartApp,
+                isExact: true,
+                dataSource: 'HardCodedReadOnlyDataSource',
+                shortcuts: []
+            },         
             {
                 path: '/p2',
                 display: 'Flux Notes™',

@@ -39,6 +39,22 @@ export class FullApp extends Component {
             "post-encounter"
         ];
 
+        console.log("Props", props);
+
+        window.FHIR.oauth2.ready((smart) => {
+            smart.user.read().then((user) => {
+                const userProfile = this.securityManager.getUserProfile(user);
+                if (userProfile) {
+                    this.setState({loginUser: userProfile.getUserName()});
+                } else {
+                    console.error("Login failed");
+                }
+            })
+            smart.patient.read().then((patient) => {
+                console.log(patient);
+            })
+        });   
+
         if (Lang.isUndefined(this.props.dataSource)) {
             this.dataAccess = new DataAccess("HardCodedReadOnlyDataSource");
         } else {
@@ -128,19 +144,19 @@ export class FullApp extends Component {
 
     // On component mount, grab the username of the logged in user
     componentDidMount() {
-        window.FHIR.oauth2.ready((smart) => {
-            smart.user.read().then((user) => {
-                console.log("The user is:", user);
-                console.log("Te user name is: ", user.name);
-                let name = this.parseUserName(user.name);
-                const userProfile = this.securityManager.getUserProfile(name);
-                if (userProfile) {
-                    this.setState({loginUser: userProfile.getUserName()});
-                } else {
-                    console.error("Login failed");
-                }
-            })
-        });        
+        // window.FHIR.oauth2.ready((smart) => {
+        //     smart.user.read().then((user) => {
+        //         const userProfile = this.securityManager.getUserProfile(user);
+        //         if (userProfile) {
+        //             this.setState({loginUser: userProfile.getUserName()});
+        //         } else {
+        //             console.error("Login failed");
+        //         }
+        //     })
+        //     smart.patient.read().then((patient) => {
+        //         console.log(patient);
+        //     })
+        // });        
     }
 
     // Return the user's name by concatenating the values inside the user's name object
