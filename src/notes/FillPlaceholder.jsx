@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {Row, Col} from 'react-flexbox-grid';
 
+import './FillPlaceholder.css';
+
 export default class FillPlaceholder extends Component {
     render() {
         /*
@@ -13,7 +15,7 @@ export default class FillPlaceholder extends Component {
         let columns = [ <Col xs key="0">{this.props.placeholder.shortcutName}</Col> ];
         this.props.placeholder.metadata.formSpec.attributes.forEach((attribute, index) => {
             columns.push(<Col xs key={`${index}-label`}>{`${attribute.title}: `}</Col>);
-            columns.push(<Col xs key={`${index}-value`}>No Data</Col>);
+            columns.push(<Col className="missing-data" xs key={`${index}-value`}>No Data</Col>);
         });
         return (
             <Row>

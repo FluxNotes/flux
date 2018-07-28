@@ -1,0 +1,10 @@
+.missing-data {
+    border-bottom: 1px solid rgba(255, 0, 0, 0.5);
+    text-decoration: none;
+}
+
+.structured-data {
+    cursor: pointer;
+    border-bottom: 1px solid rgba(1, 130, 215, 0.5);
+    text-decoration: none;
+}

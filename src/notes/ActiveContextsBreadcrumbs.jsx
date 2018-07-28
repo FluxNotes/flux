@@ -11,7 +11,7 @@ class ActiveContextsBreadcrumbs extends React.Component {
         else {
             const contextOptions = activeContexts.map((context, i) => {
                 const index = activeContexts.length - (i + 1);
-                const breadcrumb = context.text.replace("#", "");
+                const breadcrumb = context.getLabel().replace("#", ""); //was context.text
 
                 //Return breadcrumb with separator if breadcrumb isn't the last one of the list.
                 if ((activeContexts.length - i - 1) === 0) {
