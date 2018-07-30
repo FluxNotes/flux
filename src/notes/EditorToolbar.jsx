@@ -125,7 +125,7 @@ class EditorToolbar extends React.Component {
             <div id="loading-notification">
                 <span className="loading-breadcrumb-separator">|</span>
                 <p id="loading-text"> 
-                    Thinking...
+                    ...
                 </p>
             </div>
         );
@@ -145,7 +145,7 @@ class EditorToolbar extends React.Component {
                 <ActiveContextsBreadcrumbs
                     contextManager={this.props.contextManager}
                 />
-                { this.props.loadingTimeWarrantsWarning && this.renderLoadingNotification()}
+                {  this.renderLoadingNotification()}
                 {this.renderCopyButton()}
             </div>
         )

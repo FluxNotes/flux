@@ -169,6 +169,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 			case "GRADE":
 				return canonicalization.toLowerCase();
 			case "CTCAE":
+				// TODO: We shouldn't need to adda  hashtag; check createShortcut fucntion to fix valueset parsing
 				return `#${canonicalization.ctcae.toLowerCase()}`;
 			default:
 				const err = {
