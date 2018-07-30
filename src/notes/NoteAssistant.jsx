@@ -82,7 +82,6 @@ export default class NoteAssistant extends Component {
     }
 
     setInsertingTemplate = (insertingTemplate) => {
-        console.log("in insert template");
         this.setState({ insertingTemplate }); 
         this.props.updateShowTemplateView(false);           
     }
