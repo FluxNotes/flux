@@ -1173,9 +1173,9 @@ class FluxNotesEditor extends React.Component {
     /**
      * Render a TextField if the user wishes to edit the note name, otherwise render the note name as plain text
      */
-    renderNoteNameEditor = (noteTitle) => {
+    renderNoteNameEditor = (noteTitle, signed) => {
         let noteTag;
-        if(this.props.selectedNote.signed) {
+        if(signed) {
             noteTag = <p className="note-description-detail-value" id="note-title">{noteTitle}</p>;
         } else {
             noteTag = <p className="note-description-detail-value" id="note-title"><FontAwesome id="edit-note-name-btn" name="pencil" onClick={this.enableNoteNameEditing} />&nbsp;{noteTitle}</p>;
@@ -1205,6 +1205,7 @@ class FluxNotesEditor extends React.Component {
         let date = Moment(new Date()).format('DD MMM YYYY');
         let signedString = "not signed";
         let source = "Dana Farber";
+        let signed = false;
 
         // If a note is selected, update the note header with information from the selected note
         if (this.props.selectedNote) {
@@ -1213,6 +1214,7 @@ class FluxNotesEditor extends React.Component {
             source = this.props.selectedNote.hospital;
 
             if(this.props.selectedNote.signed) {
+                signed = true;
                 signedString = this.props.selectedNote.clinician;
             } else {
                 signedString = "not signed";
@@ -1228,7 +1230,7 @@ class FluxNotesEditor extends React.Component {
                     <Row end="xs">
                         <Col xs={2}>
                             <p className="note-description-detail-name">Name</p>
-                            {this.renderNoteNameEditor(noteTitle)}
+                            {this.renderNoteNameEditor(noteTitle, signed)}
                         </Col>
                         <Col xs={2}>
                             <p className="note-description-detail-name">Date</p>
