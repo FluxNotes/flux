@@ -1178,7 +1178,7 @@ class FluxNotesEditor extends React.Component {
         if(this.props.selectedNote.signed) {
             noteTag = <p className="note-description-detail-value" id="note-title">{noteTitle}</p>;
         } else {
-            noteTag = <p className="note-description-detail-value" id="note-title"><FontAwesome name="pencil" onClick={this.enableNoteNameEditing} />&nbsp;{noteTitle}</p>;
+            noteTag = <p className="note-description-detail-value" id="note-title"><FontAwesome id="edit-note-name-btn" name="pencil" onClick={this.enableNoteNameEditing} />&nbsp;{noteTitle}</p>;
         }
         if(this.state.isEditingNoteName) {
             return (
