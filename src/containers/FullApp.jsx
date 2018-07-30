@@ -219,19 +219,22 @@ export class FullApp extends Component {
     }
 
     openReferencedNote = (item, arrayIndex = -1) => {
-        if (!item.value || !Lang.isArray(item.value) || item.value.length < 3 || Lang.isUndefined(item.value[2])) {
-            this.setState({
-                snackbarOpen: true,
-                snackbarMessage: "No source note available. Information was probably entered into EHR as structured data."
-            });
-            return;
+        if (item) {
+            if (!item.value || !Lang.isArray(item.value) || item.value.length < 3 || Lang.isUndefined(item.value[2])) {
+                this.setState({
+                    snackbarOpen: true,
+                    snackbarMessage: "No source note available. Information was probably entered into EHR as structured data."
+                });
+                return;
+            }
+            const sourceNote = this.state.patient.getEntryFromReference(item.value[2]);
+            this.setOpenClinicalNote(sourceNote);
         }
-        const sourceNote = this.state.patient.getEntryFromReference(item.value[2]);
-        this.setOpenClinicalNote(sourceNote);
     }
 
     // Update the summaryItemToInsert based on the item given
     handleSummaryItemSelected = (item, arrayIndex = -1) => {
+        console.log(item);
         if (item) {
             if (Lang.isArray(item.value)) item.value = item.value[0];
             // calls to this method from the buttons on a ListType pass in 'item' as an array.

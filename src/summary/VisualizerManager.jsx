@@ -31,16 +31,21 @@ class VisualizerManager {
             } else {
                 timing = "";
             }
-
             const endDate = this.getEndDate(med);
 
+            let isUnsigned = false;
+            if (med.medicationChange) {
+                isUnsigned = med.medicationChange.unsigned;
+            }
+
             return [    med.medication.medication,
-                        medicationChange,
+                        {value: [medicationChange, isUnsigned, null]},
                         dose,
                         timing,
                         med.medication.expectedPerformanceTime.timePeriodStart,
-                        endDate];
+                        endDate  ];
         });
+        newsection.formatFunction = this.formatStoppedMedication;
         return newsection;
     };
 
@@ -63,6 +68,13 @@ class VisualizerManager {
         }
 
         return formattedMedicationChange;
+    }
+
+    formatStoppedMedication = (medChange) => {
+        if (medChange && medChange === "Stopped") {
+            return "stopped-cell";
+        }
+        return "tabular-list";
     }
 
     transformNameValuePairToColumns = (patient, condition, subsection) => {
