@@ -4,7 +4,8 @@ import LandingPage from '../components/LandingPage';
 import LaunchPage from '../components/LaunchPage';
 
 export default class AppManager {
-    constructor() {
+    constructor() {  
+
         this.apps = [{
                 path: '/',
                 display: 'Flux Notes™',

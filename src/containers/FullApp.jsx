@@ -39,22 +39,6 @@ export class FullApp extends Component {
             "post-encounter"
         ];
 
-        console.log("Props", props);
-
-        window.FHIR.oauth2.ready((smart) => {
-            smart.user.read().then((user) => {
-                const userProfile = this.securityManager.getUserProfile(user);
-                if (userProfile) {
-                    this.setState({loginUser: userProfile.getUserName()});
-                } else {
-                    console.error("Login failed");
-                }
-            })
-            smart.patient.read().then((patient) => {
-                console.log(patient);
-            })
-        });   
-
         if (Lang.isUndefined(this.props.dataSource)) {
             this.dataAccess = new DataAccess("HardCodedReadOnlyDataSource");
         } else {
@@ -143,20 +127,35 @@ export class FullApp extends Component {
     }
 
     // On component mount, grab the username of the logged in user
-    componentDidMount() {
-        // window.FHIR.oauth2.ready((smart) => {
-        //     smart.user.read().then((user) => {
-        //         const userProfile = this.securityManager.getUserProfile(user);
-        //         if (userProfile) {
-        //             this.setState({loginUser: userProfile.getUserName()});
-        //         } else {
-        //             console.error("Login failed");
-        //         }
-        //     })
-        //     smart.patient.read().then((patient) => {
-        //         console.log(patient);
-        //     })
-        // });        
+    componentWillMount() {
+        window.FHIR.oauth2.ready((smart) => {
+            smart.user.read().then((user) => {
+                const userProfile = this.securityManager.getUserProfile(user);
+                if (userProfile) {
+                    this.setState({loginUser: userProfile.getUserName()});
+                } else {
+                    console.error("Login failed");
+                }
+            })
+            if (this.props.path === "/smart") {
+                smart.patient.read().then((patient) => {
+                    console.log("Our Patient Is: ", patient);
+                    let patientId;
+                    if (patient.id === "099e7de7-c952-40e2-9b4e-0face78c9d80") {
+                        console.log("deborah!");
+                        patientId = DataAccess.DEMO_PATIENT_ID;
+                    }
+                    else if (patient.id === "04327b09-4d3a-4c8b-9959-83bc1b358203") {
+                        console.log("ella!");
+                        patientId = "788dcbc3-ed18-470c-89ef-35ff91854c7e";
+                    }
+                    let patientFullApp = this.dataAccess.getPatient(patientId);
+                    this.setState({
+                        patient: patientFullApp
+                    })
+                })
+            }
+        });       
     }
 
     // Return the user's name by concatenating the values inside the user's name object
