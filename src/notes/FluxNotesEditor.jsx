@@ -1161,7 +1161,7 @@ class FluxNotesEditor extends React.Component {
      * Handle the user submitting a new name for a note
      */
     submitNoteNameChange = (e) => {
-        if(e.key === "Enter") {
+        if (e.key === "Enter") {
             this.props.selectedNote.subject = e.target.value;
             this.setState({
                 isEditingNoteName: false
@@ -1175,12 +1175,12 @@ class FluxNotesEditor extends React.Component {
      */
     renderNoteNameEditor = (noteTitle, signed) => {
         let noteTag;
-        if(signed) {
+        if (signed) {
             noteTag = <p className="note-description-detail-value" id="note-title">{noteTitle}</p>;
         } else {
             noteTag = <p className="note-description-detail-value" id="note-title"><FontAwesome id="edit-note-name-btn" name="pencil" onClick={this.enableNoteNameEditing} />&nbsp;{noteTitle}</p>;
         }
-        if(this.state.isEditingNoteName) {
+        if (this.state.isEditingNoteName) {
             return (
                 <TextField
                     id="note-title-input"
