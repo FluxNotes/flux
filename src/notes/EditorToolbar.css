@@ -3,6 +3,7 @@
 }
 
 .toolbar-menu {
+    position: relative;
     padding: 1px 0 17px 5px;
     margin-bottom: 20px;
     border-bottom: 1px solid #ddd;
@@ -81,7 +82,9 @@
 }
 
 #loading-notification { 
-    min-width: 10%
+    position: absolute;
+    right: 0; 
+    min-width: 125px;
 }
 
 #loading-text { 
