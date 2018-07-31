@@ -22,10 +22,11 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 	const createShortcut = opts.createShortcut;
 	const insertStructuredFieldTransformAtRange = opts.insertStructuredFieldTransformAtRange;
 	// Define a flag here so we don't send multiple requests while we're just waiting for a return value.
-	const isFetchingAsyncData = opts.isFetchingAsyncData;
 	const updateFetchingStatus = opts.updateFetchingStatus;
 	const getEditorValue = opts.getEditorValue;
 	const setEditorValue = opts.setEditorValue;
+	// Local value tracking current fetching status to avoid multiple requests being sent off
+	let isFetchingAsyncData = false;
 	const stopCharacters = [
 		'\\.',
 		'\\?',
@@ -191,7 +192,8 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 	}
 
 	// Given a list of phrases, parse them and insert them all in reverse order, changing editor state accordingly.
-	function parsePhrases(phrases, data, NLPShortcut) { 
+	function parsePhrases(phrases, NLPShortcut) { 
+		console.log('----- Parse Phrase')
 		const editorState = getEditorValue();
 		let editorTransform = editorState.transform();
 		const phrasesInOrder = orderPhrasesForReverseInsertion(phrases)
@@ -207,7 +209,8 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 			// If we haven't bound a valid shortcut, and the first arg looks like data, we should define data as such
 			data = NLPShortcut
 		}
-		updateFetchingStatus(false)
+		isFetchingAsyncData = false;
+		updateFetchingStatus(isFetchingAsyncData)
 		const phrases = data.phrases;
 		const success = data.success;
 		if (!success) { 
@@ -219,8 +222,8 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 			return  
 		} else { 
 			// There should be some phrases we want to insert.
-			console.log(data)
-			parsePhrases(phrases, data, NLPShortcut)	
+			parsePhrases(phrases, NLPShortcut)	
+			return
 		}
 	}
 	
@@ -232,27 +235,31 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 
 	// Used when processNLPEngineResponse throws an error; handle gracefully and alert console to failure
 	function failedToProcessNLPEngineResponse(error) { 
-		updateFetchingStatus(false)
+		isFetchingAsyncData = false;
+		updateFetchingStatus(isFetchingAsyncData)
 		console.error('error in request here -- expected')
 		console.error(error)
 	}
 
 	// Used when fetch throws an error; handle failure gracefully.
 	function handleNLPEngineError(error) { 
-		updateFetchingStatus(false)
+		isFetchingAsyncData = false;
+		updateFetchingStatus(isFetchingAsyncData)
 		console.error('Error in Processing Response -- Available error message is: ')
 		console.error(error)
 	}		
 	
 	// Sends off a request to the NLP endpoint
 	function fetchNLPExtraction(NLPShortcut, NLPHashtagPhrase) { 
+		console.log('****** AlreadyFecthing? ' + isFetchingAsyncData)
 		if (isFetchingAsyncData) {
 			console.log('already fetching')
 			return
 		}
 		// Else, we want to fetch data
-		updateFetchingStatus(true)
-		console.log('call to fetchNLPExtraction')
+		isFetchingAsyncData = true;
+		updateFetchingStatus(isFetchingAsyncData)
+		console.log('***** FetchNLPExtraction')
 		const NLPShortcutName = NLPShortcut.nlpTemplate;
 		fetch(`${API_ENDPOINT}?template=${NLPShortcutName}&sentence=${NLPHashtagPhrase}`)
 			.then(processNLPEngineResponse)
@@ -277,6 +284,10 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 			const NLPHashtagPhrase = extractNLPHashtagFullPhrase(editorState, editor, NLPShortcut)
 			if (!Lang.isUndefined(NLPHashtagPhrase)) { 
 				// send message out to NLPEndpoint 
+				console.log('NLPHashtagPhrase')
+				console.log(NLPHashtagPhrase)
+				console.log('editorState')
+				console.log(editorState)
 				fetchNLPExtraction(NLPShortcut, NLPHashtagPhrase)
 			} else { 
 				return

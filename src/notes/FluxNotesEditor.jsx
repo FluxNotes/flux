@@ -130,7 +130,6 @@ class FluxNotesEditor extends React.Component {
                 console.log('setting editorVAlue')
                 this.setState({state})
             },
-            isFetchingAsyncData: this.state.isFetchingAsyncData, 
             updateFetchingStatus: this.updateFetchingStatus,
         };
         this.NLPHashtagPlugin = NLPHashtagPlugin(NLPHashtagPluginOptions);
@@ -231,24 +230,20 @@ class FluxNotesEditor extends React.Component {
 
 
     updateFetchingStatus = (isFetchingAsyncData) => { 
-        console.log('called updateFetchingStatus')
-        console.log(isFetchingAsyncData)
         if (!isFetchingAsyncData) { 
             // If we're not fetching, clear any lagging timers;
             // Make sure loadingTimeWarrantsWarning is false;
-            console.log("---Clear timeout")
+            console.log("Clear timeout")
             if (this.state.fetchTimeout !== null) clearTimeout(this.state.fetchTimeout._id)
             this.setState({
                 loadingTimeWarrantsWarning: false,
                 // Always set this variable, to block multiple requests
-                isFetchingAsyncData,
                 fetchTimeout: null,
             });
         } else { 
             // If we are fetching, set a timer to update the loadingTimeWarrantsWarning variable
             // If this timer gets executed, we'll display a loading animation in the editor
             this.setState({
-                isFetchingAsyncData,
                 fetchTimeout: setTimeout (() => {
                     console.log("executingTimeout")
                     this.setState({
