@@ -16,7 +16,6 @@ export default class TabularListVisualizer extends Component {
     // Initialize values for insertion popups
     constructor(props) {
         super(props);
-
         this.state = {
             count: 0,
             elementToDisplayMenu: null,
@@ -277,6 +276,7 @@ export default class TabularListVisualizer extends Component {
         const colSize = (100 / numColumns) + "%";
         let isUnsigned;
 
+
         item.forEach((element, arrayIndex) => {
             const elementId = `${subsectionindex}-${index}-item-${arrayIndex}`
             let columnItem = null;
@@ -286,6 +286,8 @@ export default class TabularListVisualizer extends Component {
             
             if (!Lang.isNull(elementText) && elementText.length > 100) elementText = elementText.substring(0, 100) + "...";
 
+            // ElementTexts that are arrays are assumed to have two elements
+            // where the second is a boolean representing signed or unsigned.
             if (Lang.isNull(elementText)) {
                 itemClass = 'list-missing';
             } else {
@@ -401,7 +403,7 @@ export default class TabularListVisualizer extends Component {
         
         if (Lang.isArray(element.value)) {
             isSigned = !element.value[1];
-            element = element[0];
+            //element = element[0];
         }
         
         return (

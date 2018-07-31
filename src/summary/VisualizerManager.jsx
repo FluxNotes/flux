@@ -39,7 +39,7 @@ class VisualizerManager {
             }
 
             return [    med.medication.medication,
-                        {value: [medicationChange, isUnsigned, null]},
+                        {value: [medicationChange, isUnsigned]},
                         dose,
                         timing,
                         med.medication.expectedPerformanceTime.timePeriodStart,
