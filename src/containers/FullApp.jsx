@@ -9,7 +9,6 @@ import green from 'material-ui/colors/green';
 import red from 'material-ui/colors/red';
 import Snackbar from 'material-ui/Snackbar';
 import Lang from 'lodash';
-import 'fhirclient';
 
 import SecurityManager from '../security/SecurityManager';
 import DashboardManager from '../dashboard/DashboardManager';
@@ -45,16 +44,9 @@ export class FullApp extends Component {
             this.dataAccess = new DataAccess(this.props.dataSource);
         }
 
-        let patientId = DataAccess.DEMO_PATIENT_ID;
-        if (props.patientId) {
-            patientId = props.patientId;
-        }
-
-        let patient = this.dataAccess.getPatient(patientId);
         this.summaryMetadata = new SummaryMetadata(this.setForceRefresh);
         this.dashboardManager = new DashboardManager();
         this.shortcutManager = new ShortcutManager(this.props.shortcuts);
-        this.contextManager = new ContextManager(patient, this.onContextUpdate);
         this.securityManager = new SecurityManager();
         this.structuredFieldMapManager = new StructuredFieldMapManager();
 
@@ -70,7 +62,7 @@ export class FullApp extends Component {
             loginUser: "",
             noteClosed: false,
             openClinicalNote: null,
-            patient: patient,
+            patient: null,
             searchSelectedItem: null,
             snackbarOpen: false,
             snackbarMessage: "",
@@ -126,41 +118,20 @@ export class FullApp extends Component {
         ]
     }
 
-    // On component mount, grab the username of the logged in user
-    componentWillMount() {
-        window.FHIR.oauth2.ready((smart) => {
-            smart.user.read().then((user) => {
-                const userProfile = this.securityManager.getUserProfile(user);
-                if (userProfile) {
-                    this.setState({loginUser: userProfile.getUserName()});
-                } else {
-                    console.error("Login failed");
-                }
-            })
-            if (this.props.path === "/smart") {
-                smart.patient.read().then((patient) => {
-                    console.log("Our Patient Is: ", patient);
-                    let patientId;
-                    if (patient.id === "099e7de7-c952-40e2-9b4e-0face78c9d80") {
-                        console.log("deborah!");
-                        patientId = DataAccess.DEMO_PATIENT_ID;
-                    }
-                    else if (patient.id === "04327b09-4d3a-4c8b-9959-83bc1b358203") {
-                        console.log("ella!");
-                        patientId = "788dcbc3-ed18-470c-89ef-35ff91854c7e";
-                    }
-                    let patientFullApp = this.dataAccess.getPatient(patientId);
-                    this.setState({
-                        patient: patientFullApp
-                    })
-                })
-            }
-        });       
+    loadPatient(patientId) {
+        let patient = this.dataAccess.getPatient(patientId);
+        this.contextManager = new ContextManager(patient, this.onContextUpdate);
+        this.setState({patient: patient})
     }
 
-    // Return the user's name by concatenating the values inside the user's name object
-    parseUserName = (nameObject) => {
-        return (nameObject.suffix) ? (`${nameObject.given[0]} ${nameObject.family[0]}, ${nameObject.suffix[0]}`) : (`${nameObject.given[0]} ${nameObject.family[0]}`);
+    componentWillMount() {
+        this.loadPatient(this.props.patientId);
+        const userProfile = this.securityManager.getUser();
+        if (userProfile) {
+            this.setState({loginUser: userProfile.getUserName()});
+        } else {
+            console.error("Login failed");
+        }
     }
 
     // pass this function to children to set full app global state

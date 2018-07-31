@@ -1,5 +1,6 @@
 import FullApp from '../containers/FullApp';
 import SlimApp from '../containers/SlimApp';
+import SmartApp from '../containers/SmartApp';
 import LandingPage from '../components/LandingPage';
 import LaunchPage from '../components/LaunchPage';
 
@@ -97,6 +98,7 @@ export default class AppManager {
                 app: FullApp,
                 isExact: true,
                 dataSource: 'HardCodedReadOnlyDataSource',
+                patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7d',
                 shortcuts: []
             },
             {
@@ -120,7 +122,7 @@ export default class AppManager {
             {
                 path: '/pilot1',
                 display: 'Flux Notes™',
-                app: FullApp,
+                app: SmartApp,
                 isExact: true,
                 dataSource: 'HardCodedReadOnlyDataSource',
                 patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7f',

@@ -26,6 +26,10 @@ class UserProfile {
         }
     }
 
+    getSuperRole() {
+        return "Clinician";
+    }
+
    getUserName() {
        return this._name;
    }
