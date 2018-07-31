@@ -21,7 +21,7 @@ export default class FluxObjectFactory {
     static createInstance(json, type, patientRecord) {
         const { namespace } = getNamespaceAndName(json, type);
         switch (namespace) {
-            case 'shr.adverse': return FluxAdverseObjectFactory.createInstance(json, type);
+            case 'shr.adverse': return FluxAdverseObjectFactory.createInstance(json, type, patientRecord);
             case 'shr.base': return FluxBaseObjectFactory.createInstance(json, type);
             case 'shr.condition': return FluxConditionObjectFactory.createInstance(json, type);
             case 'shr.core': return FluxCoreObjectFactory.createInstance(json, type);

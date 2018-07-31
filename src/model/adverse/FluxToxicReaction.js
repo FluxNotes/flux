@@ -5,8 +5,8 @@ import EntryType from '../shr/base/EntryType';
 
 // FluxToxicReaction class to hide codeableconcepts
 class FluxToxicReaction extends FluxAdverseEvent {
-    constructor(json) {
-        super(json);
+    constructor(json, patientRecord) {
+        super(json, patientRecord);
 
         this._entry = this._adverseEvent = ToxicReaction.fromJSON(json);
         if (!this._adverseEvent.entryInfo) {
