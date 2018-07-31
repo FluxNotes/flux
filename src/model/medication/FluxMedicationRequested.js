@@ -66,21 +66,6 @@ class FluxMedicationRequested {
         this._medicationRequested.actionContext.expectedPerformanceTime.value.timePeriodStart = date;
     }
 
-    set endDate(date) {
-        console.log("setting end date");
-        if (!this.medication.expectedPerformanceTime) {
-            this.medication.expectedPerformanceTime = new ExpectedPerformanceTime();
-        }
-        if (!this.medication.expectedPerformanceTime.timePeriodEnd) {
-            this.medication.expectedPerformanceTime.timePeriodEnd = new TimePeriod();
-        }
-        this.medication.expectedPerformanceTime.timePeriodEnd = date;
-    }
-
-    get endDate() {
-        return this.medication.expectedPerformanceTime.timePeriodEnd || null;
-    }
-
     isActiveAsOf(date) {
         const expectedPerformanceTime = this.expectedPerformanceTime;
         if (!expectedPerformanceTime || !(this._medicationRequested.actionContext.expectedPerformanceTime.value instanceof TimePeriod)) return null;

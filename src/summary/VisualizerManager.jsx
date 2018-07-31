@@ -48,6 +48,7 @@ class VisualizerManager {
                         endDate  ];
         });
 
+        // Format function used to 
         newsection.formatFunction = this.formatStoppedMedication;
         return newsection;
     };
@@ -62,7 +63,6 @@ class VisualizerManager {
         return endDate;
     }
 
-
     formatMedicationChange = (medChange) => {
         let formattedMedicationChange = " ";
         if (medChange) {
@@ -72,7 +72,6 @@ class VisualizerManager {
                 formattedMedicationChange = FormatMedicationChange.stringForMedicationChangeType(medChange.type) + FormatMedicationChange.stringForMedicationChangeDate(medChange.date) + FormatMedicationChange.stringForMedicationChangePriorAmount(medChange.type, medChange.medBeforeChange);
             }
         }
-
         return formattedMedicationChange;
     }
 
