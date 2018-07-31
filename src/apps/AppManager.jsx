@@ -110,12 +110,12 @@ export default class AppManager {
                 shortcuts: []
             },
             {
-                path: '/demo4',
+                path: '/pilot1',
                 display: 'Flux Notes™',
                 app: FullApp,
                 isExact: true,
-                dataSource: 'HardCodedSarcomaPatient',
-                patientId: 'urn:x-person:123456',
+                dataSource: 'HardCodedReadOnlyDataSource',
+                patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7f',
                 shortcuts: []
             },            
             {

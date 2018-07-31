@@ -10,6 +10,7 @@ import FluxProgesteroneReceptorStatus from './FluxProgesteroneReceptorStatus';
 import FluxHistologicGrade from './FluxHistologicGrade';
 import FluxTNMStage from './FluxTNMStage';
 import FluxTumorDimensions from './FluxTumorDimensions';
+import FluxGastrointestinalStromalTumor from './FluxGastrointestinalStromalTumor';
 
 export default class FluxOncologyObjectFactory {
     static createInstance(json, type, patientRecord) {
@@ -29,6 +30,7 @@ export default class FluxOncologyObjectFactory {
             case 'HistologicGrade': return new FluxHistologicGrade(json);
             case 'TNMStage': return new FluxTNMStage(json);
             case 'TumorDimensions': return new FluxTumorDimensions(json);
+            case 'GastrointestinalStromalTumor': return new FluxGastrointestinalStromalTumor(json, patientRecord);
             default: return ShrOncologyObjectFactory.createInstance(json, type);
         }
     }

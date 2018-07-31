@@ -671,6 +671,532 @@ export default class SummaryMetadata {
                     }
                 ]
             },
+            "http://snomed.info/sct/420120006": {
+                sections: [
+                    {
+                        name: "Visit Reason",
+                        shortName: "Reason",
+                        clinicalEvents: ["pre-encounter"],
+                        type: "NarrativeOnly",
+                        narrative: [
+                            {
+                                defaultTemplate: "${Reason.Reason}",
+                                dataMissingTemplate: "No recent ${Reason.Reason}",
+                                useDataMissingTemplateCriteria: [
+                                    "Reason.Reason"
+                                ]
+                            },
+                        ],
+                        data: [
+                            {
+                                name: "Reason",
+                                items: [
+                                    {
+                                        name: "Reason",
+                                        value: (patient, currentConditionEntry) => {
+                                            const nextEncounter = patient.getNextEncounter();
+                                            if (Lang.isUndefined(nextEncounter)) return ["No upcoming appointments", false];
+                                            return [patient.getNextEncounterReasonAsText(), patient.isUnsigned(nextEncounter)];
+                                        },
+                                        shortcut: "@reason for next visit"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        name: "Visit Reason",
+                        shortName: "Reason",
+                        clinicalEvents: ["post-encounter"],
+                        type: "NarrativeOnly",
+                        narrative: [
+                            {
+                                defaultTemplate: "${Reason.Reason}",
+                                dataMissingTemplate: "No recent ${Reason.Reason}",
+                                useDataMissingTemplateCriteria: [
+                                    "Reason.Reason"
+                                ]
+                            },
+                        ],
+                        data: [
+                            {
+                                name: "Reason",
+                                items: [
+                                    {
+                                        name: "Reason",
+                                        value: (patient, currentConditionEntry) => {
+                                            const previousEncounter = patient.getPreviousEncounter();
+                                            if (Lang.isUndefined(previousEncounter)) return ["No recent appointments", false];
+                                            return [patient.getPreviousEncounterReasonAsText(), patient.isUnsigned(previousEncounter)] ;
+                                        },
+                                        shortcut: "@reason for previous visit"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        name: "Summary",
+                        shortName: "Summary",
+                        type: "NameValuePairs",
+                        /*eslint no-template-curly-in-string: "off"*/
+                        narrative: [
+                            {
+                                defaultTemplate: "Patient has ${Current Diagnosis.Name} stage ${Current Diagnosis.Stage} diagnosed on ${Key Dates.Diagnosis}."
+                            },
+                            {
+                                defaultTemplate: "As of ${Current Diagnosis.As Of Date}, disease is ${Current Diagnosis.Disease Status} based on ${Current Diagnosis.Rationale}.",
+                                dataMissingTemplate: "No recent ${disease status}.",
+                                useDataMissingTemplateCriteria: [
+                                    "Current Diagnosis.As Of Date",
+                                    "Current Diagnosis.Disease Status",
+                                    "Current Diagnosis.Rationale"
+                                ]
+                            },
+                            {
+                                defaultTemplate: "Recent lab results include ${Recent Lab Results}.",
+                                dataMissingTemplate: "No recent ${lab results}.",
+                                useDataMissingTemplateCriteria: [
+                                    "Recent Lab Results"
+                                ]
+                            },
+                            {
+                                defaultTemplate: "Key toxicities include",
+                            },
+                            {
+                                defaultTemplate: "${Key Toxicities.Mild stomach upset} mild stomach upset,",
+                                dataMissingTemplate: "no mild stomach upset,",
+                                useDataMissingTemplateCriteria: [
+                                    "Key Toxicities.Mild stomach upset"
+                                ]
+                            },
+                            {
+                                defaultTemplate: "${Key Toxicities.Skin rashes } skin rashes.",
+                                dataMissingTemplate: "no skin rashes.",
+                                useDataMissingTemplateCriteria: [
+                                    "Key Toxicities.Skin rashes"
+                                ]
+                            },
+                        ],
+                        data: [
+                            {
+                                name: "Current Diagnosis",
+                                items: [
+                                    {
+                                        name: "Name",
+                                        value: (patient, currentConditionEntry) => {
+                                            return [currentConditionEntry.type, patient.isUnsigned(currentConditionEntry)];
+                                        },
+                                        shortcut: "@condition"
+                                    },
+                                    {
+                                        name: "Stage",
+                                        value: (patient, currentConditionEntry) => {
+                                            let s = currentConditionEntry.getMostRecentStaging();
+                                            if (s && s.stage && s.stage.length > 0) {
+                                                return [s.stage, patient.isUnsigned(s), s.sourceClinicalNoteReference];
+                                            } else {
+                                                return null;
+                                            }
+                                        },              
+                                        // shortcut: "@stage"
+                                    },
+                                    {
+                                        name: "Mitotic Count Score",
+                                        value: (patient, currentConditionEntry) => {
+                                            let m = currentConditionEntry.getMostRecentStaging();
+                                            return [ m.mitoticCountScore, patient.isUnsigned(m) ];
+                                        }
+                                    },                                    
+                                    {
+                                        name: "Disease Status",
+                                        value: (patient, currentConditionEntry) => {
+                                            let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
+                                            if (Lang.isNull(p) || !p.status) {
+                                                return null;
+                                            } else {
+                                                return [p.status, patient.isUnsigned(p), p.sourceClinicalNoteReference];
+                                            }
+                                        }
+                                    },
+                                    {
+                                        name: "As Of Date",
+                                        value: (patient, currentConditionEntry) => {
+                                            let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
+                                            if (Lang.isNull(p) || !p.status) {
+                                                return null;
+                                            } else {
+                                                return [p.asOfDate, patient.isUnsigned(p), p.sourceClinicalNoteReference];
+                                            }
+                                        }
+                                    },
+                                    {
+                                        name: "Rationale",
+                                        value: (patient, currentConditionEntry) => {
+                                            let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
+                                            if (Lang.isNull(p) || !p.status) {
+                                                return null;
+                                            } else {
+                                                return [p.evidence.map(function (ev) {
+                                                    return ev;
+                                                }).join(', '), patient.isUnsigned(p), p.sourceClinicalNoteReference];
+                                            }
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                name: "Key Toxicities",
+                                items: [
+                                    {
+                                        name: "Mild Stomach Upset",
+                                        value: (patient, currentConditionEntry) => {
+                                            return this.getKeyToxicityAndUnsignedFromCodes(patient, currentConditionEntry, ["10042112"]);
+                                        }
+
+                                    },
+                                    {
+                                        name: "Skin Rashes",
+                                        value: (patient, currentConditionEntry) => {
+                                            return this.getKeyToxicityAndUnsignedFromCodes(patient, currentConditionEntry, ["10037868"]);
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                name: "Recent Lab Results",
+                                itemsFunction: this.getItemListForLabResults
+                            },
+                            {
+                                name: "Key Dates",
+                                items: [
+                                    {
+                                        name: "Diagnosis",
+                                        value: (patient, currentConditionEntry) => {
+                                            return [currentConditionEntry.diagnosisDate, patient.isUnsigned(currentConditionEntry)] ;
+                                        }
+                                    },
+                                    {
+                                        name: "Recurrence",
+                                        value: (patient, currentConditionEntry) => {
+                                            if (currentConditionEntry.clinicalStatus === "recurrence") {
+                                                return null;
+                                            } else {
+                                                return ["N/A", patient.isUnsigned(currentConditionEntry)];
+                                            } // TODO: actually get date once we know where it is in SHR
+                                        }
+                                    }
+                                ]
+                            }
+
+                        ]
+                    },
+                    {
+                        name: "Procedures",
+                        shortName: "Procedures",
+                        type: "Columns",
+                        data: [
+                            {
+                                name: "",
+                                headings: ["Procedure", "When"],
+                                itemsFunction: this.getItemListForProcedures
+                            }
+                        ]
+                    },
+                    {
+                        name: "Active Conditions",
+                        shortName: "Conditions",
+                        type: "Columns",
+                        notFiltered: true,
+                        data: [
+                            {
+                                name: "",
+                                headings: ["Condition", "Diagnosed", "Body Site"],
+                                itemsFunction: this.getItemListForConditions,
+                                shortcut: "@condition"
+                            }
+                        ]
+                    },
+                    {
+                        name: "Disease Status",
+                        shortName: "Disease",
+                        clinicalEvents: ["pre-encounter"],
+                        type: "DiseaseStatusValues",
+                        itemsFunction: this.getProgressions,
+                    },
+                    {
+                        name: "Labs",
+                        shortName: "Labs",
+                        clinicalEvents: ["pre-encounter"],
+                        type: "ValueOverTime",
+                        data: [
+                            {
+                                name: "White blood cell count",
+                                code: "C0023508",
+                                itemsFunction: this.getTestsForSubSection,
+
+                                // Source: https://www.cancer.org/treatment/understanding-your-diagnosis/tests/understanding-your-lab-test-results.html
+                                // Source: https://www.mayoclinic.org/symptoms/low-white-blood-cell-count/basics/definition/sym-20050615
+                                bands: [
+                                    {
+                                        low: 0,
+                                        high: 3,
+                                        assessment: 'bad'
+                                    },
+                                    {
+                                        low: 3,
+                                        high: 5,
+                                        assessment: 'average'
+                                    },
+                                    {
+                                        low: 5,
+                                        high: 10,
+                                        assessment: 'good'
+                                    },
+                                    {
+                                        low: 10,
+                                        high: 'max',
+                                        assessment: 'bad'
+                                    }
+                                ]
+                            },
+                            {
+                                name: "Neutrophil count",
+                                code: "C0027950",
+                                itemsFunction: this.getTestsForSubSection,
+
+                                // Source: https://www.healthline.com/health/neutrophils#anc
+                                // Source: https://evs.nci.nih.gov/ftp1/CTCAE/CTCAE_4.03_2010-06-14_QuickReference_8.5x11.pdf page 42
+                                bands: [
+                                    {
+                                        low: 0,
+                                        high: 1,
+                                        assessment: 'bad'
+                                    },
+                                    {
+                                        low: 1,
+                                        high: 1.5,
+                                        assessment: 'average'
+                                    },
+                                    {
+                                        low: 1.5,
+                                        high: 8,
+                                        assessment: 'good'
+                                    },
+                                    {
+                                        low: 8,
+                                        // Only draws if an element is captured in this range
+                                        high: 'max',
+                                        assessment: 'bad'
+                                    }
+                                ]
+                            },
+                            {
+                                name: "Hemoglobin",
+                                code: "C0019046",
+                                itemsFunction: this.getTestsForSubSection,
+
+                                // Source: https://www.emedicinehealth.com/hemoglobin_levels/page2_em.htm
+                                // Source: https://www.quora.com/What-is-the-percentage-of-haemoglobin-in-blood
+                                bands: [
+                                    {
+                                        low: 0,
+                                        high: 12,
+                                        assessment: 'bad'
+                                    },
+
+                                    {
+                                        low: 12,
+                                        high: 16,
+                                        assessment: 'good'
+                                    },
+                                    {
+                                        low: 16,
+                                        high: 20,
+                                        assessment: 'bad'
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        name: "Medications",
+                        shortName: "Meds",
+                        clinicalEvents: ["pre-encounter"],
+                        defaultVisualizer: "chart",
+                        type: "Medications",
+                        data: [
+                            {
+                                name: "",
+                                itemsFunction: this.getItemListForMedications,
+                            }
+                        ]
+                    },
+                    {
+                        name: "Pathology",
+                        shortName: "Pathology",
+                        type: "NameValuePairs",
+                        /*eslint no-template-curly-in-string: "off"*/
+                        narrative: [
+                            {
+                                defaultTemplate: "Primary tumor color is ${.Color}, weight is ${.Weight}, and size is ${.Size}."
+                            },
+                            {
+                                defaultTemplate: "Tumor margins are ${.Tumor Margins}. Histological grade is ${.Histological Grade}."
+                            }
+
+                        ],
+                        data: [
+                            {
+                                name: "",
+                                items: [
+
+                                    // TODO: When return value for items that are currently null, need to also return patient.isUnsigned(currentConditionEntry)
+                                    {
+                                        name: "Color",
+                                        value: null
+                                    },
+                                    {
+                                        name: "Weight",
+                                        value: null
+                                    },
+                                    {
+                                        name: "Size",
+                                        value: (patient, currentConditionEntry) => {
+                                            let list = currentConditionEntry.getObservationsOfType(FluxTumorDimensions);
+                                            if (list.length === 0) return null;
+                                            return [list[0].quantity.value + " " + list[0].quantity.unit, patient.isUnsigned(list[0])];
+                                        }
+                                    },
+                                    {
+                                        name: "Tumor Margins",
+                                        value: null
+                                    },
+                                    {
+                                        name: "Histological Grade",
+                                        value: (patient, currentConditionEntry) => {
+                                            let histologicalGrade = currentConditionEntry.getMostRecentHistologicalGrade();
+                                            return [ histologicalGrade.grade, patient.isUnsigned(histologicalGrade) ];
+                                        }
+                                    },               
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        name: "Genetics",
+                        shortName: "Genetics",
+                        type: "NameValuePairs",
+                        /*eslint no-template-curly-in-string: "off"*/
+                        narrative: [
+                            {
+                                defaultTemplate: "Oncotype DX Recurrence Score is ${.Oncotype DX Recurrence Score}."
+                            },
+                            {
+                                defaultTemplate: "Genetic Testing is ${.Genetic Testing}."
+                            }
+                        ],
+                        data: [
+                            {
+                                name: "",
+                                items: [
+                                    {
+                                        name: "Oncotype DX Recurrence Score",
+                                        value: null
+                                    },
+                                    {
+                                        name: "Genetic Testing",
+                                        value: (patient, currentConditionEntry) => {
+                                            const panels = patient.getBreastCancerGeneticAnalysisPanelsChronologicalOrder();
+                                            if (!panels || panels.length === 0) return null;
+                                            const panel = panels.pop();
+                                            return [panel.members.map((item) => {
+                                                const v = item.value === 'Positive' ? '+' : '-';
+                                                return item.abbreviatedName + v;
+                                            }).join(","), patient.isUnsigned(panel)];
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        name: "Clinical Trials",
+                        shortName: "Trials",
+                        clinicalEvents: ["pre-encounter"],
+                        type: "Columns",
+                        notFiltered: true,
+                        data: [
+                            {
+                                name: "Enrolled",
+                                headings: ["Name", "When Enrolled", "When Left", "Description"],
+                                itemsFunction: this.getItemListForEnrolledClinicalTrials
+                            },
+                            {
+                                name: "Potential to enroll",
+                                headings: ["Name", "Criteria Fit", "Opened", "Description"],
+                                itemsFunction: this.getItemListForClinicalTrialEligibility,
+                                actions: [
+                                    {
+                                        handler: this.handleViewMissingCriteria,
+                                        text: "Missing Criteria",
+                                        icon: "clipboard",
+                                        whenToDisplay: {
+                                            valueExists: true,
+                                            existingValueSigned: "either",
+                                            editableNoteOpen: "either", 
+                                            displayForColumns: [0, 1]
+                                        }
+                                    }
+                                ]
+                            },
+                            {   nameFunction: this.getMissingCriteriaSubsectionName, 
+                                itemsFunction: this.getItemListToDisplayMissingCriteria,
+                                displayFunction: this.getMissingCriteriaDisplay
+                            }
+                        ]   
+                    },
+                    {
+                        name: "Allergies",
+                        shortName: "Allergies",
+                        clinicalEvents: ["pre-encounter"],
+                        type: "Columns",
+                        notFiltered: true,
+                        data: [
+                            {
+                                name: "",
+                                headings: ["Allergy", "Severity", "Effects"],
+                                itemsFunction: this.getItemListForAllergies,
+                                preTableCount: "allergies",
+                                postTableList: this.getItemListForNoKnownAllergies,
+                            }
+                        ]
+                    },
+                    {
+                        name: "Timeline",
+                        shortName: "Timeline",
+                        type: "Events",
+                        data: [
+                            {
+                                name: "Medications",
+                                eventsFunction: this.getMedicationItems
+                            },
+                            {
+                                name: "Procedures",
+                                eventsFunction: this.getProcedureItems
+                            },
+                            {
+                                name: "Key Events",
+                                eventsFunction: this.getEventItems
+                            },
+                            {
+                                name: "Progressions",
+                                eventsFunction: this.getProgressionItems
+                            }
+                        ]
+                    }
+                ]                
+            },
             "default": {
                 sections: [
                     {

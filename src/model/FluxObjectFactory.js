@@ -22,18 +22,18 @@ export default class FluxObjectFactory {
         const { namespace } = getNamespaceAndName(json, type);
         switch (namespace) {
             case 'shr.adverse': return FluxAdverseObjectFactory.createInstance(json, type, patientRecord);
-            case 'shr.base': return FluxBaseObjectFactory.createInstance(json, type);
-            case 'shr.condition': return FluxConditionObjectFactory.createInstance(json, type);
-            case 'shr.core': return FluxCoreObjectFactory.createInstance(json, type);
-            case 'shr.encounter': return FluxEncounterObjectFactory.createInstance(json, type);
-            case 'shr.entity': return FluxEntityObjectFactory.createInstance(json, type);
-            case 'shr.finding': return FluxFindingObjectFactory.createInstance(json, type);
+            case 'shr.base': return FluxBaseObjectFactory.createInstance(json, type, patientRecord);
+            case 'shr.condition': return FluxConditionObjectFactory.createInstance(json, type, patientRecord);
+            case 'shr.core': return FluxCoreObjectFactory.createInstance(json, type, patientRecord);
+            case 'shr.encounter': return FluxEncounterObjectFactory.createInstance(json, type, patientRecord);
+            case 'shr.entity': return FluxEntityObjectFactory.createInstance(json, type, patientRecord);
+            case 'shr.finding': return FluxFindingObjectFactory.createInstance(json, type, patientRecord);
             case 'shr.medication': return FluxMedicationObjectFactory.createInstance(json, type, patientRecord);
             case 'shr.oncology': return FluxOncologyObjectFactory.createInstance(json, type, patientRecord);
-            case 'shr.procedure': return FluxProcedureObjectFactory.createInstance(json, type);
-            case 'shr.research': return FluxResearchObjectFactory.createInstance(json, type);
-            case 'shr.allergy': return FluxAllergyObjectFactory.createInstance(json, type);
-            default: return ObjectFactory.createInstance(json, type);
+            case 'shr.procedure': return FluxProcedureObjectFactory.createInstance(json, type, patientRecord);
+            case 'shr.research': return FluxResearchObjectFactory.createInstance(json, type, patientRecord);
+            case 'shr.allergy': return FluxAllergyObjectFactory.createInstance(json, type, patientRecord);
+            default: return ObjectFactory.createInstance(json, type, patientRecord);
         }
     }
 }
