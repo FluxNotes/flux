@@ -1,18 +1,14 @@
-/* Background */
+// Style specification adopted from 
+// https://github.com/standardhealth/shr_design/blob/master/design/fluxnotes_deliverables/shr_fluxnotes_styles_v2.pdf
+
 $background: #FFFFFF;
 $contrast-gray: #F9F9F9;
 $feature-gray: #F0F0F0;
 $line-gray: #DDDDDD;
-
-/* Type */
 $body-gray: #3F3F3F;
 $state: #AAAAAA;
 $warning-red: #C80B0B;
-
-/* Alert */
 $missing-data-red: #FFB0A2;
-
-/* Interactive */
 $interface-blue: #028DEA;
 $shr-context-dark: #0084B8;
 $shr-context-line: #5EBFFF;
