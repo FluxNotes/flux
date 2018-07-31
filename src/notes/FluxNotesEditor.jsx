@@ -13,7 +13,7 @@ import ContextPortal from '../context/ContextPortal';
 import {Row, Col} from 'react-flexbox-grid';
 import EditorToolbar from './EditorToolbar';
 import Button from '../elements/Button';
-import Divider from 'material-ui/Divider';
+import {TextField, Divider} from 'material-ui';
 import AutoReplace from 'slate-auto-replace'
 import SuggestionsPlugin from '../lib/slate-suggestions-dist'
 import position from '../lib/slate-suggestions-dist/caret-position';
@@ -76,6 +76,7 @@ class FluxNotesEditor extends React.Component {
 
         this.contextManager.setIsBlock1BeforeBlock2(this.isBlock1BeforeBlock2.bind(this));
 
+        this.editor = null;
         this.didFocusChange = false;
         this.editorHasFocus = false;
         this.lastPosition = { top: 0, left: 0 };
@@ -198,6 +199,7 @@ class FluxNotesEditor extends React.Component {
             state: initialState,
             openedPortal: null,
             portalOptions: null,
+            isEditingNoteName: false
         };
     }
 
@@ -1146,6 +1148,53 @@ class FluxNotesEditor extends React.Component {
         this.setState({ openedPortal });
     }
 
+    /**
+     * Enable edit mode for a note name
+     */
+    enableNoteNameEditing = () => {
+        this.setState({
+            isEditingNoteName: true
+        });
+    }
+
+    /**
+     * Handle the user submitting a new name for a note
+     */
+    submitNoteNameChange = (e) => {
+        if (e.key === "Enter") {
+            this.props.selectedNote.subject = e.target.value;
+            this.setState({
+                isEditingNoteName: false
+            });
+            this.editor.focus();
+        }
+    }
+
+    /**
+     * Render a TextField if the user wishes to edit the note name, otherwise render the note name as plain text
+     */
+    renderNoteNameEditor = (noteTitle, signed) => {
+        let noteTag;
+        if (signed) {
+            noteTag = <p className="note-description-detail-value" id="note-title">{noteTitle}</p>;
+        } else {
+            noteTag = <p className="note-description-detail-value" id="note-title"><FontAwesome id="edit-note-name-btn" name="pencil" onClick={this.enableNoteNameEditing} />&nbsp;{noteTitle}</p>;
+        }
+        if (this.state.isEditingNoteName) {
+            return (
+                <TextField
+                    id="note-title-input"
+                    autoFocus={true}
+                    fullWidth={true}
+                    defaultValue={noteTitle}
+                    onKeyPress={this.submitNoteNameChange}
+                />
+            );
+        } else {
+            return noteTag;
+        }
+    }
+
     render = () => {
         const CreatorsPortal = this.suggestionsPluginCreators.SuggestionPortal;
         const InsertersPortal = this.suggestionsPluginInserters.SuggestionPortal;
@@ -1156,6 +1205,7 @@ class FluxNotesEditor extends React.Component {
         let date = Moment(new Date()).format('DD MMM YYYY');
         let signedString = "not signed";
         let source = "Dana Farber";
+        let signed = false;
 
         // If a note is selected, update the note header with information from the selected note
         if (this.props.selectedNote) {
@@ -1164,6 +1214,7 @@ class FluxNotesEditor extends React.Component {
             source = this.props.selectedNote.hospital;
 
             if(this.props.selectedNote.signed) {
+                signed = true;
                 signedString = this.props.selectedNote.clinician;
             } else {
                 signedString = "not signed";
@@ -1179,7 +1230,7 @@ class FluxNotesEditor extends React.Component {
                     <Row end="xs">
                         <Col xs={2}>
                             <p className="note-description-detail-name">Name</p>
-                            <p className="note-description-detail-value" id="note-title">{noteTitle}</p>
+                            {this.renderNoteNameEditor(noteTitle, signed)}
                         </Col>
                         <Col xs={2}>
                             <p className="note-description-detail-name">Date</p>
@@ -1235,17 +1286,16 @@ class FluxNotesEditor extends React.Component {
             );
         }
         const callback = {}
-        let editor = null;
         let editorClassName = this.props.inModal ? 'editor-content-modal' : 'editor-content';
         /**
          * Render the editor, toolbar, dropdown and description for note
          */
         return (
-            <div id="clinical-notes" className="dashboard-panel" onClick={(event) => {
-                editor.focus();
-            }}>
+            <div id="clinical-notes" className="dashboard-panel">
                 {noteDescriptionContent}
-                <div className="MyEditor-root">
+                <div className="MyEditor-root" onClick={(event) => {
+                    this.editor.focus();
+                }}>
                     { !this.props.inModal &&
                         <EditorToolbar
                             contextManager={this.props.contextManager}
@@ -1264,8 +1314,8 @@ class FluxNotesEditor extends React.Component {
                             plugins={this.plugins}
                             readOnly={!this.props.isNoteViewerEditable}
                             state={this.state.state}
-                            ref={function (c) {
-                                editor = c;
+                            ref={(c) => {
+                                this.editor = c;
                             }}
                             onChange={this.onChange}
                             onInput={this.onInput}
