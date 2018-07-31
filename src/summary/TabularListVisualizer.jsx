@@ -281,6 +281,9 @@ export default class TabularListVisualizer extends Component {
             const elementId = `${subsectionindex}-${index}-item-${arrayIndex}`
             let columnItem = null;
             isInsertable = (Lang.isNull(element) ? false : (Lang.isUndefined(element.isInsertable) ? true : element.IsInsertable));
+            
+            // If the element is an array or an object, elementText is set to  
+            // first element of array or the value of the object.
             elementText = Lang.isNull(element) ? null : (Lang.isArray(element) ? element[0] : (Lang.isObject(element) ? element.value : element));
             const longElementText = elementText;
             
@@ -300,6 +303,8 @@ export default class TabularListVisualizer extends Component {
                 itemClass = (isUnsigned ? 'list-unsigned' : 'list-captured');
             }
 
+            // If this section has an associated formatFunction (that
+            // returns a specific) CSS class, it is applied to elementText.
             if (formatFunction) {
                 itemClass += " " + formatFunction(elementText);
             }

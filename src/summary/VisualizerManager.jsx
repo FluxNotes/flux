@@ -18,10 +18,12 @@ class VisualizerManager {
         newsection.headings = ["Medication", "Change", "Dosage", "Timing", "Start", "End"];
         newsection.items = itemList.map((med) => {
             
-            const medicationChange = this.formatMedicationChange(med.medicationChange);
-
+            
             const dose = med.medication.amountPerDose ? `${med.medication.amountPerDose.value} ${med.medication.amountPerDose.units}` : "";
+            const medicationChange = this.formatMedicationChange(med.medicationChange);
+            const endDate = this.getEndDate(med);
             let timing;
+            
             if (med.medication.timingOfDoses) {
                 if (!Lang.isNull(med.medication.timingOfDoses.units)) {
                     timing = `${med.medication.timingOfDoses.value} ${med.medication.timingOfDoses.units}`;
@@ -31,8 +33,8 @@ class VisualizerManager {
             } else {
                 timing = "";
             }
-            const endDate = this.getEndDate(med);
-
+            
+            // isUnsigned is false by default
             let isUnsigned = false;
             if (med.medicationChange) {
                 isUnsigned = med.medicationChange.unsigned;
@@ -45,10 +47,13 @@ class VisualizerManager {
                         med.medication.expectedPerformanceTime.timePeriodStart,
                         endDate  ];
         });
+
         newsection.formatFunction = this.formatStoppedMedication;
         return newsection;
     };
 
+
+    // Returns today's date if the medication has just been stopped 
     getEndDate = (med) => {
         let endDate = med.medication.expectedPerformanceTime.timePeriodEnd;
         if (med.medicationChange && med.medicationChange.type === "stop") {
@@ -56,6 +61,7 @@ class VisualizerManager {
         }
         return endDate;
     }
+
 
     formatMedicationChange = (medChange) => {
         let formattedMedicationChange = " ";
@@ -70,6 +76,8 @@ class VisualizerManager {
         return formattedMedicationChange;
     }
 
+    // This is a formatting function passed into TabularListVisualizer with the 
+    // medication columns.  It returns a css class if it finds a stopped medication.
     formatStoppedMedication = (medChange) => {
         if (medChange && medChange === "Stopped") {
             return "stopped-cell";
