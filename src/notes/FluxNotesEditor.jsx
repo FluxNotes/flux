@@ -127,7 +127,6 @@ class FluxNotesEditor extends React.Component {
             insertStructuredFieldTransformAtRange: this.insertStructuredFieldTransformAtRange,
             getEditorValue: () => this.state.state,
             setEditorValue: (state) => {
-                console.log('setting editorVAlue')
                 this.setState({state})
             },
             updateFetchingStatus: this.updateFetchingStatus,
@@ -232,21 +231,19 @@ class FluxNotesEditor extends React.Component {
     updateFetchingStatus = (isFetchingAsyncData) => { 
         if (!isFetchingAsyncData) { 
             // If we're not fetching, clear any lagging timers;
-            // Make sure loadingTimeWarrantsWarning is false;
-            console.log("Clear timeout")
             if (this.state.fetchTimeout !== null) clearTimeout(this.state.fetchTimeout._id)
             this.setState({
+                // Make sure loadingTimeWarrantsWarning is false;
                 loadingTimeWarrantsWarning: false,
-                // Always set this variable, to block multiple requests
+                // Clear fetch timer
                 fetchTimeout: null,
             });
         } else { 
-            // If we are fetching, set a timer to update the loadingTimeWarrantsWarning variable
-            // If this timer gets executed, we'll display a loading animation in the editor
+            // If we are fetching, set a timer that will display a loading animation in the editor after trigger
             this.setState({
                 fetchTimeout: setTimeout (() => {
-                    console.log("executingTimeout")
                     this.setState({
+                        // After the wait, display the loading animation
                         loadingTimeWarrantsWarning: true
                     });
                 }, 10),

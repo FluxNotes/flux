@@ -193,7 +193,6 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 
 	// Given a list of phrases, parse them and insert them all in reverse order, changing editor state accordingly.
 	function parsePhrases(phrases, NLPShortcut) { 
-		console.log('----- Parse Phrase')
 		const editorState = getEditorValue();
 		let editorTransform = editorState.transform();
 		const phrasesInOrder = orderPhrasesForReverseInsertion(phrases)
@@ -251,15 +250,12 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 	
 	// Sends off a request to the NLP endpoint
 	function fetchNLPExtraction(NLPShortcut, NLPHashtagPhrase) { 
-		console.log('****** AlreadyFecthing? ' + isFetchingAsyncData)
 		if (isFetchingAsyncData) {
-			console.log('already fetching')
 			return
 		}
 		// Else, we want to fetch data
 		isFetchingAsyncData = true;
 		updateFetchingStatus(isFetchingAsyncData)
-		console.log('***** FetchNLPExtraction')
 		const NLPShortcutName = NLPShortcut.nlpTemplate;
 		fetch(`${API_ENDPOINT}?template=${NLPShortcutName}&sentence=${NLPHashtagPhrase}`)
 			.then(processNLPEngineResponse)
@@ -284,10 +280,6 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 			const NLPHashtagPhrase = extractNLPHashtagFullPhrase(editorState, editor, NLPShortcut)
 			if (!Lang.isUndefined(NLPHashtagPhrase)) { 
 				// send message out to NLPEndpoint 
-				console.log('NLPHashtagPhrase')
-				console.log(NLPHashtagPhrase)
-				console.log('editorState')
-				console.log(editorState)
 				fetchNLPExtraction(NLPShortcut, NLPHashtagPhrase)
 			} else { 
 				return

@@ -143,7 +143,6 @@ class EditorToolbar extends React.Component {
                 <ActiveContextsBreadcrumbs
                     contextManager={this.props.contextManager}
                 />
-                {/* { this.renderLoadingNotification()} */}
                 { this.props.loadingTimeWarrantsWarning && this.renderLoadingNotification()}    
                 {/* {this.renderCopyButton()} */}
             </div>
