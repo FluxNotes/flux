@@ -1369,6 +1369,7 @@ class FluxNotesEditor extends React.Component {
 FluxNotesEditor.propTypes = {
     closeNote: PropTypes.func.isRequired,
     contextManager: PropTypes.object.isRequired,
+    contextTrayItemToInsert: PropTypes.string,
     currentViewMode: PropTypes.string.isRequired,
     errors: PropTypes.array.isRequired,
     handleUpdateEditorWithNote: PropTypes.func.isRequired,
@@ -1386,7 +1387,6 @@ FluxNotesEditor.propTypes = {
     shouldEditorContentUpdate: PropTypes.bool.isRequired,
     structuredFieldMapManager: PropTypes.object.isRequired,
     summaryItemToInsert: PropTypes.string.isRequired,
-    contextTrayItemToInsert: PropTypes.string,
     updatedEditorNote: PropTypes.object,
     updateErrors: PropTypes.func.isRequired,
     updateLocalDocumentText: PropTypes.func.isRequired,

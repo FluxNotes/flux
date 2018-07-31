@@ -23,7 +23,8 @@ export default class NotesPanel extends Component {
             currentlyEditingEntryId: -1,
             arrayOfPickLists: [],
             contextTrayItemToInsert: null,
-            localDocumentText: ''
+            localDocumentText: '',
+            showTemplateView: false
         };
 
         this.noteParser = new NoteParser(this.props.shortcutManager, this.props.contextManager);
@@ -37,7 +38,14 @@ export default class NotesPanel extends Component {
         }
     }
 
-    updateLocalDocumentText = (text) => {
+    updateShowTemplateView = (showTemplateView) => {
+        this.setState({ showTemplateView });
+    }
+
+    updateLocalDocumentText = (text) => {      
+        if (text) {
+            this.setState({showTemplateView: false});
+        } 
         this.setState({ localDocumentText: text });
     }
 
@@ -51,6 +59,7 @@ export default class NotesPanel extends Component {
 
     updateContextTrayItemToInsert = (contextTrayItem) => {
         this.setState({ contextTrayItemToInsert: contextTrayItem });
+        this.setState({showTemplateView: false});
     }
 
     updateContextTrayItemWithSelectedPickListOptions = (selectedPickListOptions) => {
@@ -153,6 +162,7 @@ export default class NotesPanel extends Component {
             selectedNote: null,
             currentlyEditingEntryId: -1
         });
+        
         this.props.setNoteClosed(true);
         this.props.setLayout('right-collapsed');
         this.props.setNoteViewerVisible(false);
@@ -177,14 +187,19 @@ export default class NotesPanel extends Component {
         });
 
         this.openNote(newNote, true);
+
+        this.setState({ showTemplateView: true });
     }
 
     // Open an existing note
     openExistingNote = (isInProgress, note) => {
         this.openNote(note, isInProgress);
+        this.setState({ showTemplateView: false });
+       
     }
 
     openNote = (note, isInProgress) => {
+     
         // Saves the current note and resets localDocumentText before opening the next note.
         this.saveNote(this.state.localDocumentText);
 
@@ -369,6 +384,7 @@ export default class NotesPanel extends Component {
                     noteAssistantMode={this.state.noteAssistantMode}
                     noteClosed={this.props.noteClosed}
                     openNewNote={this.openNewNote}
+                    showTemplateView={this.state.showTemplateView}
                     openExistingNote={this.openExistingNote}
                     patient={this.props.patient}
                     saveNote={this.saveNote}
@@ -392,6 +408,7 @@ export default class NotesPanel extends Component {
                     updateContextTrayItemWithSelectedPickListOptions={this.updateContextTrayItemWithSelectedPickListOptions}
                     updatedEditorNote={this.state.updatedEditorNote}
                     updateErrors={this.props.updateErrors}
+                    updateShowTemplateView={this.updateShowTemplateView}
                 />
             </div>
         );

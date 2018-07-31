@@ -9,8 +9,8 @@ const pagePort = "3000";
 const pageRoute = "/demo1"
 const startPage = `${pageDomain}:${pagePort}${pageRoute}`;
 
-fixture('Patient Mode - Patient Control Panel')
-    .page(startPage);
+// fixture('Patient Mode - Patient Control Panel')
+//     .page(startPage);
 
 // test('Clicking event buttons selects corresponding event', async t => {
 //     const clinicalEventSelector = Selector('.clinical-event-select');
@@ -485,9 +485,16 @@ test('Clicking "#enrollment", "#date" and choosing a date inserts "#enrollment #
     const expectedText = ["#enrollment", `#${today}`];
     const editor = Selector("div[data-slate-editor='true']");
     const structuredField = editor.find("span[class='structured-field']");
+    const sectionItemElements = Selector('.context-tray').find('.view-mode-section-item');
+    const shortcutsButton = await sectionItemElements.withText(/SHORTCUTS/g);
     const contextPanelElements = Selector(".context-options-list").find('.context-option');
     const clinicalTrialButton = await contextPanelElements.withText(/#enrollment/ig);
 
+    // Click on shortcuts
+    await t
+        .click(shortcutsButton);
+
+    // In shortcuts, click on #enrollment 
     await t
         .click(clinicalTrialButton);
 
@@ -521,6 +528,12 @@ test('Clicking "#unenrolled", "#date" and choosing a date inserts "#unenrolled #
     const structuredField = editor.find("span[class='structured-field']");
     const contextPanelElements = Selector(".context-options-list").find('.context-option');
     const clinicalTrialButton = await contextPanelElements.withText(/#unenrolled/ig);
+    const sectionItemElements = Selector('.context-tray').find('.view-mode-section-item');
+    const shortcutsButton = await sectionItemElements.withText(/SHORTCUTS/g);
+
+    // Click on shortcuts
+    await t
+        .click(shortcutsButton);
 
     await t
         .click(clinicalTrialButton);
@@ -555,6 +568,12 @@ test('Clicking "#deceased", "#date" and choosing a date inserts "#deceased #{dat
     const structuredField = editor.find("span[class='structured-field']");
     const contextPanelElements = Selector(".context-options-list").find('.context-option');
     const deceasedButton = await contextPanelElements.withText(/#deceased/ig);
+    const sectionItemElements = Selector('.context-tray').find('.view-mode-section-item');
+    const shortcutsButton = await sectionItemElements.withText(/SHORTCUTS/g);
+
+    // Click on shortcuts
+    await t
+        .click(shortcutsButton);
 
     await t
         .click(deceasedButton);
@@ -593,6 +612,12 @@ test('Clicking "@condition", "#disease status", "#stable", "#as of", "#date" and
     const conditionButton = await contextPanelElements.withText(/@condition/ig);
     const optionsForm = Selector("#pickList-options-panel").find(".option-btn");
     const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
+    const sectionItemElements = Selector('.context-tray').find('.view-mode-section-item');
+    const shortcutsButton = await sectionItemElements.withText(/SHORTCUTS/g);
+
+    // Click on shortcuts
+    await t
+        .click(shortcutsButton);
 
     await t
         .click(conditionButton);
@@ -670,6 +695,12 @@ test('Clicking "@condition" and choosing "Invasive ductal carcinoma of breast" c
     const conditionButton = await contextPanelElements.withText(/@condition/ig);
     const optionsForm = Selector("#pickList-options-panel").find(".option-btn");
     const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
+    const sectionItemElements = Selector('.context-tray').find('.view-mode-section-item');
+    const shortcutsButton = await sectionItemElements.withText(/SHORTCUTS/g);
+
+     // Click on shortcuts
+     await t
+     .click(shortcutsButton);
 
     await t
         .click(conditionButton);
@@ -702,28 +733,31 @@ test('Clicking "@condition" and choosing multiple conditions does not allow user
 
     const editor = Selector("div[data-slate-editor='true']");
     const contextPanelElements = Selector('.context-options-list').find('.context-option');
-    const sectionItemElements = Selector('.context-tray').find('.section-item');
+    // const sectionItemElements = Selector('.context-tray').find('.section-item');
     const conditionButton = await contextPanelElements.withText(/@condition/ig);
-    const patientButton = await sectionItemElements.withText(/CONTEXT/g);
     const optionsForm = Selector("#pickList-options-panel").find(".option-btn");
     const fractureButton = await optionsForm.withText(/Fracture/ig);
+    const sectionItemElements = Selector('.context-tray').find('.view-mode-section-item');
+    const shortcutsButton = await sectionItemElements.withText(/SHORTCUTS/g);
+
+     // Click on shortcuts
+     await t
+     .click(shortcutsButton);
 
     // Input first condition
     await t
         .click(conditionButton);
 
-    // Click on "Invasive..." button in the option panel
+    // Click on "Fracture" button in the option panel
     await t
         .click(fractureButton);
 
     // Input second condition
     await t
-        .click(patientButton);
-
-    await t
         .click(conditionButton);
 
     const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
+    
     await t
         .click(invasiveButton);
 
@@ -749,6 +783,12 @@ test('Not choosing an option from a portal still allows user to delete parent sh
     const structuredField = editor.find("span[class='structured-field']");
     const contextPanelElements = Selector(".context-options-list").find('.context-option');
     const clinicalTrialButton = await contextPanelElements.withText(/#enrollment/ig);
+    const sectionItemElements = Selector('.context-tray').find('.view-mode-section-item');
+    const shortcutsButton = await sectionItemElements.withText(/SHORTCUTS/g);
+
+    // Click on shortcuts
+     await t
+     .click(shortcutsButton);
 
     // Select post-encounter mode
     await t
@@ -939,7 +979,7 @@ test('Clicking on an in-progress note in post encounter mode loads the note in t
     const clinicalNotesButton = Selector('#notes-btn');
     // const newNoteButton = Selector('.note-new');
     const inProgressNotes = Selector('.in-progress-note');
-
+    
     // Enter some text in the editor
     await t
         .typeText(editor, "This is a note.");
@@ -950,7 +990,9 @@ test('Clicking on an in-progress note in post encounter mode loads the note in t
 
     // Click on the new note button to create an in-progress note and toggle back to clinical notes view
     await t
-        .click(newNoteButton)
+        .click(newNoteButton)    
+
+    await t
         .click(clinicalNotesButton);
 
     // Click on the in-progress note
@@ -994,7 +1036,7 @@ test('Clicking on an in-progress note shows the sign note button', async t => {
     const editor = Selector("div[data-slate-editor='true']");
     const clinicalNotesButton = Selector('#notes-btn');
     const newNoteButton = Selector('.note-new');
-    const signButton = Selector('.btn_finish');
+    const signButton = Selector('.btn_finish');  
 
     // Click on the clinical notes button to switch to clinical notes view
     await t
@@ -1002,7 +1044,9 @@ test('Clicking on an in-progress note shows the sign note button', async t => {
 
     // Click on the new note button to create an in-progress note and toggle back to clinical notes view
     await t
-        .click(newNoteButton)
+        .click(newNoteButton)   
+
+    await t
         .click(clinicalNotesButton);
 
     // Check that the sign button exists
@@ -1020,6 +1064,7 @@ test('Clicking on the sign note button moves the note from in progress notes to 
     const newNoteButton = Selector('.note-new');
     const inProgressNotes = Selector('.in-progress-note');
     const signNoteButton = Selector('.btn_finish');
+   
 
     // Click clinical notes button
     await t
@@ -1027,7 +1072,9 @@ test('Clicking on the sign note button moves the note from in progress notes to 
 
     // Click "New note" button
     await t
-        .click(newNoteButton)
+        .click(newNoteButton)    
+     
+    await t
         .click(clinicalNotesButton);
 
     // Get the current number of in-progress notes
@@ -1054,6 +1101,12 @@ test('Entering disease status information updates the data in the targeted data 
     const contextPanelElements = Selector(".context-options-list").find('.context-option');
     const conditionButton = await contextPanelElements.withText(/@condition/ig);
     const unSignedItem = Selector('.list-unsigned');
+    const sectionItemElements = Selector('.context-tray').find('.view-mode-section-item');
+    const shortcutsButton = await sectionItemElements.withText(/SHORTCUTS/g);
+
+    // Click on shortcuts
+    await t
+        .click(shortcutsButton);
 
     await t
         .click(conditionButton);
@@ -1098,6 +1151,12 @@ test('Clicking on the sign note button changes the unsigned data from a dotted l
     const contextPanelElements = Selector(".context-options-list").find('.context-option');
     const conditionButton = await contextPanelElements.withText(/@condition/ig);
     const unSignedItem = Selector('.list-unsigned');
+    const sectionItemElements = Selector('.context-tray').find('.view-mode-section-item');
+    const shortcutsButton = await sectionItemElements.withText(/SHORTCUTS/g);
+
+    // Click on shortcuts
+    await t
+        .click(shortcutsButton);
 
     await t
         .click(conditionButton);

@@ -24,7 +24,7 @@ export default class NoteAssistant extends Component {
             // insertingTemplate indicates whether a shortcut or template is being inserted
             // false indicates a shortcut is being inserted
             // true indicates a template is being inserted
-            insertingTemplate: false,
+            insertingTemplate: false
         };
         // On creating of NoteAssistant, check if the note viewer is editable
         if (this.props.isNoteViewerEditable) {
@@ -82,7 +82,8 @@ export default class NoteAssistant extends Component {
     }
 
     setInsertingTemplate = (insertingTemplate) => {
-        this.setState({ insertingTemplate });
+        this.setState({ insertingTemplate }); 
+        this.props.updateShowTemplateView(false);           
     }
 
     onNotesToggleButtonClicked() {
@@ -121,6 +122,7 @@ export default class NoteAssistant extends Component {
     handleOnNewNoteButtonClick = () => {
         this.props.openNewNote();
         this.toggleView("context-tray");
+  
     }
 
     // Gets called when clicking on one of the notes in the clinical notes view
@@ -155,6 +157,8 @@ export default class NoteAssistant extends Component {
                             patient={this.props.patient}
                             setInsertingTemplate={this.setInsertingTemplate}
                             shortcutManager={this.props.shortcutManager}
+                            showTemplateView={this.props.showTemplateView}
+                            updateShowTemplateView={this.props.updateShowTemplateView}
                         />
                         {this.props.isNoteViewerEditable ? this.renderDeleteNoteButton() : null}
                     </div>
@@ -476,6 +480,7 @@ export default class NoteAssistant extends Component {
 
     // Main render method
     render() {
+
         // If the note viewer is editable then we want to be able to edit notes and view the context tray
         // If the note viewer is read only the we want to be able to view the clinical notes
         // If the editor is read only because we need to select picklists, then we need the note assistant mode to open the portal
@@ -495,6 +500,7 @@ export default class NoteAssistant extends Component {
 }
 
 NoteAssistant.propTypes = {
+    arrayOfPickLists: PropTypes.array.isRequired,
     closeNote: PropTypes.func.isRequired,
     currentlyEditingEntryId: PropTypes.number.isRequired,
     contextManager: PropTypes.object.isRequired,
@@ -503,6 +509,7 @@ NoteAssistant.propTypes = {
     handleSummaryItemSelected: PropTypes.func.isRequired,
     handleUpdateArrayOfPickLists: PropTypes.func.isRequired,
     handleUpdateEditorWithNote: PropTypes.func.isRequired,
+    showTemplateView: PropTypes.bool.isRequired,
     isNoteViewerEditable: PropTypes.bool.isRequired,
     loadNote: PropTypes.func.isRequired,
     loginUser: PropTypes.string.isRequired,
@@ -523,9 +530,9 @@ NoteAssistant.propTypes = {
     structuredFieldMapManager: PropTypes.object.isRequired,
     updateNoteAssistantMode: PropTypes.func.isRequired,
     updateSelectedNote: PropTypes.func.isRequired,
-    arrayOfPickLists: PropTypes.array.isRequired,
     updateContextTrayItemToInsert: PropTypes.func.isRequired,
     updateContextTrayItemWithSelectedPickListOptions: PropTypes.func.isRequired,
     updatedEditorNote: PropTypes.object,
-    updateErrors: PropTypes.func.isRequired
+    updateErrors: PropTypes.func.isRequired,
+    updateShowTemplateView: PropTypes.func.isRequired
 };

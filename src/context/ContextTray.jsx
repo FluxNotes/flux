@@ -13,13 +13,20 @@ export default class ContextTray extends Component {
 
     constructor(props) {
         super(props);
-
+        const viewMode = this.props.showTemplateView ? this.TEMPLATE_VIEW : this.SHORTCUT_VIEW;
         this.state = {
             // viewMode keeps track of which context is active
-            // 0 when Templates are selected. 1 when Patient is selected
+            // 0 when Templates are selected. 1 when Shortcuts is selected. 2 when Placholder is selected
             // In editor, viewMode is incremented by 1 for each context added (i.e @condition, #disease status)
-            viewMode: this.SHORTCUT_VIEW
+            viewMode,
         };
+    }
+
+    componentWillReceiveProps = (nextProps) => {
+        // If show template view is true, set the view to template view, otherwise check if current view is template view. If the view is currently a template go to shortcut view, else leave the view as is
+        // (ex. if in placeholder view, stay in placeholder view)
+        const viewMode = nextProps.showTemplateView ? this.TEMPLATE_VIEW : (this.state.viewMode === this.TEMPLATE_VIEW ? this.SHORTCUT_VIEW : this.state.viewMode);
+        this.setState ({ viewMode });
     }
 
     handleTemplateSectionClick = () => {
@@ -39,6 +46,11 @@ export default class ContextTray extends Component {
             viewMode: this.PLACEHOLDER_VIEW
         });
     };
+
+    handleShortcutClick = (contextTrayItem) => {     
+        this.props.updateShowTemplateView(false);  
+        this.props.onShortcutClicked(contextTrayItem);
+    }
 
     render() {
         const { viewMode } = this.state;
@@ -102,7 +114,7 @@ export default class ContextTray extends Component {
 
                 {viewMode === this.PLACEHOLDER_VIEW && (
                     <PlaceholderViewModeContent
-                        onClick={onShortcutClicked}
+                        onClick={this.handleShortcutClick}
                         placeholders={shortcutManager.getAllPlaceholderShortcuts()}
                     />
                 )}
@@ -116,5 +128,7 @@ ContextTray.propTypes = {
     onShortcutClicked: PropTypes.func.isRequired,
     patient: PropTypes.object.isRequired,
     setInsertingTemplate: PropTypes.func.isRequired,
-    shortcutManager: PropTypes.object.isRequired
-};
+    shortcutManager: PropTypes.object.isRequired,
+    showTemplateView: PropTypes.bool.isRequired,
+    updateShowTemplateView: PropTypes.func.isRequired
+}
