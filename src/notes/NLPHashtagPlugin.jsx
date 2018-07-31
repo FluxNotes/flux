@@ -23,8 +23,8 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 	const insertStructuredFieldTransformAtRange = opts.insertStructuredFieldTransformAtRange;
 	// Define a flag here so we don't send multiple requests while we're just waiting for a return value.
 	const updateFetchingStatus = opts.updateFetchingStatus;
-	const getEditorValue = opts.getEditorValue;
-	const setEditorValue = opts.setEditorValue;
+	const getEditorState = opts.getEditorState;
+	const setEditorState = opts.setEditorState;
 	// Local value tracking current fetching status to avoid multiple requests being sent off
 	let isFetchingAsyncData = false;
 	const stopCharacters = [
@@ -77,15 +77,9 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		};
 		const relevantFragment = editorState.document.getFragmentAtRange(new Selection(relevantSelection))
 		// console.log(relevantFragment)
-		// For every node of that block: 
-		const nodesFollowingNLPShortcut = [];
-		for (const node of relevantFragment.nodes) {
-			// If we've seent the shortcut, accumulate this node
-			nodesFollowingNLPShortcut.push(node.toJSON())
-		}
-		const textRepresentationOfNodes = convertToTextForNLPEngine(nodesFollowingNLPShortcut);
+		// Need this list of nodes in a JSON representation. 
+		const textRepresentationOfNodes = convertToTextForNLPEngine(relevantFragment.nodes.map(node => node.toJSON()));
 		// console.log(textRepresentationOfNodes)
-		// return all accumulated nodes converted to text
 		return textRepresentationOfNodes;
 	}
 
@@ -94,10 +88,12 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		let resultText = "";
 		nodes.forEach((node) => { 
 			if (node.type === 'line') {
+				// Add a new line, operate recursively on node.nodes
                 resultText += `\n${convertToTextForNLPEngine(node.nodes)}`;
             } else if (node.type === 'structured_field') {
 				// We don't want to parse already structured data -- ignore
 			} else if (node.characters && node.characters.length > 0) {
+				// Get all these characters one by one
 				node.characters.forEach(char => {
 					resultText += char.text;
 				});
@@ -133,8 +129,9 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 			console.error(err.msg);
 			throw err;	
 		}
-		// break this path up by periods, using each split attribute in sequence to get the relevant data off of the canonicalization
+		// Assume it's just the canonicalization; change this based on the pathToCanonicalization
 		let relevantTriggerKeyword = canonicalization;
+		// break this path up by periods, using each split attribute in sequence to get the relevant data off of the canonicalization
 		for (const objectAttribute of pathToCanonicalization.split('.')) { 
 			if (!Lang.isEmpty(objectAttribute)) { 
 				relevantTriggerKeyword = relevantTriggerKeyword[objectAttribute];
@@ -147,6 +144,8 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		return relevantTriggerKeyword;
 	}
 
+	// Given an array of phrases, parse each one, create shortcuts, and insert them into the editorTransform.
+	// Return the updated editorTransform
 	function parseArryOfPhrases(arrayOfPhrases, editorTransform, NLPShortcut) { 
 		// console.log(arrayOfPhrases);
 		if (Lang.isUndefined(arrayOfPhrases)) { 
@@ -155,7 +154,6 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 			let editorState = editorTransform.state;
 			const nodeAfterNLPShortcut = editorState.document.getNextSibling(NLPShortcut.key);
 			let originalTextRange;
-			let keyOfFirstShortcut = null;
 			for (const phraseValue of arrayOfPhrases) { 
 				const typeOfPhrase = phraseValue.name;
 				const NLPShortcutMetadata = shortcutManager.getShortcutMetadata(typeOfPhrase);
@@ -163,12 +161,8 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 				const NLPShortcut = createShortcut(null, NLPKeyword)
 				// get range for originalText
 				originalTextRange = getRangeBasedOnPhrase(nodeAfterNLPShortcut.key, phraseValue)
-				// Add shortcut to text; update relevantFragment and curText
+				// Insert the structured field at this range; 
 				editorTransform = insertStructuredFieldTransformAtRange(editorTransform, NLPShortcut, new Selection(originalTextRange))
-				editorState = editorTransform.state;
-				if (keyOfFirstShortcut === null) { 
-					keyOfFirstShortcut = NLPShortcut.getKey();
-				}
 			}
 			return editorTransform.focus();
 		}
@@ -193,12 +187,14 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 
 	// Given a list of phrases, parse them and insert them all in reverse order, changing editor state accordingly.
 	function parsePhrases(phrases, NLPShortcut) { 
-		const editorState = getEditorValue();
+		const editorState = getEditorState();
 		let editorTransform = editorState.transform();
 		const phrasesInOrder = orderPhrasesForReverseInsertion(phrases)
+		// update editorTransform after parsing phrases
 		editorTransform = parseArryOfPhrases(phrasesInOrder, editorTransform, NLPShortcut);
+		// Update editorState if there were any actual changes
 		if (editorTransform.operations.length > 0) { 
-			setEditorValue(editorTransform.focus().apply())
+			setEditorState(editorTransform.focus().apply())
 		}
 	}
 
@@ -211,8 +207,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		isFetchingAsyncData = false;
 		updateFetchingStatus(isFetchingAsyncData)
 		const phrases = data.phrases;
-		const success = data.success;
-		if (!success) { 
+		if (!data.success) { 
 			console.error('Engine Error: Response data from the NLP engine says an error occurred, provided this msg')
 			console.error(data.error)
 			return

@@ -125,8 +125,8 @@ class FluxNotesEditor extends React.Component {
             structuredFieldMapManager: this.structuredFieldMapManager,
             createShortcut: this.props.newCurrentShortcut,
             insertStructuredFieldTransformAtRange: this.insertStructuredFieldTransformAtRange,
-            getEditorValue: () => this.state.state,
-            setEditorValue: (state) => {
+            getEditorState: () => this.state.state,
+            setEditorState: (state) => {
                 this.setState({state})
             },
             updateFetchingStatus: this.updateFetchingStatus,
