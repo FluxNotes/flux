@@ -1,36 +1,34 @@
 .patient-control-panel {
-    width: 100vw;
-    position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-}
-
-.patient-control-panel,
-.patient-control-panel .FullApp-content {
-    background-color: white;
-}
-
-.patient-control-panel .logo-accompaniment { 
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw; }
+  .patient-control-panel, .patient-control-panel .FullApp-content {
+    background-color: #FFFFFF; }
+  .patient-control-panel .logo-accompaniment {
     display: inline-block;
-    margin-bottom: 15px;
-}
+    margin-bottom: 15px; }
+    .patient-control-panel .logo-accompaniment .title {
+      display: block;
+      color: #0084B8;
+      font-size: 1.4rem;
+      font-weight: 600;
+      vertical-align: 0.5em;
+      padding-left: 5px; }
+    .patient-control-panel .logo-accompaniment .login {
+      display: block;
+      font-size: 0.8rem;
+      margin-left: 0.4rem; }
 
-.patient-control-panel .logo-accompaniment .title {
-    display: block;
-    color: steelblue;
-    font-size: 1.4rem;
-    font-weight: 600;
-    vertical-align: 0.5em;
-    padding-left: 5px;
-}
+.vertical-divider {
+  border-left: 1px solid #DDDDDD;
+  height: 40px; }
 
-.patient-control-panel .logo-accompaniment .login {
-    display: block;
-    font-size: 0.8rem;
-    margin-left: 0.4rem;
-}
+.search-icon {
+  padding-right: 5px; }
+
 /*
 .patient-control-panel .title {
     color: steelblue;
@@ -44,10 +42,6 @@
     margin-left: 0.4rem;
 }
 */
-.vertical-divider {
-    border-left: 1px solid #ddd;
-    height: 40px
-}
 /*
 .search-wrapper {
     position: relative;
@@ -56,7 +50,3 @@
 /*.search-field {
     padding-left: 30px;
 }*/
-
-.search-icon {
-    padding-right: 5px;
-}
