@@ -59,6 +59,7 @@ export default class NotesPanel extends Component {
 
     updateContextTrayItemToInsert = (contextTrayItem) => {
         this.setState({ contextTrayItemToInsert: contextTrayItem });
+        this.setState({showTemplateView: false});
     }
 
     updateContextTrayItemWithSelectedPickListOptions = (selectedPickListOptions) => {

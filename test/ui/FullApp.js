@@ -733,9 +733,8 @@ test('Clicking "@condition" and choosing multiple conditions does not allow user
 
     const editor = Selector("div[data-slate-editor='true']");
     const contextPanelElements = Selector('.context-options-list').find('.context-option');
-    const sectionItemElements = Selector('.context-tray').find('.section-item');
+    // const sectionItemElements = Selector('.context-tray').find('.section-item');
     const conditionButton = await contextPanelElements.withText(/@condition/ig);
-    const patientButton = await sectionItemElements.withText(/CONTEXT/g);
     const optionsForm = Selector("#pickList-options-panel").find(".option-btn");
     const fractureButton = await optionsForm.withText(/Fracture/ig);
     const sectionItemElements = Selector('.context-tray').find('.view-mode-section-item');
@@ -749,18 +748,16 @@ test('Clicking "@condition" and choosing multiple conditions does not allow user
     await t
         .click(conditionButton);
 
-    // Click on "Invasive..." button in the option panel
+    // Click on "Fracture" button in the option panel
     await t
         .click(fractureButton);
 
     // Input second condition
     await t
-        .click(patientButton);
-
-    await t
         .click(conditionButton);
 
     const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
+    
     await t
         .click(invasiveButton);
 

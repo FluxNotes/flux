@@ -47,7 +47,7 @@ export default class ContextTray extends Component {
         });
     };
 
-    handleShortcutClick = (contextTrayItem) => {
+    handleShortcutClick = (contextTrayItem) => {     
         this.props.updateShowTemplateView(false);  
         this.props.onShortcutClicked(contextTrayItem);
     }
