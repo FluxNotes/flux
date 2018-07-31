@@ -316,7 +316,6 @@ function insertStructuredField(opts, transform, shortcut) {
 }
 
 function insertStructuredFieldAtRange(opts, transform, shortcut, range) { 
-    const { state } = transform;
     if (!range.startKey) return false;
 
     // Create the structured-field node

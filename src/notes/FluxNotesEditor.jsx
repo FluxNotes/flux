@@ -14,7 +14,6 @@ import {Row, Col} from 'react-flexbox-grid';
 import EditorToolbar from './EditorToolbar';
 import Button from '../elements/Button';
 import {TextField, Divider} from 'material-ui';
-import CircularProgress  from 'material-ui/Progress/CircularProgress.js'
 import AutoReplace from 'slate-auto-replace'
 import SuggestionsPlugin from '../lib/slate-suggestions-dist'
 import position from '../lib/slate-suggestions-dist/caret-position';

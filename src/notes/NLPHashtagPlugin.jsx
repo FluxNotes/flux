@@ -21,7 +21,6 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
     const contextManager = opts.contextManager;
 	const createShortcut = opts.createShortcut;
 	const insertStructuredFieldTransformAtRange = opts.insertStructuredFieldTransformAtRange;
-	const structuredFieldMapManager = opts.structuredFieldMapManager;
 	// Define a flag here so we don't send multiple requests while we're just waiting for a return value.
 	const isFetchingAsyncData = opts.isFetchingAsyncData;
 	const updateFetchingStatus = opts.updateFetchingStatus;
@@ -39,7 +38,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 	]
 	// '$' means this regexp only triggers when the phrase delimiter occurs at the end of the string.
 	const stopRegexp = new RegExp(`(${stopCharacters.join('|')})(${phraseDelimiters.join('|')})`, 'i')
-	const endOfSentenceRegexp = new RegExp(stopRegexp.source + `\$`, 'i')
+	const endOfSentenceRegexp = new RegExp(stopRegexp.source + `$`, 'i')
 	const NLPHashtagPhraseRegexp = new RegExp(`(.*)` + endOfSentenceRegexp.source, 'i')
 	// Return the NLP hasgtag if there is one, else return nothing
 	function getNLPHashtag() { 
@@ -59,45 +58,6 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 			focusOffset: NLPphrase.orig_end,
 			isFocused: false,
 			isBackward: false,
-		}
-	}
-
-	// Get the slate Range of the keywordText found within an Inline/Text Node
-	function getRangeForText (curNode, keywordText) { 
-		// Return nothing if text is not found in this node
-		const indexOfText = curNode.text.toLowerCase().indexOf(keywordText);
-		if (indexOfText === -1) {
-			return;
-		} else { 
-			return {
-				anchorKey: curNode.key,
-				anchorOffset: indexOfText,
-				focusKey: curNode.key,
-				focusOffset: indexOfText + keywordText.length,
-				isFocused: false,
-				isBackward: false,
-			};
-		}
-	}
-
-	function getRangeForRegexp (curNode, regexp) {
-		const indexOfRegexp = curNode.text.toLowerCase().search(regexp); 
-		console.log(curNode)
-		console.log(curNode.text)
-		console.log(regexp)
-		console.log(indexOfRegexp)
-		if(indexOfRegexp === -1) { 
-			return
-		} else { 
-			const indexAfterRegexp = indexOfRegexp + 2;
-			return { 
-				anchorKey: curNode.key,
-				anchorOffset: indexAfterRegexp,
-				focusKey: curNode.key,
-				focusOffset: indexAfterRegexp,
-				isFocused: false,
-				isBackward: false,
-			};
 		}
 	}
 
@@ -125,7 +85,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		const textRepresentationOfNodes = convertToTextForNLPEngine(nodesFollowingNLPShortcut);
 		// console.log(textRepresentationOfNodes)
 		// return all accumulated nodes converted to text
-		return convertToTextForNLPEngine(nodesFollowingNLPShortcut)
+		return textRepresentationOfNodes;
 	}
 
 	// Given a list of Slate nodes, convert them to text
@@ -136,8 +96,6 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
                 resultText += `\n${convertToTextForNLPEngine(node.nodes)}`;
             } else if (node.type === 'structured_field') {
 				// We don't want to parse already structured data -- ignore
-				let shortcut = node.data.shortcut;
-                // resultText += shortcut.getResultText();
 			} else if (node.characters && node.characters.length > 0) {
 				node.characters.forEach(char => {
 					resultText += char.text;
@@ -163,44 +121,47 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 	}
 
 	// Parse canonicalization to retrieve keyword 	
-	function parseKeywordFromCanonicalizationBasedOnPhrase(canonicalization, typeOfPhrase) { 
-		switch (typeOfPhrase) {
-			case "ATTRIBUTION":
-			case "GRADE":
-				return canonicalization.toLowerCase();
-			case "CTCAE":
-				// TODO: We shouldn't need to adda  hashtag; check createShortcut fucntion to fix valueset parsing
-				return `#${canonicalization.ctcae.toLowerCase()}`;
-			default:
-				const err = {
-					name: "CanonicalizationParseError",
-					msg: `Failed to get keyword from canonoicalization ${canonicalization} for typeOfPhrase ${typeOfPhrase}`,
-				};
-				console.error(err.msg);
-				throw err;
+	function parseKeywordFromCanonicalizationBasedOnPhrase(canonicalization, NLPShortcutMetadata) { 
+		const pathToCanonicalization = NLPShortcutMetadata["pathToCanonicalization"]
+		const prefixToPrepend = NLPShortcutMetadata["prefixForCanonicalization"]
+		if (Lang.isUndefined(pathToCanonicalization)) { 
+			const err = {
+				name: "CanonicalizationParseError",
+				msg: `Failed to get keyword from canonoicalization ${canonicalization} based on metadata: ${JSON.stringify(NLPShortcutMetadata)}`,
+			};
+			console.error(err.msg);
+			throw err;	
 		}
+		// break this path up by periods, using each split attribute in sequence to get the relevant data off of the canonicalization
+		let relevantTriggerKeyword = canonicalization;
+		for (const objectAttribute of pathToCanonicalization.split('.')) { 
+			if (!Lang.isEmpty(objectAttribute)) { 
+				relevantTriggerKeyword = relevantTriggerKeyword[objectAttribute];
+			}
+		}
+		// FIXME: Once NLP engine is updated w.r.t. prefix unification, fix this as needed. 
+		if (!Lang.isUndefined(prefixToPrepend)) { 
+			relevantTriggerKeyword = prefixToPrepend + relevantTriggerKeyword;
+		}
+		return relevantTriggerKeyword;
 	}
 
 	function parseArryOfPhrases(arrayOfPhrases, editorTransform, NLPShortcut) { 
-		console.log(arrayOfPhrases);
+		// console.log(arrayOfPhrases);
 		if (Lang.isUndefined(arrayOfPhrases)) { 
 			return editorTransform; 
 		} else { 
 			let editorState = editorTransform.state;
 			const nodeAfterNLPShortcut = editorState.document.getNextSibling(NLPShortcut.key);
-			console.log(nodeAfterNLPShortcut.key)
 			let originalTextRange;
 			let keyOfFirstShortcut = null;
 			for (const phraseValue of arrayOfPhrases) { 
 				const typeOfPhrase = phraseValue.name;
-				const NLPKeyword = parseKeywordFromCanonicalizationBasedOnPhrase(phraseValue.canonicalization, typeOfPhrase);
+				const NLPShortcutMetadata = shortcutManager.getShortcutMetadata(typeOfPhrase);
+				const NLPKeyword = parseKeywordFromCanonicalizationBasedOnPhrase(phraseValue.canonicalization, NLPShortcutMetadata).toLowerCase();
 				const NLPShortcut = createShortcut(null, NLPKeyword)
-				// console.log(NLPShortcut)
 				// get range for originalText
 				originalTextRange = getRangeBasedOnPhrase(nodeAfterNLPShortcut.key, phraseValue)
-				// Remove keyword from block, using first character as the prefix
-				console.log(originalTextRange)
-				// editorTransform = editorTransform.deleteAtRange(new Selection(originalTextRange));
 				// Add shortcut to text; update relevantFragment and curText
 				editorTransform = insertStructuredFieldTransformAtRange(editorTransform, NLPShortcut, new Selection(originalTextRange))
 				editorState = editorTransform.state;
@@ -208,19 +169,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 					keyOfFirstShortcut = NLPShortcut.getKey();
 				}
 			}
-			// We want to restore our cursor location back to how it was when we were last typing
-			// FIXME: WE have a hard time dealing with users triggering fetching in the middle of a sentence. 
-			const textAfterShortcuts = editorState.document.getNextSibling(keyOfFirstShortcut)
-			const rangeAssociatedWithStopRegexp = getRangeForRegexp(textAfterShortcuts, stopRegexp);
-			console.log(getRangeForRegexp);
-			if (Lang.isUndefined(rangeAssociatedWithStopRegexp)) { 
-				// Then we created a new block; move to the next block
-				// return editorTransform.collapseToStartOfNextBlock().focus();
-				return editorTransform.focus();
-			} else { 
-				// return editorTransform.select(getRangeForRegexp).collapseToEnd().focus();
-				return editorTransform.focus();
-			}
+			return editorTransform.focus();
 		}
 	}
 
@@ -254,7 +203,6 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 
 	// Given data extracted from NLP engine, parse it for meaningful feedback and use that to perform necessary insertions.
 	function processNLPEngineData(NLPShortcut, data) { 
-		console.log(JSON.stringify(data))
 		if (!(NLPShortcut instanceof Shortcut) && typeof NLPShortcut === 'object' && NLPShortcut !== null && data === undefined) { 
 			// If we haven't bound a valid shortcut, and the first arg looks like data, we should define data as such
 			data = NLPShortcut
@@ -285,15 +233,15 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 	// Used when processNLPEngineResponse throws an error; handle gracefully and alert console to failure
 	function failedToProcessNLPEngineResponse(error) { 
 		updateFetchingStatus(false)
-		console.log('error in request here -- expected')
-		console.log(error)
+		console.error('error in request here -- expected')
+		console.error(error)
 	}
 
 	// Used when fetch throws an error; handle failure gracefully.
 	function handleNLPEngineError(error) { 
 		updateFetchingStatus(false)
-		console.log('Error in Processing Response -- Available error message is: ')
-		console.log(error)
+		console.error('Error in Processing Response -- Available error message is: ')
+		console.error(error)
 	}		
 	
 	// Sends off a request to the NLP endpoint
@@ -327,7 +275,6 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		if (!Lang.isUndefined(NLPShortcut)) {
 			// Pull out NLP hashtag FullPhrase (one ending in a stop character) if there is one
 			const NLPHashtagPhrase = extractNLPHashtagFullPhrase(editorState, editor, NLPShortcut)
-			console.log(NLPHashtagPhrase)
 			if (!Lang.isUndefined(NLPHashtagPhrase)) { 
 				// send message out to NLPEndpoint 
 				fetchNLPExtraction(NLPShortcut, NLPHashtagPhrase)

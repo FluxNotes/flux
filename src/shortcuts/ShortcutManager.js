@@ -145,6 +145,10 @@ class ShortcutManager {
             throw new Error("Unknown triggerOrKeyword '" + triggerOrKeyword + "'. No structured phrase found.");
         }
         className = metadata["type"];
+        console.log('metadata')
+        console.log(metadata)
+        console.log('className')
+        console.log(className)
         let newShortcut;
         if (className === "CreatorBase") {
             newShortcut = new CreatorBase(onUpdate, metadata, patient, shortcutData);
@@ -182,6 +186,10 @@ class ShortcutManager {
             disabled = item["disabled"] || false;
             if (!disabled && (shortcutList.length === 0 || shortcutList.includes(item["id"]))) {
                 this.shortcuts[item["id"]] = item;
+                // In addition to regular id's, we want to make sure NLPId's map onto the shortcuts as well
+                if(item["idForNLPEngine"]) { 
+                    this.shortcuts[item["idForNLPEngine"]] = item;
+                }
 
                 // add as child to its known parent
                 if (item["knownParentContexts"]) {

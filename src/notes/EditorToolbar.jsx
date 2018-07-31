@@ -108,8 +108,6 @@ class EditorToolbar extends React.Component {
         )
     }
     renderCopyButton = () => { 
-        let copyButton = "";
-
         if (this.props.patient == null) {
             return (
                 <span id="copy-button" style={{cursor:'pointer'}}>
@@ -147,7 +145,7 @@ class EditorToolbar extends React.Component {
                 />
                 {/* { this.renderLoadingNotification()} */}
                 { this.props.loadingTimeWarrantsWarning && this.renderLoadingNotification()}    
-                {this.renderCopyButton()}
+                {/* {this.renderCopyButton()} */}
             </div>
         )
     }
