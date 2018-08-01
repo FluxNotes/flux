@@ -892,7 +892,6 @@ export default class SummaryMetadata {
         })
 
         medicationChanges.forEach(change => {
-
             const clinicalNoteUnsigned = patient.isUnsigned(change);
 
             // If medicationChange has both medicationAfterChange and medicationBeforeChange
@@ -904,19 +903,30 @@ export default class SummaryMetadata {
                 const medToViz = medsToVisualize.find((medToVizObject) => {
                     return medToVizObject.medication.entryId === medAfterChangeRef.entryId;
                 });
+                
 
                 if (medToViz) {
+
+                    // Retrieving clinical note for medication change
+                    let sourceClinicalNote;
+                    if (change.entryInfo.sourceClinicalNote) {
+                        sourceClinicalNote = change.entryInfo.sourceClinicalNote;
+                    }
+                    
                     // Add the medBeforeChange to the med, for use in visualization
                     const medBeforeChangeRef = change.medicationBeforeChange.reference;
                     const medBeforeChange = patient.getEntryFromReference(medBeforeChangeRef);
+                   
                     // medAfterChange.medicationBeforeChange = medBeforeChange;
                     medToViz.medicationChange = {
                         type: change.type,
                         date: change.whenChanged,
                         medBeforeChange: medBeforeChange,
                         medAfterChange: medToViz.medication,
+                        sourceClinicalNote: sourceClinicalNote,
                         unsigned: clinicalNoteUnsigned,
                     }
+                    
                     // Remove the before-medication from vis
                     medsToVisualize = medsToVisualize.filter((medToVizObject) => {
                         return medToVizObject.medication.entryId !== medBeforeChangeRef.entryId;
@@ -925,6 +935,12 @@ export default class SummaryMetadata {
             }
             // If medication change only has medicationBeforeChange (does not have medicationAfterChange)
             else if (change.medicationBeforeChange && !change.medicationAfterChange) {
+                
+                // Retrieving clinical note for medication change
+                let sourceClinicalNote;
+                if (change.entryInfo.sourceClinicalNote) {
+                    sourceClinicalNote = change.entryInfo.sourceClinicalNote;
+                }
                 const medBeforeChangeRef = change.medicationBeforeChange.reference;
                 const medToViz = medsToVisualize.find((medToVizObject) => {
                     return medToVizObject.medication.entryId === medBeforeChangeRef.entryId;
@@ -935,6 +951,7 @@ export default class SummaryMetadata {
                         type: change.type,
                         date: change.whenChanged,
                         medBeforeChange: medToViz.medication,
+                        sourceClinicalNote: sourceClinicalNote,
                         unsigned: clinicalNoteUnsigned,
                     }
                 }

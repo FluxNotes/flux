@@ -5,6 +5,7 @@ import BandedLineChartVisualizer from './BandedLineChartVisualizer';
 import ProgressionLineChartVisualizer from './ProgressionLineChartVisualizer';
 import TimelineEventsVisualizer from '../timeline/TimelineEventsVisualizer';
 import MedicationRangeChartVisualizer from './MedicationRangeChartVisualizer';
+import FormatMedicationChange from './FormatMedicationChange.js';
 import Lang from 'lodash';
 
 class VisualizerManager {
@@ -14,10 +15,15 @@ class VisualizerManager {
         const itemList = subsection.itemsFunction(patient, condition, subsection);
 
         newsection.name = "";
-        newsection.headings = ["Medication", "Dosage", "Timing", "Start", "End"];
+        newsection.headings = ["Medication", "Change", "Dosage", "Timing", "Start", "End"];
         newsection.items = itemList.map((med) => {
+            
+            
             const dose = med.medication.amountPerDose ? `${med.medication.amountPerDose.value} ${med.medication.amountPerDose.units}` : "";
+            const medicationChange = this.formatMedicationChange(med.medicationChange);
+            const endDate = this.getEndDate(med);
             let timing;
+            
             if (med.medication.timingOfDoses) {
                 if (!Lang.isNull(med.medication.timingOfDoses.units)) {
                     timing = `${med.medication.timingOfDoses.value} ${med.medication.timingOfDoses.units}`;
@@ -27,15 +33,59 @@ class VisualizerManager {
             } else {
                 timing = "";
             }
+            
+            // isUnsigned is false by default
+            let isUnsigned = false;
+            let sourceClinicalNote;
+            
+            if (med.medicationChange) {
+                isUnsigned = med.medicationChange.unsigned;
+                sourceClinicalNote = med.medicationChange.sourceClinicalNote;
+            }
 
             return [    med.medication.medication,
+                        {value: [medicationChange, isUnsigned, sourceClinicalNote]},
                         dose,
                         timing,
                         med.medication.expectedPerformanceTime.timePeriodStart,
-                        med.medication.expectedPerformanceTime.timePeriodEnd ];
+                        {value: [endDate, isUnsigned, sourceClinicalNote]}  ];
         });
+
+        // Format function used to 
+        newsection.formatFunction = this.formatStoppedMedication;
         return newsection;
     };
+
+
+    // Returns today's date if the medication has just been stopped 
+    getEndDate = (med) => {
+        let endDate = med.medication.expectedPerformanceTime.timePeriodEnd;
+        if (med.medicationChange && med.medicationChange.type === "stop") {
+            endDate = med.medicationChange.date;
+        }
+        return endDate;
+    }
+
+    formatMedicationChange = (medChange) => {
+        let formattedMedicationChange = " ";
+        if (medChange) {
+            if (medChange.type === "stop") {
+                formattedMedicationChange = FormatMedicationChange.stringForMedicationChangeType(medChange.type);
+            } else {
+                formattedMedicationChange = FormatMedicationChange.stringForMedicationChangeType(medChange.type) + FormatMedicationChange.stringForMedicationChangeDate(medChange.date) + FormatMedicationChange.stringForMedicationChangePriorAmount(medChange.type, medChange.medBeforeChange);
+            }
+        }
+        return formattedMedicationChange;
+    }
+
+    // This is a formatting function passed into TabularListVisualizer with the 
+    // medication columns.  It returns a css class if it finds a stopped medication.
+    formatStoppedMedication = (medChange) => {
+        if (medChange && medChange === "Stopped") {
+            return "stopped-cell";
+        }
+        return "tabular-list";
+    }
 
     transformNameValuePairToColumns = (patient, condition, subsection) => {
         let newsection = {};
@@ -190,6 +240,8 @@ class VisualizerManager {
             </svg>
         );
     }
+
+    
 }
 
 export default VisualizerManager;

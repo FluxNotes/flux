@@ -103,3 +103,10 @@ h2.subsection span {
     font-family: "Open Sans", Arial, sans-serif;
     text-align: left;
 }
+
+.tabular-list td.stopped-cell {
+    padding: 8px;
+    border: 0;
+    color: #C80B0B;
+    font-family: "Open Sans", Arial, sans-serif;
+}

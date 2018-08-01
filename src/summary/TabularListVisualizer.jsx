@@ -16,7 +16,6 @@ export default class TabularListVisualizer extends Component {
     // Initialize values for insertion popups
     constructor(props) {
         super(props);
-
         this.state = {
             count: 0,
             elementToDisplayMenu: null,
@@ -174,7 +173,7 @@ export default class TabularListVisualizer extends Component {
 
                 <TabularListVisualizerTable
                     headers={headings}
-                    rows={this.renderedListItems(subsectionindex, list, numberOfHeadings, subsectionName, subsectionActions)} />
+                    rows={this.renderedListItems(subsectionindex, list, numberOfHeadings, subsectionName, subsectionActions, transformedSubsection.formatFunction)} />
 
                 <ul>
                     {this.renderedPostTableList(transformedSubsection.postTableList, subsectionName, subsectionActions, -1)}
@@ -204,7 +203,7 @@ export default class TabularListVisualizer extends Component {
     }
 
     // Render all list items
-    renderedListItems(subsectionindex, list, numberOfHeadings, subsectionName, subsectionActions) {
+    renderedListItems(subsectionindex, list, numberOfHeadings, subsectionName, subsectionActions, formatFunction) {
         let onClick, hoverClass, rowClass, itemClass = "";
 
         return list.map((item, index) => {
@@ -224,7 +223,7 @@ export default class TabularListVisualizer extends Component {
                 hoverClass = "list-button-hover";
             }
             
-            return this.renderedListItem(item.slice(0, numberOfHeadings), subsectionindex, index, rowClass, itemClass, onClick, hoverClass, subsectionName, subsectionActions);
+            return this.renderedListItem(item.slice(0, numberOfHeadings), subsectionindex, index, rowClass, itemClass, onClick, hoverClass, subsectionName, subsectionActions, formatFunction);
         });
     }
 
@@ -268,7 +267,7 @@ export default class TabularListVisualizer extends Component {
     }
 
     // Render a given list item as a row in a table
-    renderedListItem(item, subsectionindex, index, rowClass, itemClass, onClick, hoverClass, subsectionName, subsectionActions) {
+    renderedListItem(item, subsectionindex, index, rowClass, itemClass, onClick, hoverClass, subsectionName, subsectionActions, formatFunction) {
         // Array of all columns
         const renderedColumns = [];
 
@@ -277,15 +276,21 @@ export default class TabularListVisualizer extends Component {
         const colSize = (100 / numColumns) + "%";
         let isUnsigned;
 
+
         item.forEach((element, arrayIndex) => {
             const elementId = `${subsectionindex}-${index}-item-${arrayIndex}`
             let columnItem = null;
             isInsertable = (Lang.isNull(element) ? false : (Lang.isUndefined(element.isInsertable) ? true : element.IsInsertable));
-            elementText = Lang.isNull(element) ? null : (Lang.isObject(element) ? element.value : (Lang.isArray(element) ? element[0] : element));
+            
+            // If the element is an array or an object, elementText is set to  
+            // first element of array or the value of the object.
+            elementText = Lang.isNull(element) ? null : (Lang.isArray(element) ? element[0] : (Lang.isObject(element) ? element.value : element));
             const longElementText = elementText;
-
+            
             if (!Lang.isNull(elementText) && elementText.length > 100) elementText = elementText.substring(0, 100) + "...";
 
+            // ElementTexts that are arrays are assumed to have two elements
+            // where the second is a boolean representing signed or unsigned.
             if (Lang.isNull(elementText)) {
                 itemClass = 'list-missing';
             } else {
@@ -297,6 +302,13 @@ export default class TabularListVisualizer extends Component {
                 }
                 itemClass = (isUnsigned ? 'list-unsigned' : 'list-captured');
             }
+
+            // If this section has an associated formatFunction (that
+            // returns a specific) CSS class, it is applied to elementText.
+            if (formatFunction) {
+                itemClass += " " + formatFunction(elementText);
+            }
+            
 
             if(Lang.isNull(element) || Lang.isUndefined(elementText) || Lang.isNull(elementText) || (typeof(elementText) === 'string' && elementText.length === 0)) {
                 columnItem = (
@@ -383,6 +395,7 @@ export default class TabularListVisualizer extends Component {
     // renders Menu for element and associated actions as Menu items
     // Will check whether an action should be rendered as a Menu item based on criteria of each action
     renderedMenu = (item, element, elementId, elementText, subsectionName, subsectionActions, arrayIndex) => {
+        //(element, elementText);
         const { elementToDisplayMenu, positionLeft, positionTop } = this.state;
         // Item represents the name of the row/section of the current element.
         const onMenuItemClicked = (fn, element, item) => {
@@ -392,7 +405,12 @@ export default class TabularListVisualizer extends Component {
             this.closeInsertionMenu(callback);
         }
         let isSigned = true;
-        if (Lang.isArray(element.value)) isSigned = !element.value[1];
+        
+        if (Lang.isArray(element.value)) {
+            isSigned = !element.value[1];
+            //element = element[0];
+        }
+        
         return (
             <VisualizerMenu
                 allowItemClick={this.props.allowItemClick}
