@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
+import 'fhirclient';
 
 import AppManager from '../apps/AppManager';
 import WithTracker from '../components/WithTracker';

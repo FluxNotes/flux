@@ -2873,7 +2873,7 @@ fbjs@^0.8.1, fbjs@^0.8.16, fbjs@^0.8.6, fbjs@^0.8.9:
     setimmediate "^1.0.5"
     ua-parser-js "^0.7.9"
 
-fhirclient@0.1.12:
+fhirclient@^0.1.12:
   version "0.1.12"
   resolved "https://registry.yarnpkg.com/fhirclient/-/fhirclient-0.1.12.tgz#d9529de1f5c63b76120038a6898382bfc500d916"
 

@@ -9,7 +9,7 @@ class UserProfile {
    }
 
    setUserName(name) {
-        return (`${name.given[0]} ${name.family[0]}`)
+        return (name.suffix) ? (`${name.suffix[0]} ${name.given[0]} ${name.family[0]}`) : (`${name.given[0]} ${name.family[0]}`);
     }
 
     // Some users do not have the practionerRole object, meaning they do not have a role or speciality specified
