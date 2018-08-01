@@ -36,12 +36,15 @@ class VisualizerManager {
             
             // isUnsigned is false by default
             let isUnsigned = false;
+            let sourceClinicalNote;
+            
             if (med.medicationChange) {
                 isUnsigned = med.medicationChange.unsigned;
+                sourceClinicalNote = med.medicationChange.sourceClinicalNote;
             }
 
             return [    med.medication.medication,
-                        {value: [medicationChange, isUnsigned]},
+                        {value: [medicationChange, isUnsigned, sourceClinicalNote]},
                         dose,
                         timing,
                         med.medication.expectedPerformanceTime.timePeriodStart,
