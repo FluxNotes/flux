@@ -46,6 +46,29 @@ export default class FillPlaceholder extends Component {
         return <div>Unknown component type: {attributeSpec.type}</div>;
     };
 
+    createCurrentFieldRowInSummary = (currentField) => {
+        let currentFieldRowInSummary = "";
+        const attribute = this.props.placeholder.metadata.formSpec.attributes[currentField];
+        const value = this.props.placeholder.getAttributeValue(attribute.name);
+        currentFieldRowInSummary = (
+            <Grid container key={currentField}>
+                <Grid item xs={1}></Grid>
+                <Grid item xs={2} style={{display: 'flex', alignItems: 'center' }}><span>{attribute.title}</span></Grid>
+                <Grid item xs={9}><span>{this.createFillFieldForPlaceholder(attribute, value)}</span></Grid>
+            </Grid>
+        );
+        return currentFieldRowInSummary;
+    }
+
+    createAllRows = () => {
+        const attributes = this.props.placeholder.metadata.formSpec.attributes;
+        let rows = [];
+        for (let i = 0; i < attributes.length; i++) {
+            rows.push(this.createCurrentFieldRowInSummary(i));
+        }
+        return rows;
+    }
+
     render() {
         /*
         "formSpec": {   "title": "Disease Status",
@@ -65,15 +88,7 @@ export default class FillPlaceholder extends Component {
         });
         let currentFieldRowInSummary = "";
         if (!this.state.expanded) {
-            const attribute = this.props.placeholder.metadata.formSpec.attributes[this.state.currentField];
-            const value = this.props.placeholder.getAttributeValue(attribute.name);
-            currentFieldRowInSummary = (
-                <Grid container>
-                    <Grid item xs={1}></Grid>
-                    <Grid item xs={2} style={{display: 'flex', alignItems: 'center' }}><span>{attribute.title}</span></Grid>
-                    <Grid item xs={9}><span>{this.createFillFieldForPlaceholder(attribute, value)}</span></Grid>
-                </Grid>
-            );
+            currentFieldRowInSummary = this.createCurrentFieldRowInSummary(this.state.currentField);
         }
         return (
             <ExpansionPanel expanded={this.state.expanded}>
@@ -90,7 +105,9 @@ export default class FillPlaceholder extends Component {
                     </Grid>
             </ExpansionPanelSummary>
                 <ExpansionPanelDetails style={{ backgroundColor: this.props.backgroundColor }}>
-                    <div>expanded</div>
+                    <Grid container>
+                        {this.createAllRows()}
+                    </Grid>
                 </ExpansionPanelDetails>
             </ExpansionPanel>
         );
