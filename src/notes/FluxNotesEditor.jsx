@@ -220,7 +220,7 @@ class FluxNotesEditor extends React.Component {
             state: initialState,
             openedPortal: null,
             portalOptions: null,
-            isEditingNoteName: false
+            isEditingNoteName: false,
             isFetchingAsyncData: false,
             loadingTimeWarrantsWarning: false,
             fetchTimeout: null,
@@ -1247,19 +1247,6 @@ class FluxNotesEditor extends React.Component {
             return noteTag;
         }
     }
-    renderLoadingNotification = () => { 
-        return (
-            <div id="loading-notification">
-                <div id="loading-circle"> 
-                    <CircularProgress/>
-                </div>
-                <p id="loading-text"> 
-                    Reaching out to NLP Engine
-                </p>
-
-            </div>
-        )
-    }
 
     // Renders the noteDescription of the editor
     renderNoteDescriptionContent = () => { 
@@ -1342,6 +1329,7 @@ class FluxNotesEditor extends React.Component {
     render = () => {
         const CreatorsPortal = this.suggestionsPluginCreators.SuggestionPortal;
         const InsertersPortal = this.suggestionsPluginInserters.SuggestionPortal;
+        const PlaceholdersPortal = this.suggestionsPluginPlaceholders.SuggestionPortal;
         
         let errorDisplay = "";
         if (this.props.errors && this.props.errors.length > 0) {
@@ -1359,11 +1347,9 @@ class FluxNotesEditor extends React.Component {
          * Render the editor, toolbar, dropdown and description for note
          */
         return (
-            <div id="clinical-notes" className="dashboard-panel" onClick={(event) => {
-                editor.focus();
-            }}>
+            <div id="clinical-notes" className="dashboard-panel">
                 {this.renderNoteDescriptionContent()}
-                <div className="MyEditor-root">
+                <div className="MyEditor-root" onClick={(event) => { this.editor.focus(); }}>
                     { !this.props.inModal &&
                         <EditorToolbar
                             contextManager={this.props.contextManager}
