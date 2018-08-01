@@ -48,7 +48,7 @@ class VisualizerManager {
                         dose,
                         timing,
                         med.medication.expectedPerformanceTime.timePeriodStart,
-                        endDate  ];
+                        {value: [endDate, isUnsigned, sourceClinicalNote]}  ];
         });
 
         // Format function used to 
