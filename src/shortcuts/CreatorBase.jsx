@@ -53,18 +53,19 @@ export default class CreatorBase extends EntryShortcut {
     initialize(contextManager, trigger = undefined, updatePatient = true) {
         super.initialize(contextManager, trigger, updatePatient);
 
-        const knownParent = this.metadata["knownParentContexts"];
+        if (contextManager) {
+            const knownParent = this.metadata["knownParentContexts"];
 
-        if (knownParent) {
-            this.parentContext = contextManager.getActiveContextOfType(knownParent);
-        } else   {
-            this.parentContext = contextManager.getCurrentContext();
-        }
-
-        if (!Lang.isUndefined(this.parentContext)) {
-            this.parentContext.addChild(this);
-        }
-        
+            if (knownParent) {
+                this.parentContext = contextManager.getActiveContextOfType(knownParent);
+            } else   {
+                this.parentContext = contextManager.getCurrentContext();
+            }
+    
+            if (!Lang.isUndefined(this.parentContext)) {
+                this.parentContext.addChild(this);
+            }
+        }        
         // defaulting
         const metadataVOA = this.metadata["valueObjectAttributes"];
         metadataVOA.forEach((attrib) => {

@@ -10,8 +10,27 @@ export default class EntryShortcut extends Shortcut {
 
     getAttributeValue(name) {
     }
+    
+    setAttributeValue(name, value, publishChanges = true, updatePatient = true) {
+    }
 
     getText() {
+    }
+
+    hasData() {
+        const voaList = this.metadata["valueObjectAttributes"];
+        let value, isSettable;
+        voaList.forEach((voa) => {
+            value = this.getAttributeValue(voa.name);
+            isSettable = Lang.isUndefined(voa.isSettable) ? false : (voa.isSettable === "true");
+            if (isSettable) {
+                if (Lang.isNull(value) || Lang.isUndefined(value) || value === '' || (Lang.isArray(value) && value.length === 0)) {
+                } else {
+                    return true;
+                }                
+            }
+        });
+        return false;
     }
 
     getAsString() {

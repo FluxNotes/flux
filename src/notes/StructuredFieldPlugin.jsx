@@ -57,7 +57,7 @@ function StructuredFieldPlugin(opts) {
             },
             placeholder: props => {
                 const placeholder = props.node.get('data').get('placeholder');
-                return <span contentEditable={false} className='placeholder'>{placeholder.placeholderText}</span>;
+                return <span contentEditable={false} className='placeholder'>{placeholder.getTextToDisplayInNote()}</span>;
             },
         },
         rules: [
@@ -382,6 +382,7 @@ function createPlaceholder(opts, placeholder) {
     const sf = Slate.Inline.create(properties);
     opts.structuredFieldMapManager.keyToPlaceholderMap.set(sf.key, placeholder);
     opts.structuredFieldMapManager.idToShortcutMap.set(placeholder.metadata.id, placeholder);
+    opts.structuredFieldMapManager.addPlaceholder(placeholder);
     return sf;
 }
 

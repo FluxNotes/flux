@@ -110,10 +110,10 @@
     "regexpTrigger": null,
     "form": "ProgressionForm",
     "formSpec": {   "title": "Disease Status",
-                    "attributes": [ {   "title":"Status", "type":"radioButtons", "values": {"category":"progression", "valueSet":"status"} },
-                                    {   "title":"Rationale for status", "type":"checkboxes", "values": {"category":"progression", "valueSet":"reason"} },
-                                    {   "title":"Reference Date", "type":"date" },
-                                    {   "title":"As Of Date", "type": "date" }
+                    "attributes": [ {   "title":"Status", "name":"status", "type":"radioButtons", "values": {"category":"progression", "valueSet":"status"} },
+                                    {   "title":"Rationale", "name":"reasons", "type":"checkboxes", "values": {"category":"progression", "valueSet":"reason"} },
+                                    {   "title":"Reference Date", "name":"referenceDateDate", "type":"date" },
+                                    {   "title":"As Of Date", "name":"asOfDateDate", "type": "date" }
                                   ]
                 },
     "structuredPhrase": "#disease status${% is #${status}}${% based on #${reasons}}${% relative to #reference date #${referenceDateDate}}${% #as of #${asOfDateDate}}",
