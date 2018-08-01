@@ -534,7 +534,7 @@ describe('6 FluxNotesEditor', function() {
         conditionButton.simulate('click');
 
         const optionsForm = notesPanelWrapper.find('#pickList-options-panel').find('.option-btn').find('span');
-        const invasiveButton = optionsForm.find({ children: 'Invasive ductal carcinoma of breast 13 JAN 2012' });
+        const invasiveButton = optionsForm.find({ children: 'Invasive ductal carcinoma of breast 01 Jun 2012' });
         expect(invasiveButton).to.have.lengthOf(1);
         invasiveButton.simulate('click');
 
