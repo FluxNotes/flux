@@ -19,7 +19,7 @@ const sampleTextNonsense = "#nonsense is in the structured phrase";
 const sampleTextStaging = "Debra Hernandez672 is presenting with carcinoma of the breast. #staging assessed as tumor size T2 and N0 + M0.";
 const sampleTextDiseaseStatus = "Debra Hernandez672 is presenting with carcinoma of the breast.\n\n #disease status #stable based on #imaging and #physical exam";
 const sampleTextDiseaseStatus2 = "Debra Hernandez672 is presenting with carcinoma of the breast.\n\n #disease status #stable based on #imaging and #physical exam #as of #10/5/2017 #reference date #6/7/2017";
-const sampleTextToxicity = "Debra Hernandez672 is presenting with carcinoma of the breast.\n\n #toxicity #nausea #grade 2 #treatment";
+const sampleTextToxicity = "Debra Hernandez672 is presenting with carcinoma of the breast.\n\n #toxicity #nausea #grade 2 #treatment @active medication[[ibuprofen 600mg tablet]]";
 const sampleTextDeceased = "Debra Hernandez672 is #deceased on #10/01/2017";
 const sampleTextClinicalTrialEnrollment = "Debra Hernandez672 is presenting with carcinoma of the breast.\n\n Patient consented to #enrollment #PATINA on #09/04/2017";
 const sampleTextClinicalTrialEnrollmentMinimal = "Debra Hernandez672 is presenting with carcinoma of the breast.\n\n #enrollment";
@@ -139,10 +139,19 @@ describe('parse', function() {
         const record = noteParser.parse(sampleTextToxicity);
 
         removeAttributes(record[0][0], "_adverseEvent");
-       
+
+        // Remove attributes from the AdverseEventAttribution
+        delete record[0][0]["_adverseEvent"]["_adverseEventAttribution"]._shrId;
+        delete expectedOutputToxicity[0][0]["_adverseEvent"]["_adverseEventAttribution"]._shrId;
+        delete record[0][0]._patientRecord;
+        delete expectedOutputToxicity[0][0]._patientRecord;
+
         expect(record)
-            .to.be.an('array')
-            .and.to.eql(expectedOutputToxicity);
+            .to.be.an('array');
+
+        expect(record[0][0])
+            .to.be.an('object')
+            .and.to.eql(expectedOutputToxicity[0][0]);
     });
     it('should return a patient record with deceased data when parsing a note with deceased phrases', function () {
         const record = noteParser.parse(sampleTextDeceased);

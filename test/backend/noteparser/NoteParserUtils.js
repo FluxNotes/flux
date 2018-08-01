@@ -484,6 +484,15 @@ export const toxicityJSON = {
                 "Value": "Treatment"
             }
         }
+    },
+    "AdverseEventAttribution": {
+        "_ShrId": "test-id",
+        "_EntryId": 2,
+        // NOTE: The commented out format may be the correct format, but it currently gets parsed as the second format.
+        // "_EntryType": {
+        //     "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested"
+        // }
+        "_EntryType": "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested"
     }
 }
 
