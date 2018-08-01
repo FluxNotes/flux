@@ -58,7 +58,6 @@ export class FullApp extends Component {
             layout: "",
             isNoteViewerVisible: false,
             isNoteViewerEditable: false,
-            userId: "",
             loginUser: "",
             noteClosed: false,
             openClinicalNote: null,
@@ -126,7 +125,7 @@ export class FullApp extends Component {
 
     componentWillMount() {
         this.loadPatient(this.props.patientId);
-        const userProfile = this.securityManager.getUser();
+        const userProfile = this.securityManager.getDefaultUser();
         if (userProfile) {
             this.setState({loginUser: userProfile.getUserName()});
         } else {

@@ -17,7 +17,7 @@ class SecurityManager {
         return new UserProfile(user);
     }
 
-    getUser() {
+    getDefaultUser() {
         return new UserProfile(defaultUser);
     }
 }

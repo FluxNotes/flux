@@ -1,8 +1,8 @@
 import FullApp from '../containers/FullApp';
 import SlimApp from '../containers/SlimApp';
 import SmartApp from '../containers/SmartApp';
-import LandingPage from '../components/LandingPage';
 import LaunchPage from '../components/LaunchPage';
+import LandingPage from '../components/LandingPage';
 
 export default class AppManager {
     constructor() {  

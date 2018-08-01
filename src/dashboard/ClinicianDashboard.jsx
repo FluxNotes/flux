@@ -8,6 +8,7 @@ import './ClinicianDashboard.css';
 export default class ClinicianDashboard extends Component {
     constructor() {
         super();
+        
         this.state = {
             targetedDataPanelSize: "default",
             notesPanelSize: "default"
