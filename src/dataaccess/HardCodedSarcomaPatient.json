@@ -409,13 +409,13 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             },
-            "Value": "15 FEB 2018"
+            "Value": "15 FEB 2016"
         },
         "LastUpdated": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             },
-            "Value": "15 FEB 2018"
+            "Value": "15 FEB 2016"
         },
         "Value": {
             "EntryType": {
@@ -643,7 +643,7 @@
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/core/GeneralizedDateTime"
                 },
-                "Value": "15 FEB 2018"
+                "Value": "15 FEB 2016"
             }
         }
     },
@@ -1480,7 +1480,7 @@
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                         },
-                        "Value": "Mild stomach upset"
+                        "Value": "Upset stomach"
                     }
                 }
             ]

@@ -764,17 +764,17 @@ export default class SummaryMetadata {
                                 defaultTemplate: "Key toxicities include",
                             },
                             {
-                                defaultTemplate: "${Key Toxicities.Mild stomach upset} mild stomach upset,",
-                                dataMissingTemplate: "no mild stomach upset,",
+                                defaultTemplate: "${Key Toxicities.Upset Stomach} upset stomach,",
+                                dataMissingTemplate: "no upset stomach,",
                                 useDataMissingTemplateCriteria: [
-                                    "Key Toxicities.Mild stomach upset"
+                                    "Key Toxicities.Upset Stomach"
                                 ]
                             },
                             {
-                                defaultTemplate: "${Key Toxicities.Skin rashes } skin rashes.",
+                                defaultTemplate: "${Key Toxicities.Skin Rashes} skin rashes.",
                                 dataMissingTemplate: "no skin rashes.",
                                 useDataMissingTemplateCriteria: [
-                                    "Key Toxicities.Skin rashes"
+                                    "Key Toxicities.Skin Rashes"
                                 ]
                             },
                         ],
@@ -849,7 +849,7 @@ export default class SummaryMetadata {
                                 name: "Key Toxicities",
                                 items: [
                                     {
-                                        name: "Mild Stomach Upset",
+                                        name: "Upset Stomach",
                                         value: (patient, currentConditionEntry) => {
                                             return this.getKeyToxicityAndUnsignedFromCodes(patient, currentConditionEntry, ["10042112"]);
                                         }
