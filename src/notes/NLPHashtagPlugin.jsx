@@ -4,7 +4,7 @@ import Shortcut from '../shortcuts/Shortcut';
 // import Slate from '../lib/slate'
 import { Selection } from '../lib/slate'
 
-const DOMAIN = "http://MM224122-PC.mitre.org"
+const DOMAIN = "http://MM194776-PC.mitre.org"
 const PORT = "8551"
 const API_ROUTE = "/api/parse_sentence"
 const API_ENDPOINT = `${DOMAIN}:${PORT}${API_ROUTE}`
@@ -136,7 +136,6 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 				relevantTriggerKeyword = relevantTriggerKeyword[objectAttribute];
 			}
 		}
-		// FIXME: Once NLP engine is updated w.r.t. prefix unification, fix this as needed. 
 		if (!Lang.isUndefined(prefixToPrepend)) { 
 			relevantTriggerKeyword = prefixToPrepend + relevantTriggerKeyword;
 		}
