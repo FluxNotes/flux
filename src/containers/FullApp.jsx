@@ -226,7 +226,7 @@ export class FullApp extends Component {
             });
             return;
         }
-        const sourceNote = this.state.patient.getEntryFromReference(item);
+        const sourceNote = this.state.patient.getEntryFromReference(item[2]);
         this.setOpenClinicalNote(sourceNote);
     }
 
