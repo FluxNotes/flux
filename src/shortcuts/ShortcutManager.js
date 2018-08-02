@@ -260,7 +260,7 @@ class ShortcutManager {
         // They can be registered in 2 ways:
         //      as a childShortcut on valueObjectAttributes
         //      OR as a shortcut having this context shortcut as a parent via knownParentContexts
-        let contextValueObjectEntryType;
+        let contextValueObjectEntryTypes;
         let result = this.childShortcuts[currentContextId], parentAttribute;
         let value, parentVOAs, voa, isSettable, isSet, parentIdVOAs;
         if (Lang.isUndefined(result)) return [];
@@ -269,9 +269,9 @@ class ShortcutManager {
             // to determine if a shortcut should be valid right now, we need to get its value
             // from its parent. If it's settable and not set, it's valid. If it's not settable, then it's
             // valid if it is set!
-            contextValueObjectEntryType = this.shortcuts[shortcutId]["contextValueObjectEntryType"];
+            contextValueObjectEntryTypes = this.shortcuts[shortcutId]["contextValueObjectEntryTypes"];
 
-            if (Lang.isUndefined(contextValueObjectEntryType) || context.getValueObject().entryInfo.entryType.value === contextValueObjectEntryType) {
+            if (Lang.isUndefined(contextValueObjectEntryTypes) || contextValueObjectEntryTypes.includes(context.getValueObject().entryInfo.entryType.value)) {
                 parentAttribute = this.shortcuts[shortcutId]["parentAttribute"];
                 if (Lang.isUndefined(parentAttribute)) return true;
                 parentVOAs = this.shortcuts[currentContextId]["valueObjectAttributes"];

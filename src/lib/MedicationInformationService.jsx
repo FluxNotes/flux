@@ -95,6 +95,12 @@ exports.getRangeValues = (medication, units) => {
                 upperValue: 8,
                 typicalValue: 4
             };
+        case "C3215040_tablet":
+            return {
+                lowerValue: 0,
+                upperValue: 1,
+                typicalValue: 1
+            }
             
         default: {
             console.warn(switchKey);
