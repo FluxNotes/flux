@@ -94,7 +94,12 @@ function StructuredFieldPlugin(opts) {
             // console.log("node")
             // console.log(node)
             if (node.type === 'line') {
-                result += `<div>${convertSlateNodesToText(node.nodes)}</div>`;
+                // This checks whether the current line is the last one to be processed. If it is, then we don't want to add a div set; this will cause newlines to be perpetually added to the end of the note every time it is closed.
+                if (index === nodes.length - 1) {
+                    result += `${convertSlateNodesToText(node.nodes)}`;
+                } else {
+                    result += `<div>${convertSlateNodesToText(node.nodes)}</div>`;
+                }
             } else if (node.characters && node.characters.length > 0) {
                 node.characters.forEach(char => {
                     const inMarksNotLocal = Lang.differenceBy(char.marks, localStyle, 'type');
