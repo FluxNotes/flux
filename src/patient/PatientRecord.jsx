@@ -2,6 +2,7 @@ import FluxObjectFactory from '../model/FluxObjectFactory';
 import FluxAllergyIntolerance from '../model/allergy/FluxAllergyIntolerance';
 import FluxBreastCancer from '../model/oncology/FluxBreastCancer';
 import FluxBreastCancerGeneticAnalysisPanel from '../model/oncology/FluxBreastCancerGeneticAnalysisPanel';
+import FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel from '../model/oncology/FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel';
 import FluxClinicalNote from '../model/core/FluxClinicalNote';
 import FluxCondition from '../model/condition/FluxCondition';
 import FluxDiseaseProgression from '../model/condition/FluxDiseaseProgression';
@@ -638,7 +639,14 @@ class PatientRecord {
 
     getBreastCancerGeneticAnalysisPanelsChronologicalOrder() {
         let panels = this.getEntriesOfType(FluxBreastCancerGeneticAnalysisPanel);
-        panels.sort(this._breastCancerGeneticAnalysisPanelTimeSorter);
+        panels.sort(this._clinicallyRelevantTimeTimeSorter);
+        return panels;
+    }
+
+    getGastrointestinalStromalTumorCancerGeneticAnalysisPanelsChronologicalOrder() {
+        console.log(this.entries);
+        let panels = this.getEntriesOfType(FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel);
+        panels.sort(this._clinicallyRelevantTimeTimeSorter);
         return panels;
     }
 
@@ -742,7 +750,7 @@ class PatientRecord {
         }
         return 0;
     }
-    _breastCancerGeneticAnalysisPanelTimeSorter(a, b) {
+    _clinicallyRelevantTimeTimeSorter(a, b) {
         const a_startTime = new moment(a.clinicallyRelevantTime, "D MMM YYYY");
         const b_startTime = new moment(b.clinicallyRelevantTime, "D MMM YYYY");
         if (a_startTime < b_startTime) {

@@ -1090,9 +1090,6 @@ export default class SummaryMetadata {
                         /*eslint no-template-curly-in-string: "off"*/
                         narrative: [
                             {
-                                defaultTemplate: "Oncotype DX Recurrence Score is ${.Oncotype DX Recurrence Score}."
-                            },
-                            {
                                 defaultTemplate: "Genetic Testing is ${.Genetic Testing}."
                             }
                         ],
@@ -1101,13 +1098,10 @@ export default class SummaryMetadata {
                                 name: "",
                                 items: [
                                     {
-                                        name: "Oncotype DX Recurrence Score",
-                                        value: null
-                                    },
-                                    {
                                         name: "Genetic Testing",
                                         value: (patient, currentConditionEntry) => {
-                                            const panels = patient.getBreastCancerGeneticAnalysisPanelsChronologicalOrder();
+                                            console.log("get genetics panel");
+                                            const panels = patient.getGastrointestinalStromalTumorCancerGeneticAnalysisPanelsChronologicalOrder();
                                             if (!panels || panels.length === 0) return null;
                                             const panel = panels.pop();
                                             return [panel.members.map((item) => {

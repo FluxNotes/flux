@@ -5208,6 +5208,180 @@
             "Value": "15 FEB 2018"
         }
     },
+
+
+
+
+
+
+
+
+
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+        "EntryId": "18",
+        "Author": {
+            "Value": "Dr. ABC123",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumorCancerGeneticAnalysisPanel"
+        },
+        "LastUpdated": {
+            "Value": "01 Aug 2016",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "01 Aug 2016",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "Members": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/Members"
+            },
+            "Value": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/oncology/KITVariant"
+                    },
+                    "Value": {
+                        "Coding": [
+                            {
+                                "Value": "C1446409",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                                },
+                                "CodeSystem": {
+                                    "Value": "http://ncimeta.nci.nih.gov",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                    }
+                                },
+                                "DisplayText": {
+                                    "Value": "Positive",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    }
+                                }
+                            }
+                        ],
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                        }
+                    },
+                    "FocalSubject": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/finding/FocalSubject"
+                        },
+                        "Value": {
+                            "Coding": [
+                                {
+                                    "Value": "C1416655",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                                    },
+                                    "CodeSystem": {
+                                        "Value": "https://ncit.nci.nih.gov/",
+                                        "EntryType": {
+                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                        }
+                                    },
+                                    "DisplayText": {
+                                        "Value": "KIT Gene",
+                                        "EntryType": {
+                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                        }
+                                    }
+                                }
+                            ],
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                            }
+                        }
+                    }
+                },
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/oncology/PDGFRAVariant"
+                    },
+                    "Value": {
+                        "Coding": [
+                            {
+                                "Value": "C0205160",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                                },
+                                "CodeSystem": {
+                                    "Value": "http://ncimeta.nci.nih.gov",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                    }
+                                },
+                                "DisplayText": {
+                                    "Value": "Negative",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    }
+                                }
+                            }
+                        ],
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                        }
+                    },
+                    "FocalSubject": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/finding/FocalSubject"
+                        },
+                        "Value": {
+                            "Coding": [
+                                {
+                                    "Value": "C1335201",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                                    },
+                                    "CodeSystem": {
+                                        "Value": "https://ncimeta.nci.nih.gov/",
+                                        "EntryType": {
+                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                        }
+                                    },
+                                    "DisplayText": {
+                                        "Value": "PDGFRA Gene",
+                                        "EntryType": {
+                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                        }
+                                    }
+                                }
+                            ],
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "ClinicallyRelevantTime": {
+            "Value": "31 Mar 2016",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            }
+        }
+    },
     {
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/oncology/TNMStage"
@@ -5446,7 +5620,6 @@
                     "Value": 1
                 }
            }
-                                       
         ]
         
     }
