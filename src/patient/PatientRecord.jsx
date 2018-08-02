@@ -644,7 +644,6 @@ class PatientRecord {
     }
 
     getGastrointestinalStromalTumorCancerGeneticAnalysisPanelsChronologicalOrder() {
-        console.log(this.entries);
         let panels = this.getEntriesOfType(FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel);
         panels.sort(this._clinicallyRelevantTimeTimeSorter);
         return panels;

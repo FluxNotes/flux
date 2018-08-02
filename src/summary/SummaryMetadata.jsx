@@ -1100,7 +1100,6 @@ export default class SummaryMetadata {
                                     {
                                         name: "Genetic Testing",
                                         value: (patient, currentConditionEntry) => {
-                                            console.log("get genetics panel");
                                             const panels = patient.getGastrointestinalStromalTumorCancerGeneticAnalysisPanelsChronologicalOrder();
                                             if (!panels || panels.length === 0) return null;
                                             const panel = panels.pop();
@@ -1683,7 +1682,6 @@ export default class SummaryMetadata {
                 end_time: endTime
             });
         });
-
         return items;
     }
 
