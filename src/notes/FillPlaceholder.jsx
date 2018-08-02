@@ -35,6 +35,10 @@ export default class FillPlaceholder extends Component {
         this.setState({ currentField: index });
     };
 
+    nextField = () => {
+        this.setState({ currentField: this.state.currentField + 1});
+    };
+
     onSetValue = (attributeSpec, newValue) => {
         const attributes = this.props.placeholder.getAttributeValue(attributeSpec.name);
         let error;
@@ -49,7 +53,7 @@ export default class FillPlaceholder extends Component {
             // We only want to increment the field if we are working on a non-expanded and non-multiselect attribute
             // This might only be a temporary workaround, we have to see how it goes as the other fields get implemented
             if (Lang.isNull(error) && !(this.state.expanded || Lang.isArray(attributes))) {
-                this.setState({ currentField: this.state.currentField + 1});
+                this.nextField();
             }
         }
         this.setState({ error });
