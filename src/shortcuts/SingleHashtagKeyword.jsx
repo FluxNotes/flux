@@ -55,16 +55,17 @@ export default class SingleHashtagKeyword extends Shortcut {
 
         const knownParent = this.metadata["knownParentContexts"];
 
-        if (knownParent) {
-            this.parentContext = contextManager.getActiveContextOfType(knownParent);
-        } else   {
-            this.parentContext = contextManager.getCurrentContext();
-        }
+        if (contextManager) {
+            if (knownParent) {
+                this.parentContext = contextManager.getActiveContextOfType(knownParent);
+            } else   {
+                this.parentContext = contextManager.getCurrentContext();
+            }
 
-        if (!Lang.isUndefined(this.parentContext)) {
-            this.parentContext.addChild(this);
-        }
-        
+            if (!Lang.isUndefined(this.parentContext)) {
+                this.parentContext.addChild(this);
+            }
+        }        
         // defaulting
         const metadataVOA = this.metadata["valueObjectAttributes"];
         metadataVOA.forEach((attrib) => {
