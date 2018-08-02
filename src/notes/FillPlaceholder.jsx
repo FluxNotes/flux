@@ -46,12 +46,11 @@ export default class FillPlaceholder extends Component {
         return <div>Unknown component type: {attributeSpec.type}</div>;
     };
 
-    createCurrentFieldRowInSummary = (currentField) => {
+    createCurrentFieldRowInSummary = (attribute) => {
         let currentFieldRowInSummary = "";
-        const attribute = this.props.placeholder.metadata.formSpec.attributes[currentField];
         const value = this.props.placeholder.getAttributeValue(attribute.name);
         currentFieldRowInSummary = (
-            <Grid container key={currentField}>
+            <Grid container key={attribute.name}>
                 <Grid item xs={1}></Grid>
                 <Grid item xs={2} style={{display: 'flex', alignItems: 'center' }}><span>{attribute.title}</span></Grid>
                 <Grid item xs={9}><span>{this.createFillFieldForPlaceholder(attribute, value)}</span></Grid>
@@ -61,12 +60,9 @@ export default class FillPlaceholder extends Component {
     }
 
     createAllRows = () => {
-        const attributes = this.props.placeholder.metadata.formSpec.attributes;
-        let rows = [];
-        for (let i = 0; i < attributes.length; i++) {
-            rows.push(this.createCurrentFieldRowInSummary(i));
-        }
-        return rows;
+        return this.props.placeholder.metadata.formSpec.attributes.map(attr => {
+            return this.createCurrentFieldRowInSummary(attr);
+        });
     }
 
     render() {
@@ -88,7 +84,8 @@ export default class FillPlaceholder extends Component {
         });
         let currentFieldRowInSummary = "";
         if (!this.state.expanded) {
-            currentFieldRowInSummary = this.createCurrentFieldRowInSummary(this.state.currentField);
+            const attribute = this.props.placeholder.metadata.formSpec.attributes[this.state.currentField];
+            currentFieldRowInSummary = this.createCurrentFieldRowInSummary(attribute);
         }
         return (
             <ExpansionPanel expanded={this.state.expanded}>
