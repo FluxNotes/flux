@@ -3,6 +3,10 @@ import '../styles/LandingPage.css';
 import 'fhirclient';
 import launchContext from '../dataaccess/SmartOnFhirLaunchContext.json';
 
+/*
+    Component page to launch authorization of EHR user that redirects to the /smart endpoint.
+*/
+
 export default class LandingPage extends Component {
 
     componentWillMount() {

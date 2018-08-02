@@ -2,6 +2,12 @@ import React from 'react';
 import { FullApp } from "./FullApp";
 import 'fhirclient';
 
+/*
+    App container to display theoretical SMART patient. 
+    Upon successful authorization of EHR user, app will handle reading of patient and loads either Hernandez or Ella according to the usermap.
+    If user authorization fails or if selected patient is not in the usermap, app will load a fail screen. 
+*/
+
 const usermap = {
     // Ms. Buena Abbott maps to Deborah Hernandez
     "099e7de7-c952-40e2-9b4e-0face78c9d80": "788dcbc3-ed18-470c-89ef-35ff91854c7d", 
@@ -22,20 +28,28 @@ class SmartApp extends FullApp {
                 }
             })
             smart.patient.read().then((patient) => {
-                let patientId = usermap[patient.id];
-                this.loadPatient(patientId);
-                this.setState({loadingReady: true})
+                if (usermap[patient.id]) {
+                    let patientId = usermap[patient.id];
+                    this.loadPatient(patientId);
+                    this.setState({loadingReady: true});
+                }
+                else {
+                    this.setState({authorizationFail: true});
+                }
+                
             })
-        }); 
+        
+        },
+        (error) => {
+            this.setState({authorizationFail: true})
+        });
     }
 
     render() {
-        if (this.state.loadingReady) {
-            return (<div>{super.render()}</div>)
+        if (this.state.authorizationFail) {
+            return (<div> Authorization Failed </div>)
         }
-        else {
-            return (<div>Loading...</div>)
-        }
+        return (this.state.loadingReady) ? (<div>{super.render()}</div>) : (<div>Loading...</div>)
     }
 
 }
