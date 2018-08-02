@@ -5,6 +5,7 @@ import Checkbox from 'material-ui/Checkbox';
 import ExpansionPanel, { ExpansionPanelSummary, ExpansionPanelDetails } from 'material-ui/ExpansionPanel';
 import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
 import ButtonSetFillFieldForPlaceholder from './fillFieldComponents/ButtonSetFillFieldForPlaceholder';
+import MultiButtonSetFillFieldForPlaceholder from './fillFieldComponents/MultiButtonSetFillFieldForPlaceholder';
 import Lang from 'lodash';
 
 import './FillPlaceholder.css';
@@ -35,17 +36,28 @@ export default class FillPlaceholder extends Component {
     };
 
     onSetValue = (attributeSpec, newValue) => {
-        const error = this.props.placeholder.setAttributeValue(attributeSpec.name, newValue);
-        if (Lang.isNull(error)) {
-            this.forceUpdate();
+        const attributes = this.props.placeholder.getAttributeValue(attributeSpec.name);
+        let error;
+        if(Lang.isArray(attributes) && Lang.includes(attributes, newValue)) {
+            Lang.remove(attributes, (attr) => {
+                return attr === newValue;
+            });
+            error = this.props.placeholder.setAttributeValue(attributeSpec.name, attributes);
+        } else {
+            error = this.props.placeholder.setAttributeValue(attributeSpec.name, newValue);
+        }
+
+        if (!Lang.isNull(error) && attributeSpec.type === 'radioButtons') {
             this.setState({ currentField: this.state.currentField + 1});
         }
         this.setState({ error });
-    }
+    };
 
     createFillFieldForPlaceholder = (attributeSpec, value) => {
         if (attributeSpec.type === 'radioButtons') {
             return <ButtonSetFillFieldForPlaceholder attributeSpec={attributeSpec} value={value} updateValue={this.onSetValue.bind(this, attributeSpec)} />
+        } else if (attributeSpec.type === 'checkboxes') {
+            return <MultiButtonSetFillFieldForPlaceholder attributeSpec={attributeSpec} value={value} updateValue={this.onSetValue.bind(this, attributeSpec)} />
         }
         return <div>Unknown component type: {attributeSpec.type}</div>;
     };
@@ -83,7 +95,7 @@ export default class FillPlaceholder extends Component {
             if (Lang.isNull(value) || Lang.isUndefined(value) || value === '' || (Lang.isArray(value) && value.length === 0)) {
                 columns.push(<span onClick={this.onClickOnField.bind(this, index)} className="missing-data" key={`${index}-value`}>No Data</span>);
             } else {
-                columns.push(<span onClick={this.onClickOnField.bind(this, index)} className="structured-data" key={`${index}-value`}>{value}</span>);
+                columns.push(<span onClick={this.onClickOnField.bind(this, index)} className="structured-data" key={`${index}-value`}>{Lang.isArray(value) ? value.join(', ') : value}</span>);
             }
         });
         let currentFieldRowInSummary = "";
