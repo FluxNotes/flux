@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import '../styles/LandingPage.css';
 import 'fhirclient';
+import launchContext from '../dataaccess/SmartOnFhirLaunchContext.json';
 
 export default class LandingPage extends Component {
 
     componentWillMount() {
-        window.FHIR.oauth2.authorize({
-            "client_id": '6c12dff4-24e7-4475-a742-b08972c4ea27',
-            "scope":  "patient/*.read user/*.* openid profile", 
-            "redirect_uri": "http://localhost:3000/smart"
-        }); 
+        window.FHIR.oauth2.authorize(launchContext);
     }
 
     render() {
