@@ -1661,14 +1661,17 @@ export default class SummaryMetadata {
             const ept = med.expectedPerformanceTime;
             if (Lang.isNull(ept)) return;
             const startTime = new moment(med.expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
-            const endTime = new moment(med.expectedPerformanceTime.timePeriodEnd, "D MMM YYYY");
+            let endTime = new moment(med.expectedPerformanceTime.timePeriodEnd, "D MMM YYYY");
+            if (!endTime.isValid()) {
+                endTime = new moment();
+            }
             const assignedGroup = this.assignItemToGroup(items, 1, startTime, endTime);
             const name = med.medication;
             let dosage;
             if (!med.amountPerDose) {
                 dosage = "not specified";
             } else {
-                dosage = med.amountPerDose.value + " " + med.amountPerDose.units + " " + med.timingOfDoses.value + " " + med.timingOfDoses.units;
+                dosage = med.amountPerDose.value + " " + med.amountPerDose.units + " " + med.timingOfDoses.value + " " + (med.timingOfDoses.units ? med.timingOfDoses.units : "");
             }
 
             items.push({
