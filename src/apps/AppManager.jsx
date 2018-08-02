@@ -122,7 +122,7 @@ export default class AppManager {
             {
                 path: '/pilot1',
                 display: 'Flux Notes™',
-                app: SmartApp,
+                app: FullApp,
                 isExact: true,
                 dataSource: 'HardCodedReadOnlyDataSource',
                 patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7f',
