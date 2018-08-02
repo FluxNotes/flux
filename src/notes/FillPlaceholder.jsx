@@ -45,10 +45,12 @@ export default class FillPlaceholder extends Component {
             error = this.props.placeholder.setAttributeValue(attributeSpec.name, attributes);
         } else {
             error = this.props.placeholder.setAttributeValue(attributeSpec.name, newValue);
-        }
 
-        if (!Lang.isNull(error) && attributeSpec.type === 'radioButtons') {
-            this.setState({ currentField: this.state.currentField + 1});
+            // We only want to increment the field if we are working on a non-expanded and non-multiselect attribute
+            // This might only be a temporary workaround, we have to see how it goes as the other fields get implemented
+            if (Lang.isNull(error) && !(this.state.expanded || Lang.isArray(attributes))) {
+                this.setState({ currentField: this.state.currentField + 1});
+            }
         }
         this.setState({ error });
     };
