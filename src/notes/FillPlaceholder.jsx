@@ -36,7 +36,14 @@ export default class FillPlaceholder extends Component {
     };
 
     nextField = () => {
-        this.setState({ currentField: this.state.currentField + 1});
+
+        if (this.state.currentField + 1 === this.props.placeholder.metadata.formSpec.attributes.length) {
+            // User has entered final attribute, so mark row as done
+            this.setState({ done: true });
+            this.props.placeholder.done = true;
+        } else {
+            this.setState({ currentField: this.state.currentField + 1});
+        }
     };
 
     onSetValue = (attributeSpec, newValue) => {
@@ -71,13 +78,15 @@ export default class FillPlaceholder extends Component {
     createCurrentFieldRowInSummary = (attribute) => {
         let currentFieldRowInSummary = "";
         const value = this.props.placeholder.getAttributeValue(attribute.name);
-        currentFieldRowInSummary = (
-            <Grid container key={attribute.name}>
-                <Grid item xs={1}></Grid>
-                <Grid item xs={2} style={{display: 'flex', alignItems: 'center' }}><span>{attribute.title}</span></Grid>
-                <Grid item xs={9}><span>{this.createFillFieldForPlaceholder(attribute, value)}</span></Grid>
-            </Grid>
-        );
+        if (this.state.expanded || !this.state.done) {
+            currentFieldRowInSummary = (
+                <Grid container key={attribute.name}>
+                    <Grid item xs={1}></Grid>
+                    <Grid item xs={2} style={{display: 'flex', alignItems: 'center' }}><span>{attribute.title}</span></Grid>
+                    <Grid item xs={9}><span>{this.createFillFieldForPlaceholder(attribute, value)}</span></Grid>
+                </Grid>
+            );
+        }
         return currentFieldRowInSummary;
     }
 
