@@ -5,7 +5,12 @@ import SingleChoiceButton from '../../forms/SingleChoiceButton';
 class ButtonSetFillFieldForPlaceholder extends Component {
     constructor(props) {
         super(props);
-        this._options = ValueSetManager.getValueList(this.props.attributeSpec.values.category, this.props.attributeSpec.values.valueSet);
+        const { category, valueSet, args } = this.props.attributeSpec.values;
+        if (args && args.length > 0) {
+            this._options = ValueSetManager.getValueList(category, valueSet, ...args);
+        } else {
+            this._options = ValueSetManager.getValueList(category, valueSet);
+        }
     }
 
     handleOptionSelection = (e, i) => {
