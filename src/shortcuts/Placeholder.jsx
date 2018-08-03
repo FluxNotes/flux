@@ -1,11 +1,12 @@
 class Placeholder {
-    constructor(placeholderText, shortcutName, metadata, shortcutManager, contextManager, patient) {
+    constructor(placeholderText, shortcutName, metadata, shortcutManager, contextManager, patient, clinicalNote) {
         this._placeholderText = placeholderText;
         this._shortcutName = shortcutName;
         this._metadata = metadata;
         this._shortcutManager = shortcutManager;
         this._contextManager = contextManager;
         this._patient = patient;
+        this._clinicalNote = clinicalNote;
         this._entryShortcut = shortcutManager.createShortcut(null, shortcutName, patient, undefined, this.onUpdate.bind(this));
         this._entryShortcut.initialize(); // cause defaulting
         this._numUpdates = 0;
@@ -19,10 +20,9 @@ class Placeholder {
     }
 
     onUpdate = (shortcut) => {
-        //TODO: let note = this.state.openClinicalNote;
         if (this._entryShortcut.hasParentContext()) {
             this._numUpdates++;
-            shortcut.updatePatient(this._patient, this._contextManager, null); // last null argument should be note
+            shortcut.updatePatient(this._patient, this._contextManager, this._clinicalNote);
         }
     }
 

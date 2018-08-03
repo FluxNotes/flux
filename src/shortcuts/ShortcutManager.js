@@ -132,9 +132,9 @@ class ShortcutManager {
         return this.shortcutMap[trigger.toLowerCase()];
     }
 
-    createPlaceholder(shortcutName, placeholderText, contextManager, patient) {
+    createPlaceholder(shortcutName, placeholderText, contextManager, patient, clinicalNote) {
         const metadata = this.shortcutMap[shortcutName.toLowerCase()];
-        return new Placeholder(placeholderText, shortcutName, metadata, this, contextManager, patient);
+        return new Placeholder(placeholderText, shortcutName, metadata, this, contextManager, patient, clinicalNote);
     }
 
     createShortcut(definition, triggerOrKeyword, patient, shortcutData, onUpdate) {

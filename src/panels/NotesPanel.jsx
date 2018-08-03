@@ -176,7 +176,7 @@ export default class NotesPanel extends Component {
         const date = new moment().format("D MMM YYYY");
         const hospital = "Dana Farber";
         const clinician = this.props.loginUser;
-        const subject = `${clinician}-${new moment().format("YYYYDDMM-HHmm")}`;
+        const subject = `${clinician}-${new moment().format("YYYYDDMM-hhmm")}`;
         const content = "";
         const signed = false;
 
