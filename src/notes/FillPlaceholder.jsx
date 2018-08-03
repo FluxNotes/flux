@@ -67,8 +67,7 @@ export default class FillPlaceholder extends Component {
     };
 
     handleCalendarSelect = (attributeSpec, date) => {
-        const dateSelected = date.format("MM/DD/YYYY");
-        console.log(dateSelected);
+        const dateSelected = date.format("D MMM YYYY");
         this.onSetValue(attributeSpec, dateSelected);
     }
 
@@ -79,9 +78,9 @@ export default class FillPlaceholder extends Component {
             return <MultiButtonSetFillFieldForPlaceholder attributeSpec={attributeSpec} value={value} updateValue={this.onSetValue.bind(this, attributeSpec)} nextField={this.state.expanded ? null : this.nextField} />;
         }
         if (attributeSpec.type === 'date') {
-            return <DatePicker id="reference-date"
+            return <DatePicker id={`${attributeSpec.name}-date`}
                                 handleDateChange={this.handleCalendarSelect.bind(this, attributeSpec)}
-                                // dateToSet={clinicallyRelevantTime}
+                                dateToSet={this.props.placeholder.getAttributeValue(attributeSpec.name)}
                     />
         }
         return <div>Unknown component type: {attributeSpec.type}</div>;
