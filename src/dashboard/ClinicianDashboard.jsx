@@ -217,7 +217,6 @@ ClinicianDashboard.proptypes = {
     contextManager: PropTypes.object.isRequired,
     dataAccess: PropTypes.object.isRequired,
     forceRefresh: PropTypes.bool,
-    handleShortcutUpdate: PropTypes.func.isRequired,
     handleSummaryItemSelected: PropTypes.func.isRequired,
     itemInserted: PropTypes.func.isRequired,
     loginUser: PropTypes.string.isRequired,
