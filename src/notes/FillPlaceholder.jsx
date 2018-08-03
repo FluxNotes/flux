@@ -167,16 +167,12 @@ export default class FillPlaceholder extends Component {
     isValidAttribute = (value) => {
         return !(Lang.isNull(value) || Lang.isUndefined(value) || value === '' || (Lang.isArray(value) && value.length === 0));
     }
+    
+    renderSingleEntryPlaceholder = () => {
+        const { placeholder } = this.props;
 
-    render() {
-        /*
-        "formSpec": {   "title": "Disease Status",
-                    "attributes": [ {   "title":"Status", "type":"radioButtons", "values": {"category":"progression", "valueSet":"status"} },
-                                    {   "title":"Rationale for status", "type":"checkboxes", "values": {"category":"progression", "valueSet":"reason"}}
-                                  ]
-                },*/
-        let columns = [ ];
-        this.props.placeholder.metadata.formSpec.attributes.forEach((attribute, index) => {
+        let columns = [];
+        placeholder.metadata.formSpec.attributes.forEach((attribute, index) => {
             const value = this.props.placeholder.getAttributeValue(attribute.name);
             columns.push(<span className="shortcut-field-title" key={`${index}-label`}>{`${attribute.title}: `}</span>);
             if (!this.isValidAttribute(value)) {
@@ -194,21 +190,37 @@ export default class FillPlaceholder extends Component {
         if (!Lang.isNull(this.state.error)) {
             errorString = <span className="error-message">{this.state.error}</span>
         }
+
+        return (
+            <Grid container>
+                <Grid item xs={3}>
+                    <span className="done-checkbox"><Checkbox style={{ width: 26, height: 26 }} checked={this.state.done} value="done" onChange={this.onDone} color="primary" /></span>
+                    <span className="shortcut-name" key="0">{this.props.placeholder.shortcutName}</span>
+                </Grid>
+                <Grid item xs={9}>
+                    {columns}
+                </Grid>
+                {errorString}
+                {currentFieldRowInSummary}
+            </Grid>
+        );
+    }
+
+    render() {
+        /*
+        "formSpec": {   "title": "Disease Status",
+                    "attributes": [ {   "title":"Status", "type":"radioButtons", "values": {"category":"progression", "valueSet":"status"} },
+                                    {   "title":"Rationale for status", "type":"checkboxes", "values": {"category":"progression", "valueSet":"reason"}}
+                                  ]
+                },*/
+        const { placeholder } = this.props;
+        const placeholderContainer = !placeholder.multiplicity ? this.renderSingleEntryPlaceholder() : null;
+
         return (
             <ExpansionPanel expanded={this.state.expanded} className='expanded-style'>
                 <ExpansionPanelSummary style={{ backgroundColor: this.props.backgroundColor, cursor: 'default' }} expandIcon={<ExpandMoreIcon onClick={this.onExpand}/>}>
-                    <Grid container>
-                        <Grid item xs={3}>
-                            <span className="done-checkbox"><Checkbox style={{ width: 26, height: 26 }} checked={this.state.done} value="done" onChange={this.onDone} color="primary" /></span>
-                            <span className="shortcut-name" key="0">{this.props.placeholder.shortcutName}</span>
-                        </Grid>
-                        <Grid item xs={9}> 
-                            {columns}
-                        </Grid>
-                        {errorString}
-                        {!this.state.expanded ? currentFieldRowInSummary : null}
-                    </Grid>
-                </ExpansionPanelSummary>
+                    {placeholderContainer}
+            </ExpansionPanelSummary>
                 <ExpansionPanelDetails style={{ backgroundColor: this.props.backgroundColor }}>
                     <Grid container>
                         {this.state.expanded ? this.createAllRows() : null}

@@ -8,9 +8,9 @@ class Placeholder {
         this._patient = patient;
         this._clinicalNote = clinicalNote;
         this._setForceRefresh = setForceRefresh;
-        this._entryShortcut = shortcutManager.createShortcut(null, shortcutName, patient, data, this.onUpdate.bind(this));
-        if(!data) {
-            this._entryShortcut.initialize(); // cause defaulting
+        this._entryShortcuts = [shortcutManager.createShortcut(null, shortcutName, patient, data, this.onUpdate.bind(this))];
+        if (!data) {
+            this._entryShortcuts[0].initialize();
             this._numUpdates = 0;
         } else {
             this._numUpdates = 1;
@@ -51,10 +51,11 @@ class Placeholder {
         this._done = d;
     }
 
-    getAttributeValue(name) {
-        return this._entryShortcut.getAttributeValue(name);
+    get entryShortcuts() {
+        return this._entryShortcuts;
     }
 
+<<<<<<< HEAD
     getResultText() {
         if (!this._entryShortcut.getEntryId()) return this._placeholderText;
         return `${this._placeholderText}[[{"entryId":${this._entryShortcut.getEntryId()}}]]`;
@@ -63,19 +64,32 @@ class Placeholder {
     setAttributeValue(name, value) {
         if (!this._entryShortcut.hasParentContext()) {
             this._entryShortcut.establishParentContext(this._contextManager);
+=======
+    get multiplicity() {
+        return this._metadata.formSpec.multiplicity;
+    }
+
+    getAttributeValue(name, index = 0) {
+        return this._entryShortcuts[index].getAttributeValue(name);
+    }
+
+    setAttributeValue(name, value, index = 0) {
+        if (!this._entryShortcuts[index].hasParentContext()) {
+            this._entryShortcuts[index].establishParentContext(this._contextManager);
+>>>>>>> Placeholder can now handle multiple entry shortcuts.
         }
         
-        if (!this._entryShortcut.hasParentContext()) {
+        if (!this._entryShortcuts[index].hasParentContext()) {
             return "no parent context so no setting values";
         } else {
-            this._entryShortcut.setAttributeValue(name, value);
+            this._entryShortcuts[index].setAttributeValue(name, value);
             this._setForceRefresh();
             return null;
         }
     }
 
-    getTextToDisplayInNote() {
-        if (this._numUpdates > 0 && this._entryShortcut.hasData()) return this._entryShortcut.getAsString();
+    getTextToDisplayInNote(index = 0) {
+        if (this._numUpdates > 0 && this._entryShortcuts[index].hasData()) return this._entryShortcuts[index].getAsString();
         return this._placeholderText;
     }
 
@@ -83,9 +97,9 @@ class Placeholder {
         return this.key;
     }
 
-    setKey(key) {
+    setKey(key, index = 0) {
         this.key = key;
-        this._entryShortcut.setKey(key);
+        this._entryShortcuts[index].setKey(key);
     }
 
 }
