@@ -1,11 +1,29 @@
 class Placeholder {
-    constructor(placeholderText, shortcutName, metadata, shortcutManager) {
+    constructor(placeholderText, shortcutName, metadata, shortcutManager, contextManager, patient) {
         this._placeholderText = placeholderText;
         this._shortcutName = shortcutName;
         this._metadata = metadata;
         this._shortcutManager = shortcutManager;
-        this._entryShortcut = shortcutManager.createShortcut(null, shortcutName);
+        this._contextManager = contextManager;
+        this._patient = patient;
+        this._entryShortcut = shortcutManager.createShortcut(null, shortcutName, patient, undefined, this.onUpdate.bind(this));
         this._entryShortcut.initialize(); // cause defaulting
+        this._numUpdates = 0;
+    }
+
+    onBeforeDeleted() {
+        if (this._entryShortcut) {
+            this._entryShortcut.onBeforeDeleted();
+        }
+        return true;
+    }
+
+    onUpdate = (shortcut) => {
+        //TODO: let note = this.state.openClinicalNote;
+        if (this._entryShortcut.hasParentContext()) {
+            this._numUpdates++;
+            shortcut.updatePatient(this._patient, this._contextManager, null); // last null argument should be note
+        }
     }
 
     get placeholderText() {
@@ -33,11 +51,20 @@ class Placeholder {
     }
 
     setAttributeValue(name, value) {
-        this._entryShortcut.setAttributeValue(name, value);
+        if (!this._entryShortcut.hasParentContext()) {
+            this._entryShortcut.establishParentContext(this._contextManager);
+        }
+        
+        if (!this._entryShortcut.hasParentContext()) {
+            return "no parent context so no setting values";
+        } else {
+            this._entryShortcut.setAttributeValue(name, value);
+            return null;
+        }
     }
 
     getTextToDisplayInNote() {
-        if (this._entryShortcut.hasData()) return this._entryShortcut.getAsString();
+        if (this._numUpdates > 0 && this._entryShortcut.hasData()) return this._entryShortcut.getAsString();
         return this._placeholderText;
     }
 }

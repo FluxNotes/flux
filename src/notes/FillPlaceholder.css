@@ -8,6 +8,10 @@
     vertical-align: top;
 }
 
+.error-message {
+    color: #FF0000;
+}
+
 .shortcut-field-title {
     margin-inline-end: 5px;
 }

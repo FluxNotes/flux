@@ -54,17 +54,7 @@ export default class CreatorBase extends EntryShortcut {
         super.initialize(contextManager, trigger, updatePatient);
 
         if (contextManager) {
-            const knownParent = this.metadata["knownParentContexts"];
-
-            if (knownParent) {
-                this.parentContext = contextManager.getActiveContextOfType(knownParent);
-            } else   {
-                this.parentContext = contextManager.getCurrentContext();
-            }
-    
-            if (!Lang.isUndefined(this.parentContext)) {
-                this.parentContext.addChild(this);
-            }
+            this.establishParentContext(contextManager);
         }        
         // defaulting
         const metadataVOA = this.metadata["valueObjectAttributes"];
@@ -73,6 +63,24 @@ export default class CreatorBase extends EntryShortcut {
                 this.setAttributeValue(attrib.name, null, true, updatePatient);
             }
         });
+    }
+
+    hasParentContext() {
+        return !Lang.isUndefined(this.parentContext) && !Lang.isNull(this.parentContext);
+    }
+
+    establishParentContext(contextManager) {
+        const knownParent = this.metadata["knownParentContexts"];
+
+        if (knownParent) {
+            this.parentContext = contextManager.getActiveContextOfType(knownParent);
+        } else   {
+            this.parentContext = contextManager.getCurrentContext();
+        }
+
+        if (!Lang.isUndefined(this.parentContext)) {
+            this.parentContext.addChild(this);
+        }
     }
 
     isContext() {

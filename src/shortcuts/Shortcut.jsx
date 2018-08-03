@@ -98,7 +98,7 @@ class Shortcut extends Context {
         if (this.isContext() && this.hasChildren()) {
             return false;
         }
-        if (this.isContext()) {
+        if (this.isContext() && this.contextManager) {
             this.contextManager.removeShortcutFromContext(this);
         }
         return true;

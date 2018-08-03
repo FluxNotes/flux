@@ -319,7 +319,7 @@ class FluxNotesEditor extends React.Component {
 
     newPlaceholder = (placeholderText) => {
         const shortcutName = "#" + placeholderText.substring(1, placeholderText.length-1); // strip off < and > and add #
-        return this.props.shortcutManager.createPlaceholder(shortcutName, placeholderText);
+        return this.props.shortcutManager.createPlaceholder(shortcutName, placeholderText, this.contextManager, this.props.patient);
     }
 
     choseSuggestedPlaceholder(suggestion) {

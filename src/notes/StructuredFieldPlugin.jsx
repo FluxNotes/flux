@@ -1,3 +1,4 @@
+import Placeholder from '../shortcuts/Placeholder';
 import React from 'react';
 import Slate from '../lib/slate';
 import Lang from 'lodash';
@@ -38,6 +39,9 @@ function StructuredFieldPlugin(opts) {
         deletedKeys.forEach((key) => {
             shortcut = keyToShortcutMap.get(key);
             if (shortcut.onBeforeDeleted()) {
+                if (shortcut instanceof Placeholder) {
+                    opts.structuredFieldMapManager.removePlaceholder(shortcut);
+                }
                 keyToShortcutMap.delete(key);
                 idToShortcutMap.delete(shortcut.metadata.id)
                 contextManager.contextUpdated();
@@ -360,7 +364,7 @@ function insertPlaceholder(opts, transform, placeholder) {
     if (!state.selection.startKey) return false;
 
     // Create the placeholder node
-    const sf = createPlaceholder(opts, placeholder);
+    const sf = createPlaceholderStructuredField(opts, placeholder);
 
     if (sf.kind === 'block') {
         return [transform.insertBlock(sf)];
@@ -369,7 +373,7 @@ function insertPlaceholder(opts, transform, placeholder) {
     }
 }
 
-function createPlaceholder(opts, placeholder) {
+function createPlaceholderStructuredField(opts, placeholder) {
     const nodes = [];
     const properties = {
         type: opts.typePlaceholder,
@@ -380,7 +384,7 @@ function createPlaceholder(opts, placeholder) {
         }
     };
     const sf = Slate.Inline.create(properties);
-    opts.structuredFieldMapManager.keyToPlaceholderMap.set(sf.key, placeholder);
+    opts.structuredFieldMapManager.keyToShortcutMap.set(sf.key, placeholder);
     opts.structuredFieldMapManager.idToShortcutMap.set(placeholder.metadata.id, placeholder);
     opts.structuredFieldMapManager.addPlaceholder(placeholder);
     return sf;

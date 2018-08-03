@@ -18,6 +18,7 @@ export default class FillPlaceholder extends Component {
             done: false,
             expanded: false,
             currentField: 0,
+            error:null,
         }
     }
     onDone = (event) => {
@@ -34,9 +35,12 @@ export default class FillPlaceholder extends Component {
     };
 
     onSetValue = (attributeSpec, newValue) => {
-        this.props.placeholder.setAttributeValue(attributeSpec.name, newValue);
-        this.forceUpdate();
-        this.setState({ currentField: this.state.currentField + 1});
+        const error = this.props.placeholder.setAttributeValue(attributeSpec.name, newValue);
+        if (Lang.isNull(error)) {
+            this.forceUpdate();
+            this.setState({ currentField: this.state.currentField + 1});
+        }
+        this.setState({ error });
     }
 
     createFillFieldForPlaceholder = (attributeSpec, value) => {
@@ -87,6 +91,10 @@ export default class FillPlaceholder extends Component {
             const attribute = this.props.placeholder.metadata.formSpec.attributes[this.state.currentField];
             currentFieldRowInSummary = this.createCurrentFieldRowInSummary(attribute);
         }
+        let errorString = "";
+        if (!Lang.isNull(this.state.error)) {
+            errorString = <span className="error-message">{this.state.error}</span>
+        }
         return (
             <ExpansionPanel expanded={this.state.expanded}>
                 <ExpansionPanelSummary style={{ backgroundColor: this.props.backgroundColor }} expandIcon={<ExpandMoreIcon onClick={this.onExpand}/>}>
@@ -98,6 +106,7 @@ export default class FillPlaceholder extends Component {
                         <Grid item xs={9}> 
                             {columns}
                         </Grid>
+                        {errorString}
                         {currentFieldRowInSummary}
                     </Grid>
             </ExpansionPanelSummary>

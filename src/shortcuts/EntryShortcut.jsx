@@ -20,17 +20,18 @@ export default class EntryShortcut extends Shortcut {
     hasData() {
         const voaList = this.metadata["valueObjectAttributes"];
         let value, isSettable;
+        let result = false;
         voaList.forEach((voa) => {
             value = this.getAttributeValue(voa.name);
             isSettable = Lang.isUndefined(voa.isSettable) ? false : (voa.isSettable === "true");
             if (isSettable) {
                 if (Lang.isNull(value) || Lang.isUndefined(value) || value === '' || (Lang.isArray(value) && value.length === 0)) {
                 } else {
-                    return true;
+                    result = true;
                 }                
             }
         });
-        return false;
+        return result;
     }
 
     getAsString() {
