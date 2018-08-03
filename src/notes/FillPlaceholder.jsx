@@ -19,9 +19,10 @@ export default class FillPlaceholder extends Component {
             done: false,
             expanded: false,
             currentField: 0,
-            error:null,
-        }
+            error: null,
+        };
     }
+
     onDone = (event) => {
         this.setState({ done: event.target.checked });
         this.props.placeholder.done = event.target.checked;
@@ -36,7 +37,6 @@ export default class FillPlaceholder extends Component {
     };
 
     nextField = () => {
-
         if (this.state.currentField + 1 === this.props.placeholder.metadata.formSpec.attributes.length) {
             // User has entered final attribute, so mark row as done
             this.setState({ done: true });
@@ -49,7 +49,7 @@ export default class FillPlaceholder extends Component {
     onSetValue = (attributeSpec, newValue) => {
         const attributes = this.props.placeholder.getAttributeValue(attributeSpec.name);
         let error;
-        if(Lang.isArray(attributes) && Lang.includes(attributes, newValue)) {
+        if (Lang.isArray(attributes) && Lang.includes(attributes, newValue)) {
             Lang.remove(attributes, (attr) => {
                 return attr === newValue;
             });
@@ -68,9 +68,9 @@ export default class FillPlaceholder extends Component {
 
     createFillFieldForPlaceholder = (attributeSpec, value) => {
         if (attributeSpec.type === 'radioButtons') {
-            return <ButtonSetFillFieldForPlaceholder attributeSpec={attributeSpec} value={value} updateValue={this.onSetValue.bind(this, attributeSpec)} />
+            return <ButtonSetFillFieldForPlaceholder attributeSpec={attributeSpec} value={value} updateValue={this.onSetValue.bind(this, attributeSpec)} />;
         } else if (attributeSpec.type === 'checkboxes') {
-            return <MultiButtonSetFillFieldForPlaceholder attributeSpec={attributeSpec} value={value} updateValue={this.onSetValue.bind(this, attributeSpec)} nextField={this.state.expanded ? null : this.nextField} />
+            return <MultiButtonSetFillFieldForPlaceholder attributeSpec={attributeSpec} value={value} updateValue={this.onSetValue.bind(this, attributeSpec)} nextField={this.state.expanded ? null : this.nextField} />;
         }
         return <div>Unknown component type: {attributeSpec.type}</div>;
     };
@@ -88,13 +88,13 @@ export default class FillPlaceholder extends Component {
             );
         }
         return currentFieldRowInSummary;
-    }
+    };
 
     createAllRows = () => {
         return this.props.placeholder.metadata.formSpec.attributes.map(attr => {
             return this.createCurrentFieldRowInSummary(attr);
         });
-    }
+    };
 
     render() {
         /*

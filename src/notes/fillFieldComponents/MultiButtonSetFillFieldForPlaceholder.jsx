@@ -14,7 +14,7 @@ class MultiButtonSetFillFieldForPlaceholder extends Component {
         e.preventDefault();
         const newValue = this._options[i].name;
         this.props.updateValue(newValue);
-    }
+    };
 
     renderButtonGroup = (option, i) => {
         const marginSize = "2px";
@@ -34,12 +34,12 @@ class MultiButtonSetFillFieldForPlaceholder extends Component {
                 />
             </div>
         );
-    }
+    };
 
     render() {
         let nextButton = "";
         if (this.props.nextField) {
-            nextButton = <ChevronRightIcon onClick={this.props.nextField} />
+            nextButton = <ChevronRightIcon onClick={this.props.nextField} />;
         }
         return (
             <div>
