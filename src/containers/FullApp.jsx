@@ -44,16 +44,9 @@ export class FullApp extends Component {
             this.dataAccess = new DataAccess(this.props.dataSource);
         }
 
-        let patientId = DataAccess.DEMO_PATIENT_ID;
-        if (props.patientId) {
-            patientId = props.patientId;
-        }
-
-        let patient = this.dataAccess.getPatient(patientId);
         this.summaryMetadata = new SummaryMetadata(this.setForceRefresh);
         this.dashboardManager = new DashboardManager();
         this.shortcutManager = new ShortcutManager(this.props.shortcuts);
-        this.contextManager = new ContextManager(patient, this.onContextUpdate);
         this.securityManager = new SecurityManager();
         this.structuredFieldMapManager = new StructuredFieldMapManager();
 
@@ -68,7 +61,7 @@ export class FullApp extends Component {
             loginUser: "",
             noteClosed: false,
             openClinicalNote: null,
-            patient: patient,
+            patient: null,
             searchSelectedItem: null,
             snackbarOpen: false,
             snackbarMessage: "",
@@ -124,10 +117,15 @@ export class FullApp extends Component {
         ]
     }
 
-    // On component mount, grab the username of the logged in user
-    componentDidMount() {
-        const userProfile = this.securityManager.getUserProfile();
+    loadPatient(patientId) {
+        let patient = this.dataAccess.getPatient(patientId);
+        this.contextManager = new ContextManager(patient, this.onContextUpdate);
+        this.setState({patient: patient})
+    }
 
+    componentWillMount() {
+        this.loadPatient(this.props.patientId);
+        const userProfile = this.securityManager.getDefaultUser();
         if (userProfile) {
             this.setState({loginUser: userProfile.getUserName()});
         } else {

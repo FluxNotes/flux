@@ -1,13 +1,22 @@
 import FullApp from '../containers/FullApp';
 import SlimApp from '../containers/SlimApp';
+import SmartApp from '../containers/SmartApp';
+import LaunchPage from '../components/LaunchPage';
 import LandingPage from '../components/LandingPage';
 
 export default class AppManager {
-    constructor() {
+    constructor() {  
+
         this.apps = [{
                 path: '/',
                 display: 'Flux Notes™',
                 app: LandingPage,
+                isExact: true
+            },
+            {
+                path: '/launch',
+                display: 'Flux',
+                app: LaunchPage,
                 isExact: true
             },
             {
@@ -89,6 +98,7 @@ export default class AppManager {
                 app: FullApp,
                 isExact: true,
                 dataSource: 'HardCodedReadOnlyDataSource',
+                patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7d',
                 shortcuts: []
             },
             {
@@ -117,7 +127,15 @@ export default class AppManager {
                 dataSource: 'HardCodedReadOnlyDataSource',
                 patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7f',
                 shortcuts: []
-            },            
+            },     
+            {
+                path: '/smart',
+                display: 'Flux Notes™',
+                app: SmartApp,
+                isExact: true,
+                dataSource: 'HardCodedReadOnlyDataSource',
+                shortcuts: []
+            },         
             {
                 path: '/p2',
                 display: 'Flux Notes™',
