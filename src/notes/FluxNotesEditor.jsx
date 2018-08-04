@@ -319,7 +319,7 @@ class FluxNotesEditor extends React.Component {
 
     newPlaceholder = (placeholderText) => {
         const shortcutName = "#" + placeholderText.substring(1, placeholderText.length-1); // strip off < and > and add #
-        return this.props.shortcutManager.createPlaceholder(shortcutName, placeholderText, this.contextManager, this.props.patient, this.props.selectedNote);
+        return this.props.shortcutManager.createPlaceholder(shortcutName, placeholderText, this.contextManager, this.props.patient, this.props.selectedNote, this.props.setForceRefresh);
     }
 
     choseSuggestedPlaceholder(suggestion) {
@@ -1453,6 +1453,7 @@ FluxNotesEditor.propTypes = {
     patient: PropTypes.object.isRequired,
     saveNote: PropTypes.func.isRequired,
     selectedNote: PropTypes.object,
+    setForceRefresh: PropTypes.func.isRequired,
     setLayout: PropTypes.func.isRequired,
     setNoteViewerEditable: PropTypes.func.isRequired,
     shortcutManager: PropTypes.object.isRequired,

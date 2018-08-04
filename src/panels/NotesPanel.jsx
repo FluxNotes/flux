@@ -363,6 +363,7 @@ export default class NotesPanel extends Component {
                     patient={this.props.patient}
                     saveNote={this.saveNote}
                     selectedNote={this.state.selectedNote}
+                    setForceRefresh={this.props.setForceRefresh}
                     setNoteViewerEditable={this.props.setNoteViewerEditable}
                     setLayout={this.props.setLayout}
                     shortcutManager={this.props.shortcutManager}
@@ -461,6 +462,7 @@ NotesPanel.propTypes = {
     searchSelectedItem: PropTypes.object,
     setNoteClosed: PropTypes.func.isRequired,
     setNoteViewerEditable: PropTypes.func.isRequired,
+    setForceRefresh: PropTypes.func.isRequired,
     setFullAppStateWithCallback: PropTypes.func.isRequired,
     setNoteViewerVisible: PropTypes.func.isRequired,
     setLayout: PropTypes.func.isRequired,

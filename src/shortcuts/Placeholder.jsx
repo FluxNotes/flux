@@ -1,5 +1,5 @@
 class Placeholder {
-    constructor(placeholderText, shortcutName, metadata, shortcutManager, contextManager, patient, clinicalNote) {
+    constructor(placeholderText, shortcutName, metadata, shortcutManager, contextManager, patient, clinicalNote, setForceRefresh) {
         this._placeholderText = placeholderText;
         this._shortcutName = shortcutName;
         this._metadata = metadata;
@@ -7,6 +7,7 @@ class Placeholder {
         this._contextManager = contextManager;
         this._patient = patient;
         this._clinicalNote = clinicalNote;
+        this._setForceRefresh = setForceRefresh;
         this._entryShortcut = shortcutManager.createShortcut(null, shortcutName, patient, undefined, this.onUpdate.bind(this));
         this._entryShortcut.initialize(); // cause defaulting
         this._numUpdates = 0;
@@ -19,8 +20,8 @@ class Placeholder {
         return true;
     }
 
-    onUpdate = (shortcut) => {
-        if (this._entryShortcut.hasParentContext()) {
+    onUpdate = (shortcut) => { // shortcut argument will be same as this._entryShortcut
+        if (shortcut.hasParentContext()) {
             this._numUpdates++;
             shortcut.updatePatient(this._patient, this._contextManager, this._clinicalNote);
         }
@@ -59,6 +60,7 @@ class Placeholder {
             return "no parent context so no setting values";
         } else {
             this._entryShortcut.setAttributeValue(name, value);
+            this._setForceRefresh();
             return null;
         }
     }
