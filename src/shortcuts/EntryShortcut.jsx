@@ -18,6 +18,8 @@ export default class EntryShortcut extends Shortcut {
     }
 
     hasParentContext() {
+        const knownParent = this.metadata["knownParentContexts"];
+        if (knownParent === 'Patient') return true;
         return !Lang.isUndefined(this.parentContext) && !Lang.isNull(this.parentContext);
     }
 

@@ -242,6 +242,11 @@
     "stringTriggers": [{ "name": "#enrollment", "description": "Support specifying the enrollment of the patient in a clinical trial."}],
     "regexpTrigger": null,
     "form": "ClinicalTrialEnrollmentForm",
+    "formSpec": {   "title": "Enrollment",
+        "attributes": [ {   "title":"Trial Title", "name":"title", "type":"radioButtons", "values": {"category":"clinicalTrial", "valueSet":"clinicalTrials"} },
+                        {   "title":"Enrolled on", "name":"date", "type":"date" }
+                      ]
+    },
     "structuredPhrase": "#enrollment in #${title}${% on #${date}}",
     "knownParentContexts": "Patient",
     "description": "Support specifying the enrollment of the patient in a clinical trial.",

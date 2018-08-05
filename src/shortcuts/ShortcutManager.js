@@ -112,7 +112,11 @@ class ShortcutManager {
 
     getAllPlaceholderShortcuts() {
         return this.shortcutDefinitions.filter((s) => {
-            return s.type === "CreatorBase" || s.type === "SingleHashtagKeyword" || s.type === "UpdaterBase";
+            if (s.type === "CreatorBase" || s.type === "SingleHashtagKeyword" || s.type === "UpdaterBase") {
+                return !Lang.isUndefined(s.formSpec);
+            } else {
+                return false;
+            }
         });
     }
     
