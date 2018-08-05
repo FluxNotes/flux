@@ -1,10 +1,10 @@
 import PatientRecord from '../patient/PatientRecord';
-import Shortcut from './Shortcut';
+import EntryShortcut from './EntryShortcut';
 import FluxObjectFactory from '../model/FluxObjectFactory';
 import Lang from 'lodash';
 import moment from 'moment';
 
-export default class SingleHashtagKeyword extends Shortcut {
+export default class SingleHashtagKeyword extends EntryShortcut {
     constructor(onUpdate, metadata, patient, shortcutData) {
         super();
         this.metadata = metadata;
