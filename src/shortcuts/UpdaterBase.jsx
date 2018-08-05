@@ -1,10 +1,10 @@
 import FluxObjectFactory from '../model/FluxObjectFactory';
 import PatientRecord from '../patient/PatientRecord';
-import Shortcut from './Shortcut';
+import EntryShortcut from './EntryShortcut';
 import Lang from 'lodash';
 import moment from 'moment';
 
-export default class UpdaterBase extends Shortcut {
+export default class UpdaterBase extends EntryShortcut {
     constructor(onUpdate, metadata, object) {
         super();
         this.metadata = metadata;
@@ -62,18 +62,9 @@ export default class UpdaterBase extends Shortcut {
     initialize(contextManager, trigger = undefined, updatePatient = true) {
         super.initialize(contextManager, trigger, updatePatient);
 
-        const knownParent = this.metadata["knownParentContexts"];
-
-        if (knownParent) {
-            this.parentContext = contextManager.getActiveContextOfType(knownParent);
-        } else   {
-            this.parentContext = contextManager.getCurrentContext();
+        if (contextManager) {
+            this.establishParentContext(contextManager);
         }
-
-        if (!Lang.isUndefined(this.parentContext)) {
-            this.parentContext.addChild(this);
-        }
-        
         // defaulting
         const metadataVOA = this.metadata["valueObjectAttributes"];
         metadataVOA.forEach((attrib) => {
@@ -139,36 +130,6 @@ export default class UpdaterBase extends Shortcut {
         let result = super.onBeforeDeleted();
         if (result && this.parentContext) {
             this.parentContext.removeChild(this);
-        }
-        return result;
-    }
-
-    _followPath(object, attributePath, startIndex) {
-        let i, attributeName, list, index, start, end;
-        const len = attributePath.length;
-        let result = object;
-
-        let perItemFollowPath = (item) => {
-            return this._followPath(item, attributePath, i + 1);
-        };
-
-        for (i = startIndex; i < len; i++) {
-            if (attributePath[i].endsWith("[]")) {
-                attributeName = attributePath[i].substring(0, attributePath[i].length - 2);
-                list = result[attributeName];
-                if (Lang.isUndefined(list)) return null;
-                return list.map(perItemFollowPath);
-            } else if (attributePath[i].endsWith("]")) {
-                start = attributePath[i].indexOf("[");
-                end = attributePath[i].indexOf("]", start);
-                attributeName = attributePath[i].substring(0, start);
-                index = attributePath[i].substring(start + 1, end);
-                list = result[attributeName];
-                result = list[index];
-            } else {
-                result = result[attributePath[i]];
-            }
-            if (Lang.isUndefined(result)) return null;
         }
         return result;
     }

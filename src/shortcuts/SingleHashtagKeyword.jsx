@@ -69,25 +69,6 @@ export default class SingleHashtagKeyword extends EntryShortcut {
         return this.metadata.isContext;
     }
 
-
-    hasParentContext() {
-        return !Lang.isUndefined(this.parentContext) && !Lang.isNull(this.parentContext);
-    }
-
-    establishParentContext(contextManager) {
-        const knownParent = this.metadata["knownParentContexts"];
-
-        if (knownParent) {
-            this.parentContext = contextManager.getActiveContextOfType(knownParent);
-        } else   {
-            this.parentContext = contextManager.getCurrentContext();
-        }
-
-        if (!Lang.isUndefined(this.parentContext)) {
-            this.parentContext.addChild(this);
-        }
-    }
-
     // should this shortcut instance be in context right now (in other words, should it be a tab in context tray)
     shouldBeInContext() {
         const voaList = this.metadata["valueObjectAttributes"];

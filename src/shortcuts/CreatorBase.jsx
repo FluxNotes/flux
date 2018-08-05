@@ -65,24 +65,6 @@ export default class CreatorBase extends EntryShortcut {
         });
     }
 
-    hasParentContext() {
-        return !Lang.isUndefined(this.parentContext) && !Lang.isNull(this.parentContext);
-    }
-
-    establishParentContext(contextManager) {
-        const knownParent = this.metadata["knownParentContexts"];
-
-        if (knownParent) {
-            this.parentContext = contextManager.getActiveContextOfType(knownParent);
-        } else   {
-            this.parentContext = contextManager.getCurrentContext();
-        }
-
-        if (!Lang.isUndefined(this.parentContext)) {
-            this.parentContext.addChild(this);
-        }
-    }
-
     isContext() {
         return this.metadata.isContext;
     }
@@ -140,35 +122,6 @@ export default class CreatorBase extends EntryShortcut {
         return result;
     }
 
-    _followPath(object, attributePath, startIndex) {
-        let i, attributeName, list, index, start, end;
-        const len = attributePath.length;
-        let result = object;
-
-        let perItemFollowPath = (item) => {
-            return this._followPath(item, attributePath, i + 1);
-        };
-        for (i = startIndex; i < len; i++) {
-            if (attributePath[i].endsWith("[]")) {
-                attributeName = attributePath[i].substring(0, attributePath[i].length - 2);
-                list = result[attributeName];
-                if (Lang.isUndefined(list)) return null;
-                return list.map(perItemFollowPath);
-            } else if (attributePath[i].endsWith("]")) {
-                start = attributePath[i].indexOf("[");
-                end = attributePath[i].indexOf("]", start);
-                attributeName = attributePath[i].substring(0, start);
-                index = attributePath[i].substring(start + 1, end);
-                list = result[attributeName];
-                result = list[index];
-            } else {
-                result = result[attributePath[i]];
-            }
-            if (Lang.isUndefined(result)) return null;
-        }
-        return result;
-    }
-    
     getAttributeIsSet(name) {
         return this.isSet[name];
     }
