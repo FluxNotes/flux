@@ -19,11 +19,8 @@ function titlecase(label) {
 class SearchableListForPlaceholder extends Component {
     constructor(props) {
         super(props);
-        console.log(props);
         this._options = ValueSetManager.getValueList(this.props.attributeSpec.values.category, this.props.attributeSpec.values.valueSet);
-        // this.initialButtons = ValueSetManager.getValueList(this.props.attributeSpec.initialButtons.category, this.props.attributeSpec.initialButtons.valueSet);
-       
-       
+        
         const adverseEventOptionsIncludingNoSpaces = toxicityLookup.getAdverseEventOptions().map(obj => {
             const objCopy = Lang.clone(obj);
             objCopy.nameNoSpaces = objCopy.name ? objCopy.name.replace(/\s/g,'') : objCopy.name;
@@ -40,15 +37,7 @@ class SearchableListForPlaceholder extends Component {
            searchText: ''
        };
 
-       this.topAdverseEvents =  [
-        'Febrile neutropenia',
-        'Fatigue',
-        'Generalized muscle weakness',
-        'Anemia',
-        'Diarrhea',
-        'Nausea',
-        'Platelet count decreased',
-        'Anorexia'];
+       this.topAdverseEvents = this.props.attributeSpec.values.topAdverseEventSection;
     
     }
 
@@ -59,14 +48,12 @@ class SearchableListForPlaceholder extends Component {
     }
 
     renderButtonGroup = (option, i) => {
+        
         const marginSize = "2px";
         const optionName = option.name;
-        //const optionDescription = option.description;
-        //const tooltipClass = (optionDescription.length > 100) ? "tooltiptext large" : "tooltiptext";
 
         return (
             <div key={optionName} className="tooltip-progression-form">
-                {/* <span id={optionName} className={tooltipClass}>{optionDescription}</span> */}
                 <SingleChoiceButton 
                         buttonKey={i}
                         buttonText={optionName}
@@ -83,6 +70,7 @@ class SearchableListForPlaceholder extends Component {
      */
     handleAdverseEventSelection = (newAdverseEvent) => {
         // A null or undefined value for newAdverseEvent should trigger the deletion of the current adverseEvent
+        console.log("handling the adverse events");
         if (Lang.isUndefined(newAdverseEvent) || Lang.isNull(newAdverseEvent)) {
             this.props.updateValue("adverseEvent", null);
         } else {
@@ -193,6 +181,7 @@ class SearchableListForPlaceholder extends Component {
     }
 
     formatInput = inputProps => {
+        
         let inputClassName = "";
         if (this.props.backgroundColor === "lightgrey") {
             inputClassName = 'react-autosuggest__input_grey';
@@ -209,7 +198,7 @@ class SearchableListForPlaceholder extends Component {
 
     render() {
         let topAdverseEventSection = null;
-        const marginSize = "10px";
+        const marginSize = "2px";
         const inputProps = {
             placeholder: 'Enter symptom',
             value: this.state.searchText,
@@ -234,7 +223,7 @@ class SearchableListForPlaceholder extends Component {
                             <SingleChoiceButton 
                                     buttonKey={i}
                                     buttonText={adverseEvent.name}
-                                    onClick={ (e) => this.handleAdverseEventSelection(adverseEvent.name)}
+                                    onClick={(e) => this.handleOptionSelection(e, i)}
                                     isSelected={isSelected}
                                     marginSize={marginSize}
                             />
@@ -248,9 +237,6 @@ class SearchableListForPlaceholder extends Component {
         return (
             <div>
                 {/* Interface here*/}
-
-                <Divider className="divider"/>
-                <h4 className="header-spacing">Adverse Event<span className="helper-text"> Type or choose one</span></h4>
                 <Autosuggest
                     suggestions={this.state.suggestions}
                     onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
@@ -263,13 +249,6 @@ class SearchableListForPlaceholder extends Component {
                     inputProps={inputProps}
                 />
                 {topAdverseEventSection}
-               {/* <div className="btn-group-status-progression">
-                {
-                    topAdverseEventObjects.map((option, i) => {
-                        return this.renderButtonGroup(option, i)
-                    })
-                }
-            </div> */}
             </div>
         );
     }
