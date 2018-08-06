@@ -6,6 +6,8 @@ import ExpansionPanel, { ExpansionPanelSummary, ExpansionPanelDetails } from 'ma
 import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
 import ButtonSetFillFieldForPlaceholder from './fillFieldComponents/ButtonSetFillFieldForPlaceholder';
 import MultiButtonSetFillFieldForPlaceholder from './fillFieldComponents/MultiButtonSetFillFieldForPlaceholder';
+import Calendar from 'rc-calendar';
+import 'rc-calendar/assets/index.css';
 import Lang from 'lodash';
 
 import './FillPlaceholder.css';
@@ -15,12 +17,29 @@ export default class FillPlaceholder extends Component {
         super(props);
 
         this.onDone = this.onDone.bind(this);
+        this.calendarDom = null;
+
         this.state = {
             done: false,
             expanded: false,
             currentField: 0,
             error: null,
         };
+    }
+
+    componentDidMount() {
+        document.addEventListener('mousedown', this.handleClick, false);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClick, false);
+    }
+
+    handleClick = (event) => {
+        if (this.calendarDom && this.calendarDom.contains(event.target)) {
+            return;
+        }
+        this.setState({showCalendar: false});
     }
 
     onDone = (event) => {
@@ -30,6 +49,10 @@ export default class FillPlaceholder extends Component {
 
     onExpand = (event) => {
         this.setState({ expanded: !this.state.expanded });
+    };
+
+    onClick = (event) => {
+        this.setState({showCalendar: false});
     };
 
     onClickOnField = (index, event) => {
@@ -66,9 +89,15 @@ export default class FillPlaceholder extends Component {
         this.setState({ error });
     };
 
+    setCalendarTrue = (attributeSpec) => {
+        this.setState({showCalendar: true});
+        this.setState({calendarAttributeSpec: attributeSpec.name});
+    }
+
     handleCalendarSelect = (attributeSpec, date) => {
         const dateSelected = date.format("D MMM YYYY");
         this.onSetValue(attributeSpec, dateSelected);
+        this.setState({showCalendar: false})
     }
 
     createFillFieldForPlaceholder = (attributeSpec, value) => {
@@ -78,10 +107,25 @@ export default class FillPlaceholder extends Component {
             return <MultiButtonSetFillFieldForPlaceholder attributeSpec={attributeSpec} value={value} updateValue={this.onSetValue.bind(this, attributeSpec)} nextField={this.state.expanded ? null : this.nextField} />;
         }
         if (attributeSpec.type === 'date') {
-            return <DatePicker id={`${attributeSpec.name}-date`}
-                                handleDateChange={this.handleCalendarSelect.bind(this, attributeSpec)}
-                                dateToSet={this.props.placeholder.getAttributeValue(attributeSpec.name)}
-                    />
+            return (
+                <div>
+                    <button className="date-selection" onClick={this.setCalendarTrue.bind(this, attributeSpec)}> 
+                        {(this.props.placeholder.getAttributeValue(attributeSpec.name)) ? this.props.placeholder.getAttributeValue(attributeSpec.name) : "Pick Date"} 
+                    </button>
+                    {(this.state.showCalendar && (attributeSpec.name === this.state.calendarAttributeSpec)) 
+                        ? 
+                        <div ref={calendarDom => this.calendarDom = calendarDom} className="test-styling-on-date">
+                            <Calendar
+                                showDateInput={false}
+                                onSelect={this.handleCalendarSelect.bind(this, attributeSpec)}
+                                style={{position: 'absolute', top: '0px', left: '0px', zindex: '9999'}}
+                            /> 
+                        </div>
+                        : 
+                        null
+                    }
+                </div>
+            )
         }
         return <div>Unknown component type: {attributeSpec.type}</div>;
     };
@@ -147,12 +191,13 @@ export default class FillPlaceholder extends Component {
                         {errorString}
                         {currentFieldRowInSummary}
                     </Grid>
-            </ExpansionPanelSummary>
-                <ExpansionPanelDetails style={{ backgroundColor: this.props.backgroundColor }}>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails expanded={true} style={{ backgroundColor: 'gray' }}>
                     <Grid container>
                         {this.createAllRows()}
                     </Grid>
                 </ExpansionPanelDetails>
+                
             </ExpansionPanel>
         );
     }
