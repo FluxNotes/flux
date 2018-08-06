@@ -19,6 +19,7 @@ function titlecase(label) {
 class SearchableListForPlaceholder extends Component {
     constructor(props) {
         super(props);
+        console.log(props);
         this._options = ValueSetManager.getValueList(this.props.attributeSpec.values.category, this.props.attributeSpec.values.valueSet);
         // this.initialButtons = ValueSetManager.getValueList(this.props.attributeSpec.initialButtons.category, this.props.attributeSpec.initialButtons.valueSet);
        
@@ -191,6 +192,21 @@ class SearchableListForPlaceholder extends Component {
         );
     }
 
+    formatInput = inputProps => {
+        let inputClassName = "";
+        if (this.props.backgroundColor === "lightgrey") {
+            inputClassName = 'react-autosuggest__input_grey';
+        } else {
+            inputClassName = 'react-autosuggest__input';
+        }
+
+        return (
+            <div>
+                <input {...inputProps}  className={inputClassName} />
+           </div>
+        );
+    }
+
     render() {
         let topAdverseEventSection = null;
         const marginSize = "10px";
@@ -228,6 +244,7 @@ class SearchableListForPlaceholder extends Component {
             </div>
             )
         }
+
         return (
             <div>
                 {/* Interface here*/}
@@ -238,6 +255,8 @@ class SearchableListForPlaceholder extends Component {
                     suggestions={this.state.suggestions}
                     onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
                     onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+                    renderInputComponent={this.formatInput}
+
 
                     getSuggestionValue={this.getSuggestionValue}
                     renderSuggestion={this.renderSuggestion}

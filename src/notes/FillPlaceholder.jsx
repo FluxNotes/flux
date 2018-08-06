@@ -115,7 +115,7 @@ export default class FillPlaceholder extends Component {
         } else if (attributeSpec.type === 'checkboxes') {
             return <MultiButtonSetFillFieldForPlaceholder attributeSpec={attributeSpec} value={value} updateValue={this.onSetValue.bind(this, attributeSpec)} nextField={this.state.expanded ? null : this.nextField} />;
         } else if (attributeSpec.type === 'searchableList') {
-            return <SearchableListForPlaceholder attributeSpec={attributeSpec} value={value} backgroundCcolor={this.props.backgroundColor} updateValue={this.onSetValue.bind(this, attributeSpec)} />
+            return <SearchableListForPlaceholder attributeSpec={attributeSpec} value={value} backgroundColor={this.props.backgroundColor} updateValue={this.onSetValue.bind(this, attributeSpec)} />
         }
         if (attributeSpec.type === 'date') {
             let date = new Date(this.props.placeholder.getAttributeValue(attributeSpec.name));
