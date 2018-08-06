@@ -88,8 +88,6 @@ export default class Context {
     updateContextStatus() {
         if (this.contextManager) {
             const shouldBeInContext = this.shouldBeInContext();
-            //console.log("updateContextStatus: " + this.constructor.name);
-            //console.log(this.isInContext + " <==> " + shouldBeInContext);
             if (this.isInContext === shouldBeInContext) return;
             if (shouldBeInContext) { // put in contextManager
                 this.contextManager.addShortcutToContext(this);
@@ -106,9 +104,8 @@ export default class Context {
     }
 
     setKey(key) {
-        //console.log("setKey: " + this.constructor.name + " to " + key);
         this.key = key;
-		if (this.isContext()) {
+		if (this.isContext() && this.contextManager) {
             this.contextManager.addShortcutToContext(this);
             this.isInContext = true;
 		}

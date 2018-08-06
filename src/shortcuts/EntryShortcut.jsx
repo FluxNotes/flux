@@ -24,6 +24,7 @@ export default class EntryShortcut extends Shortcut {
     }
 
     establishParentContext(contextManager) {
+        super.initialize(contextManager);
         const knownParent = this.metadata["knownParentContexts"];
 
         if (knownParent) {

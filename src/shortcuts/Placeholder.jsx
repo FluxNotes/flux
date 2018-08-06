@@ -69,6 +69,16 @@ class Placeholder {
         if (this._numUpdates > 0 && this._entryShortcut.hasData()) return this._entryShortcut.getAsString();
         return this._placeholderText;
     }
+
+    getKey() {
+        return this.key;
+    }
+
+    setKey(key) {
+        this.key = key;
+        this._entryShortcut.setKey(key);
+    }
+
 }
 
 export default Placeholder;
