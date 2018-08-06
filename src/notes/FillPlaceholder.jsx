@@ -12,11 +12,14 @@ import moment from 'moment';
 import Lang from 'lodash';
 
 import './FillPlaceholder.css';
+import SearchableListForPlaceholder from './fillFieldComponents/SearchableListForPlaceholder';
 
 export default class FillPlaceholder extends Component {
     constructor(props) {
+        
         super(props);
 
+        console.log(this.props.backgroundColor);
         this.onDone = this.onDone.bind(this);
         this.calendarDom = null;
 
@@ -111,6 +114,8 @@ export default class FillPlaceholder extends Component {
             return <ButtonSetFillFieldForPlaceholder attributeSpec={attributeSpec} value={value} updateValue={this.onSetValue.bind(this, attributeSpec)} />;
         } else if (attributeSpec.type === 'checkboxes') {
             return <MultiButtonSetFillFieldForPlaceholder attributeSpec={attributeSpec} value={value} updateValue={this.onSetValue.bind(this, attributeSpec)} nextField={this.state.expanded ? null : this.nextField} />;
+        } else if (attributeSpec.type === 'searchableList') {
+            return <SearchableListForPlaceholder attributeSpec={attributeSpec} value={value} backgroundCcolor={this.props.backgroundColor} updateValue={this.onSetValue.bind(this, attributeSpec)} />
         }
         if (attributeSpec.type === 'date') {
             let date = new Date(this.props.placeholder.getAttributeValue(attributeSpec.name));
@@ -136,7 +141,7 @@ export default class FillPlaceholder extends Component {
                     }
                 </div>
             )
-        }
+        
         return <div>Unknown component type: {attributeSpec.type}</div>;
     };
 

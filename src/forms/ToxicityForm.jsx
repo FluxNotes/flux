@@ -19,7 +19,7 @@ function titlecase(label) {
 class ToxicityForm extends Component {
     constructor(props) {
         super(props);
-
+        console.log(this.props);
         const adverseEventOptionsIncludingNoSpaces = toxicityLookup.getAdverseEventOptions().map(obj => {
             const objCopy = Lang.clone(obj);
             objCopy.nameNoSpaces = objCopy.name ? objCopy.name.replace(/\s/g,'') : objCopy.name;
@@ -162,6 +162,7 @@ class ToxicityForm extends Component {
      * Autosuggest will call this function every time you need to clear suggestions.
      */
     onSuggestionsClearRequested = () => {
+        console.log("clearing");
         this.setState({
             suggestions: []
         });
