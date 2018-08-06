@@ -36,10 +36,7 @@ export default class FillPlaceholder extends Component {
     }
 
     handleClick = (event) => {
-        if (this.calendarDom && this.calendarDom.contains(event.target)) {
-            return;
-        }
-        this.setState({showCalendar: false});
+        if (this.calendarDom && !this.calendarDom.contains(event.target)) this.setState({showCalendar: false});
     }
 
     onDone = (event) => {
@@ -49,10 +46,6 @@ export default class FillPlaceholder extends Component {
 
     onExpand = (event) => {
         this.setState({ expanded: !this.state.expanded });
-    };
-
-    onClick = (event) => {
-        this.setState({showCalendar: false});
     };
 
     onClickOnField = (index, event) => {
@@ -114,11 +107,11 @@ export default class FillPlaceholder extends Component {
                     </button>
                     {(this.state.showCalendar && (attributeSpec.name === this.state.calendarAttributeSpec)) 
                         ? 
-                        <div ref={calendarDom => this.calendarDom = calendarDom} className="test-styling-on-date">
+                        <div className="calendar-picker-container" ref={(calendarDom) => this.calendarDom = calendarDom}>
                             <Calendar
                                 showDateInput={false}
                                 onSelect={this.handleCalendarSelect.bind(this, attributeSpec)}
-                                style={{position: 'absolute', top: '0px', left: '0px', zindex: '9999'}}
+                                style={{position: 'absolute', top: '0px', left: '0px'}}
                             /> 
                         </div>
                         : 
@@ -178,7 +171,7 @@ export default class FillPlaceholder extends Component {
             errorString = <span className="error-message">{this.state.error}</span>
         }
         return (
-            <ExpansionPanel expanded={this.state.expanded}>
+            <ExpansionPanel expanded={this.state.expanded} className='expanded-style'>
                 <ExpansionPanelSummary style={{ backgroundColor: this.props.backgroundColor }} expandIcon={<ExpandMoreIcon onClick={this.onExpand}/>}>
                     <Grid container>
                         <Grid item xs={3}>
@@ -189,15 +182,14 @@ export default class FillPlaceholder extends Component {
                             {columns}
                         </Grid>
                         {errorString}
-                        {currentFieldRowInSummary}
+                        {!this.state.expanded ? currentFieldRowInSummary : null}
                     </Grid>
                 </ExpansionPanelSummary>
-                <ExpansionPanelDetails expanded={true} style={{ backgroundColor: 'gray' }}>
+                <ExpansionPanelDetails style={{ backgroundColor: this.props.backgroundColor }}>
                     <Grid container>
-                        {this.createAllRows()}
+                        {this.state.expanded ? this.createAllRows() : null}
                     </Grid>
                 </ExpansionPanelDetails>
-                
             </ExpansionPanel>
         );
     }
