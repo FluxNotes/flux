@@ -102,12 +102,12 @@ export default class FillPlaceholder extends Component {
         if (attributeSpec.type === 'date') {
             return (
                 <div>
-                    <button className="date-selection" onClick={this.setCalendarTrue.bind(this, attributeSpec)}> 
+                    <button className="date-picker-button" onClick={this.setCalendarTrue.bind(this, attributeSpec)}> 
                         {(this.props.placeholder.getAttributeValue(attributeSpec.name)) ? this.props.placeholder.getAttributeValue(attributeSpec.name) : "Pick Date"} 
                     </button>
                     {(this.state.showCalendar && (attributeSpec.name === this.state.calendarAttributeSpec)) 
                         ? 
-                        <div className="calendar-picker-container" ref={(calendarDom) => this.calendarDom = calendarDom}>
+                        <div className="date-picker-container" ref={(calendarDom) => this.calendarDom = calendarDom}>
                             <Calendar
                                 showDateInput={false}
                                 onSelect={this.handleCalendarSelect.bind(this, attributeSpec)}
@@ -172,7 +172,7 @@ export default class FillPlaceholder extends Component {
         }
         return (
             <ExpansionPanel expanded={this.state.expanded} className='expanded-style'>
-                <ExpansionPanelSummary style={{ backgroundColor: this.props.backgroundColor }} expandIcon={<ExpandMoreIcon onClick={this.onExpand}/>}>
+                <ExpansionPanelSummary style={{ backgroundColor: this.props.backgroundColor, cursor: 'default' }} expandIcon={<ExpandMoreIcon onClick={this.onExpand}/>}>
                     <Grid container>
                         <Grid item xs={3}>
                             <span className="done-checkbox"><Checkbox style={{ width: 26, height: 26 }} checked={this.state.done} value="done" onChange={this.onDone} color="primary" /></span>

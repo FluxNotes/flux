@@ -29,21 +29,25 @@
     text-decoration: none;
 }
 
-.date-selection {
+.date-picker-button {
     border: 1px solid #000000;
     display: inline-block;
     background-color: white;
     padding: 5px;
     border-radius: 3px;
+    cursor: pointer;
 }
 
-.calendar-picker-container {
+.date-picker-container {
     position: relative;
 }
 
-.calendar-picker-container > * {
+/* Shows calendar picker modal over every other component */
+.date-picker-container > * {
     z-index: 999;
 }
+
+/* Allows calendar picker modal to overflow over ExpansionPanel */
 .expanded-style > * {
     overflow: visible !important;
 }
