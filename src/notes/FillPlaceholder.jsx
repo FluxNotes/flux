@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Grid from 'material-ui/Grid';
 import Checkbox from 'material-ui/Checkbox';
+import Divider from 'material-ui/Divider';
 import ExpansionPanel, { ExpansionPanelSummary, ExpansionPanelDetails } from 'material-ui/ExpansionPanel';
 import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
 import FontAwesome from 'react-fontawesome';
@@ -239,6 +240,7 @@ export default class FillPlaceholder extends Component {
                     </Grid>
                     {""}
                     {currentFieldRowInSummary}
+                    <Divider className="divider" />
                  </Grid>
             );
         });

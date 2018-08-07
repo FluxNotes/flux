@@ -71,3 +71,7 @@
     transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
 }
+
+.divider {
+    width: 100%;
+}
