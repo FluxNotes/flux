@@ -19,10 +19,20 @@ export default class FillPlaceholder extends Component {
         this.onDone = this.onDone.bind(this);
         this.calendarDom = null;
 
+        // Determine the first field with no data entered for it; this field will be displayed upon startup.
+        var firstUnfilledField = 0;
+        this.props.placeholder.metadata.formSpec.attributes.some(attribute => {
+            var validAttribute = this.isValidAttribute(this.props.placeholder.getAttributeValue(attribute.name));
+            if (validAttribute) {
+                firstUnfilledField += 1;
+            }
+            return !validAttribute;
+        });
+
         this.state = {
             done: false,
             expanded: false,
-            currentField: 0,
+            currentField: firstUnfilledField,
             error: null,
         };
     }
@@ -144,6 +154,10 @@ export default class FillPlaceholder extends Component {
         });
     };
 
+    isValidAttribute = (value) => {
+        return !(Lang.isNull(value) || Lang.isUndefined(value) || value === '' || (Lang.isArray(value) && value.length === 0));
+    }
+
     render() {
         /*
         "formSpec": {   "title": "Disease Status",
@@ -155,7 +169,7 @@ export default class FillPlaceholder extends Component {
         this.props.placeholder.metadata.formSpec.attributes.forEach((attribute, index) => {
             const value = this.props.placeholder.getAttributeValue(attribute.name);
             columns.push(<span className="shortcut-field-title" key={`${index}-label`}>{`${attribute.title}: `}</span>);
-            if (Lang.isNull(value) || Lang.isUndefined(value) || value === '' || (Lang.isArray(value) && value.length === 0)) {
+            if (!this.isValidAttribute(value)) {
                 columns.push(<span onClick={this.onClickOnField.bind(this, index)} className="missing-data" key={`${index}-value`}>No Data</span>);
             } else {
                 columns.push(<span onClick={this.onClickOnField.bind(this, index)} className="structured-data" key={`${index}-value`}>{Lang.isArray(value) ? value.join(', ') : value}</span>);
