@@ -18,13 +18,13 @@ class Placeholder {
     }
 
     onBeforeDeleted() {
-        if (this._entryShortcut) {
-            this._entryShortcut.onBeforeDeleted();
+        if (this._entryShortcuts) {
+            this._entryShortcuts.forEach(entryShortcut => entryShortcut.onBeforeDeleted());
         }
         return true;
     }
 
-    onUpdate = (shortcut) => { // shortcut argument will be same as this._entryShortcut
+    onUpdate = (shortcut) => {
         if (shortcut.hasParentContext()) {
             this._numUpdates++;
             shortcut.updatePatient(this._patient, this._contextManager, this._clinicalNote);
