@@ -8,6 +8,7 @@ import ButtonSetFillFieldForPlaceholder from './fillFieldComponents/ButtonSetFil
 import MultiButtonSetFillFieldForPlaceholder from './fillFieldComponents/MultiButtonSetFillFieldForPlaceholder';
 import Calendar from 'rc-calendar';
 import 'rc-calendar/assets/index.css';
+import moment from 'moment';
 import Lang from 'lodash';
 
 import './FillPlaceholder.css';
@@ -112,14 +113,18 @@ export default class FillPlaceholder extends Component {
             return <MultiButtonSetFillFieldForPlaceholder attributeSpec={attributeSpec} value={value} updateValue={this.onSetValue.bind(this, attributeSpec)} nextField={this.state.expanded ? null : this.nextField} />;
         }
         if (attributeSpec.type === 'date') {
+            let date = new Date(this.props.placeholder.getAttributeValue(attributeSpec.name));
+            date = moment(date).format('MM/DD/YYYY');
+            
             return (
                 <div>
-                    <button className="date-picker-button" onClick={this.setCalendarTrue.bind(this, attributeSpec)}> 
-                        {(this.props.placeholder.getAttributeValue(attributeSpec.name)) ? this.props.placeholder.getAttributeValue(attributeSpec.name) : "Pick Date"} 
+                    <button className='date-picker-button' onClick={this.setCalendarTrue.bind(this, attributeSpec)}> 
+                        {(this.props.placeholder.getAttributeValue(attributeSpec.name)) ? date : 'MM/DD/YYYY'} 
+                        <div className="arrow-container"><i className="arrow-down"></i></div>
                     </button>
                     {(this.state.showCalendar && (attributeSpec.name === this.state.calendarAttributeSpec)) 
                         ? 
-                        <div className="date-picker-container" ref={(calendarDom) => this.calendarDom = calendarDom}>
+                        <div className='date-picker-container' ref={(calendarDom) => this.calendarDom = calendarDom}>
                             <Calendar
                                 showDateInput={false}
                                 onSelect={this.handleCalendarSelect.bind(this, attributeSpec)}
