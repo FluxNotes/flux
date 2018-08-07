@@ -17,27 +17,34 @@ import SearchableListForPlaceholder from './fillFieldComponents/SearchableListFo
 
 export default class FillPlaceholder extends Component {
     constructor(props) {
-        
         super(props);
+        const { placeholder } = props;
+
         this.onDone = this.onDone.bind(this);
         this.calendarDom = null;
 
-        // Determine the first field with no data entered for it; this field will be displayed upon startup.
-        let firstUnfilledField = 0;
-        this.props.placeholder.metadata.formSpec.attributes.some(attribute => {
-            let validAttribute = this.isValidAttribute(this.props.placeholder.getAttributeValue(attribute.name));
-            if (validAttribute) {
-                firstUnfilledField += 1;
-            }
-            return !validAttribute;
+        const firstUnfilledFields = placeholder.entryShortcuts.map((entryShortcut, i) => {
+            // Determine the first field with no data entered for it; this field will be displayed upon startup.
+            let firstUnfilledField = 0;
+            
+            placeholder.metadata.formSpec.attributes.forEach((attribute) => {
+                let validAttribute = this.isValidAttribute(placeholder.getAttributeValue(attribute.name, i));
+                if (validAttribute) {
+                    firstUnfilledField += 1;
+                }
+            });
+
+            return firstUnfilledField;
+        });
+        const done = firstUnfilledFields.map(firstUnfilledField => firstUnfilledField >= placeholder.metadata.formSpec.attributes.length);
+        const currentField = done.map((d, i) => {
+            return !d ? firstUnfilledFields[i] : 0;
         });
 
-        let done = firstUnfilledField >= this.props.placeholder.metadata.formSpec.attributes.length;
-
         this.state = {
-            done: done,
+            currentField,
+            done,
             expanded: false,
-            currentField: !done ? firstUnfilledField : 0,
             error: null,
         };
     }
@@ -51,47 +58,59 @@ export default class FillPlaceholder extends Component {
     }
 
     handleClick = (event) => {
-        if (this.calendarDom && !this.calendarDom.contains(event.target)) this.setState({showCalendar: false});
+        if (this.calendarDom && !this.calendarDom.contains(event.target)) this.setState({ showCalendar: false });
     }
 
-    onDone = (event) => {
-        this.setState({ done: event.target.checked });
-        this.props.placeholder.done = event.target.checked;
+    onDone = (event, index = 0) => {
+        let { done } = this.state;
+        const { placeholder } = this.props;
+
+        done[index] = event.target.checked;
+        placeholder.done = event.target.checked;
+        this.setState({ done });
     };
 
     onExpand = (event) => {
         this.setState({ expanded: !this.state.expanded });
     };
 
-    onClickOnField = (index, event) => {
-        this.setState({ currentField: index });
+    onClickOnField = (index, entryIndex = 0, event)  => {
+        let { currentField } = this.state;
+
+        currentField[entryIndex] = index;
+        this.setState({ currentField });
     };
 
-    nextField = () => {
-        if (this.state.currentField + 1 === this.props.placeholder.metadata.formSpec.attributes.length) {
+    nextField = (index = 0) => {
+        let { currentField, done } = this.state;
+        const { placeholder } = this.props;
+
+        if (currentField[index] + 1 === placeholder.metadata.formSpec.attributes.length) {
             // User has entered final attribute, so mark row as done
-            this.setState({ done: true });
+            done[index] = true;
+            this.setState({ done });
             this.props.placeholder.done = true;
         } else {
-            this.setState({ currentField: this.state.currentField + 1});
+            currentField[index] += 1;
+            this.setState({ currentField });
         }
     };
 
-    onSetValue = (attributeSpec, newValue) => {
-        const attributes = this.props.placeholder.getAttributeValue(attributeSpec.name);
+    onSetValue = (attributeSpec, index, newValue) => {
+        const attributes = this.props.placeholder.getAttributeValue(attributeSpec.name, index);
         let error;
         if (Lang.isArray(attributes) && Lang.includes(attributes, newValue)) {
             Lang.remove(attributes, (attr) => {
                 return attr === newValue;
             });
-            error = this.props.placeholder.setAttributeValue(attributeSpec.name, attributes);
+            error = this.props.placeholder.setAttributeValue(attributeSpec.name, attributes, index);
         } else {
-            error = this.props.placeholder.setAttributeValue(attributeSpec.name, newValue);
+            error = this.props.placeholder.setAttributeValue(attributeSpec.name, newValue, index);
 
             // We only want to increment the field if we are working on a non-expanded and non-multiselect attribute
             // This might only be a temporary workaround, we have to see how it goes as the other fields get implemented
             if (Lang.isNull(error) && !(this.state.expanded || Lang.isArray(attributes))) {
-                this.nextField();
+                this.nextField(index);
             }
         }
         this.setState({ error });
@@ -108,18 +127,18 @@ export default class FillPlaceholder extends Component {
         this.setState({showCalendar: false})
     }
 
-    createFillFieldForPlaceholder = (attributeSpec, value) => {
+    createFillFieldForPlaceholder = (attributeSpec, value, index = 0) => {
         if (attributeSpec.type === 'radioButtons') {
-            return <ButtonSetFillFieldForPlaceholder attributeSpec={attributeSpec} value={value} updateValue={this.onSetValue.bind(this, attributeSpec)} />;
+            return <ButtonSetFillFieldForPlaceholder attributeSpec={attributeSpec} value={value} updateValue={this.onSetValue.bind(this, attributeSpec, index)} />;
         } else if (attributeSpec.type === 'checkboxes') {
-            return <MultiButtonSetFillFieldForPlaceholder attributeSpec={attributeSpec} value={value} updateValue={this.onSetValue.bind(this, attributeSpec)} nextField={this.state.expanded ? null : this.nextField} />;
+            return <MultiButtonSetFillFieldForPlaceholder attributeSpec={attributeSpec} value={value} updateValue={this.onSetValue.bind(this, attributeSpec, index)} nextField={this.state.expanded ? null : this.nextField.bind(this, index)} />;
         } else if (attributeSpec.type === 'searchableList') {
-            return <SearchableListForPlaceholder attributeSpec={attributeSpec} backgroundColor={this.props.backgroundColor} value={value} updateValue={this.onSetValue} />;
+            return <SearchableListForPlaceholder attributeSpec={attributeSpec} backgroundColor={this.props.backgroundColor} value={value} updateValue={this.onSetValue.bind(this, attributeSpec, index)} />;
         }
         if (attributeSpec.type === 'date') {
             let date = new Date(this.props.placeholder.getAttributeValue(attributeSpec.name));
             date = moment(date).format('MM/DD/YYYY');
-            
+
             return (
                 <div>
                     <button className='date-picker-button' onClick={this.setCalendarTrue.bind(this, attributeSpec)}> 
@@ -147,12 +166,12 @@ export default class FillPlaceholder extends Component {
     createCurrentFieldRowInSummary = (attribute, index = 0) => {
         let currentFieldRowInSummary = "";
         const value = this.props.placeholder.getAttributeValue(attribute.name, index);
-        if (this.state.expanded || !this.state.done) {
+        if (this.state.expanded || !this.state.done[index]) {
             currentFieldRowInSummary = (
                 <Grid container key={attribute.name}>
                     <Grid item xs={1}></Grid>
                     <Grid item xs={2} style={{display: 'flex', alignItems: 'center' }}><span>{attribute.title}</span></Grid>
-                    <Grid item xs={9}><span>{this.createFillFieldForPlaceholder(attribute, value)}</span></Grid>
+                    <Grid item xs={9}><span>{this.createFillFieldForPlaceholder(attribute, value, index)}</span></Grid>
                 </Grid>
             );
         }
@@ -161,15 +180,28 @@ export default class FillPlaceholder extends Component {
 
     addEntry = () => {
         const { placeholder } = this.props;
+        const { currentField, done } = this.state;
 
+        currentField.push(0);
+        done.push(false);
         placeholder.addEntry();
-        console.log(placeholder.entryShortcuts)
+        this.setState({
+            currentField,
+            done,
+        });
     }
 
     deleteEntry = (index) => {
         const { placeholder } = this.props;
+        const { currentField, done } = this.state;
 
+        currentField.splice(index, 1);
+        done.splice(index, 1);
         placeholder.deleteEntry(index);
+        this.setState({
+            currentField,
+            done,
+        });
     }
 
     renderMultipleEntriesPlaceholder = () => {
@@ -178,17 +210,17 @@ export default class FillPlaceholder extends Component {
         const entries = placeholder.entryShortcuts.map((entryShortcut, i) => {
             let columns = [];
             placeholder.metadata.formSpec.attributes.forEach((attribute, index) => {
-                const value = this.props.placeholder.getAttributeValue(attribute.name, i);
+                const value = placeholder.getAttributeValue(attribute.name, i);
                 columns.push(<span className="shortcut-field-title" key={`${i}-${index}-label`}>{`${attribute.title}: `}</span>);
                 if (Lang.isNull(value) || Lang.isUndefined(value) || value === '' || (Lang.isArray(value) && value.length === 0)) {
-                    columns.push(<span onClick={this.onClickOnField.bind(this, index)} className="missing-data" key={`${i}-${index}-value`}>No Data</span>);
+                    columns.push(<span onClick={this.onClickOnField.bind(this, index, i)} className="missing-data" key={`${i}-${index}-value`}>No Data</span>);
                 } else {
-                    columns.push(<span onClick={this.onClickOnField.bind(this, index)} className="structured-data" key={`${i}-${index}-value`}>{value}</span>);
+                    columns.push(<span onClick={this.onClickOnField.bind(this, index, i)} className="structured-data" key={`${i}-${index}-value`}>{value}</span>);
                 }
             });
             let currentFieldRowInSummary = "";
             if (!this.state.expanded) {
-                const attribute = this.props.placeholder.metadata.formSpec.attributes[this.state.currentField];
+                const attribute = placeholder.metadata.formSpec.attributes[this.state.currentField[i]];
                 currentFieldRowInSummary = this.createCurrentFieldRowInSummary(attribute, i);
             }
             return (
@@ -196,7 +228,7 @@ export default class FillPlaceholder extends Component {
                     {i === 0 ?
                         (
                             <Grid item xs={3}>
-                                <span className="done-checkbox"><Checkbox style={{ width: 26, height: 26 }} checked={this.state.done} value="done" onChange={this.onDone} color="primary" /></span>
+                                <span className="done-checkbox"><Checkbox style={{ width: 26, height: 26 }} checked={this.state.done[i]} value="done" onChange={this.onDone} color="primary" /></span>
                                 <span className="shortcut-name" key="0">{placeholder.shortcutName}</span>
                             </Grid>
                         ) : <Grid item xs={3} />
@@ -210,9 +242,15 @@ export default class FillPlaceholder extends Component {
                  </Grid>
             );
         });
-        console.log(entries.length)
+
+        let errorString = "";
+        if (!Lang.isNull(this.state.error)) {
+            errorString = <span className="error-message">{this.state.error}</span>
+        }
+
         return (
             <Grid container>
+                {errorString}
                 {entries}
                 <FontAwesome name="plus" onClick={this.addEntry} />
             </Grid>
@@ -234,17 +272,17 @@ export default class FillPlaceholder extends Component {
 
         let columns = [];
         placeholder.metadata.formSpec.attributes.forEach((attribute, index) => {
-            const value = this.props.placeholder.getAttributeValue(attribute.name);
+            const value = placeholder.getAttributeValue(attribute.name);
             columns.push(<span className="shortcut-field-title" key={`${index}-label`}>{`${attribute.title}: `}</span>);
             if (!this.isValidAttribute(value)) {
-                columns.push(<span onClick={this.onClickOnField.bind(this, index)} className="missing-data" key={`${index}-value`}>No Data</span>);
+                columns.push(<span onClick={this.onClickOnField.bind(this, index, 0)} className="missing-data" key={`${index}-value`}>No Data</span>);
             } else {
-                columns.push(<span onClick={this.onClickOnField.bind(this, index)} className="structured-data" key={`${index}-value`}>{Lang.isArray(value) ? value.join(', ') : value}</span>);
+                columns.push(<span onClick={this.onClickOnField.bind(this, index, 0)} className="structured-data" key={`${index}-value`}>{Lang.isArray(value) ? value.join(', ') : value}</span>);
             }
         });
         let currentFieldRowInSummary = "";
         if (!this.state.expanded) {
-            const attribute = this.props.placeholder.metadata.formSpec.attributes[this.state.currentField];
+            const attribute = placeholder.metadata.formSpec.attributes[this.state.currentField[0]];
             currentFieldRowInSummary = this.createCurrentFieldRowInSummary(attribute);
         }
         let errorString = "";
@@ -255,8 +293,8 @@ export default class FillPlaceholder extends Component {
         return (
             <Grid container>
                 <Grid item xs={3}>
-                    <span className="done-checkbox"><Checkbox style={{ width: 26, height: 26 }} checked={this.state.done} value="done" onChange={this.onDone} color="primary" /></span>
-                    <span className="shortcut-name" key="0">{this.props.placeholder.shortcutName}</span>
+                    <span className="done-checkbox"><Checkbox style={{ width: 26, height: 26 }} checked={this.state.done[0]} value="done" onChange={this.onDone} color="primary" /></span>
+                    <span className="shortcut-name" key="0">{placeholder.shortcutName}</span>
                 </Grid>
                 <Grid item xs={9}>
                     {columns}

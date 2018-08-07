@@ -55,16 +55,11 @@ class Placeholder {
         return this._entryShortcuts;
     }
 
-<<<<<<< HEAD
     getResultText() {
         if (!this._entryShortcut.getEntryId()) return this._placeholderText;
         return `${this._placeholderText}[[{"entryId":${this._entryShortcut.getEntryId()}}]]`;
     }
 
-    setAttributeValue(name, value) {
-        if (!this._entryShortcut.hasParentContext()) {
-            this._entryShortcut.establishParentContext(this._contextManager);
-=======
     get multiplicity() {
         return this._metadata.formSpec.multiplicity;
     }
@@ -76,7 +71,6 @@ class Placeholder {
     setAttributeValue(name, value, index = 0) {
         if (!this._entryShortcuts[index].hasParentContext()) {
             this._entryShortcuts[index].establishParentContext(this._contextManager);
->>>>>>> Placeholder can now handle multiple entry shortcuts.
         }
         
         if (!this._entryShortcuts[index].hasParentContext()) {
