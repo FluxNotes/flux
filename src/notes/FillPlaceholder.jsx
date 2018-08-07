@@ -23,7 +23,7 @@ export default class FillPlaceholder extends Component {
         // Determine the first field with no data entered for it; this field will be displayed upon startup.
         let firstUnfilledField = 0;
         this.props.placeholder.metadata.formSpec.attributes.some(attribute => {
-            var validAttribute = this.isValidAttribute(this.props.placeholder.getAttributeValue(attribute.name));
+            let validAttribute = this.isValidAttribute(this.props.placeholder.getAttributeValue(attribute.name));
             if (validAttribute) {
                 firstUnfilledField += 1;
             }
