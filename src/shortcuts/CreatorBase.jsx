@@ -190,7 +190,7 @@ export default class CreatorBase extends EntryShortcut {
 
     getResultText() {
         if (Lang.isUndefined(this.object.entryInfo)) return this.getText();
-        return `${this.initiatingTrigger}[[{"entryId":${this.object.entryInfo.entryId}}]]`;
+        return `${this.initiatingTrigger}[[{"entryId":${this.getEntryId()}}]]`;
     }
 
     getId() {

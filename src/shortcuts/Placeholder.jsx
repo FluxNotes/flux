@@ -1,5 +1,5 @@
 class Placeholder {
-    constructor(placeholderText, shortcutName, metadata, shortcutManager, contextManager, patient, clinicalNote, setForceRefresh) {
+    constructor(placeholderText, shortcutName, data, metadata, shortcutManager, contextManager, patient, clinicalNote, setForceRefresh) {
         this._placeholderText = placeholderText;
         this._shortcutName = shortcutName;
         this._metadata = metadata;
@@ -8,9 +8,13 @@ class Placeholder {
         this._patient = patient;
         this._clinicalNote = clinicalNote;
         this._setForceRefresh = setForceRefresh;
-        this._entryShortcut = shortcutManager.createShortcut(null, shortcutName, patient, undefined, this.onUpdate.bind(this));
-        this._entryShortcut.initialize(); // cause defaulting
-        this._numUpdates = 0;
+        this._entryShortcut = shortcutManager.createShortcut(null, shortcutName, patient, data, this.onUpdate.bind(this));
+        if(!data) {
+            this._entryShortcut.initialize(); // cause defaulting
+            this._numUpdates = 0;
+        } else {
+            this._numUpdates = 1;
+        }
     }
 
     onBeforeDeleted() {
@@ -49,6 +53,11 @@ class Placeholder {
 
     getAttributeValue(name) {
         return this._entryShortcut.getAttributeValue(name);
+    }
+
+    getResultText() {
+        if (!this._entryShortcut.getEntryId()) return this._placeholderText;
+        return `${this._placeholderText}[[{"entryId":${this._entryShortcut.getEntryId()}}]]`;
     }
 
     setAttributeValue(name, value) {

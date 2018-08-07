@@ -128,7 +128,7 @@ function StructuredFieldPlugin(opts) {
                 let shortcut = node.data.shortcut;
                 result += shortcut.getResultText();
             } else if (node.type === 'placeholder') {
-                result += node.data.placeholder.placeholderText;
+                result += node.data.placeholder.getResultText();
             } else if (node.type === 'bulleted-list') {
                 result += `<ul>${convertSlateNodesToText(node.nodes)}</ul>`;
             } else if (node.type === 'numbered-list') {

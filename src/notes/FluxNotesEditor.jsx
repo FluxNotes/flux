@@ -317,9 +317,9 @@ class FluxNotesEditor extends React.Component {
         }
     }
 
-    newPlaceholder = (placeholderText) => {
+    newPlaceholder = (placeholderText, data) => {
         const shortcutName = "#" + placeholderText.substring(1, placeholderText.length-1); // strip off < and > and add #
-        return this.props.shortcutManager.createPlaceholder(shortcutName, placeholderText, this.contextManager, this.props.patient, this.props.selectedNote, this.props.setForceRefresh);
+        return this.props.shortcutManager.createPlaceholder(shortcutName, placeholderText, data, this.contextManager, this.props.patient, this.props.selectedNote, this.props.setForceRefresh);
     }
 
     choseSuggestedPlaceholder(suggestion) {
@@ -346,11 +346,11 @@ class FluxNotesEditor extends React.Component {
         return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus();
     }
 
-    insertPlaceholder = (placeholderText, transform = undefined) => {
+    insertPlaceholder = (placeholderText, transform = undefined, data) => {
         if (Lang.isUndefined(transform)) {
             transform = this.state.state.transform();
         }
-        const placeholder = this.newPlaceholder(placeholderText);
+        const placeholder = this.newPlaceholder(placeholderText, data);
 
         const result = this.structuredFieldPlugin.transforms.insertPlaceholder(transform, placeholder);
         return result[0].collapseToStartOfNextText().focus();
@@ -932,9 +932,18 @@ class FluxNotesEditor extends React.Component {
             const placeholderText = text.slice(placeholderStartIndex, placeholderEndIndex + 1);
 
             if (this.placeholderCheck(placeholderText)) {
+                let remainder = text.slice(placeholderEndIndex + 1);
+                let end;
+                let after = ""
+                let returnStr = text.substring(placeholderEndIndex + 1);
+                if (remainder.startsWith("[[")) {
+                    end = remainder.indexOf("]]");
+                    after = remainder.substring(2, end);
+                    returnStr = remainder.substring(end + 2);
+                }
                 let result = this.insertPlainText(transform, text.substring(0, placeholderStartIndex));
-                result = this.insertPlaceholder(placeholderText, transform);
-                return this.insertPlainText(result, text.substring(placeholderEndIndex + 1));
+                result = this.insertPlaceholder(placeholderText, transform, after);
+                return this.insertPlainText(result, returnStr);
             }
         }
 

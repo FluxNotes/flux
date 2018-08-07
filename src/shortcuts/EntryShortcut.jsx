@@ -55,6 +55,10 @@ export default class EntryShortcut extends Shortcut {
         return result;
     }
 
+    getEntryId() {
+        return this.object.entryInfo.entryId;
+    }
+
     getAsString() {
         const structuredPhrase = this.metadata["structuredPhrase"];
 
