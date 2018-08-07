@@ -176,7 +176,7 @@
     "regexpTrigger": null,
     "form": "ToxicityForm",
     "structuredPhrase": "#toxicity of #${grade} #${adverseEvent}${% related to #${attribution}}",
-    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"],
+    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/shr/oncology/BreastCancer", "http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor"],
     "knownParentContexts": "ConditionInserter",
     "description": "Side effects to treatment, important for effective evaluation of disease and treatment, based on Common Terminology Criteria for Adverse Events (CTCAE) version 4.03 (June 14, 2010).",
     "structuredPhraseDocumentation": "toxicitySheet.pdf"
