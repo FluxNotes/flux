@@ -61,6 +61,7 @@ class Placeholder {
     }
 
     setAttributeValue(name, value) {
+        console.log(name, value);
         if (!this._entryShortcut.hasParentContext()) {
             this._entryShortcut.establishParentContext(this._contextManager);
         }
@@ -68,6 +69,8 @@ class Placeholder {
         if (!this._entryShortcut.hasParentContext()) {
             return "no parent context so no setting values";
         } else {
+            console.log("line 62");
+            console.log(this._entryShortcut);
             this._entryShortcut.setAttributeValue(name, value);
             this._setForceRefresh();
             return null;

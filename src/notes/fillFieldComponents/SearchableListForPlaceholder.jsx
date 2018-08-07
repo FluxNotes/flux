@@ -7,7 +7,6 @@ import Lang from 'lodash';
 import {Row, Col} from 'react-flexbox-grid';
 import Autosuggest from 'react-autosuggest';
 import './SearchableListForPlaceholder.css';
-import Divider from 'material-ui/Divider';
 
 
 function titlecase(label) {
@@ -27,8 +26,6 @@ class SearchableListForPlaceholder extends Component {
             objCopy.descriptionNoSpaces = objCopy.description ? objCopy.description.replace(/\s/g,'') : objCopy.description;
             return objCopy;
         });
-    
-       this.object = new ToxicReaction();
 
        this.state = {
            gradeOptions: toxicityLookup.getGradeOptions(),
@@ -41,49 +38,44 @@ class SearchableListForPlaceholder extends Component {
     
     }
 
-    handleOptionSelection = (e, i) => {
-        e.preventDefault();
-        const newValue = this._options[i].name;
-        this.props.updateValue(newValue);
-    }
+    // handleOptionSelection = (e, i) => {
+    //     e.preventDefault();
+    //     const newValue = this._options[i].name;
+    //     this.props.updateValue(this.props.attributeSpec, newValue);
+    // }
 
-    renderButtonGroup = (option, i) => {
-        
-        const marginSize = "2px";
-        const optionName = option.name;
+    // renderButtonGroup = (option, i) => {
+    //     const marginSize = "2px";
+    //     const optionName = option.name;
 
-        return (
-            <div key={optionName} className="tooltip-progression-form">
-                <SingleChoiceButton 
-                        buttonKey={i}
-                        buttonText={optionName}
-                        onClick={(e) => this.handleOptionSelection(e, i)}
-                        isSelected={this.props.value === this.topAdverseEvents[i].name}
-                        marginSize={marginSize}
-                />
-            </div>
-        );
-    }
+    //     return (
+    //         <div key={optionName} className="tooltip-progression-form">
+    //             <SingleChoiceButton 
+    //                     buttonKey={i}
+    //                     buttonText={optionName}
+    //                     onClick={(e) => this.handleOptionSelection(e, i)}
+    //                     isSelected={this.props.value === this.topAdverseEvents[i].name}
+    //                     marginSize={marginSize}
+    //             />
+    //         </div>
+    //     );
+    // }
 
-    /*
-     * When a valid adverse event is selected, update potential toxicity
-     */
     handleAdverseEventSelection = (newAdverseEvent) => {
         // A null or undefined value for newAdverseEvent should trigger the deletion of the current adverseEvent
-        console.log("handling the adverse events");
         if (Lang.isUndefined(newAdverseEvent) || Lang.isNull(newAdverseEvent)) {
-            this.props.updateValue("adverseEvent", null);
+            this.props.updateValue(this.props.attributeSpec, null);
         } else {
-            this.props.updateValue("adverseEvent", titlecase(newAdverseEvent));
+            console.log("new adverse event is not null", newAdverseEvent);
+            this.props.updateValue(this.props.attributeSpec, newAdverseEvent);
             this.setState({
-                searchText:  titlecase(newAdverseEvent)
+                searchText: titlecase(newAdverseEvent),
             });
         }
+    }
 
-        // Make sure grade is possible with given new tox
-        if (!toxicityLookup.isValidGradeForAdverseEvent(this.adverseEventGrade, newAdverseEvent)) {
-            this.props.updateValue("grade", null);
-        }
+    onSuggestionSelected = (e, {suggestionValue}) => {
+        this.handleAdverseEventSelection(suggestionValue);
     }
 
     /*
@@ -94,10 +86,9 @@ class SearchableListForPlaceholder extends Component {
         this.setState({
             searchText: newValue
         });
-        if (toxicityLookup.isValidAdverseEvent(newValue)) {
-            this.handleAdverseEventSelection(newValue)
-        } else if (!toxicityLookup.isValidAdverseEvent(newValue) && toxicityLookup.isValidAdverseEvent(this.object.adverseEvent)) {
-            this.handleAdverseEventSelection(null)
+        
+        if (!toxicityLookup.isValidAdverseEvent(newValue) && toxicityLookup.isValidAdverseEvent(newValue)) {
+            this.handleAdverseEventSelection(null);
         }
     }
 
@@ -134,11 +125,6 @@ class SearchableListForPlaceholder extends Component {
         });
     }
 
-    currentlySelectedAdverseEvent = (adverseEvent) => {
-        if (!this.props.object) return false;
-        return this.object.adverseEvent === adverseEvent.name;
-    }
-
     /*
      * Autosuggest will call this function every time you need to clear suggestions.
      */
@@ -164,24 +150,7 @@ class SearchableListForPlaceholder extends Component {
         );
     }
 
-     /*
-     * Render the adverse event item for the adverse event suggestion
-     */
-    renderSuggestion = (suggestion) => {
-        return (
-            <Row className="adverse-event-suggestion">
-                <Col xs={3} className="adverse-event-suggestion-name">
-                    {suggestion.name}
-                </Col>
-                <Col xs={9} className="adverse-event-suggestion-description">
-                    {suggestion.description}
-                </Col>
-            </Row>
-        );
-    }
-
     formatInput = inputProps => {
-        
         let inputClassName = "";
         if (this.props.backgroundColor === "lightgrey") {
             inputClassName = 'react-autosuggest__input_grey';
@@ -204,8 +173,10 @@ class SearchableListForPlaceholder extends Component {
             value: this.state.searchText,
             onChange: this.handleUpdateAdverseEventInput
         };
+        
 
         if (!Lang.isUndefined(this.topAdverseEvents) && this.topAdverseEvents.length > 0){
+           
             let topAdverseEventObjects = this.topAdverseEvents.map((adverseEvent, i) => {
                 return toxicityLookup.findAdverseEvent(adverseEvent);
             });
@@ -216,15 +187,14 @@ class SearchableListForPlaceholder extends Component {
                         return "";
                     }
                     const tooltipClass = (adverseEvent.description.length > 100) ? "tooltiptext large" : "tooltiptext";
-                    const isSelected = this.currentlySelectedAdverseEvent(adverseEvent);
+                    //const isSelected = this.currentlySelectedAdverseEvent(adverseEvent);
                     return (
                         <div key={adverseEvent.name} className="tooltip-toxicity-form">
                             <span id={adverseEvent.name} className={tooltipClass}>{adverseEvent.description}</span>
                             <SingleChoiceButton 
                                     buttonKey={i}
                                     buttonText={adverseEvent.name}
-                                    onClick={(e) => this.handleOptionSelection(e, i)}
-                                    isSelected={isSelected}
+                                    onClick={(e) => this.handleAdverseEventSelection(adverseEvent.name)}
                                     marginSize={marginSize}
                             />
                         </div>
@@ -242,6 +212,7 @@ class SearchableListForPlaceholder extends Component {
                     onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
                     onSuggestionsClearRequested={this.onSuggestionsClearRequested}
                     renderInputComponent={this.formatInput}
+                    onSuggestionSelected={this.onSuggestionSelected}
 
 
                     getSuggestionValue={this.getSuggestionValue}
