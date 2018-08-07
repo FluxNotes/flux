@@ -117,14 +117,14 @@ export default class FillPlaceholder extends Component {
     };
 
     setCalendarTrue = (attributeSpec) => {
-        this.setState({showCalendar: true});
-        this.setState({calendarAttributeSpec: attributeSpec.name});
+        this.setState({ showCalendar: true });
+        this.setState({ calendarAttributeSpec: attributeSpec.name });
     }
 
-    handleCalendarSelect = (attributeSpec, date) => {
+    handleCalendarSelect = (attributeSpec, index = 0, date) => {
         const dateSelected = date.format("D MMM YYYY");
-        this.onSetValue(attributeSpec, dateSelected);
-        this.setState({showCalendar: false})
+        this.onSetValue(attributeSpec, index, dateSelected);
+        this.setState({ showCalendar: false });
     }
 
     createFillFieldForPlaceholder = (attributeSpec, value, index = 0) => {
@@ -150,7 +150,7 @@ export default class FillPlaceholder extends Component {
                         <div className='date-picker-container' ref={(calendarDom) => this.calendarDom = calendarDom}>
                             <Calendar
                                 showDateInput={false}
-                                onSelect={this.handleCalendarSelect.bind(this, attributeSpec)}
+                                onSelect={this.handleCalendarSelect.bind(this, attributeSpec, index)}
                                 style={{position: 'absolute', top: '0px', left: '0px'}}
                             /> 
                         </div>
