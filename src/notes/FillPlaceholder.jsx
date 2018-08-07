@@ -20,7 +20,7 @@ export default class FillPlaceholder extends Component {
         this.calendarDom = null;
 
         // Determine the first field with no data entered for it; this field will be displayed upon startup.
-        var firstUnfilledField = 0;
+        let firstUnfilledField = 0;
         this.props.placeholder.metadata.formSpec.attributes.some(attribute => {
             var validAttribute = this.isValidAttribute(this.props.placeholder.getAttributeValue(attribute.name));
             if (validAttribute) {
@@ -29,10 +29,12 @@ export default class FillPlaceholder extends Component {
             return !validAttribute;
         });
 
+        let done = firstUnfilledField >= this.props.placeholder.metadata.formSpec.attributes.length;
+
         this.state = {
-            done: false,
+            done: done,
             expanded: false,
-            currentField: firstUnfilledField,
+            currentField: !done ? firstUnfilledField : 0,
             error: null,
         };
     }
