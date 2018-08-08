@@ -9,6 +9,7 @@ import FontAwesome from 'react-fontawesome';
 import ButtonSetFillFieldForPlaceholder from './fillFieldComponents/ButtonSetFillFieldForPlaceholder';
 import MultiButtonSetFillFieldForPlaceholder from './fillFieldComponents/MultiButtonSetFillFieldForPlaceholder';
 import Calendar from 'rc-calendar';
+import Button from '../elements/Button';
 import 'rc-calendar/assets/index.css';
 import moment from 'moment';
 import Lang from 'lodash';
@@ -207,6 +208,7 @@ export default class FillPlaceholder extends Component {
 
     renderMultipleEntriesPlaceholder = () => {
         const { placeholder } = this.props;
+        const shortcutNameWithoutPrefix = placeholder.shortcutName.slice(1);
 
         const entries = placeholder.entryShortcuts.map((entryShortcut, i) => {
             let columns = [];
@@ -236,7 +238,19 @@ export default class FillPlaceholder extends Component {
                     }
                     <Grid item xs={9}>
                         {columns}
-                        <FontAwesome name="times" onClick={this.deleteEntry.bind(this, i)} />
+                        <Button 
+                            onClick={this.deleteEntry.bind(this, i)}
+                            style={{float:"right"}}
+                        >
+                            <FontAwesome 
+                                name="times" 
+                                style={{
+                                    color: "red",
+                                    marginRight: "5px",
+                                }}
+                            />
+                            <span>{`Delete ${shortcutNameWithoutPrefix}`}</span>
+                        </Button>
                     </Grid>
                     {""}
                     {currentFieldRowInSummary}
