@@ -16,7 +16,6 @@ function titlecase(label) {
 
 class SearchableListForPlaceholder extends Component {
     constructor(props) {
-        console.log("are we reconstructing");
         super(props);
         
         // Retrieving valueset of all possible toxicites
