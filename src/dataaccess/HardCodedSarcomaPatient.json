@@ -645,8 +645,107 @@
                 },
                 "Value": "15 FEB 2016"
             }
+         },
+         "RelatedEncounter": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/RelatedEncounter"
+            },
+             "Value": {
+                 "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                 "_EntryId": "10",
+                 "_EntryType": {
+                     "Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterPerformed"
+                 }
+             }
+         },
+         "Author" : {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
+            },
+             "Value": "Judy Smith332"
+         },
+         "Informant": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/Informant"
+            },
+             "Value": "Dr. Joseph Burn234"
+         }
+    },
+
+
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterPerformed"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "10",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "15 FEB 2016"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "15 FEB 2016"
+        },
+        "ActionContext": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/action/PerformedContext"
+            },
+            "Reason": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Reason"
+                    },
+                    "Value": "Mr. Martinez45 complaining of stomach pain."
+                }
+            ],
+            "Status": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/action/Status"
+                },
+                "Value": "finished"
+            },
+            "OccurrenceTimeOrPeriod": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/OccurrencePeriod"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
+                    },
+                    "TimePeriodStart": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
+                        },
+                        "Value": "15 FEB 2016 15:00 -0500"
+                    }
+                }
+            }
+        },
+        "Subject": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
         }
     },
+
+
+
+
+
     {
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationChange"

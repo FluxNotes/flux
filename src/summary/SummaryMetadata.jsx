@@ -785,7 +785,12 @@ export default class SummaryMetadata {
                                     {
                                         name: "Name",
                                         value: (patient, currentConditionEntry) => {
-                                            return [currentConditionEntry.type, patient.isUnsigned(currentConditionEntry)];
+                                            return [currentConditionEntry.type, 
+                                                    patient.isUnsigned(currentConditionEntry), 
+                                                    (currentConditionEntry.sourceClinicalNoteReference ? 
+                                                        currentConditionEntry.sourceClinicalNoteReference : this.formatSourceString(currentConditionEntry)
+                                                    )
+                                                ];
                                         },
                                         shortcut: "@condition"
                                     },
@@ -1344,6 +1349,15 @@ export default class SummaryMetadata {
 
     getMetadata = () => {
         return this.hardCodedMetadata;
+    }
+
+    formatSourceString = (entry) => {
+        let result = "";
+        console.log(entry);
+        if (entry.Author) result += "Author: " + entry.author + "\r\n";
+        if (entry.Informant) result += "Informant: " + entry.informant + "\r\n";
+        return result;
+//     {   "relatedEncounter": currentConditionEntry.relatedEncounter, 
     }
 
     getKeyToxicityAndUnsignedFromCodes(patient, currentConditionEntry, codes) {

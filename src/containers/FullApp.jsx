@@ -9,6 +9,7 @@ import green from 'material-ui/colors/green';
 import red from 'material-ui/colors/red';
 import Snackbar from 'material-ui/Snackbar';
 import Lang from 'lodash';
+import Reference from '../model/Reference';
 
 import SecurityManager from '../security/SecurityManager';
 import DashboardManager from '../dashboard/DashboardManager';
@@ -97,6 +98,9 @@ export class FullApp extends Component {
                 text: "Open Source Note",
                 icon: "sticky-note",
                 whenToDisplay: {
+                    function: (element, arrayIndex, subsectionName, isSigned, allowItemClick) => {
+                        return true;
+                    },
                     valueExists: true,
                     existingValueSigned: "either",
                     editableNoteOpen: "either"
@@ -224,8 +228,16 @@ export class FullApp extends Component {
             });
             return;
         }
-        const sourceNote = this.state.patient.getEntryFromReference(item.value[2]);
-        this.setOpenClinicalNote(sourceNote);
+        console.log(item.value[2]);
+        if (item.value[2] instanceof Reference) {
+            const sourceNote = this.state.patient.getEntryFromReference(item.value[2]);
+            this.setOpenClinicalNote(sourceNote);
+        } else {
+            this.setState({
+                snackbarOpen: true,
+                snackbarMessage: "Source: " + item.value[2]
+            });
+        }
     }
 
     // Update the summaryItemToInsert based on the item given

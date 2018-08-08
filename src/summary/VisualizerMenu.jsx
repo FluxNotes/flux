@@ -10,6 +10,7 @@ export default class VisualizerMenu extends Component {
     // Filter Actions by whenToDisplay property on an actions.
     filterActions = () => {
         const filteredActions = this.props.unfilteredActions.filter((a) => {
+            if (a.whenToDisplay.function && !a.whenToDisplay.function(this.props.element, this.props.arrayIndex, this.props.subsectionName, this.props.isSigned, this.props.allowItemClick)) return false;
             if (a.whenToDisplay.valueExists && Lang.isNull(this.props.element)) return false;
             if (a.whenToDisplay.displayInSubsections && !a.whenToDisplay.displayInSubsections.includes(this.props.subsectionName)) return false;
             if (a.whenToDisplay.displayForColumns && !a.whenToDisplay.displayForColumns.includes(this.props.arrayIndex)) return false;

@@ -74,6 +74,14 @@ class FluxCondition {
         return this._condition.bodySiteOrCode[0].value.laterality.value.coding[0].displayText.value;
     }
 
+    get author() {
+        return this._condition.author.value;
+    }
+
+    get informant() {
+        return this._condition.informant.value;
+    }
+
 
     // Given a toxicity adverse event, return the grade value
     getToxicitiesByCodes(codes) {
