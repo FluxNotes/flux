@@ -69,7 +69,7 @@ export default class SummaryMetadata {
                                         value: (patient, currentConditionEntry) => {
                                             const nextEncounter = patient.getNextEncounter();
                                             if (Lang.isUndefined(nextEncounter)) return ["No upcoming appointments", false];
-                                            return [patient.getNextEncounterReasonAsText(), patient.isUnsigned(nextEncounter)];
+                                            return [patient.getNextEncounterReasonAsText(), patient.isUnsigned(nextEncounter), this.determineSource(patient, nextEncounter)];
                                         },
                                         shortcut: "@reason for next visit"
                                     }
@@ -100,7 +100,7 @@ export default class SummaryMetadata {
                                         value: (patient, currentConditionEntry) => {
                                             const previousEncounter = patient.getPreviousEncounter();
                                             if (Lang.isUndefined(previousEncounter)) return ["No recent appointments", false];
-                                            return [patient.getPreviousEncounterReasonAsText(), patient.isUnsigned(previousEncounter)] ;
+                                            return [patient.getPreviousEncounterReasonAsText(), patient.isUnsigned(previousEncounter), this.determineSource(patient, previousEncounter)] ;
                                         },
                                         shortcut: "@reason for previous visit"
                                     }
@@ -175,14 +175,14 @@ export default class SummaryMetadata {
                                     {
                                         name: "Name",
                                         value: (patient, currentConditionEntry) => {
-                                            return [currentConditionEntry.type, patient.isUnsigned(currentConditionEntry)];
+                                            return [currentConditionEntry.type, patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)];
                                         },
                                         shortcut: "@condition"
                                     },
                                     {
                                         name: "Laterality",
                                         value: (patient, currentConditionEntry) => {
-                                            return [currentConditionEntry.laterality, patient.isUnsigned(currentConditionEntry)];
+                                            return [currentConditionEntry.laterality, patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)];
                                         }
                                     },
                                     {
@@ -190,7 +190,7 @@ export default class SummaryMetadata {
                                         value: (patient, currentConditionEntry) => {
                                             let s = currentConditionEntry.getMostRecentStaging();
                                             if (s && s.stage && s.stage.length > 0) {
-                                                return [s.stage, patient.isUnsigned(s), s.sourceClinicalNoteReference];
+                                                return [s.stage, patient.isUnsigned(s), this.determineSource(patient, s)];
                                             } else {
                                                 return null;
                                             }
@@ -204,7 +204,7 @@ export default class SummaryMetadata {
                                             if (Lang.isNull(p) || !p.status) {
                                                 return null;
                                             } else {
-                                                return [p.status, patient.isUnsigned(p), p.sourceClinicalNoteReference];
+                                                return [p.status, patient.isUnsigned(p), this.determineSource(patient, p)];
                                             }
                                         }
                                     },
@@ -215,7 +215,7 @@ export default class SummaryMetadata {
                                             if (Lang.isNull(p) || !p.status) {
                                                 return null;
                                             } else {
-                                                return [p.asOfDate, patient.isUnsigned(p), p.sourceClinicalNoteReference];
+                                                return [p.asOfDate, patient.isUnsigned(p), this.determineSource(patient, p)];
                                             }
                                         }
                                     },
@@ -228,7 +228,7 @@ export default class SummaryMetadata {
                                             } else {
                                                 return [p.evidence.map(function (ev) {
                                                     return ev;
-                                                }).join(', '), patient.isUnsigned(p), p.sourceClinicalNoteReference];
+                                                }).join(', '), patient.isUnsigned(p), this.determineSource(patient, p)];
                                             }
                                         }
                                     }
@@ -274,7 +274,7 @@ export default class SummaryMetadata {
                                     {
                                         name: "Diagnosis",
                                         value: (patient, currentConditionEntry) => {
-                                            return [currentConditionEntry.diagnosisDate, patient.isUnsigned(currentConditionEntry)] ;
+                                            return [currentConditionEntry.diagnosisDate, patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)] ;
                                         }
                                     },
                                     {
@@ -283,7 +283,7 @@ export default class SummaryMetadata {
                                             if (currentConditionEntry.clinicalStatus === "recurrence") {
                                                 return null;
                                             } else {
-                                                return ["N/A", patient.isUnsigned(currentConditionEntry)];
+                                                return ["N/A", patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)];
                                             } // TODO: actually get date once we know where it is in SHR
                                         }
                                     }
@@ -299,7 +299,7 @@ export default class SummaryMetadata {
                                             if (Lang.isNull(er)) {
                                                 return null;
                                             } else {
-                                                return [er.status, patient.isUnsigned(er), er.sourceClinicalNoteReference];
+                                                return [er.status, patient.isUnsigned(er), this.determineSource(patient, er)];
                                             }
                                         }
                                     },
@@ -310,7 +310,7 @@ export default class SummaryMetadata {
                                             if (Lang.isNull(pr)) {
                                                 return null;
                                             } else {
-                                                return [pr.status, patient.isUnsigned(pr), pr.sourceClinicalNoteReference];
+                                                return [pr.status, patient.isUnsigned(pr), this.determineSource(patient, pr)];
                                             }
                                         }
                                     },
@@ -321,7 +321,7 @@ export default class SummaryMetadata {
                                             if (Lang.isNull(her2)) {
                                                 return null;
                                             } else {
-                                                return [her2.status, patient.isUnsigned(her2), her2.sourceClinicalNoteReference];
+                                                return [her2.status, patient.isUnsigned(her2), this.determineSource(patient, her2)];
                                             }
                                         }
                                     }
@@ -506,7 +506,7 @@ export default class SummaryMetadata {
                                         value: (patient, currentConditionEntry) => {
                                             let list = currentConditionEntry.getObservationsOfType(FluxTumorDimensions);
                                             if (list.length === 0) return null;
-                                            return [list[0].quantity.value + " " + list[0].quantity.unit, patient.isUnsigned(list[0])];
+                                            return [list[0].quantity.value + " " + list[0].quantity.unit, patient.isUnsigned(list[0]), this.determineSource(patient, list[0])];
                                         }
                                     },
                                     {
@@ -517,7 +517,7 @@ export default class SummaryMetadata {
                                         name: "Histological Grade",
                                         value: (patient, currentConditionEntry) => {
                                             let histologicalGrade = currentConditionEntry.getMostRecentHistologicalGrade();
-                                            return [ histologicalGrade.grade, patient.isUnsigned(histologicalGrade) ];
+                                            return [ histologicalGrade.grade, patient.isUnsigned(histologicalGrade), this.determineSource(patient, histologicalGrade) ];
                                         }
                                     },
                                     {
@@ -527,7 +527,7 @@ export default class SummaryMetadata {
                                             if (Lang.isNull(er)) {
                                                 return null;
                                             } else {
-                                                return [er.status, patient.isUnsigned(er), er.sourceClinicalNoteReference];
+                                                return [er.status, patient.isUnsigned(er), this.determineSource(patient, er)];
                                             }
                                         }
                                     },
@@ -538,7 +538,7 @@ export default class SummaryMetadata {
                                             if (Lang.isNull(pr)) {
                                                 return null;
                                             } else {
-                                                return [pr.status, patient.isUnsigned(pr), pr.sourceClinicalNoteReference];
+                                                return [pr.status, patient.isUnsigned(pr), this.determineSource(patient, pr)];
                                             }
                                         }
                                     },
@@ -549,7 +549,7 @@ export default class SummaryMetadata {
                                             if (Lang.isNull(her2)) {
                                                 return null;
                                             } else {
-                                                return [her2.status, patient.isUnsigned(her2), her2.sourceClinicalNoteReference];
+                                                return [her2.status, patient.isUnsigned(her2), this.determineSource(patient, her2)];
                                             }
                                         }
                                     }
@@ -587,7 +587,7 @@ export default class SummaryMetadata {
                                             return [panel.members.map((item) => {
                                                 const v = item.value === 'Positive' ? '+' : '-';
                                                 return item.abbreviatedName + v;
-                                            }).join(","), patient.isUnsigned(panel)];
+                                            }).join(","), patient.isUnsigned(panel), this.determineSource(patient, panel)];
                                         }
                                     }
                                 ]
@@ -696,7 +696,7 @@ export default class SummaryMetadata {
                                         value: (patient, currentConditionEntry) => {
                                             const nextEncounter = patient.getNextEncounter();
                                             if (Lang.isUndefined(nextEncounter)) return ["No upcoming appointments", false];
-                                            return [patient.getNextEncounterReasonAsText(), patient.isUnsigned(nextEncounter)];
+                                            return [patient.getNextEncounterReasonAsText(), patient.isUnsigned(nextEncounter), this.determineSource(patient, nextEncounter)];
                                         },
                                         shortcut: "@reason for next visit"
                                     }
@@ -727,7 +727,7 @@ export default class SummaryMetadata {
                                         value: (patient, currentConditionEntry) => {
                                             const previousEncounter = patient.getPreviousEncounter();
                                             if (Lang.isUndefined(previousEncounter)) return ["No recent appointments", false];
-                                            return [patient.getPreviousEncounterReasonAsText(), patient.isUnsigned(previousEncounter)] ;
+                                            return [patient.getPreviousEncounterReasonAsText(), patient.isUnsigned(previousEncounter), this.determineSource(patient, previousEncounter)] ;
                                         },
                                         shortcut: "@reason for previous visit"
                                     }
@@ -787,9 +787,7 @@ export default class SummaryMetadata {
                                         value: (patient, currentConditionEntry) => {
                                             return [currentConditionEntry.type, 
                                                     patient.isUnsigned(currentConditionEntry), 
-                                                    (currentConditionEntry.sourceClinicalNoteReference ? 
-                                                        currentConditionEntry.sourceClinicalNoteReference : this.formatSourceString(currentConditionEntry)
-                                                    )
+                                                    this.determineSource(patient, currentConditionEntry)
                                                 ];
                                         },
                                         shortcut: "@condition"
@@ -799,7 +797,7 @@ export default class SummaryMetadata {
                                         value: (patient, currentConditionEntry) => {
                                             let s = currentConditionEntry.getMostRecentStaging();
                                             if (s && s.stage && s.stage.length > 0) {
-                                                return [s.stage, patient.isUnsigned(s), s.sourceClinicalNoteReference];
+                                                return [s.stage, patient.isUnsigned(s), this.determineSource(patient, s)];
                                             } else {
                                                 return null;
                                             }
@@ -810,7 +808,7 @@ export default class SummaryMetadata {
                                         name: "Mitotic Count Score",
                                         value: (patient, currentConditionEntry) => {
                                             let m = currentConditionEntry.getMostRecentStaging();
-                                            return [ m.mitoticCountScore, patient.isUnsigned(m) ];
+                                            return [ m.mitoticCountScore, patient.isUnsigned(m), this.determineSource(patient, m) ];
                                         }
                                     },                                    
                                     {
@@ -820,7 +818,7 @@ export default class SummaryMetadata {
                                             if (Lang.isNull(p) || !p.status) {
                                                 return null;
                                             } else {
-                                                return [p.status, patient.isUnsigned(p), p.sourceClinicalNoteReference];
+                                                return [p.status, patient.isUnsigned(p), this.determineSource(patient, p)];
                                             }
                                         }
                                     },
@@ -831,7 +829,7 @@ export default class SummaryMetadata {
                                             if (Lang.isNull(p) || !p.status) {
                                                 return null;
                                             } else {
-                                                return [p.asOfDate, patient.isUnsigned(p), p.sourceClinicalNoteReference];
+                                                return [p.asOfDate, patient.isUnsigned(p), this.determineSource(patient, p)];
                                             }
                                         }
                                     },
@@ -844,7 +842,7 @@ export default class SummaryMetadata {
                                             } else {
                                                 return [p.evidence.map(function (ev) {
                                                     return ev;
-                                                }).join(', '), patient.isUnsigned(p), p.sourceClinicalNoteReference];
+                                                }).join(', '), patient.isUnsigned(p), this.determineSource(patient, p)];
                                             }
                                         }
                                     }
@@ -878,7 +876,7 @@ export default class SummaryMetadata {
                                     {
                                         name: "Diagnosis",
                                         value: (patient, currentConditionEntry) => {
-                                            return [currentConditionEntry.diagnosisDate, patient.isUnsigned(currentConditionEntry)] ;
+                                            return [currentConditionEntry.diagnosisDate, patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)] ;
                                         }
                                     },
                                     {
@@ -887,7 +885,7 @@ export default class SummaryMetadata {
                                             if (currentConditionEntry.clinicalStatus === "recurrence") {
                                                 return null;
                                             } else {
-                                                return ["N/A", patient.isUnsigned(currentConditionEntry)];
+                                                return ["N/A", patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)];
                                             } // TODO: actually get date once we know where it is in SHR
                                         }
                                     }
@@ -1070,7 +1068,7 @@ export default class SummaryMetadata {
                                         value: (patient, currentConditionEntry) => {
                                             let list = currentConditionEntry.getObservationsOfType(FluxTumorDimensions);
                                             if (list.length === 0) return null;
-                                            return [list[0].quantity.value + " " + list[0].quantity.unit, patient.isUnsigned(list[0])];
+                                            return [list[0].quantity.value + " " + list[0].quantity.unit, patient.isUnsigned(list[0]), this.determineSource(patient, list[0])];
                                         }
                                     },
                                     {
@@ -1081,7 +1079,7 @@ export default class SummaryMetadata {
                                         name: "Histological Grade",
                                         value: (patient, currentConditionEntry) => {
                                             let histologicalGrade = currentConditionEntry.getMostRecentHistologicalGrade();
-                                            return [ histologicalGrade.grade, patient.isUnsigned(histologicalGrade) ];
+                                            return [ histologicalGrade.grade, patient.isUnsigned(histologicalGrade), this.determineSource(patient, histologicalGrade) ];
                                         }
                                     },               
                                 ]
@@ -1111,7 +1109,7 @@ export default class SummaryMetadata {
                                             return [panel.members.map((item) => {
                                                 const v = item.value === 'Positive' ? '+' : '-';
                                                 return item.abbreviatedName + v;
-                                            }).join(","), patient.isUnsigned(panel)];
+                                            }).join(","), patient.isUnsigned(panel), this.determineSource(patient, panel)];
                                         }
                                     }
                                 ]
@@ -1214,26 +1212,26 @@ export default class SummaryMetadata {
                                     {
                                         name: "Name",
                                         value: (patient, currentConditionEntry) => {
-                                            return [currentConditionEntry.type, patient.isUnsigned(currentConditionEntry)];
+                                            return [currentConditionEntry.type, patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)];
                                         },
                                         shortcut: "@condition"
                                     },
                                     {
                                         name: "Diagnosis Date",
                                         value: (patient, currentConditionEntry) => {
-                                            return [currentConditionEntry.diagnosisDate, patient.isUnsigned(currentConditionEntry)];
+                                            return [currentConditionEntry.diagnosisDate, patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)];
                                         }
                                     },
                                     {
                                         name: "Where",
                                         value: (patient, currentConditionEntry) => {
-                                            return [currentConditionEntry.bodySite, patient.isUnsigned(currentConditionEntry)];
+                                            return [currentConditionEntry.bodySite, patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)];
                                         }
                                     },
                                     {
                                         name: "Clinical Status",
                                         value: (patient, currentConditionEntry) => {
-                                            return [currentConditionEntry.clinicalStatus, patient.isUnsigned(currentConditionEntry)];
+                                            return [currentConditionEntry.clinicalStatus, patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)];
                                         }
                                     }
                                 ]
@@ -1351,29 +1349,31 @@ export default class SummaryMetadata {
         return this.hardCodedMetadata;
     }
 
-    formatSourceString = (entry) => {
+    determineSource = (patient, entry) => {
+        if (entry.sourceClinicalNoteReference) return entry.sourceClinicalNoteReference;
         let result = "";
-        console.log(entry);
-        if (entry.Author) result += "Author: " + entry.author + "\r\n";
-        if (entry.Informant) result += "Informant: " + entry.informant + "\r\n";
+        if (entry.author) result += "Author: " + entry.author;
+        if (entry.informant) result += (result.length > 0 ? "  |  " : "") + "Informant: " + entry.informant;
+        if (entry.relatedEncounterReference) {
+            const relatedEncounter = patient.getEntryFromReference(entry.relatedEncounterReference);
+            result += (result.length > 0 ? "  |  " : "") + " from encounter on " + relatedEncounter.actionContext.occurrenceTimeOrPeriod.timePeriod.timePeriodStart.value;
+        }
         return result;
-//     {   "relatedEncounter": currentConditionEntry.relatedEncounter, 
     }
 
     getKeyToxicityAndUnsignedFromCodes(patient, currentConditionEntry, codes) {
-        //console.log(codes);
         const tox = currentConditionEntry.getToxicitiesByCodes(codes);
-        let val, unsigned, noteRef;
+        let val, unsigned, source;
         if (tox.length > 0) {
             val = tox[0].adverseEventGrade;
             unsigned = patient.isUnsigned(tox[0]);
-            noteRef = tox[0].sourceClinicalNoteReference;
+            source = this.determineSource(patient, tox[0]);
         } else {
             val = 'None';
             unsigned = false;
-            noteRef = null;
+            source = null;
         }
-        return [val, unsigned, noteRef];
+        return [val, unsigned, source];
     }
 
     getItemListForConditions = (patient, currentConditionEntry, subsection) => {

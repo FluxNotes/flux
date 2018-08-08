@@ -40,7 +40,13 @@ export default class VisualizerMenu extends Component {
                                 <FontAwesome name={a.icon} />
                             </ListItemIcon>
                         ) : null;
-                        const text = a.text.replace("{elementText}", this.props.elementText);
+                        let textSpec;
+                        if (a.text) {
+                            textSpec = a.text;
+                        } else {
+                            textSpec = a.textfunction(this.props.element);
+                        }
+                        const text = textSpec.replace("{elementText}", this.props.elementText);
                         return (
                             <MenuItem
                                 key={`${this.props.elementId}-${index}`}

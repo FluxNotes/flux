@@ -82,6 +82,9 @@ class FluxCondition {
         return this._condition.informant.value;
     }
 
+    get relatedEncounterReference() {
+        return this._condition.relatedEncounter.value;
+    }
 
     // Given a toxicity adverse event, return the grade value
     getToxicitiesByCodes(codes) {

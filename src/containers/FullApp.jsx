@@ -95,7 +95,7 @@ export class FullApp extends Component {
             },
             {
                 handler: this.openReferencedNote,
-                text: "Open Source Note",
+                textfunction: this.nameSourceAction,
                 icon: "sticky-note",
                 whenToDisplay: {
                     function: (element, arrayIndex, subsectionName, isSigned, allowItemClick) => {
@@ -220,6 +220,13 @@ export class FullApp extends Component {
         });
     }
 
+    nameSourceAction = (element) => {
+        if (element.value && element.value.length > 2) {
+            return (element.value[2] instanceof Reference ? "Open Source Note" : "View Source");
+        }
+        return "No source information";
+    }
+
     openReferencedNote = (item, arrayIndex = -1) => {
         if (!item.value || !Lang.isArray(item.value) || item.value.length < 3 || Lang.isUndefined(item.value[2])) {
             this.setState({
@@ -228,14 +235,13 @@ export class FullApp extends Component {
             });
             return;
         }
-        console.log(item.value[2]);
         if (item.value[2] instanceof Reference) {
             const sourceNote = this.state.patient.getEntryFromReference(item.value[2]);
             this.setOpenClinicalNote(sourceNote);
         } else {
             this.setState({
                 snackbarOpen: true,
-                snackbarMessage: "Source: " + item.value[2]
+                snackbarMessage: item.value[2]
             });
         }
     }
