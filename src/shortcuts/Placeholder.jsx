@@ -97,15 +97,16 @@ class Placeholder {
     }
 
     addEntry() {
-        // newShortcut.initialize();
         this._entryShortcuts.push(this._shortcutManager.createShortcut(null, this._shortcutName, this._patient, undefined, this.onUpdate.bind(this)));
         this._entryShortcuts[this._entryShortcuts.length - 1].initialize();
         this._setForceRefresh();
     }
 
     deleteEntry(index) {
-        this._entryShortcuts.splice(index, 1);
-        this._setForceRefresh();
+        if (this._entryShortcuts[index].onBeforeDeleted()) {
+            this._entryShortcuts.splice(index, 1);
+            this._setForceRefresh();
+        }
     }
 }
 
