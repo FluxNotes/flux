@@ -224,19 +224,10 @@ export default class NotesPanel extends Component {
     deleteSelectedNote = () => {
         this.closeNote(this.state.localDocumentText);
         if (this.state.selectedNote && !this.state.selectedNote.signed) {
-            // Find the shortcuts in the current note.
-            // Use this.state.localDocumentText since note is not saved on every keypress and need full content here.
-            const recognizedShortcutsObjects = this.noteParser.getListOfTriggersFromText(this.state.localDocumentText)[0].reverse();
-            for (const index in recognizedShortcutsObjects) {
-                // Get the actual shortcut obj from structuredFieldMapManager lookup -- need id of shortcut to retrieve
-                const currentShortcutTrigger = recognizedShortcutsObjects[index].trigger.toLowerCase();
-                const mappedShortcutMetadata = this.props.shortcutManager.shortcutMap[currentShortcutTrigger]
-                const currentShortcutId = (mappedShortcutMetadata) ? mappedShortcutMetadata.id : null;
-                const currentShortcut = this.props.structuredFieldMapManager.idToShortcutMap.get(currentShortcutId);
-                if (currentShortcut && currentShortcut.onBeforeDeleted) {
-                    currentShortcut.onBeforeDeleted();
-                }
-            }
+            // Prepare shortcuts in current note for deletion
+            this.props.structuredFieldMapManager.idToShortcutMap.forEach((value, key) => {
+                value.onBeforeDeleted();
+            });
             // Clear all shortcuts from the current mapManager
             this.props.structuredFieldMapManager.clearStructuredFieldMap();
             this.props.patient.removeClinicalNote(this.state.selectedNote);
