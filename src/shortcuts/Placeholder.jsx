@@ -8,12 +8,18 @@ class Placeholder {
         this._patient = patient;
         this._clinicalNote = clinicalNote;
         this._setForceRefresh = setForceRefresh;
-        this._entryShortcuts = [shortcutManager.createShortcut(null, shortcutName, patient, data, this.onUpdate.bind(this))];
-        if (!data) {
+        let shortcuts = [];
+        if (data) {
+            let parsedData = JSON.parse(data);
+            parsedData.entryIds.forEach((id) => {
+                shortcuts.push(shortcutManager.createShortcut(null, shortcutName, patient, `{"entryId":${id}}`, this.onUpdate.bind(this)));
+            });
+            this._entryShortcuts = shortcuts;
+            this._numUpdates = 1;
+        } else {
+            this._entryShortcuts = [shortcutManager.createShortcut(null, shortcutName, patient, undefined, this.onUpdate.bind(this))];
             this._entryShortcuts[0].initialize();
             this._numUpdates = 0;
-        } else {
-            this._numUpdates = 1;
         }
     }
 
@@ -57,7 +63,11 @@ class Placeholder {
 
     getResultText() {
         if (!this._entryShortcuts[0].getEntryId()) return this._placeholderText;
-        return `${this._placeholderText}[[{"entryId":${this._entryShortcuts[0].getEntryId()}}]]`;
+        let ids = [];
+        this._entryShortcuts.forEach((shortcut) => {
+            ids.push(shortcut.getEntryId());
+        });
+        return `${this._placeholderText}[[{"entryIds":[${ids}]}]]`;
     }
 
     get multiplicity() {
@@ -83,7 +93,13 @@ class Placeholder {
     }
 
     getTextToDisplayInNote(index = 0) {
-        if (this._numUpdates > 0 && this._entryShortcuts[index].hasData()) return this._entryShortcuts[index].getAsString();
+        if (this._numUpdates > 0 && this._entryShortcuts[index].hasData()) {
+            let displayText = "";
+            this._entryShortcuts.forEach((shortcut) => {
+                displayText += `${shortcut.getAsString()}. `;
+            });
+            return displayText;
+        }
         return this._placeholderText;
     }
 
