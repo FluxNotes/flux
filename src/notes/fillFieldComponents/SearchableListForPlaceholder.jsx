@@ -19,10 +19,9 @@ class SearchableListForPlaceholder extends Component {
         
         super(props);
         
-        // Getting valueset of all possible toxicites
+        // Retrieving valueset of all possible toxicites
         this._options = ValueSetManager.getValueList(this.props.attributeSpec.values.category, this.props.attributeSpec.values.valueSet);
-        
-        // 
+
         const adverseEventOptionsIncludingNoSpaces = toxicityLookup.getAdverseEventOptions().map(obj => {
             const objCopy = Lang.clone(obj);
             objCopy.nameNoSpaces = objCopy.name ? objCopy.name.replace(/\s/g,'') : objCopy.name;
@@ -43,7 +42,6 @@ class SearchableListForPlaceholder extends Component {
 
    
     handleAdverseEventSelection = (newAdverseEvent) => {
-        
         // A null or undefined value for newAdverseEvent should trigger the deletion of the current adverseEvent
         if (Lang.isUndefined(newAdverseEvent) || Lang.isNull(newAdverseEvent)) {
             this.props.updateValue(this.props.attributeSpec, null);
@@ -199,6 +197,7 @@ class SearchableListForPlaceholder extends Component {
                     onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
                     onSuggestionsClearRequested={this.onSuggestionsClearRequested}
                     renderInputComponent={this.formatInput}
+                   
                     onSuggestionSelected={this.onSuggestionSelected}
                     getSuggestionValue={this.getSuggestionValue}
                     renderSuggestion={this.renderSuggestion}
