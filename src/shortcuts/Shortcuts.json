@@ -186,7 +186,7 @@
     "formSpec": {   
         "title": "Toxicity",
         "multiplicity": "many",
-        "attributes": [ {   "title":"Adverse Event", "name":"adverseEvent", "type":"searchableList", "values": {"category":"toxicity", "valueSet":"adverseEvent", "topAdverseEventSection": ["Febrile neutropenia", "Fatigue", "Generalized muscle weakness","Anemia","Diarrhea","Nausea","Platelet count decreased","Anorexia"]} },
+        "attributes": [ {   "title":"Adverse Event", "name":"adverseEvent", "type":"searchableList", "values": {"category":"toxicity", "valueSet":"adverseEvent", "topAdverseEventSection": ["Febrile neutropenia", "Fatigue", "Generalized muscle weakness","Anemia","Nausea","Platelet count decreased"]} },
                         {   "title":"Grade", "name":"grade", "type":"radioButtons", "values": {"category":"toxicity", "valueSet":"grade"} },
                         {   "title":"Attribution", "name":"attribution", "type":"radioButtons", "values": {"category":"toxicity", "valueSet":"attribution"} }
                       ]

@@ -18,8 +18,6 @@ export default class FillPlaceholder extends Component {
     constructor(props) {
         
         super(props);
-
-        console.log(this.props.backgroundColor);
         this.onDone = this.onDone.bind(this);
         this.calendarDom = null;
 
@@ -78,10 +76,8 @@ export default class FillPlaceholder extends Component {
         }
     };
     
-        onSetValue = (attributeSpec, newValue) => {
-        console.log(newValue);
+    onSetValue = (attributeSpec, newValue) => {
         const error = this.props.placeholder.setAttributeValue(attributeSpec.name, newValue);
-        console.log("line 43");
         if (Lang.isNull(error)) {
             this.forceUpdate();
         }
