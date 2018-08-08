@@ -56,8 +56,8 @@ class Placeholder {
     }
 
     getResultText() {
-        if (!this._entryShortcut.getEntryId()) return this._placeholderText;
-        return `${this._placeholderText}[[{"entryId":${this._entryShortcut.getEntryId()}}]]`;
+        if (!this._entryShortcuts[0].getEntryId()) return this._placeholderText;
+        return `${this._placeholderText}[[{"entryId":${this._entryShortcuts[0].getEntryId()}}]]`;
     }
 
     get multiplicity() {
