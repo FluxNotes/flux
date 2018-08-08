@@ -16,7 +16,7 @@ function titlecase(label) {
 
 class SearchableListForPlaceholder extends Component {
     constructor(props) {
-        
+        console.log("are we reconstructing");
         super(props);
         
         // Retrieving valueset of all possible toxicites
@@ -153,8 +153,9 @@ class SearchableListForPlaceholder extends Component {
     render() {
         let topAdverseEventSection = null;
         const marginSize = "2px";
+        let inputPlaceholder = (this.props.value ? this.props.value : "Enter symptom");
         const inputProps = {
-            placeholder: 'Enter symptom',
+            placeholder: inputPlaceholder,
             value: this.state.searchText,
             onChange: this.handleUpdateAdverseEventInput
         };
@@ -180,6 +181,7 @@ class SearchableListForPlaceholder extends Component {
                                     buttonKey={i}
                                     buttonText={adverseEvent.name}
                                     onClick={(e) => this.handleAdverseEventSelection(adverseEvent.name)}
+                                    isSelected={this.props.value === this.topAdverseEvents[i]}
                                     marginSize={marginSize}
                             />
                         </div>
