@@ -288,6 +288,18 @@ export default class FillPlaceholder extends Component {
         return errorString;
     }
 
+    renderCheckbox = () => {
+        const { done } = this.state;
+        const { placeholder } = this.props;
+
+        return (
+            <Grid item xs={3}>
+                <span className="done-checkbox"><Checkbox style={{ width: 26, height: 26 }} checked={done} value="done" onChange={this.onDone} color="primary" /></span>
+                <span className="shortcut-name" key="0">{placeholder.shortcutName}</span>
+            </Grid>
+        );
+    }
+
     renderColumns = (entryIndex = 0) => {
         const { placeholder } = this.props;
         let columns = [];
@@ -307,7 +319,7 @@ export default class FillPlaceholder extends Component {
     }
 
     renderSingleEntryPlaceholder = () => {
-        const { currentField, done, expanded } = this.state;
+        const { currentField, expanded } = this.state;
         const { backgroundColor, placeholder } = this.props;
         const attribute = placeholder.metadata.formSpec.attributes[currentField[0]];
 
@@ -315,10 +327,7 @@ export default class FillPlaceholder extends Component {
             <ExpansionPanel expanded={expanded} className='expanded-style'>
                 <ExpansionPanelSummary style={{ backgroundColor, cursor: 'default' }} expandIcon={<ExpandMoreIcon onClick={this.onExpand} />}>
                     <Grid container>
-                        <Grid item xs={3}>
-                            <span className="done-checkbox"><Checkbox style={{ width: 26, height: 26 }} checked={done} value="done" onChange={this.onDone} color="primary" /></span>
-                            <span className="shortcut-name" key="0">{placeholder.shortcutName}</span>
-                        </Grid>
+                        {this.renderCheckbox()}
                         <Grid item xs={9}>
                             {this.renderColumns()}
                         </Grid>
@@ -336,7 +345,7 @@ export default class FillPlaceholder extends Component {
     }
 
     renderMultipleEntriesPlaceholder = () => {
-        const { currentField, done, expanded } = this.state;
+        const { currentField, expanded } = this.state;
         const { backgroundColor, placeholder } = this.props;
 
         const entries = placeholder.entryShortcuts.map((_, i) => {
@@ -344,14 +353,7 @@ export default class FillPlaceholder extends Component {
 
             return (
                 <Grid container key={`${i}-container`}>
-                    {i === 0 ?
-                        (
-                            <Grid item xs={3}>
-                                <span className="done-checkbox"><Checkbox style={{ width: 26, height: 26 }} checked={done} value="done" onChange={this.onDone} color="primary" /></span>
-                                <span className="shortcut-name" key="0">{placeholder.shortcutName}</span>
-                            </Grid>
-                        ) : <Grid item xs={3} />
-                    }
+                    {i === 0 ? this.renderCheckbox() : <Grid item xs={3} />}
                     <Grid item xs={9}>
                         {this.renderColumns(i)}
                         {this.renderDeleteButton(i)}
@@ -363,15 +365,21 @@ export default class FillPlaceholder extends Component {
             );
         });
 
-        const expansionSummary = expanded ? null : (
-            <Grid container>
-                {this.renderError()}
-                {entries}
-                <div style={{ width: "100%" }}>
-                    {this.renderAddButton()}
-                </div>
-            </Grid>
-        );
+        const expansionSummary = expanded ?
+            (
+                <Grid container>
+                    {this.renderCheckbox()}
+                </Grid>
+            ) :
+            (
+                <Grid container>
+                    {this.renderError()}
+                    {entries}
+                    <div style={{ width: "100%" }}>
+                        {this.renderAddButton()}
+                    </div>
+                </Grid>
+            );
 
         const allRowsAndColumns = placeholder.entryShortcuts.map((_, i) => {
             return (
