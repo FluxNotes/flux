@@ -204,15 +204,11 @@ export default class FillPlaceholder extends Component {
 
     deleteEntry = (index) => {
         const { placeholder } = this.props;
-        const { currentField, done } = this.state;
+        const { currentField } = this.state;
 
         currentField.splice(index, 1);
-        done.splice(index, 1);
         placeholder.deleteEntry(index);
-        this.setState({
-            currentField,
-            done,
-        });
+        this.setState({ currentField });
     }
 
     createAllRows = () => {
