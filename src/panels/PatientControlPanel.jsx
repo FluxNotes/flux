@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import Paper from 'material-ui/Paper';
 import PatientSearch from '../patientControl/PatientSearch'
+import ConditionSelection from '../summary/ConditionSelection';
 
 import SummaryHeader from '../summary/SummaryHeader';
 import './PatientControlPanel.css';
@@ -18,10 +19,10 @@ class PatientControlPanel extends Component {
                 <Paper className="panel-content">
                     <Grid fluid>
                         <Row middle="xs">
-                            <Col sm={2}>
+                            <Col sm={3} md={2}>
                                 <Row middle="xs">
                                     <Col sm={12}>
-                                        <img src="fluxnotes_logo_color.png" height="45px" width="33px" alt="Flux Notes logo" />
+                                        <img src="fluxnotes_logo_color.png" height="40px" width="30px" alt="Flux Notes logo" />
                                         <div className="logo-accompaniment">
                                             <span className="title"> {this.props.appTitle}</span>
                                             <span className="login">{login}</span>
@@ -30,7 +31,7 @@ class PatientControlPanel extends Component {
                                 </Row>
                             </Col>
 
-                            <Col sm={7}>
+                            <Col sm={5} md={3}>
                                 <SummaryHeader
                                     address={patient.getCurrentHomeAddress()}
                                     administrativeSex={patient.getGender()}
@@ -48,18 +49,21 @@ class PatientControlPanel extends Component {
                                 />
                             </Col>
 
-                            <Col sm={3}>
-                                <Row middle="xs">
-                                    <Col sm={1}>
-                                        <div className="vertical-divider"></div>
-                                    </Col>
-                                    <Col sm={11}>
-                                        <div className="search-wrapper">
-                                            <PatientSearch
-                                                patient={this.props.patient}
-                                                setSearchSelectedItem={this.props.setSearchSelectedItem}
+                            <Col sm={4} md={7}>
+                                <Row bottom="xs" className="vertical-divider">
+                                    <Col sm={12} md={6}>
+                                        <div id="condition-selection-container">
+                                            <ConditionSelection
+                                                conditions={patientConditions}
+                                                setCondition={this.props.setCondition}
                                             />
                                         </div>
+                                    </Col>
+                                    <Col sm={12} md={6}>
+                                        <PatientSearch
+                                            patient={this.props.patient}
+                                            setSearchSelectedItem={this.props.setSearchSelectedItem}
+                                        />
                                     </Col>
                                 </Row>
                             </Col>

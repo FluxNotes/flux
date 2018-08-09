@@ -40,14 +40,15 @@ class ConditionSelection extends Component {
 
     render() {
         return (
-            <div className="condition-selection">
+            <div id="condition-selection">
                 <h3>Condition</h3>
-
                 <Select
                     className="condition-select"
+                    classes={{
+                        "selectMenu": "condition-select-menu",
+                    }}
                     value={this.state.conditionIndex}
                     onChange={(event) => this.selectCondition(event.target.value)}
-                    data-test-condition-selector
                 >
                     {this.renderConditionList()}
                 </Select>

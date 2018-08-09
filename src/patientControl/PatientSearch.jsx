@@ -203,7 +203,6 @@ class PatientSearch extends React.Component {
             <div id="patient-search">
                 <Autosuggest
                     getSuggestionValue={this.getSuggestionValue}
-                    id="patient-search"
                     inputProps={inputProps}
                     onSuggestionsClearRequested={this.onSuggestionsClearRequested}
                     onSuggestionSelected={this.onSuggestionSelected}

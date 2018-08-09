@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import Avatar from 'material-ui/Avatar';
-// import Button from '../elements/Button';
-import ConditionSelection from '../summary/ConditionSelection';
 // import ClinicalEventSelection from '../summary/ClinicalEventSelection';
 import './SummaryHeader.css';
 
@@ -71,7 +69,7 @@ class SummaryHeader extends Component {
             <div id="summary-header">
                 <Grid className="FullApp-content" fluid>
                     <Row middle="xs">
-                        <Col sm={5}>
+                        <Col sm={12}>
                             <div className="avatar">
                                 <Avatar
                                     src={photo}
@@ -91,63 +89,40 @@ class SummaryHeader extends Component {
                                 <h3 className="patient-item">Admin. Sex:  <span>{administrativeSexString}</span></h3>
                                 <h3 className="patient-item">Location: <span>{locationString}</span></h3>
                             </div>
-                        </Col>
-
-                        <Col sm={7}>
-                            <Row middle="xs">
-                                <Col sm={10}>
-                                    <div id="condition-summary-section" className="dashboard-panel panel-content">
-                                        <Grid fluid>
-                                            <Row middle="xs">
-                                                {/* TODO: Add patient toggle */}
-                                                <Col sm={12}>
-                                                    <ConditionSelection
-                                                        conditions={this.props.patientConditions}
-                                                        setCondition={this.props.setCondition}
-                                                    />
-                                                </Col>
-                                            </Row>
-                                        </Grid>
-                                    </div>
-                                </Col>
-
-                                <Col sm={2}>
-                                    <div className="view item">
-{/*                                        <h3>View</h3>
-                                        <span>
-                                            <Row middle="xs">
-                                                <Col sm={4}>
-                                                    <Button
-                                                        className="small-btn"
-                                                        id="left-collapsed-layout-button"
-                                                        onClick={() => this.handleLayoutChange('left-collapsed')}
-                                                    >
-                                                        {this.leftCollapsedViewButton()}
-                                                    </Button>
-                                                </Col>
-                                                <Col sm={4}>
-                                                    <Button
-                                                        className="small-btn"
-                                                        id="split-layout-button"
-                                                        onClick={() => this.handleLayoutChange('split')}
-                                                    >
-                                                        {this.splitViewButton()}
-                                                    </Button>
-                                                </Col>
-                                                <Col sm={4}>
-                                                    <Button
-                                                        className="small-btn"
-                                                        id="right-collapsed-layout-button"
-                                                        onClick={() => this.handleLayoutChange('right-collapsed')}
-                                                    >
-                                                        {this.rightCollapsedViewButton()}
-                                                    </Button>
-                                                </Col>
-                                            </Row>
-                                        </span>*/}
-                                    </div>
-                                </Col>
-                            </Row>
+{/*                            <div className="view item">
+                             <h3>View</h3>
+                                <span>
+                                    <Row middle="xs">
+                                        <Col sm={4}>
+                                            <Button
+                                                className="small-btn"
+                                                id="left-collapsed-layout-button"
+                                                onClick={() => this.handleLayoutChange('left-collapsed')}
+                                            >
+                                                {this.leftCollapsedViewButton()}
+                                            </Button>
+                                        </Col>
+                                        <Col sm={4}>
+                                            <Button
+                                                className="small-btn"
+                                                id="split-layout-button"
+                                                onClick={() => this.handleLayoutChange('split')}
+                                            >
+                                                {this.splitViewButton()}
+                                            </Button>
+                                        </Col>
+                                        <Col sm={4}>
+                                            <Button
+                                                className="small-btn"
+                                                id="right-collapsed-layout-button"
+                                                onClick={() => this.handleLayoutChange('right-collapsed')}
+                                            >
+                                                {this.rightCollapsedViewButton()}
+                                            </Button>
+                                        </Col>
+                                    </Row>
+                                </span>
+                            </div>*/}
                         </Col>
                     </Row>
                 </Grid>
@@ -171,7 +146,6 @@ SummaryHeader.propTypes = {
             value: PropTypes.state
         })
     }),
-    setCondition: PropTypes.func.isRequired,
     layout: PropTypes.string,
     setLayout: PropTypes.func.isRequired
 };
