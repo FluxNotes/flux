@@ -235,6 +235,24 @@ export default class FillPlaceholder extends Component {
                 const attribute = placeholder.metadata.formSpec.attributes[this.state.currentField[i]];
                 currentFieldRowInSummary = this.createCurrentFieldRowInSummary(attribute, i);
             }
+            let deleteButton = "";
+            if (!this.state.done) {
+                deleteButton = (
+                    <Button
+                        onClick={this.deleteEntry.bind(this, i)}
+                        style={{ float: "right" }}
+                    >
+                        <FontAwesome
+                            name="times"
+                            style={{
+                                color: "red",
+                                marginRight: "5px",
+                            }}
+                        />
+                        <span>{`Delete ${shortcutNameWithoutPrefix}`}</span>
+                    </Button>
+                );
+            }
             return (
                 <Grid container key={`${i}-container`}>
                     {i === 0 ?
@@ -247,19 +265,7 @@ export default class FillPlaceholder extends Component {
                     }
                     <Grid item xs={9}>
                         {columns}
-                        <Button 
-                            onClick={this.deleteEntry.bind(this, i)}
-                            style={{float:"right"}}
-                        >
-                            <FontAwesome 
-                                name="times" 
-                                style={{
-                                    color: "red",
-                                    marginRight: "5px",
-                                }}
-                            />
-                            <span>{`Delete ${shortcutNameWithoutPrefix}`}</span>
-                        </Button>
+                        {deleteButton}
                     </Grid>
                     {""}
                     {currentFieldRowInSummary}
@@ -273,24 +279,31 @@ export default class FillPlaceholder extends Component {
             errorString = <span className="error-message">{this.state.error}</span>
         }
 
+        let addButton = "";
+        if (!this.state.done) {
+            addButton = (
+                <Button
+                    onClick={this.addEntry}
+                    style={{float:"right"}}
+                >
+                    <FontAwesome
+                        name="plus"
+                        style={{
+                            color: "rgb(26, 143, 221)",
+                            marginRight: "5px",
+                        }}
+                    />
+                    <span>{`Add ${shortcutNameWithoutPrefix}`}</span>
+                </Button>
+            );
+        }
+
         return (
             <Grid container>
                 {errorString}
                 {entries}
                 <div style={{ width: "100%"}}>
-                    <Button 
-                        onClick={this.addEntry}
-                        style={{float:"right"}}
-                    >
-                        <FontAwesome 
-                            name="plus" 
-                            style={{
-                                color: "rgb(26, 143, 221)",
-                                marginRight: "5px",
-                            }}
-                        />
-                        <span>{`Add ${shortcutNameWithoutPrefix}`}</span>
-                    </Button>
+                    {addButton}
                 </div>
             </Grid>
         );
