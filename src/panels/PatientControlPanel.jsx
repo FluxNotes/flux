@@ -19,19 +19,15 @@ class PatientControlPanel extends Component {
                 <Paper className="panel-content">
                     <Grid fluid>
                         <Row middle="xs">
-                            <Col sm={3} md={2}>
-                                <Row middle="xs">
-                                    <Col sm={12}>
-                                        <img src="fluxnotes_logo_color.png" height="40px" width="30px" alt="Flux Notes logo" />
-                                        <div className="logo-accompaniment">
-                                            <span className="title"> {this.props.appTitle}</span>
-                                            <span className="login">{login}</span>
-                                        </div>
-                                    </Col>
-                                </Row>
+                            <Col xs={3} md={2}>
+                                <img src="fluxnotes_logo_color.png" height="40px" width="30px" alt="Flux Notes logo" />
+                                <div className="logo-accompaniment">
+                                    <span className="title"> {this.props.appTitle}</span>
+                                    <span className="login">{login}</span>
+                                </div>
                             </Col>
 
-                            <Col sm={5} md={3}>
+                            <Col xs={4} md={3} className="summary-header-column">
                                 <SummaryHeader
                                     address={patient.getCurrentHomeAddress()}
                                     administrativeSex={patient.getGender()}
@@ -49,9 +45,9 @@ class PatientControlPanel extends Component {
                                 />
                             </Col>
 
-                            <Col sm={4} md={7}>
+                            <Col xs={5} md={7}>
                                 <Row bottom="xs" className="vertical-divider">
-                                    <Col sm={12} md={6}>
+                                    <Col xs={12} md={6}>
                                         <div id="condition-selection-container">
                                             <ConditionSelection
                                                 conditions={patientConditions}
@@ -59,7 +55,7 @@ class PatientControlPanel extends Component {
                                             />
                                         </div>
                                     </Col>
-                                    <Col sm={12} md={6}>
+                                    <Col xs={12} md={6}>
                                         <PatientSearch
                                             patient={this.props.patient}
                                             setSearchSelectedItem={this.props.setSearchSelectedItem}

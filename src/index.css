@@ -32,6 +32,6 @@ body {
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) and (max-height: 525px), (max-width: 1160px) {
     body {
-        overflow: scroll;
+        overflow: auto;
     }
 }

@@ -4,7 +4,8 @@
     flex-direction: column;
     width: 175px;
     margin-left: auto;
-    max-height: calc(100vh - 106px - 16px);
+    /* 92px is the height of the on large screens Patient Control Panel, 20px is the height of the top margin of post encounter view content*/
+    max-height: calc(100vh - 92px - 20px);
     min-height: 400px !important;
 }
 
@@ -209,4 +210,12 @@ li.sort-item:hover {
     position: absolute;
     background: white;
     padding: 20px;
+}
+
+
+@media only screen and (max-width: 1024px) { 
+    .note-assistant-wrapper {
+        /* 117px is the height of the on large screens Patient Control Panel, 20px is the height of the top margin of post encounter view content*/
+        max-height: calc(100vh - 117px - 20px);
+    }
 }

@@ -67,29 +67,29 @@ class SummaryHeader extends Component {
         const locationString = (address) ? `${address.city.value}, ${address.state.value}` : '?'; 
         return (
             <div id="summary-header">
-                <Grid className="FullApp-content" fluid>
+                <div className="avatar">
+                    <Avatar
+                        src={photo}
+                        size={70}
+                        style={{
+                            marginLeft: "auto",
+                            marginRight: "auto",
+                            width: "80px",
+                            height: "80px"
+                        }}
+                    />
+                </div>
+                <div className="patient-info item">
+                    <h1 className="patient-name">{patientName}</h1>
+                    <h3 className="patient-item">DOB: <span className="no-wrap">{dateOfBirthString}</span></h3>
+                    <h3 className="patient-item">Admin. Sex:  <span>{administrativeSexString}</span></h3>
+                    <h3 className="patient-item">Location: <span>{locationString}</span></h3>
+                </div>
+{/* TODO: Remove below content, or place patient description back inside an appropriate grid-row-col */}
+{/*                <Grid className="FullApp-content" fluid>
                     <Row middle="xs">
                         <Col sm={12}>
-                            <div className="avatar">
-                                <Avatar
-                                    src={photo}
-                                    size={70}
-                                    style={{
-                                        marginLeft: "auto",
-                                        marginRight: "auto",
-                                        width: "80px",
-                                        height: "80px"
-                                    }}
-                                />
-                            </div>
-                            &nbsp;
-                            <div className="patient-info item">
-                                <h1>{patientName}</h1>
-                                <h3 className="patient-item">DOB: <span className="no-wrap">{dateOfBirthString}</span></h3>
-                                <h3 className="patient-item">Admin. Sex:  <span>{administrativeSexString}</span></h3>
-                                <h3 className="patient-item">Location: <span>{locationString}</span></h3>
-                            </div>
-{/*                            <div className="view item">
+                            <div className="view item">
                              <h3>View</h3>
                                 <span>
                                     <Row middle="xs">
@@ -122,10 +122,10 @@ class SummaryHeader extends Component {
                                         </Col>
                                     </Row>
                                 </span>
-                            </div>*/}
+                            </div>
                         </Col>
                     </Row>
-                </Grid>
+                </Grid>*/}
             </div>
         );
     }

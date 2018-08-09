@@ -16,9 +16,13 @@ h2, h3 {
     margin-left: 1px !important;
 }
 
+h1.patient-name { 
+    font-size: 15px !important;
+}
 
 .avatar {
     display:inline-block;
+    padding-right: 5px;
 }
 
 .patient-info {

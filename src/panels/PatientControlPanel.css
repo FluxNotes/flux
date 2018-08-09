@@ -1,6 +1,7 @@
 .patient-control-panel {
   width: 100vw;
   position: relative;
+  text-align: left;
   left: 50%;
   right: 50%;
   margin-left: -50vw;
@@ -13,14 +14,15 @@
     .patient-control-panel .logo-accompaniment .title {
       display: block;
       color: #0084B8;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       font-weight: 600;
-      vertical-align: 0.5em;
       padding-left: 5px; }
     .patient-control-panel .logo-accompaniment .login {
       display: block;
       font-size: 0.8rem;
       margin-left: 0.4rem; }
+  .patient-control-panel .summary-header-column {
+    padding-left: 0; }
   .patient-control-panel #condition-selection-container {
     padding: 5px; }
 

@@ -1,7 +1,5 @@
 #list-panel {
     background-color: #F3F3F3;
-    /*Minus 64 for nav, minus 80 for search*/
-    /*height: calc(100vh - 64px - 80px);*/
     height: calc(100vh - 64px);
     text-align: left;
     overflow-y: auto;
