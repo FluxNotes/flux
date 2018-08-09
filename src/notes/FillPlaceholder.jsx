@@ -363,7 +363,7 @@ export default class FillPlaceholder extends Component {
             );
         });
 
-        const summary = expanded ? null : (
+        const expansionSummary = expanded ? null : (
             <Grid container>
                 {this.renderError()}
                 {entries}
@@ -373,20 +373,32 @@ export default class FillPlaceholder extends Component {
             </Grid>
         );
 
-        const details = !expanded ? <Grid container /> : (
+        const allRowsAndColumns = placeholder.entryShortcuts.map((_, i) => {
+            return (
+                <Grid container key={`${i}-expanded-rows`}>
+                    <Grid item xs={3} />
+                    <Grid item xs={9}>
+                        {this.renderColumns(i)}
+                    </Grid>
+                    {this.createAllRows(i)}
+                    <Divider className="divider" />
+                </Grid>
+            );
+        });
+        const expansionDetails = !expanded ? <Grid container /> : (
             <Grid container>
                 {this.renderError()}
-                {placeholder.entryShortcuts.map((_, i) => this.createAllRows(i))}
+                {allRowsAndColumns}
             </Grid>
         );
 
         return (
             <ExpansionPanel expanded={expanded} className='expanded-style'>
                 <ExpansionPanelSummary style={{ backgroundColor, cursor: 'default' }} expandIcon={<ExpandMoreIcon onClick={this.onExpand} />}>
-                    {summary}
+                    {expansionSummary}
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails style={{ backgroundColor }}>
-                    {details}
+                    {expansionDetails}
                 </ExpansionPanelDetails>
             </ExpansionPanel>
         );
