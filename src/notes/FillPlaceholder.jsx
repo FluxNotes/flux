@@ -263,19 +263,21 @@ export default class FillPlaceholder extends Component {
             <Grid container>
                 {errorString}
                 {entries}
-                <Button 
-                    onClick={this.addEntry}
-                    style={{float:"right"}}
-                >
-                    <FontAwesome 
-                        name="plus" 
-                        style={{
-                            color: "rgb(26, 143, 221)",
-                            marginRight: "5px",
-                        }}
-                    />
-                    <span>{`Add ${shortcutNameWithoutPrefix}`}</span>
-                </Button>
+                <div style={{ width: "100%"}}>
+                    <Button 
+                        onClick={this.addEntry}
+                        style={{float:"right"}}
+                    >
+                        <FontAwesome 
+                            name="plus" 
+                            style={{
+                                color: "rgb(26, 143, 221)",
+                                marginRight: "5px",
+                            }}
+                        />
+                        <span>{`Add ${shortcutNameWithoutPrefix}`}</span>
+                    </Button>
+                </div>
             </Grid>
         );
     }
