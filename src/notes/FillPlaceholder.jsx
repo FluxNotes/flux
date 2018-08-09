@@ -288,25 +288,28 @@ export default class FillPlaceholder extends Component {
         return errorString;
     }
 
-    renderSingleEntryPlaceholder = () => {
-        const { done, expanded } = this.state;
-        const { backgroundColor, placeholder } = this.props;
-
+    renderColumns = (entryIndex = 0) => {
+        const { placeholder } = this.props;
         let columns = [];
+
         placeholder.metadata.formSpec.attributes.forEach((attribute, index) => {
-            const value = placeholder.getAttributeValue(attribute.name);
-            columns.push(<span className="shortcut-field-title" key={`${index}-label`}>{`${attribute.title}: `}</span>);
+            const value = placeholder.getAttributeValue(attribute.name, entryIndex);
+
+            columns.push(<span className="shortcut-field-title" key={`${entryIndex}-${index}-label`}>{`${attribute.title}: `}</span>);
             if (!this.isValidAttribute(value)) {
-                columns.push(<span onClick={this.onClickOnField.bind(this, index, 0)} className="missing-data" key={`${index}-value`}>No Data</span>);
+                columns.push(<span onClick={this.onClickOnField.bind(this, index, entryIndex)} className="missing-data" key={`${entryIndex}-${index}-value`}>No Data</span>);
             } else {
-                columns.push(<span onClick={this.onClickOnField.bind(this, index, 0)} className="structured-data" key={`${index}-value`}>{Lang.isArray(value) ? value.join(', ') : value}</span>);
+                columns.push(<span onClick={this.onClickOnField.bind(this, index, entryIndex)} className="structured-data" key={`${entryIndex}-${index}-value`}>{value}</span>);
             }
         });
-        let currentFieldRowInSummary = "";
-        if (!this.state.expanded) {
-            const attribute = placeholder.metadata.formSpec.attributes[this.state.currentField[0]];
-            currentFieldRowInSummary = this.createCurrentFieldRowInSummary(attribute);
-        }
+
+        return columns;
+    }
+
+    renderSingleEntryPlaceholder = () => {
+        const { currentField, done, expanded } = this.state;
+        const { backgroundColor, placeholder } = this.props;
+        const attribute = placeholder.metadata.formSpec.attributes[currentField[0]];
 
         return (
             <ExpansionPanel expanded={expanded} className='expanded-style'>
@@ -317,10 +320,10 @@ export default class FillPlaceholder extends Component {
                             <span className="shortcut-name" key="0">{placeholder.shortcutName}</span>
                         </Grid>
                         <Grid item xs={9}>
-                            {columns}
+                            {this.renderColumns()}
                         </Grid>
                         {this.renderError()}
-                        {currentFieldRowInSummary}
+                        {expanded ? "" : this.createCurrentFieldRowInSummary(attribute)}
                     </Grid>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails style={{ backgroundColor }}>
@@ -333,25 +336,11 @@ export default class FillPlaceholder extends Component {
     }
 
     renderMultipleEntriesPlaceholder = () => {
-        const { done, expanded } = this.state;
+        const { currentField, done, expanded } = this.state;
         const { backgroundColor, placeholder } = this.props;
 
         const entries = placeholder.entryShortcuts.map((_, i) => {
-            let columns = [];
-            placeholder.metadata.formSpec.attributes.forEach((attribute, index) => {
-                const value = placeholder.getAttributeValue(attribute.name, i);
-                columns.push(<span className="shortcut-field-title" key={`${i}-${index}-label`}>{`${attribute.title}: `}</span>);
-                if (Lang.isNull(value) || Lang.isUndefined(value) || value === '' || (Lang.isArray(value) && value.length === 0)) {
-                    columns.push(<span onClick={this.onClickOnField.bind(this, index, i)} className="missing-data" key={`${i}-${index}-value`}>No Data</span>);
-                } else {
-                    columns.push(<span onClick={this.onClickOnField.bind(this, index, i)} className="structured-data" key={`${i}-${index}-value`}>{value}</span>);
-                }
-            });
-            let currentFieldRowInSummary = "";
-            if (!this.state.expanded) {
-                const attribute = placeholder.metadata.formSpec.attributes[this.state.currentField[i]];
-                currentFieldRowInSummary = this.createCurrentFieldRowInSummary(attribute, i);
-            }
+            const attribute = placeholder.metadata.formSpec.attributes[currentField[i]];
 
             return (
                 <Grid container key={`${i}-container`}>
@@ -364,11 +353,11 @@ export default class FillPlaceholder extends Component {
                         ) : <Grid item xs={3} />
                     }
                     <Grid item xs={9}>
-                        {columns}
+                        {this.renderColumns(i)}
                         {this.renderDeleteButton(i)}
                     </Grid>
                     {""}
-                    {currentFieldRowInSummary}
+                    {expanded ? "" : this.createCurrentFieldRowInSummary(attribute, i)}
                     <Divider className="divider" />
                 </Grid>
             );
@@ -384,7 +373,7 @@ export default class FillPlaceholder extends Component {
             </Grid>
         );
 
-        const details = !expanded ? <Grid container/> : (
+        const details = !expanded ? <Grid container /> : (
             <Grid container>
                 {this.renderError()}
                 {placeholder.entryShortcuts.map((_, i) => this.createAllRows(i))}
