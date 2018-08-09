@@ -1379,7 +1379,7 @@ export default class SummaryMetadata {
     getItemListForConditions = (patient, currentConditionEntry, subsection) => {
         const conditions = patient.getActiveConditions();
         return conditions.map((c, i) => {
-            return [{value: c.type, shortcut: subsection.shortcut}, c.diagnosisDate, c.bodySite];
+            return [{value: [ c.type, patient.isUnsigned(c), this.determineSource(patient, c) ], shortcut: subsection.shortcut}, c.diagnosisDate, c.bodySite];
         });
     }
 
@@ -1391,7 +1391,7 @@ export default class SummaryMetadata {
             if (typeof p.occurrenceTime !== 'string') {
                 return [
                     {
-                        value: p.name,
+                        value: [p.name, patient.isUnsigned(p), this.determineSource(patient, p) ],
                         shortcut: "@procedure",
                     },
                     p.occurrenceTime.timePeriodStart + " to " + p.occurrenceTime.timePeriodEnd
@@ -1399,7 +1399,7 @@ export default class SummaryMetadata {
             } else {
                 return [
                     {
-                        value: p.name,
+                        value: [p.name, patient.isUnsigned(p), this.determineSource(patient, p) ],
                         shortcut: "@procedure",
                     },
                     p.occurrenceTime

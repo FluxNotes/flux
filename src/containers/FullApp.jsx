@@ -221,7 +221,8 @@ export class FullApp extends Component {
     }
 
     nameSourceAction = (element) => {
-        if (element.value && element.value.length > 2) {
+        console.log(element);
+        if (element.value && Lang.isArray(element.value) && element.value.length > 2) {
             return (element.value[2] instanceof Reference ? "Open Source Note" : "View Source");
         }
         return "No source information";
