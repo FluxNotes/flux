@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Row, Col } from 'react-flexbox-grid';
 import Avatar from 'material-ui/Avatar';
 // import ClinicalEventSelection from '../summary/ClinicalEventSelection';
 import './SummaryHeader.css';
