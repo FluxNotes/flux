@@ -223,118 +223,10 @@ export default class FillPlaceholder extends Component {
         return !(Lang.isNull(value) || Lang.isUndefined(value) || value === '' || (Lang.isArray(value) && value.length === 0));
     }
 
-    renderSingleEntryPlaceholder = () => {
-        const { done, error, expanded } = this.state;
-        const { backgroundColor, placeholder } = this.props;
-
-        let columns = [];
-        placeholder.metadata.formSpec.attributes.forEach((attribute, index) => {
-            const value = placeholder.getAttributeValue(attribute.name);
-            columns.push(<span className="shortcut-field-title" key={`${index}-label`}>{`${attribute.title}: `}</span>);
-            if (!this.isValidAttribute(value)) {
-                columns.push(<span onClick={this.onClickOnField.bind(this, index, 0)} className="missing-data" key={`${index}-value`}>No Data</span>);
-            } else {
-                columns.push(<span onClick={this.onClickOnField.bind(this, index, 0)} className="structured-data" key={`${index}-value`}>{Lang.isArray(value) ? value.join(', ') : value}</span>);
-            }
-        });
-        let currentFieldRowInSummary = "";
-        if (!this.state.expanded) {
-            const attribute = placeholder.metadata.formSpec.attributes[this.state.currentField[0]];
-            currentFieldRowInSummary = this.createCurrentFieldRowInSummary(attribute);
-        }
-        let errorString = "";
-        if (!Lang.isNull(error)) {
-            errorString = <span className="error-message">{this.state.error}</span>
-        }
-
-        return (
-            <ExpansionPanel expanded={expanded} className='expanded-style'>
-                <ExpansionPanelSummary style={{ backgroundColor, cursor: 'default' }} expandIcon={<ExpandMoreIcon onClick={this.onExpand} />}>
-                    <Grid container>
-                        <Grid item xs={3}>
-                            <span className="done-checkbox"><Checkbox style={{ width: 26, height: 26 }} checked={done} value="done" onChange={this.onDone} color="primary" /></span>
-                            <span className="shortcut-name" key="0">{placeholder.shortcutName}</span>
-                        </Grid>
-                        <Grid item xs={9}>
-                            {columns}
-                        </Grid>
-                        {errorString}
-                        {currentFieldRowInSummary}
-                    </Grid>
-                </ExpansionPanelSummary>
-                <ExpansionPanelDetails style={{ backgroundColor }}>
-                    <Grid container>
-                        {expanded ? this.createAllRows() : null}
-                    </Grid>
-                </ExpansionPanelDetails>
-            </ExpansionPanel>
-        );
-    }
-
-    renderMultipleEntriesPlaceholder = () => {
-        const { done, error, expanded } = this.state;
-        const { backgroundColor, placeholder } = this.props;
+    renderAddButton = () => {
+        const { done } = this.state;
+        const { placeholder } = this.props;
         const shortcutNameWithoutPrefix = placeholder.shortcutName.slice(1);
-
-        const entries = placeholder.entryShortcuts.map((_, i) => {
-            let columns = [];
-            placeholder.metadata.formSpec.attributes.forEach((attribute, index) => {
-                const value = placeholder.getAttributeValue(attribute.name, i);
-                columns.push(<span className="shortcut-field-title" key={`${i}-${index}-label`}>{`${attribute.title}: `}</span>);
-                if (Lang.isNull(value) || Lang.isUndefined(value) || value === '' || (Lang.isArray(value) && value.length === 0)) {
-                    columns.push(<span onClick={this.onClickOnField.bind(this, index, i)} className="missing-data" key={`${i}-${index}-value`}>No Data</span>);
-                } else {
-                    columns.push(<span onClick={this.onClickOnField.bind(this, index, i)} className="structured-data" key={`${i}-${index}-value`}>{value}</span>);
-                }
-            });
-            let currentFieldRowInSummary = "";
-            if (!this.state.expanded) {
-                const attribute = placeholder.metadata.formSpec.attributes[this.state.currentField[i]];
-                currentFieldRowInSummary = this.createCurrentFieldRowInSummary(attribute, i);
-            }
-            let deleteButton = "";
-            if (!done) {
-                deleteButton = (
-                    <Button
-                        onClick={this.deleteEntry.bind(this, i)}
-                        style={{ float: "right" }}
-                    >
-                        <FontAwesome
-                            name="times"
-                            style={{
-                                color: "red",
-                                marginRight: "5px",
-                            }}
-                        />
-                        <span>{`Delete ${shortcutNameWithoutPrefix}`}</span>
-                    </Button>
-                );
-            }
-            return (
-                <Grid container key={`${i}-container`}>
-                    {i === 0 ?
-                        (
-                            <Grid item xs={3}>
-                                <span className="done-checkbox"><Checkbox style={{ width: 26, height: 26 }} checked={done} value="done" onChange={this.onDone} color="primary" /></span>
-                                <span className="shortcut-name" key="0">{placeholder.shortcutName}</span>
-                            </Grid>
-                        ) : <Grid item xs={3} />
-                    }
-                    <Grid item xs={9}>
-                        {columns}
-                        {deleteButton}
-                    </Grid>
-                    {""}
-                    {currentFieldRowInSummary}
-                    <Divider className="divider" />
-                </Grid>
-            );
-        });
-
-        let errorString = "";
-        if (!Lang.isNull(error)) {
-            errorString = <span className="error-message">{error}</span>
-        }
 
         let addButton = "";
         if (!done) {
@@ -355,17 +247,149 @@ export default class FillPlaceholder extends Component {
             );
         }
 
+        return addButton;
+    }
+
+    renderDeleteButton = (index) => {
+        const { done } = this.state;
+        const { placeholder } = this.props;
+        const shortcutNameWithoutPrefix = placeholder.shortcutName.slice(1);
+
+        let deleteButton = "";
+        if (!done) {
+            deleteButton = (
+                <Button
+                    onClick={this.deleteEntry.bind(this, index)}
+                    style={{ float: "right" }}
+                >
+                    <FontAwesome
+                        name="times"
+                        style={{
+                            color: "red",
+                            marginRight: "5px",
+                        }}
+                    />
+                    <span>{`Delete ${shortcutNameWithoutPrefix}`}</span>
+                </Button>
+            );
+        }
+
+        return deleteButton;
+    }
+
+    renderError = () => {
+        const { error } = this.state;
+
+        let errorString = "";
+        if (!Lang.isNull(error)) {
+            errorString = <span className="error-message">{error}</span>
+        }
+
+        return errorString;
+    }
+
+    renderSingleEntryPlaceholder = () => {
+        const { done, expanded } = this.state;
+        const { backgroundColor, placeholder } = this.props;
+
+        let columns = [];
+        placeholder.metadata.formSpec.attributes.forEach((attribute, index) => {
+            const value = placeholder.getAttributeValue(attribute.name);
+            columns.push(<span className="shortcut-field-title" key={`${index}-label`}>{`${attribute.title}: `}</span>);
+            if (!this.isValidAttribute(value)) {
+                columns.push(<span onClick={this.onClickOnField.bind(this, index, 0)} className="missing-data" key={`${index}-value`}>No Data</span>);
+            } else {
+                columns.push(<span onClick={this.onClickOnField.bind(this, index, 0)} className="structured-data" key={`${index}-value`}>{Lang.isArray(value) ? value.join(', ') : value}</span>);
+            }
+        });
+        let currentFieldRowInSummary = "";
+        if (!this.state.expanded) {
+            const attribute = placeholder.metadata.formSpec.attributes[this.state.currentField[0]];
+            currentFieldRowInSummary = this.createCurrentFieldRowInSummary(attribute);
+        }
+
+        return (
+            <ExpansionPanel expanded={expanded} className='expanded-style'>
+                <ExpansionPanelSummary style={{ backgroundColor, cursor: 'default' }} expandIcon={<ExpandMoreIcon onClick={this.onExpand} />}>
+                    <Grid container>
+                        <Grid item xs={3}>
+                            <span className="done-checkbox"><Checkbox style={{ width: 26, height: 26 }} checked={done} value="done" onChange={this.onDone} color="primary" /></span>
+                            <span className="shortcut-name" key="0">{placeholder.shortcutName}</span>
+                        </Grid>
+                        <Grid item xs={9}>
+                            {columns}
+                        </Grid>
+                        {this.renderError()}
+                        {currentFieldRowInSummary}
+                    </Grid>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails style={{ backgroundColor }}>
+                    <Grid container>
+                        {expanded ? this.createAllRows() : null}
+                    </Grid>
+                </ExpansionPanelDetails>
+            </ExpansionPanel>
+        );
+    }
+
+    renderMultipleEntriesPlaceholder = () => {
+        const { done, expanded } = this.state;
+        const { backgroundColor, placeholder } = this.props;
+
+        const entries = placeholder.entryShortcuts.map((_, i) => {
+            let columns = [];
+            placeholder.metadata.formSpec.attributes.forEach((attribute, index) => {
+                const value = placeholder.getAttributeValue(attribute.name, i);
+                columns.push(<span className="shortcut-field-title" key={`${i}-${index}-label`}>{`${attribute.title}: `}</span>);
+                if (Lang.isNull(value) || Lang.isUndefined(value) || value === '' || (Lang.isArray(value) && value.length === 0)) {
+                    columns.push(<span onClick={this.onClickOnField.bind(this, index, i)} className="missing-data" key={`${i}-${index}-value`}>No Data</span>);
+                } else {
+                    columns.push(<span onClick={this.onClickOnField.bind(this, index, i)} className="structured-data" key={`${i}-${index}-value`}>{value}</span>);
+                }
+            });
+            let currentFieldRowInSummary = "";
+            if (!this.state.expanded) {
+                const attribute = placeholder.metadata.formSpec.attributes[this.state.currentField[i]];
+                currentFieldRowInSummary = this.createCurrentFieldRowInSummary(attribute, i);
+            }
+
+            return (
+                <Grid container key={`${i}-container`}>
+                    {i === 0 ?
+                        (
+                            <Grid item xs={3}>
+                                <span className="done-checkbox"><Checkbox style={{ width: 26, height: 26 }} checked={done} value="done" onChange={this.onDone} color="primary" /></span>
+                                <span className="shortcut-name" key="0">{placeholder.shortcutName}</span>
+                            </Grid>
+                        ) : <Grid item xs={3} />
+                    }
+                    <Grid item xs={9}>
+                        {columns}
+                        {this.renderDeleteButton(i)}
+                    </Grid>
+                    {""}
+                    {currentFieldRowInSummary}
+                    <Divider className="divider" />
+                </Grid>
+            );
+        });
+
         const summary = expanded ? null : (
             <Grid container>
-                {errorString}
+                {this.renderError()}
                 {entries}
                 <div style={{ width: "100%" }}>
-                    {addButton}
+                    {this.renderAddButton()}
                 </div>
             </Grid>
         );
 
-        const details = !expanded ? null : placeholder.entryShortcuts.map((_, i) => this.createAllRows(i));
+        const details = !expanded ? <Grid container/> : (
+            <Grid container>
+                {this.renderError()}
+                {placeholder.entryShortcuts.map((_, i) => this.createAllRows(i))}
+            </Grid>
+        );
 
         return (
             <ExpansionPanel expanded={expanded} className='expanded-style'>
@@ -373,9 +397,7 @@ export default class FillPlaceholder extends Component {
                     {summary}
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails style={{ backgroundColor }}>
-                    <Grid container>
-                        {details}
-                    </Grid>
+                    {details}
                 </ExpansionPanelDetails>
             </ExpansionPanel>
         );
