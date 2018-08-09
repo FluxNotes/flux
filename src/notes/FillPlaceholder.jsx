@@ -33,10 +33,23 @@ export default class FillPlaceholder extends Component {
 
             return firstUnfilledField;
         });
-        const done = firstUnfilledFields.map(firstUnfilledField => firstUnfilledField === -1);
-        const currentField = done.map((d, i) => {
-            return !d ? firstUnfilledFields[i] : 0;
-        });
+        let done = false;
+        let currentField;
+        if (firstUnfilledFields.length === 1 && placeholder.multiplicity !== 'many') {
+            if (firstUnfilledFields[0] === -1) {
+                done = true;
+                currentField = [0];
+            } else {
+                currentField = [firstUnfilledFields[0]];
+            }
+        } else {
+            const finishedFields = firstUnfilledFields.map(firstUnfilledField => firstUnfilledField === -1);
+            currentField = finishedFields.map((d, i) => {
+                return !d ? firstUnfilledFields[i] : 0;
+            });
+        }
+
+        if (placeholder.done) done = true;
 
         this.state = {
             currentField,
@@ -62,7 +75,7 @@ export default class FillPlaceholder extends Component {
         let { done } = this.state;
         const { placeholder } = this.props;
 
-        done[index] = event.target.checked;
+        done = event.target.checked;
         placeholder.done = event.target.checked;
         this.setState({ done });
     };
@@ -84,9 +97,14 @@ export default class FillPlaceholder extends Component {
 
         if (currentField[index] + 1 === placeholder.metadata.formSpec.attributes.length) {
             // User has entered final attribute, so mark row as done
-            done[index] = true;
-            this.setState({ done });
-            this.props.placeholder.done = true;
+            if (placeholder.multiplicity !== 'many') {
+                done = true;
+                this.props.placeholder.done = true;
+                this.setState({ done });
+            } else {
+                currentField[index] = 0;
+                this.setState({ currentField });
+            }
         } else {
             currentField[index] += 1;
             this.setState({ currentField });
@@ -163,7 +181,7 @@ export default class FillPlaceholder extends Component {
     createCurrentFieldRowInSummary = (attribute, index = 0) => {
         let currentFieldRowInSummary = "";
         const value = this.props.placeholder.getAttributeValue(attribute.name, index);
-        if (this.state.expanded || !this.state.done[index]) {
+        if (this.state.expanded || !this.state.done) {
             currentFieldRowInSummary = (
                 <Grid container key={attribute.name}>
                     <Grid item xs={1}></Grid>
@@ -177,15 +195,11 @@ export default class FillPlaceholder extends Component {
 
     addEntry = () => {
         const { placeholder } = this.props;
-        const { currentField, done } = this.state;
+        const { currentField } = this.state;
 
         currentField.push(0);
-        done.push(false);
         placeholder.addEntry();
-        this.setState({
-            currentField,
-            done,
-        });
+        this.setState({ currentField });
     }
 
     deleteEntry = (index) => {
@@ -226,7 +240,7 @@ export default class FillPlaceholder extends Component {
                     {i === 0 ?
                         (
                             <Grid item xs={3}>
-                                <span className="done-checkbox"><Checkbox style={{ width: 26, height: 26 }} checked={this.state.done[i]} value="done" onChange={this.onDone} color="primary" /></span>
+                                <span className="done-checkbox"><Checkbox style={{ width: 26, height: 26 }} checked={this.state.done} value="done" onChange={this.onDone} color="primary" /></span>
                                 <span className="shortcut-name" key="0">{placeholder.shortcutName}</span>
                             </Grid>
                         ) : <Grid item xs={3} />
@@ -318,7 +332,7 @@ export default class FillPlaceholder extends Component {
         return (
             <Grid container>
                 <Grid item xs={3}>
-                    <span className="done-checkbox"><Checkbox style={{ width: 26, height: 26 }} checked={this.state.done[0]} value="done" onChange={this.onDone} color="primary" /></span>
+                    <span className="done-checkbox"><Checkbox style={{ width: 26, height: 26 }} checked={this.state.done} value="done" onChange={this.onDone} color="primary" /></span>
                     <span className="shortcut-name" key="0">{placeholder.shortcutName}</span>
                 </Grid>
                 <Grid item xs={9}>
