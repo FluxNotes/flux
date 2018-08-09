@@ -77,13 +77,6 @@ export default class FillPlaceholder extends Component {
     };
 
     onSetValue = (attributeSpec, newValue) => {
-        const error = this.props.placeholder.setAttributeValue(attributeSpec.name, newValue);
-        if (Lang.isNull(error)) {
-            this.forceUpdate();
-        }
-    };
-
-    onSetValue = (attributeSpec, newValue) => {
         const attributes = this.props.placeholder.getAttributeValue(attributeSpec.name);
         let error;
         if (Lang.isArray(attributes) && Lang.includes(attributes, newValue)) {
