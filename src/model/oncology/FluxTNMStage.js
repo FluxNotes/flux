@@ -152,6 +152,10 @@ class FluxTNMStage extends FluxObservation {
         t.value = clinicallyRelevantTime;
         this._observation._clinicallyRelevantTime = t;
     }
+
+    get clinicallyRelevantTime() {
+        return this._observation._clinicallyRelevantTime.value;
+    }
     
     _calculateStage() {
         const t = this.t_Stage;
@@ -159,6 +163,14 @@ class FluxTNMStage extends FluxObservation {
         const m = this.m_Stage;
 
         this.stage = staging.breastCancerPrognosticStage(t, n, m);
+    }
+
+    get author() {
+        return this._observation.author.value;
+    }
+
+    get informant() {
+        return this._observation.informant.value;
     }
 
     toJSON() {
