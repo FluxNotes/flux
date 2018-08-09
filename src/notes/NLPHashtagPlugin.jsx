@@ -32,9 +32,7 @@ function NLPHashtagPlugin(opts) {
         '!',
     ]
     const phraseDelimiters = [
-        '\\s',
-        // '\\r',
-        // '\\n',
+        ' '
     ]
     // '$' means this regexp only triggers when the phrase delimiter occurs at the end of the string.
     const stopRegexp = new RegExp(`(${stopCharacters.join('|')})(${phraseDelimiters.join('|')})`, 'i')
