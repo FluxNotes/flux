@@ -27,18 +27,13 @@ export default class FillPlaceholder extends Component {
 
         const firstUnfilledFields = placeholder.entryShortcuts.map((entryShortcut, i) => {
             // Determine the first field with no data entered for it; this field will be displayed upon startup.
-            let firstUnfilledField = 0;
-            
-            placeholder.metadata.formSpec.attributes.forEach((attribute) => {
-                let validAttribute = this.isValidAttribute(placeholder.getAttributeValue(attribute.name, i));
-                if (validAttribute) {
-                    firstUnfilledField += 1;
-                }
+            let firstUnfilledField = placeholder.metadata.formSpec.attributes.findIndex((attribute) => {
+                return !this.isValidAttribute(placeholder.getAttributeValue(attribute.name, i));
             });
 
             return firstUnfilledField;
         });
-        const done = firstUnfilledFields.map(firstUnfilledField => firstUnfilledField >= placeholder.metadata.formSpec.attributes.length);
+        const done = firstUnfilledFields.map(firstUnfilledField => firstUnfilledField === -1);
         const currentField = done.map((d, i) => {
             return !d ? firstUnfilledFields[i] : 0;
         });
