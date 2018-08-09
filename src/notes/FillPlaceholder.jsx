@@ -71,7 +71,7 @@ export default class FillPlaceholder extends Component {
         if (this.calendarDom && !this.calendarDom.contains(event.target)) this.setState({ showCalendar: false });
     }
 
-    onDone = (event, index = 0) => {
+    onDone = (event) => {
         let { done } = this.state;
         const { placeholder } = this.props;
 
@@ -211,11 +211,11 @@ export default class FillPlaceholder extends Component {
         this.setState({ currentField });
     }
 
-    createAllRows = () => {
+    createAllRows = (index = 0) => {
         const { placeholder } = this.props;
 
         return placeholder.metadata.formSpec.attributes.map(attr => {
-            return this.createCurrentFieldRowInSummary(attr);
+            return this.createCurrentFieldRowInSummary(attr, index);
         });
     };
 
@@ -355,20 +355,26 @@ export default class FillPlaceholder extends Component {
             );
         }
 
+        const summary = expanded ? null : (
+            <Grid container>
+                {errorString}
+                {entries}
+                <div style={{ width: "100%" }}>
+                    {addButton}
+                </div>
+            </Grid>
+        );
+
+        const details = !expanded ? null : placeholder.entryShortcuts.map((_, i) => this.createAllRows(i));
+
         return (
             <ExpansionPanel expanded={expanded} className='expanded-style'>
                 <ExpansionPanelSummary style={{ backgroundColor, cursor: 'default' }} expandIcon={<ExpandMoreIcon onClick={this.onExpand} />}>
-                    <Grid container>
-                        {errorString}
-                        {entries}
-                        <div style={{ width: "100%" }}>
-                            {addButton}
-                        </div>
-                    </Grid>
+                    {summary}
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails style={{ backgroundColor }}>
                     <Grid container>
-                        {expanded ? this.createAllRows() : null}
+                        {details}
                     </Grid>
                 </ExpansionPanelDetails>
             </ExpansionPanel>
@@ -376,12 +382,6 @@ export default class FillPlaceholder extends Component {
     }
 
     render() {
-        /*
-        "formSpec": {   "title": "Disease Status",
-                    "attributes": [ {   "title":"Status", "type":"radioButtons", "values": {"category":"progression", "valueSet":"status"} },
-                                    {   "title":"Rationale for status", "type":"checkboxes", "values": {"category":"progression", "valueSet":"reason"}}
-                                  ]
-                },*/
         const { placeholder } = this.props;
 
         return !placeholder.multiplicity ? this.renderSingleEntryPlaceholder() : this.renderMultipleEntriesPlaceholder();
