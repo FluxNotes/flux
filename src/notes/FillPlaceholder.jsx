@@ -25,9 +25,9 @@ export default class FillPlaceholder extends Component {
         this.onDone = this.onDone.bind(this);
         this.calendarDom = null;
 
-        const firstUnfilledFields = placeholder.entryShortcuts.map((entryShortcut, i) => {
+        const firstUnfilledFields = placeholder.entryShortcuts.map((_, i) => {
             // Determine the first field with no data entered for it; this field will be displayed upon startup.
-            let firstUnfilledField = placeholder.metadata.formSpec.attributes.findIndex((attribute) => {
+            let firstUnfilledField = placeholder.attributes.findIndex((attribute) => {
                 return !this.isValidAttribute(placeholder.getAttributeValue(attribute.name, i));
             });
 
@@ -99,7 +99,7 @@ export default class FillPlaceholder extends Component {
         let { currentField, done } = this.state;
         const { placeholder } = this.props;
 
-        if (currentField[entryIndex] + 1 === placeholder.metadata.formSpec.attributes.length) {
+        if (currentField[entryIndex] + 1 === placeholder.attributes.length) {
             // User has entered final attribute, so mark row as done
             if (placeholder.multiplicity !== 'many') {
                 done = true;
@@ -220,7 +220,7 @@ export default class FillPlaceholder extends Component {
     createAllRows = (entryIndex = 0) => {
         const { placeholder } = this.props;
 
-        return placeholder.metadata.formSpec.attributes.map(attr => {
+        return placeholder.attributes.map(attr => {
             return this.createCurrentFieldRowInSummary(attr, entryIndex);
         });
     };
@@ -310,7 +310,7 @@ export default class FillPlaceholder extends Component {
         const { placeholder } = this.props;
         let columns = [];
 
-        placeholder.metadata.formSpec.attributes.forEach((attribute, attributeIndex) => {
+        placeholder.attributes.forEach((attribute, attributeIndex) => {
             const value = placeholder.getAttributeValue(attribute.name, entryIndex);
 
             columns.push(<span className="shortcut-field-title" key={`${entryIndex}-${attributeIndex}-label`}>{`${attribute.title}: `}</span>);
@@ -327,7 +327,7 @@ export default class FillPlaceholder extends Component {
     renderSingleEntryPlaceholder = () => {
         const { currentField, expanded } = this.state;
         const { backgroundColor, placeholder } = this.props;
-        const attribute = placeholder.metadata.formSpec.attributes[currentField[0]];
+        const attribute = placeholder.attributes[currentField[0]];
 
         return (
             <ExpansionPanel expanded={expanded} className='expanded-style'>
@@ -356,7 +356,7 @@ export default class FillPlaceholder extends Component {
 
         // Loop through all entries and render summaries
         const entries = placeholder.entryShortcuts.map((_, i) => {
-            const attribute = placeholder.metadata.formSpec.attributes[currentField[i]];
+            const attribute = placeholder.attributes[currentField[i]];
 
             return (
                 <Grid container key={`${i}-container`}>

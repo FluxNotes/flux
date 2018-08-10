@@ -61,6 +61,14 @@ class Placeholder {
         return this._entryShortcuts;
     }
 
+    get multiplicity() {
+        return this._metadata.formSpec.multiplicity;
+    }
+
+    get attributes() {
+        return this._metadata.formSpec.attributes;
+    }
+
     getResultText() {
         if (!this._entryShortcuts[0].getEntryId()) return this._placeholderText;
         let ids = [];
@@ -68,10 +76,6 @@ class Placeholder {
             ids.push(shortcut.getEntryId());
         });
         return `${this._placeholderText}[[{"entryIds":[${ids}]}]]`;
-    }
-
-    get multiplicity() {
-        return this._metadata.formSpec.multiplicity;
     }
 
     getAttributeValue(name, index = 0) {
@@ -82,7 +86,7 @@ class Placeholder {
         if (!this._entryShortcuts[index].hasParentContext()) {
             this._entryShortcuts[index].establishParentContext(this._contextManager);
         }
-        
+
         if (!this._entryShortcuts[index].hasParentContext()) {
             return "no parent context so no setting values";
         } else {
