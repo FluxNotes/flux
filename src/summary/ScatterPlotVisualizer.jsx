@@ -67,7 +67,8 @@ class ScatterPlotVisualizer extends Component {
                 chart: {
                 renderTo: this.refs.scattering,
                   type: 'scatter',
-                  zoomType: 'xy'
+                  zoomType: 'xy',
+
                 },
                 credits: {
                     enabled: false
@@ -84,7 +85,6 @@ class ScatterPlotVisualizer extends Component {
                   floating: true, 
                   align: 'left',
                   verticalAlign: 'bottom',
-                  //x: -400,
                   y: -120,
                   useHTML: true,
                     text: '<tspan> Patients per <br> treatment options</tspan>'
@@ -241,8 +241,6 @@ class ScatterPlotVisualizer extends Component {
                 }
                 },
                     tooltip: {
-                      //headerFormat: '<b>{point.x}</b><br>',
-                      //pointFormat: '{series.name}, {point.y} months',
                       formatter: function() {
                           var category;
                           console.log(this.point.x);
@@ -266,9 +264,6 @@ class ScatterPlotVisualizer extends Component {
                       },
                       useHTML: true
                     },
-                  //},
-                //},
-                
                 series: [{
                   name: 'Currently Living',
                   color: 'rgba(119, 152, 191, .5)',
@@ -381,7 +376,8 @@ class ScatterPlotVisualizer extends Component {
         const {patient, condition, conditionSection} = this.props;
 
         return(
-            <div ref='scattering' style = {{height: 600}} className='scatter-plot-subsection'>   
+            <div ref='scattering'
+            style = {{height: 600}} className='scatter-plot-subsection'>   
             </div>
         );
     }
