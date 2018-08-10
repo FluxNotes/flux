@@ -317,7 +317,7 @@ export default class FillPlaceholder extends Component {
             if (!this.isValidAttribute(value)) {
                 columns.push(<span onClick={this.onClickOnField.bind(this, attributeIndex, entryIndex)} className="fill-missing-data" key={`${entryIndex}-${attributeIndex}-value`}>No Data</span>);
             } else {
-                columns.push(<span onClick={this.onClickOnField.bind(this, attributeIndex, entryIndex)} className="fill-structured-data" key={`${entryIndex}-${attributeIndex}-value`}>{value}</span>);
+                columns.push(<span onClick={this.onClickOnField.bind(this, attributeIndex, entryIndex)} className="fill-structured-data" key={`${entryIndex}-${attributeIndex}-value`}>{ Lang.isArray(value) ? value.join(', ') : value }</span>);
             }
         });
 
