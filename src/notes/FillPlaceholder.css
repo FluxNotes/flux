@@ -16,13 +16,13 @@
     margin-inline-end: 5px;
 }
 
-.missing-data {
+.fill-missing-data {
     margin-inline-end: 20px;
     border-bottom: 1px solid rgba(255, 0, 0, 0.5);
     text-decoration: none;
 }
 
-.structured-data {
+.fill-structured-data {
     margin-inline-end: 20px;
     cursor: pointer;
     border-bottom: 1px solid rgba(1, 130, 215, 0.5);

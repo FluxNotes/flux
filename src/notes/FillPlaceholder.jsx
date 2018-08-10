@@ -315,9 +315,9 @@ export default class FillPlaceholder extends Component {
 
             columns.push(<span className="shortcut-field-title" key={`${entryIndex}-${attributeIndex}-label`}>{`${attribute.title}: `}</span>);
             if (!this.isValidAttribute(value)) {
-                columns.push(<span onClick={this.onClickOnField.bind(this, attributeIndex, entryIndex)} className="missing-data" key={`${entryIndex}-${attributeIndex}-value`}>No Data</span>);
+                columns.push(<span onClick={this.onClickOnField.bind(this, attributeIndex, entryIndex)} className="fill-missing-data" key={`${entryIndex}-${attributeIndex}-value`}>No Data</span>);
             } else {
-                columns.push(<span onClick={this.onClickOnField.bind(this, attributeIndex, entryIndex)} className="structured-data" key={`${entryIndex}-${attributeIndex}-value`}>{value}</span>);
+                columns.push(<span onClick={this.onClickOnField.bind(this, attributeIndex, entryIndex)} className="fill-structured-data" key={`${entryIndex}-${attributeIndex}-value`}>{value}</span>);
             }
         });
 
