@@ -196,8 +196,6 @@ class MedicationRangeChartVisualizer extends Component {
         const name = med.medication.medication;
         const medicationIsChange = (med.medicationChange ? true : false);
 
-        console.log(med);
-
         return (
             <div key={i} className="medication-chart-item" ref={(parent) => { this.parent = parent }}>
                 <Grid fluid>
