@@ -115,15 +115,15 @@ export default class SummaryMetadata {
                         /*eslint no-template-curly-in-string: "off"*/
                         narrative: [
                             {
-                                defaultTemplate: "Patient has ${Current Diagnosis.Name} laterality ${Current Diagnosis.Laterality} stage ${Current Diagnosis.Stage} diagnosed on ${Key Dates.Diagnosis}."
+                                defaultTemplate: "Patient has ${.Name} laterality ${.Laterality} stage ${.Stage} diagnosed on ${Key Dates.Diagnosis}."
                             },
                             {
-                                defaultTemplate: "As of ${Current Diagnosis.As Of Date}, disease is ${Current Diagnosis.Disease Status} based on ${Current Diagnosis.Rationale}.",
+                                defaultTemplate: "As of ${.As Of Date}, disease is ${.Disease Status} based on ${.Rationale}.",
                                 dataMissingTemplate: "No recent ${disease status}.",
                                 useDataMissingTemplateCriteria: [
-                                    "Current Diagnosis.As Of Date",
-                                    "Current Diagnosis.Disease Status",
-                                    "Current Diagnosis.Rationale"
+                                    ".As Of Date",
+                                    ".Disease Status",
+                                    ".Rationale"
                                 ]
                             },
                             {
@@ -170,7 +170,7 @@ export default class SummaryMetadata {
                         ],
                         data: [
                             {
-                                name: "Current Diagnosis",
+                                name: "",
                                 items: [
                                     {
                                         name: "Name",
@@ -742,15 +742,15 @@ export default class SummaryMetadata {
                         /*eslint no-template-curly-in-string: "off"*/
                         narrative: [
                             {
-                                defaultTemplate: "Patient has ${Current Diagnosis.Name} stage ${Current Diagnosis.Stage} diagnosed on ${Key Dates.Diagnosis}."
+                                defaultTemplate: "Patient has ${.Name} stage ${.Stage} diagnosed on ${Key Dates.Diagnosis}."
                             },
                             {
-                                defaultTemplate: "As of ${Current Diagnosis.As Of Date}, disease is ${Current Diagnosis.Disease Status} based on ${Current Diagnosis.Rationale}.",
+                                defaultTemplate: "As of ${.As Of Date}, disease is ${.Disease Status} based on ${.Rationale}.",
                                 dataMissingTemplate: "No recent ${disease status}.",
                                 useDataMissingTemplateCriteria: [
-                                    "Current Diagnosis.As Of Date",
-                                    "Current Diagnosis.Disease Status",
-                                    "Current Diagnosis.Rationale"
+                                    ".As Of Date",
+                                    ".Disease Status",
+                                    ".Rationale"
                                 ]
                             },
                             {
@@ -780,7 +780,7 @@ export default class SummaryMetadata {
                         ],
                         data: [
                             {
-                                name: "Current Diagnosis",
+                                name: "",
                                 items: [
                                     {
                                         name: "Name",

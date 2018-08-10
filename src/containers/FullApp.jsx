@@ -119,9 +119,6 @@ export class FullApp extends Component {
                 textfunction: this.nameSourceAction,
                 icon: "sticky-note",
                 whenToDisplay: {
-                    function: (element, arrayIndex, subsectionName, isSigned, allowItemClick) => {
-                        return true;
-                    },
                     valueExists: true,
                     existingValueSigned: "either",
                     editableNoteOpen: "either"
@@ -248,7 +245,7 @@ export class FullApp extends Component {
         return "No source information";
     }
 
-    openReferencedNote = (item, arrayIndex = -1) => {
+    openReferencedNote = (item, itemLabel) => {
         if (!item.value || !Lang.isArray(item.value) || item.value.length < 3 || Lang.isUndefined(item.value[2])) {
             this.setState({
                 snackbarOpen: true,
@@ -262,7 +259,7 @@ export class FullApp extends Component {
         } else {
             this.setState({
                 isModalOpen: true,
-                modalTitle: "Source for " + item.value[0],
+                modalTitle: "Source for " + itemLabel + " of " + item.value[0],
                 modalContent: item.value[2]
             });
         }
