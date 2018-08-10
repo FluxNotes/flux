@@ -287,7 +287,7 @@ export default class NotesPanel extends Component {
                                     {this.renderNoteAssistant()}
                                 </Col>
                             </Row>
-                            <Row start="xs" style={{ marginLeft:'10px', marginRight: '10px'}}>
+                            <Row start="xs" style={{ marginLeft: '2px', marginRight: '10px' }}>
                                 <PointOfCare
                                     structuredFieldMapManager={this.props.structuredFieldMapManager} />
                             </Row>
