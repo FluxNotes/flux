@@ -4,27 +4,7 @@
     font-style: italic;
     display: inline-block;
     vertical-align: bottom;
-    width: 65%;
-}
-
-/* Allows for respnsive width styling according to size of window.
-Width percentages chosen arbitrarily.*/
-@media only screen and (max-width: 1400px) {
-    .toolbar-breadcrumbs-container {
-        width: 55%;
-    }
-}
-
-@media only screen and (max-width: 1200px) {
-    .toolbar-breadcrumbs-container {
-        width: 50%;
-    }
-}
-
-@media only screen and (max-width: 1100px) {
-    .toolbar-breadcrumbs-container {
-        width: 40%;
-    }
+    max-width: calc(100% -  315px);
 }
 
 .breadcrumbs-container:after {
@@ -36,6 +16,7 @@ Width percentages chosen arbitrarily.*/
 }
 
 .breadcrumbs-container {
+    margin-right: 1px;
     vertical-align: bottom;
     direction: rtl;
     display: inline-block;

@@ -3,6 +3,7 @@
 }
 
 .toolbar-menu {
+    position: relative;
     padding: 1px 0 17px 5px;
     margin-bottom: 20px;
     border-bottom: 1px solid #ddd;
@@ -29,7 +30,7 @@
     display: inline-block;
     color: #ddd;
     vertical-align: bottom;
-    margin: 0px 40px;
+    margin: 0px 20px;
     border: none;
     border-left: 1px solid;
     height: 19px;
@@ -78,4 +79,40 @@
 
 #copy-button a:hover {
     color: black;
+}
+
+#loading-notification { 
+    position: absolute;
+    right: 0; 
+    min-width: 125px;
+}
+
+#loading-text { 
+    display: inline;
+    margin: 0 10px 0 0;
+    animation-name: fadeInOut;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    font-size: 12px;
+    font-style: italic;
+    color:rgb(70, 130, 180);
+}
+
+.loading-breadcrumb-separator {
+    color: #ccc;
+    font-size: 0.8em;
+    font-style: italic;
+    margin: 0 10px;
+}
+
+@keyframes fadeInOut {
+    0% {
+      opacity: 0;
+    }
+    45% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
 }

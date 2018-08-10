@@ -19,8 +19,10 @@ import SuggestionsPlugin from '../lib/slate-suggestions-dist'
 import position from '../lib/slate-suggestions-dist/caret-position';
 import StructuredFieldPlugin from './StructuredFieldPlugin';
 import SingleHashtagKeywordStructuredFieldPlugin from './SingleHashtagKeywordStructuredFieldPlugin'
+import NLPHashtagPlugin from './NLPHashtagPlugin'
 import NoteParser from '../noteparser/NoteParser';
 import './FluxNotesEditor.css';
+import { setTimeout } from 'timers';
 
 // This forces the initial block to be inline instead of a paragraph. When insert structured field, prevents adding new lines
 const initialState = Slate.Plain.deserialize('');
@@ -90,7 +92,7 @@ class FluxNotesEditor extends React.Component {
 
         // Set the initial state when the app is first constructed.
         this.resetEditorState();
-
+        
         // setup structured field plugin
         const structuredFieldPluginOptions = {
             contextManager: this.contextManager,
@@ -98,48 +100,67 @@ class FluxNotesEditor extends React.Component {
             updateErrors: this.updateErrors,
             insertText: this.insertTextWithStructuredPhrases
         };
-
         structuredFieldTypes.forEach((type) => {
             const typeName = type.name;
             const typeValue = type.value;
             structuredFieldPluginOptions[typeName] = typeValue;
         });
-
+        this.structuredFieldPlugin = StructuredFieldPlugin(structuredFieldPluginOptions);
+        this.plugins.push(this.structuredFieldPlugin)
+        
+        // setup single hashtag structured field plugin
         const singleHashtagKeywordStructuredFieldPluginOptions = {
             shortcutManager: this.props.shortcutManager,
             structuredFieldMapManager: this.structuredFieldMapManager,
             createShortcut: this.props.newCurrentShortcut,
             insertStructuredFieldTransform: this.insertStructuredFieldTransform,
         };
-
-        this.structuredFieldPlugin = StructuredFieldPlugin(structuredFieldPluginOptions);
         this.singleHashtagKeywordStructuredFieldPlugin = SingleHashtagKeywordStructuredFieldPlugin(singleHashtagKeywordStructuredFieldPluginOptions);
+        this.plugins.push(this.singleHashtagKeywordStructuredFieldPlugin)
 
-        // setup suggestions plugin (autocomplete)
+        // setup NLPHashtagPlugin
+        const NLPHashtagPluginOptions = {
+            shortcutManager: this.props.shortcutManager,
+            contextManager: this.props.contextManager,
+            structuredFieldMapManager: this.structuredFieldMapManager,
+            createShortcut: this.props.newCurrentShortcut,
+            insertStructuredFieldTransformAtRange: this.insertStructuredFieldTransformAtRange,
+            getEditorState: () => this.state.state,
+            setEditorState: (state) => {
+                this.setState({state})
+            },
+            updateFetchingStatus: this.updateFetchingStatus,
+        };
+        this.NLPHashtagPlugin = NLPHashtagPlugin(NLPHashtagPluginOptions);
+        this.plugins.push(this.NLPHashtagPlugin)
+        
+        // setup creator suggestions plugin (autocomplete)
         this.suggestionsPluginCreators = SuggestionsPlugin({
             capture: /#([\w\s\-,]*)/,
             onEnter: this.choseSuggestedShortcut.bind(this),
             suggestions: this.suggestionFunction.bind(this, '#'),
             trigger: '#',
         });
+        this.plugins.push(this.suggestionsPluginCreators)
+        
+        // setup inserter suggestions plugin (autocomplete)
         this.suggestionsPluginInserters = SuggestionsPlugin({
             capture: /@([\w\s\-,]*)/,
             onEnter: this.choseSuggestedShortcut.bind(this),
             suggestions: this.suggestionFunction.bind(this, '@'),
             trigger: '@',
         });
+        this.plugins.push(this.suggestionsPluginInserters)
+
+        // Setup suggestions plugin
         this.suggestionsPluginPlaceholders = SuggestionsPlugin({
             capture: /<([\w\s\-,>]*)/,
             onEnter: this.choseSuggestedPlaceholder.bind(this),
             suggestions: this.suggestionFunction.bind(this, '<'),
             trigger: '<',
         });
-
-        this.plugins.push(this.suggestionsPluginCreators);
-        this.plugins.push(this.suggestionsPluginInserters);
         this.plugins.push(this.suggestionsPluginPlaceholders);
-        this.plugins.push(this.structuredFieldPlugin);
-        this.plugins.push(this.singleHashtagKeywordStructuredFieldPlugin);
+
         // The logic below that builds the regular expression could possibly be replaced by the regular
         // expression stored in NoteParser (this.noteParser is instance variable). Only difference is
         // global flag it looks like? TODO: evaluate
@@ -199,8 +220,35 @@ class FluxNotesEditor extends React.Component {
             state: initialState,
             openedPortal: null,
             portalOptions: null,
-            isEditingNoteName: false
+            isEditingNoteName: false,
+            isFetchingAsyncData: false,
+            loadingTimeWarrantsWarning: false,
+            fetchTimeout: null,
         };
+    }
+
+
+    updateFetchingStatus = (isFetchingAsyncData) => { 
+        if (!isFetchingAsyncData) { 
+            // If we're not fetching, clear any lagging timers;
+            if (this.state.fetchTimeout !== null) clearTimeout(this.state.fetchTimeout._id)
+            this.setState({
+                // Make sure loadingTimeWarrantsWarning is false;
+                loadingTimeWarrantsWarning: false,
+                // Clear fetch timer
+                fetchTimeout: null,
+            });
+        } else { 
+            // If we are fetching, set a timer that will display a loading animation in the editor after trigger
+            this.setState({
+                fetchTimeout: setTimeout (() => {
+                    this.setState({
+                        // After the wait, display the loading animation
+                        loadingTimeWarrantsWarning: true
+                    });
+                }, 10),
+            })  
+        }
     }
 
     // Reset editor state and clear context
@@ -438,6 +486,11 @@ class FluxNotesEditor extends React.Component {
         let result = this.structuredFieldPlugin.transforms.insertStructuredField(transform, shortcut);
         // console.log("result[0]");
         // console.log(result[0]);
+        return result[0];
+    }
+    insertStructuredFieldTransformAtRange = (transform, shortcut, range) => {
+        if (Lang.isNull(shortcut)) return transform.focus();
+        let result = this.structuredFieldPlugin.transforms.insertStructuredFieldAtRange(transform, shortcut, range);
         return result[0];
     }
 
@@ -1195,11 +1248,8 @@ class FluxNotesEditor extends React.Component {
         }
     }
 
-    render = () => {
-        const CreatorsPortal = this.suggestionsPluginCreators.SuggestionPortal;
-        const InsertersPortal = this.suggestionsPluginInserters.SuggestionPortal;
-        const PlaceholdersPortal = this.suggestionsPluginPlaceholders.SuggestionPortal;
-
+    // Renders the noteDescription of the editor
+    renderNoteDescriptionContent = () => { 
         // Preset note header information
         let noteTitle = "New Note";
         let date = Moment(new Date()).format('DD MMM YYYY');
@@ -1221,11 +1271,10 @@ class FluxNotesEditor extends React.Component {
             }
         }
 
-        let noteDescriptionContent = null;
         if (this.props.patient == null) {
-            noteDescriptionContent = "";
+            return "";
         } else {
-            noteDescriptionContent = (
+            return (
                 <div id="note-description">
                     <Row end="xs">
                         <Col xs={2}>
@@ -1275,6 +1324,13 @@ class FluxNotesEditor extends React.Component {
                 </div>
             );
         }
+    }
+    
+    render = () => {
+        const CreatorsPortal = this.suggestionsPluginCreators.SuggestionPortal;
+        const InsertersPortal = this.suggestionsPluginInserters.SuggestionPortal;
+        const PlaceholdersPortal = this.suggestionsPluginPlaceholders.SuggestionPortal;
+        
         let errorDisplay = "";
         if (this.props.errors && this.props.errors.length > 0) {
             errorDisplay = (
@@ -1292,14 +1348,13 @@ class FluxNotesEditor extends React.Component {
          */
         return (
             <div id="clinical-notes" className="dashboard-panel">
-                {noteDescriptionContent}
-                <div className="MyEditor-root" onClick={(event) => {
-                    this.editor.focus();
-                }}>
+                {this.renderNoteDescriptionContent()}
+                <div className="MyEditor-root" onClick={(event) => { this.editor.focus(); }}>
                     { !this.props.inModal &&
                         <EditorToolbar
                             contextManager={this.props.contextManager}
                             isReadOnly={!this.props.isNoteViewerEditable}
+                            loadingTimeWarrantsWarning={this.state.loadingTimeWarrantsWarning}
                             onBlockCheck={this.handleBlockCheck}
                             onBlockUpdate={this.handleBlockUpdate}
                             onMarkCheck={this.handleMarkCheck}
