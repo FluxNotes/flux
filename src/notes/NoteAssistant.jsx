@@ -508,7 +508,7 @@ export default class NoteAssistant extends Component {
                 </MaterialButton>
                 <MaterialButton
                     raised
-                    id="context-btn"
+                    id="poc-btn"
                     className={"toggle-button " + this.poc_btn_classname}
                     disabled={this.poc_disabled}
                     onClick={() => {
