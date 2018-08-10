@@ -1362,7 +1362,7 @@ class FluxNotesEditor extends React.Component {
         if (this.props.noteAssistantMode === 'poc') {
             return (
                 <div id="clinical-notes" className="dashboard-panel">
-                    {noteDescriptionContent}
+                    {this.renderNoteDescriptionContent()}
                 </div>
             );
         }
