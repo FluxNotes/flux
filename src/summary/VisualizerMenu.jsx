@@ -46,10 +46,15 @@ export default class VisualizerMenu extends Component {
                         } else {
                             textSpec = a.textfunction(this.props.element);
                         }
+                        let disabled = false;
+                        if (!Lang.isUndefined(a.isdisabled)) {
+                            disabled = a.isdisabled(this.props.element);
+                        }
                         const text = textSpec.replace("{elementText}", this.props.elementText);
                         return (
                             <MenuItem
                                 key={`${this.props.elementId}-${index}`}
+                                disabled={disabled}
                                 onClick={() => this.props.onMenuItemClicked(a.handler, this.props.element, this.props.rowId)}
                                 className="narrative-inserter-box"
                             >

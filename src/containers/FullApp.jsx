@@ -117,6 +117,7 @@ export class FullApp extends Component {
             {
                 handler: this.openReferencedNote,
                 textfunction: this.nameSourceAction,
+                isdisabled: this.sourceActionIsDisabled,
                 icon: "sticky-note",
                 whenToDisplay: {
                     valueExists: true,
@@ -236,6 +237,13 @@ export class FullApp extends Component {
         this.setState({
             openClinicalNote: openClinicalNote
         });
+    }
+
+    sourceActionIsDisabled = (element) => {
+        if (element.value && Lang.isArray(element.value) && element.value.length > 2 && element.value[2]) {
+            return false;
+        }
+        return true;
     }
 
     nameSourceAction = (element) => {
