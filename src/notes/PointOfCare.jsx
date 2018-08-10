@@ -14,7 +14,7 @@ export default class PointOfCare extends Component {
             );
         });
         return (
-            <div style={{width: "100%"}}>
+            <div style={{width: "100%", overflowX: "hidden", overflowY: "scroll", maxHeight: "calc(100vh - 92px - 20px)"}}>
                 {result}
             </div>
         );
