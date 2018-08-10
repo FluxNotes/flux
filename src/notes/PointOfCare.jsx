@@ -1,20 +1,23 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Row, Col } from 'react-flexbox-grid';
 import FillPlaceholder from './FillPlaceholder';
-import {Row, Col} from 'react-flexbox-grid';
+import './PointOfCare.css';
 
 export default class PointOfCare extends Component {
     render() {
-        let result = [];
-        this.props.structuredFieldMapManager.placeholders.forEach((placeholder, index) => {
-            result.push(
-                <Row key={index}>
-                    <Col xs><FillPlaceholder placeholder={placeholder} backgroundColor={(((index+1) % 2) === 0) ? 'lightgrey' : '' } /></Col>
-                </Row>
-            );
-        });
+        const { structuredFieldMapManager } = this.props;
+
+        const result = structuredFieldMapManager.placeholders.map((placeholder, index) => (
+            <Row key={index}>
+                <Col xs>
+                    <FillPlaceholder placeholder={placeholder} backgroundColor={(((index + 1) % 2) === 0) ? 'lightgrey' : ''} />
+                </Col>
+            </Row>
+        ));
+
         return (
-            <div style={{width: "100%", overflowX: "hidden", overflowY: "scroll", maxHeight: "calc(100vh - 92px - 20px)", minHeight: "calc(100vh - 92px - 20px)"}}>
+            <div id="poc-panel">
                 {result}
             </div>
         );
