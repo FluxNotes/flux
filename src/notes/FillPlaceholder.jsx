@@ -88,48 +88,48 @@ export default class FillPlaceholder extends Component {
         this.setState({ expanded: !this.state.expanded });
     };
 
-    onClickOnField = (index, entryIndex = 0, event) => {
+    onClickOnField = (attributeIndex, entryIndex = 0) => {
         let { currentField } = this.state;
 
-        currentField[entryIndex] = index;
+        currentField[entryIndex] = attributeIndex;
         this.setState({ currentField });
     };
 
-    nextField = (index = 0) => {
+    nextField = (entryIndex = 0) => {
         let { currentField, done } = this.state;
         const { placeholder } = this.props;
 
-        if (currentField[index] + 1 === placeholder.metadata.formSpec.attributes.length) {
+        if (currentField[entryIndex] + 1 === placeholder.metadata.formSpec.attributes.length) {
             // User has entered final attribute, so mark row as done
             if (placeholder.multiplicity !== 'many') {
                 done = true;
                 this.props.placeholder.done = true;
                 this.setState({ done });
             } else {
-                currentField[index] = 0;
+                currentField[entryIndex] = 0;
                 this.setState({ currentField });
             }
         } else {
-            currentField[index] += 1;
+            currentField[entryIndex] += 1;
             this.setState({ currentField });
         }
     };
 
-    onSetValue = (attributeSpec, index, newValue) => {
-        const attributes = this.props.placeholder.getAttributeValue(attributeSpec.name, index);
+    onSetValue = (attributeSpec, entryIndex, newValue) => {
+        const attributes = this.props.placeholder.getAttributeValue(attributeSpec.name, entryIndex);
         let error;
         if (Lang.isArray(attributes) && Lang.includes(attributes, newValue)) {
             Lang.remove(attributes, (attr) => {
                 return attr === newValue;
             });
-            error = this.props.placeholder.setAttributeValue(attributeSpec.name, attributes, index);
+            error = this.props.placeholder.setAttributeValue(attributeSpec.name, attributes, entryIndex);
         } else {
-            error = this.props.placeholder.setAttributeValue(attributeSpec.name, newValue, index);
+            error = this.props.placeholder.setAttributeValue(attributeSpec.name, newValue, entryIndex);
 
             // We only want to increment the field if we are working on a non-expanded and non-multiselect attribute
             // This might only be a temporary workaround, we have to see how it goes as the other fields get implemented
             if (Lang.isNull(error) && !(this.state.expanded || Lang.isArray(attributes))) {
-                this.nextField(index);
+                this.nextField(entryIndex);
             }
         }
         this.setState({ error });
@@ -142,19 +142,19 @@ export default class FillPlaceholder extends Component {
         });
     }
 
-    handleCalendarSelect = (attributeSpec, index = 0, date) => {
+    handleCalendarSelect = (attributeSpec, entryIndex = 0, date) => {
         const dateSelected = date.format("D MMM YYYY");
-        this.onSetValue(attributeSpec, index, dateSelected);
+        this.onSetValue(attributeSpec, entryIndex, dateSelected);
         this.setState({ showCalendar: false });
     }
 
-    createFillFieldForPlaceholder = (attributeSpec, value, index = 0) => {
+    createFillFieldForPlaceholder = (attributeSpec, value, entryIndex = 0) => {
         if (attributeSpec.type === 'radioButtons') {
-            return <ButtonSetFillFieldForPlaceholder attributeSpec={attributeSpec} value={value} updateValue={this.onSetValue.bind(this, attributeSpec, index)} />;
+            return <ButtonSetFillFieldForPlaceholder attributeSpec={attributeSpec} value={value} updateValue={this.onSetValue.bind(this, attributeSpec, entryIndex)} />;
         } else if (attributeSpec.type === 'checkboxes') {
-            return <MultiButtonSetFillFieldForPlaceholder attributeSpec={attributeSpec} value={value} updateValue={this.onSetValue.bind(this, attributeSpec, index)} nextField={this.state.expanded ? null : this.nextField.bind(this, index)} />;
+            return <MultiButtonSetFillFieldForPlaceholder attributeSpec={attributeSpec} value={value} updateValue={this.onSetValue.bind(this, attributeSpec, entryIndex)} nextField={this.state.expanded ? null : this.nextField.bind(this, entryIndex)} />;
         } else if (attributeSpec.type === 'searchableList') {
-            return <SearchableListForPlaceholder attributeSpec={attributeSpec} backgroundColor={this.props.backgroundColor} value={value} updateValue={this.onSetValue.bind(this, attributeSpec, index)} />;
+            return <SearchableListForPlaceholder attributeSpec={attributeSpec} backgroundColor={this.props.backgroundColor} value={value} updateValue={this.onSetValue.bind(this, attributeSpec, entryIndex)} />;
         } else if (attributeSpec.type === 'date') {
             let date = new Date(this.props.placeholder.getAttributeValue(attributeSpec.name));
             date = moment(date).format('MM/DD/YYYY');
@@ -170,7 +170,7 @@ export default class FillPlaceholder extends Component {
                         <div className='date-picker-container' ref={(calendarDom) => this.calendarDom = calendarDom}>
                             <Calendar
                                 showDateInput={false}
-                                onSelect={this.handleCalendarSelect.bind(this, attributeSpec, index)}
+                                onSelect={this.handleCalendarSelect.bind(this, attributeSpec, entryIndex)}
                                 style={{ position: 'absolute', top: '0px', left: '0px' }}
                             />
                         </div>
@@ -184,15 +184,15 @@ export default class FillPlaceholder extends Component {
         return <div>Unknown component type: {attributeSpec.type}</div>;
     }
 
-    createCurrentFieldRowInSummary = (attribute, index = 0) => {
+    createCurrentFieldRowInSummary = (attribute, entryIndex = 0) => {
         let currentFieldRowInSummary = "";
-        const value = this.props.placeholder.getAttributeValue(attribute.name, index);
+        const value = this.props.placeholder.getAttributeValue(attribute.name, entryIndex);
         if (this.state.expanded || !this.state.done) {
             currentFieldRowInSummary = (
                 <Grid container key={attribute.name}>
                     <Grid item xs={1}></Grid>
                     <Grid item xs={2} style={{ display: 'flex', alignItems: 'center' }}><span>{attribute.title}</span></Grid>
-                    <Grid item xs={9}><span>{this.createFillFieldForPlaceholder(attribute, value, index)}</span></Grid>
+                    <Grid item xs={9}><span>{this.createFillFieldForPlaceholder(attribute, value, entryIndex)}</span></Grid>
                 </Grid>
             );
         }
@@ -208,20 +208,20 @@ export default class FillPlaceholder extends Component {
         this.setState({ currentField });
     }
 
-    deleteEntry = (index) => {
+    deleteEntry = (entryIndex) => {
         const { placeholder } = this.props;
         const { currentField } = this.state;
 
-        currentField.splice(index, 1);
-        placeholder.deleteEntry(index);
+        currentField.splice(entryIndex, 1);
+        placeholder.deleteEntry(entryIndex);
         this.setState({ currentField });
     }
 
-    createAllRows = (index = 0) => {
+    createAllRows = (entryIndex = 0) => {
         const { placeholder } = this.props;
 
         return placeholder.metadata.formSpec.attributes.map(attr => {
-            return this.createCurrentFieldRowInSummary(attr, index);
+            return this.createCurrentFieldRowInSummary(attr, entryIndex);
         });
     };
 
@@ -256,7 +256,7 @@ export default class FillPlaceholder extends Component {
         return addButton;
     }
 
-    renderDeleteButton = (index) => {
+    renderDeleteButton = (entryIndex) => {
         const { done } = this.state;
         const { placeholder } = this.props;
         const shortcutNameWithoutPrefix = placeholder.shortcutName.slice(1);
@@ -265,7 +265,7 @@ export default class FillPlaceholder extends Component {
         if (!done) {
             deleteButton = (
                 <Button
-                    onClick={this.deleteEntry.bind(this, index)}
+                    onClick={this.deleteEntry.bind(this, entryIndex)}
                     style={{ float: "right" }}
                 >
                     <FontAwesome
@@ -310,14 +310,14 @@ export default class FillPlaceholder extends Component {
         const { placeholder } = this.props;
         let columns = [];
 
-        placeholder.metadata.formSpec.attributes.forEach((attribute, index) => {
+        placeholder.metadata.formSpec.attributes.forEach((attribute, attributeIndex) => {
             const value = placeholder.getAttributeValue(attribute.name, entryIndex);
 
-            columns.push(<span className="shortcut-field-title" key={`${entryIndex}-${index}-label`}>{`${attribute.title}: `}</span>);
+            columns.push(<span className="shortcut-field-title" key={`${entryIndex}-${attributeIndex}-label`}>{`${attribute.title}: `}</span>);
             if (!this.isValidAttribute(value)) {
-                columns.push(<span onClick={this.onClickOnField.bind(this, index, entryIndex)} className="missing-data" key={`${entryIndex}-${index}-value`}>No Data</span>);
+                columns.push(<span onClick={this.onClickOnField.bind(this, attributeIndex, entryIndex)} className="missing-data" key={`${entryIndex}-${attributeIndex}-value`}>No Data</span>);
             } else {
-                columns.push(<span onClick={this.onClickOnField.bind(this, index, entryIndex)} className="structured-data" key={`${entryIndex}-${index}-value`}>{value}</span>);
+                columns.push(<span onClick={this.onClickOnField.bind(this, attributeIndex, entryIndex)} className="structured-data" key={`${entryIndex}-${attributeIndex}-value`}>{value}</span>);
             }
         });
 
