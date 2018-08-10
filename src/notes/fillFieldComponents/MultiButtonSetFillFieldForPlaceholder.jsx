@@ -19,18 +19,16 @@ class MultiButtonSetFillFieldForPlaceholder extends Component {
     renderButtonGroup = (option, i) => {
         const marginSize = "2px";
         const optionName = option.name;
-        //const optionDescription = option.description;
-        //const tooltipClass = (optionDescription.length > 100) ? "tooltiptext large" : "tooltiptext";
 
         return (
             <div key={optionName} className="tooltip-progression-form">
                 {/* <span id={optionName} className={tooltipClass}>{optionDescription}</span> */}
-                <MultiChoiceButton 
-                        buttonKey={i}
-                        buttonText={optionName}
-                        onClick={(e) => this.handleOptionSelection(e, i)}
-                        isSelected={Lang.includes(this.props.value, this._options[i].name)}
-                        marginSize={marginSize}
+                <MultiChoiceButton
+                    buttonKey={i}
+                    buttonText={optionName}
+                    onClick={(e) => this.handleOptionSelection(e, i)}
+                    isSelected={Lang.includes(this.props.value, this._options[i].name)}
+                    marginSize={marginSize}
                 />
             </div>
         );
@@ -43,15 +41,14 @@ class MultiButtonSetFillFieldForPlaceholder extends Component {
         }
         return (
             <div>
-            {/* <h4 className="header-spacing">Status<span className="helper-text"> Choose one</span></h4> */}
-            <div className="btn-group-status-progression">
-                {
-                    this._options.map((option, i) => {
-                        return this.renderButtonGroup(option, i)
-                    })
-                }
-                {nextButton}
-            </div>
+                <div className="btn-group-status-progression">
+                    {
+                        this._options.map((option, i) => {
+                            return this.renderButtonGroup(option, i)
+                        })
+                    }
+                    {nextButton}
+                </div>
             </div>
         );
     }

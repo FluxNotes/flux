@@ -28,12 +28,12 @@ class ButtonSetFillFieldForPlaceholder extends Component {
         return (
             <div key={optionName} className="tooltip-progression-form">
                 {/* <span id={optionName} className={tooltipClass}>{optionDescription}</span> */}
-                <SingleChoiceButton 
-                        buttonKey={i}
-                        buttonText={optionName}
-                        onClick={(e) => this.handleOptionSelection(e, i)}
-                        isSelected={this.props.value === this._options[i].name}
-                        marginSize={marginSize}
+                <SingleChoiceButton
+                    buttonKey={i}
+                    buttonText={optionName}
+                    onClick={(e) => this.handleOptionSelection(e, i)}
+                    isSelected={this.props.value === this._options[i].name}
+                    marginSize={marginSize}
                 />
             </div>
         );
@@ -42,14 +42,13 @@ class ButtonSetFillFieldForPlaceholder extends Component {
     render() {
         return (
             <div>
-            {/* <h4 className="header-spacing">Status<span className="helper-text"> Choose one</span></h4> */}
-            <div className="btn-group-status-progression">
-                {
-                    this._options.map((option, i) => {
-                        return this.renderButtonGroup(option, i)
-                    })
-                }
-            </div>
+                <div className="btn-group-status-progression">
+                    {
+                        this._options.map((option, i) => {
+                            return this.renderButtonGroup(option, i)
+                        })
+                    }
+                </div>
             </div>
         );
     }

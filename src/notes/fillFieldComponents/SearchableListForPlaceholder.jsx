@@ -160,8 +160,7 @@ class SearchableListForPlaceholder extends Component {
 
 
         if (!Lang.isUndefined(this.topAdverseEvents) && this.topAdverseEvents.length > 0) {
-
-            let topAdverseEventObjects = this.topAdverseEvents.map((adverseEvent, i) => {
+            let topAdverseEventObjects = this.topAdverseEvents.map((adverseEvent) => {
                 return toxicityLookup.findAdverseEvent(adverseEvent);
             });
 
@@ -191,7 +190,6 @@ class SearchableListForPlaceholder extends Component {
 
         return (
             <div>
-                {/* Interface here*/}
                 <Autosuggest
                     suggestions={this.state.suggestions}
                     onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
