@@ -94,7 +94,7 @@ class ScatterPlotVisualizer extends Component {
                         var sum = 0;
                         myData.forEach(function (series) {
                             series.forEach(function (data) {
-                                if (data[0] == index)
+                                if (data[0] === index)
                                     sum += 1;
                             })
                         });
@@ -130,9 +130,9 @@ class ScatterPlotVisualizer extends Component {
                         var livingOver60 = 0;
                         myData.forEach(function (series) {
                             series.forEach(function (data) {
-                                if (data[0] == index) {
+                                if (data[0] === index) {
                                     categorySum += 1;
-                                    if (data[0] == index && data[1] >= 60)
+                                    if (data[0] === index && data[1] >= 60)
                                         livingOver60 += 1;
                                 }
                             })
@@ -164,7 +164,7 @@ class ScatterPlotVisualizer extends Component {
                 }],
                 labels: {
                     formatter: function () {
-                        if (this.value == 60) {
+                        if (this.value === 60) {
                             return 'At least 60';
                         } else if (this.value > 60)
                             return "";
@@ -213,7 +213,7 @@ class ScatterPlotVisualizer extends Component {
                         category = chart.xAxis[0].categories[5];
                     else
                         category = chart.xAxis[0].categories[6];
-                    return '<span style="font-weight:bold">' + category + '</span>' + '<br>'
+                    return '<span style="font-weight:bold">' + category + '</span><br>'
                         + this.series.name + ', ' + this.point.y + ' months';
                 },
                 useHTML: true
@@ -287,7 +287,7 @@ class ScatterPlotVisualizer extends Component {
     }
 
     render() {
-        const { patient, condition, conditionSection } = this.props;
+       // const { patient, condition, conditionSection } = this.props;
 
         return (
             <div ref='scattering'

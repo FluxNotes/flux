@@ -1847,10 +1847,10 @@ export default class SummaryMetadata {
         var aliveSeries = [];
        
         seerdata.forEach((v) => {
-            if(v.Disease == 'prostate cancer' && v.Race == 'Black' && v['Dx-Grade'] == 'Grade II' && v['Is-Alive'] == 'Dead'){
+            if(v.Disease === 'prostate cancer' && v.Race === 'Black' && v['Dx-Grade'] === 'Grade II' && v['Is-Alive'] === 'Dead'){
                 deceasedSeries.push([ treatmentOptions.indexOf(v['Treat-option'])  , v['Survival-months'] ]);
             }
-            if(v.Disease == 'prostate cancer' && v.Race == 'Black' && v['Dx-Grade'] == 'Grade II' && v['Is-Alive'] == 'Alive'){
+            if(v.Disease === 'prostate cancer' && v.Race === 'Black' && v['Dx-Grade'] === 'Grade II' && v['Is-Alive'] === 'Alive'){
                 aliveSeries.push([ treatmentOptions.indexOf(v['Treat-option'])  , v['Survival-months'] ]);
             }  
         });
