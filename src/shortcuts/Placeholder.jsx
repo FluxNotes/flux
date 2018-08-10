@@ -88,7 +88,12 @@ class Placeholder {
         }
 
         if (!this._entryShortcuts[index].hasParentContext()) {
-            return "no parent context so no setting values";
+            const entryShortcutId = this._entryShortcuts[index].getShortcutType();
+            const possibleParentTriggers = this._shortcutManager.getPossibleParentContextTriggers(entryShortcutId);
+            const triggerList = possibleParentTriggers.map(item => item.name);
+            const parentContextOptions = (triggerList.length > 1 ? "one of " + triggerList.join(',') : triggerList);
+            return "No parent context to set values within. Create a context before " + this._placeholderText + " using " + 
+                parentContextOptions + ".";
         } else {
             this._entryShortcuts[index].setAttributeValue(name, value);
             this._setForceRefresh();
