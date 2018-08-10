@@ -166,11 +166,19 @@ class FluxTNMStage extends FluxObservation {
     }
 
     get author() {
-        return this._observation.author.value;
+        if (this._observation.author) {
+            return this._observation.author.value;
+        } else {
+            return null;
+        }
     }
 
     get informant() {
-        return this._observation.informant.value;
+        if (this._observation.informant) {
+            return this._observation.informant.value;
+        } else {
+            return null;
+        }
     }
 
     toJSON() {

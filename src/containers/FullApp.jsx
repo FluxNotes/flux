@@ -249,7 +249,7 @@ export class FullApp extends Component {
         if (!item.value || !Lang.isArray(item.value) || item.value.length < 3 || Lang.isUndefined(item.value[2])) {
             this.setState({
                 snackbarOpen: true,
-                snackbarMessage: "No source note available. Information was probably entered directly into EHR as structured data."
+                snackbarMessage: "No source information or note available."
             });
             return;
         }
@@ -257,9 +257,11 @@ export class FullApp extends Component {
             const sourceNote = this.state.patient.getEntryFromReference(item.value[2]);
             this.setOpenClinicalNote(sourceNote);
         } else {
+            const labelForItem = (Lang.isArray(itemLabel) ? itemLabel[0] : itemLabel );
+            const title = "Source for " + (labelForItem === item.value[0] ? labelForItem : labelForItem + " of " + item.value[0]);
             this.setState({
                 isModalOpen: true,
-                modalTitle: "Source for " + itemLabel + " of " + item.value[0],
+                modalTitle: title,
                 modalContent: item.value[2]
             });
         }
