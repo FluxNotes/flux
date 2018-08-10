@@ -54,3 +54,13 @@
     border-radius: 10px;
     background-color: #FFFFFF;
 }
+
+#modal-title {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    font-weight: 400;
+}
+
+#simple-modal-description {
+    margin: 0px;
+}

@@ -1352,11 +1352,15 @@ export default class SummaryMetadata {
     determineSource = (patient, entry) => {
         if (entry.sourceClinicalNoteReference) return entry.sourceClinicalNoteReference;
         let result = "";
-        if (entry.author) result += "Author: " + entry.author;
-        if (entry.informant) result += (result.length > 0 ? "  |  " : "") + "Informant: " + entry.informant;
+        if (entry.author) result += "recorded by " + entry.author;
+        if (entry.informant) result += (result.length > 0 ? " " : "") + "based on information from " + entry.informant;
         if (entry.relatedEncounterReference) {
             const relatedEncounter = patient.getEntryFromReference(entry.relatedEncounterReference);
-            result += (result.length > 0 ? "  |  " : "") + " from encounter on " + relatedEncounter.actionContext.occurrenceTimeOrPeriod.timePeriod.timePeriodStart.value;
+            result += (result.length > 0 ? " " : "") + "from encounter on " + new moment(relatedEncounter.actionContext.occurrenceTimeOrPeriod.timePeriod.timePeriodStart.value, 'D MMM YYY HH:mm Z').format('D MMM YYY hh:mm a');
+        } else if (entry.creationTime) {
+            result += (result.length > 0 ? " " : "") + "on " + entry.creationTime.format('D MMM YYY hh:mm a');
+        } else if (entry.diagnosisDate) {
+            result += (result.length > 0 ? " " : "") + "clinically recognized on " + new moment(entry.diagnosisDate, 'D MMM YYYY').format('D MMM YYYY');
         }
         return result;
     }

@@ -3571,7 +3571,19 @@
                 },
                 "Value": "13 JAN 2018"
             }
-        }
+        },
+        "Author" : {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
+            },
+             "Value": "Joyce Byers111"
+         },
+         "Informant": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/Informant"
+            },
+             "Value": "Dr. Wilma Rubenstein144"
+         } 
     },
     {
         "EntryType": {

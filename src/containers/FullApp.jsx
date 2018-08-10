@@ -8,6 +8,8 @@ import lightBlue from 'material-ui/colors/lightBlue';
 import green from 'material-ui/colors/green';
 import red from 'material-ui/colors/red';
 import Snackbar from 'material-ui/Snackbar';
+import Modal from 'material-ui/Modal';
+import Typography from 'material-ui/Typography';
 import Lang from 'lodash';
 import Reference from '../model/Reference';
 
@@ -29,6 +31,22 @@ const theme = createMuiTheme({
         error: red
     }
 });
+
+function getModalStyle() {
+    const top = 50;
+    const left = 50;
+  
+    return {
+      top: `${top}%`,
+      left: `${left}%`,
+      transform: `translate(-${top}%, -${left}%)`,
+      position: 'absolute',
+      width: 400,
+      backgroundColor: 'white',
+      boxShadow: 'black',
+      padding: 8,
+    };
+  }
 
 export class FullApp extends Component {
     constructor(props) {
@@ -59,6 +77,9 @@ export class FullApp extends Component {
             layout: "",
             isNoteViewerVisible: false,
             isNoteViewerEditable: false,
+            isModalOpen: false,
+            modalTitle: '',
+            modalContent: '',
             loginUser: "",
             noteClosed: false,
             openClinicalNote: null,
@@ -221,7 +242,6 @@ export class FullApp extends Component {
     }
 
     nameSourceAction = (element) => {
-        console.log(element);
         if (element.value && Lang.isArray(element.value) && element.value.length > 2) {
             return (element.value[2] instanceof Reference ? "Open Source Note" : "View Source");
         }
@@ -232,7 +252,7 @@ export class FullApp extends Component {
         if (!item.value || !Lang.isArray(item.value) || item.value.length < 3 || Lang.isUndefined(item.value[2])) {
             this.setState({
                 snackbarOpen: true,
-                snackbarMessage: "No source note available. Information was probably entered into EHR as structured data."
+                snackbarMessage: "No source note available. Information was probably entered directly into EHR as structured data."
             });
             return;
         }
@@ -241,8 +261,9 @@ export class FullApp extends Component {
             this.setOpenClinicalNote(sourceNote);
         } else {
             this.setState({
-                snackbarOpen: true,
-                snackbarMessage: item.value[2]
+                isModalOpen: true,
+                modalTitle: "Source for " + item.value[0],
+                modalContent: item.value[2]
             });
         }
     }
@@ -276,6 +297,10 @@ export class FullApp extends Component {
 
     handleSnackbarClose = () => {
         this.setState({ snackbarOpen: false });
+    }
+
+    handleModalClose = () => {
+        this.setState({ isModalOpen: false });
     }
 
     render() {
@@ -330,6 +355,22 @@ export class FullApp extends Component {
                             summaryMetadata={this.summaryMetadata}
                             updateErrors={this.updateErrors}
                         />
+                        <Modal 
+                            aria-labelledby="simple-modal-title"
+                            aria-describedby="simple-modal-description"
+                            open={this.state.isModalOpen}
+                            onClose={this.handleModalClose}
+                            onClick={this.handleModalClose}
+                        >
+                            <div style={getModalStyle()} >
+                                <Typography id="modal-title">
+                                    {this.state.modalTitle}
+                                </Typography>
+                                <Typography id="simple-modal-description">
+                                    {this.state.modalContent}
+                                </Typography>
+                            </div>
+                        </Modal>
 
                         <Snackbar
                             anchorOrigin={{vertical: 'bottom', horizontal: 'center',}}

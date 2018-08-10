@@ -75,15 +75,27 @@ class FluxCondition {
     }
 
     get author() {
-        return this._condition.author.value;
+        if (this._condition.author) {
+            return this._condition.author.value;
+        } else {
+            return null;
+        }
     }
 
     get informant() {
-        return this._condition.informant.value;
+        if (this._condition.informant) {
+            return this._condition.informant.value;
+        } else {
+            return null;
+        }
     }
 
     get relatedEncounterReference() {
-        return this._condition.relatedEncounter.value;
+        if (this._condition.relatedEncounter) {
+            return this._condition.relatedEncounter.value;
+        } else {
+            return null;
+        }
     }
 
     // Given a toxicity adverse event, return the grade value
