@@ -1,13 +1,13 @@
 #clinician-dashboard-content {
-    margin-top: 16px;
+    margin-top: 15px;
 }
 
 #clinician-dashboard-content .fitted-panel {
     overflow-y: auto;
     overflow-x: hidden;
     text-align: left;
-    /* 106px is the height of the Patient Control Panel, 16px is the height of the top margin of post encounter view content*/
-    max-height: calc(100vh - 106px - 16px);
+    /* 106px is the height of the on large screens Patient Control Panel, 20px is the height of the top margin of post encounter view content and a little extra for potential scroll bars*/
+    max-height: calc(100vh - 92px - 20px);
     min-height: 400px !important;
 }
 
@@ -17,4 +17,11 @@
 
 #clinician-dashboard-content .full-panel {
     height: auto;
+}
+
+@media only screen and (max-width: 1024px) { 
+    #clinician-dashboard-content .fitted-panel {
+        /* 117px is the height of the on large screens Patient Control Panel, 20px is the height of the top margin of post encounter view content and a little extra for potential scroll bars*/
+        max-height: calc(100vh - 117px - 20px);
+    }
 }

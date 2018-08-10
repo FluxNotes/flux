@@ -132,10 +132,10 @@
 }
 
 .editor-content {
-    /* 96px is the height of the Patient Control Panel, 16px is the height of the top margin of post encounter view
-    content, 130px accounts for the editor header and editor toolbar plus margins, 76px is the height of the sign button,
-    20px is the margin on the sign button */
-    height: calc(100vh - 96px - 16px - 130px - 76px - 20px) !important;
+    /* 96px is the height of the Patient Control Panel, 20px is the height of the top margin of post encounter view
+    content and a little extra for potential scroll bars, 130px accounts for the editor header and editor toolbar 
+    plus margins, 76px is the height of the sign button, 20px is the margin on the sign button */
+    height: calc(100vh - 96px - 20px - 130px - 76px - 20px) !important;
     overflow-y: auto;
     overflow-x: hidden;
     text-align: left;
@@ -152,4 +152,13 @@
 .note-description-divider {
     margin: 20px 0px !important;
     clear: both;
+}
+
+@media only screen and (max-width: 1024px) { 
+    .editor-content {
+        /* 117px is the height of the Patient Control Panel, 20px is the height of the top margin of post encounter view
+        content and a little extra for potential scroll bars, 130px accounts for the editor header and editor toolbar 
+        plus margins, 76px is the height of the sign button, 20px is the margin on the sign button */
+        height: calc(100vh - 117px - 20px - 130px - 76px - 20px) !important;
+    }
 }

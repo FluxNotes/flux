@@ -1,0 +1,29 @@
+@import '../styles/variables';
+
+#condition-selection {
+    .condition-select {
+        width: 95%;
+        height: 30px;
+        padding-top: 5px;
+        font-size: 0.8em;
+        background-color: $contrast-gray;
+        border: none;
+        -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
+        -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
+        box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
+        &:after { 
+            background-color: $shr-context-dark;
+        } 
+    }
+    li.condition-item {
+        font-family: "Open Sans", Roboto, Arial, sans-serif;
+        color: #444;
+        height: 10px;
+        margin: 5px 0;
+        font-size: 0.9em;
+    }
+    .condition-select-menu { 
+        padding-left: 20px;
+    }
+}
+

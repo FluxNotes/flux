@@ -365,7 +365,7 @@ export default class NotesPanel extends Component {
 
     renderNoteAssistant() {
         return (
-            <div className="fitted-panel panel-content dashboard-panel">
+            <div className="fitted-panel panel-content dashboard-panel note-assistant-panel">
                 <NoteAssistant
                     closeNote={this.closeNote}
                     currentlyEditingEntryId={this.state.currentlyEditingEntryId}

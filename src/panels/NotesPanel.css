@@ -8,6 +8,9 @@
     display: flex;
     justify-content: center;
 }
+.panel-content.note-assistant-panel { 
+    padding: 0px !important;
+}
 
 .btn_finish {
     background-color: #FFFFFF !important;

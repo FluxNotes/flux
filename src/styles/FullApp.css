@@ -6,7 +6,6 @@
 
 /* Restricts app to max fixed width for very wide screens. */
 .FullApp-content {
-    /*background-color: #F3F3F3;*/
     /* Reduce padding that is set using fluid-container from react flex box */
     padding-right: 0rem !important;
     padding-left: 0rem !important;
@@ -18,7 +17,6 @@
 }
 
 .FullApp-content .panel-content {
-    /*padding: 0 10px 10px 10px;*/
     padding: 5px;
     text-align: left;
 }
@@ -34,13 +32,13 @@
 
 .FullApp-content h1 {
     margin: 0px;
-    font-size: 1.1rem;
+    font-size: 1.0rem;
     font-weight: 400;
 }
 
 .FullApp-content h2 {
     margin: 0px;
-    font-size: 1rem;
+    font-size: .9rem;
     font-weight: lighter;
 }
 
