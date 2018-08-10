@@ -363,7 +363,7 @@ export default class FillPlaceholder extends Component {
                     {i === 0 ? this.renderCheckbox() : <Grid item xs={3} />}
                     <Grid item xs={9}>
                         {this.renderColumns(i)}
-                        {this.renderDeleteButton(i)}
+                        {placeholder.entryShortcuts.length === 1 ? null : this.renderDeleteButton(i)}
                     </Grid>
                     {""}
                     {expanded ? "" : this.createCurrentFieldRowInSummary(attribute, i)}
