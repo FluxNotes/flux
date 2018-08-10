@@ -33,6 +33,9 @@ export default class FillPlaceholder extends Component {
 
             return firstUnfilledField;
         });
+
+        // If all fields are filled out, mark as done for single entry placeholders
+        // Wrap around to first field for multiple entry placeholders
         let done = false;
         let currentField;
         if (firstUnfilledFields.length === 1 && placeholder.multiplicity !== 'many') {
@@ -49,6 +52,7 @@ export default class FillPlaceholder extends Component {
             });
         }
 
+        // If placeholder had been previously filled out, mark as done.
         if (placeholder.done) done = true;
 
         this.state = {
@@ -132,8 +136,10 @@ export default class FillPlaceholder extends Component {
     };
 
     setCalendarTrue = (attributeSpec) => {
-        this.setState({ showCalendar: true });
-        this.setState({ calendarAttributeSpec: attributeSpec.name });
+        this.setState({
+            calendarAttributeSpec: attributeSpec.name,
+            showCalendar: true,
+        });
     }
 
     handleCalendarSelect = (attributeSpec, index = 0, date) => {
@@ -149,8 +155,7 @@ export default class FillPlaceholder extends Component {
             return <MultiButtonSetFillFieldForPlaceholder attributeSpec={attributeSpec} value={value} updateValue={this.onSetValue.bind(this, attributeSpec, index)} nextField={this.state.expanded ? null : this.nextField.bind(this, index)} />;
         } else if (attributeSpec.type === 'searchableList') {
             return <SearchableListForPlaceholder attributeSpec={attributeSpec} backgroundColor={this.props.backgroundColor} value={value} updateValue={this.onSetValue.bind(this, attributeSpec, index)} />;
-        }
-        if (attributeSpec.type === 'date') {
+        } else if (attributeSpec.type === 'date') {
             let date = new Date(this.props.placeholder.getAttributeValue(attributeSpec.name));
             date = moment(date).format('MM/DD/YYYY');
 
@@ -173,10 +178,11 @@ export default class FillPlaceholder extends Component {
                         null
                     }
                 </div>
-            )
+            );
         }
+
         return <div>Unknown component type: {attributeSpec.type}</div>;
-    };
+    }
 
     createCurrentFieldRowInSummary = (attribute, index = 0) => {
         let currentFieldRowInSummary = "";
@@ -348,6 +354,7 @@ export default class FillPlaceholder extends Component {
         const { currentField, expanded } = this.state;
         const { backgroundColor, placeholder } = this.props;
 
+        // Loop through all entries and render summaries
         const entries = placeholder.entryShortcuts.map((_, i) => {
             const attribute = placeholder.metadata.formSpec.attributes[currentField[i]];
 
@@ -365,6 +372,7 @@ export default class FillPlaceholder extends Component {
             );
         });
 
+        // Only render checkbox in expansion summary when expanion panel is expanded
         const expansionSummary = expanded ?
             (
                 <Grid container>
@@ -381,6 +389,7 @@ export default class FillPlaceholder extends Component {
                 </Grid>
             );
 
+        // When expanded, render column and all rows for each entry
         const allRowsAndColumns = placeholder.entryShortcuts.map((_, i) => {
             return (
                 <Grid container key={`${i}-expanded-rows`}>
