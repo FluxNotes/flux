@@ -75,21 +75,21 @@ class MedicationRangeChartVisualizer extends Component {
         return rows;
     }
 
-    renderMedicationTitle = (lowerValue, upperValue, name, value, unit) => {
+    renderMedicationTitle = (lowerValue, upperValue, name, dosageValue, dosageUnit, timingValue, timingUnit) => {
         // Determining if medication value is out of range.
-        if (value < lowerValue || value > upperValue) {
+        if (dosageValue < lowerValue || dosageValue > upperValue) {
             return (
                 <div className="medicationTitle">
                     {name + " "}
                     <span className="out-of-range-medication">
-                        {value + " "}
+                        {dosageValue + " "}
                     </span>
-                    {unit}
+                    {dosageUnit + " " + timingValue + " " + timingUnit}
                 </div>);
         }
         return (
             <div className="medicationTitle">
-                {name + " " + value + " " + unit}
+                {name + " " + dosageValue + " " + dosageUnit + " " + timingValue + " " + timingUnit}
             </div>);
     }
 
@@ -189,10 +189,14 @@ class MedicationRangeChartVisualizer extends Component {
         const upperValue = rangeValues ? rangeValues.upperValue : null;
         const typicalValue = rangeValues ? rangeValues.typicalValue : null;
         // Only want want the number part of the value, not the unit
-        const value = med.medication.amountPerDose ? med.medication.amountPerDose.value : null;
-        const unit = med.medication.amountPerDose ? med.medication.amountPerDose.units : null;
+        const dosageValue = med.medication.amountPerDose ? med.medication.amountPerDose.value : null;
+        const dosageUnit = med.medication.amountPerDose ? med.medication.amountPerDose.units : null;
+        const timingValue = med.medication.timingOfDoses ? med.medication.timingOfDoses.value : null;
+        const timingUnit = med.medication.timingOfDoses ? med.medication.timingOfDoses.units : null;
         const name = med.medication.medication;
         const medicationIsChange = (med.medicationChange ? true : false);
+
+        console.log(med);
 
         return (
             <div key={i} className="medication-chart-item" ref={(parent) => { this.parent = parent }}>
@@ -200,7 +204,7 @@ class MedicationRangeChartVisualizer extends Component {
                     <div className="medication-heading">
                     <Row bottom="xs">
                         <Col md={6} xs={12}>
-                            {this.renderMedicationTitle(lowerValue, upperValue, name, value, unit)}
+                            {this.renderMedicationTitle(lowerValue, upperValue, name, dosageValue, dosageUnit, timingValue, timingUnit)}
                         </Col>
                         <Col xs={6} className="medication-change-padding">
                             <div className="medication-change-container">
@@ -217,8 +221,8 @@ class MedicationRangeChartVisualizer extends Component {
                                         lowerValue={lowerValue}
                                         upperValue={upperValue}
                                         typicalValue={typicalValue}
-                                        value={value}
-                                        unit={unit}
+                                        value={dosageValue}
+                                        unit={dosageUnit}
                                         name={name}
                                         isWide={this.props.isWide}
                                     />
@@ -244,8 +248,10 @@ renderMedicationNarrowView = (med, i) => {
     const typicalValue = rangeValues ? rangeValues.typicalValue : null;
     
     // Only want want the number part of the value, not the unit
-    const value = med.medication.amountPerDose ? med.medication.amountPerDose.value : null;
-    const unit = med.medication.amountPerDose ? med.medication.amountPerDose.units : null;
+    const dosageValue = med.medication.amountPerDose ? med.medication.amountPerDose.value : null;
+    const dosageUnit = med.medication.amountPerDose ? med.medication.amountPerDose.units : null;
+    const timingValue = med.medication.timingOfDoses ? med.medication.timingOfDoses.value : null;
+    const timingUnit = med.medication.timingOfDoses ? med.medication.timingOfDoses.units : null;
     const name = med.medication.medication;
     const medicationIsChange = (med.medicationChange ? true : false);
 
@@ -256,7 +262,7 @@ renderMedicationNarrowView = (med, i) => {
                 <div className="medication-heading">
                 <Row top="xs">
                     <Col md={8} xs={12}>
-                        {this.renderMedicationTitle(lowerValue, upperValue, name, value, unit)}
+                        {this.renderMedicationTitle(lowerValue, upperValue, name, dosageValue, dosageUnit, timingValue, timingUnit)}
                     </Col>
                 </Row>
                 </div>
@@ -277,8 +283,8 @@ renderMedicationNarrowView = (med, i) => {
                                     lowerValue={lowerValue}
                                     upperValue={upperValue}
                                     typicalValue={typicalValue}
-                                    value={value}
-                                    unit={unit}
+                                    value={dosageValue}
+                                    unit={dosageUnit}
                                     name={name}
                                     chartXCoordinate={20}
                                     chartYCoordinate={18}
