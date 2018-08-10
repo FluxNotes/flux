@@ -94,7 +94,6 @@ class ToxicityForm extends Component {
      */
     handleAdverseEventSelection = (newAdverseEvent) => {
         // A null or undefined value for newAdverseEvent should trigger the deletion of the current adverseEvent
-        console.log(newAdverseEvent);
         if (Lang.isUndefined(newAdverseEvent) || Lang.isNull(newAdverseEvent)) {
             this.props.updateValue("adverseEvent", null);
         } else {
@@ -108,7 +107,6 @@ class ToxicityForm extends Component {
         if (!toxicityLookup.isValidGradeForAdverseEvent(this.props.object.adverseEventGrade, newAdverseEvent)) {
             this.props.updateValue("grade", null);
         }
-        console.log("exiting the function");
     }
 
     /*
@@ -163,7 +161,6 @@ class ToxicityForm extends Component {
      * Autosuggest will call this function every time you need to clear suggestions.
      */
     onSuggestionsClearRequested = () => {
-        console.log("clearing suggested");
         this.setState({
             suggestions: []
         });
