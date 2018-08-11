@@ -355,22 +355,25 @@ export default class FillPlaceholder extends Component {
         const { backgroundColor, placeholder } = this.props;
 
         // Loop through all entries and render summaries
-        const entries = placeholder.entryShortcuts.map((_, i) => {
-            const attribute = placeholder.attributes[currentField[i]];
-
-            return (
-                <Grid container key={`${i}-container`}>
-                    {i === 0 ? this.renderCheckbox() : <Grid item xs={3} />}
-                    <Grid item xs={9}>
-                        {this.renderColumns(i)}
-                        {placeholder.entryShortcuts.length === 1 ? null : this.renderDeleteButton(i)}
+        let entries;
+        if (!expanded) {
+            entries = placeholder.entryShortcuts.map((_, i) => {
+                const attribute = placeholder.attributes[currentField[i]];
+    
+                return (
+                    <Grid container key={`${i}-container`}>
+                        {i === 0 ? this.renderCheckbox() : <Grid item xs={3} />}
+                        <Grid item xs={9}>
+                            {this.renderColumns(i)}
+                            {placeholder.entryShortcuts.length === 1 ? null : this.renderDeleteButton(i)}
+                        </Grid>
+                        {""}
+                        {expanded ? "" : this.createCurrentFieldRowInSummary(attribute, i)}
+                        <Divider className="divider" />
                     </Grid>
-                    {""}
-                    {expanded ? "" : this.createCurrentFieldRowInSummary(attribute, i)}
-                    <Divider className="divider" />
-                </Grid>
-            );
-        });
+                );
+            });
+        }
 
         // Only render checkbox in expansion summary when expanion panel is expanded
         const expansionSummary = expanded ?
@@ -380,28 +383,31 @@ export default class FillPlaceholder extends Component {
                 </Grid>
             ) :
             (
-                <Grid container>
+                <div>
                     {this.renderError()}
                     {entries}
                     <div style={{ width: "100%" }}>
                         {this.renderAddButton()}
                     </div>
-                </Grid>
+                </div>
             );
 
         // When expanded, render column and all rows for each entry
-        const allRowsAndColumns = placeholder.entryShortcuts.map((_, i) => {
-            return (
-                <Grid container key={`${i}-expanded-rows`}>
-                    <Grid item xs={3} />
-                    <Grid item xs={9}>
-                        {this.renderColumns(i)}
+        let allRowsAndColumns;
+        if (expanded) {
+            allRowsAndColumns = placeholder.entryShortcuts.map((_, i) => {
+                return (
+                    <Grid container key={`${i}-expanded-rows`}>
+                        <Grid item xs={3} />
+                        <Grid item xs={9}>
+                            {this.renderColumns(i)}
+                        </Grid>
+                        {this.createAllRows(i)}
+                        <Divider className="divider" />
                     </Grid>
-                    {this.createAllRows(i)}
-                    <Divider className="divider" />
-                </Grid>
-            );
-        });
+                );
+            });
+        }
         const expansionDetails = !expanded ? <Grid container /> : (
             <Grid container>
                 {this.renderError()}
