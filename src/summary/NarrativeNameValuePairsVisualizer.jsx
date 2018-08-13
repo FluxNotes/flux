@@ -126,7 +126,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
         let _addListItemToResult = (listItem) => {
             if (!first) result.push( { text: ', ', type: 'plain' });
             value = _addLabResultToNarrative(listItem);
-            type = "structured-data";
+            type = "narrative-structured-data";
             result.push({
                 text: value,
                 type: type,
@@ -145,12 +145,12 @@ class NarrativeNameValuePairsVisualizer extends Component {
             if (index === -1) {
                 subsectionName = valueSpec;
                 if(Lang.isUndefined(subsections[subsectionName])) {
-                    result.push( { text: valueSpec, type: 'missing-data' } );
+                    result.push( { text: valueSpec, type: 'narrative-missing-data' } );
                 } else {
                     list = this.getList(subsections[subsectionName]);
                     if (Lang.isEmpty(list) || Lang.isNull(list)) {
                         value = "missing";
-                        type = "missing-data";
+                        type = "narrative-missing-data";
                         result.push( { text: value, type: type } );
                         // add an else-if here? and 'subsections' should contain the unsigned-ness
                     } else {
@@ -166,13 +166,13 @@ class NarrativeNameValuePairsVisualizer extends Component {
                 
                 if(item.value && item.unsigned){
                     value = item.value;
-                    type = "unsigned-data";
+                    type = "narrative-unsigned-data";
                 }else if (item.value) {
                     value = item.value;
-                    type = "structured-data";
+                    type = "narrative-structured-data";
                 } else {
                     value = "missing";
-                    type = "missing-data";
+                    type = "narrative-missing-data";
                 }
                 result.push( { text: value, type: type, item: item } );
             }

@@ -74,6 +74,29 @@ class FluxCondition {
         return this._condition.bodySiteOrCode[0].value.laterality.value.coding[0].displayText.value;
     }
 
+    get author() {
+        if (this._condition.author) {
+            return this._condition.author.value;
+        } else {
+            return null;
+        }
+    }
+
+    get informant() {
+        if (this._condition.informant) {
+            return this._condition.informant.value;
+        } else {
+            return null;
+        }
+    }
+
+    get relatedEncounterReference() {
+        if (this._condition.relatedEncounter) {
+            return this._condition.relatedEncounter.value;
+        } else {
+            return null;
+        }
+    }
 
     // Given a toxicity adverse event, return the grade value
     getToxicitiesByCodes(codes) {

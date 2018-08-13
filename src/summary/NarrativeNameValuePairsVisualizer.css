@@ -44,18 +44,18 @@ div.narrative-inserter-menu-item {
 span.plain {
 }
 
-span.missing-data {
+span.narrative-missing-data {
     border-bottom: 1px solid rgba(255, 0, 0, 0.5);
     text-decoration: none;
 }
 
-span.structured-data {
+span.narrative-structured-data {
     cursor: pointer;
     border-bottom: 1px solid rgba(1, 130, 215, 0.5);
     text-decoration: none;
 }
 
-span.unsigned-data {
+span.narrative-unsigned-data {
     cursor: pointer;
     border-bottom: 1.5px dashed rgba(1, 130, 215, 0.8);
     text-decoration: none;

@@ -561,13 +561,6 @@
                 "_EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/oncology/HistologicGrade"
                 }
-            },
-            {
-                "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-                "_EntryId": "2",
-                "_EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/oncology/MitoticCountScore"
-                }
             },            
             {
                 "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
@@ -645,8 +638,107 @@
                 },
                 "Value": "15 FEB 2016"
             }
+         },
+         "RelatedEncounter": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/RelatedEncounter"
+            },
+             "Value": {
+                 "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                 "_EntryId": "10",
+                 "_EntryType": {
+                     "Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterPerformed"
+                 }
+             }
+         },
+         "Author" : {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
+            },
+             "Value": "Judy Smith332"
+         },
+         "Informant": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/Informant"
+            },
+             "Value": "Dr. Joseph Burn234"
+         }
+    },
+
+
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterPerformed"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "10",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "15 FEB 2016"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "15 FEB 2016"
+        },
+        "ActionContext": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/action/PerformedContext"
+            },
+            "Reason": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Reason"
+                    },
+                    "Value": "Mr. Martinez45 complaining of stomach pain."
+                }
+            ],
+            "Status": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/action/Status"
+                },
+                "Value": "finished"
+            },
+            "OccurrenceTimeOrPeriod": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/OccurrencePeriod"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
+                    },
+                    "TimePeriodStart": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
+                        },
+                        "Value": "15 FEB 2016 15:00 -0500"
+                    }
+                }
+            }
+        },
+        "Subject": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
         }
     },
+
+
+
+
+
     {
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationChange"
@@ -2213,7 +2305,14 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
             },
-            "Value": "30 JAN 2018"
+            "Value": "28 FEB 2018"
+        },
+        "SourceClinicalNote": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1085",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
+            }
         }
     },
     {
@@ -3465,7 +3564,19 @@
                 },
                 "Value": "13 JAN 2018"
             }
-        }
+        },
+        "Author" : {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
+            },
+             "Value": "Joyce Byers111"
+         },
+         "Informant": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/Informant"
+            },
+             "Value": "Dr. Wilma Rubenstein144"
+         } 
     },
     {
         "EntryType": {
@@ -5421,6 +5532,18 @@
             },
             "Value": "15 FEB 2018"
         },
+        "Author" : {
+           "EntryType": {
+               "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
+           },
+            "Value": "Joe Rodney22A"
+        },
+        "Informant": {
+           "EntryType": {
+               "Value": "http://standardhealthrecord.org/spec/shr/base/Informant"
+           },
+            "Value": "Dr. Kyle Jennings681"
+        },
         "Value": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
@@ -5642,7 +5765,7 @@
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
         "signed": true,
         "subject": "Treatment Check-in",
-        "content": "REASON FOR VISIT:\nTreatment Progress\n\nHISTORY OF PRESENT ILLNESS:\n@name[[Ihanos Tnfinity6]] is a @age[[57]] year old white @gender[[Male]] presenting with @condition[[Gastrointestinal stromal tumor]]. He was feeling sharp pains in his stomach and a palpable lump two months later. **A diagnostic procedure showed unremarkable views of the abdomen; however an indeterminate lymph node in the ?? was apparent.** A targeted **ultrasound** revealed a tumor measuring 1.6 cm. \n**Biopsy and results? Right axillary lymph node was negative for malignancy.**  Stage IA T1 N0 M0 disease with mitotic count score of 1. KIT testing was positive, PDGFRA testing was negative. \nIn preparation for treatment, **procedures needed?** **TTE done on January 15, 2015 showed normal systolic function, with ejection fraction 60-65% and trace mitral regurgitation.** \n\nHe began taking Imatinib (one 400mg tablet per day) on February 15, 2018 as adjuvant therapy, which will continue for one year after surgery. **Reduced/stopped medications?**\n\nHe underwent surgery with Dr. Ford for the tumor **details on tumor/surgery (surgery should be structured data)?**, which resulted in a complete resection **date? Results?**. \n\n**Other procedures? Radiation? Dates?** \n\n**Other medications?** \n\n**CT of the abdomen with contrast on date?? revealed ?? (Would need structured procedure).** **A bone scan September 28, 2017 was negative for skeletal metastases.** \n\n**Relapse?** \n\n**Medication stopped?** \n\nASSESSMENT:\nAlthough his #disease status is #stable #as of #1/30/2018, he is experiencing #toxicity #Grade 2 #Stomach pain **attributed to ??** and #toxicity #Grade 2 #Rash maculo-papular **attributed to ??**.",
+        "content": "REASON FOR VISIT:\nTreatment Progress\n\nHISTORY OF PRESENT ILLNESS:\n@name[[Ihanos Tnfinity6]] is a @age[[57]] year old white @gender[[Male]] presenting with @condition[[Gastrointestinal stromal tumor]]. He was feeling sharp pains in his stomach and a palpable lump two months later. **A diagnostic procedure showed unremarkable views of the abdomen; however an indeterminate lymph node in the ?? was apparent.** A targeted **ultrasound** revealed a tumor measuring 1.6 cm. \n**Biopsy and results? Right axillary lymph node was negative for malignancy.**  Stage IA T1 N0 M0 disease with mitotic count score of 1. KIT testing was positive, PDGFRA testing was negative. \nIn preparation for treatment, **procedures needed?** **TTE done on January 15, 2015 showed normal systolic function, with ejection fraction 60-65% and trace mitral regurgitation.** \n\nHe began taking Imatinib (one 400mg tablet per day) on February 15, 2018 as adjuvant therapy, which will continue for one year after surgery. **Reduced/stopped medications?**\n\nHe underwent surgery with Dr. Ford for the tumor **details on tumor/surgery (surgery should be structured data)?**, which resulted in a complete resection **date? Results?**. \n\n**Other procedures? Radiation? Dates?** \n\n**Other medications?** \n\n**CT of the abdomen with contrast on date?? revealed ?? (Would need structured procedure).** **A bone scan September 28, 2017 was negative for skeletal metastases.** \n\n**Relapse?** \n\n**Medication stopped?** \n\nASSESSMENT:\nAlthough his #disease status is #stable #as of #2/28/2018, he is experiencing #toxicity #Grade 2 #Stomach pain **attributed to ??** and #toxicity #Grade 2 #Rash maculo-papular **attributed to ??**.",
         "EntryId": "1085",
         "hospital": "Hospital X",
         "clinician": "Dr. Smith",
