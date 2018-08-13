@@ -3,6 +3,7 @@ import _ from 'lodash'
 import moment from 'moment';
 import FluxTumorDimensions from '../model/oncology/FluxTumorDimensions';
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx';
+import { seerdata } from './Seerdata.js';
 
 
 /*
@@ -668,6 +669,13 @@ export default class SummaryMetadata {
                                 eventsFunction: this.getProgressionItems
                             }
                         ]
+                    },
+                    // adding new section for treatment options
+                    {
+                        name: "Treatment Options",
+                        shortName: "Treatment Options",
+                        type: "ClusterPoints",
+                        itemsFunction: this.getTreatmentData
                     }
                 ]
             },
@@ -1190,6 +1198,13 @@ export default class SummaryMetadata {
                                 eventsFunction: this.getProgressionItems
                             }
                         ]
+                    },
+                    // adding new section for treatment options
+                    {
+                        name: "Treatment Options",
+                        shortName: "Treatment Options",
+                        type: "ClusterPoints",
+                        itemsFunction: this.getTreatmentData
                     }
                 ]                
             },
@@ -1829,6 +1844,26 @@ export default class SummaryMetadata {
         });
 
         return subset;
+    }
+
+    getTreatmentData = (patient, condition, subsection) => {
+        if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
+        const treatmentOptions = ['Chemo', 'Chemo+Rad', 'Hormonal', 'Radiation',
+                                'Surgery', 'Surg+Rad', 'No-Treatment'];
+        let deceasedSeries = [];
+        let aliveSeries = [];
+       
+        seerdata.forEach((v) => {
+            if(v.Disease === 'prostate cancer' && v.Race === 'Black' && v['Dx-Grade'] === 'Grade II' && v['Is-Alive'] === 'Dead'){
+                deceasedSeries.push([ treatmentOptions.indexOf(v['Treat-option'])  , v['Survival-months'] ]);
+            }
+            if(v.Disease === 'prostate cancer' && v.Race === 'Black' && v['Dx-Grade'] === 'Grade II' && v['Is-Alive'] === 'Alive'){
+                aliveSeries.push([ treatmentOptions.indexOf(v['Treat-option'])  , v['Survival-months'] ]);
+            }  
+        });
+        
+        return [aliveSeries, deceasedSeries];
+
     }
 }
 

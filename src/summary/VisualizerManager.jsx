@@ -5,6 +5,7 @@ import BandedLineChartVisualizer from './BandedLineChartVisualizer';
 import ProgressionLineChartVisualizer from './ProgressionLineChartVisualizer';
 import TimelineEventsVisualizer from '../timeline/TimelineEventsVisualizer';
 import MedicationRangeChartVisualizer from './MedicationRangeChartVisualizer';
+import ScatterPlotVisualizer from './ScatterPlotVisualizer';
 import FormatMedicationChange from './FormatMedicationChange.js';
 import Lang from 'lodash';
 
@@ -138,7 +139,8 @@ class VisualizerManager {
                     { "dataType": "Medications", "visualizerType": "chart", "visualizer": MedicationRangeChartVisualizer },
                     { "dataType": "ValueOverTime", "visualizerType": "chart", "visualizer": BandedLineChartVisualizer },
                     { "dataType": "NarrativeOnly", "visualizerType": "narrative", "visualizer": NarrativeNameValuePairsVisualizer },
-                    { "dataType": "DiseaseStatusValues", "visualizerType": "chart", "visualizer": ProgressionLineChartVisualizer }
+                    { "dataType": "DiseaseStatusValues", "visualizerType": "chart", "visualizer": ProgressionLineChartVisualizer },
+                    { "dataType": "ClusterPoints", "visualizerType": "scatter", "visualizer": ScatterPlotVisualizer}
                   ];
 
     getSupportedVisualizerTypesForDataType(dataType) {

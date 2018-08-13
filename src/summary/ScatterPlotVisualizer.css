@@ -1,0 +1,12 @@
+@import 'https://code.highcharts.com/css/highcharts.css';
+ 
+.highcharts-title *{
+    color: #0067B0;
+    fill: #0067b0;
+    font-weight: bold;
+}
+
+.highcharts-axis-title *{
+    left: 0px;
+}
+
