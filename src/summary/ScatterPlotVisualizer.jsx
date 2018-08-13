@@ -119,7 +119,6 @@ class ScatterPlotVisualizer extends Component {
                 },
                 categories: ['Chemo Therapy', 'Chemo therapy & Radiation', 'Hormonal Therapy', 'Radiation', 'Surgery', 'Surgery & Radiation', 'None (Actively Monitoring)'],
                 labels: {
-                    y: -20,
                     style: {
                         fontSize: '13px'
                     },
@@ -197,8 +196,6 @@ class ScatterPlotVisualizer extends Component {
             tooltip: {
                 formatter: function () {
                     var category;
-                    console.log(this.point.x);
-                    console.log(chart.xAxis[0].categories);
                     if (this.point.x < .3)
                         category = chart.xAxis[0].categories[0];
                     else if (this.point.x < 1.3)
