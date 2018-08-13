@@ -1462,7 +1462,7 @@ FluxNotesEditor.propTypes = {
     patient: PropTypes.object.isRequired,
     saveNote: PropTypes.func.isRequired,
     selectedNote: PropTypes.object,
-    setForceRefresh: PropTypes.func.isRequired,
+    setForceRefresh: PropTypes.func,
     setLayout: PropTypes.func.isRequired,
     setNoteViewerEditable: PropTypes.func.isRequired,
     shortcutManager: PropTypes.object.isRequired,
