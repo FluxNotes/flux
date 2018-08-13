@@ -24323,6 +24323,7 @@ var seerdata =
   }
 ];
 
+/*
 var seerdata_v1 = [
 	{
 		"Age recode with <1 year olds": "40-44 years",
@@ -32125,5 +32126,6 @@ var seerdata_v1 = [
 		"Grade": "Well differentiated; Grade I"
 	}
 ]
+*/
 
 export {seerdata};
