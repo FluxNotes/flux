@@ -76,6 +76,8 @@ class MedicationRangeChartVisualizer extends Component {
     }
 
     renderMedicationTitle = (lowerValue, upperValue, name, dosageValue, dosageUnit, timingValue, timingUnit) => {
+        // Determining if timingUnit has a value. Set if empty string if null.
+        if (timingUnit == null) timingUnit="";
         // Determining if medication value is out of range.
         if (dosageValue < lowerValue || dosageValue > upperValue) {
             return (
