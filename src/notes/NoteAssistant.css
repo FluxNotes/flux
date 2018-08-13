@@ -96,8 +96,11 @@
 }
 
 #delete-note-container{
+    background: white;
     display: flex;
     justify-content: center;
+    position: sticky;
+    bottom: 0;
 }
 
 #delete-note-button {
