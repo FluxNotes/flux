@@ -1848,10 +1848,10 @@ export default class SummaryMetadata {
 
     getTreatmentData = (patient, condition, subsection) => {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
-        var treatmentOptions = ['Chemo', 'Chemo+Rad', 'Hormonal', 'Radiation',
+        const treatmentOptions = ['Chemo', 'Chemo+Rad', 'Hormonal', 'Radiation',
                                 'Surgery', 'Surg+Rad', 'No-Treatment'];
-        var deceasedSeries = [];
-        var aliveSeries = [];
+        let deceasedSeries = [];
+        let aliveSeries = [];
        
         seerdata.forEach((v) => {
             if(v.Disease === 'prostate cancer' && v.Race === 'Black' && v['Dx-Grade'] === 'Grade II' && v['Is-Alive'] === 'Dead'){

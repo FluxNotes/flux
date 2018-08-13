@@ -12,7 +12,6 @@ class ScatterPlotVisualizer extends Component {
         super(props);
 
         this.updateState = true;
-        // This var will be used 
         this.state = {
             chartWidth: 600,
             chartHeight: 400,
@@ -25,7 +24,7 @@ class ScatterPlotVisualizer extends Component {
     }
 
     randomizeXPoints = (data) => {
-        var alive = [], dead = [];
+        let alive = [], dead = [];
         data[0].forEach(function (item) {
             alive.push([item[0] + (Math.random() * 50 + 30) / 100 - .5, item[1]]);
         })
@@ -41,7 +40,7 @@ class ScatterPlotVisualizer extends Component {
 
         const myData = conditionSection.itemsFunction(patient, condition, conditionSection);
         const randomData = this.randomizeXPoints(myData);
-        var chart = Highcharts.chart({
+        const chart = Highcharts.chart({
             chart: {
                 renderTo: this.refs.scattering,
                 type: 'scatter',
@@ -90,8 +89,8 @@ class ScatterPlotVisualizer extends Component {
                     y: 30,
                     useHTML: true,
                     formatter: function () {
-                        var index = this.axis.categories.indexOf(this.value);
-                        var sum = 0;
+                        const index = this.axis.categories.indexOf(this.value);
+                        let sum = 0;
                         myData.forEach(function (series) {
                             series.forEach(function (data) {
                                 if (data[0] === index)
@@ -124,9 +123,9 @@ class ScatterPlotVisualizer extends Component {
                     },
                     useHTML: true,
                     formatter: function () {
-                        var index = this.axis.categories.indexOf(this.value);
-                        var categorySum = 0;
-                        var livingOver60 = 0;
+                        const index = this.axis.categories.indexOf(this.value);
+                        let categorySum = 0;
+                        let livingOver60 = 0;
                         myData.forEach(function (series) {
                             series.forEach(function (data) {
                                 if (data[0] === index) {
@@ -195,7 +194,7 @@ class ScatterPlotVisualizer extends Component {
             },
             tooltip: {
                 formatter: function () {
-                    var category;
+                    let category;
                     if (this.point.x < .3)
                         category = chart.xAxis[0].categories[0];
                     else if (this.point.x < 1.3)
