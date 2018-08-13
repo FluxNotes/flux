@@ -1198,6 +1198,13 @@ export default class SummaryMetadata {
                                 eventsFunction: this.getProgressionItems
                             }
                         ]
+                    },
+                    // adding new section for treatment options
+                    {
+                        name: "Treatment Options",
+                        shortName: "Treatment Options",
+                        type: "ClusterPoints",
+                        itemsFunction: this.getTreatmentData
                     }
                 ]                
             },
