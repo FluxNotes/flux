@@ -68,7 +68,7 @@
                         {   "title":"Metastasis", "name":"M", "type":"radioButtons", "values": {"category":"staging", "valueSet":"M", "args":"7"} }
                       ]
     },
-    "structuredPhrase": "#staging ${T} ${N} ${M}",
+    "structuredPhrase": "#staging ${T} ${N}${% ${M}}",
     "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/shr/oncology/BreastCancer", "http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor"],
     "knownParentContexts": "ConditionInserter",
     "description": "The stage of a cancer, assessed according to the standard established by American Joint Committee on Cancer (AJCC). TNM Stage Grouping categorizes the progression of cancer using the Roman Numeral system.",

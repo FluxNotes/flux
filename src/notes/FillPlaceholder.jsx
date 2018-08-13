@@ -67,6 +67,25 @@ export default class FillPlaceholder extends Component {
         document.removeEventListener('mousedown', this.handleClick, false);
     }
 
+    fillFromData = (data) => {
+        //TODO: creating/deleting toxicities
+        let errorToReturn = null, error; // return first error only
+        data.fields.forEach((field) => {
+            error = this.onSetValue({name: field.name }, 0, field.value, false);
+            if (!Lang.isNull(error) && Lang.isNull(errorToReturn)) errorToReturn = error;
+        });
+
+        const { placeholder } = this.props;
+        if (Lang.isNull(errorToReturn) && placeholder.multiplicity !== 'many') {
+            this.setState({ done: true });
+        }
+        return errorToReturn;
+    }
+
+    handleClick = (event) => {
+        if (this.calendarDom && !this.calendarDom.contains(event.target)) this.setState({ showCalendar: false });
+    }
+
     onDone = (event) => {
         let { done } = this.state;
         const { placeholder } = this.props;
@@ -89,10 +108,28 @@ export default class FillPlaceholder extends Component {
         this.setState({ currentField });
     };
 
-    onSetValue = (attributeSpec, entryIndex, newValue) => {
-        const { expanded } = this.state;
+    nextField = (entryIndex = 0) => {
+        let { currentField, done } = this.state;
         const { placeholder } = this.props;
-        const attributes = placeholder.getAttributeValue(attributeSpec.name, entryIndex);
+
+        if (currentField[entryIndex] + 1 === placeholder.attributes.length) {
+            // User has entered final attribute, so mark row as done
+            if (placeholder.multiplicity !== 'many') {
+                done = true;
+                this.props.placeholder.done = true;
+                this.setState({ done });
+            } else {
+                currentField[entryIndex] = 0;
+                this.setState({ currentField });
+            }
+        } else {
+            currentField[entryIndex] += 1;
+            this.setState({ currentField });
+        }
+    };
+
+    onSetValue = (attributeSpec, entryIndex, newValue, moveToNextField = true) => {
+        const attributes = this.props.placeholder.getAttributeValue(attributeSpec.name, entryIndex);
         let error;
 
         if (Lang.isArray(attributes) && Lang.includes(attributes, newValue)) {
@@ -103,12 +140,13 @@ export default class FillPlaceholder extends Component {
 
             // We only want to increment the field if we are working on a non-expanded and non-multiselect attribute
             // This might only be a temporary workaround, we have to see how it goes as the other fields get implemented
-            if (Lang.isNull(error) && !(expanded || Lang.isArray(attributes))) {
+            if (moveToNextField && Lang.isNull(error) && !(this.state.expanded || Lang.isArray(attributes))) {
                 this.nextField(entryIndex);
             }
         }
 
         this.setState({ error });
+        return error;
     };
 
     setCalendarTrue = (attributeSpec) => {

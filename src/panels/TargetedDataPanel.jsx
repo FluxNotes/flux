@@ -13,6 +13,10 @@ export default class TargetedDataPanel extends Component {
         }
     }
 
+    moveToSection(sectionName) {
+        return this.minimap.moveToSection(sectionName);
+    }
+
     render () {
         // The css data attribute associated with the minimap
         const minimapAttribute = 'data-test-summary-section';
@@ -27,6 +31,7 @@ export default class TargetedDataPanel extends Component {
                     shortTitleAttribute={shortTitleAttribute}
                     width={80}
                     isFullHeight={true}
+                    ref={(minimap) => { this.minimap = minimap; }}
                 >
                     <div id="summary-subpanel">
                         <div className="summary-section">

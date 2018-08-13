@@ -51,6 +51,7 @@ function getModalStyle() {
 export class FullApp extends Component {
     constructor(props) {
         super(props);
+        window.fluxnotes_app = this;
         this.possibleClinicalEvents = [
             "pre-encounter",
             "encounter",
@@ -153,6 +154,17 @@ export class FullApp extends Component {
             this.setState({loginUser: userProfile.getUserName()});
         } else {
             console.error("Login failed");
+        }
+    }
+
+    receive_command(commandType, data) {
+        if (commandType === 'navigate_targeted_data_panel') {
+            const sectionName = data.section;
+            return this.dashboard.moveTargetedDataPanelToSection(sectionName);
+        } else if (commandType === 'insert-structured-phrase') {
+            return this.dashboard.insertStructuredPhraseInCurrentNote(data);
+        } else {
+            return "Unknown command type: " + commandType;
         }
     }
 
@@ -361,6 +373,7 @@ export class FullApp extends Component {
                             structuredFieldMapManager={this.structuredFieldMapManager}
                             summaryMetadata={this.summaryMetadata}
                             updateErrors={this.updateErrors}
+                            ref={(dashboard) => { this.dashboard = dashboard; }}
                         />
                         <Modal 
                             aria-labelledby="simple-modal-title"
