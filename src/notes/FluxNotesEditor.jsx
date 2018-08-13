@@ -317,6 +317,11 @@ class FluxNotesEditor extends React.Component {
         }
     }
 
+    newPlaceholder = (placeholderText, data) => {
+        const shortcutName = "#" + placeholderText.substring(1, placeholderText.length-1); // strip off < and > and add #
+        return this.props.shortcutManager.createPlaceholder(shortcutName, placeholderText, data, this.contextManager, this.props.patient, this.props.selectedNote, this.props.setForceRefresh);
+    }
+
     choseSuggestedPlaceholder(suggestion) {
         const { state } = this.state;
 
@@ -341,12 +346,13 @@ class FluxNotesEditor extends React.Component {
         return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus();
     }
 
-    insertPlaceholder = (placeholderText, transform = undefined) => {
+    insertPlaceholder = (placeholderText, transform = undefined, data) => {
         if (Lang.isUndefined(transform)) {
             transform = this.state.state.transform();
         }
+        const placeholder = this.newPlaceholder(placeholderText, data);
 
-        const result = this.structuredFieldPlugin.transforms.insertPlaceholder(transform, placeholderText);
+        const result = this.structuredFieldPlugin.transforms.insertPlaceholder(transform, placeholder);
         return result[0].collapseToStartOfNextText().focus();
     }
 
@@ -926,9 +932,18 @@ class FluxNotesEditor extends React.Component {
             const placeholderText = text.slice(placeholderStartIndex, placeholderEndIndex + 1);
 
             if (this.placeholderCheck(placeholderText)) {
+                let remainder = text.slice(placeholderEndIndex + 1);
+                let end;
+                let after = ""
+                let returnStr = text.substring(placeholderEndIndex + 1);
+                if (remainder.startsWith("[[")) {
+                    end = remainder.indexOf("]]");
+                    after = remainder.substring(2, end);
+                    returnStr = remainder.substring(end + 2);
+                }
                 let result = this.insertPlainText(transform, text.substring(0, placeholderStartIndex));
-                result = this.insertPlaceholder(placeholderText, transform);
-                return this.insertPlainText(result, text.substring(placeholderEndIndex + 1));
+                result = this.insertPlaceholder(placeholderText, transform, after);
+                return this.insertPlainText(result, returnStr);
             }
         }
 
@@ -1219,7 +1234,9 @@ class FluxNotesEditor extends React.Component {
             this.setState({
                 isEditingNoteName: false
             });
-            this.editor.focus();
+            if (this.editor) {
+                this.editor.focus();
+            }
         }
     }
 
@@ -1341,6 +1358,15 @@ class FluxNotesEditor extends React.Component {
                 </div>
             );
         }
+
+        if (this.props.noteAssistantMode === 'poc') {
+            return (
+                <div id="clinical-notes" className="dashboard-panel">
+                    {this.renderNoteDescriptionContent()}
+                </div>
+            );
+        }
+
         const callback = {}
         let editorClassName = this.props.inModal ? 'editor-content-modal' : 'editor-content';
         /**
@@ -1436,6 +1462,7 @@ FluxNotesEditor.propTypes = {
     patient: PropTypes.object.isRequired,
     saveNote: PropTypes.func.isRequired,
     selectedNote: PropTypes.object,
+    setForceRefresh: PropTypes.func,
     setLayout: PropTypes.func.isRequired,
     setNoteViewerEditable: PropTypes.func.isRequired,
     shortcutManager: PropTypes.object.isRequired,

@@ -1,0 +1,77 @@
+.done-checkbox {
+    margin-inline-end: 5px;
+    vertical-align: top;
+}
+
+.shortcut-name {
+    margin-inline-end: 10px;
+    vertical-align: top;
+}
+
+.error-message {
+    color: #FF0000;
+}
+
+.shortcut-field-title {
+    margin-inline-end: 5px;
+}
+
+.fill-missing-data {
+    margin-inline-end: 20px;
+    border-bottom: 1px solid rgba(255, 0, 0, 0.5);
+    text-decoration: none;
+}
+
+.fill-structured-data {
+    margin-inline-end: 20px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(1, 130, 215, 0.5);
+    text-decoration: none;
+}
+
+.date-picker-button {
+    border: 1px solid #555555;
+    width: 175px;
+    display: inline-block;
+    color: #555555;
+    background-color: white;
+    padding: 5px;
+    border-radius: 3px;
+    cursor: pointer;
+    text-align: left;
+}
+
+.date-picker-container {
+    position: relative;
+}
+
+/* Shows calendar picker modal over every other component */
+.date-picker-container > * {
+    z-index: 999;
+}
+
+/* Allows calendar picker modal to overflow over ExpansionPanel */
+.expanded-style > * {
+    overflow: visible !important;
+}
+
+.arrow-container {
+    float: right;
+    margin-right: 5px;
+}
+
+.date-picker-button i {
+    border: solid 1px black;
+    border-width: 0 1px 1px 0;
+    padding: 3px;
+    float: right;
+}
+
+.arrow-down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+.divider {
+    width: 100%;
+}

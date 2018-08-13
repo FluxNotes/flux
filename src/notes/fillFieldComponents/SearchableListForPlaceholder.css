@@ -1,0 +1,255 @@
+.header-spacing {
+    margin-top: 25px;
+}
+
+.grade-menu-item {
+    display: flex; /* or inline-flex */
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(224, 224, 224, 1);
+    border-top: 1px;
+    transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.12) -1px 0px 1px 0px, rgba(0, 0, 0, 0.12) 1px 0px 1px 0px;
+}
+
+.grade-menu-item:hover {
+    background-color: rgba(0,0,0,0.08);
+    cursor: pointer;
+}
+
+.grade-menu-item:first-child {
+    border-top: 1px solid rgba(224, 224, 224, 1);
+}
+
+.grade-menu-item .grade-menu-item-name {
+    margin: 0 0 0 20px;
+    min-width: 95px;
+    display: inline-block;
+}
+
+.grade-menu-item .grade-menu-item-name:after {
+    background: #b1b1b1;
+    width: 1px;
+    content: "";
+    display: inline-block;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    min-height: 20px;
+    margin: -5px 20px -5px 20px;
+}
+
+.grade-menu-item .grade-menu-item-description {
+    margin: 0 20px 0 0;
+    display: inline-block;
+    max-width: 75%;
+}
+
+.grade-menu-item.selected {
+    background-color: rgb(41, 125, 162);
+    border: rgb(41, 125, 162);
+    color: rgba(255,255,255,1);
+}
+
+.grade-menu-item.disabled {
+    color: rgba(224, 224, 224, 1);
+}
+.grade-menu-item.disabled:hover {
+    background-color: initial;
+    cursor: default;
+}
+
+.grade-menu-item.disabled .grade-menu-item-name:after {
+    background: rgba(224, 224, 224, 1);
+}
+
+.adverse-event-suggestion .adverse-event-suggestion-name {
+    margin: 0 0 0 0px;
+    font-size: 0.85rem;
+    word-wrap: break-word;
+    width: 20%;
+    display: inline-block;
+}
+
+.adverse-event-suggestion .adverse-event-suggestion-description {
+    width: 70%;
+    font-size: 0.85rem;
+    margin: 0 0px 0 0;
+    display: inline-block;
+}
+/*
+ * Tooltip Styling
+ */
+.tooltip-toxicity-form {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip-toxicity-form .tooltiptext {
+    visibility: hidden;
+    width: 150px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 10px 10px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    margin-left: 18px !important;
+    opacity: 0;
+    transition: opacity 1s;
+    font-size: .8rem;
+}
+
+.tooltip-toxicity-form .large {
+    width: 220px;
+    margin-left: -95px;
+}
+
+.tooltip-toxicity-form .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.tooltip-toxicity-form:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+    transition-delay: 0.5s;
+}
+
+/*
+ * Autosuggest styling
+ */
+.react-autosuggest__container {
+    position: relative;
+    width: 100%;
+}
+
+.react-autosuggest__input {
+    width: 100%;
+    height: 30px;
+    font-weight: 300;
+    font-size: 20px !important;
+    border: 0px;
+    border-bottom: 1px solid rgba(224, 224, 224, 1);
+}
+
+.react-autosuggest__input_grey {
+    width: 100%;
+    height: 30px;
+    font-weight: 300;
+    font-size: 20px !important;
+    border: 0px;
+    border-bottom: 1px solid  rgba(0, 0, 0, 0.12);;
+    background-color: lightgrey;
+}
+
+.react-autosuggest__input::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    font-family: 'Roboto', sans-serif;
+    color: rgba(0, 0, 0, 0.3);
+}
+
+.react-autosuggest__input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    font-family: 'Roboto', sans-serif;
+    color: rgba(0, 0, 0, 0.3);
+}
+
+.react-autosuggest__input::-moz-placeholder { /* Mozilla Firefox 19+ */
+    font-family: 'Roboto', sans-serif;
+    color: rgba(0, 0, 0, 0.3);
+}
+
+.react-autosuggest__input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    font-family: 'Roboto', sans-serif;
+    color: rgba(0, 0, 0, 0.3);
+}
+
+.react-autosuggest__input::-ms-input-placeholder { /* Microsoft Edge */
+    font-family: 'Roboto', sans-serif;
+    color: rgba(0, 0, 0, 0.3);
+}
+
+.react-autosuggest__input--focused {
+    outline: none;
+}
+
+.react-autosuggest__input--open {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.react-autosuggest__suggestions-container {
+    display: none;
+    background-color: #FAFAFA;
+}
+
+.react-autosuggest__suggestions-list {
+    margin: 0;
+    padding: 0;
+    background-color: #FAFAFA;
+    list-style-type: none;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+}
+
+.react-autosuggest__suggestion {
+    cursor: pointer;
+    padding: 10px;
+}
+
+.react-autosuggest__suggestion--highlighted {
+    background-color: rgba(0,0,0,0.08);
+}
+
+.react-autosuggest__suggestions-container--open {
+    display: block;
+    position: absolute;
+    top: 51px;
+    background-color: #FAFAFA;
+    font-size: 16px;
+    border-radius: 5px;
+    z-index: 2;
+    width: 100%;
+}
+
+.helper-text {
+    color: #b1b1b1;
+}
+
+/*
+* Button styling
+*/
+.btn-group-adverse-event,
+.btn-group-attribution {
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.btn-group-adverse-event button:hover,
+.btn-group-attribution button:hover {
+    background-color: rgba(224, 224, 224, 0.5);
+}
+
+.background-white {
+    background-color: white;
+}
+
+.background-lightgrey {
+    width: 100%;
+    height: 30px;
+    font-weight: 300;
+    font-size: 20px !important;
+    border: 0px;
+    border-bottom: 1px solid rgba(224, 224, 224, 1);
+    background-color: lightgrey;
+}

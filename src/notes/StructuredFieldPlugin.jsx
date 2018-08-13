@@ -1,3 +1,4 @@
+import Placeholder from '../shortcuts/Placeholder';
 import React from 'react';
 import Slate from '../lib/slate';
 import Lang from 'lodash';
@@ -38,6 +39,9 @@ function StructuredFieldPlugin(opts) {
         deletedKeys.forEach((key) => {
             shortcut = keyToShortcutMap.get(key);
             if (shortcut.onBeforeDeleted()) {
+                if (shortcut instanceof Placeholder) {
+                    opts.structuredFieldMapManager.removePlaceholder(shortcut);
+                }
                 keyToShortcutMap.delete(key);
                 idToShortcutMap.delete(shortcut.metadata.id)
                 contextManager.contextUpdated();
@@ -56,8 +60,8 @@ function StructuredFieldPlugin(opts) {
                 return <span contentEditable={false} className='structured-field' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
             },
             placeholder: props => {
-                const placeholderText = props.node.get('data').get('text');
-                return <span contentEditable={false} className='placeholder'>{placeholderText}</span>;
+                const placeholder = props.node.get('data').get('placeholder');
+                return <span contentEditable={false} className='placeholder'>{placeholder.getTextToDisplayInNote()}</span>;
             },
         },
         rules: [
@@ -91,8 +95,6 @@ function StructuredFieldPlugin(opts) {
         let localStyle = [];
         let markToHTMLTag = { bold: 'strong', italic: 'em', underlined: 'u' };
         nodes.forEach((node, index) => {
-            // console.log("node")
-            // console.log(node)
             if (node.type === 'line') {
                 // This checks whether the current line is the last one to be processed. If it is, then we don't want to add a div set; this will cause newlines to be perpetually added to the end of the note every time it is closed.
                 if (index === nodes.length - 1) {
@@ -126,7 +128,7 @@ function StructuredFieldPlugin(opts) {
                 let shortcut = node.data.shortcut;
                 result += shortcut.getResultText();
             } else if (node.type === 'placeholder') {
-                result += node.data.text;
+                result += node.data.placeholder.getResultText();
             } else if (node.type === 'bulleted-list') {
                 result += `<ul>${convertSlateNodesToText(node.nodes)}</ul>`;
             } else if (node.type === 'numbered-list') {
@@ -155,7 +157,6 @@ function StructuredFieldPlugin(opts) {
         if (native.isCollapsed && !isVoid) return;
 
         let fluxString = convertToText(state);
-        // console.log("copy: " + fluxString);
         const encoded = window.btoa(window.encodeURIComponent(fluxString));
         const range = native.getRangeAt(0);
         let contents = range.cloneContents();
@@ -164,7 +165,6 @@ function StructuredFieldPlugin(opts) {
         // If the end node is a void node, we need to move the end of the range from
         // the void node's spacer span, to the end of the void node's content.
         if (isVoid) {
-            //console.log("isVoid: " + isVoid);
             const r = range.cloneRange();
             const node = Slate.Utils.findDOMNode(isVoidBlock ? endBlock : endInline);
             r.setEndAfter(node);
@@ -189,7 +189,6 @@ function StructuredFieldPlugin(opts) {
         // in the HTML, and can be used for intra-Slate pasting. If it's a text
         // node, wrap it in a `<span>` so we have something to set an attribute on.
         if (attach.nodeType === 3) {
-            //console.log("node type: " + attach.nodeType);
             const span = window.document.createElement('span');
             span.appendChild(attach);
             contents.appendChild(span);
@@ -201,7 +200,6 @@ function StructuredFieldPlugin(opts) {
         if (contents.childNodes.length > 1) {
             contents.childNodes[1].setAttribute('flux-string', encoded);
         }
-        //console.log(attach);
 
         // Add the phony content to the DOM, and select it, so it will be copied.
         const body = window.document.querySelector('body');
@@ -239,8 +237,6 @@ function StructuredFieldPlugin(opts) {
             const matches = FRAGMENT_MATCHER.exec(html);
             const [ full, encoded ] = matches; // eslint-disable-line no-unused-vars
             const decoded = window.decodeURIComponent(window.atob(encoded));
-            // console.log("decoded")
-            // console.log(decoded)
 
             // because insertion of shortcuts into the context relies on the current selection, during a paste
             // we override the routine that checks the location of a structured field relative to the selection
@@ -350,38 +346,39 @@ function createStructuredField(opts, shortcut) {
     let sf = Slate.Inline.create(properties);
     opts.structuredFieldMapManager.keyToShortcutMap.set(sf.key, shortcut);
     opts.structuredFieldMapManager.idToShortcutMap.set(shortcut.metadata.id, shortcut);
-    // console.log("sf")
-    // console.log(sf)
 	return sf;
 }
 
-function insertPlaceholder(opts, transform, text) {
+function insertPlaceholder(opts, transform, placeholder) {
     const { state } = transform;
     if (!state.selection.startKey) return false;
 
     // Create the placeholder node
-    const placeholder = createPlaceholder(opts, text);
+    const sf = createPlaceholderStructuredField(opts, placeholder);
+    placeholder.setKey(sf.key);
 
-    if (placeholder.kind === 'block') {
-        return [transform.insertBlock(placeholder)];
+    if (sf.kind === 'block') {
+        return [transform.insertBlock(sf)];
     } else {
-        return [transform.insertInline(placeholder)];
+        return [transform.insertInline(sf)];
     }
 }
 
-function createPlaceholder(opts, text) {
+function createPlaceholderStructuredField(opts, placeholder) {
     const nodes = [];
     const properties = {
         type: opts.typePlaceholder,
         nodes: nodes,
         isVoid: true,
         data: {
-            text,
+            placeholder
         }
     };
-    const placeholder = Slate.Inline.create(properties);
-
-    return placeholder;
+    const sf = Slate.Inline.create(properties);
+    opts.structuredFieldMapManager.keyToShortcutMap.set(sf.key, placeholder);
+    opts.structuredFieldMapManager.idToShortcutMap.set(placeholder.metadata.id, placeholder);
+    opts.structuredFieldMapManager.addPlaceholder(placeholder);
+    return sf;
 }
 
 export default StructuredFieldPlugin;

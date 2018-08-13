@@ -9,6 +9,7 @@ import Button from '../elements/Button';
 import NoteAssistant from '../notes/NoteAssistant';
 import NoteParser from '../noteparser/NoteParser';
 import './NotesPanel.css';
+import PointOfCare from '../notes/PointOfCare';
 
 export default class NotesPanel extends Component {
     constructor(props) {
@@ -223,19 +224,10 @@ export default class NotesPanel extends Component {
     deleteSelectedNote = () => {
         this.closeNote(this.state.localDocumentText);
         if (this.state.selectedNote && !this.state.selectedNote.signed) {
-            // Find the shortcuts in the current note.
-            // Use this.state.localDocumentText since note is not saved on every keypress and need full content here.
-            const recognizedShortcutsObjects = this.noteParser.getListOfTriggersFromText(this.state.localDocumentText)[0].reverse();
-            for (const index in recognizedShortcutsObjects) {
-                // Get the actual shortcut obj from structuredFieldMapManager lookup -- need id of shortcut to retrieve
-                const currentShortcutTrigger = recognizedShortcutsObjects[index].trigger.toLowerCase();
-                const mappedShortcutMetadata = this.props.shortcutManager.shortcutMap[currentShortcutTrigger]
-                const currentShortcutId = (mappedShortcutMetadata) ? mappedShortcutMetadata.id : null;
-                const currentShortcut = this.props.structuredFieldMapManager.idToShortcutMap.get(currentShortcutId);
-                if (currentShortcut && currentShortcut.onBeforeDeleted) {
-                    currentShortcut.onBeforeDeleted();
-                }
-            }
+            // Prepare shortcuts in current note for deletion
+            this.props.structuredFieldMapManager.idToShortcutMap.forEach((value, key) => {
+                value.onBeforeDeleted();
+            });
             // Clear all shortcuts from the current mapManager
             this.props.structuredFieldMapManager.clearStructuredFieldMap();
             this.props.patient.removeClinicalNote(this.state.selectedNote);
@@ -284,19 +276,39 @@ export default class NotesPanel extends Component {
 
             // If note viewer is editable and a note is selected, render the sign note button
             if (this.props.isNoteViewerEditable && this.state.selectedNote) {
-                return (
-                    <div>
-                        <Row center="xs">
-                            <Col sm={7} md={8} lg={9}>
-                                {this.renderFluxNotesEditor()}
-                                {this.renderSignButton()}
-                            </Col>
-                            <Col sm={5} md={4} lg={3}>
-                                {this.renderNoteAssistant()}
-                            </Col>
-                        </Row>
-                    </div>
-                );
+                if (this.state.noteAssistantMode === 'poc') {
+                    return (
+                        <div>
+                            <Row center="xs" style={{ height: '75px' }}>
+                                <Col sm={7} md={8} lg={9}>
+                                    {this.renderFluxNotesEditor()}
+                                </Col>
+                                <Col sm={5} md={4} lg={3}>
+                                    {this.renderNoteAssistant()}
+                                </Col>
+                            </Row>
+                            <Row start="xs" style={{ marginLeft: '2px', marginRight: '10px' }}>
+                                <PointOfCare
+                                    structuredFieldMapManager={this.props.structuredFieldMapManager} />
+                            </Row>
+                        </div>
+
+                    );
+                } else {
+                    return (
+                        <div>
+                            <Row center="xs">
+                                <Col sm={7} md={8} lg={9}>
+                                    {this.renderFluxNotesEditor()}
+                                    {this.renderSignButton()}
+                                </Col>
+                                <Col sm={5} md={4} lg={3}>
+                                    {this.renderNoteAssistant()}
+                                </Col>
+                            </Row>
+                        </div>
+                    );
+                }
                 // Else don't render sign note button
             } else {
                 return (
@@ -342,6 +354,7 @@ export default class NotesPanel extends Component {
                     patient={this.props.patient}
                     saveNote={this.saveNote}
                     selectedNote={this.state.selectedNote}
+                    setForceRefresh={this.props.setForceRefresh}
                     setNoteViewerEditable={this.props.setNoteViewerEditable}
                     setLayout={this.props.setLayout}
                     shortcutManager={this.props.shortcutManager}
@@ -440,6 +453,7 @@ NotesPanel.propTypes = {
     searchSelectedItem: PropTypes.object,
     setNoteClosed: PropTypes.func.isRequired,
     setNoteViewerEditable: PropTypes.func.isRequired,
+    setForceRefresh: PropTypes.func.isRequired,
     setFullAppStateWithCallback: PropTypes.func.isRequired,
     setNoteViewerVisible: PropTypes.func.isRequired,
     setLayout: PropTypes.func.isRequired,

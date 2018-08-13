@@ -19,7 +19,6 @@ function titlecase(label) {
 class ToxicityForm extends Component {
     constructor(props) {
         super(props);
-
         const adverseEventOptionsIncludingNoSpaces = toxicityLookup.getAdverseEventOptions().map(obj => {
             const objCopy = Lang.clone(obj);
             objCopy.nameNoSpaces = objCopy.name ? objCopy.name.replace(/\s/g,'') : objCopy.name;
@@ -58,10 +57,12 @@ class ToxicityForm extends Component {
      */
     currentlySelectedAttribution = (attribution) => {
         // What it is checking might need to change if the toxicity.attribution structure changes in Patient
+        if (!this.props.object) return false;
         return this.props.object.causeCategory === attribution.name;
     }
 
     currentlySelectedAdverseEvent = (adverseEvent) => {
+        if (!this.props.object) return false;
         return this.props.object.adverseEvent === adverseEvent.name;
     }
 
@@ -306,80 +307,79 @@ class ToxicityForm extends Component {
         let customGradePrompt = "";
         if (!Lang.isUndefined(this.props.gradesPrompt)) {
             customGradePrompt = this.props.gradesPrompt;
-
-            return (
-                <div>
-                    <h1>Toxicity</h1>
-                    <Divider className="divider"/>
-
-                    {/*Interface here*/}
-                    <h4 className="header-spacing">Adverse Event<span className="helper-text"> Type or choose one</span></h4>
-                    <Autosuggest
-                        suggestions={this.state.suggestions}
-                        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-                        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-
-                        getSuggestionValue={this.getSuggestionValue}
-                        renderSuggestion={this.renderSuggestion}
-                        inputProps={inputProps}
-                    />
-                    {topAdverseEventSection}
-
-                    <h4 className="header-spacing">Grade<span className="helper-text"> Choose one</span></h4>
-                    <div id="grade-menu">
-                        {
-                            gradesToDisplay.map((grade, i) => {
-                                if (Lang.isUndefined(potentialToxicity.adverseEvent)) {
-                                    return this.renderGradeMenuItem(grade)
-                                } else {
-                                    return this.renderGradeMenuItem(grade, potentialToxicity.adverseEvent);
-                                }
-                            })
-                        }
-                    </div>
-
-                    <h4 className="header-spacing">Attribution<span className="helper-text"> Choose one</span></h4>
-                    <div className="btn-group-attribution">
-                        {
-                            toxicityLookup.getAttributionOptions().map((attribution, i) => {
-                                return this.renderAttributionButton(attribution, i);
-                            })
-                        }
-                    </div>
-
-                    {/*Definitions of dataelements*/}
-                    <h4 className="header-spacing">Definitions</h4>
-                    <Divider className="divider"/>
-
-                    <h4 className="header-spacing">Toxicity</h4>
-                    <p className="data-element-description">
-                        {toxicityLookup.getDescription("toxicity")}
-                    </p>
-                    <p className="data-element-description">
-                        Based on your selections below, the copy button at the bottom will copy a <a href="toxicitySheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
-                    </p>
-
-                    <h4 className="header-spacing">Adverse Event</h4>
-                    <p className="data-element-description">
-                        {toxicityLookup.getDescription("adverseEvent")}
-                    </p>
-
-                    <h4 className="header-spacing">Grade</h4>
-                    <p className="data-element-description">
-                        {toxicityLookup.getDescription("grade")}
-                    </p>
-                    <p className="data-element-description">
-                        {customGradePrompt}
-                    </p>
-
-                    <h4 className="header-spacing">Attribution</h4>
-                    <p className="data-element-description">
-                        {toxicityLookup.getDescription("attribution")}
-                    </p>
-
-                </div>
-            );
         }
+        return (
+            <div>
+                <h1>Toxicity</h1>
+                <Divider className="divider"/>
+
+                {/*Interface here*/}
+                <h4 className="header-spacing">Adverse Event<span className="helper-text"> Type or choose one</span></h4>
+                <Autosuggest
+                    suggestions={this.state.suggestions}
+                    onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                    onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+
+                    getSuggestionValue={this.getSuggestionValue}
+                    renderSuggestion={this.renderSuggestion}
+                    inputProps={inputProps}
+                />
+                {topAdverseEventSection}
+
+                <h4 className="header-spacing">Grade<span className="helper-text"> Choose one</span></h4>
+                <div id="grade-menu">
+                    {
+                        gradesToDisplay.map((grade, i) => {
+                            if (Lang.isUndefined(potentialToxicity.adverseEvent)) {
+                                return this.renderGradeMenuItem(grade)
+                            } else {
+                                return this.renderGradeMenuItem(grade, potentialToxicity.adverseEvent);
+                            }
+                        })
+                    }
+                </div>
+
+                <h4 className="header-spacing">Attribution<span className="helper-text"> Choose one</span></h4>
+                <div className="btn-group-attribution">
+                    {
+                        toxicityLookup.getAttributionOptions().map((attribution, i) => {
+                            return this.renderAttributionButton(attribution, i);
+                        })
+                    }
+                </div>
+
+                {/*Definitions of dataelements*/}
+                <h4 className="header-spacing">Definitions</h4>
+                <Divider className="divider"/>
+
+                <h4 className="header-spacing">Toxicity</h4>
+                <p className="data-element-description">
+                    {toxicityLookup.getDescription("toxicity")}
+                </p>
+                <p className="data-element-description">
+                    Based on your selections below, the copy button at the bottom will copy a <a href="toxicitySheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
+                </p>
+
+                <h4 className="header-spacing">Adverse Event</h4>
+                <p className="data-element-description">
+                    {toxicityLookup.getDescription("adverseEvent")}
+                </p>
+
+                <h4 className="header-spacing">Grade</h4>
+                <p className="data-element-description">
+                    {toxicityLookup.getDescription("grade")}
+                </p>
+                <p className="data-element-description">
+                    {customGradePrompt}
+                </p>
+
+                <h4 className="header-spacing">Attribution</h4>
+                <p className="data-element-description">
+                    {toxicityLookup.getDescription("attribution")}
+                </p>
+
+            </div>
+        );
     }
 }
 

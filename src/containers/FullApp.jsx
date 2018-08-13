@@ -291,7 +291,6 @@ export class FullApp extends Component {
                             appState={this.state}
                             contextManager={this.contextManager}
                             dataAccess={this.dataAccess}
-                            handleShortcutUpdate={this.handleShortcutUpdate}
                             handleSummaryItemSelected={this.handleSummaryItemSelected}
                             itemInserted={this.itemInserted}
                             loginUser={this.state.loginUser}

@@ -62,6 +62,12 @@
     "stringTriggers": [{ "name": "#staging", "description": "The stage of a cancer, assessed according to the standard established by American Joint Committee on Cancer (AJCC). TNM Stage Grouping categorizes the progression of cancer using the Roman Numeral system."}],
     "regexpTrigger": null,
     "form": "StagingForm",
+    "formSpec": {   "title": "Staging",
+        "attributes": [ {   "title":"Tumor Size", "name":"T", "type":"radioButtons", "values": {"category":"staging", "valueSet":"T", "args":"7"} },
+                        {   "title":"Nodes", "name":"N", "type":"radioButtons", "values": {"category":"staging", "valueSet":"N", "args":"7"} },
+                        {   "title":"Metastasis", "name":"M", "type":"radioButtons", "values": {"category":"staging", "valueSet":"M", "args":"7"} }
+                      ]
+    },
     "structuredPhrase": "#staging ${T} ${N} ${M}",
     "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/shr/oncology/BreastCancer", "http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor"],
     "knownParentContexts": "ConditionInserter",
@@ -110,8 +116,10 @@
     "regexpTrigger": null,
     "form": "ProgressionForm",
     "formSpec": {   "title": "Disease Status",
-                    "attributes": [ {   "title":"Status", "type":"radioButtons", "values": {"category":"progression", "valueSet":"status"} },
-                                    {   "title":"Rationale for status", "type":"checkboxes", "values": {"category":"progression", "valueSet":"reason"}}
+                    "attributes": [ {   "title":"Status", "name":"status", "type":"radioButtons", "values": {"category":"progression", "valueSet":"status"} },
+                                    {   "title":"Rationale", "name":"reasons", "type":"checkboxes", "values": {"category":"progression", "valueSet":"reason"} },
+                                    {   "title":"Reference Date", "name":"referenceDateDate", "type":"date" },
+                                    {   "title":"As Of Date", "name":"asOfDateDate", "type": "date" }
                                   ]
                 },
     "structuredPhrase": "#disease status${% is #${status}}${% based on #${reasons}}${% relative to #reference date #${referenceDateDate}}${% #as of #${asOfDateDate}}",
@@ -175,6 +183,14 @@
     "stringTriggers": [{ "name": "#toxicity", "description": "Side effects to treatment, important for effective evaluation of disease and treatment, based on Common Terminology Criteria for Adverse Events (CTCAE) version 4.03 (June 14, 2010)."}],
     "regexpTrigger": null,
     "form": "ToxicityForm",
+    "formSpec": {   
+        "title": "Toxicity",
+        "multiplicity": "many",
+        "attributes": [ {   "title":"Adverse Event", "name":"adverseEvent", "type":"searchableList", "values": {"category":"toxicity", "valueSet":"adverseEvent", "topAdverseEventSection": ["Febrile neutropenia", "Fatigue", "Generalized muscle weakness","Anemia","Nausea","Platelet count decreased"]} },
+                        {   "title":"Grade", "name":"grade", "type":"radioButtons", "values": {"category":"toxicity", "valueSet":"grade"} },
+                        {   "title":"Attribution", "name":"attribution", "type":"radioButtons", "values": {"category":"toxicity", "valueSet":"attribution"} }
+                      ]
+    },
     "structuredPhrase": "#toxicity of #${grade} #${adverseEvent}${% related to #${attribution}}",
     "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/shr/oncology/BreastCancer", "http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor"],
     "knownParentContexts": "ConditionInserter",
@@ -226,6 +242,11 @@
     "stringTriggers": [{ "name": "#enrollment", "description": "Support specifying the enrollment of the patient in a clinical trial."}],
     "regexpTrigger": null,
     "form": "ClinicalTrialEnrollmentForm",
+    "formSpec": {   "title": "Enrollment",
+        "attributes": [ {   "title":"Trial Title", "name":"title", "type":"radioButtons", "values": {"category":"clinicalTrial", "valueSet":"clinicalTrials"} },
+                        {   "title":"Enrolled on", "name":"date", "type":"date" }
+                      ]
+    },
     "structuredPhrase": "#enrollment in #${title}${% on #${date}}",
     "knownParentContexts": "Patient",
     "description": "Support specifying the enrollment of the patient in a clinical trial.",

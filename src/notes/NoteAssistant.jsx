@@ -31,8 +31,9 @@ export default class NoteAssistant extends Component {
             // Check if the clinical notes view mode is active and if it is, set the notes button to selected, otherwise select the context button
             if (this.props.noteAssistantMode === "clinical-notes") {
                 this.onNotesToggleButtonClicked();
-            }
-            else {
+            } else if (this.props.noteAssistantMode === "poc") {
+                this.onPointOfCareButtonClicked();
+            } else {
                 this.onContextToggleButtonClicked();
             }
         }
@@ -45,6 +46,8 @@ export default class NoteAssistant extends Component {
     componentWillUpdate(nextProps, nextState) {
         if (nextProps.noteAssistantMode === "context-tray") {
             this.onContextToggleButtonClicked();
+        } else if (nextProps.noteAssistantMode === "poc") {
+            this.onPointOfCareButtonClicked();
         } else {
             this.onNotesToggleButtonClicked();
         }
@@ -86,6 +89,19 @@ export default class NoteAssistant extends Component {
         this.props.updateShowTemplateView(false);           
     }
 
+    onPointOfCareButtonClicked() {
+        this.notes_btn_classname = "toggle-button";
+        this.notes_stroke = "#666666";
+        this.notes_disabled = false;
+        this.context_btn_classname = "toggle-button";
+        this.context_fill = "#666666";
+        this.context_disabled = false;
+        this.poc_btn_classname = 'toggle-button-selected';
+        this.poc_stroke = "#1A8FDD";
+        this.poc_fill = "#FFFFFF"
+        this.poc_disabled = false;
+    }
+
     onNotesToggleButtonClicked() {
         this.notes_btn_classname = "toggle-button-selected";
         this.notes_stroke = "#FFFFFF";
@@ -93,6 +109,10 @@ export default class NoteAssistant extends Component {
         this.context_btn_classname = "toggle-button";
         this.context_fill = "#666666";
         this.context_disabled = false;
+        this.poc_btn_classname = 'toggle-button';
+        this.poc_stroke = "#1A8FDD";
+        this.poc_fill = "#FFFFFF"
+        this.poc_disabled = false;
     }
 
     onContextToggleButtonClicked() {
@@ -102,6 +122,10 @@ export default class NoteAssistant extends Component {
         this.context_btn_classname = "toggle-button-selected"
         this.context_fill = "#FFFFFF";
         this.context_disabled = false;
+        this.poc_btn_classname = 'toggle-button';
+        this.poc_stroke = "#1A8FDD";
+        this.poc_fill = "#FFFFFF"
+        this.poc_disabled = false;
     }
 
     disableContextToggleButton() {
@@ -111,6 +135,10 @@ export default class NoteAssistant extends Component {
         this.context_btn_classname = "toggle-button-disabled";
         this.context_disabled = true;
         this.context_fill = "#FFFFFF";
+        this.poc_btn_classname = 'toggle-button-disabled';
+        this.poc_stroke = "#FFFFFF";
+        this.poc_fill = "#666666"
+        this.poc_disabled = true;
     }
 
     // Update the selected index for the sort drop down
@@ -147,6 +175,11 @@ export default class NoteAssistant extends Component {
         const numberOfPreviousSignedNotes = Lang.filter(allNotes, o => o.signed).length;
 
         switch (noteAssistantMode) {
+            case "poc":
+                return (
+                    <div>
+                    </div>
+                )
             // Render the context tray
             case "context-tray":
                 return (
@@ -441,7 +474,7 @@ export default class NoteAssistant extends Component {
                     onClick={() => {
                         this.toggleView("clinical-notes")
                     }}>
-                    <svg width="19px" height="20px" viewBox="0 0 19 17">
+                    <svg viewBox="0 0 19 17">
                         <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                             <g id="Group-Copy" transform="translate(0.003906, 0.007812)" stroke={this.notes_stroke}
                                 strokeWidth="1.62">
@@ -463,7 +496,7 @@ export default class NoteAssistant extends Component {
                     onClick={() => {
                         this.toggleView("context-tray")
                     }}>
-                    <svg width="15px" height="20px" viewBox="0 0 15 16">
+                    <svg viewBox="0 0 15 16">
                         <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd"
                             fontFamily="OpenSans-Semibold, Open Sans" fontSize="19" fontWeight="500"
                             letterSpacing="0.172221214">
@@ -473,7 +506,44 @@ export default class NoteAssistant extends Component {
                         </g>
                     </svg>
                 </MaterialButton>
-
+                <MaterialButton
+                    raised
+                    id="poc-btn"
+                    className={"toggle-button " + this.poc_btn_classname}
+                    disabled={this.poc_disabled}
+                    onClick={() => {
+                        this.toggleView("poc")
+                    }}>
+                    <svg viewBox="0 0 15 17">
+                        <defs>
+                            <rect id="path-1" x="1.60982556" y="1.20776181" width="13.6701675" height="13.6701675" rx="1.29057495"></rect>
+                            <rect id="path-2" x="0.602310344" y="0" width="15.4794544" height="5.18152484"></rect>
+                        </defs>
+                        <g id="Desktop" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" transform="translate(-3704.000000, -731.000000)">
+                            <g id="Group-9" transform="translate(3702.000000, 731.000000)">
+                                <g id="Group-6" transform="translate(0.747458, 1.134497)">
+                                    <g id="Rectangle-14">
+                                        <rect fill={this.poc_fill} fillRule="evenodd" id="path-1" x="1.60982556" y="1.20776181" width="13.6701675" height="13.6701675" rx="1.29057495"></rect>
+                                        <rect stroke={this.poc_stroke} strokeWidth="1.20619125" x="2.21292119" y="1.81085744" width="12.4639762" height="12.4639762" rx="1.29057495"></rect>
+                                    </g>
+                                    <g id="Rectangle-14-Copy" transform="translate(0.000785, 0.202602)">
+                                        <mask id="mask-3" fill="white">
+                                            <rect id="path-2" x="0.602310344" y="0" width="15.4794544" height="5.18152484"></rect>
+                                        </mask>
+                                        <g id="Mask"></g>
+                                        <rect fill={this.poc_stroke} mask="url(#mask-3)" x="1.60904028" y="1.0518765" width="13.6701675" height="11.9135108" rx="1.608255"></rect>
+                                    </g>
+                                </g>
+                                <rect id="Rectangle-15" fill={this.poc_stroke} x="4.97112435" y="0.333878875" width="2.481875" height="4.34328125" rx="1.2409375"></rect>
+                                <rect id="Rectangle-15-Copy" fill={this.poc_stroke} x="11.0536571" y="0.333878875" width="2.481875" height="4.34328125" rx="1.2409375"></rect>
+                                <g id="Group-2-Copy" transform="translate(5.610950, 7.265848)" fill={this.poc_stroke}>
+                                    <rect id="Rectangle-10-Copy" transform="translate(3.622502, 3.420464) rotate(-270.000000) translate(-3.622502, -3.420464) " x="0.372502232" y="2.26546397" width="6.5" height="2.31"></rect>
+                                    <rect id="Rectangle-10-Copy-2" transform="translate(3.622502, 3.420464) rotate(-180.000000) translate(-3.622502, -3.420464) " x="0.372502232" y="2.26546397" width="6.5" height="2.31"></rect>
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                </MaterialButton>
             </div>
         );
     }

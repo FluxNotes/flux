@@ -5,6 +5,7 @@ import InsertValue from './InsertValue';
 import UpdaterBase from './UpdaterBase';
 import SingleHashtagKeyword from './SingleHashtagKeyword';
 import Keyword from './Keyword';
+import Placeholder from './Placeholder';
 import ValueSetManager from '../lib/ValueSetManager';
 import shortcutMetadata from './Shortcuts.json';
 import Lang from 'lodash';
@@ -111,7 +112,11 @@ class ShortcutManager {
 
     getAllPlaceholderShortcuts() {
         return this.shortcutDefinitions.filter((s) => {
-            return s.type === "CreatorBase" || s.type === "SingleHashtagKeyword" || s.type === "UpdaterBase";
+            if (s.type === "CreatorBase" || s.type === "SingleHashtagKeyword" || s.type === "UpdaterBase") {
+                return !Lang.isUndefined(s.formSpec);
+            } else {
+                return false;
+            }
         });
     }
     
@@ -129,6 +134,11 @@ class ShortcutManager {
 
     getMetadataForTrigger(trigger) {
         return this.shortcutMap[trigger.toLowerCase()];
+    }
+
+    createPlaceholder(shortcutName, placeholderText, data, contextManager, patient, clinicalNote, setForceRefresh) {
+        const metadata = this.shortcutMap[shortcutName.toLowerCase()];
+        return new Placeholder(placeholderText, shortcutName, data, metadata, this, contextManager, patient, clinicalNote, setForceRefresh);
     }
 
     createShortcut(definition, triggerOrKeyword, patient, shortcutData, onUpdate) {
@@ -171,6 +181,7 @@ class ShortcutManager {
     
     loadShortcutMetadata(shortcutList, shortcutMetadata) {
         this.childShortcuts = {};
+        this.parentShortcuts = {};
         this.shortcuts = {};
         this.triggersPerShortcut = {};
         this.keywordsPerShortcut = {};
@@ -187,47 +198,66 @@ class ShortcutManager {
                 // add as child to its known parent
                 if (item["knownParentContexts"]) {
                     const parent = item["knownParentContexts"];
-                    let list = this.childShortcuts[parent];
-                    if (Lang.isUndefined(list)) {
-                        list = [];
-                        this.childShortcuts[parent] = list;
+
+                    let parentList = this.parentShortcuts[item.id];
+                    if (Lang.isUndefined(parentList)) {
+                        parentList = [];
+                        this.parentShortcuts[item.id] = parentList;
                     }
-                    if (!list.includes(item.id)) {
-                        list.push(item.id);
+                    if (!parentList.includes(parent)) {
+                        parentList.push(parent);
+                    }
+
+                    let childList = this.childShortcuts[parent];
+                    if (Lang.isUndefined(childList)) {
+                        childList = [];
+                        this.childShortcuts[parent] = childList;
+                    }
+                    if (!childList.includes(item.id)) {
+                        childList.push(item.id);
                     }
                 }
                 
                 // add known children to it
                 if (item["valueObjectAttributes"]) {
-                    let list = this.childShortcuts[item.id];
-                    if (Lang.isUndefined(list)) {
-                        list = [];
-                        this.childShortcuts[item.id] = list;
+                    let childList = this.childShortcuts[item.id];
+                    if (Lang.isUndefined(childList)) {
+                        childList = [];
+                        this.childShortcuts[item.id] = childList;
                     }
                     let voas = item["valueObjectAttributes"];
                     let childShortcutId;
                     voas.forEach((voa) => {
                         childShortcutId = voa["childShortcut"];
                         if (!Lang.isUndefined(childShortcutId)) {
-                            if (childShortcutId && !list.includes(childShortcutId)) {
-                                list.push(childShortcutId);
+                            if (childShortcutId && !childList.includes(childShortcutId)) {
+                                childList.push(childShortcutId);
+                            }
+                            if (childShortcutId) {
+                                let parentList = this.parentShortcuts[childShortcutId];
+                                if (Lang.isUndefined(parentList)) {
+                                    parentList = [];
+                                }
+                                if (!parentList.includes(item.id)) {
+                                    parentList.push(item.id);
+                                }
                             }
                         }
                     });
                 }
                 if (item["idAttributes"]) {
-                    let list = this.childShortcuts[item.id];
-                    if (Lang.isUndefined(list)) {
-                        list = [];
-                        this.childShortcuts[item.id] = list;
+                    let childList = this.childShortcuts[item.id];
+                    if (Lang.isUndefined(childList)) {
+                        childList = [];
+                        this.childShortcuts[item.id] = childList;
                     }
                     let voas = item["idAttributes"];
                     let childShortcutId;
                     voas.forEach((voa) => {
                         childShortcutId = voa["childShortcut"];
                         if (!Lang.isUndefined(childShortcutId)) {
-                            if (childShortcutId && !list.includes(childShortcutId)) {
-                                list.push(childShortcutId);
+                            if (childShortcutId && !childList.includes(childShortcutId)) {
+                                childList.push(childShortcutId);
                             }
                         }
                     });
@@ -258,6 +288,17 @@ class ShortcutManager {
                 }
             }
         });
+    }
+
+    getPossibleParentContextTriggers(shortcutId) {
+        const possibleParentShortcuts = this.parentShortcuts[shortcutId];
+        let resultList = [];
+        
+        possibleParentShortcuts.forEach((shortcutId) => {
+            resultList = resultList.concat(this.getTriggersForShortcut(shortcutId));
+        });
+
+        return resultList;
     }
 
     getValidChildShortcutsInContext(context, recurse = false) {
