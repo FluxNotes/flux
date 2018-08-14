@@ -68,14 +68,27 @@ export default class FillPlaceholder extends Component {
     }
 
     fillFromData = (data) => {
-        //TODO: creating/deleting toxicities
+        const { placeholder } = this.props;
         let errorToReturn = null, error; // return first error only
+
+        let entryIndex = 0;
+        if (placeholder.multiplicity === 'many') {
+            let lastEntryIndex = placeholder.entryShortcuts.length - 1;
+            const valFirstField = placeholder.getAttributeValue(data.fields[0].name, lastEntryIndex);
+            console.log(valFirstField);
+            if (Lang.isUndefined(valFirstField) || Lang.isNull(valFirstField) || valFirstField.length === 0) {
+                entryIndex = lastEntryIndex;
+            } else {
+                this.addEntry();
+                entryIndex = lastEntryIndex + 1;
+            }
+        }
+
         data.fields.forEach((field) => {
-            error = this.onSetValue({name: field.name }, 0, field.value, false);
+            error = this.onSetValue({name: field.name }, entryIndex, field.value, false);
             if (!Lang.isNull(error) && Lang.isNull(errorToReturn)) errorToReturn = error;
         });
 
-        const { placeholder } = this.props;
         if (Lang.isNull(errorToReturn) && placeholder.multiplicity !== 'many') {
             this.setState({ done: true });
         }
@@ -149,6 +162,7 @@ export default class FillPlaceholder extends Component {
 
     onSetValue = (attributeSpec, entryIndex, newValue, moveToNextField = true) => {
         const { placeholder } = this.props;
+        //if (entryIndex === -1) entryIndex = placeholder.entryShortcuts.length - 1;
         const attributes = placeholder.getAttributeValue(attributeSpec.name, entryIndex);
         let error;
 
