@@ -1397,6 +1397,7 @@ class FluxNotesEditor extends React.Component {
                             onInput={this.onInput}
                             onBlur={this.onBlur}
                             onFocus={this.onFocus}
+                            autoFocus={true}
                             onSelectionChange={this.onSelectionChange}
                             schema={schema}
                         />
