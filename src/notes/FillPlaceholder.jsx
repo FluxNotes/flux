@@ -148,7 +148,8 @@ export default class FillPlaceholder extends Component {
     };
 
     onSetValue = (attributeSpec, entryIndex, newValue, moveToNextField = true) => {
-        const attributes = this.props.placeholder.getAttributeValue(attributeSpec.name, entryIndex);
+        const { placeholder } = this.props;
+        const attributes = placeholder.getAttributeValue(attributeSpec.name, entryIndex);
         let error;
 
         if (Lang.isArray(attributes) && Lang.includes(attributes, newValue)) {
