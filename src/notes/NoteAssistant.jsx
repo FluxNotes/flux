@@ -97,7 +97,7 @@ export default class NoteAssistant extends Component {
         this.context_fill = "#666666";
         this.context_disabled = false;
         this.poc_btn_classname = 'toggle-button-selected';
-        this.poc_stroke = "#1A8FDD";
+        this.poc_stroke = "#FFFFFF";
         this.poc_fill = "#FFFFFF"
         this.poc_disabled = false;
     }
@@ -110,7 +110,7 @@ export default class NoteAssistant extends Component {
         this.context_fill = "#666666";
         this.context_disabled = false;
         this.poc_btn_classname = 'toggle-button';
-        this.poc_stroke = "#1A8FDD";
+        this.poc_stroke = "#666666";
         this.poc_fill = "#FFFFFF"
         this.poc_disabled = false;
     }
@@ -123,7 +123,7 @@ export default class NoteAssistant extends Component {
         this.context_fill = "#FFFFFF";
         this.context_disabled = false;
         this.poc_btn_classname = 'toggle-button';
-        this.poc_stroke = "#1A8FDD";
+        this.poc_stroke = "#666666";
         this.poc_fill = "#FFFFFF"
         this.poc_disabled = false;
     }
@@ -514,32 +514,18 @@ export default class NoteAssistant extends Component {
                     onClick={() => {
                         this.toggleView("poc")
                     }}>
-                    <svg viewBox="0 0 15 17">
-                        <defs>
-                            <rect id="path-1" x="1.60982556" y="1.20776181" width="13.6701675" height="13.6701675" rx="1.29057495"></rect>
-                            <rect id="path-2" x="0.602310344" y="0" width="15.4794544" height="5.18152484"></rect>
-                        </defs>
-                        <g id="Desktop" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" transform="translate(-3704.000000, -731.000000)">
-                            <g id="Group-9" transform="translate(3702.000000, 731.000000)">
-                                <g id="Group-6" transform="translate(0.747458, 1.134497)">
-                                    <g id="Rectangle-14">
-                                        <rect fill={this.poc_fill} fillRule="evenodd" id="path-1" x="1.60982556" y="1.20776181" width="13.6701675" height="13.6701675" rx="1.29057495"></rect>
-                                        <rect stroke={this.poc_stroke} strokeWidth="1.20619125" x="2.21292119" y="1.81085744" width="12.4639762" height="12.4639762" rx="1.29057495"></rect>
-                                    </g>
-                                    <g id="Rectangle-14-Copy" transform="translate(0.000785, 0.202602)">
-                                        <mask id="mask-3" fill="white">
-                                            <rect id="path-2" x="0.602310344" y="0" width="15.4794544" height="5.18152484"></rect>
-                                        </mask>
-                                        <g id="Mask"></g>
-                                        <rect fill={this.poc_stroke} mask="url(#mask-3)" x="1.60904028" y="1.0518765" width="13.6701675" height="11.9135108" rx="1.608255"></rect>
-                                    </g>
-                                </g>
-                                <rect id="Rectangle-15" fill={this.poc_stroke} x="4.97112435" y="0.333878875" width="2.481875" height="4.34328125" rx="1.2409375"></rect>
-                                <rect id="Rectangle-15-Copy" fill={this.poc_stroke} x="11.0536571" y="0.333878875" width="2.481875" height="4.34328125" rx="1.2409375"></rect>
-                                <g id="Group-2-Copy" transform="translate(5.610950, 7.265848)" fill={this.poc_stroke}>
-                                    <rect id="Rectangle-10-Copy" transform="translate(3.622502, 3.420464) rotate(-270.000000) translate(-3.622502, -3.420464) " x="0.372502232" y="2.26546397" width="6.5" height="2.31"></rect>
-                                    <rect id="Rectangle-10-Copy-2" transform="translate(3.622502, 3.420464) rotate(-180.000000) translate(-3.622502, -3.420464) " x="0.372502232" y="2.26546397" width="6.5" height="2.31"></rect>
-                                </g>
+                    <svg viewBox="0 0 19 17">
+                        <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                            <g id="Group-Copy" transform="translate(0.003906, 0.007812)" stroke={this.poc_stroke}
+                                strokeWidth="1.62">
+                                <path
+                                    d="M1.1248514,1.1248514 L1.1248514,9.91423446 L6.40096349,15.2473495 L17.6880469,15.2473495 L17.6880469,1.1248514 L1.1248514,1.1248514 Z"
+                                    id="Rectangle-12-Copy-5"
+                                    transform="translate(9.406449, 8.186100) rotate(-180.000000) translate(-9.406449, -8.186100) "></path>
+                                <polyline id="Path-2"
+                                    points="12.3745117 0.874511719 12.3745117 6.63727788 17.8869466 6.63727788"></polyline>
+                                <line x1="1.1248514" y1="10.5469815" x2="17.8869466" y2="10.5469815"/>
+                                <line x1="1.1248514" y1="5.02591623" x2="12.6880469" y2="5.02591623"/>
                             </g>
                         </g>
                     </svg>
