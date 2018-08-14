@@ -77,106 +77,109 @@ class MedicationRangeChartVisualizer extends Component {
 
     renderMedicationTitle = (lowerValue, upperValue, name, dosageValue, dosageUnit, timingValue, timingUnit) => {
         // Determining if timingUnit has a value. Set if empty string if null.
-        if (timingUnit == null) timingUnit="";
+        if (timingUnit == null) timingUnit = '';
+
         // Determining if medication value is out of range.
         if (dosageValue < lowerValue || dosageValue > upperValue) {
             return (
                 <div className="medicationTitle">
-                    {name + " "}
+                    {`${name} `}
                     <span className="out-of-range-medication">
-                        {dosageValue + " "}
+                        {`${dosageValue} `}
                     </span>
-                    {dosageUnit + " " + timingValue + " " + timingUnit}
+                    {`${dosageUnit} ${timingValue} ${timingUnit}`}
                 </div>);
         }
         return (
             <div className="medicationTitle">
-                {name + " " + dosageValue + " " + dosageUnit + " " + timingValue + " " + timingUnit}
+                {`${name} ${dosageValue} ${dosageUnit} ${timingValue} ${timingUnit}`}
             </div>);
     }
 
-    renderMedicationChange = (medChange, medBefore) => {     
+    renderMedicationChange = (medChange, medBefore) => {
         // If the medication change type is "stop", change how the medication change string is displayed
-        let medChangeClassName = "";
-       
+        let medChangeClassName = '';
+
         // Wide view has different stylings for the medication change
         if (this.props.isWide) {
-            medChangeClassName = "medication-change-wide";
+            medChangeClassName = 'medication-change-wide';
         } else {
-            medChangeClassName = "medication-change";
+            medChangeClassName = 'medication-change';
         }
 
-        if (medChange.type === "stop") {
-            let medChangeTypeSigned = "medication-change-type";
-            if (medChange.unsigned) medChangeTypeSigned = "medication-change-type-unsigned";
+        if (medChange.type === 'stop') {
+            let medChangeTypeSigned = 'medication-change-type';
+
+            if (medChange.unsigned) medChangeTypeSigned = 'medication-change-type-unsigned';
             return (
-                    <Col xs={12} className={medChangeClassName}>
-                        <span className={medChangeTypeSigned}>
-                            {FormatMedicationChange.stringForMedicationChangeType(medChange.type)}
-                        </span>
-                        <span className='medication-change-date'>
-                            {FormatMedicationChange.stringForMedicationChangeDate(medChange.date)}
-                        </span>
-                        <span className='medication-change-prior-amount'>
-                            {FormatMedicationChange.stringForMedicationChangePriorAmount(medChange.type, medChange.medBeforeChange)}
-                        </span>
-                    </Col>
-            );
-        } else {
-            return (
-                    <Col xs={12} className={medChangeClassName}>
-                        <span className='medication-change-type'>
-                            {FormatMedicationChange.stringForMedicationChangeType(medChange.type)}
-                        </span>
-                        <span className='medication-change-prior-amount'>
-                            {FormatMedicationChange.stringForMedicationChangePriorAmount(medChange.type, medChange.medBeforeChange)}
-                        </span>
-                        <span className='medication-change-date'>
-                            {FormatMedicationChange.stringForMedicationChangeDate(medChange.date)}
-                        </span>
-                    </Col>
+                <Col xs={12} className={medChangeClassName}>
+                    <span className={medChangeTypeSigned}>
+                        {FormatMedicationChange.stringForMedicationChangeType(medChange.type)}
+                    </span>
+                    <span className="medication-change-date">
+                        {FormatMedicationChange.stringForMedicationChangeDate(medChange.date)}
+                    </span>
+                    <span className="medication-change-prior-amount">
+                        {FormatMedicationChange.stringForMedicationChangePriorAmount(medChange.type, medChange.medBeforeChange)}
+                    </span>
+                </Col>
             );
         }
+
+        return (
+            <Col xs={12} className={medChangeClassName}>
+                <span className="medication-change-type">
+                    {FormatMedicationChange.stringForMedicationChangeType(medChange.type)}
+                </span>
+                <span className="medication-change-prior-amount">
+                    {FormatMedicationChange.stringForMedicationChangePriorAmount(medChange.type, medChange.medBeforeChange)}
+                </span>
+                <span className="medication-change-date">
+                    {FormatMedicationChange.stringForMedicationChangeDate(medChange.date)}
+                </span>
+            </Col>
+        );
     }
 
     renderMedicationInfo = (med) => {
         return (
-           <div> 
-            <Row top='xs'>
-                <Col sm={3}>
-                    <div className='medication-info-heading'>
-                        Route
-                                        </div>
-                    <div className='medication-info'>
-                        {med.medication.routeIntoBody}
-                    </div>
-                </Col>
-                <Col sm={3}>
-                    <div className='medication-info-heading'>
-                        Prescribed
-                                        </div>
-                    <div className='medication-info'>
-                        {med.medication.whenPrescribed}
-                    </div>
-                </Col>
-                <Col sm={3}>
-                    <div className='medication-info-heading'>
-                        Prescribed By
-                                        </div>
-                    <div className='medication-info'>
-                        {med.medication.prescribedBy}
-                    </div>
-                </Col>
-                <Col sm={3}>
-                    <div className='medication-info-heading'>
-                        Number of Refills
-                                        </div>
-                    <div className='medication-info'>
-                        {med.medication.numberOfRefillsAllowed}
-                    </div>
-                </Col>
-            </Row>
-            </div>);
+            <div>
+                <Row top="xs">
+                    <Col sm={3}>
+                        <div className="medication-info-heading">
+                            Route
+                        </div>
+                        <div className="medication-info">
+                            {med.medication.routeIntoBody}
+                        </div>
+                    </Col>
+                    <Col sm={3}>
+                        <div className="medication-info-heading">
+                            Prescribed
+                        </div>
+                        <div className="medication-info">
+                            {med.medication.whenPrescribed}
+                        </div>
+                    </Col>
+                    <Col sm={3}>
+                        <div className="medication-info-heading">
+                            Prescribed By
+                        </div>
+                        <div className="medication-info">
+                            {med.medication.prescribedBy}
+                        </div>
+                    </Col>
+                    <Col sm={3}>
+                        <div className="medication-info-heading">
+                            Number of Refills
+                        </div>
+                        <div className="medication-info">
+                            {med.medication.numberOfRefillsAllowed}
+                        </div>
+                    </Col>
+                </Row>
+            </div>
+        );
     }
 
     renderMedication = (med, i) => {
