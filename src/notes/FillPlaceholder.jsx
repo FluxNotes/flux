@@ -142,6 +142,7 @@ export default class FillPlaceholder extends Component {
     };
 
     onSetValue = (attributeSpec, entryIndex, newValue, moveToNextField = true) => {
+        let { currentField, done } = this.state;
         const { placeholder } = this.props;
 
         if (currentField[entryIndex] + 1 === placeholder.attributes.length) {
