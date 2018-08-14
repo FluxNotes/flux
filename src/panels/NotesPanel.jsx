@@ -260,9 +260,15 @@ export default class NotesPanel extends Component {
     renderSignButton = () => {
         return (
             <div id="finish-sign-component">
-                <Button raised className="btn_finish" onClick={() => {
-                    this.handleSignButtonClick();
-                }}>
+                <Button 
+                    raised 
+                    classes={{
+                        root: "btn-finish"
+                    }} 
+                    onClick={() => {
+                        this.handleSignButtonClick();
+                    }}
+                >
                     Sign note
                 </Button>
             </div>
