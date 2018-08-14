@@ -79,7 +79,7 @@ export default class FillPlaceholder extends Component {
     onExpand = (event) => {
         const { expanded } = this.state;
 
-        this.setState({ expanded });
+        this.setState({ expanded: !expanded });
     };
 
     onClickOnField = (attributeIndex, entryIndex = 0) => {
