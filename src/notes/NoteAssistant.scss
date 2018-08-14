@@ -10,8 +10,6 @@ $note-assitant-width-3: 160px;
     flex-direction: column;
     width: $note-assitant-width-1;
     margin-left: auto;
-    /* 92px is the height of the on large screens Patient Control Panel, 20px is the height of the top margin of post encounter view content and a little extra for potential scroll bars*/
-    max-height: calc(100vh - 92px - 20px);
     min-height: 400px !important;
     
     .note-assistant-content-wrapper {
