@@ -1,21 +1,18 @@
 #finish-sign-component {
-    position: fixed;
-    bottom: 0px;
-    width: calc(35vw);
-    background-color: #ffffff;
-    text-align: left;
-    z-index: 5;
-    display: flex;
-    justify-content: center;
-}
-.panel-content.note-assistant-panel { 
-    padding: 0px !important;
-}
+  position: fixed;
+  bottom: 0px;
+  width: calc(35vw);
+  background-color: #ffffff;
+  text-align: left;
+  z-index: 5;
+  display: flex;
+  justify-content: center; }
+  #finish-sign-component .btn-finish {
+    background-color: #FFFFFF;
+    text-transform: none;
+    display: inline-block;
+    min-width: 90%;
+    margin: 10px; }
 
-.btn_finish {
-    background-color: #FFFFFF !important;
-    text-transform: none !important;
-    display: inline-block !important;
-    min-width: 90% !important;
-    margin: 20px 20px 20px 20px !important;
-}
+.panel-content.note-assistant-panel {
+  padding: 0px !important; }

@@ -1,222 +1,164 @@
-/* Wrappers */
+/* Wrapper */
 .note-assistant-wrapper {
-    display: flex;
-    flex-direction: column;
-    width: 175px;
-    margin-left: auto;
-    /* 92px is the height of the on large screens Patient Control Panel, 20px is the height of the top margin of post encounter view content and a little extra for potential scroll bars*/
-    max-height: calc(100vh - 92px - 20px);
-    min-height: 400px !important;
-}
-
-.note-assistant-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 175px;
+  margin-left: auto;
+  min-height: 400px !important;
+  /* Notes */
+  /* Sort */ }
+  .note-assistant-wrapper .note-assistant-content-wrapper {
     margin-top: 5px;
     overflow-y: auto;
     overflow-x: hidden;
-}
-@media only screen and (min-width: 1200px) and (max-width: 1300px) {
-    .note-assistant-wrapper {
-        width: 160px;
-    }
-}
-@media only screen and (min-width: 577px) and (max-width: 768px) {
-    .note-assistant-wrapper {
-        width: 170px;
-     }
-}
-
-.toggle-buttons-container {
+    /* 92px is the height of the on large screens Patient Control Panel, 
+           20px is the height of the top margin of post encounter view content and a little extra for potential scroll bars
+           5px is the height of the container's top margin
+           42px is the height of the toggle buttons
+           56px is the height of the delete button 
+        */
+    max-height: calc(100vh - 92px - 20px - 5px - 42px - 51px); }
+  .note-assistant-wrapper .toggle-buttons-container {
     display: flex !important;
     margin-right: auto;
     width: inherit;
     max-width: 95%;
     min-height: 41px;
-}
-
-.clinical-notes-panel {
+    /* Buttons */ }
+    .note-assistant-wrapper .toggle-buttons-container .toggle-button {
+      min-width: 50px !important;
+      min-height: 20px !important;
+      max-height: 41px !important;
+      width: 50% !important;
+      display: inline-block !important;
+      background-color: #FFFFFF !important; }
+    .note-assistant-wrapper .toggle-buttons-container .toggle-button-selected {
+      background-color: #028DEA !important; }
+    .note-assistant-wrapper .toggle-buttons-container .toggle-button-disabled {
+      background-color: #DDDDDD !important; }
+  .note-assistant-wrapper .clinical-notes-panel {
     margin-left: auto;
     width: inherit;
-    margin-right: 5px;
-}
-
-/* Buttons */
-.toggle-button {
-    min-width: 50px !important;
-    min-height: 20px !important;
-    max-height: 41px !important;
-    width: 50% !important;
-    display: inline-block !important;
-    background-color: #FFFFFF !important;
-}
-
-.toggle-button-selected {
-    background-color: #3399FF !important;
-}
-
-.toggle-button-disabled {
-    background-color: #e6e6e6 !important;
-}
-
-.previous-notes-label {
-    font-weight: bold;
-    font-size: 0.8em;
-    margin: 10px;
-    max-width: 184px;
-}
-
-.note.note-new {
-    /*margin: 10px 20px;*/
-    width: auto;
-    text-align: center;
-    display: block;
-}
-
-.note.note-new:hover {
-    cursor:pointer;
-    background: #e6e6e6;
-}
-
-.note.note-new .note-new-text {
-    font-size: 1.1rem;
-}
-
-.note .note-new-text .fa {
-    padding-right: 10px;
-}
-
-.more-notes-btn {
-    background-color: white !important;
-    padding: 10px !important;
-    margin-top: 20px;
-    max-width: 184px;
-}
-
-.more-notes-btn:hover {
-    background: #e6e6e6 !important;
-}
-
-#delete-note-container{
+    margin-right: 5px; }
+    .note-assistant-wrapper .clinical-notes-panel .previous-notes-label {
+      font-weight: bold;
+      font-size: 0.8em;
+      margin: 10px;
+      max-width: 184px; }
+    .note-assistant-wrapper .clinical-notes-panel .note {
+      position: relative;
+      width: inherit;
+      max-width: 150px;
+      padding: 0.5em 1em;
+      margin: 1em 0;
+      background: #FFFFFF;
+      border: 1px solid #DDDDDD;
+      border-radius: 5px 0 5px 5px; }
+      .note-assistant-wrapper .clinical-notes-panel .note > * {
+        font-size: 0.8rem;
+        color: #3F3F3F; }
+      .note-assistant-wrapper .clinical-notes-panel .note:hover {
+        cursor: pointer;
+        background-color: #F0F0F0; }
+      .note-assistant-wrapper .clinical-notes-panel .note::before {
+        content: "";
+        position: absolute;
+        top: -2px;
+        right: -2px;
+        border-width: 0 16px 16px 0;
+        border-style: solid;
+        border-color: #DDDDDD #fff; }
+      .note-assistant-wrapper .clinical-notes-panel .note.note-new {
+        /*margin: 10px 20px;*/
+        width: auto;
+        text-align: center;
+        display: block; }
+        .note-assistant-wrapper .clinical-notes-panel .note.note-new:hover {
+          cursor: pointer;
+          background: #F0F0F0; }
+        .note-assistant-wrapper .clinical-notes-panel .note.note-new .note-new-text {
+          font-size: 1.1rem; }
+          .note-assistant-wrapper .clinical-notes-panel .note.note-new .note-new-text .fa {
+            padding-right: 10px; }
+      .note-assistant-wrapper .clinical-notes-panel .note.selected {
+        border-width: 2px;
+        border-color: #028DEA; }
+      .note-assistant-wrapper .clinical-notes-panel .note.existing-note .existing-note-date {
+        padding-bottom: 5px;
+        font-weight: bold; }
+      .note-assistant-wrapper .clinical-notes-panel .note.existing-note .existing-note-subject {
+        padding-bottom: 10px;
+        border-bottom: 1px solid #DDDDDD; }
+      .note-assistant-wrapper .clinical-notes-panel .note.existing-note .existing-note-metadata {
+        margin-bottom: 5px; }
+      .note-assistant-wrapper .clinical-notes-panel .note.in-progress-note {
+        border-width: 2px;
+        border-style: dashed; }
+        .note-assistant-wrapper .clinical-notes-panel .note.in-progress-note .in-progress-text {
+          font-weight: bold; }
+    .note-assistant-wrapper .clinical-notes-panel .more-notes-btn {
+      background-color: #FFFFFF !important;
+      padding: 10px !important;
+      margin-top: 20px;
+      max-width: 184px; }
+      .note-assistant-wrapper .clinical-notes-panel .more-notes-btn:hover {
+        background: #F0F0F0 !important; }
+  .note-assistant-wrapper #delete-note-container {
+    background: #FFFFFF;
     display: flex;
     justify-content: center;
-}
-
-#delete-note-button {
-    padding: 10px;
-    margin-bottom: 10px;
-    text-transform: none;
-    background-color: #ffffff;
-}
-
-#delete-note-button:hover {
-    background-color: #e6e6e6;
-}
-
-#delete-note-button #trash-icon {
-    margin-right: 10px;
-    color: rgba(255, 0, 0, 0.7);
-}
-
-/* Sort */
-
-.sort-label {
+    position: absolute;
+    bottom: 0;
+    width: 175px; }
+    .note-assistant-wrapper #delete-note-container #delete-note-button {
+      padding: 10px;
+      margin-bottom: 10px;
+      text-transform: none;
+      background-color: #FFFFFF; }
+      .note-assistant-wrapper #delete-note-container #delete-note-button:hover {
+        background-color: #F0F0F0; }
+      .note-assistant-wrapper #delete-note-container #delete-note-button #trash-icon {
+        margin-right: 10px;
+        color: #C80B0B; }
+  .note-assistant-wrapper .sort-label {
     margin-left: 10px;
-    font-size: 0.8em;
-}
-
-.sort-selection {
+    font-size: 0.8em; }
+  .note-assistant-wrapper .sort-selection {
     margin-bottom: 20px;
-    max-width: 184px;
-}
-
-.sort-select {
+    max-width: 184px; }
+  .note-assistant-wrapper .sort-select {
     width: 90%;
     max-width: 200px;
-    margin-left: 10px;
-}
-
-.sort-selection .sort-select {
-    font-size: 0.8em;
-}
-
-li.sort-item:hover {
-    background-color: #1384b5;
-    color: #fff;
-}
-
-/* Notes */
-
-.note {
-    position: relative;
-    width: inherit;
-    max-width: 150px;
-    padding: 0.5em 1em;
-    margin: 1em 0;
-    background: #fff;
-    border: 1px solid #ccc;
-    border-radius: 5px 0 5px 5px;
-}
-.note > * {
-    font-size: 0.8rem;
-    color: #555;
- }
-
-.note:hover {
-    cursor: pointer;
-    background-color: #e6e6e6;
-}
-
-.note::before {
-    content: "";
-    position: absolute;
-    top: -2px;
-    right: -2px;
-    border-width: 0 16px 16px 0;
-    border-style: solid;
-    border-color: #ccc #fff;
-}
-
-.in-progress-note {
-    border: 2px dashed #ccc;
-}
-
-.in-progress-text {
-    font-weight: bold;
-}
-
-.existing-note-date {
-    padding-bottom: 5px;
-    font-weight: bold;
-}
-
-.existing-note-subject {
-    padding-bottom: 10px;
-    border-bottom: 1px solid #ccc;
-}
-
-.existing-note-metadata {
-    margin-bottom: 5px;
-}
-
-.selected {
-    border-width: 2px;
-    border-color: #9ecfef;
-}
+    margin-left: 10px; }
+  .note-assistant-wrapper .sort-selection .sort-select {
+    font-size: 0.8em; }
+  .note-assistant-wrapper li.sort-item:hover {
+    background-color: #028DEA;
+    color: #FFFFFF; }
 
 #pick-list-options-modal {
-    height: 80%;
-    width: 80%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    position: absolute;
-    background: white;
-    padding: 20px;
-}
+  height: 80%;
+  width: 80%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  background: #FFFFFF;
+  padding: 20px; }
 
+@media only screen and (min-width: 1200px) and (max-width: 1300px) {
+  .note-assistant-wrapper {
+    width: 170px; }
+    .note-assistant-wrapper #delete-note-container {
+      width: 170px; } }
 
-@media only screen and (max-width: 1024px) { 
-    .note-assistant-wrapper {
-        /* 117px is the height of the on large screens Patient Control Panel, 20px is the height of the top margin of post encounter view content and a little extra for potential scroll bars*/
-        max-height: calc(100vh - 117px - 20px);
-    }
-}
+@media only screen and (max-width: 1024px) {
+  .note-assistant-wrapper {
+    /* 117px is the height of the on large screens Patient Control Panel, 20px is the height of the top margin of post encounter view content and a little extra for potential scroll bars*/
+    max-height: calc(100vh - 117px - 20px); } }
+
+@media only screen and (min-width: 577px) and (max-width: 768px) {
+  .note-assistant-wrapper {
+    width: 160px; }
+    .note-assistant-wrapper #delete-note-container {
+      width: 160px; } }

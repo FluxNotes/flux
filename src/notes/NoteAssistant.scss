@@ -1,0 +1,229 @@
+@import '../styles/variables';
+
+$note-assitant-width-1: 175px;
+$note-assitant-width-2: 170px;
+$note-assitant-width-3: 160px; 
+
+/* Wrapper */
+.note-assistant-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: $note-assitant-width-1;
+    margin-left: auto;
+    min-height: 400px !important;
+    
+    .note-assistant-content-wrapper {
+        margin-top: 5px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        /* 92px is the height of the on large screens Patient Control Panel, 
+           20px is the height of the top margin of post encounter view content and a little extra for potential scroll bars
+           5px is the height of the container's top margin
+           42px is the height of the toggle buttons
+           56px is the height of the delete button 
+        */
+        max-height: calc(100vh - 92px - 20px - 5px - 42px - 51px);
+    }
+    
+    .toggle-buttons-container {
+        display: flex !important;
+        margin-right: auto;
+        width: inherit;
+        max-width: 95%;
+        min-height: 41px;
+        /* Buttons */
+        .toggle-button {
+            min-width: 50px !important;
+            min-height: 20px !important;
+            max-height: 41px !important;
+            width: 50% !important;
+            display: inline-block !important;
+            background-color: $background !important;
+        }
+        
+        .toggle-button-selected {
+            background-color: $interface-blue !important;
+        }
+        
+        .toggle-button-disabled {
+            // Shouldn't be line gray cannonically, but it is the best one for now. 
+            background-color: $line-gray !important;
+        }
+    }
+    
+    /* Notes */
+    .clinical-notes-panel {
+        margin-left: auto;
+        width: inherit;
+        margin-right: 5px;
+        .previous-notes-label {
+            font-weight: bold;
+            font-size: 0.8em;
+            margin: 10px;
+            max-width: 184px;
+        }
+        .note { 
+            position: relative;
+            width: inherit;
+            max-width: 150px;
+            padding: 0.5em 1em;
+            margin: 1em 0;
+            background: $background;
+            border: 1px solid $line-gray;
+            border-radius: 5px 0 5px 5px;
+            & > * {
+                font-size: 0.8rem;
+                color: $body-gray;
+            }
+            &:hover {
+                cursor: pointer;
+                background-color: $feature-gray;
+            }
+            &::before {
+                content: "";
+                position: absolute;
+                top: -2px;
+                right: -2px;
+                border-width: 0 16px 16px 0;
+                border-style: solid;
+                border-color: $line-gray #fff;
+            }
+            &.note-new {
+                /*margin: 10px 20px;*/
+                width: auto;
+                text-align: center;
+                display: block;
+                &:hover {
+                    cursor:pointer;
+                    background: $feature-gray;
+                }
+                .note-new-text {
+                    font-size: 1.1rem;
+                    .fa {
+                        padding-right: 10px;
+                    }
+                }
+            }
+            &.selected {
+                border-width: 2px;
+                border-color: $interface-blue;
+            }
+            &.existing-note {         
+                .existing-note-date {
+                    padding-bottom: 5px;
+                    font-weight: bold;
+                }
+                
+                .existing-note-subject {
+                    padding-bottom: 10px;
+                    border-bottom: 1px solid $line-gray;
+                }
+                
+                .existing-note-metadata {
+                    margin-bottom: 5px;
+                }
+            }   
+            &.in-progress-note {
+                border-width: 2px;
+                border-style: dashed;
+                .in-progress-text {
+                    font-weight: bold;
+                }
+            }
+        }
+        
+        .more-notes-btn {
+            background-color: $background !important;
+            padding: 10px !important;
+            margin-top: 20px;
+            max-width: 184px;
+            &:hover {
+                background: $feature-gray !important;
+            }    
+        }
+    }
+    
+    #delete-note-container {
+        background: $background;
+        display: flex;
+        justify-content: center;
+        position: absolute;
+        bottom: 0;
+        width: $note-assitant-width-1;
+        #delete-note-button {
+            padding: 10px;
+            margin-bottom: 10px;
+            text-transform: none;
+            background-color: $background;
+            &:hover {
+                background-color: $feature-gray;
+            }
+            #trash-icon {
+                margin-right: 10px;
+                color: $warning-red;
+            }
+        }
+    }
+    
+    /* Sort */
+    .sort-label {
+        margin-left: 10px;
+        font-size: 0.8em;
+    }
+    
+    .sort-selection {
+        margin-bottom: 20px;
+        max-width: 184px;
+    }
+    
+    .sort-select {
+        width: 90%;
+        max-width: 200px;
+        margin-left: 10px;
+    }
+    
+    .sort-selection .sort-select {
+        font-size: 0.8em;
+    }
+    
+    li.sort-item:hover {
+        background-color: $interface-blue;
+        color: $background;
+    }  
+}
+
+#pick-list-options-modal {
+    height: 80%;
+    width: 80%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    background: $background;
+    padding: 20px;
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1300px) {
+    .note-assistant-wrapper {
+        width: $note-assitant-width-2;
+        #delete-note-container { 
+            width: $note-assitant-width-2;
+        }
+    }
+}
+
+@media only screen and (max-width: 1024px) { 
+    .note-assistant-wrapper {
+        /* 117px is the height of the on large screens Patient Control Panel, 20px is the height of the top margin of post encounter view content and a little extra for potential scroll bars*/
+        max-height: calc(100vh - 117px - 20px);
+    }
+}
+
+@media only screen and (min-width: 577px) and (max-width: 768px) {
+    .note-assistant-wrapper {
+        width: $note-assitant-width-3;
+        #delete-note-container { 
+            width: $note-assitant-width-3;
+        }
+     }
+}
