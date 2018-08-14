@@ -606,28 +606,28 @@ export default class SummaryMetadata {
                                 name: "Enrolled",
                                 headings: ["Name", "When Enrolled", "When Left", "Description"],
                                 itemsFunction: this.getItemListForEnrolledClinicalTrials
-                            // },
-                            // {
-                            //     name: "Potential to enroll",
-                            //     headings: ["Name", "Criteria Fit", "Opened", "Description"],
-                            //     itemsFunction: this.getItemListForClinicalTrialEligibility,
-                            //     actions: [
-                            //         {
-                            //             handler: this.handleViewMissingCriteria,
-                            //             text: "Missing Criteria",
-                            //             icon: "clipboard",
-                            //             whenToDisplay: {
-                            //                 valueExists: true,
-                            //                 existingValueSigned: "either",
-                            //                 editableNoteOpen: "either", 
-                            //                 displayForColumns: [0, 1]
-                            //             }
-                            //         }
-                            //     ]
-                            // },
-                            // {   nameFunction: this.getMissingCriteriaSubsectionName, 
-                            //     itemsFunction: this.getItemListToDisplayMissingCriteria,
-                            //     displayFunction: this.getMissingCriteriaDisplay
+                            },
+                            {
+                                name: "Potential to enroll",
+                                headings: ["Name", "Criteria Fit", "Opened", "Description"],
+                                itemsFunction: this.getItemListForClinicalTrialEligibility,
+                                actions: [
+                                    {
+                                        handler: this.handleViewMissingCriteria,
+                                        text: "Missing Criteria",
+                                        icon: "clipboard",
+                                        whenToDisplay: {
+                                            valueExists: true,
+                                            existingValueSigned: "either",
+                                            editableNoteOpen: "either", 
+                                            displayForColumns: [0, 1]
+                                        }
+                                    }
+                                ]
+                            },
+                            {   nameFunction: this.getMissingCriteriaSubsectionName, 
+                                itemsFunction: this.getItemListToDisplayMissingCriteria,
+                                displayFunction: this.getMissingCriteriaDisplay
                             }
                         ]   
                     },
@@ -1135,28 +1135,28 @@ export default class SummaryMetadata {
                                 name: "Enrolled",
                                 headings: ["Name", "When Enrolled", "When Left", "Description"],
                                 itemsFunction: this.getItemListForEnrolledClinicalTrials
-                            // },
-                            // {
-                            //     name: "Potential to enroll",
-                            //     headings: ["Name", "Criteria Fit", "Opened", "Description"],
-                            //     itemsFunction: this.getItemListForClinicalTrialEligibility,
-                            //     actions: [
-                            //         {
-                            //             handler: this.handleViewMissingCriteria,
-                            //             text: "Missing Criteria",
-                            //             icon: "clipboard",
-                            //             whenToDisplay: {
-                            //                 valueExists: true,
-                            //                 existingValueSigned: "either",
-                            //                 editableNoteOpen: "either", 
-                            //                 displayForColumns: [0, 1]
-                            //             }
-                            //         }
-                            //     ]
-                            // },
-                            // {   nameFunction: this.getMissingCriteriaSubsectionName, 
-                            //     itemsFunction: this.getItemListToDisplayMissingCriteria,
-                            //     displayFunction: this.getMissingCriteriaDisplay
+                            },
+                            {
+                                name: "Potential to enroll",
+                                headings: ["Name", "Criteria Fit", "Opened", "Description"],
+                                itemsFunction: this.getItemListForClinicalTrialEligibility,
+                                actions: [
+                                    {
+                                        handler: this.handleViewMissingCriteria,
+                                        text: "Missing Criteria",
+                                        icon: "clipboard",
+                                        whenToDisplay: {
+                                            valueExists: true,
+                                            existingValueSigned: "either",
+                                            editableNoteOpen: "either", 
+                                            displayForColumns: [0, 1]
+                                        }
+                                    }
+                                ]
+                            },
+                            {   nameFunction: this.getMissingCriteriaSubsectionName, 
+                                itemsFunction: this.getItemListToDisplayMissingCriteria,
+                                displayFunction: this.getMissingCriteriaDisplay
                             }
                         ]   
                     },
