@@ -488,14 +488,15 @@ class FluxNotesEditor extends React.Component {
 
     insertStructuredFieldTransform = (transform, shortcut) => {
         if (Lang.isNull(shortcut)) return transform.focus();
-        let result = this.structuredFieldPlugin.transforms.insertStructuredField(transform, shortcut);
-        // console.log("result[0]");
-        // console.log(result[0]);
+        const result = this.structuredFieldPlugin.transforms.insertStructuredField(transform, shortcut);
+
         return result[0];
     }
+
     insertStructuredFieldTransformAtRange = (transform, shortcut, range) => {
         if (Lang.isNull(shortcut)) return transform.focus();
-        let result = this.structuredFieldPlugin.transforms.insertStructuredFieldAtRange(transform, shortcut, range);
+        const result = this.structuredFieldPlugin.transforms.insertStructuredFieldAtRange(transform, shortcut, range);
+
         return result[0];
     }
 

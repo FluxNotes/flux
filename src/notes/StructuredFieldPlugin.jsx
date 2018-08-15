@@ -308,10 +308,21 @@ function StructuredFieldPlugin(opts) {
  * @return {Slate.Transform}
  */
 function insertStructuredField(opts, transform, shortcut) {
-    return insertStructuredFieldAtRange(opts, transform, shortcut, transform.state.selection)
+    const { state } = transform;
+    if (!state.selection.startKey) return false;
+
+    // Create the structured-field node
+    const sf = createStructuredField(opts, shortcut);
+    shortcut.setKey(sf.key);
+
+    if (sf.kind === 'block') {
+        return [transform.insertBlock(sf), sf.key];
+    } else {
+        return [transform.insertInline(sf), sf.key];
+    }
 }
 
-function insertStructuredFieldAtRange(opts, transform, shortcut, range) { 
+function insertStructuredFieldAtRange(opts, transform, shortcut, range) {
     if (!range.startKey) return false;
 
     // Create the structured-field node
@@ -319,10 +330,10 @@ function insertStructuredFieldAtRange(opts, transform, shortcut, range) {
     shortcut.setKey(sf.key);
 
     if (sf.kind === 'block') {
-		return [transform.insertBlockAtRange(range, sf), sf.key];
-	} else {
-		return [transform.insertInlineAtRange(range, sf), sf.key];
-	}
+        return [transform.insertBlockAtRange(range, sf), sf.key];
+    } else {
+        return [transform.insertInlineAtRange(range, sf), sf.key];
+    }
 }
 
 /**
