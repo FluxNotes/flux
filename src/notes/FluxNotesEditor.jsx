@@ -91,7 +91,7 @@ class FluxNotesEditor extends React.Component {
 
         // Set the initial state when the app is first constructed.
         this.resetEditorState();
-        
+
         // setup structured field plugin
         const structuredFieldPluginOptions = {
             contextManager: this.contextManager,
@@ -106,7 +106,7 @@ class FluxNotesEditor extends React.Component {
         });
         this.structuredFieldPlugin = StructuredFieldPlugin(structuredFieldPluginOptions);
         this.plugins.push(this.structuredFieldPlugin)
-        
+
         // setup single hashtag structured field plugin
         const singleHashtagKeywordStructuredFieldPluginOptions = {
             shortcutManager: this.props.shortcutManager,
@@ -132,7 +132,7 @@ class FluxNotesEditor extends React.Component {
         };
         this.NLPHashtagPlugin = NLPHashtagPlugin(NLPHashtagPluginOptions);
         this.plugins.push(this.NLPHashtagPlugin)
-        
+
         // setup creator suggestions plugin (autocomplete)
         this.suggestionsPluginCreators = SuggestionsPlugin({
             capture: /#([\w\s\-,]*)/,
@@ -141,7 +141,7 @@ class FluxNotesEditor extends React.Component {
             trigger: '#',
         });
         this.plugins.push(this.suggestionsPluginCreators)
-        
+
         // setup inserter suggestions plugin (autocomplete)
         this.suggestionsPluginInserters = SuggestionsPlugin({
             capture: /@([\w\s\-,]*)/,
@@ -227,8 +227,8 @@ class FluxNotesEditor extends React.Component {
     }
 
 
-    updateFetchingStatus = (isFetchingAsyncData) => { 
-        if (!isFetchingAsyncData) { 
+    updateFetchingStatus = (isFetchingAsyncData) => {
+        if (!isFetchingAsyncData) {
             // If we're not fetching, clear any lagging timers;
             if (this.state.fetchTimeout !== null) clearTimeout(this.state.fetchTimeout._id)
             this.setState({
@@ -237,7 +237,7 @@ class FluxNotesEditor extends React.Component {
                 // Clear fetch timer
                 fetchTimeout: null,
             });
-        } else { 
+        } else {
             // If we are fetching, set a timer that will display a loading animation in the editor after trigger
             this.setState({
                 fetchTimeout: setTimeout (() => {
@@ -246,7 +246,7 @@ class FluxNotesEditor extends React.Component {
                         loadingTimeWarrantsWarning: true
                     });
                 }, 10),
-            })  
+            })
         }
     }
 
@@ -368,7 +368,7 @@ class FluxNotesEditor extends React.Component {
     }
 
     getTextCursorPosition = () => {
-        const positioningUsingSlateNodes = () => { 
+        const positioningUsingSlateNodes = () => {
             const pos = {};
             const parentNode = this.state.state.document.getParent(this.state.state.selection.startKey);
             const el = Slate.findDOMNode(parentNode);
@@ -385,9 +385,9 @@ class FluxNotesEditor extends React.Component {
         }
 
         if (!this.editorHasFocus) {
-            if (this.lastPosition.top === 0 && this.lastPosition.left === 0) {   
+            if (this.lastPosition.top === 0 && this.lastPosition.left === 0) {
                 this.lastPosition = positioningUsingSlateNodes();
-            } 
+            }
         } else {
             const pos = position();
             // If position is calculated to be 0, 0, use our old method of calculating position.
@@ -411,7 +411,7 @@ class FluxNotesEditor extends React.Component {
             this.insertPlainText(transform, shortcut.initiatingTrigger);
             return transform.blur();
         }
-        
+
         let portalOptions = shortcut.getValueSelectionOptions();
 
         this.setState({
@@ -429,9 +429,9 @@ class FluxNotesEditor extends React.Component {
         let shortcut = this.selectingForShortcut;
 
         this.selectingForShortcut = null;
-        this.setState({ 
+        this.setState({
             openedPortal: null,
-            portalOptions: null, 
+            portalOptions: null,
         });
         if (Lang.isNull(selection)) {
             // Removes the shortcut from its parent
@@ -674,11 +674,11 @@ class FluxNotesEditor extends React.Component {
         // Check if mode is changing from 'pick-list-options-panel' to 'context-tray'
         // This means user either clicked the OK or Cancel button on the modal
         if (this.props.noteAssistantMode === 'pick-list-options-panel' && nextProps.noteAssistantMode === 'context-tray') {
-            this.adjustActiveContexts(this.state.state.selection, this.state.state); 
+            this.adjustActiveContexts(this.state.state.selection, this.state.state);
             this.props.contextManager.clearNonActiveContexts();
             // User clicked cancel button
             if (nextProps.contextTrayItemToInsert === null) {
-                this.props.setNoteViewerEditable(true);   
+                this.props.setNoteViewerEditable(true);
             } else { // User clicked OK button so insert text
                 this.insertTextWithStructuredPhrases(this.props.contextTrayItemToInsert);
                 this.props.updateContextTrayItemToInsert(null);
@@ -707,7 +707,7 @@ class FluxNotesEditor extends React.Component {
         let listItemEndIndex = text.indexOf('</li>');
 
         // No styles to be added.
-        if (boldStartIndex === -1 && boldEndIndex === -1 
+        if (boldStartIndex === -1 && boldEndIndex === -1
             && italicStartIndex === -1 && italicEndIndex === -1
             && underlinedStartIndex === -1 && underlinedEndIndex === -1
             && unorderedListStartIndex === -1 && unorderedListEndIndex === -1
@@ -749,7 +749,7 @@ class FluxNotesEditor extends React.Component {
         } else if (firstStyle.name === 'orderedListEndIndex') {
             this.endList(transform, text, orderedListStartIndex, orderedListEndIndex, 'numbered-list');
         } else if (firstStyle.name === 'listItemStartIndex' || firstStyle.name === 'listItemEndIndex') {
-            const currentList = styleMarkings.find(a => 
+            const currentList = styleMarkings.find(a =>
                 a.value > -1 &&
                 (a.name === 'orderedListStartIndex' || a.name === 'orderedListEndIndex'
                 || a.name === 'unorderedListStartIndex' || a.name === 'unorderedListEndIndex'))
@@ -868,7 +868,7 @@ class FluxNotesEditor extends React.Component {
             startOffset = wordOffset;
         } else {
             // No HTML style tag present so set startIndex to the beginning of the string and leave startOffset as 0 since no word to remove.
-            startIndex = 0; 
+            startIndex = 0;
         }
 
         let endOffset = 0; // This represents how many characters to cut off from the text string at the endIndex.
@@ -1266,7 +1266,7 @@ class FluxNotesEditor extends React.Component {
     }
 
     // Renders the noteDescription of the editor
-    renderNoteDescriptionContent = () => { 
+    renderNoteDescriptionContent = () => {
         // Preset note header information
         let noteTitle = "New Note";
         let date = Moment(new Date()).format('DD MMM YYYY');
@@ -1320,32 +1320,31 @@ class FluxNotesEditor extends React.Component {
                                         lineHeight: "2.1rem"
                                     }}
                                 >
-                                    <FontAwesome 
+                                    <FontAwesome
                                         name="times"
                                         style={{
                                             color: "red",
                                             marginRight: "5px"
                                         }}
-                                    /> 
+                                    />
                                     <span>
                                         Close
                                     </span>
                                 </Button>
                             }
                         </Col>
-
-                        <Divider className="note-description-divider" />
                     </Row>
+                    <Divider className="note-description-divider" />
                 </div>
             );
         }
     }
-    
+
     render = () => {
         const CreatorsPortal = this.suggestionsPluginCreators.SuggestionPortal;
         const InsertersPortal = this.suggestionsPluginInserters.SuggestionPortal;
         const PlaceholdersPortal = this.suggestionsPluginPlaceholders.SuggestionPortal;
-        
+
         let errorDisplay = "";
         if (this.props.errors && this.props.errors.length > 0) {
             errorDisplay = (
