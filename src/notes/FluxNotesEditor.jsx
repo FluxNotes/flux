@@ -1246,9 +1246,9 @@ class FluxNotesEditor extends React.Component {
     renderNoteNameEditor = (noteTitle, signed) => {
         let noteTag;
         if (signed) {
-            noteTag = <p className="note-description-detail-value" id="note-title">{noteTitle}</p>;
+            noteTag = <p className="note-name" id="note-title">{noteTitle}</p>;
         } else {
-            noteTag = <p className="note-description-detail-value" id="note-title"><FontAwesome id="edit-note-name-btn" name="pencil" onClick={this.enableNoteNameEditing} />&nbsp;{noteTitle}</p>;
+            noteTag = <p className="note-name" id="note-title"><FontAwesome id="edit-note-name-btn" name="pencil" onClick={this.enableNoteNameEditing} />&nbsp;{noteTitle}</p>;
         }
         if (this.state.isEditingNoteName) {
             return (
@@ -1293,27 +1293,25 @@ class FluxNotesEditor extends React.Component {
         } else {
             return (
                 <div id="note-description">
-                    <Row end="xs">
-                        <Col xs={2}>
-                            <p className="note-description-detail-name">Name</p>
-                            {this.renderNoteNameEditor(noteTitle, signed)}
+                    <Row>
+                        <Col xs={10}>
+                            <Row>
+                                {this.renderNoteNameEditor(noteTitle, signed)}
+                            </Row>
+                            <Row >
+                                <Col xs={7}>
+                                    <p><span className="note-description-detail-name">Signed By: </span><span className="note-description-detail-value">{signedString}</span></p>
+                                    <p><span className="note-description-detail-name">Source: </span><span className="note-description-detail-value">{source}</span></p>
+                                </Col>
+                                <Col xs={5}>
+                                    <p><span className="note-description-detail-name">Signed Date:</span><span className="note-description-detail-value">{date}</span></p>
+                                </Col>
+                            </Row>
                         </Col>
                         <Col xs={2}>
-                            <p className="note-description-detail-name">Date</p>
-                            <p className="note-description-detail-value">{date}</p>
-                        </Col>
-                        <Col xs={2}>
-                            <p className="note-description-detail-name">Source</p>
-                            <p className="note-description-detail-value">{source}</p>
-                        </Col>
-                        <Col xs={2}>
-                            <p className="note-description-detail-name">Signed By</p>
-                            <p className="note-description-detail-value">{signedString}</p>
-                        </Col>
-                        <Col xs={4}>
-                            { !this.props.inModal &&
+                            {!this.props.inModal &&
                                 <Button
-                                    raised 
+                                    raised
                                     className="close-note-btn"
                                     disabled={this.context_disabled}
                                     onClick={this.closeNote}
@@ -1335,9 +1333,9 @@ class FluxNotesEditor extends React.Component {
                                 </Button>
                             }
                         </Col>
-                    </Row>
 
-                    <Divider className="note-description-divider"/>
+                        <Divider className="note-description-divider" />
+                    </Row>
                 </div>
             );
         }

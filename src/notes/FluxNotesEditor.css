@@ -13,7 +13,7 @@
     background-color: #dddddd;
 }
 
-#clinical-notes #note-description p.note-description-detail-name {
+#clinical-notes #note-description .note-description-detail-name {
     text-align: left;
     padding-bottom:2px;
     color: #919191;
@@ -21,11 +21,19 @@
     margin: 0;
 }
 
-#clinical-notes #note-description p.note-description-detail-value, #note-title-input {
+#clinical-notes #note-description .note-description-detail-value {
     text-align: left;
     padding-top:0;
     font-size: .8rem;
     margin: 0;
+}
+
+#clinical-notes #note-description p.note-name {
+    text-align: left;
+    padding-top:0;
+    font-size: .8rem;
+    margin: 0;
+    font-weight: bold !important;
 }
 
 #notes-message {
