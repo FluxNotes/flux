@@ -308,6 +308,8 @@ function StructuredFieldPlugin(opts) {
  * @return {Slate.Transform}
  */
 function insertStructuredField(opts, transform, shortcut) {
+    // insertStructuredField originally called insertStructuredFieldAtRange but reverted back to old implementation due to new lines being added
+    // return insertStructuredFieldAtRange(opts, transform, shortcut, transform.state.selection)
     const { state } = transform;
     if (!state.selection.startKey) return false;
 
