@@ -3,8 +3,9 @@ import _ from 'lodash'
 import moment from 'moment';
 import FluxTumorDimensions from '../model/oncology/FluxTumorDimensions';
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx';
-import { seerdata } from './Seerdata.js';
 
+const FluxNotesTreatmentOptionsRestClient = require('flux_notes_treatment_options_rest_client');
+const api = new FluxNotesTreatmentOptionsRestClient.DefaultApi();
 
 /*
     Each section has the following properties:
@@ -1846,9 +1847,11 @@ export default class SummaryMetadata {
         return subset;
     }
 
+
     getTreatmentData = (patient, condition, subsection) => {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
-        const treatmentOptions = ['Chemo', 'Chemo+Rad', 'Hormonal', 'Radiation',
+        
+       /* const treatmentOptions = ['Chemo', 'Chemo+Rad', 'Hormonal', 'Radiation',
                                 'Surgery', 'Surg+Rad', 'No-Treatment'];
         let deceasedSeries = [];
         let aliveSeries = [];
@@ -1862,8 +1865,10 @@ export default class SummaryMetadata {
             }  
         });
         
-        return [aliveSeries, deceasedSeries];
-
+        return [aliveSeries, deceasedSeries];*/
+        
+       const data = api.findTreatmentOptionsByPatientStats("prostate cancer", {race: "Black", dxGrade: "Grade II"});
+       return JSON.parse(data);
     }
 }
 
