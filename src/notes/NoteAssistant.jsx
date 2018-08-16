@@ -515,17 +515,16 @@ export default class NoteAssistant extends Component {
                         this.toggleView("poc")
                     }}>
                     <svg viewBox="0 -2 19 17">
-
                         <g id="icon-export" stroke={this.poc_stroke} stroke-width="1" fill="none" fill-rule="evenodd">
                             <g id="Artboard" transform="translate(-151.000000, -186.000000)" stroke={this.poc_stroke}>
                                 <g id="tray---POC-selected" transform="translate(151.000000, 186.000000)">
                                     <g id="Group">
-                                        <rect id="Rectangle-Copy" fill-rule="nonzero" x="10.5" y="0.5" width="8" height="3.28571429"></rect>
-                                        <rect id="Rectangle-Copy-2" fill={this.poc_stroke} fill-rule="nonzero" x="0.5" y="0.5" width="8" height="3.28571429"></rect>
-                                        <rect id="Rectangle-Copy-4" fill={this.poc_stroke} fill-rule="nonzero" x="10.5" y="5.85714286" width="8" height="3.28571429"></rect>
-                                        <rect id="Rectangle-Copy-3" fill-rule="nonzero" x="0.5" y="5.85714286" width="8" height="3.28571429"></rect>
-                                        <rect id="Rectangle-Copy-6" fill-rule="nonzero" x="10.5" y="11.2142857" width="8" height="3.28571429"></rect>
-                                        <rect id="Rectangle-Copy-5" fill-rule="nonzero" x="0.5" y="11.2142857" width="8" height="3.28571429"></rect>
+                                        <rect id="Rectangle-Copy" fillRule="nonzero" x="10.5" y="0.5" width="8" height="3.28571429"></rect>
+                                        <rect id="Rectangle-Copy-2" fill={this.poc_stroke} fillRule="nonzero" x="0.5" y="0.5" width="8" height="3.28571429"></rect>
+                                        <rect id="Rectangle-Copy-4" fill={this.poc_stroke} fillRule="nonzero" x="10.5" y="5.85714286" width="8" height="3.28571429"></rect>
+                                        <rect id="Rectangle-Copy-3" fillRule="nonzero" x="0.5" y="5.85714286" width="8" height="3.28571429"></rect>
+                                        <rect id="Rectangle-Copy-6" fillRule="nonzero" x="10.5" y="11.2142857" width="8" height="3.28571429"></rect>
+                                        <rect id="Rectangle-Copy-5" fillRule="nonzero" x="0.5" y="11.2142857" width="8" height="3.28571429"></rect>
                                     </g>
                                 </g>
                             </g>
