@@ -3,9 +3,6 @@ import PropTypes from 'prop-types';
 import Select from 'material-ui/Select';
 import MenuItem from 'material-ui/Menu/MenuItem';
 import MaterialButton from 'material-ui/Button';
-import Modal from 'material-ui/Modal';
-import FluxNotesEditor from './FluxNotesEditor';
-import { Grid, Row, Col } from 'react-flexbox-grid';
 import Lang from 'lodash';
 import FontAwesome from 'react-fontawesome';
 import ContextTray from '../context/ContextTray';
@@ -234,60 +231,12 @@ export default class NoteAssistant extends Component {
 
             // Render the pick list options panel which allows users to select options for the pick lists
             case "pick-list-options-panel": {
-                if (this.state.insertingTemplate) return this.renderPickListOptionsModal(noteAssistantMode);
                 return this.renderPickListOptions();
             }
             default:
                 console.error(`note assistant mode ${noteAssistantMode} is not a valid mode`);
                 return "";
         }
-    }
-
-    renderPickListOptionsModal(noteAssistantMode) {
-        return (
-            <Modal open={noteAssistantMode === 'pick-list-options-panel'}>
-                <Grid id="pick-list-options-modal">
-                    <Row center="xs">
-                        <Col sm={7} md={8} lg={9}>
-                            <FluxNotesEditor
-                                closeNote={this.props.closeNote}
-                                contextManager={this.props.contextManager}
-                                currentViewMode={'pre-encounter'}
-                                errors={this.props.errors}
-                                handleUpdateEditorWithNote={this.props.handleUpdateEditorWithNote}
-                                isNoteViewerEditable={false}
-                                inModal={true}
-                                itemInserted={this.props.itemInserted}
-                                newCurrentShortcut={this.props.newCurrentShortcut}
-                                noteAssistantMode={this.props.noteAssistantMode}
-                                patient={this.props.patient}
-                                saveNote={this.props.saveNote}
-                                selectedNote={this.props.selectedNote}
-                                setLayout={this.props.setLayout}
-                                setNoteViewerEditable={this.props.setNoteViewerEditable}
-                                shortcutManager={this.props.shortcutManager}
-                                shouldEditorContentUpdate={this.props.shouldEditorContentUpdate}
-                                structuredFieldMapManager={this.props.structuredFieldMapManager}
-                                summaryItemToInsert={this.props.summaryItemToInsert}
-                                contextTrayItemToInsert={this.props.contextTrayItemToInsert}
-                                // Pass in note that the editor is to be updated with
-                                updatedEditorNote={this.props.updatedEditorNote}
-                                updateErrors={this.props.updateErrors}
-                                updateLocalDocumentText={this.props.updateLocalDocumentText}
-                                updateSelectedNote={this.props.updateSelectedNote}
-                                updateNoteAssistantMode={this.props.updateNoteAssistantMode}
-                                arrayOfPickLists={this.props.arrayOfPickLists}
-                                handleUpdateArrayOfPickLists={this.props.handleUpdateArrayOfPickLists}
-                                updateContextTrayItemToInsert={this.props.updateContextTrayItemToInsert}
-                            />
-                        </Col>
-                        <Col sm={5} md={4} lg={3}>
-                            {this.renderPickListOptions()}
-                        </Col>
-                    </Row>
-                </Grid>
-            </Modal>
-        );
     }
 
     renderPickListOptions() {
