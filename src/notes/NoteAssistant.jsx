@@ -515,17 +515,18 @@ export default class NoteAssistant extends Component {
                         this.toggleView("poc")
                     }}>
                     <svg viewBox="0 0 19 17">
-                        <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-                            <g id="Group-Copy" transform="translate(0.003906, 0.007812)" stroke={this.poc_stroke}
-                                strokeWidth="1.62">
-                                <path
-                                    d="M1.1248514,1.1248514 L1.1248514,9.91423446 L6.40096349,15.2473495 L17.6880469,15.2473495 L17.6880469,1.1248514 L1.1248514,1.1248514 Z"
-                                    id="Rectangle-12-Copy-5"
-                                    transform="translate(9.406449, 8.186100) rotate(-180.000000) translate(-9.406449, -8.186100) "></path>
-                                <polyline id="Path-2"
-                                    points="12.3745117 0.874511719 12.3745117 6.63727788 17.8869466 6.63727788"></polyline>
-                                <line x1="1.1248514" y1="10.5469815" x2="17.8869466" y2="10.5469815"/>
-                                <line x1="1.1248514" y1="5.02591623" x2="12.6880469" y2="5.02591623"/>
+                        <g id="icon-export" stroke={this.poc_stroke} stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="Artboard" transform="translate(-151.000000, -186.000000)" stroke={this.poc_stroke}>
+                                <g id="tray---POC-selected" transform="translate(151.000000, 186.000000)">
+                                    <g id="Group">
+                                        <rect id="Rectangle-Copy" fill-rule="nonzero" x="10.5" y="0.5" width="8" height="3.28571429"></rect>
+                                        <rect id="Rectangle-Copy-2" fill={this.poc_stroke} fill-rule="nonzero" x="0.5" y="0.5" width="8" height="3.28571429"></rect>
+                                        <rect id="Rectangle-Copy-4" fill={this.poc_stroke} fill-rule="nonzero" x="10.5" y="5.85714286" width="8" height="3.28571429"></rect>
+                                        <rect id="Rectangle-Copy-3" fill-rule="nonzero" x="0.5" y="5.85714286" width="8" height="3.28571429"></rect>
+                                        <rect id="Rectangle-Copy-6" fill-rule="nonzero" x="10.5" y="11.2142857" width="8" height="3.28571429"></rect>
+                                        <rect id="Rectangle-Copy-5" fill-rule="nonzero" x="0.5" y="11.2142857" width="8" height="3.28571429"></rect>
+                                    </g>
+                                </g>
                             </g>
                         </g>
                     </svg>
