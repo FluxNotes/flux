@@ -1070,15 +1070,8 @@ class FluxNotesEditor extends React.Component {
             this.props.setNoteViewerEditable(false);
             // Switch note assistant view to the pick list options panel
             this.props.updateNoteAssistantMode('pick-list-options-panel');
-            if (this.props.inModal) {
-                this.resetEditorState();
-                this.insertTextWithStructuredPhrases(contextTrayItem, undefined, true, false, "Selection from pick list (modal)");
-            }
-        } else if (this.props.noteAssistantMode === 'pick-list-options-panel') {
-            if (this.props.inModal) {
-                this.resetEditorState();
-                this.insertTextWithStructuredPhrases(contextTrayItem, undefined, true, false, "Template");
-            }
+            // Insert content by default
+            this.insertTextWithStructuredPhrases(contextTrayItem, undefined, true, false, "Template");
         } else { // If the text to be inserted does not contain any pick lists, insert the text
             this.insertTextWithStructuredPhrases(contextTrayItem, undefined, true, true, "Shortcuts in Context");
             this.props.updateContextTrayItemToInsert(null);
