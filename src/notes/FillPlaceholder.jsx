@@ -142,26 +142,6 @@ export default class FillPlaceholder extends Component {
     };
 
     onSetValue = (attributeSpec, entryIndex, newValue, moveToNextField = true) => {
-        let { currentField, done } = this.state;
-        const { placeholder } = this.props;
-
-        if (currentField[entryIndex] + 1 === placeholder.attributes.length) {
-            // User has entered final attribute, so mark row as done
-            if (placeholder.multiplicity !== 'many') {
-                done = true;
-                this.props.placeholder.done = true;
-                this.setState({ done });
-            } else {
-                currentField[entryIndex] = 0;
-                this.setState({ currentField });
-            }
-        } else {
-            currentField[entryIndex] += 1;
-            this.setState({ currentField });
-        }
-    };
-
-    onSetValue = (attributeSpec, entryIndex, newValue, moveToNextField = true) => {
         const { placeholder } = this.props;
         //if (entryIndex === -1) entryIndex = placeholder.entryShortcuts.length - 1;
         const attributes = placeholder.getAttributeValue(attributeSpec.name, entryIndex);
