@@ -1866,9 +1866,14 @@ export default class SummaryMetadata {
         });
         
         return [aliveSeries, deceasedSeries];*/
-        
-       const data = api.findTreatmentOptionsByPatientStats("prostate cancer", {race: "Black", dxGrade: "Grade II"});
-       return JSON.parse(data);
+       try {
+        const data = api.findTreatmentOptionsByPatientStats("prostate cancer", {race: "Black", dxGrade: "Grade II"});
+        return JSON.parse(data);
+
+       }
+       catch(error) {
+           return error.message;
+       }
     }
 }
 
