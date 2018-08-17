@@ -1303,7 +1303,7 @@ class FluxNotesEditor extends React.Component {
                                     <p className="note-description-detail"><span className="note-description-detail-name">Source: </span><span className="note-description-detail-value">{source}</span></p>
                                 </Col>
                                 <Col xs={5}>
-                                    <p className="note-description-detail"><span className="note-description-detail-name">Signed Date:</span><span className="note-description-detail-value">{date}</span></p>
+                                    <p className="note-description-detail"><span className="note-description-detail-name">Signed Date: </span><span className="note-description-detail-value">{date}</span></p>
                                 </Col>
                             </Row>
                         </Col>
