@@ -515,7 +515,7 @@ export default class NoteAssistant extends Component {
                         this.toggleView("poc")
                     }}>
                     <svg viewBox="0 -2 19 17">
-                        <g id="icon-export" stroke={this.poc_stroke} stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="icon-export" stroke={this.poc_stroke} strokeWidth="1" fill="none" fillRule="evenodd">
                             <g id="Artboard" transform="translate(-151.000000, -186.000000)" stroke={this.poc_stroke}>
                                 <g id="tray---POC-selected" transform="translate(151.000000, 186.000000)">
                                     <g id="Group">
