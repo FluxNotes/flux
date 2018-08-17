@@ -1355,7 +1355,7 @@
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
                         },
-                        "Value": "15 FEB 2018"
+                        "Value": "15 May 2016"
                     }
                 }
             }
@@ -1658,6 +1658,309 @@
             }
         }
     },
+
+
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+        "EntryId": "74",
+        "Subject": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"
+        },
+        "LastUpdated": {
+            "Value": "15 Feb 2016",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "Annotation": [
+            {
+                "Value": "revealed 1.6cm mass in stomach",
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"
+                }
+            }
+        ],
+        "CreationTime": {
+            "Value": "15 Feb 2016",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "Type": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Type"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Value": "433761009",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "http://snomed.info/sct",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "CT of thorax, abdomen and pelvis with contrast",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        },
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "ActionContext": {
+            "Status": {
+                "Value": "completed",
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/action/Status"
+                }
+            },
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"
+            },
+            "Reason": [
+                {
+                    "Value": {
+                        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+                        "_EntryId": "8",
+                        "_EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition"
+                        }
+                    },
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Reason"
+                    }
+                }
+            ],
+            "ExpectedPerformanceTime": {
+                "Value": "15 Feb 2016",
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime"
+                }
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+        "EntryId": "50",
+        "Subject": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"
+        },
+        "LastUpdated": {
+            "Value": "15 Mar 2016",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "Annotation": [
+            {
+                "Value": "indicate diagnosis of malignant epithelioid gastrointestinal stromal tumor",
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"
+                }
+            }
+        ],
+        "CreationTime": {
+            "Value": "15 Mar 2016",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "Type": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Type"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Value": "86273004",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "http://snomed.info/sct",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Biopsy",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        },
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "ActionContext": {
+            "Status": {
+                "Value": "completed",
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/action/Status"
+                }
+            },
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"
+            },
+            "Reason": [
+                {
+                    "Value": {
+                        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+                        "_EntryId": "8",
+                        "_EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition"
+                        }
+                    },
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Reason"
+                    }
+                }
+            ],
+            "ExpectedPerformanceTime": {
+                "Value": "15 Mar 2016",
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime"
+                }
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+        "EntryId": "65",
+        "Subject": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"
+        },
+        "LastUpdated": {
+            "Value": "7 Apr 2016",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "7 Apr 2016",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "Type": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Type"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Value": "C0851238",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "http://ncimeta.nci.nih.gov",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Surgery",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        },
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "ActionContext": {
+            "Status": {
+                "Value": "completed",
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/action/Status"
+                }
+            },
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"
+            },
+            "Reason": [
+                {
+                    "Value": {
+                        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+                        "_EntryId": "8",
+                        "_EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition"
+                        }
+                    },
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Reason"
+                    }
+                }
+            ],
+            "ExpectedPerformanceTime": {
+                "Value": "7 Apr 2016",
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime"
+                }
+            }
+        }
+    },
+
+
+
     {
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/adverse/ToxicReaction"
@@ -5765,7 +6068,7 @@
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
         "signed": true,
         "subject": "Treatment Check-in",
-        "content": "REASON FOR VISIT:\nTreatment Progress\n\nHISTORY OF PRESENT ILLNESS:\n@name[[Ihanos Tnfinity6]] is a @age[[57]] year old white @gender[[Male]] presenting with @condition[[Gastrointestinal stromal tumor]]. He was feeling sharp pains in his stomach and a palpable lump two months later. **A diagnostic procedure showed unremarkable views of the abdomen; however an indeterminate lymph node in the ?? was apparent.** A targeted **ultrasound** revealed a tumor measuring 1.6 cm. \n**Biopsy and results? Right axillary lymph node was negative for malignancy.**  Stage IA T1 N0 M0 disease with mitotic count score of 1. KIT testing was positive, PDGFRA testing was negative. \nIn preparation for treatment, **procedures needed?** **TTE done on January 15, 2015 showed normal systolic function, with ejection fraction 60-65% and trace mitral regurgitation.** \n\nHe began taking Imatinib (one 400mg tablet per day) on February 15, 2018 as adjuvant therapy, which will continue for one year after surgery. **Reduced/stopped medications?**\n\nHe underwent surgery with Dr. Ford for the tumor **details on tumor/surgery (surgery should be structured data)?**, which resulted in a complete resection **date? Results?**. \n\n**Other procedures? Radiation? Dates?** \n\n**Other medications?** \n\n**CT of the abdomen with contrast on date?? revealed ?? (Would need structured procedure).** **A bone scan September 28, 2017 was negative for skeletal metastases.** \n\n**Relapse?** \n\n**Medication stopped?** \n\nASSESSMENT:\nAlthough his #disease status is #stable #as of #2/28/2018, he is experiencing #toxicity #Grade 2 #Stomach pain **attributed to ??** and #toxicity #Grade 2 #Rash maculo-papular **attributed to ??**.",
+        "content": "REASON FOR VISIT:\nTreatment Progress\n\nHISTORY OF PRESENT ILLNESS:\n@name[[Ihanos Tnfinity6]] is a @age[[57]] year old white @gender[[Male]] presenting with @condition[[Gastrointestinal stromal tumor]]. He was feeling sharp pains in his stomach. A @procedure[[CT scan]] showed a mass in his stomach measuring 1.6 cm.\nA @procedure[[biopsy]] was performed identifying malignant epithelioid gastrointestinal stromal tumor. @procedure[[Surgery]] was performed on 7 Apr 2016 by Dr. Ford which resulted in a complete resection. Stage IA pT1N0 disease with mitotic count score of 1. KIT testing was positive, PDGFRA testing was negative.\n\nPt began taking Imatinib (one 400mg tablet per day) on May 15, 2016 as adjuvant therapy, which will continue for one year after surgery.\n\nASSESSMENT:\nAlthough his #disease status is #stable #as of #2/28/2018, he is experiencing #toxicity #Grade 2 #Stomach pain and #toxicity #Grade 2 #Rash maculo-papular.",
         "EntryId": "1085",
         "hospital": "Hospital X",
         "clinician": "Dr. Smith",
