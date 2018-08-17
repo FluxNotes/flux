@@ -226,7 +226,6 @@ class FluxNotesEditor extends React.Component {
         };
     }
 
-
     updateFetchingStatus = (isFetchingAsyncData) => {
         if (!isFetchingAsyncData) {
             // If we're not fetching, clear any lagging timers;
