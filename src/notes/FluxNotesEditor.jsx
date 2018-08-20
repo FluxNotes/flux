@@ -1251,6 +1251,7 @@ class FluxNotesEditor extends React.Component {
         }
         if (this.state.isEditingNoteName) {
             return (
+                <div id="text-field-container">
                 <TextField
                     id="note-title-input"
                     autoFocus={true}
@@ -1258,6 +1259,7 @@ class FluxNotesEditor extends React.Component {
                     defaultValue={noteTitle}
                     onKeyPress={this.submitNoteNameChange}
                 />
+                </div>
             );
         } else {
             return noteTag;
