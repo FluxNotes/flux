@@ -103,6 +103,15 @@
     text-align: left;
 }
 
+// ******** StructuredFieldPlugin.jsx uses this
+.structured-field {
+    background-color: #d9ebf9;
+}
+
+.placeholder {
+    background-color: #dddddd;
+}
+
 // ******** suggestion-portal.js uses this
 .suggestion-portal { 
     position: absolute;
@@ -140,7 +149,6 @@
     background-color: #297DA2;
     color: #fff;
 }
-
 // ******** end
 
 @media only screen and (max-width: 1024px) { 

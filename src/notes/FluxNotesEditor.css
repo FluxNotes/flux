@@ -71,6 +71,12 @@
   overflow-x: hidden;
   text-align: left; }
 
+.structured-field {
+  background-color: #d9ebf9; }
+
+.placeholder {
+  background-color: #dddddd; }
+
 .suggestion-portal {
   position: absolute;
   box-sizing: border-box;
