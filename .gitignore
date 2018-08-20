@@ -23,3 +23,10 @@ yarn-error.log*
 *.vpp.lck*
 
 .vscode/
+/src/notes/FluxNotesEditor.css
+/src/notes/NoteAssistant.css
+/src/panels/NotesPanel.css
+/src/panels/PatientControlPanel.css
+/src/patientControl/PatientSearch.css
+/src/summary/ConditionSelection.css
+
