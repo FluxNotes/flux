@@ -42,17 +42,18 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 				keywords.sort(_sortKeywordByNameLength);
 				const keywordInClosetBlock = scanTextForKeywordObject(curNode.text, keywords)
 				if (!Lang.isUndefined(keywordInClosetBlock)) { 
-					const keywordText = keywordInClosetBlock.name.toLowerCase()
-					const newKeywordShortcut = createShortcut(null, keywordText)
+					const keywordText = keywordInClosetBlock.name.toLowerCase();
+                    const newKeywordShortcut = createShortcut(null, keywordText);
+                    newKeywordShortcut.setSource("Keyword");
 					// KeywordRange never be null -- we've already confirmed the existance of the keyword
 					let keywordRange;
 					if(curNode.nodes) { 
 						for (const childNode of curNode.nodes){
-							keywordRange = getRangeForKeyword(childNode, keywordText)
+							keywordRange = getRangeForKeyword(childNode, keywordText);
 							if (keywordRange) break;
 						}
 					} else {
-						keywordRange = getRangeForKeyword(curNode, keywordText)
+						keywordRange = getRangeForKeyword(curNode, keywordText);
 					}
 					// Remove keyword from block, using first character as the prefix
 					curTransform = curTransform.select(keywordRange).delete();

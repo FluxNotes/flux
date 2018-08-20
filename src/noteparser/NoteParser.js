@@ -60,7 +60,7 @@ export default class NoteParser {
         const shortcut = this.shortcutManager.createShortcut(
             triggerOrKeywordObject.definition, triggerOrKeywordText, this.patient, 
             triggerOrKeywordObject.selectedValue, this.handleShortcutUpdate);
-       
+        shortcut.setSource("parsed note");
         shortcut.initialize(this.contextManager, triggerOrKeywordText, true, triggerOrKeywordObject.selectedValue);
      
         if (shortcut instanceof CreatorBase || shortcut instanceof SingleHashtagKeyword || shortcut instanceof UpdaterBase) {

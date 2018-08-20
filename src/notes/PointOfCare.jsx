@@ -27,10 +27,10 @@ export default class PointOfCare extends Component {
         );
     }
 
-    insertStructuredPhrase = (data) => {
+    insertStructuredPhrase = (data, source) => {
         const fph = this.fillPlaceholders['#' + data.phrase];
         if (fph) {
-            return fph.fillFromData(data);
+            return fph.fillFromData(data, source);
         } else {
             return "No placeholder found for " + data.phrase + ".";
         }

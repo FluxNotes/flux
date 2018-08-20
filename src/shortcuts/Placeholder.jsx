@@ -82,7 +82,7 @@ class Placeholder {
         return this._entryShortcuts[index].getAttributeValue(name);
     }
 
-    setAttributeValue(name, value, index = 0) {
+    setAttributeValue(name, value, index = 0, source) {
         if (!this._entryShortcuts[index].hasParentContext()) {
             this._entryShortcuts[index].establishParentContext(this._contextManager);
         }
@@ -96,6 +96,7 @@ class Placeholder {
                 parentContextOptions + ".";
         } else {
             this._entryShortcuts[index].setAttributeValue(name, value);
+            this._entryShortcuts[index].setSource(source);
             this._setForceRefresh();
             return null;
         }

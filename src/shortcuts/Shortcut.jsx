@@ -133,6 +133,14 @@ class Shortcut extends Context {
             }
         }
     }
+
+    setSource(source) {
+        this._source = source;
+    }
+
+    getSource() {
+        return this._source;
+    }
 }
 
 export default Shortcut;

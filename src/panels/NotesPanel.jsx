@@ -40,9 +40,9 @@ export default class NotesPanel extends Component {
         }
     }
 
-    insertStructuredPhraseInCurrentNote = (data) => {
+    insertStructuredPhraseInCurrentNote = (data, source) => {
         if (this.state.noteAssistantMode === 'poc') {
-            return this.pointOfCare.insertStructuredPhrase(data);
+            return this.pointOfCare.insertStructuredPhrase(data, source);
         } else if (this.props.isNoteViewerVisible && this.props.isNoteViewerEditable && this.state.selectedNote) {
             const metadata = this.props.shortcutManager.getMetadataForTrigger(`#${data.phrase}`);
             if (Lang.isUndefined(metadata)) return "No structured phrase named '" + data.phrase + "' found.";
@@ -54,7 +54,7 @@ export default class NotesPanel extends Component {
                     return foundItem.value;
                 },
                 `#${data.phrase}`);
-            this.props.handleSummaryItemSelected(structuredPhrase);
+            this.props.handleSummaryItemSelected(structuredPhrase, -1, source);
             return null;
         } else {
             return "Received command to insert structured phrase but no valid note to insert it into right now.";
@@ -390,6 +390,7 @@ export default class NotesPanel extends Component {
                     shouldEditorContentUpdate={this.state.noteAssistantMode !== 'pick-list-options-panel'}
                     structuredFieldMapManager={this.props.structuredFieldMapManager}
                     summaryItemToInsert={this.props.summaryItemToInsert}
+                    summaryItemToInsertSource={this.props.summaryItemToInsertSource}
                     contextTrayItemToInsert={this.state.contextTrayItemToInsert}
                     updateLocalDocumentText={this.updateLocalDocumentText}
                     // Pass in note that the editor is to be updated with

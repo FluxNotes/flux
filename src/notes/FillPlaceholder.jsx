@@ -67,25 +67,35 @@ export default class FillPlaceholder extends Component {
         document.removeEventListener('mousedown', this.handleClick, false);
     }
 
-    fillFromData = (data) => {
+    fillFromData = (data, source) => {
         const { placeholder } = this.props;
         let errorToReturn = null, error; // return first error only
 
         let entryIndex = 0;
         if (placeholder.multiplicity === 'many') {
+            // original implementation to determine if we should add a new entry or not for a multiple-entry placeholder
+            // if first field of the last entry has a value, we add a new one else we use it
             let lastEntryIndex = placeholder.entryShortcuts.length - 1;
-            const valFirstField = placeholder.getAttributeValue(data.fields[0].name, lastEntryIndex);
-            console.log(valFirstField);
+/*            const valFirstField = placeholder.getAttributeValue(data.fields[0].name, lastEntryIndex);
             if (Lang.isUndefined(valFirstField) || Lang.isNull(valFirstField) || valFirstField.length === 0) {
                 entryIndex = lastEntryIndex;
             } else {
                 this.addEntry();
                 entryIndex = lastEntryIndex + 1;
+            }*/
+
+            if (Lang.isUndefined(placeholder.entryShortcuts[lastEntryIndex].getSource())) {
+                // undefined source on last entry
+                entryIndex = lastEntryIndex;
+            } else {
+                this.addEntry();
+                entryIndex = lastEntryIndex + 1;
             }
+            // new implementation. If the last entry has a source, we add a new one else we use it
         }
 
         data.fields.forEach((field) => {
-            error = this.onSetValue({name: field.name }, entryIndex, field.value, false);
+            error = this.onSetValue(source, {name: field.name }, entryIndex, field.value, false);
             if (!Lang.isNull(error) && Lang.isNull(errorToReturn)) errorToReturn = error;
         });
 
@@ -141,7 +151,7 @@ export default class FillPlaceholder extends Component {
         }
     };
 
-    onSetValue = (attributeSpec, entryIndex, newValue, moveToNextField = true) => {
+    onSetValue = (source, attributeSpec, entryIndex, newValue, moveToNextField = true) => {
         const { placeholder } = this.props;
         //if (entryIndex === -1) entryIndex = placeholder.entryShortcuts.length - 1;
         const attributes = placeholder.getAttributeValue(attributeSpec.name, entryIndex);
@@ -149,9 +159,9 @@ export default class FillPlaceholder extends Component {
 
         if (Lang.isArray(attributes) && Lang.includes(attributes, newValue)) {
             Lang.remove(attributes, attr => attr === newValue);
-            error = placeholder.setAttributeValue(attributeSpec.name, attributes, entryIndex);
+            error = placeholder.setAttributeValue(attributeSpec.name, attributes, entryIndex, source);
         } else {
-            error = placeholder.setAttributeValue(attributeSpec.name, newValue, entryIndex);
+            error = placeholder.setAttributeValue(attributeSpec.name, newValue, entryIndex, source);
 
             // We only want to increment the field if we are working on a non-expanded and non-multiselect attribute
             // This might only be a temporary workaround, we have to see how it goes as the other fields get implemented
@@ -198,7 +208,7 @@ export default class FillPlaceholder extends Component {
 
     handleCalendarSelect = (attributeSpec, entryIndex = 0, date) => {
         const dateSelected = date.format('D MMM YYYY');
-        this.onSetValue(attributeSpec, entryIndex, dateSelected);
+        this.onSetValue("click/touch", attributeSpec, entryIndex, dateSelected);
         this.setState({ showCalendar: false });
     }
 
@@ -207,13 +217,13 @@ export default class FillPlaceholder extends Component {
         const { backgroundColor, placeholder } = this.props;
 
         if (attributeSpec.type === 'radioButtons') {
-            return <ButtonSetFillFieldForPlaceholder attributeSpec={attributeSpec} value={value} updateValue={this.onSetValue.bind(this, attributeSpec, entryIndex)} />;
+            return <ButtonSetFillFieldForPlaceholder attributeSpec={attributeSpec} value={value} updateValue={this.onSetValue.bind(this, "click/touch", attributeSpec, entryIndex)} />;
         }
         if (attributeSpec.type === 'checkboxes') {
-            return <MultiButtonSetFillFieldForPlaceholder attributeSpec={attributeSpec} value={value} updateValue={this.onSetValue.bind(this, attributeSpec, entryIndex)} nextField={expanded ? null : this.nextField.bind(this, entryIndex)} />;
+            return <MultiButtonSetFillFieldForPlaceholder attributeSpec={attributeSpec} value={value} updateValue={this.onSetValue.bind(this, "click/touch", attributeSpec, entryIndex)} nextField={expanded ? null : this.nextField.bind(this, entryIndex)} />;
         }
         if (attributeSpec.type === 'searchableList') {
-            return <SearchableListForPlaceholder attributeSpec={attributeSpec} backgroundColor={backgroundColor} value={value} updateValue={this.onSetValue.bind(this, attributeSpec, entryIndex)} />;
+            return <SearchableListForPlaceholder attributeSpec={attributeSpec} backgroundColor={backgroundColor} value={value} updateValue={this.onSetValue.bind(this, "click/touch", attributeSpec, entryIndex)} />;
         }
         if (attributeSpec.type === 'date') {
             let date = new Date(placeholder.getAttributeValue(attributeSpec.name));
