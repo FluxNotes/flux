@@ -3,8 +3,7 @@ import _ from 'lodash'
 import moment from 'moment';
 import FluxTumorDimensions from '../model/oncology/FluxTumorDimensions';
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx';
-
-const FluxNotesTreatmentOptionsRestClient = require('flux_notes_treatment_options_rest_client');
+import FluxNotesTreatmentOptionsRestClient from 'flux_notes_treatment_options_rest_client';
 const api = new FluxNotesTreatmentOptionsRestClient.DefaultApi();
 
 /*
@@ -1850,30 +1849,13 @@ export default class SummaryMetadata {
 
     getTreatmentData = (patient, condition, subsection) => {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
-        
-       /* const treatmentOptions = ['Chemo', 'Chemo+Rad', 'Hormonal', 'Radiation',
-                                'Surgery', 'Surg+Rad', 'No-Treatment'];
-        let deceasedSeries = [];
-        let aliveSeries = [];
-       
-        seerdata.forEach((v) => {
-            if(v.Disease === 'prostate cancer' && v.Race === 'Black' && v['Dx-Grade'] === 'Grade II' && v['Is-Alive'] === 'Dead'){
-                deceasedSeries.push([ treatmentOptions.indexOf(v['Treat-option'])  , v['Survival-months'] ]);
-            }
-            if(v.Disease === 'prostate cancer' && v.Race === 'Black' && v['Dx-Grade'] === 'Grade II' && v['Is-Alive'] === 'Alive'){
-                aliveSeries.push([ treatmentOptions.indexOf(v['Treat-option'])  , v['Survival-months'] ]);
-            }  
-        });
-        
-        return [aliveSeries, deceasedSeries];*/
-       try {
-        const data = api.findTreatmentOptionsByPatientStats("prostate cancer", {race: "Black", dxGrade: "Grade II"});
-        return JSON.parse(data);
-
-       }
-       catch(error) {
-           return error.message;
-       }
+        try {
+            const data = api.findTreatmentOptionsByPatientStats("prostate cancer", {race: "Black", dxGrade: "Grade II"});
+            return JSON.parse(data);
+        }
+        catch(error) {
+            return error.message;
+        }
     }
 }
 
