@@ -388,7 +388,7 @@ export default class NotesPanel extends Component {
                     setNoteViewerEditable={this.props.setNoteViewerEditable}
                     setLayout={this.props.setLayout}
                     shortcutManager={this.props.shortcutManager}
-                    shouldEditorContentUpdate={this.state.noteAssistantMode !== 'pick-list-options-panel'}
+                    shouldEditorContentUpdate={true}
                     structuredFieldMapManager={this.props.structuredFieldMapManager}
                     summaryItemToInsert={this.props.summaryItemToInsert}
                     summaryItemToInsertSource={this.props.summaryItemToInsertSource}
