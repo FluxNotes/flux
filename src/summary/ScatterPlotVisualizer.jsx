@@ -39,7 +39,7 @@ class ScatterPlotVisualizer extends Component {
     renderScatterPlot = (patient, condition, conditionSection) => {
 
         const myData = conditionSection.itemsFunction(patient, condition, conditionSection);
-        if(Lang.isObject(myData)){
+        if (Lang.isObject(myData)) {
             const randomData = this.randomizeXPoints(myData);
             const chart = Highcharts.chart({
                 chart: {
@@ -136,12 +136,7 @@ class ScatterPlotVisualizer extends Component {
                                     }
                                 })
                             });
-                            return '<span><font color= "#3AA7F0">' + livingOver60 + '<br>'
-                                + Highcharts.format('({value})%',
-                                    {
-                                        value: Highcharts.numberFormat(livingOver60 / categorySum * 100,
-                                            1)
-                                    }) + '</font></span>';
+                            return `<span><font color= "#3AA7F0">${livingOver60}<br>${Highcharts.format('({value})%', {value: Highcharts.numberFormat(livingOver60/ categorySum * 100, 1)})}</font></span>`;
                         }
                     }
                 }],
