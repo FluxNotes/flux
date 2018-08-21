@@ -132,6 +132,18 @@ class EditorToolbar extends React.Component {
      * Render the toolbar.
      */
     render = () => {
+
+        let breadcrumbs = "";
+
+        if (!this.props.isReadOnly) {
+            breadcrumbs = (
+                <ActiveContextsBreadcrumbs
+                    contextManager={this.props.contextManager}
+                />
+            );
+        }
+
+
         return (
             <div className="menu toolbar-menu">
                 {this.renderMarkButton('bold', 'fa-bold ')}
@@ -140,9 +152,7 @@ class EditorToolbar extends React.Component {
                 {this.renderBlockButton('bulleted-list', 'fa-list')}
                 {this.renderBlockButton('numbered-list', 'fa-list-ol')}
                 <hr className="toolbar-breadcrumbs-separator"/>
-                <ActiveContextsBreadcrumbs
-                    contextManager={this.props.contextManager}
-                />
+                {breadcrumbs}
                 { this.props.loadingTimeWarrantsWarning && this.renderLoadingNotification()}    
                 {/* {this.renderCopyButton()} */}
             </div>
