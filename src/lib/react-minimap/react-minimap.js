@@ -3,6 +3,7 @@ import _ from 'lodash';
 import PropTypes from 'prop-types'
 import Child from './components/Child'
 import './react-minimap.css'
+import Lang from 'lodash';
 
 export class Minimap extends React.Component {
   static propTypes = {
@@ -99,6 +100,7 @@ export class Minimap extends React.Component {
       }
     }
 
+    this.sectionPositions = {};
     const nodes = this.ref.querySelectorAll(this.props.selector)
     let diff = 0;
     this.setState({
@@ -120,6 +122,11 @@ export class Minimap extends React.Component {
           hM = 0;
         }
 
+        this.sectionPositions[title] = this.sectionPositions[shortTitle] = {
+            left: Math.round( xM ),
+            top: Math.round( yM )
+        };
+
         return (
           <ChildComponent
             key={key}
@@ -134,6 +141,18 @@ export class Minimap extends React.Component {
         )
       })
     })
+  }
+
+  moveToSection(sectionName) {
+      const posForSection = this.sectionPositions[sectionName];
+      if (Lang.isUndefined(posForSection)) return "No section named '" + sectionName + "' found.";
+      const { left, top } = posForSection;
+      if (Lang.isUndefined(this.x) || Lang.isUndefined(this.y)) {
+        this.x = 0
+        this.y = 0;
+      }
+      this.scrollTo(left, top);
+      return null;
   }
 
   down( e ) {
@@ -154,7 +173,6 @@ export class Minimap extends React.Component {
     if (this.downState === false)
       return
 
-    const {width, height} = this.state
     let event;
 
     e.preventDefault();
@@ -167,8 +185,14 @@ export class Minimap extends React.Component {
       event = e;
     }
 
-    let dx = event.clientX - this.x;
-    let dy = event.clientY - this.y;
+    this.scrollTo(event.clientX, event.clientY);
+  }
+
+  scrollTo(x, y) {
+    const {width, height} = this.state
+
+    let dx = x - this.x;
+    let dy = y - this.y;
     if ( this.l + dx < 0 ) {
       dx = -this.l;
     }

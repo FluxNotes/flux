@@ -51,6 +51,7 @@ function getModalStyle() {
 export class FullApp extends Component {
     constructor(props) {
         super(props);
+        window.fluxnotes_app = this;
         this.possibleClinicalEvents = [
             "pre-encounter",
             "encounter",
@@ -89,6 +90,7 @@ export class FullApp extends Component {
             snackbarMessage: "",
             superRole: 'Clinician', // possibly add that to security manager too
             summaryItemToInsert: '',
+            summaryItemToInsertSource: '',
             forceRefresh: false
         };
 
@@ -156,6 +158,17 @@ export class FullApp extends Component {
         }
     }
 
+    receive_command(commandType, data) {
+        if (commandType === 'navigate_targeted_data_panel') {
+            const sectionName = data.section;
+            return this.dashboard.moveTargetedDataPanelToSection(sectionName);
+        } else if (commandType === 'insert-structured-phrase') {
+            return this.dashboard.insertStructuredPhraseInCurrentNote(data, "command");
+        } else {
+            return "Unknown command type: " + commandType;
+        }
+    }
+
     // pass this function to children to set full app global state
     setFullAppState = (state, value) => {
         this.setState({[state]: value});
@@ -206,13 +219,14 @@ export class FullApp extends Component {
 
     // Determines the item to be inserted
     itemInserted = () => {
-        this.setState({summaryItemToInsert: ''});
+        this.setState({summaryItemToInsert: '', summaryItemToInsertSource: ''});
     }
 
     // Given a shortcutClass, a type and an object, create a new shortcut and change errors as needed.
-    newCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
+    newCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true, source) => {
 
         let newShortcut = this.shortcutManager.createShortcut(shortcutC, shortcutType, this.state.patient, shortcutData, this.handleShortcutUpdate);
+        newShortcut.setSource(source);
         const errors = newShortcut.validateInCurrentContext(this.contextManager);
         if (errors.length > 0) {
             errors.forEach((error) => {
@@ -276,30 +290,35 @@ export class FullApp extends Component {
     }
 
     // Update the summaryItemToInsert based on the item given
-    handleSummaryItemSelected = (item, arrayIndex = -1) => {
+    handleSummaryItemSelected = (item, arrayIndex = -1, source = undefined) => {
         if (item) {
+            let newStateValues;
             if (Lang.isArray(item.value)) item.value = item.value[0];
             // calls to this method from the buttons on a ListType pass in 'item' as an array.
             if (Lang.isArray(item) && arrayIndex >= 0) {
                 // If the object to insert has an associated shortcut, is will be an object like {name: x, shortcut: z}
                 if(Lang.isObject(item[arrayIndex])){
-                    this.setState({ summaryItemToInsert: `${item[arrayIndex].shortcut}[[${item[arrayIndex].name}]]` });
+                    newStateValues = { summaryItemToInsert: `${item[arrayIndex].shortcut}[[${item[arrayIndex].name}]]` };
                 } else {
-                    this.setState({ summaryItemToInsert: item[arrayIndex]});
+                    newStateValues = { summaryItemToInsert: item[arrayIndex] };
                 }
             } else if (item.shortcut) {
-                this.setState({ summaryItemToInsert: `${item.shortcut}[[${item.value}]]` });
+                newStateValues = { summaryItemToInsert: `${item.shortcut}[[${item.value}]]` };
             } else if (item.value) {
-                this.setState({ summaryItemToInsert: item.value });
+                newStateValues = { summaryItemToInsert: item.value };
             } else {
-                this.setState({ summaryItemToInsert: item });
+                newStateValues = { summaryItemToInsert: item };
             }
+            if (!Lang.isUndefined(source)) {
+                newStateValues["summaryItemToInsertSource"] = source;
+            }
+            this.setState(newStateValues);
         }
     }
 
     // Enrolls the patient in the selected trial
-    addEnrollmentToEditor = (item) => {  
-        this.setState({ summaryItemToInsert: `#enrollment #${item.value}`});
+    addEnrollmentToEditor = (item) => {
+        this.setState({ summaryItemToInsert: `#enrollment #${item.value}`, summaryItemToInsertSource: 'Targeted Data Panel action'});
     }
 
     handleSnackbarClose = () => {
@@ -361,6 +380,7 @@ export class FullApp extends Component {
                             structuredFieldMapManager={this.structuredFieldMapManager}
                             summaryMetadata={this.summaryMetadata}
                             updateErrors={this.updateErrors}
+                            ref={(dashboard) => { this.dashboard = dashboard; }}
                         />
                         <Modal 
                             aria-labelledby="simple-modal-title"

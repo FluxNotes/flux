@@ -10,6 +10,7 @@ import NoteAssistant from '../notes/NoteAssistant';
 import NoteParser from '../noteparser/NoteParser';
 import './NotesPanel.css';
 import PointOfCare from '../notes/PointOfCare';
+import { createSentenceFromStructuredData } from '../shortcuts/ShortcutUtils';
 
 export default class NotesPanel extends Component {
     constructor(props) {
@@ -36,6 +37,27 @@ export default class NotesPanel extends Component {
         if (!Lang.isNull(nextProps.openClinicalNote) && this.props.openClinicalNote !== nextProps.openClinicalNote) {
             this.saveNote(this.state.localDocumentText);
             this.handleUpdateEditorWithNote(nextProps.openClinicalNote);
+        }
+    }
+
+    insertStructuredPhraseInCurrentNote = (data, source) => {
+        if (this.state.noteAssistantMode === 'poc') {
+            return this.pointOfCare.insertStructuredPhrase(data, source);
+        } else if (this.props.isNoteViewerVisible && this.props.isNoteViewerEditable && this.state.selectedNote) {
+            const metadata = this.props.shortcutManager.getMetadataForTrigger(`#${data.phrase}`);
+            if (Lang.isUndefined(metadata)) return "No structured phrase named '" + data.phrase + "' found.";
+            const structuredPhrase = createSentenceFromStructuredData(
+                metadata["structuredPhrase"], 
+                (name) => {
+                    const foundItem = data.fields.find((item) => item.name === name);
+                    if (Lang.isUndefined(foundItem)) return undefined;
+                    return foundItem.value;
+                },
+                `#${data.phrase}`);
+            this.props.handleSummaryItemSelected(structuredPhrase, -1, source);
+            return null;
+        } else {
+            return "Received command to insert structured phrase but no valid note to insert it into right now.";
         }
     }
 
@@ -295,7 +317,8 @@ export default class NotesPanel extends Component {
                             </Row>
                             <Row start="xs" style={{ marginLeft: '2px', marginRight: '10px' }}>
                                 <PointOfCare
-                                    structuredFieldMapManager={this.props.structuredFieldMapManager} />
+                                    structuredFieldMapManager={this.props.structuredFieldMapManager}
+                                    ref={(poc) => { this.pointOfCare = poc; }} />
                             </Row>
                         </div>
 
@@ -367,6 +390,7 @@ export default class NotesPanel extends Component {
                     shouldEditorContentUpdate={this.state.noteAssistantMode !== 'pick-list-options-panel'}
                     structuredFieldMapManager={this.props.structuredFieldMapManager}
                     summaryItemToInsert={this.props.summaryItemToInsert}
+                    summaryItemToInsertSource={this.props.summaryItemToInsertSource}
                     contextTrayItemToInsert={this.state.contextTrayItemToInsert}
                     updateLocalDocumentText={this.updateLocalDocumentText}
                     // Pass in note that the editor is to be updated with

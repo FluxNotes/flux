@@ -143,6 +143,14 @@ export default class ClinicianDashboard extends Component {
         }
     }
 
+    moveTargetedDataPanelToSection = (sectionName) => {
+        return this.targetedDataPanel.moveToSection(sectionName);
+    }
+
+    insertStructuredPhraseInCurrentNote = (data, source) => {
+        return this.notesPanel.insertStructuredPhraseInCurrentNote(data, source);
+    }
+
     render() {
         const currentLayout = this.props.appState.layout;
         const isNoteViewerVisible = this.props.appState.isNoteViewerVisible;
@@ -175,6 +183,7 @@ export default class ClinicianDashboard extends Component {
                         summaryMetadata={this.props.summaryMetadata}
                         setForceRefresh={this.props.setForceRefresh}
                         targetedDataPanelSize={this.state.targetedDataPanelSize}
+                        ref={(tdp) => { this.targetedDataPanel = tdp; }}
                     />
                 </div>
                 <div style={notesPanelStyles}>
@@ -204,7 +213,9 @@ export default class ClinicianDashboard extends Component {
                         shortcutManager={this.props.shortcutManager}
                         structuredFieldMapManager={this.props.structuredFieldMapManager}
                         summaryItemToInsert={this.props.appState.summaryItemToInsert}
+                        summaryItemToInsertSource={this.props.appState.summaryItemToInsertSource}
                         updateErrors={this.props.updateErrors}
+                        ref={(np) => { this.notesPanel = np; }}
                     />
                 </div>
             </div>

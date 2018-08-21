@@ -31,6 +31,7 @@ export class SlimApp extends Component {
         if (newShortcut) {
             newShortcut.setConfiguration((this.props.shortcutConfigurations) ?
                     this.props.shortcutConfigurations[shortcutType] : {});
+            newShortcut.setSource("slim mode");
         }
         this.setState({
             currentShortcut: newShortcut

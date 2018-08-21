@@ -154,7 +154,8 @@ function NLPHashtagPlugin(opts) {
                 const typeOfPhrase = phraseValue.name;
                 const NLPShortcutMetadata = shortcutManager.getShortcutMetadata(typeOfPhrase);
                 const NLPKeyword = parseKeywordFromCanonicalizationBasedOnPhrase(phraseValue.canonicalization, NLPShortcutMetadata).toLowerCase();
-                const NLPShortcut = createShortcut(null, NLPKeyword)
+                const NLPShortcut = createShortcut(null, NLPKeyword);
+                NLPShortcut.setSource("NLP Engine");
                 // get range for originalText
                 originalTextRange = getRangeBasedOnPhrase(nodeAfterNLPShortcut.key, phraseValue)
                 // Insert the structured field at this range; 
