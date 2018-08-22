@@ -1272,6 +1272,8 @@ class FluxNotesEditor extends React.Component {
         // Preset note header information
         let noteTitle = "New Note";
         let date = Moment(new Date()).format('DD MMM YYYY');
+        let authorString = "";
+        let dateString = "";
         let signedString = "not signed";
         let source = "Dana Farber";
         let signed = false;
@@ -1285,8 +1287,12 @@ class FluxNotesEditor extends React.Component {
             if(this.props.selectedNote.signed) {
                 signed = true;
                 signedString = this.props.selectedNote.clinician;
+                authorString = "Signed by: ";
+                dateString = "Signed date: "
             } else {
                 signedString = "not signed";
+                authorString = "Created by: ";
+                dateString = "Created date: ";
             }
         }
 
@@ -1302,11 +1308,11 @@ class FluxNotesEditor extends React.Component {
                             </Row>
                             <Row >
                                 <Col xs={7}>
-                                    <p className="note-description-detail"><span className="note-description-detail-name">Signed By: </span><span className="note-description-detail-value">{signedString}</span></p>
+                                    <p className="note-description-detail"><span className="note-description-detail-name">{authorString}</span><span className="note-description-detail-value">{signedString}</span></p>
                                     <p className="note-description-detail"><span className="note-description-detail-name">Source: </span><span className="note-description-detail-value">{source}</span></p>
                                 </Col>
                                 <Col xs={5}>
-                                    <p className="note-description-detail"><span className="note-description-detail-name">Signed Date: </span><span className="note-description-detail-value">{date}</span></p>
+                                    <p className="note-description-detail"><span className="note-description-detail-name">{dateString}</span><span className="note-description-detail-value">{date}</span></p>
                                 </Col>
                             </Row>
                         </Col>
