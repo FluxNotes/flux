@@ -410,10 +410,10 @@
                 "EntryId": "1"
             }
         },
-        "date": "02 AUG 2015",
+        "signedOn": "02 AUG 2015",
         "subject": "Clinical follow-up",
         "hospital": "Dana Farber",
-        "clinician": "Dr. Smith",
+        "createdBy": "Dr. Smith", "signedBy": "Dr. Smith",
         "content": "@name[[Debra Hernandez672]] is a @age[[49]] year old @gender[[Female]] presenting with @condition[[Invasive ductal carcinoma of breast]].\nDisease #disease status #Stable based on #Pathology and #Symptoms #as of #08/02/2015.",
         "CreationTime": {
             "EntryType": {
@@ -447,10 +447,11 @@
                 "EntryId": "1"
             }
         },
-        "date": "12 JUL 2012",
+        "signedOn": "12 JUL 2012",
         "subject": "Consult",
         "hospital": "Dana Farber",
-        "clinician": "Dr. Zheng",
+        "createdBy": "Dr. Zheng", 
+        "signedBy": "Dr. Zheng",
         "content": "@patient[[Debra Hernandez672 is a 46 year old Female]] presenting with @condition[[Invasive ductal carcinoma of breast]].\nPathology report indicates @name[[Debra Hernandez672]] has staging values T1 N1 and M0, corresponding to stage IIA.",
         "CreationTime": {
             "EntryType": {
@@ -484,10 +485,11 @@
                 "EntryId": "1"
             }
         },
-        "date": "20 JUN 2012",
+        "signedOn": "20 JUN 2012",
         "subject": "Clinical post-op",
         "hospital": "Brigham and Women's",
-        "clinician": "Dr. Smith",
+        "createdBy": "Dr. Smith", 
+        "signedBy": "Dr. Smith",
         "content": "@patient[[Debra Hernandez672 is a 46 year old Female]] presenting with @condition[[Invasive ductal carcinoma of breast]].\nToxicity Grade 4 Anemia related to Treatment",
         "CreationTime": {
             "EntryType": {
@@ -521,10 +523,11 @@
                 "EntryId": "1"
             }
         },
-        "date": "16 MAY 2012",
+        "signedOn": "16 MAY 2012",
         "subject": "Clinical follow-up",
         "hospital": "Dana Farber",
-        "clinician": "Dr. Strauss",
+        "createdBy": "Dr. Strauss", 
+        "signedBy": "Dr. Strauss",
         "content": "@patient[[Debra Hernandez672 is a 46 year old Female]] presenting with @condition[[Invasive ductal carcinoma of breast]].\n@name[[Debra Hernandez672]] is enrolled in the clinical trial PATINA on 12/24/2017.",
         "CreationTime": {
             "EntryType": {

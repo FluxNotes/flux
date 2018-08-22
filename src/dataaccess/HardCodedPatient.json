@@ -393,14 +393,15 @@
         }
     },
     {
-        "date": "20 Dec 2015",
+        "signedOn": "20 Dec 2015",
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
         "signed": true,
         "subject": "Clinical follow-up",
         "content": "@name[[Debra Hernandez672]] is a @age[[49]] year old @gender[[Female]] presenting with @condition[[Invasive ductal carcinoma of breast]].\nDisease #disease status #Stable based on #Pathology and #Symptoms #as of #08/02/2015.",
         "EntryId": "4",
         "hospital": "Dana Farber",
-        "clinician": "Dr. Smith",
+        "createdBy": "Dr. Smith",
+        "signedBy": "Dr. Smith",
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
         },
@@ -430,14 +431,15 @@
         }
     },
     {
-        "date": "29 Nov 2012",
+        "signedOn": "29 Nov 2012",
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
         "signed": true,
         "subject": "Consult",
         "content": "@patient[[Debra Hernandez672 is a 46 year old Female]] presenting with @condition[[Invasive ductal carcinoma of breast]].\nPathology report indicates @name[[Debra Hernandez672]] has staging values T1 N1 and M0, corresponding to stage IIA.",
         "EntryId": "5",
         "hospital": "Dana Farber",
-        "clinician": "Dr. Zheng",
+        "createdBy": "Dr. Zheng",
+        "signedBy": "Dr. Zheng",
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
         },
@@ -467,14 +469,15 @@
         }
     },
     {
-        "date": "07 Nov 2012",
+        "signedOn": "07 Nov 2012",
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
         "signed": true,
         "subject": "Clinical post-op",
         "content": "@patient[[Debra Hernandez672 is a 46 year old Female]] presenting with @condition[[Invasive ductal carcinoma of breast]].\nToxicity Grade 4 Anemia related to Treatment",
         "EntryId": "6",
         "hospital": "Brigham and Women's",
-        "clinician": "Dr. Smith",
+        "createdBy": "Dr. Smith",
+        "signedBy": "Dr. Smith",
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
         },
@@ -504,14 +507,15 @@
         }
     },
     {
-        "date": "03 Oct 2012",
+        "signedOn": "03 Oct 2012",
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
         "signed": true,
         "subject": "Clinical follow-up",
         "content": "@patient[[Debra Hernandez672 is a 46 year old Female]] presenting with @condition[[Invasive ductal carcinoma of breast]].\n@name[[Debra Hernandez672]] is enrolled in the clinical trial PATINA on 12/24/2017.",
         "EntryId": "7",
         "hospital": "Dana Farber",
-        "clinician": "Dr. Strauss",
+        "createdBy": "Dr. Strauss",
+        "signedBy": "Dr. Strauss",
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
         },

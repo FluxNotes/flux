@@ -20,10 +20,11 @@ class FluxClinicalNote {
         this._entryInfo.lastUpdated.instant = today;
         this._entryInfo.personOfRecord = new PersonOfRecord();
         this._entryInfo.personOfRecord.value = json['PersonOfRecord'];
-        if (json.date) this._date = json.date;
+        if (json.signedOn) this._signedOn = json.signedOn;
         if (json.subject) this._subject = json.subject;
         if (json.hospital) this._hospital = json.hospital;
-        if (json.clinician) this._clinician = json.clinician;
+        if (json.createdBy) this._createdBy = json.createdBy;
+        if (json.signedBy) this._signedBy = json.signedBy;
         // Ensures even empty strings result in content definition
         if (json.content || json.content === "") this._content = json.content;
         if (!Lang.isUndefined(json.signed)) this._signed = json.signed;
@@ -42,12 +43,20 @@ class FluxClinicalNote {
         this._entryInfo = entryVal;
     }
     
-    get date() {
-        return this._date;
+    get signedOn() {
+        return this._signedOn;
     }
 
-    set date(val) {
-        this._date = val;
+    set signedOn(val) {
+        this._signedOn = val;
+    }
+
+    get signedBy() {
+        return this._signedBy;
+    }
+
+    set signedBy(val) {
+        this._signedBy = val;
     }
 
     get subject() {
@@ -66,12 +75,12 @@ class FluxClinicalNote {
         this._hospital = val;
     }
 
-    get clinician() {
-        return this._clinician;
+    get createdBy() {
+        return this._createdBy;
     }
 
-    set clinician(val) {
-        this._clinician = val;
+    set createdBy(val) {
+        this._createdBy = val;
     }
 
     get content() {
@@ -96,10 +105,10 @@ class FluxClinicalNote {
         clinicalNoteJSON.EntryId = this.entryInfo.entryId;
         clinicalNoteJSON.EntryType = this.entryInfo.entryType;
         clinicalNoteJSON.PersonOfRecord = this.entryInfo.personOfRecord;
-        clinicalNoteJSON.date = this.date;
+        clinicalNoteJSON.signedOn = this.signedOn;
         clinicalNoteJSON.subject = this.subject;
         clinicalNoteJSON.hospital = this.hospital;
-        clinicalNoteJSON.clinician = this.clinician;
+        clinicalNoteJSON.createdBy = this.createdBy;
         clinicalNoteJSON.content = this.content;
         clinicalNoteJSON.CreationTime = this.entryInfo.creationTime;
         clinicalNoteJSON.LastUpdated = this.entryInfo.lastUpdated;

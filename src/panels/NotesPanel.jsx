@@ -195,7 +195,7 @@ export default class NotesPanel extends Component {
     // Create and open a blank note
     openNewNote = () => {
         // Create info to be set for new note
-        const date = new moment().format("D MMM YYYY");
+        const signedOn = new moment().format("D MMM YYYY");
         const hospital = "Dana Farber";
         const clinician = this.props.loginUser;
         const subject = `${clinician}-${new moment().format("YYYYDDMM-hhmm")}`;
@@ -203,7 +203,7 @@ export default class NotesPanel extends Component {
         const signed = false;
 
         // Add new unsigned note to patient record
-        const currentlyEditingEntryId = this.props.patient.addClinicalNote(date, subject, hospital, clinician, content, signed);
+        const currentlyEditingEntryId = this.props.patient.addClinicalNote(signedOn, subject, hospital, clinician, null, content, signed);
 
         const newNote = this.props.patient.getNotes().find(function (curNote) {
             return Lang.isEqual(curNote.entryInfo.entryId, currentlyEditingEntryId);
@@ -265,6 +265,7 @@ export default class NotesPanel extends Component {
         // Set signed attribute on the selected note to be true
         const tempNote = this.state.selectedNote;
         tempNote.signed = true;
+        tempNote.signedBy = this.props.loginUser;
         this.setState({selectedNote: tempNote});
         let inProg = this.props.patient.getInProgressNotes();
         inProg.forEach((a) => {
