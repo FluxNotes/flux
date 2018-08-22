@@ -65,13 +65,7 @@ class FluxBreastCancer extends FluxCondition {
      *  Then details chronological history of patient's procedures, medications, and most recent progression
      */
     buildHpiNarrative(patient) {
-        // Initial patient introduction section
-        const name = patient.getName();
-        const age = patient.getAge();
-        const gender = patient.getGender();
-
-        let hpiText = `${name} is a ${age} year old ${gender}.`;
-        hpiText += ` Patient was diagnosed with ${this.type} on ${this.diagnosisDate}.`;
+        let hpiText = this.buildInitialPatientDiagnosisPreamble(patient);
         
         // Laterality
         if (this.laterality) {
