@@ -22,6 +22,7 @@
     "es6-shim": "0.35.3",
     "fhirclient": "^0.1.12",
     "flat": "^4.1.0",
+    "flux_notes_treatment_options_rest_client": "^1.0.0",
     "font-awesome": "4.7.0",
     "guid": "0.0.12",
     "highcharts": "^6.1.1",
