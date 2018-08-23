@@ -1307,7 +1307,7 @@ class FluxNotesEditor extends React.Component {
         } else {
             return (
                 <div id="note-description">
-                    <Row>
+                    <Row start="xs">
                         <Col xs={9}>
                             <Row>
                             {this.renderNoteNameEditor(noteTitle, signed)}
@@ -1358,10 +1358,10 @@ class FluxNotesEditor extends React.Component {
     EditNoteTitleButton = () => { 
         return ( 
             <svg width="17px" height="16px" viewBox="0 0 17 16" version="1.1" xmlns="http://www.w3.org/2000/svg" id="edit-note-name-btn" onClick={this.enableNoteNameEditing}>
-                <title>Edit title</title>
+                <title>Click to edit note title</title>
                 <defs></defs>
-                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.6">
-                    <g id="7" transform="translate(-533.000000, -403.000000)" fill="#969696" fill-rule="nonzero">
+                <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" opacity="0.6">
+                    <g id="7" transform="translate(-533.000000, -403.000000)" fill="#969696" fillRule="nonzero">
                         <g id="angled-pencil" transform="translate(533.000000, 403.000000)">
                             <rect id="Rectangle" x="1" y="15" width="16" height="1"></rect>
                             <g id="Group-2" transform="translate(7.000000, 8.500000) rotate(51.000000) translate(-7.000000, -8.500000) translate(-1.000000, 6.000000)">
