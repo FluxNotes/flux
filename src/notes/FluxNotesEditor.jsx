@@ -636,7 +636,14 @@ class FluxNotesEditor extends React.Component {
         }
         nextProps.selectedPickListOptions.forEach(picklist => {
             if (picklist.selectedOption) {
-                picklist.shortcut.setText(picklist.selectedOption)
+                const { shortcut } = picklist;
+                const { object } = shortcut.getValueSelectionOptions().find(opt => {
+                    return opt.context === picklist.selectedOption;
+                });
+                shortcut.setText(picklist.selectedOption);
+                if (shortcut.isContext()) {
+                    shortcut.setValueObject(object);
+                }
             }
         });
 
