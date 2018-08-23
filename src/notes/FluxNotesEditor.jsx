@@ -1247,11 +1247,9 @@ class FluxNotesEditor extends React.Component {
         if (signed) {
             noteTag = <p className="note-name" id="note-title">{noteTitle}</p>;
         } else {
-            // noteTag = <p className="note-name" id="note-title"><FontAwesome id="edit-note-name-btn" name="pencil" onClick={this.enableNoteNameEditing} />&nbsp;{noteTitle}</p>;
             noteTag = (
                 <p className="note-name" id="note-title">
-                    {/* <FontAwesome id="edit-note-name-btn" name="pencil" onClick={this.enableNoteNameEditing} /> */}
-                    { this.EditNoteTitleButton() }
+                    { this.editNoteTitleButton() }
                     {noteTitle}
                 </p>);
         }
@@ -1355,7 +1353,7 @@ class FluxNotesEditor extends React.Component {
         }
     }
 
-    EditNoteTitleButton = () => { 
+    editNoteTitleButton = () => { 
         return ( 
             <svg width="15px" height="15px" viewBox="0 0 17 16" version="1.1" xmlns="http://www.w3.org/2000/svg" id="edit-note-name-btn" onClick={this.enableNoteNameEditing}>
                 <title>Click to edit note title</title>
@@ -1372,7 +1370,7 @@ class FluxNotesEditor extends React.Component {
                     </g>
                 </g>
             </svg>
-        )
+        );
     }
     
     render = () => {
