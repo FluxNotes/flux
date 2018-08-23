@@ -427,15 +427,16 @@ class PatientRecord {
     }
 
     // Add initial unsigned note to patient record
-    addClinicalNote(date, subject, hospital, clinician, content, signed) {
+    addClinicalNote(signedOn, subject, hospital, createdBy, signedBy, content, signed) {
 
         // Generate the clinical note json from passed in values
         let clinicalNote = new FluxClinicalNote(
             {
-                "date": date,
+                "signedOn": signedOn,
                 "subject": subject,
                 "hospital": hospital,
-                "clinician": clinician,
+                "createdBy": createdBy,
+                "signedBy": signedBy,
                 "content": content,
                 "signed": signed
             }

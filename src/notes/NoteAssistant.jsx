@@ -65,10 +65,25 @@ export default class NoteAssistant extends Component {
         }
     }
 
-    // Sorts the lab results in chronological order with the most recent first (so that it shows up first in the clinical notes list)
+    // Sorts the notes in chronological order with the most recent first (so that it shows up first in the clinical notes list)
     notesTimeSorter(a, b) {
-        const a_startTime = new moment(a.date, "D MMM YYYY");
-        const b_startTime = new moment(b.date, "D MMM YYYY");
+        let a_date;
+        let b_date;
+
+        if (Lang.isUndefined(a.signedOn) || Lang.isNull(a.signedOn)) {
+            a_date = a.entryInfo.creationTime.value;
+        } else {
+            a_date = a.signedOn;
+        }
+
+        if (Lang.isUndefined(b.signedOn) || Lang.isNull(b.signedOn)) {
+            b_date = b.entryInfo.creationTime.value;
+        } else {
+            b_date = b.signedOn;
+        }
+
+        const a_startTime = new moment(a_date, "D MMM YYYY");
+        const b_startTime = new moment(b_date, "D MMM YYYY");
         if (a_startTime > b_startTime) {
             return -1;
         }
@@ -318,7 +333,7 @@ export default class NoteAssistant extends Component {
                 this.openNote(true, note)
             }}>
                 <div className="in-progress-text">In progress note</div>
-                <div className="existing-note-date">{note.date}</div>
+                <div className="existing-note-date">{note.entryInfo.creationTime.value}</div>
                 <div className="existing-note-subject">{note.subject}</div>
                 {this.renderMetaDataText(note, 30)}
             </div>
@@ -385,7 +400,7 @@ export default class NoteAssistant extends Component {
             <div className={`note existing-note${selected ? " selected" : ""}`} key={i} onClick={() => {
                 this.openNote(false, item)
             }}>
-                <div className="existing-note-date">{item.date}</div>
+                <div className="existing-note-date">{item.signedOn}</div>
                 <div className="existing-note-subject">{item.subject}</div>
 
                 {this.renderMetaDataText(item)}

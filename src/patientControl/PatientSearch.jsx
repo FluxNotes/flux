@@ -30,7 +30,8 @@ class PatientSearch extends React.Component {
         const newSuggestion = this.createNewSuggestion(inputValue, note);
         const regex = this.createRegexForSearching(inputValue)
         const relevantNoteMetadata = (
-            note.date + ' ' +
+            note.signedOn + ' ' + 
+            note.entryInfo.creationTime.value + ' ' +
             note.subject + ' ' +
             note.hospital
         ).toLowerCase();
@@ -39,7 +40,14 @@ class PatientSearch extends React.Component {
         if(metadataMatches) {
             // Determine what we matched with -- track that in suggestions metadata.
             let matchedMetaData; 
-            if (note.date && note.date.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1) {
+            let date;
+            if (note.signedOn) {
+                date = note.signedOn;
+            } else {
+                date = note.entryInfo.creationTime.value;
+            }
+
+            if (date && date.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1) {
                 matchedMetaData = "date";
             } else if (note.subject && note.subject.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1) {
                 matchedMetaData = "subject";
@@ -58,8 +66,14 @@ class PatientSearch extends React.Component {
 
     // basic template for creating a newSuggestion
     createNewSuggestion = (inputValue, note) => { 
+        let date;
+        if (note.signedOn) {
+            date = note.signedOn;
+        } else {
+            date = note.entryInfo.creationTime.value;
+        }
         return { 
-            date: note.date,
+            date: date,
             subject: note.subject,
             hospital: note.hospital,
             inputValue: inputValue,

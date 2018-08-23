@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Slate from '../lib/slate';
-import Moment from 'moment'
 import Lang from 'lodash';
 import FontAwesome from 'react-fontawesome';
 import ContextPortal from '../context/ContextPortal';
@@ -1271,22 +1270,29 @@ class FluxNotesEditor extends React.Component {
     renderNoteDescriptionContent = () => { 
         // Preset note header information
         let noteTitle = "New Note";
-        let date = Moment(new Date()).format('DD MMM YYYY');
-        let signedString = "not signed";
+        let date;
+        let authorString = "";
+        let dateString = "";
+        let clinicianName;
         let source = "Dana Farber";
         let signed = false;
 
         // If a note is selected, update the note header with information from the selected note
         if (this.props.selectedNote) {
             noteTitle = this.props.selectedNote.subject;
-            date = this.props.selectedNote.date;
             source = this.props.selectedNote.hospital;
 
             if(this.props.selectedNote.signed) {
                 signed = true;
-                signedString = this.props.selectedNote.clinician;
+                date = this.props.selectedNote.signedOn;
+                clinicianName = this.props.selectedNote.signedBy;
+                authorString = "Signed by: ";
+                dateString = "Signed date: "
             } else {
-                signedString = "not signed";
+                date = this.props.selectedNote.entryInfo.creationTime.value;
+                clinicianName = this.props.selectedNote.createdBy;
+                authorString = "Created by: ";
+                dateString = "Created date: ";
             }
         }
 
@@ -1302,11 +1308,11 @@ class FluxNotesEditor extends React.Component {
                             </Row>
                             <Row >
                                 <Col xs={7}>
-                                    <p className="note-description-detail"><span className="note-description-detail-name">Signed By: </span><span className="note-description-detail-value">{signedString}</span></p>
+                                    <p className="note-description-detail"><span className="note-description-detail-name">{authorString}</span><span className="note-description-detail-value">{clinicianName}</span></p>
                                     <p className="note-description-detail"><span className="note-description-detail-name">Source: </span><span className="note-description-detail-value">{source}</span></p>
                                 </Col>
                                 <Col xs={5}>
-                                    <p className="note-description-detail"><span className="note-description-detail-name">Signed Date: </span><span className="note-description-detail-value">{date}</span></p>
+                                    <p className="note-description-detail"><span className="note-description-detail-name">{dateString}</span><span className="note-description-detail-value">{date}</span></p>
                                 </Col>
                             </Row>
                         </Col>
