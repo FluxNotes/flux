@@ -25,6 +25,7 @@ class FluxClinicalNote {
         if (json.hospital) this._hospital = json.hospital;
         if (json.createdBy) this._createdBy = json.createdBy;
         if (json.signedBy) this._signedBy = json.signedBy;
+        if (json.CreationTime) this._entryInfo.creationTime = json.CreationTime;
         // Ensures even empty strings result in content definition
         if (json.content || json.content === "") this._content = json.content;
         if (!Lang.isUndefined(json.signed)) this._signed = json.signed;
