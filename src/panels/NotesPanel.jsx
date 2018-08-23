@@ -26,7 +26,8 @@ export default class NotesPanel extends Component {
             arrayOfPickLists: [],
             contextTrayItemToInsert: null,
             localDocumentText: '',
-            showTemplateView: false
+            showTemplateView: false,
+            selectedPickListOptions: []
         };
 
         this.noteParser = new NoteParser(this.props.shortcutManager, this.props.contextManager);
@@ -117,7 +118,7 @@ export default class NotesPanel extends Component {
             });
         }
 
-        this.setState({contextTrayItemToInsert: contextTrayItemToInsert});
+        this.setState({ selectedPickListOptions });
     }
 
     // Handle when the editor needs to be updated with a note. The note can be a new blank note or a pre existing note
@@ -388,7 +389,8 @@ export default class NotesPanel extends Component {
                     setNoteViewerEditable={this.props.setNoteViewerEditable}
                     setLayout={this.props.setLayout}
                     shortcutManager={this.props.shortcutManager}
-                    shouldEditorContentUpdate={true}
+                    shouldEditorContentUpdate={this.state.noteAssistantMode !== 'pick-list-options-panel'}
+                    selectedPickListOptions={this.state.selectedPickListOptions}
                     structuredFieldMapManager={this.props.structuredFieldMapManager}
                     summaryItemToInsert={this.props.summaryItemToInsert}
                     summaryItemToInsertSource={this.props.summaryItemToInsertSource}

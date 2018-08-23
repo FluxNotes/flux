@@ -15,14 +15,16 @@ export default class PickListOptionsPanel extends Component {
         this.arrayOfPickLists = this.props.arrayOfPickLists.map((pickList, i) => {
             return {
                 trigger: pickList.trigger + `_${i}`,
-                options: pickList.options
+                options: pickList.options,
+                shortcut: pickList.shortcut
             }
         });
         // triggerSelections are the selections made by the user for each pick List
         // pushing the trigger value first so that order of shortcuts remain the same
         let triggerSelections = this.arrayOfPickLists.map((pickList) => {
             return {
-                trigger: pickList.trigger
+                trigger: pickList.trigger,
+                shortcut:  pickList.shortcut
             };
         });
 
@@ -79,7 +81,8 @@ export default class PickListOptionsPanel extends Component {
                 : triggerSelection.selectedOption;
             return {
                 trigger: triggerSelection.trigger.slice(0, underScoreIndex),
-                selectedOption: selectedOption
+                selectedOption: selectedOption,
+                shortcut: triggerSelection.shortcut
             }
         });
 
@@ -87,9 +90,9 @@ export default class PickListOptionsPanel extends Component {
     }
 
     handleOkButtonClick = () => {
-        this.toggleView('context-tray');
+        this.props.updateContextTrayItemToInsert(null);
         this.props.setInsertingTemplate(false);
-        this.handleInsertChosenOption();
+        this.toggleView('context-tray');
     }
 
     handleOptionButtonClick(option, trigger) {

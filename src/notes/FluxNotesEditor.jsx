@@ -338,8 +338,13 @@ class FluxNotesEditor extends React.Component {
         }
 
         let shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger, text, updatePatient, source);
-        if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions() && text.length === 0) {
-            return this.openPortalToSelectValueForShortcut(shortcut, false, transform, shouldPortalOpen);
+        return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus();
+    }
+
+    // TODO: explain
+    insertExistingShortcut = (shortcut, transform = undefined) => {
+        if (Lang.isUndefined(transform)) {
+            transform = this.state.state.transform();
         }
         return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus();
     }
@@ -629,6 +634,11 @@ class FluxNotesEditor extends React.Component {
                 this.props.itemInserted();
             }
         }
+        nextProps.selectedPickListOptions.forEach(picklist => {
+            if (picklist.selectedOption) {
+                picklist.shortcut.setText(picklist.selectedOption)
+            }
+        });
 
         if (nextProps.shouldEditorContentUpdate && this.props.contextTrayItemToInsert !== nextProps.contextTrayItemToInsert && !Lang.isNull(nextProps.contextTrayItemToInsert) && nextProps.contextTrayItemToInsert.length > 0) {
             this.insertContextTrayItem(nextProps.contextTrayItemToInsert);
@@ -956,7 +966,7 @@ class FluxNotesEditor extends React.Component {
     /*
      * Handle updates when we have a new insert text with structured phrase
      */
-    insertTextWithStructuredPhrases = (textToBeInserted, currentTransform = undefined, updatePatient = true, shouldPortalOpen = true, source) => {
+    insertTextWithStructuredPhrases = (textToBeInserted, currentTransform = undefined, updatePatient = true, shouldPortalOpen = true, source, arrayOfPickLists) => {
         const currentState = this.state.state;
 
         let transform = (currentTransform) ? currentTransform : currentState.transform();
@@ -972,7 +982,7 @@ class FluxNotesEditor extends React.Component {
         const triggers = this.noteParser.getListOfTriggersFromText(textToBeInserted)[0];
 
         if (!Lang.isNull(triggers)) {
-            triggers.forEach((trigger) => {
+            triggers.forEach((trigger, i) => {
 
                 start = remainder.indexOf(trigger.trigger);
                 if (start > 0) {
@@ -1006,7 +1016,12 @@ class FluxNotesEditor extends React.Component {
                 } else {
                     after = "";
                 }
-                transform = this.insertShortcut(trigger.definition, trigger.trigger, after, transform, updatePatient, shouldPortalOpen, source);
+
+                if (arrayOfPickLists) {
+                    transform = this.insertExistingShortcut(arrayOfPickLists[i].shortcut, transform);
+                } else {
+                    transform = this.insertShortcut(trigger.definition, trigger.trigger, after, transform, updatePatient, shouldPortalOpen, source);
+                }
             });
         }
         if (!Lang.isUndefined(remainder) && remainder.length > 0) {
@@ -1062,6 +1077,7 @@ class FluxNotesEditor extends React.Component {
                     {
                         'trigger': pickList.trigger,
                         'options': shortcutOptions,
+                        shortcut: tempShortcut
                     }
                 )
             });
@@ -1071,7 +1087,7 @@ class FluxNotesEditor extends React.Component {
             // Switch note assistant view to the pick list options panel
             this.props.updateNoteAssistantMode('pick-list-options-panel');
             // Insert content by default
-            this.insertTextWithStructuredPhrases(contextTrayItem, undefined, true, false, "Template");
+            this.insertTextWithStructuredPhrases(contextTrayItem, undefined, true, false, "Picklist", localArrayOfPickListsWithOptions);
         } else { // If the text to be inserted does not contain any pick lists, insert the text
             this.insertTextWithStructuredPhrases(contextTrayItem, undefined, true, true, "Shortcuts in Context");
             this.props.updateContextTrayItemToInsert(null);
