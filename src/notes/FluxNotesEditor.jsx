@@ -342,7 +342,7 @@ class FluxNotesEditor extends React.Component {
     }
 
     // TODO: explain
-    insertExistingShortcut = (shortcut, transform = undefined) => {
+    updateExistingShortcut = (shortcut, transform = undefined) => {
         if (Lang.isUndefined(transform)) {
             transform = this.state.state.transform();
         }
@@ -1019,7 +1019,7 @@ class FluxNotesEditor extends React.Component {
                 }
 
                 if (arrayOfPickLists && this.noteParser.isPickList(trigger)) {
-                    transform = this.insertExistingShortcut(arrayOfPickLists[pickListCount].shortcut, transform);
+                    transform = this.updateExistingShortcut(arrayOfPickLists[pickListCount].shortcut, transform);
                     pickListCount++;
                 } else {
                     transform = this.insertShortcut(trigger.definition, trigger.trigger, after, transform, updatePatient, shouldPortalOpen, source);
