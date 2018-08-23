@@ -980,6 +980,7 @@ class FluxNotesEditor extends React.Component {
         }
 
         const triggers = this.noteParser.getListOfTriggersFromText(textToBeInserted)[0];
+        let pickListCount = 0;
 
         if (!Lang.isNull(triggers)) {
             triggers.forEach((trigger, i) => {
@@ -1017,8 +1018,9 @@ class FluxNotesEditor extends React.Component {
                     after = "";
                 }
 
-                if (arrayOfPickLists) {
-                    transform = this.insertExistingShortcut(arrayOfPickLists[i].shortcut, transform);
+                if (arrayOfPickLists && this.noteParser.isPickList(trigger)) {
+                    transform = this.insertExistingShortcut(arrayOfPickLists[pickListCount].shortcut, transform);
+                    pickListCount++;
                 } else {
                     transform = this.insertShortcut(trigger.definition, trigger.trigger, after, transform, updatePatient, shouldPortalOpen, source);
                 }
