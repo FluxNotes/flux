@@ -1357,7 +1357,7 @@ class FluxNotesEditor extends React.Component {
 
     EditNoteTitleButton = () => { 
         return ( 
-            <svg width="17px" height="16px" viewBox="0 0 17 16" version="1.1" xmlns="http://www.w3.org/2000/svg" id="edit-note-name-btn" onClick={this.enableNoteNameEditing}>
+            <svg width="15px" height="15px" viewBox="0 0 17 16" version="1.1" xmlns="http://www.w3.org/2000/svg" id="edit-note-name-btn" onClick={this.enableNoteNameEditing}>
                 <title>Click to edit note title</title>
                 <defs></defs>
                 <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" opacity="0.6">
