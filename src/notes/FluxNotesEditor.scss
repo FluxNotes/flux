@@ -30,6 +30,8 @@
             margin: 0px;
             padding-left: 0.5rem;
             font-weight: bold;
+            display: flex;
+            align-items: baseline;
             &:hover {
                 cursor: pointer;
             }
