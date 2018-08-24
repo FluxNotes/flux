@@ -30,14 +30,13 @@
             margin: 0px;
             padding-left: 0.5rem;
             font-weight: bold;
-            display: flex;
-            align-items: baseline;
             &:hover {
                 cursor: pointer;
             }
             #edit-note-name-btn {
                 margin-left: -20px;
                 margin-right: 5px;
+                margin-bottom: -1px;
             }
             
         }
