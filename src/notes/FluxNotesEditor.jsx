@@ -1247,7 +1247,11 @@ class FluxNotesEditor extends React.Component {
         if (signed) {
             noteTag = <p className="note-name" id="note-title">{noteTitle}</p>;
         } else {
-            noteTag = <p className="note-name" id="note-title"><FontAwesome id="edit-note-name-btn" name="pencil" onClick={this.enableNoteNameEditing} />&nbsp;{noteTitle}</p>;
+            noteTag = (
+                <p className="note-name" id="note-title" onClick={this.enableNoteNameEditing}>
+                    { this.editNoteTitleButton() }
+                    {noteTitle}
+                </p>);
         }
         if (this.state.isEditingNoteName) {
             return (
@@ -1301,7 +1305,7 @@ class FluxNotesEditor extends React.Component {
         } else {
             return (
                 <div id="note-description">
-                    <Row>
+                    <Row start="xs">
                         <Col xs={9}>
                             <Row>
                             {this.renderNoteNameEditor(noteTitle, signed)}
@@ -1347,6 +1351,26 @@ class FluxNotesEditor extends React.Component {
                 </div>
             );
         }
+    }
+
+    editNoteTitleButton = () => { 
+        return ( 
+            <svg width="15px" height="15px" viewBox="0 0 17 16" version="1.1" xmlns="http://www.w3.org/2000/svg" id="edit-note-name-btn">
+                <title>Click to edit note title</title>
+                <defs></defs>
+                <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" opacity="0.6">
+                    <g id="7" transform="translate(-533.000000, -403.000000)" fill="#969696" fillRule="nonzero">
+                        <g id="angled-pencil" transform="translate(533.000000, 403.000000)">
+                            <rect id="Rectangle" x="1" y="15" width="16" height="1"></rect>
+                            <g id="Group-2" transform="translate(7.000000, 8.500000) rotate(51.000000) translate(-7.000000, -8.500000) translate(-1.000000, 6.000000)">
+                                <rect id="Rectangle-5" x="0" y="0.185028843" width="12" height="4.12132034"></rect>
+                                <polygon id="Path-2" points="13 0.185028843 13 4.30634919 15.8955395 2.24568901"></polygon>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        );
     }
     
     render = () => {
