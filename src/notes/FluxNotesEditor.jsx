@@ -222,6 +222,7 @@ class FluxNotesEditor extends React.Component {
             isFetchingAsyncData: false,
             loadingTimeWarrantsWarning: false,
             fetchTimeout: null,
+            shouldUpdateTemplateShortcuts: true
         };
     }
 
@@ -642,9 +643,13 @@ class FluxNotesEditor extends React.Component {
                     const { object } = shortcut.getValueSelectionOptions().find(opt => {
                         return opt.context === picklist.selectedOption;
                     });
-                    shortcut.setText(picklist.selectedOption);
-                    if (shortcut.isContext()) {
-                        shortcut.setValueObject(object);
+                    if (shortcut.getText() !== picklist.selectedOption) {
+                        shortcut.setText(picklist.selectedOption);
+                        if (shortcut.isContext()) {
+                            shortcut.setValueObject(object);
+                            this.props.setNoteViewerEditable(this.state.shouldUpdateTemplateShortcuts);
+                            this.setState({ shouldUpdateTemplateShortcuts: !this.state.shouldUpdateTemplateShortcuts });
+                        }
                     }
                 }
             });
@@ -691,18 +696,11 @@ class FluxNotesEditor extends React.Component {
         }
 
         // Check if mode is changing from 'pick-list-options-panel' to 'context-tray'
-        // This means user either clicked the OK or Cancel button on the modal
+        // This means user either clicked the OK or Cancel button on the pick list options panel
         if (this.props.noteAssistantMode === 'pick-list-options-panel' && nextProps.noteAssistantMode === 'context-tray') {
             this.adjustActiveContexts(this.state.state.selection, this.state.state); 
             this.props.contextManager.clearNonActiveContexts();
-            // User clicked cancel button
-            if (nextProps.contextTrayItemToInsert === null) {
-                this.props.setNoteViewerEditable(true);   
-            } else { // User clicked OK button so insert text
-                this.insertTextWithStructuredPhrases(this.props.contextTrayItemToInsert, undefined, true, true, "pick list/template");
-                this.props.updateContextTrayItemToInsert(null);
-                this.props.setNoteViewerEditable(true);
-            }
+            this.props.setNoteViewerEditable(true);
         }
     }
 
