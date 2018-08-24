@@ -634,18 +634,21 @@ class FluxNotesEditor extends React.Component {
                 this.props.itemInserted();
             }
         }
-        nextProps.selectedPickListOptions.forEach(picklist => {
-            if (picklist.selectedOption) {
-                const { shortcut } = picklist;
-                const { object } = shortcut.getValueSelectionOptions().find(opt => {
-                    return opt.context === picklist.selectedOption;
-                });
-                shortcut.setText(picklist.selectedOption);
-                if (shortcut.isContext()) {
-                    shortcut.setValueObject(object);
+
+        if (this.props.noteAssistantMode === 'pick-list-options-panel') {
+            nextProps.selectedPickListOptions.forEach(picklist => {
+                if (picklist.selectedOption) {
+                    const { shortcut } = picklist;
+                    const { object } = shortcut.getValueSelectionOptions().find(opt => {
+                        return opt.context === picklist.selectedOption;
+                    });
+                    shortcut.setText(picklist.selectedOption);
+                    if (shortcut.isContext()) {
+                        shortcut.setValueObject(object);
+                    }
                 }
-            }
-        });
+            });
+        }
 
         if (nextProps.shouldEditorContentUpdate && this.props.contextTrayItemToInsert !== nextProps.contextTrayItemToInsert && !Lang.isNull(nextProps.contextTrayItemToInsert) && nextProps.contextTrayItemToInsert.length > 0) {
             this.insertContextTrayItem(nextProps.contextTrayItemToInsert);
