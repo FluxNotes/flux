@@ -49,7 +49,9 @@ export default class NoteAssistant extends Component {
             this.onNotesToggleButtonClicked();
         }
 
-        if (!nextProps.isNoteViewerEditable || nextProps.noteAssistantMode === "pick-list-options-panel") {
+        if (nextProps.noteAssistantMode === "pick-list-options-panel") {
+            this.disableAllButtons();
+        } else if (!nextProps.isNoteViewerEditable) {
             this.disableContextToggleButton();
         }
     }
@@ -144,6 +146,19 @@ export default class NoteAssistant extends Component {
         this.notes_btn_classname = "toggle-button-selected";
         this.notes_stroke = "#FFFFFF";
         this.notes_disabled = false;
+        this.context_btn_classname = "toggle-button-disabled";
+        this.context_disabled = true;
+        this.context_fill = "#FFFFFF";
+        this.poc_btn_classname = 'toggle-button-disabled';
+        this.poc_stroke = "#FFFFFF";
+        this.poc_fill = "#666666"
+        this.poc_disabled = true;
+    }
+
+    disableAllButtons() {
+        this.notes_btn_classname = "toggle-button-disabled";
+        this.notes_stroke = "#FFFFFF";
+        this.notes_disabled = true;
         this.context_btn_classname = "toggle-button-disabled";
         this.context_disabled = true;
         this.context_fill = "#FFFFFF";
