@@ -636,6 +636,7 @@ class FluxNotesEditor extends React.Component {
             }
         }
 
+        // Update pick list selection in real time during template insertion
         if (this.props.noteAssistantMode === 'pick-list-options-panel') {
             nextProps.selectedPickListOptions.forEach(picklist => {
                 if (picklist.selectedOption) {
@@ -647,6 +648,8 @@ class FluxNotesEditor extends React.Component {
                         shortcut.setText(picklist.selectedOption);
                         if (shortcut.isContext()) {
                             shortcut.setValueObject(object);
+
+                            // Force shortcut to re-render with updated data
                             const key = shortcut.getKey();
                             let transform = this.state.state.transform();
                             let state = transform.setNodeByKey(key, {
