@@ -49,6 +49,14 @@ class PatientRecord {
         }
     }
 
+    _getValueUsingPath(item, attributePath) {
+        let result = item, i;
+        for (i = 0; i < attributePath.length; i++) {
+            result = result[attributePath[i]];
+        }
+        return result;
+    }
+
     _calculateNextEntryId() {
         this.nextEntryId = Math.max.apply(Math, this.entries.map(function (o) {
             return o.entryInfo.entryId;
@@ -493,6 +501,38 @@ class PatientRecord {
         return this.getEntriesOfType(FluxMedicationRequested);
     }
 
+    getMedicationsAsText() { 
+        const meds = this.getMedications();
+        let attributeList =  ["medication", "amountPerDose.value", "amountPerDose.units", "timingOfDoses.value", "timingOfDoses.units"];
+        
+        attributeList = attributeList.map((listItem) => {
+            return listItem.split(".");
+        });
+        let startDatePath = "expectedPerformanceTime.timePeriodStart";
+        startDatePath = startDatePath.split('.');
+
+        const numMedications = meds.length - 1;
+        const numAttributes = attributeList.length - 1;
+        let strResult = "";
+        meds.forEach((item, itemIndex) => {
+            console.log("---item")
+            console.log(item)
+            attributeList.forEach((itemKey, attrIndex) => {
+                let nextSubstring = this._getValueUsingPath(item, itemKey);
+                if (!Lang.isUndefined(nextSubstring) && !Lang.isNull(nextSubstring)) strResult += nextSubstring;
+                if (attrIndex < numAttributes) strResult += " ";
+            });
+            // Add startTime to the 
+            strResult += " started on "
+            strResult += this._getValueUsingPath(item, startDatePath)
+            if (itemIndex < numMedications) {
+                strResult += "\r\n";
+            }
+        });
+        
+        return strResult
+    }
+
     getMedicationsChronologicalOrder() {
         let list = this.getMedications();
         list.sort(this._medsTimeSorter);
@@ -522,6 +562,38 @@ class PatientRecord {
 
             return med.isActiveAsOf(today) && !stopMedicationFound;
         });
+    }
+
+    getActiveMedicationsAsText() { 
+        const activeMeds = this.getActiveMedications(); 
+        let attributeList =  ["medication", "amountPerDose.value", "amountPerDose.units", "timingOfDoses.value", "timingOfDoses.units"];
+        
+        attributeList = attributeList.map((listItem) => {
+            return listItem.split(".");
+        });
+        let startDatePath = "expectedPerformanceTime.timePeriodStart";
+        startDatePath = startDatePath.split('.');
+
+        const numMedications = activeMeds.length - 1;
+        const numAttributes = attributeList.length - 1;
+        let strResult = "";
+        activeMeds.forEach((item, itemIndex) => {
+            console.log("---item")
+            console.log(item)
+            attributeList.forEach((itemKey, attrIndex) => {
+                let nextSubstring = this._getValueUsingPath(item, itemKey);
+                if (!Lang.isUndefined(nextSubstring) && !Lang.isNull(nextSubstring)) strResult += nextSubstring;
+                if (attrIndex < numAttributes) strResult += " ";
+            });
+            // Add startTime to the 
+            strResult += " started on "
+            strResult += this._getValueUsingPath(item, startDatePath)
+            if (itemIndex < numMedications) {
+                strResult += "\r\n";
+            }
+        });
+        
+        return strResult
     }
 
     getActiveAndRecentlyStoppedMedications() {
