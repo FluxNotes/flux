@@ -27,7 +27,8 @@ export default class NotesPanel extends Component {
             contextTrayItemToInsert: null,
             localDocumentText: '',
             showTemplateView: false,
-            selectedPickListOptions: []
+            selectedPickListOptions: [],
+            shouldRevertTemplate: false
         };
 
         this.noteParser = new NoteParser(this.props.shortcutManager, this.props.contextManager);
@@ -281,6 +282,10 @@ export default class NotesPanel extends Component {
         this.closeNote();
     }
 
+    setUndoTemplateInsertion = (shouldRevertTemplate) => {
+        this.setState({ shouldRevertTemplate });
+    }
+
     renderSignButton = () => {
         return (
             <div id="finish-sign-component">
@@ -404,6 +409,8 @@ export default class NotesPanel extends Component {
                     arrayOfPickLists={this.arrayOfPickLists}
                     handleUpdateArrayOfPickLists={this.handleUpdateArrayOfPickLists}
                     updateContextTrayItemToInsert={this.updateContextTrayItemToInsert}
+                    shouldRevertTemplate={this.state.shouldRevertTemplate}
+                    setUndoTemplateInsertion={this.setUndoTemplateInsertion}
                 />
             </div>
         );
@@ -455,6 +462,7 @@ export default class NotesPanel extends Component {
                     updatedEditorNote={this.state.updatedEditorNote}
                     updateErrors={this.props.updateErrors}
                     updateShowTemplateView={this.updateShowTemplateView}
+                    setUndoTemplateInsertion={this.setUndoTemplateInsertion}
                 />
             </div>
         );

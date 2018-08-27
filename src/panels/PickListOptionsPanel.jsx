@@ -60,9 +60,10 @@ export default class PickListOptionsPanel extends Component {
 
     // Cancels insertion of text and clears any context
     handleCancelButtonClick = () => {
+        this.props.setUndoTemplateInsertion(true);
         this.props.updateContextTrayItemToInsert(null);
         this.props.setInsertingTemplate(false);
-        this.toggleView('context-tray')
+        this.toggleView('context-tray');
     }
 
     // Pass array of select of pick list options to be used in updating the contextTrayItem to be inserted
@@ -235,12 +236,12 @@ export default class PickListOptionsPanel extends Component {
                 </div>
 
                 <div id="pickList-action-buttons">
-                    {/* <MaterialButton
+                    <MaterialButton
                         raised
                         id="cancel-btn"
                         onClick={this.handleCancelButtonClick}>
                         Cancel
-                    </MaterialButton> */}
+                    </MaterialButton>
 
                     {this.state.isAllSelected ?
                         <MaterialButton

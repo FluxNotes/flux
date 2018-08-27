@@ -87,6 +87,7 @@ class FluxNotesEditor extends React.Component {
 
         this.noteParser = new NoteParser(this.props.shortcutManager, this.props.contextManager);
         this.plugins = [];
+        this.previousState = {};
 
         // Set the initial state when the app is first constructed.
         this.resetEditorState();
@@ -634,6 +635,19 @@ class FluxNotesEditor extends React.Component {
                 this.insertTextWithStructuredPhrases(nextProps.summaryItemToInsert, undefined, true, true, nextProps.summaryItemToInsertSource);
                 this.props.itemInserted();
             }
+        }
+
+        // When the user selects a template, save the state of the editor before it is inserted in case they want to cancel
+        if (this.props.contextTrayItemToInsert === null && nextProps.contextTrayItemToInsert !== null) {
+            this.previousState = this.state.state;
+        }
+
+        // If the user clicks cancel button, change editor state back to what it was before they clicked the template
+        if (nextProps.shouldRevertTemplate) {
+            this.setState({ state: this.previousState }, () => {
+                this.props.setUndoTemplateInsertion(false);
+                this.refs.editor.focus();
+            });
         }
 
         // Update pick list selection in real time during template insertion
