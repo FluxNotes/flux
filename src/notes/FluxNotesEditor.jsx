@@ -674,9 +674,24 @@ class FluxNotesEditor extends React.Component {
                         if (shortcut.isContext()) {
                             shortcut.setValueObject(object);
 
+                            let transform = this.state.state.transform();
+
+                            // Update the children of the shortcut whose values just got selected.
+                            const childShortcuts = shortcut.getChildren();
+                            childShortcuts.forEach(childShortcut => {
+                                // Set the text, then change the data of the shortcut to trigger a re-render.
+                                const text = childShortcut.determineText(this.contextManager);
+                                childShortcut.setText(text);
+                                const key = childShortcut.getKey();
+                                transform = transform.setNodeByKey(key, {
+                                    data: {
+                                        shortcut: childShortcut
+                                    }
+                                });
+                            });
+
                             // Force shortcut to re-render with updated data
                             const key = shortcut.getKey();
-                            let transform = this.state.state.transform();
                             let state = transform.setNodeByKey(key, {
                                 data: {
                                     shortcut

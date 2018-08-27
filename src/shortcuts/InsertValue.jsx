@@ -13,6 +13,10 @@ export default class InsertValue extends Shortcut {
         super.initialize(contextManager, trigger, updatePatient);
         super.determineParentContext(contextManager, this.metadata["knownParentContexts"], this.metadata["parentAttribute"]);
 
+        if (!Lang.isUndefined(this.parentContext)) {
+            this.parentContext.addChild(this);
+        }
+
         let text = this.determineText(contextManager);
         if (Lang.isArray(text)) {
             this.flagForTextSelection(text);
@@ -129,14 +133,14 @@ export default class InsertValue extends Shortcut {
         } else if (callObject === "parent") {
             //   "getData": {"object": "parent", "attribute": "stage"},
             const attribute = callSpec["attribute"];
-            return this.contextManager.getActiveContextOfType(this.metadata.knownParentContexts).getAttributeValue(attribute);
+            return this.parentContext.getAttributeValue(attribute);
         } else if (callObject === "$parentValueObject") {
-            const patient = this.contextManager.getPatient();
-            if (!this.contextManager.getActiveContextOfType(this.metadata.knownParentContexts).getValueObject()) {
+            const patient = contextManager.getPatient();
+            if (!this.parentContext || !this.parentContext.getValueObject()) {
                 // Returns text if the parent context is not set.
                 return this.getText();
             }
-            return this.contextManager.getActiveContextOfType(this.metadata.knownParentContexts).getValueObject()[callSpec["method"]](patient);
+            return this.parentContext.getValueObject()[callSpec["method"]](patient);
         } else {
             console.error("not support yet " + callSpec.object + " / " + callSpec.method);
         }
