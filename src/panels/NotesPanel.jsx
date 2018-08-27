@@ -38,6 +38,7 @@ export default class NotesPanel extends Component {
         // Logic to handle switching notes
         if (!Lang.isNull(nextProps.openClinicalNote) && this.props.openClinicalNote !== nextProps.openClinicalNote) {
             this.saveNote(this.state.localDocumentText);
+            this.updateContextTrayItemToInsert(null);
             this.handleUpdateEditorWithNote(nextProps.openClinicalNote);
         }
     }
@@ -179,6 +180,7 @@ export default class NotesPanel extends Component {
 
     // Close a note
     closeNote = () => {
+        this.updateContextTrayItemToInsert(null);
         this.props.setOpenClinicalNote(null);
         this.setState({
             updatedEditorNote: null,

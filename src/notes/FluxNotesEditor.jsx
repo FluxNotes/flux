@@ -520,9 +520,23 @@ class FluxNotesEditor extends React.Component {
     }
 
     closeNote = () => {
-        const documentText = this.getNoteText(this.state.state);
-        this.props.saveNote(documentText)
-        this.props.closeNote();
+        if (this.props.noteAssistantMode === 'pick-list-options-panel') {
+            this.closeNoteWithTemplate();
+        } else {
+            const documentText = this.getNoteText(this.state.state);
+            this.props.saveNote(documentText)
+            this.props.closeNote();
+        }
+    }
+
+    closeNoteWithTemplate = () => {
+        this.setState({ state: this.previousState }, () => {
+            this.props.setUndoTemplateInsertion(false);
+            this.refs.editor.focus();
+            const documentText = this.getNoteText(this.state.state);
+            this.props.saveNote(documentText)
+            this.props.closeNote();
+        });
     }
 
     onFocus = () => {
@@ -644,10 +658,7 @@ class FluxNotesEditor extends React.Component {
 
         // If the user clicks cancel button, change editor state back to what it was before they clicked the template
         if (nextProps.shouldRevertTemplate) {
-            this.setState({ state: this.previousState }, () => {
-                this.props.setUndoTemplateInsertion(false);
-                this.refs.editor.focus();
-            });
+            this.revertTemplate();
         }
 
         // Update pick list selection in real time during template insertion
@@ -725,6 +736,13 @@ class FluxNotesEditor extends React.Component {
             this.props.contextManager.clearNonActiveContexts();
             this.props.setNoteViewerEditable(true);
         }
+    }
+
+    revertTemplate = () => {
+        this.setState({ state: this.previousState }, () => {
+            this.props.setUndoTemplateInsertion(false);
+            this.refs.editor.focus();
+        });
     }
 
     insertNewLine = (transform) => {
@@ -1366,7 +1384,7 @@ class FluxNotesEditor extends React.Component {
                             <Button
                                 raised
                                 className="close-note-btn"
-                                disabled={this.props.noteAssistantMode === 'pick-list-options-panel' || this.context_disabled}
+                                disabled={this.context_disabled}
                                 onClick={this.closeNote}
                                 style={{
                                     float: "right",
