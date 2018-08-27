@@ -266,7 +266,7 @@ export default class FillPlaceholder extends Component {
         let nextButton = "";
 
         if (attribute.type === 'checkboxes') {
-            multiSelect = 
+            multiSelect =
                 <span className="multi-select"> (select multiple) </span>
             if(!expanded) {
                 nextButton =
@@ -305,7 +305,6 @@ export default class FillPlaceholder extends Component {
                     {nextButton}
                 </Grid>
             );
-
         }
 
         return currentFieldRowInSummary;

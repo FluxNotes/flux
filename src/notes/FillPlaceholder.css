@@ -6,6 +6,8 @@
 .shortcut-name {
     margin-inline-end: 10px;
     vertical-align: top;
+    font-weight: bold;
+    font-size: 0.9rem;
 }
 
 .error-message {
@@ -14,12 +16,14 @@
 
 .shortcut-field-title {
     margin-inline-end: 5px;
+    font-size: 0.9rem;
 }
 
 .fill-missing-data {
     margin-inline-end: 20px;
     border-bottom: 1px solid rgba(255, 0, 0, 0.5);
     text-decoration: none;
+    font-size: 0.9rem;
 }
 
 .fill-structured-data {
@@ -27,6 +31,7 @@
     cursor: pointer;
     border-bottom: 1px solid rgba(1, 130, 215, 0.5);
     text-decoration: none;
+    font-size: 0.9rem;
 }
 
 .date-picker-button {
@@ -76,12 +81,13 @@
     width: 100%;
 }
 
-.multi-select {
-    font-size: 12px;
+.attribute-title {
+    font-size: 0.9rem;
+    text-align: center;
 }
 
-.attribute-title {
-    text-align: center;
+.multi-select {
+    font-size: 12px;
 }
 
 .poc-next-item-btn {
@@ -91,5 +97,5 @@
     background-color: white !important;
     padding-top: 20px; }
     .poc-next-item-btn:hover {
-      background-color: #E6E6E6 !important;    
+      background-color: #E6E6E6 !important;
 }
