@@ -647,8 +647,14 @@ class FluxNotesEditor extends React.Component {
                         shortcut.setText(picklist.selectedOption);
                         if (shortcut.isContext()) {
                             shortcut.setValueObject(object);
-                            this.props.setNoteViewerEditable(this.state.shouldUpdateTemplateShortcuts);
-                            this.setState({ shouldUpdateTemplateShortcuts: !this.state.shouldUpdateTemplateShortcuts });
+                            const key = shortcut.getKey();
+                            let transform = this.state.state.transform();
+                            let state = transform.setNodeByKey(key, {
+                                data: {
+                                    shortcut
+                                }
+                            }).apply();
+                            this.setState({ state });
                         }
                     }
                 }
