@@ -1338,7 +1338,7 @@ class FluxNotesEditor extends React.Component {
                             <Row>
                             {this.renderNoteNameEditor(noteTitle, signed)}
                             </Row>
-                            <Row >
+                            <Row>
                                 <Col xs={7}>
                                     <p className="note-description-detail"><span className="note-description-detail-name">{authorString}</span><span className="note-description-detail-value">{clinicianName}</span></p>
                                     <p className="note-description-detail"><span className="note-description-detail-name">Source: </span><span className="note-description-detail-value">{source}</span></p>
@@ -1349,29 +1349,27 @@ class FluxNotesEditor extends React.Component {
                             </Row>
                         </Col>
                         <Col xs={3}>
-                            {!this.props.inModal &&
-                                <Button
-                                    raised 
-                                    className="close-note-btn"
-                                    disabled={this.context_disabled}
-                                    onClick={this.closeNote}
+                            <Button
+                                raised
+                                className="close-note-btn"
+                                disabled={this.props.noteAssistantMode === 'pick-list-options-panel' || this.context_disabled}
+                                onClick={this.closeNote}
+                                style={{
+                                    float: "right",
+                                    lineHeight: "2.1rem"
+                                }}
+                            >
+                                <FontAwesome
+                                    name="times"
                                     style={{
-                                        float: "right",
-                                        lineHeight: "2.1rem"
+                                        color: "red",
+                                        marginRight: "5px"
                                     }}
-                                >
-                                    <FontAwesome 
-                                        name="times"
-                                        style={{
-                                            color: "red",
-                                            marginRight: "5px"
-                                        }}
-                                    /> 
-                                    <span>
-                                        Close
-                                    </span>
-                                </Button>
-                            }
+                                />
+                                <span>
+                                    Close
+                                </span>
+                            </Button>
                         </Col>
                     </Row>
 
