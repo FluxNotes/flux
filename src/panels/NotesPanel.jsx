@@ -37,8 +37,10 @@ export default class NotesPanel extends Component {
     componentWillReceiveProps = (nextProps) => {
         // Logic to handle switching notes
         if (!Lang.isNull(nextProps.openClinicalNote) && this.props.openClinicalNote !== nextProps.openClinicalNote) {
+            if (!Lang.isNull(this.props.openClinicalNote)) {
+                this.updateContextTrayItemToInsert(null);
+            }
             this.saveNote(this.state.localDocumentText);
-            this.updateContextTrayItemToInsert(null);
             this.handleUpdateEditorWithNote(nextProps.openClinicalNote);
         }
     }
