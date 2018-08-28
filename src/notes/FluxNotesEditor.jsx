@@ -521,22 +521,15 @@ class FluxNotesEditor extends React.Component {
 
     closeNote = () => {
         if (this.props.noteAssistantMode === 'pick-list-options-panel') {
-            this.closeNoteWithTemplate();
+            const documentText = this.getNoteText(this.previousState);
+            this.revertTemplate();
+            this.props.saveNote(documentText)
+            this.props.closeNote();
         } else {
             const documentText = this.getNoteText(this.state.state);
             this.props.saveNote(documentText)
             this.props.closeNote();
         }
-    }
-
-    closeNoteWithTemplate = () => {
-        this.setState({ state: this.previousState }, () => {
-            this.props.setUndoTemplateInsertion(false);
-            this.refs.editor.focus();
-            const documentText = this.getNoteText(this.state.state);
-            this.props.saveNote(documentText)
-            this.props.closeNote();
-        });
     }
 
     onFocus = () => {
@@ -713,6 +706,9 @@ class FluxNotesEditor extends React.Component {
 
        // Check if the updatedEditorNote property has been updated
         if (nextProps.shouldEditorContentUpdate && this.props.updatedEditorNote !== nextProps.updatedEditorNote && !Lang.isNull(nextProps.updatedEditorNote)) {
+            if (this.props.noteAssistantMode === 'pick-list-options-panel') {
+                this.revertTemplate();
+            }
 
             // If the updated editor note is an empty string, then add a new blank note. Call method to
             // re initialize editor state and reset updatedEditorNote state in parent to be null
