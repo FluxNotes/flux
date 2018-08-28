@@ -761,6 +761,7 @@ class FluxNotesEditor extends React.Component {
     }
 
     revertTemplate = () => {
+        this.props.highlightShortcut(null, false, null);
         this.setState({ state: this.previousState }, () => {
             this.props.setUndoTemplateInsertion(false);
             this.refs.editor.focus();

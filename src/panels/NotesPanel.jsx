@@ -424,6 +424,7 @@ export default class NotesPanel extends Component {
                     shouldHighlightShortcut={this.state.shouldHighlightShortcut}
                     shortcutKey={this.state.shortcutKey}
                     shortcutType={this.state.shortcutType}
+                    highlightShortcut={this.setHighlightShortcut}
                 />
             </div>
         );
