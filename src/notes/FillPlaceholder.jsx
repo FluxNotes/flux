@@ -220,7 +220,7 @@ export default class FillPlaceholder extends Component {
             return <ButtonSetFillFieldForPlaceholder attributeSpec={attributeSpec} value={value} updateValue={this.onSetValue.bind(this, "click/touch", attributeSpec, entryIndex)} />;
         }
         if (attributeSpec.type === 'checkboxes') {
-            return <MultiButtonSetFillFieldForPlaceholder attributeSpec={attributeSpec} value={value} updateValue={this.onSetValue.bind(this, "click/touch", attributeSpec, entryIndex)} nextField={expanded ? null : this.nextField.bind(this, entryIndex)} />;
+            return <MultiButtonSetFillFieldForPlaceholder attributeSpec={attributeSpec} value={value} updateValue={this.onSetValue.bind(this, "click/touch", attributeSpec, entryIndex)} />;
         }
         if (attributeSpec.type === 'searchableList') {
             return <SearchableListForPlaceholder attributeSpec={attributeSpec} backgroundColor={backgroundColor} value={value} updateValue={this.onSetValue.bind(this, "click/touch", attributeSpec, entryIndex)} />;
@@ -262,6 +262,28 @@ export default class FillPlaceholder extends Component {
         const { done, expanded } = this.state;
         const { placeholder } = this.props;
         let currentFieldRowInSummary = '';
+        let multiSelect = "";
+        let nextButton = "";
+
+        if (attribute.type === 'checkboxes') {
+            multiSelect = 
+                <span className = "multi-select"> (select multiple) </span>
+            nextButton =
+            <Grid item xs={2}>
+                <Button
+                    raised
+                    classes={{
+                        root:"poc-next-item-btn"
+                    }}
+                    onClick={expanded ? null : this.nextField.bind(this, entryIndex)}
+                >
+                    <span>
+                        Next
+                    </span>
+                </Button>
+            </Grid>
+
+        }
 
         const value = placeholder.getAttributeValue(attribute.name, entryIndex);
         if (expanded || !done) {
@@ -269,17 +291,20 @@ export default class FillPlaceholder extends Component {
                 <Grid container key={attribute.name}>
                     <Grid item xs={1} />
                     <Grid item xs={2} style={{ display: 'flex', alignItems: 'center' }}>
-                        <span>
-                            {attribute.title}
+                        <span className = "attribute-title">
+                            {attribute.title} <br/>
+                            {multiSelect}
                         </span>
                     </Grid>
-                    <Grid item xs={9}>
+                    <Grid item xs={7}>
                         <span>
                             {this.createFillFieldForPlaceholder(attribute, value, entryIndex)}
                         </span>
                     </Grid>
+                    {nextButton}
                 </Grid>
             );
+
         }
 
         return currentFieldRowInSummary;
