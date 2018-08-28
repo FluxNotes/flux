@@ -1839,7 +1839,7 @@ export default class SummaryMetadata {
     getTreatmentData = (patient, condition, subsection) => {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         try {
-            const data = api.findTreatmentOptionsByPatientStats("prostate cancer");
+            const data = api.findTreatmentOptionsByPatientStats("prostate cancer", {race: "Black"});
             const parsedData = JSON.parse(data);
             if(parsedData[0].length === 0 && parsedData[1].length === 0){
                 return "No relevant data found for patient";
@@ -1850,4 +1850,5 @@ export default class SummaryMetadata {
             return "Server unavailable";
         }
     }
+}
 
