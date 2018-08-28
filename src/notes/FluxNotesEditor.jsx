@@ -666,11 +666,6 @@ class FluxNotesEditor extends React.Component {
             this.previousState = this.state.state;
         }
 
-        // If the user clicks cancel button, change editor state back to what it was before they clicked the template
-        if (nextProps.shouldRevertTemplate) {
-            this.revertTemplate();
-        }
-
         // Update pick list selection in real time during template insertion
         if (this.props.noteAssistantMode === 'pick-list-options-panel') {
             if (nextProps.shouldHighlightShortcut) {
@@ -758,6 +753,10 @@ class FluxNotesEditor extends React.Component {
             this.adjustActiveContexts(this.state.state.selection, this.state.state); 
             this.props.contextManager.clearNonActiveContexts();
             this.props.setNoteViewerEditable(true);
+             // If the user clicks cancel button, change editor state back to what it was before they clicked the template
+            if (nextProps.shouldRevertTemplate) {
+                this.revertTemplate();
+            }
         }
     }
 

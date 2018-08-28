@@ -222,6 +222,8 @@ export default class InsertValue extends Shortcut {
         if (result && !Lang.isUndefined(this.parentContext) && this.metadata.parentAttribute) {
             this.parentContext.setAttributeValue(this.metadata.parentAttribute, null, false);
             this.parentContext.removeChild(this);
+        } else if (result && !Lang.isUndefined(this.parentContext)) {
+            this.parentContext.removeChild(this);
         }
         return result;
     }

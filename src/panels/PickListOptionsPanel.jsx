@@ -63,6 +63,7 @@ export default class PickListOptionsPanel extends Component {
         this.props.setUndoTemplateInsertion(true);
         this.props.updateContextTrayItemToInsert(null);
         this.props.setInsertingTemplate(false);
+        this.props.highlightShortcut(null, false, null);
         this.toggleView('context-tray');
     }
 
