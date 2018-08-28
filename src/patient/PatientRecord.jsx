@@ -508,9 +508,6 @@ class PatientRecord {
         attributeList = attributeList.map((listItem) => {
             return listItem.split(".");
         });
-        // Start date to trail the text
-        let startDatePath = "expectedPerformanceTime.timePeriodStart";
-        startDatePath = startDatePath.split('.');
 
         const lastMedicationIndex = meds.length - 1;
         const lastAttributeIndex = attributeList.length - 1;
@@ -522,9 +519,6 @@ class PatientRecord {
                 // If there are more attributes, separate them with a space
                 if (attrIndex < lastAttributeIndex) strResult += " ";
             });
-            // Add startTime to the end of the string
-            strResult += " started on "
-            strResult += this._getValueUsingPath(item, startDatePath)
             // If there are more medications, separate with newline/carriage returns
             if (itemIndex < lastMedicationIndex) {
                 strResult += "\r\n";
