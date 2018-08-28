@@ -75,3 +75,21 @@
 .divider {
     width: 100%;
 }
+
+.multi-select {
+    font-size: 12px;
+}
+
+.attribute-title {
+    text-align: center;
+}
+
+.poc-next-item-btn {
+    float: right;
+    line-height: 2.1rem;
+    text-transform: none;
+    background-color: white !important;
+    padding-top: 20px; }
+    .poc-next-item-btn:hover {
+      background-color: #E6E6E6 !important;    
+}

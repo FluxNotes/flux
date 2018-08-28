@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Lang from 'lodash';
-import ChevronRightIcon from 'material-ui-icons/ChevronRight';
 import ValueSetManager from '../../lib/ValueSetManager';
 import MultiChoiceButton from '../../forms/MultiChoiceButton';
 
@@ -35,10 +34,7 @@ class MultiButtonSetFillFieldForPlaceholder extends Component {
     };
 
     render() {
-        let nextButton = "";
-        if (this.props.nextField) {
-            nextButton = <ChevronRightIcon onClick={this.props.nextField} />;
-        }
+
         return (
             <div>
                 <div className="btn-group-status-progression">
@@ -47,7 +43,6 @@ class MultiButtonSetFillFieldForPlaceholder extends Component {
                             return this.renderButtonGroup(option, i)
                         })
                     }
-                    {nextButton}
                 </div>
             </div>
         );
