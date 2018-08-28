@@ -503,29 +503,30 @@ class PatientRecord {
 
     getMedicationsAsText() { 
         const meds = this.getMedications();
+        // Basic attributes to be listed in order
         let attributeList =  ["medication", "amountPerDose.value", "amountPerDose.units", "timingOfDoses.value", "timingOfDoses.units"];
-        
         attributeList = attributeList.map((listItem) => {
             return listItem.split(".");
         });
+        // Start date to trail the text
         let startDatePath = "expectedPerformanceTime.timePeriodStart";
         startDatePath = startDatePath.split('.');
 
-        const numMedications = meds.length - 1;
-        const numAttributes = attributeList.length - 1;
+        const lastMedicationIndex = meds.length - 1;
+        const lastAttributeIndex = attributeList.length - 1;
         let strResult = "";
         meds.forEach((item, itemIndex) => {
-            console.log("---item")
-            console.log(item)
             attributeList.forEach((itemKey, attrIndex) => {
                 let nextSubstring = this._getValueUsingPath(item, itemKey);
                 if (!Lang.isUndefined(nextSubstring) && !Lang.isNull(nextSubstring)) strResult += nextSubstring;
-                if (attrIndex < numAttributes) strResult += " ";
+                // If there are more attributes, separate them with a space
+                if (attrIndex < lastAttributeIndex) strResult += " ";
             });
-            // Add startTime to the 
+            // Add startTime to the end of the string
             strResult += " started on "
             strResult += this._getValueUsingPath(item, startDatePath)
-            if (itemIndex < numMedications) {
+            // If there are more medications, separate with newline/carriage returns
+            if (itemIndex < lastMedicationIndex) {
                 strResult += "\r\n";
             }
         });
@@ -566,29 +567,31 @@ class PatientRecord {
 
     getActiveMedicationsAsText() { 
         const activeMeds = this.getActiveMedications(); 
+
+        // Basic attributes to be listed in order
         let attributeList =  ["medication", "amountPerDose.value", "amountPerDose.units", "timingOfDoses.value", "timingOfDoses.units"];
-        
         attributeList = attributeList.map((listItem) => {
             return listItem.split(".");
         });
+        // Start date to trail the text
         let startDatePath = "expectedPerformanceTime.timePeriodStart";
         startDatePath = startDatePath.split('.');
-
-        const numMedications = activeMeds.length - 1;
-        const numAttributes = attributeList.length - 1;
+        
+        const lastMedicationIndex = activeMeds.length - 1;
+        const lastAttributeIndex = attributeList.length - 1;
         let strResult = "";
         activeMeds.forEach((item, itemIndex) => {
-            console.log("---item")
-            console.log(item)
             attributeList.forEach((itemKey, attrIndex) => {
                 let nextSubstring = this._getValueUsingPath(item, itemKey);
                 if (!Lang.isUndefined(nextSubstring) && !Lang.isNull(nextSubstring)) strResult += nextSubstring;
-                if (attrIndex < numAttributes) strResult += " ";
+                // If there are more attributes, separate them with a space
+                if (attrIndex < lastAttributeIndex) strResult += " ";
             });
-            // Add startTime to the 
+            // Add startTime to the end of the string
             strResult += " started on "
             strResult += this._getValueUsingPath(item, startDatePath)
-            if (itemIndex < numMedications) {
+            // If there are more medications, separate with newline/carriage returns
+            if (itemIndex < lastMedicationIndex) {
                 strResult += "\r\n";
             }
         });
