@@ -265,6 +265,7 @@ export default class NoteAssistant extends Component {
                 updateContextTrayItemWithSelectedPickListOptions={this.props.updateContextTrayItemWithSelectedPickListOptions}
                 updateNoteAssistantMode={this.props.updateNoteAssistantMode}
                 setUndoTemplateInsertion={this.props.setUndoTemplateInsertion}
+                highlightShortcut={this.props.highlightShortcut}
             />
         );
     }

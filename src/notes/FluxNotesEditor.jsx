@@ -673,6 +673,11 @@ class FluxNotesEditor extends React.Component {
 
         // Update pick list selection in real time during template insertion
         if (this.props.noteAssistantMode === 'pick-list-options-panel') {
+            if (nextProps.shouldHighlightShortcut) {
+                let transform = this.state.state.transform();
+                let state = transform.setNodeByKey(nextProps.shortcutKey, nextProps.shortcutType).apply();
+                this.setState({ state });
+            }
             nextProps.selectedPickListOptions.forEach(picklist => {
                 if (picklist.selectedOption) {
                     const { shortcut } = picklist;

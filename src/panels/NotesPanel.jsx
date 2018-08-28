@@ -28,7 +28,9 @@ export default class NotesPanel extends Component {
             localDocumentText: '',
             showTemplateView: false,
             selectedPickListOptions: [],
-            shouldRevertTemplate: false
+            shouldRevertTemplate: false,
+            shouldHighlightShortcut: false,
+            shortcutKey: -1
         };
 
         this.noteParser = new NoteParser(this.props.shortcutManager, this.props.contextManager);
@@ -290,6 +292,10 @@ export default class NotesPanel extends Component {
         this.setState({ shouldRevertTemplate });
     }
 
+    setHighlightShortcut = (shortcutKey, shouldHighlightShortcut, shortcutType) => {
+        this.setState({ shortcutKey, shouldHighlightShortcut, shortcutType });
+    }
+
     renderSignButton = () => {
         return (
             <div id="finish-sign-component">
@@ -410,11 +416,14 @@ export default class NotesPanel extends Component {
                     updateErrors={this.props.updateErrors}
                     updateSelectedNote={this.updateSelectedNote}
                     updateNoteAssistantMode={this.updateNoteAssistantMode}
-                    arrayOfPickLists={this.arrayOfPickLists}
+                    arrayOfPickLists={this.state.arrayOfPickLists}
                     handleUpdateArrayOfPickLists={this.handleUpdateArrayOfPickLists}
                     updateContextTrayItemToInsert={this.updateContextTrayItemToInsert}
                     shouldRevertTemplate={this.state.shouldRevertTemplate}
                     setUndoTemplateInsertion={this.setUndoTemplateInsertion}
+                    shouldHighlightShortcut={this.state.shouldHighlightShortcut}
+                    shortcutKey={this.state.shortcutKey}
+                    shortcutType={this.state.shortcutType}
                 />
             </div>
         );
@@ -467,6 +476,7 @@ export default class NotesPanel extends Component {
                     updateErrors={this.props.updateErrors}
                     updateShowTemplateView={this.updateShowTemplateView}
                     setUndoTemplateInsertion={this.setUndoTemplateInsertion}
+                    highlightShortcut={this.setHighlightShortcut}
                 />
             </div>
         );

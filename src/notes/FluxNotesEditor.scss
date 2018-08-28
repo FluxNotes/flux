@@ -121,6 +121,10 @@
 // ******** StructuredFieldPlugin.jsx uses this
 .structured-field {
     background-color: #d9ebf9;
+
+    &-highlighted {
+        font-weight: bold;
+    }
 }
 
 .placeholder {

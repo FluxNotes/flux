@@ -124,6 +124,11 @@ export default class PickListOptionsPanel extends Component {
         }
     }
 
+    highlightShortcut(shortcut, type, e) {
+        e.persist();
+        this.props.highlightShortcut(shortcut.getKey(), true, type);
+    }
+
     // Render pick list options
     renderOptions(pickLists, i) {
         // Loop through each shortcut in the array and render the options
@@ -133,7 +138,9 @@ export default class PickListOptionsPanel extends Component {
                 let shortcutName = shortcut.trigger.slice(1, underScoreIndex);
                 shortcutName = shortcutName.charAt(0).toUpperCase() + shortcutName.slice(1);
                 return (
-                    <div key={i} className="shortcut-options-container">
+                    <div id={i} key={i}className="shortcut-options-container"
+                        onMouseEnter={(e) => this.highlightShortcut(shortcut.shortcut, 'highlighted_structured_field', e)}
+                        onMouseLeave={(e) => this.highlightShortcut(shortcut.shortcut, 'structured_field', e)}>
                         {shortcutName}
                         {this.renderShortcutOptions(shortcut, i)}
                     </div>
