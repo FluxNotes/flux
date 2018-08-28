@@ -632,6 +632,16 @@ class FluxNotesEditor extends React.Component {
         this.contextManager.contextUpdated();
     }
 
+    resetShortcutData = (shortcut, transform) => {
+        const key = shortcut.getKey();
+        transform = transform.setNodeByKey(key, {
+            data: {
+                shortcut
+            }
+        });
+        return transform;
+    }
+
     // When the editor in the modal first is triggered, insert the contextTrayItem when it mounts.
     componentDidMount = () => {
         if (this.props.inModal) {
@@ -682,21 +692,12 @@ class FluxNotesEditor extends React.Component {
                                 // Set the text, then change the data of the shortcut to trigger a re-render.
                                 const text = childShortcut.determineText(this.contextManager);
                                 childShortcut.setText(text);
-                                const key = childShortcut.getKey();
-                                transform = transform.setNodeByKey(key, {
-                                    data: {
-                                        shortcut: childShortcut
-                                    }
-                                });
+                                transform = this.resetShortcutData(childShortcut, transform);
                             });
 
                             // Force shortcut to re-render with updated data
-                            const key = shortcut.getKey();
-                            let state = transform.setNodeByKey(key, {
-                                data: {
-                                    shortcut
-                                }
-                            }).apply();
+                            transform = this.resetShortcutData(shortcut, transform);
+                            let state = transform.apply();
                             this.setState({ state });
                         }
                     }
