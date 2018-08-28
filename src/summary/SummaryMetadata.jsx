@@ -1846,16 +1846,18 @@ export default class SummaryMetadata {
         return subset;
     }
 
-
     getTreatmentData = (patient, condition, subsection) => {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         try {
-            const data = api.findTreatmentOptionsByPatientStats("prostate cancer", {race: "Black", dxGrade: "Grade II"});
-            return JSON.parse(data);
+            const data = api.findTreatmentOptionsByPatientStats("prostate cancer");
+            const parsedData = JSON.parse(data);
+            if(parsedData[0].length === 0 && parsedData[1].length === 0){
+                return "No relevant data found for patient";
+            }
+            return parsedData;
         }
         catch(error) {
-            return error.message;
+            return "Server unavailable";
         }
     }
-}
 
