@@ -1852,4 +1852,5 @@ export default class SummaryMetadata {
             return "Server unavailable";
         }
     }
+}
 
