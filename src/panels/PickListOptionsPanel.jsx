@@ -125,8 +125,10 @@ export default class PickListOptionsPanel extends Component {
     }
 
     highlightShortcut(shortcut, type, e) {
-        e.persist();
-        this.props.highlightShortcut(shortcut.getKey(), true, type);
+        if (this.props.insertingTemplate) {
+            e.persist();
+            this.props.highlightShortcut(shortcut.getKey(), true, type);
+        }
     }
 
     // Render pick list options
