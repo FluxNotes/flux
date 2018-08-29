@@ -187,7 +187,7 @@ class PatientRecord {
     getAge() {
         if (Lang.isNull(this.person)) return null;
         var today = new Date();
-        return getAgeAsOf(today);
+        return this.getAgeAsOf(today);
     }
 
     getAgeAsOf(date) {
