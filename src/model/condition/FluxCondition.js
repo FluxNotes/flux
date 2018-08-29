@@ -41,6 +41,10 @@ class FluxCondition {
         return this._condition.value.coding[0].codeSystem.value;
     }
 
+    get codeURL() {
+        return this.codeSystem + "/" + this.code; 
+    }
+
     get type() {
         if (!this._condition.value) return null;
         return this._displayTextOrCode(this._condition.value.coding[0]);
