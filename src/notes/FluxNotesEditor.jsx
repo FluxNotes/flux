@@ -623,6 +623,50 @@ class FluxNotesEditor extends React.Component {
         return transform;
     }
 
+    updateTemplateWithPickListOptions = (nextProps) => {
+        if (nextProps.shouldHighlightShortcut) {
+            let transform = this.state.state.transform();
+            let state = transform.setNodeByKey(nextProps.shortcutKey, nextProps.shortcutType).apply();
+            this.setState({ state });
+        }
+        nextProps.selectedPickListOptions.forEach(picklist => {
+            if (picklist.selectedOption) {
+                const { shortcut } = picklist;
+                const { object } = shortcut.getValueSelectionOptions().find(opt => {
+                    return opt.context === picklist.selectedOption;
+                });
+                if (shortcut.getText() !== picklist.selectedOption) {
+                    shortcut.setText(picklist.selectedOption);
+                    if (shortcut.isContext()) {
+                        shortcut.setValueObject(object);
+
+                        let transform = this.state.state.transform();
+
+                        // Update the children of the shortcut whose values just got selected.
+                        const childShortcuts = shortcut.getChildren();
+                        childShortcuts.forEach(childShortcut => {
+                            // Set the text, then change the data of the shortcut to trigger a re-render.
+                            const text = childShortcut.determineText(this.contextManager);
+                            childShortcut.setText(text);
+                            transform = this.resetShortcutData(childShortcut, transform);
+                        });
+
+                        // Force shortcut to re-render with updated data
+                        transform = this.resetShortcutData(shortcut, transform);
+                        let state = transform.apply();
+                        this.setState({ state }, () => {
+                            const node = state.document.getParent(shortcut.getKey());
+                            const el = Slate.findDOMNode(node);
+                            if (el && el.scrollIntoView) {
+                                el.scrollIntoView();
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    }
+
     // This gets called before the component receives new properties
     componentWillReceiveProps = (nextProps) => {
         // Only update text if the shouldEditorContentUpdate is true. For example, this will be false if the user is inserting a template
@@ -642,47 +686,7 @@ class FluxNotesEditor extends React.Component {
 
         // Update pick list selection in real time during template insertion
         if (this.props.noteAssistantMode === 'pick-list-options-panel') {
-            if (nextProps.shouldHighlightShortcut) {
-                let transform = this.state.state.transform();
-                let state = transform.setNodeByKey(nextProps.shortcutKey, nextProps.shortcutType).apply();
-                this.setState({ state });
-            }
-            nextProps.selectedPickListOptions.forEach(picklist => {
-                if (picklist.selectedOption) {
-                    const { shortcut } = picklist;
-                    const { object } = shortcut.getValueSelectionOptions().find(opt => {
-                        return opt.context === picklist.selectedOption;
-                    });
-                    if (shortcut.getText() !== picklist.selectedOption) {
-                        shortcut.setText(picklist.selectedOption);
-                        if (shortcut.isContext()) {
-                            shortcut.setValueObject(object);
-
-                            let transform = this.state.state.transform();
-
-                            // Update the children of the shortcut whose values just got selected.
-                            const childShortcuts = shortcut.getChildren();
-                            childShortcuts.forEach(childShortcut => {
-                                // Set the text, then change the data of the shortcut to trigger a re-render.
-                                const text = childShortcut.determineText(this.contextManager);
-                                childShortcut.setText(text);
-                                transform = this.resetShortcutData(childShortcut, transform);
-                            });
-
-                            // Force shortcut to re-render with updated data
-                            transform = this.resetShortcutData(shortcut, transform);
-                            let state = transform.apply();
-                            this.setState({ state }, () => {
-                                const node = state.document.getParent(shortcut.getKey());
-                                const el = Slate.findDOMNode(node);
-                                if (el && el.scrollIntoView) {
-                                    el.scrollIntoView();
-                                }
-                            });
-                        }
-                    }
-                }
-            });
+            this.updateTemplateWithPickListOptions(nextProps);
         }
 
         if (nextProps.shouldEditorContentUpdate && this.props.contextTrayItemToInsert !== nextProps.contextTrayItemToInsert && !Lang.isNull(nextProps.contextTrayItemToInsert) && nextProps.contextTrayItemToInsert.length > 0) {
