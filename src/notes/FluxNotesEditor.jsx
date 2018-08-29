@@ -329,7 +329,7 @@ class FluxNotesEditor extends React.Component {
         return this.insertPlaceholder(suggestion.value, transformBeforeInsert).apply();
     }
 
-    insertShortcut = (shortcutC, shortcutTrigger, text, transform = undefined, updatePatient = true, shouldPortalOpen = true, source) => {
+    insertShortcut = (shortcutC, shortcutTrigger, text, transform = undefined, updatePatient = true, source) => {
         if (Lang.isUndefined(transform)) {
             transform = this.state.state.transform();
         }
@@ -405,18 +405,7 @@ class FluxNotesEditor extends React.Component {
         return this.lastPosition;
     }
 
-    openPortalToSelectValueForShortcut(shortcut, needToDelete, transform, shouldPortalOpen = true) {
-        // If the portal should not open, insert the plain text trigger instead. Will eventually be replaced.
-        if (!shouldPortalOpen) {
-            this.setState({
-                openedPortal: null,
-                needToDelete: needToDelete,
-            });
-            this.selectingForShortcut = null;
-            this.insertPlainText(transform, shortcut.initiatingTrigger);
-            return transform.blur();
-        }
-        
+    openPortalToSelectValueForShortcut(shortcut, needToDelete, transform) {
         let portalOptions = shortcut.getValueSelectionOptions();
 
         this.setState({
@@ -561,7 +550,7 @@ class FluxNotesEditor extends React.Component {
             focusOffset: data.focusOffset
         }).delete()
 
-        this.insertTextWithStructuredPhrases(data.newText, nextState, true, true, "dictation");
+        this.insertTextWithStructuredPhrases(data.newText, nextState, true, "dictation");
     }
 
     isBlock1BeforeBlock2(key1, offset1, key2, offset2, state) {
@@ -641,7 +630,7 @@ class FluxNotesEditor extends React.Component {
         // Check if the item to be inserted is updated
         if (nextProps.shouldEditorContentUpdate && this.props.summaryItemToInsert !== nextProps.summaryItemToInsert && nextProps.summaryItemToInsert.length > 0) {
             if (this.props.isNoteViewerEditable) {
-                this.insertTextWithStructuredPhrases(nextProps.summaryItemToInsert, undefined, true, true, nextProps.summaryItemToInsertSource);
+                this.insertTextWithStructuredPhrases(nextProps.summaryItemToInsert, undefined, true, nextProps.summaryItemToInsertSource);
                 this.props.itemInserted();
             }
         }
@@ -717,9 +706,7 @@ class FluxNotesEditor extends React.Component {
             else {
 
                 this.resetEditorAndContext();
-
-                let shouldPortalOpen = this.props.noteAssistantMode !== 'pick-list-options-panel';
-                this.insertTextWithStructuredPhrases(nextProps.updatedEditorNote.content, undefined, false, shouldPortalOpen, "loaded note");
+                this.insertTextWithStructuredPhrases(nextProps.updatedEditorNote.content, undefined, false, "loaded note");
 
                 // If the note is in progress, set isNoteViewerEditable to true. If the note is an existing note, set isNoteViewerEditable to false
                 if (nextProps.updatedEditorNote.signed) {
@@ -1030,7 +1017,7 @@ class FluxNotesEditor extends React.Component {
     /*
      * Handle updates when we have a new insert text with structured phrase
      */
-    insertTextWithStructuredPhrases = (textToBeInserted, currentTransform = undefined, updatePatient = true, shouldPortalOpen = true, source, arrayOfPickLists) => {
+    insertTextWithStructuredPhrases = (textToBeInserted, currentTransform = undefined, updatePatient = true, source, arrayOfPickLists) => {
         const currentState = this.state.state;
 
         let transform = (currentTransform) ? currentTransform : currentState.transform();
@@ -1086,7 +1073,7 @@ class FluxNotesEditor extends React.Component {
                     transform = this.updateExistingShortcut(arrayOfPickLists[pickListCount].shortcut, transform);
                     pickListCount++;
                 } else {
-                    transform = this.insertShortcut(trigger.definition, trigger.trigger, after, transform, updatePatient, shouldPortalOpen, source);
+                    transform = this.insertShortcut(trigger.definition, trigger.trigger, after, transform, updatePatient, source);
                 }
             });
         }
@@ -1153,9 +1140,9 @@ class FluxNotesEditor extends React.Component {
             // Switch note assistant view to the pick list options panel
             this.props.updateNoteAssistantMode('pick-list-options-panel');
             // Insert content by default
-            this.insertTextWithStructuredPhrases(contextTrayItem, undefined, true, false, "Picklist", localArrayOfPickListsWithOptions);
+            this.insertTextWithStructuredPhrases(contextTrayItem, undefined, true, "Picklist", localArrayOfPickListsWithOptions);
         } else { // If the text to be inserted does not contain any pick lists, insert the text
-            this.insertTextWithStructuredPhrases(contextTrayItem, undefined, true, true, "Shortcuts in Context");
+            this.insertTextWithStructuredPhrases(contextTrayItem, undefined, true, "Shortcuts in Context");
             this.props.updateContextTrayItemToInsert(null);
             this.props.updateNoteAssistantMode('context-tray');
         }
