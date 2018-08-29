@@ -524,7 +524,7 @@ describe('6 FluxNotesEditor', function() {
             setOpenClinicalNote={jest.fn()}
             summaryItemToInsert={''}
             updateErrors={jest.fn()}
-        />);
+        />, { attachTo: document.body });
         expect(notesPanelWrapper.find(FluxNotesEditor)).to.have.lengthOf(1);
         expect(notesPanelWrapper.find(NoteAssistant)).to.have.lengthOf(1);
 
