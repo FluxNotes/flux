@@ -144,9 +144,7 @@ class BandedLineChartVisualizer extends Component {
                         break;
 
                     case 'average':
-                        color = "green";
-                        // NOTE: As of 8/29, we want any value in a typical range to have a green background; commented out the yellow background
-                        // color = "yellow";
+                        color = "yellow";
                         break;
 
                     case 'good':
