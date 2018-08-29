@@ -1038,7 +1038,7 @@ class FluxNotesEditor extends React.Component {
         let pickListCount = 0;
 
         if (!Lang.isNull(triggers)) {
-            triggers.forEach((trigger, i) => {
+            triggers.forEach((trigger) => {
 
                 start = remainder.indexOf(trigger.trigger);
                 if (start > 0) {
@@ -1134,7 +1134,7 @@ class FluxNotesEditor extends React.Component {
                     {
                         'trigger': pickList.trigger,
                         'options': shortcutOptions,
-                        shortcut: tempShortcut
+                        'shortcut': tempShortcut
                     }
                 )
             });
