@@ -393,7 +393,6 @@ export default class NotesPanel extends Component {
                     errors={this.props.errors}
                     handleUpdateEditorWithNote={this.handleUpdateEditorWithNote}
                     isNoteViewerEditable={this.props.isNoteViewerEditable}
-                    inModal={false}
                     itemInserted={this.props.itemInserted}
                     newCurrentShortcut={this.props.newCurrentShortcut}
                     noteAssistantMode={this.state.noteAssistantMode}

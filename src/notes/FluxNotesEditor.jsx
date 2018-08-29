@@ -635,16 +635,9 @@ class FluxNotesEditor extends React.Component {
         return transform;
     }
 
-    // When the editor in the modal first is triggered, insert the contextTrayItem when it mounts.
-    componentDidMount = () => {
-        if (this.props.inModal) {
-            this.insertContextTrayItem(this.props.contextTrayItemToInsert);
-        }
-    }
-
     // This gets called before the component receives new properties
     componentWillReceiveProps = (nextProps) => {
-        // Only update text if the shouldEditorContentUpdate is true. For example, this will be false in the main editor if the modal is also open.
+        // Only update text if the shouldEditorContentUpdate is true. For example, this will be false if the user is inserting a template
 
         // Check if the item to be inserted is updated
         if (nextProps.shouldEditorContentUpdate && this.props.summaryItemToInsert !== nextProps.summaryItemToInsert && nextProps.summaryItemToInsert.length > 0) {
@@ -1479,7 +1472,6 @@ class FluxNotesEditor extends React.Component {
         }
 
         const callback = {}
-        let editorClassName = this.props.inModal ? 'editor-content-modal' : 'editor-content';
         /**
          * Render the editor, toolbar, dropdown and description for note
          */
@@ -1487,19 +1479,17 @@ class FluxNotesEditor extends React.Component {
             <div id="clinical-notes" className="dashboard-panel">
                 {this.renderNoteDescriptionContent()}
                 <div className="MyEditor-root" onClick={(event) => { this.refs.editor.focus(); }}>
-                    { !this.props.inModal &&
-                        <EditorToolbar
-                            contextManager={this.props.contextManager}
-                            isReadOnly={!this.props.isNoteViewerEditable}
-                            loadingTimeWarrantsWarning={this.state.loadingTimeWarrantsWarning}
-                            onBlockCheck={this.handleBlockCheck}
-                            onBlockUpdate={this.handleBlockUpdate}
-                            onMarkCheck={this.handleMarkCheck}
-                            onMarkUpdate={this.handleMarkUpdate}
-                            patient={this.props.patient}
-                        />
-                    }
-                    <div className={editorClassName}>
+                    <EditorToolbar
+                        contextManager={this.props.contextManager}
+                        isReadOnly={!this.props.isNoteViewerEditable}
+                        loadingTimeWarrantsWarning={this.state.loadingTimeWarrantsWarning}
+                        onBlockCheck={this.handleBlockCheck}
+                        onBlockUpdate={this.handleBlockUpdate}
+                        onMarkCheck={this.handleMarkCheck}
+                        onMarkUpdate={this.handleMarkUpdate}
+                        patient={this.props.patient}
+                    />
+                    <div className='editor-content'>
                         <Slate.Editor
                             className="editor-panel"
                             placeholder={'Enter your clinical note here or choose a template to start from...'}
@@ -1565,7 +1555,6 @@ FluxNotesEditor.propTypes = {
     errors: PropTypes.array.isRequired,
     handleUpdateEditorWithNote: PropTypes.func.isRequired,
     isNoteViewerEditable: PropTypes.bool.isRequired,
-    inModal: PropTypes.bool.isRequired,
     itemInserted: PropTypes.func.isRequired,
     newCurrentShortcut: PropTypes.func.isRequired,
     noteAssistantMode: PropTypes.string.isRequired,

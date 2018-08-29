@@ -192,17 +192,6 @@ $note-assitant-width-3: 160px;
     }  
 }
 
-#pick-list-options-modal {
-    height: 80%;
-    width: 80%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    position: absolute;
-    background: $background;
-    padding: 20px;
-}
-
 @media only screen and (min-width: 1200px) and (max-width: 1300px) {
     .note-assistant-wrapper {
         width: $note-assitant-width-2;

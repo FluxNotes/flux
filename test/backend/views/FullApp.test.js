@@ -326,7 +326,6 @@ describe('6 FluxNotesEditor', function() {
             setNoteViewerVisible={jest.fn()}
             currentViewMode={''}
             errors={[]}
-            inModal={false}
             itemInserted={jest.fn()}
             noteAssistantMode={''}
             patient={{}}
@@ -578,7 +577,6 @@ describe('6 FluxNotesEditor', function() {
             setNoteViewerVisible={jest.fn()}
             currentViewMode={''}
             errors={[]}
-            inModal={false}
             itemInserted={jest.fn()}
             noteAssistantMode={''}
             patient={{}}
@@ -642,7 +640,6 @@ describe('6 FluxNotesEditor', function() {
             setNoteViewerVisible={jest.fn()}
             currentViewMode={''}
             errors={[]}
-            inModal={false}
             itemInserted={jest.fn()}
             noteAssistantMode={''}
             patient={{}}
@@ -710,7 +707,6 @@ describe('6 FluxNotesEditor', function() {
             setNoteViewerVisible={jest.fn()}
             currentViewMode={''}
             errors={[]}
-            inModal={false}
             itemInserted={jest.fn()}
             noteAssistantMode={''}
             patient={{}}
@@ -1038,7 +1034,6 @@ describe('6 FluxNotesEditor', function() {
             setNoteViewerVisible={jest.fn()}
             currentViewMode={''}
             errors={[]}
-            inModal={false}
             itemInserted={jest.fn()}
             noteAssistantMode={''}
             patient={{}}
