@@ -691,9 +691,13 @@ class FluxNotesEditor extends React.Component {
                             // Force shortcut to re-render with updated data
                             transform = this.resetShortcutData(shortcut, transform);
                             let state = transform.apply();
-                            let node = state.document.getParent(shortcut.getKey());
-                            Slate.findDOMNode(node).scrollIntoView();
-                            this.setState({ state });
+                            this.setState({ state }, () => {
+                                const node = state.document.getParent(shortcut.getKey());
+                                const el = Slate.findDOMNode(node);
+                                if (el && el.scrollIntoView) {
+                                    el.scrollIntoView();
+                                }
+                            });
                         }
                     }
                 }
