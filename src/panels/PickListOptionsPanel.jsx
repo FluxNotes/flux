@@ -93,6 +93,7 @@ export default class PickListOptionsPanel extends Component {
     handleOkButtonClick = () => {
         this.props.updateContextTrayItemToInsert(null);
         this.props.setInsertingTemplate(false);
+        this.props.changeShortcutType(null, false, null);
         this.toggleView('context-tray');
     }
 
@@ -124,10 +125,10 @@ export default class PickListOptionsPanel extends Component {
         }
     }
 
-    highlightShortcut(shortcut, type, e) {
+    changeShortcutType(shortcut, type, e) {
         if (this.props.insertingTemplate) {
             e.persist();
-            this.props.highlightShortcut(shortcut.getKey(), true, type);
+            this.props.changeShortcutType(shortcut.getKey(), true, type);
         }
     }
 
@@ -141,8 +142,8 @@ export default class PickListOptionsPanel extends Component {
                 shortcutName = shortcutName.charAt(0).toUpperCase() + shortcutName.slice(1);
                 return (
                     <div id={i} key={i}className="shortcut-options-container"
-                        onMouseEnter={(e) => this.highlightShortcut(shortcut.shortcut, 'highlighted_structured_field', e)}
-                        onMouseLeave={(e) => this.highlightShortcut(shortcut.shortcut, 'structured_field', e)}>
+                        onMouseEnter={(e) => this.changeShortcutType(shortcut.shortcut, 'highlighted_structured_field', e)}
+                        onMouseLeave={(e) => this.changeShortcutType(shortcut.shortcut, 'structured_field', e)}>
                         {shortcutName}
                         {this.renderShortcutOptions(shortcut, i)}
                     </div>

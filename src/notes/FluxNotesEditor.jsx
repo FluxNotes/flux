@@ -624,7 +624,7 @@ class FluxNotesEditor extends React.Component {
     }
 
     updateTemplateWithPickListOptions = (nextProps) => {
-        if (nextProps.shouldHighlightShortcut) {
+        if (nextProps.shouldUpdateShortcutType) {
             let transform = this.state.state.transform();
             let state = transform.setNodeByKey(nextProps.shortcutKey, nextProps.shortcutType).apply();
             this.setState({ state });
@@ -744,7 +744,7 @@ class FluxNotesEditor extends React.Component {
     }
 
     revertTemplate = () => {
-        this.props.highlightShortcut(null, false, null);
+        this.props.changeShortcutType(null, false, null);
         this.setState({ state: this.previousState }, () => {
             this.props.setUndoTemplateInsertion(false);
             this.refs.editor.focus();

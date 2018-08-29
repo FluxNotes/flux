@@ -29,7 +29,7 @@ export default class NotesPanel extends Component {
             showTemplateView: false,
             selectedPickListOptions: [],
             shouldRevertTemplate: false,
-            shouldHighlightShortcut: false,
+            shouldUpdateShortcutType: false,
             shortcutKey: -1
         };
 
@@ -261,8 +261,8 @@ export default class NotesPanel extends Component {
         this.setState({ shouldRevertTemplate });
     }
 
-    setHighlightShortcut = (shortcutKey, shouldHighlightShortcut, shortcutType) => {
-        this.setState({ shortcutKey, shouldHighlightShortcut, shortcutType });
+    changeShortcutType = (shortcutKey, shouldUpdateShortcutType, shortcutType) => {
+        this.setState({ shortcutKey, shouldUpdateShortcutType, shortcutType });
     }
 
     renderSignButton = () => {
@@ -389,10 +389,10 @@ export default class NotesPanel extends Component {
                     updateContextTrayItemToInsert={this.updateContextTrayItemToInsert}
                     shouldRevertTemplate={this.state.shouldRevertTemplate}
                     setUndoTemplateInsertion={this.setUndoTemplateInsertion}
-                    shouldHighlightShortcut={this.state.shouldHighlightShortcut}
+                    shouldUpdateShortcutType={this.state.shouldUpdateShortcutType}
                     shortcutKey={this.state.shortcutKey}
                     shortcutType={this.state.shortcutType}
-                    highlightShortcut={this.setHighlightShortcut}
+                    changeShortcutType={this.changeShortcutType}
                 />
             </div>
         );
@@ -445,7 +445,7 @@ export default class NotesPanel extends Component {
                     updateErrors={this.props.updateErrors}
                     updateShowTemplateView={this.updateShowTemplateView}
                     setUndoTemplateInsertion={this.setUndoTemplateInsertion}
-                    highlightShortcut={this.setHighlightShortcut}
+                    changeShortcutType={this.changeShortcutType}
                 />
             </div>
         );
