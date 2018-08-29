@@ -93,37 +93,6 @@ export default class NotesPanel extends Component {
     }
 
     updateContextTrayItemWithSelectedPickListOptions = (selectedPickListOptions) => {
-        let contextTrayItemToInsert = this.state.contextTrayItemToInsert;
-        
-        // Clear old selections
-        while (contextTrayItemToInsert.indexOf('[[') >= 0) {
-            let indexStart = contextTrayItemToInsert.indexOf('[[');
-            let indexEnd = contextTrayItemToInsert.indexOf(']]');
-            contextTrayItemToInsert = contextTrayItemToInsert.slice(0, indexStart) + contextTrayItemToInsert.slice(indexEnd + 2);
-        }
-
-        if (!Lang.isNull(this.state.contextTrayItemToInsert) && selectedPickListOptions.length > 0) {
-            // Loop through selectedPickListOptions and replace in contextTrayItem
-            let searchIndex = 0;
-            selectedPickListOptions.forEach((option) => {
-                const triggerLength = option.trigger.length;
-                // Skip selections that have not been made yet
-                if (option.selectedOption === undefined) {
-                    // update searchIndex to start searching the string after the trigger we are skipping over
-                    searchIndex = contextTrayItemToInsert.indexOf(option.trigger, searchIndex) + triggerLength;
-                    return;
-                }
-
-                let index = contextTrayItemToInsert.indexOf(option.trigger, searchIndex) + triggerLength;
-                // Search for next instance of trigger if bracketed notation is already provided
-                while (contextTrayItemToInsert.substring(index).startsWith("[[")) {
-                    index = contextTrayItemToInsert.indexOf(option.trigger, searchIndex + index + 1) + triggerLength;
-                }
-                // Replace instance of shortcut with bracketed notation
-                contextTrayItemToInsert = contextTrayItemToInsert.slice(0, index) + `[[${option.selectedOption}]]` + contextTrayItemToInsert.slice(index);
-            });
-        }
-
         this.setState({ selectedPickListOptions });
     }
 
