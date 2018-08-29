@@ -268,11 +268,13 @@ export default class PickListOptionsPanel extends Component {
     }
 }
 
-PickListOptionsPanel.proptypes = {
+PickListOptionsPanel.propTypes = {
     arrayOfPickLists: PropTypes.array.isRequired,
+    changeShortcutType: PropTypes.func.isRequired,
     contextManager: PropTypes.object.isRequired,
     insertingTemplate: PropTypes.bool.isRequired,
     setInsertingTemplate: PropTypes.func.isRequired,
+    setUndoTemplateInsertion: PropTypes.func.isRequired,
     updateContextTrayItemToInsert: PropTypes.func.isRequired,
     updateContextTrayItemWithSelectedPickListOptions: PropTypes.func.isRequired,
     updateNoteAssistantMode: PropTypes.func.isRequired,

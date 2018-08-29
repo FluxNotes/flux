@@ -539,6 +539,7 @@ export default class NoteAssistant extends Component {
 
 NoteAssistant.propTypes = {
     arrayOfPickLists: PropTypes.array.isRequired,
+    changeShortcutType: PropTypes.func.isRequired,
     closeNote: PropTypes.func.isRequired,
     currentlyEditingEntryId: PropTypes.number.isRequired,
     contextManager: PropTypes.object.isRequired,
@@ -563,6 +564,7 @@ NoteAssistant.propTypes = {
     setNoteViewerVisible: PropTypes.func.isRequired,
     setOpenClinicalNote: PropTypes.func.isRequired,
     setSearcbSelectedItem: PropTypes.func,
+    setUndoTemplateInsertion: PropTypes.func.isRequired,
     shortcutManager: PropTypes.object.isRequired,
     shouldEditorContentUpdate: PropTypes.bool.isRequired,
     structuredFieldMapManager: PropTypes.object.isRequired,

@@ -30,7 +30,8 @@ export default class NotesPanel extends Component {
             selectedPickListOptions: [],
             shouldRevertTemplate: false,
             shouldUpdateShortcutType: false,
-            shortcutKey: -1
+            shortcutKey: null,
+            shortcutType: null,
         };
 
         this.noteParser = new NoteParser(this.props.shortcutManager, this.props.contextManager);

@@ -1538,6 +1538,8 @@ class FluxNotesEditor extends React.Component {
 }
 
 FluxNotesEditor.propTypes = {
+    arrayOfPickLists: PropTypes.array.isRequired,
+    changeShortcutType: PropTypes.func.isRequired,
     closeNote: PropTypes.func.isRequired,
     contextManager: PropTypes.object.isRequired,
     contextTrayItemToInsert: PropTypes.string,
@@ -1551,11 +1553,17 @@ FluxNotesEditor.propTypes = {
     patient: PropTypes.object.isRequired,
     saveNote: PropTypes.func.isRequired,
     selectedNote: PropTypes.object,
+    selectedPickListOptions: PropTypes.array.isRequired,
     setForceRefresh: PropTypes.func,
     setLayout: PropTypes.func.isRequired,
     setNoteViewerEditable: PropTypes.func.isRequired,
+    setUndoTemplateInsertion: PropTypes.func.isRequired,
+    shortcutKey: PropTypes.string,
     shortcutManager: PropTypes.object.isRequired,
+    shortcutType: PropTypes.string,
     shouldEditorContentUpdate: PropTypes.bool.isRequired,
+    shouldUpdateShortcutType: PropTypes.bool.isRequired,
+    shouldRevertTemplate: PropTypes.bool.isRequired,
     structuredFieldMapManager: PropTypes.object.isRequired,
     summaryItemToInsert: PropTypes.string.isRequired,
     updatedEditorNote: PropTypes.object,
