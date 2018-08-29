@@ -343,7 +343,6 @@ class FluxNotesEditor extends React.Component {
         return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus();
     }
 
-    // TODO: explain
     updateExistingShortcut = (shortcut, transform = undefined) => {
         if (Lang.isUndefined(transform)) {
             transform = this.state.state.transform();
@@ -523,11 +522,11 @@ class FluxNotesEditor extends React.Component {
         if (this.props.noteAssistantMode === 'pick-list-options-panel') {
             const documentText = this.getNoteText(this.previousState);
             this.revertTemplate();
-            this.props.saveNote(documentText)
+            this.props.saveNote(documentText);
             this.props.closeNote();
         } else {
             const documentText = this.getNoteText(this.state.state);
-            this.props.saveNote(documentText)
+            this.props.saveNote(documentText);
             this.props.closeNote();
         }
     }
