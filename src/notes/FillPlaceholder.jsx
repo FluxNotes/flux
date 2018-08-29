@@ -268,7 +268,7 @@ export default class FillPlaceholder extends Component {
         if (attribute.type === 'checkboxes') {
             multiSelect = 
                 <span className="multi-select"> (select multiple) </span>
-            if(!expanded){
+            if(!expanded) {
                 nextButton =
                 <Grid item xs={2}>
                     <Button
