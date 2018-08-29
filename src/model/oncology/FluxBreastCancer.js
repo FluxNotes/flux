@@ -1,37 +1,18 @@
 import BreastCancer from '../shr/oncology/BreastCancer';
-import FluxCondition from '../condition/FluxCondition';
 import FluxEstrogenReceptorStatus from './FluxEstrogenReceptorStatus';
 import FluxHER2ReceptorStatus from './FluxHER2ReceptorStatus';
 import FluxHistologicGrade from './FluxHistologicGrade';
 import FluxProgesteroneReceptorStatus from './FluxProgesteroneReceptorStatus';
-import FluxTNMStage from '../oncology/FluxTNMStage';
+import FluxSolidTumorCancer from './FluxSolidTumorCancer';
 import FluxTumorDimensions from '../oncology/FluxTumorDimensions';
-import Lang from 'lodash';
-import moment from 'moment';
 
-class FluxBreastCancer extends FluxCondition {
+class FluxBreastCancer extends FluxSolidTumorCancer {
     constructor(json, patientRecord) {
         super();
         this._patientRecord = patientRecord;
         this._condition = BreastCancer.fromJSON(json);
     }
     
-    getHistologicalGrades() {
-        return this.getObservationsOfType(FluxHistologicGrade);
-    }
-    
-    getMostRecentHistologicalGrade() {
-        let results = this.getObservationsOfTypeChronologicalOrder(FluxHistologicGrade);
-        if (!results || results.length === 0) return null;
-        return results.pop();
-    }
-
-    _getMostRecentReceptorStatus(receptorType) {
-        const list = this.getObservationsOfType(receptorType);
-        const sortedList = list.sort(this._observationsTimeSorter);
-        if (list.length === 0) return null; else return sortedList.pop();
-    }
-
     getMostRecentERReceptorStatus() {
         return this._getMostRecentReceptorStatus(FluxEstrogenReceptorStatus);
     }
@@ -43,21 +24,6 @@ class FluxBreastCancer extends FluxCondition {
     getMostRecentHER2ReceptorStatus() {
         return this._getMostRecentReceptorStatus(FluxHER2ReceptorStatus);
     }
-
-    getMostRecentStaging(sinceDate = null) {
-        let stagingList = this.getObservationsOfType(FluxTNMStage);
-        if (stagingList.length === 0) return null; 
-        const sortedStagingList = stagingList.sort(this._stageTimeSorter);
-        const length = sortedStagingList.length;
-        let s = (sortedStagingList[length - 1]);
-        if (Lang.isNull(sinceDate)) return s; 
-        const startTime = new moment(s.occurrenceTime, "D MMM YYYY");
-        if (startTime < sinceDate) {
-            return null;
-        } else {
-            return s;
-        }
-    } 
 
     /**
      *  function to build HPI Narrative

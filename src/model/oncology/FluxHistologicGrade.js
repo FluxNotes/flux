@@ -17,6 +17,23 @@ class FluxHistologicGrade {
         return this._displayTextOrCode(this._histologicGrade.value.coding[0]);
     }
 
+    getGradeAsSimpleNumber() {
+        const code = this._histologicGrade.value.coding[0].value;
+        if (code === "369792005") {
+            return 3;
+        } else if (code === "369791003") {
+            return 2;
+        } else if (code === "369790002") {
+            return 1;
+        } else if (code === "373374006" || code === "258245003") {
+            return 4;
+        } else if (code === "12619005") {
+            return "X";
+        } else {
+            return null;
+        }
+    }
+
     /**
      * Extract a human-readable string from a code.
      *

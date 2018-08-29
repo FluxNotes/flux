@@ -17,6 +17,12 @@ class FluxPatient {
         return null;
     }
 
+    get race() {
+        if (this._patient.race) {
+            return this._patient.race.value.coding[0].value;
+        }
+    }
+
     get person() {
         return this._patient.value;
     }
