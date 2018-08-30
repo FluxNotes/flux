@@ -83,7 +83,10 @@
 
 .attribute-title {
     font-size: 0.9rem;
-    text-align: center;
+}
+
+.field-row {
+    margin-top: 5px !important;
 }
 
 .multi-select {

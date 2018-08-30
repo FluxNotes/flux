@@ -289,7 +289,7 @@ export default class FillPlaceholder extends Component {
         const value = placeholder.getAttributeValue(attribute.name, entryIndex);
         if (expanded || !done) {
             currentFieldRowInSummary = (
-                <Grid container key={attribute.name}>
+                <Grid className="field-row" container key={attribute.name}>
                     <Grid item xs={1} />
                     <Grid item xs={2} style={{ display: 'flex', alignItems: 'center' }}>
                         <span className="attribute-title">
@@ -301,7 +301,7 @@ export default class FillPlaceholder extends Component {
                         <span>
                             {this.createFillFieldForPlaceholder(attribute, value, entryIndex)}
                         </span>
-                    </Grid>
+                    </Grid>                   
                     {nextButton}
                 </Grid>
             );

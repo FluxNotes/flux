@@ -4,8 +4,9 @@
 }
 
 .single-choice-button {
-    border-radius: 5px;
+    border-radius: 5px !important;
     border: 2px solid;
     border-color: white;
     line-height: 0.9rem !important;
+    margin: 0.5px !important;
 }

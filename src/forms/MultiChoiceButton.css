@@ -4,7 +4,8 @@
 }
 
 .multi-choice-button {
-    border-radius: 0 !important;
+    border-radius: 5px !important;
     border-color: white;
     line-height: 0.9rem !important;
+    margin: 0.5px !important;
 }
