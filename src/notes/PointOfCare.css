@@ -4,7 +4,7 @@
     overflow-x: hidden;
     overflow-y: scroll;
     /* 96px is the height of the Patient Control Panel, 20px is the height of the top margin of post encounter view
-    content and a little extra for potential scroll bars, 70px accounts for the editor header */
-    height: calc(100vh - 96px - 20px - 70px);
+    content and a little extra for potential scroll bars, 82px accounts for the editor header */
+    height: calc(100vh - 96px - 20px - 82px);
 }
 
