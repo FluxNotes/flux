@@ -266,7 +266,7 @@ export default class FillPlaceholder extends Component {
         let nextButton = "";
 
         if (attribute.type === 'checkboxes') {
-            multiSelect = 
+            multiSelect =
                 <span className="multi-select"> (select multiple) </span>
             if(!expanded) {
                 nextButton =
@@ -289,7 +289,7 @@ export default class FillPlaceholder extends Component {
         const value = placeholder.getAttributeValue(attribute.name, entryIndex);
         if (expanded || !done) {
             currentFieldRowInSummary = (
-                <Grid container key={attribute.name}>
+                <Grid className="field-row" container key={attribute.name}>
                     <Grid item xs={1} />
                     <Grid item xs={2} style={{ display: 'flex', alignItems: 'center' }}>
                         <span className="attribute-title">
@@ -301,11 +301,10 @@ export default class FillPlaceholder extends Component {
                         <span>
                             {this.createFillFieldForPlaceholder(attribute, value, entryIndex)}
                         </span>
-                    </Grid>
+                    </Grid>                   
                     {nextButton}
                 </Grid>
             );
-
         }
 
         return currentFieldRowInSummary;
@@ -415,7 +414,7 @@ export default class FillPlaceholder extends Component {
         const { placeholder } = this.props;
 
         return (
-            <Grid item xs={3}>
+            <Grid item xs={3} className='checkbox-container'>
                 <span className="done-checkbox">
                     <Checkbox style={{ width: 26, height: 26 }} checked={done} value="done" onChange={this.onDone} color="primary" />
                 </span>

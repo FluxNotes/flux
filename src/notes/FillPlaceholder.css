@@ -1,3 +1,9 @@
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
 .done-checkbox {
     margin-inline-end: 5px;
     vertical-align: top;
@@ -6,6 +12,8 @@
 .shortcut-name {
     margin-inline-end: 10px;
     vertical-align: top;
+    font-weight: bold;
+    font-size: 0.9rem;
 }
 
 .error-message {
@@ -14,19 +22,22 @@
 
 .shortcut-field-title {
     margin-inline-end: 5px;
+    font-size: 0.9rem;
 }
 
 .fill-missing-data {
     margin-inline-end: 20px;
     border-bottom: 1px solid rgba(255, 0, 0, 0.5);
     text-decoration: none;
+    font-size: 0.9rem;
 }
 
 .fill-structured-data {
     margin-inline-end: 20px;
     cursor: pointer;
-    border-bottom: 1px solid rgba(1, 130, 215, 0.5);
+    border-bottom: 1.5px dashed rgba(1, 130, 215, 0.8);
     text-decoration: none;
+    font-size: 0.9rem;
 }
 
 .date-picker-button {
@@ -43,6 +54,10 @@
 
 .date-picker-container {
     position: relative;
+}
+
+.expanded-style {
+    padding-bottom: 24px;
 }
 
 /* Shows calendar picker modal over every other component */
@@ -76,12 +91,16 @@
     width: 100%;
 }
 
-.multi-select {
-    font-size: 12px;
+.attribute-title {
+    font-size: 0.9rem;
 }
 
-.attribute-title {
-    text-align: center;
+.field-row {
+    margin-top: 5px !important;
+}
+
+.multi-select {
+    font-size: 12px;
 }
 
 .poc-next-item-btn {
@@ -89,7 +108,15 @@
     line-height: 2.1rem;
     text-transform: none;
     background-color: white !important;
-    padding-top: 20px; }
-    .poc-next-item-btn:hover {
-      background-color: #E6E6E6 !important;    
+    padding-top: 20px; 
+}
+
+.poc-next-item-btn:hover {
+    background-color: #E6E6E6 !important;
+}
+
+@media only screen and (max-width: 1024px) { 
+    .checkbox-container {
+        flex-wrap: wrap-reverse;
+    }
 }
