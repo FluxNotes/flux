@@ -28,5 +28,5 @@ yarn-error.log*
 /src/panels/NotesPanel.css
 /src/panels/PatientControlPanel.css
 /src/patientControl/PatientSearch.css
+/src/styles/LandingPage.css
 /src/summary/ConditionSelection.css
-
