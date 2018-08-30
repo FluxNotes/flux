@@ -6,4 +6,5 @@
 .multi-choice-button {
     border-radius: 0 !important;
     border-color: white;
+    line-height: 0.9rem !important;
 }
