@@ -740,6 +740,10 @@ class FluxNotesEditor extends React.Component {
             if (nextProps.shouldRevertTemplate) {
                 this.revertTemplate();
             }
+            const anchorEl = Slate.findDOMNode(this.state.state.anchorBlock);
+            if (anchorEl && anchorEl.scrollIntoView) {
+                anchorEl.scrollIntoView();
+            }
         }
     }
 
