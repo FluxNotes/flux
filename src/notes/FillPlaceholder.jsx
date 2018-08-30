@@ -414,7 +414,7 @@ export default class FillPlaceholder extends Component {
         const { placeholder } = this.props;
 
         return (
-            <Grid item xs={3}>
+            <Grid item xs={3} className='checkbox-container'>
                 <span className="done-checkbox">
                     <Checkbox style={{ width: 26, height: 26 }} checked={done} value="done" onChange={this.onDone} color="primary" />
                 </span>

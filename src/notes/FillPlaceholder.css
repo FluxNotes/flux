@@ -1,3 +1,8 @@
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+}
 .done-checkbox {
     margin-inline-end: 5px;
     vertical-align: top;
@@ -29,7 +34,9 @@
 .fill-structured-data {
     margin-inline-end: 20px;
     cursor: pointer;
-    border-bottom: 1px solid rgba(1, 130, 215, 0.5);
+    border-bottom: 1.5px dashed rgba(1, 130, 215, 0.8);;
+
+   
     text-decoration: none;
     font-size: 0.9rem;
 }
@@ -48,6 +55,10 @@
 
 .date-picker-container {
     position: relative;
+}
+
+.expanded-style {
+    padding: 16px 24px 16px 24px;
 }
 
 /* Shows calendar picker modal over every other component */

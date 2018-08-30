@@ -14,7 +14,7 @@ export default class PointOfCare extends Component {
                     <Col xs>
                         <FillPlaceholder 
                             placeholder={placeholder} 
-                            backgroundColor={(((index + 1) % 2) === 0) ? 'lightgrey' : ''}
+                            backgroundColor={(((index + 1) % 2) === 0) ? '#f8f8f8' : ''}
                             ref={(fph) => { this.fillPlaceholders[placeholder.shortcutName] = fph; }} />
                     </Col>
                 </Row>
