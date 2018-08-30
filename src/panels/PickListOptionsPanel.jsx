@@ -15,14 +15,16 @@ export default class PickListOptionsPanel extends Component {
         this.arrayOfPickLists = this.props.arrayOfPickLists.map((pickList, i) => {
             return {
                 trigger: pickList.trigger + `_${i}`,
-                options: pickList.options
+                options: pickList.options,
+                shortcut: pickList.shortcut
             }
         });
         // triggerSelections are the selections made by the user for each pick List
         // pushing the trigger value first so that order of shortcuts remain the same
         let triggerSelections = this.arrayOfPickLists.map((pickList) => {
             return {
-                trigger: pickList.trigger
+                trigger: pickList.trigger,
+                shortcut:  pickList.shortcut
             };
         });
 
@@ -58,9 +60,10 @@ export default class PickListOptionsPanel extends Component {
 
     // Cancels insertion of text and clears any context
     handleCancelButtonClick = () => {
+        this.props.setUndoTemplateInsertion(true);
         this.props.updateContextTrayItemToInsert(null);
         this.props.setInsertingTemplate(false);
-        this.toggleView('context-tray')
+        this.toggleView('context-tray');
     }
 
     // Pass array of select of pick list options to be used in updating the contextTrayItem to be inserted
@@ -79,17 +82,19 @@ export default class PickListOptionsPanel extends Component {
                 : triggerSelection.selectedOption;
             return {
                 trigger: triggerSelection.trigger.slice(0, underScoreIndex),
-                selectedOption: selectedOption
+                selectedOption: selectedOption,
+                shortcut: triggerSelection.shortcut
             }
         });
 
-        this.props.updateContextTrayItemWithSelectedPickListOptions(triggerSelections);
+        this.props.updateSelectedPickListOptions(triggerSelections);
     }
 
     handleOkButtonClick = () => {
-        this.toggleView('context-tray');
+        this.props.updateContextTrayItemToInsert(null);
         this.props.setInsertingTemplate(false);
-        this.handleInsertChosenOption();
+        this.props.changeShortcutType(null, false, null);
+        this.toggleView('context-tray');
     }
 
     handleOptionButtonClick(option, trigger) {
@@ -120,6 +125,13 @@ export default class PickListOptionsPanel extends Component {
         }
     }
 
+    changeShortcutType(shortcut, type, e) {
+        if (this.props.insertingTemplate) {
+            e.persist();
+            this.props.changeShortcutType(shortcut.getKey(), true, type);
+        }
+    }
+
     // Render pick list options
     renderOptions(pickLists, i) {
         // Loop through each shortcut in the array and render the options
@@ -129,7 +141,9 @@ export default class PickListOptionsPanel extends Component {
                 let shortcutName = shortcut.trigger.slice(1, underScoreIndex);
                 shortcutName = shortcutName.charAt(0).toUpperCase() + shortcutName.slice(1);
                 return (
-                    <div key={i} className="shortcut-options-container">
+                    <div id={i} key={i}className="shortcut-options-container"
+                        onMouseEnter={(e) => this.changeShortcutType(shortcut.shortcut, 'highlighted_structured_field', e)}
+                        onMouseLeave={(e) => this.changeShortcutType(shortcut.shortcut, 'structured_field', e)}>
                         {shortcutName}
                         {this.renderShortcutOptions(shortcut, i)}
                     </div>
@@ -254,12 +268,14 @@ export default class PickListOptionsPanel extends Component {
     }
 }
 
-PickListOptionsPanel.proptypes = {
+PickListOptionsPanel.propTypes = {
     arrayOfPickLists: PropTypes.array.isRequired,
+    changeShortcutType: PropTypes.func.isRequired,
     contextManager: PropTypes.object.isRequired,
     insertingTemplate: PropTypes.bool.isRequired,
     setInsertingTemplate: PropTypes.func.isRequired,
+    setUndoTemplateInsertion: PropTypes.func.isRequired,
     updateContextTrayItemToInsert: PropTypes.func.isRequired,
-    updateContextTrayItemWithSelectedPickListOptions: PropTypes.func.isRequired,
+    updateSelectedPickListOptions: PropTypes.func.isRequired,
     updateNoteAssistantMode: PropTypes.func.isRequired,
 };

@@ -26,7 +26,12 @@ export default class NotesPanel extends Component {
             arrayOfPickLists: [],
             contextTrayItemToInsert: null,
             localDocumentText: '',
-            showTemplateView: false
+            showTemplateView: false,
+            selectedPickListOptions: [],
+            shouldRevertTemplate: false,
+            shouldUpdateShortcutType: false,
+            shortcutKey: null,
+            shortcutType: null,
         };
 
         this.noteParser = new NoteParser(this.props.shortcutManager, this.props.contextManager);
@@ -35,6 +40,9 @@ export default class NotesPanel extends Component {
     componentWillReceiveProps = (nextProps) => {
         // Logic to handle switching notes
         if (!Lang.isNull(nextProps.openClinicalNote) && this.props.openClinicalNote !== nextProps.openClinicalNote) {
+            if (!Lang.isNull(this.props.openClinicalNote)) {
+                this.updateContextTrayItemToInsert(null);
+            }
             this.saveNote(this.state.localDocumentText);
             this.handleUpdateEditorWithNote(nextProps.openClinicalNote);
         }
@@ -85,39 +93,8 @@ export default class NotesPanel extends Component {
         this.setState({showTemplateView: false});
     }
 
-    updateContextTrayItemWithSelectedPickListOptions = (selectedPickListOptions) => {
-        let contextTrayItemToInsert = this.state.contextTrayItemToInsert;
-        
-        // Clear old selections
-        while (contextTrayItemToInsert.indexOf('[[') >= 0) {
-            let indexStart = contextTrayItemToInsert.indexOf('[[');
-            let indexEnd = contextTrayItemToInsert.indexOf(']]');
-            contextTrayItemToInsert = contextTrayItemToInsert.slice(0, indexStart) + contextTrayItemToInsert.slice(indexEnd + 2);
-        }
-
-        if (!Lang.isNull(this.state.contextTrayItemToInsert) && selectedPickListOptions.length > 0) {
-            // Loop through selectedPickListOptions and replace in contextTrayItem
-            let searchIndex = 0;
-            selectedPickListOptions.forEach((option) => {
-                const triggerLength = option.trigger.length;
-                // Skip selections that have not been made yet
-                if (option.selectedOption === undefined) {
-                    // update searchIndex to start searching the string after the trigger we are skipping over
-                    searchIndex = contextTrayItemToInsert.indexOf(option.trigger, searchIndex) + triggerLength;
-                    return;
-                }
-
-                let index = contextTrayItemToInsert.indexOf(option.trigger, searchIndex) + triggerLength;
-                // Search for next instance of trigger if bracketed notation is already provided
-                while (contextTrayItemToInsert.substring(index).startsWith("[[")) {
-                    index = contextTrayItemToInsert.indexOf(option.trigger, searchIndex + index + 1) + triggerLength;
-                }
-                // Replace instance of shortcut with bracketed notation
-                contextTrayItemToInsert = contextTrayItemToInsert.slice(0, index) + `[[${option.selectedOption}]]` + contextTrayItemToInsert.slice(index);
-            });
-        }
-
-        this.setState({contextTrayItemToInsert: contextTrayItemToInsert});
+    updateSelectedPickListOptions = (selectedPickListOptions) => {
+        this.setState({ selectedPickListOptions });
     }
 
     // Handle when the editor needs to be updated with a note. The note can be a new blank note or a pre existing note
@@ -177,6 +154,7 @@ export default class NotesPanel extends Component {
 
     // Close a note
     closeNote = () => {
+        this.updateContextTrayItemToInsert(null);
         this.props.setOpenClinicalNote(null);
         this.setState({
             updatedEditorNote: null,
@@ -280,6 +258,14 @@ export default class NotesPanel extends Component {
         this.closeNote();
     }
 
+    setUndoTemplateInsertion = (shouldRevertTemplate) => {
+        this.setState({ shouldRevertTemplate });
+    }
+
+    changeShortcutType = (shortcutKey, shouldUpdateShortcutType, shortcutType) => {
+        this.setState({ shortcutKey, shouldUpdateShortcutType, shortcutType });
+    }
+
     renderSignButton = () => {
         return (
             <div id="finish-sign-component">
@@ -377,7 +363,6 @@ export default class NotesPanel extends Component {
                     errors={this.props.errors}
                     handleUpdateEditorWithNote={this.handleUpdateEditorWithNote}
                     isNoteViewerEditable={this.props.isNoteViewerEditable}
-                    inModal={false}
                     itemInserted={this.props.itemInserted}
                     newCurrentShortcut={this.props.newCurrentShortcut}
                     noteAssistantMode={this.state.noteAssistantMode}
@@ -389,6 +374,7 @@ export default class NotesPanel extends Component {
                     setLayout={this.props.setLayout}
                     shortcutManager={this.props.shortcutManager}
                     shouldEditorContentUpdate={this.state.noteAssistantMode !== 'pick-list-options-panel'}
+                    selectedPickListOptions={this.state.selectedPickListOptions}
                     structuredFieldMapManager={this.props.structuredFieldMapManager}
                     summaryItemToInsert={this.props.summaryItemToInsert}
                     summaryItemToInsertSource={this.props.summaryItemToInsertSource}
@@ -399,9 +385,15 @@ export default class NotesPanel extends Component {
                     updateErrors={this.props.updateErrors}
                     updateSelectedNote={this.updateSelectedNote}
                     updateNoteAssistantMode={this.updateNoteAssistantMode}
-                    arrayOfPickLists={this.arrayOfPickLists}
+                    arrayOfPickLists={this.state.arrayOfPickLists}
                     handleUpdateArrayOfPickLists={this.handleUpdateArrayOfPickLists}
                     updateContextTrayItemToInsert={this.updateContextTrayItemToInsert}
+                    shouldRevertTemplate={this.state.shouldRevertTemplate}
+                    setUndoTemplateInsertion={this.setUndoTemplateInsertion}
+                    shouldUpdateShortcutType={this.state.shouldUpdateShortcutType}
+                    shortcutKey={this.state.shortcutKey}
+                    shortcutType={this.state.shortcutType}
+                    changeShortcutType={this.changeShortcutType}
                 />
             </div>
         );
@@ -449,10 +441,12 @@ export default class NotesPanel extends Component {
                     updateSelectedNote={this.updateSelectedNote}
                     arrayOfPickLists={this.state.arrayOfPickLists}
                     updateContextTrayItemToInsert={this.updateContextTrayItemToInsert}
-                    updateContextTrayItemWithSelectedPickListOptions={this.updateContextTrayItemWithSelectedPickListOptions}
+                    updateSelectedPickListOptions={this.updateSelectedPickListOptions}
                     updatedEditorNote={this.state.updatedEditorNote}
                     updateErrors={this.props.updateErrors}
                     updateShowTemplateView={this.updateShowTemplateView}
+                    setUndoTemplateInsertion={this.setUndoTemplateInsertion}
+                    changeShortcutType={this.changeShortcutType}
                 />
             </div>
         );

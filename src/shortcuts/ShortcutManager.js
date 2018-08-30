@@ -319,7 +319,7 @@ class ShortcutManager {
             // valid if it is set!
             contextValueObjectEntryTypes = this.shortcuts[shortcutId]["contextValueObjectEntryTypes"];
 
-            if (Lang.isUndefined(contextValueObjectEntryTypes) || contextValueObjectEntryTypes.includes(context.getValueObject().entryInfo.entryType.value)) {
+            if (Lang.isUndefined(contextValueObjectEntryTypes) || (!Lang.isUndefined(context.getValueObject()) && contextValueObjectEntryTypes.includes(context.getValueObject().entryInfo.entryType.value))) {
                 parentAttribute = this.shortcuts[shortcutId]["parentAttribute"];
                 if (Lang.isUndefined(parentAttribute)) return true;
                 parentVOAs = this.shortcuts[currentContextId]["valueObjectAttributes"];

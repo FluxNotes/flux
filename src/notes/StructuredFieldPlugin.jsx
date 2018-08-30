@@ -59,6 +59,10 @@ function StructuredFieldPlugin(opts) {
                 let shortcut = props.node.get('data').get('shortcut');
                 return <span contentEditable={false} className='structured-field' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
             },
+            highlighted_structured_field: props => {
+                let shortcut = props.node.get('data').get('shortcut');
+                return <span contentEditable={false} className='structured-field structured-field-highlighted' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
+            },
             placeholder: props => {
                 const placeholder = props.node.get('data').get('placeholder');
                 return <span contentEditable={false} className='placeholder'>{placeholder.getTextToDisplayInNote()}</span>;

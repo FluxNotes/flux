@@ -176,7 +176,7 @@ class ContextManager {
     }
 
     // Clears all non active contexts from this.contexts
-    // Only used after picking options from template modal
+    // Only used after picking options from template
     // When choosing options, many unncessary contexts get added
     clearNonActiveContexts() {
         this.contexts = this.contexts.filter((context) => {
