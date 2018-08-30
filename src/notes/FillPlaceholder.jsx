@@ -213,7 +213,7 @@ export default class FillPlaceholder extends Component {
     }
 
     createFillFieldForPlaceholder = (attributeSpec, value, entryIndex = 0) => {
-        const { calendarAttributeSpec, expanded, showCalendar } = this.state;
+        const { calendarAttributeSpec, showCalendar } = this.state;
         const { backgroundColor, placeholder } = this.props;
 
         if (attributeSpec.type === 'radioButtons') {
@@ -267,22 +267,23 @@ export default class FillPlaceholder extends Component {
 
         if (attribute.type === 'checkboxes') {
             multiSelect = 
-                <span className = "multi-select"> (select multiple) </span>
-            nextButton =
-            <Grid item xs={2}>
-                <Button
-                    raised
-                    classes={{
-                        root:"poc-next-item-btn"
-                    }}
-                    onClick={expanded ? null : this.nextField.bind(this, entryIndex)}
-                >
-                    <span>
-                        Next
-                    </span>
-                </Button>
-            </Grid>
-
+                <span className="multi-select"> (select multiple) </span>
+            if(!expanded) {
+                nextButton =
+                <Grid item xs={2}>
+                    <Button
+                        raised
+                        classes={{
+                            root:"poc-next-item-btn"
+                        }}
+                        onClick={expanded ? null : this.nextField.bind(this, entryIndex)}
+                    >
+                        <span>
+                            Next
+                        </span>
+                    </Button>
+                </Grid>
+            }
         }
 
         const value = placeholder.getAttributeValue(attribute.name, entryIndex);
@@ -291,7 +292,7 @@ export default class FillPlaceholder extends Component {
                 <Grid container key={attribute.name}>
                     <Grid item xs={1} />
                     <Grid item xs={2} style={{ display: 'flex', alignItems: 'center' }}>
-                        <span className = "attribute-title">
+                        <span className="attribute-title">
                             {attribute.title} <br/>
                             {multiSelect}
                         </span>

@@ -49,6 +49,14 @@ class PatientRecord {
         }
     }
 
+    _getValueUsingPath(item, attributePath) {
+        let result = item, i;
+        for (i = 0; i < attributePath.length; i++) {
+            result = result[attributePath[i]];
+        }
+        return result;
+    }
+
     _calculateNextEntryId() {
         this.nextEntryId = Math.max.apply(Math, this.entries.map(function (o) {
             return o.entryInfo.entryId;
@@ -493,6 +501,33 @@ class PatientRecord {
         return this.getEntriesOfType(FluxMedicationRequested);
     }
 
+    getMedicationsAsText() { 
+        const meds = this.getMedications();
+        // Basic attributes to be listed in order
+        let attributeList =  ["medication", "amountPerDose.value", "amountPerDose.units", "timingOfDoses.value", "timingOfDoses.units"];
+        attributeList = attributeList.map((listItem) => {
+            return listItem.split(".");
+        });
+
+        const lastMedicationIndex = meds.length - 1;
+        const lastAttributeIndex = attributeList.length - 1;
+        let strResult = "";
+        meds.forEach((item, itemIndex) => {
+            attributeList.forEach((itemKey, attrIndex) => {
+                let nextSubstring = this._getValueUsingPath(item, itemKey);
+                if (!Lang.isUndefined(nextSubstring) && !Lang.isNull(nextSubstring)) strResult += nextSubstring;
+                // If there are more attributes, separate them with a space
+                if (attrIndex < lastAttributeIndex) strResult += " ";
+            });
+            // If there are more medications, separate with newline/carriage returns
+            if (itemIndex < lastMedicationIndex) {
+                strResult += "\r\n";
+            }
+        });
+        
+        return strResult
+    }
+
     getMedicationsChronologicalOrder() {
         let list = this.getMedications();
         list.sort(this._medsTimeSorter);
@@ -522,6 +557,40 @@ class PatientRecord {
 
             return med.isActiveAsOf(today) && !stopMedicationFound;
         });
+    }
+
+    getActiveMedicationsAsText() { 
+        const activeMeds = this.getActiveMedications(); 
+
+        // Basic attributes to be listed in order
+        let attributeList =  ["medication", "amountPerDose.value", "amountPerDose.units", "timingOfDoses.value", "timingOfDoses.units"];
+        attributeList = attributeList.map((listItem) => {
+            return listItem.split(".");
+        });
+        // Start date to trail the text
+        let startDatePath = "expectedPerformanceTime.timePeriodStart";
+        startDatePath = startDatePath.split('.');
+        
+        const lastMedicationIndex = activeMeds.length - 1;
+        const lastAttributeIndex = attributeList.length - 1;
+        let strResult = "";
+        activeMeds.forEach((item, itemIndex) => {
+            attributeList.forEach((itemKey, attrIndex) => {
+                let nextSubstring = this._getValueUsingPath(item, itemKey);
+                if (!Lang.isUndefined(nextSubstring) && !Lang.isNull(nextSubstring)) strResult += nextSubstring;
+                // If there are more attributes, separate them with a space
+                if (attrIndex < lastAttributeIndex) strResult += " ";
+            });
+            // Add startTime to the end of the string
+            strResult += " started on "
+            strResult += this._getValueUsingPath(item, startDatePath)
+            // If there are more medications, separate with newline/carriage returns
+            if (itemIndex < lastMedicationIndex) {
+                strResult += "\r\n";
+            }
+        });
+        
+        return strResult
     }
 
     getActiveAndRecentlyStoppedMedications() {

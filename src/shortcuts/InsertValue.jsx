@@ -99,26 +99,31 @@ export default class InsertValue extends Shortcut {
                             date: item[dateLabel]
                         };
                     });
-                } else {
-                    let listItems = callSpec["listItems"];
-                    listItems = listItems.map((listItem) => {
-                        return listItem.split(".");
-                    });
-                    const numMedications = result.length - 1;
-                    const numListItems = listItems.length - 1;
-                    let strResult = "";
-                    result.forEach((item, itemIndex) => {
-                        listItems.forEach((itemKey, attrIndex) => {
-                            let nextSubstring = this._getValueUsingPath(item, itemKey);
-                            if (!Lang.isUndefined(nextSubstring) && !Lang.isNull(nextSubstring)) strResult += nextSubstring;
-                            if (attrIndex < numListItems) strResult += " ";
-                        });
-                        if (itemIndex < numMedications) {
-                            strResult += "\r\n";
-                        }
-                    });
-                    result = strResult;
-                }
+                } 
+                // NOTE: We left this in in case we needed to add the listItems functionality back into shortcuts.json
+                // At the time of commenting we had modified the only instances of this 'getData' format from Shortcuts.json, @all medications' and '@active medications'
+                // else {
+                //     let listItems = callSpec["listItems"];
+                //     listItems = listItems.map((listItem) => {
+                //         return listItem.split(".");
+                //     });
+                //     const numMedications = result.length - 1;
+                //     const numListItems = listItems.length - 1;
+                //     let strResult = "";
+                //     result.forEach((item, itemIndex) => {
+                //         console.log("---item")
+                //         console.log(item)
+                //         listItems.forEach((itemKey, attrIndex) => {
+                //             let nextSubstring = this._getValueUsingPath(item, itemKey);
+                //             if (!Lang.isUndefined(nextSubstring) && !Lang.isNull(nextSubstring)) strResult += nextSubstring;
+                //             if (attrIndex < numListItems) strResult += " ";
+                //         });
+                //         if (itemIndex < numMedications) {
+                //             strResult += "\r\n";
+                //         }
+                //     });
+                //     result = strResult;
+                // }
             }
             return result;
         } else if (callObject === "parent") {
