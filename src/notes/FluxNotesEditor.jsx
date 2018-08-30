@@ -1134,16 +1134,17 @@ class FluxNotesEditor extends React.Component {
             let shortcutOptions = [];
 
             localArrayOfPickLists.forEach((pickList) => {
-                // Temporarily create shortcut from trigger to get selectionOptions
-                let tempShortcut = this.props.shortcutManager.createShortcut(pickList.definition, pickList.trigger, this.props.patient, '', false);
-                tempShortcut.initialize(this.props.contextManager, pickList.trigger, false);
+                // Create shortcut from trigger to be inserted before selection chosen. Also uses to get shortcutOptions.
+                let shortcut = this.props.shortcutManager.createShortcut(pickList.definition, pickList.trigger, this.props.patient, '', false);
+                shortcut.setSource("pick list/template");
+                shortcut.initialize(this.props.contextManager, pickList.trigger, false);
 
-                shortcutOptions = tempShortcut.getValueSelectionOptions();
+                shortcutOptions = shortcut.getValueSelectionOptions();
                 localArrayOfPickListsWithOptions.push(
                     {
                         'trigger': pickList.trigger,
                         'options': shortcutOptions,
-                        'shortcut': tempShortcut
+                        'shortcut': shortcut
                     }
                 )
             });
