@@ -2,6 +2,7 @@
 .checkbox-container {
     display: flex;
     align-items: center;
+    justify-content: left;
 }
 .done-checkbox {
     margin-inline-end: 5px;
@@ -34,9 +35,7 @@
 .fill-structured-data {
     margin-inline-end: 20px;
     cursor: pointer;
-    border-bottom: 1.5px dashed rgba(1, 130, 215, 0.8);;
-
-   
+    border-bottom: 1.5px dashed rgba(1, 130, 215, 0.8);
     text-decoration: none;
     font-size: 0.9rem;
 }
@@ -58,7 +57,7 @@
 }
 
 .expanded-style {
-    padding: 16px 24px 16px 24px;
+    padding-bottom: 24px;
 }
 
 /* Shows calendar picker modal over every other component */
@@ -109,7 +108,15 @@
     line-height: 2.1rem;
     text-transform: none;
     background-color: white !important;
-    padding-top: 20px; }
-    .poc-next-item-btn:hover {
-      background-color: #E6E6E6 !important;
+    padding-top: 20px; 
+}
+
+.poc-next-item-btn:hover {
+    background-color: #E6E6E6 !important;
+}
+
+@media only screen and (max-width: 1024px) { 
+    .checkbox-container {
+        flex-wrap: wrap-reverse;
+    }
 }
