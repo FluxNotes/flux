@@ -623,10 +623,19 @@ class FluxNotesEditor extends React.Component {
         return transform;
     }
 
+    scrollToShortcut = (document, shortcutKey) => {
+        const node = document.getParent(shortcutKey);
+        const el = Slate.findDOMNode(node);
+        if (el && el.scrollIntoView) {
+            el.scrollIntoView();
+        }
+    }
+
     updateTemplateWithPickListOptions = (nextProps) => {
         if (nextProps.shouldUpdateShortcutType) {
             let transform = this.state.state.transform();
             let state = transform.setNodeByKey(nextProps.shortcutKey, nextProps.shortcutType).apply();
+            this.scrollToShortcut(state.document, nextProps.shortcutKey);
             this.setState({ state });
         }
         nextProps.selectedPickListOptions.forEach(picklist => {
@@ -655,11 +664,7 @@ class FluxNotesEditor extends React.Component {
                         transform = this.resetShortcutData(shortcut, transform);
                         let state = transform.apply();
                         this.setState({ state }, () => {
-                            const node = state.document.getParent(shortcut.getKey());
-                            const el = Slate.findDOMNode(node);
-                            if (el && el.scrollIntoView) {
-                                el.scrollIntoView();
-                            }
+                            this.scrollToShortcut(state.document, shortcut.getKey());
                         });
                     }
                 }
