@@ -262,7 +262,7 @@ export default class NoteAssistant extends Component {
                 insertingTemplate={this.state.insertingTemplate}
                 setInsertingTemplate={this.setInsertingTemplate}
                 updateContextTrayItemToInsert={this.props.updateContextTrayItemToInsert}
-                updateContextTrayItemWithSelectedPickListOptions={this.props.updateContextTrayItemWithSelectedPickListOptions}
+                updateSelectedPickListOptions={this.props.updateSelectedPickListOptions}
                 updateNoteAssistantMode={this.props.updateNoteAssistantMode}
                 setUndoTemplateInsertion={this.props.setUndoTemplateInsertion}
                 changeShortcutType={this.props.changeShortcutType}
@@ -571,7 +571,7 @@ NoteAssistant.propTypes = {
     updateNoteAssistantMode: PropTypes.func.isRequired,
     updateSelectedNote: PropTypes.func.isRequired,
     updateContextTrayItemToInsert: PropTypes.func.isRequired,
-    updateContextTrayItemWithSelectedPickListOptions: PropTypes.func.isRequired,
+    updateSelectedPickListOptions: PropTypes.func.isRequired,
     updatedEditorNote: PropTypes.object,
     updateErrors: PropTypes.func.isRequired,
     updateShowTemplateView: PropTypes.func.isRequired

@@ -93,7 +93,7 @@ export default class NotesPanel extends Component {
         this.setState({showTemplateView: false});
     }
 
-    updateContextTrayItemWithSelectedPickListOptions = (selectedPickListOptions) => {
+    updateSelectedPickListOptions = (selectedPickListOptions) => {
         this.setState({ selectedPickListOptions });
     }
 
@@ -441,7 +441,7 @@ export default class NotesPanel extends Component {
                     updateSelectedNote={this.updateSelectedNote}
                     arrayOfPickLists={this.state.arrayOfPickLists}
                     updateContextTrayItemToInsert={this.updateContextTrayItemToInsert}
-                    updateContextTrayItemWithSelectedPickListOptions={this.updateContextTrayItemWithSelectedPickListOptions}
+                    updateSelectedPickListOptions={this.updateSelectedPickListOptions}
                     updatedEditorNote={this.state.updatedEditorNote}
                     updateErrors={this.props.updateErrors}
                     updateShowTemplateView={this.updateShowTemplateView}

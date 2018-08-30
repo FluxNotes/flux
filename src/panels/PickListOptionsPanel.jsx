@@ -87,7 +87,7 @@ export default class PickListOptionsPanel extends Component {
             }
         });
 
-        this.props.updateContextTrayItemWithSelectedPickListOptions(triggerSelections);
+        this.props.updateSelectedPickListOptions(triggerSelections);
     }
 
     handleOkButtonClick = () => {
@@ -276,6 +276,6 @@ PickListOptionsPanel.propTypes = {
     setInsertingTemplate: PropTypes.func.isRequired,
     setUndoTemplateInsertion: PropTypes.func.isRequired,
     updateContextTrayItemToInsert: PropTypes.func.isRequired,
-    updateContextTrayItemWithSelectedPickListOptions: PropTypes.func.isRequired,
+    updateSelectedPickListOptions: PropTypes.func.isRequired,
     updateNoteAssistantMode: PropTypes.func.isRequired,
 };
