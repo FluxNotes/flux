@@ -627,7 +627,7 @@ class FluxNotesEditor extends React.Component {
     }
 
     scrollToShortcut = (document, shortcutKey) => {
-        const node = document.getParent(shortcutKey);
+        const node = document.getNode(shortcutKey);
         const el = Slate.findDOMNode(node);
         if (el && el.scrollIntoView) {
             el.scrollIntoView();
