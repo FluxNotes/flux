@@ -226,14 +226,14 @@ describe('getProcedures', function () {
 
 describe('getProgressions', function () { 
     it('should return an empty array on empty patient object', function () { 
-        expect(emptyPatientObj.getProgressions())
+        expect(emptyPatientObj.getProgressions().progressions)
             .to.be.an('array')
             .that.is.empty;
     });
 
     const progressions = hardCodedPatientObj.getProgressions();
     it('should return a non empty array on when there are progression entries', function () { 
-        expect(progressions)
+        expect(progressions.progressions)
             .to.be.an('array')
             .that.is.not.empty;
     });

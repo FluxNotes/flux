@@ -12,6 +12,14 @@ class FluxBreastCancer extends FluxSolidTumorCancer {
         this._patientRecord = patientRecord;
         this._condition = BreastCancer.fromJSON(json);
     }
+
+    // Returns a list of all dates that may be considered a diagnosisDate for this condition
+    getPotentialDiagnosisDates() { 
+        // TODO: Aggregate the relevant candidate dates for diagnosis
+        // console.log(this._condition)
+        console.log('TODO: Aggregate the relevant candidate dates for diagnosis')
+        return [];
+    }
     
     getMostRecentERReceptorStatus() {
         return this._getMostRecentReceptorStatus(FluxEstrogenReceptorStatus);
