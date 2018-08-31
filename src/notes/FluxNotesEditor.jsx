@@ -340,6 +340,9 @@ class FluxNotesEditor extends React.Component {
         }
 
         let shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger, text, updatePatient, source);
+        if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions() && text.length === 0) {
+            return this.openPortalToSelectValueForShortcut(shortcut, false, transform);
+        }
         return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus();
     }
 
