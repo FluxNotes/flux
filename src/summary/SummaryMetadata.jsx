@@ -946,11 +946,6 @@ export default class SummaryMetadata {
                                     },
                                     {
                                         low: 3,
-                                        high: 5,
-                                        assessment: 'average'
-                                    },
-                                    {
-                                        low: 5,
                                         high: 10,
                                         assessment: 'good'
                                     },
@@ -976,11 +971,6 @@ export default class SummaryMetadata {
                                     },
                                     {
                                         low: 1,
-                                        high: 1.5,
-                                        assessment: 'average'
-                                    },
-                                    {
-                                        low: 1.5,
                                         high: 8,
                                         assessment: 'good'
                                     },
