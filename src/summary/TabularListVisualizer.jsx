@@ -306,7 +306,7 @@ export default class TabularListVisualizer extends Component {
             // If this section has an associated formatFunction (that
             // returns a specific) CSS class, it is applied to elementText.
             if (formatFunction) {
-                itemClass += " " + formatFunction(elementText);
+                itemClass += " " + formatFunction(elementText, element, arrayIndex);
             }
             
 

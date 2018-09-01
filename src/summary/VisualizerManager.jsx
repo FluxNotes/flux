@@ -10,6 +10,43 @@ import FormatMedicationChange from './FormatMedicationChange.js';
 import Lang from 'lodash';
 
 class VisualizerManager {
+    transformValuesOverTimeToColumns = (patient, condition, subsection) => {
+        let newsection = {};
+
+        const itemList = subsection.itemsFunction(patient, condition, subsection);
+
+        const goodband = subsection.bands.find((band) => {
+            return band.assessment === 'good';
+        });
+        const unit = (itemList && itemList.length > 0) ? itemList[0]["unit"] : "";
+        let typicalRange = "";
+        if (goodband) {
+            typicalRange = " (";
+            if (goodband.low === 'min' && goodband.high === 'max') {
+                typicalRange += "all";
+            } else {
+                if (goodband.low !== 'min') {
+                    typicalRange += goodband.low + " " + unit + " ";
+                }
+                if (goodband.high !== 'max') {
+                    typicalRange += "to " + goodband.high + " " + unit;
+                } else {
+                    typicalRange += " or higher";
+                }
+            }
+
+            typicalRange += ")";
+        }
+
+        newsection.name = subsection.name + typicalRange;
+        newsection.headings = ["Date", "Value"];
+        newsection.items = itemList.map((labResult) => {
+            return [ labResult["start_time"], labResult[subsection.name] + " " + labResult["unit"] ];
+        })
+        newsection.formatFunction = this.formatLabResult.bind(this, goodband);
+        return newsection;
+    }
+
     transformMedicationsToColumns = (patient, condition, subsection) => {
         let newsection = {};
 
@@ -81,9 +118,30 @@ class VisualizerManager {
 
     // This is a formatting function passed into TabularListVisualizer with the 
     // medication columns.  It returns a css class if it finds a stopped medication.
-    formatStoppedMedication = (medChange) => {
-        if (medChange && medChange === "Stopped") {
+    formatStoppedMedication = (elementText, element, columnNumber) => {
+        if (elementText && elementText === "Stopped" && columnNumber === 1) {
             return "stopped-cell";
+        }
+        return "tabular-list";
+    }
+
+    // This is a formatting function passed into TabularListVisualizer with the
+    // lab result columns. It returns a css class if it finds a lab resut out of
+    // range
+    formatLabResult = (goodrange, elementText, element, columnNumber) => {
+        if (columnNumber === 1 && goodrange) {
+            const valueAndUnits = elementText.split(' ');
+            const value = valueAndUnits[0];
+            if (goodrange.low !== 'min') {
+                if (Number(value) < Number(goodrange.low)) {
+                    return "stopped-cell";
+                }
+            }
+            if (goodrange.high !== 'max') {
+                if (Number(value) > Number(goodrange.high)) {
+                    return "stopped-cell";
+                }
+            }
         }
         return "tabular-list";
     }
@@ -138,6 +196,7 @@ class VisualizerManager {
                     { "dataType": "Medications", "visualizerType": "tabular", "visualizer": TabularListVisualizer, "transform": this.transformMedicationsToColumns },
                     { "dataType": "Medications", "visualizerType": "chart", "visualizer": MedicationRangeChartVisualizer },
                     { "dataType": "ValueOverTime", "visualizerType": "chart", "visualizer": BandedLineChartVisualizer },
+                    { "dataType": "ValueOverTime", "visualizerType": "tabular", "visualizer": TabularListVisualizer, "transform": this.transformValuesOverTimeToColumns },
                     { "dataType": "NarrativeOnly", "visualizerType": "narrative", "visualizer": NarrativeNameValuePairsVisualizer },
                     { "dataType": "DiseaseStatusValues", "visualizerType": "chart", "visualizer": ProgressionLineChartVisualizer },
                     { "dataType": "ClusterPoints", "visualizerType": "scatter", "visualizer": ScatterPlotVisualizer}
