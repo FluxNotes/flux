@@ -22,7 +22,7 @@ class SmartApp extends FullApp {
             smart.user.read().then((user) => {
                 const userProfile = this.securityManager.getUserProfile(user);
                 if (userProfile) {
-                    this.setState({loginUser: userProfile.getUserName()});
+                    this.setState({loginUser: userProfile});
                 } else {
                     console.error("Login failed");
                 }

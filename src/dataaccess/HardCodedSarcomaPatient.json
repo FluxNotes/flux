@@ -5661,6 +5661,29 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime"
                 },
                 "Value": "19 Mar 2016 9:50 -0500"
+            },
+            "ExpectedPerformer": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformer"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Practitioner"
+                    },
+                    "Value": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
+                        },
+                        "HumanName": [
+                            {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
+                                },
+                                "Value": "Dr. X123 Y987"
+                            }
+                        ]
+                    }
+                }
             }
         },
         "Subject": {
@@ -5668,6 +5691,22 @@
             "_EntryId": "1",
             "_EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "ServiceProvider": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
+            },
+            "Value": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
+                },
+                "OrganizationName": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
+                    },
+                    "Value": "MCI"
+                }
             }
         }
     },
@@ -5842,6 +5881,29 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime"
                 },
                 "Value": "15 June 2016 9:20 -0500"
+            },
+            "ExpectedPerformer": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformer"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Practitioner"
+                    },
+                    "Value": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
+                        },
+                        "HumanName": [
+                            {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
+                                },
+                                "Value": "Dr. House"
+                            }
+                        ]
+                    }
+                }
             }
         },
         "Subject": {
@@ -5849,6 +5911,22 @@
             "_EntryId": "1",
             "_EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "ServiceProvider": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
+            },
+            "Value": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
+                },
+                "OrganizationName": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
+                    },
+                    "Value": "MCI"
+                }
             }
         }
     },

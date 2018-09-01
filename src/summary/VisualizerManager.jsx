@@ -10,6 +10,11 @@ import FormatMedicationChange from './FormatMedicationChange.js';
 import Lang from 'lodash';
 
 class VisualizerManager {
+
+    constructor(user) {
+        this.user = user;
+    }
+
     transformValuesOverTimeToColumns = (patient, condition, subsection) => {
         let newsection = {};
 
@@ -160,14 +165,14 @@ class VisualizerManager {
                 if (Lang.isNull(item.value)) {
                     return {name: item.name, value: null};
                 } else if (item.shortcut) {
-                    const itemValue = item.value(patient, condition);
+                    const itemValue = item.value(patient, condition, this.user);
                     if (itemValue) {
                         return {name: item.name, value: itemValue, shortcut: item.shortcut};
                     } else {
                         return {name: item.name, value: null, shortcut: item.shortcut};
                     }
                 } else {
-                    const itemValue = item.value(patient, condition);
+                    const itemValue = item.value(patient, condition, this.user);
                     if (itemValue) {
                         return {name: item.name, value: itemValue };
                     } else {

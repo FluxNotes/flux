@@ -941,8 +941,44 @@ export default class SummaryMetadata {
                                         }
                                     }
                                 ]
-                            }
+                            },
+                            {
+                                name: "Most Recent Visit",
+                                items: [
+                                    {
+                                        name: "Date of Last Visit with You",
+                                        value: (patient, currentConditionEntry, user) => {
+                                            const encounters = patient.getEncountersChronologicalOrder();
+                                            const filteredEncounters = encounters.filter(e => e.practitioner === user.getUserName());
 
+                                            if (filteredEncounters.length === 0) return ["None found", false];
+                                            const expectedPerformanceTime = new moment(filteredEncounters.slice(-1)[0].expectedPerformanceTime, 'D MMM YYYY').format('D MMM YYYY');
+                                            return [expectedPerformanceTime, patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)];
+                                        }
+                                    },
+                                    {
+                                        name: "Date of Last Visit Here",
+                                        value: (patient, currentConditionEntry, user) => {
+                                            const encounters = patient.getEncountersChronologicalOrder();
+                                            const filteredEncounters = encounters.filter(e => e.serviceProvider === user.serviceProvider);
+
+                                            if (filteredEncounters.length === 0) return ["None found", false];
+                                            const expectedPerformanceTime = new moment(filteredEncounters.slice(-1)[0].expectedPerformanceTime, 'D MMM YYYY').format('D MMM YYYY');
+                                            return [expectedPerformanceTime, patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)];
+                                        }
+                                    },
+                                    {
+                                        name: "Who Last Visited Here",
+                                        value: (patient, currentConditionEntry, user) => {
+                                            const encounters = patient.getEncountersChronologicalOrder();
+                                            const filteredEncounters = encounters.filter(e => e.serviceProvider === user.serviceProvider);
+
+                                            if (filteredEncounters.length === 0) return ["None found", false];
+                                            return [filteredEncounters.slice(-1)[0].practitioner, patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)];
+                                        }
+                                    }
+                                ]
+                            }
                         ]
                     },
                     {

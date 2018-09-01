@@ -81,7 +81,7 @@ export class FullApp extends Component {
             isModalOpen: false,
             modalTitle: '',
             modalContent: '',
-            loginUser: "",
+            loginUser: {},
             noteClosed: false,
             openClinicalNote: null,
             patient: null,
@@ -152,7 +152,7 @@ export class FullApp extends Component {
         this.loadPatient(this.props.patientId);
         const userProfile = this.securityManager.getDefaultUser();
         if (userProfile) {
-            this.setState({loginUser: userProfile.getUserName()});
+            this.setState({loginUser: userProfile});
         } else {
             console.error("Login failed");
         }
@@ -343,7 +343,7 @@ export class FullApp extends Component {
                                     appTitle={this.props.display}
                                     clinicalEvent={this.state.clinicalEvent}
                                     layout={this.state.layout}
-                                    loginUser={this.state.loginUser}
+                                    loginUsername={this.state.loginUser.getUserName()}
                                     patient={this.state.patient}
                                     possibleClinicalEvents={this.possibleClinicalEvents}
                                     setCondition={this.setCondition}

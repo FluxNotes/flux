@@ -11,7 +11,7 @@ import './PatientControlPanel.css';
 class PatientControlPanel extends Component {
     render() {
         const { patient } = this.props;
-        const login = (this.props.supportLogin) ? this.props.loginUser : "";
+        const login = (this.props.supportLogin) ? this.props.loginUsername : "";
         const patientConditions = this.props.patient ? this.props.patient.getConditions() : [];
 
         return (

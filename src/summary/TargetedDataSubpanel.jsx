@@ -18,7 +18,7 @@ export default class TargetedDataSubpanel extends Component {
         this._currentIsWide = null;
         this._currentAllowItemClick = null;
         this._currentConditionString = "";
-        this._visualizerManager = new VisualizerManager();
+        this._visualizerManager = new VisualizerManager(props.loginUser);
         this._forceRefresh= false;
     }
 
@@ -158,6 +158,7 @@ export default class TargetedDataSubpanel extends Component {
                         allowItemClick={allowItemClick}
                         isWide={isWide}
                         actions={actions}
+                        loginUser={this.props.loginUser}
                     />
 
                     {i < conditionMetadata.sections.length - 1 ? <Divider className="divider"/> : null}

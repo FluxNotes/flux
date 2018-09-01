@@ -175,7 +175,7 @@ export default class NotesPanel extends Component {
         // Create info to be set for new note
         const signedOn = new moment().format("D MMM YYYY");
         const hospital = "Dana Farber";
-        const clinician = this.props.loginUser;
+        const clinician = this.props.loginUsername;
         const subject = `${clinician}-${new moment().format("YYYYDDMM-hhmm")}`;
         const content = "";
         const signed = false;
@@ -243,7 +243,7 @@ export default class NotesPanel extends Component {
         // Set signed attribute on the selected note to be true
         const tempNote = this.state.selectedNote;
         tempNote.signed = true;
-        tempNote.signedBy = this.props.loginUser;
+        tempNote.signedBy = this.props.loginUsername;
         this.setState({selectedNote: tempNote});
         let inProg = this.props.patient.getInProgressNotes();
         inProg.forEach((a) => {
@@ -415,7 +415,7 @@ export default class NotesPanel extends Component {
                     isNoteViewerEditable={this.props.isNoteViewerEditable}
                     itemInserted={this.props.itemInserted}
                     loadNote={this.handleUpdateEditorWithNote}
-                    loginUser={this.props.loginUser}
+                    loginUsername={this.props.loginUsername}
                     newCurrentShortcut={this.props.newCurrentShortcut}
                     noteAssistantMode={this.state.noteAssistantMode}
                     noteClosed={this.props.noteClosed}
@@ -470,7 +470,7 @@ NotesPanel.propTypes = {
     isNoteViewerVisible: PropTypes.bool.isRequired,
     isNoteViewerEditable: PropTypes.bool.isRequired,
     itemInserted: PropTypes.func.isRequired,
-    loginUser: PropTypes.string.isRequired,
+    loginUsername: PropTypes.string.isRequired,
     newCurrentShortcut: PropTypes.func.isRequired,
     noteClosed: PropTypes.bool.isRequired,
     openClinicalNote: PropTypes.object,

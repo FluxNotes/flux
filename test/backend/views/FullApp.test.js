@@ -388,7 +388,7 @@ describe('6 FluxNotesEditor', function() {
     //         errors={[]}
     //         handleSummaryItemSelected={jest.fn()}
     //         itemInserted={jest.fn()}
-    //         loginUser={''}
+    //         loginUsername={''}
     //         noteClosed={false}
     //         setDocumentText={jest.fn()}
     //         setDocumentTextWithCallback={jest.fn()}
@@ -463,7 +463,7 @@ describe('6 FluxNotesEditor', function() {
             errors={[]}
             handleSummaryItemSelected={jest.fn()}
             itemInserted={jest.fn()}
-            loginUser={''}
+            loginUsername={''}
             noteClosed={false}
             setFullAppStateWithCallback={jest.fn()}
             setLayout={jest.fn()}
@@ -511,7 +511,7 @@ describe('6 FluxNotesEditor', function() {
             errors={[]}
             handleSummaryItemSelected={jest.fn()}
             itemInserted={jest.fn()}
-            loginUser={''}
+            loginUsername={''}
             noteClosed={false}
             setFullAppStateWithCallback={jest.fn()}
             setLayout={jest.fn()}
@@ -769,7 +769,7 @@ describe('6 FluxNotesEditor', function() {
             errors={[]}
             handleSummaryItemSelected={jest.fn()}
             itemInserted={jest.fn()}
-            loginUser={''}
+            loginUsername={''}
             noteClosed={false}
             setFullAppStateWithCallback={jest.fn()}
             setLayout={jest.fn()}
@@ -829,7 +829,7 @@ describe('6 FluxNotesEditor', function() {
             errors={[]}
             handleSummaryItemSelected={jest.fn()}
             itemInserted={jest.fn()}
-            loginUser={''}
+            loginUsername={''}
             noteClosed={false}
             setFullAppStateWithCallback={jest.fn()}
             setLayout={jest.fn()}
@@ -896,7 +896,7 @@ describe('6 FluxNotesEditor', function() {
             errors={[]}
             handleSummaryItemSelected={jest.fn()}
             itemInserted={jest.fn()}
-            loginUser={''}
+            loginUsername={''}
             noteClosed={false}
             setFullAppStateWithCallback={jest.fn()}
             setLayout={jest.fn()}
@@ -963,7 +963,7 @@ describe('6 FluxNotesEditor', function() {
             errors={[]}
             handleSummaryItemSelected={jest.fn()}
             itemInserted={jest.fn()}
-            loginUser={''}
+            loginUsername={''}
             noteClosed={false}
             setFullAppStateWithCallback={jest.fn()}
             setLayout={jest.fn()}
@@ -1096,7 +1096,7 @@ describe('6 FluxNotesEditor', function() {
             errors={[]}
             handleSummaryItemSelected={jest.fn()}
             itemInserted={jest.fn()}
-            loginUser={''}
+            loginUsername={''}
             noteClosed={false}
             setFullAppStateWithCallback={jest.fn()}
             setLayout={jest.fn()}
@@ -1159,7 +1159,7 @@ describe('6 FluxNotesEditor', function() {
     //         errors={[]}
     //         handleSummaryItemSelected={jest.fn()}
     //         itemInserted={jest.fn()}
-    //         loginUser={''}
+    //         loginUsername={''}
     //         noteClosed={false}
     //         setFullAppStateWithCallback={jest.fn()}
     //         setLayout={jest.fn()}

@@ -180,6 +180,7 @@ export default class ClinicianDashboard extends Component {
                         isNoteViewerEditable={isNoteViewerEditable}
                         isTargetedDataSubpanelVisible={isTargetedDataSubpanelVisible}
                         isWide={isTargetedDataPanelWide}
+                        loginUser={this.props.loginUser}
                         summaryMetadata={this.props.summaryMetadata}
                         setForceRefresh={this.props.setForceRefresh}
                         targetedDataPanelSize={this.state.targetedDataPanelSize}
@@ -196,7 +197,7 @@ export default class ClinicianDashboard extends Component {
                         isNoteViewerEditable={isNoteViewerEditable}
                         isNoteViewerVisible={isNoteViewerVisible}
                         itemInserted={this.props.itemInserted}
-                        loginUser={this.props.loginUser}
+                        loginUsername={this.props.loginUser.getUserName()}
                         newCurrentShortcut={this.props.newCurrentShortcut}
                         noteClosed={this.props.appState.noteClosed}
                         openClinicalNote={this.props.appState.openClinicalNote}
@@ -231,7 +232,7 @@ ClinicianDashboard.proptypes = {
     forceRefresh: PropTypes.bool,
     handleSummaryItemSelected: PropTypes.func.isRequired,
     itemInserted: PropTypes.func.isRequired,
-    loginUser: PropTypes.string.isRequired,
+    loginUser: PropTypes.object.isRequired,
     newCurrentShortcut: PropTypes.func.isRequired,
     onContextUpdate: PropTypes.func.isRequired,
     possibleClinicalEvents: PropTypes.array.isRequired,

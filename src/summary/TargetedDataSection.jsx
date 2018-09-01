@@ -176,5 +176,6 @@ TargetedDataSection.propTypes = {
     actions: PropTypes.array,
     allowItemClick: PropTypes.bool,
     isWide: PropTypes.bool.isRequired,
-    clinicalEvent: PropTypes.string.isRequired
+    clinicalEvent: PropTypes.string.isRequired,
+    loginUser: PropTypes.object.isRequired,
 }
