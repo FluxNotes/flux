@@ -14,12 +14,15 @@ class FluxBreastCancer extends FluxSolidTumorCancer {
     }
 
     // Returns a list of all dates that may be considered a diagnosisDate for this condition
-    getPotentialDiagnosisDates() { 
-        // TODO: Aggregate the relevant candidate dates for diagnosis
-        // console.log(this._condition)
-        console.log('TODO: Aggregate the relevant candidate dates for diagnosis')
-        return [];
-    }
+    // getPotentialDiagnosisDates() {
+    //     // TODO: Aggregate the relevant candidate dates for diagnosis
+    //     // console.log(this._condition)
+    //     const procedures = this._patientRecord.getProceduresForCondition(this);
+    //     procedures.sort(this._eventsTimeSorter);
+
+    //     console.log(procedures);
+    //     return [];
+    // }
     
     getMostRecentERReceptorStatus() {
         return this._getMostRecentReceptorStatus(FluxEstrogenReceptorStatus);

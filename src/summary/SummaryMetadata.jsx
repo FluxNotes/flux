@@ -1675,7 +1675,7 @@ export default class SummaryMetadata {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         const progressions = patient.getProgressionsForConditionChronologicalOrder(condition);
 
-        const proecssedProgressions = progressions.map((prog, i) => {
+        const processedProgressions = progressions.map((prog, i) => {
 
             const status = prog.status;
             const code = prog.statusAsCode
@@ -1692,7 +1692,7 @@ export default class SummaryMetadata {
 
         const potentialDiagnosisDates = condition.getPotentialDiagnosisDates()
         return {
-            progressions: proecssedProgressions, 
+            progressions: processedProgressions, 
             potentialDiagnosisDates: potentialDiagnosisDates,
         };
     }

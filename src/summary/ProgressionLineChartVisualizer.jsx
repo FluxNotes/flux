@@ -95,10 +95,10 @@ class ProgressionLineChartVisualizer extends Component {
     }
 
     processPotentialDiagnosisDates = (arrayOfPotentialDiagnosisDates) => {
-        // return arrayOfPotentialDiagnosisDates;
-        // TODO: process dates when we actually have them
-        console.log("TODO: process potential dates here when we actually have them")
-        return [this.formatDate("01 JAN 2010"), this.formatDate("01 JAN 2012")];
+        return arrayOfPotentialDiagnosisDates;
+        // // TODO: process dates when we actually have them
+        // console.log("TODO: process potential dates here when we actually have them")
+        // return [this.formatDate("01 JAN 2010"), this.formatDate("01 JAN 2012")];
     }
 
     // Function for formatting dates -- uses moment for quick formatting options
@@ -113,13 +113,12 @@ class ProgressionLineChartVisualizer extends Component {
 
     getXAxisDomain = (processedData, processedPotentialDiagnosisDates) => {
         let [ min, max ] = this.getMinMax(processedData);
-        for (const date of processedPotentialDiagnosisDates) {
-            //TODO: Update this code to access the date field of these objects once they reflect the actual diagnosis date objects
-            console.log("TODO: update the getXAxisDomain function once the shape of the potentialDiagnosisDates is updated ")
-            if (date < min) { 
-                min = date; 
-            } else if (date > max) { 
-                max = date;
+        for (const obj of processedPotentialDiagnosisDates) {
+            obj.date = this.formatDate(obj.date);
+            if (obj.date < min) { 
+                min = obj.date; 
+            } else if (obj.date > max) { 
+                max = obj.date;
             }
         }
         // Creates a small amount of padding, relative to the length of the domain
@@ -178,7 +177,8 @@ class ProgressionLineChartVisualizer extends Component {
         const processedPotentialDiagnosisDates = this.processPotentialDiagnosisDates(potentialDiagnosisDates)
         // Get all possible values for progression, that are numbers, and sort them
         const allYValues = processedData.map((item) => { return item["Disease status"]; }).sort();
-        const yTicks = allYValues.filter((item, index) => { return (typeof(item) === "number") && ((index === 0) || item !== allYValues[index-1]); });
+        // const yTicks = allYValues.filter((item, index) => { return (typeof(item) === "number") && ((index === 0) || item !== allYValues[index-1]); });
+        const yTicks = [ -1, 0, 1, 2, 3 ];
         const xAxisDomain = this.getXAxisDomain(processedData, processedPotentialDiagnosisDates);
         return (
             <div 
@@ -213,13 +213,13 @@ class ProgressionLineChartVisualizer extends Component {
                         stroke="#295677" 
                         yAxisId={0}
                     />
-                    {processedPotentialDiagnosisDates.map((dateObject, i) => { 
+                    {processedPotentialDiagnosisDates.map((diagnosisDate, i) => { 
                         return (
                             <ReferenceLine 
-                                x={dateObject} 
+                                x={diagnosisDate.date} 
                                 stroke="red" 
-                                label="Diagnosis Date" 
                                 key={i}
+                                label={{value: diagnosisDate.label, position:'insideBottom'}}
                             />
                         );
                     })}
