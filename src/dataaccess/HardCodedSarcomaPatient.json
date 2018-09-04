@@ -1606,7 +1606,19 @@
                     "Value": "MCI"
                 }
             }
-        }
+        },
+        "Author" : {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
+            },
+             "Value": "Dr. X123 Y987"
+         },
+         "Informant": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/Informant"
+            },
+             "Value": "Dr. X123 Y987"
+         }
     },
     {
         "EntryType": {

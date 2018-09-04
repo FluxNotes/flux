@@ -29,6 +29,22 @@ class FluxEncounterRequested {
         return null;
     }
 
+    get author() {
+        if (this._encounterRequested.author) {
+            return this._encounterRequested.author.value;
+        } else {
+            return null;
+        }
+    }
+
+    get informant() {
+        if (this._encounterRequested.informant) {
+            return this._encounterRequested.informant.value;
+        } else {
+            return null;
+        }
+    }
+
     toJSON() {
         return this._encounterRequested.toJSON();
     }

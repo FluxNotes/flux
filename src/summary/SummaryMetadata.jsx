@@ -1511,6 +1511,7 @@ export default class SummaryMetadata {
 
     determineSource = (patient, entry) => {
         if (entry.sourceClinicalNoteReference) return entry.sourceClinicalNoteReference;
+        
         let result = "";
         if (entry.author) result += "Recorded by " + entry.author;
         if (entry.informant) result += (result.length > 0 ? " b" : "B") + "ased on information from " + entry.informant;
@@ -1526,6 +1527,7 @@ export default class SummaryMetadata {
         } else if (entry.diagnosisDate) {
             result += (result.length > 0 ? " c" : "C") + "linically recognized on " + new moment(entry.diagnosisDate, 'D MMM YYYY').format('D MMM YYYY');
         }
+
         return result;
     }
 
