@@ -37,7 +37,7 @@ class FluxObservation extends FluxEntry {
     }
 
     get codeableConceptCode() { 
-        if (this._observation.observationCode.coding.length > 0) { 
+        if (this._observation.observationCode && this._observation.observationCode.coding && this._observation.observationCode.coding.length > 0) { 
             return this._observation.observationCode.coding[0].code;
         } else { 
             return null;

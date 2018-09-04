@@ -6,7 +6,7 @@ class FluxKITVariant {
     }
     
     get abbreviatedName() {
-        return 'KIT';
+        return this._kitVariant.focalSubject.value.coding[0].displayText.value || 'KIT';
     }
 
     get value() {
