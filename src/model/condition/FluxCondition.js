@@ -27,6 +27,12 @@ class FluxCondition {
         return null;
     }
 
+    getPotentialDiagnosisDates() {
+        return [ {  date: this.diagnosisDate,
+                    label: 'diagnosis date'
+        }];
+    }
+
     getDiagnosisDate() {
         return this.diagnosisDate;
     }

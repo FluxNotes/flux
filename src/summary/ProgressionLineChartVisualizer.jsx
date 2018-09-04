@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import { LineChart, Line, XAxis, YAxis, Tooltip } from 'recharts';
+import {
+    LineChart,
+    Line,
+    XAxis,
+    YAxis,
+    Tooltip,
+    ReferenceLine,
+} from 'recharts';
 import moment from 'moment';
 import {scaleLinear} from "d3-scale";
 import Collection from 'lodash';
@@ -21,6 +28,37 @@ class ProgressionLineChartVisualizer extends Component {
             chartWidth: 600,
             chartHeight: 400,
         }
+        this.xVarField = "start_time";
+        this.xVarNumberField = `${this.xVarField}_number`;
+        this.yVarField = "Disease status";
+        this.codeToValueMap =  {
+            // 'Complete Response'
+            "C0677874": 3,
+            // 'Complete Resection'
+            "C0015250": 2,
+            // 'Responding'
+            "C1272745": 1,
+            // 'Stable'
+            "C0205360": 0,
+            // 'Progressing'
+            "C1546960": -1,
+            // 'Inevaluable'
+            "C3858734": null,
+        };
+         this.valueToProgressionMap = {
+            // 'Complete Response'
+            "3" : 'Complete Response',
+            // 'Complete Resection'
+            "2" : 'Complete Resection',
+            // 'Responding'
+            "1" : 'Responding',
+            // 'Stable'
+            "0" : 'Stable',
+            // 'Progressing'
+            "-1" : 'Progressing',
+            // 'Inevaluable'
+            "null" : 'Inevaluable',
+        };
     }
 
     // Makesure to update data and resize the component when its contents update.
@@ -38,19 +76,32 @@ class ProgressionLineChartVisualizer extends Component {
         setTimeout(this.resize, 450);
     }
 
+    // Single function translating date strings to numbers
+    dateToNumber = (date) => {
+        return Number(new Date(date))
+    }
+
     // Turns dates into numeric representations for graphing
-    processForGraphing = (data, xVar, xVarNumber, yVar, codeToValueMap) => { 
-        const dataCopy = Lang.clone(data).map((d, i) => { 
-            const code = d[yVar];
-            const numberBasedOnCode = codeToValueMap[code];
+    processForGraphing = (data) => {
+        return Lang.clone(data).map((d, i) => {
+            const code = d[this.yVarField];
+            const numberBasedOnCode = this.codeToValueMap[code];
 
             // 1. Translate time strings into millisecond representations, storing in a new key:value pair            
-            d[xVarNumber]  = Number(new Date(d[xVar]))
+            d[this.xVarNumberField]  = this.dateToNumber(d[this.xVarField])
             // 2. Translate progression status values into numeric representations, inplace
-            d[yVar] = numberBasedOnCode;
+            d[this.yVarField] = numberBasedOnCode;
             return d;
         })
-        return dataCopy;
+    }
+
+    // Updates diagnosis objects s.t. they store dates in a numeric format
+    processPotentialDiagnosisDates = (arrayOfPotentialDiagnosisDates) => {
+        for (const obj of arrayOfPotentialDiagnosisDates) {
+            // Turn all dates to numeric values
+            obj.date = this.dateToNumber(obj.date);
+        }
+        return arrayOfPotentialDiagnosisDates;
     }
 
     // Function for formatting dates -- uses moment for quick formatting options
@@ -59,16 +110,31 @@ class ProgressionLineChartVisualizer extends Component {
     }
 
     // Function for formatting numeric progression values to strings
-    progressionFormatter = (progStatus, codeToValueMap) => { 
-        return codeToValueMap[progStatus]
+    progressionFormatter = (progStatus) => {
+        return this.codeToValueMap[progStatus];
     }
 
-    // Gets the min/max values of the numeric representation of xVar
+    // Based on the processed data and the potentialDiagnosisDates, build a range of graphable xAxis values
+    getXAxisDomain = (processedData, processedPotentialDiagnosisDates) => {
+        let [ min, max ] = this.getMinMax(processedData);
+        for (const obj of processedPotentialDiagnosisDates) {
+            if (obj.date < min) { 
+                min = obj.date; 
+            } else if (obj.date > max) { 
+                max = obj.date;
+            }
+        }
+        // Creates a small amount of padding, relative to the length of the domain
+        const buffer = ((max - min)/15) 
+        return [min - buffer, max];
+    }
+
+    // Gets the min/max values of the numeric representation of this.xVarField
     // Assumes processed data array 
-    getMinMax = (processedData, xVarNumber) => { 
+    getMinMax = (processedData) => { 
         // Iterate once to avoid 2x iteration by calling min and max separately
         return Collection.reduce(processedData, (rangeValues, dataObj) => {
-            const t = dataObj[xVarNumber];
+            const t = dataObj[this.xVarNumberField];
             
             if (t < rangeValues[0]) { 
                 rangeValues[0] = t;
@@ -76,31 +142,30 @@ class ProgressionLineChartVisualizer extends Component {
                 rangeValues[1] = t;
             }
             return rangeValues;
-        }, [processedData[0][xVarNumber], processedData[0][xVarNumber]]);
+        }, [processedData[0][this.xVarNumberField], processedData[0][this.xVarNumberField]]);
 
     }
 
     // Use min/max info to build ticks for the 
     // Assumes processed data
-    getTicks = (processedData, xVarNumber) => { 
-        if (!processedData || !processedData.length ) {return [];}
-
-        const domain = this.getMinMax(processedData, xVarNumber);
-        const scale = scaleLinear().domain(domain).range([0, 1]);;
-        const ticks = scale.ticks(4);
+    getXAxisTicks = (xAxisDomain, processedPotentialDiagnosisDates) => {
+        const totalNumberOfTicks = 6;
+        const scale = scaleLinear().domain(xAxisDomain).range([0, 1]);
+        const ticks = scale.ticks(totalNumberOfTicks - processedPotentialDiagnosisDates.length);
+        for (const obj of processedPotentialDiagnosisDates) {
+            ticks.push(obj.date);
+        }
         return ticks.sort();
     } 
 
     // Formats a xVar (numeric time) value for tooltips
-    xVarFormatFunction = (xVarNumber)  => { 
-        return "Date: " + this.dateFormat(xVarNumber);
+    xVarFormatFunction = (xVarNumberValue)  => {
+        return "Date: " + this.dateFormat(xVarNumberValue);
     }   
 
     // Based on a valueToProgressionMap, return a function that formats a yVar (quantatative) value for tooltips 
-    createYVarFormatFunctionBasedOnLookup = (valueToProgressionMap) => {  
-        return (value) => { 
-            return `${valueToProgressionMap[value]}`;
-        }
+    yVarFormatFunction = (value) => {
+        return `${this.valueToProgressionMap[value]}`;
     }
 
     // Updates the dimensions of the chart
@@ -113,45 +178,15 @@ class ProgressionLineChartVisualizer extends Component {
     }
 
     renderProgressionChart = (patient, condition, conditionSection) => { 
-        // FIXME: Should start_time be a magic string?
-        const xVar = "start_time";
-        const xVarNumber = `${xVar}Number`;
-        const yVar = "Disease status";
-        const codeToValueMap =  {
-            // 'Complete Response'
-            "C0677874": 3,
-            // 'Complete Resection'
-            "C0015250": 2,
-            // 'Responding'
-            "C1272745": 1,
-            // 'Stable'
-            "C0205360": 0,
-            // 'Progressing'
-            "C1546960": -1,
-            // 'Inevaluable'
-            "C3858734": null,
-        };
-         const valueToProgressionMap = {
-            // 'Complete Response'
-            "3" : 'Complete Response',
-            // 'Complete Resection'
-            "2" : 'Complete Resection',
-            // 'Responding'
-            "1" : 'Responding',
-            // 'Stable'
-            "0" : 'Stable',
-            // 'Progressing'
-            "-1" : 'Progressing',
-            // 'Inevaluable'
-            "null" : 'Inevaluable',
-        };
-        const data = conditionSection.itemsFunction(patient, condition, conditionSection);  
+        const { progressions, potentialDiagnosisDates } = conditionSection.itemsFunction(patient, condition, conditionSection);          
         // process dates into numbers for graphing
-        const processedData = this.processForGraphing(data, xVar, xVarNumber, yVar, codeToValueMap);
-        // Get all possible values for progression, that are numbers, and sort them
-        const allYValues = processedData.map((item) => { return item["Disease status"]; }).sort();
-        const yTicks = allYValues.filter((item, index) => { return (typeof(item) === "number") && ((index === 0) || item !== allYValues[index-1]); });
-
+        const processedData = this.processForGraphing(progressions);
+        const processedPotentialDiagnosisDates = this.processPotentialDiagnosisDates(potentialDiagnosisDates)
+        // Get yAxisInfo 
+        const yTicks = [ -1, 0, 1, 2, 3 ];
+        // Get xAxisInfo 
+        const xAxisDomain = this.getXAxisDomain(processedData, processedPotentialDiagnosisDates);
+        const xTicks = this.getXAxisTicks(xAxisDomain, processedPotentialDiagnosisDates);
         return (
             <div 
                 ref={(chartParentDiv) => {this.chartParentDiv = chartParentDiv;}}
@@ -162,29 +197,40 @@ class ProgressionLineChartVisualizer extends Component {
                     height={this.state.chartHeight}
                     data={processedData}
                     margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
-                >
+                    >
                     <XAxis 
-                        dataKey={xVarNumber} 
+                        dataKey={this.xVarNumberField}
                         type="number"
-                        domain={[]}
-                        ticks={this.getTicks(processedData, xVarNumber)} 
+                        domain={xAxisDomain}
+                        ticks={xTicks}
                         tickFormatter={this.dateFormat}
                     />
                     <YAxis 
-                        dataKey={yVar}
+                        dataKey={this.yVarField}
                         ticks={yTicks}
-                        tickFormatter={(val) => { return valueToProgressionMap[val.toString()]}}
+                        tickFormatter={(val) => { return this.valueToProgressionMap[val.toString()]}}
                     />
                     <Tooltip 
                         labelFormatter={this.xVarFormatFunction}
-                        formatter={this.createYVarFormatFunctionBasedOnLookup(valueToProgressionMap)}
+                        formatter={this.yVarFormatFunction}
                     />
                     <Line 
                         type="monotone" 
-                        dataKey={yVar} 
+                        dataKey={this.yVarField}
                         stroke="#295677" 
                         yAxisId={0}
                     />
+                    {processedPotentialDiagnosisDates.map((diagnosisDate, i) => { 
+                        return (
+                            <ReferenceLine 
+                                x={diagnosisDate.date} 
+                                stroke="red" 
+                                key={i}
+                                label={{value: diagnosisDate.label, position:'insideBottom'}}
+                            />
+                        );
+                    })}
+
                 </LineChart>
            </div>
         );

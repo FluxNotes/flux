@@ -71,5 +71,12 @@ class FluxGastrointestinalStromalTumor extends FluxSolidTumorCancer {
         
         return hpiText;
     }
+    // getPotentialDiagnosisDates() {
+    //     const procedures = this._patientRecord.getProceduresForCondition(this);
+    //     procedures.sort(this._eventsTimeSorter);
+
+    //     console.log(procedures);
+    //     return [];
+    // }
 }
 export default FluxGastrointestinalStromalTumor;
