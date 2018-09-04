@@ -281,7 +281,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
         let content = [];
         narrative.forEach((snippet, index) => {
             const isInsertable = (Lang.isNull(snippet.item) || Lang.isUndefined(snippet.item) ? false : (Lang.isUndefined(snippet.item.isInsertable) ? true : snippet.item.IsInsertable));
-            if ((snippet.type === 'structured-data' || snippet.type === "unsigned-data") && isInsertable) {
+            if ((snippet.type === 'narrative-structured-data' || snippet.type === "narrative-unsigned-data") && isInsertable) {
                 const snippetId = `${snippet.item.name}-${index}`
                 // const snippetValue = (Lang.isArray(snippet.item.value) ? snippet.item.value[0] : snippet.item.value);
                 content.push(
