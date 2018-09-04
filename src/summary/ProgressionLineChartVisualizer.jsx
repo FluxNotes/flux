@@ -76,7 +76,8 @@ class ProgressionLineChartVisualizer extends Component {
         setTimeout(this.resize, 450);
     }
 
-    formatDate = (date) => {
+    // Single function translating date strings to numbers
+    dateToNumber = (date) => {
         return Number(new Date(date))
     }
 
@@ -87,18 +88,20 @@ class ProgressionLineChartVisualizer extends Component {
             const numberBasedOnCode = this.codeToValueMap[code];
 
             // 1. Translate time strings into millisecond representations, storing in a new key:value pair            
-            d[this.xVarNumberField]  = this.formatDate(d[this.xVarField])
+            d[this.xVarNumberField]  = this.dateToNumber(d[this.xVarField])
             // 2. Translate progression status values into numeric representations, inplace
             d[this.yVarField] = numberBasedOnCode;
             return d;
         })
     }
 
+    // Updates diagnosis objects s.t. they store dates in a numeric format
     processPotentialDiagnosisDates = (arrayOfPotentialDiagnosisDates) => {
+        for (const obj of arrayOfPotentialDiagnosisDates) {
+            // Turn all dates to numeric values
+            obj.date = this.dateToNumber(obj.date);
+        }
         return arrayOfPotentialDiagnosisDates;
-        // // TODO: process dates when we actually have them
-        // console.log("TODO: process potential dates here when we actually have them")
-        // return [this.formatDate("01 JAN 2010"), this.formatDate("01 JAN 2012")];
     }
 
     // Function for formatting dates -- uses moment for quick formatting options
@@ -111,10 +114,10 @@ class ProgressionLineChartVisualizer extends Component {
         return this.codeToValueMap[progStatus];
     }
 
+    // Based on the processed data and the potentialDiagnosisDates, build a range of graphable xAxis values
     getXAxisDomain = (processedData, processedPotentialDiagnosisDates) => {
         let [ min, max ] = this.getMinMax(processedData);
         for (const obj of processedPotentialDiagnosisDates) {
-            obj.date = this.formatDate(obj.date);
             if (obj.date < min) { 
                 min = obj.date; 
             } else if (obj.date > max) { 
@@ -145,9 +148,13 @@ class ProgressionLineChartVisualizer extends Component {
 
     // Use min/max info to build ticks for the 
     // Assumes processed data
-    getTicks = (xAxisDomain) => {
-        const scale = scaleLinear().domain(xAxisDomain).range([0, 1]);;
-        const ticks = scale.ticks(4);
+    getXAxisTicks = (xAxisDomain, processedPotentialDiagnosisDates) => {
+        const totalNumberOfTicks = 6;
+        const scale = scaleLinear().domain(xAxisDomain).range([0, 1]);
+        const ticks = scale.ticks(totalNumberOfTicks - processedPotentialDiagnosisDates.length);
+        for (const obj of processedPotentialDiagnosisDates) {
+            ticks.push(obj.date);
+        }
         return ticks.sort();
     } 
 
@@ -175,11 +182,11 @@ class ProgressionLineChartVisualizer extends Component {
         // process dates into numbers for graphing
         const processedData = this.processForGraphing(progressions);
         const processedPotentialDiagnosisDates = this.processPotentialDiagnosisDates(potentialDiagnosisDates)
-        // Get all possible values for progression, that are numbers, and sort them
-        const allYValues = processedData.map((item) => { return item["Disease status"]; }).sort();
-        // const yTicks = allYValues.filter((item, index) => { return (typeof(item) === "number") && ((index === 0) || item !== allYValues[index-1]); });
+        // Get yAxisInfo 
         const yTicks = [ -1, 0, 1, 2, 3 ];
+        // Get xAxisInfo 
         const xAxisDomain = this.getXAxisDomain(processedData, processedPotentialDiagnosisDates);
+        const xTicks = this.getXAxisTicks(xAxisDomain, processedPotentialDiagnosisDates);
         return (
             <div 
                 ref={(chartParentDiv) => {this.chartParentDiv = chartParentDiv;}}
@@ -195,7 +202,7 @@ class ProgressionLineChartVisualizer extends Component {
                         dataKey={this.xVarNumberField}
                         type="number"
                         domain={xAxisDomain}
-                        ticks={this.getTicks(xAxisDomain)}
+                        ticks={xTicks}
                         tickFormatter={this.dateFormat}
                     />
                     <YAxis 
