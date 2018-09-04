@@ -752,6 +752,9 @@ export default class SummaryMetadata {
                                 ]
                             },
                             {
+                                defaultTemplate: "You last saw this patient on ${Most Recent Visit.Date of Last Visit with You}. The patient was last seen in your facility by ${Most Recent Visit.Who Last Visited Here} on ${Most Recent Visit.Date of Last Visit Here}."
+                            },
+                            {
                                 defaultTemplate: "As of ${.As Of Date}, disease is ${.Disease Status} based on ${.Rationale}.",
                                 dataMissingTemplate: "No recent ${disease status}.",
                                 useDataMissingTemplateCriteria: [

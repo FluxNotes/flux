@@ -76,7 +76,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
     // for the given subsection object, return the list of data items it specifies
     // includes resolve value functions (value) per item (items) and item list functions (itemsFunction)
     getList(subsection) {
-        const {patient, condition, conditionSection} = this.props;
+        const {patient, condition, conditionSection, loginUser} = this.props;
         if (patient == null || condition == null || conditionSection == null) {
             return [];
         }
@@ -92,7 +92,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
                 if (Lang.isNull(item.value)) {
                     return {name: item.name, value: null};
                 } else {
-                    let val = item.value(patient, condition);
+                    let val = item.value(patient, condition, loginUser);
                     if (val) {
                         return {name: item.name, value: val[0], shortcut: item.shortcut, unsigned: val[1], sourceNote: val[2]};
                     } else {
