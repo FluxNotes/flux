@@ -175,6 +175,22 @@ class FluxCondition {
         results.sort(this._observationsTimeSorter);
         return results;
     }
+
+    getObservationsWithObservationCodeChronologicalOrder(code) {
+        let results = this.getObservationsWithObservationCode(code);
+        results.sort(this._observationsTimeSorter);
+        return results;
+    }
+
+    getObservationsWithObservationCode(code) {
+        if (!this._condition.evidence) return [];
+        return this._condition.evidence.map((item) => {
+            if (item.value instanceof Reference) item = item.value;
+            return this._patientRecord.getEntryFromReference(item);
+        }).filter((item) => {
+            return item.codeableConceptCode === code;
+        });
+    }
     
     getObservationsOfType(type) {
         if (!this._condition.evidence) return [];
@@ -308,7 +324,8 @@ class FluxCondition {
         };
         const medicationTemplates = {
             range: 'Patient took {0} from {1} to {2}.',
-            single: 'Patient started {0} on {1}.'
+            single: 'Patient started {0} on {1}.',
+            single_plan_stop: 'Patient started {0} on {1}. Planned until {2}.'
         };
         const today = new moment();
         events.forEach((event) => {
@@ -342,9 +359,17 @@ class FluxCondition {
                         medicationText = medicationText.replace('{2}', event.expectedPerformanceTime.timePeriodEnd);
                         hpiText += medicationText;
                     } else {
-                        let medicationText = '\r\n' + medicationTemplates['single'];
+                        let medicationText;
+                        if (event.expectedPerformanceTime.timePeriodEnd) {
+                            medicationText = '\r\n' + medicationTemplates['single_plan_stop'];
+                        } else {
+                            medicationText = '\r\n' + medicationTemplates['single'];
+                        }
                         medicationText = medicationText.replace('{0}', event.medication);
                         medicationText = medicationText.replace('{1}', event.expectedPerformanceTime.timePeriodStart);
+                        if (event.expectedPerformanceTime.timePeriodEnd) {
+                            medicationText = medicationText.replace('{2}', event.expectedPerformanceTime.timePeriodEnd);
+                        }
                         hpiText += medicationText;
                     }
                     break;

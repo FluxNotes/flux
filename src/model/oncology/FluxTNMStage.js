@@ -3,10 +3,10 @@ import N_Stage from '../shr/oncology/N_Stage';
 import ClinicallyRelevantTime from '../shr/finding/ClinicallyRelevantTime';
 import TNMStage from '../shr/oncology/TNMStage';
 import T_Stage from '../shr/oncology/T_Stage';
-import MitoticCountScore from '../shr/oncology/MitoticCountScore'
 import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
 import FluxObservation from '../finding/FluxObservation';
+import FluxMitoticRate from './FluxMitoticRate';
 import lookup from '../../lib/tnmstage_lookup.jsx';
 import staging from '../../lib/staging.jsx';
 
@@ -134,12 +134,12 @@ class FluxTNMStage extends FluxObservation {
         this._calculateStage();
     }
 
-    get mitoticCountScore() {
-        const mitoticCountScore = this._observation._observationComponent.find(o => {
-            return o instanceof MitoticCountScore;
+    get mitoticRate() {
+        const mitoticRate = this._observation._observationComponent.find(o => {
+            return o instanceof FluxMitoticRate;
         });
-        if (!mitoticCountScore) return null;
-        return mitoticCountScore.value.decimal.toString();
+        if (!mitoticRate) return null;
+        return mitoticRate.value;
     }
 
     /*

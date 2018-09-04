@@ -75,6 +75,7 @@ class PatientRecord {
 
         if (entry.entryInfo.sourceClinicalNote) {
             let clinicalNote = this.getEntryFromReference(entry.entryInfo.sourceClinicalNote);
+            if (!clinicalNote) return true;
             return !clinicalNote.signed;
         }
         return false;
@@ -312,8 +313,12 @@ class PatientRecord {
         });
 
         result = `A complete ${members.length} point ROS was done and was unremarkable`;
-        if (trueAnswers.length > 0) {
+        if (trueAnswers.length >= 3) {
             result += ` except for ${trueAnswers.slice(0, -1).join(", ")}, and ${trueAnswers.slice(-1)[0]}`;
+        } else if (trueAnswers.length === 2) {
+            result += ` except for ${trueAnswers.join(" and ")}`;
+        } else if (trueAnswers.length === 1) {
+            result += ` except for ${trueAnswers[0]}`;
         }
 
         return result + ".";

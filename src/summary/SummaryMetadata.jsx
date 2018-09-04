@@ -1,7 +1,9 @@
 import Lang from 'lodash'
 import _ from 'lodash'
 import moment from 'moment';
+import EncounterPerformed from '../model/shr/encounter/EncounterPerformed';
 import FluxTumorDimensions from '../model/oncology/FluxTumorDimensions';
+import FluxTumorMargins from '../model/oncology/FluxTumorMargins';
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx';
 import FluxNotesTreatmentOptionsRestClient from 'flux_notes_treatment_options_rest_client';
 const api = new FluxNotesTreatmentOptionsRestClient.DefaultApi();
@@ -743,6 +745,13 @@ export default class SummaryMetadata {
                                 defaultTemplate: "Patient has ${.Name} stage ${.Stage} diagnosed on ${Key Dates.Diagnosis}."
                             },
                             {
+                                defaultTemplate: "Mitosis is ${.Mitosis}.",
+                                dataMissingTemplate: "Mitosis is ${.Mitosis}.",
+                                useDataMissingTemplateCriteria: [
+                                    ".Mitosis"
+                                ]
+                            },
+                            {
                                 defaultTemplate: "As of ${.As Of Date}, disease is ${.Disease Status} based on ${.Rationale}.",
                                 dataMissingTemplate: "No recent ${disease status}.",
                                 useDataMissingTemplateCriteria: [
@@ -762,10 +771,10 @@ export default class SummaryMetadata {
                                 defaultTemplate: "Key toxicities include",
                             },
                             {
-                                defaultTemplate: "${Key Toxicities.Upset Stomach} upset stomach,",
-                                dataMissingTemplate: "no upset stomach,",
+                                defaultTemplate: "${Key Toxicities.Headaches} headaches,",
+                                dataMissingTemplate: "no headaches,",
                                 useDataMissingTemplateCriteria: [
-                                    "Key Toxicities.Upset Stomach"
+                                    "Key Toxicities.Headaches"
                                 ]
                             },
                             {
@@ -775,6 +784,27 @@ export default class SummaryMetadata {
                                     "Key Toxicities.Skin Rashes"
                                 ]
                             },
+                            {
+                                defaultTemplate: "${Key Toxicities.Vomiting} vomiting.",
+                                dataMissingTemplate: "no vomiting.",
+                                useDataMissingTemplateCriteria: [
+                                    "Key Toxicities.Vomiting"
+                                ]
+                            },
+                            {
+                                defaultTemplate: "${Key Toxicities.Diarrhea} diarrhea.",
+                                dataMissingTemplate: "no diarrhea.",
+                                useDataMissingTemplateCriteria: [
+                                    "Key Toxicities.Diarrhea"
+                                ]
+                            },
+                            {
+                                defaultTemplate: "${Key Toxicities.Muscle Pains} muscle pains.",
+                                dataMissingTemplate: "no muscle pains.",
+                                useDataMissingTemplateCriteria: [
+                                    "Key Toxicities.Muscle Pains"
+                                ]
+                            }
                         ],
                         data: [
                             {
@@ -799,16 +829,21 @@ export default class SummaryMetadata {
                                             } else {
                                                 return null;
                                             }
-                                        },              
+                                        },
                                         // shortcut: "@stage"
                                     },
                                     {
-                                        name: "Mitotic Count Score",
+                                        name: "Mitosis",
                                         value: (patient, currentConditionEntry) => {
-                                            let m = currentConditionEntry.getMostRecentStaging();
-                                            return [ m.mitoticCountScore, patient.isUnsigned(m), this.determineSource(patient, m) ];
-                                        }
-                                    },                                    
+                                            let mr = currentConditionEntry.getMostRecentMitosis();
+                                            if (mr) {
+                                                return [mr.quantity.number + " " + mr.quantity.unit, patient.isUnsigned(mr), this.determineSource(patient, mr)];
+                                            } else {
+                                                return null;
+                                            }
+                                        },
+                                        // shortcut: "@stage"
+                                    },
                                     {
                                         name: "Disease Status",
                                         value: (patient, currentConditionEntry) => {
@@ -850,9 +885,9 @@ export default class SummaryMetadata {
                                 name: "Key Toxicities",
                                 items: [
                                     {
-                                        name: "Upset Stomach",
+                                        name: "Headaches",
                                         value: (patient, currentConditionEntry) => {
-                                            return this.getKeyToxicityAndUnsignedFromCodes(patient, currentConditionEntry, ["10042112"]);
+                                            return this.getKeyToxicityAndUnsignedFromCodes(patient, currentConditionEntry, ["10019211", "10019231"]);
                                         }
 
                                     },
@@ -860,6 +895,24 @@ export default class SummaryMetadata {
                                         name: "Skin Rashes",
                                         value: (patient, currentConditionEntry) => {
                                             return this.getKeyToxicityAndUnsignedFromCodes(patient, currentConditionEntry, ["10037868"]);
+                                        }
+                                    },
+                                    {
+                                        name: "Vomiting",
+                                        value: (patient, currentConditionEntry) => {
+                                            return this.getKeyToxicityAndUnsignedFromCodes(patient, currentConditionEntry, ["10047700"]);
+                                        }
+                                    },
+                                    {
+                                        name: "Diarrhea",
+                                        value: (patient, currentConditionEntry) => {
+                                            return this.getKeyToxicityAndUnsignedFromCodes(patient, currentConditionEntry, ["10012735", "10012727"]);
+                                        }
+                                    },
+                                    {
+                                        name: "Muscle Pains",
+                                        value: (patient, currentConditionEntry) => {
+                                            return this.getKeyToxicityAndUnsignedFromCodes(patient, currentConditionEntry, ["10028323", "10028411"]);
                                         }
                                     }
                                 ]
@@ -1054,14 +1107,20 @@ export default class SummaryMetadata {
                                     {
                                         name: "Size",
                                         value: (patient, currentConditionEntry) => {
-                                            let list = currentConditionEntry.getObservationsOfType(FluxTumorDimensions);
+                                            const list = currentConditionEntry.getObservationsOfTypeChronologicalOrder(FluxTumorDimensions);
                                             if (list.length === 0) return null;
-                                            return [list[0].quantity.value + " " + list[0].quantity.unit, patient.isUnsigned(list[0]), this.determineSource(patient, list[0])];
+                                            const size = list.pop(); // last is most recent
+                                            return [size.quantity.value + " " + size.quantity.unit, patient.isUnsigned(size), this.determineSource(patient, size)];
                                         }
                                     },
                                     {
                                         name: "Tumor Margins",
-                                        value: null
+                                        value: (patient, currentConditionEntry) => {
+                                            const list = currentConditionEntry.getObservationsOfTypeChronologicalOrder(FluxTumorMargins);
+                                            if (list.length === 0) return null;
+                                            const margins = list.pop(); // last is most recent
+                                            return [margins.value, patient.isUnsigned(margins), this.determineSource(patient, margins)];
+                                        }
                                     },
                                     {
                                         name: "Histological Grade",
@@ -1351,7 +1410,11 @@ export default class SummaryMetadata {
         if (entry.informant) result += (result.length > 0 ? " b" : "B") + "ased on information from " + entry.informant;
         if (entry.relatedEncounterReference) {
             const relatedEncounter = patient.getEntryFromReference(entry.relatedEncounterReference);
-            result += (result.length > 0 ? " f" : "F") + "rom encounter on " + new moment(relatedEncounter.actionContext.occurrenceTimeOrPeriod.timePeriod.timePeriodStart.value, 'D MMM YYY HH:mm Z').format('D MMM YYY hh:mm a');
+            if (relatedEncounter instanceof EncounterPerformed) {
+                result += (result.length > 0 ? " f" : "F") + "rom encounter on " + new moment(relatedEncounter.actionContext.occurrenceTimeOrPeriod.timePeriod.timePeriodStart.value, 'D MMM YYY HH:mm Z').format('D MMM YYY hh:mm a');
+            } else {
+                result += (result.length > 0 ? " f" : "F") + "rom encounter on " + new moment(relatedEncounter.expectedPerformanceTime, 'D MMM YYY HH:mm Z').format('D MMM YYY hh:mm a');
+            }
         } else if (entry.creationTime) {
             result += (result.length > 0 ? " o" : "O") + "n " + entry.creationTime.format('D MMM YYY hh:mm a');
         } else if (entry.diagnosisDate) {

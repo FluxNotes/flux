@@ -11,6 +11,12 @@ class FluxGastrointestinalStromalTumor extends FluxSolidTumorCancer {
         this._condition = Condition.fromJSON(json);
     }
 
+    getMostRecentMitosis() {
+        let results = this.getObservationsWithObservationCodeChronologicalOrder('7041004'); // code for mitosis observations
+        if (!results || results.length === 0) return null;
+        return results.pop();
+    }
+
     /**
      *  function to build HPI Narrative
      *  Starts with initial summary of patient information
@@ -34,8 +40,8 @@ class FluxGastrointestinalStromalTumor extends FluxSolidTumorCancer {
             if (!Lang.isUndefined(staging.m_Stage) && !Lang.isNull(staging.m_Stage) && staging.m_Stage !== 'M0') { // don't show m if it is 0
                 hpiText += ` ${staging.m_Stage}`;
             }
-            if (staging.mitoticCountScore) {
-                hpiText += `. Mitotic count score ${staging.mitoticCountScore}`;
+            if (staging.mitoticRate) {
+                hpiText += `. Mitotic rate ${staging.mitoticRate}`;
             }
             hpiText += '.';
         }
@@ -52,7 +58,7 @@ class FluxGastrointestinalStromalTumor extends FluxSolidTumorCancer {
 
         // genetics
         const geneticpanels = patient.getGastrointestinalStromalTumorCancerGeneticAnalysisPanelsChronologicalOrder();
-        const geneticspanelMostRecent = geneticpanels[geneticpanels.length - 1];
+        //const geneticspanelMostRecent = geneticpanels[geneticpanels.length - 1];
         if (geneticpanels && geneticpanels.length > 0) {
             const panel = geneticpanels.pop();
             hpiText += " " + panel.members.map((item) => {
