@@ -778,22 +778,22 @@ export default class SummaryMetadata {
                                 ]
                             },
                             {
-                                defaultTemplate: "${Key Toxicities.Skin Rashes} skin rashes.",
-                                dataMissingTemplate: "no skin rashes.",
+                                defaultTemplate: "${Key Toxicities.Skin Rashes} skin rashes,",
+                                dataMissingTemplate: "no skin rashes,",
                                 useDataMissingTemplateCriteria: [
                                     "Key Toxicities.Skin Rashes"
                                 ]
                             },
                             {
-                                defaultTemplate: "${Key Toxicities.Vomiting} vomiting.",
-                                dataMissingTemplate: "no vomiting.",
+                                defaultTemplate: "${Key Toxicities.Vomiting} vomiting,",
+                                dataMissingTemplate: "no vomiting,",
                                 useDataMissingTemplateCriteria: [
                                     "Key Toxicities.Vomiting"
                                 ]
                             },
                             {
-                                defaultTemplate: "${Key Toxicities.Diarrhea} diarrhea.",
-                                dataMissingTemplate: "no diarrhea.",
+                                defaultTemplate: "${Key Toxicities.Diarrhea} diarrhea,",
+                                dataMissingTemplate: "no diarrhea,",
                                 useDataMissingTemplateCriteria: [
                                     "Key Toxicities.Diarrhea"
                                 ]
