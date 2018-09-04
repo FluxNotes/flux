@@ -42,6 +42,7 @@ export default class TargetedDataPanel extends Component {
                                 clinicalEvent={this.props.appState.clinicalEvent}
                                 condition={this.props.appState.condition}
                                 isWide={this.props.isWide}
+                                loginUser={this.props.loginUser}
                                 patient={this.props.appState.patient} 
                                 setForceRefresh={this.props.setForceRefresh}                                                              
                                 summaryMetadata={this.props.summaryMetadata.getMetadata()}
@@ -65,6 +66,7 @@ TargetedDataPanel.proptypes = {
     isNoteViewerEditable: PropTypes.bool.isRequired,
     isTargetedDataSubpanelVisible: PropTypes.bool,
     isWide: PropTypes.bool.isRequired,
+    loginUser: PropTypes.object.isRequired,
     summaryMetadata: PropTypes.object.isRequired,
     setForceRefresh: PropTypes.func.isRequired,
     targetedDataPanelSize: PropTypes.string.isRequired,

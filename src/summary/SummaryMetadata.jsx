@@ -121,6 +121,21 @@ export default class SummaryMetadata {
                                 defaultTemplate: "Patient has ${.Name} laterality ${.Laterality} stage ${.Stage} diagnosed on ${Key Dates.Diagnosis}."
                             },
                             {
+                                defaultTemplate: "You last saw this patient on ${Most Recent Visit.Date of Last Visit with You}.",
+                                dataMissingTemplate: "There are no recorded encounters for you with this patient.",
+                                useDataMissingTemplateCriteria: [
+                                    "Most Recent Visit.Date of Last Visit with You"
+                                ]
+                            },
+                            {
+                                defaultTemplate: "This patient was last seen in your facility by ${Most Recent Visit.Who Last Visited Here} on ${Most Recent Visit.Date of Last Visit Here}.",
+                                dataMissingTemplate: "No recent visits to this facility are on record.",
+                                useDataMissingTemplateCriteria: [
+                                    "Most Recent Visit.Who Last Visited Here",
+                                    "Most Recent Visit.Date of Last Visit Here"
+                                ]
+                            },
+                            {
                                 defaultTemplate: "As of ${.As Of Date}, disease is ${.Disease Status} based on ${.Rationale}.",
                                 dataMissingTemplate: "No recent ${disease status}.",
                                 useDataMissingTemplateCriteria: [
@@ -326,6 +341,43 @@ export default class SummaryMetadata {
                                             } else {
                                                 return [her2.status, patient.isUnsigned(her2), this.determineSource(patient, her2)];
                                             }
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                name: "Most Recent Visit",
+                                items: [
+                                    {
+                                        name: "Date of Last Visit with You",
+                                        value: (patient, currentConditionEntry, user) => {
+                                            const encounters = patient.getEncountersChronologicalOrder();
+                                            const filteredEncounters = encounters.filter(e => e.practitioner === user.getUserName());
+
+                                            if (filteredEncounters.length === 0) return [null, false];
+                                            const expectedPerformanceTime = new moment(filteredEncounters.slice(-1)[0].expectedPerformanceTime, 'D MMM YYYY').format('D MMM YYYY');
+                                            return [expectedPerformanceTime, patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)];
+                                        }
+                                    },
+                                    {
+                                        name: "Date of Last Visit Here",
+                                        value: (patient, currentConditionEntry, user) => {
+                                            const encounters = patient.getEncountersChronologicalOrder();
+                                            const filteredEncounters = encounters.filter(e => e.serviceProvider === user.serviceProvider);
+
+                                            if (filteredEncounters.length === 0) return [null, false];
+                                            const expectedPerformanceTime = new moment(filteredEncounters.slice(-1)[0].expectedPerformanceTime, 'D MMM YYYY').format('D MMM YYYY');
+                                            return [expectedPerformanceTime, patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)];
+                                        }
+                                    },
+                                    {
+                                        name: "Who Last Visited Here",
+                                        value: (patient, currentConditionEntry, user) => {
+                                            const encounters = patient.getEncountersChronologicalOrder();
+                                            const filteredEncounters = encounters.filter(e => e.serviceProvider === user.serviceProvider);
+
+                                            if (filteredEncounters.length === 0) return [null, false];
+                                            return [filteredEncounters.slice(-1)[0].practitioner, patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)];
                                         }
                                     }
                                 ]
@@ -752,6 +804,21 @@ export default class SummaryMetadata {
                                 ]
                             },
                             {
+                                defaultTemplate: "You last saw this patient on ${Most Recent Visit.Date of Last Visit with You}.",
+                                dataMissingTemplate: "There are no recorded encounters for you with this patient.",
+                                useDataMissingTemplateCriteria: [
+                                    "Most Recent Visit.Date of Last Visit with You"
+                                ]
+                            },
+                            {
+                                defaultTemplate: "This patient was last seen in your facility by ${Most Recent Visit.Who Last Visited Here} on ${Most Recent Visit.Date of Last Visit Here}.",
+                                dataMissingTemplate: "No recent visits to this facility are on record.",
+                                useDataMissingTemplateCriteria: [
+                                    "Most Recent Visit.Who Last Visited Here",
+                                    "Most Recent Visit.Date of Last Visit Here"
+                                ]
+                            },
+                            {
                                 defaultTemplate: "As of ${.As Of Date}, disease is ${.Disease Status} based on ${.Rationale}.",
                                 dataMissingTemplate: "No recent ${disease status}.",
                                 useDataMissingTemplateCriteria: [
@@ -941,8 +1008,47 @@ export default class SummaryMetadata {
                                         }
                                     }
                                 ]
-                            }
+                            },
+                            {
+                                name: "Most Recent Visit",
+                                items: [
+                                    {
+                                        name: "Date of Last Visit with You",
+                                        value: (patient, currentConditionEntry, user) => {
+                                            const encounters = patient.getEncountersChronologicalOrder();
+                                            const filteredEncounters = encounters.filter(e => e.practitioner === user.getUserName());
 
+                                            if (filteredEncounters.length === 0) return [null, false];
+                                            const mostRecentFilteredEncounter = filteredEncounters.slice(-1)[0];
+                                            const expectedPerformanceTime = new moment(mostRecentFilteredEncounter.expectedPerformanceTime, 'D MMM YYYY').format('D MMM YYYY');
+                                            return [expectedPerformanceTime, patient.isUnsigned(mostRecentFilteredEncounter), this.determineSource(patient, mostRecentFilteredEncounter)];
+                                        }
+                                    },
+                                    {
+                                        name: "Date of Last Visit Here",
+                                        value: (patient, currentConditionEntry, user) => {
+                                            const encounters = patient.getEncountersChronologicalOrder();
+                                            const filteredEncounters = encounters.filter(e => e.serviceProvider === user.serviceProvider);
+
+                                            if (filteredEncounters.length === 0) return [null, false];
+                                            const mostRecentFilteredEncounter = filteredEncounters.slice(-1)[0];
+                                            const expectedPerformanceTime = new moment(mostRecentFilteredEncounter.expectedPerformanceTime, 'D MMM YYYY').format('D MMM YYYY');
+                                            return [expectedPerformanceTime, patient.isUnsigned(mostRecentFilteredEncounter), this.determineSource(patient, mostRecentFilteredEncounter)];
+                                        }
+                                    },
+                                    {
+                                        name: "Who Last Visited Here",
+                                        value: (patient, currentConditionEntry, user) => {
+                                            const encounters = patient.getEncountersChronologicalOrder();
+                                            const filteredEncounters = encounters.filter(e => e.serviceProvider === user.serviceProvider);
+
+                                            if (filteredEncounters.length === 0) return [null, false];
+                                            const mostRecentFilteredEncounter = filteredEncounters.slice(-1)[0];
+                                            return [mostRecentFilteredEncounter.practitioner, patient.isUnsigned(mostRecentFilteredEncounter), this.determineSource(patient, mostRecentFilteredEncounter)];
+                                        }
+                                    }
+                                ]
+                            }
                         ]
                     },
                     {
@@ -1405,6 +1511,7 @@ export default class SummaryMetadata {
 
     determineSource = (patient, entry) => {
         if (entry.sourceClinicalNoteReference) return entry.sourceClinicalNoteReference;
+        
         let result = "";
         if (entry.author) result += "Recorded by " + entry.author;
         if (entry.informant) result += (result.length > 0 ? " b" : "B") + "ased on information from " + entry.informant;
@@ -1420,6 +1527,7 @@ export default class SummaryMetadata {
         } else if (entry.diagnosisDate) {
             result += (result.length > 0 ? " c" : "C") + "linically recognized on " + new moment(entry.diagnosisDate, 'D MMM YYYY').format('D MMM YYYY');
         }
+
         return result;
     }
 

@@ -7,7 +7,8 @@ const defaultUser = {
         suffix: ["Dr."]
     },
     id: "1234567890",
-    resourceType: "Doctor"
+    resourceType: "Doctor",
+    serviceProvider: "MCI",
 }
 
 // Security Manager will handle all security related functionality of the app (authentication, authorization, etc)

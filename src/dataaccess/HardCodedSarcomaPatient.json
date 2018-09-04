@@ -1450,6 +1450,29 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime"
                 },
                 "Value": "3 SEP 2018 15:00 -0500"
+            },
+            "ExpectedPerformer": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformer"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Practitioner"
+                    },
+                    "Value": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
+                        },
+                        "HumanName": [
+                            {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
+                                },
+                                "Value": "Dr. X123 Y987"
+                            }
+                        ]
+                    }
+                }
             }
         },
         "Subject": {
@@ -1457,6 +1480,22 @@
             "_EntryId": "1",
             "_EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "ServiceProvider": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
+            },
+            "Value": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
+                },
+                "OrganizationName": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
+                    },
+                    "Value": "MCI"
+                }
             }
         }
     },
@@ -1514,6 +1553,29 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime"
                 },
                 "Value": "4 SEP 2018 18:00 -0500"
+            },
+            "ExpectedPerformer": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformer"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Practitioner"
+                    },
+                    "Value": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
+                        },
+                        "HumanName": [
+                            {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
+                                },
+                                "Value": "Dr. X123 Y987"
+                            }
+                        ]
+                    }
+                }
             }
         },
         "Subject": {
@@ -1528,7 +1590,35 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/encounter/ReferralDate"
             },
             "Value": "02 JAN 2018"
-        }
+        },
+        "ServiceProvider": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
+            },
+            "Value": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
+                },
+                "OrganizationName": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
+                    },
+                    "Value": "MCI"
+                }
+            }
+        },
+        "Author" : {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
+            },
+             "Value": "Dr. X123 Y987"
+         },
+         "Informant": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/Informant"
+            },
+             "Value": "Dr. X123 Y987"
+         }
     },
     {
         "EntryType": {
@@ -5262,6 +5352,29 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime"
                 },
                 "Value": "15 FEB 2016 15:00 -0500"
+            },
+            "ExpectedPerformer": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformer"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Practitioner"
+                    },
+                    "Value": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
+                        },
+                        "HumanName": [
+                            {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
+                                },
+                                "Value": "Dr. Smith952"
+                            }
+                        ]
+                    }
+                }
             }
         },
         "Subject": {
@@ -5269,6 +5382,22 @@
             "_EntryId": "1",
             "_EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "ServiceProvider": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
+            },
+            "Value": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
+                },
+                "OrganizationName": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
+                    },
+                    "Value": "MCI"
+                }
             }
         }
     },
@@ -5326,6 +5455,29 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime"
                 },
                 "Value": "16 May 2016 14:00 -0500"
+            },
+            "ExpectedPerformer": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformer"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Practitioner"
+                    },
+                    "Value": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
+                        },
+                        "HumanName": [
+                            {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
+                                },
+                                "Value": "Dr. X123 Y987"
+                            }
+                        ]
+                    }
+                }
             }
         },
         "Subject": {
@@ -5333,6 +5485,22 @@
             "_EntryId": "1",
             "_EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "ServiceProvider": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
+            },
+            "Value": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
+                },
+                "OrganizationName": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
+                    },
+                    "Value": "MCI"
+                }
             }
         }
     },
@@ -5559,6 +5727,29 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime"
                 },
                 "Value": "3 Mar 2016 16:20 -0500"
+            },
+            "ExpectedPerformer": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformer"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Practitioner"
+                    },
+                    "Value": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
+                        },
+                        "HumanName": [
+                            {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
+                                },
+                                "Value": "Dr. X123 Y987"
+                            }
+                        ]
+                    }
+                }
             }
         },
         "Subject": {
@@ -5566,6 +5757,22 @@
             "_EntryId": "1",
             "_EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "ServiceProvider": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
+            },
+            "Value": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
+                },
+                "OrganizationName": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
+                    },
+                    "Value": "MCI"
+                }
             }
         }
     },
@@ -5661,6 +5868,29 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime"
                 },
                 "Value": "19 Mar 2016 9:50 -0500"
+            },
+            "ExpectedPerformer": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformer"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Practitioner"
+                    },
+                    "Value": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
+                        },
+                        "HumanName": [
+                            {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
+                                },
+                                "Value": "Dr. X123 Y987"
+                            }
+                        ]
+                    }
+                }
             }
         },
         "Subject": {
@@ -5668,6 +5898,22 @@
             "_EntryId": "1",
             "_EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "ServiceProvider": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
+            },
+            "Value": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
+                },
+                "OrganizationName": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
+                    },
+                    "Value": "MCI"
+                }
             }
         }
     },
@@ -5842,6 +6088,29 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime"
                 },
                 "Value": "15 June 2016 9:20 -0500"
+            },
+            "ExpectedPerformer": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformer"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Practitioner"
+                    },
+                    "Value": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
+                        },
+                        "HumanName": [
+                            {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
+                                },
+                                "Value": "Dr. X123 Y987"
+                            }
+                        ]
+                    }
+                }
             }
         },
         "Subject": {
@@ -5849,6 +6118,22 @@
             "_EntryId": "1",
             "_EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "ServiceProvider": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
+            },
+            "Value": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
+                },
+                "OrganizationName": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
+                    },
+                    "Value": "MCI"
+                }
             }
         }
     },
@@ -6448,6 +6733,29 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime"
                 },
                 "Value": "19 Jul 2016 9:20 -0500"
+            },
+            "ExpectedPerformer": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformer"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Practitioner"
+                    },
+                    "Value": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
+                        },
+                        "HumanName": [
+                            {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
+                                },
+                                "Value": "Dr. X123 Y987"
+                            }
+                        ]
+                    }
+                }
             }
         },
         "Subject": {
@@ -6455,6 +6763,22 @@
             "_EntryId": "1",
             "_EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "ServiceProvider": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
+            },
+            "Value": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
+                },
+                "OrganizationName": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
+                    },
+                    "Value": "MCI"
+                }
             }
         }
     },
@@ -7163,6 +7487,29 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime"
                 },
                 "Value": "22 Oct 2016 9:30 -0500"
+            },
+            "ExpectedPerformer": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformer"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Practitioner"
+                    },
+                    "Value": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
+                        },
+                        "HumanName": [
+                            {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
+                                },
+                                "Value": "Dr. X123 Y987"
+                            }
+                        ]
+                    }
+                }
             }
         },
         "Subject": {
@@ -7170,6 +7517,22 @@
             "_EntryId": "1",
             "_EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "ServiceProvider": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
+            },
+            "Value": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
+                },
+                "OrganizationName": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
+                    },
+                    "Value": "MCI"
+                }
             }
         }
     },
@@ -7678,6 +8041,29 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime"
                 },
                 "Value": "22 Jan 2017 10:20 -0500"
+            },
+            "ExpectedPerformer": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformer"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Practitioner"
+                    },
+                    "Value": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
+                        },
+                        "HumanName": [
+                            {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
+                                },
+                                "Value": "Dr. X123 Y987"
+                            }
+                        ]
+                    }
+                }
             }
         },
         "Subject": {
@@ -7685,6 +8071,22 @@
             "_EntryId": "1",
             "_EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "ServiceProvider": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
+            },
+            "Value": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
+                },
+                "OrganizationName": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
+                    },
+                    "Value": "MCI"
+                }
             }
         }
     },
@@ -8194,6 +8596,29 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime"
                 },
                 "Value": "14 Jul 2017 10:00 -0500"
+            },
+            "ExpectedPerformer": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformer"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Practitioner"
+                    },
+                    "Value": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
+                        },
+                        "HumanName": [
+                            {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
+                                },
+                                "Value": "Dr. X123 Y987"
+                            }
+                        ]
+                    }
+                }
             }
         },
         "Subject": {
@@ -8201,6 +8626,22 @@
             "_EntryId": "1",
             "_EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "ServiceProvider": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
+            },
+            "Value": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
+                },
+                "OrganizationName": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
+                    },
+                    "Value": "MCI"
+                }
             }
         }
     },
@@ -8710,6 +9151,29 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime"
                 },
                 "Value": "22 Jan 2018 9:00 -0500"
+            },
+            "ExpectedPerformer": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformer"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Practitioner"
+                    },
+                    "Value": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
+                        },
+                        "HumanName": [
+                            {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
+                                },
+                                "Value": "Dr. X123 Y987"
+                            }
+                        ]
+                    }
+                }
             }
         },
         "Subject": {
@@ -8717,6 +9181,22 @@
             "_EntryId": "1",
             "_EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "ServiceProvider": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
+            },
+            "Value": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
+                },
+                "OrganizationName": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
+                    },
+                    "Value": "MCI"
+                }
             }
         }
     },
@@ -9227,6 +9707,29 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime"
                 },
                 "Value": "17 Jul 2018 13:45 -0500"
+            },
+            "ExpectedPerformer": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformer"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Practitioner"
+                    },
+                    "Value": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
+                        },
+                        "HumanName": [
+                            {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
+                                },
+                                "Value": "Dr. X123 Y987"
+                            }
+                        ]
+                    }
+                }
             }
         },
         "Subject": {
@@ -9234,6 +9737,22 @@
             "_EntryId": "1",
             "_EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "ServiceProvider": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
+            },
+            "Value": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
+                },
+                "OrganizationName": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
+                    },
+                    "Value": "MCI"
+                }
             }
         }
     },

@@ -551,7 +551,7 @@ NoteAssistant.propTypes = {
     showTemplateView: PropTypes.bool.isRequired,
     isNoteViewerEditable: PropTypes.bool.isRequired,
     loadNote: PropTypes.func.isRequired,
-    loginUser: PropTypes.string.isRequired,
+    loginUsername: PropTypes.string.isRequired,
     newCurrentShortcut: PropTypes.func.isRequired,
     noteAssistantMode: PropTypes.string.isRequired,
     noteClosed: PropTypes.bool.isRequired,
