@@ -115,7 +115,7 @@ export default class FillPlaceholder extends Component {
 
         done = event.target.checked;
         placeholder.done = event.target.checked;
-        this.setState({ done });
+        this.setState({ done, expanded: false });
     };
 
     onExpand = (event) => {
@@ -444,13 +444,14 @@ export default class FillPlaceholder extends Component {
     }
 
     renderSingleEntryPlaceholder = () => {
-        const { currentField, expanded } = this.state;
+        const { currentField, expanded, done } = this.state;
         const { backgroundColor, placeholder } = this.props;
         const attribute = placeholder.attributes[currentField[0]];
+        const expandIcon = done ? "" : <ExpandMoreIcon onClick={this.onExpand} />; // remove expand icon if done
 
         return (
             <ExpansionPanel expanded={expanded} className="expanded-style">
-                <ExpansionPanelSummary style={{ backgroundColor, cursor: 'default' }} expandIcon={<ExpandMoreIcon onClick={this.onExpand} />}>
+                <ExpansionPanelSummary style={{ backgroundColor, cursor: 'default' }} expandIcon={expandIcon}>
                     <Grid container>
                         {this.renderCheckbox()}
                         <Grid item xs={9}>
@@ -470,7 +471,7 @@ export default class FillPlaceholder extends Component {
     }
 
     renderMultipleEntriesPlaceholder = () => {
-        const { currentField, expanded } = this.state;
+        const { currentField, expanded, done } = this.state;
         const { backgroundColor, placeholder } = this.props;
 
         // Loop through all entries and render summaries
@@ -531,10 +532,11 @@ export default class FillPlaceholder extends Component {
                 {allRowsAndColumns}
             </Grid>
         );
+        const expandIcon = done ? "" : <ExpandMoreIcon onClick={this.onExpand} />; // remove expand icon if done
 
         return (
             <ExpansionPanel expanded={expanded} className="expanded-style">
-                <ExpansionPanelSummary style={{ backgroundColor, cursor: 'default' }} expandIcon={<ExpandMoreIcon onClick={this.onExpand} />}>
+                <ExpansionPanelSummary style={{ backgroundColor, cursor: 'default' }} expandIcon={expandIcon}>
                     {expansionSummary}
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails style={{ backgroundColor }}>
