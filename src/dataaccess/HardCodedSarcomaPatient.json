@@ -1430,7 +1430,7 @@
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Reason"
                     },
-                    "Value": "Mr. Tnfinity6 had a Gastrointerstinal Stromal Tumor follow up."
+                    "Value": "Mr. Tnfinity6 requested a follow up."
                 }
             ],
             "Status": {
@@ -1494,7 +1494,7 @@
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Reason"
                     },
-                    "Value": "Mr. Tnfinity6 requested a GIST follow up."
+                    "Value": "Mr. Tnfinity6 requested a follow up."
                 }
             ],
             "Status": {
@@ -1550,7 +1550,7 @@
             "Value": "3 SEP 2018"
         },
         "LastUpdated": {
-            "EntryType": {
+            "EntryType": {  
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             },
             "Value": "3 SEP 2018"
@@ -1822,7 +1822,7 @@
             },
             "Value": "3 SEP 2018"
         },
-        "Value": true,
+        "Value": false,
         "ObservationCode": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
@@ -1874,7 +1874,7 @@
             },
             "Value": "3 SEP 2018"
         },
-        "Value": false,
+        "Value": true,
         "ObservationCode": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
@@ -1895,7 +1895,7 @@
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                         },
-                        "Value": "headache"
+                        "Value": "headaches"
                     }
                 }
             ]
@@ -1947,7 +1947,7 @@
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                         },
-                        "Value": "Question 5"
+                        "Value": "bloody stools"
                     }
                 }
             ]
@@ -1999,7 +1999,7 @@
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                         },
-                        "Value": "Question 6"
+                        "Value": "stomach aches"
                     }
                 }
             ]
@@ -2051,7 +2051,7 @@
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                         },
-                        "Value": "Abdominal pain"
+                        "Value": "abdominal pains"
                     }
                 }
             ]
@@ -2103,7 +2103,7 @@
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                         },
-                        "Value": "Vertigo"
+                        "Value": "vertigo"
                     }
                 }
             ]
@@ -2155,7 +2155,7 @@
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                         },
-                        "Value": "Chest pain - cardiac"
+                        "Value": "chest pains"
                     }
                 }
             ]
@@ -2207,7 +2207,7 @@
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                         },
-                        "Value": "uncomfortable sensation of difficulty breathing"
+                        "Value": "uncomfortable sensations of difficulty breathing"
                     }
                 }
             ]
@@ -2259,7 +2259,7 @@
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                         },
-                        "Value": "Cough"
+                        "Value": "coughing"
                     }
                 }
             ]
@@ -2311,7 +2311,7 @@
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                         },
-                        "Value": "Fever"
+                        "Value": "fevers"
                     }
                 }
             ]
@@ -2363,7 +2363,7 @@
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                         },
-                        "Value": "Hot flashes"
+                        "Value": "hot flashes"
                     }
                 }
             ]
@@ -2415,7 +2415,7 @@
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                         },
-                        "Value": "Nausea"
+                        "Value": "nausea"
                     }
                 }
             ]
@@ -2446,7 +2446,7 @@
             },
             "Value": "3 SEP 2018"
         },
-        "Value": false,
+        "Value": true,
         "ObservationCode": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
@@ -2467,7 +2467,7 @@
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                         },
-                        "Value": "rash"
+                        "Value": "rashes"
                     }
                 }
             ]
