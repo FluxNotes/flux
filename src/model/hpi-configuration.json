@@ -18,6 +18,11 @@
                     "name": "ibuprofen 600mg tablet",
                     "code": "316077",
                     "codeSystem": "http://snomed.info/sct"
+                },
+                {
+                    "name": "hydrocortisone 2.5% ointment",
+                    "code": "310891",
+                    "codeSystem": "http://snomed.info/sct"
                 }
             ]
         }

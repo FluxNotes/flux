@@ -418,10 +418,10 @@
     "knownParentContexts": "Patient"
   },
   { "type": "InsertValue",
-    "id": "HistoryOfPresentIllnessInserter",
+    "id": "OncologyHistoryInserter",
     "getData": {"object": "$parentValueObject", "method": "buildHpiNarrative"},
     "isContext": false,
-    "stringTriggers": [{"name": "@HPI", "description": "Insert patient's history of present illness"}],
+    "stringTriggers": [{"name": "@ONCOHIST", "description": "Insert patient's oncology history"}],
     "knownParentContexts": "ConditionInserter"
   },
   {
