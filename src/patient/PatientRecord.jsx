@@ -195,10 +195,15 @@ class PatientRecord {
     getAge() {
         if (Lang.isNull(this.person)) return null;
         var today = new Date();
+        return this.getAgeAsOf(today);
+    }
+
+    getAgeAsOf(date) {
+        if (Lang.isNull(this.person)) return null;
         var birthDate = new Date(this.getDateOfBirth());
-        var age = today.getFullYear() - birthDate.getFullYear();
-        var m = today.getMonth() - birthDate.getMonth();
-        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        var age = date.getFullYear() - birthDate.getFullYear();
+        var m = date.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && date.getDate() < birthDate.getDate())) {
             age--;
         }
         return age;
