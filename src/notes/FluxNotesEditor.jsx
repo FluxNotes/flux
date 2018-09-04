@@ -1085,7 +1085,7 @@ class FluxNotesEditor extends React.Component {
                     after = "";
                 }
 
-                if (arrayOfPickLists && this.noteParser.isPickList(trigger)) {
+                if (arrayOfPickLists && this.noteParser.isPickList(trigger) && !trigger.selectedValue) {
                     transform = this.updateExistingShortcut(arrayOfPickLists[pickListCount].shortcut, transform);
                     pickListCount++;
                 } else {
