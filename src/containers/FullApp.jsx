@@ -21,6 +21,7 @@ import ContextManager from '../context/ContextManager';
 import DataAccess from '../dataaccess/DataAccess';
 import SummaryMetadata from '../summary/SummaryMetadata';
 import PatientControlPanel from '../panels/PatientControlPanel';
+import SearchIndex from '../patientControl/SearchIndex';
 
 import '../styles/FullApp.css';
 
@@ -69,6 +70,7 @@ export class FullApp extends Component {
         this.shortcutManager = new ShortcutManager(this.props.shortcuts);
         this.securityManager = new SecurityManager();
         this.structuredFieldMapManager = new StructuredFieldMapManager();
+        this.searchIndex = new SearchIndex();
 
         this.state = {
             clinicalEvent: "pre-encounter",
@@ -350,6 +352,7 @@ export class FullApp extends Component {
                                     setLayout={this.setLayout}
                                     setSearchSelectedItem={this.setSearchSelectedItem}
                                     supportLogin={true}
+                                    searchIndex={this.searchIndex}
                                 />
                             </Col>
                         </Row>
@@ -381,6 +384,7 @@ export class FullApp extends Component {
                             summaryMetadata={this.summaryMetadata}
                             updateErrors={this.updateErrors}
                             ref={(dashboard) => { this.dashboard = dashboard; }}
+                            searchIndex={this.searchIndex}
                         />
                         <Modal 
                             aria-labelledby="simple-modal-title"

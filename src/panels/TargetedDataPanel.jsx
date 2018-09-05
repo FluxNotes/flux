@@ -46,6 +46,7 @@ export default class TargetedDataPanel extends Component {
                                 patient={this.props.appState.patient} 
                                 setForceRefresh={this.props.setForceRefresh}                                                              
                                 summaryMetadata={this.props.summaryMetadata.getMetadata()}
+                                searchIndex={this.props.searchIndex}
                             />
                         </div>
                     </div>
@@ -70,4 +71,5 @@ TargetedDataPanel.proptypes = {
     summaryMetadata: PropTypes.object.isRequired,
     setForceRefresh: PropTypes.func.isRequired,
     targetedDataPanelSize: PropTypes.string.isRequired,
+    searchIndex: PropTypes.object.isRequired,
 }
