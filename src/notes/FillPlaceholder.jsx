@@ -520,6 +520,7 @@ export default class FillPlaceholder extends Component {
                     <Grid item xs={3} />
                     <Grid item xs={9}>
                         {this.renderColumns(i)}
+                        {placeholder.entryShortcuts.length === 1 ? null : this.renderDeleteButton(i)}
                     </Grid>
                     {this.createAllRows(i)}
                     <Divider className="divider" />
@@ -530,6 +531,9 @@ export default class FillPlaceholder extends Component {
             <Grid container>
                 {this.renderError()}
                 {allRowsAndColumns}
+                <div style={{ width: '100%' }}>
+                    {this.renderAddButton()}
+                </div>
             </Grid>
         );
         const expandIcon = done ? "" : <ExpandMoreIcon onClick={this.onExpand} />; // remove expand icon if done
