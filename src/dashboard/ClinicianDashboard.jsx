@@ -185,6 +185,7 @@ export default class ClinicianDashboard extends Component {
                         setForceRefresh={this.props.setForceRefresh}
                         targetedDataPanelSize={this.state.targetedDataPanelSize}
                         ref={(tdp) => { this.targetedDataPanel = tdp; }}
+                        searchIndex={this.props.searchIndex}
                     />
                 </div>
                 <div style={notesPanelStyles}>
@@ -249,4 +250,5 @@ ClinicianDashboard.proptypes = {
     structuredFieldMapManager: PropTypes.object,
     summaryMetadata: PropTypes.object.isRequired,
     updateErrors: PropTypes.func.isRequired,
+    searchIndex: PropTypes.object.isRequired,
 };

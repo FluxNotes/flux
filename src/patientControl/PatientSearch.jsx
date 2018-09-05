@@ -78,6 +78,7 @@ class PatientSearch extends React.Component {
             hospital: note.hospital,
             inputValue: inputValue,
             note: note,
+            source: "clinicalNote"
         }
     }
 
@@ -107,9 +108,8 @@ class PatientSearch extends React.Component {
         });
         return notesCopy;
     }
-    
-    // Used by AutoSuggest to get a list of suggestions based on the current search's InputValue
-    getSuggestions = (inputValue) => {
+
+    getNoteSuggestions = (inputValue) => {
         const notes = this.props.patient.getNotes();
         const notesWithoutStyle = this.getNotesWithoutStyle(notes);
         const suggestions =  notesWithoutStyle.reduce((suggestions, note) => {
@@ -141,6 +141,34 @@ class PatientSearch extends React.Component {
         }, []); 
 
         return suggestions;
+    }
+
+    getStructuredDataSuggestions = (inputValue) => {
+        let suggestions = [];
+        const regex = new RegExp(inputValue, "gi");
+        this.props.searchIndex.searchableData.forEach(obj => {
+            let contentMatches = regex.exec(obj.value);
+            if (contentMatches) {
+                suggestions.push({
+                    section: obj.section,
+                    subsection: obj.subsection,
+                    contentSnapshot: obj.value.slice(contentMatches.index, contentMatches.index + 100),
+                    inputValue,
+                    matchedOn: "contentSnapshot",
+                    source: "structuredData"
+                });
+            }
+        });
+
+        return suggestions;
+    }
+
+    // Used by AutoSuggest to get a list of suggestions based on the current search's InputValue
+    getSuggestions = (inputValue) => {
+        let noteSuggestions = this.getNoteSuggestions(inputValue);
+        let structuredDataSuggestions = this.getStructuredDataSuggestions(inputValue);
+
+        return structuredDataSuggestions.concat(noteSuggestions);
     }
 
     // Teach Autosuggest how to calculate the input value for every given suggestion.
@@ -178,10 +206,12 @@ class PatientSearch extends React.Component {
 
     // Will be called every time suggestion is selected via mouse or keyboard.
     onSuggestionSelected = (event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) => { 
-        const contextNotes = this.props.patient.getNotes();
-        const selectedNote = contextNotes.find(note => note.entryInfo.entryId === suggestion.note.entryInfo.entryId);
+        if (suggestion.source === "clinicalNote") {
+            const contextNotes = this.props.patient.getNotes();
+            const selectedNote = contextNotes.find(note => note.entryInfo.entryId === suggestion.note.entryInfo.entryId);
 
-        this.props.setSearchSelectedItem(selectedNote);
+            this.props.setSearchSelectedItem(selectedNote);
+        }
     }
 
     // When the input is focused, Autosuggest will consult this function when to render suggestions
