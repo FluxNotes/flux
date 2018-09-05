@@ -395,7 +395,6 @@ export default class TabularListVisualizer extends Component {
     // renders Menu for element and associated actions as Menu items
     // Will check whether an action should be rendered as a Menu item based on criteria of each action
     renderedMenu = (item, element, elementId, elementText, subsectionName, subsectionActions, arrayIndex) => {
-        //(element, elementText);
         const { elementToDisplayMenu, positionLeft, positionTop } = this.state;
         // Item represents the name of the row/section of the current element.
         const onMenuItemClicked = (fn, element, item) => {
@@ -427,7 +426,8 @@ export default class TabularListVisualizer extends Component {
                 rowId={item}
                 subsectionName={subsectionName}
                 unfilteredActions={this.props.actions.concat(subsectionActions)}
-            />);
+            />
+        );
     }
 
     // Opens the insertion menu for the given element id, based on cursor location
