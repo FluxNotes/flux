@@ -1,10 +1,12 @@
+import Lang from 'lodash';
+
 class SearchIndex {
     constructor() {
         this._searchableData = [];
     }
 
     get searchableData() {
-        return this._searchableData;
+        return Lang.uniqWith(this._searchableData, Lang.isEqual);
     }
 
     addSearchableData(data) {
