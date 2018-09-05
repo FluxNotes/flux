@@ -209,9 +209,9 @@ class NarrativeNameValuePairsVisualizer extends Component {
 
     // renders Menu for snippet and associated actions as Menu items
     renderedMenu = (snippet, snippetId, snippetText, arrayIndex) => {
-        const onMenuItemClicked = (fn, element) => {
+        const onMenuItemClicked = (fn, element, item) => {
             const callback = () => {
-                fn(element);
+                fn(element, item);
             }
             this.closeInsertionMenu(callback);
         }
@@ -242,6 +242,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
                 onMenuItemClicked={onMenuItemClicked}
                 positionLeft={this.state.positionLeft}
                 positionTop={this.state.positionTop}
+                rowId={snippet.name}
                 unfilteredActions={this.props.actions}
             />
         );
