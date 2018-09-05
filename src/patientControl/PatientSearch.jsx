@@ -147,16 +147,33 @@ class PatientSearch extends React.Component {
         let suggestions = [];
         const regex = new RegExp(inputValue, "gi");
         this.props.searchIndex.searchableData.forEach(obj => {
+            let suggestion = {
+                section: obj.section,
+                subsection: obj.subsection,
+                contentSnapshot: obj.value,
+                inputValue,
+                matchedOn: "",
+                source: "structuredData"
+            }
             let contentMatches = regex.exec(obj.value);
             if (contentMatches) {
-                suggestions.push({
-                    section: obj.section,
-                    subsection: obj.subsection,
-                    contentSnapshot: obj.value.slice(contentMatches.index, contentMatches.index + 100),
-                    inputValue,
-                    matchedOn: "contentSnapshot",
-                    source: "structuredData"
-                });
+                suggestion.matchedOn = "contentSnapshot";
+                suggestions.push(suggestion);
+            }
+            contentMatches = regex.exec(obj.section);
+            if (contentMatches) {
+                suggestion.matchedOn = "section";
+                suggestions.push(suggestion);
+            }
+            contentMatches = regex.exec(obj.subsection);
+            if (contentMatches) {
+                suggestion.matchedOn = "subsection";
+                suggestions.push(suggestion);
+            }
+            contentMatches = regex.exec(obj.valueTitle);
+            if (contentMatches) {
+                suggestion.matchedOn = "valueTitle";
+                suggestions.push(suggestion);
             }
         });
 
