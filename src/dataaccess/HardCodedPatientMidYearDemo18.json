@@ -5310,6 +5310,387 @@
     },
     {
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+        "EntryId": "88",
+        "Evidence": [],
+        "Subject": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
+        },
+        "LastUpdated": {
+            "Value": "26 Jul 2016",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "26 Jul 2016",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "Value": {
+            "Coding": [
+                {
+                    "Value": "C1272745",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "CodeSystem": {
+                        "Value": "http://ncimeta.nci.nih.gov",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        }
+                    },
+                    "DisplayText": {
+                        "Value": "Improving, responding to treatment",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    }
+                }
+            ],
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            }
+        },
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "FindingStatus": {
+            "Coding": [
+                {
+                    "Value": "final",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "CodeSystem": {
+                        "Value": "http://hl7.org/fhir/observation-status",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        }
+                    },
+                    "DisplayText": {
+                        "Value": "Final",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    }
+                }
+            ],
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            }
+        },
+        "ClinicallyRelevantTime": {
+            "Value": "26 Jul 2016",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            }
+        },
+        "FocalSubjectReference": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+            "_EntryId": "8",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"
+            }
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ObservationCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Value": "C0421176",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "http://ncimeta.nci.nih.gov",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Progression",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+        "EntryId": "89",
+        "Evidence": [],
+        "Subject": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
+        },
+        "LastUpdated": {
+            "Value": "6 Dec 2016",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "6 Dec 2016",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "Value": {
+            "Coding": [
+                {
+                    "Value": "C0205360",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "CodeSystem": {
+                        "Value": "http://ncimeta.nci.nih.gov",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        }
+                    },
+                    "DisplayText": {
+                        "Value": "Stable, neither improving nor worsening",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    }
+                }
+            ],
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            }
+        },
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "FindingStatus": {
+            "Coding": [
+                {
+                    "Value": "final",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "CodeSystem": {
+                        "Value": "http://hl7.org/fhir/observation-status",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        }
+                    },
+                    "DisplayText": {
+                        "Value": "Final",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    }
+                }
+            ],
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            }
+        },
+        "ClinicallyRelevantTime": {
+            "Value": "6 Dec 2016",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            }
+        },
+        "FocalSubjectReference": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+            "_EntryId": "8",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"
+            }
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ObservationCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Value": "C0421176",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "http://ncimeta.nci.nih.gov",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Progression",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+        "EntryId": "90",
+        "Evidence": [],
+        "Subject": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
+        },
+        "LastUpdated": {
+            "Value": "12 Jun 2017",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "12 Jun 2017",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "Value": {
+            "Coding": [
+                {
+                    "Value": "C0205360",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "CodeSystem": {
+                        "Value": "http://ncimeta.nci.nih.gov",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        }
+                    },
+                    "DisplayText": {
+                        "Value": "Stable, neither improving nor worsening",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    }
+                }
+            ],
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            }
+        },
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "FindingStatus": {
+            "Coding": [
+                {
+                    "Value": "final",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "CodeSystem": {
+                        "Value": "http://hl7.org/fhir/observation-status",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        }
+                    },
+                    "DisplayText": {
+                        "Value": "Final",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    }
+                }
+            ],
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            }
+        },
+        "ClinicallyRelevantTime": {
+            "Value": "12 Jun 2017",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            }
+        },
+        "FocalSubjectReference": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+            "_EntryId": "8",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"
+            }
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ObservationCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Value": "C0421176",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "http://ncimeta.nci.nih.gov",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Progression",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
         "EntryId": "91",
         "Evidence": [],
         "Subject": {
