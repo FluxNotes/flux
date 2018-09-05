@@ -199,6 +199,18 @@ export default class TabularListVisualizer extends Component {
         } else {
             list = items;
         }
+
+        list.forEach(([title, valueObject]) => {
+            if (Lang.isObject(valueObject)) {
+                this.props.searchIndex.addSearchableData({
+                    section: conditionSection.name,
+                    subsection: subsection.name,
+                    valueTitle: title.value,
+                    value: valueObject.value[0]
+                })
+            }
+        });
+
         return list;
     }
 

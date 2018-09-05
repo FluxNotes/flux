@@ -33,13 +33,27 @@ class SearchSuggestion extends React.Component {
                 <span className="suggestion-text">{suggestion.contentSnapshot}</span> 
             );
         }
+
+        let suggestionLabel = '';
+        if (suggestion.source === 'structuredData') {
+            let subsection = suggestion.subsection.length > 0 ? ` > ${suggestion.subsection}` : '';
+            suggestionLabel = (
+                <div className="suggestion-label">
+                    <span className={"label-content"}>{suggestion.section + subsection}</span>
+                </div> 
+            );
+        } else if (suggestion.source === 'clinicalNote') {
+            suggestionLabel = (
+                <div className="suggestion-label">
+                    <span className={"label-content " + (suggestion.matchedOn === "date" ? "highlightedInputValue" : "")}>{suggestion.date}</span>
+                    <span className={"label-content " + (suggestion.matchedOn === "subject" ? "highlightedInputValue" : "")}>{suggestion.subject}</span>
+                    <span className={"label-content " + (suggestion.matchedOn === "hospital" ? "highlightedInputValue" : "")}>{suggestion.hospital}</span>
+                </div>
+            );
+        }
         return (
             <div className="suggestion-item">
-                <div className="suggestion-label">
-                        <span className={"label-content " + (suggestion.matchedOn === "date" ? "highlightedInputValue" : "")}>{suggestion.date}</span>
-                        <span className={"label-content " + (suggestion.matchedOn === "subject" ? "highlightedInputValue" : "")}>{suggestion.subject}</span>
-                        <span className={"label-content " + (suggestion.matchedOn === "hospital" ? "highlightedInputValue" : "")}>{suggestion.hospital}</span>
-                </div> 
+                {suggestionLabel}
                 <span className="dividing-line"></span>
                 {suggestionText} 
             </div>

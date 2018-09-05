@@ -123,7 +123,7 @@ export default class TargetedDataSection extends Component {
     // TODO: Add a List type and a tabular renderer for it for Procedures section. case where left column is data
     //       and not just a label
     renderSection = (section) => {
-        const { patient, condition, allowItemClick, isWide, type, loginUser, actions } = this.props;
+        const { patient, condition, allowItemClick, isWide, type, loginUser, actions, searchIndex } = this.props;
         const visualization = this.checkVisualization();
 
         const viz = this.props.visualizerManager.getVisualizer(type, visualization);
@@ -141,6 +141,7 @@ export default class TargetedDataSection extends Component {
                 isWide={isWide}
                 loginUser={loginUser}
                 actions={actions}
+                searchIndex={searchIndex}
             />
         );
     }
@@ -179,4 +180,5 @@ TargetedDataSection.propTypes = {
     isWide: PropTypes.bool.isRequired,
     clinicalEvent: PropTypes.string.isRequired,
     loginUser: PropTypes.object.isRequired,
+    searchIndex: PropTypes.object.isRequired,
 }
