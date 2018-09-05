@@ -209,42 +209,42 @@ class NarrativeNameValuePairsVisualizer extends Component {
 
     // renders Menu for snippet and associated actions as Menu items
     renderedMenu = (snippet, snippetId, snippetText, arrayIndex) => {
-
         const onMenuItemClicked = (fn, element) => {
             const callback = () => {
-                // convert element to format action is expecting
-                const transformedElement = {
-                    shortcut: element.shortcut,
-                    value: [
-                        element.value,
-                        element.unsigned,
-                        element.sourceNote
-                    ]
-                };
-                fn(transformedElement);
+                fn(element);
             }
             this.closeInsertionMenu(callback);
         }
-        
         let isSigned = true;
         const checkSnippetUnsigned = Lang.isUndefined(snippet.unsigned) ? isSigned : !snippet.unsigned;
         isSigned = Lang.isArray(snippet.value) ? !snippet.value[1] : checkSnippetUnsigned;
-    
-       return( 
-         <VisualizerMenu
-            allowItemClick={this.props.allowItemClick}
-            arrayIndex={arrayIndex}
-            closeInsertionMenu={this.closeInsertionMenu}
-            element={snippet}
-            elementDisplayingMenu={this.state.snippetDisplayingMenu}
-            elementId={snippetId}
-            elementText={snippetText}
-            isSigned={isSigned}
-            onMenuItemClicked={onMenuItemClicked}
-            positionLeft={this.state.positionLeft}
-            positionTop={this.state.positionTop}
-            unfilteredActions={this.props.actions}
-       /> );
+
+        // convert snippet to format action is expecting
+        const transformedSnippet = {
+            shortcut: snippet.shortcut,
+            value: [
+                snippet.value,
+                snippet.unsigned,
+                snippet.sourceNote
+            ],
+        };
+
+        return (
+            <VisualizerMenu
+                allowItemClick={this.props.allowItemClick}
+                arrayIndex={arrayIndex}
+                closeInsertionMenu={this.closeInsertionMenu}
+                element={transformedSnippet}
+                elementDisplayingMenu={this.state.snippetDisplayingMenu}
+                elementId={snippetId}
+                elementText={snippetText}
+                isSigned={isSigned}
+                onMenuItemClicked={onMenuItemClicked}
+                positionLeft={this.state.positionLeft}
+                positionTop={this.state.positionTop}
+                unfilteredActions={this.props.actions}
+            />
+        );
     }
 
     // Opens the insertion menu for the given snippet id, based on cursor location
