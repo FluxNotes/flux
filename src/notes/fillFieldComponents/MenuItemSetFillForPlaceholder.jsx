@@ -31,7 +31,7 @@ class MenuItemSetFillForPlaceholder extends Component {
 
         // Get descriptions based on the baseField and the baseValue if they're set
         let description = '';
-        if (Lang.isUndefined(baseValue)) {
+        if (baseValue === '') {
             description = option.description;
         } else {
             const baseValueNameLowerCase = baseValue.toLowerCase();
