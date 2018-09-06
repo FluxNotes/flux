@@ -1,14 +1,14 @@
-import BodyWeight from '../shr/vital/BodyWeight';
+import HeartRate from '../shr/vital/HeartRate';
 import FluxObservation from '../finding/FluxObservation';
 
-class FluxBodyWeight extends FluxObservation{
+class FluxHeartRate extends FluxObservation{
     constructor(json) {
         super();
-        this._observation = BodyWeight.fromJSON(json);
+        this._observation = HeartRate.fromJSON(json);
     }
 
     get value() {
-        return this._observation._quantity.value;
+        return this._observation._quantity._decimal;
     }
 
     get units() {
@@ -20,4 +20,4 @@ class FluxBodyWeight extends FluxObservation{
     }
 }
 
-export default FluxBodyWeight;
+export default FluxHeartRate;

@@ -18,6 +18,7 @@ import FluxResearchSubject from '../model/research/FluxResearchSubject';
 import FluxBloodPressure from '../model/vital/FluxBloodPressure';
 import FluxBodyTemperature from '../model/vital/FluxBodyTemperature';
 import FluxBodyWeight from '../model/vital/FluxBodyWeight';
+import FluxHeartRate from '../model/vital/FluxHeartRate';
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx'; // put jsx because yarn test-ui errors on this import otherwise
 import CreationTime from '../model/shr/core/CreationTime';
 import LastUpdated from '../model/shr/base/LastUpdated';
@@ -1027,12 +1028,17 @@ class PatientRecord {
             const clinicallyRelevantTime = new moment(bodyWeight.clinicallyRelevantTime, "D MMM YYYY").format("D MMM YYYY");
             return clinicallyRelevantTime === today; 
         });
-        if (Lang.isUndefined(bloodPressure) && Lang.isUndefined(bodyTemperature) && Lang.isUndefined(bodyWeight)){
+        const heartRate = this.getEntriesOfType(FluxHeartRate).find((heartRate) => {  
+            const clinicallyRelevantTime = new moment(heartRate.clinicallyRelevantTime, "D MMM YYYY").format("D MMM YYYY");
+            return clinicallyRelevantTime === today; 
+        });
+        if (Lang.isUndefined(bloodPressure) && Lang.isUndefined(bodyTemperature) && Lang.isUndefined(bodyWeight) && Lang.isUndefined(heartRate)){
             return "no vital signs taken today";
         }
         const results = (Lang.isUndefined(bloodPressure) ? "" : "Blood pressure is " + bloodPressure.value + ". ") +
-                        (Lang.isUndefined(bodyTemperature) ? "" : "Temperature is " + bodyTemperature.value + ". ") +
-                        (Lang.isUndefined(bodyWeight) ? "" : "Weight is " + bodyWeight.value + ".");
+                        (Lang.isUndefined(bodyTemperature) ? "" : "Temperature is " + bodyTemperature.value + " "+ bodyTemperature.units + ". ") +
+                        (Lang.isUndefined(bodyWeight) ? "" : "Weight is " + bodyWeight.value + " " + bodyWeight.units + ". ") + 
+                        (Lang.isUndefined(heartRate) ? "" : "Heart rate is " + heartRate.value + heartRate.units + ".");;
         return results;
     }
 }

@@ -531,7 +531,7 @@
     "id": "VitalsInserter",
     "getData": {"object": "patient", "method": "getTodaysVitalsAsString"},
     "isContext": false,
-    "stringTriggers": [{"name": "@Vitals", "description": "Insert patient's vital signs for today"}],
+    "stringTriggers": [{"name": "@vitals", "description": "Insert patient's vital signs for today"}],
     "knownParentContexts": "Patient"
   }
 ]

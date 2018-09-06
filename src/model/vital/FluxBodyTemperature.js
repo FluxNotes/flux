@@ -11,6 +11,10 @@ class FluxBodyTemperature extends FluxObservation{
         return this._observation._quantity._decimal;
     }
 
+    get units() {
+        return this._observation._quantity.units.value.value;
+    }
+
     toJSON() {
         return this._observation.toJSON();
     }

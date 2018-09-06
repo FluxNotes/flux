@@ -3,6 +3,7 @@ import ShrVitalObjectFactory from '../shr/vital/ShrVitalObjectFactory';
 import FluxBloodPressure from './FluxBloodPressure';
 import FluxBodyTemperature from './FluxBodyTemperature';
 import FluxBodyWeight from './FluxBodyWeight';
+import FluxHeartRate from './FluxHeartRate';
 
 
 export default class FluxVitalObjectFactory {
@@ -16,6 +17,7 @@ export default class FluxVitalObjectFactory {
             case 'BloodPressure': return new FluxBloodPressure(json);
             case 'BodyTemperature': return new FluxBodyTemperature(json);
             case 'BodyWeight': return new FluxBodyWeight(json);
+            case 'HeartRate': return new FluxHeartRate(json);
             default: return ShrVitalObjectFactory.createInstance(json, type);
         }
     }
