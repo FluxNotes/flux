@@ -24,6 +24,7 @@ import Lang from 'lodash';
 import moment from 'moment';
 import Guid from 'guid';
 import _ from 'lodash';
+import FluxBloodPressure from '../model/vital/FluxBloodPressure';
 
 class PatientRecord {
 
@@ -1007,6 +1008,15 @@ class PatientRecord {
             return null;
         }
         return result[0];
+    }
+
+    getTodaysVitalsAsString() {
+        let today = new moment().format("D MMM YYYY");
+        const bloodPressure = this.getEntriesOfType(FluxBloodPressure).find((bloodPressure) => {  
+            const clinicallyRelevantTime = new moment(bloodPressure.clinicallyRelevantTime, "D MMM YYYY").format("D MMM YYYY");
+            return clinicallyRelevantTime === today; 
+        });
+        return bloodPressure.value
     }
 }
 
