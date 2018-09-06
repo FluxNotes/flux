@@ -23,14 +23,14 @@ class ScatterPlotVisualizer extends Component {
         this.renderScatterPlot(patient, condition, conditionSection);
     }
 
-    randomizeXPoints = (data) => {
+    randomizeXPoints = (categoryList, data) => {
         let alive = [], dead = [];
         data[0].forEach(function (item) {
-            alive.push([item[0] + (Math.random() * 50 + 30) / 100 - .5, item[1]]);
+            alive.push([categoryList.indexOf(item[0]) + (Math.random() * 50 + 30) / 100 - .5, item[1]]);
         })
 
         data[1].forEach(function (item) {
-            dead.push([item[0] + (Math.random() * 50 + 30) / 100 - .5, item[1]]);
+            dead.push([categoryList.indexOf(item[0]) + (Math.random() * 50 + 30) / 100 - .5, item[1]]);
         })
 
         return [alive, dead];
@@ -40,7 +40,14 @@ class ScatterPlotVisualizer extends Component {
 
         const myData = conditionSection.itemsFunction(patient, condition, conditionSection);
         if (Lang.isObject(myData)) {
-            const randomData = this.randomizeXPoints(myData);
+            let categoryMap = {};
+            myData.forEach(function (series) {
+                series.forEach(function (data) {
+                    categoryMap[data[0]] = true;
+                })
+            });
+            const categoryList = Object.keys(categoryMap);
+            const randomData = this.randomizeXPoints(categoryList, myData);
             const chart = Highcharts.chart({
                 chart: {
                     renderTo: this.refs.scattering,
@@ -71,7 +78,7 @@ class ScatterPlotVisualizer extends Component {
                     align: 'right'
                 },
                 xAxis: [{// primary x axis
-                    categories: ['Chemo Therapy', 'Chemo therapy & Radiation', 'Hormonal Therapy', 'Radiation', 'Surgery', 'Surgery & Radiation', 'None (Actively Monitoring'],
+                    categories: categoryList,
                     title: {
                         enabled: true,
                         text: 'Treatment Options',
@@ -81,7 +88,7 @@ class ScatterPlotVisualizer extends Component {
                         }
                     },
                     min: -.3,
-                    max: 6.3,
+                    max: categoryList.length - 0.7, //6.3
                     showLastLabel: true,
                     labels: {
                         style: {
@@ -90,11 +97,10 @@ class ScatterPlotVisualizer extends Component {
                         y: 30,
                         useHTML: true,
                         formatter: function () {
-                            const index = this.axis.categories.indexOf(this.value);
                             let sum = 0;
-                            myData.forEach(function (series) {
-                                series.forEach(function (data) {
-                                    if (data[0] === index)
+                            myData.forEach((series) => {
+                                series.forEach((data) => {
+                                    if (data[0] === this.value)
                                         sum += 1;
                                 })
                             });
@@ -117,21 +123,20 @@ class ScatterPlotVisualizer extends Component {
                             fontSize: '13px'
                         }
                     },
-                    categories: ['Chemo Therapy', 'Chemo therapy & Radiation', 'Hormonal Therapy', 'Radiation', 'Surgery', 'Surgery & Radiation', 'None (Actively Monitoring)'],
+                    categories: categoryList,
                     labels: {
                         style: {
                             fontSize: '13px'
                         },
                         useHTML: true,
                         formatter: function () {
-                            const index = this.axis.categories.indexOf(this.value);
                             let categorySum = 0;
                             let livingOver60 = 0;
-                            myData.forEach(function (series) {
-                                series.forEach(function (data) {
-                                    if (data[0] === index) {
+                            myData.forEach((series) => {
+                                series.forEach((data) => {
+                                    if (data[0] === this.value) {
                                         categorySum += 1;
-                                        if (data[0] === index && data[1] >= 60)
+                                        if (data[0] === this.value && data[1] >= 60)
                                             livingOver60 += 1;
                                     }
                                 })

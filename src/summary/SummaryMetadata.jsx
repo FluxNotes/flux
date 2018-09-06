@@ -2007,11 +2007,15 @@ export default class SummaryMetadata {
         return subset;
     }
 
+    toFirstLetterCapital = (text) => {
+        return text.charAt(0).toUpperCase() + text.substr(1);
+    }
+
     getTreatmentData = (patient, condition, subsection) => {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         try {
             // Commenting out the api call with actual patient criteria til we get patient data
-            //const data = api.findTreatmentOptionsByPatientStats(condition.codeURL, {race: patient.getPatient().race, dxGrade: condition.getMostRecentHistologicalGrade().getGradeAsSimpleNumber()});
+            //const data = api.findTreatmentOptionsByPatientStats(condition.codeURL, {race: this.toFirstLetterCapital(patient.getPatient().race), dxGrade: condition.getMostRecentHistologicalGrade().getGradeAsSimpleNumber()});
             const data = api.findTreatmentOptionsByPatientStats("http://snomed.info/sct/399068003", {race: "Black"});
             const parsedData = JSON.parse(data);
             if(parsedData[0].length === 0 && parsedData[1].length === 0){
