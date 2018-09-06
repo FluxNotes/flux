@@ -10203,10 +10203,7 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
             }
         }
-    }
-
-
-    ,
+    },
     {
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/vital/BloodPressure"
