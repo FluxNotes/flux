@@ -15,6 +15,9 @@ import FluxPatientIdentifier from '../model/base/FluxPatientIdentifier';
 import FluxProcedureRequested from '../model/procedure/FluxProcedureRequested';
 import FluxQuestionAnswer from '../model/finding/FluxQuestionAnswer';
 import FluxResearchSubject from '../model/research/FluxResearchSubject';
+import FluxBloodPressure from '../model/vital/FluxBloodPressure';
+import FluxBodyTemperature from '../model/vital/FluxBodyTemperature';
+import FluxBodyWeight from '../model/vital/FluxBodyWeight';
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx'; // put jsx because yarn test-ui errors on this import otherwise
 import CreationTime from '../model/shr/core/CreationTime';
 import LastUpdated from '../model/shr/base/LastUpdated';
@@ -24,8 +27,7 @@ import Lang from 'lodash';
 import moment from 'moment';
 import Guid from 'guid';
 import _ from 'lodash';
-import FluxBloodPressure from '../model/vital/FluxBloodPressure';
-import FluxBodyTemperature from '../model/vital/FluxBodyTemperature';
+
 
 class PatientRecord {
 
@@ -1021,7 +1023,16 @@ class PatientRecord {
             const clinicallyRelevantTime = new moment(bodyTemperature.clinicallyRelevantTime, "D MMM YYYY").format("D MMM YYYY");
             return clinicallyRelevantTime === today; 
         });
-        let results = "Blood pressure is " + bloodPressure.value + ", temperature is " + bodyTemperature.value;
+        const bodyWeight = this.getEntriesOfType(FluxBodyWeight).find((bodyWeight) => {  
+            const clinicallyRelevantTime = new moment(bodyWeight.clinicallyRelevantTime, "D MMM YYYY").format("D MMM YYYY");
+            return clinicallyRelevantTime === today; 
+        });
+        if (Lang.isUndefined(bloodPressure) && Lang.isUndefined(bodyTemperature) && Lang.isUndefined(bodyWeight)){
+            return "no vital signs taken today";
+        }
+        const results = (Lang.isUndefined(bloodPressure) ? "" : "Blood pressure is " + bloodPressure.value + ". ") +
+                        (Lang.isUndefined(bodyTemperature) ? "" : "Temperature is " + bodyTemperature.value + ". ") +
+                        (Lang.isUndefined(bodyWeight) ? "" : "Weight is " + bodyWeight.value + ".");
         return results;
     }
 }
