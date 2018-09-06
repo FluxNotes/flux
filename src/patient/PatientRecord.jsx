@@ -25,6 +25,7 @@ import moment from 'moment';
 import Guid from 'guid';
 import _ from 'lodash';
 import FluxBloodPressure from '../model/vital/FluxBloodPressure';
+import FluxBodyTemperature from '../model/vital/FluxBodyTemperature';
 
 class PatientRecord {
 
@@ -1016,7 +1017,12 @@ class PatientRecord {
             const clinicallyRelevantTime = new moment(bloodPressure.clinicallyRelevantTime, "D MMM YYYY").format("D MMM YYYY");
             return clinicallyRelevantTime === today; 
         });
-        return bloodPressure.value
+        const bodyTemperature = this.getEntriesOfType(FluxBodyTemperature).find((bodyTemperature) => {  
+            const clinicallyRelevantTime = new moment(bodyTemperature.clinicallyRelevantTime, "D MMM YYYY").format("D MMM YYYY");
+            return clinicallyRelevantTime === today; 
+        });
+        let results = "Blood pressure is " + bloodPressure.value + ", temperature is " + bodyTemperature.value;
+        return results;
     }
 }
 
