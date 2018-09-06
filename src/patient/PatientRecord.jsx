@@ -15,6 +15,10 @@ import FluxPatientIdentifier from '../model/base/FluxPatientIdentifier';
 import FluxProcedureRequested from '../model/procedure/FluxProcedureRequested';
 import FluxQuestionAnswer from '../model/finding/FluxQuestionAnswer';
 import FluxResearchSubject from '../model/research/FluxResearchSubject';
+import FluxBloodPressure from '../model/vital/FluxBloodPressure';
+import FluxBodyTemperature from '../model/vital/FluxBodyTemperature';
+import FluxBodyWeight from '../model/vital/FluxBodyWeight';
+import FluxHeartRate from '../model/vital/FluxHeartRate';
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx'; // put jsx because yarn test-ui errors on this import otherwise
 import CreationTime from '../model/shr/core/CreationTime';
 import LastUpdated from '../model/shr/base/LastUpdated';
@@ -24,6 +28,7 @@ import Lang from 'lodash';
 import moment from 'moment';
 import Guid from 'guid';
 import _ from 'lodash';
+
 
 class PatientRecord {
 
@@ -1007,6 +1012,34 @@ class PatientRecord {
             return null;
         }
         return result[0];
+    }
+
+    getTodaysVitalsAsString() {
+        let today = new moment().format("D MMM YYYY");
+        const bloodPressure = this.getEntriesOfType(FluxBloodPressure).find((bloodPressure) => {  
+            const clinicallyRelevantTime = new moment(bloodPressure.clinicallyRelevantTime, "D MMM YYYY").format("D MMM YYYY");
+            return clinicallyRelevantTime === today; 
+        });
+        const bodyTemperature = this.getEntriesOfType(FluxBodyTemperature).find((bodyTemperature) => {  
+            const clinicallyRelevantTime = new moment(bodyTemperature.clinicallyRelevantTime, "D MMM YYYY").format("D MMM YYYY");
+            return clinicallyRelevantTime === today; 
+        });
+        const bodyWeight = this.getEntriesOfType(FluxBodyWeight).find((bodyWeight) => {  
+            const clinicallyRelevantTime = new moment(bodyWeight.clinicallyRelevantTime, "D MMM YYYY").format("D MMM YYYY");
+            return clinicallyRelevantTime === today; 
+        });
+        const heartRate = this.getEntriesOfType(FluxHeartRate).find((heartRate) => {  
+            const clinicallyRelevantTime = new moment(heartRate.clinicallyRelevantTime, "D MMM YYYY").format("D MMM YYYY");
+            return clinicallyRelevantTime === today; 
+        });
+        if (Lang.isUndefined(bloodPressure) && Lang.isUndefined(bodyTemperature) && Lang.isUndefined(bodyWeight) && Lang.isUndefined(heartRate)){
+            return "no vital signs taken today";
+        }
+        const results = (Lang.isUndefined(bloodPressure) ? "" : "Blood pressure is " + bloodPressure.value + ". ") +
+                        (Lang.isUndefined(bodyTemperature) ? "" : "Temperature is " + bodyTemperature.value + " "+ bodyTemperature.units + ". ") +
+                        (Lang.isUndefined(bodyWeight) ? "" : "Weight is " + bodyWeight.value + " " + bodyWeight.units + ". ") + 
+                        (Lang.isUndefined(heartRate) ? "" : "Heart rate is " + heartRate.value + heartRate.units + ".");;
+        return results;
     }
 }
 
