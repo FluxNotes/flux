@@ -1,0 +1,53 @@
+@import '../../styles/variables';
+
+#menu-items {
+    .menu-item {
+        display: flex;
+        padding: 15px 0;
+        border-bottom: 1px solid $feature-gray;
+        border-top: 1px;
+        transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+        align-items: center;
+        box-shadow: $line-gray -1px 0px 1px 0px, $line-gray 1px 0px 1px 0px;
+        font-size: 0.8rem;
+
+        &:hover {
+            background-color: $feature-gray;
+            cursor: pointer;
+        }
+
+        &:first-child {
+            border-top: 1px solid $feature-gray;
+        }
+
+        &.selected {
+            background-color: $interface-blue;
+            border:$interface-blue;
+            color: $background;
+        }
+
+        .menu-item-name {
+            margin: 0 0 0 20px;
+            min-width: 95px;
+            display: inline-block;
+
+            &:after {
+                background: $line-gray;
+                width: 1px;
+                content: "";
+                display: inline-block;
+                top: 0;
+                bottom: 0;
+                right: 0;
+                min-height: 20px;
+                margin: -5px 20px -5px 20px;
+            }
+        }
+
+        .menu-item-description {
+            margin: 0 20px 0 0;
+            display: inline-block;
+            max-width: 75%;
+        }
+    }
+}

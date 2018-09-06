@@ -4,6 +4,8 @@ import Lang from 'lodash';
 import ValueSetManager from '../../lib/ValueSetManager';
 import SingleChoiceButton from '../../forms/SingleChoiceButton';
 
+import './MenuItemSetFillForPlaceholder.css';
+
 class MenuItemSetFillForPlaceholder extends Component {
     constructor(props) {
         super(props);
@@ -25,7 +27,7 @@ class MenuItemSetFillForPlaceholder extends Component {
         const { baseValue, baseField, attributeSpec, args, value } = this.props;
 
         const isSelected = value === option.name;
-        const menuClassName = isSelected ? 'grade-menu-item selected' : 'grade-menu-item';
+        const menuClassName = isSelected ? 'menu-item selected' : 'menu-item';
 
         // Get descriptions based on the baseField and the baseValue if they're set
         let description = '';
@@ -64,10 +66,10 @@ class MenuItemSetFillForPlaceholder extends Component {
         return (
             <div key={i} className={menuClassName}
                 onClick={(e) => this.handleOptionSelection(e, i)}>
-                <div className="grade-menu-item-name">
+                <div className="menu-item-name">
                     {option.name}
                 </div>
-                <div className="grade-menu-item-description">
+                <div className="menu-item-description">
                     {description}
                 </div>
             </div>
@@ -75,10 +77,9 @@ class MenuItemSetFillForPlaceholder extends Component {
     }
 
     render() {
-        // TODO Update CSS - move to scss file, make class names generic, update font styling
         return (
             <div>
-                <div>
+                <div id='menu-items'>
                     {
                         this._options.map((option, i) => {
                             return this.renderMenuItem(option, i);
@@ -93,5 +94,10 @@ class MenuItemSetFillForPlaceholder extends Component {
 export default MenuItemSetFillForPlaceholder;
 
 MenuItemSetFillForPlaceholder.propTypes = {
-    // TODO SET PROPTYPS
+    showDetails: PropTypes.bool.isRequired,
+    attributeSpec: PropTypes.object.isRequired,
+    value: PropTypes.string,
+    baseField: PropTypes.string,
+    baseValue: PropTypes.string,
+    updateValue: PropTypes.func.isRequired,
 }

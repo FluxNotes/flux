@@ -17,16 +17,19 @@ yarn-error.log*
 
 # sass outputs
 # *.css // Add once project has completely converted to SASS
-
-#Visual Paradigm Project Files 
-*.vpp.bak*
-*.vpp.lck*
-
-.vscode/
+/src/forms/SingleChoiceButton.css
+/src/forms/MultiChoiceButton.css
 /src/notes/FluxNotesEditor.css
 /src/notes/NoteAssistant.css
+/src/notes/fillFieldComponents/MenuItemSetFillForPlaceholder.css
 /src/panels/NotesPanel.css
 /src/panels/PatientControlPanel.css
 /src/patientControl/PatientSearch.css
 /src/styles/LandingPage.css
 /src/summary/ConditionSelection.css
+
+#Visual Paradigm Project Files
+*.vpp.bak*
+*.vpp.lck*
+
+.vscode/

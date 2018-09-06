@@ -1,0 +1,14 @@
+@import '../styles/variables';
+
+.single-choice-button {
+    border-radius: 5px !important;
+    border: 2px solid;
+    border-color: $background;
+    line-height: 0.9rem !important;
+    margin: 0.5px !important;
+
+    &.selected {
+        background-color: $interface-blue !important;
+        color: $background;
+    }
+}
