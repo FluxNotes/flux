@@ -525,5 +525,13 @@
     "knownParentContexts": "ConditionInserter",	
     "description": "Side effects to treatment, important for effective evaluation of disease and treatment, based on Common Terminology Criteria for Adverse Events (CTCAE) version 4.03 (June 14, 2010).",	
     "structuredPhraseDocumentation": "nlptoxicitySheet.pdf"
+  },
+
+  { "type": "InsertValue",
+    "id": "VitalsInserter",
+    "getData": {"object": "patient", "method": "getTodaysVitalsAsString"},
+    "isContext": false,
+    "stringTriggers": [{"name": "@Vitals", "description": "Insert patient's vital signs for today"}],
+    "knownParentContexts": "Patient"
   }
 ]
