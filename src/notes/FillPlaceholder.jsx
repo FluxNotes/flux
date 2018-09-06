@@ -11,6 +11,7 @@ import moment from 'moment';
 import Lang from 'lodash';
 import ButtonSetFillFieldForPlaceholder from './fillFieldComponents/ButtonSetFillFieldForPlaceholder';
 import MultiButtonSetFillFieldForPlaceholder from './fillFieldComponents/MultiButtonSetFillFieldForPlaceholder';
+import MenuItemSetFillForPlaceholder from './fillFieldComponents/MenuItemSetFillForPlaceholder';
 import Button from '../elements/Button';
 import 'rc-calendar/assets/index.css';
 
@@ -56,6 +57,7 @@ export default class FillPlaceholder extends Component {
             done,
             expanded: false,
             error: null,
+            showDetails: false,
         };
     }
 
@@ -212,6 +214,13 @@ export default class FillPlaceholder extends Component {
         this.setState({ showCalendar: false });
     }
 
+    renderShowHide = () => {
+        if (this.state.showDetails) {
+            return <span className='link' onClick={() => { this.setState({ showDetails: false }) }} >Hide details</span>;
+        }
+        return <span className='link' onClick={() => { this.setState({ showDetails: true }) }}>Show details</span>;
+    }
+
     createFillFieldForPlaceholder = (attributeSpec, value, entryIndex = 0) => {
         const { calendarAttributeSpec, showCalendar } = this.state;
         const { backgroundColor, placeholder } = this.props;
@@ -248,6 +257,20 @@ export default class FillPlaceholder extends Component {
                         null
                     }
                 </div>
+            );
+        }
+        if (attributeSpec.type === 'menuItems') {
+            const adverseEventAttribute = placeholder.attributes.find(attr => attr.name === 'adverseEvent');
+            const adverseEventValue = placeholder.getAttributeValue(adverseEventAttribute.name, entryIndex);
+            return (
+                <MenuItemSetFillForPlaceholder
+                    showDetails={this.state.showDetails}
+                    attributeSpec={attributeSpec}
+                    value={value}
+                    baseField={'adverseEvent'}
+                    baseValue={adverseEventValue}
+                    updateValue={this.onSetValue.bind(this, "click/touch", attributeSpec, entryIndex)}
+                />
             );
         }
 
@@ -295,6 +318,7 @@ export default class FillPlaceholder extends Component {
                         <span className="attribute-title">
                             {attribute.title} <br/>
                             {multiSelect}
+                            {attribute.type === 'menuItems' && this.renderShowHide()}
                         </span>
                     </Grid>
                     <Grid item xs={7}>

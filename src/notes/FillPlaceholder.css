@@ -120,3 +120,8 @@
         flex-wrap: wrap-reverse;
     }
 }
+
+.link {
+    /* $shr-context-dark */
+    color: #0084B8;
+}
