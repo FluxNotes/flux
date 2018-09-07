@@ -9,6 +9,7 @@ import ScatterPlotVisualizer from './ScatterPlotVisualizer';
 import FormatMedicationChange from './FormatMedicationChange.js';
 import NameValuePairsIndexer from '../patientControl/NameValuePairsIndexer';
 import ColumnsIndexer from '../patientControl/ColumnsIndexer';
+import EventsIndexer from '../patientControl/EventsIndexer';
 import Lang from 'lodash';
 
 class VisualizerManager {
@@ -231,6 +232,8 @@ class VisualizerManager {
                 return new NameValuePairsIndexer();
             case "Columns":
                 return new ColumnsIndexer();
+            case "Events":
+                return new EventsIndexer();
             default:
                 return null;
         }
