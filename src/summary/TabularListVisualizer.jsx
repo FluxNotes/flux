@@ -143,8 +143,12 @@ export default class TabularListVisualizer extends Component {
             subsectionName = transformedSubsection.name;
         }
 
+        let nameSuffix = '';
+        if (transformedSubsection.name_suffix) {
+            nameSuffix = <span>{nameSuffix}</span>;
+        }
         if (subsectionName && subsectionName.length > 0) {
-            subsectionNameHTML = <h2 className="subsection list-subsection-header"><span>{subsectionName}</span></h2>;
+            subsectionNameHTML = <h2 className="subsection list-subsection-header"><span>{subsectionName}</span>{nameSuffix}</h2>;
         }
 
         if (list.length <= 0) {
