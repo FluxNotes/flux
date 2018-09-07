@@ -162,8 +162,17 @@ export class FullApp extends Component {
 
     receive_command(commandType, data) {
         if (commandType === 'navigate_targeted_data_panel') {
+            // if we just have a section name, move to it
+            // if we have a section and subsection names, move to section and then move to subsection if its not already visible.
             const sectionName = data.section;
-            return this.dashboard.moveTargetedDataPanelToSection(sectionName);
+            const subsectionName = data.subsectionName;
+            let result = this.dashboard.moveTargetedDataPanelToSection(sectionName);
+            if (subsectionName) {
+                if (!Lang.isNull(result)) return result;
+                return this.dashboard.moveTargetedDataPanelToSubsection(subsectionName);
+            } else {
+                return result;
+            }
         } else if (commandType === 'insert-structured-phrase') {
             return this.dashboard.insertStructuredPhraseInCurrentNote(data, "command");
         } else {
@@ -331,6 +340,10 @@ export class FullApp extends Component {
         this.setState({ isModalOpen: false });
     }
 
+    moveTargetedDataPanelToSection = (sectionName) => {
+        return this.dashboard.moveTargetedDataPanelToSection(sectionName);
+    }
+
     render() {
         // Get the Current Dashboard based on superRole of user
         const CurrentDashboard = this.dashboardManager.getDashboardForSuperRole(this.state.superRole);
@@ -353,6 +366,7 @@ export class FullApp extends Component {
                                     setSearchSelectedItem={this.setSearchSelectedItem}
                                     supportLogin={true}
                                     searchIndex={this.searchIndex}
+                                    moveTargetedDataPanelToSection={this.moveTargetedDataPanelToSection}
                                 />
                             </Col>
                         </Row>

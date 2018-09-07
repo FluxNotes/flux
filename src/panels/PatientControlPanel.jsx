@@ -60,6 +60,7 @@ class PatientControlPanel extends Component {
                                             patient={this.props.patient}
                                             setSearchSelectedItem={this.props.setSearchSelectedItem}
                                             searchIndex={this.props.searchIndex}
+                                            moveTargetedDataPanelToSection={this.props.moveTargetedDataPanelToSection}
                                         />
                                     </Col>
                                 </Row>
