@@ -119,6 +119,19 @@ export default class TargetedDataSection extends Component {
         }
     }
 
+    getSubsections(section) {
+        const { patient, condition } = this.props;
+
+        if (patient == null || condition == null || section == null) return [];
+
+        let subsections = [];
+        section.data.forEach((subsection) => {
+            subsections.push(subsection);
+        });
+
+        return subsections;
+    }
+
     // renderSection checks the type of data that is being passed and chooses the correct component to render the data
     // TODO: Add a List type and a tabular renderer for it for Procedures section. case where left column is data
     //       and not just a label
@@ -130,6 +143,27 @@ export default class TargetedDataSection extends Component {
         if (Lang.isNull(viz)) return null;
         const sectionTransform = viz.transform;
         const Visualizer = viz.visualizer;
+        const subsections = this.getSubsections(section);
+        subsections.forEach(subsection => {
+            let items = subsection.items;
+            let itemsFunction = subsection.itemsFunction;
+            let list;
+            let typeToIndex = type;
+
+            if (Lang.isUndefined(items)) {
+                list = itemsFunction(patient, condition, subsection);
+            } else {
+                list = items;
+            }
+
+            if (sectionTransform) {
+                list = sectionTransform(patient, condition, subsection);
+                typeToIndex = viz.renderedFormat;
+            }
+            const indexer = this.props.visualizerManager.getIndexer(typeToIndex);
+            if (indexer) indexer.indexData(section.name, subsection.name, list.items || [], searchIndex);
+            else console.log("Not indexing:", section.name);
+        })
 
         return (
             <Visualizer

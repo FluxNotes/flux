@@ -184,7 +184,6 @@ export default class TabularListVisualizer extends Component {
 
     // Get a formatted list of objects corresponding to every item to be displayed
     getList(subsection) {
-        
         const {patient, condition, conditionSection } = this.props;
         if (patient == null || condition == null || conditionSection == null) {
             return [];
@@ -199,18 +198,6 @@ export default class TabularListVisualizer extends Component {
         } else {
             list = items;
         }
-
-        list.forEach(([title, valueObject]) => {
-            if (Lang.isObject(valueObject)) {
-                this.props.searchIndex.addSearchableData({
-                    section: conditionSection.name,
-                    subsection: subsection.name,
-                    valueTitle: title.value,
-                    value: valueObject.value[0]
-                })
-            }
-        });
-
         return list;
     }
 
