@@ -14,6 +14,7 @@ import MedicationsIndexer from '../patientControl/MedicationsIndexer';
 import ValueOverTimeIndexer from '../patientControl/ValueOverTimeIndexer';
 import DiseaseStatusValuesIndexer from '../patientControl/DiseaseStatusValuesIndexer';
 import Lang from 'lodash';
+import ClusterPointsIndexer from '../patientControl/ClusterPointsIndexer';
 
 class VisualizerManager {
 
@@ -244,6 +245,8 @@ class VisualizerManager {
                 return new ValueOverTimeIndexer();
             case "DiseaseStatusValues":
                 return new DiseaseStatusValuesIndexer();
+            case "ClusterPoints":
+                return new ClusterPointsIndexer();
             default:
                 return null;
         }
