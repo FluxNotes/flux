@@ -7,6 +7,8 @@ import TimelineEventsVisualizer from '../timeline/TimelineEventsVisualizer';
 import MedicationRangeChartVisualizer from './MedicationRangeChartVisualizer';
 import ScatterPlotVisualizer from './ScatterPlotVisualizer';
 import FormatMedicationChange from './FormatMedicationChange.js';
+import NameValuePairsIndexer from '../patientControl/NameValuePairsIndexer';
+import ColumnsIndexer from '../patientControl/ColumnsIndexer';
 import Lang from 'lodash';
 
 class VisualizerManager {
@@ -195,13 +197,13 @@ class VisualizerManager {
 
     visualizers = [
                     { "dataType": "Columns", "visualizerType": "tabular", "visualizer": TabularListVisualizer },
-                    { "dataType": "NameValuePairs", "visualizerType": "tabular", "visualizer": TabularListVisualizer, "transform": this.transformNameValuePairToColumns },
+                    { "dataType": "NameValuePairs", "visualizerType": "tabular", "visualizer": TabularListVisualizer, "transform": this.transformNameValuePairToColumns, renderedFormat: "Columns" },
                     { "dataType": "NameValuePairs", "visualizerType": "narrative", "visualizer": NarrativeNameValuePairsVisualizer },
                     { "dataType": "Events", "visualizerType": "timeline", "visualizer": TimelineEventsVisualizer },
-                    { "dataType": "Medications", "visualizerType": "tabular", "visualizer": TabularListVisualizer, "transform": this.transformMedicationsToColumns },
+                    { "dataType": "Medications", "visualizerType": "tabular", "visualizer": TabularListVisualizer, "transform": this.transformMedicationsToColumns, renderedFormat: "Columns" },
                     { "dataType": "Medications", "visualizerType": "chart", "visualizer": MedicationRangeChartVisualizer },
                     { "dataType": "ValueOverTime", "visualizerType": "chart", "visualizer": BandedLineChartVisualizer },
-                    { "dataType": "ValueOverTime", "visualizerType": "tabular", "visualizer": TabularListVisualizer, "transform": this.transformValuesOverTimeToColumns },
+                    { "dataType": "ValueOverTime", "visualizerType": "tabular", "visualizer": TabularListVisualizer, "transform": this.transformValuesOverTimeToColumns, renderedFormat: "Columns" },
                     { "dataType": "NarrativeOnly", "visualizerType": "narrative", "visualizer": NarrativeNameValuePairsVisualizer },
                     { "dataType": "DiseaseStatusValues", "visualizerType": "chart", "visualizer": ProgressionLineChartVisualizer },
                     { "dataType": "ClusterPoints", "visualizerType": "scatter", "visualizer": ScatterPlotVisualizer}
@@ -221,6 +223,17 @@ class VisualizerManager {
         });
         if (Lang.isNull(result) || result.length !== 1) return null;
         return result[0];
+    }
+
+    getIndexer(dataType) {
+        switch(dataType) {
+            case "NameValuePairs":
+                return new NameValuePairsIndexer();
+            case "Columns":
+                return new ColumnsIndexer();
+            default:
+                return null;
+        }
     }
 
     renderIcon(visualizerType, isSelected) {
