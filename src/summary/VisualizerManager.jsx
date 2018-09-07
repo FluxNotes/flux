@@ -229,6 +229,7 @@ class VisualizerManager {
     getIndexer(dataType) {
         switch(dataType) {
             case "NameValuePairs":
+            case "NarrativeOnly":
                 return new NameValuePairsIndexer();
             case "Columns":
                 return new ColumnsIndexer();
