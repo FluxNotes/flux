@@ -1819,6 +1819,7 @@ export default class SummaryMetadata {
                 "start_time" : prog.asOfDate,
                 "Disease status" : code,
                 "tooltipText" : tooltipText,
+                "status": status
             };
         });
 
