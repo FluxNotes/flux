@@ -17,8 +17,8 @@ export default class TargetedDataPanel extends Component {
         return this.minimap.moveToSection(sectionName);
     }
 
-    moveToSubsection(subsectionName) {
-        return this.minimap.moveToSubsection(subsectionName);
+    moveToSubsection(sectionName, subsectionName) {
+        return this.minimap.moveToSubsection(sectionName, subsectionName);
     }
 
     render () {

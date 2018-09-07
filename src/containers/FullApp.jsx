@@ -162,17 +162,9 @@ export class FullApp extends Component {
 
     receive_command(commandType, data) {
         if (commandType === 'navigate_targeted_data_panel') {
-            // if we just have a section name, move to it
-            // if we have a section and subsection names, move to section and then move to subsection if its not already visible.
             const sectionName = data.section;
-            const subsectionName = data.subsectionName;
-            let result = this.dashboard.moveTargetedDataPanelToSection(sectionName);
-            if (subsectionName) {
-                if (!Lang.isNull(result)) return result;
-                return this.dashboard.moveTargetedDataPanelToSubsection(subsectionName);
-            } else {
-                return result;
-            }
+            const subsectionName = data.subsection;
+            return this.dashboard.moveTargetedDataPanelToSubsection(sectionName, subsectionName);
         } else if (commandType === 'insert-structured-phrase') {
             return this.dashboard.insertStructuredPhraseInCurrentNote(data, "command");
         } else {
@@ -340,8 +332,8 @@ export class FullApp extends Component {
         this.setState({ isModalOpen: false });
     }
 
-    moveTargetedDataPanelToSection = (sectionName) => {
-        return this.dashboard.moveTargetedDataPanelToSection(sectionName);
+    moveTargetedDataPanelToSubsection = (sectionName, subsectionName) => {
+        return this.dashboard.moveTargetedDataPanelToSubsection(sectionName, subsectionName);
     }
 
     render() {
@@ -366,7 +358,7 @@ export class FullApp extends Component {
                                     setSearchSelectedItem={this.setSearchSelectedItem}
                                     supportLogin={true}
                                     searchIndex={this.searchIndex}
-                                    moveTargetedDataPanelToSection={this.moveTargetedDataPanelToSection}
+                                    moveTargetedDataPanelToSubsection={this.moveTargetedDataPanelToSubsection}
                                 />
                             </Col>
                         </Row>

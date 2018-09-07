@@ -147,8 +147,8 @@ export default class ClinicianDashboard extends Component {
         return this.targetedDataPanel.moveToSection(sectionName);
     }
 
-    moveTargetedDataPanelToSubsection = (subsectionName) => {
-        return this.targetedDataPanel.moveToSubsection(subsectionName);
+    moveTargetedDataPanelToSubsection = (sectionName, subsectionName) => {
+        return this.targetedDataPanel.moveToSubsection(sectionName, subsectionName);
     }
 
     insertStructuredPhraseInCurrentNote = (data, source) => {
