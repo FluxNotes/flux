@@ -229,7 +229,6 @@ class PatientSearch extends React.Component {
 
             this.props.setSearchSelectedItem(selectedNote);
         } else {
-            console.log(suggestion);
             this.props.moveTargetedDataPanelToSubsection(suggestion.section, suggestion.subsection);
         }
     }

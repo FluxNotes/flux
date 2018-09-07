@@ -50,7 +50,8 @@ class VisualizerManager {
             typicalRange += ")";
         }
 
-        newsection.name = subsection.name + typicalRange;
+        newsection.name = subsection.name;
+        newsection.name_suffix = typicalRange;
         newsection.headings = ["Date", "Value"];
         newsection.items = itemList.map((labResult) => {
             return [ labResult["start_time"], labResult[subsection.name] + " " + labResult["unit"] ];
