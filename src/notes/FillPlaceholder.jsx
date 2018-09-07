@@ -260,15 +260,18 @@ export default class FillPlaceholder extends Component {
             );
         }
         if (attributeSpec.type === 'menuItems') {
-            const adverseEventAttribute = placeholder.attributes.find(attr => attr.name === 'adverseEvent');
-            const adverseEventValue = placeholder.getAttributeValue(adverseEventAttribute.name, entryIndex);
+            const baseFieldAttribute = placeholder.attributes.find(attr => attr.name === attributeSpec.values.baseField);
+            let baseFieldValue = '';
+            if (baseFieldAttribute) {
+                baseFieldValue = placeholder.getAttributeValue(baseFieldAttribute.name, entryIndex);
+            }
             return (
                 <MenuItemSetFillForPlaceholder
                     showDetails={this.state.showDetails}
                     attributeSpec={attributeSpec}
                     value={value}
-                    baseField={'adverseEvent'}
-                    baseValue={adverseEventValue}
+                    baseField={attributeSpec.values.baseField}
+                    baseValue={baseFieldValue}
                     updateValue={this.onSetValue.bind(this, "click/touch", attributeSpec, entryIndex)}
                 />
             );
@@ -318,7 +321,7 @@ export default class FillPlaceholder extends Component {
                         <span className="attribute-title">
                             {attribute.title} <br/>
                             {multiSelect}
-                            {attribute.type === 'menuItems' && this.renderShowHide()}
+                            {attribute.type === 'menuItems' && this.renderShowHide(attribute.name, entryIndex)}
                         </span>
                     </Grid>
                     <Grid item xs={7}>
