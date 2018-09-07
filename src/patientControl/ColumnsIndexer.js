@@ -10,7 +10,7 @@ class ColumnIndexer extends BaseIndexer {
                     section,
                     subsection,
                     valueTitle: title.value,
-                    value: valueObject ? valueObject.value[0] : "Missing Data"
+                    value: valueObject.value[0] || "Missing Data"
                 });
             }
         });
