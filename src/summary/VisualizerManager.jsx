@@ -10,6 +10,7 @@ import FormatMedicationChange from './FormatMedicationChange.js';
 import NameValuePairsIndexer from '../patientControl/NameValuePairsIndexer';
 import ColumnsIndexer from '../patientControl/ColumnsIndexer';
 import EventsIndexer from '../patientControl/EventsIndexer';
+import MedicationsIndexer from '../patientControl/MedicationsIndexer';
 import Lang from 'lodash';
 
 class VisualizerManager {
@@ -235,6 +236,8 @@ class VisualizerManager {
                 return new ColumnsIndexer();
             case "Events":
                 return new EventsIndexer();
+            case "Medications":
+                return new MedicationsIndexer();
             default:
                 return null;
         }
