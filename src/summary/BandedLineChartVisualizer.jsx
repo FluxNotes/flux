@@ -179,7 +179,7 @@ class BandedLineChartVisualizer extends Component {
             >
                 <div className="sub-section-heading">
                     <h2 className="sub-section-name list-subsection-header">
-                        <span>{`${yVar} (${yUnit})`}</span>
+                        <span>{`${yVar}`}</span><span>{` (${yUnit})`}</span>
                     </h2>
                 </div>
                 <LineChart
