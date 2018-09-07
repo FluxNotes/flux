@@ -7,7 +7,7 @@ class NameValuePairsIndexer extends BaseIndexer {
                 section,
                 subsection: "",
                 valueTitle: obj.name,
-                value: obj.value
+                value: obj.value || "Missing Data"
             });
         })
     }
