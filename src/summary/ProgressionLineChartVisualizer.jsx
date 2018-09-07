@@ -178,7 +178,7 @@ class ProgressionLineChartVisualizer extends Component {
     }
 
     renderProgressionChart = (patient, condition, conditionSection) => { 
-        const { progressions, potentialDiagnosisDates } = conditionSection.itemsFunction(patient, condition, conditionSection);          
+        const { progressions, potentialDiagnosisDates } = conditionSection.data[0].itemsFunction(patient, condition, conditionSection);
         // process dates into numbers for graphing
         const processedData = this.processForGraphing(progressions);
         const processedPotentialDiagnosisDates = this.processPotentialDiagnosisDates(potentialDiagnosisDates)
