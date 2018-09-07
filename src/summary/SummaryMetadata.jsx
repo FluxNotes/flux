@@ -416,7 +416,12 @@ export default class SummaryMetadata {
                         shortName: "Disease",
                         clinicalEvents: ["pre-encounter"],
                         type: "DiseaseStatusValues",
-                        itemsFunction: this.getProgressions,
+                        data: [
+                            {
+                                name: "",
+                                itemsFunction: this.getProgressions,
+                            }
+                        ]
                     },
                     {
                         name: "Labs",
@@ -698,19 +703,19 @@ export default class SummaryMetadata {
                         data: [
                             {
                                 name: "Medications",
-                                eventsFunction: this.getMedicationItems
+                                itemsFunction: this.getMedicationItems
                             },
                             {
                                 name: "Procedures",
-                                eventsFunction: this.getProcedureItems
+                                itemsFunction: this.getProcedureItems
                             },
                             {
                                 name: "Key Events",
-                                eventsFunction: this.getEventItems
+                                itemsFunction: this.getEventItems
                             },
                             {
                                 name: "Progressions",
-                                eventsFunction: this.getProgressionItems
+                                itemsFunction: this.getProgressionItems
                             }
                         ]
                     },
@@ -719,7 +724,12 @@ export default class SummaryMetadata {
                         name: "Treatment Options",
                         shortName: "Treatment Options",
                         type: "ClusterPoints",
-                        itemsFunction: this.getTreatmentData
+                        data: [
+                            {
+                                name: "",
+                                itemsFunction: this.getTreatmentData
+                            }
+                        ]
                     }
                 ]
             },
@@ -1082,7 +1092,12 @@ export default class SummaryMetadata {
                         shortName: "Disease",
                         clinicalEvents: ["pre-encounter"],
                         type: "DiseaseStatusValues",
-                        itemsFunction: this.getProgressions,
+                        data: [
+                            {
+                                name: "",
+                                itemsFunction: this.getProgressions,
+                            }
+                        ]
                     },
                     {
                         name: "Labs",
@@ -1328,19 +1343,19 @@ export default class SummaryMetadata {
                         data: [
                             {
                                 name: "Medications",
-                                eventsFunction: this.getMedicationItems
+                                itemsFunction: this.getMedicationItems
                             },
                             {
                                 name: "Procedures",
-                                eventsFunction: this.getProcedureItems
+                                itemsFunction: this.getProcedureItems
                             },
                             {
                                 name: "Key Events",
-                                eventsFunction: this.getEventItems
+                                itemsFunction: this.getEventItems
                             },
                             {
                                 name: "Progressions",
-                                eventsFunction: this.getProgressionItems
+                                itemsFunction: this.getProgressionItems
                             }
                         ]
                     },
@@ -1349,7 +1364,12 @@ export default class SummaryMetadata {
                         name: "Treatment Options",
                         shortName: "Treatment Options",
                         type: "ClusterPoints",
-                        itemsFunction: this.getTreatmentData
+                        data: [
+                            {
+                                name: "",
+                                itemsFunction: this.getTreatmentData
+                            }
+                        ]
                     }
                 ]                
             },
@@ -1482,19 +1502,19 @@ export default class SummaryMetadata {
                         data: [
                             {
                                 name: "Medications",
-                                eventsFunction: this.getMedicationItems
+                                itemsFunction: this.getMedicationItems
                             },
                             {
                                 name: "Procedures",
-                                eventsFunction: this.getProcedureItems
+                                itemsFunction: this.getProcedureItems
                             },
                             {
                                 name: "Key Events",
-                                eventsFunction: this.getEventItems
+                                itemsFunction: this.getEventItems
                             },
                             {
                                 name: "Progressions",
-                                eventsFunction: this.getProgressionItems
+                                itemsFunction: this.getProgressionItems
                             }
                         ]
                     }
