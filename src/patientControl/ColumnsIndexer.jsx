@@ -3,7 +3,8 @@ import Lang from 'lodash';
 
 class ColumnIndexer extends BaseIndexer {
     indexData(section, subsection, data, searchIndex) {
-        data.forEach(([title, valueObject]) => {
+        let list = data.items || [];
+        list.forEach(([title, valueObject]) => {
             if(Lang.isObject(valueObject)) {
                 searchIndex.addSearchableData({
                     section,
