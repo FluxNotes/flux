@@ -100,7 +100,6 @@ export class Minimap extends React.Component {
       }
     }
 
-    this.sectionPositions = {};
     const nodes = this.ref.querySelectorAll(this.props.selector)
     let diff = 0;
     this.setState({
@@ -122,11 +121,6 @@ export class Minimap extends React.Component {
           hM = 0;
         }
 
-        this.sectionPositions[title] = this.sectionPositions[shortTitle] = {
-            left: Math.round( xM ),
-            top: Math.round( yM )
-        };
-
         return (
           <ChildComponent
             key={key}
@@ -144,21 +138,15 @@ export class Minimap extends React.Component {
   }
 
     moveToSection(sectionName) {
-//        const posForSection = this.sectionPositions[sectionName];
-//        if (Lang.isUndefined(posForSection)) return "No section named '" + sectionName + "' found.";
-//        const { left, top } = posForSection;
         const sectionElements = Array.from(this.ref.querySelectorAll(".section-header>span"));
         const sectionNodes = sectionElements.filter(el => el.textContent === sectionName);
         if (!sectionNodes || sectionNodes.length === 0) return `Section '${sectionName}' not found.`;
-
-
 
         if (Lang.isUndefined(this.x) || Lang.isUndefined(this.y)) {
             this.x = 0
             this.y = 0;
         }
         sectionNodes[0].scrollIntoView();
-//        this.scrollTo(left, top);
         return null;
     }
 
@@ -183,7 +171,7 @@ export class Minimap extends React.Component {
         // just scroll to subsection instead
         const subsectionSpans = Array.from(this.ref.querySelectorAll(".list-subsection-header>span"));
         const subsectionNodes = subsectionSpans.filter(el => el.textContent === subsectionName);
-        if (!subsectionNodes || subsectionNodes.length === 0) return `Subsection '${subsectionNodes}' of section '${sectionName}' not found.`;
+        if (!subsectionNodes || subsectionNodes.length === 0) return `Subsection '${subsectionName}' of section '${sectionName}' not found.`;
         const isVisible = this.isScrolledIntoView(subsectionNodes[0]);
         if (!isVisible) {
             subsectionNodes[0].scrollIntoView();
