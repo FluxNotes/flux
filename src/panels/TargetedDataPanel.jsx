@@ -17,6 +17,10 @@ export default class TargetedDataPanel extends Component {
         return this.minimap.moveToSection(sectionName);
     }
 
+    moveToSubsection(subsectionName) {
+        return this.minimap.moveToSubsection(subsectionName);
+    }
+
     render () {
         // The css data attribute associated with the minimap
         const minimapAttribute = 'data-test-summary-section';

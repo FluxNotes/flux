@@ -155,6 +155,27 @@ export class Minimap extends React.Component {
       return null;
   }
 
+  isScrolledIntoView(elem) {
+    const overall_div = document.querySelector('.minimap-container');
+    var docViewTop = this.ref.clientTop; //this.ref.scrollTop;
+    var docViewBottom = docViewTop + overall_div.clientHeight; //this.ref.clientHeight; //scrollHeight
+
+    const { height, top} = elem.getBoundingClientRect()
+    var elemTop = top;
+    var elemBottom = elemTop + height;
+    //console.log(docViewTop, docViewBottom, elemTop, elemBottom);
+    return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+  }
+
+  moveToSubsection(subsectionName) {
+      const subsectionSpans = Array.from(this.ref.querySelectorAll(".list-subsection-header>span"));
+      const subsectionNode = subsectionSpans.filter(el => el.textContent === subsectionName)
+      if (!this.isScrolledIntoView(subsectionNode[0])) {
+        subsectionNode[0].scrollIntoView();
+      }
+      return null;
+  }
+
   down( e ) {
     const pos = this.minimap.getBoundingClientRect()
 
