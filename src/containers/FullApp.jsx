@@ -257,37 +257,37 @@ export class FullApp extends Component {
     }
 
     sourceActionIsDisabled = (element) => {
-        if (element.value && Lang.isArray(element.value) && element.value.length > 2 && element.value[2]) {
+        if (element.source) {
             return false;
         }
         return true;
     }
 
     nameSourceAction = (element) => {
-        if (element.value && Lang.isArray(element.value) && element.value.length > 2 && element.value[2]) {
-            return (element.value[2] instanceof Reference ? "Open Source Note" : "View Source");
+        if (element.source) {
+            return (element.source instanceof Reference ? "Open Source Note" : "View Source");
         }
         return "No source information";
     }
 
     openReferencedNote = (item, itemLabel) => {
-        if (!item.value || !Lang.isArray(item.value) || item.value.length < 3 || Lang.isUndefined(item.value[2]) || Lang.isNull(item.value[2]) || item.value[2] === '') {
+        if (!item.source) {
             this.setState({
                 snackbarOpen: true,
                 snackbarMessage: "No source information or note available."
             });
             return;
         }
-        if (item.value[2] instanceof Reference) {
-            const sourceNote = this.state.patient.getEntryFromReference(item.value[2]);
+        if (item.source instanceof Reference) {
+            const sourceNote = this.state.patient.getEntryFromReference(item.source);
             this.setOpenClinicalNote(sourceNote);
         } else {
-            const labelForItem = (Lang.isArray(itemLabel) ? itemLabel[0] : itemLabel );
-            const title = "Source for " + (labelForItem === item.value[0] ? labelForItem : labelForItem + " of " + item.value[0]);
+            const labelForItem = itemLabel; // (Lang.isArray(itemLabel) ? itemLabel[0] : itemLabel );
+            const title = "Source for " + (labelForItem === item.value ? labelForItem : labelForItem + " of " + item.value);
             this.setState({
                 isModalOpen: true,
                 modalTitle: title,
-                modalContent: item.value[2]
+                modalContent: item.source
             });
         }
     }
