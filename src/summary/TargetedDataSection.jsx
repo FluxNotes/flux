@@ -147,13 +147,15 @@ export default class TargetedDataSection extends Component {
         subsections.forEach(subsection => {
             let items = subsection.items;
             let itemsFunction = subsection.itemsFunction;
-            let list;
+            let list, newSubsection;
             let typeToIndex;
 
             if (sectionTransform) {
                 typeToIndex = viz.renderedFormat;
-                list = sectionTransform(patient, condition, subsection);
+                newSubsection = sectionTransform(patient, condition, subsection);
+                list = newSubsection.data_cache;
             } else {
+                newSubsection = subsection;
                 typeToIndex = type;
                 if (Lang.isUndefined(items)) {
                     list = itemsFunction(patient, condition, subsection);
@@ -173,7 +175,7 @@ export default class TargetedDataSection extends Component {
                 }    
             }
             const indexer = this.props.visualizerManager.getIndexer(typeToIndex);
-            if (indexer) indexer.indexData(section.name, subsection.name, list, searchIndex);
+            if (indexer) indexer.indexData(section.name, subsection.name, list, searchIndex, newSubsection);
         })
 
         return (
