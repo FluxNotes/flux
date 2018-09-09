@@ -1573,7 +1573,17 @@ export default class SummaryMetadata {
     getItemListForConditions = (patient, currentConditionEntry, subsection) => {
         const conditions = patient.getActiveConditions();
         return conditions.map((c, i) => {
-            return [{value: [ c.type, patient.isUnsigned(c), this.determineSource(patient, c) ], shortcut: subsection.shortcut}, c.diagnosisDate, c.bodySite];
+            return [
+                {    value: c.type, 
+                     isUnsigned: patient.isUnsigned(c),
+                     source: this.determineSource(patient, c),
+                     shortcut: subsection.shortcut
+                }, 
+                {   value: c.diagnosisDate
+                },
+                {   value: c.bodySite
+                }
+            ];
         });
     }
 
@@ -1582,23 +1592,22 @@ export default class SummaryMetadata {
         return procedures.map((p, i) => {
             // Ensure that each array for a given data type (e.g. Procedures in this case) contains the same number of elements (e.g. here it is 2 elements).
             // Or add to the end of the array, that looks okay too
+            let result = [
+                {   value: p.name, 
+                    isUnsigned: patient.isUnsigned(p),
+                    source:  this.determineSource(patient, p),
+                    shortcut: "@procedure"
+                }];
             if (typeof p.occurrenceTime !== 'string') {
-                return [
-                    {
-                        value: [p.name, patient.isUnsigned(p), this.determineSource(patient, p) ],
-                        shortcut: "@procedure",
-                    },
-                    p.occurrenceTime.timePeriodStart + " to " + p.occurrenceTime.timePeriodEnd
-                ];
+                result.push(
+                    {   value: p.occurrenceTime.timePeriodStart + " to " + p.occurrenceTime.timePeriodEnd }
+                );
             } else {
-                return [
-                    {
-                        value: [p.name, patient.isUnsigned(p), this.determineSource(patient, p) ],
-                        shortcut: "@procedure",
-                    },
-                    p.occurrenceTime
-                ];
+                result.push(
+                    {   value: p.occurrenceTime }
+                );
             }
+            return result;
         });
     }
 
@@ -1720,15 +1729,23 @@ export default class SummaryMetadata {
             }).map((c, i) => {
                 return [
                     {
-                        value: [c.title, patient.isUnsigned(c), c.sourceClinicalNoteReference]
+                        value: c.title, 
+                        isUnsigned: patient.isUnsigned(c), 
+                        source: c.sourceClinicalNoteReference
                     },
                     {
-                        value: [(c.status === 'Candidate') ? 'N/A' : c.enrollmentDate, patient.isUnsigned(c), c.sourceClinicalNoteReference]
+                        value: (c.status === 'Candidate') ? 'N/A' : c.enrollmentDate,
+                        isUnsigned: patient.isUnsigned(c), 
+                        source: c.sourceClinicalNoteReference
                     },
                     {
-                        value: [(c.status === 'Candidate' || c.status === 'Enrolled' || c.status === 'Active') ? 'N/A' : c.endDate, patient.isUnsigned(c), c.sourceClinicalNoteReference]
+                        value: (c.status === 'Candidate' || c.status === 'Enrolled' || c.status === 'Active') ? 'N/A' : c.endDate, 
+                        isUnsigned: patient.isUnsigned(c), 
+                        source: c.sourceClinicalNoteReference
                     },
-                    c.details
+                    {
+                        value: c.details
+                    }
                 ]; 
             });
         }
@@ -1738,7 +1755,11 @@ export default class SummaryMetadata {
         let clinicalTrialsAndCriteriaList = patient.getEligibleClinicalTrials(currentConditionEntry, this.getItemListForEnrolledClinicalTrials(patient, currentConditionEntry));
         let eligibleTrials = [];
         clinicalTrialsAndCriteriaList.forEach((trial) => {
-            eligibleTrials.push([{ value: trial.info.name }, (trial.numSatisfiedCriteria + " of " + trial.numTotalCriteria), trial.info.studyStartDate, trial.info.description]);
+            eligibleTrials.push([   { value: trial.info.name }, 
+                                    { value: (trial.numSatisfiedCriteria + " of " + trial.numTotalCriteria) }, 
+                                    { value: trial.info.studyStartDate }, 
+                                    { value: trial.info.description }
+            ]);
         });
         this.eligibleTrials = eligibleTrials;
         this.refreshClinicalTrials = false;
@@ -1774,7 +1795,9 @@ export default class SummaryMetadata {
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
         const allergies = patient.getAllergyIntolerancesSortedBySeverity();
         return allergies.map((a) => {
-            return [{value: a.name}, a.severity, a.manifestation];
+            return [    { value: a.name }, 
+                        { value: a.severity },
+                        { value: a.manifestation }];
         });
     }
 
