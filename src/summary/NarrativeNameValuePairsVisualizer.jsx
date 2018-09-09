@@ -94,7 +94,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
                 } else {
                     let val = item.value(patient, condition, loginUser);
                     if (val) {
-                        return {name: item.name, value: val[0], shortcut: item.shortcut, unsigned: val[1], sourceNote: val[2]};
+                        return {name: item.name, value: val[0], shortcut: item.shortcut, unsigned: val[1], source: val[2]};
                     } else {
                         return {name: item.name, value: null};
                     }
@@ -225,7 +225,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
             value: [
                 snippet.value,
                 snippet.unsigned,
-                snippet.sourceNote
+                snippet.source
             ],
         };
 

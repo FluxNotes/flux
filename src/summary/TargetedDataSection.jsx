@@ -148,28 +148,29 @@ export default class TargetedDataSection extends Component {
             let items = subsection.items;
             let itemsFunction = subsection.itemsFunction;
             let list;
-            let typeToIndex = type;
-
-            if (Lang.isUndefined(items)) {
-                list = itemsFunction(patient, condition, subsection);
-            } else {
-                list = items.map((item, i) => {
-                    if (Lang.isNull(item.value)) {
-                        return {name: item.name, value: null};
-                    } else {
-                        let val = item.value(patient, condition, loginUser);
-                        if (val) {
-                            return {name: item.name, value: val[0], shortcut: item.shortcut, unsigned: val[1], sourceNote: val[2]};
-                        } else {
-                            return {name: item.name, value: null};
-                        }
-                    }
-                });
-            }
+            let typeToIndex;
 
             if (sectionTransform) {
-                list = sectionTransform(patient, condition, subsection);
                 typeToIndex = viz.renderedFormat;
+                list = sectionTransform(patient, condition, subsection);
+            } else {
+                typeToIndex = type;
+                if (Lang.isUndefined(items)) {
+                    list = itemsFunction(patient, condition, subsection);
+                } else {
+                    list = items.map((item, i) => {
+                        if (Lang.isNull(item.value)) {
+                            return {name: item.name, value: null};
+                        } else {
+                            let val = item.value(patient, condition, loginUser);
+                            if (val) {
+                                return {name: item.name, value: val[0], shortcut: item.shortcut, unsigned: val[1], source: val[2]};
+                            } else {
+                                return {name: item.name, value: null};
+                            }
+                        }
+                    });
+                }    
             }
             const indexer = this.props.visualizerManager.getIndexer(typeToIndex);
             if (indexer) indexer.indexData(section.name, subsection.name, list, searchIndex);

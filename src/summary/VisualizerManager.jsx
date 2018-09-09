@@ -53,8 +53,10 @@ class VisualizerManager {
         newsection.name = subsection.name;
         newsection.name_suffix = typicalRange;
         newsection.headings = ["Date", "Value"];
-        newsection.items = itemList.map((labResult) => {
-            return [ labResult["start_time"], labResult[subsection.name] + " " + labResult["unit"] ];
+        newsection.data_cache = itemList.map((labResult) => {
+            return  [   {   value: labResult["start_time"] },
+                        {   value: labResult[subsection.name] + " " + labResult["unit"] }
+                    ];
         })
         newsection.formatFunction = this.formatLabResult.bind(this, goodband);
         return newsection;
@@ -67,7 +69,7 @@ class VisualizerManager {
 
         newsection.name = "";
         newsection.headings = ["Medication", "Change", "Dosage", "Timing", "Start", "End"];
-        newsection.items = itemList.map((med) => {
+        newsection.data_cache = itemList.map((med) => {
             
             
             const dose = med.medication.amountPerDose ? `${med.medication.amountPerDose.value} ${med.medication.amountPerDose.units}` : "";
@@ -94,12 +96,17 @@ class VisualizerManager {
                 sourceClinicalNote = med.medicationChange.sourceClinicalNote;
             }
 
-            return [    med.medication.medication,
-                        {value: [medicationChange, isUnsigned, sourceClinicalNote]},
-                        dose,
-                        timing,
-                        med.medication.expectedPerformanceTime.timePeriodStart,
-                        {value: [endDate, isUnsigned, sourceClinicalNote]}  ];
+            return [    {   value: med.medication.medication },
+                        {   value: medicationChange, 
+                            unsigned: isUnsigned, 
+                            source: sourceClinicalNote },
+                        {   value: dose },
+                        {   value: timing },
+                        {   value: med.medication.expectedPerformanceTime.timePeriodStart },
+                        {   value: endDate, 
+                            unsigned: isUnsigned, 
+                            source: sourceClinicalNote }
+                    ];
         });
 
         // Format function used to 
@@ -162,41 +169,35 @@ class VisualizerManager {
     transformNameValuePairToColumns = (patient, condition, subsection) => {
         let newsection = {};
 
-        const items = subsection.items;
-        const itemsFunction = subsection.itemsFunction;
+        const { items, itemsFunction } = subsection;
         let list = null;
 
         if (Lang.isUndefined(items)) {
             list = itemsFunction(patient, condition, subsection);
         } else {
+            // call value functions and get values
             list = items.map((item, i) => {
-                if (Lang.isNull(item.value)) {
-                    return {name: item.name, value: null};
-                } else if (item.shortcut) {
-                    const itemValue = item.value(patient, condition, this.user);
-                    if (itemValue) {
-                        return {name: item.name, value: itemValue, shortcut: item.shortcut};
-                    } else {
-                        return {name: item.name, value: null, shortcut: item.shortcut};
-                    }
-                } else {
-                    const itemValue = item.value(patient, condition, this.user);
-                    if (itemValue) {
-                        return {name: item.name, value: itemValue };
-                    } else {
-                        return {name: item.name, value: null};
-                    }
-                }
+                const itemValue = (Lang.isNull(item.value)) ? null : item.value(patient, condition, this.user);
+                return [    { value: item.name, isInsertable: false},
+                            { value: itemValue || null, shortcut: item.shortcut || null}]
             });
         }
 
+        // need to eliminate when value is an array as came from value of a name/value pair. In that case the value array
+        // contains [0] value, [1] isUnsigned, and [2] source
         newsection.name = subsection.name;
-        newsection.items = list.map((item) => {
-            if (Lang.isNull(item.value)) {
-                return [    { value: item.name, isInsertable: false}, null ];
-            } else {
-                return [    { value: item.name, isInsertable: false}, { value: item.value, shortcut: item.shortcut } ];
-            }
+        newsection.data_cache = list.map((row, i) => {
+            return row.map((item) => {
+                if (Lang.isArray(item.value)) {
+                    return {    value: item.value[0],
+                                isUnsigned: item.value[1],
+                                source: item.value[2],
+                                shortcut: item.shortcut
+                            };
+                } else {
+                    return item;
+                }
+            });
         });
         return newsection;
     };
@@ -267,8 +268,6 @@ class VisualizerManager {
     }
 
     _tabularIcon = (isSelected) => {
-//        const visualization = this.checkVisualization();
-//        const strokeColor = visualization === "tabular" ? "#3F3F3F" : "#CCCCCC";
         const strokeColor = isSelected ? "#3F3F3F" : "#CCCCCC";
         return (
             <svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg">
@@ -285,8 +284,6 @@ class VisualizerManager {
     }
 
     _narrativeIcon = (isSelected) => {
-        //const visualization = this.checkVisualization();
-        //const strokeColor = visualization === "narrative" ? "#3F3F3F" : "#CCCCCC";
         const strokeColor = isSelected ? "#3F3F3F" : "#CCCCCC";
         return (
             <svg width="17px" height="15px" viewBox="0 0 17 15" version="1.1" xmlns="http://www.w3.org/2000/svg">
@@ -303,8 +300,6 @@ class VisualizerManager {
     }
 
     _timelineIcon = (isSelected) => {
-        //const visualization = this.checkVisualization();
-        //const strokeColor = visualization === "graphic" ? "#3F3F3F" : "#CCCCCC";
         const strokeColor = isSelected ? "#3F3F3F" : "#CCCCCC";
         return (
             <svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg">
@@ -322,8 +317,6 @@ class VisualizerManager {
     }
 
     _chartIcon = (isSelected) => {
-        //const visualization = this.checkVisualization();
-        //const strokeColor = visualization === "chart" ? "#3F3F3F" : "#CCCCCC";
         const strokeColor = isSelected ? "#3F3F3F" : "#CCCCCC";
         return (
             <svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg">
