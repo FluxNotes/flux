@@ -71,7 +71,7 @@ class TimelineEventsVisualizer extends Component {
         let items = [];
         if (section.resetData) section.resetData();
         section.data.forEach((item, i) => {
-            items = items.concat(item.itemsFunction(patient, condition)); //, this.getMaxGroup(items) + 1));
+            items = items.concat(item.data_cache || []);
         });
 
         // Assign every item an ID and onClick handler
