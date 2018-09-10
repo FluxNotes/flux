@@ -222,7 +222,7 @@ export default class TabularListVisualizer extends Component {
             if (this.props.allowItemClick) {
                 return (
                     <li key={elementId}>
-                        {this.renderedStructuredData(list[0], element, elementId, elementText, subsectionName, subsectionActions, arrayIndex)}
+                        {this.renderedStructuredData(list[0].value, element, elementId, elementText, subsectionName, subsectionActions, arrayIndex)}
                     </li>
                 );
             } else {
@@ -297,7 +297,7 @@ export default class TabularListVisualizer extends Component {
                         className={itemClass}
                         key={elementId}
                     >
-                        {this.renderedStructuredData(elementText, element, elementId, elementText, subsectionName, subsectionActions, arrayIndex)}
+                        {this.renderedStructuredData(item[0].value, element, elementId, elementText, subsectionName, subsectionActions, arrayIndex)}
                     </TableCell>
 
                 );
