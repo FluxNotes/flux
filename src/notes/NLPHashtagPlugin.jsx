@@ -4,7 +4,7 @@ import Shortcut from '../shortcuts/Shortcut';
 // import Slate from '../lib/slate'
 import { Selection } from '../lib/slate'
 
-const DOMAIN = "http://MM224122-PC.mitre.org"
+const DOMAIN = "http://parser.mitre.org"
 const PORT = "8551"
 const API_ROUTE = "/api/parse_sentence"
 const API_ENDPOINT = `${DOMAIN}:${PORT}${API_ROUTE}`
