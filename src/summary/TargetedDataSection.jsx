@@ -144,6 +144,9 @@ export default class TargetedDataSection extends Component {
         const sectionTransform = viz.transform;
         const Visualizer = viz.visualizer;
         const subsections = this.getSubsections(section);
+
+        if (section.resetData) section.resetData();
+
         subsections.forEach(subsection => {
             let items = subsection.items;
             let itemsFunction = subsection.itemsFunction;
