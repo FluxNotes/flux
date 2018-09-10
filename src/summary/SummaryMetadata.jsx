@@ -700,6 +700,7 @@ export default class SummaryMetadata {
                         name: "Timeline",
                         shortName: "Timeline",
                         type: "Events",
+                        resetData: this.resetTimelineData,
                         data: [
                             {
                                 name: "Medications",
@@ -1340,6 +1341,7 @@ export default class SummaryMetadata {
                         name: "Timeline",
                         shortName: "Timeline",
                         type: "Events",
+                        resetData: this.resetTimelineData,
                         data: [
                             {
                                 name: "Medications",
@@ -1499,6 +1501,7 @@ export default class SummaryMetadata {
                         name: "Timeline",
                         shortName: "Timeline",
                         type: "Events",
+                        resetData: this.resetTimelineData,
                         data: [
                             {
                                 name: "Medications",
@@ -1854,13 +1857,13 @@ export default class SummaryMetadata {
     }
 
     // Gets progression items for timeline view
-    getProgressionItems = (patient, condition, groupStartIndex) => {
+    getProgressionItems = (patient, condition) => {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         const progressions = patient.getProgressionsForConditionChronologicalOrder(condition);
         let items = [];
 
         progressions.forEach((prog) => {
-            const assignedGroup = this.assignItemToGroup(items, groupStartIndex, prog.clinicallyRelevantTime);
+            const assignedGroup = this.assignItemToGroup(items, prog.clinicallyRelevantTime);
 
             let classes = 'progression-item';
             // Do not include progression on timeline if status not set
@@ -1903,7 +1906,7 @@ export default class SummaryMetadata {
             if (!endTime.isValid()) {
                 endTime = new moment();
             }
-            const assignedGroup = this.assignItemToGroup(items, 1, startTime, endTime);
+            const assignedGroup = this.assignItemToGroup(items, startTime, endTime);
             const name = med.medication;
             let dosage;
             if (!med.amountPerDose) {
@@ -1926,15 +1929,16 @@ export default class SummaryMetadata {
         return items;
     }
 
-    getProcedureItems = (patient, condition, groupStartIndex) => {
+    getProcedureItems = (patient, condition) => {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         const procedures = patient.getProceduresForConditionChronologicalOrder(condition);
         let items = [];
 
+        if (procedures.length > 0) this.incrementGroupNumber();
         procedures.forEach((proc) => {
             let startTime = new moment(typeof proc.occurrenceTime === 'string' ? proc.occurrenceTime : proc.occurrenceTime.timePeriodStart, "D MMM YYYY");
             let endTime = proc.occurrenceTime.timePeriodStart ? (!Lang.isNull(proc.occurrenceTime.timePeriodEnd) ? new moment(proc.occurrenceTime.timePeriodEnd, "D MMM YYYY") : null) : null;
-            const assignedGroup = this.assignItemToGroup(items, groupStartIndex, startTime, endTime);
+            const assignedGroup = this.assignItemToGroup(items, startTime, endTime);
 
             let classes = 'event-item';
             //let endDate = proc.endDate;
@@ -1966,13 +1970,14 @@ export default class SummaryMetadata {
         return items;
     }
 
-    getEventItems = (patient, condition, groupStartIndex) => {
+    getEventItems = (patient, condition) => {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         const events = patient.getKeyEventsForConditionChronologicalOrder(condition);
         let items = [];
 
+        if (events.length > 0) this.incrementGroupNumber();
         events.forEach((evt) => {
-            const assignedGroup = this.assignItemToGroup(items, groupStartIndex, evt.start_time, evt.end_time);
+            const assignedGroup = this.assignItemToGroup(items, evt.start_time, evt.end_time);
 
             let classes = 'progression-item';
             let startDate = new moment(evt.start_time, "D MMM YYYY");
@@ -2005,11 +2010,21 @@ export default class SummaryMetadata {
         return items;
     }
 
+    nextGroupNumber = 1;
+
+    resetTimelineData = () => {
+        this.nextGroupNumber = 1;
+    }
+
+    incrementGroupNumber = () => {
+        this.nextGroupNumber++;
+    }
+
     // Assigns a new timeline item to a group in the timeline, avoiding conflicts with
     // existing timeline items. If firstAvailableGroup is provided, the group assigned
     // will not be less than the firstAvailableGroup.
-    assignItemToGroup = (existingItems, firstAvailableGroup, startTime, endTime = null) => {
-        let availableGroup = firstAvailableGroup || 1;
+    assignItemToGroup = (existingItems, startTime, endTime = null) => {
+        let availableGroup = this.nextGroupNumber || 1;
         let assignedGroup = null;
 
         while (!assignedGroup) {
@@ -2036,6 +2051,7 @@ export default class SummaryMetadata {
                 assignedGroup = availableGroup;
             }
         }
+        this.nextGroupNumber = assignedGroup;
         return assignedGroup;
     }
 
@@ -2047,7 +2063,7 @@ export default class SummaryMetadata {
                 subset.push(item);
             }
         });
-
+        
         return subset;
     }
 
