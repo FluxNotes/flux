@@ -67,8 +67,7 @@ class MedicationRangeChartVisualizer extends Component {
     }
 
     renderedSubsection(subsection, index) {
-        const {patient, condition} = this.props;
-        const items = subsection.itemsFunction(patient, condition, subsection);
+        const items = subsection.data_cache;
         
         if (items.length === 0) return <h2 key={index}>None</h2>;
         const rows = items.map((med, i) => this.renderMedication(med, i));

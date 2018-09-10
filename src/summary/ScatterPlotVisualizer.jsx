@@ -38,7 +38,7 @@ class ScatterPlotVisualizer extends Component {
 
     renderScatterPlot = (patient, condition, conditionSection) => {
 
-        const myData = conditionSection.data[0].itemsFunction(patient, condition, conditionSection);
+        const myData = conditionSection.data[0].data_cache;
         if (Lang.isObject(myData)) {
             let categoryMap = {};
             myData.forEach(function (series) {
