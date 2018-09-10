@@ -190,7 +190,7 @@ class PatientSearch extends React.Component {
 
     // Teach Autosuggest how to calculate the input value for every given suggestion.
     getSuggestionValue = suggestion => { 
-        return suggestion.contentSnapshot;
+        return this.state.value;
     }
 
     // Autosuggest is a controlled component.
