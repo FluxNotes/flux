@@ -161,16 +161,6 @@ class PatientSearch extends React.Component {
                 suggestion.matchedOn = "contentSnapshot";
                 suggestions.push(suggestion);
             }
-            contentMatches = regex.exec(obj.section);
-            if (contentMatches) {
-                suggestion.matchedOn = "section";
-                suggestions.push(suggestion);
-            }
-            contentMatches = regex.exec(obj.subsection);
-            if (contentMatches) {
-                suggestion.matchedOn = "subsection";
-                suggestions.push(suggestion);
-            }
             contentMatches = regex.exec(obj.valueTitle);
             if (contentMatches) {
                 suggestion.matchedOn = "valueTitle";
