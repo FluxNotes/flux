@@ -263,7 +263,7 @@ export default class TabularListVisualizer extends Component {
         item.forEach((element, arrayIndex) => {
             const elementId = `${subsectionindex}-${index}-item-${arrayIndex}`
             let columnItem = null;
-            const isInsertable = element.IsInsertable || true;
+            const isInsertable = Lang.isUndefined(element.isInsertable) ? true : element.isInsertable;
             const isUnsigned = element.isUnsigned || false;
             let elementText = element.value;
             const longElementText = elementText;
