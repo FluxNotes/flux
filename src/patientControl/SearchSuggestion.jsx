@@ -40,10 +40,10 @@ class SearchSuggestion extends React.Component {
             )
         } else if (suggestion.matchedOn === "valueTitle"){ 
             let valueTitleLowerCase = suggestion.valueTitle.toLowerCase();
-            let indexOfMatch = valueTitleLowerCase.indexOf(inputValueLowerCase);
-            let preText = suggestion.valueTitle.slice(0, indexOfMatch);
-            let highlightedText = suggestion.valueTitle.slice(indexOfMatch, preText.length + inputValue.length);
-            let postText = suggestion.valueTitle.slice(preText.length + inputValue.length, suggestion.valueTitle.length);
+            indexOfMatch = valueTitleLowerCase.indexOf(inputValueLowerCase);
+            preText = suggestion.valueTitle.slice(0, indexOfMatch);
+            highlightedText = suggestion.valueTitle.slice(indexOfMatch, preText.length + inputValue.length);
+            postText = suggestion.valueTitle.slice(preText.length + inputValue.length, suggestion.valueTitle.length);
             suggestionText = (
                 <div className="suggestion-text">
                     <span>{preText}</span>
@@ -69,27 +69,19 @@ class SearchSuggestion extends React.Component {
 
     renderLabel = () => {
         const { suggestion} = this.props;
-        const fullSnapshot = suggestion.contentSnapshot;
         const inputValue = suggestion.inputValue;
-        // Lowercase versions for index finding
-        const fullSnapshotLowerCase = fullSnapshot.toLowerCase();
         const inputValueLowerCase = inputValue.toLowerCase();
-        let indexOfMatch = fullSnapshotLowerCase.indexOf(inputValueLowerCase);
-        // Slice original copies for highlighting
-        let preText = fullSnapshot.slice(0, indexOfMatch);
-        let highlightedText = fullSnapshot.slice(indexOfMatch, preText.length + inputValue.length);
-        let postText = fullSnapshot.slice(preText.length + inputValue.length, fullSnapshot.length);
-
+   
         let suggestionLabel = '';
         if (suggestion.source === 'structuredData') {
 
             if(suggestion.matchedOn === "section") {
-                let sectionLowerCase = suggestion.section.toLowerCase();
-                let indexOfMatch = sectionLowerCase.indexOf(inputValueLowerCase);
-                let preText = suggestion.section.slice(0, indexOfMatch);
-                let highlightedText = suggestion.section.slice(indexOfMatch, preText.length + inputValue.length);
-                let postText = suggestion.section.slice(preText.length + inputValue.length, suggestion.section.length);
-                let subsection = suggestion.subsection.length > 0 ? ` > ${suggestion.subsection}` : '';
+                const sectionLowerCase = suggestion.section.toLowerCase();
+                const indexOfMatch = sectionLowerCase.indexOf(inputValueLowerCase);
+                const preText = suggestion.section.slice(0, indexOfMatch);
+                const highlightedText = suggestion.section.slice(indexOfMatch, preText.length + inputValue.length);
+                const postText = suggestion.section.slice(preText.length + inputValue.length, suggestion.section.length);
+                const subsection = suggestion.subsection.length > 0 ? ` > ${suggestion.subsection}` : '';
                 suggestionLabel = (
                     <div className="suggestion-label">
                         <span className={"label-content"}>  
@@ -101,11 +93,11 @@ class SearchSuggestion extends React.Component {
                 );
             }
             else if(suggestion.matchedOn === "subsection") {
-                let subsectionLowerCase = suggestion.subsection.toLowerCase();
-                let indexOfMatch = subsectionLowerCase.indexOf(inputValueLowerCase);
-                let preText = suggestion.subsection.slice(0, indexOfMatch);
-                let highlightedText = suggestion.subsection.slice(indexOfMatch, preText.length + inputValue.length);
-                let postText = suggestion.subsection.slice(preText.length + inputValue.length, suggestion.subsection.length);
+                const subsectionLowerCase = suggestion.subsection.toLowerCase();
+                const indexOfMatch = subsectionLowerCase.indexOf(inputValueLowerCase);
+                const preText = suggestion.subsection.slice(0, indexOfMatch);
+                const highlightedText = suggestion.subsection.slice(indexOfMatch, preText.length + inputValue.length);
+                const postText = suggestion.subsection.slice(preText.length + inputValue.length, suggestion.subsection.length);
                 suggestionLabel = (
                     <div className="suggestion-label">
                         <span className={"label-content"}>{suggestion.section + ` > `}
@@ -116,7 +108,7 @@ class SearchSuggestion extends React.Component {
                     </div> 
                 );
             } else {
-                let subsection = suggestion.subsection.length > 0 ? ` > ${suggestion.subsection}` : '';
+                const subsection = suggestion.subsection.length > 0 ? ` > ${suggestion.subsection}` : '';
                 suggestionLabel = (
                 <div className="suggestion-label">
                     <span className={"label-content"}>{suggestion.section + subsection}</span>
@@ -129,11 +121,11 @@ class SearchSuggestion extends React.Component {
             let subject = <span>{suggestion.subject + ` `}</span>;
             let hospital = <span>{suggestion.hospital + ` `}</span>;
             if(suggestion.matchedOn === "date"){
-                let dateLowerCase = suggestion.date.toLowerCase();
-                let indexOfMatch = dateLowerCase.indexOf(inputValueLowerCase);
-                let preText = suggestion.date.slice(0, indexOfMatch);
-                let highlightedText = suggestion.date.slice(indexOfMatch, preText.length + inputValue.length);
-                let postText = suggestion.date.slice(preText.length + inputValue.length, suggestion.date.length);
+                const dateLowerCase = suggestion.date.toLowerCase();
+                const indexOfMatch = dateLowerCase.indexOf(inputValueLowerCase);
+                const preText = suggestion.date.slice(0, indexOfMatch);
+                const highlightedText = suggestion.date.slice(indexOfMatch, preText.length + inputValue.length);
+                const postText = suggestion.date.slice(preText.length + inputValue.length, suggestion.date.length);
                 date = (
                     <span>
                     <span>{preText}</span>
@@ -142,11 +134,11 @@ class SearchSuggestion extends React.Component {
                     </span>
                 );
             } else if(suggestion.matchedOn === "subject"){
-                let subjectLowerCase = suggestion.subject.toLowerCase();
-                let indexOfMatch = subjectLowerCase.indexOf(inputValueLowerCase);
-                let preText = suggestion.subject.slice(0, indexOfMatch);
-                let highlightedText = suggestion.subject.slice(indexOfMatch, preText.length + inputValue.length);
-                let postText = suggestion.subject.slice(preText.length + inputValue.length, suggestion.subject.length);
+                const subjectLowerCase = suggestion.subject.toLowerCase();
+                const indexOfMatch = subjectLowerCase.indexOf(inputValueLowerCase);
+                const preText = suggestion.subject.slice(0, indexOfMatch);
+                const highlightedText = suggestion.subject.slice(indexOfMatch, preText.length + inputValue.length);
+                const postText = suggestion.subject.slice(preText.length + inputValue.length, suggestion.subject.length);
                 subject = (
                     <span>
                     <span>{preText}</span>
@@ -155,11 +147,11 @@ class SearchSuggestion extends React.Component {
                     </span>
                 );
             } else if(suggestion.matchedOn === "hospital"){
-                let hospitalLowerCase = suggestion.hospital.toLowerCase();
-                let indexOfMatch = hospitalLowerCase.indexOf(inputValueLowerCase);
-                let preText = suggestion.hospital.slice(0, indexOfMatch);
-                let highlightedText = suggestion.hospital.slice(indexOfMatch, preText.length + inputValue.length);
-                let postText = suggestion.hospital.slice(preText.length + inputValue.length, suggestion.hospital.length);
+                const hospitalLowerCase = suggestion.hospital.toLowerCase();
+                const indexOfMatch = hospitalLowerCase.indexOf(inputValueLowerCase);
+                const preText = suggestion.hospital.slice(0, indexOfMatch);
+                const highlightedText = suggestion.hospital.slice(indexOfMatch, preText.length + inputValue.length);
+                const postText = suggestion.hospital.slice(preText.length + inputValue.length, suggestion.hospital.length);
                 hospital = (
                     <span>
                     <span>{preText}</span>
