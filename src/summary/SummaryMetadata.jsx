@@ -700,6 +700,7 @@ export default class SummaryMetadata {
                         name: "Timeline",
                         shortName: "Timeline",
                         type: "Events",
+                        resetData: this.resetTimelineData,
                         data: [
                             {
                                 name: "Medications",
@@ -1500,6 +1501,7 @@ export default class SummaryMetadata {
                         name: "Timeline",
                         shortName: "Timeline",
                         type: "Events",
+                        resetData: this.resetTimelineData,
                         data: [
                             {
                                 name: "Medications",
@@ -1856,6 +1858,7 @@ export default class SummaryMetadata {
 
     // Gets progression items for timeline view
     getProgressionItems = (patient, condition) => {
+        console.log("progression items");
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         const progressions = patient.getProgressionsForConditionChronologicalOrder(condition);
         let items = [];
@@ -1892,6 +1895,7 @@ export default class SummaryMetadata {
     }
 
     getMedicationItems = (patient, condition) => {
+        console.log("medication items");
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         const meds = patient.getMedicationsForConditionChronologicalOrder(condition);
         let items = [];
@@ -1928,10 +1932,12 @@ export default class SummaryMetadata {
     }
 
     getProcedureItems = (patient, condition) => {
+        console.log("procedure items");
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         const procedures = patient.getProceduresForConditionChronologicalOrder(condition);
         let items = [];
 
+        if (procedures.length > 0) this.incrementGroupNumber();
         procedures.forEach((proc) => {
             let startTime = new moment(typeof proc.occurrenceTime === 'string' ? proc.occurrenceTime : proc.occurrenceTime.timePeriodStart, "D MMM YYYY");
             let endTime = proc.occurrenceTime.timePeriodStart ? (!Lang.isNull(proc.occurrenceTime.timePeriodEnd) ? new moment(proc.occurrenceTime.timePeriodEnd, "D MMM YYYY") : null) : null;
@@ -1968,10 +1974,12 @@ export default class SummaryMetadata {
     }
 
     getEventItems = (patient, condition) => {
+        console.log("event items");
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         const events = patient.getKeyEventsForConditionChronologicalOrder(condition);
         let items = [];
 
+        if (events.length > 0) this.incrementGroupNumber();
         events.forEach((evt) => {
             const assignedGroup = this.assignItemToGroup(items, evt.start_time, evt.end_time);
 
@@ -2009,7 +2017,12 @@ export default class SummaryMetadata {
     nextGroupNumber = 1;
 
     resetTimelineData = () => {
+        console.log("*********************** RESET")
         this.nextGroupNumber = 1;
+    }
+
+    incrementGroupNumber = () => {
+        this.nextGroupNumber++;
     }
 
     // Assigns a new timeline item to a group in the timeline, avoiding conflicts with
@@ -2019,12 +2032,15 @@ export default class SummaryMetadata {
         let availableGroup = this.nextGroupNumber || 1;
         let assignedGroup = null;
 
+        console.log("Starting at group " + availableGroup + " does " + startTime + " to " + endTime + " conflict?");
+
         while (!assignedGroup) {
             const existingItemsInGroup = this.filterItemsByGroup(existingItems, availableGroup);
             let conflict = false;
 
             for (let i = 0; i < existingItemsInGroup.length; i++) {
                 const existingItem = existingItemsInGroup[i];
+                console.log("    with " + existingItem.start_time + " to " + existingItem.end_time);
                 // endTime not always guarentted; perform our check conditionally here 
                 const doesEndTimeConflictWithExistingItem = (endTime ? endTime < existingItem.end_time && endTime >= existingItem.start_time : false);
                 const doesStartTimeConflictWithExistingItem = startTime < existingItem.end_time && startTime >= existingItem.start_time;
@@ -2041,6 +2057,7 @@ export default class SummaryMetadata {
                 conflict = false;
             } else {
                 assignedGroup = availableGroup;
+                console.log("  assigned: " + assignedGroup);
             }
         }
         this.nextGroupNumber = assignedGroup;
