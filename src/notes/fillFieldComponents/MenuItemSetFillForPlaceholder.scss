@@ -10,6 +10,7 @@
         align-items: center;
         box-shadow: $line-gray -1px 0px 1px 0px, $line-gray 1px 0px 1px 0px;
         font-size: 0.8rem;
+        background: $background;
 
         &:hover {
             background-color: $feature-gray;

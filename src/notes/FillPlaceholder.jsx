@@ -57,7 +57,7 @@ export default class FillPlaceholder extends Component {
             done,
             expanded: false,
             error: null,
-            showDetails: false,
+            entriesToShowDetails: [],
         };
     }
 
@@ -214,11 +214,25 @@ export default class FillPlaceholder extends Component {
         this.setState({ showCalendar: false });
     }
 
-    renderShowHide = () => {
-        if (this.state.showDetails) {
-            return <span className='link' onClick={() => { this.setState({ showDetails: false }) }} >Hide details</span>;
+    renderShowHide = (entryIndex) => {
+        const { entriesToShowDetails } = this.state;
+        const currentFieldShowsDetails = entriesToShowDetails.findIndex(field => field === entryIndex);
+        if (currentFieldShowsDetails > -1) {
+            return (
+                <span
+                    className='link'
+                    onClick={() => { entriesToShowDetails.splice(currentFieldShowsDetails, 1); this.setState({ entriesToShowDetails }); }}>
+                    Hide details
+                </span>
+            );
         }
-        return <span className='link' onClick={() => { this.setState({ showDetails: true }) }}>Show details</span>;
+        return (
+            <span
+                className='link'
+                onClick={() => { entriesToShowDetails.push(entryIndex); this.setState({ entriesToShowDetails }); }}>
+                Show details
+            </span>
+        );
     }
 
     createFillFieldForPlaceholder = (attributeSpec, value, entryIndex = 0) => {
@@ -260,6 +274,7 @@ export default class FillPlaceholder extends Component {
             );
         }
         if (attributeSpec.type === 'menuItems') {
+            const showDetails = this.state.entriesToShowDetails.findIndex(field => field === entryIndex) > -1;
             const baseFieldAttribute = placeholder.attributes.find(attr => attr.name === attributeSpec.values.baseField);
             let baseFieldValue = '';
             if (baseFieldAttribute) {
@@ -267,7 +282,7 @@ export default class FillPlaceholder extends Component {
             }
             return (
                 <MenuItemSetFillForPlaceholder
-                    showDetails={this.state.showDetails}
+                    showDetails={showDetails}
                     attributeSpec={attributeSpec}
                     value={value}
                     baseField={attributeSpec.values.baseField}
@@ -321,7 +336,7 @@ export default class FillPlaceholder extends Component {
                         <span className="attribute-title">
                             {attribute.title} <br/>
                             {multiSelect}
-                            {attribute.type === 'menuItems' && this.renderShowHide(attribute.name, entryIndex)}
+                            {attribute.type === 'menuItems' && this.renderShowHide(entryIndex)}
                         </span>
                     </Grid>
                     <Grid item xs={7}>
