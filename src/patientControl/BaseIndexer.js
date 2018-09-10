@@ -6,7 +6,7 @@ class BaseIndexer extends Component {
             searchIndex.addSearchableData({
                 section,
                 subsection,
-                valueTitle: "subsection",
+                valueTitle: "Subsection",
                 value: subsection
             });
         }
