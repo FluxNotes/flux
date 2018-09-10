@@ -18,13 +18,24 @@ class ColumnIndexer extends BaseIndexer {
         } else {
             // ones that are really just a name and value so more of a layout than columns/tabular
             // add each row with 1st column as title and 2nd column as value
-            data.forEach(([title, valueObject]) => {
-                searchIndex.addSearchableData({
-                    section,
-                    subsection,
-                    valueTitle: title.value,
-                    value: valueObject.value || "Missing Data"
-                });
+            data.forEach((row) => {
+                if (row.length < 2) {
+                    const [ valueObject ] = row;
+                    searchIndex.addSearchableData({
+                        section,
+                        subsection,
+                        valueTitle: subsection,
+                        value: valueObject.value || "Missing Data"
+                    });
+                } else {
+                    const [ title, valueObject ] = row;
+                    searchIndex.addSearchableData({
+                        section,
+                        subsection,
+                        valueTitle: title.value,
+                        value: valueObject.value || "Missing Data"
+                    });
+                }
             });
         }
     }

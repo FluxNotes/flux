@@ -172,9 +172,10 @@ export default class TargetedDataSection extends Component {
                             }
                         }
                     });
-                }    
+                }
             }
             const indexer = this.props.visualizerManager.getIndexer(typeToIndex);
+            if (!Lang.isUndefined(subsection.nameFunction)) subsection.name = subsection.nameFunction();
             if (indexer) indexer.indexData(section.name, subsection.name, list, searchIndex, newSubsection);
         })
 
