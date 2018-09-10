@@ -228,6 +228,8 @@ class PatientSearch extends React.Component {
             const selectedNote = contextNotes.find(note => note.entryInfo.entryId === suggestion.note.entryInfo.entryId);
 
             this.props.setSearchSelectedItem(selectedNote);
+        } else {
+            this.props.moveTargetedDataPanelToSubsection(suggestion.section, suggestion.subsection);
         }
     }
 

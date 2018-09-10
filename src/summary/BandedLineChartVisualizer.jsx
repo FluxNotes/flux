@@ -117,8 +117,8 @@ class BandedLineChartVisualizer extends Component {
         if (Lang.isUndefined(processedData) || processedData.length === 0) {
             return <div key={yVar}>
                         <div className="sub-section-heading">
-                            <h2 className="sub-section-name">
-                                {yVar}
+                            <h2 className="sub-section-name list-subsection-header">
+                                <span>{yVar}</span>
                             </h2>
                         </div>
                         <h2 style={{paddingTop: '10px'}}>None</h2>
@@ -178,8 +178,8 @@ class BandedLineChartVisualizer extends Component {
                 key={yVar}
             >
                 <div className="sub-section-heading">
-                    <h2 className="sub-section-name">
-                        {`${yVar} (${yUnit})`}
+                    <h2 className="sub-section-name list-subsection-header">
+                        <span>{`${yVar}`}</span><span>{` (${yUnit})`}</span>
                     </h2>
                 </div>
                 <LineChart

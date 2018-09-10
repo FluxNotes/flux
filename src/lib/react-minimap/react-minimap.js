@@ -100,7 +100,6 @@ export class Minimap extends React.Component {
       }
     }
 
-    this.sectionPositions = {};
     const nodes = this.ref.querySelectorAll(this.props.selector)
     let diff = 0;
     this.setState({
@@ -122,11 +121,6 @@ export class Minimap extends React.Component {
           hM = 0;
         }
 
-        this.sectionPositions[title] = this.sectionPositions[shortTitle] = {
-            left: Math.round( xM ),
-            top: Math.round( yM )
-        };
-
         return (
           <ChildComponent
             key={key}
@@ -143,17 +137,47 @@ export class Minimap extends React.Component {
     })
   }
 
-  moveToSection(sectionName) {
-      const posForSection = this.sectionPositions[sectionName];
-      if (Lang.isUndefined(posForSection)) return "No section named '" + sectionName + "' found.";
-      const { left, top } = posForSection;
-      if (Lang.isUndefined(this.x) || Lang.isUndefined(this.y)) {
-        this.x = 0
-        this.y = 0;
-      }
-      this.scrollTo(left, top);
-      return null;
-  }
+    moveToSection(sectionName) {
+        const sectionElements = Array.from(this.ref.querySelectorAll(".section-header>span"));
+        const sectionNodes = sectionElements.filter(el => el.textContent === sectionName);
+        if (!sectionNodes || sectionNodes.length === 0) return `Section '${sectionName}' not found.`;
+
+        if (Lang.isUndefined(this.x) || Lang.isUndefined(this.y)) {
+            this.x = 0
+            this.y = 0;
+        }
+        sectionNodes[0].scrollIntoView();
+        return null;
+    }
+
+    isScrolledIntoView(elem) {
+        const overall_div = document.querySelector('.minimap-container');
+        var docViewTop = this.ref.clientTop; //this.ref.scrollTop;
+        var docViewBottom = docViewTop + overall_div.clientHeight; //this.ref.clientHeight; //scrollHeight
+
+        const { height, top} = elem.getBoundingClientRect()
+        var elemTop = top;
+        var elemBottom = elemTop + height;
+        return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+    }
+
+    // if we just have a section name, move to it
+    // if we have a section and subsection names, move to section and then move to subsection if its not already visible.
+    moveToSubsection(sectionName, subsectionName) {
+        let result = this.moveToSection(sectionName);
+        // if no subsectionName specified or got an error on scroll to section, we're done
+        if (!subsectionName || !Lang.isNull(result)) return result;
+        // if we have a subsectionName and scrolling to the section doesn't make entire subsection visible,
+        // just scroll to subsection instead
+        const subsectionSpans = Array.from(this.ref.querySelectorAll(".list-subsection-header>span"));
+        const subsectionNodes = subsectionSpans.filter(el => el.textContent === subsectionName);
+        if (!subsectionNodes || subsectionNodes.length === 0) return `Subsection '${subsectionName}' of section '${sectionName}' not found.`;
+        const isVisible = this.isScrolledIntoView(subsectionNodes[0]);
+        if (!isVisible) {
+            subsectionNodes[0].scrollIntoView();
+        }
+        return null;
+    }
 
   down( e ) {
     const pos = this.minimap.getBoundingClientRect()
