@@ -151,6 +151,7 @@ class PatientSearch extends React.Component {
                 section: obj.section,
                 subsection: obj.subsection,
                 contentSnapshot: obj.value,
+                valueTitle: obj.valueTitle,
                 inputValue,
                 matchedOn: "",
                 source: "structuredData"

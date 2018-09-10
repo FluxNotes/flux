@@ -1,22 +1,21 @@
 .suggestion-item { 
-    display: flex;
+    display: block;
     align-items: center;
 }
 
 .suggestion-label { 
     min-width: 80px;
-    display: inline-block;
+    display: block;
     font-size: 10px;
     width: 80px;
     padding: 5px auto;
 }
 
 .suggestion-label .label-content { 
-    display: block;
     margin: 0;
+    display: inline-block;
     white-space: nowrap;
     line-height: 1.2rem;
-    overflow: hidden;
     text-overflow: ellipsis;
 }
 
@@ -34,7 +33,7 @@
 
 .suggestion-text { 
     font-size: 14px;
-    display: inline-block;
+    display: block;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
