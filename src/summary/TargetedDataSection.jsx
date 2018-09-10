@@ -183,7 +183,7 @@ export default class TargetedDataSection extends Component {
                 searchIndex.addSearchableData({
                     section: section.name,
                     subsection: "",
-                    valueTitle: "section",
+                    valueTitle: "Section",
                     value: section.name
                 });
                 indexer.indexData(section.name, subsection.name, list, searchIndex, newSubsection);
