@@ -23,6 +23,7 @@ $note-assitant-width-3: 160px;
            60px is the height of the delete button and action buttons
         */
         max-height: calc(100vh - 92px - 20px - 5px - 42px - 60px); 
+    }
     
     .toggle-buttons-container {
         display: flex !important;
