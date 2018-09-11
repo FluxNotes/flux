@@ -6,10 +6,9 @@
 
 /* ------------------------- OPTIONS ------------------------------ */
 #pickList-options {
-    /* 80vh for modal,  40px for modal padding, 20 for panel margin, 55px for action buttons height  */
+    /* 80vh for modal,  40px for modal padding, 20 for panel margin, 60px for action buttons height  */
     height: calc(80vh - 40px - 20px - 60px);
     max-height: calc(80vh - 40px - 20px - 60px);
-    overflow-y: auto;
 }
 
 /* ------------------------- SHORTCUT OPTIONS ------------------------------ */
