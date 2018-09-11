@@ -12,6 +12,10 @@ class SearchIndex {
     addSearchableData(data) {
         this._searchableData.push(data);
     }
+
+    removeDataBySection(section) {
+        Lang.remove(this._searchableData, data => data.section === section);
+    }
 }
 
 export default SearchIndex;

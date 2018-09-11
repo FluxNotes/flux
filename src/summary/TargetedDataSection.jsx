@@ -146,6 +146,7 @@ export default class TargetedDataSection extends Component {
         const subsections = this.getSubsections(section);
 
         if (section.resetData) section.resetData();
+        searchIndex.removeDataBySection(section.name);
 
         subsections.forEach(subsection => {
             let items = subsection.items;
