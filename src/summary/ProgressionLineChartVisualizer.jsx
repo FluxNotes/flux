@@ -83,7 +83,7 @@ class ProgressionLineChartVisualizer extends Component {
 
     // Turns dates into numeric representations for graphing
     processForGraphing = (data) => {
-        return Lang.clone(data).map((d, i) => {
+        return Lang.cloneDeep(data).map((d, i) => {
             const code = d[this.yVarField];
             const numberBasedOnCode = this.codeToValueMap[code];
 
@@ -178,7 +178,7 @@ class ProgressionLineChartVisualizer extends Component {
     }
 
     renderProgressionChart = (patient, condition, conditionSection) => { 
-        const { progressions, potentialDiagnosisDates } = conditionSection.data[0].itemsFunction(patient, condition, conditionSection);
+        const { progressions, potentialDiagnosisDates } = conditionSection.data[0].data_cache;
         // process dates into numbers for graphing
         const processedData = this.processForGraphing(progressions);
         const processedPotentialDiagnosisDates = this.processPotentialDiagnosisDates(potentialDiagnosisDates)

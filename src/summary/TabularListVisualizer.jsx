@@ -46,38 +46,23 @@ export default class TabularListVisualizer extends Component {
     renderedSubsections(subsections) {
         if (subsections.length === 0) return null;
 
-        const { patient, condition, sectionTransform } = this.props;
         const isSingleColumn = !this.props.isWide;
 
-        // get the data once!
-        // either the transform gets it and puts it in .data_cache for each subsection
-        // or our else clause below gets the data using getList and puts it in
-        // .data_cache for each subsection
-        let transformedSubsections = subsections.map((subsection) => {
-            if (!Lang.isUndefined(sectionTransform) && !Lang.isNull(sectionTransform)) {
-                return sectionTransform(patient, condition, subsection);
-            } else {
-                subsection.data_cache = this.getList(subsection);
-                return subsection;
-            }
-        });
-        // data in transformedSubsections[subsection index].data_cache
-
-        const numColumns = (transformedSubsections[0].data_cache.length === 0) ? 1 : transformedSubsections[0].data_cache[0].length;
+        const numColumns = (subsections[0].data_cache.length === 0) ? 1 : subsections[0].data_cache[0].length;
 
         // currently including 2 column sections with a single subsection to use full width. could change to only use left side
         // easily if we get feedback that people don't like this.
-        if (isSingleColumn || numColumns > 2 || transformedSubsections.length === 1) {
-            return transformedSubsections.map((subsection, index) => {
+        if (isSingleColumn || numColumns > 2 || subsections.length === 1) {
+            return subsections.map((subsection, index) => {
                 return this.renderedSubsection(subsection, index);
             });
         }
 
         // We are doing 2 columns of sections
-        // Grab the sections from transformedSubsections and create 2 arrays, one for the first half of the sections and another
+        // Grab the sections from subsections and create 2 arrays, one for the first half of the sections and another
         // for the second half of sections
         let numRows = 0;
-        transformedSubsections.forEach((subsection) => {
+        subsections.forEach((subsection) => {
            numRows += subsection.data_cache.length + 1;
         });
 
@@ -86,7 +71,7 @@ export default class TabularListVisualizer extends Component {
         let firstColumnRows = 0;
         let firstHalfSections = [];
         let secondHalfSections = [];
-        transformedSubsections.forEach((subsection) => {
+        subsections.forEach((subsection) => {
             if (firstColumnRows === 0 || ((firstColumnRows + subsection.data_cache.length) <= halfRows)) {
                 firstColumnRows += subsection.data_cache.length;
                 subsection.column = 1;

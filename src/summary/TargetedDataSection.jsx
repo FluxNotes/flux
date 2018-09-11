@@ -119,19 +119,6 @@ export default class TargetedDataSection extends Component {
         }
     }
 
-    getSubsections(section) {
-        const { patient, condition } = this.props;
-
-        if (patient == null || condition == null || section == null) return [];
-
-        let subsections = [];
-        section.data.forEach((subsection) => {
-            subsections.push(subsection);
-        });
-
-        return subsections;
-    }
-
     // renderSection checks the type of data that is being passed and chooses the correct component to render the data
     // TODO: Add a List type and a tabular renderer for it for Procedures section. case where left column is data
     //       and not just a label
@@ -143,11 +130,10 @@ export default class TargetedDataSection extends Component {
         if (Lang.isNull(viz)) return null;
         const sectionTransform = viz.transform;
         const Visualizer = viz.visualizer;
-        const subsections = this.getSubsections(section);
-
         if (section.resetData) section.resetData();
         searchIndex.removeDataBySection(section.name);
 
+        const subsections = patient === null || condition === null || section === null ? [] : section.data;
         subsections.forEach(subsection => {
             let items = subsection.items;
             let itemsFunction = subsection.itemsFunction;
@@ -178,6 +164,7 @@ export default class TargetedDataSection extends Component {
                     });
                 }
             }
+            subsection.data_cache = list;
             const indexer = this.props.visualizerManager.getIndexer(typeToIndex);
             if (!Lang.isUndefined(subsection.nameFunction)) subsection.name = subsection.nameFunction();
             if (indexer) {

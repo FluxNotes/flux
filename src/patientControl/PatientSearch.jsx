@@ -145,7 +145,7 @@ class PatientSearch extends React.Component {
 
     getStructuredDataSuggestions = (inputValue) => {
         let suggestions = [];
-        const regex = new RegExp(inputValue, "gi");
+        const regex = new RegExp(escapeRegExp(inputValue), "gi");
         this.props.searchIndex.searchableData.forEach(obj => {
             let suggestion = {
                 section: obj.section,
