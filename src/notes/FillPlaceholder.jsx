@@ -183,27 +183,6 @@ export default class FillPlaceholder extends Component {
         });
     }
 
-    nextField = (entryIndex = 0) => {
-        let { done } = this.state;
-        const { currentField } = this.state;
-        const { placeholder } = this.props;
-
-        if (currentField[entryIndex] + 1 === placeholder.attributes.length) {
-            // User has entered final attribute, so mark row as done
-            if (placeholder.multiplicity !== 'many') {
-                done = true;
-                placeholder.done = true;
-                this.setState({ done });
-            } else {
-                currentField[entryIndex] = 0;
-                this.setState({ currentField });
-            }
-        } else {
-            currentField[entryIndex] += 1;
-            this.setState({ currentField });
-        }
-    }
-
     handleClick = (event) => {
         if (this.calendarDom && !this.calendarDom.contains(event.target)) this.setState({ showCalendar: false });
     }

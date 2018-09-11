@@ -21,8 +21,18 @@ class MenuItemSetFillForPlaceholder extends Component {
         }
     }
 
+    componentWillMount = () => {
+        const optionsToDisplay = this.getOptionsBasedOnBaseField(this.props);
+        this.setState({ optionsToDisplay });
+    }
+
     componentWillReceiveProps = (nextProps) => {
-        const { baseValue, baseField, attributeSpec, args, value } = nextProps;
+        const optionsToDisplay = this.getOptionsBasedOnBaseField(nextProps);
+        this.setState({ optionsToDisplay });
+    }
+
+    getOptionsBasedOnBaseField = (currentProps) => {
+        const { baseValue, baseField, attributeSpec, args, value } = currentProps;
 
         // Get descriptions based on the baseField and the baseValue if they're set
         const newOptionsToDisplay = this.state.optionsToDisplay.map(originalOption => {
@@ -44,13 +54,13 @@ class MenuItemSetFillForPlaceholder extends Component {
 
             // If the next value doesn't have a description, it is not valid for the current base value.
             if (value === option.name && !description) {
-                this.props.updateValue('');
+                this.props.updateValue('', false);
             }
 
             option.description = description;
             return option;
         });
-        this.setState({ optionsToDisplay: newOptionsToDisplay });
+        return newOptionsToDisplay;
     }
 
     handleOptionSelection = (e, i) => {
