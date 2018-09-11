@@ -29,7 +29,7 @@ class SearchSuggestion extends React.Component {
                 </div>
             )
         } else if(suggestion.matchedOn === "contentSnapshot" && suggestion.source === 'structuredData') { 
-            let title = suggestion.valueTitle.length > 0 ? `${suggestion.valueTitle} : ` : '';
+            let title = suggestion.valueTitle.length > 0 ? `${suggestion.valueTitle}: ` : '';
             suggestionText = (
                 <div className="suggestion-text">
                     <span>{title}</span>
@@ -49,12 +49,12 @@ class SearchSuggestion extends React.Component {
                     <span>{preText}</span>
                     <span className="highlightedInputValue">{highlightedText}</span>
                     <span>{postText}</span>
-                    <span>{' : '}</span>
+                    <span>{': '}</span>
                     <span>{suggestion.contentSnapshot}</span>
                 </div>
             )
         } else if (suggestion.matchedOn === "section" || suggestion.matchedOn === "subsection"){ 
-            let title = suggestion.valueTitle.length > 0 ? `${suggestion.valueTitle} : ` : '';
+            let title = suggestion.valueTitle.length > 0 ? `${suggestion.valueTitle}: ` : '';
             suggestionText = (
                 <div className="suggestion-text">
                 {title + suggestion.contentSnapshot}</div> 
