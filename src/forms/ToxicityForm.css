@@ -42,8 +42,8 @@
 }
 
 .grade-menu-item.selected {
-    background-color: rgb(41, 125, 162);
-    border: rgb(41, 125, 162);
+    background-color: #028DEA;
+    border: #028DEA;
     color: rgba(255,255,255,1);
 }
 

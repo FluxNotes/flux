@@ -11,6 +11,7 @@ import moment from 'moment';
 import Lang from 'lodash';
 import ButtonSetFillFieldForPlaceholder from './fillFieldComponents/ButtonSetFillFieldForPlaceholder';
 import MultiButtonSetFillFieldForPlaceholder from './fillFieldComponents/MultiButtonSetFillFieldForPlaceholder';
+import MenuItemSetFillForPlaceholder from './fillFieldComponents/MenuItemSetFillForPlaceholder';
 import Button from '../elements/Button';
 import 'rc-calendar/assets/index.css';
 
@@ -56,6 +57,7 @@ export default class FillPlaceholder extends Component {
             done,
             expanded: false,
             error: null,
+            entriesToShowDetails: [],
         };
     }
 
@@ -181,27 +183,6 @@ export default class FillPlaceholder extends Component {
         });
     }
 
-    nextField = (entryIndex = 0) => {
-        let { done } = this.state;
-        const { currentField } = this.state;
-        const { placeholder } = this.props;
-
-        if (currentField[entryIndex] + 1 === placeholder.attributes.length) {
-            // User has entered final attribute, so mark row as done
-            if (placeholder.multiplicity !== 'many') {
-                done = true;
-                placeholder.done = true;
-                this.setState({ done });
-            } else {
-                currentField[entryIndex] = 0;
-                this.setState({ currentField });
-            }
-        } else {
-            currentField[entryIndex] += 1;
-            this.setState({ currentField });
-        }
-    }
-
     handleClick = (event) => {
         if (this.calendarDom && !this.calendarDom.contains(event.target)) this.setState({ showCalendar: false });
     }
@@ -210,6 +191,27 @@ export default class FillPlaceholder extends Component {
         const dateSelected = date.format('D MMM YYYY');
         this.onSetValue("click/touch", attributeSpec, entryIndex, dateSelected);
         this.setState({ showCalendar: false });
+    }
+
+    renderShowHide = (entryIndex) => {
+        const { entriesToShowDetails } = this.state;
+        const currentFieldShowsDetails = entriesToShowDetails.findIndex(field => field === entryIndex);
+        if (currentFieldShowsDetails > -1) {
+            return (
+                <span
+                    className='link'
+                    onClick={() => { entriesToShowDetails.splice(currentFieldShowsDetails, 1); this.setState({ entriesToShowDetails }); }}>
+                    Hide details
+                </span>
+            );
+        }
+        return (
+            <span
+                className='link'
+                onClick={() => { entriesToShowDetails.push(entryIndex); this.setState({ entriesToShowDetails }); }}>
+                Show details
+            </span>
+        );
     }
 
     createFillFieldForPlaceholder = (attributeSpec, value, entryIndex = 0) => {
@@ -248,6 +250,24 @@ export default class FillPlaceholder extends Component {
                         null
                     }
                 </div>
+            );
+        }
+        if (attributeSpec.type === 'menuItems') {
+            const showDetails = this.state.entriesToShowDetails.findIndex(field => field === entryIndex) > -1;
+            const baseFieldAttribute = placeholder.attributes.find(attr => attr.name === attributeSpec.values.baseField);
+            let baseFieldValue = '';
+            if (baseFieldAttribute) {
+                baseFieldValue = placeholder.getAttributeValue(baseFieldAttribute.name, entryIndex);
+            }
+            return (
+                <MenuItemSetFillForPlaceholder
+                    showDetails={showDetails}
+                    attributeSpec={attributeSpec}
+                    value={value}
+                    baseField={attributeSpec.values.baseField}
+                    baseValue={baseFieldValue}
+                    updateValue={this.onSetValue.bind(this, "click/touch", attributeSpec, entryIndex)}
+                />
             );
         }
 
@@ -295,6 +315,7 @@ export default class FillPlaceholder extends Component {
                         <span className="attribute-title">
                             {attribute.title} <br/>
                             {multiSelect}
+                            {attribute.type === 'menuItems' && this.renderShowHide(entryIndex)}
                         </span>
                     </Grid>
                     <Grid item xs={7}>
