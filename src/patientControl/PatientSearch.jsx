@@ -213,7 +213,7 @@ class PatientSearch extends React.Component {
   
 
     // Will be called every time suggestion is selected via mouse or keyboard.
-    onSuggestionSelected = (event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) => { 
+    onSuggestionSelected = (event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) => {
         if (suggestion.source === "clinicalNote") {
             const contextNotes = this.props.patient.getNotes();
             const selectedNote = contextNotes.find(note => note.entryInfo.entryId === suggestion.note.entryInfo.entryId);
@@ -221,6 +221,15 @@ class PatientSearch extends React.Component {
             this.props.setSearchSelectedItem(selectedNote);
         } else {
             this.props.moveTargetedDataPanelToSubsection(suggestion.section, suggestion.subsection);
+        }
+        this.refs.autosuggest.input.blur();
+    }
+
+    onSuggestionHighlighted = ({suggestion}) => {
+        if (!Lang.isNull(suggestion)) {
+            if (suggestion.source !== "clinicalNote") {
+                this.props.moveTargetedDataPanelToSubsection(suggestion.section, suggestion.subsection);
+            }
         }
     }
 
@@ -256,8 +265,10 @@ class PatientSearch extends React.Component {
         return (
             <div id="patient-search">
                 <Autosuggest
+                    ref="autosuggest"
                     getSuggestionValue={this.getSuggestionValue}
                     inputProps={inputProps}
+                    onSuggestionHighlighted={this.onSuggestionHighlighted}
                     onSuggestionsClearRequested={this.onSuggestionsClearRequested}
                     onSuggestionSelected={this.onSuggestionSelected}
                     onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
@@ -265,6 +276,7 @@ class PatientSearch extends React.Component {
                     renderSuggestion={this.renderSuggestion}
                     shouldRenderSuggestions={this.shouldRenderSuggestions}
                     suggestions={suggestions}
+                    focusInputOnSuggestionClick={false}
                 />
             </div>
         );
