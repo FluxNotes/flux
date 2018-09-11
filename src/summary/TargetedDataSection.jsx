@@ -179,7 +179,15 @@ export default class TargetedDataSection extends Component {
             }
             const indexer = this.props.visualizerManager.getIndexer(typeToIndex);
             if (!Lang.isUndefined(subsection.nameFunction)) subsection.name = subsection.nameFunction();
-            if (indexer) indexer.indexData(section.name, subsection.name, list, searchIndex, newSubsection);
+            if (indexer) {
+                searchIndex.addSearchableData({
+                    section: section.name,
+                    subsection: "",
+                    valueTitle: "Section",
+                    value: section.name
+                });
+                indexer.indexData(section.name, subsection.name, list, searchIndex, newSubsection);
+            }
         })
 
         return (

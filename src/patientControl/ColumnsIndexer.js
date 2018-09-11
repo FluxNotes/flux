@@ -2,6 +2,7 @@ import BaseIndexer from './BaseIndexer';
 
 class ColumnIndexer extends BaseIndexer {
     indexData(section, subsection, data, searchIndex, subsectionDescriptor) {
+        super.indexData(section, subsection, data, searchIndex);
         if (subsectionDescriptor.headings) {
             // true tabular where each item is a column of data
             // add each column value using title of the column heading
