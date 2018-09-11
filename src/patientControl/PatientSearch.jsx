@@ -213,7 +213,7 @@ class PatientSearch extends React.Component {
   
 
     // Will be called every time suggestion is selected via mouse or keyboard.
-    onSuggestionSelected = (event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) => { 
+    onSuggestionSelected = (event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) => {
         if (suggestion.source === "clinicalNote") {
             const contextNotes = this.props.patient.getNotes();
             const selectedNote = contextNotes.find(note => note.entryInfo.entryId === suggestion.note.entryInfo.entryId);
@@ -222,7 +222,7 @@ class PatientSearch extends React.Component {
         } else {
             this.props.moveTargetedDataPanelToSubsection(suggestion.section, suggestion.subsection);
         }
-        this.autoSuggestInput.blur();
+        this.refs.autosuggest.input.blur();
     }
 
     onSuggestionHighlighted = ({suggestion}) => {
@@ -249,7 +249,7 @@ class PatientSearch extends React.Component {
     renderInputComponent = (inputProps) => (
         <div>
             <span className="fa fa-search search-icon"></span>
-            <input {...inputProps} ref={(c) => { this.autoSuggestInput = c; }} />
+            <input {...inputProps} />
         </div>
     );
 
@@ -265,6 +265,7 @@ class PatientSearch extends React.Component {
         return (
             <div id="patient-search">
                 <Autosuggest
+                    ref="autosuggest"
                     getSuggestionValue={this.getSuggestionValue}
                     inputProps={inputProps}
                     onSuggestionHighlighted={this.onSuggestionHighlighted}
@@ -275,6 +276,7 @@ class PatientSearch extends React.Component {
                     renderSuggestion={this.renderSuggestion}
                     shouldRenderSuggestions={this.shouldRenderSuggestions}
                     suggestions={suggestions}
+                    focusInputOnSuggestionClick={false}
                 />
             </div>
         );
