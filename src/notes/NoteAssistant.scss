@@ -20,9 +20,9 @@ $note-assitant-width-3: 160px;
            20px is the height of the top margin of post encounter view content and a little extra for potential scroll bars
            5px is the height of the container's top margin
            42px is the height of the toggle buttons
-           56px is the height of the delete button 
+           60px is the height of the delete button and action buttons
         */
-        max-height: calc(100vh - 92px - 20px - 5px - 42px - 51px);
+        max-height: calc(100vh - 92px - 20px - 5px - 42px - 60px); 
     }
     
     .toggle-buttons-container {

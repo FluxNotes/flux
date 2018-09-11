@@ -6,10 +6,9 @@
 
 /* ------------------------- OPTIONS ------------------------------ */
 #pickList-options {
-    /* 80vh for modal,  40px for modal padding, 20 for panel margin, 40px for action buttons height  */
-    height: calc(80vh - 40px - 20px - 40px);
-    max-height: calc(80vh - 40px - 20px - 40px);
-    overflow-y: auto;
+    /* 80vh for modal,  40px for modal padding, 20 for panel margin, 60px for action buttons height  */
+    height: calc(80vh - 40px - 20px - 60px);
+    max-height: calc(80vh - 40px - 20px - 60px);
 }
 
 /* ------------------------- SHORTCUT OPTIONS ------------------------------ */
@@ -93,6 +92,11 @@
     display: flex;
     margin-top: 30px;
     max-height: 40px;
+    justify-content: center;
+    position: absolute;
+    bottom: 6px;
+    background-color: #fff;
+    width: 160px;
 }
 
 #pickList-options-panel #pickList-action-buttons button {
@@ -103,6 +107,7 @@
     min-width: inherit;
     flex: 1;
     margin-right: 8px;
+    margin-bottom: 10px;
 }
 
 #pickList-options-panel button#cancel-btn {
