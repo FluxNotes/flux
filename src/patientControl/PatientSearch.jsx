@@ -222,6 +222,15 @@ class PatientSearch extends React.Component {
         } else {
             this.props.moveTargetedDataPanelToSubsection(suggestion.section, suggestion.subsection);
         }
+        this.autoSuggestInput.blur();
+    }
+
+    onSuggestionHighlighted = ({suggestion}) => {
+        if (!Lang.isNull(suggestion)) {
+            if (suggestion.source !== "clinicalNote") {
+                this.props.moveTargetedDataPanelToSubsection(suggestion.section, suggestion.subsection);
+            }
+        }
     }
 
     // When the input is focused, Autosuggest will consult this function when to render suggestions
@@ -240,7 +249,7 @@ class PatientSearch extends React.Component {
     renderInputComponent = (inputProps) => (
         <div>
             <span className="fa fa-search search-icon"></span>
-            <input {...inputProps} />
+            <input {...inputProps} ref={(c) => { this.autoSuggestInput = c; }} />
         </div>
     );
 
@@ -258,6 +267,7 @@ class PatientSearch extends React.Component {
                 <Autosuggest
                     getSuggestionValue={this.getSuggestionValue}
                     inputProps={inputProps}
+                    onSuggestionHighlighted={this.onSuggestionHighlighted}
                     onSuggestionsClearRequested={this.onSuggestionsClearRequested}
                     onSuggestionSelected={this.onSuggestionSelected}
                     onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
