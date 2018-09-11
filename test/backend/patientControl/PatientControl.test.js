@@ -9,6 +9,7 @@ import TestPatient from '../../TestPatient.json';
 const testPatientShrId = '123456'
 
 import PatientSearch from '../../../src/patientControl/PatientSearch'
+import SearchIndex from '../../../src/patientControl/SearchIndex';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -37,10 +38,13 @@ describe('PatientSearch', function () {
         didSetFullAppStateFunctionTrigger = true
     }
 
+    const searchIndex = new SearchIndex();
+
     it('Should update state.value when input is entered ', function () { 
         const wrapper = mount(<PatientSearch
             patient={testPatientObj}
             setSearchSelectedItem={jest.fn()}
+            searchIndex={searchIndex}
         />);
         expect(wrapper).to.exist;
         const inputField = wrapper.find('input.react-autosuggest__input')
@@ -55,6 +59,7 @@ describe('PatientSearch', function () {
         const wrapper = mount(<PatientSearch
             patient={testPatientObj}
             setSearchSelectedItem={jest.fn()}
+            searchIndex={searchIndex}
         />);
         const inputField = wrapper.find('input.react-autosuggest__input')
         inputField.simulate('change', { target: {value: inputValue}}); 
@@ -72,6 +77,7 @@ describe('PatientSearch', function () {
         const wrapper = mount(<PatientSearch
             patient={testPatientObj}
             setSearchSelectedItem={jest.fn()}
+            searchIndex={searchIndex}
         />);        
         const inputField = wrapper.find('input.react-autosuggest__input')
         inputField.simulate('change', { target: {value: inputValue}}); 
@@ -92,6 +98,7 @@ describe('PatientSearch', function () {
             patient={testPatientObj}
             setSearchSelectedItem={setSearchSelectedItem}
             setCondition={jest.fn()}
+            searchIndex={searchIndex}
         />);        
         const inputField = wrapper.find('input.react-autosuggest__input')
         inputField.simulate('change', { target: {value: inputValue}}); 
