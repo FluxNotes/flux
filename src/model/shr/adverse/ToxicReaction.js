@@ -95,7 +95,7 @@ class ToxicReaction extends AdverseEvent {
    * @param {object} json - the JSON data to deserialize
    * @returns {ToxicReaction} An instance of ToxicReaction populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new ToxicReaction();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -107,7 +107,7 @@ class ToxicReaction extends AdverseEvent {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/adverse/ToxicReaction' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/adverse/ToxicReaction' };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -164,6 +164,92 @@ class ToxicReaction extends AdverseEvent {
     }
     if (this.actionTaken != null) {
       inst['ActionTaken'] = this.actionTaken.map(f => f.toJSON());
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the ToxicReaction class to a FHIR object.
+   * The FHIR is expected to be valid against the ToxicReaction FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    inst['resourceType'] = 'AdverseEvent';
+    if (this.relatedEncounter != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.relatedEncounter.toFHIR(true));
+    }
+    if (this.informant != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.informant.toFHIR(true));
+    }
+    if (this.focalSubject != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.focalSubject.toFHIR(true));
+    }
+    if (this.focalSubjectReference != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.focalSubjectReference.toFHIR(true));
+    }
+    if (this.findingMethod != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.findingMethod.toFHIR(true));
+    }
+    if (this.findingStatus != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.findingStatus.toFHIR(true));
+    }
+    if (this.evidence != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.evidence.toFHIR(true));
+    }
+    if (this.adverseEventGrade != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.adverseEventGrade.toFHIR(true));
+    }
+    if (this.causeCategory != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.causeCategory.toFHIR(true));
+    }
+    if (this.actionTaken != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.actionTaken.toFHIR(true));
+    }
+    if (this.subject != null) {
+      inst['subject'] = typeof this.subject.toFHIR === 'function' ? this.subject.toFHIR() : this.subject;
+    }
+    if (this.occurrenceTime != null) {
+      inst['date'] = typeof this.occurrenceTime.toFHIR === 'function' ? this.occurrenceTime.toFHIR() : this.occurrenceTime;
+    }
+    if (this.seriousAdverseEvent != null) {
+      inst['seriousness'] = typeof this.seriousAdverseEvent.toFHIR === 'function' ? this.seriousAdverseEvent.toFHIR() : this.seriousAdverseEvent;
+    }
+    if (this.outcome != null) {
+      inst['outcome'] = typeof this.outcome.toFHIR === 'function' ? this.outcome.toFHIR() : this.outcome;
+    }
+    if (this.author != null) {
+      inst['recorder'] = typeof this.author.toFHIR === 'function' ? this.author.toFHIR() : this.author;
+    }
+    if (this.details != null) {
+      inst['description'] = typeof this.details.toFHIR === 'function' ? this.details.toFHIR() : this.details;
+    }
+    if (this.adverseEventAttribution != null) {
+      if (inst['suspectEntity'] === undefined) {
+        inst['suspectEntity'] = {};
+      }
+      inst['suspectEntity']['instance'] = inst['suspectEntity']['instance'] || [];
+      inst['suspectEntity']['instance'].concat(this.adverseEventAttribution.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.adverseEventAttribution != null && this.adverseEventAttribution.certainty != null) {
+      if (inst['suspectEntity'] === undefined) {
+        inst['suspectEntity'] = {};
+      }
+      inst['suspectEntity']['causalityAssessment'] = inst['suspectEntity']['causalityAssessment'] || [];
+      inst['suspectEntity']['causalityAssessment'].concat(this.adverseEventAttribution.certainty.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.associatedStudy != null) {
+      inst['study'] = typeof this.associatedStudy.toFHIR === 'function' ? this.associatedStudy.toFHIR() : this.associatedStudy;
     }
     return inst;
   }

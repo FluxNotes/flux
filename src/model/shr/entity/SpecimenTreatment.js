@@ -64,7 +64,7 @@ class SpecimenTreatment extends ProcedurePerformed {
    * @param {object} json - the JSON data to deserialize
    * @returns {SpecimenTreatment} An instance of SpecimenTreatment populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new SpecimenTreatment();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -76,7 +76,7 @@ class SpecimenTreatment extends ProcedurePerformed {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/SpecimenTreatment' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/SpecimenTreatment' };
     if (this.relatedEncounter != null) {
       inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
     }
@@ -112,6 +112,62 @@ class SpecimenTreatment extends ProcedurePerformed {
     }
     if (this.additive != null) {
       inst['Additive'] = this.additive.map(f => f.toJSON());
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the SpecimenTreatment class to a FHIR object.
+   * The FHIR is expected to be valid against the SpecimenTreatment FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    inst['resourceType'] = 'Procedure';
+    if (this.author != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.author.toFHIR(true));
+    }
+    if (this.informant != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.informant.toFHIR(true));
+    }
+    if (this.associatedStudy != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.associatedStudy.toFHIR(true));
+    }
+    if (this.additive != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.additive.toFHIR(true));
+    }
+    if (this.partOf != null) {
+      inst['partOf'] = inst['partOf'] || [];
+      inst['partOf'].push(typeof this.partOf.toFHIR === 'function' ? this.partOf.toFHIR() : this.partOf);
+    }
+    if (this.category != null) {
+      inst['category'] = inst['category'] || [];
+      inst['category'].concat(this.category.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.type != null) {
+      inst['code'] = typeof this.type.toFHIR === 'function' ? this.type.toFHIR() : this.type;
+    }
+    if (this.subject != null) {
+      inst['subject'] = typeof this.subject.toFHIR === 'function' ? this.subject.toFHIR() : this.subject;
+    }
+    if (this.relatedEncounter != null) {
+      inst['context'] = typeof this.relatedEncounter.toFHIR === 'function' ? this.relatedEncounter.toFHIR() : this.relatedEncounter;
+    }
+    if (this.bodySite != null) {
+      inst['bodySite'] = inst['bodySite'] || [];
+      inst['bodySite'].concat(this.bodySite.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.annotation != null) {
+      inst['note'] = inst['note'] || [];
+      inst['note'].concat(this.annotation.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (asExtension) {
+      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-entity-SpecimenTreatment-extension';
+      inst['valueReference'] = this.value;
     }
     return inst;
   }

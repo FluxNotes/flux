@@ -166,7 +166,7 @@ class Substance extends Entity {
    * @param {object} json - the JSON data to deserialize
    * @returns {Substance} An instance of Substance populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Substance();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -178,7 +178,7 @@ class Substance extends Entity {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Substance' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/Substance' };
     if (this.relatedEncounter != null) {
       inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
     }
@@ -202,6 +202,62 @@ class Substance extends Entity {
     }
     if (this.ingredient != null) {
       inst['Ingredient'] = this.ingredient.map(f => f.toJSON());
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Substance class to a FHIR object.
+   * The FHIR is expected to be valid against the Substance FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    inst['resourceType'] = 'Substance';
+    if (this.relatedEncounter != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.relatedEncounter.toFHIR(true));
+    }
+    if (this.author != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.author.toFHIR(true));
+    }
+    if (this.informant != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.informant.toFHIR(true));
+    }
+    if (this.category != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.category.toFHIR(true));
+    }
+    if (this.activeFlagAsaCodeableConcept != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.activeFlagAsaCodeableConcept.toFHIR(true));
+    }
+    if (this.details != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.details.toFHIR(true));
+    }
+    if (this.type != null) {
+      inst['code'] = typeof this.type.toFHIR === 'function' ? this.type.toFHIR() : this.type;
+    }
+    if (this.ingredient != null) {
+      inst['ingredient'] = inst['ingredient'] || [];
+      inst['ingredient'].concat(this.ingredient.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.ingredient != null && this.ingredient.ingredientAmount != null) {
+      if (inst['ingredient'] === undefined) {
+        inst['ingredient'] = {};
+      }
+      inst['ingredient']['quantity'] = inst['ingredient']['quantity'] || [];
+      inst['ingredient']['quantity'].concat(this.ingredient.ingredientAmount.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.ingredient != null && this.ingredient.codeableConcept != null) {
+      if (inst['ingredient'] === undefined) {
+        inst['ingredient'] = {};
+      }
+      inst['ingredient']['substance[x]'] = inst['ingredient']['substance[x]'] || [];
+      inst['ingredient']['substance[x]'].concat(this.ingredient.codeableConcept.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     return inst;
   }

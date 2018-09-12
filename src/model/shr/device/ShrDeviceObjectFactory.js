@@ -23,14 +23,14 @@ export default class ShrDeviceObjectFactory {
       throw new Error(`Unsupported type in ShrDeviceObjectFactory: ${type}`);
     }
     switch (elementName) {
-    case 'Device': return Device.fromJSON(json);
-    case 'DeviceUdi': return DeviceUdi.fromJSON(json);
-    case 'VendorModelNumber': return VendorModelNumber.fromJSON(json);
-    case 'DeviceAction': return DeviceAction.fromJSON(json);
-    case 'Implanted': return Implanted.fromJSON(json);
-    case 'DeviceUsed': return DeviceUsed.fromJSON(json);
-    case 'DeviceNotUsed': return DeviceNotUsed.fromJSON(json);
-    default: throw new Error(`Unsupported type in ShrDeviceObjectFactory: ${type}`);
+      case 'Device': return Device.fromJSON(json);
+      case 'DeviceUdi': return DeviceUdi.fromJSON(json);
+      case 'VendorModelNumber': return VendorModelNumber.fromJSON(json);
+      case 'DeviceAction': return DeviceAction.fromJSON(json);
+      case 'Implanted': return Implanted.fromJSON(json);
+      case 'DeviceUsed': return DeviceUsed.fromJSON(json);
+      case 'DeviceNotUsed': return DeviceNotUsed.fromJSON(json);
+      default: throw new Error(`Unsupported type in ShrDeviceObjectFactory: ${type}`);
     }
   }
 }

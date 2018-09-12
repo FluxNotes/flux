@@ -143,7 +143,7 @@ class MedicationChange extends Action {
    * @param {object} json - the JSON data to deserialize
    * @returns {MedicationChange} An instance of MedicationChange populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new MedicationChange();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -155,7 +155,7 @@ class MedicationChange extends Action {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/medication/MedicationChange' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/medication/MedicationChange' };
     if (this.relatedEncounter != null) {
       inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
     }
@@ -179,6 +179,49 @@ class MedicationChange extends Action {
     }
     if (this.medicationAfterChange != null) {
       inst['MedicationAfterChange'] = this.medicationAfterChange.map(f => f.toJSON());
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the MedicationChange class to a FHIR object.
+   * The FHIR is expected to be valid against the MedicationChange FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    inst['resourceType'] = 'Basic';
+    if (this.relatedEncounter != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.relatedEncounter.toFHIR(true));
+    }
+    if (this.author != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.author.toFHIR(true));
+    }
+    if (this.informant != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.informant.toFHIR(true));
+    }
+    if (this.type != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.type.toFHIR(true));
+    }
+    if (this.category != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.category.toFHIR(true));
+    }
+    if (this.medicationBeforeChange != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.medicationBeforeChange.toFHIR(true));
+    }
+    if (this.medicationAfterChange != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.medicationAfterChange.toFHIR(true));
+    }
+    if (asExtension) {
+      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-medication-MedicationChange-extension';
+      inst['valueReference'] = this.value;
     }
     return inst;
   }

@@ -163,7 +163,7 @@ class CarePlan {
    * @param {object} json - the JSON data to deserialize
    * @returns {CarePlan} An instance of CarePlan populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new CarePlan();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -175,7 +175,7 @@ class CarePlan {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/careplan/CarePlan' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/careplan/CarePlan' };
     if (this.title != null) {
       inst['Title'] = typeof this.title.toJSON === 'function' ? this.title.toJSON() : this.title;
     }
@@ -190,6 +190,37 @@ class CarePlan {
     }
     if (this.goal != null) {
       inst['Goal'] = this.goal.map(f => f.toJSON());
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the CarePlan class to a FHIR object.
+   * The FHIR is expected to be valid against the CarePlan FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    inst['resourceType'] = 'Basic';
+    if (this.title != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.title.toFHIR(true));
+    }
+    if (this.details != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.details.toFHIR(true));
+    }
+    if (this.status != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.status.toFHIR(true));
+    }
+    if (this.category != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.category.toFHIR(true));
+    }
+    if (this.goal != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.goal.toFHIR(true));
     }
     return inst;
   }

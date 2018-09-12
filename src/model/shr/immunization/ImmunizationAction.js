@@ -143,7 +143,7 @@ class ImmunizationAction extends Action {
    * @param {object} json - the JSON data to deserialize
    * @returns {ImmunizationAction} An instance of ImmunizationAction populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new ImmunizationAction();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -154,7 +154,7 @@ class ImmunizationAction extends Action {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/immunization/ImmunizationAction' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/immunization/ImmunizationAction' } };
     if (this.relatedEncounter != null) {
       inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
     }
@@ -187,6 +187,60 @@ class ImmunizationAction extends Action {
     }
     if (this.outcome != null) {
       inst['Outcome'] = this.outcome.map(f => f.toJSON());
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the ImmunizationAction class to a FHIR object.
+   * The FHIR is expected to be valid against the ImmunizationAction FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (this.relatedEncounter != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.relatedEncounter.toFHIR(true));
+    }
+    if (this.author != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.author.toFHIR(true));
+    }
+    if (this.informant != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.informant.toFHIR(true));
+    }
+    if (this.type != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.type.toFHIR(true));
+    }
+    if (this.category != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.category.toFHIR(true));
+    }
+    if (this.actionContext != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.actionContext.toFHIR(true));
+    }
+    if (this.vaccine != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.vaccine.toFHIR(true));
+    }
+    if (this.bodySite != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.bodySite.toFHIR(true));
+    }
+    if (this.routeIntoBody != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.routeIntoBody.toFHIR(true));
+    }
+    if (this.doseAmount != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.doseAmount.toFHIR(true));
+    }
+    if (this.outcome != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.outcome.toFHIR(true));
     }
     return inst;
   }

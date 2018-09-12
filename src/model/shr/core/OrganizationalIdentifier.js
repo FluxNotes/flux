@@ -64,7 +64,7 @@ class OrganizationalIdentifier extends Identifier {
    * @param {object} json - the JSON data to deserialize
    * @returns {OrganizationalIdentifier} An instance of OrganizationalIdentifier populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new OrganizationalIdentifier();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -75,7 +75,7 @@ class OrganizationalIdentifier extends Identifier {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/OrganizationalIdentifier' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/OrganizationalIdentifier' } };
     if (this.value != null) {
       inst['Value'] = this.value;
     }
@@ -99,6 +99,42 @@ class OrganizationalIdentifier extends Identifier {
     }
     if (this.organization != null) {
       inst['Organization'] = typeof this.organization.toJSON === 'function' ? this.organization.toJSON() : this.organization;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the OrganizationalIdentifier class to a FHIR object.
+   * The FHIR is expected to be valid against the OrganizationalIdentifier FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (this.timePeriod != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.timePeriod.toFHIR(true));
+    }
+    if (this.organization != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.organization.toFHIR(true));
+    }
+    if (this.purpose != null) {
+      inst['use'] = typeof this.purpose.toFHIR === 'function' ? this.purpose.toFHIR() : this.purpose;
+    }
+    if (this.type != null) {
+      inst['type'] = typeof this.type.toFHIR === 'function' ? this.type.toFHIR() : this.type;
+    }
+    if (this.codeSystem != null) {
+      inst['system'] = typeof this.codeSystem.toFHIR === 'function' ? this.codeSystem.toFHIR() : this.codeSystem;
+    }
+    if (this.value != null) {
+      inst['value'] = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
+    }
+    if (this.effectiveTimePeriod != null) {
+      inst['period'] = typeof this.effectiveTimePeriod.toFHIR === 'function' ? this.effectiveTimePeriod.toFHIR() : this.effectiveTimePeriod;
+    }
+    if (this.issuer != null) {
+      inst['assigner'] = typeof this.issuer.toFHIR === 'function' ? this.issuer.toFHIR() : this.issuer;
     }
     return inst;
   }

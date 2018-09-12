@@ -242,7 +242,7 @@ class Dosage {
    * @param {object} json - the JSON data to deserialize
    * @returns {Dosage} An instance of Dosage populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Dosage();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -253,7 +253,7 @@ class Dosage {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/medication/Dosage' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/medication/Dosage' } };
     if (this.doseAmount != null) {
       inst['DoseAmount'] = typeof this.doseAmount.toJSON === 'function' ? this.doseAmount.toJSON() : this.doseAmount;
     }
@@ -280,6 +280,48 @@ class Dosage {
     }
     if (this.maximumDosePerTimePeriod != null) {
       inst['MaximumDosePerTimePeriod'] = typeof this.maximumDosePerTimePeriod.toJSON === 'function' ? this.maximumDosePerTimePeriod.toJSON() : this.maximumDosePerTimePeriod;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Dosage class to a FHIR object.
+   * The FHIR is expected to be valid against the Dosage FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (this.doseInstructionsText != null) {
+      inst['text'] = typeof this.doseInstructionsText.toFHIR === 'function' ? this.doseInstructionsText.toFHIR() : this.doseInstructionsText;
+    }
+    if (this.additionalDoseInstruction != null) {
+      inst['additionalInstruction'] = inst['additionalInstruction'] || [];
+      inst['additionalInstruction'].concat(this.additionalDoseInstruction.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.timingOfDoses != null) {
+      inst['timing'] = typeof this.timingOfDoses.toFHIR === 'function' ? this.timingOfDoses.toFHIR() : this.timingOfDoses;
+    }
+    if (this.asNeededIndicator != null) {
+      inst['asNeeded[x]'] = typeof this.asNeededIndicator.toFHIR === 'function' ? this.asNeededIndicator.toFHIR() : this.asNeededIndicator;
+    }
+    if (this.administrationBodySite != null) {
+      inst['site'] = typeof this.administrationBodySite.toFHIR === 'function' ? this.administrationBodySite.toFHIR() : this.administrationBodySite;
+    }
+    if (this.routeIntoBody != null) {
+      inst['route'] = typeof this.routeIntoBody.toFHIR === 'function' ? this.routeIntoBody.toFHIR() : this.routeIntoBody;
+    }
+    if (this.administrationMethod != null) {
+      inst['method'] = typeof this.administrationMethod.toFHIR === 'function' ? this.administrationMethod.toFHIR() : this.administrationMethod;
+    }
+    if (this.doseAmount != null) {
+      inst['dose[x]'] = typeof this.doseAmount.toFHIR === 'function' ? this.doseAmount.toFHIR() : this.doseAmount;
+    }
+    if (this.maximumDosePerTimePeriod != null) {
+      inst['maxDosePerPeriod'] = typeof this.maximumDosePerTimePeriod.toFHIR === 'function' ? this.maximumDosePerTimePeriod.toFHIR() : this.maximumDosePerTimePeriod;
+    }
+    if (asExtension) {
+      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-medication-Dosage-extension';
+      inst['valueReference'] = this.value;
     }
     return inst;
   }

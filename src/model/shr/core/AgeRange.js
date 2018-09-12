@@ -61,7 +61,7 @@ class AgeRange {
    * @param {object} json - the JSON data to deserialize
    * @returns {AgeRange} An instance of AgeRange populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new AgeRange();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -72,12 +72,29 @@ class AgeRange {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/AgeRange' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/AgeRange' } };
     if (this.upperBound != null) {
       inst['UpperBound'] = typeof this.upperBound.toJSON === 'function' ? this.upperBound.toJSON() : this.upperBound;
     }
     if (this.lowerBound != null) {
       inst['LowerBound'] = typeof this.lowerBound.toJSON === 'function' ? this.lowerBound.toJSON() : this.lowerBound;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the AgeRange class to a FHIR object.
+   * The FHIR is expected to be valid against the AgeRange FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (asExtension) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.upperBound.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.lowerBound.toFHIR(true));
+      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-core-AgeRange-extension';
     }
     return inst;
   }

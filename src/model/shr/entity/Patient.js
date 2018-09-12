@@ -88,31 +88,6 @@ class Patient extends Role {
   }
 
   /**
-   * Get the MedicalRecordNumber array.
-   * @returns {Array<MedicalRecordNumber>} The shr.entity.MedicalRecordNumber array
-   */
-  get medicalRecordNumber() {
-    return this._medicalRecordNumber;
-  }
-
-  /**
-   * Set the MedicalRecordNumber array.
-   * @param {Array<MedicalRecordNumber>} medicalRecordNumber - The shr.entity.MedicalRecordNumber array
-   */
-  set medicalRecordNumber(medicalRecordNumber) {
-    this._medicalRecordNumber = medicalRecordNumber;
-  }
-
-  /**
-   * Set the MedicalRecordNumber array and return 'this' for chaining.
-   * @param {Array<MedicalRecordNumber>} medicalRecordNumber - The shr.entity.MedicalRecordNumber array
-   * @returns {Patient} this.
-   */
-  withMedicalRecordNumber(medicalRecordNumber) {
-    this.medicalRecordNumber = medicalRecordNumber; return this;
-  }
-
-  /**
    * Get the PlaceOfBirth.
    * @returns {PlaceOfBirth} The shr.entity.PlaceOfBirth
    */
@@ -122,6 +97,7 @@ class Patient extends Role {
 
   /**
    * Set the PlaceOfBirth.
+   * This field/value is required.
    * @param {PlaceOfBirth} placeOfBirth - The shr.entity.PlaceOfBirth
    */
   set placeOfBirth(placeOfBirth) {
@@ -130,6 +106,7 @@ class Patient extends Role {
 
   /**
    * Set the PlaceOfBirth and return 'this' for chaining.
+   * This field/value is required.
    * @param {PlaceOfBirth} placeOfBirth - The shr.entity.PlaceOfBirth
    * @returns {Patient} this.
    */
@@ -172,6 +149,7 @@ class Patient extends Role {
 
   /**
    * Set the BirthSex.
+   * This field/value is required.
    * @param {BirthSex} birthSex - The shr.entity.BirthSex
    */
   set birthSex(birthSex) {
@@ -180,6 +158,7 @@ class Patient extends Role {
 
   /**
    * Set the BirthSex and return 'this' for chaining.
+   * This field/value is required.
    * @param {BirthSex} birthSex - The shr.entity.BirthSex
    * @returns {Patient} this.
    */
@@ -197,6 +176,7 @@ class Patient extends Role {
 
   /**
    * Set the Race.
+   * This field/value is required.
    * @param {Race} race - The shr.entity.Race
    */
   set race(race) {
@@ -205,6 +185,7 @@ class Patient extends Role {
 
   /**
    * Set the Race and return 'this' for chaining.
+   * This field/value is required.
    * @param {Race} race - The shr.entity.Race
    * @returns {Patient} this.
    */
@@ -222,6 +203,7 @@ class Patient extends Role {
 
   /**
    * Set the Ethnicity.
+   * This field/value is required.
    * @param {Ethnicity} ethnicity - The shr.entity.Ethnicity
    */
   set ethnicity(ethnicity) {
@@ -230,6 +212,7 @@ class Patient extends Role {
 
   /**
    * Set the Ethnicity and return 'this' for chaining.
+   * This field/value is required.
    * @param {Ethnicity} ethnicity - The shr.entity.Ethnicity
    * @returns {Patient} this.
    */
@@ -247,6 +230,7 @@ class Patient extends Role {
 
   /**
    * Set the MaritalStatus.
+   * This field/value is required.
    * @param {MaritalStatus} maritalStatus - The shr.entity.MaritalStatus
    */
   set maritalStatus(maritalStatus) {
@@ -255,6 +239,7 @@ class Patient extends Role {
 
   /**
    * Set the MaritalStatus and return 'this' for chaining.
+   * This field/value is required.
    * @param {MaritalStatus} maritalStatus - The shr.entity.MaritalStatus
    * @returns {Patient} this.
    */
@@ -272,6 +257,7 @@ class Patient extends Role {
 
   /**
    * Set the MothersMaidenName.
+   * This field/value is required.
    * @param {MothersMaidenName} mothersMaidenName - The shr.entity.MothersMaidenName
    */
   set mothersMaidenName(mothersMaidenName) {
@@ -280,6 +266,7 @@ class Patient extends Role {
 
   /**
    * Set the MothersMaidenName and return 'this' for chaining.
+   * This field/value is required.
    * @param {MothersMaidenName} mothersMaidenName - The shr.entity.MothersMaidenName
    * @returns {Patient} this.
    */
@@ -297,6 +284,7 @@ class Patient extends Role {
 
   /**
    * Set the FathersName.
+   * This field/value is required.
    * @param {FathersName} fathersName - The shr.entity.FathersName
    */
   set fathersName(fathersName) {
@@ -305,6 +293,7 @@ class Patient extends Role {
 
   /**
    * Set the FathersName and return 'this' for chaining.
+   * This field/value is required.
    * @param {FathersName} fathersName - The shr.entity.FathersName
    * @returns {Patient} this.
    */
@@ -443,7 +432,7 @@ class Patient extends Role {
    * @param {object} json - the JSON data to deserialize
    * @returns {Patient} An instance of Patient populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Patient();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -455,7 +444,7 @@ class Patient extends Role {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Patient' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/Patient' };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -470,9 +459,6 @@ class Patient extends Role {
     }
     if (this.type != null) {
       inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
-    }
-    if (this.medicalRecordNumber != null) {
-      inst['MedicalRecordNumber'] = this.medicalRecordNumber.map(f => f.toJSON());
     }
     if (this.placeOfBirth != null) {
       inst['PlaceOfBirth'] = typeof this.placeOfBirth.toJSON === 'function' ? this.placeOfBirth.toJSON() : this.placeOfBirth;
@@ -512,6 +498,80 @@ class Patient extends Role {
     }
     if (this.deceased != null) {
       inst['Deceased'] = typeof this.deceased.toJSON === 'function' ? this.deceased.toJSON() : this.deceased;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Patient class to a FHIR object.
+   * The FHIR is expected to be valid against the Patient FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    inst['resourceType'] = 'Patient';
+    if (this.placeOfBirth != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.placeOfBirth.toFHIR(true));
+    }
+    if (this.medicalInterpreterNeeded != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.medicalInterpreterNeeded.toFHIR(true));
+    }
+    if (this.mothersMaidenName != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.mothersMaidenName.toFHIR(true));
+    }
+    if (this.relatedEncounter != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.relatedEncounter.toFHIR(true));
+    }
+    if (this.author != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.author.toFHIR(true));
+    }
+    if (this.informant != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.informant.toFHIR(true));
+    }
+    if (this.type != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.type.toFHIR(true));
+    }
+    if (this.fathersName != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.fathersName.toFHIR(true));
+    }
+    if (this.socialSecurityNumber != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.socialSecurityNumber.toFHIR(true));
+    }
+    if (this.driversLicenseNumber != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.driversLicenseNumber.toFHIR(true));
+    }
+    if (this.passportNumber != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.passportNumber.toFHIR(true));
+    }
+    if (this.deceased != null && this.deceased.dateOfDeath != null) {
+      inst['deceasedDateTime'] = typeof this.deceased.dateOfDeath.toFHIR === 'function' ? this.deceased.dateOfDeath.toFHIR() : this.deceased.dateOfDeath;
+    }
+    if (this.deceased != null) {
+      inst['deceasedBoolean'] = typeof this.deceased.toFHIR === 'function' ? this.deceased.toFHIR() : this.deceased;
+    }
+    if (this.maritalStatus != null) {
+      inst['maritalStatus'] = typeof this.maritalStatus.toFHIR === 'function' ? this.maritalStatus.toFHIR() : this.maritalStatus;
+    }
+    if (this.multipleBirth != null && this.multipleBirth.multipleBirthOrder != null) {
+      inst['multipleBirthInteger'] = typeof this.multipleBirth.multipleBirthOrder.toFHIR === 'function' ? this.multipleBirth.multipleBirthOrder.toFHIR() : this.multipleBirth.multipleBirthOrder;
+    }
+    if (this.multipleBirth != null) {
+      inst['multipleBirthBoolean'] = typeof this.multipleBirth.toFHIR === 'function' ? this.multipleBirth.toFHIR() : this.multipleBirth;
+    }
+    if (asExtension) {
+      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-entity-Patient-extension';
+      inst['valueReference'] = this.value;
     }
     return inst;
   }

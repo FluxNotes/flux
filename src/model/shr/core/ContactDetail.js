@@ -61,7 +61,7 @@ class ContactDetail {
    * @param {object} json - the JSON data to deserialize
    * @returns {ContactDetail} An instance of ContactDetail populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new ContactDetail();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -72,12 +72,26 @@ class ContactDetail {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/ContactDetail' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/ContactDetail' } };
     if (this.humanName != null) {
       inst['HumanName'] = typeof this.humanName.toJSON === 'function' ? this.humanName.toJSON() : this.humanName;
     }
     if (this.contactPoint != null) {
       inst['ContactPoint'] = this.contactPoint.map(f => f.toJSON());
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the ContactDetail class to a FHIR object.
+   * The FHIR is expected to be valid against the ContactDetail FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (this.contactPoint != null) {
+      inst['telecom'] = inst['telecom'] || [];
+      inst['telecom'].concat(this.contactPoint.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     return inst;
   }

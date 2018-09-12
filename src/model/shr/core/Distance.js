@@ -39,7 +39,7 @@ class Distance extends Quantity {
    * @param {object} json - the JSON data to deserialize
    * @returns {Distance} An instance of Distance populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Distance();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -50,7 +50,7 @@ class Distance extends Quantity {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Distance' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/Distance' } };
     if (this.value != null) {
       inst['Value'] = this.value;
     }
@@ -59,6 +59,32 @@ class Distance extends Quantity {
     }
     if (this.units != null) {
       inst['Units'] = typeof this.units.toJSON === 'function' ? this.units.toJSON() : this.units;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Distance class to a FHIR object.
+   * The FHIR is expected to be valid against the Distance FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (this.value != null) {
+      inst['value'] = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
+    }
+    if (this.comparator != null) {
+      inst['comparator'] = typeof this.comparator.toFHIR === 'function' ? this.comparator.toFHIR() : this.comparator;
+    }
+    if (this.units != null && this.units.coding != null && this.units.coding.displayText != null) {
+      inst['unit'] = typeof this.units.coding.displayText.toFHIR === 'function' ? this.units.coding.displayText.toFHIR() : this.units.coding.displayText;
+    }
+    if (this.units != null && this.units.coding != null && this.units.coding.codeSystem != null) {
+      inst['system'] = typeof this.units.coding.codeSystem.toFHIR === 'function' ? this.units.coding.codeSystem.toFHIR() : this.units.coding.codeSystem;
+    }
+    if (asExtension) {
+      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-core-Distance-extension';
+      inst['valueReference'] = this.value;
     }
     return inst;
   }

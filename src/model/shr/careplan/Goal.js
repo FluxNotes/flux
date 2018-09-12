@@ -345,7 +345,7 @@ class Goal extends Entity {
    * @param {object} json - the JSON data to deserialize
    * @returns {Goal} An instance of Goal populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Goal();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -357,7 +357,7 @@ class Goal extends Entity {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/careplan/Goal' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/careplan/Goal' };
     if (this.relatedEncounter != null) {
       inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
     }
@@ -405,6 +405,85 @@ class Goal extends Entity {
     }
     if (this.goal != null) {
       inst['Goal'] = this.goal.map(f => f.toJSON());
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Goal class to a FHIR object.
+   * The FHIR is expected to be valid against the Goal FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    inst['resourceType'] = 'Basic';
+    if (this.relatedEncounter != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.relatedEncounter.toFHIR(true));
+    }
+    if (this.author != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.author.toFHIR(true));
+    }
+    if (this.informant != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.informant.toFHIR(true));
+    }
+    if (this.type != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.type.toFHIR(true));
+    }
+    if (this.subject != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.subject.toFHIR(true));
+    }
+    if (this.title != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.title.toFHIR(true));
+    }
+    if (this.details != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.details.toFHIR(true));
+    }
+    if (this.reason != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.reason.toFHIR(true));
+    }
+    if (this.category != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.category.toFHIR(true));
+    }
+    if (this.expectedPerformanceTime != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.expectedPerformanceTime.toFHIR(true));
+    }
+    if (this.occurrenceTimeOrPeriod != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.occurrenceTimeOrPeriod.toFHIR(true));
+    }
+    if (this.status != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.status.toFHIR(true));
+    }
+    if (this.annotation != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.annotation.toFHIR(true));
+    }
+    if (this.plannedActivities != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.plannedActivities.toFHIR(true));
+    }
+    if (this.actualActivities != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.actualActivities.toFHIR(true));
+    }
+    if (this.goal != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.goal.toFHIR(true));
+    }
+    if (asExtension) {
+      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-careplan-Goal-extension';
+      inst['valueReference'] = this.value;
     }
     return inst;
   }

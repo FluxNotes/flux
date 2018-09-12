@@ -68,7 +68,7 @@ class FrequencyOfUse extends ObservationComponent {
    * @param {object} json - the JSON data to deserialize
    * @returns {FrequencyOfUse} An instance of FrequencyOfUse populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new FrequencyOfUse();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -79,7 +79,7 @@ class FrequencyOfUse extends ObservationComponent {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/behavior/FrequencyOfUse' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/behavior/FrequencyOfUse' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -94,6 +94,21 @@ class FrequencyOfUse extends ObservationComponent {
     }
     if (this.referenceRange != null) {
       inst['ReferenceRange'] = this.referenceRange.map(f => f.toJSON());
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the FrequencyOfUse class to a FHIR object.
+   * The FHIR is expected to be valid against the FrequencyOfUse FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (!asExtension && this.value != null) {
+      if (this.value != null) {
+        inst = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
+      }
     }
     return inst;
   }

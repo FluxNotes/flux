@@ -140,7 +140,7 @@ class LanguageUsed {
    * @param {object} json - the JSON data to deserialize
    * @returns {LanguageUsed} An instance of LanguageUsed populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new LanguageUsed();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -151,7 +151,7 @@ class LanguageUsed {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/LanguageUsed' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/LanguageUsed' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -163,6 +163,32 @@ class LanguageUsed {
     }
     if (this.languageQualifier != null) {
       inst['LanguageQualifier'] = this.languageQualifier.map(f => f.toJSON());
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the LanguageUsed class to a FHIR object.
+   * The FHIR is expected to be valid against the LanguageUsed FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (asExtension) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.language.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.spokenLanguageProficiency.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.writtenLanguageProficiency.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.languageQualifier.toFHIR(true));
+      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-entity-LanguageUsed-extension';
+    }
+    if (!asExtension && this.value != null) {
+      if (this.value != null) {
+        inst = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
+      }
     }
     return inst;
   }

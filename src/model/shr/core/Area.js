@@ -68,7 +68,7 @@ class Area extends ObservationComponent {
    * @param {object} json - the JSON data to deserialize
    * @returns {Area} An instance of Area populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Area();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -79,7 +79,7 @@ class Area extends ObservationComponent {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Area' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/Area' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -94,6 +94,21 @@ class Area extends ObservationComponent {
     }
     if (this.referenceRange != null) {
       inst['ReferenceRange'] = this.referenceRange.map(f => f.toJSON());
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Area class to a FHIR object.
+   * The FHIR is expected to be valid against the Area FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (!asExtension && this.value != null) {
+      if (this.value != null) {
+        inst = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
+      }
     }
     return inst;
   }

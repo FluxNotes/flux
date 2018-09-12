@@ -66,7 +66,7 @@ class SurgicalProcedureRequested extends SurgicalProcedure {
    * @param {object} json - the JSON data to deserialize
    * @returns {SurgicalProcedureRequested} An instance of SurgicalProcedureRequested populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new SurgicalProcedureRequested();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -78,7 +78,7 @@ class SurgicalProcedureRequested extends SurgicalProcedure {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/procedure/SurgicalProcedureRequested' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/procedure/SurgicalProcedureRequested' };
     if (this.relatedEncounter != null) {
       inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
     }
@@ -147,6 +147,105 @@ class SurgicalProcedureRequested extends SurgicalProcedure {
     }
     if (this.indirectDeviceCode != null) {
       inst['IndirectDeviceCode'] = this.indirectDeviceCode.map(f => f.toJSON());
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the SurgicalProcedureRequested class to a FHIR object.
+   * The FHIR is expected to be valid against the SurgicalProcedureRequested FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    inst['resourceType'] = 'Basic';
+    if (this.relatedEncounter != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.relatedEncounter.toFHIR(true));
+    }
+    if (this.author != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.author.toFHIR(true));
+    }
+    if (this.informant != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.informant.toFHIR(true));
+    }
+    if (this.type != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.type.toFHIR(true));
+    }
+    if (this.category != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.category.toFHIR(true));
+    }
+    if (this.subject != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.subject.toFHIR(true));
+    }
+    if (this.bodySite != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.bodySite.toFHIR(true));
+    }
+    if (this.associatedStudy != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.associatedStudy.toFHIR(true));
+    }
+    if (this.partOf != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.partOf.toFHIR(true));
+    }
+    if (this.annotation != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.annotation.toFHIR(true));
+    }
+    if (this.directSite != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.directSite.toFHIR(true));
+    }
+    if (this.directSiteCode != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.directSiteCode.toFHIR(true));
+    }
+    if (this.indirectSite != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.indirectSite.toFHIR(true));
+    }
+    if (this.indirectSiteCode != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.indirectSiteCode.toFHIR(true));
+    }
+    if (this.surgicalApproach != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.surgicalApproach.toFHIR(true));
+    }
+    if (this.access != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.access.toFHIR(true));
+    }
+    if (this.usingDevice != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.usingDevice.toFHIR(true));
+    }
+    if (this.usingDeviceCode != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.usingDeviceCode.toFHIR(true));
+    }
+    if (this.usingAccessDevice != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.usingAccessDevice.toFHIR(true));
+    }
+    if (this.usingAccessDeviceCode != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.usingAccessDeviceCode.toFHIR(true));
+    }
+    if (this.indirectDevice != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.indirectDevice.toFHIR(true));
+    }
+    if (this.indirectDeviceCode != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.indirectDeviceCode.toFHIR(true));
     }
     return inst;
   }

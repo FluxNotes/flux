@@ -46,37 +46,37 @@ export default class ShrBehaviorObjectFactory {
       throw new Error(`Unsupported type in ShrBehaviorObjectFactory: ${type}`);
     }
     switch (elementName) {
-    case 'BehavioralFinding': return BehavioralFinding.fromJSON(json);
-    case 'ReasonForBehavior': return ReasonForBehavior.fromJSON(json);
-    case 'ReadinessToChange': return ReadinessToChange.fromJSON(json);
-    case 'SubstanceUse': return SubstanceUse.fromJSON(json);
-    case 'FrequencyOfUse': return FrequencyOfUse.fromJSON(json);
-    case 'IntravenousDrugUse': return IntravenousDrugUse.fromJSON(json);
-    case 'NicotineUse': return NicotineUse.fromJSON(json);
-    case 'ONCSmokingStatus': return ONCSmokingStatus.fromJSON(json);
-    case 'AlcoholUse': return AlcoholUse.fromJSON(json);
-    case 'AlcoholBingeFrequency': return AlcoholBingeFrequency.fromJSON(json);
-    case 'SubstanceAbuseTreatment': return SubstanceAbuseTreatment.fromJSON(json);
-    case 'Religion': return Religion.fromJSON(json);
-    case 'ReligiousPracticeStatus': return ReligiousPracticeStatus.fromJSON(json);
-    case 'ReligiousRestriction': return ReligiousRestriction.fromJSON(json);
-    case 'ReligiousCongregation': return ReligiousCongregation.fromJSON(json);
-    case 'DietFollowed': return DietFollowed.fromJSON(json);
-    case 'HasSufficientFood': return HasSufficientFood.fromJSON(json);
-    case 'DietNutritionConcern': return DietNutritionConcern.fromJSON(json);
-    case 'SleepQualityPanel': return SleepQualityPanel.fromJSON(json);
-    case 'SleepQualityCause': return SleepQualityCause.fromJSON(json);
-    case 'TroubleFallingAsleep': return TroubleFallingAsleep.fromJSON(json);
-    case 'TroubleStayingAsleep': return TroubleStayingAsleep.fromJSON(json);
-    case 'WakeFeelingRested': return WakeFeelingRested.fromJSON(json);
-    case 'HoursSleepPerNight': return HoursSleepPerNight.fromJSON(json);
-    case 'PhysicalActivityPanel': return PhysicalActivityPanel.fromJSON(json);
-    case 'PhysicalActivityLevel': return PhysicalActivityLevel.fromJSON(json);
-    case 'ExerciseHoursPerWeek': return ExerciseHoursPerWeek.fromJSON(json);
-    case 'PhysicalActivityLimitation': return PhysicalActivityLimitation.fromJSON(json);
-    case 'ViolentRiskToOthers': return ViolentRiskToOthers.fromJSON(json);
-    case 'ViolentRiskToSelf': return ViolentRiskToSelf.fromJSON(json);
-    default: throw new Error(`Unsupported type in ShrBehaviorObjectFactory: ${type}`);
+      case 'BehavioralFinding': return BehavioralFinding.fromJSON(json);
+      case 'ReasonForBehavior': return ReasonForBehavior.fromJSON(json);
+      case 'ReadinessToChange': return ReadinessToChange.fromJSON(json);
+      case 'SubstanceUse': return SubstanceUse.fromJSON(json);
+      case 'FrequencyOfUse': return FrequencyOfUse.fromJSON(json);
+      case 'IntravenousDrugUse': return IntravenousDrugUse.fromJSON(json);
+      case 'NicotineUse': return NicotineUse.fromJSON(json);
+      case 'ONCSmokingStatus': return ONCSmokingStatus.fromJSON(json);
+      case 'AlcoholUse': return AlcoholUse.fromJSON(json);
+      case 'AlcoholBingeFrequency': return AlcoholBingeFrequency.fromJSON(json);
+      case 'SubstanceAbuseTreatment': return SubstanceAbuseTreatment.fromJSON(json);
+      case 'Religion': return Religion.fromJSON(json);
+      case 'ReligiousPracticeStatus': return ReligiousPracticeStatus.fromJSON(json);
+      case 'ReligiousRestriction': return ReligiousRestriction.fromJSON(json);
+      case 'ReligiousCongregation': return ReligiousCongregation.fromJSON(json);
+      case 'DietFollowed': return DietFollowed.fromJSON(json);
+      case 'HasSufficientFood': return HasSufficientFood.fromJSON(json);
+      case 'DietNutritionConcern': return DietNutritionConcern.fromJSON(json);
+      case 'SleepQualityPanel': return SleepQualityPanel.fromJSON(json);
+      case 'SleepQualityCause': return SleepQualityCause.fromJSON(json);
+      case 'TroubleFallingAsleep': return TroubleFallingAsleep.fromJSON(json);
+      case 'TroubleStayingAsleep': return TroubleStayingAsleep.fromJSON(json);
+      case 'WakeFeelingRested': return WakeFeelingRested.fromJSON(json);
+      case 'HoursSleepPerNight': return HoursSleepPerNight.fromJSON(json);
+      case 'PhysicalActivityPanel': return PhysicalActivityPanel.fromJSON(json);
+      case 'PhysicalActivityLevel': return PhysicalActivityLevel.fromJSON(json);
+      case 'ExerciseHoursPerWeek': return ExerciseHoursPerWeek.fromJSON(json);
+      case 'PhysicalActivityLimitation': return PhysicalActivityLimitation.fromJSON(json);
+      case 'ViolentRiskToOthers': return ViolentRiskToOthers.fromJSON(json);
+      case 'ViolentRiskToSelf': return ViolentRiskToSelf.fromJSON(json);
+      default: throw new Error(`Unsupported type in ShrBehaviorObjectFactory: ${type}`);
     }
   }
 }

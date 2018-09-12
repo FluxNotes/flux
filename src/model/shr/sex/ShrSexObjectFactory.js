@@ -36,27 +36,27 @@ export default class ShrSexObjectFactory {
       throw new Error(`Unsupported type in ShrSexObjectFactory: ${type}`);
     }
     switch (elementName) {
-    case 'PregnancyIntention': return PregnancyIntention.fromJSON(json);
-    case 'SexualIdentity': return SexualIdentity.fromJSON(json);
-    case 'GenderIdentity': return GenderIdentity.fromJSON(json);
-    case 'SexualOrientation': return SexualOrientation.fromJSON(json);
-    case 'SexualBehavior': return SexualBehavior.fromJSON(json);
-    case 'SexualActivity': return SexualActivity.fromJSON(json);
-    case 'NumberOfSexualPartnersPastYear': return NumberOfSexualPartnersPastYear.fromJSON(json);
-    case 'IntercourseDifficulty': return IntercourseDifficulty.fromJSON(json);
-    case 'ContraceptivesUsed': return ContraceptivesUsed.fromJSON(json);
-    case 'ContraceptiveMethodUsed': return ContraceptiveMethodUsed.fromJSON(json);
-    case 'ContraceptiveMethodFrequency': return ContraceptiveMethodFrequency.fromJSON(json);
-    case 'ContraceptiveMethodReason': return ContraceptiveMethodReason.fromJSON(json);
-    case 'ContraceptiveNotUsedReason': return ContraceptiveNotUsedReason.fromJSON(json);
-    case 'ContraceptiveAction': return ContraceptiveAction.fromJSON(json);
-    case 'ContraceptiveMethodRequested': return ContraceptiveMethodRequested.fromJSON(json);
-    case 'ContraceptiveMethodRequestedAgainst': return ContraceptiveMethodRequestedAgainst.fromJSON(json);
-    case 'PregnancyHistory': return PregnancyHistory.fromJSON(json);
-    case 'CurrentPregnancyStatus': return CurrentPregnancyStatus.fromJSON(json);
-    case 'NumberOfPreviousPregnancies': return NumberOfPreviousPregnancies.fromJSON(json);
-    case 'NumberOfLivingChildren': return NumberOfLivingChildren.fromJSON(json);
-    default: throw new Error(`Unsupported type in ShrSexObjectFactory: ${type}`);
+      case 'PregnancyIntention': return PregnancyIntention.fromJSON(json);
+      case 'SexualIdentity': return SexualIdentity.fromJSON(json);
+      case 'GenderIdentity': return GenderIdentity.fromJSON(json);
+      case 'SexualOrientation': return SexualOrientation.fromJSON(json);
+      case 'SexualBehavior': return SexualBehavior.fromJSON(json);
+      case 'SexualActivity': return SexualActivity.fromJSON(json);
+      case 'NumberOfSexualPartnersPastYear': return NumberOfSexualPartnersPastYear.fromJSON(json);
+      case 'IntercourseDifficulty': return IntercourseDifficulty.fromJSON(json);
+      case 'ContraceptivesUsed': return ContraceptivesUsed.fromJSON(json);
+      case 'ContraceptiveMethodUsed': return ContraceptiveMethodUsed.fromJSON(json);
+      case 'ContraceptiveMethodFrequency': return ContraceptiveMethodFrequency.fromJSON(json);
+      case 'ContraceptiveMethodReason': return ContraceptiveMethodReason.fromJSON(json);
+      case 'ContraceptiveNotUsedReason': return ContraceptiveNotUsedReason.fromJSON(json);
+      case 'ContraceptiveAction': return ContraceptiveAction.fromJSON(json);
+      case 'ContraceptiveMethodRequested': return ContraceptiveMethodRequested.fromJSON(json);
+      case 'ContraceptiveMethodRequestedAgainst': return ContraceptiveMethodRequestedAgainst.fromJSON(json);
+      case 'PregnancyHistory': return PregnancyHistory.fromJSON(json);
+      case 'CurrentPregnancyStatus': return CurrentPregnancyStatus.fromJSON(json);
+      case 'NumberOfPreviousPregnancies': return NumberOfPreviousPregnancies.fromJSON(json);
+      case 'NumberOfLivingChildren': return NumberOfLivingChildren.fromJSON(json);
+      default: throw new Error(`Unsupported type in ShrSexObjectFactory: ${type}`);
     }
   }
 }

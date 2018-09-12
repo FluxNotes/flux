@@ -197,7 +197,7 @@ class Facility extends Entity {
    * @param {object} json - the JSON data to deserialize
    * @returns {Facility} An instance of Facility populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Facility();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -209,7 +209,7 @@ class Facility extends Entity {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Facility' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/Facility' };
     if (this.relatedEncounter != null) {
       inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
     }
@@ -236,6 +236,71 @@ class Facility extends Entity {
     }
     if (this.managingOrganization != null) {
       inst['ManagingOrganization'] = typeof this.managingOrganization.toJSON === 'function' ? this.managingOrganization.toJSON() : this.managingOrganization;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Facility class to a FHIR object.
+   * The FHIR is expected to be valid against the Facility FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    inst['resourceType'] = 'Location';
+    if (this.relatedEncounter != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.relatedEncounter.toFHIR(true));
+    }
+    if (this.author != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.author.toFHIR(true));
+    }
+    if (this.informant != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.informant.toFHIR(true));
+    }
+    if (this.mobileFacility != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.mobileFacility.toFHIR(true));
+    }
+    if (this.facilityName != null) {
+      inst['name'] = typeof this.facilityName.toFHIR === 'function' ? this.facilityName.toFHIR() : this.facilityName;
+    }
+    if (this.type != null) {
+      inst['type'] = typeof this.type.toFHIR === 'function' ? this.type.toFHIR() : this.type;
+    }
+    if (this.contactPoint != null) {
+      inst['telecom'] = inst['telecom'] || [];
+      inst['telecom'].push(typeof this.contactPoint.toFHIR === 'function' ? this.contactPoint.toFHIR() : this.contactPoint);
+    }
+    if (this.location != null && this.location.address != null) {
+      inst['address'] = typeof this.location.address.toFHIR === 'function' ? this.location.address.toFHIR() : this.location.address;
+    }
+    if (this.location != null && this.location.geoposition != null && this.location.geoposition.longitude != null) {
+      if (inst['position'] === undefined) {
+        inst['position'] = {};
+      }
+      inst['position']['longitude'] = typeof this.location.geoposition.longitude.toFHIR === 'function' ? this.location.geoposition.longitude.toFHIR() : this.location.geoposition.longitude;
+    }
+    if (this.location != null && this.location.geoposition != null && this.location.geoposition.latitude != null) {
+      if (inst['position'] === undefined) {
+        inst['position'] = {};
+      }
+      inst['position']['latitude'] = typeof this.location.geoposition.latitude.toFHIR === 'function' ? this.location.geoposition.latitude.toFHIR() : this.location.geoposition.latitude;
+    }
+    if (this.location != null && this.location.geoposition != null && this.location.geoposition.altitude != null) {
+      if (inst['position'] === undefined) {
+        inst['position'] = {};
+      }
+      inst['position']['altitude'] = typeof this.location.geoposition.altitude.toFHIR === 'function' ? this.location.geoposition.altitude.toFHIR() : this.location.geoposition.altitude;
+    }
+    if (this.managingOrganization != null) {
+      inst['managingOrganization'] = typeof this.managingOrganization.toFHIR === 'function' ? this.managingOrganization.toFHIR() : this.managingOrganization;
+    }
+    if (asExtension) {
+      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-entity-Facility-extension';
+      inst['valueReference'] = this.value;
     }
     return inst;
   }

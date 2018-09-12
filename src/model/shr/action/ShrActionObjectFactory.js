@@ -38,29 +38,29 @@ export default class ShrActionObjectFactory {
       throw new Error(`Unsupported type in ShrActionObjectFactory: ${type}`);
     }
     switch (elementName) {
-    case 'Action': return Action.fromJSON(json);
-    case 'ActionContext': return ActionContext.fromJSON(json);
-    case 'Status': return Status.fromJSON(json);
-    case 'PerformedContext': return PerformedContext.fromJSON(json);
-    case 'Participant': return Participant.fromJSON(json);
-    case 'ParticipationType': return ParticipationType.fromJSON(json);
-    case 'ParticipationPeriod': return ParticipationPeriod.fromJSON(json);
-    case 'Method': return Method.fromJSON(json);
-    case 'RelatedRequest': return RelatedRequest.fromJSON(json);
-    case 'RelatedPlan': return RelatedPlan.fromJSON(json);
-    case 'Outcome': return Outcome.fromJSON(json);
-    case 'NotPerformedContext': return NotPerformedContext.fromJSON(json);
-    case 'RequestedContext': return RequestedContext.fromJSON(json);
-    case 'RequestIntent': return RequestIntent.fromJSON(json);
-    case 'ExpectedPerformanceTime': return ExpectedPerformanceTime.fromJSON(json);
-    case 'ExpectedPerformerType': return ExpectedPerformerType.fromJSON(json);
-    case 'ExpectedPerformer': return ExpectedPerformer.fromJSON(json);
-    case 'ExpectedMethod': return ExpectedMethod.fromJSON(json);
-    case 'PerformerInstructions': return PerformerInstructions.fromJSON(json);
-    case 'PatientInstructions': return PatientInstructions.fromJSON(json);
-    case 'CommunicationMethod': return CommunicationMethod.fromJSON(json);
-    case 'RequestedAgainstContext': return RequestedAgainstContext.fromJSON(json);
-    default: throw new Error(`Unsupported type in ShrActionObjectFactory: ${type}`);
+      case 'Action': return Action.fromJSON(json);
+      case 'ActionContext': return ActionContext.fromJSON(json);
+      case 'Status': return Status.fromJSON(json);
+      case 'PerformedContext': return PerformedContext.fromJSON(json);
+      case 'Participant': return Participant.fromJSON(json);
+      case 'ParticipationType': return ParticipationType.fromJSON(json);
+      case 'ParticipationPeriod': return ParticipationPeriod.fromJSON(json);
+      case 'Method': return Method.fromJSON(json);
+      case 'RelatedRequest': return RelatedRequest.fromJSON(json);
+      case 'RelatedPlan': return RelatedPlan.fromJSON(json);
+      case 'Outcome': return Outcome.fromJSON(json);
+      case 'NotPerformedContext': return NotPerformedContext.fromJSON(json);
+      case 'RequestedContext': return RequestedContext.fromJSON(json);
+      case 'RequestIntent': return RequestIntent.fromJSON(json);
+      case 'ExpectedPerformanceTime': return ExpectedPerformanceTime.fromJSON(json);
+      case 'ExpectedPerformerType': return ExpectedPerformerType.fromJSON(json);
+      case 'ExpectedPerformer': return ExpectedPerformer.fromJSON(json);
+      case 'ExpectedMethod': return ExpectedMethod.fromJSON(json);
+      case 'PerformerInstructions': return PerformerInstructions.fromJSON(json);
+      case 'PatientInstructions': return PatientInstructions.fromJSON(json);
+      case 'CommunicationMethod': return CommunicationMethod.fromJSON(json);
+      case 'RequestedAgainstContext': return RequestedAgainstContext.fromJSON(json);
+      default: throw new Error(`Unsupported type in ShrActionObjectFactory: ${type}`);
     }
   }
 }

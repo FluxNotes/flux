@@ -215,7 +215,7 @@ class HumanName {
    * @param {object} json - the JSON data to deserialize
    * @returns {HumanName} An instance of HumanName populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new HumanName();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -226,7 +226,7 @@ class HumanName {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/HumanName' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/HumanName' } };
     if (this.value != null) {
       inst['Value'] = this.value;
     }
@@ -247,6 +247,43 @@ class HumanName {
     }
     if (this.effectiveTimePeriod != null) {
       inst['EffectiveTimePeriod'] = typeof this.effectiveTimePeriod.toJSON === 'function' ? this.effectiveTimePeriod.toJSON() : this.effectiveTimePeriod;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the HumanName class to a FHIR object.
+   * The FHIR is expected to be valid against the HumanName FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (this.purpose != null) {
+      inst['use'] = typeof this.purpose.toFHIR === 'function' ? this.purpose.toFHIR() : this.purpose;
+    }
+    if (this.value != null) {
+      inst['text'] = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
+    }
+    if (this.familyName != null) {
+      inst['family'] = typeof this.familyName.toFHIR === 'function' ? this.familyName.toFHIR() : this.familyName;
+    }
+    if (this.givenName != null) {
+      inst['given'] = inst['given'] || [];
+      inst['given'].concat(this.givenName.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.humanNamePrefix != null) {
+      inst['prefix'] = typeof this.humanNamePrefix.toFHIR === 'function' ? this.humanNamePrefix.toFHIR() : this.humanNamePrefix;
+    }
+    if (this.humanNameSuffix != null) {
+      inst['suffix'] = inst['suffix'] || [];
+      inst['suffix'].concat(this.humanNameSuffix.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.effectiveTimePeriod != null) {
+      inst['period'] = typeof this.effectiveTimePeriod.toFHIR === 'function' ? this.effectiveTimePeriod.toFHIR() : this.effectiveTimePeriod;
+    }
+    if (asExtension) {
+      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-core-HumanName-extension';
+      inst['valueHumanName'] = this.value;
     }
     return inst;
   }

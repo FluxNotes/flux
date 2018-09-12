@@ -23,6 +23,7 @@ export default class FluxOncologyObjectFactory {
         if (namespace !== 'shr.oncology') {
             throw new Error(`Unsupported type in ShrOncologyObjectFactory: ${type}`);
         }
+
         // returns Flux wrapper class if found, otherwise use ShrOncologyObjectFactory
         switch (elementName) {
             case 'BRCA1Variant': return new FluxBRCA1Variant(json);

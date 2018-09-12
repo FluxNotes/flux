@@ -65,7 +65,7 @@ class IsActiveIngredient {
    * @param {object} json - the JSON data to deserialize
    * @returns {IsActiveIngredient} An instance of IsActiveIngredient populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new IsActiveIngredient();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -76,9 +76,24 @@ class IsActiveIngredient {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/IsActiveIngredient' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/IsActiveIngredient' } };
     if (this.value != null) {
       inst['Value'] = this.value;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the IsActiveIngredient class to a FHIR object.
+   * The FHIR is expected to be valid against the IsActiveIngredient FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (!asExtension && this.value != null) {
+      if (this.value != null) {
+        inst = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
+      }
     }
     return inst;
   }

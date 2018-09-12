@@ -189,7 +189,7 @@ class SpecimenContainer extends Entity {
    * @param {object} json - the JSON data to deserialize
    * @returns {SpecimenContainer} An instance of SpecimenContainer populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new SpecimenContainer();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -201,7 +201,7 @@ class SpecimenContainer extends Entity {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/SpecimenContainer' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/SpecimenContainer' };
     if (this.relatedEncounter != null) {
       inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
     }
@@ -231,6 +231,57 @@ class SpecimenContainer extends Entity {
     }
     if (this.sequenceNumber != null) {
       inst['SequenceNumber'] = typeof this.sequenceNumber.toJSON === 'function' ? this.sequenceNumber.toJSON() : this.sequenceNumber;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the SpecimenContainer class to a FHIR object.
+   * The FHIR is expected to be valid against the SpecimenContainer FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    inst['resourceType'] = 'Basic';
+    if (this.relatedEncounter != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.relatedEncounter.toFHIR(true));
+    }
+    if (this.author != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.author.toFHIR(true));
+    }
+    if (this.informant != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.informant.toFHIR(true));
+    }
+    if (this.type != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.type.toFHIR(true));
+    }
+    if (this.identifier != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.identifier.toFHIR(true));
+    }
+    if (this.details != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.details.toFHIR(true));
+    }
+    if (this.capacity != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.capacity.toFHIR(true));
+    }
+    if (this.specimenQuantity != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.specimenQuantity.toFHIR(true));
+    }
+    if (this.additive != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.additive.toFHIR(true));
+    }
+    if (this.sequenceNumber != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.sequenceNumber.toFHIR(true));
     }
     return inst;
   }

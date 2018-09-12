@@ -38,7 +38,7 @@ class GeneralizedDateTime {
    * @param {object} json - the JSON data to deserialize
    * @returns {GeneralizedDateTime} An instance of GeneralizedDateTime populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new GeneralizedDateTime();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -49,9 +49,33 @@ class GeneralizedDateTime {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/GeneralizedDateTime' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/GeneralizedDateTime' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the GeneralizedDateTime class to a FHIR object.
+   * The FHIR is expected to be valid against the GeneralizedDateTime FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (asExtension) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.dateTime.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.timePeriod.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.qualitativeDateTime.toFHIR(true));
+      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-core-GeneralizedDateTime-extension';
+    }
+    if (!asExtension && this.value != null) {
+      if (this.value != null) {
+        inst = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
+      }
     }
     return inst;
   }

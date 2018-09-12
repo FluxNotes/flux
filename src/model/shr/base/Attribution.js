@@ -65,7 +65,7 @@ class Attribution {
    * @param {object} json - the JSON data to deserialize
    * @returns {Attribution} An instance of Attribution populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Attribution();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -76,13 +76,23 @@ class Attribution {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/base/Attribution' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/base/Attribution' } };
     if (this.role != null) {
       inst['Role'] = typeof this.role.toJSON === 'function' ? this.role.toJSON() : this.role;
     }
     if (this.participationType != null) {
       inst['ParticipationType'] = typeof this.participationType.toJSON === 'function' ? this.participationType.toJSON() : this.participationType;
     }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Attribution class to a FHIR object.
+   * The FHIR is expected to be valid against the Attribution FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
     return inst;
   }
 }

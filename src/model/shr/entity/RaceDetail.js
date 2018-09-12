@@ -38,7 +38,7 @@ class RaceDetail {
    * @param {object} json - the JSON data to deserialize
    * @returns {RaceDetail} An instance of RaceDetail populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new RaceDetail();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -49,9 +49,24 @@ class RaceDetail {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/RaceDetail' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/RaceDetail' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the RaceDetail class to a FHIR object.
+   * The FHIR is expected to be valid against the RaceDetail FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (!asExtension && this.value != null) {
+      if (this.value != null) {
+        inst = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
+      }
     }
     return inst;
   }

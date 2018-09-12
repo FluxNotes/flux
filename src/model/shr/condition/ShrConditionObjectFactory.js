@@ -30,21 +30,21 @@ export default class ShrConditionObjectFactory {
       throw new Error(`Unsupported type in ShrConditionObjectFactory: ${type}`);
     }
     switch (elementName) {
-    case 'ClinicalStatus': return ClinicalStatus.fromJSON(json);
-    case 'Criticality': return Criticality.fromJSON(json);
-    case 'Severity': return Severity.fromJSON(json);
-    case 'ConditionAbsent': return ConditionAbsent.fromJSON(json);
-    case 'Condition': return Condition.fromJSON(json);
-    case 'Onset': return Onset.fromJSON(json);
-    case 'WhenClinicallyRecognized': return WhenClinicallyRecognized.fromJSON(json);
-    case 'Preexisting': return Preexisting.fromJSON(json);
-    case 'Abatement': return Abatement.fromJSON(json);
-    case 'Stage': return Stage.fromJSON(json);
-    case 'DiseaseProgression': return DiseaseProgression.fromJSON(json);
-    case 'AcademicProblem': return AcademicProblem.fromJSON(json);
-    case 'Injury': return Injury.fromJSON(json);
-    case 'MentalHealthCondition': return MentalHealthCondition.fromJSON(json);
-    default: throw new Error(`Unsupported type in ShrConditionObjectFactory: ${type}`);
+      case 'ClinicalStatus': return ClinicalStatus.fromJSON(json);
+      case 'Criticality': return Criticality.fromJSON(json);
+      case 'Severity': return Severity.fromJSON(json);
+      case 'ConditionAbsent': return ConditionAbsent.fromJSON(json);
+      case 'Condition': return Condition.fromJSON(json);
+      case 'Onset': return Onset.fromJSON(json);
+      case 'WhenClinicallyRecognized': return WhenClinicallyRecognized.fromJSON(json);
+      case 'Preexisting': return Preexisting.fromJSON(json);
+      case 'Abatement': return Abatement.fromJSON(json);
+      case 'Stage': return Stage.fromJSON(json);
+      case 'DiseaseProgression': return DiseaseProgression.fromJSON(json);
+      case 'AcademicProblem': return AcademicProblem.fromJSON(json);
+      case 'Injury': return Injury.fromJSON(json);
+      case 'MentalHealthCondition': return MentalHealthCondition.fromJSON(json);
+      default: throw new Error(`Unsupported type in ShrConditionObjectFactory: ${type}`);
     }
   }
 }

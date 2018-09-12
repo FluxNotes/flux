@@ -119,7 +119,7 @@ class Annotation {
    * @param {object} json - the JSON data to deserialize
    * @returns {Annotation} An instance of Annotation populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Annotation();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -130,7 +130,7 @@ class Annotation {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Annotation' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/Annotation' } };
     if (this.value != null) {
       inst['Value'] = this.value;
     }
@@ -139,6 +139,29 @@ class Annotation {
     }
     if (this.occurrenceTime != null) {
       inst['OccurrenceTime'] = typeof this.occurrenceTime.toJSON === 'function' ? this.occurrenceTime.toJSON() : this.occurrenceTime;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Annotation class to a FHIR object.
+   * The FHIR is expected to be valid against the Annotation FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (this.author != null) {
+      inst['author[x]'] = typeof this.author.toFHIR === 'function' ? this.author.toFHIR() : this.author;
+    }
+    if (this.occurrenceTime != null) {
+      inst['time'] = typeof this.occurrenceTime.toFHIR === 'function' ? this.occurrenceTime.toFHIR() : this.occurrenceTime;
+    }
+    if (this.value != null) {
+      inst['text'] = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
+    }
+    if (asExtension) {
+      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-core-Annotation-extension';
+      inst['valueAnnotation'] = this.value;
     }
     return inst;
   }

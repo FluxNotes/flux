@@ -41,32 +41,32 @@ export default class ShrMedicationObjectFactory {
       throw new Error(`Unsupported type in ShrMedicationObjectFactory: ${type}`);
     }
     switch (elementName) {
-    case 'MedicationAction': return MedicationAction.fromJSON(json);
-    case 'AdditionalDoseInstruction': return AdditionalDoseInstruction.fromJSON(json);
-    case 'AdministrationMethod': return AdministrationMethod.fromJSON(json);
-    case 'Dosage': return Dosage.fromJSON(json);
-    case 'DoseAmount': return DoseAmount.fromJSON(json);
-    case 'TimingOfDoses': return TimingOfDoses.fromJSON(json);
-    case 'AsNeededIndicator': return AsNeededIndicator.fromJSON(json);
-    case 'DoseInstructionsText': return DoseInstructionsText.fromJSON(json);
-    case 'RouteIntoBody': return RouteIntoBody.fromJSON(json);
-    case 'AdministrationBodySite': return AdministrationBodySite.fromJSON(json);
-    case 'MaximumDosePerTimePeriod': return MaximumDosePerTimePeriod.fromJSON(json);
-    case 'MedicationDispenseAction': return MedicationDispenseAction.fromJSON(json);
-    case 'NumberOfRefillsAllowed': return NumberOfRefillsAllowed.fromJSON(json);
-    case 'QuantityPerDispense': return QuantityPerDispense.fromJSON(json);
-    case 'SupplyDuration': return SupplyDuration.fromJSON(json);
-    case 'MedicationUsed': return MedicationUsed.fromJSON(json);
-    case 'Adherence': return Adherence.fromJSON(json);
-    case 'MedicationNotUsed': return MedicationNotUsed.fromJSON(json);
-    case 'MedicationRequested': return MedicationRequested.fromJSON(json);
-    case 'MedicationNotRequested': return MedicationNotRequested.fromJSON(json);
-    case 'MedicationDispensed': return MedicationDispensed.fromJSON(json);
-    case 'MedicationNotDispensed': return MedicationNotDispensed.fromJSON(json);
-    case 'MedicationChange': return MedicationChange.fromJSON(json);
-    case 'MedicationBeforeChange': return MedicationBeforeChange.fromJSON(json);
-    case 'MedicationAfterChange': return MedicationAfterChange.fromJSON(json);
-    default: throw new Error(`Unsupported type in ShrMedicationObjectFactory: ${type}`);
+      case 'MedicationAction': return MedicationAction.fromJSON(json);
+      case 'AdditionalDoseInstruction': return AdditionalDoseInstruction.fromJSON(json);
+      case 'AdministrationMethod': return AdministrationMethod.fromJSON(json);
+      case 'Dosage': return Dosage.fromJSON(json);
+      case 'DoseAmount': return DoseAmount.fromJSON(json);
+      case 'TimingOfDoses': return TimingOfDoses.fromJSON(json);
+      case 'AsNeededIndicator': return AsNeededIndicator.fromJSON(json);
+      case 'DoseInstructionsText': return DoseInstructionsText.fromJSON(json);
+      case 'RouteIntoBody': return RouteIntoBody.fromJSON(json);
+      case 'AdministrationBodySite': return AdministrationBodySite.fromJSON(json);
+      case 'MaximumDosePerTimePeriod': return MaximumDosePerTimePeriod.fromJSON(json);
+      case 'MedicationDispenseAction': return MedicationDispenseAction.fromJSON(json);
+      case 'NumberOfRefillsAllowed': return NumberOfRefillsAllowed.fromJSON(json);
+      case 'QuantityPerDispense': return QuantityPerDispense.fromJSON(json);
+      case 'SupplyDuration': return SupplyDuration.fromJSON(json);
+      case 'MedicationUsed': return MedicationUsed.fromJSON(json);
+      case 'Adherence': return Adherence.fromJSON(json);
+      case 'MedicationNotUsed': return MedicationNotUsed.fromJSON(json);
+      case 'MedicationRequested': return MedicationRequested.fromJSON(json);
+      case 'MedicationNotRequested': return MedicationNotRequested.fromJSON(json);
+      case 'MedicationDispensed': return MedicationDispensed.fromJSON(json);
+      case 'MedicationNotDispensed': return MedicationNotDispensed.fromJSON(json);
+      case 'MedicationChange': return MedicationChange.fromJSON(json);
+      case 'MedicationBeforeChange': return MedicationBeforeChange.fromJSON(json);
+      case 'MedicationAfterChange': return MedicationAfterChange.fromJSON(json);
+      default: throw new Error(`Unsupported type in ShrMedicationObjectFactory: ${type}`);
     }
   }
 }

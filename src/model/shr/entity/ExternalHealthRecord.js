@@ -68,7 +68,7 @@ class ExternalHealthRecord extends Entity {
    * @param {object} json - the JSON data to deserialize
    * @returns {ExternalHealthRecord} An instance of ExternalHealthRecord populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new ExternalHealthRecord();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -79,7 +79,7 @@ class ExternalHealthRecord extends Entity {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/ExternalHealthRecord' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/ExternalHealthRecord' } };
     if (this.relatedEncounter != null) {
       inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
     }
@@ -97,6 +97,31 @@ class ExternalHealthRecord extends Entity {
     }
     if (this.accessTime != null) {
       inst['AccessTime'] = typeof this.accessTime.toJSON === 'function' ? this.accessTime.toJSON() : this.accessTime;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the ExternalHealthRecord class to a FHIR object.
+   * The FHIR is expected to be valid against the ExternalHealthRecord FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (asExtension) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.relatedEncounter.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.author.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.informant.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.type.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.identifier.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.accessTime.toFHIR(true));
+      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-entity-ExternalHealthRecord-extension';
     }
     return inst;
   }

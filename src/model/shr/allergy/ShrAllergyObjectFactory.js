@@ -25,16 +25,16 @@ export default class ShrAllergyObjectFactory {
       throw new Error(`Unsupported type in ShrAllergyObjectFactory: ${type}`);
     }
     switch (elementName) {
-    case 'SubstanceCategory': return SubstanceCategory.fromJSON(json);
-    case 'VerificationStatus': return VerificationStatus.fromJSON(json);
-    case 'AllergyIntolerance': return AllergyIntolerance.fromJSON(json);
-    case 'MostRecentOccurrenceTime': return MostRecentOccurrenceTime.fromJSON(json);
-    case 'AdverseReaction': return AdverseReaction.fromJSON(json);
-    case 'AllergenIrritant': return AllergenIrritant.fromJSON(json);
-    case 'Manifestation': return Manifestation.fromJSON(json);
-    case 'NoAllergyToSubstance': return NoAllergyToSubstance.fromJSON(json);
-    case 'NoKnownAllergy': return NoKnownAllergy.fromJSON(json);
-    default: throw new Error(`Unsupported type in ShrAllergyObjectFactory: ${type}`);
+      case 'SubstanceCategory': return SubstanceCategory.fromJSON(json);
+      case 'VerificationStatus': return VerificationStatus.fromJSON(json);
+      case 'AllergyIntolerance': return AllergyIntolerance.fromJSON(json);
+      case 'MostRecentOccurrenceTime': return MostRecentOccurrenceTime.fromJSON(json);
+      case 'AdverseReaction': return AdverseReaction.fromJSON(json);
+      case 'AllergenIrritant': return AllergenIrritant.fromJSON(json);
+      case 'Manifestation': return Manifestation.fromJSON(json);
+      case 'NoAllergyToSubstance': return NoAllergyToSubstance.fromJSON(json);
+      case 'NoKnownAllergy': return NoKnownAllergy.fromJSON(json);
+      default: throw new Error(`Unsupported type in ShrAllergyObjectFactory: ${type}`);
     }
   }
 }

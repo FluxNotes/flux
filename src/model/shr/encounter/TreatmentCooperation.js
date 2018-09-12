@@ -65,7 +65,7 @@ class TreatmentCooperation {
    * @param {object} json - the JSON data to deserialize
    * @returns {TreatmentCooperation} An instance of TreatmentCooperation populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new TreatmentCooperation();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -76,9 +76,28 @@ class TreatmentCooperation {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/encounter/TreatmentCooperation' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/encounter/TreatmentCooperation' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the TreatmentCooperation class to a FHIR object.
+   * The FHIR is expected to be valid against the TreatmentCooperation FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (asExtension) {
+      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-encounter-TreatmentCooperation-extension';
+      inst['valueCodeableConcept'] = this.value;
+    }
+    if (!asExtension && this.value != null) {
+      if (this.value != null) {
+        inst = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
+      }
     }
     return inst;
   }

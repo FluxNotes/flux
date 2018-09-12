@@ -140,7 +140,7 @@ class ReferenceRange {
    * @param {object} json - the JSON data to deserialize
    * @returns {ReferenceRange} An instance of ReferenceRange populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new ReferenceRange();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -151,7 +151,7 @@ class ReferenceRange {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/finding/ReferenceRange' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/finding/ReferenceRange' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -163,6 +163,32 @@ class ReferenceRange {
     }
     if (this.applicableAgeRange != null) {
       inst['ApplicableAgeRange'] = typeof this.applicableAgeRange.toJSON === 'function' ? this.applicableAgeRange.toJSON() : this.applicableAgeRange;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the ReferenceRange class to a FHIR object.
+   * The FHIR is expected to be valid against the ReferenceRange FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (asExtension) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.range.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.type.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.applicableSubpopulation.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.applicableAgeRange.toFHIR(true));
+      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-finding-ReferenceRange-extension';
+    }
+    if (!asExtension && this.value != null) {
+      if (this.value != null) {
+        inst = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
+      }
     }
     return inst;
   }

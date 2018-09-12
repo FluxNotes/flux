@@ -199,7 +199,7 @@ class ResearchSubject extends Role {
    * @param {object} json - the JSON data to deserialize
    * @returns {ResearchSubject} An instance of ResearchSubject populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new ResearchSubject();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -211,7 +211,7 @@ class ResearchSubject extends Role {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/research/ResearchSubject' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/research/ResearchSubject' };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -238,6 +238,46 @@ class ResearchSubject extends Role {
     }
     if (this.terminationReason != null) {
       inst['TerminationReason'] = typeof this.terminationReason.toJSON === 'function' ? this.terminationReason.toJSON() : this.terminationReason;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the ResearchSubject class to a FHIR object.
+   * The FHIR is expected to be valid against the ResearchSubject FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    inst['resourceType'] = 'ResearchSubject';
+    if (this.relatedEncounter != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.relatedEncounter.toFHIR(true));
+    }
+    if (this.author != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.author.toFHIR(true));
+    }
+    if (this.informant != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.informant.toFHIR(true));
+    }
+    if (this.type != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.type.toFHIR(true));
+    }
+    if (this.terminationReason != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.terminationReason.toFHIR(true));
+    }
+    if (this.status != null) {
+      inst['status'] = typeof this.status.toFHIR === 'function' ? this.status.toFHIR() : this.status;
+    }
+    if (this.participationPeriod != null) {
+      inst['period'] = typeof this.participationPeriod.toFHIR === 'function' ? this.participationPeriod.toFHIR() : this.participationPeriod;
+    }
+    if (this.study != null) {
+      inst['study'] = typeof this.study.toFHIR === 'function' ? this.study.toFHIR() : this.study;
     }
     return inst;
   }

@@ -38,7 +38,7 @@ class Informant {
    * @param {object} json - the JSON data to deserialize
    * @returns {Informant} An instance of Informant populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Informant();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -49,9 +49,41 @@ class Informant {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/base/Informant' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/base/Informant' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Informant class to a FHIR object.
+   * The FHIR is expected to be valid against the Informant FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (asExtension) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.string.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.patient.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.group.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.device.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.participant.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.relatedPerson.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.organization.toFHIR(true));
+      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-base-Informant-extension';
+    }
+    if (!asExtension && this.value != null) {
+      if (this.value != null) {
+        inst = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
+      }
     }
     return inst;
   }

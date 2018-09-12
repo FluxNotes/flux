@@ -315,7 +315,7 @@ class Entry extends Any {
    * @param {object} json - the JSON data to deserialize
    * @returns {Entry} An instance of Entry populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Entry();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -326,7 +326,7 @@ class Entry extends Any {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/base/Entry' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/base/Entry' } };
     if (this.shrId != null) {
       inst['ShrId'] = typeof this.shrId.toJSON === 'function' ? this.shrId.toJSON() : this.shrId;
     }
@@ -359,6 +359,69 @@ class Entry extends Any {
     }
     if (this.tag != null) {
       inst['Tag'] = this.tag.map(f => f.toJSON());
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Entry class to a FHIR object.
+   * The FHIR is expected to be valid against the Entry FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (this.entryId != null) {
+      inst['id'] = typeof this.entryId.toFHIR === 'function' ? this.entryId.toFHIR() : this.entryId;
+    }
+    if (this.version != null) {
+      if (inst['meta'] === undefined) {
+        inst['meta'] = {};
+      }
+      inst['meta']['versionId'] = typeof this.version.toFHIR === 'function' ? this.version.toFHIR() : this.version;
+    }
+    if (this.lastUpdated != null) {
+      if (inst['meta'] === undefined) {
+        inst['meta'] = {};
+      }
+      inst['meta']['lastUpdated'] = typeof this.lastUpdated.toFHIR === 'function' ? this.lastUpdated.toFHIR() : this.lastUpdated;
+    }
+    if (this.entryType != null) {
+      if (inst['meta'] === undefined) {
+        inst['meta'] = {};
+      }
+      inst['meta']['profile'] = typeof this.entryType.toFHIR === 'function' ? this.entryType.toFHIR() : this.entryType;
+    }
+    if (this.securityLabel != null) {
+      if (inst['meta'] === undefined) {
+        inst['meta'] = {};
+      }
+      inst['meta']['security'] = inst['meta']['security'] || [];
+      inst['meta']['security'].concat(this.securityLabel.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.tag != null) {
+      if (inst['meta'] === undefined) {
+        inst['meta'] = {};
+      }
+      inst['meta']['tag'] = inst['meta']['tag'] || [];
+      inst['meta']['tag'].concat(this.tag.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.language != null) {
+      inst['language'] = typeof this.language.toFHIR === 'function' ? this.language.toFHIR() : this.language;
+    }
+    if (this.narrative != null) {
+      inst['text'] = typeof this.narrative.toFHIR === 'function' ? this.narrative.toFHIR() : this.narrative;
+    }
+    if (this.shrId != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.shrId.toFHIR(true));
+    }
+    if (this.personOfRecord != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.personOfRecord.toFHIR(true));
+    }
+    if (this.creationTime != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.creationTime.toFHIR(true));
     }
     return inst;
   }
