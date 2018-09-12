@@ -144,6 +144,7 @@ export default class TargetedDataSection extends Component {
                 typeToIndex = viz.renderedFormat;
                 newSubsection = sectionTransform(patient, condition, subsection);
                 list = newSubsection.data_cache;
+                Object.assign(subsection, newSubsection);
             } else {
                 newSubsection = subsection;
                 typeToIndex = type;

@@ -130,7 +130,7 @@ export default class TabularListVisualizer extends Component {
 
         let nameSuffix = '';
         if (transformedSubsection.name_suffix) {
-            nameSuffix = <span>{nameSuffix}</span>;
+            nameSuffix = <span>{transformedSubsection.name_suffix}</span>;
         }
         if (subsectionName && subsectionName.length > 0) {
             subsectionNameHTML = <h2 className="subsection list-subsection-header"><span>{subsectionName}</span>{nameSuffix}</h2>;
@@ -393,7 +393,6 @@ TabularListVisualizer.propTypes = {
     patient: PropTypes.object,
     condition: PropTypes.object,
     conditionSection: PropTypes.object,
-    sectionTransform: PropTypes.func,
     isWide: PropTypes.bool,
     allowItemClick: PropTypes.bool,
     actions: PropTypes.array
