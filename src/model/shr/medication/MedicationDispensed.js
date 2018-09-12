@@ -41,7 +41,7 @@ class MedicationDispensed extends MedicationDispenseAction {
    * @param {object} json - the JSON data to deserialize
    * @returns {MedicationDispensed} An instance of MedicationDispensed populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new MedicationDispensed();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -52,7 +52,7 @@ class MedicationDispensed extends MedicationDispenseAction {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/medication/MedicationDispensed' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/medication/MedicationDispensed' } };
     if (this.relatedEncounter != null) {
       inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
     }
@@ -86,6 +86,16 @@ class MedicationDispensed extends MedicationDispenseAction {
     if (this.supplyDuration != null) {
       inst['SupplyDuration'] = typeof this.supplyDuration.toJSON === 'function' ? this.supplyDuration.toJSON() : this.supplyDuration;
     }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the MedicationDispensed class to a FHIR object.
+   * The FHIR is expected to be valid against the MedicationDispensed FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
     return inst;
   }
 }

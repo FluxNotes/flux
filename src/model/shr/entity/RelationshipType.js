@@ -90,7 +90,7 @@ class RelationshipType {
    * @param {object} json - the JSON data to deserialize
    * @returns {RelationshipType} An instance of RelationshipType populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new RelationshipType();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -102,10 +102,21 @@ class RelationshipType {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/RelationshipType' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/RelationshipType' };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the RelationshipType class to a FHIR object.
+   * The FHIR is expected to be valid against the RelationshipType FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    inst['resourceType'] = 'Basic';
     return inst;
   }
 }

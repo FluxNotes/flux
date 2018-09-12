@@ -92,7 +92,7 @@ class Narrative {
    * @param {object} json - the JSON data to deserialize
    * @returns {Narrative} An instance of Narrative populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Narrative();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -103,12 +103,28 @@ class Narrative {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/base/Narrative' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/base/Narrative' } };
     if (this.value != null) {
       inst['Value'] = this.value;
     }
     if (this.narrativeQualifier != null) {
       inst['NarrativeQualifier'] = typeof this.narrativeQualifier.toJSON === 'function' ? this.narrativeQualifier.toJSON() : this.narrativeQualifier;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Narrative class to a FHIR object.
+   * The FHIR is expected to be valid against the Narrative FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (this.narrativeQualifier != null) {
+      inst['status'] = typeof this.narrativeQualifier.toFHIR === 'function' ? this.narrativeQualifier.toFHIR() : this.narrativeQualifier;
+    }
+    if (this.value != null) {
+      inst['div'] = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
     }
     return inst;
   }

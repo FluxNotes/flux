@@ -65,7 +65,7 @@ class ResourceLocation {
    * @param {object} json - the JSON data to deserialize
    * @returns {ResourceLocation} An instance of ResourceLocation populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new ResourceLocation();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -76,9 +76,24 @@ class ResourceLocation {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/ResourceLocation' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/ResourceLocation' } };
     if (this.value != null) {
       inst['Value'] = this.value;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the ResourceLocation class to a FHIR object.
+   * The FHIR is expected to be valid against the ResourceLocation FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (!asExtension && this.value != null) {
+      if (this.value != null) {
+        inst = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
+      }
     }
     return inst;
   }

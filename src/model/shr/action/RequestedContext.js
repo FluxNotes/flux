@@ -293,7 +293,7 @@ class RequestedContext extends ActionContext {
    * @param {object} json - the JSON data to deserialize
    * @returns {RequestedContext} An instance of RequestedContext populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new RequestedContext();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -304,7 +304,7 @@ class RequestedContext extends ActionContext {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/action/RequestedContext' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/action/RequestedContext' } };
     if (this.reason != null) {
       inst['Reason'] = this.reason.map(f => f.toJSON());
     }
@@ -340,6 +340,41 @@ class RequestedContext extends ActionContext {
     }
     if (this.communicationMethod != null) {
       inst['CommunicationMethod'] = typeof this.communicationMethod.toJSON === 'function' ? this.communicationMethod.toJSON() : this.communicationMethod;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the RequestedContext class to a FHIR object.
+   * The FHIR is expected to be valid against the RequestedContext FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (asExtension) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.reason.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.status.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.requestIntent.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.expectedPerformanceTime.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.expectedPerformerType.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.expectedPerformer.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.expectedMethod.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.priority.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.performerInstructions.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.patientInstructions.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.communicationMethod.toFHIR(true));
+      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-action-RequestedContext-extension';
     }
     return inst;
   }

@@ -32,23 +32,23 @@ export default class ShrSkinObjectFactory {
       throw new Error(`Unsupported type in ShrSkinObjectFactory: ${type}`);
     }
     switch (elementName) {
-    case 'SupportSurface': return SupportSurface.fromJSON(json);
-    case 'SupportSurfaceCategory': return SupportSurfaceCategory.fromJSON(json);
-    case 'SupportSurfaceBodyPosition': return SupportSurfaceBodyPosition.fromJSON(json);
-    case 'SupportSurfaceComponent': return SupportSurfaceComponent.fromJSON(json);
-    case 'SupportSurfaceUsed': return SupportSurfaceUsed.fromJSON(json);
-    case 'ImmersionDepth': return ImmersionDepth.fromJSON(json);
-    case 'Wound': return Wound.fromJSON(json);
-    case 'WoundAbsent': return WoundAbsent.fromJSON(json);
-    case 'WoundAssessmentPanel': return WoundAssessmentPanel.fromJSON(json);
-    case 'VisibleInternalStructure': return VisibleInternalStructure.fromJSON(json);
-    case 'WoundSize': return WoundSize.fromJSON(json);
-    case 'WoundTunneling': return WoundTunneling.fromJSON(json);
-    case 'WoundUndermining': return WoundUndermining.fromJSON(json);
-    case 'WoundBedAndEdge': return WoundBedAndEdge.fromJSON(json);
-    case 'WoundEdgeAppearance': return WoundEdgeAppearance.fromJSON(json);
-    case 'WoundExudate': return WoundExudate.fromJSON(json);
-    default: throw new Error(`Unsupported type in ShrSkinObjectFactory: ${type}`);
+      case 'SupportSurface': return SupportSurface.fromJSON(json);
+      case 'SupportSurfaceCategory': return SupportSurfaceCategory.fromJSON(json);
+      case 'SupportSurfaceBodyPosition': return SupportSurfaceBodyPosition.fromJSON(json);
+      case 'SupportSurfaceComponent': return SupportSurfaceComponent.fromJSON(json);
+      case 'SupportSurfaceUsed': return SupportSurfaceUsed.fromJSON(json);
+      case 'ImmersionDepth': return ImmersionDepth.fromJSON(json);
+      case 'Wound': return Wound.fromJSON(json);
+      case 'WoundAbsent': return WoundAbsent.fromJSON(json);
+      case 'WoundAssessmentPanel': return WoundAssessmentPanel.fromJSON(json);
+      case 'VisibleInternalStructure': return VisibleInternalStructure.fromJSON(json);
+      case 'WoundSize': return WoundSize.fromJSON(json);
+      case 'WoundTunneling': return WoundTunneling.fromJSON(json);
+      case 'WoundUndermining': return WoundUndermining.fromJSON(json);
+      case 'WoundBedAndEdge': return WoundBedAndEdge.fromJSON(json);
+      case 'WoundEdgeAppearance': return WoundEdgeAppearance.fromJSON(json);
+      case 'WoundExudate': return WoundExudate.fromJSON(json);
+      default: throw new Error(`Unsupported type in ShrSkinObjectFactory: ${type}`);
     }
   }
 }

@@ -116,7 +116,7 @@ class Objective extends Goal {
    * @param {object} json - the JSON data to deserialize
    * @returns {Objective} An instance of Objective populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Objective();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -127,7 +127,7 @@ class Objective extends Goal {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/careplan/Objective' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/careplan/Objective' } };
     if (this.relatedEncounter != null) {
       inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
     }
@@ -185,6 +185,16 @@ class Objective extends Goal {
     if (this.relatedFinding != null) {
       inst['RelatedFinding'] = this.relatedFinding.map(f => f.toJSON());
     }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Objective class to a FHIR object.
+   * The FHIR is expected to be valid against the Objective FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
     return inst;
   }
 }

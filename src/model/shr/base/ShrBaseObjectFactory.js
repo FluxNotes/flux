@@ -34,25 +34,25 @@ export default class ShrBaseObjectFactory {
       throw new Error(`Unsupported type in ShrBaseObjectFactory: ${type}`);
     }
     switch (elementName) {
-    case 'Any': return Any.fromJSON(json);
-    case 'Content': return Content.fromJSON(json);
-    case 'Entry': return Entry.fromJSON(json);
-    case 'ShrId': return ShrId.fromJSON(json);
-    case 'EntryId': return EntryId.fromJSON(json);
-    case 'PersonOfRecord': return PersonOfRecord.fromJSON(json);
-    case 'EntryType': return EntryType.fromJSON(json);
-    case 'LastUpdated': return LastUpdated.fromJSON(json);
-    case 'Language': return Language.fromJSON(json);
-    case 'Attribution': return Attribution.fromJSON(json);
-    case 'SecurityLabel': return SecurityLabel.fromJSON(json);
-    case 'Tag': return Tag.fromJSON(json);
-    case 'Narrative': return Narrative.fromJSON(json);
-    case 'NarrativeQualifier': return NarrativeQualifier.fromJSON(json);
-    case 'RelatedEncounter': return RelatedEncounter.fromJSON(json);
-    case 'Informant': return Informant.fromJSON(json);
-    case 'Author': return Author.fromJSON(json);
-    case 'Subject': return Subject.fromJSON(json);
-    default: throw new Error(`Unsupported type in ShrBaseObjectFactory: ${type}`);
+      case 'Any': return Any.fromJSON(json);
+      case 'Content': return Content.fromJSON(json);
+      case 'Entry': return Entry.fromJSON(json);
+      case 'ShrId': return ShrId.fromJSON(json);
+      case 'EntryId': return EntryId.fromJSON(json);
+      case 'PersonOfRecord': return PersonOfRecord.fromJSON(json);
+      case 'EntryType': return EntryType.fromJSON(json);
+      case 'LastUpdated': return LastUpdated.fromJSON(json);
+      case 'Language': return Language.fromJSON(json);
+      case 'Attribution': return Attribution.fromJSON(json);
+      case 'SecurityLabel': return SecurityLabel.fromJSON(json);
+      case 'Tag': return Tag.fromJSON(json);
+      case 'Narrative': return Narrative.fromJSON(json);
+      case 'NarrativeQualifier': return NarrativeQualifier.fromJSON(json);
+      case 'RelatedEncounter': return RelatedEncounter.fromJSON(json);
+      case 'Informant': return Informant.fromJSON(json);
+      case 'Author': return Author.fromJSON(json);
+      case 'Subject': return Subject.fromJSON(json);
+      default: throw new Error(`Unsupported type in ShrBaseObjectFactory: ${type}`);
     }
   }
 }

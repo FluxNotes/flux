@@ -143,7 +143,7 @@ class RelatedPerson extends Role {
    * @param {object} json - the JSON data to deserialize
    * @returns {RelatedPerson} An instance of RelatedPerson populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new RelatedPerson();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -155,7 +155,7 @@ class RelatedPerson extends Role {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/RelatedPerson' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/RelatedPerson' };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -176,6 +176,43 @@ class RelatedPerson extends Role {
     }
     if (this.effectiveTimePeriod != null) {
       inst['EffectiveTimePeriod'] = typeof this.effectiveTimePeriod.toJSON === 'function' ? this.effectiveTimePeriod.toJSON() : this.effectiveTimePeriod;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the RelatedPerson class to a FHIR object.
+   * The FHIR is expected to be valid against the RelatedPerson FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    inst['resourceType'] = 'RelatedPerson';
+    if (this.relatedEncounter != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.relatedEncounter.toFHIR(true));
+    }
+    if (this.author != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.author.toFHIR(true));
+    }
+    if (this.informant != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.informant.toFHIR(true));
+    }
+    if (this.type != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.type.toFHIR(true));
+    }
+    if (this.relationshipType != null) {
+      inst['relationship'] = typeof this.relationshipType.toFHIR === 'function' ? this.relationshipType.toFHIR() : this.relationshipType;
+    }
+    if (this.effectiveTimePeriod != null) {
+      inst['period'] = typeof this.effectiveTimePeriod.toFHIR === 'function' ? this.effectiveTimePeriod.toFHIR() : this.effectiveTimePeriod;
+    }
+    if (asExtension) {
+      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-entity-RelatedPerson-extension';
+      inst['valueReference'] = this.value;
     }
     return inst;
   }

@@ -347,7 +347,7 @@ class AllergyIntolerance extends SpecializedFinding {
    * @param {object} json - the JSON data to deserialize
    * @returns {AllergyIntolerance} An instance of AllergyIntolerance populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new AllergyIntolerance();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -359,7 +359,7 @@ class AllergyIntolerance extends SpecializedFinding {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/allergy/AllergyIntolerance' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/allergy/AllergyIntolerance' };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -416,6 +416,118 @@ class AllergyIntolerance extends SpecializedFinding {
     }
     if (this.mostRecentOccurrenceTime != null) {
       inst['MostRecentOccurrenceTime'] = typeof this.mostRecentOccurrenceTime.toJSON === 'function' ? this.mostRecentOccurrenceTime.toJSON() : this.mostRecentOccurrenceTime;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the AllergyIntolerance class to a FHIR object.
+   * The FHIR is expected to be valid against the AllergyIntolerance FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    inst['resourceType'] = 'AllergyIntolerance';
+    if (this.relatedEncounter != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.relatedEncounter.toFHIR(true));
+    }
+    if (this.focalSubject != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.focalSubject.toFHIR(true));
+    }
+    if (this.focalSubjectReference != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.focalSubjectReference.toFHIR(true));
+    }
+    if (this.findingMethod != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.findingMethod.toFHIR(true));
+    }
+    if (this.findingStatus != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.findingStatus.toFHIR(true));
+    }
+    if (this.evidence != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.evidence.toFHIR(true));
+    }
+    if (this.abatement != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.abatement.toFHIR(true));
+    }
+    if (this.clinicalStatus != null) {
+      inst['clinicalStatus'] = typeof this.clinicalStatus.toFHIR === 'function' ? this.clinicalStatus.toFHIR() : this.clinicalStatus;
+    }
+    if (this.verificationStatus != null) {
+      inst['verificationStatus'] = typeof this.verificationStatus.toFHIR === 'function' ? this.verificationStatus.toFHIR() : this.verificationStatus;
+    }
+    if (this.type != null) {
+      inst['type'] = typeof this.type.toFHIR === 'function' ? this.type.toFHIR() : this.type;
+    }
+    if (this.substanceCategory != null) {
+      inst['category'] = inst['category'] || [];
+      inst['category'].concat(this.substanceCategory.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.criticality != null) {
+      inst['criticality'] = typeof this.criticality.toFHIR === 'function' ? this.criticality.toFHIR() : this.criticality;
+    }
+    if (this.subject != null) {
+      inst['patient'] = typeof this.subject.toFHIR === 'function' ? this.subject.toFHIR() : this.subject;
+    }
+    if (this.onset != null) {
+      inst['onset[x]'] = typeof this.onset.toFHIR === 'function' ? this.onset.toFHIR() : this.onset;
+    }
+    if (this.author != null) {
+      inst['recorder'] = typeof this.author.toFHIR === 'function' ? this.author.toFHIR() : this.author;
+    }
+    if (this.informant != null) {
+      inst['asserter'] = typeof this.informant.toFHIR === 'function' ? this.informant.toFHIR() : this.informant;
+    }
+    if (this.mostRecentOccurrenceTime != null) {
+      inst['lastOccurrence'] = typeof this.mostRecentOccurrenceTime.toFHIR === 'function' ? this.mostRecentOccurrenceTime.toFHIR() : this.mostRecentOccurrenceTime;
+    }
+    if (this.adverseReaction != null && this.adverseReaction.allergenIrritant != null) {
+      if (inst['reaction'] === undefined) {
+        inst['reaction'] = {};
+      }
+      inst['reaction']['substance'] = inst['reaction']['substance'] || [];
+      inst['reaction']['substance'].concat(this.adverseReaction.allergenIrritant.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.adverseReaction != null && this.adverseReaction.manifestation != null) {
+      if (inst['reaction'] === undefined) {
+        inst['reaction'] = {};
+      }
+      inst['reaction']['manifestation'] = inst['reaction']['manifestation'] || [];
+      inst['reaction']['manifestation'].concat(this.adverseReaction.manifestation.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.adverseReaction != null && this.adverseReaction.details != null) {
+      if (inst['reaction'] === undefined) {
+        inst['reaction'] = {};
+      }
+      inst['reaction']['description'] = inst['reaction']['description'] || [];
+      inst['reaction']['description'].concat(this.adverseReaction.details.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.adverseReaction != null && this.adverseReaction.occurrenceTime != null) {
+      if (inst['reaction'] === undefined) {
+        inst['reaction'] = {};
+      }
+      inst['reaction']['onset'] = inst['reaction']['onset'] || [];
+      inst['reaction']['onset'].concat(this.adverseReaction.occurrenceTime.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.adverseReaction != null && this.adverseReaction.severity != null) {
+      if (inst['reaction'] === undefined) {
+        inst['reaction'] = {};
+      }
+      inst['reaction']['severity'] = inst['reaction']['severity'] || [];
+      inst['reaction']['severity'].concat(this.adverseReaction.severity.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.adverseReaction != null && this.adverseReaction.routeIntoBody != null) {
+      if (inst['reaction'] === undefined) {
+        inst['reaction'] = {};
+      }
+      inst['reaction']['exposureRoute'] = inst['reaction']['exposureRoute'] || [];
+      inst['reaction']['exposureRoute'].concat(this.adverseReaction.routeIntoBody.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     return inst;
   }

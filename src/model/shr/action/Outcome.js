@@ -90,7 +90,7 @@ class Outcome {
    * @param {object} json - the JSON data to deserialize
    * @returns {Outcome} An instance of Outcome populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Outcome();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -101,12 +101,34 @@ class Outcome {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/action/Outcome' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/action/Outcome' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
     if (this.finding != null) {
       inst['Finding'] = this.finding.map(f => f.toJSON());
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Outcome class to a FHIR object.
+   * The FHIR is expected to be valid against the Outcome FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (asExtension) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.codeableConcept.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.finding.toFHIR(true));
+      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-action-Outcome-extension';
+    }
+    if (!asExtension && this.value != null) {
+      if (this.value != null) {
+        inst = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
+      }
     }
     return inst;
   }

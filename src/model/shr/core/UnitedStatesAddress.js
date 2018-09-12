@@ -41,7 +41,7 @@ class UnitedStatesAddress extends Address {
    * @param {object} json - the JSON data to deserialize
    * @returns {UnitedStatesAddress} An instance of UnitedStatesAddress populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new UnitedStatesAddress();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -52,7 +52,7 @@ class UnitedStatesAddress extends Address {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/UnitedStatesAddress' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/UnitedStatesAddress' } };
     if (this.purpose != null) {
       inst['Purpose'] = typeof this.purpose.toJSON === 'function' ? this.purpose.toJSON() : this.purpose;
     }
@@ -82,6 +82,44 @@ class UnitedStatesAddress extends Address {
     }
     if (this.effectiveTimePeriod != null) {
       inst['EffectiveTimePeriod'] = typeof this.effectiveTimePeriod.toJSON === 'function' ? this.effectiveTimePeriod.toJSON() : this.effectiveTimePeriod;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the UnitedStatesAddress class to a FHIR object.
+   * The FHIR is expected to be valid against the UnitedStatesAddress FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (this.purpose != null) {
+      inst['use'] = typeof this.purpose.toFHIR === 'function' ? this.purpose.toFHIR() : this.purpose;
+    }
+    if (this.type != null) {
+      inst['type'] = typeof this.type.toFHIR === 'function' ? this.type.toFHIR() : this.type;
+    }
+    if (this.displayText != null) {
+      inst['text'] = typeof this.displayText.toFHIR === 'function' ? this.displayText.toFHIR() : this.displayText;
+    }
+    if (this.addressLine != null) {
+      inst['line'] = inst['line'] || [];
+      inst['line'].concat(this.addressLine.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.city != null) {
+      inst['city'] = typeof this.city.toFHIR === 'function' ? this.city.toFHIR() : this.city;
+    }
+    if (this.district != null) {
+      inst['district'] = typeof this.district.toFHIR === 'function' ? this.district.toFHIR() : this.district;
+    }
+    if (this.postalCode != null) {
+      inst['postalCode'] = typeof this.postalCode.toFHIR === 'function' ? this.postalCode.toFHIR() : this.postalCode;
+    }
+    if (this.country != null) {
+      inst['country'] = typeof this.country.toFHIR === 'function' ? this.country.toFHIR() : this.country;
+    }
+    if (this.effectiveTimePeriod != null) {
+      inst['period'] = typeof this.effectiveTimePeriod.toFHIR === 'function' ? this.effectiveTimePeriod.toFHIR() : this.effectiveTimePeriod;
     }
     return inst;
   }

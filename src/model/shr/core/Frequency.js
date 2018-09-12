@@ -68,7 +68,7 @@ class Frequency extends Ratio {
    * @param {object} json - the JSON data to deserialize
    * @returns {Frequency} An instance of Frequency populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Frequency();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -79,12 +79,28 @@ class Frequency extends Ratio {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Frequency' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/Frequency' } };
     if (this.numerator != null) {
       inst['Numerator'] = typeof this.numerator.toJSON === 'function' ? this.numerator.toJSON() : this.numerator;
     }
     if (this.denominator != null) {
       inst['Denominator'] = typeof this.denominator.toJSON === 'function' ? this.denominator.toJSON() : this.denominator;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Frequency class to a FHIR object.
+   * The FHIR is expected to be valid against the Frequency FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (this.numerator != null) {
+      inst['numerator'] = typeof this.numerator.toFHIR === 'function' ? this.numerator.toFHIR() : this.numerator;
+    }
+    if (this.denominator != null) {
+      inst['denominator'] = typeof this.denominator.toFHIR === 'function' ? this.denominator.toFHIR() : this.denominator;
     }
     return inst;
   }

@@ -136,7 +136,7 @@ class Participant {
    * @param {object} json - the JSON data to deserialize
    * @returns {Participant} An instance of Participant populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Participant();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -147,7 +147,7 @@ class Participant {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/action/Participant' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/action/Participant' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -159,6 +159,32 @@ class Participant {
     }
     if (this.onBehalfOf != null) {
       inst['OnBehalfOf'] = typeof this.onBehalfOf.toJSON === 'function' ? this.onBehalfOf.toJSON() : this.onBehalfOf;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Participant class to a FHIR object.
+   * The FHIR is expected to be valid against the Participant FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (asExtension) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.party.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.participationType.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.participationPeriod.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.onBehalfOf.toFHIR(true));
+      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-action-Participant-extension';
+    }
+    if (!asExtension && this.value != null) {
+      if (this.value != null) {
+        inst = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
+      }
     }
     return inst;
   }

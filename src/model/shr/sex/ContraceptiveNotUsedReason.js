@@ -95,7 +95,7 @@ class ContraceptiveNotUsedReason extends ObservationComponent {
    * @param {object} json - the JSON data to deserialize
    * @returns {ContraceptiveNotUsedReason} An instance of ContraceptiveNotUsedReason populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new ContraceptiveNotUsedReason();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -106,7 +106,7 @@ class ContraceptiveNotUsedReason extends ObservationComponent {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/sex/ContraceptiveNotUsedReason' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/sex/ContraceptiveNotUsedReason' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -121,6 +121,21 @@ class ContraceptiveNotUsedReason extends ObservationComponent {
     }
     if (this.referenceRange != null) {
       inst['ReferenceRange'] = this.referenceRange.map(f => f.toJSON());
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the ContraceptiveNotUsedReason class to a FHIR object.
+   * The FHIR is expected to be valid against the ContraceptiveNotUsedReason FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (!asExtension && this.value != null) {
+      if (this.value != null) {
+        inst = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
+      }
     }
     return inst;
   }

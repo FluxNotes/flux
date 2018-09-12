@@ -22,13 +22,13 @@ export default class ShrImmunizationObjectFactory {
       throw new Error(`Unsupported type in ShrImmunizationObjectFactory: ${type}`);
     }
     switch (elementName) {
-    case 'Vaccine': return Vaccine.fromJSON(json);
-    case 'ImmunizationAction': return ImmunizationAction.fromJSON(json);
-    case 'ImmunizationGiven': return ImmunizationGiven.fromJSON(json);
-    case 'ImmunizationNotGiven': return ImmunizationNotGiven.fromJSON(json);
-    case 'ImmunizationRequested': return ImmunizationRequested.fromJSON(json);
-    case 'ImmunizationRequestedAgainst': return ImmunizationRequestedAgainst.fromJSON(json);
-    default: throw new Error(`Unsupported type in ShrImmunizationObjectFactory: ${type}`);
+      case 'Vaccine': return Vaccine.fromJSON(json);
+      case 'ImmunizationAction': return ImmunizationAction.fromJSON(json);
+      case 'ImmunizationGiven': return ImmunizationGiven.fromJSON(json);
+      case 'ImmunizationNotGiven': return ImmunizationNotGiven.fromJSON(json);
+      case 'ImmunizationRequested': return ImmunizationRequested.fromJSON(json);
+      case 'ImmunizationRequestedAgainst': return ImmunizationRequestedAgainst.fromJSON(json);
+      default: throw new Error(`Unsupported type in ShrImmunizationObjectFactory: ${type}`);
     }
   }
 }

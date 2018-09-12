@@ -65,7 +65,7 @@ class SemiquantDuration {
    * @param {object} json - the JSON data to deserialize
    * @returns {SemiquantDuration} An instance of SemiquantDuration populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new SemiquantDuration();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -76,9 +76,24 @@ class SemiquantDuration {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/SemiquantDuration' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/SemiquantDuration' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the SemiquantDuration class to a FHIR object.
+   * The FHIR is expected to be valid against the SemiquantDuration FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (!asExtension && this.value != null) {
+      if (this.value != null) {
+        inst = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
+      }
     }
     return inst;
   }

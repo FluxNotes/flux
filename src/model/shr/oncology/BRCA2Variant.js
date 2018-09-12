@@ -41,7 +41,7 @@ class BRCA2Variant extends GeneticVariant {
    * @param {object} json - the JSON data to deserialize
    * @returns {BRCA2Variant} An instance of BRCA2Variant populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new BRCA2Variant();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -52,7 +52,7 @@ class BRCA2Variant extends GeneticVariant {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/oncology/BRCA2Variant' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/oncology/BRCA2Variant' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -124,6 +124,133 @@ class BRCA2Variant extends GeneticVariant {
     }
     if (this.members != null) {
       inst['Members'] = typeof this.members.toJSON === 'function' ? this.members.toJSON() : this.members;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the BRCA2Variant class to a FHIR object.
+   * The FHIR is expected to be valid against the BRCA2Variant FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (this.author != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.author.toFHIR(true));
+    }
+    if (this.informant != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.informant.toFHIR(true));
+    }
+    if (this.focalSubject != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.focalSubject.toFHIR(true));
+    }
+    if (this.focalSubjectReference != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.focalSubjectReference.toFHIR(true));
+    }
+    if (this.evidence != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.evidence.toFHIR(true));
+    }
+    if (this.changeFlag != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.changeFlag.toFHIR(true));
+    }
+    if (this.observationQualifier != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.observationQualifier.toFHIR(true));
+    }
+    if (this.findingStatus != null) {
+      inst['status'] = typeof this.findingStatus.toFHIR === 'function' ? this.findingStatus.toFHIR() : this.findingStatus;
+    }
+    if (this.category != null) {
+      inst['category'] = inst['category'] || [];
+      inst['category'].concat(this.category.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.observationCode != null) {
+      inst['code'] = typeof this.observationCode.toFHIR === 'function' ? this.observationCode.toFHIR() : this.observationCode;
+    }
+    if (this.subject != null) {
+      inst['subject'] = typeof this.subject.toFHIR === 'function' ? this.subject.toFHIR() : this.subject;
+    }
+    if (this.relatedEncounter != null) {
+      inst['context'] = typeof this.relatedEncounter.toFHIR === 'function' ? this.relatedEncounter.toFHIR() : this.relatedEncounter;
+    }
+    if (this.clinicallyRelevantTime != null) {
+      inst['effective[x]'] = typeof this.clinicallyRelevantTime.toFHIR === 'function' ? this.clinicallyRelevantTime.toFHIR() : this.clinicallyRelevantTime;
+    }
+    if (this.valueAbsentReason != null) {
+      inst['dataAbsentReason'] = typeof this.valueAbsentReason.toFHIR === 'function' ? this.valueAbsentReason.toFHIR() : this.valueAbsentReason;
+    }
+    if (this.interpretation != null) {
+      inst['interpretation'] = typeof this.interpretation.toFHIR === 'function' ? this.interpretation.toFHIR() : this.interpretation;
+    }
+    if (this.details != null) {
+      inst['comment'] = typeof this.details.toFHIR === 'function' ? this.details.toFHIR() : this.details;
+    }
+    if (this.bodySite != null) {
+      inst['bodySite'] = typeof this.bodySite.toFHIR === 'function' ? this.bodySite.toFHIR() : this.bodySite;
+    }
+    if (this.findingMethod != null) {
+      inst['method'] = typeof this.findingMethod.toFHIR === 'function' ? this.findingMethod.toFHIR() : this.findingMethod;
+    }
+    if (this.specimen != null) {
+      inst['specimen'] = typeof this.specimen.toFHIR === 'function' ? this.specimen.toFHIR() : this.specimen;
+    }
+    if (this.device != null) {
+      inst['device'] = typeof this.device.toFHIR === 'function' ? this.device.toFHIR() : this.device;
+    }
+    if (this.referenceRange != null) {
+      inst['referenceRange'] = inst['referenceRange'] || [];
+      inst['referenceRange'].concat(this.referenceRange.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.referenceRange != null && this.referenceRange.range != null && this.referenceRange.range.lowerBound != null) {
+      if (inst['referenceRange'] === undefined) {
+        inst['referenceRange'] = {};
+      }
+      inst['referenceRange']['low'] = inst['referenceRange']['low'] || [];
+      inst['referenceRange']['low'].concat(this.referenceRange.range.lowerBound.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.referenceRange != null && this.referenceRange.range != null && this.referenceRange.range.upperBound != null) {
+      if (inst['referenceRange'] === undefined) {
+        inst['referenceRange'] = {};
+      }
+      inst['referenceRange']['high'] = inst['referenceRange']['high'] || [];
+      inst['referenceRange']['high'].concat(this.referenceRange.range.upperBound.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.referenceRange != null && this.referenceRange.type != null) {
+      if (inst['referenceRange'] === undefined) {
+        inst['referenceRange'] = {};
+      }
+      inst['referenceRange']['type'] = inst['referenceRange']['type'] || [];
+      inst['referenceRange']['type'].concat(this.referenceRange.type.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.referenceRange != null && this.referenceRange.applicableSubpopulation != null) {
+      if (inst['referenceRange'] === undefined) {
+        inst['referenceRange'] = {};
+      }
+      inst['referenceRange']['appliesTo'] = inst['referenceRange']['appliesTo'] || [];
+      inst['referenceRange']['appliesTo'].concat(this.referenceRange.applicableSubpopulation.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.referenceRange != null && this.referenceRange.applicableAgeRange != null) {
+      if (inst['referenceRange'] === undefined) {
+        inst['referenceRange'] = {};
+      }
+      inst['referenceRange']['age'] = inst['referenceRange']['age'] || [];
+      inst['referenceRange']['age'].concat(this.referenceRange.applicableAgeRange.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.members != null && this.members.observation != null) {
+      if (inst['related'] === undefined) {
+        inst['related'] = {};
+      }
+      inst['related']['target'] = typeof this.members.observation.toFHIR === 'function' ? this.members.observation.toFHIR() : this.members.observation;
+    }
+    if (this.observationComponent != null) {
+      inst['component'] = inst['component'] || [];
+      inst['component'].concat(this.observationComponent.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     return inst;
   }

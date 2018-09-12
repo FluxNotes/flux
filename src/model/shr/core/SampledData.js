@@ -221,7 +221,7 @@ class SampledData {
    * @param {object} json - the JSON data to deserialize
    * @returns {SampledData} An instance of SampledData populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new SampledData();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -232,7 +232,7 @@ class SampledData {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/SampledData' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/SampledData' } };
     if (this.value != null) {
       inst['Value'] = this.value;
     }
@@ -253,6 +253,37 @@ class SampledData {
     }
     if (this.dimensions != null) {
       inst['Dimensions'] = typeof this.dimensions.toJSON === 'function' ? this.dimensions.toJSON() : this.dimensions;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the SampledData class to a FHIR object.
+   * The FHIR is expected to be valid against the SampledData FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (this.origin != null) {
+      inst['origin'] = typeof this.origin.toFHIR === 'function' ? this.origin.toFHIR() : this.origin;
+    }
+    if (this.millisecondsBetweenSamples != null) {
+      inst['period'] = typeof this.millisecondsBetweenSamples.toFHIR === 'function' ? this.millisecondsBetweenSamples.toFHIR() : this.millisecondsBetweenSamples;
+    }
+    if (this.correctionFactor != null) {
+      inst['factor'] = typeof this.correctionFactor.toFHIR === 'function' ? this.correctionFactor.toFHIR() : this.correctionFactor;
+    }
+    if (this.lowerLimit != null) {
+      inst['lowerLimit'] = typeof this.lowerLimit.toFHIR === 'function' ? this.lowerLimit.toFHIR() : this.lowerLimit;
+    }
+    if (this.upperLimit != null) {
+      inst['upperLimit'] = typeof this.upperLimit.toFHIR === 'function' ? this.upperLimit.toFHIR() : this.upperLimit;
+    }
+    if (this.dimensions != null) {
+      inst['dimensions'] = typeof this.dimensions.toFHIR === 'function' ? this.dimensions.toFHIR() : this.dimensions;
+    }
+    if (this.value != null) {
+      inst['data'] = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
     }
     return inst;
   }

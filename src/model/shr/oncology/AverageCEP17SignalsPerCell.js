@@ -95,7 +95,7 @@ class AverageCEP17SignalsPerCell extends ObservationComponent {
    * @param {object} json - the JSON data to deserialize
    * @returns {AverageCEP17SignalsPerCell} An instance of AverageCEP17SignalsPerCell populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new AverageCEP17SignalsPerCell();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -106,7 +106,7 @@ class AverageCEP17SignalsPerCell extends ObservationComponent {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/oncology/AverageCEP17SignalsPerCell' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/oncology/AverageCEP17SignalsPerCell' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -121,6 +121,21 @@ class AverageCEP17SignalsPerCell extends ObservationComponent {
     }
     if (this.referenceRange != null) {
       inst['ReferenceRange'] = this.referenceRange.map(f => f.toJSON());
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the AverageCEP17SignalsPerCell class to a FHIR object.
+   * The FHIR is expected to be valid against the AverageCEP17SignalsPerCell FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (!asExtension && this.value != null) {
+      if (this.value != null) {
+        inst = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
+      }
     }
     return inst;
   }

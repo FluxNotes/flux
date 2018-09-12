@@ -113,7 +113,7 @@ class Coverage {
    * @param {object} json - the JSON data to deserialize
    * @returns {Coverage} An instance of Coverage populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Coverage();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -125,7 +125,7 @@ class Coverage {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/financial/Coverage' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/financial/Coverage' };
     if (this.type != null) {
       inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
     }
@@ -134,6 +134,26 @@ class Coverage {
     }
     if (this.effectiveTimePeriod != null) {
       inst['EffectiveTimePeriod'] = typeof this.effectiveTimePeriod.toJSON === 'function' ? this.effectiveTimePeriod.toJSON() : this.effectiveTimePeriod;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Coverage class to a FHIR object.
+   * The FHIR is expected to be valid against the Coverage FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    inst['resourceType'] = 'Coverage';
+    if (this.type != null) {
+      inst['type'] = typeof this.type.toFHIR === 'function' ? this.type.toFHIR() : this.type;
+    }
+    if (this.insuranceMemberId != null) {
+      inst['subscriberId'] = typeof this.insuranceMemberId.toFHIR === 'function' ? this.insuranceMemberId.toFHIR() : this.insuranceMemberId;
+    }
+    if (this.effectiveTimePeriod != null) {
+      inst['period'] = typeof this.effectiveTimePeriod.toFHIR === 'function' ? this.effectiveTimePeriod.toFHIR() : this.effectiveTimePeriod;
     }
     return inst;
   }

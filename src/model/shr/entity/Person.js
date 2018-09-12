@@ -314,7 +314,7 @@ class Person extends Entity {
    * @param {object} json - the JSON data to deserialize
    * @returns {Person} An instance of Person populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Person();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -326,7 +326,7 @@ class Person extends Entity {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Person' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/Person' };
     if (this.relatedEncounter != null) {
       inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
     }
@@ -371,6 +371,77 @@ class Person extends Entity {
     }
     if (this.externalHealthRecord != null) {
       inst['ExternalHealthRecord'] = this.externalHealthRecord.map(f => f.toJSON());
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Person class to a FHIR object.
+   * The FHIR is expected to be valid against the Person FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    inst['resourceType'] = 'Basic';
+    if (this.relatedEncounter != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.relatedEncounter.toFHIR(true));
+    }
+    if (this.author != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.author.toFHIR(true));
+    }
+    if (this.informant != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.informant.toFHIR(true));
+    }
+    if (this.type != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.type.toFHIR(true));
+    }
+    if (this.humanName != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.humanName.toFHIR(true));
+    }
+    if (this.anonymizedFlag != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.anonymizedFlag.toFHIR(true));
+    }
+    if (this.fictionalPersonFlag != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.fictionalPersonFlag.toFHIR(true));
+    }
+    if (this.dateOfBirth != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.dateOfBirth.toFHIR(true));
+    }
+    if (this.administrativeGender != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.administrativeGender.toFHIR(true));
+    }
+    if (this.address != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.address.toFHIR(true));
+    }
+    if (this.headshot != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.headshot.toFHIR(true));
+    }
+    if (this.contactPoint != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.contactPoint.toFHIR(true));
+    }
+    if (this.languageUsed != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.languageUsed.toFHIR(true));
+    }
+    if (this.activeFlag != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.activeFlag.toFHIR(true));
+    }
+    if (this.externalHealthRecord != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.externalHealthRecord.toFHIR(true));
     }
     return inst;
   }

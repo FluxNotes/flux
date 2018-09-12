@@ -115,7 +115,7 @@ class DriversLicenseNumber {
    * @param {object} json - the JSON data to deserialize
    * @returns {DriversLicenseNumber} An instance of DriversLicenseNumber populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new DriversLicenseNumber();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -126,7 +126,7 @@ class DriversLicenseNumber {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/DriversLicenseNumber' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/DriversLicenseNumber' } };
     if (this.value != null) {
       inst['Value'] = this.value;
     }
@@ -135,6 +135,30 @@ class DriversLicenseNumber {
     }
     if (this.effectiveTimePeriod != null) {
       inst['EffectiveTimePeriod'] = typeof this.effectiveTimePeriod.toJSON === 'function' ? this.effectiveTimePeriod.toJSON() : this.effectiveTimePeriod;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the DriversLicenseNumber class to a FHIR object.
+   * The FHIR is expected to be valid against the DriversLicenseNumber FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (asExtension) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.string.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.stateOfIssue.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.effectiveTimePeriod.toFHIR(true));
+      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-entity-DriversLicenseNumber-extension';
+    }
+    if (!asExtension && this.value != null) {
+      if (this.value != null) {
+        inst = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
+      }
     }
     return inst;
   }

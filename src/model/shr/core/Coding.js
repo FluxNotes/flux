@@ -136,7 +136,7 @@ class Coding {
    * @param {object} json - the JSON data to deserialize
    * @returns {Coding} An instance of Coding populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Coding();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -147,7 +147,7 @@ class Coding {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Coding' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/Coding' } };
     if (this.value != null) {
       inst['Value'] = this.value;
     }
@@ -159,6 +159,28 @@ class Coding {
     }
     if (this.displayText != null) {
       inst['DisplayText'] = typeof this.displayText.toJSON === 'function' ? this.displayText.toJSON() : this.displayText;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Coding class to a FHIR object.
+   * The FHIR is expected to be valid against the Coding FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (this.codeSystem != null) {
+      inst['system'] = typeof this.codeSystem.toFHIR === 'function' ? this.codeSystem.toFHIR() : this.codeSystem;
+    }
+    if (this.codeSystemVersion != null) {
+      inst['version'] = typeof this.codeSystemVersion.toFHIR === 'function' ? this.codeSystemVersion.toFHIR() : this.codeSystemVersion;
+    }
+    if (this.value != null) {
+      inst['code'] = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
+    }
+    if (this.displayText != null) {
+      inst['display'] = typeof this.displayText.toFHIR === 'function' ? this.displayText.toFHIR() : this.displayText;
     }
     return inst;
   }

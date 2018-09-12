@@ -18,9 +18,9 @@ export default class ShrFamilyhistoryObjectFactory {
       throw new Error(`Unsupported type in ShrFamilyhistoryObjectFactory: ${type}`);
     }
     switch (elementName) {
-    case 'FamilyMemberCondition': return FamilyMemberCondition.fromJSON(json);
-    case 'FamilyMemberConditionAbsent': return FamilyMemberConditionAbsent.fromJSON(json);
-    default: throw new Error(`Unsupported type in ShrFamilyhistoryObjectFactory: ${type}`);
+      case 'FamilyMemberCondition': return FamilyMemberCondition.fromJSON(json);
+      case 'FamilyMemberConditionAbsent': return FamilyMemberConditionAbsent.fromJSON(json);
+      default: throw new Error(`Unsupported type in ShrFamilyhistoryObjectFactory: ${type}`);
     }
   }
 }

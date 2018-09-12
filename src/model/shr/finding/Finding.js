@@ -164,7 +164,7 @@ class Finding extends Content {
    * @param {object} json - the JSON data to deserialize
    * @returns {Finding} An instance of Finding populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Finding();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -175,7 +175,7 @@ class Finding extends Content {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/finding/Finding' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/finding/Finding' } };
     if (this.relatedEncounter != null) {
       inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
     }
@@ -202,6 +202,37 @@ class Finding extends Content {
     }
     if (this.evidence != null) {
       inst['Evidence'] = this.evidence.map(f => f.toJSON());
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Finding class to a FHIR object.
+   * The FHIR is expected to be valid against the Finding FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (asExtension) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.relatedEncounter.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.author.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.informant.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.subject.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.focalSubject.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.focalSubjectReference.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.findingMethod.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.findingStatus.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.evidence.toFHIR(true));
+      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-finding-Finding-extension';
     }
     return inst;
   }

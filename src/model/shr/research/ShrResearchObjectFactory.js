@@ -24,15 +24,15 @@ export default class ShrResearchObjectFactory {
       throw new Error(`Unsupported type in ShrResearchObjectFactory: ${type}`);
     }
     switch (elementName) {
-    case 'Study': return Study.fromJSON(json);
-    case 'Enrollment': return Enrollment.fromJSON(json);
-    case 'Sponsor': return Sponsor.fromJSON(json);
-    case 'Jurisdiction': return Jurisdiction.fromJSON(json);
-    case 'PrincipalInvestigator': return PrincipalInvestigator.fromJSON(json);
-    case 'TerminationReason': return TerminationReason.fromJSON(json);
-    case 'StudyArm': return StudyArm.fromJSON(json);
-    case 'ResearchSubject': return ResearchSubject.fromJSON(json);
-    default: throw new Error(`Unsupported type in ShrResearchObjectFactory: ${type}`);
+      case 'Study': return Study.fromJSON(json);
+      case 'Enrollment': return Enrollment.fromJSON(json);
+      case 'Sponsor': return Sponsor.fromJSON(json);
+      case 'Jurisdiction': return Jurisdiction.fromJSON(json);
+      case 'PrincipalInvestigator': return PrincipalInvestigator.fromJSON(json);
+      case 'TerminationReason': return TerminationReason.fromJSON(json);
+      case 'StudyArm': return StudyArm.fromJSON(json);
+      case 'ResearchSubject': return ResearchSubject.fromJSON(json);
+      default: throw new Error(`Unsupported type in ShrResearchObjectFactory: ${type}`);
     }
   }
 }

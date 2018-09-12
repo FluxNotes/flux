@@ -120,7 +120,7 @@ class Practitioner extends Role {
    * @param {object} json - the JSON data to deserialize
    * @returns {Practitioner} An instance of Practitioner populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Practitioner();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -131,7 +131,7 @@ class Practitioner extends Role {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Practitioner' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/Practitioner' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -152,6 +152,61 @@ class Practitioner extends Role {
     }
     if (this.qualification != null) {
       inst['Qualification'] = this.qualification.map(f => f.toJSON());
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Practitioner class to a FHIR object.
+   * The FHIR is expected to be valid against the Practitioner FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (this.relatedEncounter != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.relatedEncounter.toFHIR(true));
+    }
+    if (this.author != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.author.toFHIR(true));
+    }
+    if (this.informant != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.informant.toFHIR(true));
+    }
+    if (this.type != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.type.toFHIR(true));
+    }
+    if (this.nationalProviderIdentifier != null) {
+      inst['identifier'] = inst['identifier'] || [];
+      inst['identifier'].push(typeof this.nationalProviderIdentifier.toFHIR === 'function' ? this.nationalProviderIdentifier.toFHIR() : this.nationalProviderIdentifier);
+    }
+    if (this.qualification != null) {
+      inst['qualification'] = inst['qualification'] || [];
+      inst['qualification'].concat(this.qualification.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.qualification != null && this.qualification.type != null) {
+      if (inst['qualification'] === undefined) {
+        inst['qualification'] = {};
+      }
+      inst['qualification']['code'] = inst['qualification']['code'] || [];
+      inst['qualification']['code'].concat(this.qualification.type.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.qualification != null && this.qualification.effectiveTimePeriod != null) {
+      if (inst['qualification'] === undefined) {
+        inst['qualification'] = {};
+      }
+      inst['qualification']['period'] = inst['qualification']['period'] || [];
+      inst['qualification']['period'].concat(this.qualification.effectiveTimePeriod.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.qualification != null && this.qualification.issuer != null) {
+      if (inst['qualification'] === undefined) {
+        inst['qualification'] = {};
+      }
+      inst['qualification']['issuer'] = inst['qualification']['issuer'] || [];
+      inst['qualification']['issuer'].concat(this.qualification.issuer.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     return inst;
   }

@@ -88,7 +88,7 @@ class StudyArm {
    * @param {object} json - the JSON data to deserialize
    * @returns {StudyArm} An instance of StudyArm populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new StudyArm();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -99,7 +99,7 @@ class StudyArm {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/research/StudyArm' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/research/StudyArm' } };
     if (this.title != null) {
       inst['Title'] = typeof this.title.toJSON === 'function' ? this.title.toJSON() : this.title;
     }
@@ -109,6 +109,16 @@ class StudyArm {
     if (this.details != null) {
       inst['Details'] = typeof this.details.toJSON === 'function' ? this.details.toJSON() : this.details;
     }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the StudyArm class to a FHIR object.
+   * The FHIR is expected to be valid against the StudyArm FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
     return inst;
   }
 }

@@ -243,7 +243,7 @@ class BodySite extends Entity {
    * @param {object} json - the JSON data to deserialize
    * @returns {BodySite} An instance of BodySite populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new BodySite();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -254,7 +254,7 @@ class BodySite extends Entity {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/BodySite' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/BodySite' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -290,6 +290,60 @@ class BodySite extends Entity {
     }
     if (this.bodySiteMarker != null) {
       inst['BodySiteMarker'] = typeof this.bodySiteMarker.toJSON === 'function' ? this.bodySiteMarker.toJSON() : this.bodySiteMarker;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the BodySite class to a FHIR object.
+   * The FHIR is expected to be valid against the BodySite FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (this.relatedEncounter != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.relatedEncounter.toFHIR(true));
+    }
+    if (this.author != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.author.toFHIR(true));
+    }
+    if (this.informant != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.informant.toFHIR(true));
+    }
+    if (this.type != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.type.toFHIR(true));
+    }
+    if (this.clockDirection != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.clockDirection.toFHIR(true));
+    }
+    if (this.distance != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.distance.toFHIR(true));
+    }
+    if (this.bodySiteMarker != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.bodySiteMarker.toFHIR(true));
+    }
+    if (this.laterality != null) {
+      inst['qualifier'] = typeof this.laterality.toFHIR === 'function' ? this.laterality.toFHIR() : this.laterality;
+    }
+    if (this.directionality != null) {
+      inst['qualifier'] = typeof this.directionality.toFHIR === 'function' ? this.directionality.toFHIR() : this.directionality;
+    }
+    if (this.portionTotality != null) {
+      inst['qualifier'] = typeof this.portionTotality.toFHIR === 'function' ? this.portionTotality.toFHIR() : this.portionTotality;
+    }
+    if (this.details != null) {
+      inst['description'] = typeof this.details.toFHIR === 'function' ? this.details.toFHIR() : this.details;
+    }
+    if (asExtension) {
+      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-entity-BodySite-extension';
+      inst['valueReference'] = this.value;
     }
     return inst;
   }

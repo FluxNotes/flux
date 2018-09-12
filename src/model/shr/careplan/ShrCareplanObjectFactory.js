@@ -24,15 +24,15 @@ export default class ShrCareplanObjectFactory {
       throw new Error(`Unsupported type in ShrCareplanObjectFactory: ${type}`);
     }
     switch (elementName) {
-    case 'CareTeam': return CareTeam.fromJSON(json);
-    case 'Goal': return Goal.fromJSON(json);
-    case 'PlannedActivities': return PlannedActivities.fromJSON(json);
-    case 'ActualActivities': return ActualActivities.fromJSON(json);
-    case 'Objective': return Objective.fromJSON(json);
-    case 'ResultTargeted': return ResultTargeted.fromJSON(json);
-    case 'ResultAchieved': return ResultAchieved.fromJSON(json);
-    case 'CarePlan': return CarePlan.fromJSON(json);
-    default: throw new Error(`Unsupported type in ShrCareplanObjectFactory: ${type}`);
+      case 'CareTeam': return CareTeam.fromJSON(json);
+      case 'Goal': return Goal.fromJSON(json);
+      case 'PlannedActivities': return PlannedActivities.fromJSON(json);
+      case 'ActualActivities': return ActualActivities.fromJSON(json);
+      case 'Objective': return Objective.fromJSON(json);
+      case 'ResultTargeted': return ResultTargeted.fromJSON(json);
+      case 'ResultAchieved': return ResultAchieved.fromJSON(json);
+      case 'CarePlan': return CarePlan.fromJSON(json);
+      default: throw new Error(`Unsupported type in ShrCareplanObjectFactory: ${type}`);
     }
   }
 }

@@ -216,7 +216,7 @@ class PerformedContext extends ActionContext {
    * @param {object} json - the JSON data to deserialize
    * @returns {PerformedContext} An instance of PerformedContext populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new PerformedContext();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -227,7 +227,7 @@ class PerformedContext extends ActionContext {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/action/PerformedContext' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/action/PerformedContext' } };
     if (this.reason != null) {
       inst['Reason'] = this.reason.map(f => f.toJSON());
     }
@@ -254,6 +254,37 @@ class PerformedContext extends ActionContext {
     }
     if (this.outcome != null) {
       inst['Outcome'] = this.outcome.map(f => f.toJSON());
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the PerformedContext class to a FHIR object.
+   * The FHIR is expected to be valid against the PerformedContext FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (asExtension) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.reason.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.occurrenceTimeOrPeriod.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.participant.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.status.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.method.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.relatedRequest.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.relatedPlan.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.facility.toFHIR(true));
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.outcome.toFHIR(true));
+      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-action-PerformedContext-extension';
     }
     return inst;
   }

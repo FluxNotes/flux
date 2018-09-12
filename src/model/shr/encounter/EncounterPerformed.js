@@ -80,7 +80,7 @@ class EncounterPerformed extends Encounter {
    * @param {object} json - the JSON data to deserialize
    * @returns {EncounterPerformed} An instance of EncounterPerformed populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new EncounterPerformed();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -92,7 +92,7 @@ class EncounterPerformed extends Encounter {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/encounter/EncounterPerformed' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/encounter/EncounterPerformed' };
     if (this.relatedEncounter != null) {
       inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
     }
@@ -134,6 +134,66 @@ class EncounterPerformed extends Encounter {
     }
     if (this.paymentSource != null) {
       inst['PaymentSource'] = typeof this.paymentSource.toJSON === 'function' ? this.paymentSource.toJSON() : this.paymentSource;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the EncounterPerformed class to a FHIR object.
+   * The FHIR is expected to be valid against the EncounterPerformed FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    inst['resourceType'] = 'Encounter';
+    if (this.relatedEncounter != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.relatedEncounter.toFHIR(true));
+    }
+    if (this.author != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.author.toFHIR(true));
+    }
+    if (this.informant != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.informant.toFHIR(true));
+    }
+    if (this.type != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.type.toFHIR(true));
+    }
+    if (this.category != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.category.toFHIR(true));
+    }
+    if (this.referralDate != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.referralDate.toFHIR(true));
+    }
+    if (this.referralSourceType != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.referralSourceType.toFHIR(true));
+    }
+    if (this.treatmentCooperation != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.treatmentCooperation.toFHIR(true));
+    }
+    if (this.paymentSource != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.paymentSource.toFHIR(true));
+    }
+    if (this.typeAsaCoding != null) {
+      inst['class'] = typeof this.typeAsaCoding.toFHIR === 'function' ? this.typeAsaCoding.toFHIR() : this.typeAsaCoding;
+    }
+    if (this.serviceGiven != null) {
+      inst['type'] = inst['type'] || [];
+      inst['type'].concat(this.serviceGiven.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.subject != null) {
+      inst['subject'] = typeof this.subject.toFHIR === 'function' ? this.subject.toFHIR() : this.subject;
+    }
+    if (this.serviceProvider != null) {
+      inst['serviceProvider'] = typeof this.serviceProvider.toFHIR === 'function' ? this.serviceProvider.toFHIR() : this.serviceProvider;
     }
     return inst;
   }

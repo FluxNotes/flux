@@ -91,7 +91,7 @@ class MedicationUsed extends MedicationAction {
    * @param {object} json - the JSON data to deserialize
    * @returns {MedicationUsed} An instance of MedicationUsed populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new MedicationUsed();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -103,7 +103,7 @@ class MedicationUsed extends MedicationAction {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/medication/MedicationUsed' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/medication/MedicationUsed' };
     if (this.relatedEncounter != null) {
       inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
     }
@@ -127,6 +127,43 @@ class MedicationUsed extends MedicationAction {
     }
     if (this.dosage != null) {
       inst['Dosage'] = typeof this.dosage.toJSON === 'function' ? this.dosage.toJSON() : this.dosage;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the MedicationUsed class to a FHIR object.
+   * The FHIR is expected to be valid against the MedicationUsed FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    inst['resourceType'] = 'MedicationStatement';
+    if (this.relatedEncounter != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.relatedEncounter.toFHIR(true));
+    }
+    if (this.author != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.author.toFHIR(true));
+    }
+    if (this.type != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.type.toFHIR(true));
+    }
+    if (this.category != null) {
+      inst['category'] = inst['category'] || [];
+      inst['category'].concat(this.category.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.medicationOrCode != null) {
+      inst['medication[x]'] = typeof this.medicationOrCode.toFHIR === 'function' ? this.medicationOrCode.toFHIR() : this.medicationOrCode;
+    }
+    if (this.informant != null) {
+      inst['informationSource'] = typeof this.informant.toFHIR === 'function' ? this.informant.toFHIR() : this.informant;
+    }
+    if (this.dosage != null) {
+      inst['dosage'] = inst['dosage'] || [];
+      inst['dosage'].push(typeof this.dosage.toFHIR === 'function' ? this.dosage.toFHIR() : this.dosage);
     }
     return inst;
   }

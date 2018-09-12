@@ -64,7 +64,7 @@ class PercentageRange extends Range {
    * @param {object} json - the JSON data to deserialize
    * @returns {PercentageRange} An instance of PercentageRange populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new PercentageRange();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -75,12 +75,12 @@ class PercentageRange extends Range {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'shr.base.EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/PercentageRange' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/PercentageRange' } };
     if (this.lowerBound != null) {
-      inst['shr.core.LowerBound'] = typeof this.lowerBound.toJSON === 'function' ? this.lowerBound.toJSON() : this.lowerBound;
+      inst['LowerBound'] = typeof this.lowerBound.toJSON === 'function' ? this.lowerBound.toJSON() : this.lowerBound;
     }
     if (this.upperBound != null) {
-      inst['shr.core.UpperBound'] = typeof this.upperBound.toJSON === 'function' ? this.upperBound.toJSON() : this.upperBound;
+      inst['UpperBound'] = typeof this.upperBound.toJSON === 'function' ? this.upperBound.toJSON() : this.upperBound;
     }
     return inst;
   }

@@ -266,7 +266,7 @@ class Medication extends Entity {
    * @param {object} json - the JSON data to deserialize
    * @returns {Medication} An instance of Medication populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Medication();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -278,7 +278,7 @@ class Medication extends Entity {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Medication' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/Medication' };
     if (this.relatedEncounter != null) {
       inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
     }
@@ -314,6 +314,89 @@ class Medication extends Entity {
     }
     if (this.package != null) {
       inst['Package'] = typeof this.package.toJSON === 'function' ? this.package.toJSON() : this.package;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Medication class to a FHIR object.
+   * The FHIR is expected to be valid against the Medication FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    inst['resourceType'] = 'Medication';
+    if (this.relatedEncounter != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.relatedEncounter.toFHIR(true));
+    }
+    if (this.author != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.author.toFHIR(true));
+    }
+    if (this.informant != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.informant.toFHIR(true));
+    }
+    if (this.type != null) {
+      inst['code'] = typeof this.type.toFHIR === 'function' ? this.type.toFHIR() : this.type;
+    }
+    if (this.brand != null) {
+      inst['isBrand'] = typeof this.brand.toFHIR === 'function' ? this.brand.toFHIR() : this.brand;
+    }
+    if (this.overTheCounter != null) {
+      inst['isOverTheCounter'] = typeof this.overTheCounter.toFHIR === 'function' ? this.overTheCounter.toFHIR() : this.overTheCounter;
+    }
+    if (this.manufacturer != null) {
+      inst['manufacturer'] = typeof this.manufacturer.toFHIR === 'function' ? this.manufacturer.toFHIR() : this.manufacturer;
+    }
+    if (this.doseForm != null) {
+      inst['form'] = typeof this.doseForm.toFHIR === 'function' ? this.doseForm.toFHIR() : this.doseForm;
+    }
+    if (this.medicationIngredient != null && this.medicationIngredient.codeableConcept != null) {
+      if (inst['ingredient'] === undefined) {
+        inst['ingredient'] = {};
+      }
+      inst['ingredient']['item[x]'] = inst['ingredient']['item[x]'] || [];
+      inst['ingredient']['item[x]'].concat(this.medicationIngredient.codeableConcept.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.medicationIngredient != null && this.medicationIngredient.isActiveIngredient != null) {
+      if (inst['ingredient'] === undefined) {
+        inst['ingredient'] = {};
+      }
+      inst['ingredient']['isActive'] = inst['ingredient']['isActive'] || [];
+      inst['ingredient']['isActive'].concat(this.medicationIngredient.isActiveIngredient.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.medicationIngredient != null && this.medicationIngredient.ingredientAmount != null) {
+      if (inst['ingredient'] === undefined) {
+        inst['ingredient'] = {};
+      }
+      inst['ingredient']['amount'] = inst['ingredient']['amount'] || [];
+      inst['ingredient']['amount'].concat(this.medicationIngredient.ingredientAmount.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.package != null) {
+      if (inst['package'] === undefined) {
+        inst['package'] = {};
+      }
+      inst['package']['container'] = typeof this.package.toFHIR === 'function' ? this.package.toFHIR() : this.package;
+    }
+    if (this.lotNumber != null) {
+      if (inst['package'] === undefined) {
+        inst['package'] = {};
+      }
+      if (inst['package']['batch'] === undefined) {
+        inst['package']['batch'] = {};
+      }
+      inst['package']['batch']['lotNumber'] = typeof this.lotNumber.toFHIR === 'function' ? this.lotNumber.toFHIR() : this.lotNumber;
+    }
+    if (this.expirationDate != null) {
+      if (inst['package'] === undefined) {
+        inst['package'] = {};
+      }
+      if (inst['package']['batch'] === undefined) {
+        inst['package']['batch'] = {};
+      }
+      inst['package']['batch']['expirationDate'] = typeof this.expirationDate.toFHIR === 'function' ? this.expirationDate.toFHIR() : this.expirationDate;
     }
     return inst;
   }

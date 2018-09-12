@@ -161,7 +161,7 @@ class AdverseReaction {
    * @param {object} json - the JSON data to deserialize
    * @returns {AdverseReaction} An instance of AdverseReaction populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new AdverseReaction();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -172,7 +172,7 @@ class AdverseReaction {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/allergy/AdverseReaction' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/allergy/AdverseReaction' } };
     if (this.allergenIrritant != null) {
       inst['AllergenIrritant'] = typeof this.allergenIrritant.toJSON === 'function' ? this.allergenIrritant.toJSON() : this.allergenIrritant;
     }
@@ -191,6 +191,16 @@ class AdverseReaction {
     if (this.routeIntoBody != null) {
       inst['RouteIntoBody'] = typeof this.routeIntoBody.toJSON === 'function' ? this.routeIntoBody.toJSON() : this.routeIntoBody;
     }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the AdverseReaction class to a FHIR object.
+   * The FHIR is expected to be valid against the AdverseReaction FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
     return inst;
   }
 }

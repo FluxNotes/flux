@@ -114,7 +114,7 @@ class MedicationDispenseAction extends MedicationAction {
    * @param {object} json - the JSON data to deserialize
    * @returns {MedicationDispenseAction} An instance of MedicationDispenseAction populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new MedicationDispenseAction();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -126,7 +126,7 @@ class MedicationDispenseAction extends MedicationAction {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/medication/MedicationDispenseAction' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/medication/MedicationDispenseAction' };
     if (this.relatedEncounter != null) {
       inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
     }
@@ -159,6 +159,61 @@ class MedicationDispenseAction extends MedicationAction {
     }
     if (this.supplyDuration != null) {
       inst['SupplyDuration'] = typeof this.supplyDuration.toJSON === 'function' ? this.supplyDuration.toJSON() : this.supplyDuration;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the MedicationDispenseAction class to a FHIR object.
+   * The FHIR is expected to be valid against the MedicationDispenseAction FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    inst['resourceType'] = 'Basic';
+    if (this.relatedEncounter != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.relatedEncounter.toFHIR(true));
+    }
+    if (this.author != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.author.toFHIR(true));
+    }
+    if (this.informant != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.informant.toFHIR(true));
+    }
+    if (this.type != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.type.toFHIR(true));
+    }
+    if (this.category != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.category.toFHIR(true));
+    }
+    if (this.actionContext != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.actionContext.toFHIR(true));
+    }
+    if (this.medicationOrCode != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.medicationOrCode.toFHIR(true));
+    }
+    if (this.dosage != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.dosage.toFHIR(true));
+    }
+    if (this.numberOfRefillsAllowed != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.numberOfRefillsAllowed.toFHIR(true));
+    }
+    if (this.quantityPerDispense != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.quantityPerDispense.toFHIR(true));
+    }
+    if (this.supplyDuration != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.supplyDuration.toFHIR(true));
     }
     return inst;
   }

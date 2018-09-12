@@ -42,33 +42,33 @@ export default class ShrFindingObjectFactory {
       throw new Error(`Unsupported type in ShrFindingObjectFactory: ${type}`);
     }
     switch (elementName) {
-    case 'Finding': return Finding.fromJSON(json);
-    case 'Observation': return Observation.fromJSON(json);
-    case 'ObservationCode': return ObservationCode.fromJSON(json);
-    case 'Assertion': return Assertion.fromJSON(json);
-    case 'SpecializedFinding': return SpecializedFinding.fromJSON(json);
-    case 'Members': return Members.fromJSON(json);
-    case 'QuestionAnswer': return QuestionAnswer.fromJSON(json);
-    case 'ObservationComponent': return ObservationComponent.fromJSON(json);
-    case 'FindingMethod': return FindingMethod.fromJSON(json);
-    case 'FocalSubject': return FocalSubject.fromJSON(json);
-    case 'FocalSubjectReference': return FocalSubjectReference.fromJSON(json);
-    case 'Evidence': return Evidence.fromJSON(json);
-    case 'FindingStatus': return FindingStatus.fromJSON(json);
-    case 'ValueAbsentReason': return ValueAbsentReason.fromJSON(json);
-    case 'ClinicallyRelevantTime': return ClinicallyRelevantTime.fromJSON(json);
-    case 'ChangeFlag': return ChangeFlag.fromJSON(json);
-    case 'Interpretation': return Interpretation.fromJSON(json);
-    case 'ObservationQualifier': return ObservationQualifier.fromJSON(json);
-    case 'ReferenceRange': return ReferenceRange.fromJSON(json);
-    case 'ApplicableSubpopulation': return ApplicableSubpopulation.fromJSON(json);
-    case 'ApplicableAgeRange': return ApplicableAgeRange.fromJSON(json);
-    case 'NegationFlag': return NegationFlag.fromJSON(json);
-    case 'RelatedFinding': return RelatedFinding.fromJSON(json);
-    case 'BodyStructurePresent': return BodyStructurePresent.fromJSON(json);
-    case 'Morphology': return Morphology.fromJSON(json);
-    case 'BodyStructureAbsent': return BodyStructureAbsent.fromJSON(json);
-    default: throw new Error(`Unsupported type in ShrFindingObjectFactory: ${type}`);
+      case 'Finding': return Finding.fromJSON(json);
+      case 'Observation': return Observation.fromJSON(json);
+      case 'ObservationCode': return ObservationCode.fromJSON(json);
+      case 'Assertion': return Assertion.fromJSON(json);
+      case 'SpecializedFinding': return SpecializedFinding.fromJSON(json);
+      case 'Members': return Members.fromJSON(json);
+      case 'QuestionAnswer': return QuestionAnswer.fromJSON(json);
+      case 'ObservationComponent': return ObservationComponent.fromJSON(json);
+      case 'FindingMethod': return FindingMethod.fromJSON(json);
+      case 'FocalSubject': return FocalSubject.fromJSON(json);
+      case 'FocalSubjectReference': return FocalSubjectReference.fromJSON(json);
+      case 'Evidence': return Evidence.fromJSON(json);
+      case 'FindingStatus': return FindingStatus.fromJSON(json);
+      case 'ValueAbsentReason': return ValueAbsentReason.fromJSON(json);
+      case 'ClinicallyRelevantTime': return ClinicallyRelevantTime.fromJSON(json);
+      case 'ChangeFlag': return ChangeFlag.fromJSON(json);
+      case 'Interpretation': return Interpretation.fromJSON(json);
+      case 'ObservationQualifier': return ObservationQualifier.fromJSON(json);
+      case 'ReferenceRange': return ReferenceRange.fromJSON(json);
+      case 'ApplicableSubpopulation': return ApplicableSubpopulation.fromJSON(json);
+      case 'ApplicableAgeRange': return ApplicableAgeRange.fromJSON(json);
+      case 'NegationFlag': return NegationFlag.fromJSON(json);
+      case 'RelatedFinding': return RelatedFinding.fromJSON(json);
+      case 'BodyStructurePresent': return BodyStructurePresent.fromJSON(json);
+      case 'Morphology': return Morphology.fromJSON(json);
+      case 'BodyStructureAbsent': return BodyStructureAbsent.fromJSON(json);
+      default: throw new Error(`Unsupported type in ShrFindingObjectFactory: ${type}`);
     }
   }
 }

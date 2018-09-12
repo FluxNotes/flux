@@ -30,21 +30,21 @@ export default class ShrVitalObjectFactory {
       throw new Error(`Unsupported type in ShrVitalObjectFactory: ${type}`);
     }
     switch (elementName) {
-    case 'VitalSign': return VitalSign.fromJSON(json);
-    case 'RespiratoryRate': return RespiratoryRate.fromJSON(json);
-    case 'HeartRate': return HeartRate.fromJSON(json);
-    case 'OxygenSaturation': return OxygenSaturation.fromJSON(json);
-    case 'BodyTemperature': return BodyTemperature.fromJSON(json);
-    case 'BodyHeight': return BodyHeight.fromJSON(json);
-    case 'BodyLength': return BodyLength.fromJSON(json);
-    case 'BodyWeight': return BodyWeight.fromJSON(json);
-    case 'HeadCircumference': return HeadCircumference.fromJSON(json);
-    case 'BodyMassIndex': return BodyMassIndex.fromJSON(json);
-    case 'BloodPressure': return BloodPressure.fromJSON(json);
-    case 'SystolicPressure': return SystolicPressure.fromJSON(json);
-    case 'DiastolicPressure': return DiastolicPressure.fromJSON(json);
-    case 'HeadTiltAngle': return HeadTiltAngle.fromJSON(json);
-    default: throw new Error(`Unsupported type in ShrVitalObjectFactory: ${type}`);
+      case 'VitalSign': return VitalSign.fromJSON(json);
+      case 'RespiratoryRate': return RespiratoryRate.fromJSON(json);
+      case 'HeartRate': return HeartRate.fromJSON(json);
+      case 'OxygenSaturation': return OxygenSaturation.fromJSON(json);
+      case 'BodyTemperature': return BodyTemperature.fromJSON(json);
+      case 'BodyHeight': return BodyHeight.fromJSON(json);
+      case 'BodyLength': return BodyLength.fromJSON(json);
+      case 'BodyWeight': return BodyWeight.fromJSON(json);
+      case 'HeadCircumference': return HeadCircumference.fromJSON(json);
+      case 'BodyMassIndex': return BodyMassIndex.fromJSON(json);
+      case 'BloodPressure': return BloodPressure.fromJSON(json);
+      case 'SystolicPressure': return SystolicPressure.fromJSON(json);
+      case 'DiastolicPressure': return DiastolicPressure.fromJSON(json);
+      case 'HeadTiltAngle': return HeadTiltAngle.fromJSON(json);
+      default: throw new Error(`Unsupported type in ShrVitalObjectFactory: ${type}`);
     }
   }
 }

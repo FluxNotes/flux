@@ -26,17 +26,17 @@ export default class ShrEncounterObjectFactory {
       throw new Error(`Unsupported type in ShrEncounterObjectFactory: ${type}`);
     }
     switch (elementName) {
-    case 'Encounter': return Encounter.fromJSON(json);
-    case 'ReferralDate': return ReferralDate.fromJSON(json);
-    case 'ReferralSourceType': return ReferralSourceType.fromJSON(json);
-    case 'ServiceProvider': return ServiceProvider.fromJSON(json);
-    case 'ServiceGiven': return ServiceGiven.fromJSON(json);
-    case 'TreatmentCooperation': return TreatmentCooperation.fromJSON(json);
-    case 'PaymentSource': return PaymentSource.fromJSON(json);
-    case 'EncounterRequested': return EncounterRequested.fromJSON(json);
-    case 'EncounterPerformed': return EncounterPerformed.fromJSON(json);
-    case 'EncounterNotPerformed': return EncounterNotPerformed.fromJSON(json);
-    default: throw new Error(`Unsupported type in ShrEncounterObjectFactory: ${type}`);
+      case 'Encounter': return Encounter.fromJSON(json);
+      case 'ReferralDate': return ReferralDate.fromJSON(json);
+      case 'ReferralSourceType': return ReferralSourceType.fromJSON(json);
+      case 'ServiceProvider': return ServiceProvider.fromJSON(json);
+      case 'ServiceGiven': return ServiceGiven.fromJSON(json);
+      case 'TreatmentCooperation': return TreatmentCooperation.fromJSON(json);
+      case 'PaymentSource': return PaymentSource.fromJSON(json);
+      case 'EncounterRequested': return EncounterRequested.fromJSON(json);
+      case 'EncounterPerformed': return EncounterPerformed.fromJSON(json);
+      case 'EncounterNotPerformed': return EncounterNotPerformed.fromJSON(json);
+      default: throw new Error(`Unsupported type in ShrEncounterObjectFactory: ${type}`);
     }
   }
 }

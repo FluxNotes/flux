@@ -29,20 +29,20 @@ export default class ShrLifehistoryObjectFactory {
       throw new Error(`Unsupported type in ShrLifehistoryObjectFactory: ${type}`);
     }
     switch (elementName) {
-    case 'PrenatalExposure': return PrenatalExposure.fromJSON(json);
-    case 'CongenitalAbnormality': return CongenitalAbnormality.fromJSON(json);
-    case 'EducationalAttainment': return EducationalAttainment.fromJSON(json);
-    case 'Employment': return Employment.fromJSON(json);
-    case 'Occupation': return Occupation.fromJSON(json);
-    case 'EmploymentStatus': return EmploymentStatus.fromJSON(json);
-    case 'MilitaryService': return MilitaryService.fromJSON(json);
-    case 'MilitaryStatus': return MilitaryStatus.fromJSON(json);
-    case 'MilitaryServiceDischargeStatus': return MilitaryServiceDischargeStatus.fromJSON(json);
-    case 'MilitaryBranch': return MilitaryBranch.fromJSON(json);
-    case 'MilitaryServiceEra': return MilitaryServiceEra.fromJSON(json);
-    case 'ServiceConnectedDisability': return ServiceConnectedDisability.fromJSON(json);
-    case 'Travel': return Travel.fromJSON(json);
-    default: throw new Error(`Unsupported type in ShrLifehistoryObjectFactory: ${type}`);
+      case 'PrenatalExposure': return PrenatalExposure.fromJSON(json);
+      case 'CongenitalAbnormality': return CongenitalAbnormality.fromJSON(json);
+      case 'EducationalAttainment': return EducationalAttainment.fromJSON(json);
+      case 'Employment': return Employment.fromJSON(json);
+      case 'Occupation': return Occupation.fromJSON(json);
+      case 'EmploymentStatus': return EmploymentStatus.fromJSON(json);
+      case 'MilitaryService': return MilitaryService.fromJSON(json);
+      case 'MilitaryStatus': return MilitaryStatus.fromJSON(json);
+      case 'MilitaryServiceDischargeStatus': return MilitaryServiceDischargeStatus.fromJSON(json);
+      case 'MilitaryBranch': return MilitaryBranch.fromJSON(json);
+      case 'MilitaryServiceEra': return MilitaryServiceEra.fromJSON(json);
+      case 'ServiceConnectedDisability': return ServiceConnectedDisability.fromJSON(json);
+      case 'Travel': return Travel.fromJSON(json);
+      default: throw new Error(`Unsupported type in ShrLifehistoryObjectFactory: ${type}`);
     }
   }
 }

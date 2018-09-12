@@ -167,7 +167,7 @@ class Signature {
    * @param {object} json - the JSON data to deserialize
    * @returns {Signature} An instance of Signature populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Signature();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -178,7 +178,7 @@ class Signature {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Signature' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/Signature' } };
     if (this.typeAsaCoding != null) {
       inst['TypeAsaCoding'] = this.typeAsaCoding.map(f => f.toJSON());
     }
@@ -196,6 +196,35 @@ class Signature {
     }
     if (this.binaryData != null) {
       inst['BinaryData'] = typeof this.binaryData.toJSON === 'function' ? this.binaryData.toJSON() : this.binaryData;
+    }
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Signature class to a FHIR object.
+   * The FHIR is expected to be valid against the Signature FHIR profile, but no validation checks are performed.
+   * @param {asExtension=false} Render this instance as an extension
+   * @returns {object} a FHIR object populated with the data from the element
+   */
+  toFHIR(asExtension = false) {
+    let inst = {};
+    if (this.typeAsaCoding != null) {
+      inst['type'] = inst['type'] || [];
+      inst['type'].concat(this.typeAsaCoding.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.creationTime != null) {
+      inst['when'] = typeof this.creationTime.toFHIR === 'function' ? this.creationTime.toFHIR() : this.creationTime;
+    }
+    if (this.signatory != null) {
+      inst['whoUri'] = typeof this.signatory.toFHIR === 'function' ? this.signatory.toFHIR() : this.signatory;
+    }
+    if (this.onBehalfOf != null) {
+      inst['onBehalfOfUri'] = typeof this.onBehalfOf.toFHIR === 'function' ? this.onBehalfOf.toFHIR() : this.onBehalfOf;
+    }
+    if (this.contentType != null) {
+      inst['contentType'] = typeof this.contentType.toFHIR === 'function' ? this.contentType.toFHIR() : this.contentType;
+    }
+    if (this.binaryData != null) {
+      inst['blob'] = typeof this.binaryData.toFHIR === 'function' ? this.binaryData.toFHIR() : this.binaryData;
     }
     return inst;
   }
