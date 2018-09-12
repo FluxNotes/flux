@@ -8,10 +8,11 @@ class ColumnIndexer extends BaseIndexer {
             // add each column value using title of the column heading
             data.forEach((row) => {
                 row.forEach((col, columnNumber) => {
+                    const vtPrefix = columnNumber === 0 ? '' : `${row[0].value} `; 
                     searchIndex.addSearchableData({
                         section,
                         subsection,
-                        valueTitle: subsectionDescriptor.headings[columnNumber],
+                        valueTitle: `${vtPrefix}${subsectionDescriptor.headings[columnNumber]}`,
                         value: col.value || "Missing Data"
                     });    
                 });

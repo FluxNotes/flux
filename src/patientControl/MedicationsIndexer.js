@@ -7,7 +7,7 @@ class MedicationsIndexer extends BaseIndexer {
             searchIndex.addSearchableData({
                 section,
                 subsection: "",
-                valueTitle: "Dosage",
+                valueTitle: `${item.medication.medication} Dosage`,
                 value: `${item.medication.amountPerDose.value} ${item.medication.amountPerDose.units}`
             });
 
@@ -21,28 +21,28 @@ class MedicationsIndexer extends BaseIndexer {
             searchIndex.addSearchableData({
                 section,
                 subsection: "",
-                valueTitle: "Timing",
+                valueTitle: `${item.medication.medication} Timing`,
                 value: item.medication.timingOfDoses.value
             });
 
             searchIndex.addSearchableData({
                 section,
                 subsection: "",
-                valueTitle: "Prescribed",
+                valueTitle: `${item.medication.medication} Prescribed`,
                 value: item.medication.whenPrescribed
             });
 
             searchIndex.addSearchableData({
                 section,
                 subsection: "",
-                valueTitle: "Route",
+                valueTitle: `${item.medication.medication} Route`,
                 value: item.medication.routeIntoBody
             });
 
             searchIndex.addSearchableData({
                 section,
                 subsection: "",
-                valueTitle: "Prescribed By",
+                valueTitle: `${item.medication.medication} Prescribed By`,
                 value: item.medication.prescribedBy
             });
         });
