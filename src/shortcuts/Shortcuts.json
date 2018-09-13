@@ -422,6 +422,7 @@
     "getData": {"object": "$parentValueObject", "method": "buildHpiNarrative"},
     "isContext": false,
     "stringTriggers": [{"name": "@ONCOHIST", "description": "Insert patient's oncology history"}],
+    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/shr/oncology/BreastCancer", "http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor"],
     "knownParentContexts": "ConditionInserter"
   },
   {
