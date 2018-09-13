@@ -1,4 +1,3 @@
-import React from 'react'
 import Lang from 'lodash'
 import _ from 'lodash'
 import moment from 'moment';
@@ -1842,9 +1841,7 @@ export default class SummaryMetadata {
             const focalConditionName = focalCondition.type;
             return {
                 "start_time" : prog.asOfDate,
-                "Disease status" : code,
-                "tooltipText" : tooltipText,
-                "status": status,
+                "disease_status_code" : code,
                 "disease_status_string": status,
                 "evidence": prog.evidence.join(', '),
             };
