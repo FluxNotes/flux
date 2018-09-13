@@ -211,8 +211,26 @@ class ProgressionLineChartVisualizer extends Component {
                         tickFormatter={(val) => { return this.valueToProgressionMap[val.toString()]}}
                     />
                     <Tooltip 
-                        labelFormatter={this.xVarFormatFunction}
-                        formatter={this.yVarFormatFunction}
+                        // labelFormatter={this.xVarFormatFunction}
+                        // formatter={this.yVarFormatFunction}
+                        content={(arg1) => { 
+                            console.log('arg1: ', arg1);
+                            const { payload } = arg1;
+                            console.log('payload: ', payload);
+                            // If there's a payload, we have a tooltip to display
+                            if (!Lang.isEmpty(payload)) { 
+                                const { getTooltipText } = payload[0].payload;
+                                return (
+                                    <div className="disease-status-tooltip">
+                                        <span>
+                                            {getTooltipText()}
+                                        </span>
+                                    </div>
+                                )
+                            } else { 
+                                return;
+                            }
+                        }}
                     />
                     <Line 
                         type="monotone" 

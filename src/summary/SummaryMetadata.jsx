@@ -1,3 +1,4 @@
+import React from 'react'
 import Lang from 'lodash'
 import _ from 'lodash'
 import moment from 'moment';
@@ -1833,18 +1834,19 @@ export default class SummaryMetadata {
         const progressions = patient.getProgressionsForConditionChronologicalOrder(condition);
 
         const processedProgressions = progressions.map((prog, i) => {
+            console.log('prog: ', prog);
 
             const status = prog.status;
             const code = prog.statusAsCode
             const focalCondition = patient.getFocalConditionForProgression(prog);
             const focalConditionName = focalCondition.type;
-            const tooltipText = focalConditionName + " is " + status + " based on " + prog.evidence.join();
-
             return {
                 "start_time" : prog.asOfDate,
                 "Disease status" : code,
                 "tooltipText" : tooltipText,
-                "status": status
+                "status": status,
+                "disease_status_string": status,
+                "evidence": prog.evidence.join(', '),
             };
         });
 
