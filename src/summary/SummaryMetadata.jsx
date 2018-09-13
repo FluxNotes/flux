@@ -1712,11 +1712,10 @@ export default class SummaryMetadata {
         return labResultsInOrder.map((l, i) => {
             const value = `${l.quantity.number} ${l.quantity.unit} (${l.clinicallyRelevantTime})`;
             const name = `${l.name}`;
-
-            return {
-                name: name,
-                value: [value, patient.isUnsigned(l)]
-            };
+            return [
+                {value: name, isInsertable: false},
+                {value: [value, patient.isUnsigned(l)], shortcut: null}
+            ];
         });
     }
 
