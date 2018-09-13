@@ -637,7 +637,7 @@ export default class SummaryMetadata {
                                             return [panel.members.map((item) => {
                                                 const v = item.value === 'Positive' ? '+' : '-';
                                                 return item.abbreviatedName + v;
-                                            }).join(","), patient.isUnsigned(panel), this.determineSource(patient, panel)];
+                                            }).join(", "), patient.isUnsigned(panel), this.determineSource(patient, panel)];
                                         }
                                     }
                                 ]
@@ -1836,7 +1836,7 @@ export default class SummaryMetadata {
             const status = prog.status;
             const code = prog.statusAsCode
             const start_time = prog.asOfDate;
-            const evidence = prog.evidence.join(',');
+            const evidence = prog.evidence.join(', ');
             return {
                 "start_time" : start_time,
                 "disease_status_code" : code,
@@ -1873,7 +1873,7 @@ export default class SummaryMetadata {
             let focalCondition = patient.getFocalConditionForProgression(prog);
             let focalConditionName = focalCondition.type;
 
-            let hoverTitle = focalConditionName + " is " + prog.status + " based on " + prog.evidence.join();
+            let hoverTitle = focalConditionName + " is " + prog.status + " based on " + prog.evidence.join(", ");
 
             items.push({
                 group: assignedGroup,
