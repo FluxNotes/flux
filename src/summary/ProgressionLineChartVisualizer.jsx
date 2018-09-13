@@ -243,14 +243,14 @@ class ProgressionLineChartVisualizer extends Component {
                         stroke="#295677" 
                         yAxisId={0}
                     />
-                    {processedPotentialDiagnosisDates.map((diagnosisDate, i) => { 
+                    {processedPotentialDiagnosisDates.map((diagnosisDate, i) => {
                         return (
                             <ReferenceLine 
                                 x={diagnosisDate.date} 
                                 stroke="#AAAAAA"
                                 strokeDasharray="3 3"
                                 key={i}
-                                label={{value: diagnosisDate.label, position:'insideBottom'}}
+                                label={{width: 60, position: 'center', value: diagnosisDate.label}}
                             />
                         );
                     })}
