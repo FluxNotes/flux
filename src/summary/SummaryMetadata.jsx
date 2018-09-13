@@ -1835,13 +1835,13 @@ export default class SummaryMetadata {
         const processedProgressions = progressions.map((prog, i) => {
             const status = prog.status;
             const code = prog.statusAsCode
-            const focalCondition = patient.getFocalConditionForProgression(prog);
-            const focalConditionName = focalCondition.type;
+            const start_time = prog.asOfDate;
+            const evidence = prog.evidence.join(',');
             return {
-                "start_time" : prog.asOfDate,
+                "start_time" : start_time,
                 "disease_status_code" : code,
                 "disease_status_string": status,
-                "evidence": prog.evidence.join(', '),
+                "evidence": evidence,
             };
         });
 
