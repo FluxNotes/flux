@@ -78,6 +78,7 @@ class PatientSearch extends React.Component {
             hospital: note.hospital,
             inputValue: inputValue,
             note: note,
+            source: "clinicalNote"
         }
     }
 
@@ -107,9 +108,8 @@ class PatientSearch extends React.Component {
         });
         return notesCopy;
     }
-    
-    // Used by AutoSuggest to get a list of suggestions based on the current search's InputValue
-    getSuggestions = (inputValue) => {
+
+    getNoteSuggestions = (inputValue) => {
         const notes = this.props.patient.getNotes();
         const notesWithoutStyle = this.getNotesWithoutStyle(notes);
         const suggestions =  notesWithoutStyle.reduce((suggestions, note) => {
@@ -143,9 +143,45 @@ class PatientSearch extends React.Component {
         return suggestions;
     }
 
+    getStructuredDataSuggestions = (inputValue) => {
+        let suggestions = [];
+        const regex = new RegExp(escapeRegExp(inputValue), "gi");
+        this.props.searchIndex.searchableData.forEach(obj => {
+            let suggestion = {
+                section: obj.section,
+                subsection: obj.subsection,
+                contentSnapshot: obj.value,
+                valueTitle: obj.valueTitle,
+                inputValue,
+                matchedOn: "",
+                source: "structuredData"
+            }
+            let contentMatches = regex.exec(obj.value);
+            if (contentMatches) {
+                suggestion.matchedOn = "contentSnapshot";
+                suggestions.push(suggestion);
+            }
+            contentMatches = regex.exec(obj.valueTitle);
+            if (contentMatches) {
+                suggestion.matchedOn = "valueTitle";
+                suggestions.push(suggestion);
+            }
+        });
+
+        return suggestions;
+    }
+
+    // Used by AutoSuggest to get a list of suggestions based on the current search's InputValue
+    getSuggestions = (inputValue) => {
+        let noteSuggestions = this.getNoteSuggestions(inputValue);
+        let structuredDataSuggestions = this.getStructuredDataSuggestions(inputValue);
+
+        return structuredDataSuggestions.concat(noteSuggestions);
+    }
+
     // Teach Autosuggest how to calculate the input value for every given suggestion.
     getSuggestionValue = suggestion => { 
-        return suggestion.contentSnapshot;
+        return this.state.value;
     }
 
     // Autosuggest is a controlled component.
@@ -177,11 +213,24 @@ class PatientSearch extends React.Component {
   
 
     // Will be called every time suggestion is selected via mouse or keyboard.
-    onSuggestionSelected = (event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) => { 
-        const contextNotes = this.props.patient.getNotes();
-        const selectedNote = contextNotes.find(note => note.entryInfo.entryId === suggestion.note.entryInfo.entryId);
+    onSuggestionSelected = (event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) => {
+        if (suggestion.source === "clinicalNote") {
+            const contextNotes = this.props.patient.getNotes();
+            const selectedNote = contextNotes.find(note => note.entryInfo.entryId === suggestion.note.entryInfo.entryId);
 
-        this.props.setSearchSelectedItem(selectedNote);
+            this.props.setSearchSelectedItem(selectedNote);
+        } else {
+            this.props.moveTargetedDataPanelToSubsection(suggestion.section, suggestion.subsection);
+        }
+        this.refs.autosuggest.input.blur();
+    }
+
+    onSuggestionHighlighted = ({suggestion}) => {
+        if (!Lang.isNull(suggestion)) {
+            if (suggestion.source !== "clinicalNote") {
+                this.props.moveTargetedDataPanelToSubsection(suggestion.section, suggestion.subsection);
+            }
+        }
     }
 
     // When the input is focused, Autosuggest will consult this function when to render suggestions
@@ -216,8 +265,10 @@ class PatientSearch extends React.Component {
         return (
             <div id="patient-search">
                 <Autosuggest
+                    ref="autosuggest"
                     getSuggestionValue={this.getSuggestionValue}
                     inputProps={inputProps}
+                    onSuggestionHighlighted={this.onSuggestionHighlighted}
                     onSuggestionsClearRequested={this.onSuggestionsClearRequested}
                     onSuggestionSelected={this.onSuggestionSelected}
                     onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
@@ -225,6 +276,7 @@ class PatientSearch extends React.Component {
                     renderSuggestion={this.renderSuggestion}
                     shouldRenderSuggestions={this.shouldRenderSuggestions}
                     suggestions={suggestions}
+                    focusInputOnSuggestionClick={false}
                 />
             </div>
         );
@@ -234,6 +286,7 @@ class PatientSearch extends React.Component {
 PatientSearch.propTypes = {
     setSearchSelectedItem: PropTypes.func.isRequired,
     patient: PropTypes.object.isRequired,
+    searchIndex: PropTypes.object.isRequired
 };
 
 export default PatientSearch;

@@ -416,7 +416,12 @@ export default class SummaryMetadata {
                         shortName: "Disease",
                         clinicalEvents: ["pre-encounter"],
                         type: "DiseaseStatusValues",
-                        itemsFunction: this.getProgressions,
+                        data: [
+                            {
+                                name: "",
+                                itemsFunction: this.getProgressions,
+                            }
+                        ]
                     },
                     {
                         name: "Labs",
@@ -695,22 +700,23 @@ export default class SummaryMetadata {
                         name: "Timeline",
                         shortName: "Timeline",
                         type: "Events",
+                        resetData: this.resetTimelineData,
                         data: [
                             {
                                 name: "Medications",
-                                eventsFunction: this.getMedicationItems
+                                itemsFunction: this.getMedicationItems
                             },
                             {
                                 name: "Procedures",
-                                eventsFunction: this.getProcedureItems
+                                itemsFunction: this.getProcedureItems
                             },
                             {
                                 name: "Key Events",
-                                eventsFunction: this.getEventItems
+                                itemsFunction: this.getEventItems
                             },
                             {
                                 name: "Progressions",
-                                eventsFunction: this.getProgressionItems
+                                itemsFunction: this.getProgressionItems
                             }
                         ]
                     },
@@ -719,7 +725,12 @@ export default class SummaryMetadata {
                         name: "Treatment Options",
                         shortName: "Treatment Options",
                         type: "ClusterPoints",
-                        itemsFunction: this.getTreatmentData
+                        data: [
+                            {
+                                name: "",
+                                itemsFunction: this.getTreatmentData
+                            }
+                        ]
                     }
                 ]
             },
@@ -1082,7 +1093,12 @@ export default class SummaryMetadata {
                         shortName: "Disease",
                         clinicalEvents: ["pre-encounter"],
                         type: "DiseaseStatusValues",
-                        itemsFunction: this.getProgressions,
+                        data: [
+                            {
+                                name: "",
+                                itemsFunction: this.getProgressions,
+                            }
+                        ]
                     },
                     {
                         name: "Labs",
@@ -1325,22 +1341,23 @@ export default class SummaryMetadata {
                         name: "Timeline",
                         shortName: "Timeline",
                         type: "Events",
+                        resetData: this.resetTimelineData,
                         data: [
                             {
                                 name: "Medications",
-                                eventsFunction: this.getMedicationItems
+                                itemsFunction: this.getMedicationItems
                             },
                             {
                                 name: "Procedures",
-                                eventsFunction: this.getProcedureItems
+                                itemsFunction: this.getProcedureItems
                             },
                             {
                                 name: "Key Events",
-                                eventsFunction: this.getEventItems
+                                itemsFunction: this.getEventItems
                             },
                             {
                                 name: "Progressions",
-                                eventsFunction: this.getProgressionItems
+                                itemsFunction: this.getProgressionItems
                             }
                         ]
                     },
@@ -1349,7 +1366,12 @@ export default class SummaryMetadata {
                         name: "Treatment Options",
                         shortName: "Treatment Options",
                         type: "ClusterPoints",
-                        itemsFunction: this.getTreatmentData
+                        data: [
+                            {
+                                name: "",
+                                itemsFunction: this.getTreatmentData
+                            }
+                        ]
                     }
                 ]                
             },
@@ -1479,22 +1501,23 @@ export default class SummaryMetadata {
                         name: "Timeline",
                         shortName: "Timeline",
                         type: "Events",
+                        resetData: this.resetTimelineData,
                         data: [
                             {
                                 name: "Medications",
-                                eventsFunction: this.getMedicationItems
+                                itemsFunction: this.getMedicationItems
                             },
                             {
                                 name: "Procedures",
-                                eventsFunction: this.getProcedureItems
+                                itemsFunction: this.getProcedureItems
                             },
                             {
                                 name: "Key Events",
-                                eventsFunction: this.getEventItems
+                                itemsFunction: this.getEventItems
                             },
                             {
                                 name: "Progressions",
-                                eventsFunction: this.getProgressionItems
+                                itemsFunction: this.getProgressionItems
                             }
                         ]
                     }
@@ -1553,7 +1576,17 @@ export default class SummaryMetadata {
     getItemListForConditions = (patient, currentConditionEntry, subsection) => {
         const conditions = patient.getActiveConditions();
         return conditions.map((c, i) => {
-            return [{value: [ c.type, patient.isUnsigned(c), this.determineSource(patient, c) ], shortcut: subsection.shortcut}, c.diagnosisDate, c.bodySite];
+            return [
+                {    value: c.type, 
+                     isUnsigned: patient.isUnsigned(c),
+                     source: this.determineSource(patient, c),
+                     shortcut: subsection.shortcut
+                }, 
+                {   value: c.diagnosisDate
+                },
+                {   value: c.bodySite
+                }
+            ];
         });
     }
 
@@ -1562,23 +1595,22 @@ export default class SummaryMetadata {
         return procedures.map((p, i) => {
             // Ensure that each array for a given data type (e.g. Procedures in this case) contains the same number of elements (e.g. here it is 2 elements).
             // Or add to the end of the array, that looks okay too
+            let result = [
+                {   value: p.name, 
+                    isUnsigned: patient.isUnsigned(p),
+                    source:  this.determineSource(patient, p),
+                    shortcut: "@procedure"
+                }];
             if (typeof p.occurrenceTime !== 'string') {
-                return [
-                    {
-                        value: [p.name, patient.isUnsigned(p), this.determineSource(patient, p) ],
-                        shortcut: "@procedure",
-                    },
-                    p.occurrenceTime.timePeriodStart + " to " + p.occurrenceTime.timePeriodEnd
-                ];
+                result.push(
+                    {   value: p.occurrenceTime.timePeriodStart + " to " + p.occurrenceTime.timePeriodEnd }
+                );
             } else {
-                return [
-                    {
-                        value: [p.name, patient.isUnsigned(p), this.determineSource(patient, p) ],
-                        shortcut: "@procedure",
-                    },
-                    p.occurrenceTime
-                ];
+                result.push(
+                    {   value: p.occurrenceTime }
+                );
             }
+            return result;
         });
     }
 
@@ -1680,11 +1712,10 @@ export default class SummaryMetadata {
         return labResultsInOrder.map((l, i) => {
             const value = `${l.quantity.number} ${l.quantity.unit} (${l.clinicallyRelevantTime})`;
             const name = `${l.name}`;
-
-            return {
-                name: name,
-                value: [value, patient.isUnsigned(l)]
-            };
+            return [
+                {value: name, isInsertable: false},
+                {value: [value, patient.isUnsigned(l)], shortcut: null}
+            ];
         });
     }
 
@@ -1700,15 +1731,23 @@ export default class SummaryMetadata {
             }).map((c, i) => {
                 return [
                     {
-                        value: [c.title, patient.isUnsigned(c), c.sourceClinicalNoteReference]
+                        value: c.title, 
+                        isUnsigned: patient.isUnsigned(c), 
+                        source: c.sourceClinicalNoteReference
                     },
                     {
-                        value: [(c.status === 'Candidate') ? 'N/A' : c.enrollmentDate, patient.isUnsigned(c), c.sourceClinicalNoteReference]
+                        value: (c.status === 'Candidate') ? 'N/A' : c.enrollmentDate,
+                        isUnsigned: patient.isUnsigned(c), 
+                        source: c.sourceClinicalNoteReference
                     },
                     {
-                        value: [(c.status === 'Candidate' || c.status === 'Enrolled' || c.status === 'Active') ? 'N/A' : c.endDate, patient.isUnsigned(c), c.sourceClinicalNoteReference]
+                        value: (c.status === 'Candidate' || c.status === 'Enrolled' || c.status === 'Active') ? 'N/A' : c.endDate, 
+                        isUnsigned: patient.isUnsigned(c), 
+                        source: c.sourceClinicalNoteReference
                     },
-                    c.details
+                    {
+                        value: c.details
+                    }
                 ]; 
             });
         }
@@ -1718,7 +1757,11 @@ export default class SummaryMetadata {
         let clinicalTrialsAndCriteriaList = patient.getEligibleClinicalTrials(currentConditionEntry, this.getItemListForEnrolledClinicalTrials(patient, currentConditionEntry));
         let eligibleTrials = [];
         clinicalTrialsAndCriteriaList.forEach((trial) => {
-            eligibleTrials.push([{ value: trial.info.name }, (trial.numSatisfiedCriteria + " of " + trial.numTotalCriteria), trial.info.studyStartDate, trial.info.description]);
+            eligibleTrials.push([   { value: trial.info.name }, 
+                                    { value: (trial.numSatisfiedCriteria + " of " + trial.numTotalCriteria) }, 
+                                    { value: trial.info.studyStartDate }, 
+                                    { value: trial.info.description }
+            ]);
         });
         this.eligibleTrials = eligibleTrials;
         this.refreshClinicalTrials = false;
@@ -1754,7 +1797,9 @@ export default class SummaryMetadata {
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
         const allergies = patient.getAllergyIntolerancesSortedBySeverity();
         return allergies.map((a) => {
-            return [{value: a.name}, a.severity, a.manifestation];
+            return [    { value: a.name }, 
+                        { value: a.severity },
+                        { value: a.manifestation }];
         });
     }
 
@@ -1799,6 +1844,7 @@ export default class SummaryMetadata {
                 "start_time" : prog.asOfDate,
                 "Disease status" : code,
                 "tooltipText" : tooltipText,
+                "status": status
             };
         });
 
@@ -1810,13 +1856,13 @@ export default class SummaryMetadata {
     }
 
     // Gets progression items for timeline view
-    getProgressionItems = (patient, condition, groupStartIndex) => {
+    getProgressionItems = (patient, condition) => {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         const progressions = patient.getProgressionsForConditionChronologicalOrder(condition);
         let items = [];
 
         progressions.forEach((prog) => {
-            const assignedGroup = this.assignItemToGroup(items, groupStartIndex, prog.clinicallyRelevantTime);
+            const assignedGroup = this.assignItemToGroup(items, prog.clinicallyRelevantTime);
 
             let classes = 'progression-item';
             // Do not include progression on timeline if status not set
@@ -1859,7 +1905,7 @@ export default class SummaryMetadata {
             if (!endTime.isValid()) {
                 endTime = new moment();
             }
-            const assignedGroup = this.assignItemToGroup(items, 1, startTime, endTime);
+            const assignedGroup = this.assignItemToGroup(items, startTime, endTime);
             const name = med.medication;
             let dosage;
             if (!med.amountPerDose) {
@@ -1882,15 +1928,16 @@ export default class SummaryMetadata {
         return items;
     }
 
-    getProcedureItems = (patient, condition, groupStartIndex) => {
+    getProcedureItems = (patient, condition) => {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         const procedures = patient.getProceduresForConditionChronologicalOrder(condition);
         let items = [];
 
+        if (procedures.length > 0) this.incrementGroupNumber();
         procedures.forEach((proc) => {
             let startTime = new moment(typeof proc.occurrenceTime === 'string' ? proc.occurrenceTime : proc.occurrenceTime.timePeriodStart, "D MMM YYYY");
             let endTime = proc.occurrenceTime.timePeriodStart ? (!Lang.isNull(proc.occurrenceTime.timePeriodEnd) ? new moment(proc.occurrenceTime.timePeriodEnd, "D MMM YYYY") : null) : null;
-            const assignedGroup = this.assignItemToGroup(items, groupStartIndex, startTime, endTime);
+            const assignedGroup = this.assignItemToGroup(items, startTime, endTime);
 
             let classes = 'event-item';
             //let endDate = proc.endDate;
@@ -1922,13 +1969,14 @@ export default class SummaryMetadata {
         return items;
     }
 
-    getEventItems = (patient, condition, groupStartIndex) => {
+    getEventItems = (patient, condition) => {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         const events = patient.getKeyEventsForConditionChronologicalOrder(condition);
         let items = [];
 
+        if (events.length > 0) this.incrementGroupNumber();
         events.forEach((evt) => {
-            const assignedGroup = this.assignItemToGroup(items, groupStartIndex, evt.start_time, evt.end_time);
+            const assignedGroup = this.assignItemToGroup(items, evt.start_time, evt.end_time);
 
             let classes = 'progression-item';
             let startDate = new moment(evt.start_time, "D MMM YYYY");
@@ -1961,11 +2009,21 @@ export default class SummaryMetadata {
         return items;
     }
 
+    nextGroupNumber = 1;
+
+    resetTimelineData = () => {
+        this.nextGroupNumber = 1;
+    }
+
+    incrementGroupNumber = () => {
+        this.nextGroupNumber++;
+    }
+
     // Assigns a new timeline item to a group in the timeline, avoiding conflicts with
     // existing timeline items. If firstAvailableGroup is provided, the group assigned
     // will not be less than the firstAvailableGroup.
-    assignItemToGroup = (existingItems, firstAvailableGroup, startTime, endTime = null) => {
-        let availableGroup = firstAvailableGroup || 1;
+    assignItemToGroup = (existingItems, startTime, endTime = null) => {
+        let availableGroup = this.nextGroupNumber || 1;
         let assignedGroup = null;
 
         while (!assignedGroup) {
@@ -1992,6 +2050,7 @@ export default class SummaryMetadata {
                 assignedGroup = availableGroup;
             }
         }
+        this.nextGroupNumber = assignedGroup;
         return assignedGroup;
     }
 
@@ -2003,7 +2062,7 @@ export default class SummaryMetadata {
                 subset.push(item);
             }
         });
-
+        
         return subset;
     }
 
@@ -2014,6 +2073,8 @@ export default class SummaryMetadata {
     getTreatmentData = (patient, condition, subsection) => {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         try {
+            // If we have cached data, use that instead of making an API call
+            if (subsection.data_cache) return subsection.data_cache;
             // Commenting out the api call with actual patient criteria til we get patient data
             const data = api.findTreatmentOptionsByPatientStats(condition.codeURL, {race: this.toFirstLetterCapital(patient.getPatient().race), dxGrade: condition.getMostRecentHistologicalGrade().getGradeAsSimpleNumber()});
             //const data = api.findTreatmentOptionsByPatientStats("http://snomed.info/sct/399068003", {race: "Black"});

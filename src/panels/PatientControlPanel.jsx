@@ -59,6 +59,8 @@ class PatientControlPanel extends Component {
                                         <PatientSearch
                                             patient={this.props.patient}
                                             setSearchSelectedItem={this.props.setSearchSelectedItem}
+                                            searchIndex={this.props.searchIndex}
+                                            moveTargetedDataPanelToSubsection={this.props.moveTargetedDataPanelToSubsection}
                                         />
                                     </Col>
                                 </Row>
@@ -81,6 +83,7 @@ PatientControlPanel.propTypes = {
     setLayout: PropTypes.func.isRequired,
     setSearchSelectedItem: PropTypes.func.isRequired,
     supportLogin: PropTypes.bool.isRequired,
+    searchIndex: PropTypes.object.isRequired,
 };
 
 export default PatientControlPanel;

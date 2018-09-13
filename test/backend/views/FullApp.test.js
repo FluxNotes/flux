@@ -24,6 +24,8 @@ import hardCodedPatient from '../../../src/dataaccess/HardCodedPatient.json';
 import PatientRecord from '../../../src/patient/PatientRecord.jsx';
 import FluxInjury from '../../../src/model/condition/FluxInjury';
 
+import SearchIndex from '../../../src/patientControl/SearchIndex';
+
 Enzyme.configure({ adapter: new Adapter() });
 
 describe('1 UpdateErrors', function () {
@@ -86,8 +88,9 @@ describe('3 TargetedDataControl', function() {
         }
         const defaultOrTabular = options.length > 0 ? options[0] : 'tabular';
 
-        const visualizerManager = new VisualizerManager()
-        const wrapper = shallow(<TargetedDataSection section={section} type={section.type} visualizerManager={visualizerManager} isWide={false} clinicalEvent='post-encounter'/>);
+        const visualizerManager = new VisualizerManager();
+        const searchIndex = new SearchIndex();
+        const wrapper = shallow(<TargetedDataSection patient={null} condition={null} section={section} type={section.type} visualizerManager={visualizerManager} isWide={false} clinicalEvent='post-encounter' searchIndex={searchIndex} />);
 
         // Initial state
         expect(wrapper.state('defaultVisualizer'))
@@ -111,8 +114,9 @@ describe('4 TargetedDataControl - correct default visualizer Medications', funct
         });
         const expectedDefault = 'chart';
 
-        const visualizerManager = new VisualizerManager()
-        const wrapper = shallow(<TargetedDataSection section={section} type={section.type} visualizerManager={visualizerManager} isWide={false} clinicalEvent='pre-encounter'/>);
+        const visualizerManager = new VisualizerManager();
+        const searchIndex = new SearchIndex();
+        const wrapper = shallow(<TargetedDataSection patient={null} condition={null} section={section} type={section.type} visualizerManager={visualizerManager} isWide={false} clinicalEvent='pre-encounter' searchIndex={searchIndex} />);
 
         // Initial state
         expect(wrapper.state('defaultVisualizer'))

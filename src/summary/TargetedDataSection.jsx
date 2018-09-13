@@ -123,13 +123,61 @@ export default class TargetedDataSection extends Component {
     // TODO: Add a List type and a tabular renderer for it for Procedures section. case where left column is data
     //       and not just a label
     renderSection = (section) => {
-        const { patient, condition, allowItemClick, isWide, type, loginUser, actions } = this.props;
+        const { patient, condition, allowItemClick, isWide, type, loginUser, actions, searchIndex } = this.props;
         const visualization = this.checkVisualization();
 
         const viz = this.props.visualizerManager.getVisualizer(type, visualization);
         if (Lang.isNull(viz)) return null;
         const sectionTransform = viz.transform;
         const Visualizer = viz.visualizer;
+        if (section.resetData) section.resetData();
+        searchIndex.removeDataBySection(section.name);
+
+        const subsections = patient === null || condition === null || section === null ? [] : section.data;
+        subsections.forEach(subsection => {
+            let items = subsection.items;
+            let itemsFunction = subsection.itemsFunction;
+            let list, newSubsection;
+            let typeToIndex;
+
+            if (sectionTransform) {
+                typeToIndex = viz.renderedFormat;
+                newSubsection = sectionTransform(patient, condition, subsection);
+                list = newSubsection.data_cache;
+                Object.assign(subsection, newSubsection);
+            } else {
+                newSubsection = subsection;
+                typeToIndex = type;
+                if (Lang.isUndefined(items)) {
+                    list = itemsFunction(patient, condition, subsection);
+                } else {
+                    list = items.map((item, i) => {
+                        if (Lang.isNull(item.value)) {
+                            return {name: item.name, value: null};
+                        } else {
+                            let val = item.value(patient, condition, loginUser);
+                            if (val) {
+                                return {name: item.name, value: val[0], shortcut: item.shortcut, unsigned: val[1], source: val[2]};
+                            } else {
+                                return {name: item.name, value: null};
+                            }
+                        }
+                    });
+                }
+            }
+            subsection.data_cache = list;
+            const indexer = this.props.visualizerManager.getIndexer(typeToIndex);
+            if (!Lang.isUndefined(subsection.nameFunction)) subsection.name = subsection.nameFunction();
+            if (indexer) {
+                searchIndex.addSearchableData({
+                    section: section.name,
+                    subsection: "",
+                    valueTitle: "Section",
+                    value: section.name
+                });
+                indexer.indexData(section.name, subsection.name, list, searchIndex, newSubsection);
+            }
+        })
 
         return (
             <Visualizer
@@ -141,6 +189,7 @@ export default class TargetedDataSection extends Component {
                 isWide={isWide}
                 loginUser={loginUser}
                 actions={actions}
+                searchIndex={searchIndex}
             />
         );
     }
@@ -179,4 +228,5 @@ TargetedDataSection.propTypes = {
     isWide: PropTypes.bool.isRequired,
     clinicalEvent: PropTypes.string.isRequired,
     loginUser: PropTypes.object.isRequired,
+    searchIndex: PropTypes.object.isRequired,
 }

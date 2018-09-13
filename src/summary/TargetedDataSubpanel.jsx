@@ -159,6 +159,7 @@ export default class TargetedDataSubpanel extends Component {
                         isWide={isWide}
                         actions={actions}
                         loginUser={this.props.loginUser}
+                        searchIndex={this.props.searchIndex}
                     />
 
                     {i < conditionMetadata.sections.length - 1 ? <Divider className="divider"/> : null}
@@ -188,5 +189,6 @@ TargetedDataSubpanel.propTypes = {
     setForceRefresh: PropTypes.func.isRequired,
     allowItemClick: PropTypes.bool,
     onItemClicked: PropTypes.func,
-    actions: PropTypes.array
+    actions: PropTypes.array,
+    searchIndex: PropTypes.object.isRequired,
 };

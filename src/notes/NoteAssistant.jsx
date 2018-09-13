@@ -59,7 +59,7 @@ export default class NoteAssistant extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.searchSelectedItem) {
             const newNote = nextProps.searchSelectedItem;
-            this.openNote(newNote.signed, newNote)
+            this.openNote(!newNote.signed, newNote)
             this.props.setSearchSelectedItem(null);
         }
     }

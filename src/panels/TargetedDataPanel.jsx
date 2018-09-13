@@ -17,6 +17,10 @@ export default class TargetedDataPanel extends Component {
         return this.minimap.moveToSection(sectionName);
     }
 
+    moveToSubsection(sectionName, subsectionName) {
+        return this.minimap.moveToSubsection(sectionName, subsectionName);
+    }
+
     render () {
         // The css data attribute associated with the minimap
         const minimapAttribute = 'data-test-summary-section';
@@ -46,6 +50,7 @@ export default class TargetedDataPanel extends Component {
                                 patient={this.props.appState.patient} 
                                 setForceRefresh={this.props.setForceRefresh}                                                              
                                 summaryMetadata={this.props.summaryMetadata.getMetadata()}
+                                searchIndex={this.props.searchIndex}
                             />
                         </div>
                     </div>
@@ -70,4 +75,5 @@ TargetedDataPanel.proptypes = {
     summaryMetadata: PropTypes.object.isRequired,
     setForceRefresh: PropTypes.func.isRequired,
     targetedDataPanelSize: PropTypes.string.isRequired,
+    searchIndex: PropTypes.object.isRequired,
 }

@@ -40,7 +40,7 @@ class BandedLineChartVisualizer extends Component {
 
     // Turns dates into numeric representations for graphing
     processForGraphing = (data, xVar, xVarNumber) => {
-        const dataCopy = Lang.clone(data);
+        const dataCopy = Lang.cloneDeep(data);
 
         Collection.map(dataCopy, (d) => {
             d[xVarNumber] = Number(new Date(d[xVar]))
@@ -111,14 +111,14 @@ class BandedLineChartVisualizer extends Component {
         const xVar = "start_time";
         const xVarNumber = `${xVar}Number`;
         const yVar = subsection.name;
-        const data = subsection.itemsFunction(patient, condition, subsection);
+        const data = subsection.data_cache;
         // process dates into numbers for graphing
         const processedData = this.processForGraphing(data, xVar, xVarNumber);
         if (Lang.isUndefined(processedData) || processedData.length === 0) {
             return <div key={yVar}>
                         <div className="sub-section-heading">
-                            <h2 className="sub-section-name">
-                                {yVar}
+                            <h2 className="sub-section-name list-subsection-header">
+                                <span>{yVar}</span>
                             </h2>
                         </div>
                         <h2 style={{paddingTop: '10px'}}>None</h2>
@@ -178,8 +178,8 @@ class BandedLineChartVisualizer extends Component {
                 key={yVar}
             >
                 <div className="sub-section-heading">
-                    <h2 className="sub-section-name">
-                        {`${yVar} (${yUnit})`}
+                    <h2 className="sub-section-name list-subsection-header">
+                        <span>{`${yVar}`}</span><span>{` (${yUnit})`}</span>
                     </h2>
                 </div>
                 <LineChart

@@ -76,32 +76,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
     // for the given subsection object, return the list of data items it specifies
     // includes resolve value functions (value) per item (items) and item list functions (itemsFunction)
     getList(subsection) {
-        const {patient, condition, conditionSection, loginUser} = this.props;
-        if (patient == null || condition == null || conditionSection == null) {
-            return [];
-        }
-
-        const items = subsection.items;
-        const itemsFunction = subsection.itemsFunction;
-        let list = null;
-
-        if (Lang.isUndefined(items)) {
-            list = itemsFunction(patient, condition, subsection);
-        } else {
-            list = items.map((item, i) => {
-                if (Lang.isNull(item.value)) {
-                    return {name: item.name, value: null};
-                } else {
-                    let val = item.value(patient, condition, loginUser);
-                    if (val) {
-                        return {name: item.name, value: val[0], shortcut: item.shortcut, unsigned: val[1], sourceNote: val[2]};
-                    } else {
-                        return {name: item.name, value: null};
-                    }
-                }
-            });
-        }
-        return list;
+        return subsection.data_cache;
     }
             
     /* returns a list of snippets of the narrative. Each snippet object has the following attributes:
@@ -121,7 +96,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
             return item.name === valueName;
         };
         let _addLabResultToNarrative = (item) => {
-            return item.name + ": " + item.value[0];
+            return item[0].value + ": " + item[1].value[0];
         };
         let _addListItemToResult = (listItem) => {
             if (!first) result.push( { text: ', ', type: 'plain' });
@@ -131,8 +106,8 @@ class NarrativeNameValuePairsVisualizer extends Component {
                 text: value,
                 type: type,
                 item: {
-                    value: listItem.value[0],
-                    unsigned: listItem.value[1]
+                    value: listItem[1].value[0],
+                    unsigned: listItem[1].value[1]
                 }
             });
             if (first) first = false;
@@ -225,7 +200,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
             value: [
                 snippet.value,
                 snippet.unsigned,
-                snippet.sourceNote
+                snippet.source
             ],
         };
 

@@ -21,6 +21,7 @@ import ContextManager from '../context/ContextManager';
 import DataAccess from '../dataaccess/DataAccess';
 import SummaryMetadata from '../summary/SummaryMetadata';
 import PatientControlPanel from '../panels/PatientControlPanel';
+import SearchIndex from '../patientControl/SearchIndex';
 
 import '../styles/FullApp.css';
 
@@ -69,6 +70,7 @@ export class FullApp extends Component {
         this.shortcutManager = new ShortcutManager(this.props.shortcuts);
         this.securityManager = new SecurityManager();
         this.structuredFieldMapManager = new StructuredFieldMapManager();
+        this.searchIndex = new SearchIndex();
 
         this.state = {
             clinicalEvent: "pre-encounter",
@@ -161,7 +163,8 @@ export class FullApp extends Component {
     receive_command(commandType, data) {
         if (commandType === 'navigate_targeted_data_panel') {
             const sectionName = data.section;
-            return this.dashboard.moveTargetedDataPanelToSection(sectionName);
+            const subsectionName = data.subsection;
+            return this.dashboard.moveTargetedDataPanelToSubsection(sectionName, subsectionName);
         } else if (commandType === 'insert-structured-phrase') {
             return this.dashboard.insertStructuredPhraseInCurrentNote(data, "command");
         } else {
@@ -254,37 +257,37 @@ export class FullApp extends Component {
     }
 
     sourceActionIsDisabled = (element) => {
-        if (element.value && Lang.isArray(element.value) && element.value.length > 2 && element.value[2]) {
+        if (element.source) {
             return false;
         }
         return true;
     }
 
     nameSourceAction = (element) => {
-        if (element.value && Lang.isArray(element.value) && element.value.length > 2 && element.value[2]) {
-            return (element.value[2] instanceof Reference ? "Open Source Note" : "View Source");
+        if (element.source) {
+            return (element.source instanceof Reference ? "Open Source Note" : "View Source");
         }
         return "No source information";
     }
 
     openReferencedNote = (item, itemLabel) => {
-        if (!item.value || !Lang.isArray(item.value) || item.value.length < 3 || Lang.isUndefined(item.value[2]) || Lang.isNull(item.value[2]) || item.value[2] === '') {
+        if (!item.source) {
             this.setState({
                 snackbarOpen: true,
                 snackbarMessage: "No source information or note available."
             });
             return;
         }
-        if (item.value[2] instanceof Reference) {
-            const sourceNote = this.state.patient.getEntryFromReference(item.value[2]);
+        if (item.source instanceof Reference) {
+            const sourceNote = this.state.patient.getEntryFromReference(item.source);
             this.setOpenClinicalNote(sourceNote);
         } else {
-            const labelForItem = (Lang.isArray(itemLabel) ? itemLabel[0] : itemLabel );
-            const title = "Source for " + (labelForItem === item.value[0] ? labelForItem : labelForItem + " of " + item.value[0]);
+            const labelForItem = itemLabel; // (Lang.isArray(itemLabel) ? itemLabel[0] : itemLabel );
+            const title = "Source for " + (labelForItem === item.value ? labelForItem : labelForItem + " of " + item.value);
             this.setState({
                 isModalOpen: true,
                 modalTitle: title,
-                modalContent: item.value[2]
+                modalContent: item.source
             });
         }
     }
@@ -329,6 +332,10 @@ export class FullApp extends Component {
         this.setState({ isModalOpen: false });
     }
 
+    moveTargetedDataPanelToSubsection = (sectionName, subsectionName) => {
+        return this.dashboard.moveTargetedDataPanelToSubsection(sectionName, subsectionName);
+    }
+
     render() {
         // Get the Current Dashboard based on superRole of user
         const CurrentDashboard = this.dashboardManager.getDashboardForSuperRole(this.state.superRole);
@@ -350,6 +357,8 @@ export class FullApp extends Component {
                                     setLayout={this.setLayout}
                                     setSearchSelectedItem={this.setSearchSelectedItem}
                                     supportLogin={true}
+                                    searchIndex={this.searchIndex}
+                                    moveTargetedDataPanelToSubsection={this.moveTargetedDataPanelToSubsection}
                                 />
                             </Col>
                         </Row>
@@ -381,6 +390,7 @@ export class FullApp extends Component {
                             summaryMetadata={this.summaryMetadata}
                             updateErrors={this.updateErrors}
                             ref={(dashboard) => { this.dashboard = dashboard; }}
+                            searchIndex={this.searchIndex}
                         />
                         <Modal 
                             aria-labelledby="simple-modal-title"

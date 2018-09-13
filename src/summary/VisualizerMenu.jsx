@@ -19,6 +19,17 @@ export default class VisualizerMenu extends Component {
         });
         return filteredActions;
     }
+
+    arrayConvertArrayToObject = (a) => {
+        if (Lang.isArray(a.value)) {
+            return {    value: a.value[0],
+                        isUnsigned: a.value[1],
+                        source: a.value[2],
+                        shortcut: a.shortcut };
+        } else {
+            return a;
+        }
+    }
     
     // Renders a menu for an element with its associated meny items.
     render() {
@@ -44,18 +55,18 @@ export default class VisualizerMenu extends Component {
                         if (a.text) {
                             textSpec = a.text;
                         } else {
-                            textSpec = a.textfunction(this.props.element);
+                            textSpec = a.textfunction(this.arrayConvertArrayToObject(this.props.element));
                         }
                         let disabled = false;
                         if (!Lang.isUndefined(a.isdisabled)) {
-                            disabled = a.isdisabled(this.props.element);
+                            disabled = a.isdisabled(this.arrayConvertArrayToObject(this.props.element));
                         }
                         const text = textSpec.replace("{elementText}", this.props.elementText);
                         return (
                             <MenuItem
                                 key={`${this.props.elementId}-${index}`}
                                 disabled={disabled}
-                                onClick={() => this.props.onMenuItemClicked(a.handler, this.props.element, this.props.rowId)}
+                                onClick={() => this.props.onMenuItemClicked(a.handler, this.arrayConvertArrayToObject(this.props.element), this.props.rowId)}
                                 className="narrative-inserter-box"
                             >
                                 {icon}
