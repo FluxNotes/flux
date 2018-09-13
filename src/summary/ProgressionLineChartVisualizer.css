@@ -14,3 +14,9 @@
 .progression-line-chart-subsection .recharts-text { 
     font-size: 11px;
 }
+.progression-line-chart-subsection .disease-status-tooltip { 
+    padding: 10px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(204, 204, 204);
+    max-width: 200px;
+}

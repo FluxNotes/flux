@@ -2723,7 +2723,7 @@
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                         },
-                        "Value": "Complete response or remission; no measurable or observable evidence of cancer."
+                        "Value": "Complete response or remission; no measurable or observable evidence of cancer"
                     }
                 }
             ]
