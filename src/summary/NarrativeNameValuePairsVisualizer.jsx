@@ -96,7 +96,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
             return item.name === valueName;
         };
         let _addLabResultToNarrative = (item) => {
-            return item.name + ": " + item.value[0];
+            return item[0].value + ": " + item[1].value[0];
         };
         let _addListItemToResult = (listItem) => {
             if (!first) result.push( { text: ', ', type: 'plain' });
@@ -106,8 +106,8 @@ class NarrativeNameValuePairsVisualizer extends Component {
                 text: value,
                 type: type,
                 item: {
-                    value: listItem.value[0],
-                    unsigned: listItem.value[1]
+                    value: listItem[1].value[0],
+                    unsigned: listItem[1].value[1]
                 }
             });
             if (first) first = false;
