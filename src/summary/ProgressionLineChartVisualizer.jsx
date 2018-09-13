@@ -30,7 +30,7 @@ class ProgressionLineChartVisualizer extends Component {
         }
         this.xVarField = "start_time";
         this.xVarNumberField = `${this.xVarField}_number`;
-        this.yVarField = "Disease status";
+        this.yVarField = "disease_status_code";
         this.codeToValueMap =  {
             // 'Complete Response'
             "C0677874": 3,
@@ -168,6 +168,30 @@ class ProgressionLineChartVisualizer extends Component {
         return `${this.valueToProgressionMap[value]}`;
     }
 
+    // Based on a tooltipPayload, generate a tooltip for the diseaseStatus Endpoints 
+    diseaseStatusTooltipFunction = (props) => { 
+        const { payload } = props;
+        // If there's a payload, we have a tooltip to display
+        if (!Lang.isEmpty(payload)) { 
+            const { start_time, disease_status_string, evidence } = payload[0].payload;
+            // Create blurbs of text based on whether or not we have data to display
+            const disease_status_blurb = disease_status_string;
+            const evidence_blurb =  !Lang.isEmpty(evidence) ? ` based on ${evidence}` : "";
+            const as_of_blurb = !Lang.isEmpty(start_time)   ? ` as of ${start_time}`  : "";
+            return (
+                <div className="disease-status-tooltip">
+                    <span>
+                        {disease_status_blurb}
+                        {evidence_blurb}
+                        {as_of_blurb}
+                    </span>
+                </div>
+            )
+        } else { 
+            return;
+        }
+    }
+
     // Updates the dimensions of the chart
     resize = () => { 
         const chartParentDivWidth = this.chartParentDiv.offsetWidth;
@@ -211,26 +235,7 @@ class ProgressionLineChartVisualizer extends Component {
                         tickFormatter={(val) => { return this.valueToProgressionMap[val.toString()]}}
                     />
                     <Tooltip 
-                        // labelFormatter={this.xVarFormatFunction}
-                        // formatter={this.yVarFormatFunction}
-                        content={(arg1) => { 
-                            console.log('arg1: ', arg1);
-                            const { payload } = arg1;
-                            console.log('payload: ', payload);
-                            // If there's a payload, we have a tooltip to display
-                            if (!Lang.isEmpty(payload)) { 
-                                const { getTooltipText } = payload[0].payload;
-                                return (
-                                    <div className="disease-status-tooltip">
-                                        <span>
-                                            {getTooltipText()}
-                                        </span>
-                                    </div>
-                                )
-                            } else { 
-                                return;
-                            }
-                        }}
+                        content={this.diseaseStatusTooltipFunction}
                     />
                     <Line 
                         type="monotone" 
