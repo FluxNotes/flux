@@ -224,7 +224,7 @@ class ProgressionLineChartVisualizer extends Component {
                         return (
                             <ReferenceLine 
                                 x={diagnosisDate.date} 
-                                stroke="red" 
+                                stroke="#AAAAAA"
                                 key={i}
                                 label={{value: diagnosisDate.label, position:'insideBottom'}}
                             />
