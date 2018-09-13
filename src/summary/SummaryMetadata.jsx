@@ -1833,8 +1833,6 @@ export default class SummaryMetadata {
         const progressions = patient.getProgressionsForConditionChronologicalOrder(condition);
 
         const processedProgressions = progressions.map((prog, i) => {
-            console.log('prog: ', prog);
-
             const status = prog.status;
             const code = prog.statusAsCode
             const focalCondition = patient.getFocalConditionForProgression(prog);
