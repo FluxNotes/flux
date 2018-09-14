@@ -350,7 +350,7 @@ describe('6 FluxNotesEditor', function() {
         wrapper.setProps({ updatedEditorNote });
 
         // Check structured phrases
-        const structuredField = wrapper.find('.structured-field');
+        const structuredField = wrapper.find('.structured-field-inserter');
         expect(structuredField.at(0).text()).to.equal(`Test Name `);
         expect(structuredField.at(1).text()).to.equal(`49 `);
         expect(structuredField.at(2).text()).to.equal(`Female `);
@@ -483,8 +483,8 @@ describe('6 FluxNotesEditor', function() {
         expect(notesPanelWrapper.find(FluxNotesEditor)).to.have.lengthOf(1);
         notesPanelWrapper.setState({ updatedEditorNote: { content: '@name' } });
 
-        expect(notesPanelWrapper.find('.structured-field')).to.have.length(1);
-        expect(notesPanelWrapper.find('.structured-field').text()).to.contain(patient.getName());
+        expect(notesPanelWrapper.find('.structured-field-inserter')).to.have.length(1);
+        expect(notesPanelWrapper.find('.structured-field-inserter').text()).to.contain(patient.getName());
     });
 
     it('6.3 renders notes panel, clicking "@condition" and choosing "Invasive ductal carcinoma of breast" creates a new condition section in the context tray and adds structured data.', () => {
@@ -544,8 +544,8 @@ describe('6 FluxNotesEditor', function() {
         const conditionSection = notesPanelWrapper.find('.context-tray').find('div').find('[title="Invasive ductal carcinoma of breast"]');
         expect(conditionSection).to.have.lengthOf(1);
 
-        expect(notesPanelWrapper.find('.structured-field')).to.have.length(1);
-        expect(notesPanelWrapper.find('.structured-field').text()).to.contain('Invasive ductal carcinoma of breast');
+        expect(notesPanelWrapper.find('.structured-field-inserter')).to.have.length(1);
+        expect(notesPanelWrapper.find('.structured-field-inserter').text()).to.contain('Invasive ductal carcinoma of breast');
     });
 
     it('6.4 Typing an inserterShortcut that is not currently valid in the editor does not result in a structured data insertion ', () => {
@@ -603,7 +603,7 @@ describe('6 FluxNotesEditor', function() {
         wrapper.setProps({ updatedEditorNote });
 
         // Check structured phrases
-        const structuredField = wrapper.find('.structured-field');
+        const structuredField = wrapper.find('.structured-field-creator');
         expect(structuredField).to.have.lengthOf(0)
 
         // Check full text
@@ -659,22 +659,32 @@ describe('6 FluxNotesEditor', function() {
         // wrapper.find('.editor-content').simulate('click'); //goes into on change
 
         // let noteContent = ' #staging t2 n2 m1';
-        const arrayOfStructuredDataToEnter = ["@condition[[Invasive ductal carcinoma of breast]] ", "#staging ", "t2 ", "n2 ", "m1 "]
-        const arrayOfExpectedStructuredData = ["Invasive ductal carcinoma of breast ", "#staging ", "t2 ", "n2 ", "m1 "]
+        const arrayOfStructuredDataToEnter = ["@condition[[Invasive ductal carcinoma of breast]] ", "#staging ", "t2 ", "n2 ", "m1 "];
+        const arrayOfExpectedStructuredDataInserters = ["Invasive ductal carcinoma of breast "];
+        const arrayOfExpectedStructuredDataCreators = ["staging ", "t2 ", "n2 ", "m1 "];
         const updatedEditorNote = { content: arrayOfStructuredDataToEnter.join(' ') };
         // Set updatedEditorNote props because this triggers that a change is coming in to the editor and inserts text with structured phrases.
         wrapper.setProps({ updatedEditorNote });
 
-        // Check structured phrases
-        const structuredField = wrapper.find('.structured-field');
-        expect(structuredField).to.have.lengthOf(arrayOfExpectedStructuredData.length)
-        for (let index = 0; index < arrayOfExpectedStructuredData.length; index++) {
-            expect(structuredField.at(index).text()).to.contain(arrayOfExpectedStructuredData[index]);
+        // Check structured phrases inserters
+        const structuredFieldInserter = wrapper.find('.structured-field-inserter');
+        expect(structuredFieldInserter).to.have.lengthOf(arrayOfExpectedStructuredDataInserters.length)
+        for (let index = 0; index < arrayOfExpectedStructuredDataInserters.length; index++) {
+            expect(structuredFieldInserter.at(index).text()).to.contain(arrayOfExpectedStructuredDataInserters[index]);
+        }
+        // Check structured phrases creators
+        const structuredFieldCreator = wrapper.find('.structured-field-creator');
+        expect(structuredFieldCreator).to.have.lengthOf(arrayOfExpectedStructuredDataCreators.length)
+        for (let index = 0; index < arrayOfExpectedStructuredDataCreators.length; index++) {
+            expect(structuredFieldCreator.at(index).text()).to.contain(arrayOfExpectedStructuredDataCreators[index]);
         }
         // Check full text
         const editorContent = wrapper.find('.editor-content');
-        for (let index = 0; index < arrayOfExpectedStructuredData.length; index++) {
-            expect(editorContent.text()).to.contain(arrayOfExpectedStructuredData[index]);
+        for (let index = 0; index < arrayOfExpectedStructuredDataInserters.length; index++) {
+            expect(editorContent.text()).to.contain(arrayOfExpectedStructuredDataInserters[index]);
+        }
+        for (let index = 0; index < arrayOfExpectedStructuredDataCreators.length; index++) {
+            expect(editorContent.text()).to.contain(arrayOfExpectedStructuredDataCreators[index]);
         }
     });
 
@@ -727,13 +737,13 @@ describe('6 FluxNotesEditor', function() {
 
         // let noteContent = ' #staging t2 n2 m1';
         const arrayOfStructuredDataToEnter = ["#12/20/2015 "];
-        const arrayOfExpectedStructuredData = ["#12/20/2015 "];
+        const arrayOfExpectedStructuredData = ["12/20/2015 "];
         const updatedEditorNote = { content: arrayOfStructuredDataToEnter.join(' ') };
         // Set updatedEditorNote props because this triggers that a change is coming in to the editor and inserts text with structured phrases.
         wrapper.setProps({ updatedEditorNote });
 
         // Check structured phrases
-        const structuredField = wrapper.find('.structured-field');
+        const structuredField = wrapper.find('.structured-field-creator');
         expect(structuredField).to.have.lengthOf(arrayOfExpectedStructuredData.length)
         for (let index = 0; index < arrayOfExpectedStructuredData.length; index++) {
             expect(structuredField.at(index).text()).to.contain(arrayOfExpectedStructuredData[index]);
@@ -798,8 +808,8 @@ describe('6 FluxNotesEditor', function() {
         notesPanelWrapper.setState({ updatedEditorNote });
 
 
-        expect(notesPanelWrapper.find('.structured-field')).to.have.length(1);
-        expect(notesPanelWrapper.find('.structured-field').text()).to.contain('#deceased');        
+        expect(notesPanelWrapper.find('.structured-field-creator')).to.have.length(1);
+        expect(notesPanelWrapper.find('.structured-field-creator').text()).to.contain('deceased');        
 
         const deceasedChild = notesPanelWrapper.find('.context-tray').find('div.context-options-header[title="Date"]');
         expect(deceasedChild).to.have.lengthOf(1);
@@ -851,7 +861,8 @@ describe('6 FluxNotesEditor', function() {
         expect(notesPanelWrapper.find(NoteAssistant)).to.have.lengthOf(1);
 
         const arrayOfStructuredDataToEnter = ["@condition[[Invasive ductal carcinoma of breast]] ", "#PR ", "#Positive "];
-        const arrayOfExpectedStructuredData = ["Invasive ductal carcinoma of breast ", "#PR ", "#Positive "]
+        const arrayOfExpectedStructuredDataInserter = ["Invasive ductal carcinoma of breast "]
+        const arrayOfExpectedStructuredDataCreator = ["PR ", "Positive "]
         const updatedEditorNote = { content: arrayOfStructuredDataToEnter.join(' ') };
         // Set updatedEditorNote props because this triggers that a change is coming in to the editor and inserts text with structured phrases.
         fluxNotesEditor.instance().onFocus();
@@ -859,15 +870,24 @@ describe('6 FluxNotesEditor', function() {
         notesPanelWrapper.setState({ updatedEditorNote });
 
         // Check structured phrases
-        const structuredField = notesPanelWrapper.find('.structured-field');
-        expect(structuredField).to.have.lengthOf(arrayOfExpectedStructuredData.length)
-        for (let index = 0; index < arrayOfExpectedStructuredData.length; index++) {
-            expect(structuredField.at(index).text()).to.contain(arrayOfExpectedStructuredData[index]);
+        const structuredFieldInserter = notesPanelWrapper.find('.structured-field-inserter');
+        expect(structuredFieldInserter).to.have.lengthOf(arrayOfExpectedStructuredDataInserter.length)
+        for (let index = 0; index < arrayOfExpectedStructuredDataInserter.length; index++) {
+            expect(structuredFieldInserter.at(index).text()).to.contain(arrayOfExpectedStructuredDataInserter[index]);
+        }
+        const structuredFieldCreator = notesPanelWrapper.find('.structured-field-creator');
+        expect(structuredFieldCreator).to.have.lengthOf(arrayOfExpectedStructuredDataCreator.length)
+        for (let index = 0; index < arrayOfExpectedStructuredDataCreator.length; index++) {
+            expect(structuredFieldCreator.at(index).text()).to.contain(arrayOfExpectedStructuredDataCreator[index]);
         }
         // Check full text
-        const editorContent = notesPanelWrapper.find('.editor-content');
-        for (let index = 0; index < arrayOfExpectedStructuredData.length; index++) {
-            expect(editorContent.text()).to.contain(arrayOfExpectedStructuredData[index]);
+        const editorContentInserter = notesPanelWrapper.find('.editor-content');
+        for (let index = 0; index < arrayOfExpectedStructuredDataInserter.length; index++) {
+            expect(editorContentInserter.text()).to.contain(arrayOfExpectedStructuredDataInserter[index]);
+        }
+        const editorContentCreator = notesPanelWrapper.find('.editor-content');
+        for (let index = 0; index < arrayOfExpectedStructuredDataCreator.length; index++) {
+            expect(editorContentCreator.text()).to.contain(arrayOfExpectedStructuredDataCreator[index]);
         }
     });
 
@@ -1054,21 +1074,27 @@ describe('6 FluxNotesEditor', function() {
 
         // let noteContent = ' #staging t2 n2 m1';
         const arrayOfShortcutText = ["@condition[[Invasive ductal carcinoma of breast]] ", "#toxicity ", "#nausea ", "#disease status ", "#imaging "];
-        const arrayOfParsedShortcutText = ["Invasive ductal carcinoma of breast ", "#toxicity ", "#nausea ", "#disease status ", "#imaging "]
+        const arrayOfParsedShortcutTextInserter = ["Invasive ductal carcinoma of breast "]
+        const arrayOfParsedShortcutTextCreator = ["toxicity ", "nausea ", "disease status ", "imaging "]
         const updatedEditorNote = { content: arrayOfShortcutText.join(' ') };
         // Set updatedEditorNote props because this triggers that a change is coming in to the editor and inserts text with structured phrases.
         wrapper.setProps({ updatedEditorNote });
 
         // Check structured phrases
-        const structuredField = wrapper.find('.structured-field');
-        expect(structuredField).to.have.lengthOf(arrayOfParsedShortcutText.length)
-        for (let index = 0; index < arrayOfParsedShortcutText.length; index++) {
-            expect(structuredField.at(index).text()).to.contain(arrayOfParsedShortcutText[index]);
+        const structuredFieldInserter = wrapper.find('.structured-field-inserter');
+        expect(structuredFieldInserter).to.have.lengthOf(arrayOfParsedShortcutTextInserter.length)
+        for (let index = 0; index < arrayOfParsedShortcutTextInserter.length; index++) {
+            expect(structuredFieldInserter.at(index).text()).to.contain(arrayOfParsedShortcutTextInserter[index]);
+        }
+        const structuredFieldCreator = wrapper.find('.structured-field-creator');
+        expect(structuredFieldCreator).to.have.lengthOf(arrayOfParsedShortcutTextCreator.length)
+        for (let index = 0; index < arrayOfParsedShortcutTextCreator.length; index++) {
+            expect(structuredFieldCreator.at(index).text()).to.contain(arrayOfParsedShortcutTextCreator[index]);
         }
         // Check full text
-        const editorContent = wrapper.find('.editor-content');
-        for (let index = 0; index < arrayOfParsedShortcutText.length; index++) {
-            expect(editorContent.text()).to.contain(arrayOfParsedShortcutText[index]);
+        const editorContentCreator = wrapper.find('.editor-content');
+        for (let index = 0; index < arrayOfParsedShortcutTextCreator.length; index++) {
+            expect(editorContentCreator.text()).to.contain(arrayOfParsedShortcutTextCreator[index]);
         }
     });
 
