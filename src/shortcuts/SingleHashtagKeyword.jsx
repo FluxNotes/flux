@@ -185,7 +185,7 @@ export default class SingleHashtagKeyword extends EntryShortcut {
     }
 
     getText() {
-        return this.getPrefixCharacter() + this.metadata["name"];
+        return this.metadata["name"];
     }
 
     getResultText() {

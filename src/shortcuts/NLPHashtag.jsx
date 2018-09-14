@@ -229,7 +229,7 @@ export default class NLPHashtag extends Shortcut {
     }
 
     getText() {
-        return this.getPrefixCharacter() + this.metadata["name"];
+        return this.metadata["name"];
     }
 
     getResultText() {
