@@ -1494,7 +1494,7 @@ class FluxNotesEditor extends React.Component {
                     />
                     <div className='editor-content'>
                         <Slate.Editor
-                            className="editor-panel"
+                            className={this.props.selectedNote.signed ? "editor-panel" : "editor-panel in-progress-note"}
                             placeholder={'Enter your clinical note here or choose a template to start from...'}
                             plugins={this.plugins}
                             readOnly={!this.props.isNoteViewerEditable}
