@@ -1145,7 +1145,7 @@ describe('6 FluxNotesEditor', function() {
         clinicalNotesButton.at(0).props().onClick();
         notesPanelWrapper.update();
 
-        const inProgressNotes = notesPanelWrapper.find('.in-progress-note');
+        const inProgressNotes = notesPanelWrapper.find('.note.in-progress-note');
     
         // There are no unsigned notes on the patient's record initially
         expect(inProgressNotes).to.have.length(0);
@@ -1157,7 +1157,7 @@ describe('6 FluxNotesEditor', function() {
         clinicalNotesButton.at(0).props().onClick();
         notesPanelWrapper.update();
     
-        const inProgressNotesAfter = notesPanelWrapper.find('.in-progress-note');
+        const inProgressNotesAfter = notesPanelWrapper.find('.note.in-progress-note');
         expect(inProgressNotesAfter).to.have.length(1);
     });
 
