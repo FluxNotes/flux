@@ -214,8 +214,18 @@ class ProgressionLineChartVisualizer extends Component {
     renderProgressionChart = (patient, condition, conditionSection) => { 
         const { progressions, potentialDiagnosisDates } = conditionSection.data[0].data_cache;
         // process dates into numbers for graphing
-        const processedData = this.processForGraphing(progressions);
-        const processedPotentialDiagnosisDates = this.processPotentialDiagnosisDates(potentialDiagnosisDates)
+        let processedData = this.processForGraphing(progressions);
+        const processedPotentialDiagnosisDates = this.processPotentialDiagnosisDates(potentialDiagnosisDates);
+        processedPotentialDiagnosisDates.forEach((diagnosisDate, i) => {
+            processedData.push({
+                disease_status_string: "Diagnosed ",
+                evidence: "",
+                start_time: this.dateFormat(diagnosisDate.date),
+                start_time_number: diagnosisDate.date,
+                diagnosis_date : diagnosisDate.date,
+                label: `ref_${i}`
+            })
+        }); 
         // Get yAxisInfo 
         const yTicks = [ -1, 0, 1, 2, 3 ];
         // Get xAxisInfo 
@@ -253,6 +263,12 @@ class ProgressionLineChartVisualizer extends Component {
                         stroke="#295677" 
                         yAxisId={0}
                     />
+                     <Line 
+                        type="monotone"
+                        dataKey="diagnosis_date"
+                        stroke="none"
+                    />
+                   
                     {processedPotentialDiagnosisDates.map((diagnosisDate, i) => {
                         return (
                             <ReferenceLine 
@@ -264,7 +280,6 @@ class ProgressionLineChartVisualizer extends Component {
                             />
                         );
                     })}
-
                 </LineChart>
            </div>
         );
