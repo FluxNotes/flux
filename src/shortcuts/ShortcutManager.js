@@ -338,6 +338,7 @@ class ShortcutManager {
                     return value.length > 0;
                 }
             } else {
+                if (!Lang.isUndefined(contextValueObjectEntryTypes) && Lang.isUndefined(context.getValueObject())) return true; // initial template insertion needs to allow this for now
                 return false;
             }
         });
