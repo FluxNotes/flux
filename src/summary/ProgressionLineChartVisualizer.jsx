@@ -151,16 +151,18 @@ class ProgressionLineChartVisualizer extends Component {
         let ticks = [...xAxisDomain];
         const totalNumberOfTicks = 6;
         // Minus the ticks at the beginning and the end
-        const totalNumberOfIntermediateTicks = totalNumberOfTicks - xAxisDomain.length
+        const totalNumberOfIntermediateTicks = totalNumberOfTicks - xAxisDomain.length;
+        // Get the total length of the domain
+        const domainLength = xAxisDomain[1] - xAxisDomain[0];
+        // Get the distance from one tick to the next, which means geometrically: 
+        // if we have n ticks, we have n - 1 subsections of equal length between ticks
+        const tickLength = Math.round(domainLength / 5);
         for (let numberOfTicks = 1; numberOfTicks <= totalNumberOfIntermediateTicks; numberOfTicks++) {
-            // Get the total length of the domain
-            const domainLength = xAxisDomain[1] - xAxisDomain[0] 
-            // Get the distance from one tick to the next, which means geometrically: 
-            // if we have n ticks, we have n - 1 subsections of equal length between ticks
-            const tickLength = Math.round(domainLength / 5)
-            // Add that to our zero point -- the min value of our domain
-            const tickLocation = xAxisDomain[0] + (numberOfTicks * tickLength)
-            ticks.push(tickLocation)
+            // Tick offset increases by one tickLength for each successive tick 
+            const tickOffset = (numberOfTicks * tickLength);
+            // Add that offset to our zero point -- the min value of our domain
+            const tickLocation = xAxisDomain[0] + tickOffset;
+            ticks.push(tickLocation);
         }
         // Sort since the axis doesn't sort on its own
         return ticks.sort();
