@@ -8,13 +8,11 @@ import {
     ReferenceLine,
 } from 'recharts';
 import moment from 'moment';
-import {scaleLinear} from "d3-scale";
 import Collection from 'lodash';
 import Lang from 'lodash';
 import PropTypes from 'prop-types';
 
 import './ProgressionLineChartVisualizer.css';
-
 /*
  A BandedLineGraphVisualizer that graphs a set of data over time
  */
@@ -149,12 +147,22 @@ class ProgressionLineChartVisualizer extends Component {
     // Use min/max info to build ticks for the 
     // Assumes processed data
     getXAxisTicks = (xAxisDomain, processedPotentialDiagnosisDates) => {
+        // Ticks are going to contain the min and max values
+        let ticks = [...xAxisDomain];
         const totalNumberOfTicks = 6;
-        const scale = scaleLinear().domain(xAxisDomain).range([0, 1]);
-        const ticks = scale.ticks(totalNumberOfTicks - processedPotentialDiagnosisDates.length);
-        for (const obj of processedPotentialDiagnosisDates) {
-            ticks.push(obj.date);
+        // Minus the ticks at the beginning and the end
+        const totalNumberOfIntermediateTicks = totalNumberOfTicks - xAxisDomain.length
+        for (let numberOfTicks = 1; numberOfTicks <= totalNumberOfIntermediateTicks; numberOfTicks++) {
+            // Get the total length of the domain
+            const domainLength = xAxisDomain[1] - xAxisDomain[0] 
+            // Get the distance from one tick to the next, which means geometrically: 
+            // if we have n ticks, we have n - 1 subsections of equal length between ticks
+            const tickLength = Math.round(domainLength / 5)
+            // Add that to our zero point -- the min value of our domain
+            const tickLocation = xAxisDomain[0] + (numberOfTicks * tickLength)
+            ticks.push(tickLocation)
         }
+        // Sort since the axis doesn't sort on its own
         return ticks.sort();
     } 
 
