@@ -111,8 +111,19 @@
 }
 
 // ******** StructuredFieldPlugin.jsx uses this
-.structured-field {
-    background-color: #d9ebf9;
+.structured-field-inserter {
+    // background-color: #d9ebf9;
+    // border-bottom: 1px solid #ddd;
+    color: #919191;
+
+    &-highlighted {
+        font-weight: bold;
+    }
+}
+
+.structured-field-creator {
+    // background-color: #d9ebf9;
+    border-bottom: 1.5px dashed rgba(1, 130, 215, 0.8);
 
     &-highlighted {
         font-weight: bold;
