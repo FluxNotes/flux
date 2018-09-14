@@ -120,7 +120,7 @@ export default class CreatorChild extends Shortcut {
     }
 
     getText() {
-        return `${this.getPrefixCharacter()}${this.text}`;
+        return this.text;
     }
 
     getShortcutType() {

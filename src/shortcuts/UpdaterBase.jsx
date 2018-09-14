@@ -217,7 +217,7 @@ export default class UpdaterBase extends EntryShortcut {
     }
 
     getText() {
-        return this.getPrefixCharacter() + this.metadata["name"];
+        return this.metadata["name"];
     }
 
     getId() {

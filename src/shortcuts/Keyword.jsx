@@ -105,7 +105,7 @@ export default class Keyword extends Shortcut {
     }
 
     getText() {
-        return `${this.getPrefixCharacter()}${this.text}`;
+        return this.text;
     }
 
     getShortcutType() {

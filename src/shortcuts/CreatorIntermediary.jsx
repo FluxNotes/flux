@@ -101,7 +101,7 @@ export default class CreatorIntermediary extends Shortcut {
     }
 
     getText() {
-        return "#" + this.metadata["name"];
+        return this.metadata["name"];
     }
 
     getId() {

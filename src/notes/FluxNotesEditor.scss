@@ -111,14 +111,26 @@
 }
 
 // ******** StructuredFieldPlugin.jsx uses this
-.structured-field {
-    background-color: #d9ebf9;
-
-    &-highlighted {
-        font-weight: bold;
-    }
+// Highlighted during template hovering
+.structured-field-highlighted {
+    font-weight: bold;
 }
 
+// Inserter values are grayed out
+.structured-field-inserter {
+    color: $state;
+}
+
+.structured-field-creator {
+    border-bottom: 1px solid $shr-context-line;
+}
+
+.in-progress-note { 
+    .structured-field-creator {
+        background-color: rgba(0, 0, 0, 0);
+        border-bottom: 1.5px dashed $shr-context-line;
+    }
+}
 .placeholder {
     background-color: #dddddd;
 }

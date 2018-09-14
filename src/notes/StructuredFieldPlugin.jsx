@@ -1,4 +1,5 @@
 import Placeholder from '../shortcuts/Placeholder';
+import InsertValue from '../shortcuts/InsertValue';
 import React from 'react';
 import Slate from '../lib/slate';
 import Lang from 'lodash';
@@ -57,11 +58,19 @@ function StructuredFieldPlugin(opts) {
         nodes: {
             structured_field: props => {
                 let shortcut = props.node.get('data').get('shortcut');
-                return <span contentEditable={false} className='structured-field' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
+                if (shortcut instanceof InsertValue) {
+                    return <span contentEditable={false} className='structured-field-inserter' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
+                } else {
+                    return <span contentEditable={false} className='structured-field-creator' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
+                }
             },
             highlighted_structured_field: props => {
                 let shortcut = props.node.get('data').get('shortcut');
-                return <span contentEditable={false} className='structured-field structured-field-highlighted' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
+                if (shortcut instanceof InsertValue) {
+                    return <span contentEditable={false} className='structured-field-inserter structured-field-highlighted' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
+                } else {
+                    return <span contentEditable={false} className='structured-field-creator structured-field-highlighted' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
+                }
             },
             placeholder: props => {
                 const placeholder = props.node.get('data').get('placeholder');
