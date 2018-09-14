@@ -187,7 +187,7 @@ class ProgressionLineChartVisualizer extends Component {
             // Create blurbs of text based on whether or not we have data to display
             const disease_status_blurb = disease_status_string;
             const evidence_blurb =  !Lang.isEmpty(evidence) ? ` based on ${evidence}` : "";
-            const as_of_blurb = !Lang.isEmpty(start_time)   ? ` as of ${start_time}`  : "";
+            const as_of_blurb = !Lang.isEmpty(start_time)   ? ` on ${start_time}`  : "";
             return (
                 <div className="disease-status-tooltip">
                     <span>
