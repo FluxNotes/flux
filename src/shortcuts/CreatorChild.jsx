@@ -123,6 +123,11 @@ export default class CreatorChild extends Shortcut {
         return this.text;
     }
 
+    getResultText() {
+        return `${this.getPrefixCharacter()}${this.getText()}`;
+    }
+
+
     getShortcutType() {
         return this.metadata["id"];
         //throw new Error("getShortcutType on CreatorChild called.");
