@@ -850,7 +850,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
             },
-            "Value": "Dr. ABC123"
+            "Value": "Dr. Mona341 Brown483"
         },
         "ActionContext": {
             "EntryType": {
@@ -1043,7 +1043,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
             },
-            "Value": "Dr. ABC123"
+            "Value": "Dr. Mona341 Brown483"
         },
         "ActionContext": {
             "EntryType": {
@@ -1236,7 +1236,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
             },
-            "Value": "Dr. XYZ987"
+            "Value": "Dr. Mona341 Brown483"
         },
         "ActionContext": {
             "EntryType": {
@@ -1445,7 +1445,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
             },
-            "Value": "Dr. ABC123"
+            "Value": "Dr. Mona341 Brown483"
         },
         "ActionContext": {
             "EntryType": {
@@ -1654,7 +1654,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
             },
-            "Value": "Dr. XYZ987"
+            "Value": "Dr. Mona341 Brown483"
         },
         "ActionContext": {
             "EntryType": {
@@ -1863,7 +1863,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
             },
-            "Value": "Dr. ABC123"
+            "Value": "Dr. Mona341 Brown483"
         },
         "ActionContext": {
             "EntryType": {
@@ -4456,7 +4456,7 @@
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Reason"
                     },
-                    "Value": "Debra Hernandez672 is coming in to see Dr. X123 Y987 for a regular check up on the progress of her treatment for Invasive ductal carcinoma of the breast"
+                    "Value": "Debra Hernandez672 is coming in to see Dr. Mona341 Brown483 for a regular check up on the progress of her treatment for Invasive ductal carcinoma of the breast"
                 }
             ],
             "Status": {
@@ -4526,7 +4526,7 @@
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Reason"
                     },
-                    "Value": "Debra Hernandez672 saw Dr. X123 Y987 for a check up on the progress of her treatment for Invasive ductal carcinoma of the breast"
+                    "Value": "Debra Hernandez672 saw Dr. Mona341 Brown483 for a check up on the progress of her treatment for Invasive ductal carcinoma of the breast"
                 }
             ],
             "Status": {
@@ -4596,7 +4596,7 @@
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Reason"
                     },
-                    "Value": "Debra Hernandez672 is coming in to see Dr. X123 Y987 for a check up on the progress of her treatment for Invasive ductal carcinoma of the breast"
+                    "Value": "Debra Hernandez672 is coming in to see Dr. Mona341 Brown483 for a check up on the progress of her treatment for Invasive ductal carcinoma of the breast"
                 }
             ],
             "Status": {
