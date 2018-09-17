@@ -424,6 +424,7 @@ export default class NotesPanel extends Component {
                     openExistingNote={this.openExistingNote}
                     patient={this.props.patient}
                     saveNote={this.saveNote}
+                    searchIndex={this.props.searchIndex}
                     searchSelectedItem={this.props.searchSelectedItem}
                     selectedNote={this.state.selectedNote}
                     setLayout={this.props.setLayout} 
@@ -475,6 +476,7 @@ NotesPanel.propTypes = {
     noteClosed: PropTypes.bool.isRequired,
     openClinicalNote: PropTypes.object,
     patient: PropTypes.object.isRequired,
+    searchIndex: PropTypes.object.isRequired,
     searchSelectedItem: PropTypes.object,
     setNoteClosed: PropTypes.func.isRequired,
     setNoteViewerEditable: PropTypes.func.isRequired,

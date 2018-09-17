@@ -8,6 +8,7 @@ import FontAwesome from 'react-fontawesome';
 import ContextTray from '../context/ContextTray';
 import PickListOptionsPanel from '../panels/PickListOptionsPanel';
 import Button from '../elements/Button';
+import NotesIndexer from '../patientControl/NotesIndexer';
 import moment from 'moment';
 import './NoteAssistant.css';
 
@@ -100,7 +101,7 @@ export default class NoteAssistant extends Component {
 
     setInsertingTemplate = (insertingTemplate) => {
         this.setState({ insertingTemplate }); 
-        this.props.updateShowTemplateView(false);           
+        this.props.updateShowTemplateView(false);
     }
 
     onPointOfCareButtonClicked() {
@@ -200,7 +201,9 @@ export default class NoteAssistant extends Component {
     renderNoteAssistantContent(noteAssistantMode) {
         const allNotes = this.props.patient.getNotes();
         const numberOfPreviousSignedNotes = Lang.filter(allNotes, o => o.signed).length;
+        const notesIndexer = new NotesIndexer();
 
+        notesIndexer.indexData('Clinical Notes', '', allNotes, this.props.searchIndex);
         switch (noteAssistantMode) {
             case "poc":
                 return (
@@ -556,6 +559,7 @@ NoteAssistant.propTypes = {
     noteAssistantMode: PropTypes.string.isRequired,
     noteClosed: PropTypes.bool.isRequired,
     patient: PropTypes.object.isRequired,
+    searchIndex: PropTypes.object.isRequired,
     searchSelectedItem: PropTypes.object,
     selectedNote: PropTypes.object,
     setLayout: PropTypes.func.isRequired,

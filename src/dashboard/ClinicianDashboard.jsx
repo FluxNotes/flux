@@ -207,6 +207,7 @@ export default class ClinicianDashboard extends Component {
                         noteClosed={this.props.appState.noteClosed}
                         openClinicalNote={this.props.appState.openClinicalNote}
                         patient={this.props.appState.patient}
+                        searchIndex={this.props.searchIndex}
                         searchSelectedItem={this.props.searchSelectedItem}
                         setForceRefresh={this.props.setForceRefresh}
                         setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
