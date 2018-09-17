@@ -6,6 +6,7 @@ import {
     YAxis,
     Tooltip,
     ReferenceLine,
+    ResponsiveContainer,
 } from 'recharts';
 import moment from 'moment';
 import Collection from 'lodash';
@@ -17,15 +18,11 @@ import './ProgressionLineChartVisualizer.css';
  A BandedLineGraphVisualizer that graphs a set of data over time
  */
 class ProgressionLineChartVisualizer extends Component {
-    constructor(props) { 
+    constructor(props) {
         super(props);
 
-        this.updateState = true;
-        // This var will be used 
-        this.state = {
-            chartWidth: 600,
-            chartHeight: 400,
-        }
+        // This var will be used
+        this.chartHeight = 400;
         this.xVarField = "start_time";
         this.xVarNumberField = `${this.xVarField}_number`;
         this.yVarField = "disease_status_code";
@@ -59,21 +56,6 @@ class ProgressionLineChartVisualizer extends Component {
         };
     }
 
-    // Makesure to update data and resize the component when its contents update.
-    componentDidUpdate = () => {
-        if (this.updateState) {
-            this.updateState = false;
-        } else {
-            this.updateState = true;
-            setTimeout(this.resize, 450);
-        }
-    }
-
-    // Adds appropriate event listeners for tracking resizing
-    componentDidMount = () => { 
-        setTimeout(this.resize, 450);
-    }
-
     // Single function translating date strings to numbers
     dateToNumber = (date) => {
         return Number(new Date(date))
@@ -85,7 +67,7 @@ class ProgressionLineChartVisualizer extends Component {
             const code = d[this.yVarField];
             const numberBasedOnCode = this.codeToValueMap[code];
 
-            // 1. Translate time strings into millisecond representations, storing in a new key:value pair            
+            // 1. Translate time strings into millisecond representations, storing in a new key:value pair
             d[this.xVarNumberField]  = this.dateToNumber(d[this.xVarField])
             // 2. Translate progression status values into numeric representations, inplace
             d[this.yVarField] = numberBasedOnCode;
@@ -116,35 +98,34 @@ class ProgressionLineChartVisualizer extends Component {
     getXAxisDomain = (processedData, processedPotentialDiagnosisDates) => {
         let [ min, max ] = this.getMinMax(processedData);
         for (const obj of processedPotentialDiagnosisDates) {
-            if (obj.date < min) { 
-                min = obj.date; 
-            } else if (obj.date > max) { 
+            if (obj.date < min) {
+                min = obj.date;
+            } else if (obj.date > max) {
                 max = obj.date;
             }
         }
         // Creates a small amount of padding, relative to the length of the domain
-        const buffer = ((max - min)/15) 
+        const buffer = ((max - min)/15);
         return [min - buffer, max];
     }
 
     // Gets the min/max values of the numeric representation of this.xVarField
-    // Assumes processed data array 
-    getMinMax = (processedData) => { 
+    // Assumes processed data array
+    getMinMax = (processedData) => {
         // Iterate once to avoid 2x iteration by calling min and max separately
         return Collection.reduce(processedData, (rangeValues, dataObj) => {
             const t = dataObj[this.xVarNumberField];
-            
-            if (t < rangeValues[0]) { 
+
+            if (t < rangeValues[0]) {
                 rangeValues[0] = t;
-            } else if (t > rangeValues[1]) { 
+            } else if (t > rangeValues[1]) {
                 rangeValues[1] = t;
             }
             return rangeValues;
         }, [processedData[0][this.xVarNumberField], processedData[0][this.xVarNumberField]]);
-
     }
 
-    // Use min/max info to build ticks for the 
+    // Use min/max info to build ticks for the
     // Assumes processed data
     getXAxisTicks = (xAxisDomain, processedPotentialDiagnosisDates, isWide) => {
         // Ticks are going to contain the min and max values
@@ -154,11 +135,11 @@ class ProgressionLineChartVisualizer extends Component {
         const totalNumberOfIntermediateTicks = totalNumberOfTicks - xAxisDomain.length;
         // Get the total length of the domain
         const domainLength = xAxisDomain[1] - xAxisDomain[0];
-        // Get the distance from one tick to the next, which means geometrically: 
+        // Get the distance from one tick to the next, which means geometrically:
         // if we have n ticks, we have n - 1 subsections of equal length between ticks
         const tickLength = Math.round(domainLength / (totalNumberOfTicks - 1));
         for (let numberOfTicks = 1; numberOfTicks <= totalNumberOfIntermediateTicks; numberOfTicks++) {
-            // Tick offset increases by one tickLength for each successive tick 
+            // Tick offset increases by one tickLength for each successive tick
             const tickOffset = (numberOfTicks * tickLength);
             // Add that offset to our zero point -- the min value of our domain
             const tickLocation = xAxisDomain[0] + tickOffset;
@@ -166,23 +147,23 @@ class ProgressionLineChartVisualizer extends Component {
         }
         // Sort since the axis doesn't sort on its own
         return ticks.sort();
-    } 
+    }
 
     // Formats a xVar (numeric time) value for tooltips
     xVarFormatFunction = (xVarNumberValue)  => {
         return "Date: " + this.dateFormat(xVarNumberValue);
-    }   
+    }
 
-    // Based on a valueToProgressionMap, return a function that formats a yVar (quantatative) value for tooltips 
+    // Based on a valueToProgressionMap, return a function that formats a yVar (quantatative) value for tooltips
     yVarFormatFunction = (value) => {
         return `${this.valueToProgressionMap[value]}`;
     }
 
-    // Based on a tooltipPayload, generate a tooltip for the diseaseStatus Endpoints 
-    diseaseStatusTooltipFunction = (props) => { 
+    // Based on a tooltipPayload, generate a tooltip for the diseaseStatus Endpoints
+    diseaseStatusTooltipFunction = (props) => {
         const { payload } = props;
         // If there's a payload, we have a tooltip to display
-        if (!Lang.isEmpty(payload)) { 
+        if (!Lang.isEmpty(payload)) {
             const { start_time, disease_status_string, evidence } = payload[0].payload;
             // Create blurbs of text based on whether or not we have data to display
             const disease_status_blurb = disease_status_string;
@@ -196,22 +177,13 @@ class ProgressionLineChartVisualizer extends Component {
                         {as_of_blurb}
                     </span>
                 </div>
-            )
-        } else { 
+            );
+        } else {
             return;
         }
     }
 
-    // Updates the dimensions of the chart
-    resize = () => { 
-        const chartParentDivWidth = this.chartParentDiv.offsetWidth;
-
-        this.setState({ 
-            chartWidth: chartParentDivWidth,
-        })
-    }
-
-    renderProgressionChart = (patient, condition, conditionSection) => { 
+    renderProgressionChart = (patient, condition, conditionSection) => {
         const { progressions, potentialDiagnosisDates } = conditionSection.data[0].data_cache;
         // process dates into numbers for graphing
         let processedData = this.processForGraphing(progressions);
@@ -224,55 +196,53 @@ class ProgressionLineChartVisualizer extends Component {
                 start_time_number: diagnosisDate.date,
                 diagnosis_date : diagnosisDate.date,
                 label: `ref_${i}`
-            })
-        }); 
-        // Get yAxisInfo 
+            });
+        });
+        // Get yAxisInfo
         const yTicks = [ -1, 0, 1, 2, 3 ];
-        // Get xAxisInfo 
+        // Get xAxisInfo
         const xAxisDomain = this.getXAxisDomain(processedData, processedPotentialDiagnosisDates);
         const xTicks = this.getXAxisTicks(xAxisDomain, processedPotentialDiagnosisDates, this.props.isWide);
         return (
-            <div 
-                ref={(chartParentDiv) => {this.chartParentDiv = chartParentDiv;}}
+            <ResponsiveContainer
+                height={this.chartHeight}
                 key={conditionSection}
             >
                 <LineChart
-                    width={this.state.chartWidth}
-                    height={this.state.chartHeight}
                     data={processedData}
                     margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
-                    >
-                    <XAxis 
+                >
+                    <XAxis
                         dataKey={this.xVarNumberField}
                         type="number"
                         domain={xAxisDomain}
                         ticks={xTicks}
                         tickFormatter={this.dateFormat}
                     />
-                    <YAxis 
+                    <YAxis
                         dataKey={this.yVarField}
                         ticks={yTicks}
                         tickFormatter={(val) => { return this.valueToProgressionMap[val.toString()]}}
                     />
-                    <Tooltip 
+                    <Tooltip
                         content={this.diseaseStatusTooltipFunction}
                     />
-                    <Line 
-                        type="monotone" 
+                    <Line
+                        type="monotone"
                         dataKey={this.yVarField}
-                        stroke="#295677" 
+                        stroke="#295677"
                         yAxisId={0}
                     />
-                     <Line 
+                     <Line
                         type="monotone"
                         dataKey="diagnosis_date"
                         stroke="none"
                     />
-                   
+
                     {processedPotentialDiagnosisDates.map((diagnosisDate, i) => {
                         return (
-                            <ReferenceLine 
-                                x={diagnosisDate.date} 
+                            <ReferenceLine
+                                x={diagnosisDate.date}
                                 stroke="#AAAAAA"
                                 strokeDasharray="3 3"
                                 key={i}
@@ -281,7 +251,7 @@ class ProgressionLineChartVisualizer extends Component {
                         );
                     })}
                 </LineChart>
-           </div>
+           </ResponsiveContainer >
         );
     }
 
