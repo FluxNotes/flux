@@ -139,7 +139,6 @@ class PatientSearch extends React.Component {
             }
             return suggestions;
         }, []); 
-
         return suggestions;
     }
 

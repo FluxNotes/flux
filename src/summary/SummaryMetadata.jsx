@@ -637,7 +637,7 @@ export default class SummaryMetadata {
                                             return [panel.members.map((item) => {
                                                 const v = item.value === 'Positive' ? '+' : '-';
                                                 return item.abbreviatedName + v;
-                                            }).join(","), patient.isUnsigned(panel), this.determineSource(patient, panel)];
+                                            }).join(", "), patient.isUnsigned(panel), this.determineSource(patient, panel)];
                                         }
                                     }
                                 ]
@@ -1833,18 +1833,15 @@ export default class SummaryMetadata {
         const progressions = patient.getProgressionsForConditionChronologicalOrder(condition);
 
         const processedProgressions = progressions.map((prog, i) => {
-
             const status = prog.status;
             const code = prog.statusAsCode
-            const focalCondition = patient.getFocalConditionForProgression(prog);
-            const focalConditionName = focalCondition.type;
-            const tooltipText = focalConditionName + " is " + status + " based on " + prog.evidence.join();
-
+            const start_time = prog.asOfDate;
+            const evidence = prog.evidence.join(', ');
             return {
-                "start_time" : prog.asOfDate,
-                "Disease status" : code,
-                "tooltipText" : tooltipText,
-                "status": status
+                "start_time" : start_time,
+                "disease_status_code" : code,
+                "disease_status_string": status,
+                "evidence": evidence,
             };
         });
 
@@ -1876,7 +1873,7 @@ export default class SummaryMetadata {
             let focalCondition = patient.getFocalConditionForProgression(prog);
             let focalConditionName = focalCondition.type;
 
-            let hoverTitle = focalConditionName + " is " + prog.status + " based on " + prog.evidence.join();
+            let hoverTitle = focalConditionName + " is " + prog.status + " based on " + prog.evidence.join(", ");
 
             items.push({
                 group: assignedGroup,

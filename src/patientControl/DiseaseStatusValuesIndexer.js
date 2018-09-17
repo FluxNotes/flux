@@ -17,7 +17,7 @@ class DiseaseStatusValuesIndexer extends BaseIndexer {
                 section,
                 subsection: "",
                 valueTitle: progression.start_time,
-                value: progression.status
+                value: progression.disease_status_string
             });
         });
     }
