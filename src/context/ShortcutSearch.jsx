@@ -10,11 +10,6 @@ export default class ShortcutSearch extends Component {
         return (
             <div id="shortcut-search">
                 <div className="shortcut-search-container">
-                    <div className="shortcut-search-title">
-                        <div>Filter:</div>
-                        {/* <div className="count">(showing {totalShown} of {countBeforeSearch})</div> */}
-                    </div>
-
                     <TextField
                         className="shortcut-search-text"
                         label="Search shortcuts"
