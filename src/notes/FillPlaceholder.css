@@ -27,6 +27,7 @@
 
 .fill-missing-data {
     margin-inline-end: 20px;
+    cursor: pointer;
     border-bottom: 1px solid rgba(255, 0, 0, 0.5);
     text-decoration: none;
     font-size: 0.9rem;
