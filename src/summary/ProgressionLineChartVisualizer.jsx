@@ -246,7 +246,7 @@ class ProgressionLineChartVisualizer extends Component {
                                 stroke="#AAAAAA"
                                 strokeDasharray="3 3"
                                 key={i}
-                                label={{width: 60, position: 'center', value: diagnosisDate.label}}
+                                label={{width: 60, position: 'center', value: capitalizeFirstLetter(diagnosisDate.label)}}
                             />
                         );
                     })}
@@ -277,5 +277,9 @@ ProgressionLineChartVisualizer.propTypes = {
     onItemClicked: PropTypes.func,
     allowItemClick: PropTypes.bool
 };
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 export default ProgressionLineChartVisualizer;
