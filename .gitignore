@@ -27,6 +27,7 @@ yarn-error.log*
 /src/patientControl/PatientSearch.css
 /src/styles/LandingPage.css
 /src/summary/ConditionSelection.css
+/src/context/ShortcutSearch.css
 
 #Visual Paradigm Project Files
 *.vpp.bak*

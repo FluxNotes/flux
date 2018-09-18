@@ -1,20 +1,14 @@
+@import "../styles/variables";
+
 #shortcut-search {
     margin: 15px 0 5px 0;
-    background-color: #ffffff;
+    background-color: $background;
     text-align: left;
 }
 
 .shortcut-search-container {
     position: relative;
     display: inline-block;
-}
-
-.shortcut-search-title {
-    font-size: 0.9em;
-}
-
-.shortcut-search-title .count {
-    font-style: italic;
 }
 
 .shortcut-search-text {

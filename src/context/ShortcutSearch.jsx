@@ -6,7 +6,6 @@ import './ShortcutSearch.css'
 
 export default class ShortcutSearch extends Component {
     render () { 
-        // let totalShown, countBeforeSearch;
         return (
             <div id="shortcut-search">
                 <div className="shortcut-search-container">
