@@ -29,6 +29,7 @@ yarn-error.log*
 /src/summary/ConditionSelection.css
 /src/context/ShortcutSearch.css
 /src/summary/TabularListVisualizer.css
+/src/summary/NarrativeNameValuePairsVisualizer.css
 
 #Visual Paradigm Project Files
 *.vpp.bak*

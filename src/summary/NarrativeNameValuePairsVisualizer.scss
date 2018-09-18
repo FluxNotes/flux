@@ -1,0 +1,68 @@
+@import '../styles/variables';
+
+.narrative {
+    &-subsections {
+        margin-bottom: 20px;
+        font-size: 0.8rem;
+    }
+
+    &-inserter {
+        &-tooltip ul {
+            padding: 0;
+        }
+    }
+}
+
+li.narrative-inserter-box {
+    padding: 5px 10px;
+
+    .fa {
+        height: 10px;
+        font-size: 10px;
+        margin-right: 0px;
+    }
+
+    h3 {
+        font-size: 13px;
+    }
+
+    &:hover {
+        background-color: #1384b5;
+        color: $background;
+
+        h3 {
+            color: $background;
+        }
+
+        .fa {
+            color: $background;
+        }
+    }
+}
+
+div.narrative-inserter-menu-item { 
+    padding: 0;
+}
+
+span.narrative {
+    &-missing-data {
+        border-bottom: 1px solid $missing-data-red;
+        text-decoration: none;
+    }
+
+    &-structured-data {
+        cursor: pointer;
+        border-bottom: 1px solid $shr-context-line;
+        text-decoration: none;
+    }
+
+    &-unsigned-data {
+        cursor: pointer;
+        border-bottom: 1.5px dashed $shr-context-line;
+        text-decoration: none;
+    }
+}
+
+.menu-item {
+    font-size: 0.2em;
+}
