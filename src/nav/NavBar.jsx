@@ -35,7 +35,7 @@ class NavBar extends Component {
 
     render() {
         const classes = this.props.classes;
-        const login = (this.props.supportLogin) ? ( <Button style={{color:"#17263f"}}>Dr. X123 logged in</Button> ) : "";
+        const login = (this.props.supportLogin) ? (<Button style={{ color: "#17263f" }}>Dr.  Brown483 logged in</Button> ) : "";
         const showMenu = (this.props.menuItems && this.props.menuItems.length > 0);
         let menuItemComponents = "";
 

@@ -413,7 +413,7 @@
         "signedOn": "02 AUG 2015",
         "subject": "Clinical follow-up",
         "hospital": "Dana Farber",
-        "createdBy": "Dr. Smith", "signedBy": "Dr. Smith",
+        "createdBy": "Dr. Smith952", "signedBy": "Dr. Smith952",
         "content": "@name[[Debra Hernandez672]] is a @age[[49]] year old @gender[[Female]] presenting with @condition[[Invasive ductal carcinoma of breast]].\nDisease #disease status #Stable based on #Pathology and #Symptoms #as of #08/02/2015.",
         "CreationTime": {
             "EntryType": {
@@ -450,8 +450,8 @@
         "signedOn": "12 JUL 2012",
         "subject": "Consult",
         "hospital": "Dana Farber",
-        "createdBy": "Dr. Zheng", 
-        "signedBy": "Dr. Zheng",
+        "createdBy": "Dr. Zheng581",
+        "signedBy": "Dr. Zheng581",
         "content": "@patient[[Debra Hernandez672 is a 46 year old Female]] presenting with @condition[[Invasive ductal carcinoma of breast]].\nPathology report indicates @name[[Debra Hernandez672]] has staging values T1 N1 and M0, corresponding to stage IIA.",
         "CreationTime": {
             "EntryType": {
@@ -488,8 +488,8 @@
         "signedOn": "20 JUN 2012",
         "subject": "Clinical post-op",
         "hospital": "Brigham and Women's",
-        "createdBy": "Dr. Smith", 
-        "signedBy": "Dr. Smith",
+        "createdBy": "Dr. Smith952",
+        "signedBy": "Dr. Smith952",
         "content": "@patient[[Debra Hernandez672 is a 46 year old Female]] presenting with @condition[[Invasive ductal carcinoma of breast]].\nToxicity Grade 4 Anemia related to Treatment",
         "CreationTime": {
             "EntryType": {
@@ -526,8 +526,8 @@
         "signedOn": "16 MAY 2012",
         "subject": "Clinical follow-up",
         "hospital": "Dana Farber",
-        "createdBy": "Dr. Strauss", 
-        "signedBy": "Dr. Strauss",
+        "createdBy": "Dr. Strauss179",
+        "signedBy": "Dr. Strauss179",
         "content": "@patient[[Debra Hernandez672 is a 46 year old Female]] presenting with @condition[[Invasive ductal carcinoma of breast]].\n@name[[Debra Hernandez672]] is enrolled in the clinical trial PATINA on 12/24/2017.",
         "CreationTime": {
             "EntryType": {
@@ -850,7 +850,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
             },
-            "Value": "Dr. ABC123"
+            "Value": "Dr. Mona341 Brown483"
         },
         "ActionContext": {
             "EntryType": {
@@ -1043,7 +1043,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
             },
-            "Value": "Dr. ABC123"
+            "Value": "Dr. Mona341 Brown483"
         },
         "ActionContext": {
             "EntryType": {
@@ -1236,7 +1236,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
             },
-            "Value": "Dr. XYZ987"
+            "Value": "Dr. Mona341 Brown483"
         },
         "ActionContext": {
             "EntryType": {
@@ -1445,7 +1445,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
             },
-            "Value": "Dr. ABC123"
+            "Value": "Dr. Mona341 Brown483"
         },
         "ActionContext": {
             "EntryType": {
@@ -1654,7 +1654,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
             },
-            "Value": "Dr. XYZ987"
+            "Value": "Dr. Mona341 Brown483"
         },
         "ActionContext": {
             "EntryType": {
@@ -1863,7 +1863,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
             },
-            "Value": "Dr. ABC123"
+            "Value": "Dr. Mona341 Brown483"
         },
         "ActionContext": {
             "EntryType": {
@@ -4456,7 +4456,7 @@
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Reason"
                     },
-                    "Value": "Debra Hernandez672 is coming in to see Dr. X123 Y987 for a regular check up on the progress of her treatment for Invasive ductal carcinoma of the breast"
+                    "Value": "Debra Hernandez672 is coming in to see Dr. Mona341 Brown483 for a regular check up on the progress of her treatment for Invasive ductal carcinoma of the breast"
                 }
             ],
             "Status": {
@@ -4526,7 +4526,7 @@
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Reason"
                     },
-                    "Value": "Debra Hernandez672 saw Dr. X123 Y987 for a check up on the progress of her treatment for Invasive ductal carcinoma of the breast"
+                    "Value": "Debra Hernandez672 saw Dr. Mona341 Brown483 for a check up on the progress of her treatment for Invasive ductal carcinoma of the breast"
                 }
             ],
             "Status": {
@@ -4596,7 +4596,7 @@
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Reason"
                     },
-                    "Value": "Debra Hernandez672 is coming in to see Dr. X123 Y987 for a check up on the progress of her treatment for Invasive ductal carcinoma of the breast"
+                    "Value": "Debra Hernandez672 is coming in to see Dr. Mona341 Brown483 for a check up on the progress of her treatment for Invasive ductal carcinoma of the breast"
                 }
             ],
             "Status": {

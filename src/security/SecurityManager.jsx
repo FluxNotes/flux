@@ -2,8 +2,8 @@ import UserProfile from './UserProfile';
 
 const defaultUser = {
     name: {
-        given: ["X123"],
-        family: ["Y987"],
+        given: ["Mona341"],
+        family: ["Brown483"],
         suffix: ["Dr."]
     },
     id: "1234567890",
