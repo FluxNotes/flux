@@ -452,6 +452,7 @@ describe('6 FluxNotesEditor', function() {
             return newShortcut;
         }
 
+        const searchIndex = new SearchIndex();
         const notesPanelWrapper = mount(<NotesPanel
             patient={patient}
             contextManager={contextManager}
@@ -469,6 +470,7 @@ describe('6 FluxNotesEditor', function() {
             itemInserted={jest.fn()}
             loginUsername={''}
             noteClosed={false}
+            searchIndex={searchIndex}
             setFullAppStateWithCallback={jest.fn()}
             setLayout={jest.fn()}
             setOpenClinicalNote={jest.fn()}
@@ -500,6 +502,7 @@ describe('6 FluxNotesEditor', function() {
             return newShortcut;
         }
 
+        const searchIndex = new SearchIndex();
         const notesPanelWrapper = mount(<NotesPanel
             patient={patient}
             contextManager={contextManager}
@@ -517,6 +520,7 @@ describe('6 FluxNotesEditor', function() {
             itemInserted={jest.fn()}
             loginUsername={''}
             noteClosed={false}
+            searchIndex={searchIndex}
             setFullAppStateWithCallback={jest.fn()}
             setLayout={jest.fn()}
             setOpenClinicalNote={jest.fn()}
@@ -768,6 +772,7 @@ describe('6 FluxNotesEditor', function() {
             return newShortcut;
         }
 
+        const searchIndex = new SearchIndex();
         const notesPanelWrapper = mount(<NotesPanel
             patient={patient}
             contextManager={contextManager}
@@ -785,6 +790,7 @@ describe('6 FluxNotesEditor', function() {
             itemInserted={jest.fn()}
             loginUsername={''}
             noteClosed={false}
+            searchIndex={searchIndex}
             setFullAppStateWithCallback={jest.fn()}
             setLayout={jest.fn()}
             setOpenClinicalNote={jest.fn()}
@@ -828,6 +834,7 @@ describe('6 FluxNotesEditor', function() {
             return newShortcut;
         }
 
+        const searchIndex = new SearchIndex();
         const notesPanelWrapper = mount(<NotesPanel
             patient={patient}
             contextManager={contextManager}
@@ -845,6 +852,7 @@ describe('6 FluxNotesEditor', function() {
             itemInserted={jest.fn()}
             loginUsername={''}
             noteClosed={false}
+            searchIndex={searchIndex}
             setFullAppStateWithCallback={jest.fn()}
             setLayout={jest.fn()}
             setOpenClinicalNote={jest.fn()}
@@ -1111,6 +1119,7 @@ describe('6 FluxNotesEditor', function() {
             return newShortcut;
         }
 
+        const searchIndex = new SearchIndex();
         const notesPanelWrapper = mount(<NotesPanel
             patient={patient}
             contextManager={contextManager}
@@ -1128,6 +1137,7 @@ describe('6 FluxNotesEditor', function() {
             itemInserted={jest.fn()}
             loginUsername={''}
             noteClosed={false}
+            searchIndex={searchIndex}
             setFullAppStateWithCallback={jest.fn()}
             setLayout={jest.fn()}
             setOpenClinicalNote={jest.fn()}
