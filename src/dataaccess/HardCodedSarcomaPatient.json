@@ -2694,7 +2694,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/Informant"
             },
-             "Value": "Dr. Wilma Rubenstein144"
+             "Value": "Dr. Wilma845 Rubenstein144"
          } 
     },
     {
@@ -4756,7 +4756,7 @@
            "EntryType": {
                "Value": "http://standardhealthrecord.org/spec/shr/base/Informant"
            },
-            "Value": "Dr. Kyle Jennings681"
+            "Value": "Dr. Kyle298 Jennings681"
         },
         "Value": {
             "EntryType": {

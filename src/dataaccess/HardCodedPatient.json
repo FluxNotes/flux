@@ -400,8 +400,8 @@
         "content": "@name[[Debra Hernandez672]] is a @age[[49]] year old @gender[[Female]] presenting with @condition[[Invasive ductal carcinoma of breast]].\nDisease #disease status #Stable based on #Pathology and #Symptoms #as of #08/02/2015.",
         "EntryId": "4",
         "hospital": "Dana Farber",
-        "createdBy": "Dr. Smith",
-        "signedBy": "Dr. Smith",
+        "createdBy": "Dr. Smith952",
+        "signedBy": "Dr. Smith952",
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
         },
@@ -438,8 +438,8 @@
         "content": "@patient[[Debra Hernandez672 is a 46 year old Female]] presenting with @condition[[Invasive ductal carcinoma of breast]].\nPathology report indicates @name[[Debra Hernandez672]] has staging values T1 N1 and M0, corresponding to stage IIA.",
         "EntryId": "5",
         "hospital": "Dana Farber",
-        "createdBy": "Dr. Zheng",
-        "signedBy": "Dr. Zheng",
+        "createdBy": "Dr. Zheng581",
+        "signedBy": "Dr. Zheng581",
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
         },
@@ -476,8 +476,8 @@
         "content": "@patient[[Debra Hernandez672 is a 46 year old Female]] presenting with @condition[[Invasive ductal carcinoma of breast]].\nToxicity Grade 4 Anemia related to Treatment",
         "EntryId": "6",
         "hospital": "Brigham and Women's",
-        "createdBy": "Dr. Smith",
-        "signedBy": "Dr. Smith",
+        "createdBy": "Dr. Smith952",
+        "signedBy": "Dr. Smith952",
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
         },
@@ -514,8 +514,8 @@
         "content": "@patient[[Debra Hernandez672 is a 46 year old Female]] presenting with @condition[[Invasive ductal carcinoma of breast]].\n@name[[Debra Hernandez672]] is enrolled in the clinical trial PATINA on 12/24/2017.",
         "EntryId": "7",
         "hospital": "Dana Farber",
-        "createdBy": "Dr. Strauss",
-        "signedBy": "Dr. Strauss",
+        "createdBy": "Dr. Strauss179",
+        "signedBy": "Dr. Strauss179",
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
         },
