@@ -90,7 +90,6 @@ export class FullApp extends Component {
             searchSelectedItem: null,
             snackbarOpen: false,
             snackbarMessage: "",
-            superRole: 'Clinician', // possibly add that to security manager too
             summaryItemToInsert: '',
             summaryItemToInsertSource: '',
             forceRefresh: false
@@ -338,7 +337,7 @@ export class FullApp extends Component {
 
     render() {
         // Get the Current Dashboard based on superRole of user
-        const CurrentDashboard = this.dashboardManager.getDashboardForSuperRole(this.state.superRole);
+        const CurrentDashboard = this.dashboardManager.getDashboardForSuperRole(this.state.loginUser.getSuperRole());
 
         return (
             <MuiThemeProvider theme={theme}>
