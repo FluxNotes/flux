@@ -545,7 +545,7 @@ class PatientRecord {
 
     getMedicationsChronologicalOrder() {
         let list = this.getMedications();
-        list.sort(this._medsTimeSorter);
+        list.sort(this._reverseMedsTimeSorter);
         return list;
     }
 
@@ -575,7 +575,7 @@ class PatientRecord {
     }
 
     getActiveMedicationsAsText() { 
-        const activeMeds = this.getActiveMedications(); 
+        const activeMeds = this.getActiveMedicationsChronologicalOrder(); 
 
         // Basic attributes to be listed in order
         let attributeList =  ["medication", "amountPerDose.value", "amountPerDose.units", "timingOfDoses.value", "timingOfDoses.units"];
@@ -620,13 +620,13 @@ class PatientRecord {
 
     getActiveMedicationsChronologicalOrder() {
         let list = this.getActiveMedications();
-        list.sort(this._medsTimeSorter);
+        list.sort(this._reverseMedsTimeSorter);
         return list;
     }
 
     getActiveAndRecentlyStoppedMedicationsChronologicalOrder() {
         let list = this.getActiveAndRecentlyStoppedMedications();
-        list.sort(this._medsTimeSorter);
+        list.sort(this._reverseMedsTimeSorter);
         return list;
     }
 
@@ -800,7 +800,7 @@ class PatientRecord {
         }
         return 0;
     }
-    _medsTimeSorter(a, b) {
+    _reverseMedsTimeSorter(a, b) {
         const a_startTime = new moment(a.expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
         const b_startTime = new moment(b.expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
         if (a_startTime < b_startTime) {
