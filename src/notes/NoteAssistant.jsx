@@ -202,7 +202,7 @@ export default class NoteAssistant extends Component {
         const allNotes = this.props.patient.getNotes();
         const numberOfPreviousSignedNotes = Lang.filter(allNotes, o => o.signed).length;
         const notesIndexer = new NotesIndexer();
-
+        this.props.searchIndex.removeDataBySection('Clinical Notes');
         notesIndexer.indexData('Clinical Notes', '', allNotes, this.props.searchIndex);
         switch (noteAssistantMode) {
             case "poc":

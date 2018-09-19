@@ -6,7 +6,7 @@ class SearchIndex {
     }
 
     get searchableData() {
-        return Lang.uniqWith(this._searchableData, Lang.isEqual);
+        return this._searchableData;
     }
 
     addSearchableData(data) {
