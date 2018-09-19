@@ -1,0 +1,111 @@
+@import '../styles/variables';
+
+$font-size: 0.8rem;
+
+.tabular-list {
+    margin-bottom: 20px;
+
+    table {
+        border-collapse: collapse;
+        width: 98%;
+        margin-top: 10px;
+        margin-bottom: 30px !important;
+        font-size: $font-size;
+    }
+
+    .list-subsection-header {
+        color: $body-gray !important;
+        font-weight: 600;
+    }
+
+    tr {
+        height: inherit;
+    }
+
+    td {
+        padding: 8px 10px;
+        border: 0;
+        color: $body-gray;
+        font-family: "Open Sans", Arial, sans-serif;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+
+        li {
+            font-size: $font-size;
+            text-decoration: underline #0182D7;
+            cursor: pointer;
+        }
+    }
+
+    tbody tr {
+        &:nth-child(odd) {
+            background-color: $contrast-gray;
+        }
+
+        &:nth-child(even) {
+            background-color: $background;
+        }
+    }
+
+    td {
+        &.list-missing span {
+            border-bottom: 1px solid $missing-data-red;
+        }
+
+        &.list-unsigned span {
+            cursor: pointer;
+            border-bottom: 1.5px dashed $shr-context-line;
+            text-decoration: none;
+        }
+
+        &.list-captured span {
+            border-bottom: 1px solid $shr-context-line;
+            cursor: pointer;
+        }
+    }
+
+    .list-column-heading {
+        color: #000;
+        background-color: $background;
+        padding: 8px 10px;
+        border-bottom: 1px solid lightgray;
+        font-weight: 600 !important;
+        font-family: "Open Sans", Arial, sans-serif;
+        text-align: left;
+    }
+
+    td.stopped-cell {
+        padding: 8px;
+        border: 0;
+        color: $warning-red;
+        font-family: "Open Sans", Arial, sans-serif;
+    }
+
+    &-tooltip .rc-tooltip-inner {
+        width: 200px;
+        min-height: 22px;
+        text-align: center;
+        border-radius: 6px;
+    }
+}
+
+tr, td {
+    font-size: $font-size;
+}
+
+h2.subsection {
+    width: 98%;
+    text-align: left;
+    border-bottom: 1px solid $line-gray;
+    line-height :0.1em;
+    margin: 20px 10px 10px 0px !important;
+
+    span {
+        background:$background;
+        font-size: $font-size;
+        padding-right: 10px;
+    }
+}
