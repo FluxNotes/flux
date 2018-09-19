@@ -13,15 +13,24 @@ class ScatterPlotVisualizer extends Component {
 
         this.updateState = true;
         this.state = {
-            chartWidth: 600,
-            chartHeight: 400,
-        }
+            chartWidth: "600px",
+            chartHeight: "600px",
+        } 
     }
 
     componentDidMount() {
         const { patient, condition, conditionSection } = this.props;
         this.renderScatterPlot(patient, condition, conditionSection);
     }
+
+     componentDidUpdate = () => {
+        if (this.updateState) {
+            this.updateState = false;
+        } else {
+            this.updateState = true;
+            setTimeout(this.resize, 450);
+        }
+    } 
 
     randomizeXPoints = (categoryList, data) => {
         let alive = [], dead = [];
@@ -36,9 +45,18 @@ class ScatterPlotVisualizer extends Component {
         return [alive, dead];
     }
 
+    resize = () => {
+        this.setState({
+            chartHeight: "30px"
+        })
+    }
+
     renderScatterPlot = (patient, condition, conditionSection) => {
 
         const myData = conditionSection.data[0].data_cache;
+        if (myData === "Server unavailable" || myData === "No relevant data found for patient") {
+            this.resize();
+        }
         if (Lang.isObject(myData)) {
             let categoryMap = {};
             myData.forEach(function (series) {
@@ -290,7 +308,7 @@ class ScatterPlotVisualizer extends Component {
 
         return (
             <div ref='scattering'
-                style={{ height: 600 }} className='scatter-plot-subsection'>
+                style={{ height: `${this.state.chartHeight}` }} className='scatter-plot-subsection'>
             </div>
         );
     }
