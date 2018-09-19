@@ -1696,7 +1696,6 @@ export default class SummaryMetadata {
                 }
             }
         });
-        
         // instead of returning meds, return list of medsToVisualize
         return medsToVisualize;
     }

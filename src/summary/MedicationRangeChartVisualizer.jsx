@@ -74,10 +74,11 @@ class MedicationRangeChartVisualizer extends Component {
         return rows;
     }
 
-    renderMedicationTitle = (lowerValue, upperValue, name, dosageValue, dosageUnit, timingValue, timingUnit) => {
+    renderMedicationTitle = (lowerValue, upperValue, name, dosageValue, dosageUnit, timingValue, timingUnit, asNeededIndicator) => {
         // Determining if timingUnit has a value. Set if empty string if null.
         if (timingUnit == null) timingUnit = '';
-
+        //Determining if asNeededIndicator is true. Set empty string if false, set string as needed if true.
+        asNeededIndicator ? asNeededIndicator = 'as needed' : asNeededIndicator = '';
         // Determining if medication value is out of range.
         if (dosageValue < lowerValue || dosageValue > upperValue) {
             return (
@@ -91,7 +92,7 @@ class MedicationRangeChartVisualizer extends Component {
         }
         return (
             <div className="medicationTitle">
-                {`${name} ${dosageValue} ${dosageUnit} ${timingValue} ${timingUnit}`}
+                {`${name} ${dosageValue} ${dosageUnit} ${timingValue} ${timingUnit} ${asNeededIndicator}`}
             </div>);
     }
 
@@ -199,6 +200,7 @@ class MedicationRangeChartVisualizer extends Component {
         const timingUnit = med.medication.timingOfDoses ? med.medication.timingOfDoses.units : null;
         const name = med.medication.medication;
         const medicationIsChange = (med.medicationChange ? true : false);
+        const asNeededIndicator = med.medication.asNeededIndicator;
 
         return (
             <div key={i} className="medication-chart-item" ref={(parent) => { this.parent = parent }}>
@@ -206,7 +208,7 @@ class MedicationRangeChartVisualizer extends Component {
                     <div className="medication-heading">
                     <Row bottom="xs">
                         <Col md={6} xs={12}>
-                            {this.renderMedicationTitle(lowerValue, upperValue, name, dosageValue, dosageUnit, timingValue, timingUnit)}
+                            {this.renderMedicationTitle(lowerValue, upperValue, name, dosageValue, dosageUnit, timingValue, timingUnit, asNeededIndicator)}
                         </Col>
                         <Col xs={6} className="medication-change-padding">
                             <div className="medication-change-container">
@@ -256,6 +258,7 @@ renderMedicationNarrowView = (med, i) => {
     const timingUnit = med.medication.timingOfDoses ? med.medication.timingOfDoses.units : null;
     const name = med.medication.medication;
     const medicationIsChange = (med.medicationChange ? true : false);
+    const asNeededIndicator = med.medication.asNeededIndicator;
 
 
     return (
@@ -264,7 +267,7 @@ renderMedicationNarrowView = (med, i) => {
                 <div className="medication-heading">
                 <Row top="xs">
                     <Col md={8} xs={12}>
-                        {this.renderMedicationTitle(lowerValue, upperValue, name, dosageValue, dosageUnit, timingValue, timingUnit)}
+                        {this.renderMedicationTitle(lowerValue, upperValue, name, dosageValue, dosageUnit, timingValue, timingUnit, asNeededIndicator)}
                     </Col>
                 </Row>
                 </div>
