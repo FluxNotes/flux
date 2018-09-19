@@ -109,56 +109,14 @@ class SearchSuggestion extends React.Component {
             }
             
         } else if (suggestion.source === 'clinicalNote') {
-            let date = <span>{suggestion.date + ` `}</span>;
-            let subject = <span>{suggestion.subject + ` `}</span>;
-            let hospital = <span>{suggestion.hospital + ` `}</span>;
-            if(suggestion.matchedOn === "date"){
-                const dateLowerCase = suggestion.date.toLowerCase();
-                const indexOfMatch = dateLowerCase.indexOf(inputValueLowerCase);
-                const preText = suggestion.date.slice(0, indexOfMatch);
-                const highlightedText = suggestion.date.slice(indexOfMatch, preText.length + inputValue.length);
-                const postText = suggestion.date.slice(preText.length + inputValue.length, suggestion.date.length);
-                date = (
-                    <span>
-                    <span>{preText}</span>
-                    <span className="highlightedInputValue">{highlightedText}</span>
-                    <span>{postText + ` `}</span>
-                    </span>
-                );
-            } else if(suggestion.matchedOn === "subject"){
-                const subjectLowerCase = suggestion.subject.toLowerCase();
-                const indexOfMatch = subjectLowerCase.indexOf(inputValueLowerCase);
-                const preText = suggestion.subject.slice(0, indexOfMatch);
-                const highlightedText = suggestion.subject.slice(indexOfMatch, preText.length + inputValue.length);
-                const postText = suggestion.subject.slice(preText.length + inputValue.length, suggestion.subject.length);
-                subject = (
-                    <span>
-                    <span>{preText}</span>
-                    <span className="highlightedInputValue">{highlightedText}</span>
-                    <span>{postText + ` `}</span>
-                    </span>
-                );
-            } else if(suggestion.matchedOn === "hospital"){
-                const hospitalLowerCase = suggestion.hospital.toLowerCase();
-                const indexOfMatch = hospitalLowerCase.indexOf(inputValueLowerCase);
-                const preText = suggestion.hospital.slice(0, indexOfMatch);
-                const highlightedText = suggestion.hospital.slice(indexOfMatch, preText.length + inputValue.length);
-                const postText = suggestion.hospital.slice(preText.length + inputValue.length, suggestion.hospital.length);
-                hospital = (
-                    <span>
-                    <span>{preText}</span>
-                    <span className="highlightedInputValue">{highlightedText}</span>
-                    <span>{postText}</span>
-                    </span>
-                );
-            }
+            const date = <span>{suggestion.date + ` `}</span>;
+            const subject = <span>{suggestion.subject + ` `}</span>;
 
             suggestionLabel = (
                 <div className="suggestion-label">
                     <span className={"label-content"}>
-                        {date}
                         {subject}
-                        {hospital}
+                        {date}
                     </span>
                 </div>
             );

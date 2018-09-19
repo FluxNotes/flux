@@ -9,7 +9,7 @@ class NotesIndexer extends BaseIndexer {
                 note,
                 section,
                 subsection: notesSubsection,
-                valueTitle: 'Note Title',
+                valueTitle: 'Title',
                 value: note.subject,
             });
 

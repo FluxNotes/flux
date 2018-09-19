@@ -64,7 +64,6 @@ class PatientSearch extends React.Component {
                 suggestion = {
                     date: obj.note.signedOn || obj.note.createdOn,
                     subject: obj.note.subject,
-                    hospital: obj.note.hospital,
                     inputValue: inputValue,
                     note: obj.note,
                     valueTitle: obj.valueTitle,
