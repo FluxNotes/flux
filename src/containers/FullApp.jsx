@@ -307,7 +307,10 @@ export class FullApp extends Component {
                 }
             } else if (item.shortcut) {
                 newStateValues = { summaryItemToInsert: `${item.shortcut}[[${item.value}]]` };
-            } else if (item.value) {
+            } else if (item.asNeeded) {
+                newStateValues = { summaryItemToInsert: `${item.value} as needed` };
+            }  
+            else if (item.value) {
                 newStateValues = { summaryItemToInsert: item.value };
             } else {
                 newStateValues = { summaryItemToInsert: item };
