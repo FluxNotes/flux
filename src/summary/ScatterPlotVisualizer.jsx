@@ -54,7 +54,8 @@ class ScatterPlotVisualizer extends Component {
     renderScatterPlot = (patient, condition, conditionSection) => {
 
         const myData = conditionSection.data[0].data_cache;
-        if (myData === "Server unavailable" || myData === "No relevant data found for patient") {
+        // myData will be a string if server isn't running or no relevant data is found
+        if (Lang.isString(myData)) {
             this.resize();
         }
         if (Lang.isObject(myData)) {
