@@ -543,7 +543,7 @@ class PatientRecord {
         return strResult
     }
 
-    getMedicationsChronologicalOrder() {
+    getMedicationsReverseChronologicalOrder() {
         let list = this.getMedications();
         list.sort(this._reverseMedsTimeSorter);
         return list;
