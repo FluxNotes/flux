@@ -9,6 +9,22 @@ class NotesIndexer extends BaseIndexer {
                 note,
                 section,
                 subsection: notesSubsection,
+                valueTitle: 'Section',
+                value: section,
+            });
+
+            searchIndex.addSearchableData({
+                note,
+                section,
+                subsection: notesSubsection,
+                valueTitle: 'Subsection',
+                value: notesSubsection,
+            });
+
+            searchIndex.addSearchableData({
+                note,
+                section,
+                subsection: notesSubsection,
                 valueTitle: 'Title',
                 value: note.subject,
             });
