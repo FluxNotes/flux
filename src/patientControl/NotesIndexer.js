@@ -17,7 +17,7 @@ class NotesIndexer extends BaseIndexer {
                 note,
                 section,
                 subsection: notesSubsection,
-                valueTitle: `${note.subject} | Content`,
+                valueTitle: `Content`,
                 value: note.content,
             })
 
@@ -25,34 +25,41 @@ class NotesIndexer extends BaseIndexer {
                 note,
                 section,
                 subsection: notesSubsection,
-                valueTitle: `${note.subject} | Created by`,
-                value: note.createdBy,
-            });
-
-            searchIndex.addSearchableData({
-                note,
-                section,
-                subsection: notesSubsection,
-                valueTitle: `${note.subject} | Source`,
+                valueTitle: `Source`,
                 value: note.hospital,
             });
 
-            // If note is signed, index signedOn date else index created on date
             if (note.signed) {
                 searchIndex.addSearchableData({
                     note,
                     section,
                     subsection: notesSubsection,
-                    valueTitle: `${note.subject} | Signed on`,
+                    valueTitle: `Signed on`,
                     value: note.signedOn,
-                })
+                });
+
+                searchIndex.addSearchableData({
+                    note,
+                    section,
+                    subsection: notesSubsection,
+                    valueTitle: `Signed by`,
+                    value: note.signedBy,
+                });
             } else {
                 searchIndex.addSearchableData({
                     note,
                     section,
                     subsection: notesSubsection,
-                    valueTitle: `${note.subject} | Created on`,
+                    valueTitle: `Created on`,
                     value: note.createdOn,
+                });
+
+                searchIndex.addSearchableData({
+                    note,
+                    section,
+                    subsection: notesSubsection,
+                    valueTitle: `Created by`,
+                    value: note.createdBy,
                 });
             }
         });

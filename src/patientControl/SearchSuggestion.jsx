@@ -7,7 +7,7 @@ import './SearchSuggestion.css';
 class SearchSuggestion extends React.Component {
 
     renderSuggestionText() {
-        const { suggestion} = this.props;
+        const { suggestion } = this.props;
         const fullSnapshot = suggestion.contentSnapshot;
         const inputValue = suggestion.inputValue;
         // Lowercase versions for index finding
@@ -18,17 +18,9 @@ class SearchSuggestion extends React.Component {
         let preText = fullSnapshot.slice(0, indexOfMatch);
         let highlightedText = fullSnapshot.slice(indexOfMatch, preText.length + inputValue.length)
         let postText = fullSnapshot.slice(preText.length + inputValue.length, fullSnapshot.length);
-        
-        let suggestionText = ''; 
-        if (suggestion.matchedOn === "contentSnapshot" && suggestion.source === 'clinicalNote') {
-            suggestionText = (
-                <div className="suggestion-text">
-                    <span>{preText}</span>
-                    <span className="highlightedInputValue">{highlightedText}</span>
-                    <span>{postText}</span>
-                </div>
-            )
-        } else if(suggestion.matchedOn === "contentSnapshot" && suggestion.source === 'structuredData') { 
+
+        let suggestionText = '';
+        if (suggestion.matchedOn === "contentSnapshot") {
             let title = suggestion.valueTitle.length > 0 ? `${suggestion.valueTitle}: ` : '';
             suggestionText = (
                 <div className="suggestion-text">
@@ -38,7 +30,7 @@ class SearchSuggestion extends React.Component {
                     <span>{postText}</span>
                 </div>
             )
-        } else if (suggestion.matchedOn === "valueTitle"){ 
+        } else if (suggestion.matchedOn === "valueTitle") {
             let valueTitleLowerCase = suggestion.valueTitle.toLowerCase();
             indexOfMatch = valueTitleLowerCase.indexOf(inputValueLowerCase);
             preText = suggestion.valueTitle.slice(0, indexOfMatch);
@@ -53,22 +45,22 @@ class SearchSuggestion extends React.Component {
                     <span>{suggestion.contentSnapshot}</span>
                 </div>
             )
-        } else if (suggestion.matchedOn === "section" || suggestion.matchedOn === "subsection"){ 
+        } else if (suggestion.matchedOn === "section" || suggestion.matchedOn === "subsection") {
             let title = suggestion.valueTitle.length > 0 ? `${suggestion.valueTitle}: ` : '';
             suggestionText = (
                 <div className="suggestion-text">
-                {title + suggestion.contentSnapshot}</div> 
+                    {title + suggestion.contentSnapshot}</div>
             );
         } else {
             suggestionText = (
-                <div className="suggestion-text">{suggestion.contentSnapshot}</div> 
+                <div className="suggestion-text">{suggestion.contentSnapshot}</div>
             );
         }
         return suggestionText;
     }
 
     renderLabel = () => {
-        const { suggestion} = this.props;
+        const { suggestion } = this.props;
         const inputValue = suggestion.inputValue;
         const inputValueLowerCase = inputValue.toLowerCase();
    
