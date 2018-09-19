@@ -873,7 +873,7 @@
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/medication/AsNeededIndicator"
                 },
-                "Value": true
+                "Value": false
             },
             "AdditionalDoseInstruction": [
                 {
