@@ -126,6 +126,7 @@ export default class AppManager {
                 isExact: true,
                 dataSource: 'HardCodedReadOnlyDataSource',
                 patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7f',
+                clinicianId: '588dcbc3-fd18-570c-99ef-35ff91854c7f'
                 shortcuts: []
             },     
             {

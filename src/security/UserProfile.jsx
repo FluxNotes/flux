@@ -20,9 +20,9 @@ class UserProfile {
     // Some users do not have the practitionerRole object, meaning they do not have a role or speciality specified
 
 /* 
-resourceType: Practitioner
+roleType    ==> resourceType: Practitioner
 
-PractitionerRole.code (FHIR STU3)
+role        ==> PractitionerRole.code (FHIR STU3)
 Code	Display	Definition
 doctor	Doctor	A qualified/registered medical practitioner
 nurse	Nurse	A practitoner with nursing experience that may be qualified/registered
@@ -31,7 +31,7 @@ researcher	Researcher	A practitioner that may perform research
 teacher	Teacher/educator	Someone who is able to provide educational services
 ict	ICT professional	Someone who is qualified in Information and Communication Technologies
 
-speciality:
+specialty   ==> speciality:
 394592004 	Clinical oncology
 408446006 	Gynecological oncology
 394593009 	Medical oncology
