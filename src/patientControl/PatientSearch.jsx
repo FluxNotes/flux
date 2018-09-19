@@ -142,25 +142,54 @@ class PatientSearch extends React.Component {
         return suggestions;
     }
 
+    getNoteContentWithoutStyle = (noteContent) => {
+        let noteContentWithoutStyle = noteContent;
+
+        // Remove HTML tags
+        noteContentWithoutStyle = noteContentWithoutStyle.replace(/<(div|\/div|strong|\/strong|em|\/em|u|\/u|ul|\/ul|ol|\/ol|li|\/li){0,}>/g, "");
+        // Remove brackets from @ structured phrases
+        noteContentWithoutStyle = noteContentWithoutStyle.replace(/@(.*?)\[\[(.*?)\]\]/g, (match, g1, g2) => g2);
+        // Removed brackets from # structured phrases
+        noteContentWithoutStyle = noteContentWithoutStyle.replace(/#(.*?)\[\[(.*?)\]\]/g, (match, g1, g2) => `#${g1}`);
+
+        return noteContentWithoutStyle;
+    }
+
     getStructuredDataSuggestions = (inputValue) => {
         let suggestions = [];
         const regex = new RegExp(escapeRegExp(inputValue), "gi");
+
         this.props.searchIndex.searchableData.forEach(obj => {
-            let suggestion = {
-                section: obj.section,
-                subsection: obj.subsection,
-                contentSnapshot: obj.value,
-                valueTitle: obj.valueTitle,
-                inputValue,
-                matchedOn: "",
-                source: "structuredData"
+            let suggestion;
+
+            if (obj.note) {
+                const noteContentWithoutStyle = this.getNoteContentWithoutStyle(obj.value);
+                const noteRegex = this.createRegexForSearching(inputValue);
+
+                suggestion = this.createNewSuggestion(inputValue, obj.note);
+                let contentMatches = noteRegex.exec(noteContentWithoutStyle);
+                if (contentMatches) {
+                    suggestion.matchedOn = 'contentSnapshot';
+                    suggestion.contentSnapshot = noteContentWithoutStyle.slice(contentMatches.index, contentMatches.index + 100);
+                    suggestions.push(suggestion);
+                }
+            } else {
+                suggestion = {
+                    section: obj.section,
+                    subsection: obj.subsection,
+                    contentSnapshot: obj.value,
+                    valueTitle: obj.valueTitle,
+                    inputValue,
+                    matchedOn: "",
+                    source: 'structuredData',
+                }
+                let contentMatches = regex.exec(obj.value);
+                if (contentMatches) {
+                    suggestion.matchedOn = "contentSnapshot";
+                    suggestions.push(suggestion);
+                }
             }
-            let contentMatches = regex.exec(obj.value);
-            if (contentMatches) {
-                suggestion.matchedOn = "contentSnapshot";
-                suggestions.push(suggestion);
-            }
-            contentMatches = regex.exec(obj.valueTitle);
+            let contentMatches = regex.exec(obj.valueTitle);
             if (contentMatches) {
                 suggestion.matchedOn = "valueTitle";
                 suggestions.push(suggestion);
@@ -219,7 +248,11 @@ class PatientSearch extends React.Component {
 
             this.props.setSearchSelectedItem(selectedNote);
         } else {
-            this.props.moveTargetedDataPanelToSubsection(suggestion.section, suggestion.subsection);
+            if (suggestion.note) {
+                this.props.setSearchSelectedItem(suggestion.note)
+            } else {
+                this.props.moveTargetedDataPanelToSubsection(suggestion.section, suggestion.subsection);
+            }
         }
         this.refs.autosuggest.input.blur();
     }

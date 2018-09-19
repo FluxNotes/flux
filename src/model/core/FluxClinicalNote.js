@@ -52,6 +52,10 @@ class FluxClinicalNote {
         this._signedOn = val;
     }
 
+    get createdOn() {
+        return this._entryInfo.creationTime.value;
+    }
+
     get signedBy() {
         return this._signedBy;
     }

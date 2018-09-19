@@ -6,6 +6,7 @@ class NotesIndexer extends BaseIndexer {
             const notesSubsection = note.signed ? 'Signed Notes' : 'In Progress Notes';
 
             searchIndex.addSearchableData({
+                note,
                 section,
                 subsection: notesSubsection,
                 valueTitle: 'Note Title',
@@ -13,6 +14,15 @@ class NotesIndexer extends BaseIndexer {
             });
 
             searchIndex.addSearchableData({
+                note,
+                section,
+                subsection: notesSubsection,
+                valueTitle: `${note.subject} | Content`,
+                value: note.content,
+            })
+
+            searchIndex.addSearchableData({
+                note,
                 section,
                 subsection: notesSubsection,
                 valueTitle: `${note.subject} | Created by`,
@@ -20,18 +30,31 @@ class NotesIndexer extends BaseIndexer {
             });
 
             searchIndex.addSearchableData({
+                note,
                 section,
                 subsection: notesSubsection,
                 valueTitle: `${note.subject} | Source`,
                 value: note.hospital,
             });
 
-            searchIndex.addSearchableData({
-                section,
-                subsection: notesSubsection,
-                valueTitle: `${note.subject} | Created on`,
-                value: note.signedOn,
-            });
+            // If note is signed, index signedOn date else index created on date
+            if (note.signed) {
+                searchIndex.addSearchableData({
+                    note,
+                    section,
+                    subsection: notesSubsection,
+                    valueTitle: `${note.subject} | Signed on`,
+                    value: note.signedOn,
+                })
+            } else {
+                searchIndex.addSearchableData({
+                    note,
+                    section,
+                    subsection: notesSubsection,
+                    valueTitle: `${note.subject} | Created on`,
+                    value: note.createdOn,
+                });
+            }
         });
     }
 }
