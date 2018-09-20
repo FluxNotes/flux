@@ -5,6 +5,7 @@ import HoverItem from './HoverItem';
 import Timeline from 'react-calendar-timeline';
 import containerResizeDetector from 'react-calendar-timeline/lib/resize-detector/container';
 import Item from './Item';
+import Button from '../elements/Button';
 import moment from 'moment';
 import './TimelineEventsVisualizer.css';
 import 'font-awesome/css/font-awesome.min.css';
@@ -24,12 +25,16 @@ class TimelineEventsVisualizer extends Component {
             defaultTimeStart = moment().clone().add(-1, 'years');
         }
         const defaultTimeEnd = moment().clone().add(3, 'months'); // end - 3 months from now
+        const visibleTimeStart = defaultTimeStart.valueOf();
+        const visibleTimeEnd = defaultTimeEnd.valueOf();
 
         this.state = {
             items,
             groups,
             defaultTimeStart,
             defaultTimeEnd,
+            visibleTimeStart,
+            visibleTimeEnd,
             timeSteps: {
                 day: 1,
                 month: 1,
@@ -141,12 +146,55 @@ class TimelineEventsVisualizer extends Component {
         return max;
     }
 
+    onTimelineZoomClick = (timeAmount, timeUnit) => {
+        const currentTimeStart = this.state.visibleTimeStart;
+        const currentTimeEnd = this.state.visibleTimeEnd;
+        const centerPoint = currentTimeStart + (currentTimeEnd - currentTimeStart)/2;
+        this.setState({
+            visibleTimeStart: moment(centerPoint).subtract(timeAmount/2, timeUnit).valueOf(),
+            visibleTimeEnd: moment(centerPoint).add(timeAmount/2, timeUnit).valueOf()
+        });
+    }
+
+    onTimeChange = (visibleTimeStart, visibleTimeEnd, updateScrollCanvas) => {
+        this.setState({ visibleTimeStart, visibleTimeEnd });
+        updateScrollCanvas(visibleTimeStart, visibleTimeEnd);
+    }
+
+    renderZoomButtons = () => {
+        return (
+            <div className="timeline-controls-container">
+                <Button
+                    className="small-btn timeline-controls"
+                    onClick={() => this.onTimelineZoomClick(1, 'weeks')}>
+                    1w
+                </Button>
+                <Button
+                    className="small-btn timeline-controls"
+                    onClick={() => this.onTimelineZoomClick(1, 'months')}>
+                    1m
+                </Button>
+                <Button
+                    className="small-btn timeline-controls"
+                    onClick={() => this.onTimelineZoomClick(6, 'months')}>
+                    6m
+                </Button>
+                <Button
+                    className="small-btn timeline-controls"
+                    onClick={() => this.onTimelineZoomClick(1, 'years')}>
+                    1y
+                </Button>
+            </div>
+        );
+    }
+
     render() {
         return (
             <div 
                 id="timeline" 
                 className={this.props.className}
             >
+                {this.renderZoomButtons()}
                 <HoverItem
                     title={this.state.hoverItem.title}
                     text={this.state.hoverItem.text}
@@ -160,6 +208,9 @@ class TimelineEventsVisualizer extends Component {
                         items={this.state.items}
                         defaultTimeStart={this.state.defaultTimeStart}
                         defaultTimeEnd={this.state.defaultTimeEnd}
+                        visibleTimeStart={this.state.visibleTimeStart}
+                        visibleTimeEnd={this.state.visibleTimeEnd}
+                        onTimeChange={this.onTimeChange}
                         rightSidebarWidth={0}
                         rightSidebarContent={null}
                         sidebarWidth={0}
