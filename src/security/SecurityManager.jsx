@@ -26,7 +26,34 @@ const demoUsers = [
                 ]
             }
         ],
-        serviceProvider: "MCI",
+        serviceProvider: {
+            value: {
+                organizationName: {
+                    value: "Bone and Sarcoma Oncology Center",
+                },
+                type: {
+                    value: {
+                        coding: [
+                            { code: 'dept', display: 'Hospital Department' }
+                        ]
+                    }
+                },
+                activeFlag: true,
+                partOf: {
+                    organizationName: {
+                        value: "MCI",
+                    },
+                    type: {
+                        value: {
+                            coding: [
+                                { code: 'prov', display: 'Healthcare Provider' }
+                            ]
+                        }
+                    },
+                    activeFlag: true    
+                }
+            }
+        }
     },
     {
         name: {
@@ -51,7 +78,34 @@ const demoUsers = [
                 ]
             }
         ],
-        serviceProvider: "MCI",
+        serviceProvider: {
+            value: {
+                organizationName: {
+                    value: "Bone and Sarcoma Oncology Center",
+                },
+                type: {
+                    value: {
+                        coding: [
+                            { code: 'dept', display: 'Hospital Department' }
+                        ]
+                    }
+                },
+                activeFlag: true,
+                partOf: {
+                    organizationName: {
+                        value: "MCI",
+                    },
+                    type: {
+                        value: {
+                            coding: [
+                                { code: 'prov', display: 'Healthcare Provider' }
+                            ]
+                        }
+                    },
+                    activeFlag: true    
+                }
+            }
+        }
     }
 ];
 
