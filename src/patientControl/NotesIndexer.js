@@ -2,24 +2,29 @@ import BaseIndexer from './BaseIndexer';
 
 class NotesIndexer extends BaseIndexer {
     indexData(section, subsection, data, searchIndex) {
+        searchIndex.addSearchableData({
+            section,
+            subsection: '',
+            valueTitle: 'Section',
+            value: section,
+        });
+
+        searchIndex.addSearchableData({
+            section,
+            subsection: 'Signed Notes',
+            valueTitle: 'Subsection',
+            value: 'Signed Notes',
+        });
+
+        searchIndex.addSearchableData({
+            section,
+            subsection: 'In Progress Notes',
+            valueTitle: 'Subsection',
+            value: 'In Progress Notes',
+        });
+
         data.forEach(note => {
             const notesSubsection = note.signed ? 'Signed Notes' : 'In Progress Notes';
-
-            searchIndex.addSearchableData({
-                note,
-                section,
-                subsection: notesSubsection,
-                valueTitle: 'Section',
-                value: section,
-            });
-
-            searchIndex.addSearchableData({
-                note,
-                section,
-                subsection: notesSubsection,
-                valueTitle: 'Subsection',
-                value: notesSubsection,
-            });
 
             searchIndex.addSearchableData({
                 note,
