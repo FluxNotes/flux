@@ -6,7 +6,7 @@ import Lang from 'lodash';
 import './PatientSearch.css'
 
 function escapeRegExp(text) {
-  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
 }
 
 class PatientSearch extends React.Component { 
@@ -25,63 +25,6 @@ class PatientSearch extends React.Component {
         };
     }
 
-    // Based on searchInput, check a note's meatdata for any matches  
-    searchNoteMetaData = (inputValue, note) => { 
-        const newSuggestion = this.createNewSuggestion(inputValue, note);
-        const regex = this.createRegexForSearching(inputValue)
-        const relevantNoteMetadata = (
-            note.signedOn + ' ' + 
-            note.entryInfo.creationTime.value + ' ' +
-            note.subject + ' ' +
-            note.hospital
-        ).toLowerCase();
-
-        const metadataMatches = regex.exec(relevantNoteMetadata);
-        if(metadataMatches) {
-            // Determine what we matched with -- track that in suggestions metadata.
-            let matchedMetaData; 
-            let date;
-            if (note.signedOn) {
-                date = note.signedOn;
-            } else {
-                date = note.entryInfo.creationTime.value;
-            }
-
-            if (date && date.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1) {
-                matchedMetaData = "date";
-            } else if (note.subject && note.subject.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1) {
-                matchedMetaData = "subject";
-            } else if (note.hospital && note.hospital.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1) {
-                matchedMetaData = "hospital";
-            }
-            // Add additional metadata, push to suggestions
-            newSuggestion.contentSnapshot = note.content.slice(0, 25);
-            newSuggestion.matchedOn = matchedMetaData;
-            return newSuggestion
-        } else { 
-            // Return nothing
-            return null
-        }
-    }
-
-    // basic template for creating a newSuggestion
-    createNewSuggestion = (inputValue, note) => { 
-        let date;
-        if (note.signedOn) {
-            date = note.signedOn;
-        } else {
-            date = note.entryInfo.creationTime.value;
-        }
-        return { 
-            date: date,
-            subject: note.subject,
-            hospital: note.hospital,
-            inputValue: inputValue,
-            note: note,
-            source: "clinicalNote"
-        }
-    }
-
     // Creates a regex based on out input value and what we want to search on
     createRegexForSearching = (inputValue) => { 
         //  Establish some common variables for our regex
@@ -91,91 +34,91 @@ class PatientSearch extends React.Component {
         // combines for our pattern; adds capture group for snapshot of information
         const inputPattern = `(?:${spaceOrNewlineOrPeriod}${possibleTrigger}${escapedInput}|^${possibleTrigger}${escapedInput})`;
         const regex = new RegExp(inputPattern, "gim");
-        return regex
+
+        return regex;
     }
 
-    getNotesWithoutStyle = (notes) => {
-        const notesCopy = Lang.cloneDeep(notes);
-        notesCopy.forEach((note) => {
-            let noteContent = note.content;
-            // Remove HTML tags
-            noteContent = noteContent.replace(/<(div|\/div|strong|\/strong|em|\/em|u|\/u|ul|\/ul|ol|\/ol|li|\/li){0,}>/g, "");
-            // Remove brackets from @ structured phrases
-            noteContent = noteContent.replace(/@(.*?)\[\[(.*?)\]\]/g, (match, g1, g2) => g2);
-            // Removed brackets from # structured phrases
-            noteContent = noteContent.replace(/#(.*?)\[\[(.*?)\]\]/g, (match, g1, g2) => `#${g1}`);
-            note.content = noteContent;
-        });
-        return notesCopy;
+    getNoteContentWithoutStyle = (noteContent) => {
+        let noteContentWithoutStyle = noteContent;
+
+        // Remove HTML tags
+        noteContentWithoutStyle = noteContentWithoutStyle.replace(/<(div|\/div|strong|\/strong|em|\/em|u|\/u|ul|\/ul|ol|\/ol|li|\/li){0,}>/g, "");
+        // Remove brackets from @ structured phrases
+        noteContentWithoutStyle = noteContentWithoutStyle.replace(/@(.*?)\[\[(.*?)\]\]/g, (match, g1, g2) => g2);
+        // Removed brackets from # structured phrases
+        noteContentWithoutStyle = noteContentWithoutStyle.replace(/#(.*?)\[\[(.*?)\]\]/g, (match, g1, g2) => `#${g1}`);
+
+        return noteContentWithoutStyle;
     }
 
-    getNoteSuggestions = (inputValue) => {
-        const notes = this.props.patient.getNotes();
-        const notesWithoutStyle = this.getNotesWithoutStyle(notes);
-        const suggestions =  notesWithoutStyle.reduce((suggestions, note) => {
-            // If we have long-enough input and there is content in the note
-            if (note.content && inputValue && inputValue.length >= 2) {
-                const regex = this.createRegexForSearching(inputValue)
-                // Search note content
-                const relevantNoteContent = (note.content);
-                let contentMatches = regex.exec(relevantNoteContent);
-                // NewSuggestion object -- to be pushed with relevant data if there's a match
-                if (contentMatches) { 
-                    let newSuggestion = this.createNewSuggestion(inputValue, note);
-                    // For each match, add a suggestion.
-                    while (contentMatches) { 
-                        // Want a snapshot of text; use index and continue 100 chars
-                        newSuggestion.contentSnapshot = relevantNoteContent.slice(contentMatches.index, contentMatches.index + 100)
-                        newSuggestion.matchedOn = "contentSnapshot";
-                        // Clone the object
-                        suggestions.push(Lang.clone(newSuggestion));
-                        contentMatches = regex.exec(relevantNoteContent);
-                    }
-                } else {
-                    // Search note metadata
-                    const newSuggestionBasedOnMetadata = this.searchNoteMetaData(inputValue, note);
-                    (newSuggestionBasedOnMetadata && suggestions.push(newSuggestionBasedOnMetadata))
-                }
-            }
-            return suggestions;
-        }, []); 
-        return suggestions;
-    }
-
-    getStructuredDataSuggestions = (inputValue) => {
+    // Used by AutoSuggest to get a list of suggestions based on the current search's InputValue
+    getSuggestions = (inputValue) => {
         let suggestions = [];
         const regex = new RegExp(escapeRegExp(inputValue), "gi");
+
         this.props.searchIndex.searchableData.forEach(obj => {
-            let suggestion = {
-                section: obj.section,
-                subsection: obj.subsection,
-                contentSnapshot: obj.value,
-                valueTitle: obj.valueTitle,
-                inputValue,
-                matchedOn: "",
-                source: "structuredData"
+            let suggestion;
+
+            // obj.note means this should be a clinicalNote suggestion
+            if (obj.note) {
+                suggestion = {
+                    date: obj.note.signedOn || obj.note.createdOn,
+                    subject: obj.note.subject,
+                    inputValue: inputValue,
+                    note: obj.note,
+                    valueTitle: obj.valueTitle,
+                    contentSnapshot: obj.value,
+                    source: "clinicalNote",
+                };
+
+                // If searching content of note, remove styling from content before executing regex
+                if (obj.note.content === obj.value) {
+                    const noteContentWithoutStyle = this.getNoteContentWithoutStyle(obj.value);
+                    const noteRegex = this.createRegexForSearching(inputValue);
+                    let contentMatches = noteRegex.exec(noteContentWithoutStyle);
+
+                    while (contentMatches) { 
+                        // Want a snapshot of text; use index and continue 100 chars
+                        suggestion.contentSnapshot = noteContentWithoutStyle.slice(contentMatches.index, contentMatches.index + 100)
+                        suggestion.matchedOn = "contentSnapshot";
+                        // Clone the object
+                        suggestions.push(Lang.clone(suggestion));
+                        contentMatches = noteRegex.exec(noteContentWithoutStyle);
+                    }
+                } else {
+                    const contentMatches = regex.exec(obj.value);
+
+                    if (contentMatches) {
+                        suggestion.matchedOn = 'contentSnapshot';
+                        suggestions.push(suggestion);
+                    }
+                }
+            } else {
+                suggestion = {
+                    section: obj.section,
+                    subsection: obj.subsection,
+                    contentSnapshot: obj.value,
+                    valueTitle: obj.valueTitle,
+                    inputValue,
+                    matchedOn: "",
+                    source: 'structuredData',
+                }
+                const contentMatches = regex.exec(obj.value);
+
+                if (contentMatches) {
+                    suggestion.matchedOn = "contentSnapshot";
+                    suggestions.push(suggestion);
+                }
             }
-            let contentMatches = regex.exec(obj.value);
-            if (contentMatches) {
-                suggestion.matchedOn = "contentSnapshot";
-                suggestions.push(suggestion);
-            }
-            contentMatches = regex.exec(obj.valueTitle);
-            if (contentMatches) {
+
+            const contentMatches = regex.exec(obj.valueTitle);
+            if (!suggestion.matchOn && contentMatches) {
                 suggestion.matchedOn = "valueTitle";
                 suggestions.push(suggestion);
             }
         });
 
         return suggestions;
-    }
-
-    // Used by AutoSuggest to get a list of suggestions based on the current search's InputValue
-    getSuggestions = (inputValue) => {
-        let noteSuggestions = this.getNoteSuggestions(inputValue);
-        let structuredDataSuggestions = this.getStructuredDataSuggestions(inputValue);
-
-        return structuredDataSuggestions.concat(noteSuggestions);
     }
 
     // Teach Autosuggest how to calculate the input value for every given suggestion.
@@ -188,7 +131,6 @@ class PatientSearch extends React.Component {
     // and an onChange handler that updates this value (see below).
     // Suggestions also need to be provided to the Autosuggest,
     // and they are initially empty because the Autosuggest is closed.
-  
     onChange = (event, { newValue }) => {
         this.setState({
             value: newValue
@@ -213,14 +155,12 @@ class PatientSearch extends React.Component {
 
     // Will be called every time suggestion is selected via mouse or keyboard.
     onSuggestionSelected = (event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) => {
-        if (suggestion.source === "clinicalNote") {
-            const contextNotes = this.props.patient.getNotes();
-            const selectedNote = contextNotes.find(note => note.entryInfo.entryId === suggestion.note.entryInfo.entryId);
-
-            this.props.setSearchSelectedItem(selectedNote);
+        if (suggestion.note) {
+            this.props.setSearchSelectedItem(suggestion.note)
         } else {
             this.props.moveTargetedDataPanelToSubsection(suggestion.section, suggestion.subsection);
         }
+
         this.refs.autosuggest.input.blur();
     }
 

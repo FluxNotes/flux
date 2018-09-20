@@ -10,6 +10,7 @@ const testPatientShrId = '123456'
 
 import PatientSearch from '../../../src/patientControl/PatientSearch'
 import SearchIndex from '../../../src/patientControl/SearchIndex';
+import NotesIndexer from '../../../src/patientControl/NotesIndexer';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -39,6 +40,8 @@ describe('PatientSearch', function () {
     }
 
     const searchIndex = new SearchIndex();
+    const notesIndexer = new NotesIndexer();
+    notesIndexer.indexData('Clincal Notes', '', testPatientObj.getNotes(), searchIndex);
 
     it('Should update state.value when input is entered ', function () { 
         const wrapper = mount(<PatientSearch
