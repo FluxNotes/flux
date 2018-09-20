@@ -3,6 +3,7 @@
 $note-assitant-width-1: 175px;
 $note-assitant-width-2: 170px;
 $note-assitant-width-3: 160px; 
+$highlight-yellow: rgb(255, 255, 70);
 
 /* Wrapper */
 .note-assistant-wrapper {
@@ -107,6 +108,9 @@ $note-assitant-width-3: 160px;
             &.selected {
                 border-width: 2px;
                 border-color: $interface-blue;
+            }
+            &.search-result {
+                background-color: $highlight-yellow;
             }
             &.existing-note {         
                 .existing-note-date {

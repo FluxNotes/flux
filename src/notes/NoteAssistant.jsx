@@ -22,7 +22,8 @@ export default class NoteAssistant extends Component {
             // insertingTemplate indicates whether a shortcut or template is being inserted
             // false indicates a shortcut is being inserted
             // true indicates a template is being inserted
-            insertingTemplate: false
+            insertingTemplate: false,
+            searchResultNoteId: null
         };
         // On creating of NoteAssistant, check if the note viewer is editable
         if (this.props.isNoteViewerEditable) {
@@ -220,13 +221,20 @@ export default class NoteAssistant extends Component {
         this.props.deleteSelectedNote();
     }
 
+    onSearchSuggestionHighlighted = (suggestion) => {
+        this.setState({
+            searchResultNoteId: suggestion.note.entryInfo.entryId
+        });
+        this.refs[suggestion.note.entryInfo.entryId].scrollIntoView();
+    }
+
     // Render the content for the Note Assistant panel
     renderNoteAssistantContent(noteAssistantMode) {
         const allNotes = this.props.patient.getNotes();
         const numberOfPreviousSignedNotes = Lang.filter(allNotes, o => o.signed).length;
         const notesIndexer = new NotesIndexer();
         this.props.searchIndex.removeDataBySection('Clinical Notes');
-        notesIndexer.indexData('Clinical Notes', '', allNotes, this.props.searchIndex);
+        notesIndexer.indexData('Clinical Notes', '', allNotes, this.props.searchIndex, this.onSearchSuggestionHighlighted);
         switch (noteAssistantMode) {
             case "poc":
                 return (
@@ -383,14 +391,14 @@ export default class NoteAssistant extends Component {
     // For each clinical note, render the note image with the text
     renderClinicalNote(item, i) {
         let selected = Lang.isEqual(this.props.selectedNote, item);
+        let searchedFor = item.entryInfo.entryId === this.state.searchResultNoteId;
         // if we have closed the note, selected = false
         if (Lang.isEqual(this.props.noteClosed, true)) {
             selected = false;
         }
 
         return (
-            <div ref={item.entryInfo.entryId} className={`note existing-note${selected ? " selected" : ""}`} key={i} onClick={() => {
-                
+            <div ref={item.entryInfo.entryId} className={`note existing-note${selected ? " selected" : ""}${searchedFor ? " search-result" : ""}`} key={i} onClick={() => {
                 this.openNote(false, item)
             }}>
                 <div className="existing-note-date">{item.signedOn}</div>

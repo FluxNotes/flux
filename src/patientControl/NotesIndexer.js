@@ -1,7 +1,7 @@
 import BaseIndexer from './BaseIndexer';
 
 class NotesIndexer extends BaseIndexer {
-    indexData(section, subsection, data, searchIndex) {
+    indexData(section, subsection, data, searchIndex, onHighlight) {
         searchIndex.addSearchableData({
             section,
             subsection: '',
@@ -40,6 +40,7 @@ class NotesIndexer extends BaseIndexer {
                 subsection: notesSubsection,
                 valueTitle: `Content`,
                 value: note.content,
+                onHighlight
             })
 
             searchIndex.addSearchableData({

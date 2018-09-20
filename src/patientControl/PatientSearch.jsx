@@ -69,6 +69,7 @@ class PatientSearch extends React.Component {
                     valueTitle: obj.valueTitle,
                     contentSnapshot: obj.value,
                     source: "clinicalNote",
+                    onHighlight: obj.onHighlight
                 };
 
                 // If searching content of note, remove styling from content before executing regex
@@ -166,7 +167,9 @@ class PatientSearch extends React.Component {
 
     onSuggestionHighlighted = ({suggestion}) => {
         if (!Lang.isNull(suggestion)) {
-            if (suggestion.source !== "clinicalNote") {
+            if (suggestion.onHighlight) {
+                suggestion.onHighlight(suggestion);
+            } else if (suggestion.source !== "clinicalNote") {
                 this.props.moveTargetedDataPanelToSubsection(suggestion.section, suggestion.subsection);
             }
         }
