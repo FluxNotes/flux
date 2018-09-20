@@ -156,6 +156,16 @@ class TimelineEventsVisualizer extends Component {
         });
     }
 
+    onTimelineScrollClick = (newEndDate) => {
+        const newEndDateValue = newEndDate.valueOf();
+        const currentTimeLengthVisible = this.state.visibleTimeEnd - this.state.visibleTimeStart;
+        const amountToPutEndDateInView = currentTimeLengthVisible * 0.1;
+        this.setState({
+            visibleTimeStart: moment(newEndDateValue).subtract(currentTimeLengthVisible - amountToPutEndDateInView, 'ms').valueOf(),
+            visibleTimeEnd: moment(newEndDateValue).add(amountToPutEndDateInView).valueOf()
+        });
+    }
+
     onTimeChange = (visibleTimeStart, visibleTimeEnd, updateScrollCanvas) => {
         this.setState({ visibleTimeStart, visibleTimeEnd });
         updateScrollCanvas(visibleTimeStart, visibleTimeEnd);
@@ -188,12 +198,25 @@ class TimelineEventsVisualizer extends Component {
         );
     }
 
+    renderScrollButtons = () => {
+        return (
+            <div>
+                <Button
+                    className="small-btn"
+                    onClick={() => this.onTimelineScrollClick(moment().clone())}>
+                    Today
+                </Button>
+            </div>
+        );
+    }
+
     render() {
         return (
             <div 
                 id="timeline" 
                 className={this.props.className}
             >
+                {this.renderScrollButtons()}
                 {this.renderZoomButtons()}
                 <HoverItem
                     title={this.state.hoverItem.title}
