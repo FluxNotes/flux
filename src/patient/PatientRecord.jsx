@@ -543,6 +543,10 @@ class PatientRecord {
         return strResult
     }
 
+    getMedicationsChronologicalOrder() {
+        return this.getMedicationsReverseChronologicalOrder().reverse();
+    }
+
     getMedicationsReverseChronologicalOrder() {
         let list = this.getMedications();
         list.sort(this._reverseMedsTimeSorter);
@@ -561,7 +565,7 @@ class PatientRecord {
     }
 
     getActiveMedications() {
-        const allmeds = this.getMedications();
+        const allmeds = this.getMedicationsReverseChronologicalOrder();
         const today = new moment();
 
         return allmeds.filter((med) => {
@@ -575,7 +579,7 @@ class PatientRecord {
     }
 
     getActiveMedicationsAsText() { 
-        const activeMeds = this.getActiveMedicationsReverseChronologicalOrder(); 
+        const activeMeds = this.getActiveMedicationsChronologicalOrder(); 
 
         // Basic attributes to be listed in order
         let attributeList =  ["medication", "amountPerDose.value", "amountPerDose.units", "timingOfDoses.value", "timingOfDoses.units"];
@@ -616,6 +620,10 @@ class PatientRecord {
         return allmeds.filter((med) => {
             return med.isActiveBetween(sixMonthsAgo, today);
         });
+    }
+
+    getActiveMedicationsChronologicalOrder() {
+        return this.getActiveMedicationsReverseChronologicalOrder().reverse();
     }
 
     getActiveMedicationsReverseChronologicalOrder() {
