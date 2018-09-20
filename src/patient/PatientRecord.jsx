@@ -553,7 +553,7 @@ class PatientRecord {
         return list;
     }
 
-    getMedicationsForConditionChronologicalOrder(condition) {
+    getMedicationsForConditionReverseChronologicalOrder(condition) {
         let medications = this.getMedicationsReverseChronologicalOrder();
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         medications = medications.filter((med) => {
@@ -632,13 +632,13 @@ class PatientRecord {
         return list;
     }
 
-    getActiveAndRecentlyStoppedMedicationsChronologicalOrder() {
+    getActiveAndRecentlyStoppedMedicationsReverseChronologicalOrder() {
         let list = this.getActiveAndRecentlyStoppedMedications();
         list.sort(this._reverseMedsTimeSorter);
         return list;
     }
 
-    getActiveMedicationsForConditionChronologicalOrder(condition) {
+    getActiveMedicationsForConditionReverseChronologicalOrder(condition) {
         let medications = this.getActiveMedicationsReverseChronologicalOrder();
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         medications = medications.filter((med) => {
@@ -649,8 +649,8 @@ class PatientRecord {
         return medications;
     }
 
-    getActiveAndRecentlyStoppedMedicationsForConditionChronologicalOrder(condition) {
-        let medications = this.getActiveAndRecentlyStoppedMedicationsChronologicalOrder();
+    getActiveAndRecentlyStoppedMedicationsForConditionReverseChronologicalOrder(condition) {
+        let medications = this.getActiveAndRecentlyStoppedMedicationsReverseChronologicalOrder();
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         medications = medications.filter((med) => {
             return med instanceof FluxMedicationRequested && med.reasons.some((r) => {
