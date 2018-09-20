@@ -173,45 +173,51 @@ class TimelineEventsVisualizer extends Component {
 
     renderZoomButtons = () => {
         return (
-            <div className="timeline-controls-container">
+            <span className="timeline-controls-right">
                 <Button
-                    className="small-btn timeline-controls"
+                    id="timeline-controls"
+                    className="small-btn"
                     onClick={() => this.onTimelineZoomClick(1, 'weeks')}>
                     1w
                 </Button>
                 <Button
-                    className="small-btn timeline-controls"
+                    id="timeline-controls"
+                    className="small-btn"
                     onClick={() => this.onTimelineZoomClick(1, 'months')}>
                     1m
                 </Button>
                 <Button
-                    className="small-btn timeline-controls"
+                    id="timeline-controls"
+                    className="small-btn"
                     onClick={() => this.onTimelineZoomClick(6, 'months')}>
                     6m
                 </Button>
                 <Button
-                    className="small-btn timeline-controls"
+                    id="timeline-controls"
+                    className="small-btn"
                     onClick={() => this.onTimelineZoomClick(1, 'years')}>
                     1y
                 </Button>
                 <Button
-                    className="small-btn timeline-controls"
+                    id="timeline-controls"
+                    className="small-btn"
                     onClick={() => this.onTimelineZoomClick(3, 'years')}>
                     3y
                 </Button>
-            </div>
+            </span>
         );
     }
 
     renderScrollButtons = () => {
         return (
-            <div>
+            <span className="timeline-controls-left">
                 <Button
+                    id="timeline-controls"
                     className="small-btn"
                     onClick={() => this.onTimelineScrollClick(moment().clone())}>
                     Today
                 </Button>
-            </div>
+            </span>
         );
     }
 
@@ -221,8 +227,10 @@ class TimelineEventsVisualizer extends Component {
                 id="timeline" 
                 className={this.props.className}
             >
-                {this.renderScrollButtons()}
-                {this.renderZoomButtons()}
+                <div>
+                    {this.renderScrollButtons()}
+                    {this.renderZoomButtons()}
+                </div>
                 <HoverItem
                     title={this.state.hoverItem.title}
                     text={this.state.hoverItem.text}
