@@ -20,9 +20,9 @@ class TimelineEventsVisualizer extends Component {
         // Define the bounds of the timeline
         let defaultTimeStart;
         if (this.props.isWide) { 
-            defaultTimeStart = moment().clone().add(-3, 'years');  // wideview - 3 years ago
+            defaultTimeStart = moment().clone().add(-3, 'years').add(3, 'months');  // wideview - 3 years ago
         } else {
-            defaultTimeStart = moment().clone().add(-1, 'years');
+            defaultTimeStart = moment().clone().add(-1, 'years').add(3, 'months');
         }
         const defaultTimeEnd = moment().clone().add(3, 'months'); // end - 3 months from now
         const visibleTimeStart = defaultTimeStart.valueOf();
@@ -159,7 +159,7 @@ class TimelineEventsVisualizer extends Component {
     onTimelineScrollClick = (newEndDate) => {
         const newEndDateValue = newEndDate.valueOf();
         const currentTimeLengthVisible = this.state.visibleTimeEnd - this.state.visibleTimeStart;
-        const amountToPutEndDateInView = currentTimeLengthVisible * 0.1;
+        const amountToPutEndDateInView = currentTimeLengthVisible * (1/12);
         this.setState({
             visibleTimeStart: moment(newEndDateValue).subtract(currentTimeLengthVisible - amountToPutEndDateInView, 'ms').valueOf(),
             visibleTimeEnd: moment(newEndDateValue).add(amountToPutEndDateInView).valueOf()
@@ -193,6 +193,11 @@ class TimelineEventsVisualizer extends Component {
                     className="small-btn timeline-controls"
                     onClick={() => this.onTimelineZoomClick(1, 'years')}>
                     1y
+                </Button>
+                <Button
+                    className="small-btn timeline-controls"
+                    onClick={() => this.onTimelineZoomClick(3, 'years')}>
+                    3y
                 </Button>
             </div>
         );
