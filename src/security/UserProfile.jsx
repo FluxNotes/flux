@@ -1,23 +1,21 @@
-import Practitioner from "../model/shr/entity/Practitioner";
+//import Practitioner from "../model/shr/entity/Practitioner";
 
 // This class stores user profile information
 class UserProfile {
     constructor(user) {
-        console.log(user);
         this._name = this.setUserName(user.name);
         this._roleType = user.resourceType;
         this._id = user.id;
         this._role = this.setRole(user.practitionerRole);
-        this._speciality = this.setSpecialty(user.practitionerRole);
+        this._specialty = this.setSpecialty(user.practitionerRole);
         this._serviceProvider = user.serviceProvider;
-        console.log(this);
     }
 
     setUserName(name) {
         return (name.suffix) ? (`${name.suffix[0]} ${name.given[0]} ${name.family[0]}`) : (`${name.given[0]} ${name.family[0]}`);
     }
 
-    // Some users do not have the practitionerRole object, meaning they do not have a role or speciality specified
+    // Some users do not have the practitionerRole object, meaning they do not have a role or specialty specified
 
 /* 
 roleType    ==> resourceType: Practitioner
@@ -31,7 +29,7 @@ researcher	Researcher	A practitioner that may perform research
 teacher	Teacher/educator	Someone who is able to provide educational services
 ict	ICT professional	Someone who is qualified in Information and Communication Technologies
 
-specialty   ==> speciality:
+specialty   ==> specialty:
 394592004 	Clinical oncology
 408446006 	Gynecological oncology
 394593009 	Medical oncology
@@ -67,10 +65,10 @@ clinician
     }
 
     getRoleType() {
-        return this._role;
+        return this._roleType;
     }
 
-    getSpeciality() {
+    getSpecialty() {
         return this._specialty;
     }
 
