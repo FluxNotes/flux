@@ -23,15 +23,6 @@ class ScatterPlotVisualizer extends Component {
         this.renderScatterPlot(patient, condition, conditionSection);
     }
 
-     componentDidUpdate = () => {
-        if (this.updateState) {
-            this.updateState = false;
-        } else {
-            this.updateState = true;
-            setTimeout(this.resize, 450);
-        }
-    } 
-
     randomizeXPoints = (categoryList, data) => {
         let alive = [], dead = [];
         data[0].forEach(function (item) {
