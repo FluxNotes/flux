@@ -195,7 +195,7 @@ class PatientSearch extends React.Component {
         const { value, suggestions } = this.state;
 
         const inputProps = {
-            placeholder: `Search ${this.firstName}'s notes`,
+            placeholder: `Search ${this.firstName}'s record`,
             value,
             onChange: this.onChange
         };
