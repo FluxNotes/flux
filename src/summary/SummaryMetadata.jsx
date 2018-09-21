@@ -159,6 +159,158 @@ export default class SummaryMetadata {
                 { low: 10, high: 'max', assessment: 'bad' }
             ]
         };
+        const neutrophilCountSubsection = {
+            name: "Neutrophil count",
+            code: "C0027950",
+            itemsFunction: this.getTestsForSubSection,
+
+            // Source: https://www.healthline.com/health/neutrophils#anc
+            // Source: https://evs.nci.nih.gov/ftp1/CTCAE/CTCAE_4.03_2010-06-14_QuickReference_8.5x11.pdf page 42
+            bands: [
+                {
+                    low: 0,
+                    high: 1,
+                    assessment: 'bad'
+                },
+                {
+                    low: 1,
+                    high: 8,
+                    assessment: 'good'
+                },
+                {
+                    low: 8,
+                    // Only draws if an element is captured in this range
+                    high: 'max',
+                    assessment: 'bad'
+                }
+            ]
+        };
+        const hemoglobinSubsection = {
+            name: "Hemoglobin",
+            code: "C0019046",
+            itemsFunction: this.getTestsForSubSection,
+
+            // Source: https://www.emedicinehealth.com/hemoglobin_levels/page2_em.htm
+            // Source: https://www.quora.com/What-is-the-percentage-of-haemoglobin-in-blood
+            bands: [
+                {
+                    low: 0,
+                    high: 12,
+                    assessment: 'bad'
+                },
+
+                {
+                    low: 12,
+                    high: 16,
+                    assessment: 'good'
+                },
+                {
+                    low: 16,
+                    high: 20,
+                    assessment: 'bad'
+                }
+            ]
+        };
+        const medicationsSection = {
+            name: "Medications",
+            shortName: "Meds",
+            clinicalEvents: ["pre-encounter"],
+            defaultVisualizer: "chart",
+            type: "Medications",
+            data: [
+                {
+                    name: "",
+                    itemsFunction: this.getItemListForMedications,
+                }
+            ]
+        };
+        const allergiesSection = {
+            name: "Allergies",
+            shortName: "Allergies",
+            clinicalEvents: ["pre-encounter"],
+            type: "Columns",
+            notFiltered: true,
+            data: [
+                {
+                    name: "",
+                    headings: ["Allergy", "Severity", "Effects"],
+                    itemsFunction: this.getItemListForAllergies,
+                    preTableCount: "allergies",
+                    postTableList: this.getItemListForNoKnownAllergies,
+                }
+            ]
+        };
+        const clinicalTrialsSection = {
+            name: "Clinical Trials",
+            shortName: "Trials",
+            clinicalEvents: ["pre-encounter"],
+            type: "Columns",
+            notFiltered: true,
+            data: [
+                {
+                    name: "Enrolled",
+                    headings: ["Name", "When Enrolled", "When Left", "Description"],
+                    itemsFunction: this.getItemListForEnrolledClinicalTrials
+                },
+                {
+                    name: "Potential to enroll",
+                    headings: ["Name", "Criteria Fit", "Opened", "Description"],
+                    itemsFunction: this.getItemListForClinicalTrialEligibility,
+                    actions: [
+                        {
+                            handler: this.handleViewMissingCriteria,
+                            text: "Missing Criteria",
+                            icon: "clipboard",
+                            whenToDisplay: {
+                                valueExists: true,
+                                existingValueSigned: "either",
+                                editableNoteOpen: "either", 
+                                displayForColumns: [0, 1]
+                            }
+                        }
+                    ]
+                },
+                {   nameFunction: this.getMissingCriteriaSubsectionName, 
+                    itemsFunction: this.getItemListToDisplayMissingCriteria,
+                    displayFunction: this.getMissingCriteriaDisplay
+                }
+            ]   
+        };
+        const timelineSection = {
+            name: "Timeline",
+            shortName: "Timeline",
+            type: "Events",
+            resetData: this.resetTimelineData,
+            data: [
+                {
+                    name: "Medications",
+                    itemsFunction: this.getMedicationItems
+                },
+                {
+                    name: "Procedures",
+                    itemsFunction: this.getProcedureItems
+                },
+                {
+                    name: "Key Events",
+                    itemsFunction: this.getEventItems
+                },
+                {
+                    name: "Progressions",
+                    itemsFunction: this.getProgressionItems
+                }
+            ]
+        };
+        const treatmentOptionsSection = {
+            name: "Treatment Options",
+            shortName: "Treatments",
+            type: "ClusterPoints",
+            data: [
+                {
+                    name: "",
+                    itemsFunction: this.getTreatmentData
+                }
+            ]
+        };
 
         this.hardCodedMetadata = {
             "http://snomed.info/sct/408643008": { // breast cancer
@@ -449,73 +601,11 @@ export default class SummaryMetadata {
                         type: "ValueOverTime",
                         data: [
                             whiteBloodCellCountSubsection,
-                            {
-                                name: "Neutrophil count",
-                                code: "C0027950",
-                                itemsFunction: this.getTestsForSubSection,
-
-                                // Source: https://www.healthline.com/health/neutrophils#anc
-                                // Source: https://evs.nci.nih.gov/ftp1/CTCAE/CTCAE_4.03_2010-06-14_QuickReference_8.5x11.pdf page 42
-                                bands: [
-                                    {
-                                        low: 0,
-                                        high: 1,
-                                        assessment: 'bad'
-                                    },
-                                    {
-                                        low: 1,
-                                        high: 8,
-                                        assessment: 'good'
-                                    },
-                                    {
-                                        low: 8,
-                                        // Only draws if an element is captured in this range
-                                        high: 'max',
-                                        assessment: 'bad'
-                                    }
-                                ]
-                            },
-                            {
-                                name: "Hemoglobin",
-                                code: "C0019046",
-                                itemsFunction: this.getTestsForSubSection,
-
-                                // Source: https://www.emedicinehealth.com/hemoglobin_levels/page2_em.htm
-                                // Source: https://www.quora.com/What-is-the-percentage-of-haemoglobin-in-blood
-                                bands: [
-                                    {
-                                        low: 0,
-                                        high: 12,
-                                        assessment: 'bad'
-                                    },
-
-                                    {
-                                        low: 12,
-                                        high: 16,
-                                        assessment: 'good'
-                                    },
-                                    {
-                                        low: 16,
-                                        high: 20,
-                                        assessment: 'bad'
-                                    }
-                                ]
-                            }
+                            neutrophilCountSubsection,
+                            hemoglobinSubsection
                         ]
                     },
-                    {
-                        name: "Medications",
-                        shortName: "Meds",
-                        clinicalEvents: ["pre-encounter"],
-                        defaultVisualizer: "chart",
-                        type: "Medications",
-                        data: [
-                            {
-                                name: "",
-                                itemsFunction: this.getItemListForMedications,
-                            }
-                        ]
-                    },
+                    medicationsSection,
                     {
                         name: "Pathology",
                         shortName: "Pathology",
@@ -639,94 +729,10 @@ export default class SummaryMetadata {
                             }
                         ]
                     },
-                    {
-                        name: "Clinical Trials",
-                        shortName: "Trials",
-                        clinicalEvents: ["pre-encounter"],
-                        type: "Columns",
-                        notFiltered: true,
-                        data: [
-                            {
-                                name: "Enrolled",
-                                headings: ["Name", "When Enrolled", "When Left", "Description"],
-                                itemsFunction: this.getItemListForEnrolledClinicalTrials
-                            },
-                            {
-                                name: "Potential to enroll",
-                                headings: ["Name", "Criteria Fit", "Opened", "Description"],
-                                itemsFunction: this.getItemListForClinicalTrialEligibility,
-                                actions: [
-                                    {
-                                        handler: this.handleViewMissingCriteria,
-                                        text: "Missing Criteria",
-                                        icon: "clipboard",
-                                        whenToDisplay: {
-                                            valueExists: true,
-                                            existingValueSigned: "either",
-                                            editableNoteOpen: "either", 
-                                            displayForColumns: [0, 1]
-                                        }
-                                    }
-                                ]
-                            },
-                            {   nameFunction: this.getMissingCriteriaSubsectionName, 
-                                itemsFunction: this.getItemListToDisplayMissingCriteria,
-                                displayFunction: this.getMissingCriteriaDisplay
-                            }
-                        ]   
-                    },
-                    {
-                        name: "Allergies",
-                        shortName: "Allergies",
-                        clinicalEvents: ["pre-encounter"],
-                        type: "Columns",
-                        notFiltered: true,
-                        data: [
-                            {
-                                name: "",
-                                headings: ["Allergy", "Severity", "Effects"],
-                                itemsFunction: this.getItemListForAllergies,
-                                preTableCount: "allergies",
-                                postTableList: this.getItemListForNoKnownAllergies,
-                            }
-                        ]
-                    },
-                    {
-                        name: "Timeline",
-                        shortName: "Timeline",
-                        type: "Events",
-                        resetData: this.resetTimelineData,
-                        data: [
-                            {
-                                name: "Medications",
-                                itemsFunction: this.getMedicationItems
-                            },
-                            {
-                                name: "Procedures",
-                                itemsFunction: this.getProcedureItems
-                            },
-                            {
-                                name: "Key Events",
-                                itemsFunction: this.getEventItems
-                            },
-                            {
-                                name: "Progressions",
-                                itemsFunction: this.getProgressionItems
-                            }
-                        ]
-                    },
-                    // adding new section for treatment options
-                    {
-                        name: "Treatment Options",
-                        shortName: "Treatments",
-                        type: "ClusterPoints",
-                        data: [
-                            {
-                                name: "",
-                                itemsFunction: this.getTreatmentData
-                            }
-                        ]
-                    }
+                    clinicalTrialsSection,
+                    allergiesSection,
+                    timelineSection,
+                    treatmentOptionsSection
                 ]
             },
             "http://snomed.info/sct/420120006": { // sarcoma
@@ -1007,73 +1013,11 @@ export default class SummaryMetadata {
                         type: "ValueOverTime",
                         data: [
                             whiteBloodCellCountSubsection,
-                            {
-                                name: "Neutrophil count",
-                                code: "C0027950",
-                                itemsFunction: this.getTestsForSubSection,
-
-                                // Source: https://www.healthline.com/health/neutrophils#anc
-                                // Source: https://evs.nci.nih.gov/ftp1/CTCAE/CTCAE_4.03_2010-06-14_QuickReference_8.5x11.pdf page 42
-                                bands: [
-                                    {
-                                        low: 0,
-                                        high: 1,
-                                        assessment: 'bad'
-                                    },
-                                    {
-                                        low: 1,
-                                        high: 8,
-                                        assessment: 'good'
-                                    },
-                                    {
-                                        low: 8,
-                                        // Only draws if an element is captured in this range
-                                        high: 'max',
-                                        assessment: 'bad'
-                                    }
-                                ]
-                            },
-                            {
-                                name: "Hemoglobin",
-                                code: "C0019046",
-                                itemsFunction: this.getTestsForSubSection,
-
-                                // Source: https://www.emedicinehealth.com/hemoglobin_levels/page2_em.htm
-                                // Source: https://www.quora.com/What-is-the-percentage-of-haemoglobin-in-blood
-                                bands: [
-                                    {
-                                        low: 0,
-                                        high: 12,
-                                        assessment: 'bad'
-                                    },
-
-                                    {
-                                        low: 12,
-                                        high: 16,
-                                        assessment: 'good'
-                                    },
-                                    {
-                                        low: 16,
-                                        high: 20,
-                                        assessment: 'bad'
-                                    }
-                                ]
-                            }
+                            neutrophilCountSubsection,
+                            hemoglobinSubsection
                         ]
                     },
-                    {
-                        name: "Medications",
-                        shortName: "Meds",
-                        clinicalEvents: ["pre-encounter"],
-                        defaultVisualizer: "chart",
-                        type: "Medications",
-                        data: [
-                            {
-                                name: "",
-                                itemsFunction: this.getItemListForMedications,
-                            }
-                        ]
-                    },
+                    medicationsSection,
                     {
                         name: "Pathology",
                         shortName: "Pathology",
@@ -1161,94 +1105,10 @@ export default class SummaryMetadata {
                             }
                         ]
                     },
-                    {
-                        name: "Clinical Trials",
-                        shortName: "Trials",
-                        clinicalEvents: ["pre-encounter"],
-                        type: "Columns",
-                        notFiltered: true,
-                        data: [
-                            {
-                                name: "Enrolled",
-                                headings: ["Name", "When Enrolled", "When Left", "Description"],
-                                itemsFunction: this.getItemListForEnrolledClinicalTrials
-                            },
-                            {
-                                name: "Potential to enroll",
-                                headings: ["Name", "Criteria Fit", "Opened", "Description"],
-                                itemsFunction: this.getItemListForClinicalTrialEligibility,
-                                actions: [
-                                    {
-                                        handler: this.handleViewMissingCriteria,
-                                        text: "Missing Criteria",
-                                        icon: "clipboard",
-                                        whenToDisplay: {
-                                            valueExists: true,
-                                            existingValueSigned: "either",
-                                            editableNoteOpen: "either", 
-                                            displayForColumns: [0, 1]
-                                        }
-                                    }
-                                ]
-                            },
-                            {   nameFunction: this.getMissingCriteriaSubsectionName, 
-                                itemsFunction: this.getItemListToDisplayMissingCriteria,
-                                displayFunction: this.getMissingCriteriaDisplay
-                            }
-                        ]   
-                    },
-                    {
-                        name: "Allergies",
-                        shortName: "Allergies",
-                        clinicalEvents: ["pre-encounter"],
-                        type: "Columns",
-                        notFiltered: true,
-                        data: [
-                            {
-                                name: "",
-                                headings: ["Allergy", "Severity", "Effects"],
-                                itemsFunction: this.getItemListForAllergies,
-                                preTableCount: "allergies",
-                                postTableList: this.getItemListForNoKnownAllergies,
-                            }
-                        ]
-                    },
-                    {
-                        name: "Timeline",
-                        shortName: "Timeline",
-                        type: "Events",
-                        resetData: this.resetTimelineData,
-                        data: [
-                            {
-                                name: "Medications",
-                                itemsFunction: this.getMedicationItems
-                            },
-                            {
-                                name: "Procedures",
-                                itemsFunction: this.getProcedureItems
-                            },
-                            {
-                                name: "Key Events",
-                                itemsFunction: this.getEventItems
-                            },
-                            {
-                                name: "Progressions",
-                                itemsFunction: this.getProgressionItems
-                            }
-                        ]
-                    },
-                    // adding new section for treatment options
-                    {
-                        name: "Treatment Options",
-                        shortName: "Treatments",
-                        type: "ClusterPoints",
-                        data: [
-                            {
-                                name: "",
-                                itemsFunction: this.getTreatmentData
-                            }
-                        ]
-                    }
+                    clinicalTrialsSection,
+                    allergiesSection,
+                    timelineSection,
+                    treatmentOptionsSection
                 ]                
             },
             "Doctor/Nurse/Medical oncology/http://snomed.info/sct/420120006": { // sarcoma NP
@@ -1519,30 +1379,7 @@ export default class SummaryMetadata {
                         }
                     ]
                 },
-                {
-                    name: "Timeline",
-                    shortName: "Timeline",
-                    type: "Events",
-                    resetData: this.resetTimelineData,
-                    data: [
-                        {
-                            name: "Medications",
-                            itemsFunction: this.getMedicationItems
-                        },
-                        {
-                            name: "Procedures",
-                            itemsFunction: this.getProcedureItems
-                        },
-                        {
-                            name: "Key Events",
-                            itemsFunction: this.getEventItems
-                        },
-                        {
-                            name: "Progressions",
-                            itemsFunction: this.getProgressionItems
-                        }
-                    ]
-                },
+                timelineSection,
                 proceduresSection,
                 activeConditionsSection,
                 {
@@ -1552,89 +1389,12 @@ export default class SummaryMetadata {
                     type: "ValueOverTime",
                     data: [
                         whiteBloodCellCountSubsection,
-                        {
-                            name: "Neutrophil count",
-                            code: "C0027950",
-                            itemsFunction: this.getTestsForSubSection,
-
-                            // Source: https://www.healthline.com/health/neutrophils#anc
-                            // Source: https://evs.nci.nih.gov/ftp1/CTCAE/CTCAE_4.03_2010-06-14_QuickReference_8.5x11.pdf page 42
-                            bands: [
-                                {
-                                    low: 0,
-                                    high: 1,
-                                    assessment: 'bad'
-                                },
-                                {
-                                    low: 1,
-                                    high: 8,
-                                    assessment: 'good'
-                                },
-                                {
-                                    low: 8,
-                                    // Only draws if an element is captured in this range
-                                    high: 'max',
-                                    assessment: 'bad'
-                                }
-                            ]
-                        },
-                        {
-                            name: "Hemoglobin",
-                            code: "C0019046",
-                            itemsFunction: this.getTestsForSubSection,
-
-                            // Source: https://www.emedicinehealth.com/hemoglobin_levels/page2_em.htm
-                            // Source: https://www.quora.com/What-is-the-percentage-of-haemoglobin-in-blood
-                            bands: [
-                                {
-                                    low: 0,
-                                    high: 12,
-                                    assessment: 'bad'
-                                },
-
-                                {
-                                    low: 12,
-                                    high: 16,
-                                    assessment: 'good'
-                                },
-                                {
-                                    low: 16,
-                                    high: 20,
-                                    assessment: 'bad'
-                                }
-                            ]
-                        }
+                        neutrophilCountSubsection,
+                        hemoglobinSubsection
                     ]
                 },
-                {
-                    name: "Medications",
-                    shortName: "Meds",
-                    clinicalEvents: ["pre-encounter"],
-                    defaultVisualizer: "chart",
-                    type: "Medications",
-                    data: [
-                        {
-                            name: "",
-                            itemsFunction: this.getItemListForMedications,
-                        }
-                    ]
-                },
-                {
-                    name: "Allergies",
-                    shortName: "Allergies",
-                    clinicalEvents: ["pre-encounter"],
-                    type: "Columns",
-                    notFiltered: true,
-                    data: [
-                        {
-                            name: "",
-                            headings: ["Allergy", "Severity", "Effects"],
-                            itemsFunction: this.getItemListForAllergies,
-                            preTableCount: "allergies",
-                            postTableList: this.getItemListForNoKnownAllergies,
-                        }
-                    ]
-                }
+                medicationsSection,
+                allergiesSection
             ]
         },
             "default": {
@@ -1707,45 +1467,8 @@ export default class SummaryMetadata {
                         ]
                     },
                     activeConditionsSection,
-                    {
-                        name: "Allergies",
-                        clinicalEvents: ["pre-encounter"],
-                        type: "Columns",
-                        notFiltered: true,
-                        data: [
-                            {
-                                name: "",
-                                headings: ["Allergy", "Severity", "Effects"],
-                                itemsFunction: this.getItemListForAllergies,
-                                preTableCount: "allergies",
-                                postTableList: this.getItemListForNoKnownAllergies,
-                            }
-                        ]
-                    },
-                    {
-                        name: "Timeline",
-                        shortName: "Timeline",
-                        type: "Events",
-                        resetData: this.resetTimelineData,
-                        data: [
-                            {
-                                name: "Medications",
-                                itemsFunction: this.getMedicationItems
-                            },
-                            {
-                                name: "Procedures",
-                                itemsFunction: this.getProcedureItems
-                            },
-                            {
-                                name: "Key Events",
-                                itemsFunction: this.getEventItems
-                            },
-                            {
-                                name: "Progressions",
-                                itemsFunction: this.getProgressionItems
-                            }
-                        ]
-                    }
+                    allergiesSection,
+                    timelineSection
                 ]
             }
         };
@@ -2310,4 +2033,3 @@ export default class SummaryMetadata {
         }
     }
 }
-
