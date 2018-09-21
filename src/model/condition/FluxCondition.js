@@ -312,7 +312,7 @@ class FluxCondition {
         // Sort by start time and add snippets about each event to result text
         let events = [];
         events = events.concat(patient.getProceduresForCondition(this));
-        events = events.concat(patient.getMedicationsForConditionChronologicalOrder(this));
+        events = events.concat(patient.getMedicationsForConditionReverseChronologicalOrder(this));
         events = events.concat(this.getLabResultsChronologicalOrder(moment().subtract(6, 'months')));
         const recentProgression = patient.getMostRecentProgressionForCondition(this);
         if (recentProgression) {

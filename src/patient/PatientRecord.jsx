@@ -544,13 +544,17 @@ class PatientRecord {
     }
 
     getMedicationsChronologicalOrder() {
+        return this.getMedicationsReverseChronologicalOrder().reverse();
+    }
+
+    getMedicationsReverseChronologicalOrder() {
         let list = this.getMedications();
-        list.sort(this._medsTimeSorter);
+        list.sort(this._reverseMedsTimeSorter);
         return list;
     }
 
-    getMedicationsForConditionChronologicalOrder(condition) {
-        let medications = this.getMedicationsChronologicalOrder();
+    getMedicationsForConditionReverseChronologicalOrder(condition) {
+        let medications = this.getMedicationsReverseChronologicalOrder();
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         medications = medications.filter((med) => {
             return med instanceof FluxMedicationRequested && med.reasons.some((r) => {
@@ -561,7 +565,7 @@ class PatientRecord {
     }
 
     getActiveMedications() {
-        const allmeds = this.getMedications();
+        const allmeds = this.getMedicationsReverseChronologicalOrder();
         const today = new moment();
 
         return allmeds.filter((med) => {
@@ -575,7 +579,7 @@ class PatientRecord {
     }
 
     getActiveMedicationsAsText() { 
-        const activeMeds = this.getActiveMedications(); 
+        const activeMeds = this.getActiveMedicationsChronologicalOrder(); 
 
         // Basic attributes to be listed in order
         let attributeList =  ["medication", "amountPerDose.value", "amountPerDose.units", "timingOfDoses.value", "timingOfDoses.units"];
@@ -619,19 +623,23 @@ class PatientRecord {
     }
 
     getActiveMedicationsChronologicalOrder() {
+        return this.getActiveMedicationsReverseChronologicalOrder().reverse();
+    }
+
+    getActiveMedicationsReverseChronologicalOrder() {
         let list = this.getActiveMedications();
-        list.sort(this._medsTimeSorter);
+        list.sort(this._reverseMedsTimeSorter);
         return list;
     }
 
-    getActiveAndRecentlyStoppedMedicationsChronologicalOrder() {
+    getActiveAndRecentlyStoppedMedicationsReverseChronologicalOrder() {
         let list = this.getActiveAndRecentlyStoppedMedications();
-        list.sort(this._medsTimeSorter);
+        list.sort(this._reverseMedsTimeSorter);
         return list;
     }
 
-    getActiveMedicationsForConditionChronologicalOrder(condition) {
-        let medications = this.getActiveMedicationsChronologicalOrder();
+    getActiveMedicationsForConditionReverseChronologicalOrder(condition) {
+        let medications = this.getActiveMedicationsReverseChronologicalOrder();
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         medications = medications.filter((med) => {
             return med instanceof FluxMedicationRequested && med.reasons.some((r) => {
@@ -641,8 +649,8 @@ class PatientRecord {
         return medications;
     }
 
-    getActiveAndRecentlyStoppedMedicationsForConditionChronologicalOrder(condition) {
-        let medications = this.getActiveAndRecentlyStoppedMedicationsChronologicalOrder();
+    getActiveAndRecentlyStoppedMedicationsForConditionReverseChronologicalOrder(condition) {
+        let medications = this.getActiveAndRecentlyStoppedMedicationsReverseChronologicalOrder();
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         medications = medications.filter((med) => {
             return med instanceof FluxMedicationRequested && med.reasons.some((r) => {
@@ -800,7 +808,7 @@ class PatientRecord {
         }
         return 0;
     }
-    _medsTimeSorter(a, b) {
+    _reverseMedsTimeSorter(a, b) {
         const a_startTime = new moment(a.expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
         const b_startTime = new moment(b.expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
         if (a_startTime < b_startTime) {

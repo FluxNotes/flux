@@ -1619,7 +1619,7 @@ export default class SummaryMetadata {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         
         // Only showing active medications
-        let meds = patient.getActiveAndRecentlyStoppedMedicationsForConditionChronologicalOrder(condition);
+        let meds = patient.getActiveAndRecentlyStoppedMedicationsForConditionReverseChronologicalOrder(condition);
         const medicationChanges = patient.getMedicationChangesForConditionChronologicalOrder(condition);
 
         // For every medication in meds, create a new medToVisualize object that has the medication object and a medicationChange object
@@ -1891,7 +1891,7 @@ export default class SummaryMetadata {
 
     getMedicationItems = (patient, condition) => {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
-        const meds = patient.getMedicationsForConditionChronologicalOrder(condition);
+        const meds = patient.getMedicationsForConditionReverseChronologicalOrder(condition);
         let items = [];
 
         meds.forEach((med) => {
