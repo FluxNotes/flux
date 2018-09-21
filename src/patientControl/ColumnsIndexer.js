@@ -1,8 +1,8 @@
 import BaseIndexer from './BaseIndexer';
 
 class ColumnIndexer extends BaseIndexer {
-    indexData(section, subsection, data, searchIndex, subsectionDescriptor) {
-        super.indexData(section, subsection, data, searchIndex);
+    indexData(section, subsection, data, searchIndex, onHighlight, subsectionDescriptor) {
+        super.indexData(section, subsection, data, searchIndex, onHighlight);
         if (subsectionDescriptor.headings) {
             // true tabular where each item is a column of data
             // add each column value using title of the column heading
@@ -13,7 +13,8 @@ class ColumnIndexer extends BaseIndexer {
                         section,
                         subsection,
                         valueTitle: `${vtPrefix}${subsectionDescriptor.headings[columnNumber]}`,
-                        value: col.value || "Missing Data"
+                        value: col.value || "Missing Data",
+                        onHighlight
                     });    
                 });
             });
@@ -27,7 +28,8 @@ class ColumnIndexer extends BaseIndexer {
                         section,
                         subsection,
                         valueTitle: subsection,
-                        value: valueObject.value || "Missing Data"
+                        value: valueObject.value || "Missing Data",
+                        onHighlight
                     });
                 } else {
                     const [ title, valueObject ] = row;
@@ -35,7 +37,8 @@ class ColumnIndexer extends BaseIndexer {
                         section,
                         subsection,
                         valueTitle: title.value,
-                        value: valueObject.value || "Missing Data"
+                        value: valueObject.value || "Missing Data",
+                        onHighlight
                     });
                 }
             });

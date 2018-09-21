@@ -21,6 +21,10 @@ export default class TargetedDataPanel extends Component {
         return this.minimap.moveToSubsection(sectionName, subsectionName);
     }
 
+    moveToSubsectionFromSearch(suggestion) {
+        this.moveToSubsection(suggestion.section, suggestion.subsection)
+    }
+
     render () {
         // The css data attribute associated with the minimap
         const minimapAttribute = 'data-test-summary-section';
@@ -51,6 +55,7 @@ export default class TargetedDataPanel extends Component {
                                 setForceRefresh={this.props.setForceRefresh}                                                              
                                 summaryMetadata={this.props.summaryMetadata.getMetadata()}
                                 searchIndex={this.props.searchIndex}
+                                moveToSubsectionFromSearch={this.moveToSubsectionFromSearch.bind(this)}
                             />
                         </div>
                     </div>

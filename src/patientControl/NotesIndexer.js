@@ -1,7 +1,7 @@
 import BaseIndexer from './BaseIndexer';
 
 class NotesIndexer extends BaseIndexer {
-    indexData(section, subsection, data, searchIndex, onHighlight) {
+    indexData(section, subsection, data, searchIndex, onHighlight, onClick) {
         searchIndex.addSearchableData({
             section,
             subsection: '',
@@ -32,6 +32,8 @@ class NotesIndexer extends BaseIndexer {
                 subsection: notesSubsection,
                 valueTitle: 'Title',
                 value: note.subject,
+                onHighlight,
+                onClick
             });
 
             searchIndex.addSearchableData({
@@ -40,7 +42,8 @@ class NotesIndexer extends BaseIndexer {
                 subsection: notesSubsection,
                 valueTitle: `Content`,
                 value: note.content,
-                onHighlight
+                onHighlight,
+                onClick
             })
 
             searchIndex.addSearchableData({
@@ -49,6 +52,8 @@ class NotesIndexer extends BaseIndexer {
                 subsection: notesSubsection,
                 valueTitle: `Source`,
                 value: note.hospital,
+                onHighlight,
+                onClick
             });
 
             if (note.signed) {
@@ -58,6 +63,8 @@ class NotesIndexer extends BaseIndexer {
                     subsection: notesSubsection,
                     valueTitle: `Signed on`,
                     value: note.signedOn,
+                    onHighlight,
+                    onClick
                 });
 
                 searchIndex.addSearchableData({
@@ -66,6 +73,8 @@ class NotesIndexer extends BaseIndexer {
                     subsection: notesSubsection,
                     valueTitle: `Signed by`,
                     value: note.signedBy,
+                    onHighlight,
+                    onClick
                 });
             } else {
                 searchIndex.addSearchableData({
@@ -74,6 +83,8 @@ class NotesIndexer extends BaseIndexer {
                     subsection: notesSubsection,
                     valueTitle: `Created on`,
                     value: note.createdOn,
+                    onHighlight,
+                    onClick
                 });
 
                 searchIndex.addSearchableData({
@@ -82,6 +93,8 @@ class NotesIndexer extends BaseIndexer {
                     subsection: notesSubsection,
                     valueTitle: `Created by`,
                     value: note.createdBy,
+                    onHighlight,
+                    onClick
                 });
             }
         });

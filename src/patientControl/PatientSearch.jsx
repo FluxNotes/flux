@@ -69,7 +69,8 @@ class PatientSearch extends React.Component {
                     valueTitle: obj.valueTitle,
                     contentSnapshot: obj.value,
                     source: "clinicalNote",
-                    onHighlight: obj.onHighlight
+                    onHighlight: obj.onHighlight,
+                    onClick: obj.onClick
                 };
 
                 // If searching content of note, remove styling from content before executing regex
@@ -103,6 +104,7 @@ class PatientSearch extends React.Component {
                     inputValue,
                     matchedOn: "",
                     source: 'structuredData',
+                    onHighlight: obj.onHighlight
                 }
                 const contentMatches = regex.exec(obj.value);
 
@@ -156,22 +158,16 @@ class PatientSearch extends React.Component {
 
     // Will be called every time suggestion is selected via mouse or keyboard.
     onSuggestionSelected = (event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) => {
-        if (suggestion.note) {
-            this.props.setSearchSelectedItem(suggestion.note)
-        } else {
-            this.props.moveTargetedDataPanelToSubsection(suggestion.section, suggestion.subsection);
+        if (suggestion.onClick) {
+            suggestion.onClick(suggestion);
         }
 
         this.refs.autosuggest.input.blur();
     }
 
     onSuggestionHighlighted = ({suggestion}) => {
-        if (!Lang.isNull(suggestion)) {
-            if (suggestion.onHighlight) {
-                suggestion.onHighlight(suggestion);
-            } else if (suggestion.source !== "clinicalNote") {
-                this.props.moveTargetedDataPanelToSubsection(suggestion.section, suggestion.subsection);
-            }
+        if (!Lang.isNull(suggestion) && suggestion.onHighlight) {
+            suggestion.onHighlight(suggestion);
         }
     }
 

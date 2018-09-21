@@ -173,9 +173,10 @@ export default class TargetedDataSection extends Component {
                     section: section.name,
                     subsection: "",
                     valueTitle: "Section",
-                    value: section.name
+                    value: section.name,
+                    onHighlight: this.props.moveToSubsectionFromSearch
                 });
-                indexer.indexData(section.name, subsection.name, list, searchIndex, newSubsection);
+                indexer.indexData(section.name, subsection.name, list, searchIndex, this.props.moveToSubsectionFromSearch, newSubsection);
             }
         })
 

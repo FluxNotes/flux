@@ -228,13 +228,17 @@ export default class NoteAssistant extends Component {
         this.refs[suggestion.note.entryInfo.entryId].scrollIntoView();
     }
 
+    onSearchSuggestionClicked = (suggestion) => {
+        this.openNote(!suggestion.note.signed, suggestion.note);
+    }
+
     // Render the content for the Note Assistant panel
     renderNoteAssistantContent(noteAssistantMode) {
         const allNotes = this.props.patient.getNotes();
         const numberOfPreviousSignedNotes = Lang.filter(allNotes, o => o.signed).length;
         const notesIndexer = new NotesIndexer();
         this.props.searchIndex.removeDataBySection('Clinical Notes');
-        notesIndexer.indexData('Clinical Notes', '', allNotes, this.props.searchIndex, this.onSearchSuggestionHighlighted);
+        notesIndexer.indexData('Clinical Notes', '', allNotes, this.props.searchIndex, this.onSearchSuggestionHighlighted, this.onSearchSuggestionClicked);
         switch (noteAssistantMode) {
             case "poc":
                 return (

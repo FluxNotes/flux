@@ -165,6 +165,7 @@ export default class TargetedDataSubpanel extends Component {
                         actions={actions}
                         loginUser={this.props.loginUser}
                         searchIndex={this.props.searchIndex}
+                        moveToSubsectionFromSearch={this.props.moveToSubsectionFromSearch}
                     />
 
                     {i < conditionMetadata.sections.length - 1 ? <Divider className="divider"/> : null}

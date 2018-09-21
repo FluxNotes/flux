@@ -1,8 +1,8 @@
 import BaseIndexer from './BaseIndexer';
 
 class ValueOverTimeIndexer extends BaseIndexer {
-    indexData(section, subsection, data, searchIndex) {
-        super.indexData(section, subsection, data, searchIndex);
+    indexData(section, subsection, data, searchIndex, onHighlight) {
+        super.indexData(section, subsection, data, searchIndex, onHighlight);
         data.forEach(item => {
             searchIndex.addSearchableData({
                 section,

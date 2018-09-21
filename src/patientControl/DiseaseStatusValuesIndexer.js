@@ -1,14 +1,15 @@
 import BaseIndexer from './BaseIndexer';
 
 class DiseaseStatusValuesIndexer extends BaseIndexer {
-    indexData(section, subsection, data, searchIndex) {
-        super.indexData(section, subsection, data, searchIndex);
+    indexData(section, subsection, data, searchIndex, onHighlight) {
+        super.indexData(section, subsection, data, searchIndex, onHighlight);
         data.potentialDiagnosisDates.forEach(item => {
             searchIndex.addSearchableData({
                 section,
                 subsection: "",
                 valueTitle: item.label,
-                value: item.date
+                value: item.date,
+                onHighlight
             });
         });
 
@@ -17,7 +18,8 @@ class DiseaseStatusValuesIndexer extends BaseIndexer {
                 section,
                 subsection: "",
                 valueTitle: progression.start_time,
-                value: progression.disease_status_string
+                value: progression.disease_status_string,
+                onHighlight
             });
         });
     }
