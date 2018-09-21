@@ -22,6 +22,7 @@ import NLPHashtagPlugin from './NLPHashtagPlugin'
 import NoteParser from '../noteparser/NoteParser';
 import './FluxNotesEditor.css';
 import { setTimeout } from 'timers';
+import NoteContentIndexer from '../patientControl/NoteContentIndexer';
 
 // This forces the initial block to be inline instead of a paragraph. When insert structured field, prevents adding new lines
 const initialState = Slate.Plain.deserialize('');
@@ -88,6 +89,8 @@ class FluxNotesEditor extends React.Component {
         this.noteParser = new NoteParser(this.props.shortcutManager, this.props.contextManager);
         this.plugins = [];
         this.previousState = {};
+
+        this.noteContentIndexer = new NoteContentIndexer();
 
         // Set the initial state when the app is first constructed.
         this.resetEditorState();
@@ -737,6 +740,15 @@ class FluxNotesEditor extends React.Component {
                     this.props.setNoteViewerEditable(true);
                 }
             }
+
+            this.props.searchIndex.removeDataBySection('Open Note');
+            this.props.searchIndex.addSearchableData({
+                section: 'Open Note',
+                subsection: '',
+                valueTitle: 'Section',
+                value: 'Open Note'
+            });
+            this.noteContentIndexer.indexData("Open Note", '', nextProps.updatedEditorNote, this.props.searchIndex, null, null);
         }
 
         // Check if the current view mode changes

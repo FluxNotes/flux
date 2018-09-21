@@ -396,6 +396,7 @@ export default class NotesPanel extends Component {
                     changeShortcutType={this.changeShortcutType}
                     openSourceNoteEntryId={this.props.openSourceNoteEntryId}
                     setOpenSourceNoteEntryId={this.props.setOpenSourceNoteEntryId}
+                    searchIndex={this.props.searchIndex}
                 />
             </div>
         );

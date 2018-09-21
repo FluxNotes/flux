@@ -238,7 +238,9 @@ export default class NoteAssistant extends Component {
         const numberOfPreviousSignedNotes = Lang.filter(allNotes, o => o.signed).length;
         const notesIndexer = new NotesIndexer();
         this.props.searchIndex.removeDataBySection('Clinical Notes');
-        notesIndexer.indexData('Clinical Notes', '', allNotes, this.props.searchIndex, this.onSearchSuggestionHighlighted, this.onSearchSuggestionClicked);
+
+        // Temporarily disabling opening source note on click
+        notesIndexer.indexData('Clinical Notes', '', allNotes, this.props.searchIndex, this.onSearchSuggestionHighlighted, null); //this.onSearchSuggestionClicked
         switch (noteAssistantMode) {
             case "poc":
                 return (
