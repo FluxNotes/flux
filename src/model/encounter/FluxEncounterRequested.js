@@ -23,9 +23,31 @@ class FluxEncounterRequested {
         return null;
     }
 
-    get serviceProvider() {
-        if (this._encounterRequested.serviceProvider)
-            return this._encounterRequested.serviceProvider.organization.organizationName.value;
+    get department() {
+        if (this._encounterRequested.serviceProvider) {
+            let org = this._encounterRequested.serviceProvider.value;
+            while (org && org.type.value.coding[0].code !== 'dept') {
+                org = org.partOf;
+            }
+            if (org) {
+                return org.organizationName.value;
+            }
+            return null;
+        }
+        return null;
+    }
+
+    get provider() {
+        if (this._encounterRequested.serviceProvider) {
+            let org = this._encounterRequested.serviceProvider.value;
+            while (org && org.type.value.coding[0].code !== 'prov') {
+                org = org.partOf;
+            }
+            if (org) {
+                return org.organizationName.value;
+            }
+            return null;
+        }
         return null;
     }
 

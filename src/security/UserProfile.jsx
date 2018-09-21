@@ -8,7 +8,20 @@ class UserProfile {
         this._id = user.id;
         this._role = this.setRole(user.practitionerRole);
         this._specialty = this.setSpecialty(user.practitionerRole);
-        this._serviceProvider = user.serviceProvider;
+        if (user.serviceProvider) this.organizationFromSHRJSON(user.serviceProvider.value);
+    }
+
+    organizationFromSHRJSON(org) {
+        if (org) {
+            this.organizationFromSHRJSON(org.partOf);
+            const name = org.organizationName.value;
+            const typeCode = org.type.value.coding[0].code;
+            if (typeCode === 'prov') {
+                this._provider = name;
+            } else if (typeCode === 'dept') {
+                this._department = name;
+            }
+        }
     }
 
     setUserName(name) {
@@ -80,12 +93,13 @@ clinician
         return this._role;
     }
 
-    get serviceProvider() {
-        return this._serviceProvider;
+    get provider() {
+        return this._provider;
     }
 
-    set serviceProvider(serviceProvider) {
-        this._serviceProvider = serviceProvider;
+    get department() {
+        return this._department;
     }
 }
+
 export default UserProfile;

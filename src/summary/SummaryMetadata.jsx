@@ -46,71 +46,125 @@ export default class SummaryMetadata {
     constructor(setForceRefresh) {
         this.setForceRefresh = setForceRefresh;
         this.trialDisplayMissingCriteria = "";
+        const visitReasonSectionPreEncounter = {
+            name: "Visit Reason",
+            shortName: "Reason",
+            clinicalEvents: ["pre-encounter"],
+            type: "NarrativeOnly",
+            narrative: [
+                {
+                    defaultTemplate: "${Reason.Reason}",
+                    dataMissingTemplate: "No recent ${Reason.Reason}",
+                    useDataMissingTemplateCriteria: [
+                        "Reason.Reason"
+                    ]
+                },
+            ],
+            data: [
+                {
+                    name: "Reason",
+                    items: [
+                        {
+                            name: "Reason",
+                            value: (patient, currentConditionEntry) => {
+                                const nextEncounter = patient.getNextEncounter();
+                                if (Lang.isUndefined(nextEncounter)) return ["No upcoming appointments", false];
+                                return [patient.getNextEncounterReasonAsText(), patient.isUnsigned(nextEncounter), this.determineSource(patient, nextEncounter)];
+                            },
+                            shortcut: "@reason for next visit"
+                        }
+                    ]
+                }
+            ]
+        };
+        const visitReasonSectionPostEncounter = {
+            name: "Visit Reason",
+            shortName: "Reason",
+            clinicalEvents: ["post-encounter"],
+            type: "NarrativeOnly",
+            narrative: [
+                {
+                    defaultTemplate: "${Reason.Reason}",
+                    dataMissingTemplate: "No recent ${Reason.Reason}",
+                    useDataMissingTemplateCriteria: [
+                        "Reason.Reason"
+                    ]
+                },
+            ],
+            data: [
+                {
+                    name: "Reason",
+                    items: [
+                        {
+                            name: "Reason",
+                            value: (patient, currentConditionEntry) => {
+                                const previousEncounter = patient.getPreviousEncounter();
+                                if (Lang.isUndefined(previousEncounter)) return ["No recent appointments", false];
+                                return [patient.getPreviousEncounterReasonAsText(), patient.isUnsigned(previousEncounter), this.determineSource(patient, previousEncounter)] ;
+                            },
+                            shortcut: "@reason for previous visit"
+                        }
+                    ]
+                }
+            ]
+        };
+        const proceduresSection = {
+            name: "Procedures",
+            shortName: "Procedures",
+            type: "Columns",
+            data: [
+                {
+                    name: "",
+                    headings: ["Procedure", "When"],
+                    itemsFunction: this.getItemListForProcedures
+                }
+            ]
+        };
+        const activeConditionsSection = {
+            name: "Active Conditions",
+            shortName: "Conditions",
+            type: "Columns",
+            notFiltered: true,
+            data: [
+                {
+                    name: "",
+                    headings: ["Condition", "Diagnosed", "Body Site"],
+                    itemsFunction: this.getItemListForConditions,
+                    shortcut: "@condition"
+                }
+            ]
+        };
+        const diseaseStatusSection = {
+            name: "Disease Status",
+            shortName: "Disease",
+            clinicalEvents: ["pre-encounter"],
+            type: "DiseaseStatusValues",
+            data: [
+                {
+                    name: "",
+                    itemsFunction: this.getProgressions,
+                }
+            ]
+        };
+        const whiteBloodCellCountSubsection = {
+            name: "White blood cell count",
+            code: "C0023508",
+            itemsFunction: this.getTestsForSubSection,
+
+            // Source: https://www.cancer.org/treatment/understanding-your-diagnosis/tests/understanding-your-lab-test-results.html
+            // Source: https://www.mayoclinic.org/symptoms/low-white-blood-cell-count/basics/definition/sym-20050615
+            bands: [
+                { low: 0, high: 3, assessment: 'bad' },
+                { low: 3, high: 10, assessment: 'good' },
+                { low: 10, high: 'max', assessment: 'bad' }
+            ]
+        };
+
         this.hardCodedMetadata = {
             "http://snomed.info/sct/408643008": { // breast cancer
                 sections: [
-                    {
-                        name: "Visit Reason",
-                        shortName: "Reason",
-                        clinicalEvents: ["pre-encounter"],
-                        type: "NarrativeOnly",
-                        narrative: [
-                            {
-                                defaultTemplate: "${Reason.Reason}",
-                                dataMissingTemplate: "No recent ${Reason.Reason}",
-                                useDataMissingTemplateCriteria: [
-                                    "Reason.Reason"
-                                ]
-                            },
-                        ],
-                        data: [
-                            {
-                                name: "Reason",
-                                items: [
-                                    {
-                                        name: "Reason",
-                                        value: (patient, currentConditionEntry) => {
-                                            const nextEncounter = patient.getNextEncounter();
-                                            if (Lang.isUndefined(nextEncounter)) return ["No upcoming appointments", false];
-                                            return [patient.getNextEncounterReasonAsText(), patient.isUnsigned(nextEncounter), this.determineSource(patient, nextEncounter)];
-                                        },
-                                        shortcut: "@reason for next visit"
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        name: "Visit Reason",
-                        shortName: "Reason",
-                        clinicalEvents: ["post-encounter"],
-                        type: "NarrativeOnly",
-                        narrative: [
-                            {
-                                defaultTemplate: "${Reason.Reason}",
-                                dataMissingTemplate: "No recent ${Reason.Reason}",
-                                useDataMissingTemplateCriteria: [
-                                    "Reason.Reason"
-                                ]
-                            },
-                        ],
-                        data: [
-                            {
-                                name: "Reason",
-                                items: [
-                                    {
-                                        name: "Reason",
-                                        value: (patient, currentConditionEntry) => {
-                                            const previousEncounter = patient.getPreviousEncounter();
-                                            if (Lang.isUndefined(previousEncounter)) return ["No recent appointments", false];
-                                            return [patient.getPreviousEncounterReasonAsText(), patient.isUnsigned(previousEncounter), this.determineSource(patient, previousEncounter)] ;
-                                        },
-                                        shortcut: "@reason for previous visit"
-                                    }
-                                ]
-                            }
-                        ]
-                    },
+                    visitReasonSectionPreEncounter,
+                    visitReasonSectionPostEncounter,
                     {
                         name: "Summary",
                         shortName: "Summary",
@@ -363,7 +417,7 @@ export default class SummaryMetadata {
                                         name: "Date of Last Visit Here",
                                         value: (patient, currentConditionEntry, user) => {
                                             const encounters = patient.getEncountersChronologicalOrder();
-                                            const filteredEncounters = encounters.filter(e => e.serviceProvider === user.serviceProvider);
+                                            const filteredEncounters = encounters.filter(e => e.provider === user.provider);
 
                                             if (filteredEncounters.length === 0) return [null, false];
                                             const expectedPerformanceTime = new moment(filteredEncounters.slice(-1)[0].expectedPerformanceTime, 'D MMM YYYY').format('D MMM YYYY');
@@ -374,7 +428,7 @@ export default class SummaryMetadata {
                                         name: "Who Last Visited Here",
                                         value: (patient, currentConditionEntry, user) => {
                                             const encounters = patient.getEncountersChronologicalOrder();
-                                            const filteredEncounters = encounters.filter(e => e.serviceProvider === user.serviceProvider);
+                                            const filteredEncounters = encounters.filter(e => e.provider === user.provider);
 
                                             if (filteredEncounters.length === 0) return [null, false];
                                             return [filteredEncounters.slice(-1)[0].practitioner, patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)];
@@ -385,75 +439,16 @@ export default class SummaryMetadata {
 
                         ]
                     },
-                    {
-                        name: "Procedures",
-                        shortName: "Procedures",
-                        type: "Columns",
-                        data: [
-                            {
-                                name: "",
-                                headings: ["Procedure", "When"],
-                                itemsFunction: this.getItemListForProcedures
-                            }
-                        ]
-                    },
-                    {
-                        name: "Active Conditions",
-                        shortName: "Conditions",
-                        type: "Columns",
-                        notFiltered: true,
-                        data: [
-                            {
-                                name: "",
-                                headings: ["Condition", "Diagnosed", "Body Site"],
-                                itemsFunction: this.getItemListForConditions,
-                                shortcut: "@condition"
-                            }
-                        ]
-                    },
-                    {
-                        name: "Disease Status",
-                        shortName: "Disease",
-                        clinicalEvents: ["pre-encounter"],
-                        type: "DiseaseStatusValues",
-                        data: [
-                            {
-                                name: "",
-                                itemsFunction: this.getProgressions,
-                            }
-                        ]
-                    },
+                    proceduresSection,
+                    activeConditionsSection,
+                    diseaseStatusSection,
                     {
                         name: "Labs",
                         shortName: "Labs",
                         clinicalEvents: ["pre-encounter"],
                         type: "ValueOverTime",
                         data: [
-                            {
-                                name: "White blood cell count",
-                                code: "C0023508",
-                                itemsFunction: this.getTestsForSubSection,
-
-                                // Source: https://www.cancer.org/treatment/understanding-your-diagnosis/tests/understanding-your-lab-test-results.html
-                                // Source: https://www.mayoclinic.org/symptoms/low-white-blood-cell-count/basics/definition/sym-20050615
-                                bands: [
-                                    {
-                                        low: 0,
-                                        high: 3,
-                                        assessment: 'bad'
-                                    },
-                                    {
-                                        low: 3,
-                                        high: 10,
-                                        assessment: 'good'
-                                    },
-                                    {
-                                        low: 10,
-                                        high: 'max',
-                                        assessment: 'bad'
-                                    }
-                                ]
-                            },
+                            whiteBloodCellCountSubsection,
                             {
                                 name: "Neutrophil count",
                                 code: "C0027950",
@@ -736,68 +731,8 @@ export default class SummaryMetadata {
             },
             "http://snomed.info/sct/420120006": { // sarcoma
                 sections: [
-                    {
-                        name: "Visit Reason",
-                        shortName: "Reason",
-                        clinicalEvents: ["pre-encounter"],
-                        type: "NarrativeOnly",
-                        narrative: [
-                            {
-                                defaultTemplate: "${Reason.Reason}",
-                                dataMissingTemplate: "No recent ${Reason.Reason}",
-                                useDataMissingTemplateCriteria: [
-                                    "Reason.Reason"
-                                ]
-                            },
-                        ],
-                        data: [
-                            {
-                                name: "Reason",
-                                items: [
-                                    {
-                                        name: "Reason",
-                                        value: (patient, currentConditionEntry) => {
-                                            const nextEncounter = patient.getNextEncounter();
-                                            if (Lang.isUndefined(nextEncounter)) return ["No upcoming appointments", false];
-                                            return [patient.getNextEncounterReasonAsText(), patient.isUnsigned(nextEncounter), this.determineSource(patient, nextEncounter)];
-                                        },
-                                        shortcut: "@reason for next visit"
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        name: "Visit Reason",
-                        shortName: "Reason",
-                        clinicalEvents: ["post-encounter"],
-                        type: "NarrativeOnly",
-                        narrative: [
-                            {
-                                defaultTemplate: "${Reason.Reason}",
-                                dataMissingTemplate: "No recent ${Reason.Reason}",
-                                useDataMissingTemplateCriteria: [
-                                    "Reason.Reason"
-                                ]
-                            },
-                        ],
-                        data: [
-                            {
-                                name: "Reason",
-                                items: [
-                                    {
-                                        name: "Reason",
-                                        value: (patient, currentConditionEntry) => {
-                                            const previousEncounter = patient.getPreviousEncounter();
-                                            if (Lang.isUndefined(previousEncounter)) return ["No recent appointments", false];
-                                            return [patient.getPreviousEncounterReasonAsText(), patient.isUnsigned(previousEncounter), this.determineSource(patient, previousEncounter)] ;
-                                        },
-                                        shortcut: "@reason for previous visit"
-                                    }
-                                ]
-                            }
-                        ]
-                    },
+                    visitReasonSectionPreEncounter,
+                    visitReasonSectionPostEncounter,
                     {
                         name: "Summary",
                         shortName: "Summary",
@@ -1039,7 +974,7 @@ export default class SummaryMetadata {
                                         name: "Date of Last Visit Here",
                                         value: (patient, currentConditionEntry, user) => {
                                             const encounters = patient.getEncountersChronologicalOrder();
-                                            const filteredEncounters = encounters.filter(e => e.serviceProvider === user.serviceProvider);
+                                            const filteredEncounters = encounters.filter(e => e.provider === user.provider);
 
                                             if (filteredEncounters.length === 0) return [null, false];
                                             const mostRecentFilteredEncounter = filteredEncounters.slice(-1)[0];
@@ -1051,7 +986,7 @@ export default class SummaryMetadata {
                                         name: "Who Last Visited Here",
                                         value: (patient, currentConditionEntry, user) => {
                                             const encounters = patient.getEncountersChronologicalOrder();
-                                            const filteredEncounters = encounters.filter(e => e.serviceProvider === user.serviceProvider);
+                                            const filteredEncounters = encounters.filter(e => e.provider === user.provider);
 
                                             if (filteredEncounters.length === 0) return [null, false];
                                             const mostRecentFilteredEncounter = filteredEncounters.slice(-1)[0];
@@ -1062,75 +997,16 @@ export default class SummaryMetadata {
                             }
                         ]
                     },
-                    {
-                        name: "Procedures",
-                        shortName: "Procedures",
-                        type: "Columns",
-                        data: [
-                            {
-                                name: "",
-                                headings: ["Procedure", "When"],
-                                itemsFunction: this.getItemListForProcedures
-                            }
-                        ]
-                    },
-                    {
-                        name: "Active Conditions",
-                        shortName: "Conditions",
-                        type: "Columns",
-                        notFiltered: true,
-                        data: [
-                            {
-                                name: "",
-                                headings: ["Condition", "Diagnosed", "Body Site"],
-                                itemsFunction: this.getItemListForConditions,
-                                shortcut: "@condition"
-                            }
-                        ]
-                    },
-                    {
-                        name: "Disease Status",
-                        shortName: "Disease",
-                        clinicalEvents: ["pre-encounter"],
-                        type: "DiseaseStatusValues",
-                        data: [
-                            {
-                                name: "",
-                                itemsFunction: this.getProgressions,
-                            }
-                        ]
-                    },
+                    proceduresSection,
+                    activeConditionsSection,
+                    diseaseStatusSection,
                     {
                         name: "Labs",
                         shortName: "Labs",
                         clinicalEvents: ["pre-encounter"],
                         type: "ValueOverTime",
                         data: [
-                            {
-                                name: "White blood cell count",
-                                code: "C0023508",
-                                itemsFunction: this.getTestsForSubSection,
-
-                                // Source: https://www.cancer.org/treatment/understanding-your-diagnosis/tests/understanding-your-lab-test-results.html
-                                // Source: https://www.mayoclinic.org/symptoms/low-white-blood-cell-count/basics/definition/sym-20050615
-                                bands: [
-                                    {
-                                        low: 0,
-                                        high: 3,
-                                        assessment: 'bad'
-                                    },
-                                    {
-                                        low: 3,
-                                        high: 10,
-                                        assessment: 'good'
-                                    },
-                                    {
-                                        low: 10,
-                                        high: 'max',
-                                        assessment: 'bad'
-                                    }
-                                ]
-                            },
+                            whiteBloodCellCountSubsection,
                             {
                                 name: "Neutrophil count",
                                 code: "C0027950",
@@ -1377,69 +1253,9 @@ export default class SummaryMetadata {
             },
             "Doctor/Nurse/Medical oncology/http://snomed.info/sct/420120006": { // sarcoma NP
             sections: [
-                {
-                    name: "Visit Reason",
-                    shortName: "Reason",
-                    clinicalEvents: ["pre-encounter"],
-                    type: "NarrativeOnly",
-                    narrative: [
-                        {
-                            defaultTemplate: "${Reason.Reason}",
-                            dataMissingTemplate: "No recent ${Reason.Reason}",
-                            useDataMissingTemplateCriteria: [
-                                "Reason.Reason"
-                            ]
-                        },
-                    ],
-                    data: [
-                        {
-                            name: "Reason",
-                            items: [
-                                {
-                                    name: "Reason",
-                                    value: (patient, currentConditionEntry) => {
-                                        const nextEncounter = patient.getNextEncounter();
-                                        if (Lang.isUndefined(nextEncounter)) return ["No upcoming appointments", false];
-                                        return [patient.getNextEncounterReasonAsText(), patient.isUnsigned(nextEncounter), this.determineSource(patient, nextEncounter)];
-                                    },
-                                    shortcut: "@reason for next visit"
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    name: "Visit Reason",
-                    shortName: "Reason",
-                    clinicalEvents: ["post-encounter"],
-                    type: "NarrativeOnly",
-                    narrative: [
-                        {
-                            defaultTemplate: "${Reason.Reason}",
-                            dataMissingTemplate: "No recent ${Reason.Reason}",
-                            useDataMissingTemplateCriteria: [
-                                "Reason.Reason"
-                            ]
-                        },
-                    ],
-                    data: [
-                        {
-                            name: "Reason",
-                            items: [
-                                {
-                                    name: "Reason",
-                                    value: (patient, currentConditionEntry) => {
-                                        const previousEncounter = patient.getPreviousEncounter();
-                                        if (Lang.isUndefined(previousEncounter)) return ["No recent appointments", false];
-                                        return [patient.getPreviousEncounterReasonAsText(), patient.isUnsigned(previousEncounter), this.determineSource(patient, previousEncounter)] ;
-                                    },
-                                    shortcut: "@reason for previous visit"
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
+                visitReasonSectionPreEncounter,
+                visitReasonSectionPostEncounter,
+            {
                     name: "Summary",
                     shortName: "Summary",
                     type: "NameValuePairs",
@@ -1680,7 +1496,7 @@ export default class SummaryMetadata {
                                     name: "Date of Last Visit Here",
                                     value: (patient, currentConditionEntry, user) => {
                                         const encounters = patient.getEncountersChronologicalOrder();
-                                        const filteredEncounters = encounters.filter(e => e.serviceProvider === user.serviceProvider);
+                                        const filteredEncounters = encounters.filter(e => e.provider === user.provider);
 
                                         if (filteredEncounters.length === 0) return [null, false];
                                         const mostRecentFilteredEncounter = filteredEncounters.slice(-1)[0];
@@ -1692,7 +1508,7 @@ export default class SummaryMetadata {
                                     name: "Who Last Visited Here",
                                     value: (patient, currentConditionEntry, user) => {
                                         const encounters = patient.getEncountersChronologicalOrder();
-                                        const filteredEncounters = encounters.filter(e => e.serviceProvider === user.serviceProvider);
+                                        const filteredEncounters = encounters.filter(e => e.provider === user.provider);
 
                                         if (filteredEncounters.length === 0) return [null, false];
                                         const mostRecentFilteredEncounter = filteredEncounters.slice(-1)[0];
@@ -1727,63 +1543,15 @@ export default class SummaryMetadata {
                         }
                     ]
                 },
-                {
-                    name: "Procedures",
-                    shortName: "Procedures",
-                    type: "Columns",
-                    data: [
-                        {
-                            name: "",
-                            headings: ["Procedure", "When"],
-                            itemsFunction: this.getItemListForProcedures
-                        }
-                    ]
-                },
-                {
-                    name: "Active Conditions",
-                    shortName: "Conditions",
-                    type: "Columns",
-                    notFiltered: true,
-                    data: [
-                        {
-                            name: "",
-                            headings: ["Condition", "Diagnosed", "Body Site"],
-                            itemsFunction: this.getItemListForConditions,
-                            shortcut: "@condition"
-                        }
-                    ]
-                },
+                proceduresSection,
+                activeConditionsSection,
                 {
                     name: "Labs",
                     shortName: "Labs",
                     clinicalEvents: ["pre-encounter"],
                     type: "ValueOverTime",
                     data: [
-                        {
-                            name: "White blood cell count",
-                            code: "C0023508",
-                            itemsFunction: this.getTestsForSubSection,
-
-                            // Source: https://www.cancer.org/treatment/understanding-your-diagnosis/tests/understanding-your-lab-test-results.html
-                            // Source: https://www.mayoclinic.org/symptoms/low-white-blood-cell-count/basics/definition/sym-20050615
-                            bands: [
-                                {
-                                    low: 0,
-                                    high: 3,
-                                    assessment: 'bad'
-                                },
-                                {
-                                    low: 3,
-                                    high: 10,
-                                    assessment: 'good'
-                                },
-                                {
-                                    low: 10,
-                                    high: 'max',
-                                    assessment: 'bad'
-                                }
-                            ]
-                        },
+                        whiteBloodCellCountSubsection,
                         {
                             name: "Neutrophil count",
                             code: "C0027950",
@@ -1914,37 +1682,13 @@ export default class SummaryMetadata {
                             }
                         ]
                     },
-                    {
-                        name: "Procedures",
-                        shortName: "Procedures",
-                        type: "Columns",
-                        data: [
-                            {
-                                name: "",
-                                headings: ["Procedure", "When"],
-                                itemsFunction: this.getItemListForProcedures
-                            }
-                        ]
-                    },
+                    proceduresSection,
                     {
                         name: "Labs",
                         shortName: "Labs",
                         type: "ValueOverTime",
                         data: [
-                            {
-                                name: "White blood cell count",
-                                code: "C0023508",
-                                itemsFunction: this.getTestsForSubSection,
-
-                                // Source: https://www.cancer.org/treatment/understanding-your-diagnosis/tests/understanding-your-lab-test-results.html
-                                // Source: https://www.mayoclinic.org/symptoms/low-white-blood-cell-count/basics/definition/sym-20050615
-
-                                bands: [
-                                    {low: 0, high: 3, assessment: 'bad'},
-                                    {low: 3, high: 5, assessment: 'average'},
-                                    {low: 5, high: 10, assessment: 'good'}
-                                ]
-                            }
+                            whiteBloodCellCountSubsection
                         ]
                     },
                     {
@@ -1962,20 +1706,7 @@ export default class SummaryMetadata {
                             }
                         ]
                     },
-                    {
-                        name: "Active Conditions",
-                        shortName: "Conditions",
-                        type: "Columns",
-                        notFiltered: true,
-                        data: [
-                            {
-                                name: "",
-                                headings: ["Condition", "Diagnosed", "Body Site"],
-                                itemsFunction: this.getItemListForConditions,
-                                shortcut: "@condition"
-                            }
-                        ]
-                    },
+                    activeConditionsSection,
                     {
                         name: "Allergies",
                         clinicalEvents: ["pre-encounter"],

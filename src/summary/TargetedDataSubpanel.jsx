@@ -128,8 +128,6 @@ export default class TargetedDataSubpanel extends Component {
             code = condition.code;
             const conditionType = `${codeSystem}/${code}`;
             const userType = `${loginUser.getRoleType()}/${loginUser.getRole()}/${loginUser.getSpecialty()}`;
-            console.log(conditionType);
-            console.log(userType);
             conditionMetadata = summaryMetadata[userType + "/" + conditionType];
             if (conditionMetadata == null) {
                 conditionMetadata = summaryMetadata[conditionType];
