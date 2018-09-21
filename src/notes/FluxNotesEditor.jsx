@@ -269,12 +269,15 @@ class FluxNotesEditor extends React.Component {
     }
 
     suggestionFunction(initialChar, text) {
+        // No text means no suggestions
         if (Lang.isUndefined(text)) return [];
 
         const { shortcutManager } = this.props;
         const shortcuts = this.contextManager.getCurrentlyValidShortcuts(shortcutManager);
         const suggestionsShortcuts = [];
         const textLowercase = text.toLowerCase();
+        // Defines the max length of the suggestion list
+        const maxLength = 10
 
         shortcuts.forEach((shortcut) => {
             const triggers = shortcutManager.getTriggersForShortcut(shortcut);
@@ -305,7 +308,7 @@ class FluxNotesEditor extends React.Component {
             });
         });
 
-        return suggestionsShortcuts.slice(0, 10);
+        return suggestionsShortcuts.slice(0, maxLength);
     }
 
     choseSuggestedShortcut(suggestion) {
