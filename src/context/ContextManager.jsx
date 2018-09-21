@@ -52,9 +52,10 @@ class ContextManager {
         }, [])
     }
 
+    // Returns all currently valid shortcuts, ordering them from the most recently active context down to the patient context 
     getCurrentlyValidShortcuts(shortcutManager) {
-        let result = shortcutManager.getValidChildShortcutsInContext(this.patientContext, true);
-        let childResults;
+        let result = [];
+        let childResults = [];
         this.activeContexts.forEach((shortcut) => {
             // GQ changed the recurse argument (2nd) to false below. Don't want it to get child shortcuts of each context unless
             // they are in context too. If a shortcut is in context, it will be a separate entry in the active contexts list
@@ -64,6 +65,8 @@ class ContextManager {
                 if (!result.includes(child)) result.push(child);
             });
         });
+        // Make sure we add all the patientContext shortcuts
+        result = result.concat(shortcutManager.getValidChildShortcutsInContext(this.patientContext, true));
         return result;
     }
 
