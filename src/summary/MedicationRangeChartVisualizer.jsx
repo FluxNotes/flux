@@ -78,7 +78,7 @@ class MedicationRangeChartVisualizer extends Component {
         // Determining if timingUnit has a value. Set if empty string if null.
         if (timingUnit == null) timingUnit = '';
         //Determining if asNeededIndicator is true. Set empty string if false, set string as needed if true.
-        asNeededIndicator ? asNeededIndicator = 'as needed' : asNeededIndicator = '';
+        const asNeededString = asNeededIndicator ? 'as needed' : '';
         // Determining if medication value is out of range.
         if (dosageValue < lowerValue || dosageValue > upperValue) {
             return (
