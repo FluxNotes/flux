@@ -1105,7 +1105,6 @@ export default class SummaryMetadata {
                             }
                         ]
                     },
-                    clinicalTrialsSection,
                     allergiesSection,
                     timelineSection,
                     treatmentOptionsSection
