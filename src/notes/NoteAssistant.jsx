@@ -218,6 +218,7 @@ export default class NoteAssistant extends Component {
     }
 
     deleteSelectedNote = () => {
+        this.props.searchIndex.removeDataBySection('Open Note');
         this.props.deleteSelectedNote();
     }
 

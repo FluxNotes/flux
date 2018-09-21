@@ -3,7 +3,6 @@ import BaseIndexer from './BaseIndexer'
 class NoteContentIndexer extends BaseIndexer {
     indexData(section, subsection, note, searchIndex, onHighlight, onClick) {
         const notesSubsection = note.signed ? 'Signed Notes' : 'In Progress Notes';
-        console.log(searchIndex);
         searchIndex.addSearchableData({
             note,
             section,

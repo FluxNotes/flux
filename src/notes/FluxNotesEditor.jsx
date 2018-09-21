@@ -514,6 +514,7 @@ class FluxNotesEditor extends React.Component {
     }
 
     closeNote = () => {
+        this.props.searchIndex.removeDataBySection('Open Note');
         if (this.props.noteAssistantMode === 'pick-list-options-panel') {
             const documentText = this.getNoteText(this.previousState);
             this.revertTemplate();
@@ -740,7 +741,6 @@ class FluxNotesEditor extends React.Component {
                     this.props.setNoteViewerEditable(true);
                 }
             }
-
             this.props.searchIndex.removeDataBySection('Open Note');
             this.props.searchIndex.addSearchableData({
                 section: 'Open Note',
