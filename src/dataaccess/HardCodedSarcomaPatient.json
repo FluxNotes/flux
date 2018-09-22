@@ -10975,7 +10975,6 @@
             "Value": "03 SEP 2018"
         }
     },
-
     {
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/vital/HeartRate"

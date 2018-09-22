@@ -302,6 +302,7 @@ export default class SummaryMetadata {
         };
         const treatmentOptionsSection = {
             name: "Treatment Options",
+            nameSuffix: "(Demo)",
             shortName: "Treatments",
             type: "ClusterPoints",
             data: [
