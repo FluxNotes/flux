@@ -49,6 +49,18 @@ class StructuredFieldMapManager {
     get placeholders() {
         return this._placeholders;
     }
+
+    getKeyFromEntryId(entryId) {
+        let resultKey = null;
+
+        this._keyToShortcutMap.forEach((v, k) => {
+            if (v.object) {
+                if (v.object.entryInfo.entryId === entryId) resultKey = k;
+            }
+        });
+
+        return resultKey;
+    }
 }
 
 export default StructuredFieldMapManager;

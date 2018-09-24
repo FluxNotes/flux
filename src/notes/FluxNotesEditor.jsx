@@ -1103,7 +1103,19 @@ class FluxNotesEditor extends React.Component {
         }
 
         const state = transform.apply();
-        this.setState({ state });
+        if (source === 'loaded note') {
+            this.setState({ state }, () => {
+                const shortcutKey = this.structuredFieldMapManager.getKeyFromEntryId(this.props.openSourceNoteEntryId);
+                if (shortcutKey) {
+                    setTimeout(() => {
+                        this.scrollToShortcut(state.document, shortcutKey)
+                    }, 0);
+                }
+                this.props.setOpenSourceNoteEntryId(null);
+            });
+        } else {
+            this.setState({ state });
+        }
     }
 
     /**

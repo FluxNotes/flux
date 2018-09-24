@@ -1363,8 +1363,12 @@ export default class SummaryMetadata {
     }
 
     determineSource = (patient, entry) => {
-        if (entry.sourceClinicalNoteReference) return entry.sourceClinicalNoteReference;
-        
+        if (entry.sourceClinicalNoteReference) {
+            return {
+                entryId: entry.entryInfo.entryId,
+                note: entry.sourceClinicalNoteReference,
+            };
+        }
         let result = "";
         if (entry.author && entry.informant && entry.author === entry.informant) {
             result += "Recorded and informed by " + entry.author;

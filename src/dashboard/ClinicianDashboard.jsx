@@ -206,6 +206,7 @@ export default class ClinicianDashboard extends Component {
                         newCurrentShortcut={this.props.newCurrentShortcut}
                         noteClosed={this.props.appState.noteClosed}
                         openClinicalNote={this.props.appState.openClinicalNote}
+                        openSourceNoteEntryId={this.props.openSourceNoteEntryId}
                         patient={this.props.appState.patient}
                         searchIndex={this.props.searchIndex}
                         searchSelectedItem={this.props.searchSelectedItem}
@@ -216,6 +217,7 @@ export default class ClinicianDashboard extends Component {
                         setNoteViewerEditable={this.props.setNoteViewerEditable}
                         setNoteViewerVisible={this.props.setNoteViewerVisible}
                         setOpenClinicalNote={this.props.setOpenClinicalNote}
+                        setOpenSourceNoteEntryId={this.props.setOpenSourceNoteEntryId}
                         setSearchSelectedItem={this.props.setSearchSelectedItem}
                         shortcutManager={this.props.shortcutManager}
                         structuredFieldMapManager={this.props.structuredFieldMapManager}

@@ -394,6 +394,8 @@ export default class NotesPanel extends Component {
                     shortcutKey={this.state.shortcutKey}
                     shortcutType={this.state.shortcutType}
                     changeShortcutType={this.changeShortcutType}
+                    openSourceNoteEntryId={this.props.openSourceNoteEntryId}
+                    setOpenSourceNoteEntryId={this.props.setOpenSourceNoteEntryId}
                 />
             </div>
         );
