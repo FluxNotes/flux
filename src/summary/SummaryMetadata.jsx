@@ -108,6 +108,10 @@ export default class SummaryMetadata {
                 }
             ]
         };
+        const recentLabResultsSubsection = {
+            name: "Recent Lab Results",
+            itemsFunction: this.getItemListForLabResults
+        };
         const keyDatesSubsection = {
             name: "Key Dates",
             items: [
@@ -333,6 +337,47 @@ export default class SummaryMetadata {
                 }
             ]
         };
+        const mostRecentVisitSubsection = {
+            name: "Most Recent Visit",
+            items: [
+                {
+                    name: "Date of Last Visit with You",
+                    value: (patient, currentConditionEntry, user) => {
+                        const encounters = patient.getEncountersChronologicalOrder();
+                        const filteredEncounters = encounters.filter(e => e.practitioner === user.getUserName());
+
+                        if (filteredEncounters.length === 0) return [null, false];
+                        const mostRecentFilteredEncounter = filteredEncounters.slice(-1)[0];
+                        const expectedPerformanceTime = new moment(mostRecentFilteredEncounter.expectedPerformanceTime, 'D MMM YYYY').format('D MMM YYYY');
+                        return [expectedPerformanceTime, patient.isUnsigned(mostRecentFilteredEncounter), this.determineSource(patient, mostRecentFilteredEncounter)];
+                    }
+                },
+                {
+                    name: "Date of Last Visit Here",
+                    value: (patient, currentConditionEntry, user) => {
+                        const encounters = patient.getEncountersChronologicalOrder();
+                        const filteredEncounters = encounters.filter(e => e.provider === user.provider);
+
+                        if (filteredEncounters.length === 0) return [null, false];
+                        const mostRecentFilteredEncounter = filteredEncounters.slice(-1)[0];
+                        const expectedPerformanceTime = new moment(mostRecentFilteredEncounter.expectedPerformanceTime, 'D MMM YYYY').format('D MMM YYYY');
+                        return [expectedPerformanceTime, patient.isUnsigned(mostRecentFilteredEncounter), this.determineSource(patient, mostRecentFilteredEncounter)];
+                    }
+                },
+                {
+                    name: "Who Last Visited Here",
+                    value: (patient, currentConditionEntry, user) => {
+                        const encounters = patient.getEncountersChronologicalOrder();
+                        const filteredEncounters = encounters.filter(e => e.provider === user.provider);
+
+                        if (filteredEncounters.length === 0) return [null, false];
+                        const mostRecentFilteredEncounter = filteredEncounters.slice(-1)[0];
+                        return [mostRecentFilteredEncounter.practitioner, patient.isUnsigned(mostRecentFilteredEncounter), this.determineSource(patient, mostRecentFilteredEncounter)];
+                    }
+                }
+            ]
+        }
+
 
         this.hardCodedMetadata = {
             "http://snomed.info/sct/408643008": { // breast cancer
@@ -510,10 +555,7 @@ export default class SummaryMetadata {
                                     }
                                 ]
                             },
-                            {
-                                name: "Recent Lab Results",
-                                itemsFunction: this.getItemListForLabResults
-                            },
+                            recentLabResultsSubsection,
                             keyDatesSubsection,
                             {
                                 name: "Receptor Status",
@@ -553,44 +595,7 @@ export default class SummaryMetadata {
                                     }
                                 ]
                             },
-                            {
-                                name: "Most Recent Visit",
-                                items: [
-                                    {
-                                        name: "Date of Last Visit with You",
-                                        value: (patient, currentConditionEntry, user) => {
-                                            const encounters = patient.getEncountersChronologicalOrder();
-                                            const filteredEncounters = encounters.filter(e => e.practitioner === user.getUserName());
-
-                                            if (filteredEncounters.length === 0) return [null, false];
-                                            const expectedPerformanceTime = new moment(filteredEncounters.slice(-1)[0].expectedPerformanceTime, 'D MMM YYYY').format('D MMM YYYY');
-                                            return [expectedPerformanceTime, patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)];
-                                        }
-                                    },
-                                    {
-                                        name: "Date of Last Visit Here",
-                                        value: (patient, currentConditionEntry, user) => {
-                                            const encounters = patient.getEncountersChronologicalOrder();
-                                            const filteredEncounters = encounters.filter(e => e.provider === user.provider);
-
-                                            if (filteredEncounters.length === 0) return [null, false];
-                                            const expectedPerformanceTime = new moment(filteredEncounters.slice(-1)[0].expectedPerformanceTime, 'D MMM YYYY').format('D MMM YYYY');
-                                            return [expectedPerformanceTime, patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)];
-                                        }
-                                    },
-                                    {
-                                        name: "Who Last Visited Here",
-                                        value: (patient, currentConditionEntry, user) => {
-                                            const encounters = patient.getEncountersChronologicalOrder();
-                                            const filteredEncounters = encounters.filter(e => e.provider === user.provider);
-
-                                            if (filteredEncounters.length === 0) return [null, false];
-                                            return [filteredEncounters.slice(-1)[0].practitioner, patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)];
-                                        }
-                                    }
-                                ]
-                            }
-
+                            mostRecentVisitSubsection
                         ]
                     },
                     proceduresSection,
@@ -938,51 +943,9 @@ export default class SummaryMetadata {
                                     }
                                 ]
                             },
-                            {
-                                name: "Recent Lab Results",
-                                itemsFunction: this.getItemListForLabResults
-                            },
+                            recentLabResultsSubsection,
                             keyDatesSubsection,
-                            {
-                                name: "Most Recent Visit",
-                                items: [
-                                    {
-                                        name: "Date of Last Visit with You",
-                                        value: (patient, currentConditionEntry, user) => {
-                                            const encounters = patient.getEncountersChronologicalOrder();
-                                            const filteredEncounters = encounters.filter(e => e.practitioner === user.getUserName());
-
-                                            if (filteredEncounters.length === 0) return [null, false];
-                                            const mostRecentFilteredEncounter = filteredEncounters.slice(-1)[0];
-                                            const expectedPerformanceTime = new moment(mostRecentFilteredEncounter.expectedPerformanceTime, 'D MMM YYYY').format('D MMM YYYY');
-                                            return [expectedPerformanceTime, patient.isUnsigned(mostRecentFilteredEncounter), this.determineSource(patient, mostRecentFilteredEncounter)];
-                                        }
-                                    },
-                                    {
-                                        name: "Date of Last Visit Here",
-                                        value: (patient, currentConditionEntry, user) => {
-                                            const encounters = patient.getEncountersChronologicalOrder();
-                                            const filteredEncounters = encounters.filter(e => e.provider === user.provider);
-
-                                            if (filteredEncounters.length === 0) return [null, false];
-                                            const mostRecentFilteredEncounter = filteredEncounters.slice(-1)[0];
-                                            const expectedPerformanceTime = new moment(mostRecentFilteredEncounter.expectedPerformanceTime, 'D MMM YYYY').format('D MMM YYYY');
-                                            return [expectedPerformanceTime, patient.isUnsigned(mostRecentFilteredEncounter), this.determineSource(patient, mostRecentFilteredEncounter)];
-                                        }
-                                    },
-                                    {
-                                        name: "Who Last Visited Here",
-                                        value: (patient, currentConditionEntry, user) => {
-                                            const encounters = patient.getEncountersChronologicalOrder();
-                                            const filteredEncounters = encounters.filter(e => e.provider === user.provider);
-
-                                            if (filteredEncounters.length === 0) return [null, false];
-                                            const mostRecentFilteredEncounter = filteredEncounters.slice(-1)[0];
-                                            return [mostRecentFilteredEncounter.practitioner, patient.isUnsigned(mostRecentFilteredEncounter), this.determineSource(patient, mostRecentFilteredEncounter)];
-                                        }
-                                    }
-                                ]
-                            }
+                            mostRecentVisitSubsection
                         ]
                     },
                     proceduresSection,
@@ -1293,51 +1256,9 @@ export default class SummaryMetadata {
                                 }
                             ]
                         },
-                        {
-                            name: "Recent Lab Results",
-                            itemsFunction: this.getItemListForLabResults
-                        },
+                        recentLabResultsSubsection,
                         keyDatesSubsection,
-                        {
-                            name: "Most Recent Visit",
-                            items: [
-                                {
-                                    name: "Date of Last Visit with You",
-                                    value: (patient, currentConditionEntry, user) => {
-                                        const encounters = patient.getEncountersChronologicalOrder();
-                                        const filteredEncounters = encounters.filter(e => e.practitioner === user.getUserName());
-
-                                        if (filteredEncounters.length === 0) return [null, false];
-                                        const mostRecentFilteredEncounter = filteredEncounters.slice(-1)[0];
-                                        const expectedPerformanceTime = new moment(mostRecentFilteredEncounter.expectedPerformanceTime, 'D MMM YYYY').format('D MMM YYYY');
-                                        return [expectedPerformanceTime, patient.isUnsigned(mostRecentFilteredEncounter), this.determineSource(patient, mostRecentFilteredEncounter)];
-                                    }
-                                },
-                                {
-                                    name: "Date of Last Visit Here",
-                                    value: (patient, currentConditionEntry, user) => {
-                                        const encounters = patient.getEncountersChronologicalOrder();
-                                        const filteredEncounters = encounters.filter(e => e.provider === user.provider);
-
-                                        if (filteredEncounters.length === 0) return [null, false];
-                                        const mostRecentFilteredEncounter = filteredEncounters.slice(-1)[0];
-                                        const expectedPerformanceTime = new moment(mostRecentFilteredEncounter.expectedPerformanceTime, 'D MMM YYYY').format('D MMM YYYY');
-                                        return [expectedPerformanceTime, patient.isUnsigned(mostRecentFilteredEncounter), this.determineSource(patient, mostRecentFilteredEncounter)];
-                                    }
-                                },
-                                {
-                                    name: "Who Last Visited Here",
-                                    value: (patient, currentConditionEntry, user) => {
-                                        const encounters = patient.getEncountersChronologicalOrder();
-                                        const filteredEncounters = encounters.filter(e => e.provider === user.provider);
-
-                                        if (filteredEncounters.length === 0) return [null, false];
-                                        const mostRecentFilteredEncounter = filteredEncounters.slice(-1)[0];
-                                        return [mostRecentFilteredEncounter.practitioner, patient.isUnsigned(mostRecentFilteredEncounter), this.determineSource(patient, mostRecentFilteredEncounter)];
-                                    }
-                                }
-                            ]
-                        }
+                        mostRecentVisitSubsection
                     ]
                 },
                 timelineSection,
