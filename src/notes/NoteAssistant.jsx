@@ -226,7 +226,10 @@ export default class NoteAssistant extends Component {
         this.setState({
             searchResultNoteId: suggestion.note.entryInfo.entryId
         });
-        this.refs[suggestion.note.entryInfo.entryId].scrollIntoView();
+        const domNodeRef = this.refs[suggestion.note.entryInfo.entryId];
+        if (domNodeRef && domNodeRef.scrollIntoView) {
+            domNodeRef.scrollIntoView();
+        }
     }
 
     onSearchSuggestionClicked = (suggestion) => {
@@ -238,7 +241,6 @@ export default class NoteAssistant extends Component {
         const allNotes = this.props.patient.getNotes();
         const numberOfPreviousSignedNotes = Lang.filter(allNotes, o => o.signed).length;
         const notesIndexer = new NotesIndexer();
-        this.props.searchIndex.removeDataBySection('Clinical Notes');
 
         // Temporarily disabling opening source note on click
         notesIndexer.indexData('Clinical Notes', '', allNotes, this.props.searchIndex, this.onSearchSuggestionHighlighted, null); //this.onSearchSuggestionClicked

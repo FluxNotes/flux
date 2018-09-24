@@ -54,71 +54,37 @@ class PatientSearch extends React.Component {
     // Used by AutoSuggest to get a list of suggestions based on the current search's InputValue
     getSuggestions = (inputValue) => {
         let suggestions = [];
-        const regex = new RegExp(escapeRegExp(inputValue), "gi");
-
-        this.props.searchIndex.searchableData.forEach(obj => {
+        let results = this.props.searchIndex.search(inputValue);
+        results.forEach(result => {
             let suggestion;
-
-            // obj.note means this should be a clinicalNote suggestion
-            if (obj.note) {
+            if (result.note) {
                 suggestion = {
-                    date: obj.note.signedOn || obj.note.createdOn,
-                    subject: obj.note.subject,
+                    date: result.note.signedOn || result.note.createdOn,
+                    subject: result.note.subject,
                     inputValue: inputValue,
-                    note: obj.note,
-                    valueTitle: obj.valueTitle,
-                    contentSnapshot: obj.value,
+                    note: result.note,
+                    valueTitle: result.valueTitle,
+                    contentSnapshot: this.getNoteContentWithoutStyle(result.value),
                     source: "clinicalNote",
-                    onHighlight: obj.onHighlight,
-                    onClick: obj.onClick
-                };
-
-                // If searching content of note, remove styling from content before executing regex
-                if (obj.note.content === obj.value) {
-                    const noteContentWithoutStyle = this.getNoteContentWithoutStyle(obj.value);
-                    const noteRegex = this.createRegexForSearching(inputValue);
-                    let contentMatches = noteRegex.exec(noteContentWithoutStyle);
-
-                    while (contentMatches) { 
-                        // Want a snapshot of text; use index and continue 100 chars
-                        suggestion.contentSnapshot = noteContentWithoutStyle.slice(contentMatches.index, contentMatches.index + 100)
-                        suggestion.matchedOn = "contentSnapshot";
-                        // Clone the object
-                        suggestions.push(Lang.clone(suggestion));
-                        contentMatches = noteRegex.exec(noteContentWithoutStyle);
-                    }
-                } else {
-                    const contentMatches = regex.exec(obj.value);
-
-                    if (contentMatches) {
-                        suggestion.matchedOn = 'contentSnapshot';
-                        suggestions.push(suggestion);
-                    }
+                    matchedOn: result.valueTitle === "Content" ? "contentSnapshot" : "valueTitle",
+                    onHighlight: result.onHighlight,
+                    onClick: result.onClick,
+                    score: result.score
                 }
             } else {
                 suggestion = {
-                    section: obj.section,
-                    subsection: obj.subsection,
-                    contentSnapshot: obj.value,
-                    valueTitle: obj.valueTitle,
+                    section: result.section,
+                    subsection: result.subsection,
+                    contentSnapshot: result.value,
+                    valueTitle: result.valueTitle,
                     inputValue,
                     matchedOn: "",
                     source: 'structuredData',
-                    onHighlight: obj.onHighlight
-                }
-                const contentMatches = regex.exec(obj.value);
-
-                if (contentMatches) {
-                    suggestion.matchedOn = "contentSnapshot";
-                    suggestions.push(suggestion);
+                    onHighlight: result.onHighlight,
+                    score: result.score
                 }
             }
-
-            const contentMatches = regex.exec(obj.valueTitle);
-            if (!suggestion.matchOn && contentMatches) {
-                suggestion.matchedOn = "valueTitle";
-                suggestions.push(suggestion);
-            }
+            suggestions.push(suggestion);
         });
 
         return suggestions;

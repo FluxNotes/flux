@@ -8,106 +8,40 @@ class SearchSuggestion extends React.Component {
 
     renderSuggestionText() {
         const { suggestion } = this.props;
-        const fullSnapshot = suggestion.contentSnapshot;
-        const inputValue = suggestion.inputValue;
-        // Lowercase versions for index finding
-        const fullSnapshotLowerCase = fullSnapshot.toLowerCase();
+        const {inputValue, valueTitle, contentSnapshot} = suggestion;
         const inputValueLowerCase = inputValue.toLowerCase();
-        let indexOfMatch = fullSnapshotLowerCase.indexOf(inputValueLowerCase);
-        // Slice original copies for highlighting
-        let preText = fullSnapshot.slice(0, indexOfMatch);
-        let highlightedText = fullSnapshot.slice(indexOfMatch, preText.length + inputValue.length)
-        let postText = fullSnapshot.slice(preText.length + inputValue.length, fullSnapshot.length);
-
-        let suggestionText = '';
-        if (suggestion.matchedOn === "contentSnapshot") {
-            let title = suggestion.valueTitle.length > 0 ? `${suggestion.valueTitle}: ` : '';
-            suggestionText = (
-                <div className="suggestion-text">
-                    <span>{title}</span>
-                    <span>{preText}</span>
-                    <span className="highlightedInputValue">{highlightedText}</span>
-                    <span>{postText}</span>
-                </div>
-            )
-        } else if (suggestion.matchedOn === "valueTitle") {
-            let valueTitleLowerCase = suggestion.valueTitle.toLowerCase();
-            indexOfMatch = valueTitleLowerCase.indexOf(inputValueLowerCase);
-            preText = suggestion.valueTitle.slice(0, indexOfMatch);
-            highlightedText = suggestion.valueTitle.slice(indexOfMatch, preText.length + inputValue.length);
-            postText = suggestion.valueTitle.slice(preText.length + inputValue.length, suggestion.valueTitle.length);
-            suggestionText = (
-                <div className="suggestion-text">
-                    <span>{preText}</span>
-                    <span className="highlightedInputValue">{highlightedText}</span>
-                    <span>{postText}</span>
-                    <span>{': '}</span>
-                    <span>{suggestion.contentSnapshot}</span>
-                </div>
-            )
-        } else if (suggestion.matchedOn === "section" || suggestion.matchedOn === "subsection") {
-            let title = suggestion.valueTitle.length > 0 ? `${suggestion.valueTitle}: ` : '';
-            suggestionText = (
-                <div className="suggestion-text">
-                    {title + suggestion.contentSnapshot}</div>
-            );
+        const fullText = `${valueTitle ? valueTitle + ': ' : ''}${contentSnapshot}`;
+        const fullTextLowerCase = fullText.toLowerCase();
+        const indexOfMatch = fullTextLowerCase.indexOf(inputValueLowerCase);
+        let preText = '', highlightedText = '', postText = '';
+        if (indexOfMatch !== -1) {
+            preText = fullText.slice(0, indexOfMatch);
+            highlightedText = fullText.slice(indexOfMatch, preText.length + inputValue.length)
+            postText = fullText.slice(preText.length + inputValue.length, fullText.length);
         } else {
-            suggestionText = (
-                <div className="suggestion-text">{suggestion.contentSnapshot}</div>
-            );
+            postText = fullText;
         }
-        return suggestionText;
+
+        return (
+            <div className="suggestion-text">
+                <span>{preText}</span>
+                <span className="highlightedInputValue">{highlightedText}</span>
+                <span>{postText}</span>
+            </div>
+        )
     }
 
     renderLabel = () => {
         const { suggestion } = this.props;
-        const inputValue = suggestion.inputValue;
-        const inputValueLowerCase = inputValue.toLowerCase();
    
         let suggestionLabel = '';
         if (suggestion.source === 'structuredData') {
-
-            if(suggestion.matchedOn === "section") {
-                const sectionLowerCase = suggestion.section.toLowerCase();
-                const indexOfMatch = sectionLowerCase.indexOf(inputValueLowerCase);
-                const preText = suggestion.section.slice(0, indexOfMatch);
-                const highlightedText = suggestion.section.slice(indexOfMatch, preText.length + inputValue.length);
-                const postText = suggestion.section.slice(preText.length + inputValue.length, suggestion.section.length);
-                const subsection = suggestion.subsection.length > 0 ? ` > ${suggestion.subsection}` : '';
-                suggestionLabel = (
-                    <div className="suggestion-label">
-                        <span className={"label-content"}>  
-                            <span>{preText}</span>
-                            <span className="highlightedInputValue">{highlightedText}</span>
-                            <span>{postText}</span>
-                         {subsection}</span>
-                    </div> 
-                );
-            }
-            else if(suggestion.matchedOn === "subsection") {
-                const subsectionLowerCase = suggestion.subsection.toLowerCase();
-                const indexOfMatch = subsectionLowerCase.indexOf(inputValueLowerCase);
-                const preText = suggestion.subsection.slice(0, indexOfMatch);
-                const highlightedText = suggestion.subsection.slice(indexOfMatch, preText.length + inputValue.length);
-                const postText = suggestion.subsection.slice(preText.length + inputValue.length, suggestion.subsection.length);
-                suggestionLabel = (
-                    <div className="suggestion-label">
-                        <span className={"label-content"}>{suggestion.section + ` > `}
-                            <span>{preText}</span>
-                            <span className="highlightedInputValue">{highlightedText}</span>
-                            <span>{postText}</span>
-                        </span>
-                    </div> 
-                );
-            } else {
-                const subsection = suggestion.subsection.length > 0 ? ` > ${suggestion.subsection}` : '';
-                suggestionLabel = (
+            const subsection = suggestion.subsection.length > 0 ? ` > ${suggestion.subsection}` : '';
+            suggestionLabel = (
                 <div className="suggestion-label">
                     <span className={"label-content"}>{suggestion.section + subsection}</span>
                 </div> 
-                );
-            }
-            
+            );
         } else if (suggestion.source === 'clinicalNote') {
             const date = <span>{suggestion.date + ` `}</span>;
             const subject = <span>{suggestion.subject + ` `}</span>;
