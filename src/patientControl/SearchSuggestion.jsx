@@ -12,12 +12,19 @@ class SearchSuggestion extends React.Component {
         const inputValueLowerCase = inputValue.toLowerCase();
         const fullText = `${valueTitle ? valueTitle + ': ' : ''}${contentSnapshot}`;
         const fullTextLowerCase = fullText.toLowerCase();
-        const indexOfMatch = fullTextLowerCase.indexOf(inputValueLowerCase);
+        const regex = new RegExp(inputValueLowerCase, "g");
+        const matchesTitle = regex.exec(valueTitle.toLowerCase());
+        const matchesContent = regex.exec(contentSnapshot.toLowerCase());
         let preText = '', highlightedText = '', postText = '';
-        if (indexOfMatch !== -1) {
-            preText = fullText.slice(0, indexOfMatch);
-            highlightedText = fullText.slice(indexOfMatch, preText.length + inputValue.length)
-            postText = fullText.slice(preText.length + inputValue.length, fullText.length);
+
+        if (matchesTitle) {
+            preText = '';
+            highlightedText = valueTitle;
+            postText = `: ${contentSnapshot}`;
+        } else if (matchesContent) {
+            preText = valueTitle ? valueTitle + ': ' : '' + contentSnapshot.slice(0, matchesContent.index);
+            highlightedText = contentSnapshot.slice(matchesContent.index, matchesContent.index + inputValue.length);
+            postText = contentSnapshot.slice(matchesContent.index + inputValue.length, contentSnapshot.length);
         } else {
             postText = fullText;
         }
