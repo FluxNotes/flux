@@ -2,7 +2,9 @@ import NoteContentIndexer from './NoteContentIndexer';
 
 class NotesIndexer extends NoteContentIndexer {
     indexData(section, subsection, data, searchIndex, onHighlight, onClick) {
+        const noteSectionId = super.getStringForId(section);
         searchIndex.addSearchableData({
+            id: noteSectionId,
             section,
             subsection: '',
             valueTitle: 'Section',
@@ -10,6 +12,7 @@ class NotesIndexer extends NoteContentIndexer {
         });
 
         searchIndex.addSearchableData({
+            id: `${noteSectionId}_signed_notes}`,
             section,
             subsection: 'Signed Notes',
             valueTitle: 'Subsection',
@@ -17,6 +20,7 @@ class NotesIndexer extends NoteContentIndexer {
         });
 
         searchIndex.addSearchableData({
+            id: `${noteSectionId}_in_progress_notes}`,
             section,
             subsection: 'In Progress Notes',
             valueTitle: 'Subsection',

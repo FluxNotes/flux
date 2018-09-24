@@ -3,8 +3,11 @@ import BaseIndexer from './BaseIndexer';
 class MedicationsIndexer extends BaseIndexer {
     indexData(section, subsection, data, searchIndex, onHighlight) {
         super.indexData(section, subsection, data, searchIndex, onHighlight);
+        const sectionId = super.getStringForId(section);
         data.forEach(item => {
+            const medicationId = super.getStringForId(item.medication.medication);
             searchIndex.addSearchableData({
+                id: `${sectionId}_${medicationId}_dosage`,
                 section,
                 subsection: "",
                 valueTitle: `${item.medication.medication} Dosage`,
@@ -13,6 +16,7 @@ class MedicationsIndexer extends BaseIndexer {
             });
 
             searchIndex.addSearchableData({
+                id: `${sectionId}_${medicationId}_medication`,
                 section,
                 subsection: "",
                 valueTitle: "Medication",
@@ -21,6 +25,7 @@ class MedicationsIndexer extends BaseIndexer {
             });
 
             searchIndex.addSearchableData({
+                id: `${sectionId}_${medicationId}_timing`,
                 section,
                 subsection: "",
                 valueTitle: `${item.medication.medication} Timing`,
@@ -29,6 +34,7 @@ class MedicationsIndexer extends BaseIndexer {
             });
 
             searchIndex.addSearchableData({
+                id: `${sectionId}_${medicationId}_perscribed`,
                 section,
                 subsection: "",
                 valueTitle: `${item.medication.medication} Prescribed`,
@@ -37,6 +43,7 @@ class MedicationsIndexer extends BaseIndexer {
             });
 
             searchIndex.addSearchableData({
+                id: `${sectionId}_${medicationId}_route`,
                 section,
                 subsection: "",
                 valueTitle: `${item.medication.medication} Route`,
@@ -45,6 +52,7 @@ class MedicationsIndexer extends BaseIndexer {
             });
 
             searchIndex.addSearchableData({
+                id: `${sectionId}_${medicationId}_perscribed_by`,
                 section,
                 subsection: "",
                 valueTitle: `${item.medication.medication} Prescribed By`,

@@ -743,10 +743,13 @@ class FluxNotesEditor extends React.Component {
             }
             this.props.searchIndex.removeDataBySection('Open Note');
             this.props.searchIndex.addSearchableData({
+                id: 'open_note_section',
                 section: 'Open Note',
                 subsection: '',
                 valueTitle: 'Section',
-                value: 'Open Note'
+                value: 'Open Note',
+                onHighlight: null,
+                onClick: null
             });
             this.noteContentIndexer.indexData("Open Note", '', nextProps.updatedEditorNote, this.props.searchIndex, null, null);
         }

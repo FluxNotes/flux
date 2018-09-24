@@ -169,7 +169,9 @@ export default class TargetedDataSection extends Component {
             const indexer = this.props.visualizerManager.getIndexer(typeToIndex);
             if (!Lang.isUndefined(subsection.nameFunction)) subsection.name = subsection.nameFunction();
             if (indexer) {
+                const sectionId = section.name.toLowerCase().replace(/ /g, '_');
                 searchIndex.addSearchableData({
+                    id: `${sectionId}_${sectionId}`,
                     section: section.name,
                     subsection: "",
                     valueTitle: "Section",
