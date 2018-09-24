@@ -87,12 +87,12 @@ class MedicationRangeChartVisualizer extends Component {
                     <span className="out-of-range-medication">
                         {`${dosageValue} `}
                     </span>
-                    {`${dosageUnit} ${timingValue} ${timingUnit}`}
+                    {`${dosageUnit} ${timingValue} ${timingUnit} ${asNeededString}`}
                 </div>);
         }
         return (
             <div className="medicationTitle">
-                {`${name} ${dosageValue} ${dosageUnit} ${timingValue} ${timingUnit} ${asNeededIndicator}`}
+                {`${name} ${dosageValue} ${dosageUnit} ${timingValue} ${timingUnit} ${asNeededString}`}
             </div>);
     }
 
@@ -259,7 +259,6 @@ renderMedicationNarrowView = (med, i) => {
     const name = med.medication.medication;
     const medicationIsChange = (med.medicationChange ? true : false);
     const asNeededIndicator = med.medication.asNeededIndicator;
-
 
     return (
         <div key={i} className="medication-chart-item" ref={(parent) => { this.parent = parent }}>

@@ -244,17 +244,17 @@ export default class TabularListVisualizer extends Component {
         const numColumns = item.length;
         const colSize = (100 / numColumns) + "%";
 
-
         item.forEach((element, arrayIndex) => {
             const elementId = `${subsectionindex}-${index}-item-${arrayIndex}`
             let columnItem = null;
             const isInsertable = Lang.isUndefined(element.isInsertable) ? true : element.isInsertable;
             const isUnsigned = element.isUnsigned || false;
             let elementText = element.value;
+           /*  const asNeeded = Lang.isUndefined(element.asNeeded) ? 
             if (arrayIndex === 3) {
                 const asNeeded = element.asNeeded ? ' as needed' : '';
                 elementText += asNeeded;
-            }
+            } */
             const longElementText = elementText;
             
             if (!Lang.isNull(elementText) && elementText.length > 100) elementText = elementText.substring(0, 100) + "...";

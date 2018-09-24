@@ -96,13 +96,14 @@ class VisualizerManager {
                 sourceClinicalNote = med.medicationChange.sourceClinicalNote;
             }
 
+            const asNeeded = med.medication.asNeededIndicator ? ' as needed' : '';
+
             return [    {   value: med.medication.medication },
                         {   value: medicationChange, 
                             unsigned: isUnsigned, 
                             source: sourceClinicalNote },
                         {   value: dose },
-                        {   value: timing,
-                            asNeeded: med.medication.asNeededIndicator },
+                        {   value: timing + asNeeded },
                         {   value: med.medication.expectedPerformanceTime.timePeriodStart },
                         {   value: endDate, 
                             unsigned: isUnsigned, 
