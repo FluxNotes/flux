@@ -10379,7 +10379,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
             },
-            "Value": "06 SEP 2018"
+            "Value": "03 SEP 2018"
         }
     },
 
@@ -10402,13 +10402,13 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             },
-            "Value": "06 SEP 2018"
+            "Value": "03 SEP 2018"
         },
         "LastUpdated": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             },
-            "Value": "06 SEP 2018"
+            "Value": "03 SEP 2018"
         },
         "Value": {
             "EntryType": {
@@ -10481,7 +10481,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
             },
-            "Value": "06 SEP 2018"
+            "Value": "03 SEP 2018"
         }
     },
 
@@ -10503,13 +10503,13 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             },
-            "Value": "06 SEP 2018"
+            "Value": "03 SEP 2018"
         },
         "LastUpdated": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             },
-            "Value": "06 SEP 2018"
+            "Value": "03 SEP 2018"
         },
         "Value": {
             "EntryType": {
@@ -10582,7 +10582,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
             },
-            "Value": "06 SEP 2018"
+            "Value": "03 SEP 2018"
         }
     },
 
@@ -10603,13 +10603,13 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             },
-            "Value": "06 SEP 2018"
+            "Value": "03 SEP 2018"
         },
         "LastUpdated": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             },
-            "Value": "06 SEP 2018"
+            "Value": "03 SEP 2018"
         },
         "Value": {
             "EntryType": {
@@ -10682,7 +10682,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
             },
-            "Value": "06 SEP 2018"
+            "Value": "03 SEP 2018"
         }
     }
 ]
