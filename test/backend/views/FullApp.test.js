@@ -25,6 +25,7 @@ import PatientRecord from '../../../src/patient/PatientRecord.jsx';
 import FluxInjury from '../../../src/model/condition/FluxInjury';
 
 import SearchIndex from '../../../src/patientControl/SearchIndex';
+import FluxClinicalNote from '../../../src/model/core/FluxClinicalNote';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -203,7 +204,8 @@ describe('5 FullApp', function() {
         const wrapper = mount(<FullApp 
             display='Flux Notes' 
             dataSource='HardCodedReadOnlyDataSource' 
-            patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
+            patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />,
+            { attachTo: document.body });
 
         // Mimic post-encounter view
         const newNoteButton = wrapper.find('.note-new');
@@ -480,10 +482,12 @@ describe('6 FluxNotesEditor', function() {
             setSearchSelectedItem={jest.fn()}
             summaryItemToInsert={''}
             updateErrors={jest.fn()}
-        />);
+        />,
+        { attachTo: document.body });
         expect(notesPanelWrapper).to.have.lengthOf(1);
         expect(notesPanelWrapper.find(FluxNotesEditor)).to.have.lengthOf(1);
-        notesPanelWrapper.setState({ updatedEditorNote: { content: '@name' } });
+        const note = new FluxClinicalNote({ EntryId: "7000", content: '@name' });
+        notesPanelWrapper.setState({ updatedEditorNote: note });
 
         expect(notesPanelWrapper.find('.structured-field-inserter')).to.have.length(1);
         expect(notesPanelWrapper.find('.structured-field-inserter').text()).to.contain(patient.getName());
@@ -801,13 +805,14 @@ describe('6 FluxNotesEditor', function() {
             setOpenClinicalNote={jest.fn()}
             summaryItemToInsert={''}
             updateErrors={jest.fn()}
-        />);
+        />,
+        { attachTo: document.body });
         const fluxNotesEditor = notesPanelWrapper.find(FluxNotesEditor);
         expect(fluxNotesEditor).to.have.lengthOf(1);
         expect(notesPanelWrapper.find(NoteAssistant)).to.have.lengthOf(1);
 
         const arrayOfStructuredDataToEnter = ["#deceased "];
-        const updatedEditorNote = { content: arrayOfStructuredDataToEnter.join(' ') };
+        const updatedEditorNote = new FluxClinicalNote({ EntryId: "7000",content: arrayOfStructuredDataToEnter.join(' ') });
         // Set updatedEditorNote props because this triggers that a change is coming in to the editor and inserts text with structured phrases.
         fluxNotesEditor.instance().onFocus();
         //fluxNotesEditor.setProps({ updatedEditorNote });
@@ -863,7 +868,8 @@ describe('6 FluxNotesEditor', function() {
             setOpenClinicalNote={jest.fn()}
             summaryItemToInsert={''}
             updateErrors={jest.fn()}
-        />);
+        />,
+        { attachTo: document.body });
         const fluxNotesEditor = notesPanelWrapper.find(FluxNotesEditor);
         expect(fluxNotesEditor).to.have.lengthOf(1);
         expect(notesPanelWrapper.find(NoteAssistant)).to.have.lengthOf(1);
@@ -871,7 +877,7 @@ describe('6 FluxNotesEditor', function() {
         const arrayOfStructuredDataToEnter = ["@condition[[Invasive ductal carcinoma of breast]] ", "#PR ", "#Positive "];
         const arrayOfExpectedStructuredDataInserter = ["Invasive ductal carcinoma of breast "]
         const arrayOfExpectedStructuredDataCreator = ["PR ", "Positive "]
-        const updatedEditorNote = { content: arrayOfStructuredDataToEnter.join(' ') };
+        const updatedEditorNote = new FluxClinicalNote({ EntryId: "7000", content: arrayOfStructuredDataToEnter.join(' ') });
         // Set updatedEditorNote props because this triggers that a change is coming in to the editor and inserts text with structured phrases.
         fluxNotesEditor.instance().onFocus();
         //fluxNotesEditor.setProps({ updatedEditorNote });
