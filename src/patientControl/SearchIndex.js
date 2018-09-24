@@ -21,7 +21,7 @@ class SearchIndex {
 
     addSearchableData(data) {
         const existingDocument = this._index.documentStore.getDoc(data.id);
-        if (Lang.isNull(existingDocument) || !Lang.isEqual(Lang.omit(data, ['onHighlight', 'onClick']), Lang.omit(existingDocument, ['onHighlight', 'onClick']))) {
+        if (Lang.isNull(existingDocument) || !Lang.isEqual(data, existingDocument)) {
             this._index.addDoc({...data});
         }
     }

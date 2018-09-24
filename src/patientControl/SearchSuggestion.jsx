@@ -11,7 +11,6 @@ class SearchSuggestion extends React.Component {
         const {inputValue, valueTitle, contentSnapshot} = suggestion;
         const inputValueLowerCase = inputValue.toLowerCase();
         const fullText = `${valueTitle ? valueTitle + ': ' : ''}${contentSnapshot}`;
-        const fullTextLowerCase = fullText.toLowerCase();
         const regex = new RegExp(inputValueLowerCase, "g");
         const matchesTitle = regex.exec(valueTitle.toLowerCase());
         const matchesContent = regex.exec(contentSnapshot.toLowerCase());
