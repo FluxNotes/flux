@@ -108,6 +108,27 @@ export default class SummaryMetadata {
                 }
             ]
         };
+        const keyDatesSubsection = {
+            name: "Key Dates",
+            items: [
+                {
+                    name: "Diagnosis",
+                    value: (patient, currentConditionEntry) => {
+                        return [currentConditionEntry.diagnosisDate, patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)] ;
+                    }
+                },
+                {
+                    name: "Recurrence",
+                    value: (patient, currentConditionEntry) => {
+                        if (currentConditionEntry.clinicalStatus === "recurrence") {
+                            return null;
+                        } else {
+                            return ["N/A", patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)];
+                        } // TODO: actually get date once we know where it is in SHR
+                    }
+                }
+            ]
+        };
         const proceduresSection = {
             name: "Procedures",
             shortName: "Procedures",
@@ -493,27 +514,7 @@ export default class SummaryMetadata {
                                 name: "Recent Lab Results",
                                 itemsFunction: this.getItemListForLabResults
                             },
-                            {
-                                name: "Key Dates",
-                                items: [
-                                    {
-                                        name: "Diagnosis",
-                                        value: (patient, currentConditionEntry) => {
-                                            return [currentConditionEntry.diagnosisDate, patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)] ;
-                                        }
-                                    },
-                                    {
-                                        name: "Recurrence",
-                                        value: (patient, currentConditionEntry) => {
-                                            if (currentConditionEntry.clinicalStatus === "recurrence") {
-                                                return null;
-                                            } else {
-                                                return ["N/A", patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)];
-                                            } // TODO: actually get date once we know where it is in SHR
-                                        }
-                                    }
-                                ]
-                            },
+                            keyDatesSubsection,
                             {
                                 name: "Receptor Status",
                                 items: [
@@ -941,27 +942,7 @@ export default class SummaryMetadata {
                                 name: "Recent Lab Results",
                                 itemsFunction: this.getItemListForLabResults
                             },
-                            {
-                                name: "Key Dates",
-                                items: [
-                                    {
-                                        name: "Diagnosis",
-                                        value: (patient, currentConditionEntry) => {
-                                            return [currentConditionEntry.diagnosisDate, patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)] ;
-                                        }
-                                    },
-                                    {
-                                        name: "Recurrence",
-                                        value: (patient, currentConditionEntry) => {
-                                            if (currentConditionEntry.clinicalStatus === "recurrence") {
-                                                return null;
-                                            } else {
-                                                return ["N/A", patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)];
-                                            } // TODO: actually get date once we know where it is in SHR
-                                        }
-                                    }
-                                ]
-                            },
+                            keyDatesSubsection,
                             {
                                 name: "Most Recent Visit",
                                 items: [
@@ -1316,27 +1297,7 @@ export default class SummaryMetadata {
                             name: "Recent Lab Results",
                             itemsFunction: this.getItemListForLabResults
                         },
-                        {
-                            name: "Key Dates",
-                            items: [
-                                {
-                                    name: "Diagnosis",
-                                    value: (patient, currentConditionEntry) => {
-                                        return [currentConditionEntry.diagnosisDate, patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)] ;
-                                    }
-                                },
-                                {
-                                    name: "Recurrence",
-                                    value: (patient, currentConditionEntry) => {
-                                        if (currentConditionEntry.clinicalStatus === "recurrence") {
-                                            return null;
-                                        } else {
-                                            return ["N/A", patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)];
-                                        } // TODO: actually get date once we know where it is in SHR
-                                    }
-                                }
-                            ]
-                        },
+                        keyDatesSubsection,
                         {
                             name: "Most Recent Visit",
                             items: [
