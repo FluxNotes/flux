@@ -630,7 +630,7 @@ class FluxNotesEditor extends React.Component {
         return transform;
     }
 
-    scrollToShortcut = (document, shortcutKey) => {
+    scrollToData = (document, shortcutKey) => {
         const node = document.getNode(shortcutKey);
 
         try {
@@ -648,7 +648,7 @@ class FluxNotesEditor extends React.Component {
         if (nextProps.shouldUpdateShortcutType) {
             let transform = this.state.state.transform();
             let state = transform.setNodeByKey(nextProps.shortcutKey, nextProps.shortcutType).apply();
-            this.scrollToShortcut(state.document, nextProps.shortcutKey);
+            this.scrollToData(state.document, nextProps.shortcutKey);
             this.setState({ state });
         }
         nextProps.selectedPickListOptions.forEach(picklist => {
@@ -682,7 +682,7 @@ class FluxNotesEditor extends React.Component {
                         transform = this.resetShortcutData(shortcut, transform);
                         let state = transform.apply();
                         this.setState({ state }, () => {
-                            this.scrollToShortcut(state.document, shortcut.getKey());
+                            this.scrollToData(state.document, shortcut.getKey());
                         });
                     }
                 }
@@ -784,7 +784,7 @@ class FluxNotesEditor extends React.Component {
             const shortcutKey = this.structuredFieldMapManager.getKeyFromEntryId(nextProps.openSourceNoteEntryId);
 
             if (shortcutKey) {
-                this.scrollToShortcut(this.state.state.document, shortcutKey);
+                this.scrollToData(this.state.state.document, shortcutKey);
                 this.props.setOpenSourceNoteEntryId(null);
             }
         }
@@ -1141,7 +1141,7 @@ class FluxNotesEditor extends React.Component {
 
                 if (shortcutKey) {
                     setTimeout(() => {
-                        this.scrollToShortcut(state.document, shortcutKey)
+                        this.scrollToData(state.document, shortcutKey)
                         this.props.setOpenSourceNoteEntryId(null);
                     }, 0);
                 }
