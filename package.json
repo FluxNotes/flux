@@ -41,7 +41,7 @@
     "rc-tooltip": "^3.4.8",
     "react": "15.5.4",
     "react-autosuggest": "9.3.2",
-    "react-calendar-timeline": "0.15.2",
+    "react-calendar-timeline": "0.15.3",
     "react-copy-to-clipboard": "5.0.0",
     "react-day-picker": "6.2.1",
     "react-dom": "15.5.4",
