@@ -34,8 +34,8 @@ if (encounter === undefined) {
 fs.writeFileSync(`${input}.backup`, JSON.stringify(patientEntries, null, 4), 'utf8');
 console.log(`Saved backup JSON file to ${input}.backup`);
 
-const encounterDate = moment(encounter.ActionContext.ExpectedPerformanceTime.Value, 'D MMM YYYY HH:mm ZZ');
-const today = moment();
+const encounterDate = moment(encounter.ActionContext.ExpectedPerformanceTime.Value, 'D MMM YYYY HH:mm ZZ').startOf('day');
+const today = moment().startOf('day');
 const deltaDuration = moment.duration(today.diff(encounterDate));
 
 patientEntries.forEach((entry, i) => {
