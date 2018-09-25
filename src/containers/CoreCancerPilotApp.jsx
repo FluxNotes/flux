@@ -162,8 +162,8 @@ export class CoreCancerPilotApp extends Component {
     render() {
         return (
             <MuiThemeProvider theme={theme}>
-                <div className="CoreCancerPilot">
-                    <Grid className="CoreCancerPilot-content" fluid>
+                <div className="FullApp">
+                    <Grid className="FullApp-content" fluid>
                         <Row center="xs">
                             <Col sm={12}>
                                 <PatientControlPanel
