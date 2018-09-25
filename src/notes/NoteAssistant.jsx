@@ -63,7 +63,30 @@ export default class NoteAssistant extends Component {
             this.openNote(!newNote.signed, newNote)
             this.props.setSearchSelectedItem(null);
         }
+        if (nextProps.updatedEditorNote && this.refs[nextProps.updatedEditorNote.entryInfo.entryId]) {
+            const isVisible = this.isScrolledIntoView(this.refs[nextProps.updatedEditorNote.entryInfo.entryId]);
+            if (!isVisible) {
+                this.refs[nextProps.updatedEditorNote.entryInfo.entryId].scrollIntoView();
+            }
+        }
     }
+
+    isScrolledIntoView(elem){
+        let el = elem;
+        var rect = el.getBoundingClientRect(), top = rect.top, height = rect.height;
+        el = el.parentNode;
+        let bottom = top + height;
+      do {
+        rect = el.getBoundingClientRect();
+        if ((top > rect.bottom || top < rect.top)) return false;
+        // Check if the element is out of view due to a container scrolling
+        if (bottom < rect.top || bottom > rect.bottom) return false
+        el = el.parentNode;
+      } while (el !== document.body);
+      // Check its within the document viewport
+      return top <= document.documentElement.clientHeight;
+    }
+
 
     // Sorts the notes in chronological order with the most recent first (so that it shows up first in the clinical notes list)
     notesTimeSorter(a, b) {
@@ -298,7 +321,7 @@ export default class NoteAssistant extends Component {
         }
 
         return (
-            <div className={`note in-progress-note${selected ? " selected" : ""}`} key={i} onClick={() => {
+            <div ref={note.entryInfo.entryId} className={`note in-progress-note${selected ? " selected" : ""}`} key={i} onClick={() => {
                 this.openNote(true, note)
             }}>
                 <div className="in-progress-text">In progress note</div>
@@ -366,13 +389,15 @@ export default class NoteAssistant extends Component {
         }
 
         return (
-            <div className={`note existing-note${selected ? " selected" : ""}`} key={i} onClick={() => {
+            <div ref={item.entryInfo.entryId} className={`note existing-note${selected ? " selected" : ""}`} key={i} onClick={() => {
+                
                 this.openNote(false, item)
             }}>
                 <div className="existing-note-date">{item.signedOn}</div>
                 <div className="existing-note-subject">{item.subject}</div>
 
                 {this.renderMetaDataText(item)}
+               
             </div>
         );
     }
