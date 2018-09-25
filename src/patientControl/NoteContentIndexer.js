@@ -3,8 +3,8 @@ import BaseIndexer from './BaseIndexer'
 class NoteContentIndexer extends BaseIndexer {
     indexData(section, subsection, note, searchIndex, onHighlight, onClick) {
         const notesSubsection = note.signed ? 'Signed Notes' : 'In Progress Notes';
-        const notesSectionId = section.toLowerCase().replace(' ', '_');
-        const notesSubsectionId = notesSubsection.toLowerCase().replace(' ', '_');
+        const notesSectionId = super.getStringForId(section);
+        const notesSubsectionId = super.getStringForId(notesSubsection);
         const {entryId} = note.entryInfo;
         searchIndex.addSearchableData({
             id: `${notesSectionId}_${notesSubsectionId}_title_${entryId}`,
@@ -23,7 +23,7 @@ class NoteContentIndexer extends BaseIndexer {
             section,
             subsection: notesSubsection,
             valueTitle: `Content`,
-            value: note.content,
+            value: this.getNoteContentWithoutStyle(note.content),
             onHighlight,
             onClick
         })
@@ -84,6 +84,19 @@ class NoteContentIndexer extends BaseIndexer {
                 onClick
             });
         }
+    }
+
+    getNoteContentWithoutStyle = (noteContent) => {
+        let noteContentWithoutStyle = noteContent;
+
+        // Remove HTML tags
+        noteContentWithoutStyle = noteContentWithoutStyle.replace(/<(div|\/div|strong|\/strong|em|\/em|u|\/u|ul|\/ul|ol|\/ol|li|\/li){0,}>/g, "");
+        // Remove brackets from @ structured phrases
+        noteContentWithoutStyle = noteContentWithoutStyle.replace(/@(.*?)\[\[(.*?)\]\]/g, (match, g1, g2) => g2);
+        // Removed brackets from # structured phrases
+        noteContentWithoutStyle = noteContentWithoutStyle.replace(/#(.*?)\[\[(.*?)\]\]/g, (match, g1, g2) => `#${g1}`);
+
+        return noteContentWithoutStyle;
     }
 }
 

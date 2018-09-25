@@ -8,7 +8,7 @@ class SearchSuggestion extends React.Component {
 
     renderSuggestionText() {
         const { suggestion } = this.props;
-        const {inputValue, valueTitle, contentSnapshot} = suggestion;
+        const {inputValue, valueTitle, contentSnapshot, indices} = suggestion;
         const inputValueLowerCase = inputValue.toLowerCase();
         const fullText = `${valueTitle ? valueTitle + ': ' : ''}${contentSnapshot}`;
         const regex = new RegExp(inputValueLowerCase, "g");
@@ -16,7 +16,11 @@ class SearchSuggestion extends React.Component {
         const matchesContent = regex.exec(contentSnapshot.toLowerCase());
         let preText = '', highlightedText = '', postText = '';
 
-        if (matchesTitle) {
+        if (indices) {
+            preText = valueTitle ? valueTitle + ': ' : '' + contentSnapshot.slice(0, indices[0]);
+            highlightedText = contentSnapshot.slice(indices[0], indices[1]+1);
+            postText = contentSnapshot.slice(indices[1]+1);
+        } else if (matchesTitle) {
             preText = '';
             highlightedText = valueTitle;
             postText = `: ${contentSnapshot}`;

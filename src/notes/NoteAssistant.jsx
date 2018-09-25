@@ -243,6 +243,8 @@ export default class NoteAssistant extends Component {
         const allNotes = this.props.patient.getNotes();
         const numberOfPreviousSignedNotes = Lang.filter(allNotes, o => o.signed).length;
         const notesIndexer = new NotesIndexer();
+         // Temporarily disabling opening source note on click
+        notesIndexer.indexData('Clinical Notes', '', allNotes, this.props.searchIndex, this.onSearchSuggestionHighlighted, null); //this.onSearchSuggestionClicked
         switch (noteAssistantMode) {
             case "poc":
                 return (
@@ -269,8 +271,6 @@ export default class NoteAssistant extends Component {
             // Render the clinical notes view which includes new note button, resume note button,
             // number of previous notes label, sort selection, and preview of previous notes
             case "clinical-notes":
-                // Temporarily disabling opening source note on click
-                notesIndexer.indexData('Clinical Notes', '', allNotes, this.props.searchIndex, this.onSearchSuggestionHighlighted, null); //this.onSearchSuggestionClicked
                 return (
                     <div className="clinical-notes-panel">
                         {this.renderNewNote()}

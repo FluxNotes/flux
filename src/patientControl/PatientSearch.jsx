@@ -66,10 +66,12 @@ class PatientSearch extends React.Component {
                     valueTitle: result.valueTitle,
                     contentSnapshot: this.getNoteContentWithoutStyle(result.value),
                     source: "clinicalNote",
+                    section: result.section,
                     matchedOn: result.valueTitle === "Content" ? "contentSnapshot" : "valueTitle",
                     onHighlight: result.onHighlight,
                     onClick: result.onClick,
-                    score: result.score
+                    score: result.score,
+                    indices: result.indices
                 }
             } else {
                 suggestion = {
