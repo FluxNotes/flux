@@ -34,7 +34,7 @@ class SuggestionPortalSearchIndex {
         const searchTextLowercase = searchText.toLowerCase();
 
         const results = this.shortcutsFuse.search(searchTextLowercase);
-        return results.map((result) => { 
+        return results.slice(0, 15).map((result) => { 
             return {
                 key: result.item.key,
                 value: result.item.value,
