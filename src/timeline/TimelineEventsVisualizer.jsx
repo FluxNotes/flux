@@ -8,7 +8,7 @@ import Item from './Item';
 import Button from '../elements/Button';
 import moment from 'moment';
 import './TimelineEventsVisualizer.css';
-import 'font-awesome/css/font-awesome.min.css';
+import FontAwesome from 'react-fontawesome';
 
 class TimelineEventsVisualizer extends Component {
     constructor(props) {
@@ -156,10 +156,11 @@ class TimelineEventsVisualizer extends Component {
         });
     }
 
-    onTimelineScrollClick = (newEndDate) => {
+    onTimelineScrollClick = (newEndDate, jumpForward) => {
         const newEndDateValue = newEndDate.valueOf();
         const currentTimeLengthVisible = this.state.visibleTimeEnd - this.state.visibleTimeStart;
-        const amountToPutEndDateInView = currentTimeLengthVisible * (1/12);
+        const multiple = jumpForward ? 1 : -1;
+        const amountToPutEndDateInView = currentTimeLengthVisible * (1/12) * multiple;
         this.setState({
             visibleTimeStart: moment(newEndDateValue).subtract(currentTimeLengthVisible - amountToPutEndDateInView, 'ms').valueOf(),
             visibleTimeEnd: moment(newEndDateValue).add(amountToPutEndDateInView).valueOf()
@@ -214,8 +215,20 @@ class TimelineEventsVisualizer extends Component {
                 <Button
                     id="timeline-controls"
                     className="small-btn"
-                    onClick={() => this.onTimelineScrollClick(moment().clone())}>
+                    onClick={() => this.onTimelineScrollClick(moment(this.state.visibleTimeEnd), false)}>
+                    <FontAwesome name="angle-left" />
+                </Button>
+                <Button
+                    id="timeline-controls"
+                    className="small-btn"
+                    onClick={() => this.onTimelineScrollClick(moment().clone(), true)}>
                     Today
+                </Button>
+                <Button
+                    id="timeline-controls"
+                    className="small-btn"
+                    onClick={() => this.onTimelineScrollClick(moment(this.state.visibleTimeEnd), true)}>
+                    <FontAwesome name="angle-right" />
                 </Button>
             </span>
         );
