@@ -1,0 +1,269 @@
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Grid, Row, Col } from 'react-flexbox-grid';
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+import lightBlue from 'material-ui/colors/lightBlue';
+import green from 'material-ui/colors/green';
+import red from 'material-ui/colors/red';
+import Snackbar from 'material-ui/Snackbar';
+import Modal from 'material-ui/Modal';
+import Typography from 'material-ui/Typography';
+import Lang from 'lodash';
+import Reference from '../model/Reference';
+
+import SecurityManager from '../security/SecurityManager';
+import DashboardManager from '../dashboard/DashboardManager';
+import DataAccess from '../dataaccess/DataAccess';
+import SummaryMetadata from '../summary/SummaryMetadata';
+import PatientControlPanel from '../panels/PatientControlPanel';
+import SearchIndex from '../patientControl/SearchIndex';
+
+import '../styles/CoreCancerPilotApp.css';
+
+const theme = createMuiTheme({
+    palette: {
+        primary: {...lightBlue, A700: '#1384b5'},
+        secondary: {...green, A400: '#00e677'},
+        error: red
+    }
+});
+
+function getModalStyle() {
+    const top = 50;
+    const left = 50;
+  
+    return {
+      top: `${top}%`,
+      left: `${left}%`,
+      transform: `translate(-${top}%, -${left}%)`,
+      position: 'absolute',
+      width: 400,
+      backgroundColor: 'white',
+      boxShadow: 'black',
+      padding: 8,
+    };
+  }
+
+export class CoreCancerPilotApp extends Component {
+    constructor(props) {
+        super(props);
+        window.fluxnotes_app = this;
+
+        if (Lang.isUndefined(this.props.dataSource)) {
+            this.dataAccess = new DataAccess("HardCodedReadOnlyDataSource");
+        } else {
+            this.dataAccess = new DataAccess(this.props.dataSource);
+        }
+
+        this.summaryMetadata = new SummaryMetadata(this.setForceRefresh);
+        this.dashboardManager = new DashboardManager();
+        this.securityManager = new SecurityManager();
+        this.searchIndex = new SearchIndex();
+
+        this.state = {
+            clinicalEvent: "pre-encounter",
+            condition: null,
+            errors: [],
+            layout: "",
+            isModalOpen: false,
+            modalTitle: '',
+            modalContent: '',
+            loginUser: {},
+            noteClosed: false,
+            openClinicalNote: null,
+            patient: null,
+            searchSelectedItem: null,
+            snackbarOpen: false,
+            snackbarMessage: "",
+            superRole: 'Clinician', // possibly add that to security manager too
+            forceRefresh: false
+        };
+    }
+
+    loadPatient(patientId) {
+        let patient = this.dataAccess.getPatient(patientId);
+        this.setState({patient: patient})
+    }
+
+    componentWillMount() {
+        this.loadPatient(this.props.patientId);
+        const userProfile = this.securityManager.getDefaultUser();
+        if (userProfile) {
+            this.setState({loginUser: userProfile});
+        } else {
+            console.error("Login failed");
+        }
+    }
+
+    receive_command(commandType, data) {
+        if (commandType === 'navigate_targeted_data_panel') {
+            const sectionName = data.section;
+            const subsectionName = data.subsection;
+            return this.dashboard.moveTargetedDataPanelToSubsection(sectionName, subsectionName);
+        } else {
+            return "Unknown command type: " + commandType;
+        }
+    }
+
+    // pass this function to children to set full app global state
+    setFullAppState = (state, value) => {
+        this.setState({[state]: value});
+    }
+
+    setForceRefresh = (value) => {
+        this.setFullAppState('forceRefresh', value);
+    }
+
+    setCondition = (condition) => {
+        this.setFullAppState('condition', condition)
+    }
+
+    setLayout = (layoutView) => {
+        console.error("No layout change allowed");
+    }
+
+    setSearchSelectedItem = (value) => {
+        this.setFullAppState('searchSelectedItem', value);
+    }
+
+    // Same function as 'setFullAppState' except this function uses a callback
+    setFullAppStateWithCallback = (state, callback) => {
+        this.setState(state, callback);
+    }
+
+    sourceActionIsDisabled = (element) => {
+        if (element.source) {
+            return false;
+        }
+        return true;
+    }
+
+    nameSourceAction = (element) => {
+        if (element.source) {
+            return (element.source instanceof Reference ? "Open Source Note" : "View Source");
+        }
+        return "No source information";
+    }
+
+    handleSnackbarClose = () => {
+        this.setState({ snackbarOpen: false });
+    }
+
+    handleModalClose = () => {
+        this.setState({ isModalOpen: false });
+    }
+
+    moveTargetedDataPanelToSubsection = (sectionName, subsectionName) => {
+        return this.dashboard.moveTargetedDataPanelToSubsection(sectionName, subsectionName);
+    }
+
+    render() {
+        // Get the Current Dashboard based on superRole of user
+        const CurrentDashboard = this.dashboardManager.getDashboardForSuperRole(this.state.superRole);
+
+        return (
+            <MuiThemeProvider theme={theme}>
+                <div className="CoreCancerPilot">
+                    <Grid className="CoreCancerPilot-content" fluid>
+                        <Row center="xs">
+                            <Col sm={12}>
+                                <PatientControlPanel
+                                    appTitle={this.props.display}
+                                    clinicalEvent={this.state.clinicalEvent}
+                                    layout='right-collapsed'
+                                    loginUsername={this.state.loginUser.getUserName()}
+                                    patient={this.state.patient}
+                                    possibleClinicalEvents={[]}
+                                    setCondition={this.setCondition}
+                                    setLayout={this.setLayout}
+                                    setSearchSelectedItem={this.setSearchSelectedItem}
+                                    supportLogin={true}
+                                    searchIndex={this.searchIndex}
+                                    moveTargetedDataPanelToSubsection={this.moveTargetedDataPanelToSubsection}
+                                />
+                            </Col>
+                        </Row>
+
+                        <CurrentDashboard
+                            // App default settings
+                            actions={[]}
+                            forceRefresh={this.state.forceRefresh}
+                            appState={this.state}
+                            contextManager={null}
+                            dataAccess={this.dataAccess}
+                            handleSummaryItemSelected={null}
+                            itemInserted={null}
+                            loginUser={this.state.loginUser}
+                            newCurrentShortcut={null}
+                            onContextUpdate={null}
+                            possibleClinicalEvents={[]}
+                            searchSelectedItem={this.state.searchSelectedItem}
+                            setNoteClosed={null}
+                            setNoteViewerEditable={false}
+                            setNoteViewerVisible={false}
+                            setForceRefresh={this.setForceRefresh}
+                            setFullAppStateWithCallback={this.setFullAppStateWithCallback}
+                            setLayout={this.setLayout}
+                            setOpenClinicalNote={null}
+                            setSearchSelectedItem={this.setSearchSelectedItem}
+                            shortcutManager={null}
+                            structuredFieldMapManager={null}
+                            summaryMetadata={this.summaryMetadata}
+                            updateErrors={null}
+                            ref={(dashboard) => { this.dashboard = dashboard; }}
+                            searchIndex={this.searchIndex}
+                        />
+                        <Modal 
+                            aria-labelledby="simple-modal-title"
+                            aria-describedby="simple-modal-description"
+                            open={this.state.isModalOpen}
+                            onClose={this.handleModalClose}
+                            onClick={this.handleModalClose}
+                        >
+                            <div style={getModalStyle()} >
+                                <Typography id="modal-title">
+                                    {this.state.modalTitle}
+                                </Typography>
+                                <Typography id="simple-modal-description">
+                                    {this.state.modalContent}
+                                </Typography>
+                            </div>
+                        </Modal>
+
+                        <Snackbar
+                            anchorOrigin={{vertical: 'bottom', horizontal: 'center',}}
+                            autoHideDuration={3000}
+                            onClose={this.handleSnackbarClose}
+                            open={this.state.snackbarOpen}
+                            message={this.state.snackbarMessage}
+                        />
+                    </Grid>
+                </div>
+            </MuiThemeProvider>
+        );
+    }
+}
+
+CoreCancerPilotApp.proptypes = {
+    dataSource: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+    shortcuts: PropTypes.array.isRequired,
+};
+
+// these props are used for dispatching actions
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    // TODO: add actions
+  }, dispatch);
+}
+
+// these props come from the application's state when it is started
+function mapStateToProps(state) {
+  return {
+    // TODO: add state
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CoreCancerPilotApp);
