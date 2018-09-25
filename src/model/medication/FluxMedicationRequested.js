@@ -211,6 +211,10 @@ class FluxMedicationRequested {
         return this._medicationRequested.numberOfRefillsAllowed.value;
     }
 
+    get asNeededIndicator() {
+        return this._medicationRequested.dosage.asNeededIndicator.value;
+    }
+
     /**
      * Extract a human-readable string from a code.
      *

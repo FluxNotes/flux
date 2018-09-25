@@ -244,7 +244,6 @@ export default class TabularListVisualizer extends Component {
         const numColumns = item.length;
         const colSize = (100 / numColumns) + "%";
 
-
         item.forEach((element, arrayIndex) => {
             const elementId = `${subsectionindex}-${index}-item-${arrayIndex}`
             let columnItem = null;
