@@ -1495,6 +1495,36 @@
                         "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
                     },
                     "Value": "MCI"
+                },
+                "Type": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Type"
+                    },
+                    "Value": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                        },
+                        "Coding": [
+                            {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                                },
+                                "Value": "prov",
+                                "CodeSystem": {
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                    },
+                                    "Value": "http://hl7.org/fhir/organization-type"
+                                },
+                                "DisplayText": {
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    },
+                                    "Value": "Healthcare Provider"
+                                }
+                            }
+                        ]
+                    }
                 }
             }
         }
@@ -1604,6 +1634,36 @@
                         "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
                     },
                     "Value": "MCI"
+                },
+                "Type": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Type"
+                    },
+                    "Value": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                        },
+                        "Coding": [
+                            {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                                },
+                                "Value": "prov",
+                                "CodeSystem": {
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                    },
+                                    "Value": "http://hl7.org/fhir/organization-type"
+                                },
+                                "DisplayText": {
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    },
+                                    "Value": "Healthcare Provider"
+                                }
+                            }
+                        ]
+                    }
                 }
             }
         },
@@ -5397,6 +5457,36 @@
                         "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
                     },
                     "Value": "MCI"
+                },
+                "Type": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Type"
+                    },
+                    "Value": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                        },
+                        "Coding": [
+                            {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                                },
+                                "Value": "prov",
+                                "CodeSystem": {
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                    },
+                                    "Value": "http://hl7.org/fhir/organization-type"
+                                },
+                                "DisplayText": {
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    },
+                                    "Value": "Healthcare Provider"
+                                }
+                            }
+                        ]
+                    }
                 }
             }
         }
@@ -5500,6 +5590,36 @@
                         "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
                     },
                     "Value": "MCI"
+                },
+                "Type": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Type"
+                    },
+                    "Value": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                        },
+                        "Coding": [
+                            {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                                },
+                                "Value": "prov",
+                                "CodeSystem": {
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                    },
+                                    "Value": "http://hl7.org/fhir/organization-type"
+                                },
+                                "DisplayText": {
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    },
+                                    "Value": "Healthcare Provider"
+                                }
+                            }
+                        ]
+                    }
                 }
             }
         }
@@ -5772,6 +5892,36 @@
                         "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
                     },
                     "Value": "MCI"
+                },
+                "Type": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Type"
+                    },
+                    "Value": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                        },
+                        "Coding": [
+                            {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                                },
+                                "Value": "prov",
+                                "CodeSystem": {
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                    },
+                                    "Value": "http://hl7.org/fhir/organization-type"
+                                },
+                                "DisplayText": {
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    },
+                                    "Value": "Healthcare Provider"
+                                }
+                            }
+                        ]
+                    }
                 }
             }
         }
@@ -5913,6 +6063,36 @@
                         "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
                     },
                     "Value": "MCI"
+                },
+                "Type": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Type"
+                    },
+                    "Value": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                        },
+                        "Coding": [
+                            {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                                },
+                                "Value": "prov",
+                                "CodeSystem": {
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                    },
+                                    "Value": "http://hl7.org/fhir/organization-type"
+                                },
+                                "DisplayText": {
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    },
+                                    "Value": "Healthcare Provider"
+                                }
+                            }
+                        ]
+                    }
                 }
             }
         }
@@ -6133,6 +6313,36 @@
                         "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
                     },
                     "Value": "MCI"
+                },
+                "Type": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Type"
+                    },
+                    "Value": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                        },
+                        "Coding": [
+                            {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                                },
+                                "Value": "prov",
+                                "CodeSystem": {
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                    },
+                                    "Value": "http://hl7.org/fhir/organization-type"
+                                },
+                                "DisplayText": {
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    },
+                                    "Value": "Healthcare Provider"
+                                }
+                            }
+                        ]
+                    }
                 }
             }
         }
@@ -6778,6 +6988,36 @@
                         "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
                     },
                     "Value": "MCI"
+                },
+                "Type": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Type"
+                    },
+                    "Value": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                        },
+                        "Coding": [
+                            {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                                },
+                                "Value": "prov",
+                                "CodeSystem": {
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                    },
+                                    "Value": "http://hl7.org/fhir/organization-type"
+                                },
+                                "DisplayText": {
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    },
+                                    "Value": "Healthcare Provider"
+                                }
+                            }
+                        ]
+                    }
                 }
             }
         }
@@ -7532,6 +7772,36 @@
                         "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
                     },
                     "Value": "MCI"
+                },
+                "Type": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Type"
+                    },
+                    "Value": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                        },
+                        "Coding": [
+                            {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                                },
+                                "Value": "prov",
+                                "CodeSystem": {
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                    },
+                                    "Value": "http://hl7.org/fhir/organization-type"
+                                },
+                                "DisplayText": {
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    },
+                                    "Value": "Healthcare Provider"
+                                }
+                            }
+                        ]
+                    }
                 }
             }
         }
@@ -8086,6 +8356,36 @@
                         "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
                     },
                     "Value": "MCI"
+                },
+                "Type": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Type"
+                    },
+                    "Value": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                        },
+                        "Coding": [
+                            {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                                },
+                                "Value": "prov",
+                                "CodeSystem": {
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                    },
+                                    "Value": "http://hl7.org/fhir/organization-type"
+                                },
+                                "DisplayText": {
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    },
+                                    "Value": "Healthcare Provider"
+                                }
+                            }
+                        ]
+                    }
                 }
             }
         }
@@ -8641,6 +8941,36 @@
                         "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
                     },
                     "Value": "MCI"
+                },
+                "Type": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Type"
+                    },
+                    "Value": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                        },
+                        "Coding": [
+                            {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                                },
+                                "Value": "prov",
+                                "CodeSystem": {
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                    },
+                                    "Value": "http://hl7.org/fhir/organization-type"
+                                },
+                                "DisplayText": {
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    },
+                                    "Value": "Healthcare Provider"
+                                }
+                            }
+                        ]
+                    }
                 }
             }
         }
@@ -9196,6 +9526,36 @@
                         "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
                     },
                     "Value": "MCI"
+                },
+                "Type": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Type"
+                    },
+                    "Value": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                        },
+                        "Coding": [
+                            {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                                },
+                                "Value": "prov",
+                                "CodeSystem": {
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                    },
+                                    "Value": "http://hl7.org/fhir/organization-type"
+                                },
+                                "DisplayText": {
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    },
+                                    "Value": "Healthcare Provider"
+                                }
+                            }
+                        ]
+                    }
                 }
             }
         }
@@ -9752,6 +10112,36 @@
                         "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
                     },
                     "Value": "MCI"
+                },
+                "Type": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Type"
+                    },
+                    "Value": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                        },
+                        "Coding": [
+                            {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                                },
+                                "Value": "prov",
+                                "CodeSystem": {
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                    },
+                                    "Value": "http://hl7.org/fhir/organization-type"
+                                },
+                                "DisplayText": {
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    },
+                                    "Value": "Healthcare Provider"
+                                }
+                            }
+                        ]
+                    }
                 }
             }
         }
@@ -10585,7 +10975,6 @@
             "Value": "03 SEP 2018"
         }
     },
-
     {
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/vital/HeartRate"

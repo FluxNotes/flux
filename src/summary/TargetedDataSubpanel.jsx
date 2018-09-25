@@ -120,13 +120,18 @@ export default class TargetedDataSubpanel extends Component {
     }
 
     getConditionMetadata() {
-        const { condition, summaryMetadata } = this.props;
+        const { condition, summaryMetadata, loginUser } = this.props;
         let codeSystem, code, conditionMetadata = null;
 
         if (condition != null) {
             codeSystem = condition.codeSystem;
             code = condition.code;
-            conditionMetadata = summaryMetadata[codeSystem + "/" + code];
+            const conditionType = `${codeSystem}/${code}`;
+            const userType = `${loginUser.getRoleType()}/${loginUser.getRole()}/${loginUser.getSpecialty()}`;
+            conditionMetadata = summaryMetadata[userType + "/" + conditionType];
+            if (conditionMetadata == null) {
+                conditionMetadata = summaryMetadata[conditionType];
+            }
         }
 
         if (condition == null || conditionMetadata == null) {
@@ -191,4 +196,5 @@ TargetedDataSubpanel.propTypes = {
     onItemClicked: PropTypes.func,
     actions: PropTypes.array,
     searchIndex: PropTypes.object.isRequired,
+    loginUser: PropTypes.object.isRequired,
 };
