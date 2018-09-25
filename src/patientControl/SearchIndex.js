@@ -74,7 +74,7 @@ class SearchIndex {
             let doc = this._index.documentStore.getDoc(result.ref);
             doc.score = result.score;
             if (doc.section === "Open Note") {
-                const regex = new RegExp(query, "g");
+                const regex = new RegExp(this.escapeRegExp(query), "g");
                 let contentMatches = this._fuse.search(query);
                 if (contentMatches.length > 0 && contentMatches[0].matches.length > 0) {
                     contentMatches[0].matches[0].indices.forEach(([from, to]) => {
@@ -90,6 +90,10 @@ class SearchIndex {
             }
         });
         return suggestions;
+    }
+
+    escapeRegExp(text) {
+        return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
     }
 }
 
