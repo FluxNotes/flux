@@ -751,7 +751,7 @@ class FluxNotesEditor extends React.Component {
                 onHighlight: null,
                 onClick: null
             });
-            this.noteContentIndexer.indexData("Open Note", '', nextProps.updatedEditorNote, this.props.searchIndex, null, null);
+            this.noteContentIndexer.indexData("Open Note", '', nextProps.updatedEditorNote, this.props.searchIndex, this.onOpenNoteSearchResultHighlight, null);
         }
 
         // Check if the current view mode changes
@@ -788,6 +788,38 @@ class FluxNotesEditor extends React.Component {
                 this.props.setOpenSourceNoteEntryId(null);
             }
         }
+    }
+
+    onOpenNoteSearchResultHighlight = (suggestion) => {
+        const {document} = this.state.state;
+        let startIndex = suggestion.indices[0];
+        let foundNode;
+        document.toJSON().nodes.find(node => {
+            const nodeLength = this.getLengthOfNode(node);
+            if (startIndex <= nodeLength) {
+                foundNode = node;
+                return true;
+            } else {
+                startIndex -= nodeLength;
+                return false;
+            }
+        });
+        if (foundNode) this.scrollToData(document, foundNode.key);
+    }
+
+    getLengthOfNode = (node) => {
+        let length = 0;
+        if (node.type === 'line') {
+            node.nodes.forEach(node => {
+                length += this.getLengthOfNode(node);
+            });
+        } else if (node.characters) {
+            length += node.characters.length;
+        } else if (node.type === 'structured_field') {
+            let shortcut = node.data.shortcut;
+            length += shortcut.getText().length;
+        }
+        return length;
     }
 
     revertTemplate = () => {
