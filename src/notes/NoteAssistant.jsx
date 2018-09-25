@@ -333,13 +333,14 @@ export default class NoteAssistant extends Component {
 
     renderInProgressNote(note, i) {
         let selected = Lang.isEqual(this.props.selectedNote, note);
+        let searchedFor = note.entryInfo.entryId === this.state.searchResultNoteId;
         // if we have closed the note, selected = false
         if (Lang.isEqual(this.props.noteClosed, true)) {
             selected = false;
         }
 
         return (
-            <div ref={note.entryInfo.entryId} className={`note in-progress-note${selected ? " selected" : ""}`} key={i} onClick={() => {
+            <div ref={note.entryInfo.entryId} className={`note in-progress-note${selected ? " selected" : ""}${searchedFor ? " search-result" : ""}`} key={i} onClick={() => {
                 this.openNote(true, note)
             }}>
                 <div className="in-progress-text">In progress note</div>
