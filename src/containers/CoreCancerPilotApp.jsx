@@ -14,9 +14,9 @@ import Lang from 'lodash';
 import Reference from '../model/Reference';
 
 import SecurityManager from '../security/SecurityManager';
-import DashboardManager from '../dashboard/DashboardManager';
+import CoreCancerPilotDashboard from '../dashboard/CoreCancerPilotDashboard';
 import DataAccess from '../dataaccess/DataAccess';
-import SummaryMetadata from '../summary/SummaryMetadata';
+import CoreCancerPilotSummaryMetadata from '../summary/CoreCancerPilotSummaryMetadata';
 import PatientControlPanel from '../panels/PatientControlPanel';
 import SearchIndex from '../patientControl/SearchIndex';
 
@@ -57,8 +57,8 @@ export class CoreCancerPilotApp extends Component {
             this.dataAccess = new DataAccess(this.props.dataSource);
         }
 
-        this.summaryMetadata = new SummaryMetadata(this.setForceRefresh);
-        this.dashboardManager = new DashboardManager();
+//        this.summaryMetadata = new SummaryMetadata(this.setForceRefresh);
+        this.summaryMetadata = new CoreCancerPilotSummaryMetadata(this.setForceRefresh);
         this.securityManager = new SecurityManager();
         this.searchIndex = new SearchIndex();
 
@@ -66,7 +66,7 @@ export class CoreCancerPilotApp extends Component {
             clinicalEvent: "pre-encounter",
             condition: null,
             errors: [],
-            layout: "",
+            layout: "right-collapsed",
             isModalOpen: false,
             modalTitle: '',
             modalContent: '',
@@ -160,9 +160,6 @@ export class CoreCancerPilotApp extends Component {
     }
 
     render() {
-        // Get the Current Dashboard based on superRole of user
-        const CurrentDashboard = this.dashboardManager.getDashboardForSuperRole(this.state.superRole);
-
         return (
             <MuiThemeProvider theme={theme}>
                 <div className="CoreCancerPilot">
@@ -172,7 +169,7 @@ export class CoreCancerPilotApp extends Component {
                                 <PatientControlPanel
                                     appTitle={this.props.display}
                                     clinicalEvent={this.state.clinicalEvent}
-                                    layout='right-collapsed'
+                                    layout={this.state.layout}
                                     loginUsername={this.state.loginUser.getUserName()}
                                     patient={this.state.patient}
                                     possibleClinicalEvents={[]}
@@ -186,32 +183,18 @@ export class CoreCancerPilotApp extends Component {
                             </Col>
                         </Row>
 
-                        <CurrentDashboard
+                        <CoreCancerPilotDashboard
                             // App default settings
                             actions={[]}
                             forceRefresh={this.state.forceRefresh}
                             appState={this.state}
-                            contextManager={null}
                             dataAccess={this.dataAccess}
-                            handleSummaryItemSelected={null}
-                            itemInserted={null}
                             loginUser={this.state.loginUser}
-                            newCurrentShortcut={null}
-                            onContextUpdate={null}
-                            possibleClinicalEvents={[]}
                             searchSelectedItem={this.state.searchSelectedItem}
-                            setNoteClosed={null}
-                            setNoteViewerEditable={false}
-                            setNoteViewerVisible={false}
                             setForceRefresh={this.setForceRefresh}
                             setFullAppStateWithCallback={this.setFullAppStateWithCallback}
-                            setLayout={this.setLayout}
-                            setOpenClinicalNote={null}
                             setSearchSelectedItem={this.setSearchSelectedItem}
-                            shortcutManager={null}
-                            structuredFieldMapManager={null}
                             summaryMetadata={this.summaryMetadata}
-                            updateErrors={null}
                             ref={(dashboard) => { this.dashboard = dashboard; }}
                             searchIndex={this.searchIndex}
                         />
