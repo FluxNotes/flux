@@ -283,7 +283,6 @@ class FluxNotesEditor extends React.Component {
     }
 
     choseSuggestedShortcut(suggestion) {
-        console.log('suggestion: ', suggestion);
         const {state} = this.state;
         const shortcut = this.props.newCurrentShortcut(null, suggestion.value.name, undefined, true, "auto-complete");
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
