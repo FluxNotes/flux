@@ -170,7 +170,7 @@ class MedicationRangeChartVisualizer extends Component {
                         </div>
                     </Col>
                     <Col sm={3}>
-                        <div className="medication-info-heading">
+                         <div className="medication-info-heading">
                             Number of Refills
                         </div>
                         <div className="medication-info">
@@ -206,16 +206,16 @@ class MedicationRangeChartVisualizer extends Component {
             <div key={i} className="medication-chart-item" ref={(parent) => { this.parent = parent }}>
                 <Grid fluid>
                     <div className="medication-heading">
-                    <Row bottom="xs">
-                        <Col md={6} xs={12}>
-                            {this.renderMedicationTitle(lowerValue, upperValue, name, dosageValue, dosageUnit, timingValue, timingUnit, asNeededIndicator)}
-                        </Col>
-                        <Col xs={6} className="medication-change-padding">
-                            <div className="medication-change-container">
-                                {medicationIsChange ? this.renderMedicationChange(med.medicationChange, med.medicationChange.medBeforeChange) : <Col xs={13} />}
-                            </div>
-                        </Col>
-                    </Row>
+                        <Row bottom="xs">
+                            <Col md={6} xs={12}>
+                                {this.renderMedicationTitle(lowerValue, upperValue, name, dosageValue, dosageUnit, timingValue, timingUnit, asNeededIndicator)}
+                            </Col>
+                            <Col xs={6} className="medication-change-padding">
+                                <div className="medication-change-container">
+                                    {medicationIsChange ? this.renderMedicationChange(med.medicationChange, med.medicationChange.medBeforeChange) : <Col xs={13} />}
+                                </div>
+                            </Col>
+                        </Row>
                     </div>
                     {(med.medicationChange && med.medicationChange.type === 'stop') ? <div /> :
                         <Row around='xs'>
