@@ -9,8 +9,19 @@ class ContextManager {
         this.contexts = []; // patient context is kept separately
         this.activeContexts = []; // patient context is always active
         this.onContextUpdate = onContextUpdate;
+        this.subscribers = [];
     }
     
+    subscribe = (subscriber, callback) => {     
+        const isAlreadyASubscriber = Collection.includes(this.subscribers, subscriber);
+        if (!isAlreadyASubscriber) { 
+            this.subscribers.push({
+                subscriber,
+                callback,
+            })
+        }
+    }
+
     endNonGlobalContexts() {
         let contextsToKeep = [];
         this.contexts.forEach((item, i) => {
@@ -82,7 +93,7 @@ class ContextManager {
     }
 
     // returns undefined if not found
-    getActiveContextOfType(contextType) {
+    getActiveContextOfType = (contextType) => {
         let context = Collection.find(this.activeContexts, (item) => {
             return (item.getShortcutType() === contextType);
         });
@@ -90,8 +101,13 @@ class ContextManager {
         return context;
     }
 
-    contextUpdated() {
+    contextUpdated = () => {
         this.onContextUpdate();
+        // After updating, update all subscribers
+        for (const subscriberObj of this.subscribers) { 
+            const { callback } = subscriberObj;
+            callback(this);
+        }
     }
 
     adjustActiveContexts(shouldContextBeActive) {
@@ -130,7 +146,7 @@ class ContextManager {
         //when adding a new shortcut to context, we assume cursor ends up after it so its active
         this.activeContexts.unshift(shortcut);
         if (!shortcut.needToSelectValueFromMultipleOptions()) {
-            if (this.onContextUpdate) { this.onContextUpdate(); }
+            if (this.onContextUpdate) { this.contextUpdated(); }
         }
     }
 
@@ -175,7 +191,7 @@ class ContextManager {
     clearContexts() {
         this.contexts = [];
         this.activeContexts = [];
-        this.onContextUpdate();
+        this.contextUpdated();
     }
 
     // Clears all non active contexts from this.contexts
