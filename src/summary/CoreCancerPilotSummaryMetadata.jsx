@@ -70,7 +70,6 @@ export default class CoreCancerPilotSummaryMetadata {
     }
 
     getTreatmentData = (patient, condition, subsection) => {
-        console.log(patient, condition, subsection);
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         try {
             // If we have cached data, use that instead of making an API call

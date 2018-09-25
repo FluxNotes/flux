@@ -15,8 +15,12 @@ class ScatterPlotVisualizer extends Component {
         this.state = {
             chartWidth: "600px",
             chartHeight: "600px",
-            data: null
         } 
+    }
+
+    componentWillReceiveProps = (nextProps) => {
+        const { patient, condition, conditionSection } = this.props;
+        this.renderScatterPlot(patient, condition, conditionSection);
     }
 
     componentDidMount() {
@@ -45,7 +49,6 @@ class ScatterPlotVisualizer extends Component {
 
     renderScatterPlot = (patient, condition, conditionSection) => {
         const myData = conditionSection.data[0].data_cache;
-        if (!myData) return;
         // myData will be a string if server isn't running or no relevant data is found
         if (Lang.isString(myData)) {
             this.resize();

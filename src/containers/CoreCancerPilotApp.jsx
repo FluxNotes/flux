@@ -232,7 +232,6 @@ export class CoreCancerPilotApp extends Component {
 CoreCancerPilotApp.proptypes = {
     dataSource: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
-    shortcuts: PropTypes.array.isRequired,
 };
 
 // these props are used for dispatching actions
