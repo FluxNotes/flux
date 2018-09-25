@@ -89,7 +89,7 @@ export class CoreCancerPilotApp extends Component {
 
     componentWillMount() {
         this.loadPatient(this.props.patientId);
-        const userProfile = this.securityManager.getDefaultUser();
+        const userProfile = this.securityManager.getDemoUser(this.props.clinicianId);
         if (userProfile) {
             this.setState({loginUser: userProfile});
         } else {

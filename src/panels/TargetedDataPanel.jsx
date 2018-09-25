@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import TargetedDataSubpanel from '../summary/TargetedDataSubpanel';
 import Minimap from '../lib/react-minimap/react-minimap.js';
 import '../lib/react-minimap/react-minimap.css'
@@ -49,7 +48,7 @@ export default class TargetedDataPanel extends Component {
         const shortTitleAttribute = 'data-minimap-short-title';
         const conditionMetadata = this.getConditionMetadata();
 
-        // if (conditionMetadata.sections.length > 1) {
+        if (conditionMetadata.sections.length > 1) {
             return (
                 <div className="targeted-data-panel">
                     <Minimap
@@ -83,29 +82,30 @@ export default class TargetedDataPanel extends Component {
                     </Minimap>
                 </div>
             );    
-        // } else {
-        //     return (
-        //         <div className="targeted-data-panel">
-        //             <div id="summary-subpanel">
-        //                 <div className="summary-section">
-        //                     <TargetedDataSubpanel
-        //                         actions={this.props.actions}
-        //                         forceRefresh={this.props.forceRefresh}
-        //                         allowItemClick={this.props.isNoteViewerEditable}
-        //                         clinicalEvent={this.props.appState.clinicalEvent}
-        //                         condition={this.props.appState.condition}
-        //                         isWide={this.props.isWide}
-        //                         loginUser={this.props.loginUser}
-        //                         patient={this.props.appState.patient} 
-        //                         setForceRefresh={this.props.setForceRefresh}                                                              
-        //                         conditionMetadata={conditionMetadata}
-        //                         searchIndex={this.props.searchIndex}
-        //                     />
-        //                 </div>
-        //             </div>
-        //         </div>
-        //     );    
-        // }
+        } else {
+            return (
+                <div className="targeted-data-panel">
+                    <div id="summary-subpanel">
+                        <div className="summary-section">
+                            <TargetedDataSubpanel
+                                className="targeted-data-subpanel-no-minimap"
+                                actions={this.props.actions}
+                                forceRefresh={this.props.forceRefresh}
+                                allowItemClick={this.props.isNoteViewerEditable}
+                                clinicalEvent={this.props.appState.clinicalEvent}
+                                condition={this.props.appState.condition}
+                                isWide={this.props.isWide}
+                                loginUser={this.props.loginUser}
+                                patient={this.props.appState.patient} 
+                                setForceRefresh={this.props.setForceRefresh}                                                              
+                                conditionMetadata={conditionMetadata}
+                                searchIndex={this.props.searchIndex}
+                            />
+                        </div>
+                    </div>
+                </div>
+            );    
+        }
     }
 }
 

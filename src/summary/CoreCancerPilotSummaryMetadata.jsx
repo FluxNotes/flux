@@ -76,7 +76,7 @@ export default class CoreCancerPilotSummaryMetadata {
             if (subsection.data_cache) return subsection.data_cache;
             // Commenting out the api call with actual patient criteria til we get patient data
             //const data = api.findTreatmentOptionsByPatientStats(condition.codeURL, {race: this.toFirstLetterCapital(patient.getPatient().race), dxGrade: condition.getMostRecentHistologicalGrade().getGradeAsSimpleNumber()});
-            const data = api.findTreatmentOptionsByPatientStats("http://snomed.info/sct/399068003", {race: "Black"});
+            const data = api.findTreatmentOptionsByPatientStats("http://snomed.info/sct/399068003", {race: "Black" });
             const parsedData = JSON.parse(data);
             if(parsedData[0].length === 0 && parsedData[1].length === 0){
                 return "No relevant data found for patient";
