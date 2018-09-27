@@ -10,6 +10,7 @@ import moment from 'moment';
 import './Timeline.css';
 import './TimelineEventsVisualizer.css';
 import FontAwesome from 'react-fontawesome';
+import { Tooltip } from 'material-ui';
 
 class TimelineEventsVisualizer extends Component {
     constructor(props) {
@@ -49,7 +50,8 @@ class TimelineEventsVisualizer extends Component {
                 title: '',
                 details: '',
                 style: {top: 0, left: 0, display: 'none'}
-            }
+            },
+            toggleTouch: false
         };
     };
 
@@ -86,13 +88,30 @@ class TimelineEventsVisualizer extends Component {
             item.id = id;
             item.itemProps = {
                 onMouseEnter: (e) => this.enterItemHover(e, id),
-                onMouseLeave: (e) => this.leaveItemHover(e)
+                onMouseLeave: (e) => this.leaveItemHover(e),
+
+
+                //option 1 - 2 tap
+                onTouchEnd: (e) => this.toggleOnTouch(e, id)
+                
+                //option 2 - hold 2 view (preferred )
+                // onTouchStart: (e) => this.enterItemHover(e, id),
+                // onTouchEnd: (e) => this.leaveItemHover(e)
             }; 
         });
-
         return items;
     }
   
+    toggleOnTouch = (e, id) => {
+        if (this.state.toggleTouch) {
+            this.leaveItemHover(e);
+        } else {
+            this.enterItemHover(e, id);
+        }
+
+        this.setState ({toggleTouch: !this.state.toggleTouch});
+    }
+
     enterItemHover = (e, id) => {
         // Get position of this item on the screen
         e.preventDefault();
@@ -275,6 +294,7 @@ class TimelineEventsVisualizer extends Component {
                         lineHeight={40}
                         itemHeightRatio={0.7}
                         itemRenderer={Item}
+                        itemTouchSendsClick={false}
                         canMove={false}
                         canResize={false}
                         canSelect={false}
