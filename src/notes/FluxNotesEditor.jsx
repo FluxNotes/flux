@@ -628,9 +628,15 @@ class FluxNotesEditor extends React.Component {
 
     scrollToShortcut = (document, shortcutKey) => {
         const node = document.getNode(shortcutKey);
-        const el = Slate.findDOMNode(node);
-        if (el && el.scrollIntoView) {
-            el.scrollIntoView();
+
+        try {
+            const el = Slate.findDOMNode(node);
+            if (el && el.scrollIntoView) {
+                el.scrollIntoView();
+            }
+        } catch (e) {
+            // DOMNode not found
+            return;
         }
     }
 
@@ -1103,7 +1109,9 @@ class FluxNotesEditor extends React.Component {
         }
 
         const state = transform.apply();
-        if (source === 'loaded note') {
+
+        // When a note is being loaded, scroll to structured data if user opened note using `Open Source Note` action
+        if (source === 'loaded note' && this.props.openSourceNoteEntryId) {
             this.setState({ state }, () => {
                 const shortcutKey = this.structuredFieldMapManager.getKeyFromEntryId(this.props.openSourceNoteEntryId);
                 if (shortcutKey) {
@@ -1581,6 +1589,10 @@ FluxNotesEditor.propTypes = {
     handleUpdateEditorWithNote: PropTypes.func.isRequired,
     isNoteViewerEditable: PropTypes.bool.isRequired,
     itemInserted: PropTypes.func.isRequired,
+    openSourceNoteEntryId: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+    ]),
     newCurrentShortcut: PropTypes.func.isRequired,
     noteAssistantMode: PropTypes.string.isRequired,
     patient: PropTypes.object.isRequired,
@@ -1590,6 +1602,7 @@ FluxNotesEditor.propTypes = {
     setForceRefresh: PropTypes.func,
     setLayout: PropTypes.func.isRequired,
     setNoteViewerEditable: PropTypes.func.isRequired,
+    setOpenSourceNotEntryId: PropTypes.func,
     setUndoTemplateInsertion: PropTypes.func.isRequired,
     shortcutKey: PropTypes.string,
     shortcutManager: PropTypes.object.isRequired,

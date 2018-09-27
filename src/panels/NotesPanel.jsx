@@ -477,6 +477,10 @@ NotesPanel.propTypes = {
     newCurrentShortcut: PropTypes.func.isRequired,
     noteClosed: PropTypes.bool.isRequired,
     openClinicalNote: PropTypes.object,
+    openSourceNoteEntryId: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+    ]),
     patient: PropTypes.object.isRequired,
     searchIndex: PropTypes.object.isRequired,
     searchSelectedItem: PropTypes.object,
@@ -487,6 +491,7 @@ NotesPanel.propTypes = {
     setNoteViewerVisible: PropTypes.func.isRequired,
     setLayout: PropTypes.func.isRequired,
     setOpenClinicalNote: PropTypes.func.isRequired,
+    setOpenSourceNotEntryId: PropTypes.func,
     setSearchSelectedItem: PropTypes.func.isRequired,
     shortcutManager: PropTypes.object.isRequired,
     structuredFieldMapManager: PropTypes.object.isRequired,

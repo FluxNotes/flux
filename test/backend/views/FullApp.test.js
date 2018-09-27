@@ -330,6 +330,7 @@ describe('6 FluxNotesEditor', function() {
             shouldEditorContentUpdate={true}
             setNoteViewerEditable={jest.fn()}
             setNoteViewerVisible={jest.fn()}
+            setOpenSourceNoteEntryId={jest.fn()}
             currentViewMode={''}
             errors={[]}
             itemInserted={jest.fn()}
@@ -479,6 +480,7 @@ describe('6 FluxNotesEditor', function() {
             setNoteClosed={jest.fn()}
             setNoteViewerEditable={jest.fn()}
             setNoteViewerVisible={jest.fn()}
+            setOpenSourceNoteEntryId={jest.fn()}
             setSearchSelectedItem={jest.fn()}
             summaryItemToInsert={''}
             updateErrors={jest.fn()}
@@ -533,6 +535,7 @@ describe('6 FluxNotesEditor', function() {
             setNoteViewerVisible={jest.fn()}
             setSearchSelectedItem={jest.fn()}
             setOpenClinicalNote={jest.fn()}
+            setOpenSourceNoteEntryId={jest.fn()}
             summaryItemToInsert={''}
             updateErrors={jest.fn()}
         />, { attachTo: document.body });
@@ -587,6 +590,7 @@ describe('6 FluxNotesEditor', function() {
             shouldEditorContentUpdate={true}
             setNoteViewerEditable={jest.fn()}
             setNoteViewerVisible={jest.fn()}
+            setOpenSourceNoteEntryId={jest.fn()}
             currentViewMode={''}
             errors={[]}
             itemInserted={jest.fn()}
@@ -650,6 +654,7 @@ describe('6 FluxNotesEditor', function() {
             shouldEditorContentUpdate={true}
             setNoteViewerEditable={jest.fn()}
             setNoteViewerVisible={jest.fn()}
+            setOpenSourceNoteEntryId={jest.fn()}
             currentViewMode={''}
             errors={[]}
             itemInserted={jest.fn()}
@@ -727,6 +732,7 @@ describe('6 FluxNotesEditor', function() {
             shouldEditorContentUpdate={true}
             setNoteViewerEditable={jest.fn()}
             setNoteViewerVisible={jest.fn()}
+            setOpenSourceNoteEntryId={jest.fn()}
             currentViewMode={''}
             errors={[]}
             itemInserted={jest.fn()}
@@ -803,6 +809,7 @@ describe('6 FluxNotesEditor', function() {
             setNoteViewerVisible={jest.fn()}
             setSearchSelectedItem={jest.fn()}
             setOpenClinicalNote={jest.fn()}
+            setOpenSourceNoteEntryId={jest.fn()}
             summaryItemToInsert={''}
             updateErrors={jest.fn()}
         />,
@@ -866,6 +873,7 @@ describe('6 FluxNotesEditor', function() {
             setNoteViewerVisible={jest.fn()}
             setSearchSelectedItem={jest.fn()}
             setOpenClinicalNote={jest.fn()}
+            setOpenSourceNoteEntryId={jest.fn()}
             summaryItemToInsert={''}
             updateErrors={jest.fn()}
         />,
@@ -1070,6 +1078,7 @@ describe('6 FluxNotesEditor', function() {
             shouldEditorContentUpdate={true}
             setNoteViewerEditable={jest.fn()}
             setNoteViewerVisible={jest.fn()}
+            setOpenSourceNoteEntryId={jest.fn()}
             currentViewMode={''}
             errors={[]}
             itemInserted={jest.fn()}

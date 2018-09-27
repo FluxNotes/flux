@@ -232,7 +232,7 @@ export default class ClinicianDashboard extends Component {
     }
 }
 
-ClinicianDashboard.proptypes = {
+ClinicianDashboard.propTypes = {
     actions: PropTypes.array.isRequired,
     appState: PropTypes.object.isRequired,
     contextManager: PropTypes.object.isRequired,
@@ -243,6 +243,10 @@ ClinicianDashboard.proptypes = {
     loginUser: PropTypes.object.isRequired,
     newCurrentShortcut: PropTypes.func.isRequired,
     onContextUpdate: PropTypes.func.isRequired,
+    openSourceNoteEntryId: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+    ]),
     possibleClinicalEvents: PropTypes.array.isRequired,
     searchSelectedItem: PropTypes.object,
     setForceRefresh: PropTypes.func.isRequired,
@@ -252,6 +256,7 @@ ClinicianDashboard.proptypes = {
     setNoteViewerEditable: PropTypes.func.isRequired,
     setNoteViewerVisible: PropTypes.func.isRequired,
     setOpenClinicalNote: PropTypes.func.isRequired,
+    setOpenSourceNotEntryId: PropTypes.func,
     setSearchSelectedItem: PropTypes.func.isRequired,
     shortcutManager: PropTypes.object.isRequired,
     structuredFieldMapManager: PropTypes.object,

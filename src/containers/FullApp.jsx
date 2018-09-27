@@ -281,6 +281,8 @@ export class FullApp extends Component {
             });
             return;
         }
+
+        // if item.source.note is defined, open the referenced note
         if (item.source.note) {
             const sourceNote = this.state.patient.getEntryFromReference(item.source.note);
             this.setState({

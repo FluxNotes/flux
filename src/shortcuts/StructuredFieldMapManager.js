@@ -50,12 +50,13 @@ class StructuredFieldMapManager {
         return this._placeholders;
     }
 
+    // returns key from _keyToShortcupMap corresponding to shortcut that has a valueObject with matching entryIds
     getKeyFromEntryId(entryId) {
         let resultKey = null;
 
-        this._keyToShortcutMap.forEach((v, k) => {
-            if (v.object) {
-                if (v.object.entryInfo.entryId === entryId) resultKey = k;
+        this._keyToShortcutMap.forEach((shortcut, k) => {
+            if (shortcut.valueObject) {
+                if (shortcut.valueObject.entryInfo.entryId === entryId) resultKey = k;
             }
         });
 
