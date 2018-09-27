@@ -94,28 +94,29 @@ describe('PatientSearch', function () {
             .to.have.lengthOf.at.least(expectedLength)
     });
 
-    it('Should fire setFullAppState when you click on a suggestions ', function () { 
+    // Since we are no longer opening source notes on clicking search results, I am disabling this test for now. We might need it later.
+    // it('Should fire setFullAppState when you click on a suggestions ', function () { 
         // We'll expect this to be true after clicking on a suggestion
-        didSetFullAppStateFunctionTrigger = false;
-        const wrapper = mount(<PatientSearch
-            patient={testPatientObj}
-            setSearchSelectedItem={setSearchSelectedItem}
-            setCondition={jest.fn()}
-            searchIndex={searchIndex}
-        />);        
-        const inputField = wrapper.find('input.react-autosuggest__input')
-        inputField.simulate('change', { target: {value: inputValue}}); 
-        inputField.simulate('focus'); 
-        // Assumes we're testing against TestPatient
-        expect(testPatientObj.shrId)
-            .to.equal(testPatientShrId)
+        // didSetFullAppStateFunctionTrigger = false;
+        // const wrapper = mount(<PatientSearch
+        //     patient={testPatientObj}
+        //     setSearchSelectedItem={setSearchSelectedItem}
+        //     setCondition={jest.fn()}
+        //     searchIndex={searchIndex}
+        // />);
+        // const inputField = wrapper.find('input.react-autosuggest__input')
+        // inputField.simulate('change', { target: {value: inputValue}}); 
+        // inputField.simulate('focus'); 
+        // // Assumes we're testing against TestPatient
+        // expect(testPatientObj.shrId)
+        //     .to.equal(testPatientShrId)
 
-        const suggestionList = wrapper.find('li.react-autosuggest__suggestion');
-        const firstSuggestion = suggestionList.first()
-        firstSuggestion.simulate('click');
+        // const suggestionList = wrapper.find('li.react-autosuggest__suggestion');
+        // const firstSuggestion = suggestionList.first()
+        // firstSuggestion.simulate('click');
 
-        // After clicking this should be true
-        expect(didSetFullAppStateFunctionTrigger)
-            .to.be.true
-    });
+        // // After clicking this should be true
+        // expect(didSetFullAppStateFunctionTrigger)
+        //     .to.be.true
+    // });
 });
