@@ -234,6 +234,12 @@ class TimelineEventsVisualizer extends Component {
         );
     }
 
+    handleHeaderRef = (el) => {
+        if (el) {
+            el.addEventListener('click', (e) => { e.stopPropagation(); });
+        };
+    }
+
     render() {
         return (
             <div 
@@ -271,6 +277,9 @@ class TimelineEventsVisualizer extends Component {
                         canMove={false}
                         canResize={false}
                         canSelect={false}
+                        minZoom={86400000}
+                        headerRef={this.handleHeaderRef}
+                        minimumWidthForItemContentVisibility={1}
                     /> : null}
                 <Legend
                   items={this.state.legendItems}

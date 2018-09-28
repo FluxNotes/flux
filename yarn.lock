@@ -5342,6 +5342,10 @@ lodash.isarray@^3.0.0:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/lodash.isarray/-/lodash.isarray-3.0.4.tgz#79e4eb88c36a8122af86f844aa9bcd851b5fbb55"
 
+lodash.isequal@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
+
 lodash.keys@^3.0.0, lodash.keys@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/lodash.keys/-/lodash.keys-3.1.2.tgz#4dbc0472b156be50a0b286855d1bd0b0c656098a"
@@ -7167,13 +7171,13 @@ react-autowhatever@^10.1.0:
     react-themeable "^1.1.0"
     section-iterator "^2.0.0"
 
-react-calendar-timeline@0.15.3:
-  version "0.15.3"
-  resolved "https://registry.yarnpkg.com/react-calendar-timeline/-/react-calendar-timeline-0.15.3.tgz#3b72e31736d05294f172b811506b13130365cc71"
+react-calendar-timeline@0.16.1:
+  version "0.16.1"
+  resolved "https://registry.yarnpkg.com/react-calendar-timeline/-/react-calendar-timeline-0.16.1.tgz#8637d5c2cb8e9586888865aa5258fa744f11396a"
   dependencies:
     element-resize-detector "^1.1.12"
     interact.js "^1.2.6"
-    react-pure-render "^1.0.2"
+    lodash.isequal "^4.5.0"
 
 react-copy-to-clipboard@5.0.0:
   version "5.0.0"
@@ -7271,10 +7275,6 @@ react-portal@^3.1.0:
   resolved "https://registry.yarnpkg.com/react-portal/-/react-portal-3.1.0.tgz#865c44fb72a1da106c649206936559ce891ee899"
   dependencies:
     prop-types "^15.5.8"
-
-react-pure-render@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/react-pure-render/-/react-pure-render-1.0.2.tgz#9d8a928c7f2c37513c2d064e57b3e3c356e9fabb"
 
 react-redux@^5.0.6:
   version "5.0.6"
