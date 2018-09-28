@@ -6,11 +6,11 @@ import Timeline from 'react-calendar-timeline';
 import containerResizeDetector from 'react-calendar-timeline/lib/resize-detector/container';
 import Item from './Item';
 import Button from '../elements/Button';
+import Portal from 'react-portal';
 import moment from 'moment';
 import './Timeline.css';
 import './TimelineEventsVisualizer.css';
 import FontAwesome from 'react-fontawesome';
-import { Tooltip } from 'material-ui';
 
 class TimelineEventsVisualizer extends Component {
     constructor(props) {
@@ -46,11 +46,11 @@ class TimelineEventsVisualizer extends Component {
                 {icon: 'hospital-o', description: 'Medical procedures'},
                 {icon: 'heartbeat', description: 'Key events and disease status'}
             ],
-            hoverItem: {
-                title: '',
-                details: '',
-                style: {top: 0, left: 0, display: 'none'}
-            },
+            // hoverItem: {
+            //     title: '',
+            //     details: '',
+            //     style: {top: 0, left: 0, display: 'none'}
+            // },
             toggleTouch: false
         };
     };
@@ -87,12 +87,12 @@ class TimelineEventsVisualizer extends Component {
             const id = i + 1;
             item.id = id;
             item.itemProps = {
-                onMouseEnter: (e) => this.enterItemHover(e, id),
-                onMouseLeave: (e) => this.leaveItemHover(e),
+                // onMouseEnter: (e) => this.enterItemHover(e, id),
+                // onMouseLeave: (e) => this.leaveItemHover(e),
 
 
                 //option 1 - 2 tap
-                onTouchEnd: (e) => this.toggleOnTouch(e, id)
+                // onTouchEnd: (e) => this.toggleOnTouch(e, id)
                 
                 //option 2 - hold 2 view (preferred )
                 // onTouchStart: (e) => this.enterItemHover(e, id),
@@ -102,45 +102,46 @@ class TimelineEventsVisualizer extends Component {
         return items;
     }
   
-    toggleOnTouch = (e, id) => {
-        if (this.state.toggleTouch) {
-            this.leaveItemHover(e);
-        } else {
-            this.enterItemHover(e, id);
-        }
+    // toggleOnTouch = (e, id) => {
+    //     if (this.state.toggleTouch) {
+    //         this.leaveItemHover(e);
+    //     } else {
+    //         this.enterItemHover(e, id);
+    //     }
 
-        this.setState ({toggleTouch: !this.state.toggleTouch});
-    }
+    //     this.setState ({toggleTouch: !this.state.toggleTouch});
+    // }
 
-    enterItemHover = (e, id) => {
-        // Get position of this item on the screen
-        e.preventDefault();
-        const targetItem = document.querySelector(`[id="timeline-item-${id}"]`);
-        const rect = targetItem.getBoundingClientRect();
-        const style = {
-            top: `${rect.top - 65}px`,
-            left: `${rect.left}px`,
-            display: null
-        }
+    // enterItemHover = (e, id) => {
+    //     // Get position of this item on the screen
+    //     e.preventDefault();
+    //     const targetItem = document.querySelector(`[id="timeline-item-${id}"]`);
+    //     const rect = targetItem.getBoundingClientRect();
+    //     const style = {
+    //         top: `${rect.top - 65}px`,
+    //         left: `${rect.left}px`,
+    //         display: null
+    //     }
   
-        const item = this.state.items[id-1];
-        const hoverItemState = {
-            title: item.hoverTitle,
-            text: item.hoverText,
-            style: style
-        };
-        this.setState({'hoverItem': hoverItemState});
-    }
+    //     const item = this.state.items[id-1];
+    //     const hoverItemState = {
+    //         title: item.hoverTitle,
+    //         text: item.hoverText,
+    //         style: style
+    //     };
+    //     this.setState({'hoverItem': hoverItemState});
+    // }
 
-    leaveItemHover = (e) => {
-        e.preventDefault();
-        const defaultHoverItemState = {
-            style: {
-                display: 'none'
-            }
-        };
-        this.setState({'hoverItem': defaultHoverItemState});
-    }
+    // leaveItemHover = (e) => {
+    //     console.log("in exit");
+    //     e.preventDefault();
+    //     const defaultHoverItemState = {
+    //         style: {
+    //             display: 'none'
+    //         }
+    //     };
+    //     this.setState({'hoverItem': defaultHoverItemState});
+    // }
 
     // Create a set of groups that match those used by the items.
     createGroupsForItems = (numGroups) => {
@@ -270,11 +271,13 @@ class TimelineEventsVisualizer extends Component {
                     {this.renderScrollButtons()}
                     {this.renderZoomButtons()}
                 </div>
-                <HoverItem
+                {/* <HoverItem
                     title={this.state.hoverItem.title}
                     text={this.state.hoverItem.text}
                     style={this.state.hoverItem.style}
-                />
+                /> */}
+
+
                 {/* Null check to ensure timeline is rendered  */}
                 {this.props.condition ?
                     <Timeline
@@ -301,10 +304,24 @@ class TimelineEventsVisualizer extends Component {
                         minZoom={86400000}
                         headerRef={this.handleHeaderRef}
                         minimumWidthForItemContentVisibility={1}
+                        keys={{
+                            groupIdKey: 'id',
+                            groupTitleKey: 'title',
+                            groupRightTitleKey: 'rightTitle',
+                            itemIdKey: 'id',
+                            itemTitleKey: 'title',    // key for item div content
+                            itemDivTitleKey: 'no hover title', // key for item div title (<div title="text"/>). *suppress hover by passing a title it can't find
+                            itemGroupKey: 'group',
+                            itemTimeStartKey: 'start_time',
+                            itemTimeEndKey: 'end_time'
+                          }}
                     /> : null}
                 <Legend
                   items={this.state.legendItems}
                 />
+                <div className="tooltip">Hover over me
+                    <span className="tooltiptext">Tooltip text</span>
+                </div>
             </div>
         )
     }

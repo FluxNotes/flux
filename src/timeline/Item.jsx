@@ -29,11 +29,15 @@ function Item({ item }) {
     const itemId = `timeline-item-${item.id}`;
 
     return (
-        <div id={itemId} className="item" onTouchStart={item.itemProps.onTouchStart} onTouchEnd={item.itemProps.onTouchEnd}>
+        <div className="tooltip">
+         <span id={itemId} className="tooltiptext">test</span>
+            <div id={itemId} className="item">
                 {icon}
                 <strong>{item.title}</strong>
-                {details}
+                {details}               
+            </div>
         </div>
+      
     );
 };
 
