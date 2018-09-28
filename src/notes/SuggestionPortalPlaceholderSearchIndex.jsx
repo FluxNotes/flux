@@ -13,15 +13,12 @@ class SuggestionPortalPlaceholderSearchIndex extends SuggestionPortalSearchIndex
         placeholders.forEach((placeholder) => {
             const triggers = this.shortcutManager.getTriggersForShortcut(placeholder.id);
             triggers.forEach((trigger) => {
-                const triggerPrefix = trigger.name.substring(0,1);
                 const triggerNoPrefix = trigger.name.substring(1);
-                if (this.initialChar === triggerPrefix) {
-                    relevantShortcuts.push({
-                        key: triggerNoPrefix,
-                        value: `${trigger}>`,
-                        suggestion: triggerNoPrefix,
-                    });
-                }
+                relevantShortcuts.push({
+                    key: triggerNoPrefix,
+                    value: `${this.initialChar}${triggerNoPrefix}>`,
+                    suggestion: triggerNoPrefix,
+                });
             });
         });
 
