@@ -7,6 +7,7 @@ import containerResizeDetector from 'react-calendar-timeline/lib/resize-detector
 import Item from './Item';
 import Button from '../elements/Button';
 import moment from 'moment';
+import './Timeline.css';
 import './TimelineEventsVisualizer.css';
 import FontAwesome from 'react-fontawesome';
 
