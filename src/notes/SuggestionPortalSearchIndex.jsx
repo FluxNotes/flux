@@ -31,10 +31,23 @@ class SuggestionPortalSearchIndex {
     // Follows the 
     search = (searchText) => {
         if (Lang.isUndefined(searchText)) return [];
+        const maxLength = 25;
         const searchTextLowercase = searchText.toLowerCase();
+        let results = this.shortcutsFuse.search(searchTextLowercase);
 
-        const results = this.shortcutsFuse.search(searchTextLowercase);
-        return results.slice(0, 15).map((result) => { 
+        // If there are no results, if the searchText is empty, and if the list being searched on is nonempty
+        // return a list of shortcutsFuseOptions formatted with this extra data field
+        if (results.length === 0 && Lang.isEmpty(searchText)) {
+            return this.shortcutsFuse.list.slice(0, maxLength).map((suggestionObj) => {
+                suggestionObj.data = {
+                    score: 1,
+                    matches: [],
+                }
+                return suggestionObj
+            });
+        }
+
+        return results.slice(0, maxLength).map((result) => { 
             return {
                 key: result.item.key,
                 value: result.item.value,
