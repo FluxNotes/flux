@@ -50,7 +50,6 @@ class TimelineEventsVisualizer extends Component {
                 details: '',
                 style: {top: 0, left: 0, display: 'none'}
             },
-            toggleTouch: false
         };
     };
 
@@ -97,16 +96,6 @@ class TimelineEventsVisualizer extends Component {
             }; 
         });
         return items;
-    }
-  
-    toggleOnTouch = (e, id) => {
-        if (this.state.toggleTouch) {
-            this.leaveItemHover(e);
-        } else {
-            this.enterItemHover(e, id);
-        }
-
-        this.setState ({toggleTouch: !this.state.toggleTouch});
     }
 
     enterItemHover = (e, id) => {
