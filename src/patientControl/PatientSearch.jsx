@@ -131,6 +131,7 @@ class PatientSearch extends React.Component {
             suggestion.onClick(suggestion);
         }
 
+        this.setState({ previousSuggestion: null });
         this.refs.autosuggest.input.blur();
     }
 
