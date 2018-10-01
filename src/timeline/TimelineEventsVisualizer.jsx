@@ -5,9 +5,11 @@ import HoverItem from './HoverItem';
 import Timeline from 'react-calendar-timeline';
 import containerResizeDetector from 'react-calendar-timeline/lib/resize-detector/container';
 import Item from './Item';
+import Button from '../elements/Button';
 import moment from 'moment';
+import './Timeline.css';
 import './TimelineEventsVisualizer.css';
-import 'font-awesome/css/font-awesome.min.css';
+import FontAwesome from 'react-fontawesome';
 
 class TimelineEventsVisualizer extends Component {
     constructor(props) {
@@ -19,17 +21,21 @@ class TimelineEventsVisualizer extends Component {
         // Define the bounds of the timeline
         let defaultTimeStart;
         if (this.props.isWide) { 
-            defaultTimeStart = moment().clone().add(-3, 'years');  // wideview - 3 years ago
+            defaultTimeStart = moment().clone().add(-3, 'years').add(3, 'months');  // wideview - 3 years ago
         } else {
-            defaultTimeStart = moment().clone().add(-1, 'years');
+            defaultTimeStart = moment().clone().add(-1, 'years').add(3, 'months');
         }
         const defaultTimeEnd = moment().clone().add(3, 'months'); // end - 3 months from now
+        const visibleTimeStart = defaultTimeStart.valueOf();
+        const visibleTimeEnd = defaultTimeEnd.valueOf();
 
         this.state = {
             items,
             groups,
             defaultTimeStart,
             defaultTimeEnd,
+            visibleTimeStart,
+            visibleTimeEnd,
             timeSteps: {
                 day: 1,
                 month: 1,
@@ -43,7 +49,7 @@ class TimelineEventsVisualizer extends Component {
                 title: '',
                 details: '',
                 style: {top: 0, left: 0, display: 'none'}
-            }
+            },
         };
     };
 
@@ -51,17 +57,19 @@ class TimelineEventsVisualizer extends Component {
         if (this.props !== nextProps) {
             const items = this.createItems(nextProps.patient, nextProps.condition, nextProps.conditionSection);
             const groups = this.createGroupsForItems(this.getMaxGroup(items));
-            let defaultTimeStart;
+            let visibleTimeStart;
             if (nextProps.isWide) { 
-                defaultTimeStart = moment().clone().add(-3, 'years');  // wideview - 3 years ago
+                visibleTimeStart = moment().clone().add(-3, 'years').add(3, 'months').valueOf();  // wideview - 3 years ago
             } else {
-                defaultTimeStart = moment().clone().add(-1, 'years');
+                visibleTimeStart = moment().clone().add(-1, 'years').add(3, 'months').valueOf();
             }
+            const visibleTimeEnd = moment().clone().add(3, 'months').valueOf();
 
             this.setState({
                 items,
                 groups,
-                defaultTimeStart
+                visibleTimeStart,
+                visibleTimeEnd
             });
         }
     }
@@ -80,13 +88,16 @@ class TimelineEventsVisualizer extends Component {
             item.id = id;
             item.itemProps = {
                 onMouseEnter: (e) => this.enterItemHover(e, id),
-                onMouseLeave: (e) => this.leaveItemHover(e)
+                onMouseLeave: (e) => this.leaveItemHover(e),
+
+                // hold 2 view 
+                onTouchStart: (e) => this.enterItemHover(e, id),
+                onTouchEnd: (e) => this.leaveItemHover(e)
             }; 
         });
-
         return items;
     }
-  
+
     enterItemHover = (e, id) => {
         // Get position of this item on the screen
         e.preventDefault();
@@ -97,13 +108,13 @@ class TimelineEventsVisualizer extends Component {
             left: `${rect.left}px`,
             display: null
         }
-  
         const item = this.state.items[id-1];
         const hoverItemState = {
             title: item.hoverTitle,
             text: item.hoverText,
             style: style
         };
+
         this.setState({'hoverItem': hoverItemState});
     }
 
@@ -114,6 +125,7 @@ class TimelineEventsVisualizer extends Component {
                 display: 'none'
             }
         };
+
         this.setState({'hoverItem': defaultHoverItemState});
     }
 
@@ -141,17 +153,116 @@ class TimelineEventsVisualizer extends Component {
         return max;
     }
 
+    handleHeaderRef = (el) => {
+        if (el) {
+            el.addEventListener('click', (e) => { e.stopPropagation(); });
+        };
+    }
+
+    onTimelineZoomClick = (timeAmount, timeUnit) => {
+        const currentTimeStart = this.state.visibleTimeStart;
+        const currentTimeEnd = this.state.visibleTimeEnd;
+        const centerPoint = currentTimeStart + (currentTimeEnd - currentTimeStart)/2;
+        this.setState({
+            visibleTimeStart: moment(centerPoint).subtract(timeAmount/2, timeUnit).valueOf(),
+            visibleTimeEnd: moment(centerPoint).add(timeAmount/2, timeUnit).valueOf()
+        });
+    }
+
+    onTimelineScrollClick = (newEndDate, jumpForward) => {
+        const newEndDateValue = newEndDate.valueOf();
+        const currentTimeLengthVisible = this.state.visibleTimeEnd - this.state.visibleTimeStart;
+        const multiple = jumpForward ? 1 : -1;
+        const amountToPutEndDateInView = currentTimeLengthVisible * (1/12) * multiple;
+        this.setState({
+            visibleTimeStart: moment(newEndDateValue).subtract(currentTimeLengthVisible - amountToPutEndDateInView, 'ms').valueOf(),
+            visibleTimeEnd: moment(newEndDateValue).add(amountToPutEndDateInView).valueOf()
+        });
+    }
+
+    onTimeChange = (visibleTimeStart, visibleTimeEnd, updateScrollCanvas) => {
+        this.setState({ visibleTimeStart, visibleTimeEnd });
+        updateScrollCanvas(visibleTimeStart, visibleTimeEnd);
+    }
+
+    renderZoomButtons = () => {
+        return (
+            <span className="timeline-controls-right">
+                <Button
+                    id="timeline-controls"
+                    className="small-btn"
+                    onClick={() => this.onTimelineZoomClick(1, 'weeks')}>
+                    1w
+                </Button>
+                <Button
+                    id="timeline-controls"
+                    className="small-btn"
+                    onClick={() => this.onTimelineZoomClick(1, 'months')}>
+                    1m
+                </Button>
+                <Button
+                    id="timeline-controls"
+                    className="small-btn"
+                    onClick={() => this.onTimelineZoomClick(6, 'months')}>
+                    6m
+                </Button>
+                <Button
+                    id="timeline-controls"
+                    className="small-btn"
+                    onClick={() => this.onTimelineZoomClick(1, 'years')}>
+                    1y
+                </Button>
+                <Button
+                    id="timeline-controls"
+                    className="small-btn"
+                    onClick={() => this.onTimelineZoomClick(3, 'years')}>
+                    3y
+                </Button>
+            </span>
+        );
+    }
+
+    renderScrollButtons = () => {
+        return (
+            <span className="timeline-controls-left">
+                <Button
+                    id="timeline-controls"
+                    className="small-btn"
+                    onClick={() => this.onTimelineScrollClick(moment(this.state.visibleTimeEnd), false)}>
+                    <FontAwesome name="angle-left" />
+                </Button>
+                <Button
+                    id="timeline-controls"
+                    className="small-btn"
+                    onClick={() => this.onTimelineScrollClick(moment().clone(), true)}>
+                    Today
+                </Button>
+                <Button
+                    id="timeline-controls"
+                    className="small-btn"
+                    onClick={() => this.onTimelineScrollClick(moment(this.state.visibleTimeEnd), true)}>
+                    <FontAwesome name="angle-right" />
+                </Button>
+            </span>
+        );
+    }
+
     render() {
         return (
             <div 
                 id="timeline" 
                 className={this.props.className}
             >
+                <div>
+                    {this.renderScrollButtons()}
+                    {this.renderZoomButtons()}
+                </div>
                 <HoverItem
                     title={this.state.hoverItem.title}
                     text={this.state.hoverItem.text}
                     style={this.state.hoverItem.style}
                 />
+
                 {/* Null check to ensure timeline is rendered  */}
                 {this.props.condition ?
                     <Timeline
@@ -160,6 +271,9 @@ class TimelineEventsVisualizer extends Component {
                         items={this.state.items}
                         defaultTimeStart={this.state.defaultTimeStart}
                         defaultTimeEnd={this.state.defaultTimeEnd}
+                        visibleTimeStart={this.state.visibleTimeStart}
+                        visibleTimeEnd={this.state.visibleTimeEnd}
+                        onTimeChange={this.onTimeChange}
                         rightSidebarWidth={0}
                         rightSidebarContent={null}
                         sidebarWidth={0}
@@ -171,6 +285,20 @@ class TimelineEventsVisualizer extends Component {
                         canMove={false}
                         canResize={false}
                         canSelect={false}
+                        minZoom={86400000}
+                        headerRef={this.handleHeaderRef}
+                        minimumWidthForItemContentVisibility={1}
+                        keys={{
+                            groupIdKey: 'id',
+                            groupTitleKey: 'title',
+                            groupRightTitleKey: 'rightTitle',
+                            itemIdKey: 'id',
+                            itemTitleKey: 'title',    // key for item div content
+                            itemDivTitleKey: 'no hover title', // key for item div title (<div title="text"/>). *suppress hover by passing a title it can't find
+                            itemGroupKey: 'group',
+                            itemTimeStartKey: 'start_time',
+                            itemTimeEndKey: 'end_time'
+                          }}
                     /> : null}
                 <Legend
                   items={this.state.legendItems}
