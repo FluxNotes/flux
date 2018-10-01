@@ -6,7 +6,6 @@ import Timeline from 'react-calendar-timeline';
 import containerResizeDetector from 'react-calendar-timeline/lib/resize-detector/container';
 import Item from './Item';
 import Button from '../elements/Button';
-import Portal from 'react-portal';
 import moment from 'moment';
 import './Timeline.css';
 import './TimelineEventsVisualizer.css';
@@ -90,12 +89,9 @@ class TimelineEventsVisualizer extends Component {
                 onMouseEnter: (e) => this.enterItemHover(e, id),
                 onMouseLeave: (e) => this.leaveItemHover(e),
 
-                //option 1 - 2 tap
-                onTouchEnd: (e) => this.toggleOnTouch(e, id)
-                
-                //option 2 - hold 2 view (preferred )
-                // onTouchStart: (e) => this.enterItemHover(e, id),
-                // onTouchEnd: (e) => this.leaveItemHover(e)
+                // hold 2 view 
+                onTouchStart: (e) => this.enterItemHover(e, id),
+                onTouchEnd: (e) => this.leaveItemHover(e)
             }; 
         });
         return items;
@@ -112,7 +108,6 @@ class TimelineEventsVisualizer extends Component {
     }
 
     enterItemHover = (e, id) => {
-        console.log("in enter");
         // Get position of this item on the screen
         e.preventDefault();
         const targetItem = document.querySelector(`[id="timeline-item-${id}"]`);
@@ -122,24 +117,24 @@ class TimelineEventsVisualizer extends Component {
             left: `${rect.left}px`,
             display: null
         }
-  
         const item = this.state.items[id-1];
         const hoverItemState = {
             title: item.hoverTitle,
             text: item.hoverText,
             style: style
         };
+
         this.setState({'hoverItem': hoverItemState});
     }
 
     leaveItemHover = (e) => {
-        console.log("in exit");
         e.preventDefault();
         const defaultHoverItemState = {
             style: {
                 display: 'none'
             }
         };
+
         this.setState({'hoverItem': defaultHoverItemState});
     }
 
@@ -277,7 +272,6 @@ class TimelineEventsVisualizer extends Component {
                     style={this.state.hoverItem.style}
                 />
 
-
                 {/* Null check to ensure timeline is rendered  */}
                 {this.props.condition ?
                     <Timeline
@@ -297,7 +291,6 @@ class TimelineEventsVisualizer extends Component {
                         lineHeight={40}
                         itemHeightRatio={0.7}
                         itemRenderer={Item}
-                        itemTouchSendsClick={false}
                         canMove={false}
                         canResize={false}
                         canSelect={false}
