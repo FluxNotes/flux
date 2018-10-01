@@ -21,7 +21,8 @@ class PatientSearch extends React.Component {
         // and they are initially empty because the Autosuggest is closed.
         this.state = {
             suggestions: [],
-            value: ''
+            value: '',
+            previousSuggestion: null
         };
     }
 
@@ -134,9 +135,15 @@ class PatientSearch extends React.Component {
     }
 
     onSuggestionHighlighted = ({suggestion}) => {
+        const {previousSuggestion} = this.state;
+        if (previousSuggestion && previousSuggestion.onHighlight) previousSuggestion.onHighlight(previousSuggestion, true);
         if (!Lang.isNull(suggestion) && suggestion.onHighlight) {
             suggestion.onHighlight(suggestion);
         }
+
+        this.setState({
+            previousSuggestion: suggestion
+        });
     }
 
     // When the input is focused, Autosuggest will consult this function when to render suggestions
