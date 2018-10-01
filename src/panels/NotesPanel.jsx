@@ -254,6 +254,7 @@ export default class NotesPanel extends Component {
             this.props.patient.reAddEntryToPatient(b);
         });
 
+        this.props.searchIndex.removeDataBySection('Open Note');
         this.props.searchIndex.removeDataByRef(`clinical_notes_in_progress_notes_created_by_${tempNote.entryInfo.entryId}`);
         this.props.searchIndex.removeDataByRef(`clinical_notes_in_progress_notes_created_on_${tempNote.entryInfo.entryId}`);
         this.props.searchIndex.removeDataByRef(`clinical_notes_in_progress_notes_title_${tempNote.entryInfo.entryId}`);

@@ -742,6 +742,7 @@ class FluxNotesEditor extends React.Component {
                 }
             }
             this.props.searchIndex.removeDataBySection('Open Note');
+            const sectionId = nextProps.updatedEditorNote.signed ? 'signed_notes' : 'in_progress_notes';
             this.props.searchIndex.addSearchableData({
                 id: 'open_note_section',
                 section: 'Open Note',
@@ -752,6 +753,7 @@ class FluxNotesEditor extends React.Component {
                 onClick: null
             });
             this.noteContentIndexer.indexData("Open Note", '', nextProps.updatedEditorNote, this.props.searchIndex, this.onOpenNoteSearchResultHighlight, null);
+            this.props.searchIndex.removeDataByRef(`clinical_notes_${sectionId}_content_${nextProps.updatedEditorNote.entryInfo.entryId}`);
         }
 
         // Check if the current view mode changes

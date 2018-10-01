@@ -59,6 +59,10 @@ class SearchIndex {
         this._index.removeDocByRef(ref);
     }
 
+    hasDocument(ref) {
+        return this._index.documentStore.hasDoc(ref);
+    }
+
     search(query) {
         let suggestions = [];
         this._index.search(query, {

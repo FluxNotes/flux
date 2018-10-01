@@ -12,7 +12,7 @@ class NotesIndexer extends NoteContentIndexer {
         });
 
         searchIndex.addSearchableData({
-            id: `${noteSectionId}_signed_notes}`,
+            id: `${noteSectionId}_signed_notes`,
             section,
             subsection: 'Signed Notes',
             valueTitle: 'Subsection',
@@ -20,7 +20,7 @@ class NotesIndexer extends NoteContentIndexer {
         });
 
         searchIndex.addSearchableData({
-            id: `${noteSectionId}_in_progress_notes}`,
+            id: `${noteSectionId}_in_progress_notes`,
             section,
             subsection: 'In Progress Notes',
             valueTitle: 'Subsection',
@@ -28,6 +28,8 @@ class NotesIndexer extends NoteContentIndexer {
         });
 
         data.forEach(note => {
+            const subsectionId = note.signed ? 'signed_notes' : 'in_progress_notes';
+            if (searchIndex.hasDocument(`open_note_${subsectionId}_content_${note.entryInfo.entryId}`)) return;
             super.indexData(section, subsection, note, searchIndex, onHighlight, onClick);
         });
     }
