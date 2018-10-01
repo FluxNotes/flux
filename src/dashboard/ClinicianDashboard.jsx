@@ -206,6 +206,7 @@ export default class ClinicianDashboard extends Component {
                         newCurrentShortcut={this.props.newCurrentShortcut}
                         noteClosed={this.props.appState.noteClosed}
                         openClinicalNote={this.props.appState.openClinicalNote}
+                        openSourceNoteEntryId={this.props.openSourceNoteEntryId}
                         patient={this.props.appState.patient}
                         searchIndex={this.props.searchIndex}
                         searchSelectedItem={this.props.searchSelectedItem}
@@ -216,6 +217,7 @@ export default class ClinicianDashboard extends Component {
                         setNoteViewerEditable={this.props.setNoteViewerEditable}
                         setNoteViewerVisible={this.props.setNoteViewerVisible}
                         setOpenClinicalNote={this.props.setOpenClinicalNote}
+                        setOpenSourceNoteEntryId={this.props.setOpenSourceNoteEntryId}
                         setSearchSelectedItem={this.props.setSearchSelectedItem}
                         shortcutManager={this.props.shortcutManager}
                         structuredFieldMapManager={this.props.structuredFieldMapManager}
@@ -230,7 +232,7 @@ export default class ClinicianDashboard extends Component {
     }
 }
 
-ClinicianDashboard.proptypes = {
+ClinicianDashboard.propTypes = {
     actions: PropTypes.array.isRequired,
     appState: PropTypes.object.isRequired,
     contextManager: PropTypes.object.isRequired,
@@ -241,6 +243,10 @@ ClinicianDashboard.proptypes = {
     loginUser: PropTypes.object.isRequired,
     newCurrentShortcut: PropTypes.func.isRequired,
     onContextUpdate: PropTypes.func.isRequired,
+    openSourceNoteEntryId: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+    ]),
     possibleClinicalEvents: PropTypes.array.isRequired,
     searchSelectedItem: PropTypes.object,
     setForceRefresh: PropTypes.func.isRequired,
@@ -250,6 +256,7 @@ ClinicianDashboard.proptypes = {
     setNoteViewerEditable: PropTypes.func.isRequired,
     setNoteViewerVisible: PropTypes.func.isRequired,
     setOpenClinicalNote: PropTypes.func.isRequired,
+    setOpenSourceNotEntryId: PropTypes.func,
     setSearchSelectedItem: PropTypes.func.isRequired,
     shortcutManager: PropTypes.object.isRequired,
     structuredFieldMapManager: PropTypes.object,

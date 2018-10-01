@@ -11,7 +11,6 @@ import Snackbar from 'material-ui/Snackbar';
 import Modal from 'material-ui/Modal';
 import Typography from 'material-ui/Typography';
 import Lang from 'lodash';
-import Reference from '../model/Reference';
 
 import SecurityManager from '../security/SecurityManager';
 import DashboardManager from '../dashboard/DashboardManager';
@@ -86,6 +85,7 @@ export class FullApp extends Component {
             loginUser: {},
             noteClosed: false,
             openClinicalNote: null,
+            openSourceNoteEntryId: null,
             patient: null,
             searchSelectedItem: null,
             snackbarOpen: false,
@@ -255,6 +255,10 @@ export class FullApp extends Component {
         });
     }
 
+    setOpenSourceNoteEntryId = (openSourceNoteEntryId) => {
+        this.setState({ openSourceNoteEntryId });
+    }
+
     sourceActionIsDisabled = (element) => {
         if (element.source) {
             return false;
@@ -264,7 +268,7 @@ export class FullApp extends Component {
 
     nameSourceAction = (element) => {
         if (element.source) {
-            return (element.source instanceof Reference ? "Open Source Note" : "View Source");
+            return (element.source.note ? "Open Source Note" : "View Source");
         }
         return "No source information";
     }
@@ -277,9 +281,15 @@ export class FullApp extends Component {
             });
             return;
         }
-        if (item.source instanceof Reference) {
-            const sourceNote = this.state.patient.getEntryFromReference(item.source);
-            this.setOpenClinicalNote(sourceNote);
+
+        // if item.source.note is defined, open the referenced note
+        if (item.source.note) {
+            const sourceNote = this.state.patient.getEntryFromReference(item.source.note);
+
+            this.setState({
+                openClinicalNote: sourceNote,
+                openSourceNoteEntryId: item.source.entryId,
+            });
         } else {
             const labelForItem = itemLabel; // (Lang.isArray(itemLabel) ? itemLabel[0] : itemLabel );
             const title = "Source for " + (labelForItem === item.value ? labelForItem : labelForItem + " of " + item.value);
@@ -374,6 +384,7 @@ export class FullApp extends Component {
                             loginUser={this.state.loginUser}
                             newCurrentShortcut={this.newCurrentShortcut}
                             onContextUpdate={this.onContextUpdate}
+                            openSourceNoteEntryId={this.state.openSourceNoteEntryId}
                             possibleClinicalEvents={this.possibleClinicalEvents}
                             searchSelectedItem={this.state.searchSelectedItem}
                             setNoteClosed={this.setNoteClosed}
@@ -383,6 +394,7 @@ export class FullApp extends Component {
                             setFullAppStateWithCallback={this.setFullAppStateWithCallback}
                             setLayout={this.setLayout}
                             setOpenClinicalNote={this.setOpenClinicalNote}
+                            setOpenSourceNoteEntryId={this.setOpenSourceNoteEntryId}
                             setSearchSelectedItem={this.setSearchSelectedItem}
                             shortcutManager={this.shortcutManager}
                             structuredFieldMapManager={this.structuredFieldMapManager}

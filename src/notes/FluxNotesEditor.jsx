@@ -628,9 +628,15 @@ class FluxNotesEditor extends React.Component {
 
     scrollToShortcut = (document, shortcutKey) => {
         const node = document.getNode(shortcutKey);
-        const el = Slate.findDOMNode(node);
-        if (el && el.scrollIntoView) {
-            el.scrollIntoView();
+
+        try {
+            const el = Slate.findDOMNode(node);
+            if (el && el.scrollIntoView) {
+                el.scrollIntoView();
+            }
+        } catch (e) {
+            // DOMNode not found
+            return;
         }
     }
 
@@ -706,7 +712,7 @@ class FluxNotesEditor extends React.Component {
             this.insertContextTrayItem(nextProps.contextTrayItemToInsert);
         }
 
-       // Check if the updatedEditorNote property has been updated
+        // Check if the updatedEditorNote property has been updated
         if (nextProps.shouldEditorContentUpdate && this.props.updatedEditorNote !== nextProps.updatedEditorNote && !Lang.isNull(nextProps.updatedEditorNote)) {
             if (this.props.noteAssistantMode === 'pick-list-options-panel') {
                 this.revertTemplate();
@@ -721,7 +727,6 @@ class FluxNotesEditor extends React.Component {
             // If the updated editor note is an actual note (existing note), then clear the editor and insert the
             // content of the selected note into the editor and set the editor to read only
             else {
-
                 this.resetEditorAndContext();
                 this.insertTextWithStructuredPhrases(nextProps.updatedEditorNote.content, undefined, false, "loaded note");
 
@@ -746,16 +751,26 @@ class FluxNotesEditor extends React.Component {
         // Check if mode is changing from 'pick-list-options-panel' to 'context-tray'
         // This means user either clicked the OK or Cancel button on the pick list options panel
         if (this.props.noteAssistantMode === 'pick-list-options-panel' && nextProps.noteAssistantMode === 'context-tray') {
-            this.adjustActiveContexts(this.state.state.selection, this.state.state); 
+            this.adjustActiveContexts(this.state.state.selection, this.state.state);
             this.props.contextManager.clearNonActiveContexts();
             this.props.setNoteViewerEditable(true);
-             // If the user clicks cancel button, change editor state back to what it was before they clicked the template
+            // If the user clicks cancel button, change editor state back to what it was before they clicked the template
             if (nextProps.shouldRevertTemplate) {
                 this.revertTemplate();
             }
             const anchorEl = Slate.findDOMNode(this.state.state.anchorBlock);
             if (anchorEl && anchorEl.scrollIntoView) {
                 anchorEl.scrollIntoView();
+            }
+        }
+
+        // The note will still scroll to structured data when the user clicks on `Open Source Note` action but note is already open
+        if (this.props.updatedEditorNote === nextProps.updatedEditorNote && this.props.openSourceNoteEntryId === null && nextProps.openSourceNoteEntryId) {
+            const shortcutKey = this.structuredFieldMapManager.getKeyFromEntryId(nextProps.openSourceNoteEntryId);
+
+            if (shortcutKey) {
+                this.scrollToShortcut(this.state.state.document, shortcutKey);
+                this.props.setOpenSourceNoteEntryId(null);
             }
         }
     }
@@ -1103,7 +1118,22 @@ class FluxNotesEditor extends React.Component {
         }
 
         const state = transform.apply();
-        this.setState({ state });
+
+        // When a note is being loaded, scroll to structured data if user opened note using `Open Source Note` action
+        if (source === 'loaded note' && this.props.openSourceNoteEntryId) {
+            this.setState({ state }, () => {
+                const shortcutKey = this.structuredFieldMapManager.getKeyFromEntryId(this.props.openSourceNoteEntryId);
+
+                if (shortcutKey) {
+                    setTimeout(() => {
+                        this.scrollToShortcut(state.document, shortcutKey)
+                        this.props.setOpenSourceNoteEntryId(null);
+                    }, 0);
+                }
+            });
+        } else {
+            this.setState({ state });
+        }
     }
 
     /**
@@ -1569,6 +1599,10 @@ FluxNotesEditor.propTypes = {
     handleUpdateEditorWithNote: PropTypes.func.isRequired,
     isNoteViewerEditable: PropTypes.bool.isRequired,
     itemInserted: PropTypes.func.isRequired,
+    openSourceNoteEntryId: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+    ]),
     newCurrentShortcut: PropTypes.func.isRequired,
     noteAssistantMode: PropTypes.string.isRequired,
     patient: PropTypes.object.isRequired,
@@ -1578,6 +1612,7 @@ FluxNotesEditor.propTypes = {
     setForceRefresh: PropTypes.func,
     setLayout: PropTypes.func.isRequired,
     setNoteViewerEditable: PropTypes.func.isRequired,
+    setOpenSourceNotEntryId: PropTypes.func,
     setUndoTemplateInsertion: PropTypes.func.isRequired,
     shortcutKey: PropTypes.string,
     shortcutManager: PropTypes.object.isRequired,
