@@ -1159,8 +1159,9 @@ class FluxNotesEditor extends React.Component {
         const shortcuts = this.contextManager.getCurrentlyValidShortcuts(this.props.shortcutManager);
 
         // Check if shortcutTrigger is a shortcut trigger in the list of currently valid shortcuts
-        return shortcuts.some((shortcut) => {
-            const triggers = this.props.shortcutManager.getTriggersForShortcut(shortcut);
+        return shortcuts.some((shortcutObj) => {
+            const shortcutId = shortcutObj.id
+            const triggers = this.props.shortcutManager.getTriggersForShortcut(shortcutId);
             return triggers.some((trigger) => {
                 return trigger.name.toLowerCase() === shortcutTrigger.toLowerCase();
             });

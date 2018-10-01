@@ -63,39 +63,36 @@ class ContextManager {
         }, [])
     }
 
-    // Returns all currently valid shortcuts, ordering them from the most recently active context down to the patient context 
+    // Returns objects corresponding to all currently valid shortcuts, 
+    // Ordering them from the most recently active context down to the patient context 
+    // ShortcutObjects have an 'id': a string associated to their unique shortcut id
+    // and they have a 'parentId': a string associated with their parent context, if they have one other than patientContext
     getCurrentlyValidShortcuts(shortcutManager) {
         let result = [];
-        let childResults = [];
+        let childIds = [];
         this.activeContexts.forEach((shortcut) => {
             // GQ changed the recurse argument (2nd) to false below. Don't want it to get child shortcuts of each context unless
             // they are in context too. If a shortcut is in context, it will be a separate entry in the active contexts list
             // so we'll get the correct shortcuts that way
-            childResults = shortcutManager.getValidChildShortcutsInContext(shortcut, false);
-            childResults.forEach((child) => {
+            childIds = shortcutManager.getValidChildShortcutsInContext(shortcut, false);
+            const shortcutId = shortcut.getId();
+            childIds.forEach((childId) => {
                 // DP added this to the loop
-                //  Adds knownparentecontexts to shortcuts that don't have them, 
-                //  N.B. it adds this data by reference, not locally
-                const childObj = shortcutManager.getShortcutMetadata(child)
-                const childParent = childObj.knownParentContexts
-                const shortcutId = shortcut.getId();
-                // Add this shortcut to knownParentContexts where needed
-                if(Lang.isString(childParent) && childParent !== shortcutId) {
-                    // console.log('is a string, looks different');
-                    childObj.knownParentContexts = shortcutId;
-                } else if (Lang.isUndefined(childParent)) {
-                    // console.log('is undefined ');
-                    childObj.knownParentContexts = [shortcutId];
-                } else if (Lang.isArray(childParent) &&!childParent.includes(shortcutId)) {
-                    // console.log('is an array, doesnt include the one we care about');
-                    childObj.knownParentContexts.push(shortcutId);
-                }
-
-                if (!result.includes(child)) result.push(child);
+                if (Lang.isUndefined(result.find((shortcutObject) => shortcutObject.id === childId))) { 
+                    const childObj = {
+                        id: childId,
+                        parentId: shortcutId,
+                    }
+                    result.push(childObj);  
+                } 
             });
         });
         // Make sure we add all the patientContext shortcuts
-        result = result.concat(shortcutManager.getValidChildShortcutsInContext(this.patientContext, true));
+        result = result.concat(shortcutManager.getValidChildShortcutsInContext(this.patientContext, true).map((shortcutId) => {
+            return  {
+                id: shortcutId
+            }
+        }));
         return result;
     }
 

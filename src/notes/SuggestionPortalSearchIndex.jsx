@@ -5,7 +5,6 @@ class SuggestionPortalSearchIndex {
     constructor(list, initialChar, shortcutManager) { 
         this.initialChar = initialChar;
         this.shortcutManager = shortcutManager;
-        this.currentlyValidShortcuts = [];
         // Metdata common to all suggestionSearchIndexs
         this.fuseOptions = {
             includeScore: true,
