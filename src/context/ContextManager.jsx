@@ -73,6 +73,24 @@ class ContextManager {
             // so we'll get the correct shortcuts that way
             childResults = shortcutManager.getValidChildShortcutsInContext(shortcut, false);
             childResults.forEach((child) => {
+                // DP added this to the loop
+                //  Adds knownparentecontexts to shortcuts that don't have them, 
+                //  N.B. it adds this data by reference, not locally
+                const childObj = shortcutManager.getShortcutMetadata(child)
+                const childParent = childObj.knownParentContexts
+                const shortcutId = shortcut.getId();
+                // Add this shortcut to knownParentContexts where needed
+                if(Lang.isString(childParent) && childParent !== shortcutId) {
+                    // console.log('is a string, looks different');
+                    childObj.knownParentContexts = shortcutId;
+                } else if (Lang.isUndefined(childParent)) {
+                    // console.log('is undefined ');
+                    childObj.knownParentContexts = [shortcutId];
+                } else if (Lang.isArray(childParent) &&!childParent.includes(shortcutId)) {
+                    // console.log('is an array, doesnt include the one we care about');
+                    childObj.knownParentContexts.push(shortcutId);
+                }
+
                 if (!result.includes(child)) result.push(child);
             });
         });

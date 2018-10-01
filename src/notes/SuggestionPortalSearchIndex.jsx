@@ -10,7 +10,7 @@ class SuggestionPortalSearchIndex {
         this.fuseOptions = {
             includeScore: true,
             includeMatches: true,
-            threshold: 0.6,
+            threshold: 0.3,
             location: 0,
             distance: 100,
             maxPatternLength: 32,
@@ -28,11 +28,10 @@ class SuggestionPortalSearchIndex {
     }
 
     sortSuggestionsAlphabetically = (a, b) => {
-            
-        if(a.score > b.score) {
+        if(a.data.score > b.data.score) {
             return 1;
         }
-        if(a.score < b.score){
+        if(a.data.score < b.data.score){
             return -1;
         } 
         if(a.item.suggestion.toLowerCase() > b.item.suggestion.toLowerCase()){
@@ -57,26 +56,28 @@ class SuggestionPortalSearchIndex {
         if (results.length === 0 && Lang.isEmpty(searchText)) {
             return this.shortcutsFuse.list.slice(0, maxLength).map((suggestionObj) => {
                 suggestionObj.data = {
-                    score: 1,
+                    score: 0.1,
                     matches: [],
                 }
                 return suggestionObj
             });
         }
 
-        results.sort(this.sortSuggestionsAlphabetically);
 
-        return results.slice(0, maxLength).map((result) => { 
+        const resultFormatted = results.map((result) => { 
             return {
                 key: result.item.key,
                 value: result.item.value,
                 suggestion: result.item.suggestion,
                 data: {
-                    score: result.score,
+                    // Use the bonus score to drag the most recent shortcuts to the top and weight the older ones to the bottom
+                    score: result.score + result.item.scoreBonusBasedOnContext,
                     matches: result.matches,
                 },
             };
-        });
+        }).sort(this.sortSuggestionsAlphabetically).slice(0,maxLength);;
+
+        return resultFormatted
     }
 }
 
