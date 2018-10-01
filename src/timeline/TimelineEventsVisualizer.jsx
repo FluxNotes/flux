@@ -58,17 +58,19 @@ class TimelineEventsVisualizer extends Component {
         if (this.props !== nextProps) {
             const items = this.createItems(nextProps.patient, nextProps.condition, nextProps.conditionSection);
             const groups = this.createGroupsForItems(this.getMaxGroup(items));
-            let defaultTimeStart;
+            let visibleTimeStart;
             if (nextProps.isWide) { 
-                defaultTimeStart = moment().clone().add(-3, 'years');  // wideview - 3 years ago
+                visibleTimeStart = moment().clone().add(-3, 'years').add(3, 'months').valueOf();  // wideview - 3 years ago
             } else {
-                defaultTimeStart = moment().clone().add(-1, 'years');
+                visibleTimeStart = moment().clone().add(-1, 'years').add(3, 'months').valueOf();
             }
+            const visibleTimeEnd = moment().clone().add(3, 'months').valueOf();
 
             this.setState({
                 items,
                 groups,
-                defaultTimeStart
+                visibleTimeStart,
+                visibleTimeEnd
             });
         }
     }
@@ -162,6 +164,12 @@ class TimelineEventsVisualizer extends Component {
         return max;
     }
 
+    handleHeaderRef = (el) => {
+        if (el) {
+            el.addEventListener('click', (e) => { e.stopPropagation(); });
+        };
+    }
+
     onTimelineZoomClick = (timeAmount, timeUnit) => {
         const currentTimeStart = this.state.visibleTimeStart;
         const currentTimeEnd = this.state.visibleTimeEnd;
@@ -248,12 +256,6 @@ class TimelineEventsVisualizer extends Component {
                 </Button>
             </span>
         );
-    }
-
-    handleHeaderRef = (el) => {
-        if (el) {
-            el.addEventListener('click', (e) => { e.stopPropagation(); });
-        };
     }
 
     render() {
