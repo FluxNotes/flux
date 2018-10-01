@@ -304,6 +304,7 @@ describe('6 FluxNotesEditor', function() {
         const contextManager = new ContextManager(patient, () => {});
         const shortcutManager = new ShortcutManager();
         const structuredFieldMapManager = new StructuredFieldMapManager();
+        const searchIndex = new SearchIndex();
 
         // Mock function to create a new shortcut and set text on shortcut. Allows Editor to update correctly.
         let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
@@ -321,6 +322,7 @@ describe('6 FluxNotesEditor', function() {
             structuredFieldMapManager={structuredFieldMapManager}
             newCurrentShortcut={mockNewCurrentShortcut}
             updatedEditorNote={null}
+            searchIndex={searchIndex}
             handleUpdateEditorWithNote={jest.fn()}
             isNoteViewerVisible={true}
             isNoteViewerEditable={true}
@@ -346,9 +348,9 @@ describe('6 FluxNotesEditor', function() {
         />);
         expect(wrapper).to.exist;
         // wrapper.find('.editor-content').simulate('click'); //goes into on change
-
         let noteContent = '@name[[Test Name]] is a @age[[49]] year old @gender[[Female]] coming in for follow up.';
-        const updatedEditorNote = { content: noteContent };
+        const entryId = patient.addClinicalNote('', '', '', '', '', noteContent, false);
+        const updatedEditorNote = patient.getEntryById(entryId);
         // Set updatedEditorNote props because this triggers that a change is coming in to the editor and inserts text with structured phrases.
         wrapper.setProps({ updatedEditorNote });
 
@@ -488,8 +490,10 @@ describe('6 FluxNotesEditor', function() {
         { attachTo: document.body });
         expect(notesPanelWrapper).to.have.lengthOf(1);
         expect(notesPanelWrapper.find(FluxNotesEditor)).to.have.lengthOf(1);
-        const note = new FluxClinicalNote({ EntryId: "7000", content: '@name' });
-        notesPanelWrapper.setState({ updatedEditorNote: note });
+
+        const entryId = patient.addClinicalNote('', '', '', '', '', '@name', false);
+        const updatedEditorNote = patient.getEntryById(entryId);
+        notesPanelWrapper.setState({ updatedEditorNote });
 
         expect(notesPanelWrapper.find('.structured-field-inserter')).to.have.length(1);
         expect(notesPanelWrapper.find('.structured-field-inserter').text()).to.contain(patient.getName());
@@ -565,6 +569,7 @@ describe('6 FluxNotesEditor', function() {
         const contextManager = new ContextManager(patient, () => {});
         const shortcutManager = new ShortcutManager();
         const structuredFieldMapManager = new StructuredFieldMapManager();
+        const searchIndex = new SearchIndex();
 
         // Mock function to create a new shortcut and set text on shortcut. Allows Editor to update correctly.
         let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
@@ -581,6 +586,7 @@ describe('6 FluxNotesEditor', function() {
             structuredFieldMapManager={structuredFieldMapManager}
             newCurrentShortcut={mockNewCurrentShortcut}
             updatedEditorNote={null}
+            searchIndex={searchIndex}
             handleUpdateEditorWithNote={jest.fn()}
             isNoteViewerVisible={true}
             isNoteViewerEditable={true}
@@ -609,7 +615,8 @@ describe('6 FluxNotesEditor', function() {
 
         // let noteContent = '#imaging ';
         const arrayOfStructuredDataToEnter = ["#imaging "]
-        const updatedEditorNote = { content: arrayOfStructuredDataToEnter.join(' ') };
+        const entryId = patient.addClinicalNote('', '', '', '', '', arrayOfStructuredDataToEnter.join(' '), false);
+        const updatedEditorNote = patient.getEntryById(entryId);
         // Set updatedEditorNote props because this triggers that a change is coming in to the editor and inserts text with structured phrases.
         wrapper.instance().onFocus();
         wrapper.setProps({ updatedEditorNote });
@@ -629,6 +636,7 @@ describe('6 FluxNotesEditor', function() {
         const contextManager = new ContextManager(patient, () => {});
         const shortcutManager = new ShortcutManager();
         const structuredFieldMapManager = new StructuredFieldMapManager();
+        const searchIndex = new SearchIndex();
 
         // Mock function to create a new shortcut and set text on shortcut. Allows Editor to update correctly.
         let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
@@ -645,6 +653,7 @@ describe('6 FluxNotesEditor', function() {
             structuredFieldMapManager={structuredFieldMapManager}
             newCurrentShortcut={mockNewCurrentShortcut}
             updatedEditorNote={null}
+            searchIndex={searchIndex}
             handleUpdateEditorWithNote={jest.fn()}
             isNoteViewerVisible={true}
             isNoteViewerEditable={true}
@@ -675,7 +684,8 @@ describe('6 FluxNotesEditor', function() {
         const arrayOfStructuredDataToEnter = ["@condition[[Invasive ductal carcinoma of breast]] ", "#staging ", "t2 ", "n2 ", "m1 "];
         const arrayOfExpectedStructuredDataInserters = ["Invasive ductal carcinoma of breast "];
         const arrayOfExpectedStructuredDataCreators = ["staging ", "t2 ", "n2 ", "m1 "];
-        const updatedEditorNote = { content: arrayOfStructuredDataToEnter.join(' ') };
+        const entryId = patient.addClinicalNote('', '', '', '', '', arrayOfStructuredDataToEnter.join(' '), false);
+        const updatedEditorNote = patient.getEntryById(entryId);
         // Set updatedEditorNote props because this triggers that a change is coming in to the editor and inserts text with structured phrases.
         wrapper.setProps({ updatedEditorNote });
 
@@ -707,6 +717,7 @@ describe('6 FluxNotesEditor', function() {
         const contextManager = new ContextManager(patient, () => {});
         const shortcutManager = new ShortcutManager();
         const structuredFieldMapManager = new StructuredFieldMapManager();
+        const searchIndex = new SearchIndex();
 
         // Mock function to create a new shortcut and set text on shortcut. Allows Editor to update correctly.
         let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
@@ -723,6 +734,7 @@ describe('6 FluxNotesEditor', function() {
             structuredFieldMapManager={structuredFieldMapManager}
             newCurrentShortcut={mockNewCurrentShortcut}
             updatedEditorNote={null}
+            searchIndex={searchIndex}
             handleUpdateEditorWithNote={jest.fn()}
             isNoteViewerVisible={true}
             isNoteViewerEditable={true}
@@ -752,7 +764,8 @@ describe('6 FluxNotesEditor', function() {
         // let noteContent = ' #staging t2 n2 m1';
         const arrayOfStructuredDataToEnter = ["#12/20/2015 "];
         const arrayOfExpectedStructuredData = ["12/20/2015 "];
-        const updatedEditorNote = { content: arrayOfStructuredDataToEnter.join(' ') };
+        const entryId = patient.addClinicalNote('', '', '', '', '', arrayOfStructuredDataToEnter.join(' '), false);
+        const updatedEditorNote = patient.getEntryById(entryId);
         // Set updatedEditorNote props because this triggers that a change is coming in to the editor and inserts text with structured phrases.
         wrapper.setProps({ updatedEditorNote });
 
@@ -819,7 +832,8 @@ describe('6 FluxNotesEditor', function() {
         expect(notesPanelWrapper.find(NoteAssistant)).to.have.lengthOf(1);
 
         const arrayOfStructuredDataToEnter = ["#deceased "];
-        const updatedEditorNote = new FluxClinicalNote({ EntryId: "7000",content: arrayOfStructuredDataToEnter.join(' ') });
+        const entryId = patient.addClinicalNote('', '', '', '', '', arrayOfStructuredDataToEnter.join(' '), false);
+        const updatedEditorNote = patient.getEntryById(entryId);
         // Set updatedEditorNote props because this triggers that a change is coming in to the editor and inserts text with structured phrases.
         fluxNotesEditor.instance().onFocus();
         //fluxNotesEditor.setProps({ updatedEditorNote });
@@ -885,7 +899,8 @@ describe('6 FluxNotesEditor', function() {
         const arrayOfStructuredDataToEnter = ["@condition[[Invasive ductal carcinoma of breast]] ", "#PR ", "#Positive "];
         const arrayOfExpectedStructuredDataInserter = ["Invasive ductal carcinoma of breast "]
         const arrayOfExpectedStructuredDataCreator = ["PR ", "Positive "]
-        const updatedEditorNote = new FluxClinicalNote({ EntryId: "7000", content: arrayOfStructuredDataToEnter.join(' ') });
+        const entryId = patient.addClinicalNote('', '', '', '', '', arrayOfStructuredDataToEnter.join(' '), false);
+        const updatedEditorNote = patient.getEntryById(entryId);
         // Set updatedEditorNote props because this triggers that a change is coming in to the editor and inserts text with structured phrases.
         fluxNotesEditor.instance().onFocus();
         //fluxNotesEditor.setProps({ updatedEditorNote });
@@ -1053,6 +1068,7 @@ describe('6 FluxNotesEditor', function() {
         const contextManager = new ContextManager(patient, () => {});
         const shortcutManager = new ShortcutManager();
         const structuredFieldMapManager = new StructuredFieldMapManager();
+        const searchIndex = new SearchIndex();
 
         // Mock function to create a new shortcut and set text on shortcut. Allows Editor to update correctly.
         let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
@@ -1069,6 +1085,7 @@ describe('6 FluxNotesEditor', function() {
             structuredFieldMapManager={structuredFieldMapManager}
             newCurrentShortcut={mockNewCurrentShortcut}
             updatedEditorNote={null}
+            searchIndex={searchIndex}
             handleUpdateEditorWithNote={jest.fn()}
             isNoteViewerVisible={true}
             isNoteViewerEditable={true}
@@ -1099,7 +1116,8 @@ describe('6 FluxNotesEditor', function() {
         const arrayOfShortcutText = ["@condition[[Invasive ductal carcinoma of breast]] ", "#toxicity ", "#nausea ", "#disease status ", "#imaging "];
         const arrayOfParsedShortcutTextInserter = ["Invasive ductal carcinoma of breast "]
         const arrayOfParsedShortcutTextCreator = ["toxicity ", "nausea ", "disease status ", "imaging "]
-        const updatedEditorNote = { content: arrayOfShortcutText.join(' ') };
+        const entryId = patient.addClinicalNote('', '', '', '', '', arrayOfShortcutText.join(' '), false);
+        const updatedEditorNote = patient.getEntryById(entryId);
         // Set updatedEditorNote props because this triggers that a change is coming in to the editor and inserts text with structured phrases.
         wrapper.setProps({ updatedEditorNote });
 

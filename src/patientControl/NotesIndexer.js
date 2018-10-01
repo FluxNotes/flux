@@ -1,8 +1,10 @@
-import BaseIndexer from './BaseIndexer';
+import NoteContentIndexer from './NoteContentIndexer';
 
-class NotesIndexer extends BaseIndexer {
-    indexData(section, subsection, data, searchIndex) {
+class NotesIndexer extends NoteContentIndexer {
+    indexData(section, subsection, data, searchIndex, onHighlight, onClick) {
+        const noteSectionId = super.getStringForId(section);
         searchIndex.addSearchableData({
+            id: noteSectionId,
             section,
             subsection: '',
             valueTitle: 'Section',
@@ -10,6 +12,7 @@ class NotesIndexer extends BaseIndexer {
         });
 
         searchIndex.addSearchableData({
+            id: `${noteSectionId}_signed_notes`,
             section,
             subsection: 'Signed Notes',
             valueTitle: 'Subsection',
@@ -17,6 +20,7 @@ class NotesIndexer extends BaseIndexer {
         });
 
         searchIndex.addSearchableData({
+            id: `${noteSectionId}_in_progress_notes`,
             section,
             subsection: 'In Progress Notes',
             valueTitle: 'Subsection',
@@ -24,65 +28,9 @@ class NotesIndexer extends BaseIndexer {
         });
 
         data.forEach(note => {
-            const notesSubsection = note.signed ? 'Signed Notes' : 'In Progress Notes';
-
-            searchIndex.addSearchableData({
-                note,
-                section,
-                subsection: notesSubsection,
-                valueTitle: 'Title',
-                value: note.subject,
-            });
-
-            searchIndex.addSearchableData({
-                note,
-                section,
-                subsection: notesSubsection,
-                valueTitle: `Content`,
-                value: note.content,
-            })
-
-            searchIndex.addSearchableData({
-                note,
-                section,
-                subsection: notesSubsection,
-                valueTitle: `Source`,
-                value: note.hospital,
-            });
-
-            if (note.signed) {
-                searchIndex.addSearchableData({
-                    note,
-                    section,
-                    subsection: notesSubsection,
-                    valueTitle: `Signed on`,
-                    value: note.signedOn,
-                });
-
-                searchIndex.addSearchableData({
-                    note,
-                    section,
-                    subsection: notesSubsection,
-                    valueTitle: `Signed by`,
-                    value: note.signedBy,
-                });
-            } else {
-                searchIndex.addSearchableData({
-                    note,
-                    section,
-                    subsection: notesSubsection,
-                    valueTitle: `Created on`,
-                    value: note.createdOn,
-                });
-
-                searchIndex.addSearchableData({
-                    note,
-                    section,
-                    subsection: notesSubsection,
-                    valueTitle: `Created by`,
-                    value: note.createdBy,
-                });
-            }
+            const subsectionId = note.signed ? 'signed_notes' : 'in_progress_notes';
+            if (searchIndex.hasDocument(`open_note_${subsectionId}_content_${note.entryInfo.entryId}`)) return;
+            super.indexData(section, subsection, note, searchIndex, onHighlight, onClick);
         });
     }
 }

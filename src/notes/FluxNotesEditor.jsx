@@ -22,6 +22,7 @@ import NLPHashtagPlugin from './NLPHashtagPlugin'
 import NoteParser from '../noteparser/NoteParser';
 import './FluxNotesEditor.css';
 import { setTimeout } from 'timers';
+import NoteContentIndexer from '../patientControl/NoteContentIndexer';
 
 // This forces the initial block to be inline instead of a paragraph. When insert structured field, prevents adding new lines
 const initialState = Slate.Plain.deserialize('');
@@ -88,6 +89,8 @@ class FluxNotesEditor extends React.Component {
         this.noteParser = new NoteParser(this.props.shortcutManager, this.props.contextManager);
         this.plugins = [];
         this.previousState = {};
+
+        this.noteContentIndexer = new NoteContentIndexer();
 
         // Set the initial state when the app is first constructed.
         this.resetEditorState();
@@ -511,6 +514,7 @@ class FluxNotesEditor extends React.Component {
     }
 
     closeNote = () => {
+        this.props.searchIndex.removeDataBySection('Open Note');
         if (this.props.noteAssistantMode === 'pick-list-options-panel') {
             const documentText = this.getNoteText(this.previousState);
             this.revertTemplate();
@@ -626,7 +630,7 @@ class FluxNotesEditor extends React.Component {
         return transform;
     }
 
-    scrollToShortcut = (document, shortcutKey) => {
+    scrollToData = (document, shortcutKey) => {
         const node = document.getNode(shortcutKey);
 
         try {
@@ -644,7 +648,7 @@ class FluxNotesEditor extends React.Component {
         if (nextProps.shouldUpdateShortcutType) {
             let transform = this.state.state.transform();
             let state = transform.setNodeByKey(nextProps.shortcutKey, nextProps.shortcutType).apply();
-            this.scrollToShortcut(state.document, nextProps.shortcutKey);
+            this.scrollToData(state.document, nextProps.shortcutKey);
             this.setState({ state });
         }
         nextProps.selectedPickListOptions.forEach(picklist => {
@@ -678,7 +682,7 @@ class FluxNotesEditor extends React.Component {
                         transform = this.resetShortcutData(shortcut, transform);
                         let state = transform.apply();
                         this.setState({ state }, () => {
-                            this.scrollToShortcut(state.document, shortcut.getKey());
+                            this.scrollToData(state.document, shortcut.getKey());
                         });
                     }
                 }
@@ -737,6 +741,19 @@ class FluxNotesEditor extends React.Component {
                     this.props.setNoteViewerEditable(true);
                 }
             }
+            this.props.searchIndex.removeDataBySection('Open Note');
+            const sectionId = nextProps.updatedEditorNote.signed ? 'signed_notes' : 'in_progress_notes';
+            this.props.searchIndex.addSearchableData({
+                id: 'open_note_section',
+                section: 'Open Note',
+                subsection: '',
+                valueTitle: 'Section',
+                value: 'Open Note',
+                onHighlight: null,
+                onClick: null
+            });
+            this.noteContentIndexer.indexData("Open Note", '', nextProps.updatedEditorNote, this.props.searchIndex, this.onOpenNoteSearchResultHighlight, null);
+            this.props.searchIndex.removeDataByRef(`clinical_notes_${sectionId}_content_${nextProps.updatedEditorNote.entryInfo.entryId}`);
         }
 
         // Check if the current view mode changes
@@ -769,10 +786,42 @@ class FluxNotesEditor extends React.Component {
             const shortcutKey = this.structuredFieldMapManager.getKeyFromEntryId(nextProps.openSourceNoteEntryId);
 
             if (shortcutKey) {
-                this.scrollToShortcut(this.state.state.document, shortcutKey);
+                this.scrollToData(this.state.state.document, shortcutKey);
                 this.props.setOpenSourceNoteEntryId(null);
             }
         }
+    }
+
+    onOpenNoteSearchResultHighlight = (suggestion) => {
+        const {document} = this.state.state;
+        let startIndex = suggestion.indices[0];
+        let foundNode;
+        document.toJSON().nodes.find(node => {
+            const nodeLength = this.getLengthOfNode(node);
+            if (startIndex <= nodeLength) {
+                foundNode = node;
+                return true;
+            } else {
+                startIndex -= nodeLength;
+                return false;
+            }
+        });
+        if (foundNode) this.scrollToData(document, foundNode.key);
+    }
+
+    getLengthOfNode = (node) => {
+        let length = 0;
+        if (node.type === 'line') {
+            node.nodes.forEach(node => {
+                length += this.getLengthOfNode(node);
+            });
+        } else if (node.characters) {
+            length += node.characters.length;
+        } else if (node.type === 'structured_field') {
+            let shortcut = node.data.shortcut;
+            length += shortcut.getText().length;
+        }
+        return length;
     }
 
     revertTemplate = () => {
@@ -1126,7 +1175,7 @@ class FluxNotesEditor extends React.Component {
 
                 if (shortcutKey) {
                     setTimeout(() => {
-                        this.scrollToShortcut(state.document, shortcutKey)
+                        this.scrollToData(state.document, shortcutKey)
                         this.props.setOpenSourceNoteEntryId(null);
                     }, 0);
                 }

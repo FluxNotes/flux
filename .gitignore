@@ -32,6 +32,7 @@ yarn-error.log*
 /src/summary/NarrativeNameValuePairsVisualizer.css
 /src/timeline/Timeline.css
 /src/timeline/TimelineEventsVisualizer.css
+/src/patientControl/SearchSuggestion.css
 
 #Visual Paradigm Project Files
 *.vpp.bak*

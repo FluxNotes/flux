@@ -22,7 +22,8 @@ export default class NoteAssistant extends Component {
             // insertingTemplate indicates whether a shortcut or template is being inserted
             // false indicates a shortcut is being inserted
             // true indicates a template is being inserted
-            insertingTemplate: false
+            insertingTemplate: false,
+            searchResultNoteId: null
         };
         // On creating of NoteAssistant, check if the note viewer is editable
         if (this.props.isNoteViewerEditable) {
@@ -217,7 +218,30 @@ export default class NoteAssistant extends Component {
     }
 
     deleteSelectedNote = () => {
+        this.props.searchIndex.removeDataBySection('Open Note');
         this.props.deleteSelectedNote();
+    }
+
+    onSearchSuggestionHighlighted = (suggestion, shouldReset=false) => {
+        this.toggleView('clinical-notes');
+        if(shouldReset) {
+            this.setState({
+                searchResultNoteId: null
+            });
+        } else {
+            this.setState({
+                searchResultNoteId: suggestion.note.entryInfo.entryId
+            }, () => {
+                const domNodeRef = this.refs[suggestion.note.entryInfo.entryId];
+                if (domNodeRef && domNodeRef.scrollIntoView) {
+                    domNodeRef.scrollIntoView();
+                }
+            });
+        }
+    }
+
+    onSearchSuggestionClicked = (suggestion) => {
+        this.openNote(!suggestion.note.signed, suggestion.note);
     }
 
     // Render the content for the Note Assistant panel
@@ -225,8 +249,8 @@ export default class NoteAssistant extends Component {
         const allNotes = this.props.patient.getNotes();
         const numberOfPreviousSignedNotes = Lang.filter(allNotes, o => o.signed).length;
         const notesIndexer = new NotesIndexer();
-        this.props.searchIndex.removeDataBySection('Clinical Notes');
-        notesIndexer.indexData('Clinical Notes', '', allNotes, this.props.searchIndex);
+         // Temporarily disabling opening source note on click
+        notesIndexer.indexData('Clinical Notes', '', allNotes, this.props.searchIndex, this.onSearchSuggestionHighlighted, null); //this.onSearchSuggestionClicked
         switch (noteAssistantMode) {
             case "poc":
                 return (
@@ -315,13 +339,14 @@ export default class NoteAssistant extends Component {
 
     renderInProgressNote(note, i) {
         let selected = Lang.isEqual(this.props.selectedNote, note);
+        let searchedFor = note.entryInfo.entryId === this.state.searchResultNoteId;
         // if we have closed the note, selected = false
         if (Lang.isEqual(this.props.noteClosed, true)) {
             selected = false;
         }
 
         return (
-            <div ref={note.entryInfo.entryId} className={`note in-progress-note${selected ? " selected" : ""}`} key={i} onClick={() => {
+            <div ref={note.entryInfo.entryId} className={`note in-progress-note${selected ? " selected" : ""}${searchedFor ? " search-result" : ""}`} key={i} onClick={() => {
                 this.openNote(true, note)
             }}>
                 <div className="in-progress-text">In progress note</div>
@@ -383,14 +408,14 @@ export default class NoteAssistant extends Component {
     // For each clinical note, render the note image with the text
     renderClinicalNote(item, i) {
         let selected = Lang.isEqual(this.props.selectedNote, item);
+        let searchedFor = item.entryInfo.entryId === this.state.searchResultNoteId;
         // if we have closed the note, selected = false
         if (Lang.isEqual(this.props.noteClosed, true)) {
             selected = false;
         }
 
         return (
-            <div ref={item.entryInfo.entryId} className={`note existing-note${selected ? " selected" : ""}`} key={i} onClick={() => {
-                
+            <div ref={item.entryInfo.entryId} className={`note existing-note${selected ? " selected" : ""}${searchedFor ? " search-result" : ""}`} key={i} onClick={() => {
                 this.openNote(false, item)
             }}>
                 <div className="existing-note-date">{item.signedOn}</div>

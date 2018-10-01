@@ -21,7 +21,8 @@ class PatientSearch extends React.Component {
         // and they are initially empty because the Autosuggest is closed.
         this.state = {
             suggestions: [],
-            value: ''
+            value: '',
+            previousSuggestion: null
         };
     }
 
@@ -54,68 +55,39 @@ class PatientSearch extends React.Component {
     // Used by AutoSuggest to get a list of suggestions based on the current search's InputValue
     getSuggestions = (inputValue) => {
         let suggestions = [];
-        const regex = new RegExp(escapeRegExp(inputValue), "gi");
-
-        this.props.searchIndex.searchableData.forEach(obj => {
+        let results = this.props.searchIndex.search(inputValue);
+        results.forEach(result => {
             let suggestion;
-
-            // obj.note means this should be a clinicalNote suggestion
-            if (obj.note) {
+            if (result.note) {
                 suggestion = {
-                    date: obj.note.signedOn || obj.note.createdOn,
-                    subject: obj.note.subject,
+                    date: result.note.signedOn || result.note.createdOn,
+                    subject: result.note.subject,
                     inputValue: inputValue,
-                    note: obj.note,
-                    valueTitle: obj.valueTitle,
-                    contentSnapshot: obj.value,
+                    note: result.note,
+                    valueTitle: result.valueTitle,
+                    contentSnapshot: this.getNoteContentWithoutStyle(result.value),
                     source: "clinicalNote",
-                };
-
-                // If searching content of note, remove styling from content before executing regex
-                if (obj.note.content === obj.value) {
-                    const noteContentWithoutStyle = this.getNoteContentWithoutStyle(obj.value);
-                    const noteRegex = this.createRegexForSearching(inputValue);
-                    let contentMatches = noteRegex.exec(noteContentWithoutStyle);
-
-                    while (contentMatches) { 
-                        // Want a snapshot of text; use index and continue 100 chars
-                        suggestion.contentSnapshot = noteContentWithoutStyle.slice(contentMatches.index, contentMatches.index + 100)
-                        suggestion.matchedOn = "contentSnapshot";
-                        // Clone the object
-                        suggestions.push(Lang.clone(suggestion));
-                        contentMatches = noteRegex.exec(noteContentWithoutStyle);
-                    }
-                } else {
-                    const contentMatches = regex.exec(obj.value);
-
-                    if (contentMatches) {
-                        suggestion.matchedOn = 'contentSnapshot';
-                        suggestions.push(suggestion);
-                    }
+                    section: result.section,
+                    matchedOn: result.valueTitle === "Content" ? "contentSnapshot" : "valueTitle",
+                    onHighlight: result.onHighlight,
+                    onClick: result.onClick,
+                    score: result.score,
+                    indices: result.indices
                 }
             } else {
                 suggestion = {
-                    section: obj.section,
-                    subsection: obj.subsection,
-                    contentSnapshot: obj.value,
-                    valueTitle: obj.valueTitle,
+                    section: result.section,
+                    subsection: result.subsection,
+                    contentSnapshot: result.value,
+                    valueTitle: result.valueTitle,
                     inputValue,
                     matchedOn: "",
                     source: 'structuredData',
-                }
-                const contentMatches = regex.exec(obj.value);
-
-                if (contentMatches) {
-                    suggestion.matchedOn = "contentSnapshot";
-                    suggestions.push(suggestion);
+                    onHighlight: result.onHighlight,
+                    score: result.score
                 }
             }
-
-            const contentMatches = regex.exec(obj.valueTitle);
-            if (!suggestion.matchOn && contentMatches) {
-                suggestion.matchedOn = "valueTitle";
-                suggestions.push(suggestion);
-            }
+            suggestions.push(suggestion);
         });
 
         return suggestions;
@@ -155,21 +127,24 @@ class PatientSearch extends React.Component {
 
     // Will be called every time suggestion is selected via mouse or keyboard.
     onSuggestionSelected = (event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) => {
-        if (suggestion.note) {
-            this.props.setSearchSelectedItem(suggestion.note)
-        } else {
-            this.props.moveTargetedDataPanelToSubsection(suggestion.section, suggestion.subsection);
+        if (suggestion.onClick) {
+            suggestion.onClick(suggestion);
         }
 
+        this.setState({ previousSuggestion: null });
         this.refs.autosuggest.input.blur();
     }
 
     onSuggestionHighlighted = ({suggestion}) => {
-        if (!Lang.isNull(suggestion)) {
-            if (suggestion.source !== "clinicalNote") {
-                this.props.moveTargetedDataPanelToSubsection(suggestion.section, suggestion.subsection);
-            }
+        const {previousSuggestion} = this.state;
+        if (previousSuggestion && previousSuggestion.onHighlight) previousSuggestion.onHighlight(previousSuggestion, true);
+        if (!Lang.isNull(suggestion) && suggestion.onHighlight) {
+            suggestion.onHighlight(suggestion);
         }
+
+        this.setState({
+            previousSuggestion: suggestion
+        });
     }
 
     // When the input is focused, Autosuggest will consult this function when to render suggestions
@@ -196,7 +171,7 @@ class PatientSearch extends React.Component {
         const { value, suggestions } = this.state;
 
         const inputProps = {
-            placeholder: `Search ${this.firstName}'s notes`,
+            placeholder: `Search ${this.firstName}'s record`,
             value,
             onChange: this.onChange
         };

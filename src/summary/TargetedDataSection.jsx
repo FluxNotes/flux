@@ -66,6 +66,8 @@ export default class TargetedDataSection extends Component {
     }
 
     handleViewChange = (chosenVisualizer) => {
+        this.props.searchIndex.removeDataBySection(this.props.section.name);
+        this.indexSectionData(this.props.section);
         this.setState({ chosenVisualizer });
     }
 
@@ -119,19 +121,16 @@ export default class TargetedDataSection extends Component {
         }
     }
 
-    // renderSection checks the type of data that is being passed and chooses the correct component to render the data
-    // TODO: Add a List type and a tabular renderer for it for Procedures section. case where left column is data
-    //       and not just a label
-    renderSection = (section) => {
-        const { patient, condition, allowItemClick, isWide, type, loginUser, actions, searchIndex } = this.props;
+    indexSectionData(section) {
+        const { patient, condition, type, loginUser, searchIndex } = this.props;
         const visualization = this.checkVisualization();
 
         const viz = this.props.visualizerManager.getVisualizer(type, visualization);
+
         if (Lang.isNull(viz)) return null;
         const sectionTransform = viz.transform;
-        const Visualizer = viz.visualizer;
         if (section.resetData) section.resetData();
-        searchIndex.removeDataBySection(section.name);
+        // searchIndex.removeDataBySection(section.name);
 
         const subsections = patient === null || condition === null || section === null ? [] : section.data;
         subsections.forEach(subsection => {
@@ -169,15 +168,31 @@ export default class TargetedDataSection extends Component {
             const indexer = this.props.visualizerManager.getIndexer(typeToIndex);
             if (!Lang.isUndefined(subsection.nameFunction)) subsection.name = subsection.nameFunction();
             if (indexer) {
+                const sectionId = section.name.toLowerCase().replace(/ /g, '_');
                 searchIndex.addSearchableData({
+                    id: `${sectionId}_${sectionId}`,
                     section: section.name,
                     subsection: "",
                     valueTitle: "Section",
-                    value: section.name
+                    value: section.name,
+                    onHighlight: this.props.moveToSubsectionFromSearch
                 });
-                indexer.indexData(section.name, subsection.name, list, searchIndex, newSubsection);
+                indexer.indexData(section.name, subsection.name, list, searchIndex, this.props.moveToSubsectionFromSearch, newSubsection);
             }
-        })
+        });
+        return viz;
+    }
+
+    // renderSection checks the type of data that is being passed and chooses the correct component to render the data
+    // TODO: Add a List type and a tabular renderer for it for Procedures section. case where left column is data
+    //       and not just a label
+    renderSection = (section) => {
+        const { patient, condition, allowItemClick, isWide, loginUser, actions, searchIndex } = this.props;
+
+        const viz = this.indexSectionData(section);
+        if (Lang.isNull(viz)) return null;
+        const Visualizer = viz.visualizer;
+        const sectionTransform = viz.transform;
 
         return (
             <Visualizer

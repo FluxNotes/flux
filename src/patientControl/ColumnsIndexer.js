@@ -1,19 +1,23 @@
 import BaseIndexer from './BaseIndexer';
 
 class ColumnIndexer extends BaseIndexer {
-    indexData(section, subsection, data, searchIndex, subsectionDescriptor) {
-        super.indexData(section, subsection, data, searchIndex);
+    indexData(section, subsection, data, searchIndex, onHighlight, subsectionDescriptor) {
+        super.indexData(section, subsection, data, searchIndex, onHighlight);
+        const sectionId = super.getStringForId(section);
+        const subsectionId = super.getStringForId(subsection);
         if (subsectionDescriptor.headings) {
             // true tabular where each item is a column of data
             // add each column value using title of the column heading
-            data.forEach((row) => {
+            data.forEach((row, rowNumber) => {
                 row.forEach((col, columnNumber) => {
                     const vtPrefix = columnNumber === 0 ? '' : `${row[0].value} `; 
                     searchIndex.addSearchableData({
+                        id: `${sectionId}_${subsectionId}_${rowNumber}_${columnNumber}`,
                         section,
                         subsection,
                         valueTitle: `${vtPrefix}${subsectionDescriptor.headings[columnNumber]}`,
-                        value: col.value || "Missing Data"
+                        value: col.value || "Missing Data",
+                        onHighlight
                     });    
                 });
             });
@@ -24,18 +28,23 @@ class ColumnIndexer extends BaseIndexer {
                 if (row.length < 2) {
                     const [ valueObject ] = row;
                     searchIndex.addSearchableData({
+                        id: `${sectionId}_${subsectionId}_${subsectionId}`,
                         section,
                         subsection,
                         valueTitle: subsection,
-                        value: valueObject.value || "Missing Data"
+                        value: valueObject.value || "Missing Data",
+                        onHighlight
                     });
                 } else {
                     const [ title, valueObject ] = row;
+                    const valueTitleId = super.getStringForId(title.value);
                     searchIndex.addSearchableData({
+                        id: `${sectionId}_${valueTitleId}`,
                         section,
                         subsection,
                         valueTitle: title.value,
-                        value: valueObject.value || "Missing Data"
+                        value: valueObject.value || "Missing Data",
+                        onHighlight
                     });
                 }
             });
