@@ -2,48 +2,7 @@
 
 #timeline {
   margin: 20px;
-  text-align: left;  
-
-  .tooltip {
-    position: relative;
-    display: inline-block;
-
-    .tooltiptext {
-      visibility: hidden;
-      width: 120px;
-      background-color: #555;
-      color: #fff;
-      text-align: center;
-      border-radius: 6px;
-      padding: 5px 0;
-      position: absolute;
-      z-index: 1;
-      bottom: 125%;
-      left: 50%;
-      margin-left: 18px !important;
-      opacity: 0;
-      transition: opacity 1s;
-      font-size: .8rem;
-
-      &::after {
-        content: "";
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        margin-left: -5px;
-        border-width: 5px;
-        border-style: solid;
-        border-color: #555 transparent transparent transparent;
-      }
-    }
-
-    &:hover {
-      .tooltiptext {
-        visibility: visible;
-        opacity: 1;
-      }
-    }
-  }
+  text-align: left;
 }
 
 .react-calendar-timeline {
@@ -111,13 +70,10 @@
     }
   }
 
-
   &-item.point-in-time {
     /* makes point-in-time items circular */
     border-radius: 15px  !important;
-  }  
-
-  
+  }
 }
 
 .medication-item {
