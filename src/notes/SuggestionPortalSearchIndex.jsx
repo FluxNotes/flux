@@ -8,7 +8,6 @@ class SuggestionPortalSearchIndex {
         this.currentlyValidShortcuts = [];
         // Metdata common to all suggestionSearchIndexs
         this.fuseOptions = {
-            shouldSort: true,
             includeScore: true,
             includeMatches: true,
             threshold: 0.6,
@@ -28,6 +27,23 @@ class SuggestionPortalSearchIndex {
         // Every kind of suggestion portal index is going to be different, so we don't have a common way of building an index.
     }
 
+    sortSuggestionsAlphabetically = (a, b) => {
+            
+        if(a.score > b.score) {
+            return 1;
+        }
+        if(a.score < b.score){
+            return -1;
+        } 
+        if(a.item.suggestion.toLowerCase() > b.item.suggestion.toLowerCase()){
+            return 1;
+        } 
+        if(a.item.suggestion.toLowerCase() < b.item.suggestion.toLowerCase()){
+            return -1;
+        } 
+        return 0;
+    }
+
     // Follows the 
     search = (searchText) => {
         if (Lang.isUndefined(searchText)) return [];
@@ -35,7 +51,7 @@ class SuggestionPortalSearchIndex {
         const maxLength = 25;
         const searchTextLowercase = searchText.toLowerCase();
         let results = this.shortcutsFuse.search(searchTextLowercase);
-
+        
         // If there are no results, if the searchText is empty, and if the list being searched on is nonempty
         // return a list of shortcutsFuseOptions formatted with this extra data field
         if (results.length === 0 && Lang.isEmpty(searchText)) {
@@ -47,6 +63,8 @@ class SuggestionPortalSearchIndex {
                 return suggestionObj
             });
         }
+
+        results.sort(this.sortSuggestionsAlphabetically);
 
         return results.slice(0, maxLength).map((result) => { 
             return {

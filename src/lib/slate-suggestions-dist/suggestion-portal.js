@@ -309,26 +309,8 @@ class SuggestionPortal extends React.Component {
         return;
     }
 
-    sortSuggestionsAlphabetically = (a, b) => {
-            
-            if(a.data.score > b.data.score) {
-                return 1;
-            }
-            if(a.data.score < b.data.score){
-                return -1;
-            } 
-            if(a.suggestion.toLowerCase() > b.suggestion.toLowerCase()){
-                return 1;
-            } 
-            if(a.suggestion.toLowerCase() < b.suggestion.toLowerCase()){
-                return -1;
-            } 
-            return 0;
-    }
-
     render = () => {
         const filteredSuggestions = this.getFilteredSuggestions();
-        filteredSuggestions.sort(this.sortSuggestionsAlphabetically);
         
         this.setCallbackSuggestion(filteredSuggestions, this.state.selectedIndex);
 
