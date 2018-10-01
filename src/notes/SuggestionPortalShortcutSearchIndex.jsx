@@ -4,24 +4,28 @@ import Lang from 'lodash';
 import _ from 'lodash';
 
 class SuggestionPortalShortcutSearchIndex extends SuggestionPortalSearchIndex  {
+    constructor(list, initialChar, shortcutManager) { 
+        super(list, initialChar, shortcutManager)
+        this.currentlyValidShortcutObjs = [];
+    }
     updateIndex = (contextManager) => {
-        const allShortcuts = contextManager.getCurrentlyValidShortcuts(this.shortcutManager);
+        const allShortcutObjs = contextManager.getCurrentlyValidShortcuts(this.shortcutManager);
         // If shortcuts haven't updated, we don't need to update our fuse index
-        if (Lang.isEqual(allShortcuts, this.currentlyValidShortcuts)) return
-        this.currentlyValidShortcuts = allShortcuts;
+        if (Lang.isEqual(allShortcutObjs, this.currentlyValidShortcutObjs)) return
+        this.currentlyValidShortcutObjs = allShortcutObjs;
         // Let's compile a list of shortcuts we care about, formatted for searching
         const relevantShortcutsFormattedForSearch = [];
         // We'll need to the active contexts to determine bonus scores, to improve sorting order.
         const activeContexts = contextManager.getActiveContexts();
-        allShortcuts.forEach((shortcut) => {
-            const shortcutMetadata = this.shortcutManager.getShortcutMetadata(shortcut);
-            if(Lang.isEmpty(shortcutMetadata.knownParentContexts)) console.log("No parents:", shortcutMetadata);
-            const triggers = this.shortcutManager.getTriggersForShortcut(shortcut);
+        allShortcutObjs.forEach((shortcutObj) => {
+            const shortcutId = shortcutObj.id;
+            const shortcutMetadata = this.shortcutManager.getShortcutMetadata(shortcutId);
+            const triggers = this.shortcutManager.getTriggersForShortcut(shortcutId);
             // Scores get sorted from smallest to greatest
             // ActiveContexts is sorted from most recent to least recent
             // We want shortcuts for the most recent shortcuts to have the smallest bonus score, so as to appear earlier
             let scoreBonusBasedOnContext = _.findIndex(activeContexts, (context) => {
-                return context.getId() === shortcutMetadata.knownParentContexts;
+                return context.getId() === shortcutObj.parentId;
             });
 
             if (scoreBonusBasedOnContext === -1)  {
