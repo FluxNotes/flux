@@ -31,6 +31,7 @@ class SuggestionPortalSearchIndex {
     // Follows the 
     search = (searchText) => {
         if (Lang.isUndefined(searchText)) return [];
+
         const maxLength = 25;
         const searchTextLowercase = searchText.toLowerCase();
         let results = this.shortcutsFuse.search(searchTextLowercase);
