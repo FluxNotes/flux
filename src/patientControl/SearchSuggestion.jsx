@@ -16,6 +16,7 @@ class SearchSuggestion extends React.Component {
         const matchesContent = regex.exec(contentSnapshot.toLowerCase());
         let preText = '', highlightedText = '', postText = '';
 
+        // If there are indices, we matched on an open note
         if (indices) {
             preText = valueTitle ? valueTitle + ': ' : '' + contentSnapshot.slice(0, indices[0]);
             highlightedText = contentSnapshot.slice(indices[0], indices[1]+1);
@@ -59,6 +60,7 @@ class SearchSuggestion extends React.Component {
             suggestionLabel = (
                 <div className="suggestion-label">
                     <span className={"label-content"}>
+                        {suggestion.section === "Open Note" ? "Open Note > " : ''}
                         {subject}
                         {date}
                     </span>
