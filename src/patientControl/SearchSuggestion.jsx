@@ -6,6 +6,11 @@ import './SearchSuggestion.css';
 
 class SearchSuggestion extends React.Component {
 
+    onMouseLeave = () => {
+        const {suggestion} = this.props;
+        if (suggestion.onHighlight) suggestion.onHighlight(suggestion, true);
+    }
+
     renderSuggestionText() {
         const { suggestion } = this.props;
         const {inputValue, valueTitle, contentSnapshot, indices} = suggestion;
@@ -36,7 +41,7 @@ class SearchSuggestion extends React.Component {
         return (
             <div className="suggestion-text">
                 <span>{preText}</span>
-                <span className="highlightedInputValue">{highlightedText}</span>
+                <span className="highlighted-input-value">{highlightedText}</span>
                 <span>{postText}</span>
             </div>
         )
@@ -73,7 +78,7 @@ class SearchSuggestion extends React.Component {
 
     render() { 
         return (
-            <div className="suggestion-item">
+            <div className="suggestion-item" onMouseLeave={this.onMouseLeave}>
                 {this.renderLabel()}
                 {this.renderSuggestionText()}
             </div>

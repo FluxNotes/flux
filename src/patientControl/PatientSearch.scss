@@ -90,7 +90,7 @@
 
     .react-autosuggest__suggestion {
         cursor: pointer;
-        padding: 10px;
+        padding: 0px !important;
     }
 
     .react-autosuggest__suggestion--highlighted {

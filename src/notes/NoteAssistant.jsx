@@ -222,16 +222,22 @@ export default class NoteAssistant extends Component {
         this.props.deleteSelectedNote();
     }
 
-    onSearchSuggestionHighlighted = (suggestion) => {
+    onSearchSuggestionHighlighted = (suggestion, shouldReset=false) => {
         this.toggleView('clinical-notes');
-        this.setState({
-            searchResultNoteId: suggestion.note.entryInfo.entryId
-        }, () => {
-            const domNodeRef = this.refs[suggestion.note.entryInfo.entryId];
-            if (domNodeRef && domNodeRef.scrollIntoView) {
-                domNodeRef.scrollIntoView();
-            }
-        });
+        if(shouldReset) {
+            this.setState({
+                searchResultNoteId: null
+            });
+        } else {
+            this.setState({
+                searchResultNoteId: suggestion.note.entryInfo.entryId
+            }, () => {
+                const domNodeRef = this.refs[suggestion.note.entryInfo.entryId];
+                if (domNodeRef && domNodeRef.scrollIntoView) {
+                    domNodeRef.scrollIntoView();
+                }
+            });
+        }
     }
 
     onSearchSuggestionClicked = (suggestion) => {
