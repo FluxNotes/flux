@@ -87,6 +87,10 @@ export class CoreCancerPilotApp extends Component {
         this.setState({patient: patient})
     }
 
+    componentDidMount = () => {
+        document.title = this.props.display;
+    }
+
     componentWillMount() {
         this.loadPatient(this.props.patientId);
         const userProfile = this.securityManager.getDemoUser(this.props.clinicianId);

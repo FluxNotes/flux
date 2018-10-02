@@ -95,7 +95,7 @@ export default class AppManager {
             },
             {
                 path: '/ccp',
-                display: 'MCODE Pilot',
+                display: 'M-CODE Pilot',
                 app: CoreCancerPilotApp,
                 isExact: true,
                 dataSource: 'HardCodedReadOnlyDataSource',
