@@ -9,8 +9,19 @@ class ContextManager {
         this.contexts = []; // patient context is kept separately
         this.activeContexts = []; // patient context is always active
         this.onContextUpdate = onContextUpdate;
+        this.subscribers = [];
     }
     
+    subscribe = (subscriber, callback) => {     
+        const isAlreadyASubscriber = Collection.includes(this.subscribers, subscriber);
+        if (!isAlreadyASubscriber) { 
+            this.subscribers.push({
+                subscriber,
+                callback,
+            })
+        }
+    }
+
     endNonGlobalContexts() {
         let contextsToKeep = [];
         this.contexts.forEach((item, i) => {
@@ -52,18 +63,36 @@ class ContextManager {
         }, [])
     }
 
+    // Returns objects corresponding to all currently valid shortcuts, 
+    // Ordering them from the most recently active context down to the patient context 
+    // ShortcutObjects have an 'id': a string associated to their unique shortcut id
+    // and they have a 'parentId': a string associated with their parent context, if they have one other than patientContext
     getCurrentlyValidShortcuts(shortcutManager) {
-        let result = shortcutManager.getValidChildShortcutsInContext(this.patientContext, true);
-        let childResults;
+        let result = [];
+        let childIds = [];
         this.activeContexts.forEach((shortcut) => {
             // GQ changed the recurse argument (2nd) to false below. Don't want it to get child shortcuts of each context unless
             // they are in context too. If a shortcut is in context, it will be a separate entry in the active contexts list
             // so we'll get the correct shortcuts that way
-            childResults = shortcutManager.getValidChildShortcutsInContext(shortcut, false);
-            childResults.forEach((child) => {
-                if (!result.includes(child)) result.push(child);
+            childIds = shortcutManager.getValidChildShortcutsInContext(shortcut, false);
+            const shortcutId = shortcut.getId();
+            childIds.forEach((childId) => {
+                // DP added this to the loop
+                if (Lang.isUndefined(result.find((shortcutObject) => shortcutObject.id === childId))) { 
+                    const childObj = {
+                        id: childId,
+                        parentId: shortcutId,
+                    }
+                    result.push(childObj);  
+                } 
             });
         });
+        // Make sure we add all the patientContext shortcuts
+        result = result.concat(shortcutManager.getValidChildShortcutsInContext(this.patientContext, true).map((shortcutId) => {
+            return  {
+                id: shortcutId
+            }
+        }));
         return result;
     }
 
@@ -79,7 +108,7 @@ class ContextManager {
     }
 
     // returns undefined if not found
-    getActiveContextOfType(contextType) {
+    getActiveContextOfType = (contextType) => {
         let context = Collection.find(this.activeContexts, (item) => {
             return (item.getShortcutType() === contextType);
         });
@@ -87,8 +116,13 @@ class ContextManager {
         return context;
     }
 
-    contextUpdated() {
+    contextUpdated = () => {
         this.onContextUpdate();
+        // After updating, update all subscribers
+        for (const subscriberObj of this.subscribers) { 
+            const { callback } = subscriberObj;
+            callback(this);
+        }
     }
 
     adjustActiveContexts(shouldContextBeActive) {
@@ -127,7 +161,7 @@ class ContextManager {
         //when adding a new shortcut to context, we assume cursor ends up after it so its active
         this.activeContexts.unshift(shortcut);
         if (!shortcut.needToSelectValueFromMultipleOptions()) {
-            if (this.onContextUpdate) { this.onContextUpdate(); }
+            if (this.onContextUpdate) { this.contextUpdated(); }
         }
     }
 
@@ -172,7 +206,7 @@ class ContextManager {
     clearContexts() {
         this.contexts = [];
         this.activeContexts = [];
-        this.onContextUpdate();
+        this.contextUpdated();
     }
 
     // Clears all non active contexts from this.contexts

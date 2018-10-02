@@ -4,6 +4,8 @@ import Slate from '../lib/slate';
 import Lang from 'lodash';
 import FontAwesome from 'react-fontawesome';
 import ContextPortal from '../context/ContextPortal';
+import SuggestionPortalShortcutSearchIndex from './SuggestionPortalShortcutSearchIndex'
+import SuggestionPortalPlaceholderSearchIndex from './SuggestionPortalPlaceholderSearchIndex'
 // versions 0.20.3-0.20.7 of Slate seem to have an issue.
 // when we change the selection and give focus in our key handlers, Slate changes the selection including
 // focus and then immediately takes focus away. Not an issue in 0.20.2 and older. package.json currently
@@ -136,29 +138,41 @@ class FluxNotesEditor extends React.Component {
         this.NLPHashtagPlugin = NLPHashtagPlugin(NLPHashtagPluginOptions);
         this.plugins.push(this.NLPHashtagPlugin)
         
+        // Track all the indexes needed for suggestions portals
+        this.suggestionPortalSearchIndexes = [];
+        
         // setup creator suggestions plugin (autocomplete)
+        const creatorSuggestionPortalSearchIndex = new SuggestionPortalShortcutSearchIndex([], '#', this.props.shortcutManager);
+        this.contextManager.subscribe(creatorSuggestionPortalSearchIndex, creatorSuggestionPortalSearchIndex.updateIndex)
+        this.suggestionPortalSearchIndexes.push(creatorSuggestionPortalSearchIndex)
         this.suggestionsPluginCreators = SuggestionsPlugin({
             capture: /#([\w\s\-,]*)/,
             onEnter: this.choseSuggestedShortcut.bind(this),
-            suggestions: this.suggestionFunction.bind(this, '#'),
+            suggestions: creatorSuggestionPortalSearchIndex.search,
             trigger: '#',
         });
         this.plugins.push(this.suggestionsPluginCreators)
         
         // setup inserter suggestions plugin (autocomplete)
+        const inserterSuggestionPortalSearchIndex = new SuggestionPortalShortcutSearchIndex([], '@', this.props.shortcutManager);
+        this.contextManager.subscribe(inserterSuggestionPortalSearchIndex, inserterSuggestionPortalSearchIndex.updateIndex)
+        this.suggestionPortalSearchIndexes.push(inserterSuggestionPortalSearchIndex)
         this.suggestionsPluginInserters = SuggestionsPlugin({
             capture: /@([\w\s\-,]*)/,
             onEnter: this.choseSuggestedShortcut.bind(this),
-            suggestions: this.suggestionFunction.bind(this, '@'),
+            suggestions: inserterSuggestionPortalSearchIndex.search,
             trigger: '@',
         });
         this.plugins.push(this.suggestionsPluginInserters)
 
         // Setup suggestions plugin
+        const placeholderSuggestionPortalSearchIndex = new SuggestionPortalPlaceholderSearchIndex([], '<', this.props.shortcutManager);        
+        this.contextManager.subscribe(placeholderSuggestionPortalSearchIndex, placeholderSuggestionPortalSearchIndex.updateIndex)
+        this.suggestionPortalSearchIndexes.push(placeholderSuggestionPortalSearchIndex)
         this.suggestionsPluginPlaceholders = SuggestionsPlugin({
             capture: /<([\w\s\-,>]*)/,
             onEnter: this.choseSuggestedPlaceholder.bind(this),
-            suggestions: this.suggestionFunction.bind(this, '<'),
+            suggestions: placeholderSuggestionPortalSearchIndex.search,
             trigger: '<',
         });
         this.plugins.push(this.suggestionsPluginPlaceholders);
@@ -266,46 +280,6 @@ class FluxNotesEditor extends React.Component {
 
         // This clears the contexts so that the tray starts back at the patient context
         this.contextManager.clearContexts();
-    }
-
-    suggestionFunction(initialChar, text) {
-        if (Lang.isUndefined(text)) return [];
-
-        const { shortcutManager } = this.props;
-        const shortcuts = this.contextManager.getCurrentlyValidShortcuts(shortcutManager);
-        const suggestionsShortcuts = [];
-        const textLowercase = text.toLowerCase();
-
-        shortcuts.forEach((shortcut) => {
-            const triggers = shortcutManager.getTriggersForShortcut(shortcut);
-            triggers.forEach((trigger) => {
-                const triggerNoPrefix = trigger.name.substring(1);
-                if (trigger.name.substring(0, 1) === initialChar && triggerNoPrefix.toLowerCase().includes(textLowercase)) {
-                    suggestionsShortcuts.push({
-                        key: triggerNoPrefix,
-                        value: trigger,
-                        suggestion: triggerNoPrefix,
-                    });
-                }
-            });
-        });
-        const placeHolderShortcuts = shortcutManager.getAllPlaceholderShortcuts();
-
-        placeHolderShortcuts.forEach((shortcut) => {
-            const triggers = shortcutManager.getTriggersForShortcut(shortcut.id);
-            triggers.forEach((trigger) => {
-                const triggerNoPrefix = trigger.name.substring(1);
-                if (initialChar === '<' && triggerNoPrefix.toLowerCase().includes(textLowercase)) {
-                    suggestionsShortcuts.push({
-                        key: triggerNoPrefix,
-                        value: `${initialChar}${triggerNoPrefix}>`,
-                        suggestion: triggerNoPrefix,
-                    });
-                }
-            });
-        });
-
-        return suggestionsShortcuts.slice(0, 10);
     }
 
     choseSuggestedShortcut(suggestion) {
@@ -1264,8 +1238,9 @@ class FluxNotesEditor extends React.Component {
         const shortcuts = this.contextManager.getCurrentlyValidShortcuts(this.props.shortcutManager);
 
         // Check if shortcutTrigger is a shortcut trigger in the list of currently valid shortcuts
-        return shortcuts.some((shortcut) => {
-            const triggers = this.props.shortcutManager.getTriggersForShortcut(shortcut);
+        return shortcuts.some((shortcutObj) => {
+            const shortcutId = shortcutObj.id
+            const triggers = this.props.shortcutManager.getTriggersForShortcut(shortcutId);
             return triggers.some((trigger) => {
                 return trigger.name.toLowerCase() === shortcutTrigger.toLowerCase();
             });
