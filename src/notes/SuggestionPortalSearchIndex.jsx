@@ -42,7 +42,6 @@ class SuggestionPortalSearchIndex {
         return 0;
     }
 
-    // Follows the 
     search = (searchText) => {
         if (Lang.isUndefined(searchText)) return [];
 
