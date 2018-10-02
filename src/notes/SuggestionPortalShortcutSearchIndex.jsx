@@ -25,11 +25,12 @@ class SuggestionPortalShortcutSearchIndex extends SuggestionPortalSearchIndex  {
             // ActiveContexts is sorted from most recent to least recent
             // We want shortcuts for the most recent shortcuts to have the smallest bonus score, so as to appear earlier
             let scoreBonusBasedOnContext = _.findIndex(activeContexts, (context) => {
-                return context.getId() === shortcutObj.parentId;
+                // Quirk: We want global contexts to all be treated equally, regardless of incidence. 
+                return context.getId() === shortcutObj.parentId && !context.isGlobalContext();
             });
 
             if (scoreBonusBasedOnContext === -1)  {
-                // no matching context means it's in the parent context 
+                // no matching context means it's in the parent context or is a global context
                 // we want those to come last; they get the biggest bonus 
                 scoreBonusBasedOnContext = activeContexts.length
             }
