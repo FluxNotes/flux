@@ -33,10 +33,10 @@ class SuggestionPortalSearchIndex {
         if(a.data.score < b.data.score){
             return -1;
         } 
-        if(a.item.suggestion.toLowerCase() > b.item.suggestion.toLowerCase()){
+        if(a.suggestion.toLowerCase() > b.suggestion.toLowerCase()){
             return 1;
         } 
-        if(a.item.suggestion.toLowerCase() < b.item.suggestion.toLowerCase()){
+        if(a.suggestion.toLowerCase() < b.suggestion.toLowerCase()){
             return -1;
         } 
         return 0;
