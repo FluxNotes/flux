@@ -245,7 +245,6 @@ export default class TabularListVisualizer extends Component {
         const colSize = (100 / numColumns) + "%";
 
         if (subsectionActions.length > 0  || this.props.actions.length > 0) {
-            console.log(subsectionActions.length);
             rowClass += " has-action-menu";
         }
 

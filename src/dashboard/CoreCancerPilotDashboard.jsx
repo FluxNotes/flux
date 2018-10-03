@@ -44,7 +44,7 @@ export default class CoreCancerPilotDashboard extends Component {
     }
 }
 
-CoreCancerPilotDashboard.proptypes = {
+CoreCancerPilotDashboard.propTypes = {
     actions: PropTypes.array.isRequired,
     appState: PropTypes.object.isRequired,
     dataAccess: PropTypes.object.isRequired,

@@ -437,7 +437,7 @@ export class FullApp extends Component {
     }
 }
 
-FullApp.proptypes = {
+FullApp.propTypes = {
     dataSource: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
     shortcuts: PropTypes.array.isRequired,

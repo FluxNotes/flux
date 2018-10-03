@@ -236,7 +236,7 @@ export class CoreCancerPilotApp extends Component {
     }
 }
 
-CoreCancerPilotApp.proptypes = {
+CoreCancerPilotApp.propTypes = {
     dataSource: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
 };
