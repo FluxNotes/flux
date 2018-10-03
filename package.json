@@ -31,6 +31,7 @@
     "history": "^4.7.2",
     "immutable": "3.8.1",
     "interact.js": "1.2.8",
+    "lunr": "^2.3.3",
     "material-ui": "v1.0.0-beta.30",
     "material-ui-icons": "1.0.0-beta.15",
     "mkdirp": "0.5.1",

@@ -1,6 +1,6 @@
 import Lang from 'lodash';
 import elasticlunr from 'elasticlunr';
-import Fuse from 'fuse.js';
+import lunr from 'lunr';
 
 class SearchIndex {
     constructor() {
@@ -18,7 +18,7 @@ class SearchIndex {
             keys: ['section', 'subsection', 'valueTitle', 'value'],
             id: 'id'
         };
-        this._fuse = null;
+        this._lunr = null;
     }
 
     get searchableData() {
@@ -29,18 +29,15 @@ class SearchIndex {
         const existingDocument = this._index.documentStore.getDoc(data.id);
         if (Lang.isNull(existingDocument) || !Lang.isEqual(data, existingDocument)) {
             if (data.section === "Open Note" && data.valueTitle === "Content") {
-                this._fuse = new Fuse([{
-                    id: data.id,
-                    content: data.value
-                }], {
-                    id: 'id',
-                    keys: ['content'],
-                    shouldSort: true,
-                    includeScore: true,
-                    includeMatches: true,
-                    findAllMatches: true,
-                    threshold: 0.6,
-                    distance: data.value.length
+                this._lunr = lunr(function() {
+                    this.metadataWhitelist = ['position']
+                    this.ref('id');
+                    this.field('content');
+
+                    this.add({
+                        id: data.id,
+                        content: data.value
+                    });
                 });
             }
             this._index.addDoc({...data});
@@ -78,16 +75,29 @@ class SearchIndex {
             let doc = this._index.documentStore.getDoc(result.ref);
             doc.score = result.score;
             if (doc.section === "Open Note") {
-                const regex = new RegExp(this.escapeRegExp(query), "g");
-                let contentMatches = this._fuse.search(query);
-                if (contentMatches.length > 0 && contentMatches[0].matches.length > 0) {
-                    contentMatches[0].matches[0].indices.forEach(([from, to]) => {
-                        if (regex.exec(doc.value.substring(from, to+1).toLowerCase())) {
-                            let tempDoc = Lang.cloneDeep(doc);
-                            tempDoc.indices = [from, to];
-                            suggestions.unshift(tempDoc);
-                        }
-                    })
+                let contentMatches = this._lunr.search(query);
+                if (contentMatches[0]) {
+                    // const allPositions = Lang.flatten(Lang.values(contentMatches[0].matchData.metadata).map(val => val.content.position));
+                    // console.log('contentMatches: ', contentMatches);
+                    // if (Lang.keys(contentMatches[0].matchData.metadata).length > 1) {
+                    //     const startPos = allPositions[0][0];
+                    //     let endPos = startPos+1;
+                    //     allPositions.forEach(position => {
+                    //         endPos += position[1];
+                    //     });
+                    //     let tempDoc = Lang.cloneDeep(doc);
+                    //     tempDoc.indices = [startPos, endPos];
+                    //     suggestions.unshift(tempDoc);
+                    // } else {
+                        Lang.values(contentMatches[0].matchData.metadata).forEach(val => {
+                            const positions = val.content.position;
+                            positions.forEach(([startIdx, length]) => {
+                                let tempDoc = Lang.cloneDeep(doc);
+                                tempDoc.indices = [startIdx, startIdx+length];
+                                suggestions.unshift(tempDoc);
+                            })
+                        });
+                    // }
                 }
             } else {
                 suggestions.push(doc);
