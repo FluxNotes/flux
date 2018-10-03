@@ -100,7 +100,8 @@ export default class TargetedDataPanel extends Component {
                                 setForceRefresh={this.props.setForceRefresh}                                                              
                                 conditionMetadata={conditionMetadata}
                                 searchIndex={this.props.searchIndex}
-                            />
+                                moveToSubsectionFromSearch={this.moveToSubsectionFromSearch.bind(this)}
+                                />
                         </div>
                     </div>
                 </div>
