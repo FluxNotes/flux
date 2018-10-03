@@ -5,59 +5,12 @@ import TargetedDataPanel from '../panels/TargetedDataPanel';
 import './CoreCancerPilotDashboard.css';
 
 export default class CoreCancerPilotDashboard extends Component {
-    // Based on currentClinicalEvent, determines if a note should be viewed
-    noteViewerBasedOnClinicalEvent = (currentClinicalEvent) => {
-        switch (currentClinicalEvent) {
-            case "pre-encounter":
-                this.props.setNoteViewerVisible(false);
-                break;
-            case "encounter":
-                this.props.setNoteViewerVisible(true);
-                break;
-            case "post-encounter":
-                this.props.setNoteViewerVisible(true);
-                break;
-            default:
-                console.warn(`The task provided, ${currentClinicalEvent}, does not have a defined noteViewerBasedOnClinicalEvent value.`);
-                this.props.setNoteViewerVisible(false);
-                return;
-        }
-    }
-
-    // Based on currentClinicalEvent, determines if a note should be editable
-    noteEditableBasedOnClinicalEvent = (currentClinicalEvent) => {
-        switch (currentClinicalEvent) {
-            case "pre-encounter":
-                this.props.setNoteViewerEditable(false);
-                break;
-            case "encounter":
-                this.props.setNoteViewerEditable(true);
-                break;
-            case "post-encounter":
-                this.props.setNoteViewerEditable(true);
-                break;
-            default:
-                console.warn(`The task provided, ${currentClinicalEvent}, does not have a defined noteEditableBasedOnClinicalEvent value.`);
-                this.props.setNoteViewerEditable(false);
-                return;
-        }
-    }
-
-    // Based on currentLayout, determines if the targetedDataSubpanel should be visible.
-    isTargetedDataSubpanelVisible = (currentLayout) => {
-        return true;
-    }
-
     moveTargetedDataPanelToSection = (sectionName) => {
         return this.targetedDataPanel.moveToSection(sectionName);
     }
 
     moveTargetedDataPanelToSubsection = (sectionName, subsectionName) => {
         return this.targetedDataPanel.moveToSubsection(sectionName, subsectionName);
-    }
-
-    insertStructuredPhraseInCurrentNote = (data, source) => {
-        return this.notesPanel.insertStructuredPhraseInCurrentNote(data, source);
     }
 
     render() {

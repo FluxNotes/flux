@@ -108,7 +108,7 @@ export default class CoreCancerPilotSummaryMetadata {
             ]
         }
         this.hardCodedMetadata = {
-            "default": {
+            "http://snomed.info/sct/420120006": { // sarcoma
                 sections: [
                     {
                         name: "Summary",
@@ -314,12 +314,60 @@ export default class CoreCancerPilotSummaryMetadata {
                     },
                     {
                         name: "Treatment Options",
+                        nameSuffix: "(Demo)",
                         shortName: "Treatments",
                         type: "ClusterPoints",
                         data: [
                             {
                                 name: "",
                                 itemsFunction: this.getTreatmentData
+                            }
+                        ]
+                    }
+                ]
+            },
+            "default": {
+                sections: [
+                    {
+                        name: "Condition",
+                        shortName: "Condition",
+                        type: "NameValuePairs",
+                        /*eslint no-template-curly-in-string: "off"*/
+                        narrative: [
+                            {
+                                defaultTemplate: "Patient has ${.Name} diagnosed on ${.Diagnosis Date}."
+                            }
+                        ],
+                        data: [
+                            {
+                                name: "",
+                                items: [
+                                    {
+                                        name: "Name",
+                                        value: (patient, currentConditionEntry) => {
+                                            return [currentConditionEntry.type, patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)];
+                                        },
+                                        shortcut: "@condition"
+                                    },
+                                    {
+                                        name: "Diagnosis Date",
+                                        value: (patient, currentConditionEntry) => {
+                                            return [currentConditionEntry.diagnosisDate, patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)];
+                                        }
+                                    },
+                                    {
+                                        name: "Where",
+                                        value: (patient, currentConditionEntry) => {
+                                            return [currentConditionEntry.bodySite, patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)];
+                                        }
+                                    },
+                                    {
+                                        name: "Clinical Status",
+                                        value: (patient, currentConditionEntry) => {
+                                            return [currentConditionEntry.clinicalStatus, patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)];
+                                        }
+                                    }
+                                ]
                             }
                         ]
                     }
