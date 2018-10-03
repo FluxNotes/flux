@@ -51,6 +51,7 @@ export default class TargetedDataPanel extends Component {
                                 condition={this.props.appState.condition}
                                 isWide={this.props.isWide}
                                 loginUser={this.props.loginUser}
+                                preferenceManager={this.props.preferenceManager}
                                 patient={this.props.appState.patient} 
                                 setForceRefresh={this.props.setForceRefresh}                                                              
                                 summaryMetadata={this.props.summaryMetadata.getMetadata()}
@@ -77,6 +78,7 @@ TargetedDataPanel.proptypes = {
     isTargetedDataSubpanelVisible: PropTypes.bool,
     isWide: PropTypes.bool.isRequired,
     loginUser: PropTypes.object.isRequired,
+    preferenceManager: PropTypes.object.isRequired,
     summaryMetadata: PropTypes.object.isRequired,
     setForceRefresh: PropTypes.func.isRequired,
     targetedDataPanelSize: PropTypes.string.isRequired,

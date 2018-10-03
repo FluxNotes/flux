@@ -164,6 +164,7 @@ export default class TargetedDataSubpanel extends Component {
                         isWide={isWide}
                         actions={actions}
                         loginUser={this.props.loginUser}
+                        preferenceManager={this.props.preferenceManager}
                         searchIndex={this.props.searchIndex}
                         moveToSubsectionFromSearch={this.props.moveToSubsectionFromSearch}
                     />
@@ -198,4 +199,5 @@ TargetedDataSubpanel.propTypes = {
     actions: PropTypes.array,
     searchIndex: PropTypes.object.isRequired,
     loginUser: PropTypes.object.isRequired,
+    preferenceManager: PropTypes.object.isRequired,
 };

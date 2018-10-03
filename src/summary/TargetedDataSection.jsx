@@ -30,6 +30,11 @@ export default class TargetedDataSection extends Component {
     determineDefaultVisualizer = (section, clinicalEvent, optionsForSection) => {
         if (optionsForSection.length === 0) return 'tabular';
         let result = null;
+        const preferredVisualizer = this.props.preferenceManager.getPreference(this.props.section.name);
+        if (preferredVisualizer) {
+            result = this.determineIfDefaultVisualizerItemAffectsCurrentSituation(preferredVisualizer, clinicalEvent, optionsForSection);
+            if (!Lang.isNull(result)) return result;
+        }
         if (section.defaultVisualizer) {
             if (Lang.isArray(section.defaultVisualizer)) {
                 let defaultResult = null;
@@ -69,6 +74,7 @@ export default class TargetedDataSection extends Component {
         this.props.searchIndex.removeDataBySection(this.props.section.name);
         this.indexSectionData(this.props.section);
         this.setState({ chosenVisualizer });
+        this.props.preferenceManager.setPreference(this.props.section.name, chosenVisualizer);
     }
 
     checkVisualization = () => {
@@ -247,5 +253,6 @@ TargetedDataSection.propTypes = {
     isWide: PropTypes.bool.isRequired,
     clinicalEvent: PropTypes.string.isRequired,
     loginUser: PropTypes.object.isRequired,
+    preferenceManager: PropTypes.object.isRequired,
     searchIndex: PropTypes.object.isRequired,
 }

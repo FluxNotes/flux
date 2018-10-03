@@ -26,6 +26,7 @@ import FluxInjury from '../../../src/model/condition/FluxInjury';
 
 import SearchIndex from '../../../src/patientControl/SearchIndex';
 import FluxClinicalNote from '../../../src/model/core/FluxClinicalNote';
+import PreferenceManager from '../../../src/preferences/PreferenceManager';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -89,9 +90,10 @@ describe('3 TargetedDataControl', function() {
         }
         const defaultOrTabular = options.length > 0 ? options[0] : 'tabular';
 
+        const preferenceManager = new PreferenceManager(null);
         const visualizerManager = new VisualizerManager();
         const searchIndex = new SearchIndex();
-        const wrapper = shallow(<TargetedDataSection patient={null} condition={null} section={section} type={section.type} visualizerManager={visualizerManager} isWide={false} clinicalEvent='post-encounter' searchIndex={searchIndex} />);
+        const wrapper = shallow(<TargetedDataSection patient={null} condition={null} section={section} type={section.type} visualizerManager={visualizerManager} preferenceManager={preferenceManager} isWide={false} clinicalEvent='post-encounter' searchIndex={searchIndex} />);
 
         // Initial state
         expect(wrapper.state('defaultVisualizer'))
@@ -115,9 +117,10 @@ describe('4 TargetedDataControl - correct default visualizer Medications', funct
         });
         const expectedDefault = 'chart';
 
+        const preferenceManager = new PreferenceManager(null);
         const visualizerManager = new VisualizerManager();
         const searchIndex = new SearchIndex();
-        const wrapper = shallow(<TargetedDataSection patient={null} condition={null} section={section} type={section.type} visualizerManager={visualizerManager} isWide={false} clinicalEvent='pre-encounter' searchIndex={searchIndex} />);
+        const wrapper = shallow(<TargetedDataSection patient={null} condition={null} section={section} type={section.type} visualizerManager={visualizerManager} preferenceManager={preferenceManager} isWide={false} clinicalEvent='pre-encounter' searchIndex={searchIndex} />);
 
         // Initial state
         expect(wrapper.state('defaultVisualizer'))

@@ -185,6 +185,7 @@ export default class ClinicianDashboard extends Component {
                         isTargetedDataSubpanelVisible={isTargetedDataSubpanelVisible}
                         isWide={isTargetedDataPanelWide}
                         loginUser={this.props.loginUser}
+                        preferenceManager={this.props.preferenceManager}
                         summaryMetadata={this.props.summaryMetadata}
                         setForceRefresh={this.props.setForceRefresh}
                         targetedDataPanelSize={this.state.targetedDataPanelSize}
@@ -241,6 +242,7 @@ ClinicianDashboard.propTypes = {
     handleSummaryItemSelected: PropTypes.func.isRequired,
     itemInserted: PropTypes.func.isRequired,
     loginUser: PropTypes.object.isRequired,
+    preferenceManager: PropTypes.object.isRequired,
     newCurrentShortcut: PropTypes.func.isRequired,
     onContextUpdate: PropTypes.func.isRequired,
     openSourceNoteEntryId: PropTypes.oneOfType([
