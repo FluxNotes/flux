@@ -23,6 +23,7 @@ import PatientControlPanel from '../panels/PatientControlPanel';
 import SearchIndex from '../patientControl/SearchIndex';
 
 import '../styles/FullApp.css';
+import PreferenceManager from '../preferences/PreferenceManager';
 
 const theme = createMuiTheme({
     palette: {
@@ -154,6 +155,7 @@ export class FullApp extends Component {
         const userProfile = this.securityManager.getDemoUser(this.props.clinicianId);
         if (userProfile) {
             this.setState({loginUser: userProfile});
+            this.preferenceManager = new PreferenceManager(userProfile);
         } else {
             console.error("Login failed");
         }
@@ -382,6 +384,7 @@ export class FullApp extends Component {
                             handleSummaryItemSelected={this.handleSummaryItemSelected}
                             itemInserted={this.itemInserted}
                             loginUser={this.state.loginUser}
+                            preferenceManager={this.preferenceManager}
                             newCurrentShortcut={this.newCurrentShortcut}
                             onContextUpdate={this.onContextUpdate}
                             openSourceNoteEntryId={this.state.openSourceNoteEntryId}
