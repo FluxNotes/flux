@@ -252,18 +252,22 @@ class NarrativeNameValuePairsVisualizer extends Component {
         // build list of snippets that are part of narrative to support typing each snippet so each
         // can be given correct formatting and interactions
         const narrative = this.buildNarrative();
-        
+        let className;
+
         // now go through each snippet and build up HTML to render
         let content = [];
         narrative.forEach((snippet, index) => {
+            className = snippet.type;
             const isInsertable = (Lang.isNull(snippet.item) || Lang.isUndefined(snippet.item) ? false : (Lang.isUndefined(snippet.item.isInsertable) ? true : snippet.item.IsInsertable));
             if ((snippet.type === 'narrative-structured-data' || snippet.type === "narrative-unsigned-data") && isInsertable) {
+                if (this.props.actions.length > 0) {
+                    className += " has-action-menu";
+                }
                 const snippetId = `${snippet.item.name}-${index}`
-                // const snippetValue = (Lang.isArray(snippet.item.value) ? snippet.item.value[0] : snippet.item.value);
                 content.push(
                     <span key={snippetId}>
                         <span 
-                            className={snippet.type} 
+                            className={className} 
                             onClick={(event) => this.openInsertionMenu(event, snippetId)}
                         >
                             {snippet.text}
@@ -272,7 +276,8 @@ class NarrativeNameValuePairsVisualizer extends Component {
                     </span>
                 );
             } else if (snippet.type !== 'plain') {
-                content.push(<span key={index} className={snippet.type}>{snippet.text}</span>);
+                console.log(snippet.type, this.props.actions);
+                content.push(<span key={index} className={className}>{snippet.text}</span>);
             } else {
                 content.push(<span key={index}>{snippet.text}</span>);
             }

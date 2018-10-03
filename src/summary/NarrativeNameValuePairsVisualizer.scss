@@ -51,16 +51,18 @@ span.narrative {
     }
 
     &-structured-data {
-        cursor: pointer;
         border-bottom: 1px solid $shr-context-line;
         text-decoration: none;
     }
 
     &-unsigned-data {
-        cursor: pointer;
         border-bottom: 1.5px dashed $shr-context-line;
         text-decoration: none;
     }
+}
+
+span.has-action-menu {
+    cursor: pointer;
 }
 
 .menu-item {
