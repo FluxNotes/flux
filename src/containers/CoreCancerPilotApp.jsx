@@ -18,6 +18,7 @@ import CoreCancerPilotDashboard from '../dashboard/CoreCancerPilotDashboard';
 import DataAccess from '../dataaccess/DataAccess';
 import CoreCancerPilotSummaryMetadata from '../summary/CoreCancerPilotSummaryMetadata';
 import PatientControlPanel from '../panels/PatientControlPanel';
+import PreferenceManager from '../preferences/PreferenceManager';
 import SearchIndex from '../patientControl/SearchIndex';
 
 import '../styles/CoreCancerPilotApp.css';
@@ -96,6 +97,7 @@ export class CoreCancerPilotApp extends Component {
         const userProfile = this.securityManager.getDemoUser(this.props.clinicianId);
         if (userProfile) {
             this.setState({loginUser: userProfile});
+            this.preferenceManager = new PreferenceManager(userProfile);
         } else {
             console.error("Login failed");
         }
@@ -194,6 +196,7 @@ export class CoreCancerPilotApp extends Component {
                             appState={this.state}
                             dataAccess={this.dataAccess}
                             loginUser={this.state.loginUser}
+                            preferenceManager={this.preferenceManager}
                             searchSelectedItem={this.state.searchSelectedItem}
                             setForceRefresh={this.setForceRefresh}
                             setFullAppStateWithCallback={this.setFullAppStateWithCallback}

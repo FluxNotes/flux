@@ -102,6 +102,7 @@ export default class TargetedDataPanel extends Component {
                                 condition={this.props.appState.condition}
                                 isWide={this.props.isWide}
                                 loginUser={this.props.loginUser}
+                                preferenceManager={this.props.preferenceManager}
                                 patient={this.props.appState.patient} 
                                 setForceRefresh={this.props.setForceRefresh}                                                              
                                 conditionMetadata={conditionMetadata}

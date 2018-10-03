@@ -31,6 +31,7 @@ export default class CoreCancerPilotDashboard extends Component {
                         isTargetedDataSubpanelVisible={true}
                         isWide={true}
                         loginUser={this.props.loginUser}
+                        preferenceManager={this.props.preferenceManager}
                         summaryMetadata={this.props.summaryMetadata}
                         setForceRefresh={this.props.setForceRefresh}
                         targetedDataPanelSize={'100%'}
@@ -49,6 +50,7 @@ CoreCancerPilotDashboard.proptypes = {
     dataAccess: PropTypes.object.isRequired,
     forceRefresh: PropTypes.bool,
     loginUser: PropTypes.object.isRequired,
+    preferenceManager: PropTypes.object.isRequired,
     searchSelectedItem: PropTypes.object,
     setForceRefresh: PropTypes.func.isRequired,
     setFullAppStateWithCallback: PropTypes.func.isRequired,

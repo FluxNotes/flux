@@ -20,10 +20,10 @@ import ContextManager from '../context/ContextManager';
 import DataAccess from '../dataaccess/DataAccess';
 import SummaryMetadata from '../summary/SummaryMetadata';
 import PatientControlPanel from '../panels/PatientControlPanel';
+import PreferenceManager from '../preferences/PreferenceManager';
 import SearchIndex from '../patientControl/SearchIndex';
 
 import '../styles/FullApp.css';
-import PreferenceManager from '../preferences/PreferenceManager';
 
 const theme = createMuiTheme({
     palette: {

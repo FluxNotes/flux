@@ -56,13 +56,15 @@ $font-size: 0.8rem;
         }
 
         &.list-unsigned span {
-            cursor: pointer;
             border-bottom: 1.5px dashed $shr-context-line;
             text-decoration: none;
         }
 
         &.list-captured span {
             border-bottom: 1px solid $shr-context-line;
+        }
+
+        &.has-action-menu span {
             cursor: pointer;
         }
     }
