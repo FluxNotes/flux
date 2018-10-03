@@ -276,7 +276,6 @@ class NarrativeNameValuePairsVisualizer extends Component {
                     </span>
                 );
             } else if (snippet.type !== 'plain') {
-                console.log(snippet.type, this.props.actions);
                 content.push(<span key={index} className={className}>{snippet.text}</span>);
             } else {
                 content.push(<span key={index}>{snippet.text}</span>);
