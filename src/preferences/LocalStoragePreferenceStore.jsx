@@ -2,15 +2,25 @@ import IPreferenceStore from './IPreferenceStore';
 
 class LocalStoragePreferenceStore extends IPreferenceStore {
     setPreference(name, value) {
-        localStorage.setItem(name, JSON.stringify(value));
+        try {
+            localStorage.setItem(name, JSON.stringify(value));
+        } catch (e) {
+        }
     }
 
     getPreference(name) {
-        return JSON.parse(localStorage.getItem(name));
+        try {
+            return JSON.parse(localStorage.getItem(name));
+        } catch (e) {
+            return null;
+        }
     }
 
     removePreference(name) {
-        localStorage.removeItem(name);
+        try {
+            localStorage.removeItem(name);
+        } catch (e) {
+        }
     }
 }
 
