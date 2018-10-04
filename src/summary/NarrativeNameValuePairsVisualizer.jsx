@@ -65,7 +65,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
             return [];
         }
 
-        let subsections = [];
+        let subsections = {};
         conditionSection.data.forEach((subsection) => {
             subsections[subsection.name] = subsection;
         });
@@ -170,6 +170,9 @@ class NarrativeNameValuePairsVisualizer extends Component {
     buildNarrative() {
         const {conditionSection} = this.props;
         let subsections = this.getSubsections();
+        if (Object.keys(subsections).length === 0) {
+            return [];
+        }
 
         let narrativeTemplate = "";
         if (conditionSection.narrative === undefined) {
