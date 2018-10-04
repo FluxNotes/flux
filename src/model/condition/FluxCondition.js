@@ -83,7 +83,8 @@ class FluxCondition {
         if (    !this._condition.bodySiteOrCode || 
                 this._condition.bodySiteOrCode.length < 1 ||
                 !this._condition.bodySiteOrCode[0].value ||
-                !(this._condition.bodySiteOrCode[0].value instanceof BodySite)) return null;
+                !(this._condition.bodySiteOrCode[0].value instanceof BodySite) ||
+                !this._condition.bodySiteOrCode[0].value.laterality) return null;
         return this._condition.bodySiteOrCode[0].value.laterality.value.coding[0].displayText.value;
     }
 

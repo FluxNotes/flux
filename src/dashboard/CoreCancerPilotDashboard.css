@@ -1,0 +1,27 @@
+#core-cancer-pilot-dashboard-content {
+    margin-top: 15px;
+}
+
+#core-cancer-pilot-dashboard-content .fitted-panel {
+    overflow-y: auto;
+    overflow-x: hidden;
+    text-align: left;
+    /* 106px is the height of the on large screens Patient Control Panel, 20px is the height of the top margin of post encounter view content and a little extra for potential scroll bars*/
+    max-height: calc(100vh - 92px - 20px);
+    min-height: 400px !important;
+}
+
+#core-cancer-pilot-dashboard-content .right-border-box {
+    border-right: 2px dashed #ddd;
+}
+
+#core-cancer-pilot-dashboard-content .full-panel {
+    height: auto;
+}
+
+@media only screen and (max-width: 1024px) { 
+    #core-cancer-pilot-dashboard-content .fitted-panel {
+        /* 117px is the height of the on large screens Patient Control Panel, 20px is the height of the top margin of post encounter view content and a little extra for potential scroll bars*/
+        max-height: calc(100vh - 117px - 20px);
+    }
+}

@@ -49,3 +49,8 @@
     display: block;
     visibility: hidden;
 }
+
+.targeted-data-subpanel-no-minimap {
+    margin-left: 20px;
+    margin-right: 0px;
+}

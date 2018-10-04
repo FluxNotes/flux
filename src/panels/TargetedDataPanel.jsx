@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import TargetedDataSubpanel from '../summary/TargetedDataSubpanel';
 import Minimap from '../lib/react-minimap/react-minimap.js';
 import '../lib/react-minimap/react-minimap.css'
@@ -18,32 +17,86 @@ export default class TargetedDataPanel extends Component {
     }
 
     moveToSubsection(sectionName, subsectionName) {
-        return this.minimap.moveToSubsection(sectionName, subsectionName);
+        if (this.minimap) {
+            return this.minimap.moveToSubsection(sectionName, subsectionName);
+        }
     }
 
     moveToSubsectionFromSearch(suggestion) {
-        this.moveToSubsection(suggestion.section, suggestion.subsection)
+        this.moveToSubsection(suggestion.section, suggestion.subsection);
+    }
+    
+    getConditionMetadata() {
+        const { loginUser } = this.props;
+        const summaryMetadata = this.props.summaryMetadata.getMetadata();
+        const condition = this.props.appState.condition;
+        let codeSystem, code, conditionMetadata = null;
+
+        if (condition != null) {
+            codeSystem = condition.codeSystem;
+            code = condition.code;
+            const conditionType = `${codeSystem}/${code}`;
+            const userType = `${loginUser.getRoleType()}/${loginUser.getRole()}/${loginUser.getSpecialty()}`;
+            conditionMetadata = summaryMetadata[userType + "/" + conditionType];
+            if (conditionMetadata == null) {
+                conditionMetadata = summaryMetadata[conditionType];
+            }
+        }
+
+        if (condition == null || conditionMetadata == null) {
+            conditionMetadata = summaryMetadata["default"];
+        }
+
+        return conditionMetadata;
     }
 
     render () {
         // The css data attribute associated with the minimap
         const minimapAttribute = 'data-test-summary-section';
         const shortTitleAttribute = 'data-minimap-short-title';
+        const conditionMetadata = this.getConditionMetadata();
 
-        return (
-            <div className="targeted-data-panel">
-                <Minimap
-                    selector={`[${minimapAttribute}]`}
-                    className="fitted-panel"
-                    titleAttribute={minimapAttribute}
-                    shortTitleAttribute={shortTitleAttribute}
-                    width={80}
-                    isFullHeight={true}
-                    ref={(minimap) => { this.minimap = minimap; }}
-                >
+        if (conditionMetadata && conditionMetadata.sections.length > 1) {
+            return (
+                <div className="targeted-data-panel">
+                    <Minimap
+                        selector={`[${minimapAttribute}]`}
+                        className="fitted-panel"
+                        titleAttribute={minimapAttribute}
+                        shortTitleAttribute={shortTitleAttribute}
+                        width={80}
+                        isFullHeight={true}
+                        ref={(minimap) => { this.minimap = minimap; }}
+                    >
+                        <div id="summary-subpanel">
+                            <div className="summary-section">
+                                <TargetedDataSubpanel
+                                    actions={this.props.actions}
+                                    forceRefresh={this.props.forceRefresh}
+                                    allowItemClick={this.props.isNoteViewerEditable}
+                                    clinicalEvent={this.props.appState.clinicalEvent}
+                                    condition={this.props.appState.condition}
+                                    isWide={this.props.isWide}
+                                    loginUser={this.props.loginUser}
+                                    preferenceManager={this.props.preferenceManager}
+                                    patient={this.props.appState.patient} 
+                                    setForceRefresh={this.props.setForceRefresh}                                                              
+                                    conditionMetadata={conditionMetadata}
+                                    searchIndex={this.props.searchIndex}
+                                    moveToSubsectionFromSearch={this.moveToSubsectionFromSearch.bind(this)}
+                                    />
+                            </div>
+                        </div>
+                    </Minimap>
+                </div>
+            );    
+        } else {
+            return (
+                <div className="targeted-data-panel">
                     <div id="summary-subpanel">
                         <div className="summary-section">
                             <TargetedDataSubpanel
+                                className="targeted-data-subpanel-no-minimap"
                                 actions={this.props.actions}
                                 forceRefresh={this.props.forceRefresh}
                                 allowItemClick={this.props.isNoteViewerEditable}
@@ -54,15 +107,15 @@ export default class TargetedDataPanel extends Component {
                                 preferenceManager={this.props.preferenceManager}
                                 patient={this.props.appState.patient} 
                                 setForceRefresh={this.props.setForceRefresh}                                                              
-                                summaryMetadata={this.props.summaryMetadata.getMetadata()}
+                                conditionMetadata={conditionMetadata}
                                 searchIndex={this.props.searchIndex}
                                 moveToSubsectionFromSearch={this.moveToSubsectionFromSearch.bind(this)}
-                            />
+                                />
                         </div>
                     </div>
-                </Minimap>
-            </div>
-        );
+                </div>
+            );    
+        }
     }
 }
 

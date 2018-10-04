@@ -1,0 +1,66 @@
+.FullApp {
+    min-height: 100vh;
+    background-color: #FFFFFF;
+    overflow: hidden;
+}
+
+/* Restricts app to max fixed width for very wide screens. */
+.FullApp-content {
+    /* Reduce padding that is set using fluid-container from react flex box */
+    padding-right: 0rem !important;
+    padding-left: 0rem !important;
+}
+
+.FullApp-content .container-fluid {
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+.FullApp-content .panel-content {
+    padding: 5px;
+    text-align: left;
+}
+
+.FullApp-content .dashboard-panel {
+    text-align: left;
+}
+
+.FullApp-content .divider {
+    margin: 20px 0px !important;
+    clear: both;
+}
+
+.FullApp-content h1 {
+    margin: 0px;
+    font-size: 1.0rem;
+    font-weight: 400;
+}
+
+.FullApp-content h2 {
+    margin: 0px;
+    font-size: .9rem;
+    font-weight: lighter;
+}
+
+.FullApp-content h3 {
+    margin: 2px 0;
+    font-size: 0.7rem;
+    font-weight: 400;
+
+}
+
+.FullApp-content ::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0);
+    border-radius: 10px;
+    background-color: #FFFFFF;
+}
+
+#modal-title {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    font-weight: 400;
+}
+
+#simple-modal-description {
+    margin: 0px;
+}

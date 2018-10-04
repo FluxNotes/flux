@@ -244,6 +244,10 @@ export default class TabularListVisualizer extends Component {
         const numColumns = item.length;
         const colSize = (100 / numColumns) + "%";
 
+        if (subsectionActions.length > 0  || this.props.actions.length > 0) {
+            rowClass += " has-action-menu";
+        }
+
         item.forEach((element, arrayIndex) => {
             const elementId = `${subsectionindex}-${index}-item-${arrayIndex}`
             let columnItem = null;
@@ -255,6 +259,9 @@ export default class TabularListVisualizer extends Component {
             if (!Lang.isNull(elementText) && elementText.length > 100) elementText = elementText.substring(0, 100) + "...";
 
             let itemClass = isUnsigned ? 'list-unsigned' : 'list-captured';
+            if (subsectionActions.length > 0 || this.props.actions.length > 0) {
+                itemClass += " has-action-menu";
+            }
 
             // If this section has an associated formatFunction (that
             // returns a specific) CSS class, it is applied to elementText.

@@ -1,3 +1,4 @@
+import { CoreCancerPilotApp } from '../containers/CoreCancerPilotApp';
 import FullApp from '../containers/FullApp';
 import SlimApp from '../containers/SlimApp';
 import SmartApp from '../containers/SmartApp';
@@ -91,6 +92,14 @@ export default class AppManager {
                         ]
                     }
                 }
+            },
+            {
+                path: '/ccp',
+                display: 'M-CODE Pilot',
+                app: CoreCancerPilotApp,
+                isExact: true,
+                dataSource: 'HardCodedReadOnlyDataSource',
+                patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7f'
             },
             {
                 path: '/demo1',
