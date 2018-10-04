@@ -343,18 +343,18 @@ class ShortcutManager {
                 return false;
             }
         });
-		if (recurse) {
-			context.getChildren().forEach((subcontext) => {
-				result = result.concat(this.getValidChildShortcutsInContext(subcontext, true));
-			});
-		}        
+        if (recurse) {
+            context.getChildren().forEach((subcontext) => {
+                result = result.concat(this.getValidChildShortcutsInContext(subcontext, true));
+            });
+        }
         return result;
     }
     
     // context is optional
     getTriggersForShortcut(shortcutId, context) {
         if (Lang.isUndefined(this.shortcuts[shortcutId]["stringTriggers"])) { 
-            return []
+            return [];
         } else if (!Lang.isUndefined(context)) {
             const currentContextId = context.getId();
             const parentAttribute = this.shortcuts[shortcutId]["parentAttribute"];
@@ -375,12 +375,13 @@ class ShortcutManager {
                 }
             }
         }
+
         return this.triggersPerShortcut[shortcutId];
     }
 
     getKeywordsForShortcut(shortcutId, context) { 
         if (Lang.isUndefined(this.shortcuts[shortcutId]["keywords"])) { 
-            return []
+            return [];
         } else if (!Lang.isUndefined(context)) {
             const currentContextId = context.getId();
             const parentAttribute = this.shortcuts[shortcutId]["parentAttribute"];
@@ -401,6 +402,7 @@ class ShortcutManager {
                 }
             }
         }
+
         return this.keywordsPerShortcut[shortcutId];
     }
     

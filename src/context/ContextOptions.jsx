@@ -108,15 +108,6 @@ export default class ContextOptions extends Component {
                     // count++;
                 }
             });
-            // Add keywords as well
-            this.props.shortcutManager.getKeywordsForShortcut(shortcut, context).forEach((trigger, j) => {
-                // If there's a search string to filter on, filter
-                if (this.props.searchString.length === 0 || trigger.name.toLowerCase().indexOf(this.props.searchString.toLowerCase()) !== -1) {
-                    let triggerDescription = !Lang.isNull(trigger.description) ? trigger.description : '';
-                    triggers.push({"name": trigger.name, "description": triggerDescription, "group": i, "groupName": groupName });
-                    // count++;
-                }
-            });
         });
 
         // lets create a list of groups with associated shortcut triggers for each
