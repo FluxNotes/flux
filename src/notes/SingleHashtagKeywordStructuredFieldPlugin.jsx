@@ -24,7 +24,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		}
 	}
 
-	function replaceAllRelevantKeywordsInBlock(curNode, curTransform, state) { 
+	function replaceAllRelevantKeywordsInBlock(curNode, curTransform, state) {
 		const listOfSingleHashtagKeywordShortcutMappings = getKeyToActiveSingleHashtagKeywordShortcutMappings();
 		const curKey = curNode.key;
 		// To track if additional operations are done later
@@ -37,13 +37,19 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 			const listOfKeywordShortcutClasses = findRelevantKeywordShortcutClasses(listOfSingleHashtagKeywordShortcutMappings).reduce((accumulator, listOfKeywordsForShortcut) => accumulator.concat(listOfKeywordsForShortcut));
 			for (const keywordClass of listOfKeywordShortcutClasses) {
 				// Scan text to find any necessary replacements 
-				const keywords = getKeywordsBasedOnShortcutClass(keywordClass)
+				let keywords = getKeywordsBasedOnShortcutClass(keywordClass);
+				const keywordsWithPrefix = Lang.cloneDeep(keywords);
+				keywordsWithPrefix.forEach(keywordWithPrefix => {
+					keywordWithPrefix.name = `#${keywordWithPrefix.name}`;
+				});
+				keywords = keywords.concat(keywordsWithPrefix);
 				// Sort keywords based on length -- we want to match longest options first
 				keywords.sort(_sortKeywordByNameLength);
 				const keywordInClosetBlock = scanTextForKeywordObject(curNode.text, keywords)
 				if (!Lang.isUndefined(keywordInClosetBlock)) { 
 					const keywordText = keywordInClosetBlock.name.toLowerCase();
-                    const newKeywordShortcut = createShortcut(null, keywordText);
+					const keywordShortcutText = keywordText.startsWith('#') ? keywordText.slice(1) : keywordText;
+					const newKeywordShortcut = createShortcut(null, keywordShortcutText);
                     newKeywordShortcut.setSource("Keyword");
 					// KeywordRange never be null -- we've already confirmed the existance of the keyword
 					let keywordRange;
