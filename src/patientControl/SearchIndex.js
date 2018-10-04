@@ -75,10 +75,12 @@ class SearchIndex {
         }).forEach(result => {
             let doc = this._index.documentStore.getDoc(result.ref);
             doc.score = result.score;
+            // Search the content of the open note
             if (doc.section === "Open Note") {
                 let contentMatches = this._lunr.search(query);
                 if (contentMatches[0]) {
                     const positions = Lang.sortBy(Lang.flatten(Lang.values(contentMatches[0].matchData.metadata).map(val => val.content.position)), t => t[0]);
+                    // combine any indices that are continuous
                     positions.forEach((pos, i) => {
                         let currentIdx = [...pos];
                         let numSwapped = 1;
