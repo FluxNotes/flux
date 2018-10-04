@@ -33,6 +33,7 @@ class SearchIndex {
                     this.metadataWhitelist = ['position']
                     this.ref('id');
                     this.field('content');
+                    this.pipeline.remove(lunr.stopWordFilter);
 
                     this.add({
                         id: data.id,
@@ -77,27 +78,24 @@ class SearchIndex {
             if (doc.section === "Open Note") {
                 let contentMatches = this._lunr.search(query);
                 if (contentMatches[0]) {
-                    // const allPositions = Lang.flatten(Lang.values(contentMatches[0].matchData.metadata).map(val => val.content.position));
-                    // console.log('contentMatches: ', contentMatches);
-                    // if (Lang.keys(contentMatches[0].matchData.metadata).length > 1) {
-                    //     const startPos = allPositions[0][0];
-                    //     let endPos = startPos+1;
-                    //     allPositions.forEach(position => {
-                    //         endPos += position[1];
-                    //     });
-                    //     let tempDoc = Lang.cloneDeep(doc);
-                    //     tempDoc.indices = [startPos, endPos];
-                    //     suggestions.unshift(tempDoc);
-                    // } else {
-                        Lang.values(contentMatches[0].matchData.metadata).forEach(val => {
-                            const positions = val.content.position;
-                            positions.forEach(([startIdx, length]) => {
-                                let tempDoc = Lang.cloneDeep(doc);
-                                tempDoc.indices = [startIdx, startIdx+length];
-                                suggestions.unshift(tempDoc);
-                            })
-                        });
-                    // }
+                    const positions = Lang.sortBy(Lang.flatten(Lang.values(contentMatches[0].matchData.metadata).map(val => val.content.position)), t => t[0]);
+                    positions.forEach((pos, i) => {
+                        let currentIdx = [...pos];
+                        let numSwapped = 1;
+                        for(let j = i+1; j < positions.length; j++) {
+                            const next = positions[j];
+                            if (currentIdx[0] + currentIdx[1] + 1 === next[0]) {
+                                currentIdx[1] += next[1] + 1;
+                                numSwapped++;
+                            }
+                        }
+                        positions.splice(i, numSwapped, currentIdx);
+                    });
+                    positions.forEach(([startIdx, length]) => {
+                        let tempDoc = Lang.cloneDeep(doc);
+                        tempDoc.indices = [startIdx, startIdx+length];
+                        suggestions.unshift(tempDoc);
+                    });
                 }
             } else {
                 suggestions.push(doc);
