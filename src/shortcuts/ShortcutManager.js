@@ -142,7 +142,6 @@ class ShortcutManager {
     }
 
     createShortcut(definition, triggerOrKeyword, patient, shortcutData, onUpdate) {
-
         let className;
         let metadata;
         if (!Lang.isNull(definition)) {
