@@ -267,7 +267,7 @@ class ShortcutManager {
                 // build up trigger to shortcut mapping
                 const triggers = item["stringTriggers"];
                 const keywords = item["keywords"]
-                if(triggers) { 
+                if (triggers) { 
                     this.triggersPerShortcut[item.id] = [];
                     if (Lang.isArray(triggers)) {
                         triggers.forEach((trigger) => { 
@@ -276,7 +276,8 @@ class ShortcutManager {
                     } else {
                         addTriggerForCurrentShortcut.bind(this)(triggers, item);
                     }
-                } else if (keywords) { 
+                }
+                if (keywords) { 
                     this.keywordsPerShortcut[item.id] = [];
                     if (Lang.isArray(keywords)) {
                         keywords.forEach((keyword) => { 
