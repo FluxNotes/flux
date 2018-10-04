@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {LineChart, Line, XAxis, YAxis, Tooltip, ReferenceArea} from 'recharts';
+import {LineChart, Line, XAxis, YAxis, Tooltip, ReferenceArea, ResponsiveContainer} from 'recharts';
 import moment from 'moment';
 import {scaleLinear} from "d3-scale";
 import Collection from 'lodash';
@@ -182,30 +182,32 @@ class BandedLineChartVisualizer extends Component {
                         <span>{`${yVar}`}</span><span>{` (${yUnit})`}</span>
                     </h2>
                 </div>
-                <LineChart
-                    width={this.state.chartWidth}
-                    height={this.state.chartHeight}
-                    data={processedData}
-                    margin={{top: 5, right: 20, left: 10, bottom: 5}}
-                >
-                    <XAxis
-                        dataKey={xVarNumber}
-                        type="number"
-                        domain={[]}
-                        ticks={this.getTicks(processedData, xVarNumber)}
-                        tickFormatter={this.dateFormat}
-                    />
-                    <YAxis
-                        dataKey={yVar}
-                        domain={[0, 'dataMax']}
-                    />
-                    <Tooltip
-                        labelFormatter={this.xVarFormatFunction}
-                        formatter={this.createYVarFormatFunctionWithUnit(yUnit)}
-                    />
-                    <Line type="monotone" dataKey={yVar} stroke="#295677" yAxisId={0}/>
-                    {renderedBands}
-                </LineChart>
+                <ResponsiveContainer
+                  height={this.state.chartHeight}
+                >                 
+                    <LineChart
+                        data={processedData}
+                        margin={{top: 5, right: 20, left: 10, bottom: 5}}
+                    >
+                        <XAxis
+                            dataKey={xVarNumber}
+                            type="number"
+                            domain={[]}
+                            ticks={this.getTicks(processedData, xVarNumber)}
+                            tickFormatter={this.dateFormat}
+                        />
+                        <YAxis
+                            dataKey={yVar}
+                            domain={[0, 'dataMax']}
+                        />
+                        <Tooltip
+                            labelFormatter={this.xVarFormatFunction}
+                            formatter={this.createYVarFormatFunctionWithUnit(yUnit)}
+                        />
+                        <Line type="monotone" dataKey={yVar} stroke="#295677" yAxisId={0}/>
+                        {renderedBands}
+                    </LineChart>
+                </ResponsiveContainer>
             </div>
         );
     }
