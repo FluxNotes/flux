@@ -78,7 +78,7 @@ class SearchIndex {
             let doc = this._index.documentStore.getDoc(result.ref);
             doc.score = result.score;
             // Search the content of the open note
-            if (doc.section === "Open Note") {
+            if (doc.section === "Open Note" && doc.valueTitle === "Content") {
                 const contentMatches = this._lunr.query(function(q) {
                     const terms = query.split(' ');
                     terms.forEach(term => {
