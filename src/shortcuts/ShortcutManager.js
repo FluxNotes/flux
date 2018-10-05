@@ -4,7 +4,6 @@ import CreatorChild from './CreatorChild';
 import InsertValue from './InsertValue';
 import UpdaterBase from './UpdaterBase';
 import SingleHashtagKeyword from './SingleHashtagKeyword';
-import Keyword from './Keyword';
 import Placeholder from './Placeholder';
 import ValueSetManager from '../lib/ValueSetManager';
 import shortcutMetadata from './Shortcuts.json';
@@ -168,8 +167,6 @@ class ShortcutManager {
             newShortcut = new SingleHashtagKeyword(onUpdate, metadata, patient, shortcutData);
         } else if (className === "NLPHashtag") {
             newShortcut = new NLPHashtag(onUpdate, metadata, patient, shortcutData);
-        } else if (className === "Keyword") {
-            newShortcut = new Keyword(onUpdate, metadata, patient, shortcutData);
         } else {
             console.error("unsupported type: " + className);
             return null;
