@@ -85,7 +85,6 @@ class SearchIndex {
                         if(term === '') return;
                         q.term(term, { usePipeline: true });
                         q.term(`${term}*`, { usePipeline: false });
-                        q.term(term, { usePipeline: false, editDistance: 1 });
                     });
                 });
 
