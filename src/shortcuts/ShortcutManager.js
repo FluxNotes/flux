@@ -378,7 +378,7 @@ class ShortcutManager {
         return this.triggersPerShortcut[shortcutId];
     }
 
-    getKeywordsForShortcut(shortcutId, context) { 
+    getKeywordsForShortcut(shortcutId, context) {
         if (Lang.isUndefined(this.shortcuts[shortcutId]["keywords"])) { 
             return [];
         } else if (!Lang.isUndefined(context)) {
@@ -409,8 +409,19 @@ class ShortcutManager {
         return this.shortcuts[shortcutId]["shortcutGroupName"];
     }
 
-    getShortcutMetadata(shortcutId) { 
+    getShortcutMetadata(shortcutId) {
         return this.shortcuts[shortcutId]
+    }
+
+    getShortcutPrefix(shortcutId) {
+        const shortcutMetadata = this.shortcuts[shortcutId];
+        const stringTriggers = shortcutMetadata.stringTriggers;
+
+        if (Lang.isArray(stringTriggers) && stringTriggers.length > 0) {
+            return stringTriggers[0].prefix || '';
+        }
+
+        return stringTriggers.prefix || '';
     }
 
     isShortcutInstanceOfSingleHashtagKeyword(shortcut) {
