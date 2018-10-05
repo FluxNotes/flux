@@ -101,7 +101,7 @@
     "description":"Whether or not the cancer has spread to other parts of the body.",
     "shortcutGroupName":"Metastasis"
   },
-  { "type": "CreatorBase",
+  { "type": "SingleHashtagKeyword",
     "id": "ProgressionCreator",
     "name": "disease status",
     "getData": null,
@@ -135,6 +135,7 @@
     "id": "ProgressionStatusCreator",
     "parentAttribute": "status",
     "stringTriggers": {"category":"progression", "valueSet":"status", "prefix": "#"},
+    "keywords": {"category":"progression", "valueSet":"status", "prefix": ""},
     "knownParentContexts": "ProgressionCreator",
     "description":"Based on on the patient data available to the clinician at the time of evaluation.",
     "shortcutGroupName":"Status"
@@ -144,6 +145,7 @@
     "id": "ProgressionReasonsCreator",
     "parentAttribute": "reasons",
     "stringTriggers": {"category":"progression", "valueSet":"reason", "prefix": "#"},
+    "keywords": {"category":"progression", "valueSet":"reason", "prefix": ""},
     "knownParentContexts": "ProgressionCreator",
     "description":"Rationale for the choice of status.",
     "shortcutGroupName":"Reason"
@@ -170,7 +172,7 @@
     "description":"The date relative to which the diseases status is assessed.",
     "shortcutGroupName":"Reference Date"
   },
-  { "type": "CreatorBase",
+  { "type": "SingleHashtagKeyword",
     "id": "ToxicityCreator",
     "name": "toxicity",
     "getData": null,
@@ -207,6 +209,7 @@
     "prefixForCanonicalization": "#",
     "parentAttribute": "grade",
     "stringTriggers": {"category":"toxicity", "valueSet":"grade", "prefix": "#"},
+    "keywords": {"category":"toxicity", "valueSet":"grade", "prefix": ""},
     "description":"The severity of the adverse event. The CTCAE displays Grades 1 through 5 with unique clinical descriptions of severity for each adverse event.",
     "shortcutGroupName":"Grade"
   },
@@ -217,6 +220,7 @@
     "prefixForCanonicalization": "#",
     "parentAttribute": "adverseEvent",
     "stringTriggers": {"category":"toxicity", "valueSet":"adverseEvent", "prefix": "#"},
+    "keywords": {"category":"toxicity", "valueSet":"adverseEvent", "prefix": ""},
     "description":"Any unfavorable and unintended sign, symptom, or disease temporally associated with the use of a medical treatment or procedure that may or may not be considered related to the medical treatment or procedure.",
     "shortcutGroupName":"Adverse Event"
   },
@@ -227,6 +231,7 @@
     "prefixForCanonicalization": "#",
     "parentAttribute": "attribution",
     "stringTriggers": {"category":"toxicity", "valueSet":"attribution", "prefix": "#"},
+    "keywords": {"category":"toxicity", "valueSet":"attribution", "prefix": ""},
     "description":"The relationship of the event or cause to the adverse event.",
     "shortcutGroupName":"Attribution"
   },
