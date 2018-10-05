@@ -34,6 +34,7 @@ class SearchIndex {
                     this.ref('id');
                     this.field('content');
                     this.pipeline.remove(lunr.stopWordFilter);
+                    this.tokenizer.separator = /\s+/;
 
                     this.add({
                         id: data.id,
@@ -63,6 +64,7 @@ class SearchIndex {
 
     search(query) {
         let suggestions = [];
+        let openNoteSuggestions = [];
         this._index.search(query, {
             fields: {
                 valueTitle: {
@@ -77,12 +79,21 @@ class SearchIndex {
             doc.score = result.score;
             // Search the content of the open note
             if (doc.section === "Open Note") {
-                let contentMatches = this._lunr.search(query);
+                const contentMatches = this._lunr.query(function(q) {
+                    const terms = query.split(' ');
+                    terms.forEach(term => {
+                        if(term === '') return;
+                        q.term(term, { usePipeline: true });
+                        q.term(`${term}*`, { usePipeline: false });
+                        q.term(term, { usePipeline: false, editDistance: 1 });
+                    });
+                });
+
                 if (contentMatches[0]) {
                     const positions = Lang.sortBy(Lang.flatten(Lang.values(contentMatches[0].matchData.metadata).map(val => val.content.position)), t => t[0]);
                     // combine any indices that are continuous
                     positions.forEach((pos, i) => {
-                        let currentIdx = [...pos];
+                        let currentIdx = [...pos, 0];
                         let numSwapped = 1;
                         for(let j = i+1; j < positions.length; j++) {
                             const next = positions[j];
@@ -91,19 +102,22 @@ class SearchIndex {
                                 numSwapped++;
                             }
                         }
+                        currentIdx[2] += numSwapped;
                         positions.splice(i, numSwapped, currentIdx);
                     });
-                    positions.forEach(([startIdx, length]) => {
+                    positions.forEach(([startIdx, length, combinedWords]) => {
                         let tempDoc = Lang.cloneDeep(doc);
+                        tempDoc.score += combinedWords;
                         tempDoc.indices = [startIdx, startIdx+length];
-                        suggestions.unshift(tempDoc);
+                        openNoteSuggestions.push(tempDoc);
                     });
                 }
             } else {
                 suggestions.push(doc);
             }
         });
-        return suggestions;
+        // Present open note suggestions first in order of most words matched, then regular suggestions
+        return Lang.sortBy(openNoteSuggestions, s => -s.score).concat(suggestions);
     }
 
     escapeRegExp(text) {
