@@ -20,11 +20,10 @@ class SearchSuggestion extends React.Component {
         if (indices) {
             let preTextIdx = 0;
             if (indices[0] - 15 >= 0) preTextIdx = contentSnapshot.lastIndexOf(' ', indices[0]-15);
-            const difference = indices[1]-indices[0]+1-inputValue.length;
             preText = valueTitle ? valueTitle + ': ' : '';
             preText += contentSnapshot.slice(preTextIdx, indices[0]);
-            highlightedText = contentSnapshot.slice(indices[0], indices[1]+1-difference);
-            postText = contentSnapshot.slice(indices[1]+1-difference);
+            highlightedText = contentSnapshot.slice(indices[0], indices[1]+1);
+            postText = contentSnapshot.slice(indices[1]+1);
         } else if (matchesTitle) {
             preText = '';
             highlightedText = valueTitle;
