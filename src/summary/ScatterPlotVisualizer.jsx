@@ -5,7 +5,7 @@ import Lang from 'lodash';
 import { CircularProgress } from 'material-ui';
 import './ScatterPlotVisualizer.css';
 
-/* 
+/*
 A scatterplot that plots points by category
 */
 class ScatterPlotVisualizer extends Component {
@@ -15,7 +15,7 @@ class ScatterPlotVisualizer extends Component {
             chartWidth: "600px",
             chartHeight: "30px",
             loading: false,
-        } 
+        }
     }
 
     componentWillReceiveProps = (nextProps) => {
@@ -54,13 +54,13 @@ class ScatterPlotVisualizer extends Component {
                 this.setState({
                     // We're done waiting -- time to cancel loading animation
                     loading: false,
-                    // We want some space for the treatment options: 
+                    // We want some space for the treatment options:
                     chartHeight: "600px",
                 });
                 if (Lang.isString(parsedData)) {
                     // String means there was no data on the endpoint, but no error in producing
                     this.refs.scattering.innerHTML = parsedData;
-                } else { 
+                } else {
                     // Else, we have an array of data to parse into a table
                     let categoryMap = {};
                     parsedData.forEach(function (series) {
@@ -75,7 +75,7 @@ class ScatterPlotVisualizer extends Component {
                             renderTo: this.refs.scattering,
                             type: 'scatter',
                             zoomType: 'xy',
-    
+
                         },
                         credits: {
                             enabled: false
@@ -305,12 +305,16 @@ class ScatterPlotVisualizer extends Component {
             }).catch(err => {
                 console.error("Error in getting data for ScatterPlotVis");
                 console.error('err: ', err);
+                this.setState({
+                    // No longer loading - just got an error
+                    loading: false,
+                })
                 this.refs.scattering.innerHTML = "No Service Available";
             });
-            
+
         } else {
             this.setState({
-                //  If the mydata object is something else, log the error and display a val
+                // If the mydata object is something else, log the error and display a val
                 loading: false,
             })
             console.error("in Else -- MyData object is not a promise?!");
@@ -320,7 +324,7 @@ class ScatterPlotVisualizer extends Component {
 
     }
 
-    renderLoadingAnimation = () => { 
+    renderLoadingAnimation = () => {
         return (
             <div id="table-loading-animation-container">
                 <CircularProgress
