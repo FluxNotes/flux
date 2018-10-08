@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {LineChart, Line, XAxis, YAxis, Tooltip, ReferenceArea} from 'recharts';
+import {LineChart, Line, XAxis, YAxis, Tooltip, ReferenceArea, ResponsiveContainer} from 'recharts';
 import moment from 'moment';
 import {scaleLinear} from "d3-scale";
 import Collection from 'lodash';
@@ -15,27 +15,12 @@ class BandedLineChartVisualizer extends Component {
     constructor(props) {
         super(props);
 
-        this.updateState = true;
+        // this.updateState = true;
         // This var will be used 
         this.state = {
             chartWidth: 600,
             chartHeight: 400,
         }
-    }
-
-    // Make sure to update data and resize the component when its contents update.
-    componentDidUpdate = () => {
-        if (this.updateState) {
-            this.updateState = false;
-        } else {
-            this.updateState = true;
-            setTimeout(this.resize, 450);
-        }
-    }
-
-    // Adds appropriate event listeners for tracking resizing
-    componentDidMount = () => {
-        setTimeout(this.resize, 450);
     }
 
     // Turns dates into numeric representations for graphing
@@ -67,7 +52,6 @@ class BandedLineChartVisualizer extends Component {
             }
             return rangeValues;
         }, [processedData[0][xVarNumber], processedData[0][xVarNumber]]);
-
     }
 
     // Use min/max info to build ticks for the 
@@ -94,17 +78,7 @@ class BandedLineChartVisualizer extends Component {
         return (value) => {
             return `${value} ${unit}`;
         }
-    }
-
-    // Updates the dimensions of the chart
-    resize = () => {
-        if (!this.chartParentDiv) return;
-        const chartParentDivWidth = this.chartParentDiv.offsetWidth;
-
-        this.setState({
-            chartWidth: chartParentDivWidth,
-        })
-    }
+    }  
 
     renderSubsectionChart = (subsection, patient, condition) => {
         // FIXME: Should start_time be a magic string?
@@ -171,10 +145,7 @@ class BandedLineChartVisualizer extends Component {
         }
 
         return (
-            <div
-                ref={(chartParentDiv) => {
-                    this.chartParentDiv = chartParentDiv;
-                }}
+            <div          
                 key={yVar}
             >
                 <div className="sub-section-heading">
@@ -182,30 +153,32 @@ class BandedLineChartVisualizer extends Component {
                         <span>{`${yVar}`}</span><span>{` (${yUnit})`}</span>
                     </h2>
                 </div>
-                <LineChart
-                    width={this.state.chartWidth}
+                <ResponsiveContainer
                     height={this.state.chartHeight}
-                    data={processedData}
-                    margin={{top: 5, right: 20, left: 10, bottom: 5}}
-                >
-                    <XAxis
-                        dataKey={xVarNumber}
-                        type="number"
-                        domain={[]}
-                        ticks={this.getTicks(processedData, xVarNumber)}
-                        tickFormatter={this.dateFormat}
-                    />
-                    <YAxis
-                        dataKey={yVar}
-                        domain={[0, 'dataMax']}
-                    />
-                    <Tooltip
-                        labelFormatter={this.xVarFormatFunction}
-                        formatter={this.createYVarFormatFunctionWithUnit(yUnit)}
-                    />
-                    <Line type="monotone" dataKey={yVar} stroke="#295677" yAxisId={0}/>
-                    {renderedBands}
-                </LineChart>
+                >                 
+                    <LineChart
+                        data={processedData}
+                        margin={{top: 5, right: 20, left: 10, bottom: 5}}
+                    >
+                        <XAxis
+                            dataKey={xVarNumber}
+                            type="number"
+                            domain={[]}
+                            ticks={this.getTicks(processedData, xVarNumber)}
+                            tickFormatter={this.dateFormat}
+                        />
+                        <YAxis
+                            dataKey={yVar}
+                            domain={[0, 'dataMax']}
+                        />
+                        <Tooltip
+                            labelFormatter={this.xVarFormatFunction}
+                            formatter={this.createYVarFormatFunctionWithUnit(yUnit)}
+                        />
+                        <Line type="monotone" dataKey={yVar} stroke="#295677" yAxisId={0}/>
+                        {renderedBands}
+                    </LineChart>
+                </ResponsiveContainer>
             </div>
         );
     }
