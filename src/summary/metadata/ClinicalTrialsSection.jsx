@@ -1,8 +1,10 @@
 import MetadataSection from "./MetadataSection";
-import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx';
+import ClinicalTrialsList from '../../clinicalTrials/ClinicalTrialsList.jsx';
+import Lang from 'lodash'
 
 export default class ClinicalTrialsSection extends MetadataSection {
     constructor() {
+        super();
         this.trialDisplayMissingCriteria = "";
         this.missingEligibleTrialData = null;
     }

@@ -1,9 +1,22 @@
-import EncounterPerformed from '../model/shr/encounter/EncounterPerformed';
+import EncounterPerformed from '../../model/shr/encounter/EncounterPerformed';
 import moment from 'moment';
+import Lang from 'lodash'
 
 export default class MetadataSection {
     getMetadata(preferencesManager, condition, roleType, role, specialty) {
         return null;
+    }
+
+    buildMetadataSections(preferencesManager, condition, roleType, role, specialty, ...sections) {
+        return sections.map((section) => {
+            return this.buildMetadataSection(preferencesManager, condition, roleType, role, specialty, section);
+        });
+    }
+
+    buildMetadataSection(preferencesManager, condition, roleType, role, specialty, section) {
+        if (!Lang.isFunction(section)) return section;
+        let obj = new section();
+        return obj.getMetadata(preferencesManager, condition, roleType, role, specialty);    
     }
 
     getKeyToxicityAndUnsignedFromCodes(patient, currentConditionEntry, codes) {

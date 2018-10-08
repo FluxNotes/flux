@@ -1,5 +1,6 @@
 import MetadataSection from "./MetadataSection";
 import FluxNotesTreatmentOptionsRestClient from 'flux_notes_treatment_options_rest_client';
+import Lang from 'lodash'
 
 const api = new FluxNotesTreatmentOptionsRestClient.DefaultApi();
 

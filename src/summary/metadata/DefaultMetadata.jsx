@@ -1,9 +1,14 @@
 import MetadataSection from "./MetadataSection";
+import ActiveConditionsSection from './ActiveConditionsSection';
+import AllergiesSection from './AllergiesSection';
+import ProceduresSection from './ProceduresSection';
+import TimelineSection from './TimelineSection';
+import WhiteBloodCellCountSubsection from './WhiteBloodCellCountSubsection';
 
 export default class DefaultMetadata extends MetadataSection {
     getMetadata(preferencesManager, condition, roleType, role, specialty) {
         return {
-            sections: [
+            sections: this.buildMetadataSections(preferencesManager, condition, roleType, role, specialty,
                 {
                     name: "Condition",
                     shortName: "Condition",
@@ -53,7 +58,7 @@ export default class DefaultMetadata extends MetadataSection {
                     shortName: "Labs",
                     type: "ValueOverTime",
                     data: [
-                        whiteBloodCellCountSubsection
+                        this.buildMetadataSection(preferencesManager, condition, roleType, role, specialty, WhiteBloodCellCountSubsection)
                     ]
                 },
                 {
@@ -71,10 +76,10 @@ export default class DefaultMetadata extends MetadataSection {
                         }
                     ]
                 },
-                activeConditionsSection,
-                allergiesSection,
-                timelineSection
-            ]
+                ActiveConditionsSection,
+                AllergiesSection,
+                TimelineSection
+            )
         };
     }
 }

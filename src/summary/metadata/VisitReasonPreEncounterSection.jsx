@@ -1,4 +1,5 @@
 import MetadataSection from "./MetadataSection";
+import Lang from 'lodash'
 
 export default class VisitReasonPreEncounterSection extends MetadataSection {
     getMetadata(preferencesManager, condition, roleType, role, specialty) {
@@ -9,6 +10,7 @@ export default class VisitReasonPreEncounterSection extends MetadataSection {
             type: "NarrativeOnly",
             narrative: [
                 {
+                    /* eslint no-template-curly-in-string: off */
                     defaultTemplate: "${Reason.Reason}",
                     dataMissingTemplate: "No recent ${Reason.Reason}",
                     useDataMissingTemplateCriteria: [

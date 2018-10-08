@@ -4,8 +4,6 @@ import BreastCancerMetadata from './metadata/BreastCancerMetadata';
 import DefaultMetadata from './metadata/DefaultMetadata';
 import SarcomaMetadata from './metadata/SarcomaMetadata';
 import SarcomaNursePractitionerMetadata from './metadata/SarcomaNursePractitionerMetadata';
-import FluxTumorDimensions from '../model/oncology/FluxTumorDimensions';
-import FluxTumorMargins from '../model/oncology/FluxTumorMargins';
 
 /*
     Each section has the following properties:
@@ -68,7 +66,7 @@ export default class SummaryMetadata {
             metadataDefinition = DefaultMetadata;
         }
 
-        if (Lang.isObject(metadataDefinition)) return metadataDefinition;
+        if (!Lang.isFunction(metadataDefinition)) return metadataDefinition;
 
         let obj = new metadataDefinition();
         return obj.getMetadata(preferencesManager, condition, roleType, role, specialty);

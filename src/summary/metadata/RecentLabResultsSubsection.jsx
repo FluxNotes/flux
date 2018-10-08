@@ -1,4 +1,5 @@
 import MetadataSection from "./MetadataSection";
+import Lang from 'lodash'
 import moment from 'moment';
 
 export default class RecentLabResultsSubsection extends MetadataSection {

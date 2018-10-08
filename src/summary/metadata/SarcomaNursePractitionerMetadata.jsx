@@ -1,13 +1,27 @@
 import MetadataSection from "./MetadataSection";
+import ActiveConditionsSection from './ActiveConditionsSection';
+import AllergiesSection from './AllergiesSection';
+import HemoglobinSubsection from './HemoglobinSubsection';
+import KeyDatesSubsection from './KeyDatesSubsection';
+import MedicationsSection from './MedicationsSection';
+import MostRecentVisitsSubsection from './MostRecentVisitsSubsection';
+import NeutrophilCountSubsection from './NeutrophilCountSubsection';
+import ProceduresSection from './ProceduresSection';
+import RecentLabResultsSubsection from './RecentLabResultsSubsection';
+import TimelineSection from './TimelineSection';
+import VisitReasonPostEncounterSection from './VisitReasonPostEncounterSection';
+import VisitReasonPreEncounterSection from './VisitReasonPreEncounterSection';
+import WhiteBloodCellCountSubsection from './WhiteBloodCellCountSubsection';
+import Lang from 'lodash'
 import moment from 'moment';
 
 export default class SarcomaNursePractitionerMetadata extends MetadataSection {
     getMetadata(preferencesManager, condition, roleType, role, specialty) {
         return { // sarcoma NP
-            sections: [
-                visitReasonSectionPreEncounter,
-                visitReasonSectionPostEncounter,
-            {
+            sections: this.buildMetadataSections(preferencesManager, condition, roleType, role, specialty,
+                VisitReasonPreEncounterSection,
+                VisitReasonPostEncounterSection,
+                {
                     name: "Summary",
                     shortName: "Summary",
                     type: "NameValuePairs",
@@ -204,28 +218,28 @@ export default class SarcomaNursePractitionerMetadata extends MetadataSection {
                                 }
                             ]
                         },
-                        recentLabResultsSubsection,
-                        keyDatesSubsection,
-                        mostRecentVisitSubsection
+                        this.buildMetadataSection(preferencesManager, condition, roleType, role, specialty, RecentLabResultsSubsection),
+                        this.buildMetadataSection(preferencesManager, condition, roleType, role, specialty, KeyDatesSubsection),
+                        this.buildMetadataSection(preferencesManager, condition, roleType, role, specialty, MostRecentVisitsSubsection)
                     ]
                 },
-                timelineSection,
-                proceduresSection,
-                activeConditionsSection,
+                TimelineSection,
+                ProceduresSection,
+                ActiveConditionsSection,
                 {
                     name: "Labs",
                     shortName: "Labs",
                     clinicalEvents: ["pre-encounter"],
                     type: "ValueOverTime",
                     data: [
-                        whiteBloodCellCountSubsection,
-                        neutrophilCountSubsection,
-                        hemoglobinSubsection
+                        this.buildMetadataSection(preferencesManager, condition, roleType, role, specialty, WhiteBloodCellCountSubsection),
+                        this.buildMetadataSection(preferencesManager, condition, roleType, role, specialty, NeutrophilCountSubsection),
+                        this.buildMetadataSection(preferencesManager, condition, roleType, role, specialty, HemoglobinSubsection)
                     ]
                 },
-                medicationsSection,
-                allergiesSection
-            ]
+                MedicationsSection,
+                AllergiesSection
+            )
         };
     }
 }

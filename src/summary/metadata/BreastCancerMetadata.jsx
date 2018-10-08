@@ -1,11 +1,28 @@
 import MetadataSection from "./MetadataSection";
+import ActiveConditionsSection from './ActiveConditionsSection';
+import AllergiesSection from './AllergiesSection';
+import ClinicalTrialsSection from './ClinicalTrialsSection';
+import DiseaseStatusSection from './DiseaseStatusSection';
+import HemoglobinSubsection from './HemoglobinSubsection';
+import KeyDatesSubsection from './KeyDatesSubsection';
+import MedicationsSection from './MedicationsSection';
+import MostRecentVisitSubsection from './MostRecentVisitsSubsection';
+import NeutrophilCountSubsection from './NeutrophilCountSubsection';
+import ProceduresSection from './ProceduresSection';
+import RecentLabResultsSubsection from './RecentLabResultsSubsection';
+import TimelineSection from './TimelineSection';
+import TreatmentOptionsSection from './TreatmentOptionsSection';
+import VisitReasonPostEncounterSection from './VisitReasonPostEncounterSection';
+import VisitReasonPreEncounterSection from './VisitReasonPreEncounterSection';
+import WhiteBloodCellCountSubsection from './WhiteBloodCellCountSubsection';
+import FluxTumorDimensions from '../../model/oncology/FluxTumorDimensions';
 import moment from 'moment';
 import Lang from 'lodash'
 
 export default class BreastCancerMetadata extends MetadataSection {
     getMetadata(preferencesManager, condition, roleType, role, specialty) {
         return { // breast cancer
-            sections: [
+            sections: this.buildMetadataSections(preferencesManager, condition, roleType, role, specialty,
                 VisitReasonPreEncounterSection,
                 VisitReasonPostEncounterSection,
                 {
@@ -179,8 +196,8 @@ export default class BreastCancerMetadata extends MetadataSection {
                                 }
                             ]
                         },
-                        recentLabResultsSubsection,
-                        keyDatesSubsection,
+                        this.buildMetadataSection(preferencesManager, condition, roleType, role, specialty, RecentLabResultsSubsection),
+                        this.buildMetadataSection(preferencesManager, condition, roleType, role, specialty, KeyDatesSubsection),
                         {
                             name: "Receptor Status",
                             items: [
@@ -219,24 +236,24 @@ export default class BreastCancerMetadata extends MetadataSection {
                                 }
                             ]
                         },
-                        mostRecentVisitSubsection
+                        this.buildMetadataSection(preferencesManager, condition, roleType, role, specialty, MostRecentVisitSubsection)
                     ]
                 },
-                proceduresSection,
-                activeConditionsSection,
-                diseaseStatusSection,
+                ProceduresSection,
+                ActiveConditionsSection,
+                DiseaseStatusSection,
                 {
                     name: "Labs",
                     shortName: "Labs",
                     clinicalEvents: ["pre-encounter"],
                     type: "ValueOverTime",
                     data: [
-                        whiteBloodCellCountSubsection,
-                        neutrophilCountSubsection,
-                        hemoglobinSubsection
+                        this.buildMetadataSection(preferencesManager, condition, roleType, role, specialty, WhiteBloodCellCountSubsection),
+                        this.buildMetadataSection(preferencesManager, condition, roleType, role, specialty, NeutrophilCountSubsection),
+                        this.buildMetadataSection(preferencesManager, condition, roleType, role, specialty, HemoglobinSubsection)
                     ]
                 },
-                medicationsSection,
+                MedicationsSection,
                 {
                     name: "Pathology",
                     shortName: "Pathology",
@@ -360,11 +377,11 @@ export default class BreastCancerMetadata extends MetadataSection {
                         }
                     ]
                 },
-                clinicalTrialsSection,
-                allergiesSection,
-                timelineSection,
-                treatmentOptionsSection
-            ]
+                ClinicalTrialsSection,
+                AllergiesSection,
+                TimelineSection,
+                TreatmentOptionsSection
+            )
         };
     }
 }
