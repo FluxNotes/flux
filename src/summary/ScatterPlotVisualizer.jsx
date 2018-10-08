@@ -41,13 +41,6 @@ class ScatterPlotVisualizer extends Component {
         return [alive, dead];
     }
 
-    
-    grow = () => {
-        this.setState({
-            chartHeight: "600px"
-        })
-    }
-
     renderScatterPlot = (patient, condition, conditionSection) => {
         const myData = conditionSection.data[0].data_cache;
 
@@ -64,7 +57,6 @@ class ScatterPlotVisualizer extends Component {
                     // We want some space for the treatment options: 
                     chartHeight: "600px",
                 });
-                this.grow()
                 if (Lang.isString(parsedData)) {
                     // String means there was no data on the endpoint, but no error in producing
                     this.refs.scattering.innerHTML = parsedData;
