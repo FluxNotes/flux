@@ -58,7 +58,7 @@ export default class DefaultMetadata extends MetadataSection {
                     shortName: "Labs",
                     type: "ValueOverTime",
                     data: [
-                        this.buildMetadataSection(preferencesManager, condition, roleType, role, specialty, WhiteBloodCellCountSubsection)
+                        WhiteBloodCellCountSubsection
                     ]
                 },
                 {

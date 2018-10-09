@@ -218,9 +218,9 @@ export default class SarcomaNursePractitionerMetadata extends MetadataSection {
                                 }
                             ]
                         },
-                        this.buildMetadataSection(preferencesManager, condition, roleType, role, specialty, RecentLabResultsSubsection),
-                        this.buildMetadataSection(preferencesManager, condition, roleType, role, specialty, KeyDatesSubsection),
-                        this.buildMetadataSection(preferencesManager, condition, roleType, role, specialty, MostRecentVisitsSubsection)
+                        RecentLabResultsSubsection,
+                        KeyDatesSubsection,
+                        MostRecentVisitsSubsection
                     ]
                 },
                 TimelineSection,
@@ -232,9 +232,9 @@ export default class SarcomaNursePractitionerMetadata extends MetadataSection {
                     clinicalEvents: ["pre-encounter"],
                     type: "ValueOverTime",
                     data: [
-                        this.buildMetadataSection(preferencesManager, condition, roleType, role, specialty, WhiteBloodCellCountSubsection),
-                        this.buildMetadataSection(preferencesManager, condition, roleType, role, specialty, NeutrophilCountSubsection),
-                        this.buildMetadataSection(preferencesManager, condition, roleType, role, specialty, HemoglobinSubsection)
+                        WhiteBloodCellCountSubsection,
+                        NeutrophilCountSubsection,
+                        HemoglobinSubsection
                     ]
                 },
                 MedicationsSection,

@@ -69,6 +69,14 @@ export default class SummaryMetadata {
         if (!Lang.isFunction(metadataDefinition)) return metadataDefinition;
 
         let obj = new metadataDefinition();
-        return obj.getMetadata(preferencesManager, condition, roleType, role, specialty);
+        let metadata = obj.getMetadata(preferencesManager, condition, roleType, role, specialty);
+        metadata.sections.forEach((section) => {
+            section.data = section.data.map((subsection) => {
+                if (!Lang.isFunction(subsection)) return subsection;
+                let obj = new subsection();
+                return obj.getMetadata(preferencesManager, condition, roleType, role, specialty);
+            });
+        });
+        return metadata;
     }
 }
