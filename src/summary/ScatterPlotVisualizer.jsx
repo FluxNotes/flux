@@ -50,11 +50,11 @@ class ScatterPlotVisualizer extends Component {
         })
         // myData should be a promise now
         if (Lang.isObject(myData) && !Lang.isUndefined(myData.then)) {
-            this.setState({
-                // We're done waiting -- time to cancel loading animation
-                loading: false,
-            });
             myData.then(parsedData => {
+                this.setState({
+                    // We've gottent this far in our promise -- time to cancel loading animation
+                    loading: false,
+                });
                 if (Lang.isString(parsedData)) {
                     // String means there was no data on the endpoint, but no error in producing
                     this.refs.scattering.innerHTML = parsedData;
@@ -307,6 +307,10 @@ class ScatterPlotVisualizer extends Component {
             }).catch(err => {
                 console.error("Error in getting data for ScatterPlotVis");
                 console.error('err: ', err);
+                this.setState({
+                    // We have confirmed an error -- no longer loading
+                    loading: false,
+                });
                 this.refs.scattering.innerHTML = "No Service Available";
             });
 
