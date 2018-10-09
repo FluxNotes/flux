@@ -1,6 +1,7 @@
 import MetadataSection from "./MetadataSection";
 import ActiveConditionsSection from './ActiveConditionsSection';
 import AllergiesSection from './AllergiesSection';
+import MedicationsColumnsSection from './MedicationsColumnsSection';
 import ProceduresSection from './ProceduresSection';
 import TimelineSection from './TimelineSection';
 import WhiteBloodCellCountSubsection from './WhiteBloodCellCountSubsection';
@@ -16,7 +17,7 @@ export default class DefaultMetadata extends MetadataSection {
                     /*eslint no-template-curly-in-string: "off"*/
                     narrative: [
                         {
-                            defaultTemplate: "Patient has ${.Name} diagnosed on ${.Diagnosis Date}."
+                            defaultTemplate: "Patient has ${.Name} at ${.Where} diagnosed on ${.Diagnosis Date}."
                         }
                     ],
                     data: [
@@ -61,21 +62,7 @@ export default class DefaultMetadata extends MetadataSection {
                         WhiteBloodCellCountSubsection
                     ]
                 },
-                {
-                    name: "Medications",
-                    shortName: "Meds",
-                    clinicalEvents: ["pre-encounter"],
-                    defaultVisualizer: "chart",
-                    type: "Columns",
-                    data: [
-                        {
-                            name: "",
-                            headings: ["Medication", "Dosage", "Timing", "Start", "End"],
-                            itemsFunction: this.getItemListForMedications,
-
-                        }
-                    ]
-                },
+                MedicationsColumnsSection,
                 ActiveConditionsSection,
                 AllergiesSection,
                 TimelineSection

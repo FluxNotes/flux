@@ -27,6 +27,7 @@ import FluxInjury from '../../../src/model/condition/FluxInjury';
 import SearchIndex from '../../../src/patientControl/SearchIndex';
 import FluxClinicalNote from '../../../src/model/core/FluxClinicalNote';
 import PreferenceManager from '../../../src/preferences/PreferenceManager';
+import FluxCondition from '../../../src/model/condition/FluxCondition';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -109,10 +110,38 @@ describe('3 TargetedDataControl', function() {
     });
 });
 describe('4 TargetedDataControl - correct default visualizer Medications', function() {
-    it('4.1 correct default visualizer', function() {
+    it.only('4.1 correct default visualizer', function() {
         const summaryMetadata = new SummaryMetadata();
+        const condition = new FluxCondition({
+            "Value": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                },
+                "Coding": [
+                    {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "Value": "420120006",
+                        "CodeSystem": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            },
+                            "Value": "http://snomed.info/sct"
+                        },
+                        "DisplayText": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            },
+                            "Value": "Gastrointestinal stromal tumor"
+                        }
+                    }
+                ]
+            }
+        });
+        const metadata = summaryMetadata.getMetadata(null, condition, null, null, null);
         // Look for the first NameValuePair section which should be Summary. Assumes it does not have a defaultVisualizer property
-        const section = summaryMetadata.hardCodedMetadata["http://snomed.info/sct/408643008"].sections.find((section) => {
+        const section = metadata.sections.find((section) => {
             return (section.type === "Medications");
         });
         const expectedDefault = 'chart';
