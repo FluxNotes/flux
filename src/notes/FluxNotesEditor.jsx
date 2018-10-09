@@ -767,6 +767,7 @@ class FluxNotesEditor extends React.Component {
     }
 
     onOpenNoteSearchResultHighlight = (suggestion) => {
+        if (!suggestion.indices) return;
         const {document} = this.state.state;
         let startIndex = suggestion.indices[0];
         let foundNode;
