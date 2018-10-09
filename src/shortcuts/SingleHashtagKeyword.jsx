@@ -206,7 +206,14 @@ export default class SingleHashtagKeyword extends EntryShortcut {
         const argSpecs = spec["args"];
         let args = argSpecs.map((argSpec) => {
             if (argSpec === "$valueObject") return this.object;
-            if (argSpec === "$parentValueObject") return this.parentContext.getValueObject();
+            if (argSpec === "$parentValueObject") {
+                if (!Lang.isUndefined(this.parentContext)) {
+                    return this.parentContext.getValueObject();
+                } else {
+                    console.error("no parent context for " + this.getId());
+                    return null;
+                }
+            }
             if (argSpec === "$clinicalNote") return clinicalNote;
             return argSpec;
         });
