@@ -194,6 +194,7 @@ class VisualizerManager {
                     return {    value: item.value.value,
                                 isUnsigned: item.value.isUnsigned,
                                 source: item.value.source,
+                                when: item.value.when,
                                 shortcut: item.shortcut
                             };
                 } else {

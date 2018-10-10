@@ -21,19 +21,22 @@ export default class MetadataSection {
 
     getKeyToxicityAndUnsignedFromCodes(patient, currentConditionEntry, codes) {
         const tox = currentConditionEntry.getToxicitiesByCodes(codes);
-        let val, unsigned, source;
+        let val, unsigned, source, when;
         if (tox.length > 0) {
             val = tox[0].adverseEventGrade;
             unsigned = patient.isUnsigned(tox[0]);
             source = this.determineSource(patient, tox[0]);
+            when = tox[0].entryInfo.lastUpdated.value;
         } else {
             val = 'None';
             unsigned = false;
             source = null;
+            when = null;
         }
         return  {   value: val, 
                     isUnsigned: unsigned, 
-                    source: source
+                    source: source,
+                    when: when
                 };
     }
 

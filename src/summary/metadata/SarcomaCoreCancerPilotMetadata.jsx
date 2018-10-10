@@ -8,7 +8,7 @@ export default class SarcomaCoreCancerPilotMetadata extends MetadataSection {
             sections: this.buildMetadataSections(preferencesManager, condition, roleType, role, 
                 SarcomaSummarySection,
                 TreatmentOptionsSection
-            )                
+            )
         };
     }
 }

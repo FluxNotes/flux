@@ -222,7 +222,8 @@ export default class TabularListVisualizer extends Component {
         });
     }
 
-    renderedStructuredData(item, element, elementId, elementText, subsectionName, subsectionActions, arrayIndex) {
+    renderedStructuredData(item, element, elementId, elementText, subsectionName, subsectionActions, arrayIndex, when) {
+        const whenRendering = when ? ` (as of ${when})` : '';
         return (
             <div>
                 <span
@@ -230,7 +231,7 @@ export default class TabularListVisualizer extends Component {
                     onClick={(event) => this.openInsertionMenu(event, elementId)}
                 >
                     {elementText}
-                </span>
+                </span>{whenRendering}
                 {this.renderedMenu(item, element.value, elementId, elementText, subsectionName, subsectionActions, arrayIndex)}
             </div>
         );
@@ -266,6 +267,7 @@ export default class TabularListVisualizer extends Component {
         const columnId = `${subsectionindex}-${itemIndex}-item-${colIndex}`
         const isInsertable = Lang.isUndefined(col.isInsertable) ? true : col.isInsertable;
         let columnItem = null;
+        const when = (col.value ? (col.value.when || null) : null);
         const isUnsigned = (col.value) ? col.value.isUnsigned || false : false;
         let colText = Lang.isObject(col.value) ? col.value.value : col.value;
         const longElementText = colText;
@@ -302,7 +304,7 @@ export default class TabularListVisualizer extends Component {
                     className={itemClass}
                     key={columnId}
                 >
-                    {this.renderedStructuredData(item[0].value, col, columnId, colText, subsectionName, subsectionActions, colIndex)}
+                    {this.renderedStructuredData(item[0].value, col, columnId, colText, subsectionName, subsectionActions, colIndex, when)}
                 </TableCell>
 
             );
