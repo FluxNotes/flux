@@ -850,7 +850,7 @@
                                     "EntryType": {
                                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                     },
-                                    "Value": "TID",
+                                    "Value": "QD",
                                     "CodeSystem": {
                                         "EntryType": {
                                             "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
@@ -861,7 +861,7 @@
                                         "EntryType": {
                                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                                         },
-                                        "Value": "TID"
+                                        "Value": "QD"
                                     }
                                 }
                             ]
@@ -1430,7 +1430,7 @@
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Reason"
                     },
-                    "Value": "Mr. Tnfinity6 requested a follow up."
+                    "Value": "Mr. Tnfinity6 requested a follow up due to severe headaches that make it hard for him to do daily activities."
                 }
             ],
             "Status": {
