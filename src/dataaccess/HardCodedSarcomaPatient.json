@@ -1430,7 +1430,7 @@
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Reason"
                     },
-                    "Value": "Mr. Tnfinity6 requested a follow up due to severe headaches that make it hard for him to do daily activities."
+                    "Value": "Mr. Tnfinity6 requested a follow up."
                 }
             ],
             "Status": {
@@ -1563,7 +1563,7 @@
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Reason"
                     },
-                    "Value": "Mr. Tnfinity6 requested a follow up."
+                    "Value": "Mr. Tnfinity6 requested a follow up due to severe headaches that make it hard for him to do daily activities."
                 }
             ],
             "Status": {
