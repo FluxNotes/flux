@@ -44,28 +44,57 @@ export default class SummaryMetadata {
         this.setForceRefresh = setForceRefresh;
 
         this.hardCodedMetadata = {
+            "default": DefaultMetadata,
             "http://snomed.info/sct/408643008": BreastCancerMetadata,
             "http://snomed.info/sct/420120006": SarcomaMetadata,
             "Doctor/Nurse/Medical oncology/http://snomed.info/sct/420120006": SarcomaNursePractitionerMetadata
         };
     }
 
+    _cachedMetadata = {};
+
+    doesCachedMetadataExist = (key) => {
+        if (this._cachedMetadata[key]) return true;
+        return false;
+    }
+
+    addCachedMetadata = (key, metadata) => {
+        this._cachedMetadata[key] = metadata;
+    }
+
+    getCachedMetadata = (key) => {
+        return this._cachedMetadata[key];
+    }
+
+    // returns an array of strings which are keys to find the metadata for summary in priority order (1st one should be used first). List should always end with DefautMetadata
+    buildPrioritizedMetadataKeyList = (condition, roleType, role, specialty) => {
+        if (Lang.isNull(condition)) return [ "default" ];
+        const codeSystem = condition.codeSystem;
+        const code = condition.code;
+        const conditionType = `${codeSystem}/${code}`;
+        const userType = `${roleType}/${role}/${specialty}`;
+        return [ userType + "/" + conditionType, conditionType, "default" ];
+    }
+
     getMetadata = (preferencesManager, condition, roleType, role, specialty) => {
         let metadataDefinition;
-        if (condition != null) {
-            const codeSystem = condition.codeSystem;
-            const code = condition.code;
-            const conditionType = `${codeSystem}/${code}`;
-            const userType = `${roleType}/${role}/${specialty}`;
-            metadataDefinition = this.hardCodedMetadata[userType + "/" + conditionType];
-            if (!metadataDefinition) {
-                metadataDefinition = this.hardCodedMetadata[conditionType]
+        const prioritizedKeyList = this.buildPrioritizedMetadataKeyList(condition, roleType, role, specialty);
+        const numKeys = prioritizedKeyList.length;
+        let keyIndex = 0;
+        while (!metadataDefinition && keyIndex < numKeys) {
+            if (this.doesCachedMetadataExist(prioritizedKeyList[keyIndex])) {
+                return this.getCachedMetadata(prioritizedKeyList[keyIndex]);
             }
+            metadataDefinition = this.hardCodedMetadata[prioritizedKeyList[keyIndex]];
+            if (!metadataDefinition) keyIndex++;
         }
         if (!metadataDefinition) {
-            metadataDefinition = DefaultMetadata;
+            console.error("No metadata available for ", condition, roleType, role, specialty);
+            return null;
         }
 
+        // metadataDefinition now contains either the class for generating the metadata or the actual metadata. If metadataDefinition is a function, that's a 'class'
+        // if we don't have a class, we have metadata so return it
         if (!Lang.isFunction(metadataDefinition)) return metadataDefinition;
 
         let obj = new metadataDefinition();
@@ -77,6 +106,7 @@ export default class SummaryMetadata {
                 return obj.getMetadata(preferencesManager, condition, roleType, role, specialty);
             });
         });
+        this.addCachedMetadata(prioritizedKeyList[keyIndex], metadata);
         return metadata;
     }
 }

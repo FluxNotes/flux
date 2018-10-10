@@ -76,8 +76,36 @@ describe('2 setFullAppState', function() {
 describe('3 TargetedDataControl', function() {
     it('3.1 noteDisplayMode buttons update state', function() {
         const summaryMetadata = new SummaryMetadata();
+        const condition = new FluxCondition({
+            "Value": {
+                "Coding": [
+                    {
+                        "Value": "408643008",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "http://snomed.info/sct",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Invasive ductal carcinoma of breast",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        });
+        const metadata = summaryMetadata.getMetadata(null, condition, null, null, null);
         // Look for the first NameValuePair section which should be Summary. Assumes it does not have a defaultVisualizer property
-        const section = summaryMetadata.hardCodedMetadata["http://snomed.info/sct/408643008"].sections.find((section) => {
+        const section = metadata.sections.find((section) => {
             return (section.type === "NameValuePairs");
         });
         let options = [];
@@ -110,7 +138,7 @@ describe('3 TargetedDataControl', function() {
     });
 });
 describe('4 TargetedDataControl - correct default visualizer Medications', function() {
-    it.only('4.1 correct default visualizer', function() {
+    it('4.1 correct default visualizer', function() {
         const summaryMetadata = new SummaryMetadata();
         const condition = new FluxCondition({
             "Value": {

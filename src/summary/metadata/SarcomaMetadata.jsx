@@ -71,7 +71,10 @@ export default class SarcomaMetadata extends MetadataSection {
                                         const list = currentConditionEntry.getObservationsOfTypeChronologicalOrder(FluxTumorDimensions);
                                         if (list.length === 0) return null;
                                         const size = list.pop(); // last is most recent
-                                        return [size.quantity.value + " " + size.quantity.unit, patient.isUnsigned(size), this.determineSource(patient, size)];
+                                        return  {   value: size.quantity.value + " " + size.quantity.unit, 
+                                                    isUnsigned: patient.isUnsigned(size), 
+                                                    source: this.determineSource(patient, size)
+                                                };
                                     }
                                 },
                                 {
@@ -80,14 +83,20 @@ export default class SarcomaMetadata extends MetadataSection {
                                         const list = currentConditionEntry.getObservationsOfTypeChronologicalOrder(FluxTumorMargins);
                                         if (list.length === 0) return null;
                                         const margins = list.pop(); // last is most recent
-                                        return [margins.value, patient.isUnsigned(margins), this.determineSource(patient, margins)];
+                                        return  {   value: margins.value, 
+                                                    isUnsigned: patient.isUnsigned(margins), 
+                                                    source: this.determineSource(patient, margins)
+                                                };
                                     }
                                 },
                                 {
                                     name: "Histological Grade",
                                     value: (patient, currentConditionEntry) => {
                                         let histologicalGrade = currentConditionEntry.getMostRecentHistologicalGrade();
-                                        return [ histologicalGrade.grade, patient.isUnsigned(histologicalGrade), this.determineSource(patient, histologicalGrade) ];
+                                        return  {   value: histologicalGrade.grade, 
+                                                    isUnsigned: patient.isUnsigned(histologicalGrade), 
+                                                    source: this.determineSource(patient, histologicalGrade)
+                                                };
                                     }
                                 },               
                             ]
@@ -114,10 +123,13 @@ export default class SarcomaMetadata extends MetadataSection {
                                         const panels = patient.getGastrointestinalStromalTumorCancerGeneticAnalysisPanelsChronologicalOrder();
                                         if (!panels || panels.length === 0) return null;
                                         const panel = panels.pop();
-                                        return [panel.members.map((item) => {
-                                            const v = item.value === 'Positive' ? '+' : '-';
-                                            return item.abbreviatedName + v;
-                                        }).join(","), patient.isUnsigned(panel), this.determineSource(patient, panel)];
+                                        return  {   value: panel.members.map((item) => {
+                                                            const v = item.value === 'Positive' ? '+' : '-';
+                                                            return item.abbreviatedName + v;
+                                                        }).join(","), 
+                                                    isUnsigned: patient.isUnsigned(panel), 
+                                                    source: this.determineSource(patient, panel)
+                                                };
                                     }
                                 }
                             ]

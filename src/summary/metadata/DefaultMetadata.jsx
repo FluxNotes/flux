@@ -27,26 +27,38 @@ export default class DefaultMetadata extends MetadataSection {
                                 {
                                     name: "Name",
                                     value: (patient, currentConditionEntry) => {
-                                        return [currentConditionEntry.type, patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)];
+                                        return  {   value: currentConditionEntry.type, 
+                                                    isUnsigned: patient.isUnsigned(currentConditionEntry), 
+                                                    source: this.determineSource(patient, currentConditionEntry)
+                                                };
                                     },
                                     shortcut: "@condition"
                                 },
                                 {
                                     name: "Diagnosis Date",
                                     value: (patient, currentConditionEntry) => {
-                                        return [currentConditionEntry.diagnosisDate, patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)];
+                                        return  {   value: currentConditionEntry.diagnosisDate, 
+                                                    isUnsigned: patient.isUnsigned(currentConditionEntry), 
+                                                    source: this.determineSource(patient, currentConditionEntry)
+                                                };
                                     }
                                 },
                                 {
                                     name: "Where",
                                     value: (patient, currentConditionEntry) => {
-                                        return [currentConditionEntry.bodySite, patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)];
+                                        return  {   value: currentConditionEntry.bodySite, 
+                                                    isUnsigned: patient.isUnsigned(currentConditionEntry), 
+                                                    source: this.determineSource(patient, currentConditionEntry)
+                                                };
                                     }
                                 },
                                 {
                                     name: "Clinical Status",
                                     value: (patient, currentConditionEntry) => {
-                                        return [currentConditionEntry.clinicalStatus, patient.isUnsigned(currentConditionEntry), this.determineSource(patient, currentConditionEntry)];
+                                        return  {   value: currentConditionEntry.clinicalStatus, 
+                                                    isUnsigned: patient.isUnsigned(currentConditionEntry), 
+                                                    source: this.determineSource(patient, currentConditionEntry)
+                                                };
                                     }
                                 }
                             ]

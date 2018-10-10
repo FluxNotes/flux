@@ -12,10 +12,13 @@ export default class MostRecentVisitsSubsection extends MetadataSection {
                         const encounters = patient.getEncountersChronologicalOrder();
                         const filteredEncounters = encounters.filter(e => e.practitioner === user.getUserName());
 
-                        if (filteredEncounters.length === 0) return [null, false];
+                        if (filteredEncounters.length === 0) return { value: null, isUnsigned: false };
                         const mostRecentFilteredEncounter = filteredEncounters.slice(-1)[0];
                         const expectedPerformanceTime = new moment(mostRecentFilteredEncounter.expectedPerformanceTime, 'D MMM YYYY').format('D MMM YYYY');
-                        return [expectedPerformanceTime, patient.isUnsigned(mostRecentFilteredEncounter), this.determineSource(patient, mostRecentFilteredEncounter)];
+                        return  {   value: expectedPerformanceTime, 
+                                    isUnsigned: patient.isUnsigned(mostRecentFilteredEncounter), 
+                                    source: this.determineSource(patient, mostRecentFilteredEncounter)
+                                };
                     }
                 },
                 {
@@ -24,10 +27,13 @@ export default class MostRecentVisitsSubsection extends MetadataSection {
                         const encounters = patient.getEncountersChronologicalOrder();
                         const filteredEncounters = encounters.filter(e => e.provider === user.provider);
 
-                        if (filteredEncounters.length === 0) return [null, false];
+                        if (filteredEncounters.length === 0) return { value: null, isUnsigned: false };
                         const mostRecentFilteredEncounter = filteredEncounters.slice(-1)[0];
                         const expectedPerformanceTime = new moment(mostRecentFilteredEncounter.expectedPerformanceTime, 'D MMM YYYY').format('D MMM YYYY');
-                        return [expectedPerformanceTime, patient.isUnsigned(mostRecentFilteredEncounter), this.determineSource(patient, mostRecentFilteredEncounter)];
+                        return  {   value: expectedPerformanceTime, 
+                                    isUnsigned: patient.isUnsigned(mostRecentFilteredEncounter), 
+                                    source: this.determineSource(patient, mostRecentFilteredEncounter)
+                                };
                     }
                 },
                 {
@@ -36,9 +42,12 @@ export default class MostRecentVisitsSubsection extends MetadataSection {
                         const encounters = patient.getEncountersChronologicalOrder();
                         const filteredEncounters = encounters.filter(e => e.provider === user.provider);
 
-                        if (filteredEncounters.length === 0) return [null, false];
+                        if (filteredEncounters.length === 0) return { value: null, isUnsigned: false };
                         const mostRecentFilteredEncounter = filteredEncounters.slice(-1)[0];
-                        return [mostRecentFilteredEncounter.practitioner, patient.isUnsigned(mostRecentFilteredEncounter), this.determineSource(patient, mostRecentFilteredEncounter)];
+                        return  {   value: mostRecentFilteredEncounter.practitioner, 
+                                    isUnsigned: patient.isUnsigned(mostRecentFilteredEncounter), 
+                                    source: this.determineSource(patient, mostRecentFilteredEncounter)
+                                };
                     }
                 }
             ]

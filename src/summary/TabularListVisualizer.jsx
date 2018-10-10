@@ -231,14 +231,14 @@ export default class TabularListVisualizer extends Component {
                 >
                     {elementText}
                 </span>
-                {this.renderedMenu(item, element, elementId, elementText, subsectionName, subsectionActions, arrayIndex)}
+                {this.renderedMenu(item, element.value, elementId, elementText, subsectionName, subsectionActions, arrayIndex)}
             </div>
         );
     }
 
     // Render a given list item as a row in a table
-    renderedListItem(item, subsectionindex, index, rowClass, subsectionName, subsectionActions, formatFunction) {
-        // Array of all columns
+    renderedListItem(item, subsectionindex, itemIndex, rowClass, subsectionName, subsectionActions, formatFunction) {
+        // Array of all columns for row (item)
         const renderedColumns = [];
 
         const numColumns = item.length;
@@ -248,91 +248,95 @@ export default class TabularListVisualizer extends Component {
             rowClass += " has-action-menu";
         }
 
-        item.forEach((element, arrayIndex) => {
-            const elementId = `${subsectionindex}-${index}-item-${arrayIndex}`
-            let columnItem = null;
-            const isInsertable = Lang.isUndefined(element.isInsertable) ? true : element.isInsertable;
-            const isUnsigned = element.isUnsigned || false;
-            let elementText = element.value;
-            const longElementText = elementText;
-            
-            if (!Lang.isNull(elementText) && elementText.length > 100) elementText = elementText.substring(0, 100) + "...";
-
-            let itemClass = isUnsigned ? 'list-unsigned' : 'list-captured';
-            if (subsectionActions.length > 0 || this.props.actions.length > 0) {
-                itemClass += " has-action-menu";
-            }
-
-            // If this section has an associated formatFunction (that
-            // returns a specific) CSS class, it is applied to elementText.
-            if (formatFunction) {
-                itemClass += " " + formatFunction(elementText, element, arrayIndex);
-            }
-
-            // Make unique key for each value
-            if (Lang.isUndefined(elementText) || Lang.isNull(elementText) || (typeof(elementText) === 'string' && elementText.length === 0)) {
-                columnItem = (
-                    <TableCell
-                        className={"list-missing"}
-                        data-test-summary-item={item[0]}
-                        key={elementId}
-                    >
-                        <span>
-                            Missing Data
-                        </span>
-                    </TableCell>
-                );
-            } else if (isInsertable) {
-                columnItem = (
-                    <TableCell width={colSize}
-                        className={itemClass}
-                        key={elementId}
-                    >
-                        {this.renderedStructuredData(item[0].value, element, elementId, elementText, subsectionName, subsectionActions, arrayIndex)}
-                    </TableCell>
-
-                );
-            } else {
-                columnItem = (
-                    <TableCell width={colSize}
-                        key={elementId}
-                    >
-                        <span>
-                            {elementText}
-                        </span>
-                    </TableCell>
-                );
-            }
-
-            if (!Lang.isNull(elementText) && !Lang.isUndefined(elementText) && elementText.length > 100) {
-                const text = <span>{longElementText}</span>
-                columnItem = (
-                    <Tooltip
-                        key={elementId}
-                        overlayStyle={{ 'visibility': true }}
-                        placement="top"
-                        overlayClassName={`tabular-list-tooltip`}
-                        overlay={text}
-                        destroyTooltipOnHide={true}
-                        mouseEnterDelay={0.5}
-                        onMouseEnter={this.mouseEnter}
-                        onMouseLeave={this.mouseLeave}
-                    >
-                        {columnItem}
-                    </Tooltip>
-                )
-            }
-            renderedColumns.push(columnItem);
+        item.forEach((col, colIndex) => {
+            renderedColumns.push(this.renderColumn(item, subsectionindex, itemIndex, subsectionName, subsectionActions, formatFunction, col, colIndex, colSize));
         });
 
         return (
             <TableRow
-                key={`${subsectionindex}-${index}-item`}
+                key={`${subsectionindex}-${itemIndex}-item`}
                 className={rowClass}
             >
                 {renderedColumns}
             </TableRow>
         );
+    }
+
+    renderColumn = (item, subsectionindex, itemIndex, subsectionName, subsectionActions, formatFunction, col, colIndex, colSize) => {
+        const columnId = `${subsectionindex}-${itemIndex}-item-${colIndex}`
+        const isInsertable = Lang.isUndefined(col.isInsertable) ? true : col.isInsertable;
+        let columnItem = null;
+        const isUnsigned = (col.value) ? col.value.isUnsigned || false : false;
+        let colText = Lang.isObject(col.value) ? col.value.value : col.value;
+        const longElementText = colText;
+        
+        if (!Lang.isNull(colText) && colText.length > 100) colText = colText.substring(0, 100) + "...";
+
+        let itemClass = isUnsigned ? 'list-unsigned' : 'list-captured';
+        if (subsectionActions.length > 0 || this.props.actions.length > 0) {
+            itemClass += " has-action-menu";
+        }
+
+        // If this section has an associated formatFunction (that
+        // returns a specific) CSS class, it is applied to elementText.
+        if (formatFunction) {
+            itemClass += " " + formatFunction(colText, col, colIndex);
+        }
+
+        // Make unique key for each value
+        if (Lang.isUndefined(colText) || Lang.isNull(colText) || (typeof(colText) === 'string' && colText.length === 0)) {
+            columnItem = (
+                <TableCell
+                    className={"list-missing"}
+                    data-test-summary-item={item[0]}
+                    key={columnId}
+                >
+                    <span>
+                        Missing Data
+                    </span>
+                </TableCell>
+            );
+        } else if (isInsertable) {
+            columnItem = (
+                <TableCell width={colSize}
+                    className={itemClass}
+                    key={columnId}
+                >
+                    {this.renderedStructuredData(item[0].value, col, columnId, colText, subsectionName, subsectionActions, colIndex)}
+                </TableCell>
+
+            );
+        } else {
+            columnItem = (
+                <TableCell width={colSize}
+                    key={columnId}
+                >
+                    <span>
+                        {colText}
+                    </span>
+                </TableCell>
+            );
+        }
+
+        if (!Lang.isNull(colText) && !Lang.isUndefined(colText) && colText.length > 100) {
+            const text = <span>{longElementText}</span>
+            columnItem = (
+                <Tooltip
+                    key={columnId}
+                    overlayStyle={{ 'visibility': true }}
+                    placement="top"
+                    overlayClassName={`tabular-list-tooltip`}
+                    overlay={text}
+                    destroyTooltipOnHide={true}
+                    mouseEnterDelay={0.5}
+                    onMouseEnter={this.mouseEnter}
+                    onMouseLeave={this.mouseLeave}
+                >
+                    {columnItem}
+                </Tooltip>
+            )
+        }
+        return columnItem;
     }
 
     // renders Menu for element and associated actions as Menu items

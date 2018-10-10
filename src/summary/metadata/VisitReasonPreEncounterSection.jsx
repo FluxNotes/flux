@@ -26,8 +26,12 @@ export default class VisitReasonPreEncounterSection extends MetadataSection {
                             name: "Reason",
                             value: (patient, currentConditionEntry) => {
                                 const nextEncounter = patient.getNextEncounter();
-                                if (Lang.isUndefined(nextEncounter)) return ["No upcoming appointments", false];
-                                return [patient.getNextEncounterReasonAsText(), patient.isUnsigned(nextEncounter), this.determineSource(patient, nextEncounter)];
+                                if (Lang.isUndefined(nextEncounter)) return { value: "No upcoming appointments", isUnsigned: false };
+                                return {
+                                        value: patient.getNextEncounterReasonAsText(), 
+                                        isUnsigned: patient.isUnsigned(nextEncounter), 
+                                        source: this.determineSource(patient, nextEncounter)
+                                };
                             },
                             shortcut: "@reason for next visit"
                         }

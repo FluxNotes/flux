@@ -162,7 +162,7 @@ export default class TargetedDataSection extends Component {
                         } else {
                             let val = item.value(patient, condition, loginUser);
                             if (val) {
-                                return {name: item.name, value: val[0], shortcut: item.shortcut, unsigned: val[1], source: val[2]};
+                                return {name: item.name, value: val.value, shortcut: item.shortcut, unsigned: val.isUnsigned, source: val.source};
                             } else {
                                 return {name: item.name, value: null};
                             }

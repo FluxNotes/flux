@@ -96,7 +96,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
             return item.name === valueName;
         };
         let _addLabResultToNarrative = (item) => {
-            return item[0].value + ": " + item[1].value[0];
+            return item[0].value + ": " + item[1].value.value;
         };
         let _addListItemToResult = (listItem) => {
             if (!first) result.push( { text: ', ', type: 'plain' });
@@ -106,8 +106,8 @@ class NarrativeNameValuePairsVisualizer extends Component {
                 text: value,
                 type: type,
                 item: {
-                    value: listItem[1].value[0],
-                    unsigned: listItem[1].value[1]
+                    value: listItem[1].value.value,
+                    unsigned: listItem[1].value.isUnsigned
                 }
             });
             if (first) first = false;
@@ -195,7 +195,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
         }
         let isSigned = true;
         const checkSnippetUnsigned = Lang.isUndefined(snippet.unsigned) ? isSigned : !snippet.unsigned;
-        isSigned = Lang.isArray(snippet.value) ? !snippet.value[1] : checkSnippetUnsigned;
+        isSigned = Lang.isArray(snippet.value) ? !snippet.value.isUnsigned : checkSnippetUnsigned;
 
         // convert snippet to format action is expecting
         const transformedSnippet = {
