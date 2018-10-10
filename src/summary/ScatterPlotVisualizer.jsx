@@ -305,8 +305,7 @@ class ScatterPlotVisualizer extends Component {
                     });
                 }
             }).catch(err => {
-                console.error("Error in getting data for ScatterPlotVis");
-                console.error('err: ', err);
+                console.error("Error in getting data for ScatterPlotVis: ", err);
                 this.setState({
                     // We have confirmed an error -- no longer loading
                     loading: false,
@@ -319,8 +318,7 @@ class ScatterPlotVisualizer extends Component {
                 // If the mydata object is something else, log the error and display a val
                 loading: false,
             })
-            console.error("in Else -- MyData object is not a promise?!");
-            console.error('myData: ', myData);
+            console.error("in Else -- MyData object is not a promise?! ", myData);
             this.refs.scattering.innerHTML = "Something went wrong when talking with the service";
         }
 
