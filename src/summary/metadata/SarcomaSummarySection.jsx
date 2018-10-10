@@ -3,6 +3,7 @@ import MetadataSection from "./MetadataSection";
 import KeyDatesSubsection from './KeyDatesSubsection';
 import MostRecentVisitsSubsection from './MostRecentVisitsSubsection';
 import RecentLabResultsSubsection from './RecentLabResultsSubsection';
+import FluxTumorDimensions from '../../model/oncology/FluxTumorDimensions';
 import Lang from 'lodash'
 import moment from 'moment';
 
@@ -118,6 +119,21 @@ export default class SarcomaSummarySection extends MetadataSection {
                             },
                         },
                         {
+                            name: "Status",
+                            value: (patient, currentConditionEntry) => {
+                                let status = currentConditionEntry.clinicalStatus;
+                                if (status) {
+                                    return  {   value: status, 
+                                                isUnsigned: patient.isUnsigned(currentConditionEntry), 
+                                                source: this.determineSource(patient, currentConditionEntry)
+                                            };
+                                } else {
+                                    return null;
+                                }
+                            },
+                            // shortcut: "@stage"
+                        },
+                        {
                             name: "Stage",
                             value: (patient, currentConditionEntry) => {
                                 let s = currentConditionEntry.getMostRecentStaging();
@@ -145,7 +161,18 @@ export default class SarcomaSummarySection extends MetadataSection {
                                     return null;
                                 }
                             },
-                            // shortcut: "@stage"
+                        },
+                        {
+                            name: "Tumor Size",
+                            value: (patient, currentConditionEntry) => {
+                                const list = currentConditionEntry.getObservationsOfTypeChronologicalOrder(FluxTumorDimensions);
+                                if (list.length === 0) return null;
+                                const size = list.pop(); // last is most recent
+                                return  {   value: size.quantity.value + " " + size.quantity.unit, 
+                                            isUnsigned: patient.isUnsigned(size), 
+                                            source: this.determineSource(patient, size)
+                                        };
+                    },
                         },
                         {
                             name: "Disease Status",

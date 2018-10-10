@@ -61,6 +61,8 @@ export default class MetadataSection {
             } else {
                 result += (result.length > 0 ? " f" : "F") + "rom encounter on " + new moment(relatedEncounter.expectedPerformanceTime, 'D MMM YYY HH:mm Z').format('D MMM YYY hh:mm a');
             }
+        } else if (entry.lastUpdated) {
+            result += (result.length > 0 ? " o" : "O") + "n " + entry.lastUpdated.format('D MMM YYY hh:mm a');
         } else if (entry.creationTime) {
             result += (result.length > 0 ? " o" : "O") + "n " + entry.creationTime.format('D MMM YYY hh:mm a');
         } else if (entry.diagnosisDate) {
