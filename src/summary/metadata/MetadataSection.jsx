@@ -19,6 +19,10 @@ export default class MetadataSection {
         return obj.getMetadata(preferencesManager, condition, roleType, role, specialty);    
     }
 
+    toFirstLetterCapital = (text) => {
+        return text.charAt(0).toUpperCase() + text.substr(1);
+    }
+
     getKeyToxicityAndUnsignedFromCodes(patient, currentConditionEntry, codes) {
         const tox = currentConditionEntry.getToxicitiesByCodes(codes);
         let val, unsigned, source, when;

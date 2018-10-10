@@ -123,7 +123,7 @@ export default class SarcomaSummarySection extends MetadataSection {
                             value: (patient, currentConditionEntry) => {
                                 let status = currentConditionEntry.clinicalStatus;
                                 if (status) {
-                                    return  {   value: status, 
+                                    return  {   value: this.toFirstLetterCapital(status), 
                                                 isUnsigned: patient.isUnsigned(currentConditionEntry), 
                                                 source: this.determineSource(patient, currentConditionEntry)
                                             };
