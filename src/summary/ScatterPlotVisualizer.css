@@ -6,6 +6,14 @@
     font-weight: bold;
 }
 
+#table-loading-animation-container {
+    display:flex;
+    justify-content: center;
+    width: 100%;
+    overflow: hidden;
+    padding: 20px 0px;
+}
+
 .highcharts-axis-title *{
     left: 0px;
 }

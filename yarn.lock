@@ -3619,9 +3619,9 @@ flush-write-stream@^1.0.0:
     inherits "^2.0.1"
     readable-stream "^2.0.4"
 
-flux_notes_treatment_options_rest_client@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/flux_notes_treatment_options_rest_client/-/flux_notes_treatment_options_rest_client-1.0.0.tgz#b041ac1bce505678e79ebda7e10669a5e81b3b1b"
+flux_notes_treatment_options_rest_client@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/flux_notes_treatment_options_rest_client/-/flux_notes_treatment_options_rest_client-1.1.0.tgz#4ebc4eb2488bbfaf513c8bb11b0e9e2e2770d0c9"
   dependencies:
     superagent "^3.8.3"
     webpack "^4.16.5"
