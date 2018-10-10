@@ -44,16 +44,15 @@ class ScatterPlotVisualizer extends Component {
     renderScatterPlot = (patient, condition, conditionSection) => {
         const myData = conditionSection.data[0].data_cache;
 
-
         if (Lang.isString(myData) || (Lang.isObject(myData) && Lang.isUndefined(myData.then))) {
             // If myData is a string or an object that isn't a promise, we've already queried data
             // Do nothing new
-            return
+            return;
         } else {
             this.setState({
                 // Set the loading flag until we have something from our promise
                 loading: true,
-            })
+            });
             if (Lang.isObject(myData) && !Lang.isUndefined(myData.then)) {
                 // myData should be a promise intiially
                 myData.then(parsedData => {
@@ -69,13 +68,13 @@ class ScatterPlotVisualizer extends Component {
                         this.setState({
                             // We want some space for the treatment options:
                             chartHeight: "600px",
-                        })
+                        });
                         // Else, we have an array of data to parse into a table
                         let categoryMap = {};
-                        parsedData.forEach(function (series) {
-                            series.forEach(function (data) {
+                        parsedData.forEach((series) => {
+                            series.forEach((data) => {
                                 categoryMap[data[0]] = true;
-                            })
+                            });
                         });
                         const categoryList = Object.keys(categoryMap);
                         const randomData = this.randomizeXPoints(categoryList, parsedData);
@@ -170,7 +169,7 @@ class ScatterPlotVisualizer extends Component {
                                                     if (data[0] === this.value && data[1] >= 60)
                                                         livingOver60 += 1;
                                                 }
-                                            })
+                                            });
                                         });
                                         return `<span><font color= "#3AA7F0">${livingOver60}<br>${Highcharts.format('({value})%', {value: Highcharts.numberFormat(livingOver60/ categorySum * 100, 1)})}</font></span>`;
                                     }
@@ -320,12 +319,11 @@ class ScatterPlotVisualizer extends Component {
                     conditionSection.data[0].data_cache = "No Service Available";
                     this.refs.scattering.innerHTML = conditionSection.data[0].data_cache;
                 });
-
             } else {
                 this.setState({
                     // If the mydata object is something else, log the error and display a val
                     loading: false,
-                })
+                });
                 console.error("in Else -- MyData object is not a promise?! ", myData);
                 conditionSection.data[0].data_cache = "Something went wrong when talking with the service";
                 this.refs.scattering.innerHTML = conditionSection.data[0].data_cache;
