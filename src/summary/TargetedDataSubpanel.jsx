@@ -23,7 +23,7 @@ export default class TargetedDataSubpanel extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) { 
-        // Seven current reasons to update:
+        // Eight current reasons to update:
         // - There is a change to the entries this component cares about
         // - A note has been signed and our representation of the data should reflect it's new signedness
         // - Clinical event has shifted
@@ -31,6 +31,7 @@ export default class TargetedDataSubpanel extends Component {
         // - Condition has changed
         // - allowItemClick has changed
         // - forceRefresh changes from false to true
+        // - The sections to be displayed has changed
         // Case 1: Entries
         // Need to ignore patientRecords on entries, as they reference the clinical notes ignored above. 
         // Solution: Remove them during comparison, restore those value after comparison.
@@ -109,14 +110,18 @@ export default class TargetedDataSubpanel extends Component {
         if (changesToForceRefresh) {
             this.props.setForceRefresh(false);
         }
-        
+
+        // Case 8: sections to display has changed
+        const changesToSectionsDisplayed = !_.isEqual(this.props.sectionsToDisplay, nextProps.sectionsToDisplay);
+
         return changesToRelevantEntries 
             || changesToSignedNotesCount 
             || changesToClinicalEvent 
             || changesToIsWide
             || changesToConditionString
             || changesToAllowItemClick
-            || changesToForceRefresh;
+            || changesToForceRefresh
+            || changesToSectionsDisplayed;
     }
 
     renderSections() {
@@ -124,7 +129,7 @@ export default class TargetedDataSubpanel extends Component {
 
         if (conditionMetadata == null) return null;
 
-        return conditionMetadata.sections.filter((section, i) => {
+        return this.props.sectionsToDisplay.filter((section, i) => {
             return !section.clinicalEvents || section.clinicalEvents.includes(clinicalEvent);
         }).map((section, i) => {
             return (
