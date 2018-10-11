@@ -41,6 +41,7 @@ const schema = {
         bold: (props) => <strong>{props.children}</strong>,
         italic: (props) => <em>{props.children}</em>,
         underlined: (props) => <u>{props.children}</u>,
+        highlighted: (props) => <span className="structured-field-search-result">{props.children}</span>
     }
 };
 
@@ -764,12 +765,98 @@ class FluxNotesEditor extends React.Component {
                 this.props.setOpenSourceNoteEntryId(null);
             }
         }
+
+        // If the open note search results have changed, we want to highlight the results in the note
+        if (!Lang.isEqual(this.props.openNoteSearchSuggestions, nextProps.openNoteSearchSuggestions)) {
+            this.highlightOpenNoteResults(nextProps.openNoteSearchSuggestions);
+        }
+    }
+
+    unhighlightPlaintextResults = (transform) => {
+        const {document} = this.state.state;
+
+        const fullDocRange = {
+            anchorKey: document.getFirstText().key,
+            anchorOffset: 0,
+            focusKey: document.getLastText().key,
+            focusOffset: document.text.length,
+            isFocused: false,
+            isBackward: false
+        }
+
+        return transform.select(fullDocRange).removeMark('highlighted');
+    }
+
+    unhighlightAllResults = () => {
+        let transform = this.state.state.transform();
+        this.structuredFieldMapManager.keyToShortcutMap.forEach(sf => {
+            transform.setNodeByKey(sf.key, "structured_field");
+        });
+        transform = this.unhighlightPlaintextResults(transform);
+        this.setState({ state: transform.blur().apply() });
+    }
+
+    highlightOpenNoteResults = (suggestions) => {
+
+        // Unhighlight all results when suggestions are cleared
+        if (suggestions.length === 0) {
+            this.unhighlightAllResults();
+            return;
+        }
+
+        let transform = this.state.state.transform();
+        const {document} = this.state.state;
+
+        // Remove any existing plaintext highlights
+        this.unhighlightPlaintextResults(transform);
+
+
+        // Highlight each suggestion
+        suggestions.forEach(suggestion => {
+
+            // Highlight matching shortcuts
+            this.structuredFieldMapManager.keyToShortcutMap.forEach(sf => {
+                if (sf.getText().toLowerCase().includes(suggestion.inputValue.toLowerCase())) {
+                    transform.setNodeByKey(sf.key, "structured_field_search_result");
+                } else {
+                    transform.setNodeByKey(sf.key, "structured_field");
+                }
+            });
+
+            // Highlight matching plaintext
+            const foundNode = this.findNodeContainingIndex(suggestion.indices[0], document);
+            if (foundNode) {
+                const nodeRef = document.getNode(foundNode.key);
+                nodeRef.getTexts().forEach(textNode => {
+                    let match;
+                    const regex = new RegExp(suggestion.inputValue, "gi");
+                    while (match = regex.exec(textNode.text)) {
+                        const offset = match.index;
+                        const range = {
+                            anchorKey: textNode.key,
+                            anchorOffset: offset,
+                            focusKey: textNode.key,
+                            focusOffset: offset + suggestion.inputValue.length,
+                            isFocused: false,
+                            isBackward: false,
+                        };
+                        transform.select(range).addMark('highlighted');
+                    }
+                });
+            }
+        });
+        this.setState({ state: transform.blur().apply() });
     }
 
     onOpenNoteSearchResultHighlight = (suggestion) => {
         if (!suggestion.indices) return;
         const {document} = this.state.state;
         let startIndex = suggestion.indices[0];
+        const foundNode = this.findNodeContainingIndex(startIndex, document);
+        if (foundNode) this.scrollToData(document, foundNode.key);
+    }
+
+    findNodeContainingIndex = (startIndex, document) => {
         let foundNode;
         document.toJSON().nodes.find(node => {
             const nodeLength = this.getLengthOfNode(node);
@@ -781,7 +868,7 @@ class FluxNotesEditor extends React.Component {
                 return false;
             }
         });
-        if (foundNode) this.scrollToData(document, foundNode.key);
+        return foundNode;
     }
 
     getLengthOfNode = (node) => {

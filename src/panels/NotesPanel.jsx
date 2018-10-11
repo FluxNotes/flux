@@ -404,6 +404,7 @@ export default class NotesPanel extends Component {
                     openSourceNoteEntryId={this.props.openSourceNoteEntryId}
                     setOpenSourceNoteEntryId={this.props.setOpenSourceNoteEntryId}
                     searchIndex={this.props.searchIndex}
+                    openNoteSearchSuggestions={this.props.openNoteSearchSuggestions}
                 />
             </div>
         );

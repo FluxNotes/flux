@@ -55,6 +55,7 @@ class PatientSearch extends React.Component {
     // Used by AutoSuggest to get a list of suggestions based on the current search's InputValue
     getSuggestions = (inputValue) => {
         let suggestions = [];
+        let openNoteSuggestions = [];
         let results = this.props.searchIndex.search(inputValue);
         results.forEach(result => {
             let suggestion;
@@ -74,6 +75,7 @@ class PatientSearch extends React.Component {
                     score: result.score,
                     indices: result.indices
                 }
+                if (result.section === "Open Note" && result.valueTitle === "Content") openNoteSuggestions.push(suggestion);
             } else {
                 suggestion = {
                     section: result.section,
@@ -89,7 +91,7 @@ class PatientSearch extends React.Component {
             }
             suggestions.push(suggestion);
         });
-
+        this.props.setOpenNoteSearchSuggestions(openNoteSuggestions);
         return suggestions;
     }
 
@@ -119,6 +121,7 @@ class PatientSearch extends React.Component {
   
     // Autosuggest will call this function every time you need to clear suggestions.
     onSuggestionsClearRequested = () => {
+        this.props.setOpenNoteSearchSuggestions([]);
         this.setState({
             suggestions: []
         });
@@ -149,7 +152,7 @@ class PatientSearch extends React.Component {
 
     // When the input is focused, Autosuggest will consult this function when to render suggestions
     shouldRenderSuggestions = (value) => {
-        return value.trim().length > 2;
+        return value.trim().length > 1;
     }
 
     // Defines how to render the suggestion

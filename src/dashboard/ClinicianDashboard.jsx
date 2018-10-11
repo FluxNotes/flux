@@ -226,6 +226,7 @@ export default class ClinicianDashboard extends Component {
                         summaryItemToInsertSource={this.props.appState.summaryItemToInsertSource}
                         updateErrors={this.props.updateErrors}
                         ref={(np) => { this.notesPanel = np; }}
+                        openNoteSearchSuggestions={this.props.openNoteSearchSuggestions}
                     />
                 </div>
             </div>
