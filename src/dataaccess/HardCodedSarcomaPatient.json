@@ -6417,7 +6417,7 @@
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                         },
-                        "Value": "Complete resection/excision of cancerous tumor"
+                        "Value": "Complete resection"
                     }
                 }
             ]
@@ -7230,7 +7230,7 @@
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                         },
-                        "Value": "Complete response or remission; no measurable or observable evidence of cancer"
+                        "Value": "Complete response"
                     }
                 }
             ]
@@ -8014,7 +8014,7 @@
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                         },
-                        "Value": "Complete Response or remission; no measurable or observable evidence of cancer."
+                        "Value": "Complete response."
                     }
                 }
             ]
@@ -8598,7 +8598,7 @@
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                         },
-                        "Value": "Complete Response or remission; no measurable or observable evidence of cancer."
+                        "Value": "Complete response."
                     }
                 }
             ]
@@ -9179,7 +9179,7 @@
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                         },
-                        "Value": "Complete response or remission; no measurable or observable evidence of cancer"
+                        "Value": "Complete response"
                     }
                 }
             ]
@@ -9760,7 +9760,7 @@
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                         },
-                        "Value": "Complete response or remission; no measurable or observable evidence of cancer"
+                        "Value": "Complete response"
                     }
                 }
             ]
@@ -10341,7 +10341,7 @@
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                         },
-                        "Value": "Complete response or remission; no measurable or observable evidence of cancer"
+                        "Value": "Complete response"
                     }
                 }
             ]

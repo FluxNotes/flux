@@ -217,6 +217,24 @@ export default class SarcomaSummarySection extends MetadataSection {
                                             };
                                 }
                             }
+                        },
+                        {
+                            name: "Genetics",
+                            value: (patient, currentConditionEntry) => {
+                                // for GIST, KIT and PDGFRA are mutually excusive. only show positive ones
+                                const panels = patient.getGastrointestinalStromalTumorCancerGeneticAnalysisPanelsChronologicalOrder();
+                                if (!panels || panels.length === 0) return null;
+                                const panel = panels.pop();
+                                return  {   value: panel.members.filter((item) => {
+                                                    return (item.value === 'Positive');
+                                                }).map((item) => {
+                                                    const v = item.value === 'Positive' ? '+' : '-';
+                                                    return item.abbreviatedName + v;
+                                                }).join(","), 
+                                            isUnsigned: patient.isUnsigned(panel), 
+                                            source: this.determineSource(patient, panel)
+                                        };
+                            }
                         }
                     ]
                 },
