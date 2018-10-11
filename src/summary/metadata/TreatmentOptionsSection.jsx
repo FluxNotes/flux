@@ -20,10 +20,6 @@ export default class TreatmentOptionsSection extends MetadataSection {
         };
     }
 
-    toFirstLetterCapital = (text) => {
-        return text.charAt(0).toUpperCase() + text.substr(1);
-    }
-
     getTreatmentData = (patient, condition, subsection) => {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         // If we have cached data, use that instead of making an API call
