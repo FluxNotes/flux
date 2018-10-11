@@ -19,10 +19,31 @@ export default class SarcomaSummarySection extends MetadataSection {
                     defaultTemplate: "Patient has ${.Name} in ${.Location} stage ${.Stage} diagnosed on ${Key Dates.Diagnosis}."
                 },
                 {
+                    defaultTemplate: "Current status is ${.Status}.",
+                    dataMissingTemplate: "No current ${.Status}.",
+                    useDataMissingTemplateCriteria: [
+                        ".Status"
+                    ]
+                },
+                {
                     defaultTemplate: "Mitosis is ${.Mitosis}.",
                     dataMissingTemplate: "Mitosis is ${.Mitosis}.",
                     useDataMissingTemplateCriteria: [
                         ".Mitosis"
+                    ]
+                },
+                {
+                    defaultTemplate: "Tumor is ${.Tumor Size}.",
+                    dataMissingTemplate: "Tumor is ${.Tumor Size}.",
+                    useDataMissingTemplateCriteria: [
+                        ".Tumor Size"
+                    ]
+                },
+                {
+                    defaultTemplate: "Genetics are ${.Genetics}.",
+                    dataMissingTemplate: "Genetics are ${.Genetics}.",
+                    useDataMissingTemplateCriteria: [
+                        ".Genetics"
                     ]
                 },
                 {
