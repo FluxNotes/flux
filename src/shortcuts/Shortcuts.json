@@ -235,7 +235,7 @@
     "description":"The relationship of the event or cause to the adverse event.",
     "shortcutGroupName":"Attribution"
   },
-  { "type": "CreatorBase",
+  { "type": "SingleHashtagKeyword",
     "id": "ClinicalTrialCreator",
     "name": "enrollment",
     "getData": null,
@@ -314,6 +314,7 @@
     "parentAttribute": "title",
     "stringTriggers": [ {"category":"clinicalTrial", "valueSet":"clinicalTrials", "prefix": "#"},
                         { "name": "#title", "description": "Pick list for clinical trial", "picker": true }],
+    "keywords": { "category":"clinicalTrial", "valueSet":"clinicalTrials", "prefix": ""},
     "picker": { "category": "clinicalTrial", "valueSet": "clinicalTrials", "prefix": "#"},
     "description":"Allows selection of the clinical trial.",
     "shortcutGroupName":"Clinical Trial"
