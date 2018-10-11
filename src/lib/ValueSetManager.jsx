@@ -2,6 +2,7 @@ import stagingLookup from "../lib/tnmstage_lookup";
 import toxicityLookup from "../lib/toxicreaction_lookup";
 import progressionLookup from "../lib/progression_lookup";
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList';
+import { getReceptorOptions } from '../lib/receptor_lookup';
 
 export default class ValueSetManager {
     static getValueList = (category, valueSetName, ...args) => {
@@ -32,8 +33,10 @@ export default class ValueSetManager {
             if (valueSetName === "clinicalTrials") {
                 return clinicalTrialList.getAllTrials();
             }
-                    
+        } else if (category === 'receptor') {
+            if (valueSetName === 'status') return getReceptorOptions();
         }
+
         console.error("Invalid value set request: category: " + category + " valueSet = " + valueSetName);
     }
 }

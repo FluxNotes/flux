@@ -108,7 +108,7 @@ describe('parse', function() {
         expect(record[0][0].stage)
             .eql(expectedOutputStaging[0][0].stage);
         expect(record[0][0].entryType)
-            .eql(expectedOutputStaging[0][0].entryType);         
+            .eql(expectedOutputStaging[0][0].entryType);
         expect(record[0][0].t_Stage)
             .eql(expectedOutputStaging[0][0].t_Stage);
         expect(record[0][0].n_Stage)
@@ -124,7 +124,7 @@ describe('parse', function() {
 
         expect(record)
             .to.be.an('array')
-            .and.to.eql(expectedOutputDiseaseStatus);      
+            .and.to.eql(expectedOutputDiseaseStatus);
     });
     it('should return a patient record with disease status data when parsing a note with disease status phrases including dates', function () {
         const record = noteParser.parse(sampleTextDiseaseStatus2);

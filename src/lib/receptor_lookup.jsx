@@ -24,3 +24,7 @@ const receptorOptions = [
 exports.getReceptorCodeableConcept = (possibleReceptorValue) => {
     return codeableConceptUtils.getCodeableConceptFromOptions(possibleReceptorValue, receptorOptions);
 }
+
+exports.getReceptorOptions = () => {
+    return receptorOptions;
+}

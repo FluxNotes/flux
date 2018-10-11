@@ -4,7 +4,6 @@ import CreatorChild from './CreatorChild';
 import InsertValue from './InsertValue';
 import UpdaterBase from './UpdaterBase';
 import SingleHashtagKeyword from './SingleHashtagKeyword';
-import Keyword from './Keyword';
 import Placeholder from './Placeholder';
 import ValueSetManager from '../lib/ValueSetManager';
 import shortcutMetadata from './Shortcuts.json';
@@ -142,7 +141,6 @@ class ShortcutManager {
     }
 
     createShortcut(definition, triggerOrKeyword, patient, shortcutData, onUpdate) {
-
         let className;
         let metadata;
         if (!Lang.isNull(definition)) {
@@ -169,8 +167,6 @@ class ShortcutManager {
             newShortcut = new SingleHashtagKeyword(onUpdate, metadata, patient, shortcutData);
         } else if (className === "NLPHashtag") {
             newShortcut = new NLPHashtag(onUpdate, metadata, patient, shortcutData);
-        } else if (className === "Keyword") {
-            newShortcut = new Keyword(onUpdate, metadata, patient, shortcutData);
         } else {
             console.error("unsupported type: " + className);
             return null;
@@ -267,7 +263,7 @@ class ShortcutManager {
                 // build up trigger to shortcut mapping
                 const triggers = item["stringTriggers"];
                 const keywords = item["keywords"]
-                if(triggers) { 
+                if (triggers) { 
                     this.triggersPerShortcut[item.id] = [];
                     if (Lang.isArray(triggers)) {
                         triggers.forEach((trigger) => { 
@@ -276,7 +272,8 @@ class ShortcutManager {
                     } else {
                         addTriggerForCurrentShortcut.bind(this)(triggers, item);
                     }
-                } else if (keywords) { 
+                }
+                if (keywords) { 
                     this.keywordsPerShortcut[item.id] = [];
                     if (Lang.isArray(keywords)) {
                         keywords.forEach((keyword) => { 
@@ -342,18 +339,18 @@ class ShortcutManager {
                 return false;
             }
         });
-		if (recurse) {
-			context.getChildren().forEach((subcontext) => {
-				result = result.concat(this.getValidChildShortcutsInContext(subcontext, true));
-			});
-		}        
+        if (recurse) {
+            context.getChildren().forEach((subcontext) => {
+                result = result.concat(this.getValidChildShortcutsInContext(subcontext, true));
+            });
+        }
         return result;
     }
     
     // context is optional
     getTriggersForShortcut(shortcutId, context) {
         if (Lang.isUndefined(this.shortcuts[shortcutId]["stringTriggers"])) { 
-            return []
+            return [];
         } else if (!Lang.isUndefined(context)) {
             const currentContextId = context.getId();
             const parentAttribute = this.shortcuts[shortcutId]["parentAttribute"];
@@ -374,12 +371,13 @@ class ShortcutManager {
                 }
             }
         }
+
         return this.triggersPerShortcut[shortcutId];
     }
 
-    getKeywordsForShortcut(shortcutId, context) { 
+    getKeywordsForShortcut(shortcutId, context) {
         if (Lang.isUndefined(this.shortcuts[shortcutId]["keywords"])) { 
-            return []
+            return [];
         } else if (!Lang.isUndefined(context)) {
             const currentContextId = context.getId();
             const parentAttribute = this.shortcuts[shortcutId]["parentAttribute"];
@@ -400,6 +398,7 @@ class ShortcutManager {
                 }
             }
         }
+
         return this.keywordsPerShortcut[shortcutId];
     }
     
@@ -407,8 +406,19 @@ class ShortcutManager {
         return this.shortcuts[shortcutId]["shortcutGroupName"];
     }
 
-    getShortcutMetadata(shortcutId) { 
+    getShortcutMetadata(shortcutId) {
         return this.shortcuts[shortcutId]
+    }
+
+    getShortcutPrefix(shortcutId) {
+        const shortcutMetadata = this.shortcuts[shortcutId];
+        const stringTriggers = shortcutMetadata.stringTriggers;
+
+        if (Lang.isArray(stringTriggers) && stringTriggers.length > 0) {
+            return stringTriggers[0].prefix || '';
+        }
+
+        return stringTriggers.prefix || '';
     }
 
     isShortcutInstanceOfSingleHashtagKeyword(shortcut) {

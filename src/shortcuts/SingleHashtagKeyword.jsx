@@ -11,7 +11,7 @@ export default class SingleHashtagKeyword extends EntryShortcut {
         //this.text = this.getPrefixCharacter() + this.metadata["name"];
         this.patient = patient;
         if (Lang.isUndefined(shortcutData) || !shortcutData || shortcutData.length === 0) {
-            this.object = FluxObjectFactory.createInstance({}, this.metadata["valueObject"]);
+            this.object = FluxObjectFactory.createInstance({}, this.metadata["valueObject"], patient);
             this.isObjectNew = true;
         } else {
             const dataObj = JSON.parse(shortcutData);
@@ -19,7 +19,7 @@ export default class SingleHashtagKeyword extends EntryShortcut {
             // We want to try and get this object -- if there is none, make a new one
             this.isObjectNew = !this.object;
             if (!this.object) { 
-                this.object = FluxObjectFactory.createInstance({}, this.metadata["valueObject"]);
+                this.object = FluxObjectFactory.createInstance({}, this.metadata["valueObject"], patient);
             }
         }
         this.setValueObject(this.object);
@@ -206,7 +206,14 @@ export default class SingleHashtagKeyword extends EntryShortcut {
         const argSpecs = spec["args"];
         let args = argSpecs.map((argSpec) => {
             if (argSpec === "$valueObject") return this.object;
-            if (argSpec === "$parentValueObject") return this.parentContext.getValueObject();
+            if (argSpec === "$parentValueObject") {
+                if (!Lang.isUndefined(this.parentContext)) {
+                    return this.parentContext.getValueObject();
+                } else {
+                    console.error("no parent context for " + this.getId());
+                    return null;
+                }
+            }
             if (argSpec === "$clinicalNote") return clinicalNote;
             return argSpec;
         });

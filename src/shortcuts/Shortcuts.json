@@ -74,31 +74,34 @@
     "description": "The stage of a cancer, assessed according to the standard established by American Joint Committee on Cancer (AJCC). TNM Stage Grouping categorizes the progression of cancer using the Roman Numeral system.",
     "structuredPhraseDocumentation": "stagingSheet.pdf"
   },
-  { "type": "Keyword",
+  { "type": "CreatorChild",
     "id": "StagingTCreator",
     "parentAttribute": "T",
+    "stringTriggers": {"category":"staging", "valueSet":"T", "args":"7", "prefix": "#"},
     "keywords": {"category":"staging", "valueSet":"T", "args":"7", "prefix": ""},
     "knownParentContexts": "StagingCreator",
     "description":"Describes the original (primary) tumor.",
     "shortcutGroupName":"Tumor Size"
   },
-  { "type": "Keyword",
+  { "type": "CreatorChild",
     "id": "StagingNCreator",
     "parentAttribute": "N",
+    "stringTriggers": {"category":"staging", "valueSet":"N", "args":"7", "prefix": "#"},
     "keywords": {"category":"staging", "valueSet":"N", "args":"7", "prefix": ""},
     "knownParentContexts": "StagingCreator",
     "description":"Describes the degree to which the cancer has reached nearby lymph nodes.",
     "shortcutGroupName":"Node Size"
   },
-  { "type": "Keyword",
+  { "type": "CreatorChild",
     "id": "StagingMCreator",
     "parentAttribute": "M",
+    "stringTriggers": {"category":"staging", "valueSet":"M", "args":"7", "prefix": "#"},
     "keywords": {"category":"staging", "valueSet":"M", "args":"7", "prefix": ""},
     "knownParentContexts": "StagingCreator",
     "description":"Whether or not the cancer has spread to other parts of the body.",
     "shortcutGroupName":"Metastasis"
   },
-  { "type": "CreatorBase",
+  { "type": "SingleHashtagKeyword",
     "id": "ProgressionCreator",
     "name": "disease status",
     "getData": null,
@@ -132,6 +135,7 @@
     "id": "ProgressionStatusCreator",
     "parentAttribute": "status",
     "stringTriggers": {"category":"progression", "valueSet":"status", "prefix": "#"},
+    "keywords": {"category":"progression", "valueSet":"status", "prefix": ""},
     "knownParentContexts": "ProgressionCreator",
     "description":"Based on on the patient data available to the clinician at the time of evaluation.",
     "shortcutGroupName":"Status"
@@ -141,6 +145,7 @@
     "id": "ProgressionReasonsCreator",
     "parentAttribute": "reasons",
     "stringTriggers": {"category":"progression", "valueSet":"reason", "prefix": "#"},
+    "keywords": {"category":"progression", "valueSet":"reason", "prefix": ""},
     "knownParentContexts": "ProgressionCreator",
     "description":"Rationale for the choice of status.",
     "shortcutGroupName":"Reason"
@@ -167,7 +172,7 @@
     "description":"The date relative to which the diseases status is assessed.",
     "shortcutGroupName":"Reference Date"
   },
-  { "type": "CreatorBase",
+  { "type": "SingleHashtagKeyword",
     "id": "ToxicityCreator",
     "name": "toxicity",
     "getData": null,
@@ -204,6 +209,7 @@
     "prefixForCanonicalization": "#",
     "parentAttribute": "grade",
     "stringTriggers": {"category":"toxicity", "valueSet":"grade", "prefix": "#"},
+    "keywords": {"category":"toxicity", "valueSet":"grade", "prefix": ""},
     "description":"The severity of the adverse event. The CTCAE displays Grades 1 through 5 with unique clinical descriptions of severity for each adverse event.",
     "shortcutGroupName":"Grade"
   },
@@ -214,6 +220,7 @@
     "prefixForCanonicalization": "#",
     "parentAttribute": "adverseEvent",
     "stringTriggers": {"category":"toxicity", "valueSet":"adverseEvent", "prefix": "#"},
+    "keywords": {"category":"toxicity", "valueSet":"adverseEvent", "prefix": ""},
     "description":"Any unfavorable and unintended sign, symptom, or disease temporally associated with the use of a medical treatment or procedure that may or may not be considered related to the medical treatment or procedure.",
     "shortcutGroupName":"Adverse Event"
   },
@@ -224,10 +231,11 @@
     "prefixForCanonicalization": "#",
     "parentAttribute": "attribution",
     "stringTriggers": {"category":"toxicity", "valueSet":"attribution", "prefix": "#"},
+    "keywords": {"category":"toxicity", "valueSet":"attribution", "prefix": ""},
     "description":"The relationship of the event or cause to the adverse event.",
     "shortcutGroupName":"Attribution"
   },
-  { "type": "CreatorBase",
+  { "type": "SingleHashtagKeyword",
     "id": "ClinicalTrialCreator",
     "name": "enrollment",
     "getData": null,
@@ -306,6 +314,7 @@
     "parentAttribute": "title",
     "stringTriggers": [ {"category":"clinicalTrial", "valueSet":"clinicalTrials", "prefix": "#"},
                         { "name": "#title", "description": "Pick list for clinical trial", "picker": true }],
+    "keywords": { "category":"clinicalTrial", "valueSet":"clinicalTrials", "prefix": ""},
     "picker": { "category": "clinicalTrial", "valueSet": "clinicalTrials", "prefix": "#"},
     "description":"Allows selection of the clinical trial.",
     "shortcutGroupName":"Clinical Trial"
@@ -340,7 +349,7 @@
     "stringTriggers": [{"name":"@stage", "description": "Stage of cancer based on AJCC"}],
     "knownParentContexts": "StagingCreator"
   },
-  { "type": "CreatorBase",
+  { "type": "SingleHashtagKeyword",
     "id": "EstrogenReceptorCreator",
     "name": "ER",
     "getData": null,
@@ -359,12 +368,20 @@
    { "type": "CreatorChild",
     "id": "ReceptorStatusCreator",
     "parentAttribute": "status",
-    "stringTriggers": [{"name": "#Positive", "description": "Presence of hormone receptors in cancerous cells (for  ER or PR) or high-levels of the growth-promoting protein (e.g. HER2)"},
-                       {"name": "#Negative", "description": "Hormone receptors not present in cancerous cells (for ER or PR) or levels of growth-promoting hormone (e.g., HER2) are low."}],
+    "stringTriggers": {
+      "category": "receptor",
+      "valueSet": "status",
+      "prefix": "#"
+    },
+    "keywords": {
+      "category": "receptor",
+      "valueSet": "status",
+      "prefix": ""
+    },
     "description":"?",
     "shortcutGroupName":"Receptor"
   }, 
-  { "type": "CreatorBase",
+  { "type": "SingleHashtagKeyword",
     "id": "ProgesteroneReceptorCreator",
     "name": "PR",
     "getData": null,
@@ -380,7 +397,7 @@
     "knownParentContexts": "ConditionInserter",
     "description": "The progesterone receptor (PR) is a protein found inside cells. It is activated by the steroid hormone progesterone. Progesterone receptors may be found in breast cancer cells (PR positive). Cancer cells with these receptors depend on progesterone to grow."
   },
-  { "type": "CreatorBase",
+  { "type": "SingleHashtagKeyword",
     "id": "HumanEpiduralGrowthFactorReceptor2Creator",
     "name": "HER2",
     "getData": null,
