@@ -1,6 +1,9 @@
 import Lang from 'lodash';
 import elasticlunr from 'elasticlunr';
-import Fuse from 'fuse.js';
+
+function escapeRegExp(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+}
 
 class SearchIndex {
     constructor() {
@@ -14,11 +17,6 @@ class SearchIndex {
             this.setRef('id');
             this.saveDocument(true);
         });
-        this._options = {
-            keys: ['section', 'subsection', 'valueTitle', 'value'],
-            id: 'id'
-        };
-        this._fuse = null;
     }
 
     get searchableData() {
@@ -28,21 +26,6 @@ class SearchIndex {
     addSearchableData(data) {
         const existingDocument = this._index.documentStore.getDoc(data.id);
         if (Lang.isNull(existingDocument) || !Lang.isEqual(data, existingDocument)) {
-            if (data.section === "Open Note" && data.valueTitle === "Content") {
-                this._fuse = new Fuse([{
-                    id: data.id,
-                    content: data.value
-                }], {
-                    id: 'id',
-                    keys: ['content'],
-                    shouldSort: true,
-                    includeScore: true,
-                    includeMatches: true,
-                    findAllMatches: true,
-                    threshold: 0.6,
-                    distance: data.value.length
-                });
-            }
             this._index.addDoc({...data});
         }
     }
@@ -65,6 +48,7 @@ class SearchIndex {
 
     search(query) {
         let suggestions = [];
+        let openNoteSuggestions = [];
         this._index.search(query, {
             fields: {
                 valueTitle: {
@@ -77,27 +61,22 @@ class SearchIndex {
         }).forEach(result => {
             let doc = this._index.documentStore.getDoc(result.ref);
             doc.score = result.score;
-            if (doc.section === "Open Note") {
-                const regex = new RegExp(this.escapeRegExp(query), "g");
-                let contentMatches = this._fuse.search(query);
-                if (contentMatches.length > 0 && contentMatches[0].matches.length > 0) {
-                    contentMatches[0].matches[0].indices.forEach(([from, to]) => {
-                        if (regex.exec(doc.value.substring(from, to+1).toLowerCase())) {
-                            let tempDoc = Lang.cloneDeep(doc);
-                            tempDoc.indices = [from, to];
-                            suggestions.unshift(tempDoc);
-                        }
-                    })
+            // Search the content of the open note
+            if (doc.section === "Open Note" && doc.valueTitle === "Content") {
+                const regex = new RegExp(escapeRegExp(query), "gim");
+                let contentMatches = regex.exec(doc.value);
+                while (contentMatches ) {
+                    let tempDoc = Lang.cloneDeep(doc);
+                    tempDoc.indices = [contentMatches.index, contentMatches.index + query.length - 1];
+                    openNoteSuggestions.push(tempDoc);
+                    contentMatches = regex.exec(doc.value);
                 }
             } else {
                 suggestions.push(doc);
             }
         });
-        return suggestions;
-    }
-
-    escapeRegExp(text) {
-        return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+        // Present open note suggestions first, then regular suggestions
+        return openNoteSuggestions.concat(suggestions);
     }
 }
 

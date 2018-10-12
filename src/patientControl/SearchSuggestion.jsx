@@ -18,7 +18,10 @@ class SearchSuggestion extends React.Component {
 
         // If there are indices, we matched on an open note
         if (indices) {
-            preText = valueTitle ? valueTitle + ': ' : '' + contentSnapshot.slice(0, indices[0]);
+            let preTextIdx = 0;
+            if (indices[0] - 15 >= 0) preTextIdx = contentSnapshot.lastIndexOf(' ', indices[0]-15);
+            preText = valueTitle ? valueTitle + ': ' : '';
+            preText += contentSnapshot.slice(preTextIdx, indices[0]);
             highlightedText = contentSnapshot.slice(indices[0], indices[1]+1);
             postText = contentSnapshot.slice(indices[1]+1);
         } else if (matchesTitle) {

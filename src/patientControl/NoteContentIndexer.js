@@ -94,7 +94,9 @@ class NoteContentIndexer extends BaseIndexer {
         // Remove brackets from @ structured phrases
         noteContentWithoutStyle = noteContentWithoutStyle.replace(/@(.*?)\[\[(.*?)\]\]/g, (match, g1, g2) => g2);
         // Removed brackets from # structured phrases
-        noteContentWithoutStyle = noteContentWithoutStyle.replace(/#(.*?)\[\[(.*?)\]\]/g, (match, g1, g2) => `#${g1}`);
+        noteContentWithoutStyle = noteContentWithoutStyle.replace(/#(.*?)\[\[(.*?)\]\]/g, (match, g1, g2) => g1);
+        // Remove remaining hashtags of child shortcuts
+        noteContentWithoutStyle = noteContentWithoutStyle.replace(/#/g, "");
 
         return noteContentWithoutStyle;
     }
