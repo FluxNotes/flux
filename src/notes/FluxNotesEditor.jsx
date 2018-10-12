@@ -823,27 +823,23 @@ class FluxNotesEditor extends React.Component {
             });
 
             // Highlight matching plaintext
-            const foundNode = this.findNodeContainingIndex(suggestion.indices[0], document);
-            if (foundNode) {
-                const nodeRef = document.getNode(foundNode.key);
-                nodeRef.getTexts().forEach(textNode => {
-                    const regex = new RegExp(suggestion.inputValue, "gi");
-                    let match = regex.exec(textNode.text)
-                    while (match) {
-                        const offset = match.index;
-                        const range = {
-                            anchorKey: textNode.key,
-                            anchorOffset: offset,
-                            focusKey: textNode.key,
-                            focusOffset: offset + suggestion.inputValue.length,
-                            isFocused: false,
-                            isBackward: false,
-                        };
-                        transform.select(range).addMark('highlighted').deselect();
-                        match = regex.exec(textNode.text);
-                    }
-                });
-            }
+            document.getTexts().forEach(textNode => {
+                const regex = new RegExp(suggestion.inputValue, "gi");
+                let match = regex.exec(textNode.text)
+                while (match) {
+                    const offset = match.index;
+                    const range = {
+                        anchorKey: textNode.key,
+                        anchorOffset: offset,
+                        focusKey: textNode.key,
+                        focusOffset: offset + suggestion.inputValue.length,
+                        isFocused: false,
+                        isBackward: false,
+                    };
+                    transform.select(range).addMark('highlighted').deselect();
+                    match = regex.exec(textNode.text);
+                }
+            });
         });
         this.setState({ state: transform.blur().apply() });
     }
