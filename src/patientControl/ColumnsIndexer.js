@@ -27,23 +27,25 @@ class ColumnIndexer extends BaseIndexer {
             data.forEach((row) => {
                 if (row.length < 2) {
                     const [ valueObject ] = row;
+                    const value = valueObject.value ? valueObject.value.value : 'Missing Data';
                     searchIndex.addSearchableData({
                         id: `${sectionId}_${subsectionId}_${subsectionId}`,
                         section,
                         subsection,
                         valueTitle: subsection,
-                        value: valueObject.value || "Missing Data",
+                        value: value || 'Missing Data',
                         onHighlight
                     });
                 } else {
                     const [ title, valueObject ] = row;
                     const valueTitleId = super.getStringForId(title.value);
+                    const value = valueObject.value ? valueObject.value.value : 'Missing Data';
                     searchIndex.addSearchableData({
                         id: `${sectionId}_${valueTitleId}`,
                         section,
                         subsection,
                         valueTitle: title.value,
-                        value: valueObject.value || "Missing Data",
+                        value: value || 'Missing Data',
                         onHighlight
                     });
                 }
