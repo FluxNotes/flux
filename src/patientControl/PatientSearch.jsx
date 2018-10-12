@@ -21,6 +21,7 @@ class PatientSearch extends React.Component {
         // and they are initially empty because the Autosuggest is closed.
         this.state = {
             suggestions: [],
+            openNoteSuggestions: [],
             value: '',
             previousSuggestion: null
         };
@@ -91,7 +92,9 @@ class PatientSearch extends React.Component {
             }
             suggestions.push(suggestion);
         });
-        this.props.setOpenNoteSearchSuggestions(openNoteSuggestions);
+        this.setState({ openNoteSuggestions }, () => {
+            this.props.setOpenNoteSearchSuggestions(this.state.openNoteSuggestions);
+        });
         return suggestions;
     }
 
@@ -123,7 +126,8 @@ class PatientSearch extends React.Component {
     onSuggestionsClearRequested = () => {
         this.props.setOpenNoteSearchSuggestions([]);
         this.setState({
-            suggestions: []
+            suggestions: [],
+            openNoteSuggestions: []
         });
     };
   

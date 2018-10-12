@@ -828,9 +828,9 @@ class FluxNotesEditor extends React.Component {
             if (foundNode) {
                 const nodeRef = document.getNode(foundNode.key);
                 nodeRef.getTexts().forEach(textNode => {
-                    let match;
                     const regex = new RegExp(suggestion.inputValue, "gi");
-                    while (match = regex.exec(textNode.text)) {
+                    let match = regex.exec(textNode.text)
+                    while (match) {
                         const offset = match.index;
                         const range = {
                             anchorKey: textNode.key,
@@ -841,6 +841,7 @@ class FluxNotesEditor extends React.Component {
                             isBackward: false,
                         };
                         transform.select(range).addMark('highlighted');
+                        match = regex.exec(textNode.text);
                     }
                 });
             }
