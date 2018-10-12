@@ -207,7 +207,8 @@ class PatientSearch extends React.Component {
 PatientSearch.propTypes = {
     setSearchSelectedItem: PropTypes.func.isRequired,
     patient: PropTypes.object.isRequired,
-    searchIndex: PropTypes.object.isRequired
+    searchIndex: PropTypes.object.isRequired,
+    setOpenNoteSearchSuggestions: PropTypes.func.isRequired
 };
 
 export default PatientSearch;

@@ -46,6 +46,7 @@ describe('PatientSearch', function () {
     it('Should update state.value when input is entered ', function () { 
         const wrapper = mount(<PatientSearch
             patient={testPatientObj}
+            setOpenNoteSearchSuggestions={jest.fn()}
             setSearchSelectedItem={jest.fn()}
             searchIndex={searchIndex}
         />);
@@ -61,6 +62,7 @@ describe('PatientSearch', function () {
     it('Should update state.suggestions when input is entered ', function () { 
         const wrapper = mount(<PatientSearch
             patient={testPatientObj}
+            setOpenNoteSearchSuggestions={jest.fn()}
             setSearchSelectedItem={jest.fn()}
             searchIndex={searchIndex}
         />);
@@ -79,6 +81,7 @@ describe('PatientSearch', function () {
     it('Should provide suggestions in a list when input is entered and inputBox is focused ', function () { 
         const wrapper = mount(<PatientSearch
             patient={testPatientObj}
+            setOpenNoteSearchSuggestions={jest.fn()}
             setSearchSelectedItem={jest.fn()}
             searchIndex={searchIndex}
         />);        
