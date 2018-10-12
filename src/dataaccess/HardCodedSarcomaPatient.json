@@ -624,7 +624,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/condition/ClinicalStatus"
             },
-            "Value": "active"
+            "Value": "remission"
         },
         "BodySiteOrCode": [
             {
@@ -1528,157 +1528,6 @@
                 }
             }
         }
-    },
-    {
-        "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested"
-        },
-        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-        "EntryId": "110",
-        "PersonOfRecord": {
-            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-            "_EntryId": "1",
-            "_EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
-            }
-        },
-        "CreationTime": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
-            },
-            "Value": "4 SEP 2018"
-        },
-        "LastUpdated": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
-            },
-            "Value": "4 SEP 2018"
-        },
-        "ActionContext": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"
-            },
-            "Reason": [
-                {
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/Reason"
-                    },
-                    "Value": "Mr. Tnfinity6 requested a follow up due to severe headaches that make it hard for him to do daily activities."
-                }
-            ],
-            "Status": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/action/Status"
-                },
-                "Value": "active"
-            },
-            "RequestIntent": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/action/RequestIntent"
-                },
-                "Value": "plan"
-            },
-            "ExpectedPerformanceTime": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime"
-                },
-                "Value": "4 SEP 2018 18:00 -0500"
-            },
-            "ExpectedPerformer": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformer"
-                },
-                "Value": {
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Practitioner"
-                    },
-                    "Value": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
-                        },
-                        "HumanName": [
-                            {
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
-                                },
-                                "Value": "Dr. Mona341 Brown483"
-                            }
-                        ]
-                    }
-                }
-            }
-        },
-        "Subject": {
-            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-            "_EntryId": "1",
-            "_EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
-            }
-        },
-        "ReferralDate": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ReferralDate"
-            },
-            "Value": "02 JAN 2018"
-        },
-        "ServiceProvider": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
-            },
-            "Value": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
-                },
-                "OrganizationName": {
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
-                    },
-                    "Value": "MCI"
-                },
-                "Type": {
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Type"
-                    },
-                    "Value": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                        },
-                        "Coding": [
-                            {
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                },
-                                "Value": "prov",
-                                "CodeSystem": {
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                    },
-                                    "Value": "http://hl7.org/fhir/organization-type"
-                                },
-                                "DisplayText": {
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                    },
-                                    "Value": "Healthcare Provider"
-                                }
-                            }
-                        ]
-                    }
-                }
-            }
-        },
-        "Author" : {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
-            },
-             "Value": "Dr. Mona341 Brown483"
-         },
-         "Informant": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/Informant"
-            },
-             "Value": "Dr. Mona341 Brown483"
-         }
     },
     {
         "EntryType": {
@@ -6568,7 +6417,7 @@
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                         },
-                        "Value": "Complete resection/excision of cancerous tumor"
+                        "Value": "Complete resection"
                     }
                 }
             ]
@@ -7381,7 +7230,7 @@
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                         },
-                        "Value": "Complete response or remission; no measurable or observable evidence of cancer"
+                        "Value": "Complete response"
                     }
                 }
             ]
@@ -8165,7 +8014,7 @@
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                         },
-                        "Value": "Complete Response or remission; no measurable or observable evidence of cancer."
+                        "Value": "Complete response."
                     }
                 }
             ]
@@ -8749,7 +8598,7 @@
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                         },
-                        "Value": "Complete Response or remission; no measurable or observable evidence of cancer."
+                        "Value": "Complete response."
                     }
                 }
             ]
@@ -9330,7 +9179,7 @@
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                         },
-                        "Value": "Complete response or remission; no measurable or observable evidence of cancer"
+                        "Value": "Complete response"
                     }
                 }
             ]
@@ -9911,7 +9760,7 @@
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                         },
-                        "Value": "Complete response or remission; no measurable or observable evidence of cancer"
+                        "Value": "Complete response"
                     }
                 }
             ]
@@ -10492,7 +10341,7 @@
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                         },
-                        "Value": "Complete response or remission; no measurable or observable evidence of cancer"
+                        "Value": "Complete response"
                     }
                 }
             ]

@@ -191,9 +191,10 @@ class VisualizerManager {
         newsection.data_cache = list.map((row, i) => {
             return row.map((item) => {
                 if (Lang.isArray(item.value)) {
-                    return {    value: item.value[0],
-                                isUnsigned: item.value[1],
-                                source: item.value[2],
+                    return {    value: item.value.value,
+                                isUnsigned: item.value.isUnsigned,
+                                source: item.value.source,
+                                when: item.value.when,
                                 shortcut: item.shortcut
                             };
                 } else {
