@@ -134,6 +134,8 @@ export class Minimap extends React.Component {
             shortTitle={shortTitle}
             inEditMode={this.state.inEditMode}
             preferenceManager={this.props.preferenceManager}
+            index={key}
+            reorderSections={this.props.reorderSections}
           />
         )
       })

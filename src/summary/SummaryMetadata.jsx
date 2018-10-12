@@ -745,7 +745,6 @@ export default class SummaryMetadata {
             "http://snomed.info/sct/420120006": { // sarcoma
                 sections: [
                     visitReasonSectionPreEncounter,
-                    visitReasonSectionPostEncounter,
                     {
                         name: "Summary",
                         shortName: "Summary",

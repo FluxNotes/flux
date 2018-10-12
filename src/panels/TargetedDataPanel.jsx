@@ -22,9 +22,10 @@ export default class TargetedDataPanel extends Component {
     }
 
     doneEditingMinimap = () => {
-        const conditionMetadata = this.getConditionMetadata();
+        // const conditionMetadata = this.getConditionMetadata();
+        let { sectionsToDisplay } = this.state;
 
-        const sectionsToDisplay = conditionMetadata.sections.filter((section) => {
+        sectionsToDisplay = sectionsToDisplay.filter((section) => {
             const preferenceManagerVisibleSettings = this.props.preferenceManager.getPreference('visibleSections');
             let currentSectionVisible = true;
             if (!_.isNull(preferenceManagerVisibleSettings) && !_.isUndefined(preferenceManagerVisibleSettings[section.name])) {
@@ -80,6 +81,28 @@ export default class TargetedDataPanel extends Component {
         return conditionMetadata;
     }
 
+    reorderSections = (oldIndex, newIndex) => {
+        const { sectionsToDisplay } = this.state;
+
+        // Out of bounds, can't move section up or down
+        if (newIndex < 0 || newIndex >= sectionsToDisplay.length) return;
+
+        const movedSection = sectionsToDisplay.find((_, index) => index === oldIndex);
+        const remainingSections = sectionsToDisplay.filter((_, index) => index !== oldIndex);
+
+        const newSectionsToDisplay = [
+            ...remainingSections.slice(0, newIndex),
+            movedSection,
+            ...remainingSections.slice(newIndex)
+        ];
+
+        newSectionsToDisplay.forEach((section, i) => section.index = i);
+
+        this.setState({
+            sectionsToDisplay: newSectionsToDisplay,
+        });
+    }
+
     render () {
         // The css data attribute associated with the minimap
         const minimapAttribute = 'data-test-summary-section';
@@ -97,6 +120,11 @@ export default class TargetedDataPanel extends Component {
 
                 return currentSectionVisible;
             });
+
+            // Assign each section their index
+            sectionsToDisplay.forEach((section, i) => {
+                section.index = i;
+            });
         }
 
         if (conditionMetadata && conditionMetadata.sections.length > 1) {
@@ -113,6 +141,7 @@ export default class TargetedDataPanel extends Component {
                         preferenceManager={this.props.preferenceManager}
                         doneEditingMinimap={this.doneEditingMinimap}
                         startEditingMinimap={this.startEditingMinimap}
+                        reorderSections={this.reorderSections}
                     >
                         <div id="summary-subpanel">
                             <div className="summary-section">

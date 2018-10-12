@@ -21,6 +21,18 @@ export default class Child extends Component {
         this.props.preferenceManager.setPreference('visibleSections', visibleSections);
     }
 
+    onClickSortUp = () => {
+        const { index, reorderSections } = this.props;
+
+        reorderSections(index, index - 1);
+    }
+
+    onClickSortDown = () => {
+        const { index, reorderSections } = this.props;
+
+        reorderSections(index, index + 1);
+    }
+
     render() {
         const { width, height, left, top, title, shortTitle, inEditMode } = this.props;
         let displayTitle = title;
@@ -52,11 +64,21 @@ export default class Child extends Component {
             <div style={{position: 'absolute', width, height, left, top}} className="minimap-children">
                 {/* TODO: Toggle between icons based on if selected: square-o  / check-square-o*/}
                 {inEditMode &&
+                    <div>
                     <FontAwesome name="check-square-o"
                         className="minimap-title"
                         style={{top: '0px', left: '0px', position: 'absolute'}}
                         onClick={this.onClick}
                     />
+                    <FontAwesome name="sort-up"
+                        style={{top: '0px', left: '15px', position: 'absolute'}}
+                        onClick={this.onClickSortUp}
+                    />
+                    <FontAwesome name="sort-down"
+                        style={{top: '0px', left: '30px', position: 'absolute'}}
+                        onClick={this.onClickSortDown}
+                    />
+                    </div>
                 }
                 {displayTitle &&
                     <div className="minimap-title">
