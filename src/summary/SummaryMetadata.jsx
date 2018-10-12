@@ -109,4 +109,5 @@ export default class SummaryMetadata {
         this.addCachedMetadata(prioritizedKeyList[keyIndex], metadata);
         return metadata;
     }
+
 }

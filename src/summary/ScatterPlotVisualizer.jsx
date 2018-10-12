@@ -30,11 +30,11 @@ class ScatterPlotVisualizer extends Component {
 
     randomizeXPoints = (categoryList, data) => {
         let alive = [], dead = [];
-        data[0].forEach(function (item) {
+        data.alive.forEach(function (item) {
             alive.push([categoryList.indexOf(item[0]) + (Math.random() * 50 + 30) / 100 - .5, item[1]]);
         })
 
-        data[1].forEach(function (item) {
+        data.deceased.forEach(function (item) {
             dead.push([categoryList.indexOf(item[0]) + (Math.random() * 50 + 30) / 100 - .5, item[1]]);
         })
 
