@@ -69,28 +69,28 @@ export default class BreastCancerMetadata extends MetadataSection {
                             defaultTemplate: "Key toxicities include",
                         },
                         {
-                            defaultTemplate: "${Key Toxicities.Peripheral motor neuropathy} peripheral motor neuropathy,",
+                            defaultTemplate: "${Key Toxicities.Peripheral motor neuropathy} peripheral motor neuropathy (as of ${Key Toxicities.Peripheral motor neuropathy.when}),",
                             dataMissingTemplate: "no peripheral motor neuropathy,",
                             useDataMissingTemplateCriteria: [
                                 "Key Toxicities.Peripheral motor neuropathy"
                             ]
                         },
                         {
-                            defaultTemplate: "${Key Toxicities.Blood clots} blood clots,",
+                            defaultTemplate: "${Key Toxicities.Blood clots} blood clots (as of ${Key Toxicities.Blood clots.when}),",
                             dataMissingTemplate: "no blood clots,",
                             useDataMissingTemplateCriteria: [
                                 "Key Toxicities.Blood clots"
                             ]
                         },
                         {
-                            defaultTemplate: "${Key Toxicities.Neutropenia} neutropenia,",
+                            defaultTemplate: "${Key Toxicities.Neutropenia} neutropenia (as of ${Key Toxicities.Neutropenia.when}),",
                             dataMissingTemplate: "no neutropenia,",
                             useDataMissingTemplateCriteria: [
                                 "Key Toxicities.Neutropenia"
                             ]
                         },
                         {
-                            defaultTemplate: "${Key Toxicities.Nausea/Vomiting} nausea/vomiting.",
+                            defaultTemplate: "${Key Toxicities.Nausea/Vomiting} nausea/vomiting (as of ${Key Toxicities.Nause/Vomiting.when}).",
                             dataMissingTemplate: "no nausea/vomiting.",
                             useDataMissingTemplateCriteria: [
                                 "Key Toxicities.Nausea/Vomiting"

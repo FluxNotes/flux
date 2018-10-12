@@ -91,7 +91,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
         const len = template.length;
         let index, start = 0;
         let pos = template.indexOf("${"), endpos;
-        let list, item, value, type, valueSpec, subsectionName, valueName, first;
+        let list, item, value, type, valueSpec, subsectionName, valueName, fieldName, itemValue, first;
         let _filterItemsByName = (item) => {
             return item.name === valueName;
         };
@@ -136,14 +136,21 @@ class NarrativeNameValuePairsVisualizer extends Component {
             } else {
                 subsectionName = valueSpec.substring(0, index);
                 valueName = valueSpec.substring(index + 1);
+                fieldName = "value";
+                const valueNameDotIndex = valueName.indexOf(".");
+                if (valueNameDotIndex !== -1) {
+                    fieldName = valueName.substring(valueNameDotIndex + 1);
+                    valueName = valueName.substring(0, valueNameDotIndex);
+                }
                 list = this.getList(subsections[subsectionName]);
                 item = list.find(_filterItemsByName);
-                
-                if(item.value && item.unsigned){
-                    value = item.value;
+                itemValue = item[fieldName];
+
+                if(itemValue && item.unsigned){
+                    value = itemValue;
                     type = "narrative-unsigned-data";
-                }else if (item.value) {
-                    value = item.value;
+                }else if (itemValue) {
+                    value = itemValue;
                     type = "narrative-structured-data";
                 } else {
                     value = "missing";
