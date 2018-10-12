@@ -772,8 +772,7 @@ class FluxNotesEditor extends React.Component {
         }
     }
 
-    unhighlightPlaintextResults = (transform) => {
-        const {document} = this.state.state;
+    unhighlightPlaintextResults = (transform, document) => {
 
         const fullDocRange = {
             anchorKey: document.getFirstText().key,
@@ -784,32 +783,32 @@ class FluxNotesEditor extends React.Component {
             isBackward: false
         }
 
-        return transform.select(fullDocRange).removeMark('highlighted');
+        return transform.select(fullDocRange).removeMark('highlighted').deselect();
     }
 
-    unhighlightAllResults = () => {
+    unhighlightAllResults = (document) => {
         let transform = this.state.state.transform();
         this.structuredFieldMapManager.keyToShortcutMap.forEach(sf => {
             transform.setNodeByKey(sf.key, "structured_field");
         });
-        transform = this.unhighlightPlaintextResults(transform);
+        transform = this.unhighlightPlaintextResults(transform, document);
         this.setState({ state: transform.blur().apply() });
     }
 
     highlightOpenNoteResults = (suggestions) => {
 
+        const {document} = this.state.state;
+
         // Unhighlight all results when suggestions are cleared
         if (suggestions.length === 0) {
-            this.unhighlightAllResults();
+            this.unhighlightAllResults(document);
             return;
         }
 
         let transform = this.state.state.transform();
-        const {document} = this.state.state;
 
         // Remove any existing plaintext highlights
-        this.unhighlightPlaintextResults(transform);
-
+        this.unhighlightPlaintextResults(transform, document);
 
         // Highlight each suggestion
         suggestions.forEach(suggestion => {
@@ -840,7 +839,7 @@ class FluxNotesEditor extends React.Component {
                             isFocused: false,
                             isBackward: false,
                         };
-                        transform.select(range).addMark('highlighted');
+                        transform.select(range).addMark('highlighted').deselect();
                         match = regex.exec(textNode.text);
                     }
                 });
