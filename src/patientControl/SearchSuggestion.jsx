@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 // import FontAwesome from 'react-fontawesome';
 import './SearchSuggestion.css';
 
+function escapeRegExp(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+}
 
 class SearchSuggestion extends React.Component {
 
@@ -11,7 +14,7 @@ class SearchSuggestion extends React.Component {
         const {inputValue, valueTitle, contentSnapshot, indices} = suggestion;
         const inputValueLowerCase = inputValue.toLowerCase();
         const fullText = `${valueTitle ? valueTitle + ': ' : ''}${contentSnapshot}`;
-        const regex = new RegExp(inputValueLowerCase, "g");
+        const regex = new RegExp(escapeRegExp(inputValueLowerCase), "g");
         const matchesTitle = regex.exec(valueTitle.toLowerCase());
         const matchesContent = regex.exec(contentSnapshot.toLowerCase());
         let preText = '', highlightedText = '', postText = '';
