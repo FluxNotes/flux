@@ -29,21 +29,19 @@ export default class TargetedDataSection extends Component {
         }
     }
 
+    componentDidMount() {
+        this.getNameSuffix(this.props.section)
+    } 
 
-    componentWillMount() {
-       /*  this.setState({
+     componentWillMount() {
+        this.setState({
             sectionName : this.props.section.name
-        }) */
-        if(this.props.section.name === 'Treatment Options')
-            console.log("mounting")
-        this.getNameSuffix(this.props.section);
-    }
-
+        }) 
+    } 
+ 
     componentWillReceiveProps = (nextProps) => {
-        if(nextProps.section.name === 'Treatment Options')
-            console.log("recieve props")
         this.getNameSuffix(nextProps.section);
-    }
+    } 
 
     determineDefaultVisualizer = (section, clinicalEvent, optionsForSection) => {
         if (optionsForSection.length === 0) return 'tabular';
@@ -135,28 +133,27 @@ export default class TargetedDataSection extends Component {
 
     getNameSuffix =  (section) => {
         let newSectionName = section.name;
-        //console.log(section)
-        if(section.name === 'Treatment Options'){
-            console.log(section)
-           
-        }
+    
        
         if(section.nameSuffixFunction) {
-            console.log("here")
+           
             const result = section.nameSuffixFunction(section);
-            console.log(result)
+        
             if (Lang.isObject(result) && !Lang.isUndefined(result.then)){
-                console.log("result ", result)
+            
                 result.then( suffix => {
-                    console.log("suffix ", suffix)
+              
                      newSectionName+=suffix
+                     this.setState({
+                        sectionName:  newSectionName
+                    })  
                  
                 })
             }
         }
 
         if (section.nameSuffix) {
-            console.log("no promise")
+         
             newSectionName += section.nameSuffix;   
         } 
 
@@ -237,6 +234,7 @@ export default class TargetedDataSection extends Component {
                 indexer.indexData(section.name, subsection.name, list, searchIndex, this.props.moveToSubsectionFromSearch, newSubsection);
             }
         });
+        
         return viz;
     }
 
@@ -245,8 +243,6 @@ export default class TargetedDataSection extends Component {
     //       and not just a label
     renderSection = (section, viz) => {
         const { patient, condition, allowItemClick, isWide, loginUser, actions, searchIndex } = this.props;
-
-        //const viz = this.indexSectionData(section);
 
         if (Lang.isNull(viz)) return null;
         const Visualizer = viz.visualizer;
@@ -273,11 +269,9 @@ export default class TargetedDataSection extends Component {
         const selectedCondition = condition && condition.type;
         const encounterView = clinicalEvent === "encounter";
         const notFiltered = !Lang.isUndefined(section.notFiltered) && section.notFiltered;
-        if( this.props.section.name === 'Treatment Options')
-            console.log('target data section render')
-       // this.state.sectionName;
 
         const viz = this.indexSectionData(section);
+        
         let sectionName = this.state.sectionName;
 
         return (

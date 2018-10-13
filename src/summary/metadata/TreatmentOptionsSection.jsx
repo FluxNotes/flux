@@ -8,8 +8,19 @@ export default class TreatmentOptionsSection extends MetadataSection {
     getMetadata(preferencesManager, condition, roleType, role, specialty) {
         return {
             name: "Treatment Options",
-            nameSuffix: "(Demo)",
-            shortName: "Treatments",
+            nameSuffixFunction: (section) => {
+                console.log('in function ', section.data[0].data_cache)
+                if (Lang.isObject(section.data[0].data_cache) && !Lang.isUndefined(section.data[0].data_cache.then)) {
+                    return section.data[0].data_cache.then ( result => {
+                        console.log('setting flag')
+                        console.log(result)
+                        return result.isDemo ? " (Demo)" : "";
+                    })
+                    
+                } 
+                else return ""; 
+            }, 
+            shortName: "Treatments", 
             type: "ClusterPoints",
             data: [
                 {
@@ -35,7 +46,7 @@ export default class TreatmentOptionsSection extends MetadataSection {
             // Parse the mongoData
             const responseText = res.response.text;
             const parsedData = JSON.parse(responseText);
-            if(parsedData[0].length === 0 && parsedData[1].length === 0){
+            if(parsedData.data.alive.length === 0 && parsedData.data.deceased.length === 0){
                 return "No relevant data found for patient";
             } else { 
                 return parsedData;
