@@ -1,3 +1,4 @@
+import PreferenceManager from '../preferences/PreferenceManager';
 import React from 'react';
 import { FullApp } from "./FullApp";
 import 'fhirclient';
@@ -23,6 +24,7 @@ class SmartApp extends FullApp {
                 const userProfile = this.securityManager.getUserProfile(user);
                 if (userProfile) {
                     this.setState({loginUser: userProfile});
+                    this.preferenceManager = new PreferenceManager(userProfile);
                 } else {
                     console.error("Login failed");
                 }
