@@ -1708,7 +1708,7 @@ FluxNotesEditor.propTypes = {
     handleUpdateEditorWithNote: PropTypes.func.isRequired,
     isNoteViewerEditable: PropTypes.bool.isRequired,
     itemInserted: PropTypes.func.isRequired,
-    openNoteSearchSuggestions: PropTypes.array.isRequired,
+    openNoteSearchSuggestions: PropTypes.array,
     openSourceNoteEntryId: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number,
