@@ -9,11 +9,8 @@ export default class TreatmentOptionsSection extends MetadataSection {
         return {
             name: "Treatment Options",
             nameSuffixFunction: (section) => {
-                console.log('in function ', section.data[0].data_cache)
                 if (Lang.isObject(section.data[0].data_cache) && !Lang.isUndefined(section.data[0].data_cache.then)) {
                     return section.data[0].data_cache.then ( result => {
-                        console.log('setting flag')
-                        console.log(result)
                         return result.isDemo ? " (Demo)" : "";
                     })
                     
