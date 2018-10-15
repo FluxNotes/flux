@@ -870,6 +870,7 @@ class FluxNotesEditor extends React.Component {
     getLengthOfNode = (node) => {
         let length = 0;
         if (node.type === 'line') {
+            length += 1; // Add 1 for each new line in the note
             node.nodes.forEach(node => {
                 length += this.getLengthOfNode(node);
             });
