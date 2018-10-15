@@ -5,7 +5,7 @@ import TreatmentOptionsSection from './TreatmentOptionsSection';
 export default class SarcomaCoreCancerPilotMetadata extends MetadataSection {
     getMetadata(preferencesManager, condition, roleType, role, specialty) {
         return { // sarcoma
-            sections: this.buildMetadataSections(preferencesManager, condition, roleType, role, 
+            sections: this.buildMetadataSections(preferencesManager, condition, roleType, role, specialty,
                 SarcomaSummarySection,
                 TreatmentOptionsSection
             )
