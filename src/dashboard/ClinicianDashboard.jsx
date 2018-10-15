@@ -246,6 +246,7 @@ ClinicianDashboard.propTypes = {
     preferenceManager: PropTypes.object.isRequired,
     newCurrentShortcut: PropTypes.func.isRequired,
     onContextUpdate: PropTypes.func.isRequired,
+    openNoteSearchSuggestions: PropTypes.array.isRequired,
     openSourceNoteEntryId: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number,
