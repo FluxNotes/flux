@@ -93,7 +93,8 @@ export class FullApp extends Component {
             snackbarMessage: "",
             summaryItemToInsert: '',
             summaryItemToInsertSource: '',
-            forceRefresh: false
+            forceRefresh: false,
+            openNoteSearchSuggestions: []
         };
 
         /*  actions is a list of actions passed to the visualizers
@@ -347,6 +348,10 @@ export class FullApp extends Component {
         return this.dashboard.moveTargetedDataPanelToSubsection(sectionName, subsectionName);
     }
 
+    setOpenNoteSearchSuggestions = (suggestions) => {
+        this.setState({ openNoteSearchSuggestions: suggestions });
+    }
+
     render() {
         // Get the Current Dashboard based on superRole of user
         const CurrentDashboard = this.dashboardManager.getDashboardForSuperRole(this.state.loginUser.getSuperRole());
@@ -370,6 +375,8 @@ export class FullApp extends Component {
                                     supportLogin={true}
                                     searchIndex={this.searchIndex}
                                     moveTargetedDataPanelToSubsection={this.moveTargetedDataPanelToSubsection}
+                                    openNoteSearchSuggestions={this.state.openNoteSearchSuggestions}
+                                    setOpenNoteSearchSuggestions={this.setOpenNoteSearchSuggestions}
                                 />
                             </Col>
                         </Row>
@@ -405,6 +412,7 @@ export class FullApp extends Component {
                             updateErrors={this.updateErrors}
                             ref={(dashboard) => { this.dashboard = dashboard; }}
                             searchIndex={this.searchIndex}
+                            openNoteSearchSuggestions={this.state.openNoteSearchSuggestions}
                         />
                         <Modal 
                             aria-labelledby="simple-modal-title"

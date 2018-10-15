@@ -52,12 +52,13 @@ class SearchIndex {
         this._index.search(query, {
             fields: {
                 valueTitle: {
-                    expand: true
+                    expand: true,
                 },
                 value: {
-                    expand: true
+                    expand: true,
                 }
-            }
+            },
+            bool: 'AND'
         }).forEach(result => {
             let doc = this._index.documentStore.getDoc(result.ref);
             doc.score = result.score;
@@ -65,7 +66,7 @@ class SearchIndex {
             if (doc.section === "Open Note" && doc.valueTitle === "Content") {
                 const regex = new RegExp(escapeRegExp(query), "gim");
                 let contentMatches = regex.exec(doc.value);
-                while (contentMatches ) {
+                while (contentMatches) {
                     let tempDoc = Lang.cloneDeep(doc);
                     tempDoc.indices = [contentMatches.index, contentMatches.index + query.length - 1];
                     openNoteSuggestions.push(tempDoc);

@@ -226,6 +226,7 @@ export default class ClinicianDashboard extends Component {
                         summaryItemToInsertSource={this.props.appState.summaryItemToInsertSource}
                         updateErrors={this.props.updateErrors}
                         ref={(np) => { this.notesPanel = np; }}
+                        openNoteSearchSuggestions={this.props.openNoteSearchSuggestions}
                     />
                 </div>
             </div>
@@ -245,6 +246,7 @@ ClinicianDashboard.propTypes = {
     preferenceManager: PropTypes.object.isRequired,
     newCurrentShortcut: PropTypes.func.isRequired,
     onContextUpdate: PropTypes.func.isRequired,
+    openNoteSearchSuggestions: PropTypes.array,
     openSourceNoteEntryId: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number,

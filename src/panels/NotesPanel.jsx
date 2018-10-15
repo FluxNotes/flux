@@ -404,6 +404,7 @@ export default class NotesPanel extends Component {
                     openSourceNoteEntryId={this.props.openSourceNoteEntryId}
                     setOpenSourceNoteEntryId={this.props.setOpenSourceNoteEntryId}
                     searchIndex={this.props.searchIndex}
+                    openNoteSearchSuggestions={this.props.openNoteSearchSuggestions}
                 />
             </div>
         );
@@ -485,6 +486,7 @@ NotesPanel.propTypes = {
     newCurrentShortcut: PropTypes.func.isRequired,
     noteClosed: PropTypes.bool.isRequired,
     openClinicalNote: PropTypes.object,
+    openNoteSearchSuggestions: PropTypes.array,
     openSourceNoteEntryId: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number,

@@ -61,6 +61,7 @@ class PatientControlPanel extends Component {
                                             setSearchSelectedItem={this.props.setSearchSelectedItem}
                                             searchIndex={this.props.searchIndex}
                                             moveTargetedDataPanelToSubsection={this.props.moveTargetedDataPanelToSubsection}
+                                            setOpenNoteSearchSuggestions={this.props.setOpenNoteSearchSuggestions}
                                         />
                                     </Col>
                                 </Row>
@@ -84,6 +85,7 @@ PatientControlPanel.propTypes = {
     setSearchSelectedItem: PropTypes.func.isRequired,
     supportLogin: PropTypes.bool.isRequired,
     searchIndex: PropTypes.object.isRequired,
+    setOpenNoteSearchSuggestions: PropTypes.func
 };
 
 export default PatientControlPanel;
