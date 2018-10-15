@@ -30,11 +30,11 @@ class ScatterPlotVisualizer extends Component {
 
     randomizeXPoints = (categoryList, data) => {
         let alive = [], dead = [];
-        data[0].forEach(function (item) {
+        data.alive.forEach(function (item) {
             alive.push([categoryList.indexOf(item[0]) + (Math.random() * 50 + 30) / 100 - .5, item[1]]);
         })
 
-        data[1].forEach(function (item) {
+        data.deceased.forEach(function (item) {
             dead.push([categoryList.indexOf(item[0]) + (Math.random() * 50 + 30) / 100 - .5, item[1]]);
         })
 
@@ -71,13 +71,13 @@ class ScatterPlotVisualizer extends Component {
                         });
                         // Else, we have an array of data to parse into a table
                         let categoryMap = {};
-                        parsedData.forEach((series) => {
-                            series.forEach((data) => {
+                        Object.keys(parsedData.data).forEach((series) => {
+                            parsedData.data[series].forEach((data) => {
                                 categoryMap[data[0]] = true;
                             });
                         });
                         const categoryList = Object.keys(categoryMap);
-                        const randomData = this.randomizeXPoints(categoryList, parsedData);
+                        const randomData = this.randomizeXPoints(categoryList, parsedData.data);
                         const chart = Highcharts.chart({
                             chart: {
                                 renderTo: this.refs.scattering,
@@ -128,8 +128,8 @@ class ScatterPlotVisualizer extends Component {
                                     useHTML: true,
                                     formatter: function () {
                                         let sum = 0;
-                                        parsedData.forEach((series) => {
-                                            series.forEach((data) => {
+                                        Object.keys(parsedData.data).forEach((series) => {
+                                            parsedData.data[series].forEach((data) => {
                                                 if (data[0] === this.value)
                                                     sum += 1;
                                             })
@@ -162,8 +162,8 @@ class ScatterPlotVisualizer extends Component {
                                     formatter: function () {
                                         let categorySum = 0;
                                         let livingOver60 = 0;
-                                        parsedData.forEach((series) => {
-                                            series.forEach((data) => {
+                                        Object.keys(parsedData.data).forEach((series) => {
+                                            parsedData.data[series].forEach((data) => {
                                                 if (data[0] === this.value) {
                                                     categorySum += 1;
                                                     if (data[0] === this.value && data[1] >= 60)

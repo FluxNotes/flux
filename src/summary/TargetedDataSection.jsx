@@ -13,19 +13,35 @@ export default class TargetedDataSection extends Component {
         // this.state.defaultVisualizer is the default visualization, this.state.chosenVisualizer changes when icons are clicked
         this.state = {
             defaultVisualizer: defaultVisualizer,
-            chosenVisualizer: null
+            chosenVisualizer: null,
+            sectionName: ""
         };
     }
 
     componentDidUpdate() {
+
         const optionsForSection = this.getOptions(this.props.section);
         const defaultVisualizer = this.determineDefaultVisualizer(this.props.section, this.props.clinicalEvent, optionsForSection);
         //const defaultOrTabular = optionsForSection.length > 0 ? optionsForSection[0] : 'tabular';
         if (this.state.defaultVisualizer !== defaultVisualizer ||
             (this.state.chosenVisualizer !== null && !optionsForSection.includes(this.state.chosenVisualizer))) {
-            this.setState({ defaultVisualizer, chosenVisualizer: null });
+            this.setState({ defaultVisualizer, chosenVisualizer: null});
         }
     }
+
+    componentDidMount() {
+        this.getNameSuffix(this.props.section)
+    } 
+
+     componentWillMount() {
+        this.setState({
+            sectionName : this.props.section.name
+        }) 
+    } 
+ 
+    componentWillReceiveProps = (nextProps) => {
+        this.getNameSuffix(nextProps.section);
+    } 
 
     determineDefaultVisualizer = (section, clinicalEvent, optionsForSection) => {
         if (optionsForSection.length === 0) return 'tabular';
@@ -115,6 +131,38 @@ export default class TargetedDataSection extends Component {
         return this.props.visualizerManager.getSupportedVisualizerTypesForDataType(section.type);
     }
 
+    getNameSuffix =  (section) => {
+        let newSectionName = section.name;
+    
+       
+        if(section.nameSuffixFunction) {
+           
+            const result = section.nameSuffixFunction(section);
+        
+            if (Lang.isObject(result) && !Lang.isUndefined(result.then)){
+            
+                result.then( suffix => {
+              
+                     newSectionName+=suffix
+                     this.setState({
+                        sectionName:  newSectionName
+                    })  
+                 
+                })
+            }
+        }
+
+        if (section.nameSuffix) {
+         
+            newSectionName += section.nameSuffix;   
+        } 
+
+        this.setState({
+            sectionName:  newSectionName
+        }) 
+
+    } 
+
     renderVisualizationOptions = (options) => {
         if (options.length > 1) {
             return (
@@ -186,16 +234,16 @@ export default class TargetedDataSection extends Component {
                 indexer.indexData(section.name, subsection.name, list, searchIndex, this.props.moveToSubsectionFromSearch, newSubsection);
             }
         });
+        
         return viz;
     }
 
     // renderSection checks the type of data that is being passed and chooses the correct component to render the data
     // TODO: Add a List type and a tabular renderer for it for Procedures section. case where left column is data
     //       and not just a label
-    renderSection = (section) => {
+    renderSection = (section, viz) => {
         const { patient, condition, allowItemClick, isWide, loginUser, actions, searchIndex } = this.props;
 
-        const viz = this.indexSectionData(section);
         if (Lang.isNull(viz)) return null;
         const Visualizer = viz.visualizer;
         const sectionTransform = viz.transform;
@@ -221,10 +269,10 @@ export default class TargetedDataSection extends Component {
         const selectedCondition = condition && condition.type;
         const encounterView = clinicalEvent === "encounter";
         const notFiltered = !Lang.isUndefined(section.notFiltered) && section.notFiltered;
-        let sectionName = section.name;
-        if (section.nameSuffix) {
-            sectionName += ` ${section.nameSuffix}`;
-        }
+
+        const viz = this.indexSectionData(section);
+        
+        let sectionName = this.state.sectionName;
 
         return (
             <div id="targeted-data-section">
@@ -236,7 +284,7 @@ export default class TargetedDataSection extends Component {
 
                 {encounterView && !notFiltered && <div className="section-header__condition encounter">{selectedCondition}</div>}
 
-                {this.renderSection(section)}
+                {this.renderSection(section, viz)}
             </div>
         );
     }
