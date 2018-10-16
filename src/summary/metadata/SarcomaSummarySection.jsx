@@ -81,35 +81,35 @@ export default class SarcomaSummarySection extends MetadataSection {
                     defaultTemplate: "Key toxicities include",
                 },
                 {
-                    defaultTemplate: "${Key Toxicities.Headaches} headaches,",
+                    defaultTemplate: "${Key Toxicities.Headaches} headaches (as of ${Key Toxicities.Headaches.when}),",
                     dataMissingTemplate: "no headaches,",
                     useDataMissingTemplateCriteria: [
                         "Key Toxicities.Headaches"
                     ]
                 },
                 {
-                    defaultTemplate: "${Key Toxicities.Skin Rashes} skin rashes,",
+                    defaultTemplate: "${Key Toxicities.Skin Rashes} skin rashes (as of ${Key Toxicities.Skin Rashes.when}),",
                     dataMissingTemplate: "no skin rashes,",
                     useDataMissingTemplateCriteria: [
                         "Key Toxicities.Skin Rashes"
                     ]
                 },
                 {
-                    defaultTemplate: "${Key Toxicities.Vomiting} vomiting,",
+                    defaultTemplate: "${Key Toxicities.Vomiting} vomiting (as of ${Key Toxicities.Vomiting.when}),",
                     dataMissingTemplate: "no vomiting,",
                     useDataMissingTemplateCriteria: [
                         "Key Toxicities.Vomiting"
                     ]
                 },
                 {
-                    defaultTemplate: "${Key Toxicities.Diarrhea} diarrhea,",
+                    defaultTemplate: "${Key Toxicities.Diarrhea} diarrhea (as of ${Key Toxicities.Diarrhea.when}),",
                     dataMissingTemplate: "no diarrhea,",
                     useDataMissingTemplateCriteria: [
                         "Key Toxicities.Diarrhea"
                     ]
                 },
                 {
-                    defaultTemplate: "${Key Toxicities.Muscle Pains} muscle pains.",
+                    defaultTemplate: "${Key Toxicities.Muscle Pains} muscle pains (as of ${Key Toxicities.Muscle Pains.when}).",
                     dataMissingTemplate: "no muscle pains.",
                     useDataMissingTemplateCriteria: [
                         "Key Toxicities.Muscle Pains"

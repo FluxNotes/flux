@@ -223,7 +223,6 @@ export default class TabularListVisualizer extends Component {
     }
 
     renderedStructuredData(item, element, elementId, elementText, subsectionName, subsectionActions, arrayIndex, when) {
-        const whenRendering = when ? ` (as of ${when})` : '';
         return (
             <div>
                 <span
@@ -231,7 +230,7 @@ export default class TabularListVisualizer extends Component {
                     onClick={(event) => this.openInsertionMenu(event, elementId)}
                 >
                     {elementText}
-                </span>{whenRendering}
+                </span>
                 {this.renderedMenu(item, element.value, elementId, elementText, subsectionName, subsectionActions, arrayIndex)}
             </div>
         );
@@ -299,14 +298,18 @@ export default class TabularListVisualizer extends Component {
                 </TableCell>
             );
         } else if (isInsertable) {
+            const whenRendering = when ? ` (as of ${when})` : '';
             columnItem = (
                 <TableCell width={colSize}
-                    className={itemClass}
                     key={columnId}
                 >
-                    {this.renderedStructuredData(item[0].value, col, columnId, colText, subsectionName, subsectionActions, colIndex, when)}
+                    <span className={itemClass}>
+                        {this.renderedStructuredData(item[0].value, col, columnId, colText, subsectionName, subsectionActions, colIndex, when)}
+                    </span>
+                    <span>
+                        {whenRendering}
+                    </span>
                 </TableCell>
-
             );
         } else {
             columnItem = (
