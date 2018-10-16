@@ -37,8 +37,9 @@ export default class TreatmentOptionsSection extends MetadataSection {
             condition.codeURL, 
             {
                 race: this.toFirstLetterCapital(patient.getPatient().race), 
-                dxGrade: condition.getMostRecentHistologicalGrade().getGradeAsSimpleNumber(),
-                gender: patient.getPatient().gender
+                // DxGrade and Gender are commented out for now since they are too selective and leave us with no data to display. 
+                // dxGrade: condition.getMostRecentHistologicalGrade().getGradeAsSimpleNumber(),
+                // gender: patient.getPatient().gender
             },
         ).then( res => { 
             // Parse the mongoData
