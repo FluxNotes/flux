@@ -21,16 +21,10 @@ export default class RecentLabResultsSubsection extends MetadataSection {
         return labResultsInOrder.map((l, i) => {
             const value = `${l.quantity.number} ${l.quantity.unit} (${l.clinicallyRelevantTime})`;
             const name = `${l.name}`;
-            return [
-                {   value: name, 
-                    isInsertable: false
-                },
-                {   value:  {   value: value, 
-                                isUnsigned: patient.isUnsigned(l)
-                            },
-                    shortcut: null
-                }
-            ];
+            return {    name: name,
+                        value: value,
+                        shortcut: null
+                };
         });
     }
 }

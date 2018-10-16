@@ -50,7 +50,7 @@ $font-size: 0.8rem;
         }
     }
 
-    td {
+    span {
         &.list-missing span {
             border-bottom: 1px solid $missing-data-red;
         }

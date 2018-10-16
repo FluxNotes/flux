@@ -171,37 +171,24 @@ class VisualizerManager {
     transformNameValuePairToColumns = (patient, condition, subsection) => {
         let newsection = {};
 
-        const { items, itemsFunction } = subsection;
+        const { itemsFunction } = subsection;
+        let { items } = subsection;
         let list = null;
 
         if (Lang.isUndefined(items)) {
-            list = itemsFunction(patient, condition, subsection);
-        } else {
-            // call value functions and get values
-            list = items.map((item, i) => {
-                const itemValue = (Lang.isNull(item.value)) ? null : item.value(patient, condition, this.user);
-                return [    { value: item.name, isInsertable: false},
-                            { value: itemValue || null, shortcut: item.shortcut || null}]
-            });
+            items = itemsFunction(patient, condition, subsection);
         }
+        // call value functions and get values
+        list = items.map((item, i) => {
+            const itemValue = (Lang.isNull(item.value)) ? null : (Lang.isFunction(item.value) ? item.value(patient, condition, this.user) : item.value);
+            return [    { value: item.name, isInsertable: false},
+                        { value: itemValue || null, shortcut: item.shortcut || null}]
+        });
 
         // need to eliminate when value is an array as came from value of a name/value pair. In that case the value array
         // contains [0] value, [1] isUnsigned, and [2] source
         newsection.name = subsection.name;
-        newsection.data_cache = list.map((row, i) => {
-            return row.map((item) => {
-                if (Lang.isArray(item.value)) {
-                    return {    value: item.value.value,
-                                isUnsigned: item.value.isUnsigned,
-                                source: item.value.source,
-                                when: item.value.when,
-                                shortcut: item.shortcut
-                            };
-                } else {
-                    return item;
-                }
-            });
-        });
+        newsection.data_cache = list;
         return newsection;
     };
 

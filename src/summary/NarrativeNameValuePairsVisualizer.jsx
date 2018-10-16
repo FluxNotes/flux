@@ -95,19 +95,19 @@ class NarrativeNameValuePairsVisualizer extends Component {
         let _filterItemsByName = (item) => {
             return item.name === valueName;
         };
-        let _addLabResultToNarrative = (item) => {
-            return item[0].value + ": " + item[1].value.value;
+        let _addNameValueToNarrative = (item) => {
+            return item.name + ": " + item.value;
         };
         let _addListItemToResult = (listItem) => {
             if (!first) result.push( { text: ', ', type: 'plain' });
-            value = _addLabResultToNarrative(listItem);
+            value = _addNameValueToNarrative(listItem);
             type = "narrative-structured-data";
             result.push({
                 text: value,
                 type: type,
                 item: {
-                    value: listItem[1].value.value,
-                    unsigned: listItem[1].value.isUnsigned
+                    value: listItem.value,
+                    unsigned: listItem.isUnsigned
                 }
             });
             if (first) first = false;
@@ -146,10 +146,13 @@ class NarrativeNameValuePairsVisualizer extends Component {
                 item = list.find(_filterItemsByName);
                 itemValue = item[fieldName];
 
-                if(itemValue && item.unsigned){
+                if (itemValue && item.unsigned) {
                     value = itemValue;
                     type = "narrative-unsigned-data";
-                }else if (itemValue) {
+                } else if (itemValue && fieldName !== 'value') {
+                    value = itemValue;
+                    type = "plain";
+                } else if (itemValue) {
                     value = itemValue;
                     type = "narrative-structured-data";
                 } else {
