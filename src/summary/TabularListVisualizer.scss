@@ -51,7 +51,7 @@ $font-size: 0.8rem;
     }
 
     span {
-        &.list-missing span {
+        &.list-missing {
             border-bottom: 1px solid $missing-data-red;
         }
 

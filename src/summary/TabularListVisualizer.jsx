@@ -288,11 +288,10 @@ export default class TabularListVisualizer extends Component {
         if (Lang.isUndefined(colText) || Lang.isNull(colText) || (typeof(colText) === 'string' && colText.length === 0)) {
             columnItem = (
                 <TableCell
-                    className={"list-missing"}
                     data-test-summary-item={item[0]}
                     key={columnId}
                 >
-                    <span>
+                    <span className={"list-missing"}>
                         Missing Data
                     </span>
                 </TableCell>
