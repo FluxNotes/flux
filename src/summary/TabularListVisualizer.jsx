@@ -222,34 +222,33 @@ export default class TabularListVisualizer extends Component {
         });
     }
 
-    renderedStructuredData(item, element, elementId, elementText, subsectionName, subsectionActions, arrayIndex, when) {
+    renderedStructuredData(firstCellValue, col, elementId, elementText, subsectionName, subsectionActions, arrayIndex, when) {
         return (
             <div>
                 <span
-                    data-test-summary-item={item}
+                    data-test-summary-item={firstCellValue}
                     onClick={(event) => this.openInsertionMenu(event, elementId)}
                 >
                     {elementText}
                 </span>
-                {this.renderedMenu(item, element.value, elementId, elementText, subsectionName, subsectionActions, arrayIndex)}
+                {this.renderedMenu(firstCellValue, col, elementId, elementText, subsectionName, subsectionActions, arrayIndex)}
             </div>
         );
     }
 
     // Render a given list item as a row in a table
-    renderedListItem(item, subsectionindex, itemIndex, rowClass, subsectionName, subsectionActions, formatFunction) {
+    renderedListItem(row, subsectionindex, itemIndex, rowClass, subsectionName, subsectionActions, formatFunction) {
         // Array of all columns for row (item)
         const renderedColumns = [];
 
-        const numColumns = item.length;
+        const numColumns = row.length;
         const colSize = (100 / numColumns) + "%";
 
         if (subsectionActions.length > 0  || this.props.actions.length > 0) {
             rowClass += " has-action-menu";
         }
-
-        item.forEach((col, colIndex) => {
-            renderedColumns.push(this.renderColumn(item, subsectionindex, itemIndex, subsectionName, subsectionActions, formatFunction, col, colIndex, colSize));
+        row.forEach((col, colIndex) => {
+            renderedColumns.push(this.renderColumn(row, subsectionindex, itemIndex, subsectionName, subsectionActions, formatFunction, col, colIndex, colSize));
         });
 
         return (
@@ -262,7 +261,7 @@ export default class TabularListVisualizer extends Component {
         );
     }
 
-    renderColumn = (item, subsectionindex, itemIndex, subsectionName, subsectionActions, formatFunction, col, colIndex, colSize) => {
+    renderColumn = (row, subsectionindex, itemIndex, subsectionName, subsectionActions, formatFunction, col, colIndex, colSize) => {
         const columnId = `${subsectionindex}-${itemIndex}-item-${colIndex}`
         const isInsertable = Lang.isUndefined(col.isInsertable) ? true : col.isInsertable;
         let columnItem = null;
@@ -270,7 +269,7 @@ export default class TabularListVisualizer extends Component {
         const isUnsigned = (col.value) ? col.value.isUnsigned || false : false;
         let colText = Lang.isObject(col.value) ? col.value.value : col.value;
         const longElementText = colText;
-        
+
         if (!Lang.isNull(colText) && colText.length > 100) colText = colText.substring(0, 100) + "...";
 
         let itemClass = isUnsigned ? 'list-unsigned' : 'list-captured';
@@ -288,7 +287,7 @@ export default class TabularListVisualizer extends Component {
         if (Lang.isUndefined(colText) || Lang.isNull(colText) || (typeof(colText) === 'string' && colText.length === 0)) {
             columnItem = (
                 <TableCell
-                    data-test-summary-item={item[0]}
+                    data-test-summary-item={row[0]}
                     key={columnId}
                 >
                     <span className={"list-missing"}>
@@ -303,7 +302,7 @@ export default class TabularListVisualizer extends Component {
                     key={columnId}
                 >
                     <span className={itemClass}>
-                        {this.renderedStructuredData(item[0].value, col, columnId, colText, subsectionName, subsectionActions, colIndex, when)}
+                        {this.renderedStructuredData(row[0].value, col, columnId, colText, subsectionName, subsectionActions, colIndex, when)}
                     </span>
                     <span>
                         {whenRendering}

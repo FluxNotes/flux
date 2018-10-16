@@ -26,6 +26,8 @@ export default class VisualizerMenu extends Component {
                         isUnsigned: a.value[1],
                         source: a.value[2],
                         shortcut: a.shortcut };
+        } else if(Lang.isObject(a.value)) {
+            return a.value;
         } else {
             return a;
         }
