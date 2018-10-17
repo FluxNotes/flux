@@ -1,0 +1,46 @@
+@import '../styles/variables';
+
+#targeted-data-section h2.section-header {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 600;
+    color: #333;
+}
+
+.section-header {
+    &__name {
+        margin-right: 20px;
+    }
+
+    &__highlighted {
+        background-color: $highlight-yellow;
+    }
+
+    &__condition {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        color: $background;
+        font-weight: normal;
+        flex: 1;
+        padding-right: 10px;
+
+        &.encounter {
+            text-overflow: inherit;
+            overflow: inherit;
+            white-space: normal;
+        }
+    }
+}
+
+.small-btn {
+    min-width: 0 !important;
+    min-height: 0 !important;
+}
+
+.right-icons {
+    margin-right: 10px;
+    display: flex;
+}

@@ -265,7 +265,7 @@ export default class TargetedDataSection extends Component {
     }
 
     render() {
-        const { section, condition, clinicalEvent } = this.props;
+        const { section, condition, clinicalEvent, tdpSearchSuggestions } = this.props;
         const visualizationOptions = this.getOptions(section);
         const selectedCondition = condition && condition.type;
         const encounterView = clinicalEvent === "encounter";
@@ -274,11 +274,15 @@ export default class TargetedDataSection extends Component {
         const viz = this.indexSectionData(section);
         
         let sectionName = this.state.sectionName;
+        const matchingSection = tdpSearchSuggestions.find(s => {
+            return s.valueTitle === 'Section' && s.section === sectionName;
+        });
+        const highlightClass = matchingSection ? ' section-header__highlighted' : '';
 
         return (
             <div id="targeted-data-section">
                 <h2 className="section-header">
-                    <span className="section-header__name">{sectionName}</span>
+                    <span className={`section-header__name${highlightClass}`}>{sectionName}</span>
                     {!encounterView && !notFiltered && <span className="section-header__condition">{selectedCondition}</span>}
                     {this.renderVisualizationOptions(visualizationOptions)}
                 </h2>
