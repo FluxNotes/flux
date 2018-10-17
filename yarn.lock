@@ -2976,9 +2976,9 @@ flexboxgrid@^6.3.0:
   version "6.3.1"
   resolved "https://registry.yarnpkg.com/flexboxgrid/-/flexboxgrid-6.3.1.tgz#e99898afc07b7047722bb81a958a5fba4d4e20fd"
 
-flux_notes_treatment_options_rest_client@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/flux_notes_treatment_options_rest_client/-/flux_notes_treatment_options_rest_client-1.1.1.tgz#4b9497ccc7b9a9cd859661e147f4f3caf12ea20b"
+flux_notes_treatment_options_rest_client@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/flux_notes_treatment_options_rest_client/-/flux_notes_treatment_options_rest_client-1.1.2.tgz#1cd2ddd8372116fef194c793e8e05e445f8a3495"
   dependencies:
     superagent "3.5.2"
 
