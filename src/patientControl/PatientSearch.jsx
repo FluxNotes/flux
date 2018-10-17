@@ -14,6 +14,7 @@ class PatientSearch extends React.Component {
         super(props)
         const patient = props.patient;
         this.firstName = patient.getName() ? patient.getName().split(' ')[0] : "";
+        this.debounceGetSuggestions = Lang.debounce(this.getSuggestions, 1000);
         // Autosuggest is a controlled component.
         // This means that you need to provide an input value
         // and an onChange handler that updates this value (see below).
@@ -57,6 +58,7 @@ class PatientSearch extends React.Component {
     getSuggestions = (inputValue) => {
         let suggestions = [];
         let openNoteSuggestions = [];
+        let tdpSearchSuggestions = [];
         let results = this.props.searchIndex.search(inputValue);
         results.forEach(result => {
             let suggestion;
@@ -89,13 +91,13 @@ class PatientSearch extends React.Component {
                     onHighlight: result.onHighlight,
                     score: result.score
                 }
+                tdpSearchSuggestions.push(suggestion);
             }
             suggestions.push(suggestion);
         });
-        this.setState({ openNoteSuggestions }, () => {
-            this.props.setOpenNoteSearchSuggestions(this.state.openNoteSuggestions);
-        });
-        return suggestions;
+        this.props.setOpenNoteSearchSuggestions(openNoteSuggestions);
+        this.props.setTDPSearchSuggestions(tdpSearchSuggestions);
+        this.setState({ suggestions });
     }
 
     // Teach Autosuggest how to calculate the input value for every given suggestion.
@@ -117,9 +119,7 @@ class PatientSearch extends React.Component {
     // Autosuggest will call this function every time you need to update suggestions.
     // You already implemented this logic above, so just use it.
     onSuggestionsFetchRequested = ({ value }) => {
-        this.setState({
-            suggestions: this.getSuggestions(value)
-        });
+        this.debounceGetSuggestions(value);
     };
   
     // Autosuggest will call this function every time you need to clear suggestions.

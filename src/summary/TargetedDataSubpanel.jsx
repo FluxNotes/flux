@@ -35,6 +35,8 @@ export default class TargetedDataSubpanel extends Component {
         // Need to ignore patientRecords on entries, as they reference the clinical notes ignored above. 
         // Solution: Remove them during comparison, restore those value after comparison.
 
+        if (!_.isEqual(this.props.tdpSearchSuggestions, nextProps.tdpSearchSuggestions)) return true;
+
         const newRelevantPatientEntries = nextProps.patient.getEntriesOtherThanNotes();
         const arrayOfPatientRecords = newRelevantPatientEntries.reduce((accumulator, currentEntry, currentIndex) => { 
             if (currentEntry._patientRecord) { 
@@ -144,6 +146,7 @@ export default class TargetedDataSubpanel extends Component {
                         preferenceManager={this.props.preferenceManager}
                         searchIndex={this.props.searchIndex}
                         moveToSubsectionFromSearch={this.props.moveToSubsectionFromSearch}
+                        tdpSearchSuggestions={this.props.tdpSearchSuggestions}
                     />
 
                     {i < conditionMetadata.sections.length - 1 ? <Divider className="divider"/> : null}

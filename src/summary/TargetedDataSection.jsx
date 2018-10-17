@@ -259,6 +259,7 @@ export default class TargetedDataSection extends Component {
                 loginUser={loginUser}
                 actions={actions}
                 searchIndex={searchIndex}
+                tdpSearchSuggestions={this.props.tdpSearchSuggestions}
             />
         );
     }

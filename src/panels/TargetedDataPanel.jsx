@@ -70,6 +70,7 @@ export default class TargetedDataPanel extends Component {
                                     conditionMetadata={conditionMetadata}
                                     searchIndex={this.props.searchIndex}
                                     moveToSubsectionFromSearch={this.moveToSubsectionFromSearch.bind(this)}
+                                    tdpSearchSuggestions={this.props.tdpSearchSuggestions}
                                     />
                             </div>
                         </div>
@@ -96,6 +97,7 @@ export default class TargetedDataPanel extends Component {
                                 conditionMetadata={conditionMetadata}
                                 searchIndex={this.props.searchIndex}
                                 moveToSubsectionFromSearch={this.moveToSubsectionFromSearch.bind(this)}
+                                tdpSearchSuggestions={this.props.tdpSearchSuggestions}
                                 />
                         </div>
                     </div>

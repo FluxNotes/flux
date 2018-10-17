@@ -191,6 +191,7 @@ export default class ClinicianDashboard extends Component {
                         targetedDataPanelSize={this.state.targetedDataPanelSize}
                         ref={(tdp) => { this.targetedDataPanel = tdp; }}
                         searchIndex={this.props.searchIndex}
+                        tdpSearchSuggestions={this.props.tdpSearchSuggestions}
                     />
                 </div>
                 <div style={notesPanelStyles}>
