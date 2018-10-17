@@ -134,6 +134,20 @@ class ContextManager {
         });
     }
 
+    getContextsBeforeShortcut(shortcut, contextType = undefined) {
+        if (!shortcut.getKey()) return; // if the key hasn't been set for a shortcut yet then it shouldn't be added
+        let contextsBeforeShortcut = [];
+        this.contexts.forEach((context) => {
+            // check if provided shortcut is after the context. If yes, we have a valid context for the shortcut
+            if (!this.isBlock1BeforeBlock2(shortcut.getKey(), 0, context.getKey(), 0)) {
+                if (Lang.isUndefined(contextType) || Lang.isNull(contextType) || context.getShortcutType() === contextType) {
+                    contextsBeforeShortcut.push(context);
+                }
+            }
+        });
+        return contextsBeforeShortcut;
+    }
+
     addShortcutToContext(shortcut) {
         if (!shortcut.getKey()) return; // if the key hasn't been set for a shortcut yet then it shouldn't be added
         //console.log("adding shortcut to context: " + shortcut.getShortcutType());

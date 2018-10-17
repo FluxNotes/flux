@@ -84,7 +84,7 @@ class Placeholder {
 
     setAttributeValue(name, value, index = 0, source) {
         if (!this._entryShortcuts[index].hasParentContext()) {
-            this._entryShortcuts[index].establishParentContext(this._contextManager);
+            this._entryShortcuts[index].establishParentContext(this._contextManager, this);
         }
 
         if (!this._entryShortcuts[index].hasParentContext()) {
