@@ -62,16 +62,6 @@ export default class UpdaterBase extends EntryShortcut {
     initialize(contextManager, trigger = undefined, updatePatient = true) {
         super.initialize(contextManager, trigger, updatePatient);
 
-        if (contextManager) {
-            this.establishParentContext(contextManager);
-        }
-        // defaulting
-        const metadataVOA = this.metadata["valueObjectAttributes"];
-        metadataVOA.forEach((attrib) => {
-            if (attrib.isSettable && attrib.type !== "list") {
-                this.setAttributeValue(attrib.name, null, true, updatePatient);
-            }
-        });
         const idMetadataVOA = this.metadata["idAttributes"];
         idMetadataVOA.forEach((attrib) => {
             this.setAttributeValue(attrib.name, null, true, updatePatient);

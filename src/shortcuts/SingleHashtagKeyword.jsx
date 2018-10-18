@@ -10,7 +10,7 @@ export default class SingleHashtagKeyword extends EntryShortcut {
         this.metadata = metadata;
         //this.text = this.getPrefixCharacter() + this.metadata["name"];
         this.patient = patient;
-        if (Lang.isUndefined(shortcutData) || !shortcutData || shortcutData.length === 0) {
+        if (Lang.isUndefined(shortcutData) || !shortcutData || Lang.isEmpty(shortcutData)) {
             this.object = FluxObjectFactory.createInstance({}, this.metadata["valueObject"], patient);
             this.isObjectNew = true;
         } else {
@@ -48,21 +48,6 @@ export default class SingleHashtagKeyword extends EntryShortcut {
         });
         this.onUpdate = onUpdate;
         this.setAttributeValue = this.setAttributeValue.bind(this);
-    }
-
-    initialize(contextManager, trigger = undefined, updatePatient = true) {
-        super.initialize(contextManager, trigger, updatePatient);
-
-        if (contextManager) {
-            this.establishParentContext(contextManager);
-        }        
-        // defaulting
-        const metadataVOA = this.metadata["valueObjectAttributes"];
-        metadataVOA.forEach((attrib) => {
-            if (attrib.isSettable && attrib.type !== "list") {
-                this.setAttributeValue(attrib.name, null, true, updatePatient);
-            }
-        });
     }
 
     isContext() {

@@ -10,7 +10,7 @@ export default class EntryShortcut extends Shortcut {
 
     getAttributeValue(name) {
     }
-    
+
     setAttributeValue(name, value, publishChanges = true, updatePatient = true) {
     }
 
@@ -47,6 +47,22 @@ export default class EntryShortcut extends Shortcut {
         }
     }
 
+    initialize(contextManager, trigger = undefined, updatePatient = true) {
+        super.initialize(contextManager, trigger, updatePatient);
+        if (contextManager) {
+            this.establishParentContext(contextManager);
+        }
+        // defaulting
+        const metadataVOA = this.metadata["valueObjectAttributes"];
+        if (updatePatient) {
+            metadataVOA.forEach((attrib) => {
+                if (attrib.isSettable && attrib.type !== "list") {
+                    this.setAttributeValue(attrib.name, null, true, updatePatient);
+                }
+            });
+        }
+    }
+
     hasData() {
         const voaList = this.metadata["valueObjectAttributes"];
         let value, isSettable;
@@ -58,7 +74,7 @@ export default class EntryShortcut extends Shortcut {
                 if (Lang.isNull(value) || Lang.isUndefined(value) || value === '' || (Lang.isArray(value) && value.length === 0)) {
                 } else {
                     result = true;
-                }                
+                }
             }
         });
         return result;
