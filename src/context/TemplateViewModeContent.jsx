@@ -6,6 +6,7 @@ export default class TemplateViewModeContent extends Component {
 
     // These don't need to be stored as state since they're not being updated
     templates = [
+        { name: 'physical exam', content: 'REASON FOR VISIT:\n@patient for routine physical.\n\nVITALS:\n@vitals\n\nOBSERVATIONS:\n\n\nASSESSMENT:\n\n\nPLAN:\n' },
         { name: 'progress note', content: 'REASON FOR VISIT:\n@reason for next visit @condition\n\nONCOLOGY HISTORY:\n@ONCOHIST\n\nREVIEW OF SYSTEMS:\n\nALLERGIES:\n@ALLERGIES\n\nMEDICATIONS:\n@active medications\n\nPHYSICAL EXAM:\n\nASSESSMENT:\n\nPLAN:\n\n' },
         { name: 'follow-up', content: 'REASON FOR VISIT:\n@patient following up for her @condition.\n\nONCOLOGY HISTORY:\n@ONCOHIST\n\nHISTORY OF PRESENT ILLNESS:\n\n\nREVIEW OF SYSTEMS:\n@ROS\n\nALLERGIES:\n@ALLERGIES\n\nMEDICATIONS:\n@active medications\n\nPHYSICAL EXAM:\n@Vitals\n\nASSESSMENT:\n\n\nPLAN:\n\n' },
         { name: 'initial consult', content: 'REASON FOR VISIT:\n@patient presenting with @condition for initial consult.\n\nHISTORY OF PRESENT ILLNESS:\n\n\nREVIEW OF SYSTEMS:\n@ROS\n\nALLERGIES:\n@ALLERGIES\n\nMEDICATIONS:\n@active medications\n\nPHYSICAL EXAM:\n@Vitals\n\nASSESSMENT:\n\n\nPLAN:\n\n' },
