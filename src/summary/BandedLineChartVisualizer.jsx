@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {LineChart, Line, XAxis, YAxis, Tooltip, ReferenceArea, ResponsiveContainer} from 'recharts';
+import {LineChart, Line, XAxis, YAxis, Tooltip, ReferenceArea, ResponsiveContainer, Dot} from 'recharts';
 import moment from 'moment';
 import {scaleLinear} from "d3-scale";
 import Collection from 'lodash';
@@ -175,12 +175,25 @@ class BandedLineChartVisualizer extends Component {
                             labelFormatter={this.xVarFormatFunction}
                             formatter={this.createYVarFormatFunctionWithUnit(yUnit)}
                         />
-                        <Line type="monotone" dataKey={yVar} stroke="#295677" yAxisId={0}/>
+                        <Line type="monotone" dataKey={yVar} stroke="#295677" yAxisId={0} dot={this.renderDot}/>
                         {renderedBands}
                     </LineChart>
                 </ResponsiveContainer>
             </div>
         );
+    }
+
+    renderDot = (props) => {
+        const highlightedData = this.props.tdpSearchSuggestions.find(s => {
+            const dotValue = `${props.payload.start_time}: ${props.payload[props.dataKey]} ${props.payload.unit}`;
+            return s.valueTitle === props.dataKey && s.contentSnapshot === dotValue;
+        });
+        if (highlightedData) {
+            props.stroke = 'rgb(255, 255, 70)';
+            props.fill = 'rgb(255, 255, 70)';
+            props.strokeWidth = 5;
+        }
+        return <Dot {...props} />;
     }
 
     // Given the range and the color, render the band
