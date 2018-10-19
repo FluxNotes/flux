@@ -124,4 +124,5 @@ TargetedDataPanel.proptypes = {
     setForceRefresh: PropTypes.func.isRequired,
     targetedDataPanelSize: PropTypes.string.isRequired,
     searchIndex: PropTypes.object.isRequired,
+    tdpSearchSuggestions: PropTypes.array
 }

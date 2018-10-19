@@ -308,4 +308,5 @@ TargetedDataSection.propTypes = {
     loginUser: PropTypes.object.isRequired,
     preferenceManager: PropTypes.object.isRequired,
     searchIndex: PropTypes.object.isRequired,
+    tdpSearchSuggestions: PropTypes.array
 }

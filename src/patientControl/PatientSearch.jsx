@@ -217,7 +217,8 @@ PatientSearch.propTypes = {
     setSearchSelectedItem: PropTypes.func.isRequired,
     patient: PropTypes.object.isRequired,
     searchIndex: PropTypes.object.isRequired,
-    setOpenNoteSearchSuggestions: PropTypes.func
+    setOpenNoteSearchSuggestions: PropTypes.func,
+    setTDPSearchSuggestions: PropTypes.func
 };
 
 export default PatientSearch;

@@ -351,7 +351,8 @@ MedicationRangeChartVisualizer.propTypes = {
     conditionSection: PropTypes.object,
     isWide: PropTypes.bool,
     onItemClicked: PropTypes.func,
-    allowItemClick: PropTypes.bool
+    allowItemClick: PropTypes.bool,
+    tdpSearchSuggestions: PropTypes.array
 };
 
 export default MedicationRangeChartVisualizer;

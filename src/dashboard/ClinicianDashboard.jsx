@@ -268,4 +268,5 @@ ClinicianDashboard.propTypes = {
     summaryMetadata: PropTypes.object.isRequired,
     updateErrors: PropTypes.func.isRequired,
     searchIndex: PropTypes.object.isRequired,
+    tdpSearchSuggestions: PropTypes.array
 };

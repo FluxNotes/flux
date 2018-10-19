@@ -287,7 +287,8 @@ ProgressionLineChartVisualizer.propTypes = {
     conditionSection: PropTypes.object,
     isWide: PropTypes.bool,
     onItemClicked: PropTypes.func,
-    allowItemClick: PropTypes.bool
+    allowItemClick: PropTypes.bool,
+    tdpSearchSuggestions: PropTypes.array
 };
 
 function capitalizeFirstLetter(string) {

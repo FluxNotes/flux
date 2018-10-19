@@ -86,7 +86,8 @@ PatientControlPanel.propTypes = {
     setSearchSelectedItem: PropTypes.func.isRequired,
     supportLogin: PropTypes.bool.isRequired,
     searchIndex: PropTypes.object.isRequired,
-    setOpenNoteSearchSuggestions: PropTypes.func
+    setOpenNoteSearchSuggestions: PropTypes.func,
+    setTDPSearchSuggestions: PropTypes.func
 };
 
 export default PatientControlPanel;

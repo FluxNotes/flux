@@ -426,5 +426,6 @@ TabularListVisualizer.propTypes = {
     conditionSection: PropTypes.object,
     isWide: PropTypes.bool,
     allowItemClick: PropTypes.bool,
-    actions: PropTypes.array
+    actions: PropTypes.array,
+    tdpSearchSuggestions: PropTypes.array
 };

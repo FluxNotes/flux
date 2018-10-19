@@ -180,4 +180,5 @@ TargetedDataSubpanel.propTypes = {
     searchIndex: PropTypes.object.isRequired,
     loginUser: PropTypes.object.isRequired,
     preferenceManager: PropTypes.object.isRequired,
+    tdpSearchSuggestions: PropTypes.array
 };
