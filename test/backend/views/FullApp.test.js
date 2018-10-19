@@ -122,7 +122,7 @@ describe('3 TargetedDataControl', function() {
         const preferenceManager = new PreferenceManager(null);
         const visualizerManager = new VisualizerManager();
         const searchIndex = new SearchIndex();
-        const wrapper = shallow(<TargetedDataSection patient={null} condition={null} section={section} type={section.type} visualizerManager={visualizerManager} preferenceManager={preferenceManager} isWide={false} clinicalEvent='post-encounter' searchIndex={searchIndex} />);
+        const wrapper = shallow(<TargetedDataSection tdpSearchSuggestions={[]} patient={null} condition={null} section={section} type={section.type} visualizerManager={visualizerManager} preferenceManager={preferenceManager} isWide={false} clinicalEvent='post-encounter' searchIndex={searchIndex} />);
 
         // Initial state
         expect(wrapper.state('defaultVisualizer'))
@@ -177,7 +177,7 @@ describe('4 TargetedDataControl - correct default visualizer Medications', funct
         const preferenceManager = new PreferenceManager(null);
         const visualizerManager = new VisualizerManager();
         const searchIndex = new SearchIndex();
-        const wrapper = shallow(<TargetedDataSection patient={null} condition={null} section={section} type={section.type} visualizerManager={visualizerManager} preferenceManager={preferenceManager} isWide={false} clinicalEvent='pre-encounter' searchIndex={searchIndex} />);
+        const wrapper = shallow(<TargetedDataSection tdpSearchSuggestions={[]} patient={null} condition={null} section={section} type={section.type} visualizerManager={visualizerManager} preferenceManager={preferenceManager} isWide={false} clinicalEvent='pre-encounter' searchIndex={searchIndex} />);
 
         // Initial state
         expect(wrapper.state('defaultVisualizer'))

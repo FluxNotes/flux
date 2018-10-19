@@ -29,6 +29,8 @@ const testPatientEntries = testPatientObj.entries;
 const testPatientRecord = testPatientObj.getPatient();
 const hardCodedPerson = testPatientObj.getPerson();
 
+jest.useFakeTimers();
+
 describe('PatientSearch', function () { 
     // Input used in searching and expected length of suggestiosn
     const inputValue = "pre";
@@ -37,6 +39,15 @@ describe('PatientSearch', function () {
     // Should just set the higher-scoped variable to be true
     function setSearchSelectedItem(anything) { 
         didSetFullAppStateFunctionTrigger = true
+    }
+
+    function testSearch(wrapper, cb) {
+        setTimeout(() => {
+            const inputField = wrapper.find('input.react-autosuggest__input')
+            inputField.simulate('change', { target: {value: inputValue}});
+            inputField.simulate('focus');
+            cb && cb();
+        }, 500)
     }
 
     const searchIndex = new SearchIndex();
@@ -48,6 +59,7 @@ describe('PatientSearch', function () {
             patient={testPatientObj}
             setOpenNoteSearchSuggestions={jest.fn()}
             setSearchSelectedItem={jest.fn()}
+            setTDPSearchSuggestions={jest.fn()}
             searchIndex={searchIndex}
         />);
         expect(wrapper).to.exist;
@@ -64,18 +76,19 @@ describe('PatientSearch', function () {
             patient={testPatientObj}
             setOpenNoteSearchSuggestions={jest.fn()}
             setSearchSelectedItem={jest.fn()}
+            setTDPSearchSuggestions={jest.fn()}
             searchIndex={searchIndex}
         />);
-        const inputField = wrapper.find('input.react-autosuggest__input')
-        inputField.simulate('change', { target: {value: inputValue}}); 
-        inputField.simulate('focus'); 
+
         // Assumes we're testing against TestPatient
         expect(testPatientObj.shrId)
             .to.equal(testPatientShrId)
-        
-        expect(wrapper.state('suggestions'))
-            .to.be.an('array')
-            .to.have.lengthOf.at.least(expectedLength)
+
+        testSearch(wrapper, () => {
+            expect(wrapper.state('suggestions'))
+                .to.be.an('array')
+                .to.have.lengthOf.at.least(expectedLength);
+        });
     });
 
     it('Should provide suggestions in a list when input is entered and inputBox is focused ', function () { 
@@ -83,18 +96,18 @@ describe('PatientSearch', function () {
             patient={testPatientObj}
             setOpenNoteSearchSuggestions={jest.fn()}
             setSearchSelectedItem={jest.fn()}
+            setTDPSearchSuggestions={jest.fn()}
             searchIndex={searchIndex}
-        />);        
-        const inputField = wrapper.find('input.react-autosuggest__input')
-        inputField.simulate('change', { target: {value: inputValue}}); 
-        inputField.simulate('focus'); 
+        />);
         // Assumes we're testing against TestPatient
         expect(testPatientObj.shrId)
             .to.equal(testPatientShrId)
 
-        const suggestionList = wrapper.find('li.react-autosuggest__suggestion');
-        expect(suggestionList)
-            .to.have.lengthOf.at.least(expectedLength)
+        testSearch(wrapper, () => {
+            const suggestionList = wrapper.find('li.react-autosuggest__suggestion');
+            expect(suggestionList)
+                .to.have.lengthOf.at.least(expectedLength)
+        });
     });
 
     // Since we are no longer opening source notes on clicking search results, I am disabling this test for now. We might need it later.
