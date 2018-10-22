@@ -184,7 +184,7 @@ export default class TargetedDataSection extends Component {
         if (Lang.isNull(viz)) return null;
         const sectionTransform = viz.transform;
         if (section.resetData) section.resetData();
-        // searchIndex.removeDataBySection(section.name);
+        searchIndex.removeDataBySection(section.name);
 
         const subsections = patient === null || condition === null || section === null ? [] : section.data;
         subsections.forEach(subsection => {
