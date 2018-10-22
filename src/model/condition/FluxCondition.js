@@ -229,6 +229,16 @@ class FluxCondition {
         return mostRecentLabResults;
     }
 
+    getMostRecentLabResultsAsText() {
+        // Set the max number of months prior to today that a lab result can be
+        const numberOfMonths = 6;
+
+        const mostRecentLabResults = this.getLabResultsChronologicalOrder(moment().subtract(numberOfMonths, 'months'));
+        if (mostRecentLabResults.length === 0) return 'No recent lab results.';
+        
+        return mostRecentLabResults.map(l => `${l.name} ${l.quantity.number} ${l.quantity.unit} (${l.clinicallyRelevantTime})`).join('\r\n');
+    }
+
     // Grab the most recent lab results within a set threshold date
     getMostRecentLabResults(results, sinceDate) {
         let mostRecentLabResultsLookupTable = {};
