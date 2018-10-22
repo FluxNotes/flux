@@ -1,9 +1,11 @@
 import MetadataSection from "./MetadataSection";
 import FluxNotesTreatmentOptionsRestClient from 'flux_notes_treatment_options_rest_client';
 import Lang from 'lodash'
+import config from '../../../ServerConfig.json';
 
-const api = new FluxNotesTreatmentOptionsRestClient.DefaultApi();
-
+const ApiClient = new FluxNotesTreatmentOptionsRestClient.ApiClient();
+ApiClient.basePath = config.baseURL;
+const api = new FluxNotesTreatmentOptionsRestClient.DefaultApi(ApiClient);
 export default class TreatmentOptionsSection extends MetadataSection {
     getMetadata(preferencesManager, condition, roleType, role, specialty) {
         return {
