@@ -10,6 +10,7 @@ import moment from 'moment';
 import './Timeline.css';
 import './TimelineEventsVisualizer.css';
 import FontAwesome from 'react-fontawesome';
+import Lang from 'lodash';
 
 class TimelineEventsVisualizer extends Component {
     constructor(props) {
@@ -54,22 +55,27 @@ class TimelineEventsVisualizer extends Component {
     };
 
     componentWillReceiveProps = (nextProps) => {
-        if (this.props !== nextProps) {
+        if (!Lang.isEqual(this.props, nextProps)) {
             const items = this.createItems(nextProps.patient, nextProps.condition, nextProps.conditionSection);
             const groups = this.createGroupsForItems(this.getMaxGroup(items));
-            let visibleTimeStart;
-            if (nextProps.isWide) { 
-                visibleTimeStart = moment().clone().add(-3, 'years').add(3, 'months').valueOf();  // wideview - 3 years ago
-            } else {
-                visibleTimeStart = moment().clone().add(-1, 'years').add(3, 'months').valueOf();
+
+            if (this.props.isWide !== nextProps.isWide) {
+                let visibleTimeStart;
+                if (nextProps.isWide) {
+                    visibleTimeStart = moment().clone().add(-3, 'years').add(3, 'months').valueOf();  // wideview - 3 years ago
+                } else {
+                    visibleTimeStart = moment().clone().add(-1, 'years').add(3, 'months').valueOf();
+                }
+                const visibleTimeEnd = moment().clone().add(3, 'months').valueOf();
+                this.setState({
+                    visibleTimeStart,
+                    visibleTimeEnd
+                });
             }
-            const visibleTimeEnd = moment().clone().add(3, 'months').valueOf();
 
             this.setState({
                 items,
-                groups,
-                visibleTimeStart,
-                visibleTimeEnd
+                groups
             });
         }
     }
