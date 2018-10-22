@@ -19,6 +19,7 @@ import FluxBloodPressure from '../model/vital/FluxBloodPressure';
 import FluxBodyTemperature from '../model/vital/FluxBodyTemperature';
 import FluxBodyWeight from '../model/vital/FluxBodyWeight';
 import FluxHeartRate from '../model/vital/FluxHeartRate';
+import FluxImagingProcedurePerformed from '../model/procedure/FluxImagingProcedurePerformed';
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx'; // put jsx because yarn test-ui errors on this import otherwise
 import CreationTime from '../model/shr/core/CreationTime';
 import LastUpdated from '../model/shr/base/LastUpdated';
@@ -728,6 +729,17 @@ class PatientRecord {
         let procedures = this.getProceduresForCondition(condition);
         procedures.sort(this._proceduresTimeSorter);
         return procedures;
+    }
+
+    getImagingProceduresForConditionChronologicalOrder(condition) {
+        const imagingProcedures = this.getEntriesOfType(FluxImagingProcedurePerformed);
+        const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
+
+        imagingProcedures.sort(this._proceduresTimeSorter);
+
+        return imagingProcedures.filter(p => {
+            return p.reasons && p.reasons.some(r => r.value.entryId && r.value.entryId === conditionEntryId);
+        });
     }
 
     getBreastCancerGeneticAnalysisPanelsChronologicalOrder() {

@@ -16,13 +16,13 @@ class FluxImagingProcedurePerformed {
      *  Returns a date if a single value
      */
     get occurrenceTime() {
-        if (this._imagingProcedurePerformed.actionContext.occurenceTimeOrPeriod.value instanceof TimePeriod) {
+        if (this._imagingProcedurePerformed.actionContext.occurrenceTimeOrPeriod.value instanceof TimePeriod) {
             return {
-                timePeriodStart: this._imagingProcedurePerformed.actionContext.occurenceTimeOrPeriod.value.timePeriodStart.value,
-                timePeriodEnd: this._imagingProcedurePerformed.actionContext.occurenceTimeOrPeriod.value.timePeriodEnd.value
+                timePeriodStart: this._imagingProcedurePerformed.actionContext.occurrenceTimeOrPeriod.value.timePeriodStart.value,
+                timePeriodEnd: this._imagingProcedurePerformed.actionContext.occurrenceTimeOrPeriod.value.timePeriodEnd.value
             };
         } else {
-            return this._imagingProcedurePerformed.actionContext.occurenceTimeOrPeriod.value;
+            return this._imagingProcedurePerformed.actionContext.occurrenceTimeOrPeriod.value;
         }
     }
 
@@ -40,6 +40,14 @@ class FluxImagingProcedurePerformed {
      */
     get name() {
         return this._imagingProcedurePerformed.type.value.coding[0].displayText.value;
+    }
+
+    /*
+     *  Getter for reason list for this procedure
+     *  Returns array of reasons
+     */
+    get reasons() {
+        return this._imagingProcedurePerformed.actionContext.reason;
     }
 
     toJSON() {
