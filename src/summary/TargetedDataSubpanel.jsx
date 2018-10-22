@@ -22,6 +22,15 @@ export default class TargetedDataSubpanel extends Component {
         this._forceRefresh= false;
     }
 
+    componentWillReceiveProps(nextProps) {
+        // If the condition has changed, remove TDP data from the search index since it will change
+        if (!_.isEqual(this.props.condition, nextProps.condition)) {
+            this.props.conditionMetadata.sections.forEach(section => {
+                this.props.searchIndex.removeDataBySection(section.name);
+            });
+        }
+    }
+
     shouldComponentUpdate(nextProps, nextState) { 
         // Seven current reasons to update:
         // - There is a change to the entries this component cares about
