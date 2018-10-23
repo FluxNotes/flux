@@ -7,7 +7,6 @@ import Tooltip from 'rc-tooltip';
 import TabularListVisualizerTable from './TabularListVisualizerTable';
 import './TabularListVisualizer.css';
 import VisualizerMenu from './VisualizerMenu.jsx';
-import StringSimilarity from 'string-similarity';
 
 /*
  A table view of one or more data summary items. Items could be pathology-related,
@@ -283,13 +282,15 @@ export default class TabularListVisualizer extends Component {
         }
 
         const isMissingData = Lang.isUndefined(colText) || Lang.isNull(colText) || (typeof(colText) === 'string' && colText.length === 0);
+
         // Highlight matching key or value
         const highlightedData = this.props.tdpSearchSuggestions.find(s => {
-
-            // Get Levenschtein distance to see whether we shuld check for match on key or content
-            const valueTitleMatchPct = StringSimilarity.compareTwoStrings(s.inputValue, s.valueTitle);
-            const contentMatchPct = StringSimilarity.compareTwoStrings(s.inputValue, s.contentSnapshot);
-            const doesMatch = valueTitleMatchPct < contentMatchPct ? (isMissingData ? s.contentSnapshot === 'Missing Data' : s.contentSnapshot === colText) : s.valueTitle === colText;
+            let doesMatch = false;
+            if (s.field === 'value') {
+                doesMatch = isMissingData ? s.contentSnapshot === 'Missing Data' : s.contentSnapshot === colText;
+            } else if (s.field === 'valueTitle') {
+                doesMatch = s.valueTitle === colText;
+            }
             return s.section === this.props.conditionSection.name && doesMatch;
         });
 

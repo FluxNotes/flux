@@ -91,7 +91,8 @@ class PatientSearch extends React.Component {
                     matchedOn: "",
                     source: 'structuredData',
                     onHighlight: result.onHighlight,
-                    score: result.score
+                    score: result.score,
+                    field: result.field
                 }
                 tdpSearchSuggestions.push(suggestion);
             }
