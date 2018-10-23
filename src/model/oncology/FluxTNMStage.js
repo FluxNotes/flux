@@ -9,6 +9,7 @@ import FluxObservation from '../finding/FluxObservation';
 import FluxMitoticRate from './FluxMitoticRate';
 import lookup from '../../lib/tnmstage_lookup.jsx';
 import staging from '../../lib/staging.jsx';
+import Lang from 'lodash';
 
 // FluxTNMStage class to hide codeableconcepts
 class FluxTNMStage extends FluxObservation {
@@ -29,7 +30,11 @@ class FluxTNMStage extends FluxObservation {
      *  This will return the displayText string from CodeableConcept value
      */
     get stage() {
-        return this._observation.value.coding[0].displayText.value;
+        if (Lang.isEmpty(this._observation.value))  { 
+            return null;
+        } else { 
+            return this._observation.value.coding[0].displayText.value;
+        }
     }
 
     /**

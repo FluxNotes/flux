@@ -54,12 +54,14 @@ export default class EntryShortcut extends Shortcut {
         }
         // defaulting
         const metadataVOA = this.metadata["valueObjectAttributes"];
-        metadataVOA.forEach((attrib) => {
-            const curVal = this.getAttributeValue(attrib.name)
-            if (Lang.isEmpty(curVal) && attrib.isSettable && attrib.type !== "list") {
-                this.setAttributeValue(attrib.name, null, true, updatePatient);
-            }
-        });
+        if (updatePatient) { 
+            metadataVOA.forEach((attrib) => {
+                const curVal = this.getAttributeValue(attrib.name)
+                if (Lang.isEmpty(curVal) && attrib.isSettable && attrib.type !== "list") {
+                    this.setAttributeValue(attrib.name, null, true, updatePatient);
+                }
+            });
+        }       
     }
 
     hasData() {

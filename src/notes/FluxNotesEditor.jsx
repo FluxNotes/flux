@@ -703,7 +703,7 @@ class FluxNotesEditor extends React.Component {
                 this.resetEditorAndContext();
             }
 
-            // If the updated editor note is an actual note (existing note), then clear the editor and insert the
+            // If the updated editor note is an pre-existing note on the patient record, then clear the editor and insert the
             // content of the selected note into the editor and set the editor to read only
             else {
                 this.resetEditorAndContext();
