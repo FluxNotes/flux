@@ -7,6 +7,7 @@ import {
     Tooltip,
     ReferenceLine,
     ResponsiveContainer,
+    Dot
 } from 'recharts';
 import moment from 'moment';
 import Collection from 'lodash';
@@ -232,6 +233,7 @@ class ProgressionLineChartVisualizer extends Component {
                         dataKey={this.yVarField}
                         stroke="#295677"
                         yAxisId={0}
+                        dot={this.renderDot}
                     />
                      <Line
                         type="monotone"
@@ -255,6 +257,16 @@ class ProgressionLineChartVisualizer extends Component {
         );
     }
 
+    renderDot = (props) => {
+        const highlightedData = this.props.tdpSearchSuggestions.find(s => s.valueTitle === props.payload.start_time && s.contentSnapshot === props.payload.disease_status_string);
+        if (highlightedData) {
+            props.stroke = 'rgb(255, 255, 70)';
+            props.fill = 'rgb(255, 255, 70)';
+            props.strokeWidth = 5;
+        }
+        return <Dot {...props} />;
+    }
+
     // Gets called for each section in SummaryMetaData.jsx
     render() {
         const {patient, condition, conditionSection} = this.props;
@@ -275,7 +287,8 @@ ProgressionLineChartVisualizer.propTypes = {
     conditionSection: PropTypes.object,
     isWide: PropTypes.bool,
     onItemClicked: PropTypes.func,
-    allowItemClick: PropTypes.bool
+    allowItemClick: PropTypes.bool,
+    tdpSearchSuggestions: PropTypes.array
 };
 
 function capitalizeFirstLetter(string) {

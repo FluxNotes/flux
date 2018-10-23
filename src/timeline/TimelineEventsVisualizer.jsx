@@ -10,12 +10,12 @@ import moment from 'moment';
 import './Timeline.css';
 import './TimelineEventsVisualizer.css';
 import FontAwesome from 'react-fontawesome';
+import Lang from 'lodash';
 
 class TimelineEventsVisualizer extends Component {
     constructor(props) {
         super(props);
-
-        const items = this.createItems(this.props.patient, this.props.condition, this.props.conditionSection);
+        const items = this.createItems(this.props.patient, this.props.condition, this.props.conditionSection, this.props.tdpSearchSuggestions);
         const groups = this.createGroupsForItems(this.getMaxGroup(items));
 
         // Define the bounds of the timeline
@@ -54,27 +54,32 @@ class TimelineEventsVisualizer extends Component {
     };
 
     componentWillReceiveProps = (nextProps) => {
-        if (this.props !== nextProps) {
-            const items = this.createItems(nextProps.patient, nextProps.condition, nextProps.conditionSection);
+        if (!Lang.isEqual(this.props, nextProps)) {
+            const items = this.createItems(nextProps.patient, nextProps.condition, nextProps.conditionSection, nextProps.tdpSearchSuggestions);
             const groups = this.createGroupsForItems(this.getMaxGroup(items));
-            let visibleTimeStart;
-            if (nextProps.isWide) { 
-                visibleTimeStart = moment().clone().add(-3, 'years').add(3, 'months').valueOf();  // wideview - 3 years ago
-            } else {
-                visibleTimeStart = moment().clone().add(-1, 'years').add(3, 'months').valueOf();
+
+            if (this.props.isWide !== nextProps.isWide) {
+                let visibleTimeStart;
+                if (nextProps.isWide) {
+                    visibleTimeStart = moment().clone().add(-3, 'years').add(3, 'months').valueOf();  // wideview - 3 years ago
+                } else {
+                    visibleTimeStart = moment().clone().add(-1, 'years').add(3, 'months').valueOf();
+                }
+                const visibleTimeEnd = moment().clone().add(3, 'months').valueOf();
+                this.setState({
+                    visibleTimeStart,
+                    visibleTimeEnd
+                });
             }
-            const visibleTimeEnd = moment().clone().add(3, 'months').valueOf();
 
             this.setState({
                 items,
-                groups,
-                visibleTimeStart,
-                visibleTimeEnd
+                groups
             });
         }
     }
 
-    createItems = (patient, condition, section) => {
+    createItems = (patient, condition, section, tdpSearchSuggestions) => {
         // Create groups and items to display on the timeline
         let items = [];
         if (section.resetData) section.resetData();
@@ -93,7 +98,18 @@ class TimelineEventsVisualizer extends Component {
                 // hold 2 view 
                 onTouchStart: (e) => this.enterItemHover(e, id),
                 onTouchEnd: (e) => this.leaveItemHover(e)
-            }; 
+            };
+
+            const highlightedItem = tdpSearchSuggestions.find(s => {
+                if (s.section === "Timeline") {
+                    const value = s.subsection === "Procedures" ? item.hoverText : `${item.hoverTitle}: ${item.hoverText}`;
+                    return s.contentSnapshot === value;
+                }
+                return false;
+            });
+            const highlightedClass = highlightedItem ? ' timeline-highlighted' : '';
+
+            item.className += highlightedClass;
         });
         return items;
     }
@@ -312,7 +328,8 @@ TimelineEventsVisualizer.propTypes = {
     isWide: PropTypes.bool.isRequired,
     className: PropTypes.string,
     patient: PropTypes.object.isRequired,
-    condition: PropTypes.object
+    condition: PropTypes.object,
+    tdpSearchSuggestions: PropTypes.array
 };
 
 export default TimelineEventsVisualizer;

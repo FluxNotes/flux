@@ -10,7 +10,7 @@ class MedicationsIndexer extends BaseIndexer {
                 id: `${sectionId}_${medicationId}_dosage`,
                 section,
                 subsection: "",
-                valueTitle: `${item.medication.medication} Dosage`,
+                valueTitle: `Dosage`,
                 value: `${item.medication.amountPerDose.value} ${item.medication.amountPerDose.units}`,
                 onHighlight
             });
@@ -28,7 +28,7 @@ class MedicationsIndexer extends BaseIndexer {
                 id: `${sectionId}_${medicationId}_timing`,
                 section,
                 subsection: "",
-                valueTitle: `${item.medication.medication} Timing`,
+                valueTitle: `Timing`,
                 value: item.medication.timingOfDoses.value,
                 onHighlight
             });
@@ -37,7 +37,7 @@ class MedicationsIndexer extends BaseIndexer {
                 id: `${sectionId}_${medicationId}_perscribed`,
                 section,
                 subsection: "",
-                valueTitle: `${item.medication.medication} Prescribed`,
+                valueTitle: `Prescribed`,
                 value: item.medication.whenPrescribed,
                 onHighlight
             });
@@ -46,7 +46,7 @@ class MedicationsIndexer extends BaseIndexer {
                 id: `${sectionId}_${medicationId}_route`,
                 section,
                 subsection: "",
-                valueTitle: `${item.medication.medication} Route`,
+                valueTitle: `Route`,
                 value: item.medication.routeIntoBody,
                 onHighlight
             });
@@ -55,7 +55,7 @@ class MedicationsIndexer extends BaseIndexer {
                 id: `${sectionId}_${medicationId}_perscribed_by`,
                 section,
                 subsection: "",
-                valueTitle: `${item.medication.medication} Prescribed By`,
+                valueTitle: `Prescribed By`,
                 value: item.medication.prescribedBy,
                 onHighlight
             });

@@ -79,6 +79,20 @@ class MedicationRangeChartVisualizer extends Component {
         if (timingUnit == null) timingUnit = '';
         //Determining if asNeededIndicator is true. Set empty string if false, set string as needed if true.
         const asNeededString = asNeededIndicator ? 'as needed' : '';
+
+        let titleClass = '';
+        const foundMed = this.props.tdpSearchSuggestions.find(s => {
+            return s.section === "Medications" && (
+                s.contentSnapshot === name ||
+                s.contentSnapshot === dosageValue ||
+                s.contentSnapshot === dosageUnit ||
+                s.contentSnapshot === timingValue ||
+                s.contentSnapshot === timingUnit ||
+                s.contentSnapshot === asNeededString
+            );
+        });
+        if (foundMed) titleClass += ' highlighted';
+
         // Determining if medication value is out of range.
         if (dosageValue < lowerValue || dosageValue > upperValue) {
             return (
@@ -87,12 +101,12 @@ class MedicationRangeChartVisualizer extends Component {
                     <span className="out-of-range-medication">
                         {`${dosageValue} `}
                     </span>
-                    {`${dosageUnit} ${timingValue} ${timingUnit} ${asNeededString}`}
+                    <span className={titleClass}>{`${dosageUnit} ${timingValue} ${timingUnit} ${asNeededString}`}</span>
                 </div>);
         }
         return (
             <div className="medicationTitle">
-                {`${name} ${dosageValue} ${dosageUnit} ${timingValue} ${timingUnit} ${asNeededString}`}
+                <span className={titleClass}>{`${name} ${dosageValue} ${dosageUnit} ${timingValue} ${timingUnit} ${asNeededString}`}</span>
             </div>);
     }
 
@@ -142,6 +156,16 @@ class MedicationRangeChartVisualizer extends Component {
     }
 
     renderMedicationInfo = (med) => {
+        const {routeIntoBody, whenPrescribed, prescribedBy, numberOfRefillsAllowed} = med.medication;
+        let routeClass = '', prescribedClass = '', prescribedByClass = '', numberOfRefillsAllowedClass = '';
+        this.props.tdpSearchSuggestions.forEach(s => {
+            if (s.section === 'Medications') {
+                if (s.contentSnapshot === routeIntoBody) routeClass = ' highlighted';
+                if (s.contentSnapshot === whenPrescribed) prescribedClass = ' highlighted';
+                if (s.contentSnapshot === prescribedBy) prescribedByClass = ' highlighted';
+                if (s.contentSnapshot === numberOfRefillsAllowed) numberOfRefillsAllowedClass = ' highlighted';
+            }
+        });
         return (
             <div>
                 <Row top="xs">
@@ -149,32 +173,32 @@ class MedicationRangeChartVisualizer extends Component {
                         <div className="medication-info-heading">
                             Route
                         </div>
-                        <div className="medication-info">
-                            {med.medication.routeIntoBody}
+                        <div className={"medication-info" + routeClass}>
+                            {routeIntoBody}
                         </div>
                     </Col>
                     <Col sm={3}>
                         <div className="medication-info-heading">
                             Prescribed
                         </div>
-                        <div className="medication-info">
-                            {med.medication.whenPrescribed}
+                        <div className={"medication-info" + prescribedClass}>
+                            {whenPrescribed}
                         </div>
                     </Col>
                     <Col sm={3}>
                         <div className="medication-info-heading">
                             Prescribed By
                         </div>
-                        <div className="medication-info">
-                            {med.medication.prescribedBy}
+                        <div className={"medication-info" + prescribedByClass}>
+                            {prescribedBy}
                         </div>
                     </Col>
                     <Col sm={3}>
                          <div className="medication-info-heading">
                             Number of Refills
                         </div>
-                        <div className="medication-info">
-                            {med.medication.numberOfRefillsAllowed}
+                        <div className={"medication-info" + numberOfRefillsAllowedClass}>
+                            {numberOfRefillsAllowed}
                         </div>
                     </Col>
                 </Row>
@@ -327,7 +351,8 @@ MedicationRangeChartVisualizer.propTypes = {
     conditionSection: PropTypes.object,
     isWide: PropTypes.bool,
     onItemClicked: PropTypes.func,
-    allowItemClick: PropTypes.bool
+    allowItemClick: PropTypes.bool,
+    tdpSearchSuggestions: PropTypes.array
 };
 
 export default MedicationRangeChartVisualizer;

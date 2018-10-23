@@ -270,7 +270,11 @@ class NarrativeNameValuePairsVisualizer extends Component {
         // now go through each snippet and build up HTML to render
         let content = [];
         narrative.forEach((snippet, index) => {
-            className = snippet.type;
+            const highlightedData = this.props.tdpSearchSuggestions.find(s => {
+                return snippet.item && s.valueTitle === snippet.item.name && s.contentSnapshot === snippet.text;
+            });
+            const highlightedClass = highlightedData ? ' highlighted' : '';
+            className = snippet.type + highlightedClass;
             const isInsertable = (Lang.isNull(snippet.item) || Lang.isUndefined(snippet.item) ? false : (Lang.isUndefined(snippet.item.isInsertable) ? true : snippet.item.IsInsertable));
             if ((snippet.type === 'narrative-structured-data' || snippet.type === "narrative-unsigned-data") && isInsertable) {
                 if (this.props.actions.length > 0) {
@@ -310,7 +314,8 @@ NarrativeNameValuePairsVisualizer.propTypes = {
     conditionSection: PropTypes.object,
     isWide: PropTypes.bool,
     allowItemClick: PropTypes.bool,
-    actions: PropTypes.array
+    actions: PropTypes.array,
+    tdpSearchSuggestions: PropTypes.array
 };
 
 export default NarrativeNameValuePairsVisualizer;

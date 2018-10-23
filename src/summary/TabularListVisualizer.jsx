@@ -133,7 +133,10 @@ export default class TabularListVisualizer extends Component {
             nameSuffix = <span>{transformedSubsection.name_suffix}</span>;
         }
         if (subsectionName && subsectionName.length > 0) {
-            subsectionNameHTML = <h2 className="subsection list-subsection-header"><span>{subsectionName}</span>{nameSuffix}</h2>;
+            const matchingSubsection = this.props.tdpSearchSuggestions.find(s => {
+                return s.valueTitle === 'Subsection' && s.subsection === subsectionName;
+            });
+            subsectionNameHTML = <h2 className="subsection list-subsection-header"><span className={matchingSubsection ? 'highlighted' : ''}>{subsectionName}</span>{nameSuffix}</h2>;
         }
 
         if (list.length <= 0) {
@@ -222,10 +225,11 @@ export default class TabularListVisualizer extends Component {
         });
     }
 
-    renderedStructuredData(firstCellValue, col, elementId, elementText, subsectionName, subsectionActions, arrayIndex, when) {
+    renderedStructuredData(firstCellValue, col, elementId, elementText, subsectionName, subsectionActions, arrayIndex, when, highlightedClass) {
         return (
             <div>
                 <span
+                    className={highlightedClass}
                     data-test-summary-item={firstCellValue}
                     onClick={(event) => this.openInsertionMenu(event, elementId)}
                 >
@@ -277,6 +281,21 @@ export default class TabularListVisualizer extends Component {
             itemClass += " has-action-menu";
         }
 
+        const isMissingData = Lang.isUndefined(colText) || Lang.isNull(colText) || (typeof(colText) === 'string' && colText.length === 0);
+
+        // Highlight matching key or value
+        const highlightedData = this.props.tdpSearchSuggestions.find(s => {
+            let doesMatch = false;
+            if (s.field === 'value') {
+                doesMatch = isMissingData ? s.contentSnapshot === 'Missing Data' : s.contentSnapshot === colText;
+            } else if (s.field === 'valueTitle') {
+                doesMatch = s.valueTitle === colText;
+            }
+            return s.section === this.props.conditionSection.name && doesMatch;
+        });
+
+        const highlightedClass = highlightedData ? ' highlighted' : '';
+
         // If this section has an associated formatFunction (that
         // returns a specific) CSS class, it is applied to elementText.
         if (formatFunction) {
@@ -284,13 +303,13 @@ export default class TabularListVisualizer extends Component {
         }
 
         // Make unique key for each value
-        if (Lang.isUndefined(colText) || Lang.isNull(colText) || (typeof(colText) === 'string' && colText.length === 0)) {
+        if (isMissingData) {
             columnItem = (
                 <TableCell
                     data-test-summary-item={row[0]}
                     key={columnId}
                 >
-                    <span className={"list-missing"}>
+                    <span className={"list-missing" + highlightedClass}>
                         Missing Data
                     </span>
                 </TableCell>
@@ -302,7 +321,7 @@ export default class TabularListVisualizer extends Component {
                     key={columnId}
                 >
                     <span className={itemClass}>
-                        {this.renderedStructuredData(row[0].value, col, columnId, colText, subsectionName, subsectionActions, colIndex, when)}
+                        {this.renderedStructuredData(row[0].value, col, columnId, colText, subsectionName, subsectionActions, colIndex, when, highlightedClass)}
                     </span>
                     <span>
                         {whenRendering}
@@ -314,7 +333,7 @@ export default class TabularListVisualizer extends Component {
                 <TableCell width={colSize}
                     key={columnId}
                 >
-                    <span>
+                    <span className={highlightedClass}>
                         {colText}
                     </span>
                 </TableCell>
@@ -408,5 +427,6 @@ TabularListVisualizer.propTypes = {
     conditionSection: PropTypes.object,
     isWide: PropTypes.bool,
     allowItemClick: PropTypes.bool,
-    actions: PropTypes.array
+    actions: PropTypes.array,
+    tdpSearchSuggestions: PropTypes.array
 };

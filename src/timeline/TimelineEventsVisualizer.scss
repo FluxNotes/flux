@@ -87,8 +87,12 @@
 }
 
 .progression-item {
-  background-color: $timeline-event-yellow !important;
-  border-color: $timeline-event-yellow !important;
+  background-color: $timeline-event-purple !important;
+  border-color: $timeline-event-purple !important;
+}
+
+.timeline-highlighted {
+  background-color: $highlight-yellow !important;
 }
 
 .bold-item {

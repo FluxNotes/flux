@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Autosuggest from 'react-autosuggest';
 import SearchSuggestion from './SearchSuggestion.jsx';
 import Lang from 'lodash';
+import { CircularProgress } from 'material-ui';
 import './PatientSearch.css'
 
 function escapeRegExp(text) {
@@ -14,6 +15,7 @@ class PatientSearch extends React.Component {
         super(props)
         const patient = props.patient;
         this.firstName = patient.getName() ? patient.getName().split(' ')[0] : "";
+        this.debounceGetSuggestions = Lang.debounce(this.getSuggestions, 500);
         // Autosuggest is a controlled component.
         // This means that you need to provide an input value
         // and an onChange handler that updates this value (see below).
@@ -23,7 +25,8 @@ class PatientSearch extends React.Component {
             suggestions: [],
             openNoteSuggestions: [],
             value: '',
-            previousSuggestion: null
+            previousSuggestion: null,
+            loading: false
         };
     }
 
@@ -57,6 +60,7 @@ class PatientSearch extends React.Component {
     getSuggestions = (inputValue) => {
         let suggestions = [];
         let openNoteSuggestions = [];
+        let tdpSearchSuggestions = [];
         let results = this.props.searchIndex.search(inputValue);
         results.forEach(result => {
             let suggestion;
@@ -87,15 +91,16 @@ class PatientSearch extends React.Component {
                     matchedOn: "",
                     source: 'structuredData',
                     onHighlight: result.onHighlight,
-                    score: result.score
+                    score: result.score,
+                    field: result.field
                 }
+                tdpSearchSuggestions.push(suggestion);
             }
             suggestions.push(suggestion);
         });
-        this.setState({ openNoteSuggestions }, () => {
-            this.props.setOpenNoteSearchSuggestions(this.state.openNoteSuggestions);
-        });
-        return suggestions;
+        this.props.setOpenNoteSearchSuggestions(openNoteSuggestions);
+        this.props.setTDPSearchSuggestions(tdpSearchSuggestions);
+        this.setState({ suggestions, loading: false });
     }
 
     // Teach Autosuggest how to calculate the input value for every given suggestion.
@@ -118,13 +123,15 @@ class PatientSearch extends React.Component {
     // You already implemented this logic above, so just use it.
     onSuggestionsFetchRequested = ({ value }) => {
         this.setState({
-            suggestions: this.getSuggestions(value)
+            loading: true,
         });
+        this.debounceGetSuggestions(value);
     };
   
     // Autosuggest will call this function every time you need to clear suggestions.
     onSuggestionsClearRequested = () => {
         this.props.setOpenNoteSearchSuggestions([]);
+        this.props.setTDPSearchSuggestions([]);
         this.setState({
             suggestions: [],
             openNoteSuggestions: []
@@ -167,12 +174,15 @@ class PatientSearch extends React.Component {
     }
 
     // Customize the input component to include the search icon
-    renderInputComponent = (inputProps) => (
-        <div>
-            <span className="fa fa-search search-icon"></span>
-            <input {...inputProps} />
-        </div>
-    );
+    renderInputComponent = (inputProps) => {
+        const icon = this.state.loading ? <CircularProgress className="loading-spinner" size={20} /> : <span className="fa fa-search search-icon"></span>;
+        return (
+            <div>
+                {icon}
+                <input {...inputProps} />
+            </div>
+        );
+    }
 
     render () { 
         const { value, suggestions } = this.state;
@@ -208,7 +218,8 @@ PatientSearch.propTypes = {
     setSearchSelectedItem: PropTypes.func.isRequired,
     patient: PropTypes.object.isRequired,
     searchIndex: PropTypes.object.isRequired,
-    setOpenNoteSearchSuggestions: PropTypes.func
+    setOpenNoteSearchSuggestions: PropTypes.func,
+    setTDPSearchSuggestions: PropTypes.func
 };
 
 export default PatientSearch;

@@ -60,8 +60,10 @@ class SearchIndex {
             },
             bool: 'AND'
         }).forEach(result => {
-            let doc = this._index.documentStore.getDoc(result.ref);
-            doc.score = result.score;
+            let {doc} = result;
+            const {score, field} = result;
+            doc.score = score;
+            doc.field = field;
             // Search the content of the open note
             if (doc.section === "Open Note" && doc.valueTitle === "Content") {
                 const regex = new RegExp(escapeRegExp(query), "gim");

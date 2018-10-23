@@ -184,7 +184,7 @@ export default class TargetedDataSection extends Component {
         if (Lang.isNull(viz)) return null;
         const sectionTransform = viz.transform;
         if (section.resetData) section.resetData();
-        // searchIndex.removeDataBySection(section.name);
+        searchIndex.removeDataBySection(section.name);
 
         const subsections = patient === null || condition === null || section === null ? [] : section.data;
         subsections.forEach(subsection => {
@@ -259,12 +259,13 @@ export default class TargetedDataSection extends Component {
                 loginUser={loginUser}
                 actions={actions}
                 searchIndex={searchIndex}
+                tdpSearchSuggestions={this.props.tdpSearchSuggestions}
             />
         );
     }
 
     render() {
-        const { section, condition, clinicalEvent } = this.props;
+        const { section, condition, clinicalEvent, tdpSearchSuggestions } = this.props;
         const visualizationOptions = this.getOptions(section);
         const selectedCondition = condition && condition.type;
         const encounterView = clinicalEvent === "encounter";
@@ -273,11 +274,15 @@ export default class TargetedDataSection extends Component {
         const viz = this.indexSectionData(section);
         
         let sectionName = this.state.sectionName;
+        const matchingSection = tdpSearchSuggestions.find(s => {
+            return s.valueTitle === 'Section' && s.section === sectionName;
+        });
+        const highlightClass = matchingSection ? ' section-header__highlighted' : '';
 
         return (
             <div id="targeted-data-section">
                 <h2 className="section-header">
-                    <span className="section-header__name">{sectionName}</span>
+                    <span className={`section-header__name${highlightClass}`}>{sectionName}</span>
                     {!encounterView && !notFiltered && <span className="section-header__condition">{selectedCondition}</span>}
                     {this.renderVisualizationOptions(visualizationOptions)}
                 </h2>
@@ -303,4 +308,5 @@ TargetedDataSection.propTypes = {
     loginUser: PropTypes.object.isRequired,
     preferenceManager: PropTypes.object.isRequired,
     searchIndex: PropTypes.object.isRequired,
+    tdpSearchSuggestions: PropTypes.array
 }

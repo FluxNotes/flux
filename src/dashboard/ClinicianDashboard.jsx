@@ -191,6 +191,7 @@ export default class ClinicianDashboard extends Component {
                         targetedDataPanelSize={this.state.targetedDataPanelSize}
                         ref={(tdp) => { this.targetedDataPanel = tdp; }}
                         searchIndex={this.props.searchIndex}
+                        tdpSearchSuggestions={this.props.tdpSearchSuggestions}
                     />
                 </div>
                 <div style={notesPanelStyles}>
@@ -267,4 +268,5 @@ ClinicianDashboard.propTypes = {
     summaryMetadata: PropTypes.object.isRequired,
     updateErrors: PropTypes.func.isRequired,
     searchIndex: PropTypes.object.isRequired,
+    tdpSearchSuggestions: PropTypes.array
 };
