@@ -15,8 +15,7 @@ import Lang from 'lodash';
 class TimelineEventsVisualizer extends Component {
     constructor(props) {
         super(props);
-
-        const items = this.createItems(this.props.patient, this.props.condition, this.props.conditionSection);
+        const items = this.createItems(this.props.patient, this.props.condition, this.props.conditionSection, this.props.tdpSearchSuggestions);
         const groups = this.createGroupsForItems(this.getMaxGroup(items));
 
         // Define the bounds of the timeline
@@ -56,7 +55,7 @@ class TimelineEventsVisualizer extends Component {
 
     componentWillReceiveProps = (nextProps) => {
         if (!Lang.isEqual(this.props, nextProps)) {
-            const items = this.createItems(nextProps.patient, nextProps.condition, nextProps.conditionSection);
+            const items = this.createItems(nextProps.patient, nextProps.condition, nextProps.conditionSection, nextProps.tdpSearchSuggestions);
             const groups = this.createGroupsForItems(this.getMaxGroup(items));
 
             if (this.props.isWide !== nextProps.isWide) {
@@ -80,7 +79,7 @@ class TimelineEventsVisualizer extends Component {
         }
     }
 
-    createItems = (patient, condition, section) => {
+    createItems = (patient, condition, section, tdpSearchSuggestions) => {
         // Create groups and items to display on the timeline
         let items = [];
         if (section.resetData) section.resetData();
@@ -99,7 +98,18 @@ class TimelineEventsVisualizer extends Component {
                 // hold 2 view 
                 onTouchStart: (e) => this.enterItemHover(e, id),
                 onTouchEnd: (e) => this.leaveItemHover(e)
-            }; 
+            };
+
+            const highlightedItem = tdpSearchSuggestions.find(s => {
+                if (s.section === "Timeline") {
+                    const value = s.subsection === "Procedures" ? item.hoverText : `${item.hoverTitle}: ${item.hoverText}`;
+                    return s.contentSnapshot === value;
+                }
+                return false;
+            });
+            const highlightedClass = highlightedItem ? ' timeline-highlighted' : '';
+
+            item.className += highlightedClass;
         });
         return items;
     }
@@ -318,7 +328,8 @@ TimelineEventsVisualizer.propTypes = {
     isWide: PropTypes.bool.isRequired,
     className: PropTypes.string,
     patient: PropTypes.object.isRequired,
-    condition: PropTypes.object
+    condition: PropTypes.object,
+    tdpSearchSuggestions: PropTypes.array
 };
 
 export default TimelineEventsVisualizer;
