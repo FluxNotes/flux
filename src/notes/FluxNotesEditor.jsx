@@ -1505,7 +1505,7 @@ class FluxNotesEditor extends React.Component {
         let signed = false;
 
         // If a note is selected, update the note header with information from the selected note
-        if (this.props.selectedNote) {
+        if (!Lang.isEmpty(this.props.selectedNote)) {
             noteTitle = this.props.selectedNote.subject;
             source = this.props.selectedNote.hospital;
 
