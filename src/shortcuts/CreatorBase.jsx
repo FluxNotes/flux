@@ -50,21 +50,6 @@ export default class CreatorBase extends EntryShortcut {
         this.setAttributeValue = this.setAttributeValue.bind(this);
     }
 
-    initialize(contextManager, trigger = undefined, updatePatient = true) {
-        super.initialize(contextManager, trigger, updatePatient);
-
-        if (contextManager) {
-            this.establishParentContext(contextManager);
-        }        
-        // defaulting
-        const metadataVOA = this.metadata["valueObjectAttributes"];
-        metadataVOA.forEach((attrib) => {
-            if (attrib.isSettable && attrib.type !== "list") {
-                this.setAttributeValue(attrib.name, null, true, updatePatient);
-            }
-        });
-    }
-
     isContext() {
         return this.metadata.isContext;
     }

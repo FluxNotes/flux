@@ -364,47 +364,47 @@ export default class NotesPanel extends Component {
         return (
             <div className="panel-content dashboard-panel">
                 <FluxNotesEditor
+                    arrayOfPickLists={this.state.arrayOfPickLists}
+                    changeShortcutType={this.changeShortcutType}
                     closeNote={this.closeNote}
                     contextManager={this.props.contextManager}
+                    contextTrayItemToInsert={this.state.contextTrayItemToInsert}
                     currentViewMode={this.props.currentViewMode}
                     errors={this.props.errors}
                     handleUpdateEditorWithNote={this.handleUpdateEditorWithNote}
+                    handleUpdateArrayOfPickLists={this.handleUpdateArrayOfPickLists}
                     isNoteViewerEditable={this.props.isNoteViewerEditable}
                     itemInserted={this.props.itemInserted}
                     newCurrentShortcut={this.props.newCurrentShortcut}
                     noteAssistantMode={this.state.noteAssistantMode}
+                    openNoteSearchSuggestions={this.props.openNoteSearchSuggestions}
+                    openSourceNoteEntryId={this.props.openSourceNoteEntryId}
                     patient={this.props.patient}
                     saveNote={this.saveNote}
+                    searchIndex={this.props.searchIndex}
                     selectedNote={this.state.selectedNote}
+                    selectedPickListOptions={this.state.selectedPickListOptions}
                     setForceRefresh={this.props.setForceRefresh}
-                    setNoteViewerEditable={this.props.setNoteViewerEditable}
                     setLayout={this.props.setLayout}
+                    setNoteViewerEditable={this.props.setNoteViewerEditable}
+                    setOpenSourceNoteEntryId={this.props.setOpenSourceNoteEntryId}
+                    setUndoTemplateInsertion={this.setUndoTemplateInsertion}
+                    shortcutKey={this.state.shortcutKey}
+                    shortcutType={this.state.shortcutType}
                     shortcutManager={this.props.shortcutManager}
                     shouldEditorContentUpdate={this.state.noteAssistantMode !== 'pick-list-options-panel'}
-                    selectedPickListOptions={this.state.selectedPickListOptions}
+                    shouldRevertTemplate={this.state.shouldRevertTemplate}
+                    shouldUpdateShortcutType={this.state.shouldUpdateShortcutType}
                     structuredFieldMapManager={this.props.structuredFieldMapManager}
                     summaryItemToInsert={this.props.summaryItemToInsert}
                     summaryItemToInsertSource={this.props.summaryItemToInsertSource}
-                    contextTrayItemToInsert={this.state.contextTrayItemToInsert}
+                    updateErrors={this.props.updateErrors}
+                    updatedEditorNote={this.state.updatedEditorNote}
                     updateLocalDocumentText={this.updateLocalDocumentText}
                     // Pass in note that the editor is to be updated with
-                    updatedEditorNote={this.state.updatedEditorNote}
-                    updateErrors={this.props.updateErrors}
                     updateSelectedNote={this.updateSelectedNote}
                     updateNoteAssistantMode={this.updateNoteAssistantMode}
-                    arrayOfPickLists={this.state.arrayOfPickLists}
-                    handleUpdateArrayOfPickLists={this.handleUpdateArrayOfPickLists}
                     updateContextTrayItemToInsert={this.updateContextTrayItemToInsert}
-                    shouldRevertTemplate={this.state.shouldRevertTemplate}
-                    setUndoTemplateInsertion={this.setUndoTemplateInsertion}
-                    shouldUpdateShortcutType={this.state.shouldUpdateShortcutType}
-                    shortcutKey={this.state.shortcutKey}
-                    shortcutType={this.state.shortcutType}
-                    changeShortcutType={this.changeShortcutType}
-                    openSourceNoteEntryId={this.props.openSourceNoteEntryId}
-                    setOpenSourceNoteEntryId={this.props.setOpenSourceNoteEntryId}
-                    searchIndex={this.props.searchIndex}
-                    openNoteSearchSuggestions={this.props.openNoteSearchSuggestions}
                 />
             </div>
         );

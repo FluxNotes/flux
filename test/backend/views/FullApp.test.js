@@ -706,32 +706,44 @@ describe('6 FluxNotesEditor', function() {
         }
 
         const wrapper = mount(<FluxNotesEditor
-            closeNote={() => {}}
-            updatedEditorNote={{ content: '' }}
-            shortcutManager={shortcutManager}
+            arrayOfPickLists={[]}
+            changeShortcutType={() => {}} 
+            closeNote={() => {}} 
             contextManager={contextManager}
-            structuredFieldMapManager={structuredFieldMapManager}
-            newCurrentShortcut={mockNewCurrentShortcut}
-            updatedEditorNote={null}
-            searchIndex={searchIndex}
+            contextTrayItemToInsert={() => {}} 
+            currentViewMode={''}
+            errors={[]}
             handleUpdateEditorWithNote={jest.fn()}
-            isNoteViewerVisible={true}
+            handleUpdateArrayOfPickLists={jest.fn()}
             isNoteViewerEditable={true}
-            setFullAppState={jest.fn()}
-            setFullAppStateWithCallback={jest.fn()}
+            isNoteViewerVisible={true}
+            itemInserted={jest.fn()}
+            newCurrentShortcut={mockNewCurrentShortcut}
+            noteAssistantMode={''}
+            openNoteSearchSuggestions={jest.fn()}
+            openSourceNoteEntryId={''}
+            patient={patient}
+            saveNote={jest.fn()}
+            searchIndex={searchIndex}
+            selectedNote={{}}
+            selectedPickListOptions={jest.fn()}
+            setForceRefresh={jest.fn()}
             setLayout={jest.fn()}
-            shouldEditorContentUpdate={true}
             setNoteViewerEditable={jest.fn()}
             setNoteViewerVisible={jest.fn()}
             setOpenSourceNoteEntryId={jest.fn()}
-            currentViewMode={''}
-            errors={[]}
-            itemInserted={jest.fn()}
-            noteAssistantMode={''}
-            patient={{}}
-            saveNote={jest.fn()}
+            setUndoTemplateInsertion={jest.fn()}
+            shortcutKey={{}}
+            shortcutManager={shortcutManager}
+            shortcutType={{}}
+            shouldEditorContentUpdate={true}
+            shouldRevertTemplate={jest.fn()}
+            shouldUpdateShortcutType={jest.fn()}
+            structuredFieldMapManager={structuredFieldMapManager}
             summaryItemToInsert={''}
+            summaryItemToInsertSource={''}
             updateErrors={jest.fn()}
+            updatedEditorNote={{ content: '' }}
             updateLocalDocumentText={jest.fn()}
             updateSelectedNote={jest.fn()}
             updateNoteAssistantMode={jest.fn()}
