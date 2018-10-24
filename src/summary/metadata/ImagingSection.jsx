@@ -9,7 +9,7 @@ export default class ImagingSection extends MetadataSection {
             data: [
                 {
                     name: "",
-                    headings: ["Procedure", "When"],
+                    headings: ["Imaging Procedure", "When"],
                     itemsFunction: this.getItemListForImaging,
                 }
             ],
