@@ -19,7 +19,7 @@ export default class SarcomaMetadata extends MetadataSection {
     getMetadata(preferencesManager, condition, roleType, role, specialty) {
         return { // sarcoma
             sections: this.buildMetadataSections(preferencesManager, condition, roleType, role, specialty, 
-                VisitReasonPreEncounterSection, 
+                VisitReasonPreEncounterSection,
                 VisitReasonPostEncounterSection,
                 SarcomaSummarySection,
                 ProceduresSection,
@@ -72,7 +72,7 @@ export default class SarcomaMetadata extends MetadataSection {
                                         if (list.length === 0) return null;
                                         const size = list.pop(); // last is most recent
                                         return  {   value: size.quantity.value + " " + size.quantity.unit, 
-                                                    isUnsigned: patient.isUnsigned(size), 
+                                                    isUnsigned: patient.isUnsigned(size),
                                                     source: this.determineSource(patient, size)
                                                 };
                                     }
@@ -83,8 +83,8 @@ export default class SarcomaMetadata extends MetadataSection {
                                         const list = currentConditionEntry.getObservationsOfTypeChronologicalOrder(FluxTumorMargins);
                                         if (list.length === 0) return null;
                                         const margins = list.pop(); // last is most recent
-                                        return  {   value: margins.value, 
-                                                    isUnsigned: patient.isUnsigned(margins), 
+                                        return  {   value: margins.value,
+                                                    isUnsigned: patient.isUnsigned(margins),
                                                     source: this.determineSource(patient, margins)
                                                 };
                                     }
@@ -93,12 +93,12 @@ export default class SarcomaMetadata extends MetadataSection {
                                     name: "Histological Grade",
                                     value: (patient, currentConditionEntry) => {
                                         let histologicalGrade = currentConditionEntry.getMostRecentHistologicalGrade();
-                                        return  {   value: histologicalGrade.grade, 
-                                                    isUnsigned: patient.isUnsigned(histologicalGrade), 
+                                        return  {   value: histologicalGrade.grade,
+                                                    isUnsigned: patient.isUnsigned(histologicalGrade),
                                                     source: this.determineSource(patient, histologicalGrade)
                                                 };
                                     }
-                                },               
+                                },
                             ]
                         }
                     ]
@@ -129,8 +129,8 @@ export default class SarcomaMetadata extends MetadataSection {
                                                         }).map((item) => {
                                                             const v = item.value === 'Positive' ? '+' : '-';
                                                             return item.abbreviatedName + v;
-                                                        }).join(","), 
-                                                    isUnsigned: patient.isUnsigned(panel), 
+                                                        }).join(","),
+                                                    isUnsigned: patient.isUnsigned(panel),
                                                     source: this.determineSource(patient, panel)
                                                 };
                                     }
@@ -142,7 +142,7 @@ export default class SarcomaMetadata extends MetadataSection {
                 AllergiesSection,
                 TimelineSection,
                 TreatmentOptionsSection
-            )                
+            )
         };
     }
 }
