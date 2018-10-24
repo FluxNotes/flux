@@ -50,6 +50,14 @@ class FluxImagingProcedurePerformed {
         return this._imagingProcedurePerformed.actionContext.reason;
     }
 
+    get annotation() {
+        if (this._imagingProcedurePerformed.annotation && this._imagingProcedurePerformed.annotation.length > 0) {
+            return this._imagingProcedurePerformed.annotation[0].value;
+        } else {
+            return null;
+        }
+    }
+
     toJSON() {
         return this._imagingProcedurePerformed.toJSON();
     }

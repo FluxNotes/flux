@@ -709,7 +709,7 @@ class PatientRecord {
     getRecentImagingChronologicalOrder() {
         let imagingProcedures = this.getEntriesOfType(FluxImagingProcedurePerformed);
         const numberOfMonths = 6;
-        const sinceDate = new moment().subtract(numberOfMonths, 'months').format('D MMM YYYY');
+        const sinceDate = new moment(moment().subtract(numberOfMonths, 'months'), 'D MMM YYYY');
 
         // Filter imagingProcedures if they are older than sinceDate
         imagingProcedures = imagingProcedures.filter(p => {
@@ -733,9 +733,9 @@ class PatientRecord {
             let text = p.name;
 
             if (p.occurrenceTime.timePeriodStart) {
-                text += ` from ${p.occurrenceTime.timePeriodStart} to ${p.occurrenceTime.timePeriodEnd}`;
+                text += ` from ${p.occurrenceTime.timePeriodStart} to ${p.occurrenceTime.timePeriodEnd} ${p.annotation}`;
             } else {
-                text += ` on ${p.occurrenceTime}`;
+                text += ` on ${p.occurrenceTime} ${p.annotation}`;
             }
 
             return text;
