@@ -5,6 +5,7 @@ import HemoglobinSubsection from './HemoglobinSubsection';
 import MedicationsSection from './MedicationsSection';
 import NeutrophilCountSubsection from './NeutrophilCountSubsection';
 import ProceduresSection from './ProceduresSection';
+import ImagingSection from "./ImagingSection";
 import SarcomaSummarySection from './SarcomaSummarySection';
 import TimelineSection from './TimelineSection';
 import VisitReasonPostEncounterSection from './VisitReasonPostEncounterSection';
@@ -24,6 +25,7 @@ export default class SarcomaNursePractitionerMetadata extends MetadataSection {
                 VisitReasonPostEncounterSection,
                 SarcomaSummarySection,
                 ProceduresSection,
+                ImagingSection,
                 ActiveConditionsSection,
                 DiseaseStatusSection,
                 AllergiesSection,
