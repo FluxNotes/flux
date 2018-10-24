@@ -4460,108 +4460,6 @@
     },
     {
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
-        "EntryId": "74",
-        "Subject": {
-            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
-            "_EntryId": "1",
-            "_EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
-            }
-        },
-        "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"
-        },
-        "LastUpdated": {
-            "Value": "07 Mar 2018",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
-            }
-        },
-        "Annotation": [
-            {
-                "Value": "revealed four indeterminate pulmonary nodules, 4 to 5 mm in diameter, in the right lung and postsurgical changes in the right breast and axilla and two hypodensities in the left lobe of the liver that were consistent with benign cysts",
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"
-                }
-            }
-        ],
-        "CreationTime": {
-            "Value": "17 Feb 2018",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
-            }
-        },
-        "Type": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/entity/Type"
-            },
-            "Value": {
-                "Coding": [
-                    {
-                        "Value": "433761009",
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                        },
-                        "CodeSystem": {
-                            "Value": "http://snomed.info/sct",
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                            }
-                        },
-                        "DisplayText": {
-                            "Value": "CT of thorax, abdomen and pelvis with contrast",
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                            }
-                        }
-                    }
-                ],
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                }
-            }
-        },
-        "PersonOfRecord": {
-            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
-            "_EntryId": "1",
-            "_EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
-            }
-        },
-        "ActionContext": {
-            "Status": {
-                "Value": "completed",
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/action/Status"
-                }
-            },
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"
-            },
-            "Reason": [
-                {
-                    "Value": {
-                        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
-                        "_EntryId": "8",
-                        "_EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition"
-                        }
-                    },
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/Reason"
-                    }
-                }
-            ],
-            "ExpectedPerformanceTime": {
-                "Value": "07 Mar 2018",
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime"
-                }
-            }
-        }
-    },
-    {
-        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
         "EntryId": "75",
         "Subject": {
             "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -5202,108 +5100,6 @@
                 ],
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                }
-            }
-        }
-    },
-    {
-        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
-        "EntryId": "81",
-        "Subject": {
-            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
-            "_EntryId": "1",
-            "_EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
-            }
-        },
-        "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"
-        },
-        "LastUpdated": {
-            "Value": "09 Aug 2018",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
-            }
-        },
-        "Annotation": [
-            {
-                "Value": "revealed pulmonary nodules, 4 to 5 mm in diameter, in the right lung and postsurgical changes in the right breast and axilla",
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"
-                }
-            }
-        ],
-        "CreationTime": {
-            "Value": "30 Jul 2018",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
-            }
-        },
-        "Type": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/entity/Type"
-            },
-            "Value": {
-                "Coding": [
-                    {
-                        "Value": "75385009",
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                        },
-                        "CodeSystem": {
-                            "Value": "http://snomed.info/sct",
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                            }
-                        },
-                        "DisplayText": {
-                            "Value": "CT of thorax with contrast",
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                            }
-                        }
-                    }
-                ],
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                }
-            }
-        },
-        "PersonOfRecord": {
-            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
-            "_EntryId": "1",
-            "_EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
-            }
-        },
-        "ActionContext": {
-            "Status": {
-                "Value": "completed",
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/action/Status"
-                }
-            },
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"
-            },
-            "Reason": [
-                {
-                    "Value": {
-                        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
-                        "_EntryId": "8",
-                        "_EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition"
-                        }
-                    },
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/Reason"
-                    }
-                }
-            ],
-            "ExpectedPerformanceTime": {
-                "Value": "09 Aug 2018",
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime"
                 }
             }
         }
@@ -10157,6 +9953,210 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
             },
             "Value": "31 Jul 2018"
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+        "EntryId": "6004",
+        "Subject": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/procedure/ImagingProcedurePerformed"
+        },
+        "LastUpdated": {
+            "Value": "24 Oct 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "Annotation": [
+            {
+                "Value": "revealed four indeterminate pulmonary nodules, 4 to 5 mm in diameter, in the right lung and postsurgical changes in the right breast and axilla and two hypodensities in the left lobe of the liver that were consistent with benign cysts",
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"
+                }
+            }
+        ],
+        "CreationTime": {
+            "Value": "24 Oct 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "Type": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Type"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Value": "433761009",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "http://snomed.info/sct",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "CT of thorax, abdomen and pelvis with contrast",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        },
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "ActionContext": {
+            "Status": {
+                "Value": "completed",
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/action/Status"
+                }
+            },
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/action/PerformedContext"
+            },
+            "Reason": [
+                {
+                    "Value": {
+                        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+                        "_EntryId": "8",
+                        "_EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition"
+                        }
+                    },
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Reason"
+                    }
+                }
+            ],
+            "OccurrenceTimeOrPeriod": {
+                "Value": "07 Mar 2018",
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/OccurrenceTimeOrPeriod"
+                }
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+        "EntryId": "6005",
+        "Subject": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/procedure/ImagingProcedurePerformed"
+        },
+        "LastUpdated": {
+            "Value": "24 Oct 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "Annotation": [
+            {
+                "Value": "revealed pulmonary nodules, 4 to 5 mm in diameter, in the right lung and postsurgical changes in the right breast and axilla",
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"
+                }
+            }
+        ],
+        "CreationTime": {
+            "Value": "24 Oct 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "Type": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Type"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Value": "75385009",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "http://snomed.info/sct",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "CT of thorax with contrast",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        },
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "ActionContext": {
+            "Status": {
+                "Value": "completed",
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/action/Status"
+                }
+            },
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/action/PerformedContext"
+            },
+            "Reason": [
+                {
+                    "Value": {
+                        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+                        "_EntryId": "8",
+                        "_EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition"
+                        }
+                    },
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Reason"
+                    }
+                }
+            ],
+            "OccurrenceTimeOrPeriod": {
+                "Value": "09 Aug 2018",
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/OccurrenceTimeOrPeriod"
+                }
+            }
         }
     }
 ]
