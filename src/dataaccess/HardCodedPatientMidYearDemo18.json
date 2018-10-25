@@ -2471,23 +2471,29 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/MedicationOrCode"
             },
             "Value": {
-                "Coding": [
-                    {
-                        "Value": "316077",
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                        },
-                        "DisplayText": {
-                            "Value": "ibuprofen 600mg tablet",
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Medication"
+                },
+                "Type": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    },
+                    "Coding": [
+                        {
                             "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "316077",
+                            "DisplayText": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                },
+                                "Value": "ibuprofen 600mg tablet"
                             }
                         }
-                    }
-                ],
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                }
+                    ]
+                },
+                "OverTheCounter": true
             }
         }
     },
@@ -2671,23 +2677,29 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/MedicationOrCode"
             },
             "Value": {
-                "Coding": [
-                    {
-                        "Value": "310891",
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                        },
-                        "DisplayText": {
-                            "Value": "hydrocortisone 2.5% ointment",
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Medication"
+                },
+                "Type": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    },
+                    "Coding": [
+                        {
                             "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "310891",
+                            "DisplayText": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                },
+                                "Value": "hydrocortisone 2.5% ointment"
                             }
                         }
-                    }
-                ],
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                }
+                    ]
+                },
+                "OverTheCounter": true
             }
         }
     },
