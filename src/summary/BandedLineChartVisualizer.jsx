@@ -99,6 +99,7 @@ class BandedLineChartVisualizer extends Component {
                     </div>;
         }
         const yUnit = processedData[0].unit;
+        const series = processedData[0].series || [subsection.name];
         // Min/Max for rendering 
         const [, yMax] = this.getMinMax(processedData, yVar)
 
@@ -175,7 +176,9 @@ class BandedLineChartVisualizer extends Component {
                             labelFormatter={this.xVarFormatFunction}
                             formatter={this.createYVarFormatFunctionWithUnit(yUnit)}
                         />
-                        <Line type="monotone" dataKey={yVar} stroke="#295677" yAxisId={0} dot={this.renderDot}/>
+                        {series.map(s => {
+                            return <Line type="monotone" key={s} dataKey={s} stroke="#295677" yAxisId={0} dot={this.renderDot}/>
+                        })}
                         {renderedBands}
                     </LineChart>
                 </ResponsiveContainer>
