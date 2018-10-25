@@ -170,7 +170,7 @@ class BandedLineChartVisualizer extends Component {
                         />
                         <YAxis
                             dataKey={yVar}
-                            domain={[0, 'dataMax']}
+                            domain={[processedData[0].series ? 0 : 'dataMin', 'dataMax']}
                         />
                         <Tooltip
                             labelFormatter={this.xVarFormatFunction}

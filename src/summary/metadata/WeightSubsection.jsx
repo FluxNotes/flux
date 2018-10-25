@@ -10,7 +10,7 @@ export default class WeightSubsection extends VitalsSubsection {
             // Source: https://www.healthline.com/health/mens-health/average-weight-for-men
             bands: [
                 {
-                    low: 0,
+                    low: 120,
                     high: 135,
                     assessment: 'bad'
                 },

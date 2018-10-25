@@ -14,6 +14,7 @@ export default class BloodPressureSubsection extends VitalsSubsection {
                 processedVital["Diastolic"] = diastolic;
                 processedVital[subsection.name] = parseInt(systolic, 10); // Scale y-axis based on systolic value (numerator)
                 processedVital.series = ["Systolic", "Diastolic"]; // Create two lines for each part of the blood pressure fraction
+                processedVital.displayValue = v.value;
 
                 return processedVital
             });

@@ -10,13 +10,13 @@ export default class HeartRateSubsection extends VitalsSubsection {
             // Source: https://www.medicalnewstoday.com/articles/235710.php
             bands: [
                 {
-                    low: 0,
-                    high: 40,
+                    low: 40,
+                    high: 50,
                     assessment: 'bad'
                 },
 
                 {
-                    low: 40,
+                    low: 50,
                     high: 100,
                     assessment: 'good'
                 },

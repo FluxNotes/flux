@@ -10,7 +10,7 @@ export default class TemperatureSubsection extends VitalsSubsection {
             // Source: https://medlineplus.gov/ency/article/001982.htm#start
             bands: [
                 {
-                    low: 0,
+                    low: 85,
                     high: 97,
                     assessment: 'bad'
                 },

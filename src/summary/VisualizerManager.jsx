@@ -55,7 +55,7 @@ class VisualizerManager {
         newsection.headings = ["Date", "Value"];
         newsection.data_cache = itemList.map((labResult) => {
             return  [   {   value: labResult["start_time"] },
-                        {   value: labResult[subsection.name] + " " + labResult["unit"] }
+                        {   value: `${(labResult.displayValue || labResult[subsection.name])} ${labResult["unit"]}` }
                     ];
         })
         newsection.formatFunction = this.formatLabResult.bind(this, goodband);
