@@ -19,6 +19,7 @@ import FluxBloodPressure from '../model/vital/FluxBloodPressure';
 import FluxBodyTemperature from '../model/vital/FluxBodyTemperature';
 import FluxBodyWeight from '../model/vital/FluxBodyWeight';
 import FluxHeartRate from '../model/vital/FluxHeartRate';
+import FluxImagingProcedurePerformed from '../model/procedure/FluxImagingProcedurePerformed';
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx'; // put jsx because yarn test-ui errors on this import otherwise
 import CreationTime from '../model/shr/core/CreationTime';
 import LastUpdated from '../model/shr/base/LastUpdated';
@@ -589,7 +590,7 @@ class PatientRecord {
         // Start date to trail the text
         let startDatePath = "expectedPerformanceTime.timePeriodStart";
         startDatePath = startDatePath.split('.');
-        
+
         const lastMedicationIndex = activeMeds.length - 1;
         const lastAttributeIndex = attributeList.length - 1;
         let strResult = "";
@@ -601,15 +602,15 @@ class PatientRecord {
                 if (attrIndex < lastAttributeIndex) strResult += " ";
             });
             // Add startTime to the end of the string
-            strResult += " started on "
-            strResult += this._getValueUsingPath(item, startDatePath)
+            strResult += " started on ";
+            strResult += this._getValueUsingPath(item, startDatePath);
             // If there are more medications, separate with newline/carriage returns
             if (itemIndex < lastMedicationIndex) {
                 strResult += "\r\n";
             }
         });
-        
-        return strResult
+
+        return strResult;
     }
 
     getActiveAndRecentlyStoppedMedications() {
@@ -697,12 +698,48 @@ class PatientRecord {
         return medicationsChanges;
     }
 
-    createActiveMedication(selectedValue) {       
+    createActiveMedication(selectedValue) {
         let medication = FluxObjectFactory.createInstance({}, "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested", this);
         medication.medication = selectedValue;
         medication.startDate = new Date();
      
         return medication;
+    }
+
+    getRecentImagingChronologicalOrder() {
+        let imagingProcedures = this.getEntriesOfType(FluxImagingProcedurePerformed);
+        const numberOfMonths = 6;
+        const sinceDate = new moment(moment().subtract(numberOfMonths, 'months'), 'D MMM YYYY');
+
+        // Filter imagingProcedures if they are older than sinceDate
+        imagingProcedures = imagingProcedures.filter(p => {
+            if (p.occurrenceTime.timePeriodStart) {
+                return new moment(p.occurrenceTime.timePeriodStart, 'D MMM YYYY') > sinceDate;
+            }
+
+            return new moment(p.occurrenceTime, 'D MMM YYYY') > sinceDate;
+        });
+        imagingProcedures.sort(this._proceduresTimeSorter);
+
+        return imagingProcedures;
+    }
+
+    getRecentImagingAsText() {
+        const imagingProcedures = this.getRecentImagingChronologicalOrder();
+
+        if (imagingProcedures.length === 0) return 'No recent imaging procedures.';
+
+        return imagingProcedures.map(p => {
+            let text = p.name;
+
+            if (p.occurrenceTime.timePeriodStart) {
+                text += ` from ${p.occurrenceTime.timePeriodStart} to ${p.occurrenceTime.timePeriodEnd} ${p.annotation}`;
+            } else {
+                text += ` on ${p.occurrenceTime} ${p.annotation}`;
+            }
+
+            return text;
+        }).join('\r\n');
     }
 
     getProcedures() {
@@ -728,6 +765,17 @@ class PatientRecord {
         let procedures = this.getProceduresForCondition(condition);
         procedures.sort(this._proceduresTimeSorter);
         return procedures;
+    }
+
+    getImagingProceduresForConditionChronologicalOrder(condition) {
+        const imagingProcedures = this.getEntriesOfType(FluxImagingProcedurePerformed);
+        const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
+
+        imagingProcedures.sort(this._proceduresTimeSorter);
+
+        return imagingProcedures.filter(p => {
+            return p.reasons && p.reasons.some(r => r.value.entryId && r.value.entryId === conditionEntryId);
+        });
     }
 
     getBreastCancerGeneticAnalysisPanelsChronologicalOrder() {

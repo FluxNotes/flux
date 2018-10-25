@@ -18,6 +18,7 @@ export default class RecentLabResultsSubsection extends MetadataSection {
 
         // labResultsInOrder contains all lab results within a specified number of months from today
         const labResultsInOrder = currentConditionEntry.getLabResultsChronologicalOrder(moment().subtract(numberOfMonths, 'months'));
+
         return labResultsInOrder.map((l, i) => {
             const value = `${l.quantity.number} ${l.quantity.unit} (${l.clinicallyRelevantTime})`;
             const name = `${l.name}`;

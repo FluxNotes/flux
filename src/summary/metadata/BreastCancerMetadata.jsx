@@ -9,6 +9,7 @@ import MedicationsSection from './MedicationsSection';
 import MostRecentVisitSubsection from './MostRecentVisitsSubsection';
 import NeutrophilCountSubsection from './NeutrophilCountSubsection';
 import ProceduresSection from './ProceduresSection';
+import ImagingSection from "./ImagingSection";
 import RecentLabResultsSubsection from './RecentLabResultsSubsection';
 import TimelineSection from './TimelineSection';
 import TreatmentOptionsSection from './TreatmentOptionsSection';
@@ -267,6 +268,7 @@ export default class BreastCancerMetadata extends MetadataSection {
                     ]
                 },
                 ProceduresSection,
+                ImagingSection,
                 ActiveConditionsSection,
                 DiseaseStatusSection,
                 {

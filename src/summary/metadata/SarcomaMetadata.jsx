@@ -14,6 +14,7 @@ import VisitReasonPreEncounterSection from './VisitReasonPreEncounterSection';
 import WhiteBloodCellCountSubsection from './WhiteBloodCellCountSubsection';
 import FluxTumorDimensions from '../../model/oncology/FluxTumorDimensions';
 import FluxTumorMargins from '../../model/oncology/FluxTumorMargins';
+import ImagingSection from "./ImagingSection";
 
 export default class SarcomaMetadata extends MetadataSection {
     getMetadata(preferencesManager, condition, roleType, role, specialty) {
@@ -23,6 +24,7 @@ export default class SarcomaMetadata extends MetadataSection {
                 VisitReasonPostEncounterSection,
                 SarcomaSummarySection,
                 ProceduresSection,
+                ImagingSection,
                 ActiveConditionsSection,
                 DiseaseStatusSection,
                 {

@@ -550,5 +550,20 @@
     "isContext": false,
     "stringTriggers": [{"name": "@vitals", "description": "Insert patient's vital signs for today"}],
     "knownParentContexts": "Patient"
+  },
+  { "type": "InsertValue",
+    "id": "RecentLabsInserter",
+    "getData": {"object": "$parentValueObject", "method": "getMostRecentLabResultsAsText"},
+    "isContext": false,
+    "stringTriggers": [{"name": "@recent labs", "description": "Insert patient's recent lab results"}],
+    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/shr/oncology/BreastCancer", "http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor", "http://standardhealthrecord.org/spec/shr/condition/Injury"],
+    "knownParentContexts": "ConditionInserter"
+  },
+  { "type": "InsertValue",
+    "id": "RecentImagingInserter",
+    "getData": {"object": "patient", "method": "getRecentImagingAsText"},
+    "isContext": false,
+    "stringTriggers": [{"name":"@recent imaging", "description": "Insert a summary of the recent imaging procedures"}],
+    "knownParentContexts": "Patient"
   }
 ]
