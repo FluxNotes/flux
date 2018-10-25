@@ -33,12 +33,15 @@ export default class TargetedDataSection extends Component {
         this.getNameSuffix(this.props.section)
     } 
 
-     componentWillMount() {
-        this.setState({
-            sectionName : this.props.section.name
-        }) 
+    componentWillMount() {
+        const {section} = this.props;
+        let sectionName = section.name;
+        if (section.nameSuffix) {
+            sectionName += section.nameSuffix;
+        }
+        this.setState({ sectionName });
     } 
- 
+
     componentWillReceiveProps = (nextProps) => {
         this.getNameSuffix(nextProps.section);
     } 
@@ -133,34 +136,21 @@ export default class TargetedDataSection extends Component {
 
     getNameSuffix =  (section) => {
         let newSectionName = section.name;
-    
-       
+
         if(section.nameSuffixFunction) {
-           
             const result = section.nameSuffixFunction(section);
         
             if (Lang.isObject(result) && !Lang.isUndefined(result.then)){
-            
                 result.then( suffix => {
-              
-                     newSectionName+=suffix
-                     this.setState({
+                    newSectionName+=suffix
+                    this.setState({
                         sectionName:  newSectionName
-                    })  
-                 
-                })
+                    });
+                });
+            } else {
+                this.setState({ sectionName: newSectionName + result });
             }
         }
-
-        if (section.nameSuffix) {
-         
-            newSectionName += section.nameSuffix;   
-        } 
-
-        this.setState({
-            sectionName:  newSectionName
-        }) 
-
     } 
 
     renderVisualizationOptions = (options) => {
