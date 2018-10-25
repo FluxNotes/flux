@@ -292,6 +292,12 @@ export default class SarcomaSummarySection extends MetadataSection {
                             value: (patient, currentConditionEntry) => {
                                 return this.getKeyToxicityAndUnsignedFromCodes(patient, currentConditionEntry, ["10028323", "10028411"]);
                             }
+                        },
+                        {
+                            name: "Abdominal Pain",
+                            value: (patient, currentConditionEntry) => {
+                                return this.getKeyToxicityAndUnsignedFromCodes(patient, currentConditionEntry, ["10000081"]);
+                            }
                         }
                     ]
                 },

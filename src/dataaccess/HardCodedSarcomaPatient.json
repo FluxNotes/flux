@@ -5692,7 +5692,7 @@
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
         "signed": true,
         "subject": "Primary Care Check-up",
-        "content": "REASON FOR VISIT:\nCheck-up for @Condition[[Gastrointestinal stromal tumor]]\n\nHISTORY OF PRESENT ILLNESS:\n@name[[Ihanos Tnfinity6]] is a @age[[57]] year old white @gender[[Male]] presenting with abdominal pain. He has been feeling sharp pains in his stomach. CT scan showed large upper abdominal mass that seemed to be rising from gastric wall. 6cm along greatest curvature.\n\nASSESSMENT:\nHe is experiencing #toxicity[[{\"entryId\":\"5010\"}]] #Grade 3 #Stomach pain.\n\nPHYSICAL EXAM:\nVitals normal. Slight firmess in upper abdomen. No sensitivty to pressure.\n\nPLAN:\nOrder EGD with EUS.",
+        "content": "REASON FOR VISIT:\nCheck-up for @Condition[[Gastrointestinal stromal tumor]]\n\nHISTORY OF PRESENT ILLNESS:\n@name[[Ihanos Tnfinity6]] is a @age[[57]] year old white @gender[[Male]] presenting with abdominal pain. He has been feeling sharp pains in his stomach. CT scan showed large upper abdominal mass that seemed to be rising from gastric wall. 6cm along greatest curvature.\n\nASSESSMENT:\nHe is experiencing #toxicity[[{\"entryId\":\"5010\"}]] #Grade 3 #Abdominal pain.\n\nPHYSICAL EXAM:\nVitals normal. Slight firmess in upper abdomen. No sensitivty to pressure.\n\nPLAN:\nOrder EGD with EUS.",
         "EntryId": "5000",
         "hospital": "Smith952 Practice",
         "createdBy": "Dr. Smith952", 
@@ -5729,6 +5729,13 @@
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/adverse/ToxicReaction"
         },
+        "FocalSubjectReference": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "8",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor"
+            }
+        },
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
         "EntryId": "5010",
         "PersonOfRecord": {
@@ -5759,7 +5766,7 @@
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
-                    "Value": "10042112",
+                    "Value": "10000081",
                     "CodeSystem": {
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
@@ -5770,7 +5777,7 @@
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                         },
-                        "Value": "Stomach pain"
+                        "Value": "Abdominal pain"
                     }
                 }
             ]
