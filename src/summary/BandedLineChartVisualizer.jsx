@@ -188,8 +188,10 @@ class BandedLineChartVisualizer extends Component {
 
     renderDot = (props) => {
         const highlightedData = this.props.tdpSearchSuggestions.find(s => {
-            const dotValue = `${props.payload.start_time}: ${props.payload[props.dataKey]} ${props.payload.unit}`;
-            return s.valueTitle === props.dataKey && s.contentSnapshot === dotValue;
+            const dotContent = props.payload.displayValue || `${props.payload[props.dataKey]} ${props.payload.unit}`
+            const dotValue = `${props.payload.start_time}: ${dotContent}`;
+            const dataKey = props.payload.displayValue ? s.subsection : props.dataKey;
+            return s.valueTitle === dataKey && s.contentSnapshot === dotValue;
         });
         if (highlightedData) {
             props.stroke = 'rgb(255, 255, 70)';
