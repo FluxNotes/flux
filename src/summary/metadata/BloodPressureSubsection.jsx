@@ -5,16 +5,16 @@ export default class BloodPressureSubsection extends VitalsSubsection {
     getVitalsForSubsection = (patient, currentConditionEntry, subsection) => {
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
         return patient.entries
-            .filter(e => e.codeableConceptCode === "55284-4")
+            .filter(e => e.codeableConceptCode === "55284-4") // Find only blood pressure entires
             .map(v => {
                 let processedVital = {};
                 const [systolic, diastolic] = v.value.split('/');
                 processedVital["start_time"] = v.clinicallyRelevantTime;
                 processedVital.unit = 'mmHg';
-                processedVital.systolic = systolic;
-                processedVital.diastolic = diastolic;
-                processedVital[subsection.name] = parseInt(systolic, 10);
-                processedVital.series = ["systolic", "diastolic"];
+                processedVital["Systolic"] = systolic;
+                processedVital["Diastolic"] = diastolic;
+                processedVital[subsection.name] = parseInt(systolic, 10); // Scale y-axis based on systolic value (numerator)
+                processedVital.series = ["Systolic", "Diastolic"]; // Create two lines for each part of the blood pressure fraction
 
                 return processedVital
             });
@@ -26,8 +26,6 @@ export default class BloodPressureSubsection extends VitalsSubsection {
             code: "55284-4",
             itemsFunction: this.getVitalsForSubsection,
 
-            // Source: https://www.emedicinehealth.com/hemoglobin_levels/page2_em.htm
-            // Source: https://www.quora.com/What-is-the-percentage-of-haemoglobin-in-blood
             bands: []
         };
     }

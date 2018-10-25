@@ -7,8 +7,7 @@ export default class TemperatureSubsection extends VitalsSubsection {
             code: "8310-5",
             itemsFunction: this.getVitalsForSubsection,
 
-            // Source: https://www.emedicinehealth.com/hemoglobin_levels/page2_em.htm
-            // Source: https://www.quora.com/What-is-the-percentage-of-haemoglobin-in-blood
+            // Source: https://medlineplus.gov/ency/article/001982.htm#start
             bands: [
                 {
                     low: 0,

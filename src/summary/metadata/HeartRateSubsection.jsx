@@ -7,8 +7,7 @@ export default class HeartRateSubsection extends VitalsSubsection {
             code: "8867-4",
             itemsFunction: this.getVitalsForSubsection,
 
-            // Source: https://www.emedicinehealth.com/hemoglobin_levels/page2_em.htm
-            // Source: https://www.quora.com/What-is-the-percentage-of-haemoglobin-in-blood
+            // Source: https://www.medicalnewstoday.com/articles/235710.php
             bands: [
                 {
                     low: 0,
