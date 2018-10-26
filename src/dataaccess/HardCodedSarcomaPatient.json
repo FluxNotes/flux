@@ -11238,13 +11238,13 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             },
-            "Value": "05 DEC 2016"
+            "Value": "15 FEB 2016"
         },
         "LastUpdated": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             },
-            "Value": "05 DEC 2016"
+            "Value": "15 FEB 2016"
         },
         "ObservationComponent": [
             {
@@ -11396,7 +11396,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
             },
-            "Value": "05 DEC 2016"
+            "Value": "15 FEB 2016"
         }
     },
     {
@@ -11416,13 +11416,13 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             },
-            "Value": "05 DEC 2016"
+            "Value": "15 FEB 2016"
         },
         "LastUpdated": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             },
-            "Value": "05 DEC 2016"
+            "Value": "15 FEB 2016"
         },
         "Value": {
             "EntryType": {
@@ -11495,7 +11495,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
             },
-            "Value": "05 DEC 2016"
+            "Value": "15 FEB 2016"
         }
     },
     {
@@ -11515,13 +11515,13 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             },
-            "Value": "05 DEC 2016"
+            "Value": "15 FEB 2016"
         },
         "LastUpdated": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             },
-            "Value": "05 DEC 2016"
+            "Value": "15 FEB 2016"
         },
         "Value": {
             "EntryType": {
@@ -11594,7 +11594,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
             },
-            "Value": "05 DEC 2016"
+            "Value": "15 FEB 2016"
         }
     },
     {
@@ -11614,13 +11614,13 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             },
-            "Value": "05 DEC 2016"
+            "Value": "15 FEB 2016"
         },
         "LastUpdated": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             },
-            "Value": "05 DEC 2016"
+            "Value": "15 FEB 2016"
         },
         "Value": {
             "EntryType": {
@@ -11693,7 +11693,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
             },
-            "Value": "05 DEC 2016"
+            "Value": "15 FEB 2016"
         }
     },
     {
@@ -11713,13 +11713,13 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             },
-            "Value": "19 JAN 2017"
+            "Value": "3 MAR 2016"
         },
         "LastUpdated": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             },
-            "Value": "19 JAN 2017"
+            "Value": "3 MAR 2016"
         },
         "ObservationComponent": [
             {
@@ -11871,7 +11871,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
             },
-            "Value": "19 JAN 2017"
+            "Value": "3 MAR 2016"
         }
     },
     {
@@ -11891,13 +11891,13 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             },
-            "Value": "19 JAN 2017"
+            "Value": "3 MAR 2016"
         },
         "LastUpdated": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             },
-            "Value": "19 JAN 2017"
+            "Value": "3 MAR 2016"
         },
         "Value": {
             "EntryType": {
@@ -11970,7 +11970,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
             },
-            "Value": "19 JAN 2017"
+            "Value": "3 MAR 2016"
         }
     },
     {
@@ -11990,13 +11990,13 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             },
-            "Value": "19 JAN 2017"
+            "Value": "3 MAR 2016"
         },
         "LastUpdated": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             },
-            "Value": "19 JAN 2017"
+            "Value": "3 MAR 2016"
         },
         "Value": {
             "EntryType": {
@@ -12069,7 +12069,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
             },
-            "Value": "19 JAN 2017"
+            "Value": "3 MAR 2016"
         }
     },
     {
@@ -12089,13 +12089,13 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             },
-            "Value": "19 JAN 2017"
+            "Value": "3 MAR 2016"
         },
         "LastUpdated": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             },
-            "Value": "19 JAN 2017"
+            "Value": "3 MAR 2016"
         },
         "Value": {
             "EntryType": {
@@ -12168,7 +12168,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
             },
-            "Value": "19 JAN 2017"
+            "Value": "3 MAR 2016"
         }
     },
     {
@@ -12188,13 +12188,13 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             },
-            "Value": "16 JUN 2017"
+            "Value": "19 MAR 2016"
         },
         "LastUpdated": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             },
-            "Value": "16 JUN 2017"
+            "Value": "19 MAR 2016"
         },
         "ObservationComponent": [
             {
@@ -12346,7 +12346,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
             },
-            "Value": "16 JUN 2017"
+            "Value": "19 MAR 2016"
         }
     },
     {
@@ -12366,13 +12366,13 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             },
-            "Value": "16 JUN 2017"
+            "Value": "19 MAR 2016"
         },
         "LastUpdated": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             },
-            "Value": "16 JUN 2017"
+            "Value": "19 MAR 2016"
         },
         "Value": {
             "EntryType": {
@@ -12445,7 +12445,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
             },
-            "Value": "16 JUN 2017"
+            "Value": "19 MAR 2016"
         }
     },
     {
@@ -12465,13 +12465,13 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             },
-            "Value": "16 JUN 2017"
+            "Value": "19 MAR 2016"
         },
         "LastUpdated": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             },
-            "Value": "16 JUN 2017"
+            "Value": "19 MAR 2016"
         },
         "Value": {
             "EntryType": {
@@ -12544,7 +12544,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
             },
-            "Value": "16 JUN 2017"
+            "Value": "19 MAR 2016"
         }
     },
     {
@@ -12564,13 +12564,13 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             },
-            "Value": "16 JUN 2017"
+            "Value": "19 MAR 2016"
         },
         "LastUpdated": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             },
-            "Value": "16 JUN 2017"
+            "Value": "19 MAR 2016"
         },
         "Value": {
             "EntryType": {
@@ -12643,7 +12643,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
             },
-            "Value": "16 JUN 2017"
+            "Value": "19 MAR 2016"
         }
     },
     {
@@ -12663,13 +12663,13 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             },
-            "Value": "16 MAR 2018"
+            "Value": "7 APR 2016"
         },
         "LastUpdated": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             },
-            "Value": "16 MAR 2018"
+            "Value": "7 APR 2016"
         },
         "ObservationComponent": [
             {
@@ -12680,7 +12680,7 @@
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
                     },
-                    "Value": 130,
+                    "Value": 120,
                     "Units": {
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
@@ -12821,7 +12821,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
             },
-            "Value": "16 MAR 2018"
+            "Value": "7 APR 2016"
         }
     },
     {
@@ -12830,6 +12830,481 @@
         },
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
         "EntryId": "6018",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "16 JUN 2017"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "16 JUN 2017"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Value": 98.3,
+            "Units": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "F"
+                }
+            }
+        },
+        "FindingStatus": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "final",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://hl7.org/fhir/observation-status"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Final"
+                    }
+                }
+            ]
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "8310-5",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "https://fhir.loinc.org"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Body temperature"
+                    }
+                }
+            ]
+        },
+        "ClinicallyRelevantTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            },
+            "Value": "7 APR 2016"
+        }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/BodyWeight"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6019",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "7 APR 2016"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "7 APR 2016"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Value": 168,
+            "Units": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "lbs"
+                }
+            }
+        },
+        "FindingStatus": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "final",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://hl7.org/fhir/observation-status"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Final"
+                    }
+                }
+            ]
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "29463-7",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "https://fhir.loinc.org"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Body weight"
+                    }
+                }
+            ]
+        },
+        "ClinicallyRelevantTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            },
+            "Value": "7 APR 2016"
+        }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/HeartRate"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6020",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "7 APR 2016"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "7 APR 2016"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Value": 80,
+            "Units": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "/min"
+                }
+            }
+        },
+        "FindingStatus": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "final",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://hl7.org/fhir/observation-status"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Final"
+                    }
+                }
+            ]
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "8867-4",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "https://fhir.loinc.org"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Heart rate"
+                    }
+                }
+            ]
+        },
+        "ClinicallyRelevantTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            },
+            "Value": "7 APR 2016"
+        }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/BloodPressure"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6021",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "16 MAY 2016"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "16 MAY 2016"
+        },
+        "ObservationComponent": [
+            {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+                    },
+                    "Value": 135,
+                    "Units": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                        },
+                        "Value": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "mmHg"
+                        }
+                    }
+                },
+                "ObservationCode": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    },
+                    "Coding": [
+                        {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "8480-6",
+                            "CodeSystem": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                },
+                                "Value": "https://fhir.loinc.org"
+                            },
+                            "DisplayText": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                },
+                                "Value": "Systolic blood pressure"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+                    },
+                    "Value": 82,
+                    "Units": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                        },
+                        "Value": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "mmHg"
+                        }
+                    }
+                },
+                "ObservationCode": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    },
+                    "Coding": [
+                        {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "8462-4",
+                            "CodeSystem": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                },
+                                "Value": "https://fhir.loinc.org"
+                            },
+                            "DisplayText": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                },
+                                "Value": "Diastolic blood pressure"
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "FindingStatus": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "final",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://hl7.org/fhir/observation-status"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Final"
+                    }
+                }
+            ]
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "55284-4",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "https://fhir.loinc.org"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Blood pressure"
+                    }
+                }
+            ]
+        },
+        "ClinicallyRelevantTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            },
+            "Value": "16 MAY 2016"
+        }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/BodyTemperature"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6022",
         "PersonOfRecord": {
             "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
             "_EntryId": "1",
@@ -12920,7 +13395,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
             },
-            "Value": "16 MAR 2018"
+            "Value": "16 MAY 2016"
         }
     },
     {
@@ -12928,7 +13403,7 @@
             "Value": "http://standardhealthrecord.org/spec/shr/vital/BodyWeight"
         },
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-        "EntryId": "6019",
+        "EntryId": "6023",
         "PersonOfRecord": {
             "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
             "_EntryId": "1",
@@ -12940,19 +13415,19 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             },
-            "Value": "16 MAR 2018"
+            "Value": "16 MAY 2016"
         },
         "LastUpdated": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             },
-            "Value": "16 MAR 2018"
+            "Value": "16 MAY 2016"
         },
         "Value": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
             },
-            "Value": 168,
+            "Value": 170,
             "Units": {
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
@@ -13019,7 +13494,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
             },
-            "Value": "16 MAR 2018"
+            "Value": "16 MAY 2016"
         }
     },
     {
@@ -13027,7 +13502,7 @@
             "Value": "http://standardhealthrecord.org/spec/shr/vital/HeartRate"
         },
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-        "EntryId": "6020",
+        "EntryId": "6024",
         "PersonOfRecord": {
             "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
             "_EntryId": "1",
@@ -13039,13 +13514,13 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             },
-            "Value": "16 MAR 2018"
+            "Value": "16 MAY 2016"
         },
         "LastUpdated": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             },
-            "Value": "16 MAR 2018"
+            "Value": "16 MAY 2016"
         },
         "Value": {
             "EntryType": {
@@ -13118,7 +13593,3332 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
             },
-            "Value": "16 MAR 2018"
+            "Value": "16 MAY 2016"
+        }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/BloodPressure"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6025",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "15 JUN 2016"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "15 JUN 2016"
+        },
+        "ObservationComponent": [
+            {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+                    },
+                    "Value": 140,
+                    "Units": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                        },
+                        "Value": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "mmHg"
+                        }
+                    }
+                },
+                "ObservationCode": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    },
+                    "Coding": [
+                        {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "8480-6",
+                            "CodeSystem": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                },
+                                "Value": "https://fhir.loinc.org"
+                            },
+                            "DisplayText": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                },
+                                "Value": "Systolic blood pressure"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+                    },
+                    "Value": 90,
+                    "Units": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                        },
+                        "Value": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "mmHg"
+                        }
+                    }
+                },
+                "ObservationCode": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    },
+                    "Coding": [
+                        {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "8462-4",
+                            "CodeSystem": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                },
+                                "Value": "https://fhir.loinc.org"
+                            },
+                            "DisplayText": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                },
+                                "Value": "Diastolic blood pressure"
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "FindingStatus": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "final",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://hl7.org/fhir/observation-status"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Final"
+                    }
+                }
+            ]
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "55284-4",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "https://fhir.loinc.org"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Blood pressure"
+                    }
+                }
+            ]
+        },
+        "ClinicallyRelevantTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            },
+            "Value": "15 JUN 2016"
+        }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/BodyTemperature"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6026",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "16 JUN 2017"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "16 JUN 2017"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Value": 98.0,
+            "Units": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "F"
+                }
+            }
+        },
+        "FindingStatus": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "final",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://hl7.org/fhir/observation-status"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Final"
+                    }
+                }
+            ]
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "8310-5",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "https://fhir.loinc.org"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Body temperature"
+                    }
+                }
+            ]
+        },
+        "ClinicallyRelevantTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            },
+            "Value": "15 JUN 2016"
+        }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/BodyWeight"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6027",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "15 JUN 2016"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "15 JUN 2016"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Value": 167,
+            "Units": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "lbs"
+                }
+            }
+        },
+        "FindingStatus": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "final",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://hl7.org/fhir/observation-status"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Final"
+                    }
+                }
+            ]
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "29463-7",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "https://fhir.loinc.org"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Body weight"
+                    }
+                }
+            ]
+        },
+        "ClinicallyRelevantTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            },
+            "Value": "15 JUN 2016"
+        }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/HeartRate"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6028",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "15 JUN 2016"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "15 JUN 2016"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Value": 82,
+            "Units": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "/min"
+                }
+            }
+        },
+        "FindingStatus": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "final",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://hl7.org/fhir/observation-status"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Final"
+                    }
+                }
+            ]
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "8867-4",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "https://fhir.loinc.org"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Heart rate"
+                    }
+                }
+            ]
+        },
+        "ClinicallyRelevantTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            },
+            "Value": "15 JUN 2016"
+        }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/BloodPressure"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6029",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "19 JUL 2016"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "19 JUL 2016"
+        },
+        "ObservationComponent": [
+            {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+                    },
+                    "Value": 122,
+                    "Units": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                        },
+                        "Value": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "mmHg"
+                        }
+                    }
+                },
+                "ObservationCode": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    },
+                    "Coding": [
+                        {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "8480-6",
+                            "CodeSystem": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                },
+                                "Value": "https://fhir.loinc.org"
+                            },
+                            "DisplayText": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                },
+                                "Value": "Systolic blood pressure"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+                    },
+                    "Value": 78,
+                    "Units": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                        },
+                        "Value": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "mmHg"
+                        }
+                    }
+                },
+                "ObservationCode": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    },
+                    "Coding": [
+                        {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "8462-4",
+                            "CodeSystem": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                },
+                                "Value": "https://fhir.loinc.org"
+                            },
+                            "DisplayText": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                },
+                                "Value": "Diastolic blood pressure"
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "FindingStatus": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "final",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://hl7.org/fhir/observation-status"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Final"
+                    }
+                }
+            ]
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "55284-4",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "https://fhir.loinc.org"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Blood pressure"
+                    }
+                }
+            ]
+        },
+        "ClinicallyRelevantTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            },
+            "Value": "19 JUL 2016"
+        }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/BodyTemperature"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6030",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "16 JUN 2017"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "16 JUN 2017"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Value": 98.7,
+            "Units": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "F"
+                }
+            }
+        },
+        "FindingStatus": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "final",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://hl7.org/fhir/observation-status"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Final"
+                    }
+                }
+            ]
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "8310-5",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "https://fhir.loinc.org"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Body temperature"
+                    }
+                }
+            ]
+        },
+        "ClinicallyRelevantTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            },
+            "Value": "19 JUL 2016"
+        }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/BodyWeight"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6031",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "19 JUL 2016"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "19 JUL 2016"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Value": 168,
+            "Units": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "lbs"
+                }
+            }
+        },
+        "FindingStatus": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "final",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://hl7.org/fhir/observation-status"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Final"
+                    }
+                }
+            ]
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "29463-7",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "https://fhir.loinc.org"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Body weight"
+                    }
+                }
+            ]
+        },
+        "ClinicallyRelevantTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            },
+            "Value": "19 JUL 2016"
+        }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/HeartRate"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6032",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "19 JUL 2016"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "19 JUL 2016"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Value": 79,
+            "Units": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "/min"
+                }
+            }
+        },
+        "FindingStatus": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "final",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://hl7.org/fhir/observation-status"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Final"
+                    }
+                }
+            ]
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "8867-4",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "https://fhir.loinc.org"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Heart rate"
+                    }
+                }
+            ]
+        },
+        "ClinicallyRelevantTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            },
+            "Value": "19 JUL 2016"
+        }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/BloodPressure"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6033",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "22 OCT 2016"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "22 OCT 2016"
+        },
+        "ObservationComponent": [
+            {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+                    },
+                    "Value": 130,
+                    "Units": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                        },
+                        "Value": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "mmHg"
+                        }
+                    }
+                },
+                "ObservationCode": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    },
+                    "Coding": [
+                        {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "8480-6",
+                            "CodeSystem": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                },
+                                "Value": "https://fhir.loinc.org"
+                            },
+                            "DisplayText": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                },
+                                "Value": "Systolic blood pressure"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+                    },
+                    "Value": 87,
+                    "Units": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                        },
+                        "Value": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "mmHg"
+                        }
+                    }
+                },
+                "ObservationCode": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    },
+                    "Coding": [
+                        {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "8462-4",
+                            "CodeSystem": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                },
+                                "Value": "https://fhir.loinc.org"
+                            },
+                            "DisplayText": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                },
+                                "Value": "Diastolic blood pressure"
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "FindingStatus": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "final",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://hl7.org/fhir/observation-status"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Final"
+                    }
+                }
+            ]
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "55284-4",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "https://fhir.loinc.org"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Blood pressure"
+                    }
+                }
+            ]
+        },
+        "ClinicallyRelevantTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            },
+            "Value": "22 OCT 2016"
+        }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/BodyTemperature"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6034",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "22 OCT 2016"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "22 OCT 2016"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Value": 99.0,
+            "Units": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "F"
+                }
+            }
+        },
+        "FindingStatus": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "final",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://hl7.org/fhir/observation-status"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Final"
+                    }
+                }
+            ]
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "8310-5",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "https://fhir.loinc.org"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Body temperature"
+                    }
+                }
+            ]
+        },
+        "ClinicallyRelevantTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            },
+            "Value": "22 OCT 2016"
+        }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/BodyWeight"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6035",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "22 OCT 2016"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "22 OCT 2016"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Value": 171,
+            "Units": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "lbs"
+                }
+            }
+        },
+        "FindingStatus": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "final",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://hl7.org/fhir/observation-status"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Final"
+                    }
+                }
+            ]
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "29463-7",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "https://fhir.loinc.org"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Body weight"
+                    }
+                }
+            ]
+        },
+        "ClinicallyRelevantTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            },
+            "Value": "22 OCT 2016"
+        }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/HeartRate"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6036",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "22 OCT 2016"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "22 OCT 2016"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Value": 88,
+            "Units": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "/min"
+                }
+            }
+        },
+        "FindingStatus": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "final",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://hl7.org/fhir/observation-status"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Final"
+                    }
+                }
+            ]
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "8867-4",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "https://fhir.loinc.org"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Heart rate"
+                    }
+                }
+            ]
+        },
+        "ClinicallyRelevantTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            },
+            "Value": "22 OCT 2016"
+        }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/BloodPressure"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6037",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "22 JAN 2017"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "22 JAN 2017"
+        },
+        "ObservationComponent": [
+            {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+                    },
+                    "Value": 120,
+                    "Units": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                        },
+                        "Value": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "mmHg"
+                        }
+                    }
+                },
+                "ObservationCode": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    },
+                    "Coding": [
+                        {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "8480-6",
+                            "CodeSystem": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                },
+                                "Value": "https://fhir.loinc.org"
+                            },
+                            "DisplayText": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                },
+                                "Value": "Systolic blood pressure"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+                    },
+                    "Value": 82,
+                    "Units": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                        },
+                        "Value": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "mmHg"
+                        }
+                    }
+                },
+                "ObservationCode": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    },
+                    "Coding": [
+                        {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "8462-4",
+                            "CodeSystem": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                },
+                                "Value": "https://fhir.loinc.org"
+                            },
+                            "DisplayText": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                },
+                                "Value": "Diastolic blood pressure"
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "FindingStatus": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "final",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://hl7.org/fhir/observation-status"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Final"
+                    }
+                }
+            ]
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "55284-4",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "https://fhir.loinc.org"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Blood pressure"
+                    }
+                }
+            ]
+        },
+        "ClinicallyRelevantTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            },
+            "Value": "22 JAN 2017"
+        }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/BodyTemperature"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6038",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "22 JAN 2017"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "22 JAN 2017"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Value": 98.6,
+            "Units": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "F"
+                }
+            }
+        },
+        "FindingStatus": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "final",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://hl7.org/fhir/observation-status"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Final"
+                    }
+                }
+            ]
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "8310-5",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "https://fhir.loinc.org"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Body temperature"
+                    }
+                }
+            ]
+        },
+        "ClinicallyRelevantTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            },
+            "Value": "22 JAN 2017"
+        }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/BodyWeight"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6039",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "22 JAN 2017"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "22 JAN 2017"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Value": 174,
+            "Units": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "lbs"
+                }
+            }
+        },
+        "FindingStatus": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "final",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://hl7.org/fhir/observation-status"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Final"
+                    }
+                }
+            ]
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "29463-7",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "https://fhir.loinc.org"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Body weight"
+                    }
+                }
+            ]
+        },
+        "ClinicallyRelevantTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            },
+            "Value": "22 JAN 2017"
+        }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/HeartRate"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6040",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "22 JAN 2017"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "22 JAN 2017"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Value": 81,
+            "Units": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "/min"
+                }
+            }
+        },
+        "FindingStatus": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "final",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://hl7.org/fhir/observation-status"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Final"
+                    }
+                }
+            ]
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "8867-4",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "https://fhir.loinc.org"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Heart rate"
+                    }
+                }
+            ]
+        },
+        "ClinicallyRelevantTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            },
+            "Value": "22 JAN 2017"
+        }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/BloodPressure"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6041",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "14 JUL 2017"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "14 JUL 2017"
+        },
+        "ObservationComponent": [
+            {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+                    },
+                    "Value": 130,
+                    "Units": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                        },
+                        "Value": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "mmHg"
+                        }
+                    }
+                },
+                "ObservationCode": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    },
+                    "Coding": [
+                        {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "8480-6",
+                            "CodeSystem": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                },
+                                "Value": "https://fhir.loinc.org"
+                            },
+                            "DisplayText": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                },
+                                "Value": "Systolic blood pressure"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+                    },
+                    "Value": 82,
+                    "Units": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                        },
+                        "Value": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "mmHg"
+                        }
+                    }
+                },
+                "ObservationCode": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    },
+                    "Coding": [
+                        {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "8462-4",
+                            "CodeSystem": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                },
+                                "Value": "https://fhir.loinc.org"
+                            },
+                            "DisplayText": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                },
+                                "Value": "Diastolic blood pressure"
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "FindingStatus": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "final",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://hl7.org/fhir/observation-status"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Final"
+                    }
+                }
+            ]
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "55284-4",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "https://fhir.loinc.org"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Blood pressure"
+                    }
+                }
+            ]
+        },
+        "ClinicallyRelevantTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            },
+            "Value": "14 JUL 2017"
+        }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/BodyTemperature"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6042",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "14 JUL 2017"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "14 JUL 2017"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Value": 98.0,
+            "Units": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "F"
+                }
+            }
+        },
+        "FindingStatus": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "final",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://hl7.org/fhir/observation-status"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Final"
+                    }
+                }
+            ]
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "8310-5",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "https://fhir.loinc.org"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Body temperature"
+                    }
+                }
+            ]
+        },
+        "ClinicallyRelevantTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            },
+            "Value": "14 JUL 2017"
+        }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/BodyWeight"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6043",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "14 JUL 2017"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "14 JUL 2017"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Value": 173,
+            "Units": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "lbs"
+                }
+            }
+        },
+        "FindingStatus": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "final",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://hl7.org/fhir/observation-status"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Final"
+                    }
+                }
+            ]
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "29463-7",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "https://fhir.loinc.org"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Body weight"
+                    }
+                }
+            ]
+        },
+        "ClinicallyRelevantTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            },
+            "Value": "14 JUL 2017"
+        }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/HeartRate"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6044",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "14 JUL 2017"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "14 JUL 2017"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Value": 85,
+            "Units": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "/min"
+                }
+            }
+        },
+        "FindingStatus": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "final",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://hl7.org/fhir/observation-status"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Final"
+                    }
+                }
+            ]
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "8867-4",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "https://fhir.loinc.org"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Heart rate"
+                    }
+                }
+            ]
+        },
+        "ClinicallyRelevantTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            },
+            "Value": "14 JUL 2017"
+        }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/BloodPressure"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6045",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "22 JAN 2018"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "22 JAN 2018"
+        },
+        "ObservationComponent": [
+            {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+                    },
+                    "Value": 140,
+                    "Units": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                        },
+                        "Value": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "mmHg"
+                        }
+                    }
+                },
+                "ObservationCode": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    },
+                    "Coding": [
+                        {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "8480-6",
+                            "CodeSystem": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                },
+                                "Value": "https://fhir.loinc.org"
+                            },
+                            "DisplayText": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                },
+                                "Value": "Systolic blood pressure"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+                    },
+                    "Value": 90,
+                    "Units": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                        },
+                        "Value": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "mmHg"
+                        }
+                    }
+                },
+                "ObservationCode": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    },
+                    "Coding": [
+                        {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "8462-4",
+                            "CodeSystem": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                },
+                                "Value": "https://fhir.loinc.org"
+                            },
+                            "DisplayText": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                },
+                                "Value": "Diastolic blood pressure"
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "FindingStatus": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "final",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://hl7.org/fhir/observation-status"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Final"
+                    }
+                }
+            ]
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "55284-4",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "https://fhir.loinc.org"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Blood pressure"
+                    }
+                }
+            ]
+        },
+        "ClinicallyRelevantTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            },
+            "Value": "22 JAN 2018"
+        }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/BodyTemperature"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6046",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "22 JAN 2018"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "22 JAN 2018"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Value": 98.0,
+            "Units": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "F"
+                }
+            }
+        },
+        "FindingStatus": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "final",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://hl7.org/fhir/observation-status"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Final"
+                    }
+                }
+            ]
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "8310-5",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "https://fhir.loinc.org"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Body temperature"
+                    }
+                }
+            ]
+        },
+        "ClinicallyRelevantTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            },
+            "Value": "22 JAN 2018"
+        }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/BodyWeight"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6047",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "22 JAN 2018"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "22 JAN 2018"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Value": 170,
+            "Units": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "lbs"
+                }
+            }
+        },
+        "FindingStatus": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "final",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://hl7.org/fhir/observation-status"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Final"
+                    }
+                }
+            ]
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "29463-7",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "https://fhir.loinc.org"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Body weight"
+                    }
+                }
+            ]
+        },
+        "ClinicallyRelevantTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            },
+            "Value": "22 JAN 2018"
+        }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/HeartRate"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6048",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "22 JAN 2018"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "22 JAN 2018"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Value": 78,
+            "Units": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "/min"
+                }
+            }
+        },
+        "FindingStatus": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "final",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://hl7.org/fhir/observation-status"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Final"
+                    }
+                }
+            ]
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "8867-4",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "https://fhir.loinc.org"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Heart rate"
+                    }
+                }
+            ]
+        },
+        "ClinicallyRelevantTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            },
+            "Value": "22 JAN 2018"
+        }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/BloodPressure"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6049",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "17 JUL 2018"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "17 JUL 2018"
+        },
+        "ObservationComponent": [
+            {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+                    },
+                    "Value": 117,
+                    "Units": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                        },
+                        "Value": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "mmHg"
+                        }
+                    }
+                },
+                "ObservationCode": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    },
+                    "Coding": [
+                        {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "8480-6",
+                            "CodeSystem": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                },
+                                "Value": "https://fhir.loinc.org"
+                            },
+                            "DisplayText": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                },
+                                "Value": "Systolic blood pressure"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+                    },
+                    "Value": 80,
+                    "Units": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                        },
+                        "Value": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "mmHg"
+                        }
+                    }
+                },
+                "ObservationCode": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    },
+                    "Coding": [
+                        {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "8462-4",
+                            "CodeSystem": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                },
+                                "Value": "https://fhir.loinc.org"
+                            },
+                            "DisplayText": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                },
+                                "Value": "Diastolic blood pressure"
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "FindingStatus": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "final",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://hl7.org/fhir/observation-status"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Final"
+                    }
+                }
+            ]
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "55284-4",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "https://fhir.loinc.org"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Blood pressure"
+                    }
+                }
+            ]
+        },
+        "ClinicallyRelevantTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            },
+            "Value": "17 JUL 2018"
+        }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/BodyTemperature"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6050",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "17 JUL 2018"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "17 JUL 2018"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Value": 98.0,
+            "Units": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "F"
+                }
+            }
+        },
+        "FindingStatus": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "final",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://hl7.org/fhir/observation-status"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Final"
+                    }
+                }
+            ]
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "8310-5",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "https://fhir.loinc.org"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Body temperature"
+                    }
+                }
+            ]
+        },
+        "ClinicallyRelevantTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            },
+            "Value": "17 JUL 2018"
+        }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/BodyWeight"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6051",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "17 JUL 2018"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "17 JUL 2018"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Value": 170,
+            "Units": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "lbs"
+                }
+            }
+        },
+        "FindingStatus": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "final",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://hl7.org/fhir/observation-status"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Final"
+                    }
+                }
+            ]
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "29463-7",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "https://fhir.loinc.org"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Body weight"
+                    }
+                }
+            ]
+        },
+        "ClinicallyRelevantTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            },
+            "Value": "17 JUL 2018"
+        }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/HeartRate"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6052",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "17 JUL 2018"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "17 JUL 2018"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Value": 83,
+            "Units": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "/min"
+                }
+            }
+        },
+        "FindingStatus": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "final",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://hl7.org/fhir/observation-status"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Final"
+                    }
+                }
+            ]
+        },
+        "ObservationCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "8867-4",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "https://fhir.loinc.org"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Heart rate"
+                    }
+                }
+            ]
+        },
+        "ClinicallyRelevantTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            },
+            "Value": "17 JUL 2018"
         }
     }
 ]
