@@ -513,6 +513,23 @@
     "structuredPhrase": "#",
     "knownParentContexts": "Patient"
   },
+  { "type": "CreatorBase",
+    "id": "MedicationChangeReduceCreator",
+    "name": "reduce medication",
+    "getData": null,
+    "valueObject": "http://standardhealthrecord.org/spec/shr/medication/MedicationChange",
+    "valueObjectAttributes": [
+      {"name":"medication", "attribute":"medicationBeforeChange", "isSettable":"true", "setMethod": "medicationBeforeChange", "childShortcut": "ActiveMedicationInserter"},
+      {"name":"to", "attribute":"medicationAfterChange.doseAmount.value", "isSettable":"true", "setMethod":"afterDosageAmount", "childShortcut": "MedicationDosageAmount"}
+    ],
+    "updatePatient": [  {"object":"$valueObject", "attribute": "type", "args": [ "reduced"]},
+                        {"object":"patient", "method": "addEntryToPatientWithPatientFocalSubject", "args": [ "$valueObject", "$clinicalNote" ]}],
+    "isContext": true,
+    "stringTriggers": [{ "name": "#reduce medication", "description": "Support specifying medication change to reduce the dosage of a medication."}],
+    "regexpTrigger": null,
+    "structuredPhrase": "#",
+    "knownParentContexts": "Patient"
+  },
   { "type": "InsertValue",
     "id": "ActiveMedicationInserter",
     "parentAttribute": "medication",
@@ -522,6 +539,24 @@
     "stringTriggers": [{"name":"@active medication", "description": "Select an active medication to insert"}],
     "shortcutGroupName": "Active Medication"
   },
+  { "type": "CreatorChild",
+    "id": "MedicationDosageAmount",
+    "parentAttribute": "status",
+    "stringTriggers": {
+      "category": "receptor",
+      "valueSet": "status",
+      "prefix": "#"
+    },
+    "keywords": {
+      "category": "receptor",
+      "valueSet": "status",
+      "prefix": ""
+    },
+    "description":"?",
+    "shortcutGroupName":"Receptor"
+  }, 
+
+
   { "type": "NLPHashtag",
     "id": "NLPToxicityCreator",
     "name": "nlptoxicity",

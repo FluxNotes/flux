@@ -75,6 +75,11 @@ class FluxMedicationChange {
     get whenChanged() {
         return this._medicationChange.entryInfo.creationTime.value;
     }
+
+    set afterDosage(amount) {
+
+    }
+
     /**
      * Return a JSON representation of medicationChange
      */
