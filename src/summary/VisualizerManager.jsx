@@ -196,6 +196,7 @@ class VisualizerManager {
     visualizers = [
                     { "dataType": "Columns", "visualizerType": "tabular", "visualizer": TabularListVisualizer },
                     { "dataType": "NameValuePairs", "visualizerType": "tabular", "visualizer": TabularListVisualizer, "transform": this.transformNameValuePairToColumns, renderedFormat: "Columns" },
+                    { "dataType": "NameValuePairsOnly", "visualizerType": "tabular", "visualizer": TabularListVisualizer, "transform": this.transformNameValuePairToColumns, renderedFormat: "Columns" },
                     { "dataType": "NameValuePairs", "visualizerType": "narrative", "visualizer": NarrativeNameValuePairsVisualizer },
                     { "dataType": "Events", "visualizerType": "timeline", "visualizer": TimelineEventsVisualizer },
                     { "dataType": "Medications", "visualizerType": "tabular", "visualizer": TabularListVisualizer, "transform": this.transformMedicationsToColumns, renderedFormat: "Columns" },

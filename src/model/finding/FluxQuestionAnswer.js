@@ -43,6 +43,24 @@ class FluxQuestionAnswer {
         return this._questionAnswer.value;
     }
 
+    /*
+     *  Getter for author
+     *  Return author
+     */
+    get author() {
+        if(this._questionAnswer.author) {
+            return this._questionAnswer.author.value;
+        } 
+        return null;       
+    }
+
+    get clinicallyRelevantTime() {
+        if(this._questionAnswer.clinicallyRelevantTime) {
+            return this._questionAnswer.clinicallyRelevantTime.value;
+        } 
+        return null;      
+    }
+
     toJSON() {
         return this._questionAnswer.toJSON();
     }
