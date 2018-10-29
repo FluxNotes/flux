@@ -20,6 +20,7 @@ import FluxBodyTemperature from '../model/vital/FluxBodyTemperature';
 import FluxBodyWeight from '../model/vital/FluxBodyWeight';
 import FluxHeartRate from '../model/vital/FluxHeartRate';
 import FluxImagingProcedurePerformed from '../model/procedure/FluxImagingProcedurePerformed';
+import FluxPathologyReport from '../model/finding/FluxPathologyReport';
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx'; // put jsx because yarn test-ui errors on this import otherwise
 import CreationTime from '../model/shr/core/CreationTime';
 import LastUpdated from '../model/shr/base/LastUpdated';
@@ -179,7 +180,7 @@ class PatientRecord {
     }
 
     static isEntryBasedOnType(entry, type) {
-        return (entry.entryType.indexOf(type) >= 0);
+        return (entry.entryType.Value.indexOf(type) >= 0);
     }
 
     createEntryReferenceTo(entry) {
@@ -801,6 +802,20 @@ class PatientRecord {
         return panels;
     }
 
+    getPathologyReportsChronologicalOrder() {
+        let reports = this.getPathologyReports();
+        //reports.sort(this._clinicallyRelevantTimeTimeSorter);
+    
+        return reports;
+
+    } 
+
+    getPathologyReports() {
+        var result = this.getEntriesOfType(FluxPathologyReport);
+        
+        return result
+    }
+
     getProgressions() {
         return this.getEntriesOfType(FluxDiseaseProgression);
     }
@@ -1024,10 +1039,12 @@ class PatientRecord {
 
     getEntriesOfType(type) {
         return this.entries.filter((item) => {
-            return item instanceof type
+            return item.constructor.name === type.name;
         });
     }
+
     getEntriesOfEntryType(entryType) {
+        console.log(entryType)
         return this.entries.filter((entry) => {
             return entry.entryInfo.entryType && entry.entryInfo.entryType.value === entryType;
         });

@@ -4423,13 +4423,13 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             },
-            "Value": "15 FEB 2018"
+            "Value": "12 APR 2016"
         },
         "LastUpdated": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             },
-            "Value": "15 FEB 2018"
+            "Value": "12 APR 2016"
         },
         "Value": {
             "EntryType": {
@@ -4485,7 +4485,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
             },
-            "Value": "15 FEB 2018"
+            "Value": "12 APR 2016"
         }
     },
     {
@@ -4604,13 +4604,13 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             },
-            "Value": "7 APR 2016"
+            "Value": "12 APR 2016"
         },
         "LastUpdated": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             },
-            "Value": "7 APR 2016"
+            "Value": "12 APR 2016"
         },
         "Value": {
             "EntryType": {
@@ -4683,7 +4683,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
             },
-            "Value": "7 APR 2016"
+            "Value": "12 APR 2016"
         }
     },
 
@@ -5343,13 +5343,13 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             },
-            "Value": "7 Apr 2016"
+            "Value": "12 Apr 2016"
         },
         "LastUpdated": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             },
-            "Value": "7 Apr 2016"
+            "Value": "12 Apr 2016"
         },
         "Value": {
             "EntryType": {
@@ -5430,7 +5430,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
             },
-            "Value": "7 Apr 2016"
+            "Value": "12 Apr 2016"
         }
     },
     {
@@ -16950,6 +16950,87 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
             },
             "Value": "17 JUL 2018"
+        }
+    },
+
+
+
+
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6004",
+        "Author": {
+            "Value": "Dr. Larry229 Hightower131",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/finding/PathologyReport"
+        },
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "12 APR 2016"
+        },
+        "LastUpdated": {
+            "EntryType": {  
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "12 APR 2016"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Attachment"
+            },
+            "ResourceLocation": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/ResourceLocation"
+                },
+                "uri": "/pathology-report.pdf"
+            }
+        },
+        "Members": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/Members"
+            },
+            "Value": [
+                {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                    "_EntryId": "2160",
+                    "_EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/oncology/HistologicGrade"
+                    }
+                },
+                {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                    "_EntryId": "2500",
+                    "_EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/oncology/TumorMargins"
+                    }
+                },
+                {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                    "_EntryId": "2200",
+                    "_EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/oncology/TumorDimensions"
+                    }
+                }
+            ]
+        },
+        "ClinicallyRelevantTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            },
+            "Value": "12 APR 2016"
         }
     }
 ]

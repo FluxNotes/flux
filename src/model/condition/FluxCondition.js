@@ -10,6 +10,7 @@ import Lang from 'lodash';
 import moment from 'moment';
 import Reference from '../Reference';
 
+
 class FluxCondition {
     constructor(json, patientRecord) {
         this._patientRecord = patientRecord;

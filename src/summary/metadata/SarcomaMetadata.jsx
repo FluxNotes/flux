@@ -13,13 +13,14 @@ import TreatmentOptionsSection from './TreatmentOptionsSection';
 import VisitReasonPostEncounterSection from './VisitReasonPostEncounterSection';
 import VisitReasonPreEncounterSection from './VisitReasonPreEncounterSection';
 import WhiteBloodCellCountSubsection from './WhiteBloodCellCountSubsection';
-import FluxTumorDimensions from '../../model/oncology/FluxTumorDimensions';
-import FluxTumorMargins from '../../model/oncology/FluxTumorMargins';
 import ImagingSection from "./ImagingSection";
 import BloodPressureSubsection from './BloodPressureSubsection';
 import TemperatureSubsection from './TemperatureSubsection';
 import WeightSubsection from './WeightSubsection';
 import HeartRateSubsection from './HeartRateSubsection';
+import PatientRecord from '../../patient/PatientRecord';
+
+
 
 export default class SarcomaMetadata extends MetadataSection {
     getMetadata(preferencesManager, condition, roleType, role, specialty) {
@@ -63,6 +64,9 @@ export default class SarcomaMetadata extends MetadataSection {
                     /*eslint no-template-curly-in-string: "off"*/
                     narrative: [
                         {
+                            defaultTemplate: "Date of pathology report is ${.Report Date}. Pathologist is ${.Pathologist}."
+                        },
+                        {
                             defaultTemplate: "Primary tumor color is ${.Color}, weight is ${.Weight}, and size is ${.Size}."
                         },
                         {
@@ -77,6 +81,32 @@ export default class SarcomaMetadata extends MetadataSection {
 
                                 // TODO: When return value for items that are currently null, need to also return patient.isUnsigned(currentConditionEntry)
                                 {
+                                    name: "Report Date",
+                                    value: (patient, currentConditionEntry) => {
+                                        const list = patient.getPathologyReportsChronologicalOrder();
+                                        if (list.length === 0) return null;
+                                        const report = list.pop();
+                                   
+                                        return  {  value: report.clinicallyRelevantTime,
+                                                   isUnsigned: patient.isUnsigned(report), 
+                                                   source: this.determineSource(patient, report)
+                                        }
+                                    }
+                                },
+                                {
+                                    name: "Pathologist",
+                                    value: (patient, currentConditionEntry) => {
+                                        const list = patient.getPathologyReportsChronologicalOrder();
+                                        if (list.length === 0) return null;
+                                        const report = list.pop();
+                                       
+                                        return  {  value: report.author,
+                                                   isUnsigned: patient.isUnsigned(report), 
+                                                   source: this.determineSource(patient, report)
+                                        }
+                                    }
+                                },
+                                {
                                     name: "Color",
                                     value: null
                                 },
@@ -86,35 +116,55 @@ export default class SarcomaMetadata extends MetadataSection {
                                 },
                                 {
                                     name: "Size",
-                                    value: (patient, currentConditionEntry) => {
-                                        const list = currentConditionEntry.getObservationsOfTypeChronologicalOrder(FluxTumorDimensions);
-                                        if (list.length === 0) return null;
-                                        const size = list.pop(); // last is most recent
+                                    value: (patient, currentConditionEntry) => { 
+                                        const lists = patient.getPathologyReportsChronologicalOrder();
+                                        if (lists.length === 0) return null;
+                                        const report = lists.pop();
+                                        const observation =  report.members.filter((m) => {
+                                            return PatientRecord.isEntryBasedOnType(m, "TumorDimensions")
+                                        }).map((ref) => {
+                                            return patient.getEntryFromReference(ref);
+                                        });  
+                                        const size = observation.pop();
                                         return  {   value: size.quantity.value + " " + size.quantity.unit, 
-                                                    isUnsigned: patient.isUnsigned(size),
-                                                    source: this.determineSource(patient, size)
+                                                    isUnsigned: patient.isUnsigned(report), 
+                                                    source: this.determineSource(patient, report)
                                                 };
                                     }
                                 },
                                 {
                                     name: "Tumor Margins",
-                                    value: (patient, currentConditionEntry) => {
-                                        const list = currentConditionEntry.getObservationsOfTypeChronologicalOrder(FluxTumorMargins);
-                                        if (list.length === 0) return null;
-                                        const margins = list.pop(); // last is most recent
-                                        return  {   value: margins.value,
-                                                    isUnsigned: patient.isUnsigned(margins),
-                                                    source: this.determineSource(patient, margins)
+                                    value: (patient, currentConditionEntry) => {                                       
+                                        const lists = patient.getPathologyReportsChronologicalOrder();
+                                        if (lists.length === 0) return null;
+                                        const report = lists.pop();
+                                        const observation =  report.members.filter((m) => {
+                                            return PatientRecord.isEntryBasedOnType(m, "TumorMargins")
+                                        }).map((ref) => {
+                                            return patient.getEntryFromReference(ref);
+                                        }) 
+                                        const margins = observation.pop(); // last is most recent
+                                        return  {   value: margins.value, 
+                                                    isUnsigned: patient.isUnsigned(report), 
+                                                    source: this.determineSource(patient, report)
                                                 };
                                     }
                                 },
                                 {
                                     name: "Histological Grade",
                                     value: (patient, currentConditionEntry) => {
-                                        let histologicalGrade = currentConditionEntry.getMostRecentHistologicalGrade();
-                                        return  {   value: histologicalGrade.grade,
-                                                    isUnsigned: patient.isUnsigned(histologicalGrade),
-                                                    source: this.determineSource(patient, histologicalGrade)
+                                        const lists = patient.getPathologyReportsChronologicalOrder();
+                                        if (lists.length === 0) return null;
+                                        const report = lists.pop();
+                                        const observation =  report.members.filter((m) => {
+                                            return PatientRecord.isEntryBasedOnType(m, "HistologicGrade")
+                                        }).map((ref) => {
+                                            return patient.getEntryFromReference(ref);
+                                        });  
+                                        const histologicalGrade = observation.pop();
+                                        return  {   value: histologicalGrade.grade, 
+                                                    isUnsigned: patient.isUnsigned(report), 
+                                                    source: this.determineSource(patient, report)
                                                 };
                                     }
                                 },
