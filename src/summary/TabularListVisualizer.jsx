@@ -45,8 +45,8 @@ export default class TabularListVisualizer extends Component {
 
     renderedSubsections(subsections) {
         if (subsections.length === 0) return null;
-
-        const isSingleColumn = !this.props.isWide;
+  
+        let isSingleColumn = this.props.conditionSection.isWide !== undefined ? !this.props.conditionSection.isWide : !this.props.isWide;
 
         const numColumns = (subsections[0].data_cache.length === 0) ? 1 : subsections[0].data_cache[0].length;
 
@@ -123,7 +123,7 @@ export default class TabularListVisualizer extends Component {
         let subsectionNameHTML = null;
 
         if (transformedSubsection.nameFunction) {
-            subsectionName = transformedSubsection.nameFunction();
+            subsectionName = transformedSubsection.nameFunction(this.props.patient);
         } else {
             subsectionName = transformedSubsection.name;
         }

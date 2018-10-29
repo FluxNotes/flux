@@ -330,6 +330,19 @@ class PatientRecord {
         return result + ".";
     }
 
+    getReviewOfSystemsMembers() {
+        const ros = this.getReviewOfSystems();
+        if (Lang.isUndefined(ros) || Lang.isNull(ros)) {
+            return "No review of systems found in record.";
+        }
+
+        // get FluxQuestionAnswer instances from references
+        const members = ros.members.map((m) => {
+            return this.getEntryFromReference(m);
+        });
+        return members;
+    }
+
     getEligibleClinicalTrials(currentConditionEntry, currentlyEnrolledTrials) {
         if (!this.refreshClinicalTrials && (_.isEqual(this.enrolledClinicalTrials, this.getEnrolledClinicalTrials()))) {
             return this.eligibleTrials;
@@ -341,8 +354,6 @@ class PatientRecord {
         this.eligibleTrials = clinicalTrialsAndCriteriaList;
         this.refreshClinicalTrials = false;
         return clinicalTrialsAndCriteriaList;
-
-
     }
 
     getEnrolledClinicalTrials(){

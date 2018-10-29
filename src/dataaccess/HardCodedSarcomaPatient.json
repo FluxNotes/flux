@@ -1471,6 +1471,18 @@
             },
             "Value": "3 SEP 2018"
         },
+        "Author" : {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
+            },
+             "Value": "Joyce Byers111"
+         },
+         "ClinicallyRelevantTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            },
+            "Value": "01 DEC 2016"
+        },
         "ObservationCode": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
