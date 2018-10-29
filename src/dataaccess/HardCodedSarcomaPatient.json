@@ -16995,7 +16995,7 @@
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/core/ResourceLocation"
                 },
-                "uri": "http://www.gistsupport.org/about-gist/for-new-gist-pages/understanding-your-pathology-report-for-gist/pathology-reports-for-gist/"
+                "uri": "/pathology-report.pdf"
             }
         },
         "Members": {
