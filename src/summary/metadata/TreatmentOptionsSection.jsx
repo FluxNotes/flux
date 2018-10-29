@@ -1,10 +1,14 @@
 import MetadataSection from "./MetadataSection";
 import FluxNotesTreatmentOptionsRestClient from 'flux_notes_treatment_options_rest_client';
 import Lang from 'lodash'
-import config from '../../../ServerConfig.json';
-
+//import config from '../../../ServerConfig.json';
 const ApiClient = new FluxNotesTreatmentOptionsRestClient.ApiClient();
-ApiClient.basePath = config.baseURL;
+
+
+fetch('/ServerConfig.json').then((r) => r.json()).then((config) => {
+    ApiClient.basePath = config.baseURL;
+})
+
 const api = new FluxNotesTreatmentOptionsRestClient.DefaultApi(ApiClient);
 export default class TreatmentOptionsSection extends MetadataSection {
     getMetadata(preferencesManager, condition, roleType, role, specialty) {
@@ -31,6 +35,7 @@ export default class TreatmentOptionsSection extends MetadataSection {
     }
 
     getTreatmentData = (patient, condition, subsection) => {
+ 
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         // If we have cached data, use that instead of making an API call
         if (subsection.data_cache) return subsection.data_cache;
