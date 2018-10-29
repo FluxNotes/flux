@@ -10,16 +10,21 @@ export default class TargetedDataSection extends Component {
         const optionsForSection = this.getOptions(props.section);
         const defaultVisualizer = this.determineDefaultVisualizer(props.section, props.clinicalEvent, optionsForSection);
 
+        let filters = {};
+        this.props.section.data.forEach(subsection => {
+            filters[`${this.props.section.name}-${subsection.name}`] = Lang.cloneDeep(subsection.filters) || [];
+        });
+
         // this.state.defaultVisualizer is the default visualization, this.state.chosenVisualizer changes when icons are clicked
         this.state = {
             defaultVisualizer: defaultVisualizer,
             chosenVisualizer: null,
-            sectionName: ""
+            sectionName: "",
+            filters
         };
     }
 
     componentDidUpdate() {
-
         const optionsForSection = this.getOptions(this.props.section);
         const defaultVisualizer = this.determineDefaultVisualizer(this.props.section, this.props.clinicalEvent, optionsForSection);
         //const defaultOrTabular = optionsForSection.length > 0 ? optionsForSection[0] : 'tabular';
@@ -43,7 +48,22 @@ export default class TargetedDataSection extends Component {
     } 
 
     componentWillReceiveProps = (nextProps) => {
+        if (this.props.section.name !== nextProps.section.name) {
+            let sectionName = nextProps.section.name;
+            if (nextProps.section.nameSuffix) {
+                sectionName += nextProps.section.nameSuffix;
+            }
+            this.setState({ sectionName });
+        }
         this.getNameSuffix(nextProps.section);
+
+        if (!Lang.isEqual(nextProps.section, this.props.section)) {
+            let filters = {};
+            nextProps.section.data.forEach(subsection => {
+                filters[`${nextProps.section.name}-${subsection.name}`] = Lang.cloneDeep(subsection.filters) || [];
+            });
+            this.setState({ filters });
+        }
     } 
 
     determineDefaultVisualizer = (section, clinicalEvent, optionsForSection) => {
@@ -165,6 +185,37 @@ export default class TargetedDataSection extends Component {
         }
     }
 
+    updateFilterValue = (filter, subsectionName) => {
+        const { section } = this.props;
+        const { filters } = this.state;
+
+        // Update subsection data to reflect changed filter value
+        const currentSubsection = section.data.find(subsection => subsection.name === subsectionName);
+        const currentSubsectionFilter = currentSubsection.filters.find(f => f.name === filter.name);
+        currentSubsectionFilter.value = !filter.value;
+
+        // Update state to also reflect changed filter value
+        const selectedFilter = filters[`${this.props.section.name}-${subsectionName}`].find(f => f.name === filter.name);
+        selectedFilter.value = !filter.value;
+
+        // Set state and re-index data to properly search currently visible data
+        this.setState({ filters });
+        this.indexSectionData(section);
+    }
+
+    renderFilters = () => {
+        return (
+            <span>
+                Filter
+                {this.props.section.data.map((subsection, i) => {
+                    return this.state.filters[`${this.props.section.name}-${subsection.name}`].map((filter, j) => {
+                        return <span onClick={() => this.updateFilterValue(filter, subsection.name)}>{filter.name}</span>;
+                    });
+                })}
+            </span>
+        );
+    }
+
     indexSectionData(section) {
         const { patient, condition, type, loginUser, searchIndex } = this.props;
         const visualization = this.checkVisualization();
@@ -224,7 +275,7 @@ export default class TargetedDataSection extends Component {
                 indexer.indexData(section.name, subsection.name, list, searchIndex, this.props.moveToSubsectionFromSearch, newSubsection);
             }
         });
-        
+
         return viz;
     }
 
@@ -278,6 +329,7 @@ export default class TargetedDataSection extends Component {
                 </h2>
 
                 {encounterView && !notFiltered && <div className="section-header__condition encounter">{selectedCondition}</div>}
+                {this.renderFilters()}
 
                 {this.renderSection(section, viz)}
             </div>

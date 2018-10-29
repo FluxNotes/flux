@@ -54,27 +54,24 @@ class TimelineEventsVisualizer extends Component {
     };
 
     componentWillReceiveProps = (nextProps) => {
-        if (!Lang.isEqual(this.props, nextProps)) {
-            const items = this.createItems(nextProps.patient, nextProps.condition, nextProps.conditionSection, nextProps.tdpSearchSuggestions);
-            const groups = this.createGroupsForItems(this.getMaxGroup(items));
+        const items = this.createItems(nextProps.patient, nextProps.condition, nextProps.conditionSection, nextProps.tdpSearchSuggestions);
+        const groups = this.createGroupsForItems(this.getMaxGroup(items));
+        this.setState({
+            items,
+            groups
+        });
 
-            if (this.props.isWide !== nextProps.isWide) {
-                let visibleTimeStart;
-                if (nextProps.isWide) {
-                    visibleTimeStart = moment().clone().add(-3, 'years').add(3, 'months').valueOf();  // wideview - 3 years ago
-                } else {
-                    visibleTimeStart = moment().clone().add(-1, 'years').add(3, 'months').valueOf();
-                }
-                const visibleTimeEnd = moment().clone().add(3, 'months').valueOf();
-                this.setState({
-                    visibleTimeStart,
-                    visibleTimeEnd
-                });
+        if (this.props.isWide !== nextProps.isWide) {
+            let visibleTimeStart;
+            if (nextProps.isWide) {
+                visibleTimeStart = moment().clone().add(-3, 'years').add(3, 'months').valueOf();  // wideview - 3 years ago
+            } else {
+                visibleTimeStart = moment().clone().add(-1, 'years').add(3, 'months').valueOf();
             }
-
+            const visibleTimeEnd = moment().clone().add(3, 'months').valueOf();
             this.setState({
-                items,
-                groups
+                visibleTimeStart,
+                visibleTimeEnd
             });
         }
     }
