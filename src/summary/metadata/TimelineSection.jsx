@@ -12,6 +12,9 @@ export default class TimelineSection extends MetadataSection {
             data: [
                 {
                     name: "Medications",
+                    filters: [
+                        { name: 'Over The Counter Medications', value: true }
+                    ],
                     itemsFunction: this.getMedicationItems
                 },
                 {
@@ -73,9 +76,30 @@ export default class TimelineSection extends MetadataSection {
         return items;
     }
 
-    getMedicationItems = (patient, condition) => {
+    getMedicationItems = (patient, condition, subsection) => {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
-        const meds = patient.getMedicationsForConditionReverseChronologicalOrder(condition);
+        let meds = patient.getMedicationsForConditionReverseChronologicalOrder(condition);
+
+        if (subsection.filters) {
+            subsection.filters.forEach(filter => {
+                switch (filter.name) {
+                    case 'Over The Counter Medications':
+                    // If Show Over The Counter meds is not selected, need to filter them out.
+                    if (filter.value === false) {
+                            meds = meds.filter(med => {
+                                // Don't filter out medications if we don't know if they are OTC or not.
+                                if (med.overTheCounter === undefined) {
+                                    return true;
+                                }
+                                return !med.overTheCounter;
+                            });
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            });
+        }
         let items = [];
 
         meds.forEach((med) => {
