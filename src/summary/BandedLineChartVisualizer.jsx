@@ -99,6 +99,7 @@ class BandedLineChartVisualizer extends Component {
                     </div>;
         }
         const yUnit = processedData[0].unit;
+        const series = processedData[0].series || [subsection.name];
         // Min/Max for rendering 
         const [, yMax] = this.getMinMax(processedData, yVar)
 
@@ -169,13 +170,15 @@ class BandedLineChartVisualizer extends Component {
                         />
                         <YAxis
                             dataKey={yVar}
-                            domain={[0, 'dataMax']}
+                            domain={[processedData[0].series ? 0 : 'dataMin', 'dataMax']}
                         />
                         <Tooltip
                             labelFormatter={this.xVarFormatFunction}
                             formatter={this.createYVarFormatFunctionWithUnit(yUnit)}
                         />
-                        <Line type="monotone" dataKey={yVar} stroke="#295677" yAxisId={0} dot={this.renderDot}/>
+                        {series.map(s => {
+                            return <Line type="monotone" key={s} dataKey={s} stroke="#295677" yAxisId={0} dot={this.renderDot}/>
+                        })}
                         {renderedBands}
                     </LineChart>
                 </ResponsiveContainer>
@@ -185,8 +188,10 @@ class BandedLineChartVisualizer extends Component {
 
     renderDot = (props) => {
         const highlightedData = this.props.tdpSearchSuggestions.find(s => {
-            const dotValue = `${props.payload.start_time}: ${props.payload[props.dataKey]} ${props.payload.unit}`;
-            return s.valueTitle === props.dataKey && s.contentSnapshot === dotValue;
+            const dotContent = props.payload.displayValue || `${props.payload[props.dataKey]} ${props.payload.unit}`
+            const dotValue = `${props.payload.start_time}: ${dotContent}`;
+            const dataKey = props.payload.displayValue ? s.subsection : props.dataKey;
+            return s.valueTitle === dataKey && s.contentSnapshot === dotValue;
         });
         if (highlightedData) {
             props.stroke = 'rgb(255, 255, 70)';

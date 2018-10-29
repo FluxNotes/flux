@@ -54,8 +54,9 @@ class VisualizerManager {
         newsection.name_suffix = typicalRange;
         newsection.headings = ["Date", "Value"];
         newsection.data_cache = itemList.map((labResult) => {
+            const displayValue = labResult.displayValue ? labResult.displayValue : `${labResult[subsection.name]} ${labResult["unit"]}`
             return  [   {   value: labResult["start_time"] },
-                        {   value: labResult[subsection.name] + " " + labResult["unit"] }
+                        {   value: displayValue }
                     ];
         })
         newsection.formatFunction = this.formatLabResult.bind(this, goodband);

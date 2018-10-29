@@ -15,6 +15,10 @@ import WhiteBloodCellCountSubsection from './WhiteBloodCellCountSubsection';
 import FluxTumorDimensions from '../../model/oncology/FluxTumorDimensions';
 import FluxTumorMargins from '../../model/oncology/FluxTumorMargins';
 import ImagingSection from "./ImagingSection";
+import BloodPressureSubsection from './BloodPressureSubsection';
+import TemperatureSubsection from './TemperatureSubsection';
+import WeightSubsection from './WeightSubsection';
+import HeartRateSubsection from './HeartRateSubsection';
 
 export default class SarcomaMetadata extends MetadataSection {
     getMetadata(preferencesManager, condition, roleType, role, specialty) {
@@ -27,6 +31,18 @@ export default class SarcomaMetadata extends MetadataSection {
                 ImagingSection,
                 ActiveConditionsSection,
                 DiseaseStatusSection,
+                {
+                    name: "Vitals",
+                    shortName: "Vitals",
+                    clinicalEvents: ["pre-encounter"],
+                    type: "ValueOverTime",
+                    data: [
+                        BloodPressureSubsection,
+                        TemperatureSubsection,
+                        WeightSubsection,
+                        HeartRateSubsection
+                    ]
+                },
                 {
                     name: "Labs",
                     shortName: "Labs",

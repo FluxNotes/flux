@@ -1054,6 +1054,12 @@ class PatientRecord {
         return this.entries;
     }
 
+    getVitalByCode(code) {
+        return this.entries
+            .filter(e => e.codeableConceptCode === code) // Find vital of matching code
+            .sort(this._clinicallyRelevantTimeTimeSorter);
+    }
+
     static getMostRecentEntryFromList(list) {
         if (list.length === 0) return null;
         if (list.length === 1) return list[0];

@@ -15,6 +15,10 @@ import DiseaseStatusSection from './DiseaseStatusSection';
 import TreatmentOptionsSection from './TreatmentOptionsSection';
 import FluxTumorDimensions from '../../model/oncology/FluxTumorDimensions';
 import FluxTumorMargins from '../../model/oncology/FluxTumorMargins';
+import BloodPressureSubsection from './BloodPressureSubsection';
+import TemperatureSubsection from './TemperatureSubsection';
+import WeightSubsection from './WeightSubsection';
+import HeartRateSubsection from './HeartRateSubsection';
 
 
 export default class SarcomaNursePractitionerMetadata extends MetadataSection {
@@ -30,6 +34,18 @@ export default class SarcomaNursePractitionerMetadata extends MetadataSection {
                 DiseaseStatusSection,
                 AllergiesSection,
                 MedicationsSection,
+                {
+                    name: "Vitals",
+                    shortName: "Vitals",
+                    clinicalEvents: ["pre-encounter"],
+                    type: "ValueOverTime",
+                    data: [
+                        BloodPressureSubsection,
+                        TemperatureSubsection,
+                        WeightSubsection,
+                        HeartRateSubsection
+                    ]
+                },
                 {
                     name: "Labs",
                     shortName: "Labs",

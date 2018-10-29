@@ -6,13 +6,13 @@ class ValueOverTimeIndexer extends BaseIndexer {
         const sectionId = super.getStringForId(section);
         const subsectionId = super.getStringForId(subsection);
         data.forEach(item => {
-            const value = `${item.start_time}: ${item[subsection]} ${item.unit}`;
+            const value = item.displayValue || `${item[subsection]} ${item.unit}`;
             searchIndex.addSearchableData({
                 id: `${sectionId}_${subsectionId}_${super.getStringForId(value)}`,
                 section,
                 subsection,
                 valueTitle: subsection,
-                value: `${item.start_time}: ${item[subsection]} ${item.unit}`
+                value: `${item.start_time}: ${value}`
             })
         });
     }
