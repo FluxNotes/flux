@@ -4,12 +4,6 @@ import Lang from 'lodash'
 //import config from '../../../ServerConfig.json';
 const ApiClient = new FluxNotesTreatmentOptionsRestClient.ApiClient();
 
-
-fetch('/ServerConfig.json').then((r) => r.json()).then((config) => {
-    ApiClient.basePath = config.baseURL;
-})
-
-const api = new FluxNotesTreatmentOptionsRestClient.DefaultApi(ApiClient);
 export default class TreatmentOptionsSection extends MetadataSection {
     getMetadata(preferencesManager, condition, roleType, role, specialty) {
         return {
@@ -39,24 +33,28 @@ export default class TreatmentOptionsSection extends MetadataSection {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         // If we have cached data, use that instead of making an API call
         if (subsection.data_cache) return subsection.data_cache;
-        // Commenting out the api call with actual patient criteria til we get patient data
-        return api.findTreatmentOptionsByPatientStats(
-            condition.codeURL, 
-            {
-                race: this.toFirstLetterCapital(patient.getPatient().race), 
-                // DxGrade and Gender are commented out for now since they are too selective and leave us with no data to display. 
-                // dxGrade: condition.getMostRecentHistologicalGrade().getGradeAsSimpleNumber(),
-                // gender: patient.getPatient().gender
-            },
-        ).then( res => { 
+        return fetch('/ServerConfig.json').then((r) => r.json()).then((config) => {
+            ApiClient.basePath = config.baseURL;
+            const api = new FluxNotesTreatmentOptionsRestClient.DefaultApi(ApiClient);
+            // Commenting out the api call with actual patient criteria til we get patient data
+            return api.findTreatmentOptionsByPatientStats(
+                condition.codeURL,
+                {
+                    race: this.toFirstLetterCapital(patient.getPatient().race),
+                    // DxGrade and Gender are commented out for now since they are too selective and leave us with no data to display. 
+                    // dxGrade: condition.getMostRecentHistologicalGrade().getGradeAsSimpleNumber(),
+                    // gender: patient.getPatient().gender
+                },
+            );
+        }).then(res => {
             // Parse the mongoData
             const responseText = res.response.text;
             const parsedData = JSON.parse(responseText);
-            if(parsedData.data.alive.length === 0 && parsedData.data.deceased.length === 0){
+            if (parsedData.data.alive.length === 0 && parsedData.data.deceased.length === 0) {
                 return "No relevant data found for patient";
-            } else { 
+            } else {
                 return parsedData;
             }
-        })
+        });
     }
 }
