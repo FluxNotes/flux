@@ -29,8 +29,7 @@ export default class SarcomaMetadata extends MetadataSection {
                 VisitReasonPostEncounterSection,
                 SarcomaSummarySection,
                 ProceduresSection,
-                ImagingSection,
-                ReviewOfSystemsSection,
+                ImagingSection,               
                 ActiveConditionsSection,
                 DiseaseStatusSection,
                 {
@@ -160,6 +159,7 @@ export default class SarcomaMetadata extends MetadataSection {
                     ]
                 },
                 AllergiesSection,
+                ReviewOfSystemsSection,
                 TimelineSection,
                 TreatmentOptionsSection
             )

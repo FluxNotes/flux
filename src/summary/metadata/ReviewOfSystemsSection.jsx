@@ -14,10 +14,36 @@ export default class ReviewOfSystemsSection extends MetadataSection {
                 },
                 {
                     name: "Questions",
-                    itemsFunction: this.getItemListForROS,                   
+                    itemsFunction: this.getSortedListForROS,  
                 }
             ]
         };
+    }
+
+    getSortedListForROS = (patient, currentConditionEntry) => {
+        let resultArray = this.getItemListForROS(patient, currentConditionEntry);
+       
+        // Separate yes and no answers into 2 arrays
+        let yesArray  =[];
+        let noArray =[];
+        
+        for (let i = 0; i < resultArray.length; i++) {
+            if (resultArray[i].value.value === "No") {
+                noArray.push(resultArray[i]);
+            }
+            else {
+                yesArray.push(resultArray[i]);
+            }
+        }
+
+        // Sort yes and no arrays alphabetically
+        let yesArraySorted = this.sortAlphabetically(yesArray);
+        let noArraySorted = this.sortAlphabetically(noArray);
+
+        // Combine yes and no arrays with the yes answers displayed first
+        let sortedResultArray = yesArraySorted.concat(noArraySorted);
+       
+        return sortedResultArray;
     }
 
     getItemListForROS = (patient, currentConditionEntry) => {
@@ -34,10 +60,10 @@ export default class ReviewOfSystemsSection extends MetadataSection {
                 {   name: upperCaseName,
                     value: {value: `${newValue}`},
                     shortcut: null               
-                };
-    
-        return result;
-        });      
+                };    
+        
+            return result;
+        });             
     }
 
     getROSmetadata = (patient) => {
@@ -63,4 +89,17 @@ export default class ReviewOfSystemsSection extends MetadataSection {
 
         return "";      
     }    
+
+    // This methods takes in the ROS array and sorts alphabetically by name
+    sortAlphabetically = (resultArray) => {
+        return resultArray.sort(function(a, b) {
+            if(a.name < b.name) { 
+                return -1; 
+            }
+            if(a.name > b.name) { 
+                return 1; 
+            }
+            return 0;
+        }) 
+    }
 }
