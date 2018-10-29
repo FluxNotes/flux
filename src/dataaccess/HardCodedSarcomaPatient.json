@@ -622,6 +622,55 @@
                 "_EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation"
                 }
+            },
+            {
+              "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+              "_EntryId": "6053",
+              "_EntryType": {
+                  "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation"
+              }
+            },
+            {
+              "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+              "_EntryId": "6054",
+              "_EntryType": {
+                  "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation"
+              }
+            },
+            {
+              "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+              "_EntryId": "6055",
+              "_EntryType": {
+                  "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation"
+              }
+            },
+            {
+              "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+              "_EntryId": "6056",
+              "_EntryType": {
+                  "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation"
+              }
+            },
+            {
+              "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+              "_EntryId": "6057",
+              "_EntryType": {
+                  "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation"
+              }
+            },
+            {
+              "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+              "_EntryId": "6058",
+              "_EntryType": {
+                  "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation"
+              }
+            },
+            {
+              "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+              "_EntryId": "6059",
+              "_EntryType": {
+                  "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation"
+              }
             }
         ],
         "Category": [
@@ -16952,10 +17001,6 @@
             "Value": "17 JUL 2018"
         }
     },
-
-
-
-
     {
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
         "EntryId": "6004",
@@ -17032,5 +17077,698 @@
             },
             "Value": "12 APR 2016"
         }
+    },
+    {
+      "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation"
+      },
+      "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+      "EntryId": "6053",
+      "PersonOfRecord": {
+          "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+          "_EntryId": "1",
+          "_EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+          }
+      },
+      "CreationTime": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+          },
+          "Value": "25 NOV 2016"
+      },
+      "LastUpdated": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+          },
+          "Value": "25 NOV 2016"
+      },
+      "Value": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+          },
+          "Value": 200,
+          "Units": {
+              "EntryType": {
+                  "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+              },
+              "Value": {
+                  "EntryType": {
+                      "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                  },
+                  "Value": "10^9/L"
+              }
+          }
+      },
+      "FindingStatus": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+          },
+          "Coding": [
+              {
+                  "EntryType": {
+                      "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                  },
+                  "Value": "final",
+                  "CodeSystem": {
+                      "EntryType": {
+                          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                      },
+                      "Value": "http://hl7.org/fhir/observation-status"
+                  },
+                  "DisplayText": {
+                      "EntryType": {
+                          "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                      },
+                      "Value": "Final"
+                  }
+              }
+          ]
+      },
+      "ObservationCode": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+          },
+          "Coding": [
+              {
+                  "EntryType": {
+                      "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                  },
+                  "Value": "C0005821",
+                  "CodeSystem": {
+                      "EntryType": {
+                          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                      },
+                      "Value": "http://ncimeta.nci.nih.gov"
+                  },
+                  "DisplayText": {
+                      "EntryType": {
+                          "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                      },
+                      "Value": "Platelet Count"
+                  }
+              }
+          ]
+      },
+      "ClinicallyRelevantTime": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+          },
+          "Value": "25 NOV 2016"
+      }
+    },
+    {
+      "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation"
+      },
+      "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+      "EntryId": "6054",
+      "PersonOfRecord": {
+          "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+          "_EntryId": "1",
+          "_EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+          }
+      },
+      "CreationTime": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+          },
+          "Value": "05 DEC 2016"
+      },
+      "LastUpdated": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+          },
+          "Value": "05 DEC 2016"
+      },
+      "Value": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+          },
+          "Value": 215,
+          "Units": {
+              "EntryType": {
+                  "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+              },
+              "Value": {
+                  "EntryType": {
+                      "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                  },
+                  "Value": "10^9/L"
+              }
+          }
+      },
+      "FindingStatus": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+          },
+          "Coding": [
+              {
+                  "EntryType": {
+                      "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                  },
+                  "Value": "final",
+                  "CodeSystem": {
+                      "EntryType": {
+                          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                      },
+                      "Value": "http://hl7.org/fhir/observation-status"
+                  },
+                  "DisplayText": {
+                      "EntryType": {
+                          "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                      },
+                      "Value": "Final"
+                  }
+              }
+          ]
+      },
+      "ObservationCode": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+          },
+          "Coding": [
+              {
+                  "EntryType": {
+                      "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                  },
+                  "Value": "C0005821",
+                  "CodeSystem": {
+                      "EntryType": {
+                          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                      },
+                      "Value": "http://ncimeta.nci.nih.gov"
+                  },
+                  "DisplayText": {
+                      "EntryType": {
+                          "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                      },
+                      "Value": "Platelet Count"
+                  }
+              }
+          ]
+      },
+      "ClinicallyRelevantTime": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+          },
+          "Value": "05 DEC 2016"
+      }
+    },
+    {
+      "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation"
+      },
+      "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+      "EntryId": "6055",
+      "PersonOfRecord": {
+          "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+          "_EntryId": "1",
+          "_EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+          }
+      },
+      "CreationTime": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+          },
+          "Value": "12 DEC 2016"
+      },
+      "LastUpdated": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+          },
+          "Value": "12 DEC 2016"
+      },
+      "Value": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+          },
+          "Value": 250,
+          "Units": {
+              "EntryType": {
+                  "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+              },
+              "Value": {
+                  "EntryType": {
+                      "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                  },
+                  "Value": "10^9/L"
+              }
+          }
+      },
+      "FindingStatus": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+          },
+          "Coding": [
+              {
+                  "EntryType": {
+                      "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                  },
+                  "Value": "final",
+                  "CodeSystem": {
+                      "EntryType": {
+                          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                      },
+                      "Value": "http://hl7.org/fhir/observation-status"
+                  },
+                  "DisplayText": {
+                      "EntryType": {
+                          "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                      },
+                      "Value": "Final"
+                  }
+              }
+          ]
+      },
+      "ObservationCode": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+          },
+          "Coding": [
+              {
+                  "EntryType": {
+                      "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                  },
+                  "Value": "C0005821",
+                  "CodeSystem": {
+                      "EntryType": {
+                          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                      },
+                      "Value": "http://ncimeta.nci.nih.gov"
+                  },
+                  "DisplayText": {
+                      "EntryType": {
+                          "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                      },
+                      "Value": "Platelet Count"
+                  }
+              }
+          ]
+      },
+      "ClinicallyRelevantTime": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+          },
+          "Value": "12 DEC 2016"
+      }
+    },
+    {
+      "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation"
+      },
+      "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+      "EntryId": "6056",
+      "PersonOfRecord": {
+          "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+          "_EntryId": "1",
+          "_EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+          }
+      },
+      "CreationTime": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+          },
+          "Value": "19 DEC 2016"
+      },
+      "LastUpdated": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+          },
+          "Value": "19 DEC 2016"
+      },
+      "Value": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+          },
+          "Value": 220,
+          "Units": {
+              "EntryType": {
+                  "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+              },
+              "Value": {
+                  "EntryType": {
+                      "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                  },
+                  "Value": "10^9/L"
+              }
+          }
+      },
+      "FindingStatus": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+          },
+          "Coding": [
+              {
+                  "EntryType": {
+                      "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                  },
+                  "Value": "final",
+                  "CodeSystem": {
+                      "EntryType": {
+                          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                      },
+                      "Value": "http://hl7.org/fhir/observation-status"
+                  },
+                  "DisplayText": {
+                      "EntryType": {
+                          "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                      },
+                      "Value": "Final"
+                  }
+              }
+          ]
+      },
+      "ObservationCode": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+          },
+          "Coding": [
+              {
+                  "EntryType": {
+                      "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                  },
+                  "Value": "C0005821",
+                  "CodeSystem": {
+                      "EntryType": {
+                          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                      },
+                      "Value": "http://ncimeta.nci.nih.gov"
+                  },
+                  "DisplayText": {
+                      "EntryType": {
+                          "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                      },
+                      "Value": "Platelet Count"
+                  }
+              }
+          ]
+      },
+      "ClinicallyRelevantTime": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+          },
+          "Value": "19 DEC 2016"
+      }
+    },
+    {
+      "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation"
+      },
+      "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+      "EntryId": "6057",
+      "PersonOfRecord": {
+          "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+          "_EntryId": "1",
+          "_EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+          }
+      },
+      "CreationTime": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+          },
+          "Value": "27 DEC 2016"
+      },
+      "LastUpdated": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+          },
+          "Value": "27 DEC 2016"
+      },
+      "Value": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+          },
+          "Value": 190,
+          "Units": {
+              "EntryType": {
+                  "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+              },
+              "Value": {
+                  "EntryType": {
+                      "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                  },
+                  "Value": "10^9/L"
+              }
+          }
+      },
+      "FindingStatus": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+          },
+          "Coding": [
+              {
+                  "EntryType": {
+                      "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                  },
+                  "Value": "final",
+                  "CodeSystem": {
+                      "EntryType": {
+                          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                      },
+                      "Value": "http://hl7.org/fhir/observation-status"
+                  },
+                  "DisplayText": {
+                      "EntryType": {
+                          "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                      },
+                      "Value": "Final"
+                  }
+              }
+          ]
+      },
+      "ObservationCode": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+          },
+          "Coding": [
+              {
+                  "EntryType": {
+                      "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                  },
+                  "Value": "C0005821",
+                  "CodeSystem": {
+                      "EntryType": {
+                          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                      },
+                      "Value": "http://ncimeta.nci.nih.gov"
+                  },
+                  "DisplayText": {
+                      "EntryType": {
+                          "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                      },
+                      "Value": "Platelet Count"
+                  }
+              }
+          ]
+      },
+      "ClinicallyRelevantTime": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+          },
+          "Value": "27 DEC 2016"
+      }
+    },
+    {
+      "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation"
+      },
+      "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+      "EntryId": "6058",
+      "PersonOfRecord": {
+          "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+          "_EntryId": "1",
+          "_EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+          }
+      },
+      "CreationTime": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+          },
+          "Value": "02 JAN 2017"
+      },
+      "LastUpdated": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+          },
+          "Value": "02 JAN 2017"
+      },
+      "Value": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+          },
+          "Value": 140,
+          "Units": {
+              "EntryType": {
+                  "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+              },
+              "Value": {
+                  "EntryType": {
+                      "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                  },
+                  "Value": "10^9/L"
+              }
+          }
+      },
+      "FindingStatus": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+          },
+          "Coding": [
+              {
+                  "EntryType": {
+                      "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                  },
+                  "Value": "final",
+                  "CodeSystem": {
+                      "EntryType": {
+                          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                      },
+                      "Value": "http://hl7.org/fhir/observation-status"
+                  },
+                  "DisplayText": {
+                      "EntryType": {
+                          "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                      },
+                      "Value": "Final"
+                  }
+              }
+          ]
+      },
+      "ObservationCode": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+          },
+          "Coding": [
+              {
+                  "EntryType": {
+                      "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                  },
+                  "Value": "C0005821",
+                  "CodeSystem": {
+                      "EntryType": {
+                          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                      },
+                      "Value": "http://ncimeta.nci.nih.gov"
+                  },
+                  "DisplayText": {
+                      "EntryType": {
+                          "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                      },
+                      "Value": "Platelet Count"
+                  }
+              }
+          ]
+      },
+      "ClinicallyRelevantTime": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+          },
+          "Value": "02 JAN 2017"
+      }
+    },
+    {
+      "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation"
+      },
+      "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+      "EntryId": "6059",
+      "PersonOfRecord": {
+          "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+          "_EntryId": "1",
+          "_EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+          }
+      },
+      "CreationTime": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+          },
+          "Value": "08 AUG 2018"
+      },
+      "LastUpdated": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+          },
+          "Value": "08 AUG 2018"
+      },
+      "Value": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+          },
+          "Value": 210,
+          "Units": {
+              "EntryType": {
+                  "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+              },
+              "Value": {
+                  "EntryType": {
+                      "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                  },
+                  "Value": "10^9/L"
+              }
+          }
+      },
+      "FindingStatus": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+          },
+          "Coding": [
+              {
+                  "EntryType": {
+                      "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                  },
+                  "Value": "final",
+                  "CodeSystem": {
+                      "EntryType": {
+                          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                      },
+                      "Value": "http://hl7.org/fhir/observation-status"
+                  },
+                  "DisplayText": {
+                      "EntryType": {
+                          "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                      },
+                      "Value": "Final"
+                  }
+              }
+          ]
+      },
+      "ObservationCode": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+          },
+          "Coding": [
+              {
+                  "EntryType": {
+                      "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                  },
+                  "Value": "C0005821",
+                  "CodeSystem": {
+                      "EntryType": {
+                          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                      },
+                      "Value": "http://ncimeta.nci.nih.gov"
+                  },
+                  "DisplayText": {
+                      "EntryType": {
+                          "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                      },
+                      "Value": "Platelet Count"
+                  }
+              }
+          ]
+      },
+      "ClinicallyRelevantTime": {
+          "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+          },
+          "Value": "08 AUG 2018"
+      }
     }
 ]
