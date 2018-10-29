@@ -81,7 +81,7 @@ export default class SarcomaMetadata extends MetadataSection {
 
                                 // TODO: When return value for items that are currently null, need to also return patient.isUnsigned(currentConditionEntry)
                                 {
-                                    name: "Date",
+                                    name: "Report Date",
                                     value: (patient, currentConditionEntry) => {
                                         const list = patient.getPathologyReportsChronologicalOrder();
                                         if (list.length === 0) return null;

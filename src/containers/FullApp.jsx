@@ -273,7 +273,7 @@ export class FullApp extends Component {
 
     nameSourceAction = (element) => {
         if (element.source) {
-            return (element.source.note ? "Open Source Note" :   (element.source.link ?  "View Attachment" : ( element.source.sourceMessage !== "" ? "View Source" : "No Source information")));
+            return (element.source.note ? "Open Source Note" :   (element.source.link ?  "View Source Attachment" : ( element.source.sourceMessage !== "" ? "View Source" : "No Source information")));
         }
         return "No source information";
     }

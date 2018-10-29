@@ -4423,13 +4423,13 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             },
-            "Value": "15 FEB 2018"
+            "Value": "12 APR 2016"
         },
         "LastUpdated": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             },
-            "Value": "15 FEB 2018"
+            "Value": "12 APR 2016"
         },
         "Value": {
             "EntryType": {
@@ -4485,7 +4485,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
             },
-            "Value": "15 FEB 2018"
+            "Value": "12 APR 2016"
         }
     },
     {
@@ -4604,13 +4604,13 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             },
-            "Value": "7 APR 2016"
+            "Value": "12 APR 2016"
         },
         "LastUpdated": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             },
-            "Value": "7 APR 2016"
+            "Value": "12 APR 2016"
         },
         "Value": {
             "EntryType": {
@@ -4683,7 +4683,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
             },
-            "Value": "7 APR 2016"
+            "Value": "12 APR 2016"
         }
     },
 
@@ -5343,13 +5343,13 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             },
-            "Value": "7 Apr 2016"
+            "Value": "12 Apr 2016"
         },
         "LastUpdated": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             },
-            "Value": "7 Apr 2016"
+            "Value": "12 Apr 2016"
         },
         "Value": {
             "EntryType": {
@@ -5430,7 +5430,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
             },
-            "Value": "7 Apr 2016"
+            "Value": "12 Apr 2016"
         }
     },
     {
@@ -16960,7 +16960,7 @@
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
         "EntryId": "6004",
         "Author": {
-            "Value": "Dr. Mona341 Brown483",
+            "Value": "Dr. Larry229 Hightower131",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
             }
@@ -16979,13 +16979,13 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             },
-            "Value": "24 OCT 2018"
+            "Value": "12 APR 2016"
         },
         "LastUpdated": {
             "EntryType": {  
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             },
-            "Value": "24 OCT 2018"
+            "Value": "12 APR 2016"
         },
         "Value": {
             "EntryType": {
@@ -17030,7 +17030,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
             },
-            "Value": "24 OCT 2018"
+            "Value": "12 APR 2016"
         }
     }
 ]
