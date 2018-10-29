@@ -44,3 +44,20 @@
     margin-right: 10px;
     display: flex;
 }
+
+.menu-list {
+    & ul {
+        padding: 0px;
+
+        & li {
+            h3 {
+                font-size: 13px;
+            }
+            padding: 5px 10px;
+
+            .checkbox {
+                font-size: 1rem !important;
+            }
+        }
+    }
+}

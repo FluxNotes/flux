@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Menu from 'material-ui/Menu';
+import MenuItem from 'material-ui/Menu/MenuItem';
+import Checkbox from 'material-ui/Checkbox';
+import { ListItemText } from 'material-ui/List';
 import Button from '../elements/Button';
 import './TargetedDataSection.css';
 import Lang from 'lodash';
@@ -20,6 +24,9 @@ export default class TargetedDataSection extends Component {
             defaultVisualizer: defaultVisualizer,
             chosenVisualizer: null,
             sectionName: "",
+            anchorEl: null,
+            positionLeft: 0,
+            positionTop: 0,
             filters
         };
     }
@@ -185,6 +192,18 @@ export default class TargetedDataSection extends Component {
         }
     }
 
+    handleFilterMenuOpen = (event) => {
+        this.setState({
+            anchorEl: event.currentTarget,
+            positionLeft: event.clientX + 4,
+            positionTop: event.clientY + 7
+        });
+    }
+
+    handleMenuClose = () => {
+        this.setState({ anchorEl: null });
+    }
+
     updateFilterValue = (filter, subsectionName) => {
         const { section } = this.props;
         const { filters } = this.state;
@@ -204,15 +223,41 @@ export default class TargetedDataSection extends Component {
     }
 
     renderFilters = () => {
+        let totalNumFilters = 0;
+        this.props.section.data.forEach((subsection) => {
+            totalNumFilters += this.state.filters[`${this.props.section.name}-${subsection.name}`].length;
+        });
+        if (totalNumFilters === 0) {
+            return null;
+        }
+
         return (
-            <span>
-                Filter
-                {this.props.section.data.map((subsection, i) => {
-                    return this.state.filters[`${this.props.section.name}-${subsection.name}`].map((filter, j) => {
-                        return <span onClick={() => this.updateFilterValue(filter, subsection.name)}>{filter.name}</span>;
-                    });
-                })}
-            </span>
+            <div className="right-icons">
+                <Button className="small-btn" onClick={this.handleFilterMenuOpen}>Filter</Button>
+                <Menu
+                    id="filter-menu"
+                    anchorEl={this.state.anchorEl}
+                    anchorReference="anchorPosition"
+                    anchorPosition={{ top: this.state.positionTop, left: this.state.positionLeft }}
+                    open={Boolean(this.state.anchorEl)}
+                    onClose={this.handleMenuClose}
+                    className="menu-list">
+                    {this.props.section.data.map((subsection) => {
+                        return this.state.filters[`${this.props.section.name}-${subsection.name}`].map((filter) => {
+                            return (
+                                <MenuItem key={filter.name}>
+                                    <Checkbox
+                                        checked={filter.value}
+                                        onChange={() => this.updateFilterValue(filter, subsection.name)}
+                                        value={filter.name}
+                                        className="checkbox"/>
+                                    <ListItemText inset primary={filter.name} />
+                                </MenuItem>
+                            );
+                        });
+                    })}
+                </Menu>
+            </div>
         );
     }
 
@@ -325,11 +370,11 @@ export default class TargetedDataSection extends Component {
                 <h2 className="section-header">
                     <span className={`section-header__name${highlightClass}`}>{sectionName}</span>
                     {!encounterView && !notFiltered && <span className="section-header__condition">{selectedCondition}</span>}
+                    {this.renderFilters()}
                     {this.renderVisualizationOptions(visualizationOptions)}
                 </h2>
 
                 {encounterView && !notFiltered && <div className="section-header__condition encounter">{selectedCondition}</div>}
-                {this.renderFilters()}
 
                 {this.renderSection(section, viz)}
             </div>
