@@ -13,8 +13,6 @@ import TreatmentOptionsSection from './TreatmentOptionsSection';
 import VisitReasonPostEncounterSection from './VisitReasonPostEncounterSection';
 import VisitReasonPreEncounterSection from './VisitReasonPreEncounterSection';
 import WhiteBloodCellCountSubsection from './WhiteBloodCellCountSubsection';
-import FluxTumorDimensions from '../../model/oncology/FluxTumorDimensions';
-import FluxTumorMargins from '../../model/oncology/FluxTumorMargins';
 import ImagingSection from "./ImagingSection";
 import BloodPressureSubsection from './BloodPressureSubsection';
 import TemperatureSubsection from './TemperatureSubsection';
@@ -129,27 +127,13 @@ export default class SarcomaMetadata extends MetadataSection {
                                         });  
                                         const size = observation.pop();
                                         return  {   value: size.quantity.value + " " + size.quantity.unit, 
-<<<<<<< HEAD
-                                                    isUnsigned: patient.isUnsigned(size),
-                                                    source: this.determineSource(patient, size)
-=======
                                                     isUnsigned: patient.isUnsigned(report), 
                                                     source: this.determineSource(patient, report)
->>>>>>> Pathology section now pulls data from report instead of evidence
                                                 };
                                     }
                                 },
                                 {
                                     name: "Tumor Margins",
-<<<<<<< HEAD
-                                    value: (patient, currentConditionEntry) => {
-                                        const list = currentConditionEntry.getObservationsOfTypeChronologicalOrder(FluxTumorMargins);
-                                        if (list.length === 0) return null;
-                                        const margins = list.pop(); // last is most recent
-                                        return  {   value: margins.value,
-                                                    isUnsigned: patient.isUnsigned(margins),
-                                                    source: this.determineSource(patient, margins)
-=======
                                     value: (patient, currentConditionEntry) => {                                       
                                         const lists = patient.getPathologyReportsChronologicalOrder();
                                         if (lists.length === 0) return null;
@@ -163,19 +147,12 @@ export default class SarcomaMetadata extends MetadataSection {
                                         return  {   value: margins.value, 
                                                     isUnsigned: patient.isUnsigned(report), 
                                                     source: this.determineSource(patient, report)
->>>>>>> Pathology section now pulls data from report instead of evidence
                                                 };
                                     }
                                 },
                                 {
                                     name: "Histological Grade",
                                     value: (patient, currentConditionEntry) => {
-<<<<<<< HEAD
-                                        let histologicalGrade = currentConditionEntry.getMostRecentHistologicalGrade();
-                                        return  {   value: histologicalGrade.grade,
-                                                    isUnsigned: patient.isUnsigned(histologicalGrade),
-                                                    source: this.determineSource(patient, histologicalGrade)
-=======
                                         const lists = patient.getPathologyReportsChronologicalOrder();
                                         if (lists.length === 0) return null;
                                         const report = lists.pop();
@@ -188,7 +165,6 @@ export default class SarcomaMetadata extends MetadataSection {
                                         return  {   value: histologicalGrade.grade, 
                                                     isUnsigned: patient.isUnsigned(report), 
                                                     source: this.determineSource(patient, report)
->>>>>>> Pathology section now pulls data from report instead of evidence
                                                 };
                                     }
                                 },
