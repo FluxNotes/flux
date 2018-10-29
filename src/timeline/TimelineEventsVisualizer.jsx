@@ -10,7 +10,6 @@ import moment from 'moment';
 import './Timeline.css';
 import './TimelineEventsVisualizer.css';
 import FontAwesome from 'react-fontawesome';
-import Lang from 'lodash';
 
 class TimelineEventsVisualizer extends Component {
     constructor(props) {
