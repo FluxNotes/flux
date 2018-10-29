@@ -264,21 +264,22 @@ export class FullApp extends Component {
     }
 
     sourceActionIsDisabled = (element) => {
-        if (element.source) {
-            return false;
+        if (!element.source || element.source.sourceMessage === "") {
+            return true;
         }
-        return true;
+
+        return false;
     }
 
     nameSourceAction = (element) => {
         if (element.source) {
-            return (element.source.note ? "Open Source Note" : "View Source");
+            return (element.source.note ? "Open Source Note" :   (element.source.link ?  "View Attachment" : ( element.source.sourceMessage !== "" ? "View Source" : "No Source information")));
         }
         return "No source information";
     }
 
     openReferencedNote = (item, itemLabel) => {
-        if (!item.source) {
+        if (!item.source || item.source.sourceMessage === "") {
             this.setState({
                 snackbarOpen: true,
                 snackbarMessage: "No source information or note available."
@@ -286,8 +287,12 @@ export class FullApp extends Component {
             return;
         }
 
+        if (item.source.link) {
+            window.open(`${item.source.link}`)
+        }
+
         // if item.source.note is defined, open the referenced note
-        if (item.source.note) {
+        else if (item.source.note) {
             const sourceNote = this.state.patient.getEntryFromReference(item.source.note);
 
             this.setState({
@@ -300,7 +305,7 @@ export class FullApp extends Component {
             this.setState({
                 isModalOpen: true,
                 modalTitle: title,
-                modalContent: item.source
+                modalContent: item.source.sourceMessage
             });
         }
     }
