@@ -5,6 +5,7 @@ import DiseaseStatusSection from './DiseaseStatusSection';
 import HemoglobinSubsection from './HemoglobinSubsection';
 import MedicationsSection from './MedicationsSection';
 import NeutrophilCountSubsection from './NeutrophilCountSubsection';
+import PlateletSubsection from "./PlateletSubsection";
 import ProceduresSection from './ProceduresSection';
 import ReviewOfSystemsSection from './ReviewOfSystemsSection';
 import SarcomaSummarySection from './SarcomaSummarySection';
@@ -53,7 +54,8 @@ export default class SarcomaMetadata extends MetadataSection {
                     data: [
                         WhiteBloodCellCountSubsection,
                         NeutrophilCountSubsection,
-                        HemoglobinSubsection
+                        HemoglobinSubsection,
+                        PlateletSubsection
                     ]
                 },
                 MedicationsSection,

@@ -4,6 +4,7 @@ import AllergiesSection from './AllergiesSection';
 import HemoglobinSubsection from './HemoglobinSubsection';
 import MedicationsSection from './MedicationsSection';
 import NeutrophilCountSubsection from './NeutrophilCountSubsection';
+import PlateletSubsection from './PlateletSubsection';
 import ProceduresSection from './ProceduresSection';
 import ImagingSection from "./ImagingSection";
 import SarcomaSummarySection from './SarcomaSummarySection';
@@ -55,7 +56,8 @@ export default class SarcomaNursePractitionerMetadata extends MetadataSection {
                     data: [
                         WhiteBloodCellCountSubsection,
                         NeutrophilCountSubsection,
-                        HemoglobinSubsection
+                        HemoglobinSubsection,
+                        PlateletSubsection
                     ]
                 },
                 {
