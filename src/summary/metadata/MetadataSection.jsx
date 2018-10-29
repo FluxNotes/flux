@@ -1,6 +1,7 @@
 import EncounterPerformed from '../../model/shr/encounter/EncounterPerformed';
 import moment from 'moment';
 import Lang from 'lodash'
+import Attachment from '../../model/shr/core/Attachment';
 
 export default class MetadataSection {
     getMetadata(preferencesManager, condition, roleType, role, specialty) {
@@ -51,6 +52,13 @@ export default class MetadataSection {
                 note: entry.sourceClinicalNoteReference,
             };
         }
+        
+        else if (entry.value instanceof Attachment) {
+            return {
+                link: entry.value.resourceLocation.uri
+            };
+        }
+       
         let result = "";
         if (entry.author && entry.informant && entry.author === entry.informant) {
             result += "Recorded and informed by " + entry.author;
@@ -73,6 +81,7 @@ export default class MetadataSection {
             result += (result.length > 0 ? " c" : "C") + "linically recognized on " + new moment(entry.diagnosisDate, 'D MMM YYYY').format('D MMM YYYY');
         }
 
-        return result;
+        return {sourceMessage:result};
+    
     }
 }
