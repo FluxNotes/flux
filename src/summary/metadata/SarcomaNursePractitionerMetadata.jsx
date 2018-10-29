@@ -19,6 +19,7 @@ import BloodPressureSubsection from './BloodPressureSubsection';
 import TemperatureSubsection from './TemperatureSubsection';
 import WeightSubsection from './WeightSubsection';
 import HeartRateSubsection from './HeartRateSubsection';
+import ReviewOfSystemsSection from './ReviewOfSystemsSection';
 
 
 export default class SarcomaNursePractitionerMetadata extends MetadataSection {
@@ -33,6 +34,7 @@ export default class SarcomaNursePractitionerMetadata extends MetadataSection {
                 ActiveConditionsSection,
                 DiseaseStatusSection,
                 AllergiesSection,
+                ReviewOfSystemsSection,
                 MedicationsSection,
                 {
                     name: "Vitals",
