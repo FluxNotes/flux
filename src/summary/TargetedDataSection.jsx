@@ -225,7 +225,8 @@ export default class TargetedDataSection extends Component {
     renderFilters = () => {
         let totalNumFilters = 0;
         this.props.section.data.forEach((subsection) => {
-            totalNumFilters += this.state.filters[`${this.props.section.name}-${subsection.name}`].length;
+            const filters = this.state.filters[`${this.props.section.name}-${subsection.name}`] || [];
+            totalNumFilters += filters.length;
         });
         if (totalNumFilters === 0) {
             return null;
