@@ -79,8 +79,7 @@ $font-size: 0.8rem;
         text-align: left;
     }
 
-    td.stopped-cell {
-        padding: 8px;
+    span.stopped-cell {
         border: 0;
         color: $warning-red;
         font-family: "Open Sans", Arial, sans-serif;
