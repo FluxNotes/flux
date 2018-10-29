@@ -4,27 +4,24 @@ export default class PlateletSubsection extends LabTestSubsection {
     getMetadata(preferencesManager, condition, roleType, role, specialty) {
         return {
             name: "Platelet count",
-            code: "C0019046", // change
+            code: "C0005821",
             itemsFunction: this.getTestsForSubSection,
 
-            //change
-            // Source: https://www.emedicinehealth.com/hemoglobin_levels/page2_em.htm
-            // Source: https://www.quora.com/What-is-the-percentage-of-haemoglobin-in-blood
             bands: [
                 {
                     low: 0,
-                    high: 12,
+                    high: 150,
                     assessment: 'bad'
                 },
 
                 {
-                    low: 12,
-                    high: 16,
+                    low: 150,
+                    high: 450,
                     assessment: 'good'
                 },
                 {
-                    low: 16,
-                    high: 20,
+                    low: 450,
+                    high: 'max',
                     assessment: 'bad'
                 }
             ]
