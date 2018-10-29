@@ -3,9 +3,6 @@ import FluxObservation from './FluxObservation';
 import Lang from 'lodash';
 
 class FluxPathologyReport extends FluxObservation {
-    constructor(json) {
-       super(json);
-    }
     
      /*
      *  Getter for Members

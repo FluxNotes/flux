@@ -64,7 +64,7 @@ export default class SarcomaMetadata extends MetadataSection {
                     /*eslint no-template-curly-in-string: "off"*/
                     narrative: [
                         {
-                            defaultTemplate: "Date of pathology report is ${.Date}. Pathologist is ${.Pathologist}."
+                            defaultTemplate: "Date of pathology report is ${.Report Date}. Pathologist is ${.Pathologist}."
                         },
                         {
                             defaultTemplate: "Primary tumor color is ${.Color}, weight is ${.Weight}, and size is ${.Size}."
