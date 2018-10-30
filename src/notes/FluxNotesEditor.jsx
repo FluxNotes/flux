@@ -20,7 +20,8 @@ import SuggestionsPlugin from '../lib/slate-suggestions-dist'
 import position from '../lib/slate-suggestions-dist/caret-position';
 import StructuredFieldPlugin from './StructuredFieldPlugin';
 import SingleHashtagKeywordStructuredFieldPlugin from './SingleHashtagKeywordStructuredFieldPlugin'
-import NLPHashtagPlugin from './NLPHashtagPlugin'
+import NLPHashtagPlugin from './NLPHashtagPlugin';
+import Placeholder from '../shortcuts/Placeholder';
 import NoteParser from '../noteparser/NoteParser';
 import './FluxNotesEditor.css';
 import { setTimeout } from 'timers';
@@ -789,7 +790,8 @@ class FluxNotesEditor extends React.Component {
     unhighlightAllResults = (document) => {
         let transform = this.state.state.transform();
         this.structuredFieldMapManager.keyToShortcutMap.forEach(sf => {
-            transform.setNodeByKey(sf.key, "structured_field");
+            // TODO: handle highlighting of placeholder text
+            if (!(sf instanceof Placeholder)) transform.setNodeByKey(sf.key, "structured_field");
         });
         transform = this.unhighlightPlaintextResults(transform, document);
         this.setState({ state: transform.blur().apply() });
@@ -815,10 +817,13 @@ class FluxNotesEditor extends React.Component {
 
             // Highlight matching shortcuts
             this.structuredFieldMapManager.keyToShortcutMap.forEach(sf => {
-                if (sf.getText().toLowerCase().includes(suggestion.inputValue.toLowerCase())) {
-                    transform.setNodeByKey(sf.key, "structured_field_search_result");
-                } else {
-                    transform.setNodeByKey(sf.key, "structured_field");
+                // TODO: handle highlighting of placeholder text
+                if (!(sf instanceof Placeholder)) {
+                    if (sf.getText().toLowerCase().includes(suggestion.inputValue.toLowerCase())) {
+                        transform.setNodeByKey(sf.key, "structured_field_search_result");
+                    } else {
+                        transform.setNodeByKey(sf.key, "structured_field");
+                    }
                 }
             });
 
