@@ -361,10 +361,15 @@ export default class TargetedDataSection extends Component {
         const viz = this.indexSectionData(section);
         
         let sectionName = this.state.sectionName;
-        const matchingSection = tdpSearchSuggestions.find(s => {
-            return s.valueTitle === 'Section' && s.section === sectionName;
-        });
-        const highlightClass = matchingSection ? ' section-header__highlighted' : '';
+        let highlightClass;
+        if (!Lang.isUndefined(tdpSearchSuggestions)) {
+            const matchingSection = tdpSearchSuggestions.find(s => {
+                return s.valueTitle === 'Section' && s.section === sectionName;
+            });
+            highlightClass = matchingSection ? ' section-header__highlighted' : '';
+        } else {
+            highlightClass = '';
+        }
 
         return (
             <div id="targeted-data-section">
