@@ -61,7 +61,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -87,7 +87,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -113,7 +113,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -165,7 +165,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -217,7 +217,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -321,7 +321,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -347,7 +347,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -451,7 +451,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -477,7 +477,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -529,7 +529,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -555,7 +555,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -581,7 +581,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -607,7 +607,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -633,7 +633,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -659,7 +659,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -685,7 +685,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -711,7 +711,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -763,7 +763,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -789,7 +789,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -815,7 +815,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -848,8 +848,8 @@ var seerdata =
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
-    "Is-Alive":"Alive",
-    "Survival-months":70,
+    "Is-Alive":"Dead",
+    "Survival-months":51,
     "Dx-Grade":"Grade III",
     "Chemo":"no",
     "Radiation":"no",
@@ -945,7 +945,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -971,7 +971,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -997,7 +997,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -1023,7 +1023,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -1049,7 +1049,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -1153,7 +1153,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -1179,7 +1179,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -1231,7 +1231,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -1257,7 +1257,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -1283,7 +1283,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -1309,7 +1309,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -1413,7 +1413,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -1439,7 +1439,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -1465,7 +1465,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -1491,7 +1491,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -1517,7 +1517,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -1543,7 +1543,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -1595,7 +1595,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -1647,7 +1647,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -1699,7 +1699,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -1725,7 +1725,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -1751,7 +1751,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -1777,7 +1777,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -1829,7 +1829,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -1855,7 +1855,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -1881,7 +1881,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -1959,7 +1959,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -1985,7 +1985,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -2037,7 +2037,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -2063,7 +2063,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -2115,7 +2115,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -2141,7 +2141,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -2193,7 +2193,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -2219,7 +2219,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -2245,7 +2245,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -2271,7 +2271,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -2323,7 +2323,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -2375,7 +2375,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -2401,7 +2401,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -2427,7 +2427,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -2479,7 +2479,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -2505,7 +2505,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -2531,7 +2531,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -2557,7 +2557,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -2583,7 +2583,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -2609,7 +2609,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -2635,7 +2635,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -2739,7 +2739,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -2765,7 +2765,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -2869,7 +2869,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -2895,7 +2895,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -2921,7 +2921,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -2973,7 +2973,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -2999,7 +2999,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -3051,7 +3051,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -3103,7 +3103,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -3129,7 +3129,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -3155,7 +3155,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -3181,7 +3181,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -3233,7 +3233,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -3285,7 +3285,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -3337,7 +3337,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -3363,7 +3363,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -3389,7 +3389,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -3441,7 +3441,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -3467,7 +3467,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -3545,7 +3545,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -3623,7 +3623,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -3649,7 +3649,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -3701,7 +3701,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -3727,7 +3727,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -3753,7 +3753,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -3779,7 +3779,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -3805,7 +3805,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -3857,7 +3857,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -3909,7 +3909,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -3935,7 +3935,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -3961,7 +3961,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -4013,7 +4013,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -4039,7 +4039,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -4065,7 +4065,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -4091,7 +4091,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -4117,7 +4117,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -4169,7 +4169,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -4195,7 +4195,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -4247,7 +4247,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -4273,7 +4273,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -4299,7 +4299,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -4377,7 +4377,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -4455,7 +4455,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -4507,7 +4507,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -4533,7 +4533,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -4559,7 +4559,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -4585,7 +4585,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -4611,7 +4611,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -4663,7 +4663,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -4715,7 +4715,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -4741,7 +4741,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -4845,7 +4845,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -4871,7 +4871,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -4923,7 +4923,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -4949,7 +4949,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -5001,7 +5001,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -5027,7 +5027,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -5105,7 +5105,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -5183,7 +5183,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -5235,7 +5235,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -5287,7 +5287,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -5391,7 +5391,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -5417,7 +5417,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -5521,7 +5521,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -5547,7 +5547,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -5573,7 +5573,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -5599,7 +5599,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -5651,7 +5651,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -5703,7 +5703,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -5755,7 +5755,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -5781,7 +5781,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -5807,7 +5807,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -5833,7 +5833,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -5859,7 +5859,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -5911,7 +5911,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -5989,7 +5989,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -6015,7 +6015,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -6093,7 +6093,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -6197,7 +6197,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -6223,7 +6223,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -6301,7 +6301,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -6327,7 +6327,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -6353,7 +6353,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -6431,7 +6431,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -6457,7 +6457,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -6483,7 +6483,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -6509,7 +6509,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -6613,7 +6613,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -6639,7 +6639,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -6665,7 +6665,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -6717,7 +6717,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -6769,7 +6769,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -6821,7 +6821,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -6847,7 +6847,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -6873,7 +6873,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -7003,7 +7003,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -7029,7 +7029,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -7107,7 +7107,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -7133,7 +7133,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -7159,7 +7159,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -7237,7 +7237,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -7263,7 +7263,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -7315,7 +7315,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -7341,7 +7341,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -7367,7 +7367,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -7393,7 +7393,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -7419,7 +7419,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -7445,7 +7445,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -7523,7 +7523,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -7575,7 +7575,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -7601,7 +7601,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -7627,7 +7627,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -7653,7 +7653,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -7679,7 +7679,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -7705,7 +7705,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -7809,7 +7809,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -7835,7 +7835,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -7861,7 +7861,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -7887,7 +7887,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -7913,7 +7913,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -8017,7 +8017,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -8043,7 +8043,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -8095,7 +8095,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -8121,7 +8121,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -8173,7 +8173,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -8199,7 +8199,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -8251,7 +8251,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -8303,7 +8303,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -8381,7 +8381,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -8407,7 +8407,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -8433,7 +8433,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -8459,7 +8459,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -8537,7 +8537,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -8563,7 +8563,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -8615,7 +8615,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -8641,7 +8641,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -8693,7 +8693,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -8745,7 +8745,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -8771,7 +8771,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -8797,7 +8797,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -8849,7 +8849,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -8875,7 +8875,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -8901,7 +8901,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -8927,7 +8927,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -8953,7 +8953,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -8979,7 +8979,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -9005,7 +9005,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -9031,7 +9031,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -9057,7 +9057,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -9109,7 +9109,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -9135,7 +9135,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -9161,7 +9161,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -9187,7 +9187,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -9213,7 +9213,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -9317,7 +9317,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -9369,7 +9369,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -9525,7 +9525,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -9551,7 +9551,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -9629,7 +9629,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -9707,7 +9707,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -9733,7 +9733,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -9811,7 +9811,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -9889,7 +9889,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -9915,7 +9915,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -10019,7 +10019,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -10045,7 +10045,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -10123,7 +10123,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -10149,7 +10149,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -10175,7 +10175,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -10227,7 +10227,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -10253,7 +10253,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -10279,7 +10279,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -10331,7 +10331,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -10357,7 +10357,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -10383,7 +10383,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -10435,7 +10435,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -10461,7 +10461,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -10513,7 +10513,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -10539,7 +10539,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -10565,15 +10565,15 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
-    "Is-Alive":"Alive",
-    "Survival-months":70,
+    "Is-Alive":"Dead",
+    "Survival-months":13,
     "Dx-Grade":"Grade IV",
     "Chemo":"no",
     "Radiation":"no",
@@ -10643,7 +10643,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -10695,7 +10695,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -10721,7 +10721,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -10747,7 +10747,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -10799,7 +10799,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -10877,7 +10877,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -10903,7 +10903,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -11033,7 +11033,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -11059,7 +11059,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -11092,8 +11092,8 @@ var seerdata =
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
-    "Is-Alive":"Alive",
-    "Survival-months":65,
+    "Is-Alive":"Dead",
+    "Survival-months":47,
     "Dx-Grade":"Grade III",
     "Chemo":"no",
     "Radiation":"no",
@@ -11137,7 +11137,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -11163,7 +11163,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -11189,7 +11189,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -11267,7 +11267,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -11293,7 +11293,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -11345,7 +11345,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -11397,7 +11397,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -11449,7 +11449,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -11475,7 +11475,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -11579,7 +11579,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -11605,7 +11605,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -11657,7 +11657,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -11683,7 +11683,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -11709,7 +11709,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -11735,7 +11735,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -11813,7 +11813,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -11865,7 +11865,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -11891,7 +11891,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -11943,7 +11943,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -11969,7 +11969,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -11995,7 +11995,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -12021,7 +12021,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -12073,7 +12073,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -12099,7 +12099,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -12125,7 +12125,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -12151,7 +12151,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -12229,7 +12229,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -12255,7 +12255,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -12281,7 +12281,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -12333,7 +12333,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -12359,7 +12359,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -12385,7 +12385,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -12437,7 +12437,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -12463,7 +12463,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -12515,7 +12515,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -12541,7 +12541,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -12567,7 +12567,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -12593,7 +12593,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -12619,7 +12619,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -12645,7 +12645,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -12671,7 +12671,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -12723,7 +12723,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -12749,7 +12749,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -12775,7 +12775,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -12801,7 +12801,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -12827,7 +12827,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -12905,7 +12905,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -12931,7 +12931,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -13009,7 +13009,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -13035,7 +13035,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -13061,7 +13061,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -13087,7 +13087,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -13113,7 +13113,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -13139,7 +13139,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -13165,7 +13165,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -13191,7 +13191,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -13217,7 +13217,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -13243,7 +13243,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -13295,7 +13295,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -13321,7 +13321,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -13347,7 +13347,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -13373,7 +13373,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -13425,7 +13425,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -13451,7 +13451,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -13477,7 +13477,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -13503,7 +13503,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -13529,7 +13529,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -13555,7 +13555,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -13607,7 +13607,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -13659,7 +13659,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -13711,7 +13711,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -13737,7 +13737,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -13763,7 +13763,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -13815,7 +13815,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -13841,7 +13841,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -13867,7 +13867,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -13893,7 +13893,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -13919,7 +13919,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -13971,7 +13971,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -14023,7 +14023,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -14049,7 +14049,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -14101,7 +14101,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -14127,7 +14127,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -14179,7 +14179,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -14205,7 +14205,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -14257,7 +14257,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -14283,7 +14283,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -14309,7 +14309,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -14335,7 +14335,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -14361,7 +14361,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -14387,7 +14387,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -14465,7 +14465,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -14543,7 +14543,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -14569,7 +14569,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -14621,7 +14621,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -14673,7 +14673,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -14699,7 +14699,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -14751,7 +14751,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -14777,7 +14777,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -14803,7 +14803,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -14829,7 +14829,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -14855,7 +14855,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -14907,7 +14907,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -14959,7 +14959,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -14985,7 +14985,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -15011,7 +15011,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -15037,7 +15037,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -15063,7 +15063,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -15089,7 +15089,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -15115,7 +15115,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -15141,7 +15141,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -15167,7 +15167,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -15193,7 +15193,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -15219,7 +15219,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -15271,7 +15271,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -15323,7 +15323,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -15349,7 +15349,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -15401,7 +15401,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -15453,7 +15453,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -15479,7 +15479,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -15505,7 +15505,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -15583,7 +15583,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -15635,7 +15635,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -15661,7 +15661,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -15687,7 +15687,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -15713,7 +15713,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -15739,7 +15739,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -15765,7 +15765,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -15791,7 +15791,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -15817,7 +15817,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -15869,7 +15869,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -15895,7 +15895,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -15947,7 +15947,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -15973,7 +15973,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -15999,7 +15999,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -16025,7 +16025,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -16155,7 +16155,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -16207,7 +16207,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -16259,7 +16259,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -16285,7 +16285,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -16311,7 +16311,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -16337,7 +16337,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -16363,7 +16363,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -16389,7 +16389,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -16467,7 +16467,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -16493,7 +16493,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -16545,7 +16545,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -16571,7 +16571,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -16597,7 +16597,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -16623,7 +16623,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -16649,7 +16649,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -16675,7 +16675,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -16701,7 +16701,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -16779,7 +16779,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -16805,7 +16805,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -16831,7 +16831,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -16857,7 +16857,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -16883,7 +16883,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -16909,7 +16909,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -16961,7 +16961,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -16987,7 +16987,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -17013,7 +17013,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -17091,7 +17091,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -17143,7 +17143,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -17195,7 +17195,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -17325,7 +17325,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -17351,7 +17351,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -17377,7 +17377,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -17403,7 +17403,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -17481,7 +17481,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -17533,7 +17533,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -17559,7 +17559,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -17585,7 +17585,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -17611,7 +17611,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -17663,7 +17663,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -17689,7 +17689,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -17741,7 +17741,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -17949,7 +17949,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -18027,7 +18027,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -18053,7 +18053,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -18079,7 +18079,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -18105,7 +18105,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -18131,7 +18131,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -18157,7 +18157,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -18235,7 +18235,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -18287,7 +18287,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -18365,7 +18365,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -18391,7 +18391,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -18417,7 +18417,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -18443,7 +18443,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -18521,7 +18521,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -18599,7 +18599,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -18625,7 +18625,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -18651,7 +18651,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -18677,7 +18677,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -18729,7 +18729,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -18755,7 +18755,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -18833,7 +18833,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -18911,7 +18911,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -18963,7 +18963,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -18989,7 +18989,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -19015,7 +19015,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -19041,7 +19041,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -19067,7 +19067,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -19093,7 +19093,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -19119,7 +19119,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -19145,7 +19145,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -19171,7 +19171,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -19197,7 +19197,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -19249,7 +19249,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -19327,7 +19327,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -19353,7 +19353,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -19379,7 +19379,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -19405,7 +19405,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -19431,7 +19431,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -19483,7 +19483,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -19587,7 +19587,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -19613,7 +19613,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -19639,7 +19639,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -19665,7 +19665,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -19691,7 +19691,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -19847,7 +19847,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -19873,7 +19873,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -19899,7 +19899,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -19977,7 +19977,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -20003,7 +20003,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -20029,7 +20029,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -20081,7 +20081,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -20107,7 +20107,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -20133,7 +20133,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -20159,7 +20159,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -20237,7 +20237,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -20263,7 +20263,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -20289,7 +20289,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -20367,7 +20367,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -20393,7 +20393,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -20419,7 +20419,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -20523,7 +20523,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -20549,7 +20549,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -20575,7 +20575,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -20601,7 +20601,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -20627,7 +20627,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -20653,7 +20653,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -20679,7 +20679,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -20757,7 +20757,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -20835,7 +20835,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -20861,7 +20861,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -20913,7 +20913,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -20939,7 +20939,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -20965,7 +20965,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -20991,7 +20991,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -21043,7 +21043,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -21069,7 +21069,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -21121,7 +21121,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -21147,7 +21147,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -21173,7 +21173,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -21199,7 +21199,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -21225,7 +21225,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -21251,7 +21251,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -21277,7 +21277,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -21303,7 +21303,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -21407,7 +21407,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -21485,7 +21485,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -21537,7 +21537,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -21563,7 +21563,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -21719,7 +21719,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -21745,7 +21745,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -21797,7 +21797,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -21823,7 +21823,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -21875,7 +21875,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -21927,7 +21927,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -21953,7 +21953,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -21979,7 +21979,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -22005,7 +22005,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -22031,7 +22031,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -22057,7 +22057,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -22083,7 +22083,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -22109,7 +22109,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -22135,7 +22135,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -22187,7 +22187,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -22213,7 +22213,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -22265,7 +22265,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -22291,7 +22291,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -22317,7 +22317,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -22369,7 +22369,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -22447,7 +22447,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -22473,7 +22473,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -22551,7 +22551,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -22577,7 +22577,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -22629,7 +22629,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -22655,7 +22655,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -22681,7 +22681,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -22707,7 +22707,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -22733,7 +22733,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -22759,7 +22759,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -22785,7 +22785,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -22915,7 +22915,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -22941,7 +22941,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -22967,7 +22967,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -22993,7 +22993,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -23045,7 +23045,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -23071,7 +23071,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -23097,7 +23097,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -23123,7 +23123,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -23175,7 +23175,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -23201,7 +23201,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -23253,7 +23253,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -23331,7 +23331,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -23357,7 +23357,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -23513,7 +23513,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -23565,7 +23565,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -23617,7 +23617,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -23643,7 +23643,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -23669,7 +23669,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -23695,7 +23695,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -23721,7 +23721,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -23747,7 +23747,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Hormonal"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -23773,7 +23773,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -23825,7 +23825,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -23851,7 +23851,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -23877,7 +23877,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -23903,7 +23903,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -23981,7 +23981,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -24007,7 +24007,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -24033,7 +24033,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -24059,7 +24059,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -24085,7 +24085,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -24111,7 +24111,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"yes",
     "Erectile-Dys":"no",
-    "Treat-option":"Chemo"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -24163,7 +24163,7 @@ var seerdata =
     "Fatigue":"no",
     "Anemia":"no",
     "Erectile-Dys":"yes",
-    "Treat-option":"Radiation"
+    "Treat-option":"TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -24267,7 +24267,7 @@ var seerdata =
     "Fatigue":"yes",
     "Anemia":"no",
     "Erectile-Dys":"no",
-    "Treat-option":"Surg+Rad"
+    "Treat-option":"Surg+TKI"
   },
   {
     "Disease":"http://snomed.info/sct/420120006",
