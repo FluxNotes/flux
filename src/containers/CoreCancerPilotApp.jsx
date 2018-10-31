@@ -79,7 +79,8 @@ export class CoreCancerPilotApp extends Component {
             snackbarOpen: false,
             snackbarMessage: "",
             superRole: 'Clinician', // possibly add that to security manager too
-            forceRefresh: false
+            forceRefresh: false,
+            tdpSearchSuggestions: []
         };
     }
 
@@ -165,6 +166,10 @@ export class CoreCancerPilotApp extends Component {
         return this.dashboard.moveTargetedDataPanelToSubsection(sectionName, subsectionName);
     }
 
+    setTDPSearchSuggestions = (suggestions) => {
+        this.setState({ tdpSearchSuggestions: suggestions })
+    }
+
     render() {
         return (
             <MuiThemeProvider theme={theme}>
@@ -185,6 +190,7 @@ export class CoreCancerPilotApp extends Component {
                                     supportLogin={true}
                                     searchIndex={this.searchIndex}
                                     moveTargetedDataPanelToSubsection={this.moveTargetedDataPanelToSubsection}
+                                    setTDPSearchSuggestions={this.setTDPSearchSuggestions}
                                 />
                             </Col>
                         </Row>
@@ -204,6 +210,7 @@ export class CoreCancerPilotApp extends Component {
                             summaryMetadata={this.summaryMetadata}
                             ref={(dashboard) => { this.dashboard = dashboard; }}
                             searchIndex={this.searchIndex}
+                            tdpSearchSuggestions={this.state.tdpSearchSuggestions}
                         />
                         <Modal 
                             aria-labelledby="simple-modal-title"
