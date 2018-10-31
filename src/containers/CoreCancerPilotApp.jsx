@@ -190,6 +190,7 @@ export class CoreCancerPilotApp extends Component {
                                     supportLogin={true}
                                     searchIndex={this.searchIndex}
                                     moveTargetedDataPanelToSubsection={this.moveTargetedDataPanelToSubsection}
+                                    setOpenNoteSearchSuggestions={() => {}}
                                     setTDPSearchSuggestions={this.setTDPSearchSuggestions}
                                 />
                             </Col>
