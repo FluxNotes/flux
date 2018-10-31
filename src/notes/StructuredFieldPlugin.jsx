@@ -59,7 +59,8 @@ function StructuredFieldPlugin(opts) {
             structured_field: props => {
                 let shortcut = props.node.get('data').get('shortcut');
                 if (shortcut instanceof InsertValue) {
-                    return <span contentEditable={false} className='structured-field-inserter' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
+//                    return <span contentEditable={false} className='structured-field-inserter' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
+                    return <span className='structured-field-inserter' {...props.attributes}>{props.children}</span>;
                 } else {
                     return <span contentEditable={false} className='structured-field-creator' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
                 }
@@ -75,7 +76,7 @@ function StructuredFieldPlugin(opts) {
             structured_field_selected_search_result: props => {
                 let shortcut = props.node.get('data').get('shortcut');
                 if (shortcut instanceof InsertValue) {
-                    return <span contentEditable={false} className='structured-field-inserter structured-field-selected-search-result' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
+                    return <span className='structured-field-inserter structured-field-highlighted structured-field-selected-search-result' {...props.attributes}>{props.children}</span>;
                 } else {
                     return <span contentEditable={false} className='structured-field-creator structured-field-selected-search-result' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
                 }
@@ -83,7 +84,7 @@ function StructuredFieldPlugin(opts) {
             structured_field_search_result: props => {
                 let shortcut = props.node.get('data').get('shortcut');
                 if (shortcut instanceof InsertValue) {
-                    return <span contentEditable={false} className='structured-field-inserter structured-field-search-result' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
+                    return <span className='structured-field-inserter structured-field-search-result' {...props.attributes}>{props.children}</span>;
                 } else {
                     return <span contentEditable={false} className='structured-field-creator structured-field-search-result' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
                 }
@@ -383,11 +384,19 @@ function insertStructuredFieldAtRange(opts, transform, shortcut, range) {
  * @return {State.Block}
  */
 function createStructuredField(opts, shortcut) {
-	let nodes = [];
+	let nodes = [ Slate.Text.create({characters: Slate.Character.createList(shortcut.getText()
+                                                                                .split('')
+                                                                                .map((char) => {
+                                                                                    return Slate.Character.create({
+                                                                                        text: char
+                                                                                    })
+                                                                                })
+                                                                            )})];
+	//let nodes = [ Slate.Text.create({})];
     const properties = {
         type:  opts.typeStructuredField,
         nodes: nodes,
-        isVoid: true,
+        //isVoid: true,
         data: {
             shortcut: shortcut
         }
