@@ -10,9 +10,6 @@
 }
 
 .section-header {
-    &__name {
-        margin-right: 20px;
-    }
 
     &__highlighted {
         background-color: $highlight-yellow;
@@ -26,6 +23,7 @@
         font-weight: normal;
         flex: 1;
         padding-right: 10px;
+        margin-left: 20px;
 
         &.encounter {
             text-overflow: inherit;
