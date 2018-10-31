@@ -23,7 +23,7 @@ export default class TargetedDataSection extends Component {
         this.state = {
             defaultVisualizer: defaultVisualizer,
             chosenVisualizer: null,
-            sectionName: "",
+            sectionNameSuffix: "",
             anchorEl: null,
             positionLeft: 0,
             positionTop: 0,
@@ -47,21 +47,12 @@ export default class TargetedDataSection extends Component {
 
     componentWillMount() {
         const {section} = this.props;
-        let sectionName = section.name;
         if (section.nameSuffix) {
-            sectionName += section.nameSuffix;
+            this.setState({ sectionNameSuffix: section.nameSuffix });
         }
-        this.setState({ sectionName });
     } 
 
     componentWillReceiveProps = (nextProps) => {
-        if (this.props.section.name !== nextProps.section.name) {
-            let sectionName = nextProps.section.name;
-            if (nextProps.section.nameSuffix) {
-                sectionName += nextProps.section.nameSuffix;
-            }
-            this.setState({ sectionName });
-        }
         this.getNameSuffix(nextProps.section);
 
         if (!Lang.isEqual(nextProps.section, this.props.section)) {
@@ -162,20 +153,17 @@ export default class TargetedDataSection extends Component {
     }
 
     getNameSuffix =  (section) => {
-        let newSectionName = section.name;
-
         if(section.nameSuffixFunction) {
             const result = section.nameSuffixFunction(section);
         
             if (Lang.isObject(result) && !Lang.isUndefined(result.then)){
                 result.then( suffix => {
-                    newSectionName+=suffix
                     this.setState({
-                        sectionName:  newSectionName
+                        sectionNameSuffix: suffix
                     });
                 });
             } else {
-                this.setState({ sectionName: newSectionName + result });
+                this.setState({ sectionNameSuffix: result });
             }
         }
     } 
@@ -360,11 +348,10 @@ export default class TargetedDataSection extends Component {
 
         const viz = this.indexSectionData(section);
         
-        let sectionName = this.state.sectionName;
         let highlightClass;
         if (!Lang.isUndefined(tdpSearchSuggestions)) {
             const matchingSection = tdpSearchSuggestions.find(s => {
-                return s.valueTitle === 'Section' && s.section === sectionName;
+                return s.valueTitle === 'Section' && s.section === section.name;
             });
             highlightClass = matchingSection ? ' section-header__highlighted' : '';
         } else {
@@ -374,7 +361,7 @@ export default class TargetedDataSection extends Component {
         return (
             <div id="targeted-data-section">
                 <h2 className="section-header">
-                    <span className={`section-header__name${highlightClass}`}>{sectionName}</span>
+                    <span className={`section-header__name${highlightClass}`}>{section.name}</span><span>&nbsp;{this.state.sectionNameSuffix}</span>
                     {!encounterView && !notFiltered && <span className="section-header__condition">{selectedCondition}</span>}
                     {this.renderFilters()}
                     {this.renderVisualizationOptions(visualizationOptions)}
