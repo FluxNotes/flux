@@ -202,7 +202,7 @@ export default class TargetedDataSection extends Component {
     updateFilterValue = (filter, subsectionName) => {
         const { section } = this.props;
         const { filters } = this.state;
-
+    
         // Update subsection data to reflect changed filter value
         const currentSubsection = section.data.find(subsection => subsection.name === subsectionName);
         const currentSubsectionFilter = currentSubsection.filters.find(f => f.name === filter.name);
@@ -212,10 +212,22 @@ export default class TargetedDataSection extends Component {
         const selectedFilter = filters[`${this.props.section.name}-${subsectionName}`].find(f => f.name === filter.name);
         selectedFilter.value = !filter.value;
 
+        this.props.preferenceManager.setPreference(`${this.props.section.name}-${subsectionName}`, filters[`${this.props.section.name}-${subsectionName}`]);
         // Set state and re-index data to properly search currently visible data
         this.setState({ filters });
         this.indexSectionData(section);
     }
+ 
+    getFilterValue = (filter, subsectionName) => {
+        // Check preference manager for stored filter
+        const subsectionFilters = this.props.preferenceManager.getPreference(`${this.props.section.name}-${subsectionName}`);
+        if (subsectionFilters) {
+            const selectedFilter = subsectionFilters.find(f => f.name === filter.name);
+            return selectedFilter.value;
+        } else {
+            return filter.value;
+        }
+    } 
 
     renderFilters = () => {
         let totalNumFilters = 0;
@@ -243,7 +255,7 @@ export default class TargetedDataSection extends Component {
                             return (
                                 <MenuItem key={filter.name}>
                                     <Checkbox
-                                        checked={filter.value}
+                                        checked={this.getFilterValue(filter, subsection.name)}
                                         onChange={() => this.updateFilterValue(filter, subsection.name)}
                                         value={filter.name}
                                         className="checkbox"/>
