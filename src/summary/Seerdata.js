@@ -8,7 +8,7 @@
 /* old 
 	var prostate_data2 = [
 	  {
-	    "Disease":"prostate cancer",
+	    "Disease":"http://snomed.info/sct/420120006",
 	    "Race":"Other",
 	    "Dx-Year":2004,
 	    "Dx-Age":"45-49 years",
@@ -38,7 +38,7 @@
 var seerdata = 
 [
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"45-49 years",
@@ -64,7 +64,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -90,7 +90,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -116,7 +116,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -142,7 +142,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -168,7 +168,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -194,7 +194,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -220,7 +220,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -246,7 +246,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -272,7 +272,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -298,7 +298,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -324,7 +324,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -350,7 +350,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -376,7 +376,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -402,7 +402,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -428,7 +428,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -454,7 +454,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -480,7 +480,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -506,7 +506,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"85+ years",
@@ -532,7 +532,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -558,7 +558,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -584,7 +584,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -610,7 +610,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -636,7 +636,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"85+ years",
@@ -662,7 +662,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -688,7 +688,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -714,7 +714,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -740,7 +740,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -766,7 +766,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -792,7 +792,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -818,7 +818,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -844,7 +844,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -870,7 +870,7 @@ var seerdata =
     "Treat-option":"No-Treatment"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"85+ years",
@@ -896,7 +896,7 @@ var seerdata =
     "Treat-option":"No-Treatment"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -922,7 +922,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -948,7 +948,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -974,7 +974,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -1000,7 +1000,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -1026,7 +1026,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -1052,7 +1052,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -1078,7 +1078,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -1104,7 +1104,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -1130,7 +1130,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -1156,7 +1156,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -1182,7 +1182,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -1208,7 +1208,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"85+ years",
@@ -1234,7 +1234,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -1260,7 +1260,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -1286,7 +1286,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -1312,7 +1312,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -1338,7 +1338,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -1364,7 +1364,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -1390,7 +1390,7 @@ var seerdata =
     "Treat-option":"No-Treatment"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -1416,7 +1416,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -1442,7 +1442,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -1468,7 +1468,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -1494,7 +1494,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -1520,7 +1520,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -1546,7 +1546,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -1572,7 +1572,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -1598,7 +1598,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -1624,7 +1624,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -1650,7 +1650,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -1676,7 +1676,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -1702,7 +1702,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -1728,7 +1728,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -1754,7 +1754,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -1780,7 +1780,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -1806,7 +1806,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"45-49 years",
@@ -1832,7 +1832,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"45-49 years",
@@ -1858,7 +1858,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -1884,7 +1884,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -1910,7 +1910,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -1936,7 +1936,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -1962,7 +1962,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -1988,7 +1988,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -2014,7 +2014,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -2040,7 +2040,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -2066,7 +2066,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -2092,7 +2092,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -2118,7 +2118,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -2144,7 +2144,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -2170,7 +2170,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -2196,7 +2196,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -2222,7 +2222,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -2248,7 +2248,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -2274,7 +2274,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"45-49 years",
@@ -2300,7 +2300,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -2326,7 +2326,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -2352,7 +2352,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"40-44 years",
@@ -2378,7 +2378,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -2404,7 +2404,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -2430,7 +2430,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"85+ years",
@@ -2456,7 +2456,7 @@ var seerdata =
     "Treat-option":"No-Treatment"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -2482,7 +2482,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -2508,7 +2508,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -2534,7 +2534,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -2560,7 +2560,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -2586,7 +2586,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -2612,7 +2612,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -2638,7 +2638,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -2664,7 +2664,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -2690,7 +2690,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"45-49 years",
@@ -2716,7 +2716,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -2742,7 +2742,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -2768,7 +2768,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -2794,7 +2794,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -2820,7 +2820,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -2846,7 +2846,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -2872,7 +2872,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -2898,7 +2898,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -2924,7 +2924,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -2950,7 +2950,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -2976,7 +2976,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -3002,7 +3002,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -3028,7 +3028,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -3054,7 +3054,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -3080,7 +3080,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -3106,7 +3106,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -3132,7 +3132,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -3158,7 +3158,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -3184,7 +3184,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -3210,7 +3210,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -3236,7 +3236,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -3262,7 +3262,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -3288,7 +3288,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -3314,7 +3314,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -3340,7 +3340,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"85+ years",
@@ -3366,7 +3366,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -3392,7 +3392,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -3418,7 +3418,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -3444,7 +3444,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -3470,7 +3470,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"45-49 years",
@@ -3496,7 +3496,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -3522,7 +3522,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -3548,7 +3548,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -3574,7 +3574,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -3600,7 +3600,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -3626,7 +3626,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -3652,7 +3652,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -3678,7 +3678,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -3704,7 +3704,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -3730,7 +3730,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -3756,7 +3756,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -3782,7 +3782,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -3808,7 +3808,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -3834,7 +3834,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -3860,7 +3860,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -3886,7 +3886,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -3912,7 +3912,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -3938,7 +3938,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -3964,7 +3964,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -3990,7 +3990,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -4016,7 +4016,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -4042,7 +4042,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -4068,7 +4068,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -4094,7 +4094,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -4120,7 +4120,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -4146,7 +4146,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -4172,7 +4172,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -4198,7 +4198,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -4224,7 +4224,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -4250,7 +4250,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -4276,7 +4276,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -4302,7 +4302,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -4328,7 +4328,7 @@ var seerdata =
     "Treat-option":"No-Treatment"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -4354,7 +4354,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -4380,7 +4380,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"45-49 years",
@@ -4406,7 +4406,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -4432,7 +4432,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -4458,7 +4458,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -4484,7 +4484,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -4510,7 +4510,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -4536,7 +4536,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -4562,7 +4562,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -4588,7 +4588,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -4614,7 +4614,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -4640,7 +4640,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -4666,7 +4666,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -4692,7 +4692,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -4718,7 +4718,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -4744,7 +4744,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -4770,7 +4770,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -4796,7 +4796,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -4822,7 +4822,7 @@ var seerdata =
     "Treat-option":"No-Treatment"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -4848,7 +4848,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -4874,7 +4874,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -4900,7 +4900,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -4926,7 +4926,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -4952,7 +4952,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -4978,7 +4978,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -5004,7 +5004,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -5030,7 +5030,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -5056,7 +5056,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -5082,7 +5082,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -5108,7 +5108,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -5134,7 +5134,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -5160,7 +5160,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other unspecified (1991+)",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -5186,7 +5186,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -5212,7 +5212,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -5238,7 +5238,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -5264,7 +5264,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -5290,7 +5290,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -5316,7 +5316,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"85+ years",
@@ -5342,7 +5342,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -5368,7 +5368,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -5394,7 +5394,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -5420,7 +5420,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -5446,7 +5446,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -5472,7 +5472,7 @@ var seerdata =
     "Treat-option":"No-Treatment"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -5498,7 +5498,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -5524,7 +5524,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -5550,7 +5550,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -5576,7 +5576,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -5602,7 +5602,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -5628,7 +5628,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -5654,7 +5654,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -5680,7 +5680,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -5706,7 +5706,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -5732,7 +5732,7 @@ var seerdata =
     "Treat-option":"No-Treatment"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -5758,7 +5758,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -5784,7 +5784,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"45-49 years",
@@ -5810,7 +5810,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -5836,7 +5836,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -5862,7 +5862,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -5888,7 +5888,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -5914,7 +5914,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -5940,7 +5940,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -5966,7 +5966,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -5992,7 +5992,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"85+ years",
@@ -6018,7 +6018,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -6044,7 +6044,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -6070,7 +6070,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -6096,7 +6096,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -6122,7 +6122,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -6148,7 +6148,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -6174,7 +6174,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -6200,7 +6200,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -6226,7 +6226,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -6252,7 +6252,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -6278,7 +6278,7 @@ var seerdata =
     "Treat-option":"No-Treatment"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"45-49 years",
@@ -6304,7 +6304,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -6330,7 +6330,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -6356,7 +6356,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -6382,7 +6382,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -6408,7 +6408,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -6434,7 +6434,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -6460,7 +6460,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -6486,7 +6486,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -6512,7 +6512,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -6538,7 +6538,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -6564,7 +6564,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -6590,7 +6590,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -6616,7 +6616,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -6642,7 +6642,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -6668,7 +6668,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -6694,7 +6694,7 @@ var seerdata =
     "Treat-option":"No-Treatment"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -6720,7 +6720,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -6746,7 +6746,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -6772,7 +6772,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -6798,7 +6798,7 @@ var seerdata =
     "Treat-option":"No-Treatment"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -6824,7 +6824,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -6850,7 +6850,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -6876,7 +6876,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -6902,7 +6902,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -6928,7 +6928,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -6954,7 +6954,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -6980,7 +6980,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -7006,7 +7006,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -7032,7 +7032,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -7058,7 +7058,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -7084,7 +7084,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -7110,7 +7110,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -7136,7 +7136,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -7162,7 +7162,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -7188,7 +7188,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -7214,7 +7214,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -7240,7 +7240,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -7266,7 +7266,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -7292,7 +7292,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -7318,7 +7318,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -7344,7 +7344,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"85+ years",
@@ -7370,7 +7370,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -7396,7 +7396,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -7422,7 +7422,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -7448,7 +7448,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -7474,7 +7474,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -7500,7 +7500,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -7526,7 +7526,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -7552,7 +7552,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -7578,7 +7578,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -7604,7 +7604,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -7630,7 +7630,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -7656,7 +7656,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -7682,7 +7682,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -7708,7 +7708,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -7734,7 +7734,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -7760,7 +7760,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -7786,7 +7786,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -7812,7 +7812,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -7838,7 +7838,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -7864,7 +7864,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -7890,7 +7890,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -7916,7 +7916,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -7942,7 +7942,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -7968,7 +7968,7 @@ var seerdata =
     "Treat-option":"No-Treatment"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -7994,7 +7994,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -8020,7 +8020,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -8046,7 +8046,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -8072,7 +8072,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -8098,7 +8098,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -8124,7 +8124,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -8150,7 +8150,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -8176,7 +8176,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -8202,7 +8202,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -8228,7 +8228,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -8254,7 +8254,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -8280,7 +8280,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -8306,7 +8306,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -8332,7 +8332,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -8358,7 +8358,7 @@ var seerdata =
     "Treat-option":"No-Treatment"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -8384,7 +8384,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -8410,7 +8410,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -8436,7 +8436,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -8462,7 +8462,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -8488,7 +8488,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -8514,7 +8514,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -8540,7 +8540,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -8566,7 +8566,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -8592,7 +8592,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -8618,7 +8618,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -8644,7 +8644,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -8670,7 +8670,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -8696,7 +8696,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -8722,7 +8722,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -8748,7 +8748,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -8774,7 +8774,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -8800,7 +8800,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -8826,7 +8826,7 @@ var seerdata =
     "Treat-option":"No-Treatment"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -8852,7 +8852,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -8878,7 +8878,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -8904,7 +8904,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"45-49 years",
@@ -8930,7 +8930,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -8956,7 +8956,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -8982,7 +8982,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -9008,7 +9008,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -9034,7 +9034,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -9060,7 +9060,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -9086,7 +9086,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -9112,7 +9112,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -9138,7 +9138,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -9164,7 +9164,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -9190,7 +9190,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -9216,7 +9216,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -9242,7 +9242,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -9268,7 +9268,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -9294,7 +9294,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -9320,7 +9320,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -9346,7 +9346,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -9372,7 +9372,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -9398,7 +9398,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -9424,7 +9424,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -9450,7 +9450,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -9476,7 +9476,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -9502,7 +9502,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"45-49 years",
@@ -9528,7 +9528,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -9554,7 +9554,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -9580,7 +9580,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -9606,7 +9606,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -9632,7 +9632,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -9658,7 +9658,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -9684,7 +9684,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -9710,7 +9710,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"45-49 years",
@@ -9736,7 +9736,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -9762,7 +9762,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -9788,7 +9788,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -9814,7 +9814,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -9840,7 +9840,7 @@ var seerdata =
     "Treat-option":"No-Treatment"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -9866,7 +9866,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -9892,7 +9892,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -9918,7 +9918,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -9944,7 +9944,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -9970,7 +9970,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -9996,7 +9996,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -10022,7 +10022,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -10048,7 +10048,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -10074,7 +10074,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -10100,7 +10100,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -10126,7 +10126,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -10152,7 +10152,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -10178,7 +10178,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -10204,7 +10204,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -10230,7 +10230,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -10256,7 +10256,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"45-49 years",
@@ -10282,7 +10282,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -10308,7 +10308,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -10334,7 +10334,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"40-44 years",
@@ -10360,7 +10360,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -10386,7 +10386,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -10412,7 +10412,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -10438,7 +10438,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -10464,7 +10464,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -10490,7 +10490,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -10516,7 +10516,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -10542,7 +10542,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -10568,7 +10568,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -10594,7 +10594,7 @@ var seerdata =
     "Treat-option":"No-Treatment"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -10620,7 +10620,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -10646,7 +10646,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -10672,7 +10672,7 @@ var seerdata =
     "Treat-option":"No-Treatment"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -10698,7 +10698,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -10724,7 +10724,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -10750,7 +10750,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -10776,7 +10776,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -10802,7 +10802,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -10828,7 +10828,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -10854,7 +10854,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -10880,7 +10880,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -10906,7 +10906,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -10932,7 +10932,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"85+ years",
@@ -10958,7 +10958,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -10984,7 +10984,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -11010,7 +11010,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -11036,7 +11036,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -11062,7 +11062,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -11088,7 +11088,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -11114,7 +11114,7 @@ var seerdata =
     "Treat-option":"No-Treatment"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -11140,7 +11140,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -11166,7 +11166,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -11192,7 +11192,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"45-49 years",
@@ -11218,7 +11218,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -11244,7 +11244,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -11270,7 +11270,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -11296,7 +11296,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -11322,7 +11322,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -11348,7 +11348,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -11374,7 +11374,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -11400,7 +11400,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -11426,7 +11426,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -11452,7 +11452,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -11478,7 +11478,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -11504,7 +11504,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -11530,7 +11530,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -11556,7 +11556,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -11582,7 +11582,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -11608,7 +11608,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -11634,7 +11634,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -11660,7 +11660,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -11686,7 +11686,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -11712,7 +11712,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -11738,7 +11738,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -11764,7 +11764,7 @@ var seerdata =
     "Treat-option":"No-Treatment"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -11790,7 +11790,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -11816,7 +11816,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -11842,7 +11842,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -11868,7 +11868,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -11894,7 +11894,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -11920,7 +11920,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -11946,7 +11946,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -11972,7 +11972,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -11998,7 +11998,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"85+ years",
@@ -12024,7 +12024,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -12050,7 +12050,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -12076,7 +12076,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -12102,7 +12102,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -12128,7 +12128,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -12154,7 +12154,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -12180,7 +12180,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -12206,7 +12206,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -12232,7 +12232,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -12258,7 +12258,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -12284,7 +12284,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -12310,7 +12310,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -12336,7 +12336,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -12362,7 +12362,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -12388,7 +12388,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -12414,7 +12414,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -12440,7 +12440,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -12466,7 +12466,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -12492,7 +12492,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -12518,7 +12518,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -12544,7 +12544,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -12570,7 +12570,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -12596,7 +12596,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -12622,7 +12622,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -12648,7 +12648,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -12674,7 +12674,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -12700,7 +12700,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -12726,7 +12726,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -12752,7 +12752,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other unspecified (1991+)",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -12778,7 +12778,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -12804,7 +12804,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -12830,7 +12830,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -12856,7 +12856,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -12882,7 +12882,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"40-44 years",
@@ -12908,7 +12908,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -12934,7 +12934,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -12960,7 +12960,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -12986,7 +12986,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -13012,7 +13012,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -13038,7 +13038,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -13064,7 +13064,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -13090,7 +13090,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -13116,7 +13116,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -13142,7 +13142,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"85+ years",
@@ -13168,7 +13168,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -13194,7 +13194,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -13220,7 +13220,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -13246,7 +13246,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -13272,7 +13272,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -13298,7 +13298,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"45-49 years",
@@ -13324,7 +13324,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"40-44 years",
@@ -13350,7 +13350,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -13376,7 +13376,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -13402,7 +13402,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"40-44 years",
@@ -13428,7 +13428,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -13454,7 +13454,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -13480,7 +13480,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -13506,7 +13506,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -13532,7 +13532,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -13558,7 +13558,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -13584,7 +13584,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -13610,7 +13610,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -13636,7 +13636,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -13662,7 +13662,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -13688,7 +13688,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -13714,7 +13714,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -13740,7 +13740,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"45-49 years",
@@ -13766,7 +13766,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -13792,7 +13792,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -13818,7 +13818,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -13844,7 +13844,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -13870,7 +13870,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -13896,7 +13896,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -13922,7 +13922,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"45-49 years",
@@ -13948,7 +13948,7 @@ var seerdata =
     "Treat-option":"No-Treatment"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -13974,7 +13974,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -14000,7 +14000,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other unspecified (1991+)",
     "Dx-Year":2004,
     "Dx-Age":"45-49 years",
@@ -14026,7 +14026,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -14052,7 +14052,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -14078,7 +14078,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -14104,7 +14104,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -14130,7 +14130,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -14156,7 +14156,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -14182,7 +14182,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -14208,7 +14208,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -14234,7 +14234,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -14260,7 +14260,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -14286,7 +14286,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -14312,7 +14312,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -14338,7 +14338,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -14364,7 +14364,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -14390,7 +14390,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -14416,7 +14416,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -14442,7 +14442,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -14468,7 +14468,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"85+ years",
@@ -14494,7 +14494,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -14520,7 +14520,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -14546,7 +14546,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -14572,7 +14572,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -14598,7 +14598,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -14624,7 +14624,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -14650,7 +14650,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -14676,7 +14676,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -14702,7 +14702,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -14728,7 +14728,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -14754,7 +14754,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -14780,7 +14780,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -14806,7 +14806,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -14832,7 +14832,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -14858,7 +14858,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -14884,7 +14884,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -14910,7 +14910,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -14936,7 +14936,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -14962,7 +14962,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -14988,7 +14988,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -15014,7 +15014,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -15040,7 +15040,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -15066,7 +15066,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -15092,7 +15092,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"45-49 years",
@@ -15118,7 +15118,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -15144,7 +15144,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -15170,7 +15170,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -15196,7 +15196,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -15222,7 +15222,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -15248,7 +15248,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -15274,7 +15274,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -15300,7 +15300,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -15326,7 +15326,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -15352,7 +15352,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -15378,7 +15378,7 @@ var seerdata =
     "Treat-option":"No-Treatment"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -15404,7 +15404,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -15430,7 +15430,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"45-49 years",
@@ -15456,7 +15456,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -15482,7 +15482,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -15508,7 +15508,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -15534,7 +15534,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -15560,7 +15560,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -15586,7 +15586,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -15612,7 +15612,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -15638,7 +15638,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -15664,7 +15664,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -15690,7 +15690,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -15716,7 +15716,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -15742,7 +15742,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -15768,7 +15768,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -15794,7 +15794,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -15820,7 +15820,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -15846,7 +15846,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -15872,7 +15872,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -15898,7 +15898,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -15924,7 +15924,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -15950,7 +15950,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -15976,7 +15976,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -16002,7 +16002,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -16028,7 +16028,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -16054,7 +16054,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -16080,7 +16080,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -16106,7 +16106,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -16132,7 +16132,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -16158,7 +16158,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -16184,7 +16184,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -16210,7 +16210,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -16236,7 +16236,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -16262,7 +16262,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -16288,7 +16288,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -16314,7 +16314,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -16340,7 +16340,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -16366,7 +16366,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -16392,7 +16392,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -16418,7 +16418,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -16444,7 +16444,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -16470,7 +16470,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -16496,7 +16496,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -16522,7 +16522,7 @@ var seerdata =
     "Treat-option":"No-Treatment"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -16548,7 +16548,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -16574,7 +16574,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -16600,7 +16600,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -16626,7 +16626,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -16652,7 +16652,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -16678,7 +16678,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -16704,7 +16704,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -16730,7 +16730,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -16756,7 +16756,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -16782,7 +16782,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -16808,7 +16808,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -16834,7 +16834,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -16860,7 +16860,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -16886,7 +16886,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -16912,7 +16912,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -16938,7 +16938,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -16964,7 +16964,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -16990,7 +16990,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -17016,7 +17016,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -17042,7 +17042,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -17068,7 +17068,7 @@ var seerdata =
     "Treat-option":"No-Treatment"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -17094,7 +17094,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -17120,7 +17120,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -17146,7 +17146,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -17172,7 +17172,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -17198,7 +17198,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -17224,7 +17224,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -17250,7 +17250,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -17276,7 +17276,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -17302,7 +17302,7 @@ var seerdata =
     "Treat-option":"No-Treatment"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -17328,7 +17328,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -17354,7 +17354,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -17380,7 +17380,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -17406,7 +17406,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"45-49 years",
@@ -17432,7 +17432,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -17458,7 +17458,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -17484,7 +17484,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -17510,7 +17510,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -17536,7 +17536,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -17562,7 +17562,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -17588,7 +17588,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -17614,7 +17614,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -17640,7 +17640,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -17666,7 +17666,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -17692,7 +17692,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -17718,7 +17718,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -17744,7 +17744,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -17770,7 +17770,7 @@ var seerdata =
     "Treat-option":"No-Treatment"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -17796,7 +17796,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -17822,7 +17822,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -17848,7 +17848,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -17874,7 +17874,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -17900,7 +17900,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -17926,7 +17926,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -17952,7 +17952,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -17978,7 +17978,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -18004,7 +18004,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -18030,7 +18030,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -18056,7 +18056,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -18082,7 +18082,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -18108,7 +18108,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -18134,7 +18134,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -18160,7 +18160,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -18186,7 +18186,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -18212,7 +18212,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -18238,7 +18238,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -18264,7 +18264,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -18290,7 +18290,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -18316,7 +18316,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -18342,7 +18342,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -18368,7 +18368,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -18394,7 +18394,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -18420,7 +18420,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -18446,7 +18446,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -18472,7 +18472,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -18498,7 +18498,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -18524,7 +18524,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -18550,7 +18550,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -18576,7 +18576,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -18602,7 +18602,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -18628,7 +18628,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -18654,7 +18654,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -18680,7 +18680,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -18706,7 +18706,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -18732,7 +18732,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -18758,7 +18758,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -18784,7 +18784,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -18810,7 +18810,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -18836,7 +18836,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -18862,7 +18862,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -18888,7 +18888,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -18914,7 +18914,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -18940,7 +18940,7 @@ var seerdata =
     "Treat-option":"No-Treatment"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -18966,7 +18966,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -18992,7 +18992,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -19018,7 +19018,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -19044,7 +19044,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -19070,7 +19070,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -19096,7 +19096,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -19122,7 +19122,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -19148,7 +19148,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -19174,7 +19174,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -19200,7 +19200,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -19226,7 +19226,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -19252,7 +19252,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -19278,7 +19278,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -19304,7 +19304,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -19330,7 +19330,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -19356,7 +19356,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -19382,7 +19382,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"85+ years",
@@ -19408,7 +19408,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -19434,7 +19434,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -19460,7 +19460,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -19486,7 +19486,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -19512,7 +19512,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -19538,7 +19538,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -19564,7 +19564,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -19590,7 +19590,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"85+ years",
@@ -19616,7 +19616,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -19642,7 +19642,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -19668,7 +19668,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -19694,7 +19694,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -19720,7 +19720,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -19746,7 +19746,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"85+ years",
@@ -19772,7 +19772,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -19798,7 +19798,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -19824,7 +19824,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -19850,7 +19850,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -19876,7 +19876,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -19902,7 +19902,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -19928,7 +19928,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"85+ years",
@@ -19954,7 +19954,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -19980,7 +19980,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -20006,7 +20006,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -20032,7 +20032,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -20058,7 +20058,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other unspecified (1991+)",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -20084,7 +20084,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -20110,7 +20110,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -20136,7 +20136,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -20162,7 +20162,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -20188,7 +20188,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -20214,7 +20214,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"85+ years",
@@ -20240,7 +20240,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -20266,7 +20266,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -20292,7 +20292,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"85+ years",
@@ -20318,7 +20318,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -20344,7 +20344,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -20370,7 +20370,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"85+ years",
@@ -20396,7 +20396,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -20422,7 +20422,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"45-49 years",
@@ -20448,7 +20448,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -20474,7 +20474,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -20500,7 +20500,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"85+ years",
@@ -20526,7 +20526,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -20552,7 +20552,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -20578,7 +20578,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -20604,7 +20604,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -20630,7 +20630,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -20656,7 +20656,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -20682,7 +20682,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"85+ years",
@@ -20708,7 +20708,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -20734,7 +20734,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -20760,7 +20760,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"40-44 years",
@@ -20786,7 +20786,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -20812,7 +20812,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -20838,7 +20838,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -20864,7 +20864,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -20890,7 +20890,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -20916,7 +20916,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -20942,7 +20942,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -20968,7 +20968,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -20994,7 +20994,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -21020,7 +21020,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -21046,7 +21046,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -21072,7 +21072,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -21098,7 +21098,7 @@ var seerdata =
     "Treat-option":"No-Treatment"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -21124,7 +21124,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -21150,7 +21150,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -21176,7 +21176,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -21202,7 +21202,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -21228,7 +21228,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -21254,7 +21254,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -21280,7 +21280,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -21306,7 +21306,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -21332,7 +21332,7 @@ var seerdata =
     "Treat-option":"No-Treatment"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -21358,7 +21358,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -21384,7 +21384,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -21410,7 +21410,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -21436,7 +21436,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -21462,7 +21462,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -21488,7 +21488,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -21514,7 +21514,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -21540,7 +21540,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"85+ years",
@@ -21566,7 +21566,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -21592,7 +21592,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -21618,7 +21618,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -21644,7 +21644,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"85+ years",
@@ -21670,7 +21670,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -21696,7 +21696,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -21722,7 +21722,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -21748,7 +21748,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -21774,7 +21774,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -21800,7 +21800,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -21826,7 +21826,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -21852,7 +21852,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -21878,7 +21878,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -21904,7 +21904,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -21930,7 +21930,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -21956,7 +21956,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Unknown",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -21982,7 +21982,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -22008,7 +22008,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -22034,7 +22034,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -22060,7 +22060,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"85+ years",
@@ -22086,7 +22086,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -22112,7 +22112,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -22138,7 +22138,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -22164,7 +22164,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -22190,7 +22190,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -22216,7 +22216,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -22242,7 +22242,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -22268,7 +22268,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -22294,7 +22294,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -22320,7 +22320,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -22346,7 +22346,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Black",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -22372,7 +22372,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"85+ years",
@@ -22398,7 +22398,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -22424,7 +22424,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -22450,7 +22450,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -22476,7 +22476,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -22502,7 +22502,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -22528,7 +22528,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -22554,7 +22554,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -22580,7 +22580,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -22606,7 +22606,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -22632,7 +22632,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -22658,7 +22658,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -22684,7 +22684,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"85+ years",
@@ -22710,7 +22710,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -22736,7 +22736,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -22762,7 +22762,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -22788,7 +22788,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -22814,7 +22814,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -22840,7 +22840,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -22866,7 +22866,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -22892,7 +22892,7 @@ var seerdata =
     "Treat-option":"No-Treatment"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -22918,7 +22918,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -22944,7 +22944,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -22970,7 +22970,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -22996,7 +22996,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -23022,7 +23022,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -23048,7 +23048,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -23074,7 +23074,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -23100,7 +23100,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -23126,7 +23126,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -23152,7 +23152,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -23178,7 +23178,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -23204,7 +23204,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -23230,7 +23230,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -23256,7 +23256,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -23282,7 +23282,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -23308,7 +23308,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -23334,7 +23334,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -23360,7 +23360,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -23386,7 +23386,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -23412,7 +23412,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -23438,7 +23438,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -23464,7 +23464,7 @@ var seerdata =
     "Treat-option":"No-Treatment"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -23490,7 +23490,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -23516,7 +23516,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -23542,7 +23542,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -23568,7 +23568,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -23594,7 +23594,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -23620,7 +23620,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -23646,7 +23646,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -23672,7 +23672,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -23698,7 +23698,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -23724,7 +23724,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -23750,7 +23750,7 @@ var seerdata =
     "Treat-option":"Hormonal"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -23776,7 +23776,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -23802,7 +23802,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -23828,7 +23828,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -23854,7 +23854,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -23880,7 +23880,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -23906,7 +23906,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -23932,7 +23932,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"75-79 years",
@@ -23958,7 +23958,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"85+ years",
@@ -23984,7 +23984,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -24010,7 +24010,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -24036,7 +24036,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -24062,7 +24062,7 @@ var seerdata =
     "Treat-option":"Chemo+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -24088,7 +24088,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -24114,7 +24114,7 @@ var seerdata =
     "Treat-option":"Chemo"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -24140,7 +24140,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"50-54 years",
@@ -24166,7 +24166,7 @@ var seerdata =
     "Treat-option":"Radiation"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"60-64 years",
@@ -24192,7 +24192,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"Other (American Indian/AK Native; Asian/Pacific Islander)",
     "Dx-Year":2004,
     "Dx-Age":"55-59 years",
@@ -24218,7 +24218,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
@@ -24244,7 +24244,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"70-74 years",
@@ -24270,7 +24270,7 @@ var seerdata =
     "Treat-option":"Surg+Rad"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"65-69 years",
@@ -24296,7 +24296,7 @@ var seerdata =
     "Treat-option":"Surgery"
   },
   {
-    "Disease":"prostate cancer",
+    "Disease":"http://snomed.info/sct/420120006",
     "Race":"White",
     "Dx-Year":2004,
     "Dx-Age":"80-84 years",
