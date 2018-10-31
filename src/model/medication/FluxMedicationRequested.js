@@ -9,6 +9,7 @@ import ExpectedPerformanceTime from '../shr/action/ExpectedPerformanceTime';
 import moment from 'moment';
 import lookup from '../../lib/MedicationInformationService.jsx';
 import ActionContext from '../shr/action/ActionContext';
+import TimePeriodEnd from '../shr/core/TimePeriodEnd';
 class FluxMedicationRequested {
     constructor(json) {
         this._medicationRequested = MedicationRequested.fromJSON(json);
@@ -64,6 +65,13 @@ class FluxMedicationRequested {
             this._medicationRequested.actionContext.expectedPerformanceTime.value = new TimePeriod();
         }
         this._medicationRequested.actionContext.expectedPerformanceTime.value.timePeriodStart = date;
+    }
+
+    set endDate(date) {
+        if (!this._medicationRequested.actionContext.expectedPerformanceTime.value) return;
+        const timePeriodEnd = new TimePeriodEnd();
+        timePeriodEnd.value = date;
+        this._medicationRequested.actionContext.expectedPerformanceTime.value.timePeriodEnd = timePeriodEnd;
     }
 
     isActiveAsOf(date) {
@@ -144,6 +152,11 @@ class FluxMedicationRequested {
             value: this._medicationRequested.dosage.doseAmount.value.decimal,
             units: this._medicationRequested.dosage.doseAmount.value.units.value.code
         };
+    }
+
+    set dose(amount) {
+        if (!this._medicationRequested.dosage || !this._medicationRequested.dosage.doseAmount) return;
+        this._medicationRequested.dosage.doseAmount.value.decimal = amount;
     }
 
     /*

@@ -4,6 +4,9 @@ import Type from "../shr/entity/Type";
 import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
 import codeableConceptUtils from '../CodeableConceptUtils.jsx';
+import Lang from 'lodash';
+import moment from 'moment';
+import FluxMedicationAfterChange from './FluxMedicationAfterChange';
 
 class FluxMedicationChange {
     constructor(json, patientRecord) {
@@ -35,8 +38,7 @@ class FluxMedicationChange {
      * Set the MedicationBeforeChange object
      */
     set medicationBeforeChange(medication) {
-
-        if (medication) {        
+        if (medication) {
             // Create a new Flux Medicaion Before Change object to add the medication value to
             this._medicationChange.medicationBeforeChange = new FluxMedicationBeforeChange();
             this._medicationChange.medicationBeforeChange.value = this._patientRecord.createEntryReferenceTo(medication);
@@ -65,6 +67,7 @@ class FluxMedicationChange {
         if (!this._medicationChange.type) {
             this._medicationChange.type = new Type();
         }
+
         this._medicationChange.type.value = codeableConceptUtils.getCodeableConceptFromTuple({value: code, codeSystem: "http://standardhealthrecord.org/spec/shr/medication/cs/#MedicationChangeTypeCS", displayText: code} );
     }
 
@@ -77,7 +80,16 @@ class FluxMedicationChange {
     }
 
     set afterDosage(amount) {
+        if (!this._medicationChange.medicationAfterChange && this.medicationBeforeChange) {
+            const medBefore = this._patientRecord.getEntryFromReference(this.medicationBeforeChange.value);
 
+            const medAfter = Lang.cloneDeep(medBefore);
+            medAfter.dose = amount;
+            this._patientRecord.addEntryToPatient(medAfter);
+            medBefore.endDate = new moment().subtract(1, 'month').format('D MMM YYYY');
+            this._medicationChange.medicationAfterChange = new FluxMedicationAfterChange();
+            this._medicationChange.medicationAfterChange.value = this._patientRecord.createEntryReferenceTo(medAfter);
+        }
     }
 
     /**

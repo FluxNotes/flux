@@ -520,7 +520,8 @@
     "valueObject": "http://standardhealthrecord.org/spec/shr/medication/MedicationChange",
     "valueObjectAttributes": [
       {"name":"medication", "attribute":"medicationBeforeChange", "isSettable":"true", "setMethod": "medicationBeforeChange", "childShortcut": "ActiveMedicationInserter"},
-      {"name":"to", "attribute":"medicationAfterChange.doseAmount.value", "isSettable":"true", "setMethod":"afterDosageAmount", "childShortcut": "MedicationDosageAmount"}
+      {"name":"to", "childShortcut": "MedicationDosageAmount"},
+      {"name":"toDosageAmount", "attribute": "afterDosage", "isSettable": "true", "setMethod": "afterDosage"}
     ],
     "updatePatient": [  {"object":"$valueObject", "attribute": "type", "args": [ "reduced"]},
                         {"object":"patient", "method": "addEntryToPatientWithPatientFocalSubject", "args": [ "$valueObject", "$clinicalNote" ]}],
@@ -539,24 +540,25 @@
     "stringTriggers": [{"name":"@active medication", "description": "Select an active medication to insert"}],
     "shortcutGroupName": "Active Medication"
   },
-  { "type": "CreatorChild",
+  { "type": "CreatorIntermediary",
     "id": "MedicationDosageAmount",
-    "parentAttribute": "status",
-    "stringTriggers": {
-      "category": "receptor",
-      "valueSet": "status",
-      "prefix": "#"
-    },
-    "keywords": {
-      "category": "receptor",
-      "valueSet": "status",
-      "prefix": ""
-    },
-    "description":"?",
-    "shortcutGroupName":"Receptor"
-  }, 
-
-
+    "name": "to",
+    "valueObjectAttributes": [  {"name":"number", "toParentAttribute":"toDosageAmount", "isSettable":"true", "childShortcut":"NumericCreator"} ],
+    "parentAttribute": "to",
+    "isContext": true,
+    "stringTriggers": [{ "name": "#to", "description": "The date as of when the disease status was assessed."}],
+    "knownParentContexts": "MedicationChangeReduceCreator",
+    "description":"The date as of when the disease status was assessed.",
+    "shortcutGroupName":"To"
+  },
+  { "type": "CreatorChild",
+    "id": "NumericCreator",
+    "parentAttribute": "number",
+    "stringTriggers": [{ "name": "#number", "description": "A number" }],
+    "regexpTrigger": "(#[0-9])",
+    "description":"Allows entry of a number.",
+    "shortcutGroupName":"Number"
+  },
   { "type": "NLPHashtag",
     "id": "NLPToxicityCreator",
     "name": "nlptoxicity",
