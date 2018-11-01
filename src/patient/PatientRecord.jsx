@@ -1039,12 +1039,11 @@ class PatientRecord {
 
     getEntriesOfType(type) {
         return this.entries.filter((item) => {
-            return item.constructor.name === type.name;
+            return item instanceof type;
         });
     }
 
     getEntriesOfEntryType(entryType) {
-        console.log(entryType)
         return this.entries.filter((entry) => {
             return entry.entryInfo.entryType && entry.entryInfo.entryType.value === entryType;
         });
