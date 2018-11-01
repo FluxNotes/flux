@@ -23,7 +23,8 @@ export default class NoteAssistant extends Component {
             // false indicates a shortcut is being inserted
             // true indicates a template is being inserted
             insertingTemplate: false,
-            searchResultNoteId: null
+            searchResultNoteId: null,
+            highlightedNoteIds: []
         };
         // On creating of NoteAssistant, check if the note viewer is editable
         if (this.props.isNoteViewerEditable) {
@@ -69,6 +70,14 @@ export default class NoteAssistant extends Component {
             if (!isVisible) {
                 this.refs[nextProps.updatedEditorNote.entryInfo.entryId].scrollIntoView();
             }
+        }
+
+        const previousNoteAssistantSuggestions = this.props.searchSuggestions.filter(s => s.section === 'Clinical Notes' && s.valueTitle !== 'Subsection' && s.valueTitle !== 'Section');
+        const nextNoteAssistantSuggestions = nextProps.searchSuggestions.filter(s => s.section === 'Clinical Notes' && s.valueTitle !== 'Subsection' && s.valueTitle !== 'Section');
+
+        if (!Lang.isEqual(previousNoteAssistantSuggestions, nextNoteAssistantSuggestions)) {
+            const highlightedNoteIds = nextNoteAssistantSuggestions.map(s => s.note.entryInfo.entryId);
+            this.setState({ highlightedNoteIds });
         }
     }
 
@@ -408,7 +417,7 @@ export default class NoteAssistant extends Component {
     // For each clinical note, render the note image with the text
     renderClinicalNote(item, i) {
         let selected = Lang.isEqual(this.props.selectedNote, item);
-        let searchedFor = item.entryInfo.entryId === this.state.searchResultNoteId;
+        const searchedFor = Lang.includes(this.state.highlightedNoteIds, item.entryInfo.entryId);
         // if we have closed the note, selected = false
         if (Lang.isEqual(this.props.noteClosed, true)) {
             selected = false;
@@ -611,6 +620,7 @@ NoteAssistant.propTypes = {
     patient: PropTypes.object.isRequired,
     searchIndex: PropTypes.object.isRequired,
     searchSelectedItem: PropTypes.object,
+    searchSuggestions: PropTypes.array,
     selectedNote: PropTypes.object,
     setLayout: PropTypes.func.isRequired,
     setNoteClosed: PropTypes.func.isRequired,

@@ -459,6 +459,7 @@ export default class NotesPanel extends Component {
                     updateShowTemplateView={this.updateShowTemplateView}
                     setUndoTemplateInsertion={this.setUndoTemplateInsertion}
                     changeShortcutType={this.changeShortcutType}
+                    searchSuggestions={this.props.searchSuggestions}
                 />
             </div>
         );
