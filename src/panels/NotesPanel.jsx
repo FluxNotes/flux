@@ -377,11 +377,11 @@ export default class NotesPanel extends Component {
                     itemInserted={this.props.itemInserted}
                     newCurrentShortcut={this.props.newCurrentShortcut}
                     noteAssistantMode={this.state.noteAssistantMode}
-                    openNoteSearchSuggestions={this.props.openNoteSearchSuggestions}
                     openSourceNoteEntryId={this.props.openSourceNoteEntryId}
                     patient={this.props.patient}
                     saveNote={this.saveNote}
                     searchIndex={this.props.searchIndex}
+                    searchSuggestions={this.props.searchSuggestions}
                     selectedNote={this.state.selectedNote}
                     selectedPickListOptions={this.state.selectedPickListOptions}
                     setForceRefresh={this.props.setForceRefresh}
@@ -486,7 +486,6 @@ NotesPanel.propTypes = {
     newCurrentShortcut: PropTypes.func.isRequired,
     noteClosed: PropTypes.bool.isRequired,
     openClinicalNote: PropTypes.object,
-    openNoteSearchSuggestions: PropTypes.array,
     openSourceNoteEntryId: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number,
@@ -494,6 +493,7 @@ NotesPanel.propTypes = {
     patient: PropTypes.object.isRequired,
     searchIndex: PropTypes.object.isRequired,
     searchSelectedItem: PropTypes.object,
+    searchSuggestions: PropTypes.array,
     setNoteClosed: PropTypes.func.isRequired,
     setNoteViewerEditable: PropTypes.func.isRequired,
     setForceRefresh: PropTypes.func.isRequired,

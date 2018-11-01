@@ -191,7 +191,7 @@ export default class ClinicianDashboard extends Component {
                         targetedDataPanelSize={this.state.targetedDataPanelSize}
                         ref={(tdp) => { this.targetedDataPanel = tdp; }}
                         searchIndex={this.props.searchIndex}
-                        tdpSearchSuggestions={this.props.tdpSearchSuggestions}
+                        searchSuggestions={this.props.searchSuggestions}
                     />
                 </div>
                 <div style={notesPanelStyles}>
@@ -227,7 +227,7 @@ export default class ClinicianDashboard extends Component {
                         summaryItemToInsertSource={this.props.appState.summaryItemToInsertSource}
                         updateErrors={this.props.updateErrors}
                         ref={(np) => { this.notesPanel = np; }}
-                        openNoteSearchSuggestions={this.props.openNoteSearchSuggestions}
+                        searchSuggestions={this.props.searchSuggestions}
                     />
                 </div>
             </div>
@@ -247,7 +247,6 @@ ClinicianDashboard.propTypes = {
     preferenceManager: PropTypes.object.isRequired,
     newCurrentShortcut: PropTypes.func.isRequired,
     onContextUpdate: PropTypes.func.isRequired,
-    openNoteSearchSuggestions: PropTypes.array,
     openSourceNoteEntryId: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number,
@@ -268,5 +267,5 @@ ClinicianDashboard.propTypes = {
     summaryMetadata: PropTypes.object.isRequired,
     updateErrors: PropTypes.func.isRequired,
     searchIndex: PropTypes.object.isRequired,
-    tdpSearchSuggestions: PropTypes.array
+    searchSuggestions: PropTypes.array
 };

@@ -768,8 +768,9 @@ class FluxNotesEditor extends React.Component {
         }
 
         // If the open note search results have changed, we want to highlight the results in the note
-        if (!Lang.isEqual(this.props.openNoteSearchSuggestions, nextProps.openNoteSearchSuggestions)) {
-            this.highlightOpenNoteResults(nextProps.openNoteSearchSuggestions);
+        if (!Lang.isEqual(this.props.searchSuggestions, nextProps.searchSuggestions)) {
+            const openNoteSearchSuggestions = nextProps.searchSuggestions.filter(s => s.section === "Open Note");
+            this.highlightOpenNoteResults(openNoteSearchSuggestions);
         }
     }
 
@@ -1713,7 +1714,6 @@ FluxNotesEditor.propTypes = {
     handleUpdateEditorWithNote: PropTypes.func.isRequired,
     isNoteViewerEditable: PropTypes.bool.isRequired,
     itemInserted: PropTypes.func.isRequired,
-    openNoteSearchSuggestions: PropTypes.array,
     openSourceNoteEntryId: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number,
@@ -1722,6 +1722,7 @@ FluxNotesEditor.propTypes = {
     noteAssistantMode: PropTypes.string.isRequired,
     patient: PropTypes.object.isRequired,
     saveNote: PropTypes.func.isRequired,
+    searchSuggestions: PropTypes.array,
     selectedNote: PropTypes.object,
     selectedPickListOptions: PropTypes.array.isRequired,
     setForceRefresh: PropTypes.func,

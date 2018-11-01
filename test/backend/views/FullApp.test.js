@@ -405,6 +405,7 @@ describe('6 FluxNotesEditor', function() {
             updateSelectedNote={jest.fn()}
             updateNoteAssistantMode={jest.fn()}
             updateContextTrayItemToInsert={jest.fn()}
+            searchSuggestions={[]}
         />);
         expect(wrapper).to.exist;
         // wrapper.find('.editor-content').simulate('click'); //goes into on change
@@ -546,6 +547,7 @@ describe('6 FluxNotesEditor', function() {
             setSearchSelectedItem={jest.fn()}
             summaryItemToInsert={''}
             updateErrors={jest.fn()}
+            searchSuggestions={[]}
         />,
         { attachTo: document.body });
         expect(notesPanelWrapper).to.have.lengthOf(1);
@@ -602,6 +604,7 @@ describe('6 FluxNotesEditor', function() {
             setOpenSourceNoteEntryId={jest.fn()}
             summaryItemToInsert={''}
             updateErrors={jest.fn()}
+            searchSuggestions={[]}
         />, { attachTo: document.body });
         expect(notesPanelWrapper.find(FluxNotesEditor)).to.have.lengthOf(1);
         expect(notesPanelWrapper.find(NoteAssistant)).to.have.lengthOf(1);
@@ -669,6 +672,7 @@ describe('6 FluxNotesEditor', function() {
             updateSelectedNote={jest.fn()}
             updateNoteAssistantMode={jest.fn()}
             updateContextTrayItemToInsert={jest.fn()}
+            searchSuggestions={[]}
         />);
         expect(wrapper).to.exist;
         // wrapper.find('.editor-content').simulate('click'); //goes into on change
@@ -748,6 +752,7 @@ describe('6 FluxNotesEditor', function() {
             updateSelectedNote={jest.fn()}
             updateNoteAssistantMode={jest.fn()}
             updateContextTrayItemToInsert={jest.fn()}
+            searchSuggestions={[]}
         />);
         expect(wrapper).to.exist;
         // wrapper.find('.editor-content').simulate('click'); //goes into on change
@@ -829,6 +834,7 @@ describe('6 FluxNotesEditor', function() {
             updateSelectedNote={jest.fn()}
             updateNoteAssistantMode={jest.fn()}
             updateContextTrayItemToInsert={jest.fn()}
+            searchSuggestions={[]}
         />);
         expect(wrapper).to.exist;
         // wrapper.find('.editor-content').simulate('click'); //goes into on change
@@ -897,6 +903,7 @@ describe('6 FluxNotesEditor', function() {
             setOpenSourceNoteEntryId={jest.fn()}
             summaryItemToInsert={''}
             updateErrors={jest.fn()}
+            searchSuggestions={[]}
         />,
         { attachTo: document.body });
         const fluxNotesEditor = notesPanelWrapper.find(FluxNotesEditor);
@@ -962,6 +969,7 @@ describe('6 FluxNotesEditor', function() {
             setOpenSourceNoteEntryId={jest.fn()}
             summaryItemToInsert={''}
             updateErrors={jest.fn()}
+            searchSuggestions={[]}
         />,
         { attachTo: document.body });
         const fluxNotesEditor = notesPanelWrapper.find(FluxNotesEditor);
@@ -1041,6 +1049,7 @@ describe('6 FluxNotesEditor', function() {
             setOpenClinicalNote={jest.fn()}
             summaryItemToInsert={''}
             updateErrors={jest.fn()}
+            searchSuggestions={[]}
         />);
         const fluxNotesEditor = notesPanelWrapper.find(FluxNotesEditor);
         expect(fluxNotesEditor).to.have.lengthOf(1);
@@ -1108,6 +1117,7 @@ describe('6 FluxNotesEditor', function() {
             setOpenClinicalNote={jest.fn()}
             summaryItemToInsert={''}
             updateErrors={jest.fn()}
+            searchSuggestions={[]}
         />);
         const fluxNotesEditor = notesPanelWrapper.find(FluxNotesEditor);
         expect(fluxNotesEditor).to.have.lengthOf(1);
@@ -1180,6 +1190,7 @@ describe('6 FluxNotesEditor', function() {
             updateSelectedNote={jest.fn()}
             updateNoteAssistantMode={jest.fn()}
             updateContextTrayItemToInsert={jest.fn()}
+            searchSuggestions={[]}
         />);
         expect(wrapper).to.exist;
         // wrapper.find('.editor-content').simulate('click'); //goes into on change
@@ -1253,6 +1264,7 @@ describe('6 FluxNotesEditor', function() {
             setOpenClinicalNote={jest.fn()}
             summaryItemToInsert={''}
             updateErrors={jest.fn()}
+            searchSuggestions={[]}
         />);
 
         const clinicalNotesButton = notesPanelWrapper.find('#notes-btn');
