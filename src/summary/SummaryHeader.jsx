@@ -58,9 +58,7 @@ class SummaryHeader extends Component {
     }
 
     render() {
-        console.log(this.props)
         const { photo, patientName, mrn, dateOfBirth, age, administrativeSex, address } = this.props;
-        console.log(mrn)
 
         const dateOfBirthString = (dateOfBirth) ? `${dateOfBirth} (${age})` : '?';
         const administrativeSexString = (administrativeSex) ? administrativeSex : '?';
