@@ -58,7 +58,7 @@ class SummaryHeader extends Component {
     }
 
     render() {
-        const { photo, patientName, dateOfBirth, age, administrativeSex, address } = this.props;
+        const { photo, patientName, mrn, dateOfBirth, age, administrativeSex, address } = this.props;
 
         const dateOfBirthString = (dateOfBirth) ? `${dateOfBirth} (${age})` : '?';
         const administrativeSexString = (administrativeSex) ? administrativeSex : '?';
@@ -79,17 +79,20 @@ class SummaryHeader extends Component {
                     />
                 </div>
                 <div className="patient-info item">
-                    <h1 className="patient-name">{patientName}</h1>
-                    <h3 className="patient-item">DOB: <span className="no-wrap">{dateOfBirthString}</span></h3>
-                    <h3 className="patient-item">Admin. Sex:  <span>{administrativeSexString}</span></h3>
-                    <h3 className="patient-item">Location: <span>{locationString}</span></h3>
+                    <div className="patient-name-number">
+                      <span className="patient-name">{patientName}</span>
+                      <span className="patient-mrn">({mrn})</span>
+                    </div>
+                    <div className="patient-item">DOB: <span className="no-wrap">{dateOfBirthString}</span></div>
+                    <div className="patient-item">Admin. Sex:  <span>{administrativeSexString}</span></div>
+                    <div className="patient-item">Location: <span>{locationString}</span></div>
                 </div>
 {/* TODO: Remove below content, or place patient description back inside an appropriate grid-row-col */}
 {/*                <Grid className="FullApp-content" fluid>
                     <Row middle="xs">
                         <Col sm={12}>
                             <div className="view item">
-                             <h3>View</h3>
+                             <div>View</div>
                                 <span>
                                     <Row middle="xs">
                                         <Col sm={4}>

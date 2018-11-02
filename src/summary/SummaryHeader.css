@@ -8,25 +8,28 @@
     width: 100%;
 }
 
-h2, h3 {
+.patient-item {
+    margin-left: 1px !important;
+    font-size: .7em;
     color: #999;
 }
 
-.patient-item {
-    margin-left: 1px !important;
-}
-
-h1.patient-name { 
+.patient-name { 
     font-size: 15px !important;
 }
 
+.patient-mrn {
+  color: #999;
+  padding-left: 4px;
+}
+
 .avatar {
-    display:inline-block;
+    display: inline-block;
     padding-right: 5px;
 }
 
 .patient-info {
-    display:inline-block;
+    display: inline-block;
 }
 
 .item {
