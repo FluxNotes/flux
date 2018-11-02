@@ -19,6 +19,8 @@ export default class TargetedDataSection extends Component {
             filters[`${this.props.section.name}-${subsection.name}`] = Lang.cloneDeep(subsection.filters) || [];
         });
 
+        this.tdpSearchSuggestions = [];
+
         // this.state.defaultVisualizer is the default visualization, this.state.chosenVisualizer changes when icons are clicked
         this.state = {
             defaultVisualizer: defaultVisualizer,
@@ -62,7 +64,12 @@ export default class TargetedDataSection extends Component {
             });
             this.setState({ filters });
         }
-    } 
+
+        const previousTDPSuggestions = this.props.searchSuggestions.filter(s => s.source === 'structuredData');
+        const nextTDPSuggestions = nextProps.searchSuggestions.filter(s => s.source === 'structuredData');
+
+        if (!Lang.isEqual(previousTDPSuggestions, nextTDPSuggestions)) this.tdpSearchSuggestions = nextTDPSuggestions;
+    }
 
     determineDefaultVisualizer = (section, clinicalEvent, optionsForSection) => {
         if (optionsForSection.length === 0) return 'tabular';
@@ -334,13 +341,13 @@ export default class TargetedDataSection extends Component {
                 loginUser={loginUser}
                 actions={actions}
                 searchIndex={searchIndex}
-                tdpSearchSuggestions={this.props.tdpSearchSuggestions}
+                tdpSearchSuggestions={this.tdpSearchSuggestions}
             />
         );
     }
 
     render() {
-        const { section, condition, clinicalEvent, tdpSearchSuggestions } = this.props;
+        const { section, condition, clinicalEvent } = this.props;
         const visualizationOptions = this.getOptions(section);
         const selectedCondition = condition && condition.type;
         const encounterView = clinicalEvent === "encounter";
@@ -349,8 +356,8 @@ export default class TargetedDataSection extends Component {
         const viz = this.indexSectionData(section);
         
         let highlightClass;
-        if (!Lang.isUndefined(tdpSearchSuggestions)) {
-            const matchingSection = tdpSearchSuggestions.find(s => {
+        if (!Lang.isUndefined(this.tdpSearchSuggestions)) {
+            const matchingSection = this.tdpSearchSuggestions.find(s => {
                 return s.valueTitle === 'Section' && s.section === section.name;
             });
             highlightClass = matchingSection ? ' section-header__highlighted' : '';
@@ -388,5 +395,5 @@ TargetedDataSection.propTypes = {
     loginUser: PropTypes.object.isRequired,
     preferenceManager: PropTypes.object.isRequired,
     searchIndex: PropTypes.object.isRequired,
-    tdpSearchSuggestions: PropTypes.array
+    searchSuggestions: PropTypes.array
 }

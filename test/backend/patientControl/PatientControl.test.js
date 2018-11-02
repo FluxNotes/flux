@@ -57,9 +57,8 @@ describe('PatientSearch', function () {
     it('Should update state.value when input is entered ', function () { 
         const wrapper = mount(<PatientSearch
             patient={testPatientObj}
-            setOpenNoteSearchSuggestions={jest.fn()}
             setSearchSelectedItem={jest.fn()}
-            setTDPSearchSuggestions={jest.fn()}
+            setSearchSuggestions={jest.fn()}
             searchIndex={searchIndex}
         />);
         expect(wrapper).to.exist;
@@ -74,9 +73,8 @@ describe('PatientSearch', function () {
     it('Should update state.suggestions when input is entered ', function () { 
         const wrapper = mount(<PatientSearch
             patient={testPatientObj}
-            setOpenNoteSearchSuggestions={jest.fn()}
             setSearchSelectedItem={jest.fn()}
-            setTDPSearchSuggestions={jest.fn()}
+            setSearchSuggestions={jest.fn()}
             searchIndex={searchIndex}
         />);
 
@@ -94,9 +92,8 @@ describe('PatientSearch', function () {
     it('Should provide suggestions in a list when input is entered and inputBox is focused ', function () { 
         const wrapper = mount(<PatientSearch
             patient={testPatientObj}
-            setOpenNoteSearchSuggestions={jest.fn()}
             setSearchSelectedItem={jest.fn()}
-            setTDPSearchSuggestions={jest.fn()}
+            setSearchSuggestions={jest.fn()}
             searchIndex={searchIndex}
         />);
         // Assumes we're testing against TestPatient

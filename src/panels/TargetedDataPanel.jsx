@@ -70,7 +70,7 @@ export default class TargetedDataPanel extends Component {
                                     conditionMetadata={conditionMetadata}
                                     searchIndex={this.props.searchIndex}
                                     moveToSubsectionFromSearch={this.moveToSubsectionFromSearch.bind(this)}
-                                    tdpSearchSuggestions={this.props.tdpSearchSuggestions}
+                                    searchSuggestions={this.props.searchSuggestions}
                                     />
                             </div>
                         </div>
@@ -97,7 +97,7 @@ export default class TargetedDataPanel extends Component {
                                 conditionMetadata={conditionMetadata}
                                 searchIndex={this.props.searchIndex}
                                 moveToSubsectionFromSearch={this.moveToSubsectionFromSearch.bind(this)}
-                                tdpSearchSuggestions={this.props.tdpSearchSuggestions}
+                                searchSuggestions={this.props.searchSuggestions}
                                 />
                         </div>
                     </div>
@@ -124,5 +124,5 @@ TargetedDataPanel.proptypes = {
     setForceRefresh: PropTypes.func.isRequired,
     targetedDataPanelSize: PropTypes.string.isRequired,
     searchIndex: PropTypes.object.isRequired,
-    tdpSearchSuggestions: PropTypes.array
+    searchSuggestions: PropTypes.array
 }

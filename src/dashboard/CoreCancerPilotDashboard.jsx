@@ -37,7 +37,7 @@ export default class CoreCancerPilotDashboard extends Component {
                         targetedDataPanelSize={'100%'}
                         ref={(tdp) => { this.targetedDataPanel = tdp; }}
                         searchIndex={this.props.searchIndex}
-                        tdpSearchSuggestions={this.props.tdpSearchSuggestions}
+                        searchSuggestions={this.props.searchSuggestions}
                     />
                 </div>
             </div>
@@ -58,5 +58,5 @@ CoreCancerPilotDashboard.propTypes = {
     setSearchSelectedItem: PropTypes.func.isRequired,
     summaryMetadata: PropTypes.object.isRequired,
     searchIndex: PropTypes.object.isRequired,
-    tdpSearchSuggestions: PropTypes.array,
+    searchSuggestions: PropTypes.array,
 };

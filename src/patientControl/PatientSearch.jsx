@@ -59,8 +59,6 @@ class PatientSearch extends React.Component {
     // Used by AutoSuggest to get a list of suggestions based on the current search's InputValue
     getSuggestions = (inputValue) => {
         let suggestions = [];
-        let openNoteSuggestions = [];
-        let tdpSearchSuggestions = [];
         let results = this.props.searchIndex.search(inputValue);
         results.forEach(result => {
             let suggestion;
@@ -80,7 +78,6 @@ class PatientSearch extends React.Component {
                     score: result.score,
                     indices: result.indices
                 }
-                if (result.section === "Open Note" && result.valueTitle === "Content") openNoteSuggestions.push(suggestion);
             } else {
                 suggestion = {
                     section: result.section,
@@ -94,12 +91,10 @@ class PatientSearch extends React.Component {
                     score: result.score,
                     field: result.field
                 }
-                tdpSearchSuggestions.push(suggestion);
             }
             suggestions.push(suggestion);
         });
-        this.props.setOpenNoteSearchSuggestions(openNoteSuggestions);
-        this.props.setTDPSearchSuggestions(tdpSearchSuggestions);
+        this.props.setSearchSuggestions(suggestions);
         this.setState({ suggestions, loading: false });
     }
 
@@ -130,8 +125,7 @@ class PatientSearch extends React.Component {
   
     // Autosuggest will call this function every time you need to clear suggestions.
     onSuggestionsClearRequested = () => {
-        this.props.setOpenNoteSearchSuggestions([]);
-        this.props.setTDPSearchSuggestions([]);
+        this.props.setSearchSuggestions([]);
         this.setState({
             suggestions: [],
             openNoteSuggestions: []
@@ -219,7 +213,7 @@ PatientSearch.propTypes = {
     patient: PropTypes.object.isRequired,
     searchIndex: PropTypes.object.isRequired,
     setOpenNoteSearchSuggestions: PropTypes.func,
-    setTDPSearchSuggestions: PropTypes.func
+    setSearchSuggestions: PropTypes.func
 };
 
 export default PatientSearch;
