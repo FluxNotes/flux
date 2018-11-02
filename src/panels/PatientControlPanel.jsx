@@ -27,7 +27,7 @@ class PatientControlPanel extends Component {
                                 </div>
                             </Col>
 
-                            <Col xs={4} md={3} className="summary-header-column">
+                            <Col xs={5} md={4} className="summary-header-column">
                                 <SummaryHeader
                                     address={patient.getCurrentHomeAddress()}
                                     administrativeSex={patient.getGender()}
@@ -45,7 +45,7 @@ class PatientControlPanel extends Component {
                                 />
                             </Col>
 
-                            <Col xs={5} md={7}>
+                            <Col xs={6} md={6}>
                                 <Row bottom="xs" className="vertical-divider">
                                     <Col xs={12} md={6}>
                                         <div id="condition-selection-container">
