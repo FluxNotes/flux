@@ -18,6 +18,7 @@ export default class TreatmentOptionsSection extends MetadataSection {
             }, 
             shortName: "Treatments", 
             type: "ClusterPoints",
+            criteria: this.getTreatmentCriteria,
             data: [
                 {
                     name: "",
@@ -25,6 +26,15 @@ export default class TreatmentOptionsSection extends MetadataSection {
                 }
             ]
         };
+    }
+
+    getTreatmentCriteria = (patient, condition, subsection) => {
+        [
+            { name: "Age at diagnosis", category: "Demographics" },
+            { name: "Race", category: "Demographics" },
+            { name: "Gender", category: "Demographics" },
+            { name: "Genetics" }
+        ]
     }
 
     getTreatmentData = (patient, condition, subsection) => {
