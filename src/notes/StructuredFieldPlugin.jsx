@@ -21,6 +21,7 @@ function StructuredFieldPlugin(opts) {
     const clearStructuredFieldMap = opts.structuredFieldMapManager.clearStructuredFieldMap;
 
     function onChange(state, editor) {
+        // console.log(state.document.getParent(state.selection.anchorKey))// Gets the structured field
         var deletedKeys = [];
         const keyToShortcutMap = opts.structuredFieldMapManager.keyToShortcutMap;
         const idToShortcutMap = opts.structuredFieldMapManager.idToShortcutMap;
