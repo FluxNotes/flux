@@ -1,12 +1,12 @@
 import MedicationChange from '../shr/medication/MedicationChange';
 import FluxMedicationBeforeChange from './FluxMedicationBeforeChange';
+import FluxMedicationAfterChange from './FluxMedicationAfterChange';
 import Type from "../shr/entity/Type";
 import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
 import codeableConceptUtils from '../CodeableConceptUtils.jsx';
 import Lang from 'lodash';
 import moment from 'moment';
-import FluxMedicationAfterChange from './FluxMedicationAfterChange';
 
 class FluxMedicationChange {
     constructor(json, patientRecord) {
@@ -39,9 +39,15 @@ class FluxMedicationChange {
      */
     set medicationBeforeChange(medication) {
         if (medication) {
-            // Create a new Flux Medicaion Before Change object to add the medication value to
+            // Create a new Flux Medication Before Change object to add the medication value to
             this._medicationChange.medicationBeforeChange = new FluxMedicationBeforeChange();
             this._medicationChange.medicationBeforeChange.value = this._patientRecord.createEntryReferenceTo(medication);
+
+            if (this.medAfterDoseAmount) {
+                const medAfter = this.createMedicationAfterFromMedicationBefore();
+                medAfter.dose = this.medAfterDoseAmount;
+                this.medAfterDoseAmount = undefined;
+            }
         } else {
             this._medicationChange.medicationBeforeChange = null;
         }
@@ -49,7 +55,7 @@ class FluxMedicationChange {
 
     /**
      * Get the MedicationAfterChange object.
-     * Returns medicaitonRequested object
+     * Returns medicationRequested object
      */
     get medicationAfterChange() {
       return this._medicationChange.medicationAfterChange;
@@ -81,15 +87,32 @@ class FluxMedicationChange {
 
     set afterDosage(amount) {
         if (!this._medicationChange.medicationAfterChange && this.medicationBeforeChange) {
-            const medBefore = this._patientRecord.getEntryFromReference(this.medicationBeforeChange.value);
-
-            const medAfter = Lang.cloneDeep(medBefore);
+            const medAfter = this.createMedicationAfterFromMedicationBefore();
             medAfter.dose = amount;
-            this._patientRecord.addEntryToPatient(medAfter);
-            medBefore.endDate = new moment().subtract(1, 'month').format('D MMM YYYY');
-            this._medicationChange.medicationAfterChange = new FluxMedicationAfterChange();
-            this._medicationChange.medicationAfterChange.value = this._patientRecord.createEntryReferenceTo(medAfter);
+        } else {
+            // Store value until medBefore is set
+            this.medAfterDoseAmount = amount;
         }
+    }
+
+    // Clones medicationBefore and sets medicationAfter to cloned object
+    // Sets enddate for medicationBefore and sets startDate for medAfter
+    // Adds medicationAfter to patient
+    createMedicationAfterFromMedicationBefore() {
+        const medBefore = this._patientRecord.getEntryFromReference(this.medicationBeforeChange.value);
+        const today = new moment().format('D MMM YYYY');
+        const medAfter = Lang.cloneDeep(medBefore);
+
+        // set endDate of medicationBefore to today
+        medBefore.endDate = today;
+
+        // set start date for medicationAfter
+        medAfter.startDate = today;
+        this._patientRecord.addEntryToPatient(medAfter);
+        this._medicationChange.medicationAfterChange = new FluxMedicationAfterChange();
+        this._medicationChange.medicationAfterChange.value = this._patientRecord.createEntryReferenceTo(medAfter);
+
+        return medAfter;
     }
 
     /**
