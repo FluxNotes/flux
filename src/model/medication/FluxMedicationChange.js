@@ -30,7 +30,7 @@ class FluxMedicationChange {
      * Get the MedicationBeforeChange object.
      * Returns medicationRequested object
      */
-    get medicationBeforeChange() {     
+    get medicationBeforeChange() {
       return this._medicationChange.medicationBeforeChange;
     }
 
@@ -46,7 +46,7 @@ class FluxMedicationChange {
             if (this.medAfterDoseAmount) {
                 const medAfter = this.createMedicationAfterFromMedicationBefore();
                 medAfter.dose = this.medAfterDoseAmount;
-                this.medAfterDoseAmount = undefined;
+                this.medAfterDoseAmount = null;
             }
         } else {
             this._medicationChange.medicationBeforeChange = null;
@@ -85,18 +85,36 @@ class FluxMedicationChange {
         return this._medicationChange.entryInfo.creationTime.value;
     }
 
+    // Set dosage of medicationAfterChange
     set afterDosage(amount) {
-        if (!this._medicationChange.medicationAfterChange && this.medicationBeforeChange) {
-            const medAfter = this.createMedicationAfterFromMedicationBefore();
-            medAfter.dose = amount;
+        if (!amount) {
+            if (this.medicationAfterChange) {
+                // Delete medicationAfterChange entry if no amount and reset end date for medicationBefore
+                const medAfter = this._patientRecord.getEntryFromReference(this.medicationAfterChange.value);
+                this._patientRecord.removeEntryFromPatient(medAfter);
+                this._medicationChange.medicationAfterChange = null;
+                const medBefore = this._patientRecord.getEntryFromReference(this.medicationBeforeChange.value);
+                medBefore.endDate = null;
+            } else {
+                // Set Stored value to null
+                this.medAfterDoseAmount = null;
+            }
         } else {
-            // Store value until medBefore is set
-            this.medAfterDoseAmount = amount;
+            if (this._medicationChange.medicationAfterChange) {
+                const medAfter = this._patientRecord.getEntryFromReference(this.medicationAfterChange.value);
+                medAfter.dose = amount;
+            } else if (this.medicationBeforeChange) {
+                const medAfter = this.createMedicationAfterFromMedicationBefore();
+                medAfter.dose = amount;
+            } else {
+                // Store value until medBefore is set
+                this.medAfterDoseAmount = amount;
+            }
         }
     }
 
     // Clones medicationBefore and sets medicationAfter to cloned object
-    // Sets enddate for medicationBefore and sets startDate for medAfter
+    // Sets endDate for medicationBefore and sets startDate for medAfter
     // Adds medicationAfter to patient
     createMedicationAfterFromMedicationBefore() {
         const medBefore = this._patientRecord.getEntryFromReference(this.medicationBeforeChange.value);
