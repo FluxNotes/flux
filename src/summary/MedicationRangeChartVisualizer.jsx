@@ -88,6 +88,7 @@ class MedicationRangeChartVisualizer extends Component {
                 s.contentSnapshot === dosageUnit ||
                 s.contentSnapshot === timingValue ||
                 s.contentSnapshot === timingUnit ||
+                s.contentSnapshot === doseInstructionsText ||
                 s.contentSnapshot === asNeededString
             );
         });

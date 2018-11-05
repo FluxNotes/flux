@@ -29,7 +29,7 @@ class MedicationsIndexer extends BaseIndexer {
                 section,
                 subsection: "",
                 valueTitle: `Timing`,
-                value: item.medication.timingOfDoses.value,
+                value: item.medication.timingOfDoses.value || item.medication.doseInstructionsText,
                 onHighlight
             });
 
