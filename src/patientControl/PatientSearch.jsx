@@ -146,17 +146,16 @@ class PatientSearch extends React.Component {
     }
 
     onSuggestionHighlighted = ({suggestion}) => {
-        const {previousSuggestion} = this.state;
-        if (previousSuggestion && previousSuggestion.onHighlight) { 
-            previousSuggestion.onHighlight(previousSuggestion, true);
+        const { highlightedSearchSuggestion, setHighlightedSearchSuggestion } = this.props;
+
+        if (highlightedSearchSuggestion && highlightedSearchSuggestion.onHighlight) { 
+            highlightedSearchSuggestion.onHighlight(highlightedSearchSuggestion, true);
         }
         if (!Lang.isNull(suggestion) && suggestion.onHighlight) {
             suggestion.onHighlight(suggestion);
         }
 
-        this.setState({
-            previousSuggestion: suggestion
-        });
+        setHighlightedSearchSuggestion(suggestion);
     }
 
     // When the input is focused, Autosuggest will consult this function when to render suggestions

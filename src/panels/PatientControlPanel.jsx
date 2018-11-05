@@ -57,11 +57,13 @@ class PatientControlPanel extends Component {
                                     </Col>
                                     <Col xs={12} md={6}>
                                         <PatientSearch
+                                            highlightedSearchSuggestion={this.props.highlightedSearchSuggestion}
+                                            moveTargetedDataPanelToSubsection={this.props.moveTargetedDataPanelToSubsection}
                                             patient={this.props.patient}
                                             setSearchSelectedItem={this.props.setSearchSelectedItem}
                                             searchIndex={this.props.searchIndex}
-                                            moveTargetedDataPanelToSubsection={this.props.moveTargetedDataPanelToSubsection}
                                             setSearchSuggestions={this.props.setSearchSuggestions}
+                                            setHighlightedSearchSuggestion={this.props.setHighlightedSearchSuggestion}
                                         />
                                     </Col>
                                 </Row>

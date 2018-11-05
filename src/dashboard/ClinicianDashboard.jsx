@@ -179,21 +179,23 @@ export default class ClinicianDashboard extends Component {
                 <div className="right-border-box" style={targetedDataPanelStyles}>
                     <TargetedDataPanel
                         actions={this.props.actions}
-                        forceRefresh={this.props.forceRefresh}
                         appState={this.props.appState}
+                        forceRefresh={this.props.forceRefresh}
+                        highlightedSearchSuggestion={this.props.highlightedSearchSuggestion}
+                        isAppBlurred={this.props.isAppBlurred}
                         isNoteViewerEditable={isNoteViewerEditable}
                         isTargetedDataSubpanelVisible={isTargetedDataSubpanelVisible}
                         isWide={isTargetedDataPanelWide}
                         loginUser={this.props.loginUser}
                         preferenceManager={this.props.preferenceManager}
+                        ref={(tdp) => { this.targetedDataPanel = tdp; }}
                         summaryMetadata={this.props.summaryMetadata}
                         setForceRefresh={this.props.setForceRefresh}
-                        targetedDataPanelSize={this.state.targetedDataPanelSize}
-                        ref={(tdp) => { this.targetedDataPanel = tdp; }}
                         searchIndex={this.props.searchIndex}
                         searchSuggestions={this.props.searchSuggestions}
-                        isAppBlurred={this.props.isAppBlurred}
                         setAppBlur={this.props.setAppBlur}
+                        setHighlightedSearchSuggestion={this.props.setHighlightedSearchSuggestion}
+                        targetedDataPanelSize={this.state.targetedDataPanelSize}
                     />
                 </div>
                 <div style={notesPanelStyles}>
@@ -203,6 +205,8 @@ export default class ClinicianDashboard extends Component {
                         dataAccess={this.props.dataAccess}
                         errors={this.props.appState.errors}
                         handleSummaryItemSelected={this.props.handleSummaryItemSelected}
+                        highlightedSearchSuggestion={this.props.highlightedSearchSuggestion}
+                        isAppBlurred={this.props.isAppBlurred}
                         isNoteViewerEditable={isNoteViewerEditable}
                         isNoteViewerVisible={isNoteViewerVisible}
                         itemInserted={this.props.itemInserted}
@@ -212,10 +216,13 @@ export default class ClinicianDashboard extends Component {
                         openClinicalNote={this.props.appState.openClinicalNote}
                         openSourceNoteEntryId={this.props.openSourceNoteEntryId}
                         patient={this.props.appState.patient}
+                        ref={(np) => { this.notesPanel = np; }}
                         searchIndex={this.props.searchIndex}
                         searchSelectedItem={this.props.searchSelectedItem}
+                        searchSuggestions={this.props.searchSuggestions}
                         setForceRefresh={this.props.setForceRefresh}
                         setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
+                        setHighlightedSearchSuggestion={this.props.setHighlightedSearchSuggestion}
                         setLayout={this.props.setLayout}
                         setNoteClosed={this.props.setNoteClosed}
                         setNoteViewerEditable={this.props.setNoteViewerEditable}
@@ -228,9 +235,6 @@ export default class ClinicianDashboard extends Component {
                         summaryItemToInsert={this.props.appState.summaryItemToInsert}
                         summaryItemToInsertSource={this.props.appState.summaryItemToInsertSource}
                         updateErrors={this.props.updateErrors}
-                        ref={(np) => { this.notesPanel = np; }}
-                        searchSuggestions={this.props.searchSuggestions}
-                        isAppBlurred={this.props.isAppBlurred}
                     />
                 </div>
             </div>

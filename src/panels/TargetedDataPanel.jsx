@@ -116,21 +116,24 @@ export default class TargetedDataPanel extends Component {
                             <div className={`summary-section ${tdpDisabledClass}`}>
                                 <TargetedDataSubpanel
                                     actions={this.props.actions}
-                                    forceRefresh={this.props.forceRefresh}
                                     allowItemClick={this.props.isNoteViewerEditable}
                                     clinicalEvent={this.props.appState.clinicalEvent}
                                     condition={this.props.appState.condition}
+                                    conditionMetadata={conditionMetadata}
+                                    forceRefresh={this.props.forceRefresh}
+                                    highlightedSearchSuggestion={this.props.highlightedSearchSuggestion}
                                     isWide={this.props.isWide}
                                     loginUser={this.props.loginUser}
+                                    moveToSubsectionFromSearch={this.moveToSubsectionFromSearch.bind(this)}
                                     preferenceManager={this.props.preferenceManager}
                                     patient={this.props.appState.patient} 
                                     setForceRefresh={this.props.setForceRefresh}
                                     conditionMetadata={conditionMetadata}
                                     sectionsToDisplay={sectionsToDisplay}
                                     searchIndex={this.props.searchIndex}
-                                    moveToSubsectionFromSearch={this.moveToSubsectionFromSearch.bind(this)}
                                     searchSuggestions={this.props.searchSuggestions}
-                                    />
+                                    setHighlightedSearchSuggestion={this.props.setHighlightedSearchSuggestion}        
+                                />
                             </div>
                         </div>
                     </Minimap>
@@ -142,23 +145,26 @@ export default class TargetedDataPanel extends Component {
                     <div id="summary-subpanel">
                         <div className="summary-section">
                             <TargetedDataSubpanel
-                                className="targeted-data-subpanel-no-minimap"
                                 actions={this.props.actions}
-                                forceRefresh={this.props.forceRefresh}
                                 allowItemClick={this.props.isNoteViewerEditable}
+                                className="targeted-data-subpanel-no-minimap"
                                 clinicalEvent={this.props.appState.clinicalEvent}
                                 condition={this.props.appState.condition}
+                                conditionMetadata={conditionMetadata}
+                                forceRefresh={this.props.forceRefresh}
+                                highlightedSearchSuggestion={this.props.highlightedSearchSuggestion}
                                 isWide={this.props.isWide}
                                 loginUser={this.props.loginUser}
+                                moveToSubsectionFromSearch={this.moveToSubsectionFromSearch.bind(this)}
                                 preferenceManager={this.props.preferenceManager}
                                 patient={this.props.appState.patient} 
                                 setForceRefresh={this.props.setForceRefresh}                                                              
                                 conditionMetadata={conditionMetadata}
                                 sectionsToDisplay={sectionsToDisplay}
                                 searchIndex={this.props.searchIndex}
-                                moveToSubsectionFromSearch={this.moveToSubsectionFromSearch.bind(this)}
                                 searchSuggestions={this.props.searchSuggestions}
-                                />
+                                setHighlightedSearchSuggestion={this.props.setHighlightedSearchSuggestion}        
+                            />
                         </div>
                     </div>
                 </div>

@@ -32,7 +32,7 @@ export default class TargetedDataSubpanel extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) { 
-        // Eight current reasons to update:
+        // Reasons to update:
         // - There is a change to the entries this component cares about
         // - A note has been signed and our representation of the data should reflect it's new signedness
         // - Clinical event has shifted
@@ -41,14 +41,16 @@ export default class TargetedDataSubpanel extends Component {
         // - allowItemClick has changed
         // - forceRefresh changes from false to true
         // - The sections to be displayed has changed
-        // Case 1: Entries
-        // Need to ignore patientRecords on entries, as they reference the clinical notes ignored above. 
-        // Solution: Remove them during comparison, restore those value after comparison.
+        // - searchSuggestions have changed
+        // - highlightedSuggestion has changed
 
         const previousTDPSuggestions = this.props.searchSuggestions.filter(s => s.source === 'structuredData');
         const nextTDPSuggestions = nextProps.searchSuggestions.filter(s => s.source === 'structuredData');
         if (!_.isEqual(previousTDPSuggestions, nextTDPSuggestions)) return true;
 
+        // Case 1: Entries
+        // Need to ignore patientRecords on entries, as they reference the clinical notes ignored above. 
+        // Solution: Remove them during comparison, restore those value after comparison.
         const newRelevantPatientEntries = nextProps.patient.getEntriesOtherThanNotes();
         const arrayOfPatientRecords = newRelevantPatientEntries.reduce((accumulator, currentEntry, currentIndex) => { 
             if (currentEntry._patientRecord) { 
