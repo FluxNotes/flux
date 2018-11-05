@@ -233,6 +233,10 @@ class FluxMedicationRequested {
         return this._medicationRequested.dosage.asNeededIndicator.value;
     }
 
+    get doseInstructionsText() {
+        return this._medicationRequested.dosage.doseInstructionsText ? this._medicationRequested.dosage.doseInstructionsText.value : null;
+    }
+
     _isMedicationObject(medicationOrCode) {
         if (medicationOrCode.value.entryInfo && medicationOrCode.value.entryInfo.entryType
             && medicationOrCode.value.entryInfo.entryType.value === 'http://standardhealthrecord.org/spec/shr/entity/Medication') {
