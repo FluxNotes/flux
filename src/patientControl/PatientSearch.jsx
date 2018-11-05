@@ -78,8 +78,7 @@ class PatientSearch extends React.Component {
                     onHighlight: result.onHighlight,
                     onClick: result.onClick,
                     score: result.score,
-                    indices: result.indices,
-                    isHighlighted: false,
+                    indices: result.indices
                 }
             } else {
                 suggestion = {
@@ -92,8 +91,7 @@ class PatientSearch extends React.Component {
                     source: 'structuredData',
                     onHighlight: result.onHighlight,
                     score: result.score,
-                    field: result.field,
-                    isHighlighted: false,
+                    field: result.field
                 }
             }
             suggestions.push(suggestion);
@@ -151,11 +149,9 @@ class PatientSearch extends React.Component {
         const {previousSuggestion} = this.state;
         if (previousSuggestion && previousSuggestion.onHighlight) { 
             previousSuggestion.onHighlight(previousSuggestion, true);
-            previousSuggestion.isHighlighted = false;
         }
         if (!Lang.isNull(suggestion) && suggestion.onHighlight) {
             suggestion.onHighlight(suggestion);
-            suggestion.isHighlighted = true;
         }
 
         this.setState({
