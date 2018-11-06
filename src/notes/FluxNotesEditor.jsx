@@ -443,7 +443,7 @@ class FluxNotesEditor extends React.Component {
         if (text.length === 0) {
             const block = state.document.getPreviousSibling(anchorKey);
             if (block) {
-                text =  block.text;
+                text = block.text;
                 anchorOffset = text.length;
             }
         }
