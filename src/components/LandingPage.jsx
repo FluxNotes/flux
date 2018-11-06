@@ -248,13 +248,6 @@ export default class LandingPage extends Component {
                         <img src="./logos/MITRE.png" alt="MITRE Logo" className="landing-partners-logo mitre" />
                     </a>
 
-                    <a href="http://www.dana-farber.org/" alt="Dana Farber Site" target="_blank">
-                        <img src="./logos/DanaFarber.png" alt="Dana Farber Logo" className="landing-partners-logo danafarber" />
-                    </a>
-
-                    <a href="http://www.brighamandwomens.org/" alt="BWH Site" target="_blank">
-                        <img src="./logos/BWH.png" alt="BWH Logo" className="landing-partners-logo bwh" />
-                    </a>
                 </div>
             </div>
         )
