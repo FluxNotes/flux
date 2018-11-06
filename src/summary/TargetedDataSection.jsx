@@ -9,6 +9,7 @@ import ExpansionPanel, { ExpansionPanelSummary, ExpansionPanelDetails } from 'ma
 import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
 import './TargetedDataSection.css';
 import Lang from 'lodash';
+import { FormControlLabel } from 'material-ui';
 
 const SHOW_FILTER_AS_MENU = false;
 
@@ -280,14 +281,17 @@ export default class TargetedDataSection extends Component {
             this.props.section.data.forEach((subsection) => {
                 this.state.filters[`${this.props.section.name}-${subsection.name}`].forEach((filter) => {
                     criteriaCheckboxes.push(
-                        <Checkbox 
-                            checked={this.getFilterValue(filter, subsection.name)}
-                            onChange={() => this.updateFilterValue(filter, subsection.name)}
-                            value={filter.name}
-                            className="checkbox"
-                            key={filter.name}>
-                                {filter.name}
-                        </Checkbox>);
+                        <FormControlLabel control={
+                            <Checkbox 
+                                checked={this.getFilterValue(filter, subsection.name)}
+                                onChange={() => this.updateFilterValue(filter, subsection.name)}
+                                value={filter.name}
+                                className="checkbox"
+                                key={filter.name} />
+                        }
+                        label={filter.name}
+                        />
+                    );
                     criteriaSummaryItems.push(
                         <span className="criterion-summary" key={filter.name}>
                             {filter.name}: {filter.value || 'yes'}
@@ -296,10 +300,12 @@ export default class TargetedDataSection extends Component {
             });
             return (
                 <div>
-                <ExpansionPanel>
-                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>{criteriaSummaryItems}</ExpansionPanelSummary>
-                    <ExpansionPanelDetails>{criteriaCheckboxes}</ExpansionPanelDetails>
-                </ExpansionPanel></div>
+                    <div>&nbsp;</div>
+                    <ExpansionPanel>
+                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>{criteriaSummaryItems}</ExpansionPanelSummary>
+                        <ExpansionPanelDetails>{criteriaCheckboxes}</ExpansionPanelDetails>
+                    </ExpansionPanel>
+                </div>
             );
         }
     }
