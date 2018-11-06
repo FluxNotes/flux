@@ -31,6 +31,7 @@ export class Minimap extends React.Component {
 
   constructor(props) {
     super(props);
+    this.heightOfEditButton = 20;
     this.down = this.down.bind(this)
     this.move = this.move.bind(this)
     this.synchronize = this.synchronize.bind(this)
@@ -87,6 +88,7 @@ export class Minimap extends React.Component {
 
     let {width, height} = this.props
     height = (this.props.isFullHeight) ? sourceRect.height : this.props.height;
+    height -= this.heightOfEditButton;
 
     let ratioX = width / scrollWidth;
     let ratioY = height / scrollHeight;
@@ -327,14 +329,18 @@ export class Minimap extends React.Component {
         onScroll={this.synchronize}
         ref={(source) => {this.source = source;}}
       >
-        <button className="minimap-children" style={{ width: `${width}px` }} onClick={this.editMinimapSections}>
+      <div className="minimap-children-wrapper">
+        <button
+          className="minimap-children edit-button"
+          style={{ width: `${width}px`, height: `${this.heightOfEditButton}px` }}
+          onClick={this.editMinimapSections}>
           {editButtonText}
         </button>
         <div
           className="minimap"
           style={{
             width: `${width}px`,
-            height: `${height}px`,
+            height: `${height - this.heightOfEditButton}px`,
           }}
 
           ref={(minimap) => { this.minimap = minimap; }}
@@ -349,6 +355,7 @@ export class Minimap extends React.Component {
           {!inEditMode && this.state.viewport}
           {this.state.children}
         </div>
+      </div>
 
         <div ref={(container) => { this.ref = container; }}>
           {this.props.children}

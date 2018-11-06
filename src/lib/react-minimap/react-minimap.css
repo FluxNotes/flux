@@ -24,10 +24,19 @@
 	height: 100%;
 }
 
+.minimap-children-wrapper {
+	position: absolute;
+	left: 0;
+}
+
 .minimap-children {
 	background: #CCC;
 	border: 1px solid black;
 	box-sizing: border-box;
+}
+
+.edit-button {
+	border: 1px solid #028DEA !important;
 }
 
 .shaded {
