@@ -1396,7 +1396,7 @@
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Reason"
                     },
-                    "Value": "Mr. Tnfinity6 requested a follow up due to severe headaches that make it hard for him to do daily activities."
+                    "Value": "Mr. Tnfinity6 requested a follow up due to significant diarrhea and fatigue, despite anti-diarrheal treatment, that makes it hard for him to do daily activities."
                 }
             ],
             "Status": {
@@ -1747,7 +1747,7 @@
             },
             "Value": "3 SEP 2018"
         },
-        "Value": false,
+        "Value": true,
         "ObservationCode": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
@@ -10281,7 +10281,7 @@
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
         "signed": true,
         "subject": "Med Onc Follow-up",
-        "content": "REASON FOR VISIT:\nFollow-up for @Condition[[Gastrointestinal stromal tumor]]\n\nONCOLOGY HISTORY:\n@name[[Ihanos Tnfinity6]] is a @age[[57]] year old white @gender[[Male]] presenting with abdominal pain. He has been feeling sharp pains in his stomach. CT scan showed large upper abdominal mass that seemed to be rising from gastric wall. 6cm along greatest curvature. Underwent endoscopic biopsy which was non-deterministic. CT-guided biopsy revealed GIST with 15 mitosis/50 hpf. Surgery confirmed GIST. 20 mitoses/50 HPF. Surgical margins negative. Final tumor size 8cm. Adjuvant imatinib starting 16 May 2016.\n\nHISTORY OF PRESENT ILLNESS:\nExperiencing mild headaches and skin rashes.\n\nASSESSMENT:\n#toxicity[[{\"entryId\":\"5920\"}]] #headache #grade 2. #toxicity[[{\"entryId\":\"5925\"}]] #Rash maculo-papular #grade 2. #disease status[[{\"entryId\":\"5930\"}]] #complete response\n\nPLAN:\nContinue imatinib. Take ibuprofen as needed for headaches and use hyrdrocortizone for rashes. Follow-up in 6 months.  ",
+        "content": "REASON FOR VISIT:\nFollow-up for @Condition[[Gastrointestinal stromal tumor]]\n\nONCOLOGY HISTORY:\n@name[[Ihanos Tnfinity6]] is a @age[[57]] year old white @gender[[Male]] presenting with abdominal pain. He has been feeling sharp pains in his stomach. CT scan showed large upper abdominal mass that seemed to be rising from gastric wall. 6cm along greatest curvature. Underwent endoscopic biopsy which was non-deterministic. CT-guided biopsy revealed GIST with 15 mitosis/50 hpf. Surgery confirmed GIST. 20 mitoses/50 HPF. Surgical margins negative. Final tumor size 8cm. Adjuvant imatinib starting 16 May 2016.\n\nHISTORY OF PRESENT ILLNESS:\nExperiencing mild headaches and skin rashes.\n\nASSESSMENT:\n#toxicity[[{\"entryId\":\"5920\"}]] #headache #grade 2. #toxicity[[{\"entryId\":\"6060\"}]] #diarrhea #grade 2. #toxicity[[{\"entryId\":\"6061\"}]] #fatigue #grade 2. #toxicity[[{\"entryId\":\"5925\"}]] #Rash maculo-papular #grade 2. #disease status[[{\"entryId\":\"5930\"}]] #complete response\n\nPLAN:\nContinue imatinib. Take ibuprofen as needed for headaches and use hyrdrocortizone for rashes. Follow-up in 6 months.  ",
         "EntryId": "5910",
         "hospital": "Hospital X",
         "createdBy": "Dr. Mona341 Brown483",
@@ -17770,5 +17770,519 @@
           },
           "Value": "08 AUG 2018"
       }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/adverse/ToxicReaction"
+        },
+        "FocalSubjectReference": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "8",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor"
+            }
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6060",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "17 Jul 2018"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "17 Jul 2018"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "10012727",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://www.meddra.org"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Diarrhea"
+                    }
+                }
+            ]
+        },
+        "Author": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
+            },
+            "Value": "Dr. Mona341 Brown483"
+        },
+        "Subject": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "AdverseEventGrade": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/adverse/AdverseEventGrade"
+            },
+            "Value": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                },
+                "Coding": [
+                    {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "Value": "C1513374",
+                        "CodeSystem": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            },
+                            "Value": "http://ncimeta.nci.nih.gov"
+                        },
+                        "DisplayText": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            },
+                            "Value": "Grade 2"
+                        }
+                    }
+                ]
+            }
+        },
+        "CauseCategory": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/adverse/CauseCategory"
+            },
+            "Value": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                },
+                "Coding": [
+                    {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "Value": "treatment",
+                        "CodeSystem": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            },
+                            "Value": "AttributionCategoryCS"
+                        },
+                        "DisplayText": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            },
+                            "Value": "treatment"
+                        }
+                    }
+                ]
+            }
+        },
+        "SourceClinicalNote": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "5910",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
+            }
+        }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/adverse/ToxicReaction"
+        },
+        "FocalSubjectReference": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "8",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor"
+            }
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6061",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "17 Jul 2018"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "17 Jul 2018"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "Value": "10016256",
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://www.meddra.org"
+                    },
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "Fatigue"
+                    }
+                }
+            ]
+        },
+        "Author": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
+            },
+            "Value": "Dr. Mona341 Brown483"
+        },
+        "Subject": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "AdverseEventGrade": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/adverse/AdverseEventGrade"
+            },
+            "Value": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                },
+                "Coding": [
+                    {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "Value": "C1513374",
+                        "CodeSystem": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            },
+                            "Value": "http://ncimeta.nci.nih.gov"
+                        },
+                        "DisplayText": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            },
+                            "Value": "Grade 2"
+                        }
+                    }
+                ]
+            }
+        },
+        "CauseCategory": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/adverse/CauseCategory"
+            },
+            "Value": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                },
+                "Coding": [
+                    {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "Value": "treatment",
+                        "CodeSystem": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            },
+                            "Value": "AttributionCategoryCS"
+                        },
+                        "DisplayText": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            },
+                            "Value": "treatment"
+                        }
+                    }
+                ]
+            }
+        },
+        "SourceClinicalNote": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "5910",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6062",
+        "Author": {
+            "Value": "Dr. Mona341 Brown483",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested"
+        },
+        "LastUpdated": {
+            "Value": "17 Jul 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "17 Jul 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "Dosage": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/medication/Dosage"
+            },
+            "DoseAmount": {
+                "Value": {
+                    "Value": 1,
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/SimpleQuantity"
+                    },
+                    "Units": {
+                        "Value": {
+                            "Value": "tablet",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            }
+                        },
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                        }
+                    }
+                },
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/medication/DoseAmount"
+                }
+            },
+            "AsNeededIndicator": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/medication/AsNeededIndicator"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    },
+                    "Coding": [
+                        {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "10012727",
+                            "CodeSystem": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                },
+                                "Value": "http://www.meddra.org"
+                            },
+                            "DisplayText": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                },
+                                "Value": "Diarrhea"
+                            }
+                        }
+                    ]
+                }
+            },
+            "RouteIntoBody": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/medication/RouteIntoBody"
+                },
+                "Value": {
+                    "Coding": [
+                        {
+                            "Value": "26643006",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "CodeSystem": {
+                                "Value": "http://snomed.info/sct",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                }
+                            },
+                            "DisplayText": {
+                                "Value": "Oral route",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                }
+                            }
+                        }
+                    ],
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    }
+                }
+            },
+            "DoseInstructionsText": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/medication/DoseInstructionsText"
+                },
+                "Value": "2 tablets after the first loose stool; 1 tablet after each subsequent loose stool."
+            },
+            "TimingOfDoses": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/medication/TimingOfDoses"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Timing"
+                    }
+                }
+            },
+            "AdditionalDoseInstruction": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/medication/AdditionalDoseInstruction"
+                    },
+                    "Value": {
+                        "Coding": [
+                            {
+                                "Value": "420003005",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                                },
+                                "CodeSystem": {
+                                    "Value": "http://snomed.info/sct",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                    }
+                                },
+                                "DisplayText": {
+                                    "Value": "Do not take more than 4 tablets in 24 hours",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    }
+                                }
+                            }
+                        ],
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                        }
+                    }
+                }
+            ]
+        },
+        "ActionContext": {
+            "Status": {
+                "Value": "completed",
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/action/Status"
+                }
+            },
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"
+            },
+            "Reason": [
+                {
+                    "Value": {
+                        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                        "_EntryId": "8",
+                        "_EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition"
+                        }
+                    },
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Reason"
+                    }
+                }
+            ],
+            "ExpectedPerformanceTime": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
+                    },
+                    "TimePeriodStart": {
+                        "Value": "17 Jul 2018",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
+                        }
+                    }
+                }
+            }
+        },
+        "MedicationOrCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/MedicationOrCode"
+            },
+            "Value": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Medication"
+                },
+                "Type": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    },
+                    "Coding": [
+                        {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "C0715002",
+                            "DisplayText": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                },
+                                "Value": "loperamide hydrochloride 2mg tablet"
+                            }
+                        }
+                    ]
+                },
+                "OverTheCounter": true
+            }
+        }
     }
 ]

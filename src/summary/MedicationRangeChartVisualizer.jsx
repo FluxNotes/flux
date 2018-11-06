@@ -74,7 +74,7 @@ class MedicationRangeChartVisualizer extends Component {
         return rows;
     }
 
-    renderMedicationTitle = (lowerValue, upperValue, name, dosageValue, dosageUnit, timingValue, timingUnit, asNeededIndicator) => {
+    renderMedicationTitle = (lowerValue, upperValue, name, dosageValue, dosageUnit, timingValue, timingUnit, asNeededIndicator, doseInstructionsText) => {
         // Determining if timingUnit has a value. Set if empty string if null.
         if (timingUnit == null) timingUnit = '';
         //Determining if asNeededIndicator is true. Set empty string if false, set string as needed if true.
@@ -88,6 +88,7 @@ class MedicationRangeChartVisualizer extends Component {
                 s.contentSnapshot === dosageUnit ||
                 s.contentSnapshot === timingValue ||
                 s.contentSnapshot === timingUnit ||
+                s.contentSnapshot === doseInstructionsText ||
                 s.contentSnapshot === asNeededString
             );
         });
@@ -101,12 +102,12 @@ class MedicationRangeChartVisualizer extends Component {
                     <span className="out-of-range-medication">
                         {`${dosageValue} `}
                     </span>
-                    <span className={titleClass}>{`${dosageUnit} ${timingValue} ${timingUnit} ${asNeededString}`}</span>
+                    <span className={titleClass}>{`${dosageUnit} ${timingValue || doseInstructionsText} ${timingUnit} ${asNeededString}`}</span>
                 </div>);
         }
         return (
             <div className="medicationTitle">
-                <span className={titleClass}>{`${name} ${dosageValue} ${dosageUnit} ${timingValue} ${timingUnit} ${asNeededString}`}</span>
+                <span className={titleClass}>{`${name} ${dosageValue} ${dosageUnit} ${timingValue || doseInstructionsText} ${timingUnit} ${asNeededString}`}</span>
             </div>);
     }
 
@@ -222,6 +223,7 @@ class MedicationRangeChartVisualizer extends Component {
         const dosageUnit = med.medication.amountPerDose ? med.medication.amountPerDose.units : null;
         const timingValue = med.medication.timingOfDoses ? med.medication.timingOfDoses.value : null;
         const timingUnit = med.medication.timingOfDoses ? med.medication.timingOfDoses.units : null;
+        const {doseInstructionsText} = med.medication;
         const name = med.medication.medication;
         const medicationIsChange = (med.medicationChange ? true : false);
         const asNeededIndicator = med.medication.asNeededIndicator;
@@ -232,7 +234,7 @@ class MedicationRangeChartVisualizer extends Component {
                     <div className="medication-heading">
                         <Row bottom="xs">
                             <Col md={6} xs={12}>
-                                {this.renderMedicationTitle(lowerValue, upperValue, name, dosageValue, dosageUnit, timingValue, timingUnit, asNeededIndicator)}
+                                {this.renderMedicationTitle(lowerValue, upperValue, name, dosageValue, dosageUnit, timingValue, timingUnit, asNeededIndicator, doseInstructionsText)}
                             </Col>
                             <Col xs={6} className="medication-change-padding">
                                 <div className="medication-change-container">

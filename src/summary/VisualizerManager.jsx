@@ -76,6 +76,7 @@ class VisualizerManager {
             const dose = med.medication.amountPerDose ? `${med.medication.amountPerDose.value} ${med.medication.amountPerDose.units}` : "";
             const medicationChange = this.formatMedicationChange(med.medicationChange);
             const endDate = this.getEndDate(med);
+            const {doseInstructionsText} = med.medication;
             let timing;
             
             if (med.medication.timingOfDoses) {
@@ -104,7 +105,7 @@ class VisualizerManager {
                             unsigned: isUnsigned, 
                             source: sourceClinicalNote },
                         {   value: dose },
-                        {   value: timing + asNeeded },
+                        {   value: timing || doseInstructionsText + asNeeded },
                         {   value: med.medication.expectedPerformanceTime.timePeriodStart },
                         {   value: endDate, 
                             unsigned: isUnsigned, 

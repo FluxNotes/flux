@@ -116,7 +116,7 @@ export default class TimelineSection extends MetadataSection {
             if (!med.amountPerDose) {
                 dosage = "not specified";
             } else {
-                dosage = med.amountPerDose.value + " " + med.amountPerDose.units + " " + med.timingOfDoses.value + " " + (med.timingOfDoses.units ? med.timingOfDoses.units : "");
+                dosage = med.amountPerDose.value + " " + med.amountPerDose.units + " " + (med.timingOfDoses.value || med.doseInstructionsText) + " " + (med.timingOfDoses.units ? med.timingOfDoses.units : "");
             }
 
             items.push({
