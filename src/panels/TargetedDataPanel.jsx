@@ -1,15 +1,43 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import TargetedDataSubpanel from '../summary/TargetedDataSubpanel';
 import Minimap from '../lib/react-minimap/react-minimap.js';
 import '../lib/react-minimap/react-minimap.css'
 import './TargetedDataPanel.css';
 
 export default class TargetedDataPanel extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            sectionsToDisplay: []
+        };
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.targetedDataPanelSize !== this.props.targetedDataPanelSize) {
             this.forceUpdate();
         }
+    }
+
+    startEditingMinimap = () => {
+        const conditionMetadata = this.getConditionMetadata();
+        const allSections = conditionMetadata.sections;
+        this.setState({ sectionsToDisplay: allSections });
+    }
+
+    doneEditingMinimap = () => {
+        const conditionMetadata = this.getConditionMetadata();
+        const sectionsToDisplay = conditionMetadata.sections.filter((section) => {
+            const preferenceManagerVisibleSettings = this.props.preferenceManager.getPreference('visibleSections');
+            let currentSectionVisible = preferenceManagerVisibleSettings[section.name];
+            if (!_.isUndefined(preferenceManagerVisibleSettings[section.name])) {
+                currentSectionVisible = preferenceManagerVisibleSettings[section.name];
+            }
+            return currentSectionVisible;
+        });
+        this.setState({ sectionsToDisplay });
     }
 
     moveToSection(sectionName) {
@@ -38,11 +66,32 @@ export default class TargetedDataPanel extends Component {
                                                         loginUser.getSpecialty());
     }
 
+    getSectionsToDisplay = (conditionMetadata) => {
+        let sectionsToDisplay = this.state.sectionsToDisplay;
+        if (sectionsToDisplay.length === 0) {
+            sectionsToDisplay = conditionMetadata.sections.filter((section) => {
+                let preferenceManagerVisibleSettings = this.props.preferenceManager.getPreference('visibleSections');
+                if (_.isNull(preferenceManagerVisibleSettings)) {
+                    preferenceManagerVisibleSettings = {};
+                    this.props.preferenceManager.setPreference('visibleSections', preferenceManagerVisibleSettings);
+                }
+                let currentSectionVisible = true;
+                if (!_.isNull(preferenceManagerVisibleSettings) && !_.isUndefined(preferenceManagerVisibleSettings[section.name])) {
+                    currentSectionVisible = preferenceManagerVisibleSettings[section.name];
+                }
+                return currentSectionVisible;
+            });
+        }
+        return sectionsToDisplay;
+    }
+
     render () {
         // The css data attribute associated with the minimap
         const minimapAttribute = 'data-test-summary-section';
         const shortTitleAttribute = 'data-minimap-short-title';
         const conditionMetadata = this.getConditionMetadata();
+
+        const sectionsToDisplay = this.getSectionsToDisplay(conditionMetadata);
 
         if (conditionMetadata && conditionMetadata.sections.length > 1) {
             return (
@@ -55,6 +104,9 @@ export default class TargetedDataPanel extends Component {
                         width={80}
                         isFullHeight={true}
                         ref={(minimap) => { this.minimap = minimap; }}
+                        preferenceManager={this.props.preferenceManager}
+                        doneEditingMinimap={this.doneEditingMinimap}
+                        startEditingMinimap={this.startEditingMinimap}
                     >
                         <div id="summary-subpanel">
                             <div className="summary-section">
@@ -68,8 +120,9 @@ export default class TargetedDataPanel extends Component {
                                     loginUser={this.props.loginUser}
                                     preferenceManager={this.props.preferenceManager}
                                     patient={this.props.appState.patient} 
-                                    setForceRefresh={this.props.setForceRefresh}                                                              
+                                    setForceRefresh={this.props.setForceRefresh}
                                     conditionMetadata={conditionMetadata}
+                                    sectionsToDisplay={sectionsToDisplay}
                                     searchIndex={this.props.searchIndex}
                                     moveToSubsectionFromSearch={this.moveToSubsectionFromSearch.bind(this)}
                                     searchSuggestions={this.props.searchSuggestions}
@@ -97,6 +150,7 @@ export default class TargetedDataPanel extends Component {
                                 patient={this.props.appState.patient} 
                                 setForceRefresh={this.props.setForceRefresh}                                                              
                                 conditionMetadata={conditionMetadata}
+                                sectionsToDisplay={sectionsToDisplay}
                                 searchIndex={this.props.searchIndex}
                                 moveToSubsectionFromSearch={this.moveToSubsectionFromSearch.bind(this)}
                                 searchSuggestions={this.props.searchSuggestions}

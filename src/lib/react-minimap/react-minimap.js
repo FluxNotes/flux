@@ -44,6 +44,7 @@ export class Minimap extends React.Component {
       viewport: null,
       width: props.width,
       height: props.height,
+      inEditMode: false,
     };
 
     this.downState = false
@@ -131,6 +132,8 @@ export class Minimap extends React.Component {
             node={node}
             title={title}
             shortTitle={shortTitle}
+            inEditMode={this.state.inEditMode}
+            preferenceManager={this.props.preferenceManager}
           />
         )
       })
@@ -180,13 +183,15 @@ export class Minimap extends React.Component {
     }
 
   down( e ) {
-    const pos = this.minimap.getBoundingClientRect()
+    if (!this.state.inEditMode) {
+      const pos = this.minimap.getBoundingClientRect()
 
-    this.x = Math.round( pos.left + this.l + this.w / 2 );
-    this.y = Math.round( pos.top + this.t + this.h / 2 );
+      this.x = Math.round( pos.left + this.l + this.w / 2 );
+      this.y = Math.round( pos.top + this.t + this.h / 2 );
 
-    this.downState = true
-    this.move( e );
+      this.downState = true
+      this.move( e );
+    }
   }
 
   up() {
@@ -302,9 +307,19 @@ export class Minimap extends React.Component {
     })
   }
 
+  editMinimapSections = () => {
+    const { inEditMode } = this.state;
+    if (inEditMode) {
+      this.props.doneEditingMinimap();
+    } else {
+      this.props.startEditingMinimap()
+    }
+    this.setState({ inEditMode: !inEditMode });
+  }
 
   render() {
-    const {width, height} = this.state
+    const {width, height, inEditMode} = this.state;
+    const editButtonText = inEditMode ? 'Done' : 'Edit';
 
     return (
       <div
@@ -312,6 +327,9 @@ export class Minimap extends React.Component {
         onScroll={this.synchronize}
         ref={(source) => {this.source = source;}}
       >
+        <button className="minimap-children" style={{ width: `${width}px` }} onClick={this.editMinimapSections}>
+          {editButtonText}
+        </button>
         <div
           className="minimap"
           style={{
@@ -328,7 +346,7 @@ export class Minimap extends React.Component {
           onTouchEnd={this.up}
           onMouseUp={this.up}
         >
-          {this.state.viewport}
+          {!inEditMode && this.state.viewport}
           {this.state.children}
         </div>
 
