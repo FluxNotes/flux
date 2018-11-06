@@ -294,7 +294,7 @@ export default class TargetedDataSection extends Component {
                     );
                     criteriaSummaryItems.push(
                         <span className="criterion-summary" key={filter.name}>
-                            {filter.name}: {filter.value || 'yes'}
+                            {filter.name}: {filter.value ? 'yes' : 'no'}
                         </span>);
                 });
             });
@@ -423,9 +423,10 @@ export default class TargetedDataSection extends Component {
                 <h2 className="section-header">
                     <span className={`section-header__name${highlightClass}`}>{section.name}</span><span>&nbsp;{this.state.sectionNameSuffix}</span>
                     {!encounterView && !notFiltered && <span className="section-header__condition">{selectedCondition}</span>}
-                    {this.renderFilters()}
+                    {SHOW_FILTER_AS_MENU && this.renderFilters()}
                     {this.renderVisualizationOptions(visualizationOptions)}
                 </h2>
+                {!SHOW_FILTER_AS_MENU && this.renderFilters()}
 
                 {encounterView && !notFiltered && <div className="section-header__condition encounter">{selectedCondition}</div>}
 
