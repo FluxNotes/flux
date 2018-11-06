@@ -287,6 +287,12 @@ class PatientRecord {
         }).pop();
     }
 
+    getPreviousEncounterDateAsString() {
+        let encounter = this.getPreviousEncounter();
+        let encounterDate = new moment(encounter.expectedPerformanceTime).format("D MMM YYYY");
+        return encounterDate;
+    }
+
     getPreviousEncounterReasonAsText() {
         const previousEncounter = this.getPreviousEncounter();
         if (Lang.isUndefined(previousEncounter)) return "No recent appointments";

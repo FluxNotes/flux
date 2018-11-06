@@ -601,5 +601,12 @@
     "isContext": false,
     "stringTriggers": [{"name":"@recent imaging", "description": "Insert a summary of the recent imaging procedures"}],
     "knownParentContexts": "Patient"
+  },
+  { "type": "InsertValue",
+    "id": "DateOfVisitInserter",
+    "getData": {"object": "patient", "method": "getPreviousEncounterDateAsString"},
+    "isContext": false,
+    "stringTriggers": [{"name":"@date of visit", "description": "Insert the date of the visit"}],
+    "knownParentContexts": "Patient"
   }
 ]
