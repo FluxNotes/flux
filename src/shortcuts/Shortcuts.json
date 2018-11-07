@@ -543,7 +543,7 @@
   { "type": "CreatorIntermediary",
     "id": "MedicationDosageAmount",
     "name": "to",
-    "valueObjectAttributes": [  {"name":"number", "toParentAttribute":"toDosageAmount", "isSettable":"true", "childShortcut":"NumericCreator"} ],
+    "valueObjectAttributes": [  {"name":"number", "toParentAttribute":"toDosageAmount", "isSettable":"true", "childShortcut":"NumberCreator"} ],
     "parentAttribute": "to",
     "isContext": true,
     "stringTriggers": [{ "name": "#to", "description": "The date as of when the disease status was assessed."}],

@@ -1,6 +1,6 @@
 import NoteParser from '../../../src/noteparser/NoteParser';
 import { stagingJSON, diseaseStatusJSON, diseaseStatus2JSON, toxicityJSON, deceasedJSON,
-    clinicalTrialEnrollmentJSON, clinicalTrialEnrollmentMinimalJSON, clinicalTrialUnenrolledJSON, stopMedicationJSON } from './NoteParserUtils';
+    clinicalTrialEnrollmentJSON, clinicalTrialEnrollmentMinimalJSON, clinicalTrialUnenrolledJSON, stopMedicationJSON, reduceMedicationJSON } from './NoteParserUtils';
 import FluxDiseaseProgression from '../../../src/model/condition/FluxDiseaseProgression';
 import FluxTNMStage from '../../../src/model/oncology/FluxTNMStage';
 import FluxToxicReaction from '../../../src/model/adverse/FluxToxicReaction';
@@ -19,13 +19,14 @@ const sampleTextNonsense = "#nonsense is in the structured phrase";
 const sampleTextStaging = "Debra Hernandez672 is presenting with carcinoma of the breast. #staging assessed as tumor size T2 and N0 + M0.";
 const sampleTextDiseaseStatus = "Debra Hernandez672 is presenting with carcinoma of the breast.\n\n #disease status #stable based on #imaging and #physical exam";
 const sampleTextDiseaseStatus2 = "Debra Hernandez672 is presenting with carcinoma of the breast.\n\n #disease status #stable based on #imaging and #physical exam #as of #10/5/2017 #reference date #6/7/2017";
-const sampleTextToxicity = "Debra Hernandez672 is presenting with carcinoma of the breast.\n\n #toxicity #nausea #grade 2 #treatment @active medication[[ibuprofen 600mg tablet]]";
+const sampleTextToxicity = "Debra Hernandez672 is presenting with carcinoma of the breast.\n\n #toxicity #nausea #grade 2 #treatment @active medication[[{\"text\":\"ibuprofen 600mg tablet\",\"entryId\":\"2\"}]]";
 const sampleTextDeceased = "Debra Hernandez672 is #deceased on #10/01/2017";
 const sampleTextClinicalTrialEnrollment = "Debra Hernandez672 is presenting with carcinoma of the breast.\n\n Patient consented to #enrollment #PATINA on #09/04/2017";
 const sampleTextClinicalTrialEnrollmentMinimal = "Debra Hernandez672 is presenting with carcinoma of the breast.\n\n #enrollment";
 const sampleTextClinicalTrialUnenrolled = "Debra Hernandez672 is presenting with carcinoma of the breast. \n\n Patient #unenrolled from #PATINA on #10/06/2017";
 const sampleTextClinicalTrialUnenrolledMinimal = "Debra Hernandez672 is presenting with carcinoma of the breast.\n\n #unenrolled";
-const sampleTextStopMedication = "#stop medication @active medication[[ibuprofen 600mg tablet]]";
+const sampleTextStopMedication = "#stop medication @active medication[[{\"text\":\"ibuprofen 600mg tablet\",\"entryId\":\"2\"}]]";
+const sampleTextReduceMedication = "#reduce medication @active medication[[{\"text\":\"ibuprofen 600mg tablet\",\"entryId\":\"2\"}]] #to #2"
 
 const expectedOutputEmpty = [[], []];
 const expectedOutputPlain = [[], []];
@@ -39,6 +40,7 @@ const expectedOutputClinicalTrialEnrollment = [[ new FluxResearchSubject(clinica
 const expectedOutputClinicalTrialEnrollmentMinimal = [[ new FluxResearchSubject(clinicalTrialEnrollmentMinimalJSON) ], []];
 const expectedOutputClinicalTrialUnenrolled = [[ new FluxResearchSubject(clinicalTrialUnenrolledJSON) ], []];
 const expectedOutputStopMedication = [[ new FluxMedicationChange(stopMedicationJSON) ], []];
+const expectedOutputReduceMedication = [[ new FluxMedicationChange(reduceMedicationJSON)], []];
 
 let noteParser;
 
@@ -212,5 +214,20 @@ describe('parse', function() {
         expect(record[0][0]._medicationChange._medicationBeforeChange)
             .to.exist;
     });
-});
+    it('should return a patient record with medication change with type set to reduced and a medication when parsing a note with #reduce medication and a medication ', function () {
+        const record = noteParser.parse(sampleTextReduceMedication);
+        // Because reduce medication structured phrase is a bit different from the other shortcuts, this test checks for certian attributes intead of doing a deep equals
+        
+        removeAttributes(record[0][0], "_medicationChange");
+        delete record[0][0]._patientRecord;
 
+        expect(record)
+            .to.be.an('array');
+        expect(record[0][0]._medicationChange._entryInfo.entryType)
+            .eql(expectedOutputReduceMedication[0][0]._medicationChange._entryInfo.entryType);
+        expect(record[0][0]._medicationChange._type._codeableConcept._coding)
+            .eql(expectedOutputReduceMedication[0][0]._medicationChange._type._codeableConcept._coding);
+        expect(record[0][0]._medicationChange._medicationBeforeChange)
+            .to.exist;
+    });
+});
