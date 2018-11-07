@@ -121,11 +121,9 @@ class MedicationRangeChartVisualizer extends Component {
         } else {
             medChangeClassName = 'medication-change';
         }
+        const medChangeTypeSigned = medChange.unsigned ? 'medication-change-type-unsigned' : 'medication-change-type';
 
         if (medChange.type === 'stop') {
-            let medChangeTypeSigned = 'medication-change-type';
-
-            if (medChange.unsigned) medChangeTypeSigned = 'medication-change-type-unsigned';
             return (
                 <Col xs={12} className={medChangeClassName}>
                     <span className={medChangeTypeSigned}>
@@ -143,7 +141,7 @@ class MedicationRangeChartVisualizer extends Component {
 
         return (
             <Col xs={12} className={medChangeClassName}>
-                <span className="medication-change-type">
+                <span className={medChangeTypeSigned}>
                     {FormatMedicationChange.stringForMedicationChangeType(medChange.type)}
                 </span>
                 <span className="medication-change-prior-amount">
