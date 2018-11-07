@@ -24,7 +24,11 @@ export default class MedicationsSection extends MetadataSection {
         
         // Only showing active medications
         let meds = patient.getActiveAndRecentlyStoppedMedicationsForConditionReverseChronologicalOrder(condition);
-        const medicationChanges = patient.getMedicationChangesForConditionChronologicalOrder(condition);
+        const medicationChanges = patient.getMedicationChangesForConditionChronologicalOrder(condition).filter(change => {
+            // Filter reduced medication changes that don't have medBefore and medAfter
+            if (change.type === 'reduced') return change.medicationBeforeChange && change.medicationAfterChange;
+            return true;
+        });
 
         // For every medication in meds, create a new medToVisualize object that has the medication object and a medicationChange object
         let medsToVisualize = meds.map((med) => {
