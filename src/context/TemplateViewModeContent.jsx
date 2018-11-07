@@ -7,8 +7,8 @@ export default class TemplateViewModeContent extends Component {
     // These don't need to be stored as state since they're not being updated
     templates = [
         { name: 'physical exam', content: 'Vitals: @vitals\nSkin:\nLymph:' },
-        { name: 'follow-up', content: 'REASON FOR VISIT:\n@patient following up on @condition on @date of visit.\n\nONCOLOGY HISTORY:\n@ONCOHIST\n\nHISTORY OF PRESENT ILLNESS:\n\n\nREVIEW OF SYSTEMS:\n@ROS\n\nALLERGIES:\n@ALLERGIES\n\nMEDICATIONS:\n@active medications\n\nPHYSICAL EXAM:\n\n\nASSESSMENT:\n\n\nPLAN:\n\n' },
-        { name: 'initial consult', content: 'REASON FOR VISIT:\n@patient presenting with @condition for initial consult on @date of visit.\n\nHISTORY OF PRESENT ILLNESS:\n\n\nREVIEW OF SYSTEMS:\n@ROS\n\nALLERGIES:\n@ALLERGIES\n\nMEDICATIONS:\n@active medications\n\nPHYSICAL EXAM:\n\n\nASSESSMENT:\n\n\nPLAN:\n\n' },
+        { name: 'follow-up', content: 'REASON FOR VISIT:\n@patient following up on @condition on @date of visit. @reason for next visit. Patient was referred by @referred by.\n\nONCOLOGY HISTORY:\n@ONCOHIST\n\nHISTORY OF PRESENT ILLNESS:\n\n\nREVIEW OF SYSTEMS:\n@ROS\n\nALLERGIES:\n@ALLERGIES\n\nMEDICATIONS:\n@active medications\n\nPHYSICAL EXAM:\n\n\nASSESSMENT:\n\n\nPLAN:\n\n' },
+        { name: 'initial consult', content: 'REASON FOR VISIT:\n@patient presenting with @condition for initial consult on @date of visit. @reason for next visit. Patient was referred by @referred by.\n\nHISTORY OF PRESENT ILLNESS:\n\n\nREVIEW OF SYSTEMS:\n@ROS\n\nALLERGIES:\n@ALLERGIES\n\nMEDICATIONS:\n@active medications\n\nPHYSICAL EXAM:\n\n\nASSESSMENT:\n\n\nPLAN:\n\n' },
         { name: 'test', content: 'FOLLOW UP:\nPatient is showing signs of @condition @ONCOHIST @condition @ONCOHIST\n\nMEDICATIONS:\n@medication\n\nProcedures:\n@procedure' },
         { name: 'consult note', content: '@patient presenting with ' }
     ];

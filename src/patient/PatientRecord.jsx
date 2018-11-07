@@ -1136,6 +1136,11 @@ class PatientRecord {
                         (Lang.isUndefined(heartRate) ? "" : "Heart rate is " + heartRate.value + heartRate.units + ".");;
         return results;
     }
+
+    getReferredBy() {
+        let referredBy = this.getPreviousEncounter().author;
+        return referredBy;
+    }
 }
 
 export default PatientRecord;
