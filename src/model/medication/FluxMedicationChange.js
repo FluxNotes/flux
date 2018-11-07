@@ -43,7 +43,7 @@ class FluxMedicationChange {
             this._medicationChange.medicationBeforeChange = new FluxMedicationBeforeChange();
             this._medicationChange.medicationBeforeChange.value = this._patientRecord.createEntryReferenceTo(medication);
 
-            if (this.medAfterDoseAmount) {
+            if (this.medAfterDoseAmount && !this.medicationAfterChange) {
                 const medAfter = this.createMedicationAfterFromMedicationBefore();
                 medAfter.dose = this.medAfterDoseAmount;
             }
