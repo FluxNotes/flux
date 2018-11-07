@@ -280,6 +280,7 @@ renderMedicationNarrowView = (med, i) => {
     const dosageUnit = med.medication.amountPerDose ? med.medication.amountPerDose.units : null;
     const timingValue = med.medication.timingOfDoses ? med.medication.timingOfDoses.value : null;
     const timingUnit = med.medication.timingOfDoses ? med.medication.timingOfDoses.units : null;
+    const {doseInstructionsText} = med.medication;
     const name = med.medication.medication;
     const medicationIsChange = (med.medicationChange ? true : false);
     const asNeededIndicator = med.medication.asNeededIndicator;
@@ -290,7 +291,7 @@ renderMedicationNarrowView = (med, i) => {
                 <div className="medication-heading">
                 <Row top="xs">
                     <Col md={8} xs={12}>
-                        {this.renderMedicationTitle(lowerValue, upperValue, name, dosageValue, dosageUnit, timingValue, timingUnit, asNeededIndicator)}
+                        {this.renderMedicationTitle(lowerValue, upperValue, name, dosageValue, dosageUnit, timingValue, timingUnit, asNeededIndicator, doseInstructionsText)}
                     </Col>
                 </Row>
                 </div>
