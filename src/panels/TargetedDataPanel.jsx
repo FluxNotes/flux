@@ -35,6 +35,9 @@ export default class TargetedDataPanel extends Component {
             if (!_.isUndefined(preferenceManagerVisibleSettings[section.name])) {
                 currentSectionVisible = preferenceManagerVisibleSettings[section.name];
             }
+            if (!currentSectionVisible) {
+                this.props.searchIndex.removeDataBySection(section.name);
+            }
             return currentSectionVisible;
         });
         this.setState({ sectionsToDisplay });
