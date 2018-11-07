@@ -373,6 +373,7 @@ export default class NotesPanel extends Component {
                     errors={this.props.errors}
                     handleUpdateEditorWithNote={this.handleUpdateEditorWithNote}
                     handleUpdateArrayOfPickLists={this.handleUpdateArrayOfPickLists}
+                    isAppBlurred={this.props.isAppBlurred}
                     isNoteViewerEditable={this.props.isNoteViewerEditable}
                     itemInserted={this.props.itemInserted}
                     newCurrentShortcut={this.props.newCurrentShortcut}
@@ -460,6 +461,7 @@ export default class NotesPanel extends Component {
                     setUndoTemplateInsertion={this.setUndoTemplateInsertion}
                     changeShortcutType={this.changeShortcutType}
                     searchSuggestions={this.props.searchSuggestions}
+                    isAppBlurred={this.props.isAppBlurred}
                 />
             </div>
         );
@@ -480,6 +482,7 @@ NotesPanel.propTypes = {
     dataAccess: PropTypes.object.isRequired,
     errors: PropTypes.array.isRequired,
     handleSummaryItemSelected: PropTypes.func.isRequired,
+    isAppBlurred: PropTypes.bool,
     isNoteViewerVisible: PropTypes.bool.isRequired,
     isNoteViewerEditable: PropTypes.bool.isRequired,
     itemInserted: PropTypes.func.isRequired,

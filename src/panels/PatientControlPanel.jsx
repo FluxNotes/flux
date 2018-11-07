@@ -13,9 +13,9 @@ class PatientControlPanel extends Component {
         const { patient } = this.props;
         const login = (this.props.supportLogin) ? this.props.loginUsername : "";
         const patientConditions = this.props.patient ? this.props.patient.getConditions() : [];
-
+        const disabledClassName = this.props.isAppBlurred ? 'content-disabled' : '';
         return (
-            <div className="patient-control-panel">
+            <div className={`patient-control-panel ${disabledClassName}`}>
                 <Paper className="panel-content">
                     <Grid fluid>
                         <Row middle="xs">
@@ -77,6 +77,7 @@ class PatientControlPanel extends Component {
 PatientControlPanel.propTypes = {
     appTitle: PropTypes.string.isRequired,
     clinicalEvent: PropTypes.string.isRequired,
+    isAppBlurred: PropTypes.bool,
     layout: PropTypes.string,
     patient: PropTypes.object.isRequired,
     possibleClinicalEvents: PropTypes.array.isRequired,

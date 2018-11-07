@@ -1628,11 +1628,12 @@ class FluxNotesEditor extends React.Component {
         const editorClassName = (this.props.selectedNote && this.props.selectedNote.signed)
             ? "editor-panel"
             : "editor-panel in-progress-note";
+        const disabledEditorClassName = this.props.isAppBlurred ? 'content-disabled' : '';
         /**
          * Render the editor, toolbar, dropdown and description for note
          */
         return (
-            <div id="clinical-notes" className="dashboard-panel">
+            <div id="clinical-notes" className={`dashboard-panel ${disabledEditorClassName}`}>
                 {this.renderNoteDescriptionContent()}
                 <div className="MyEditor-root" onClick={(event) => { this.refs.editor.focus(); }}>
                     <EditorToolbar
@@ -1712,6 +1713,7 @@ FluxNotesEditor.propTypes = {
     currentViewMode: PropTypes.string.isRequired,
     errors: PropTypes.array.isRequired,
     handleUpdateEditorWithNote: PropTypes.func.isRequired,
+    isAppBlurred: PropTypes.bool,
     isNoteViewerEditable: PropTypes.bool.isRequired,
     itemInserted: PropTypes.func.isRequired,
     openSourceNoteEntryId: PropTypes.oneOfType([

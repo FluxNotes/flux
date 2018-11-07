@@ -22,6 +22,7 @@ export default class TargetedDataPanel extends Component {
     }
 
     startEditingMinimap = () => {
+        this.props.setAppBlur(true);
         const conditionMetadata = this.getConditionMetadata();
         const allSections = conditionMetadata.sections;
         this.setState({ sectionsToDisplay: allSections });
@@ -40,6 +41,7 @@ export default class TargetedDataPanel extends Component {
             }
             return currentSectionVisible;
         });
+        this.props.setAppBlur(false);
         this.setState({ sectionsToDisplay });
     }
 
@@ -95,6 +97,7 @@ export default class TargetedDataPanel extends Component {
         const conditionMetadata = this.getConditionMetadata();
 
         const sectionsToDisplay = this.getSectionsToDisplay(conditionMetadata);
+        const tdpDisabledClass = this.props.isAppBlurred ? 'content-disabled' : '';
 
         if (conditionMetadata && conditionMetadata.sections.length > 1) {
             return (
@@ -111,8 +114,8 @@ export default class TargetedDataPanel extends Component {
                         doneEditingMinimap={this.doneEditingMinimap}
                         startEditingMinimap={this.startEditingMinimap}
                     >
-                        <div id="summary-subpanel">
-                            <div className="summary-section">
+                        <div id={`summary-subpanel`}>
+                            <div className={`summary-section ${tdpDisabledClass}`}>
                                 <TargetedDataSubpanel
                                     actions={this.props.actions}
                                     forceRefresh={this.props.forceRefresh}
@@ -174,14 +177,16 @@ TargetedDataPanel.proptypes = {
         condition: PropTypes.object,
     }).isRequired,
     forceRefresh: PropTypes.bool,
+    isAppBlurred: PropTypes.bool,
     isNoteViewerEditable: PropTypes.bool.isRequired,
     isTargetedDataSubpanelVisible: PropTypes.bool,
     isWide: PropTypes.bool.isRequired,
     loginUser: PropTypes.object.isRequired,
     preferenceManager: PropTypes.object.isRequired,
-    summaryMetadata: PropTypes.object.isRequired,
+    setAppBlur: PropTypes.func,
     setForceRefresh: PropTypes.func.isRequired,
-    targetedDataPanelSize: PropTypes.string.isRequired,
     searchIndex: PropTypes.object.isRequired,
-    searchSuggestions: PropTypes.array
+    searchSuggestions: PropTypes.array,
+    summaryMetadata: PropTypes.object.isRequired,
+    targetedDataPanelSize: PropTypes.string.isRequired
 }
