@@ -19,6 +19,11 @@ export default class TargetedDataPanel extends Component {
         if (nextProps.targetedDataPanelSize !== this.props.targetedDataPanelSize) {
             this.forceUpdate();
         }
+        if (nextProps.appState.condition !== this.props.appState.condition) {
+            const conditionMetadata = this.getConditionMetadata(nextProps.appState.condition);
+            const sectionsToDisplay = this.getSectionsToDisplay(conditionMetadata);
+            this.setState({ sectionsToDisplay });
+        }
     }
 
     startEditingMinimap = () => {
@@ -30,17 +35,7 @@ export default class TargetedDataPanel extends Component {
 
     doneEditingMinimap = () => {
         const conditionMetadata = this.getConditionMetadata();
-        const sectionsToDisplay = conditionMetadata.sections.filter((section) => {
-            const preferenceManagerVisibleSettings = this.props.preferenceManager.getPreference('visibleSections');
-            let currentSectionVisible = preferenceManagerVisibleSettings[section.name];
-            if (!_.isUndefined(preferenceManagerVisibleSettings[section.name])) {
-                currentSectionVisible = preferenceManagerVisibleSettings[section.name];
-            }
-            if (!currentSectionVisible) {
-                this.props.searchIndex.removeDataBySection(section.name);
-            }
-            return currentSectionVisible;
-        });
+        const sectionsToDisplay = this.getSectionsToDisplay(conditionMetadata);
         this.props.setAppBlur(false);
         this.setState({ sectionsToDisplay });
     }
@@ -59,7 +54,7 @@ export default class TargetedDataPanel extends Component {
         this.moveToSubsection(suggestion.section, suggestion.subsection);
     }
     
-    getConditionMetadata() {
+    getConditionMetadata(condition = this.props.appState.condition) {
         const { loginUser } = this.props;
         const patient = this.props.appState.patient;
         const condition = this.props.appState.condition;
@@ -72,21 +67,22 @@ export default class TargetedDataPanel extends Component {
     }
 
     getSectionsToDisplay = (conditionMetadata) => {
-        let sectionsToDisplay = this.state.sectionsToDisplay;
-        if (sectionsToDisplay.length === 0) {
-            sectionsToDisplay = conditionMetadata.sections.filter((section) => {
-                let preferenceManagerVisibleSettings = this.props.preferenceManager.getPreference('visibleSections');
-                if (_.isNull(preferenceManagerVisibleSettings)) {
-                    preferenceManagerVisibleSettings = {};
-                    this.props.preferenceManager.setPreference('visibleSections', preferenceManagerVisibleSettings);
-                }
-                let currentSectionVisible = true;
-                if (!_.isNull(preferenceManagerVisibleSettings) && !_.isUndefined(preferenceManagerVisibleSettings[section.name])) {
-                    currentSectionVisible = preferenceManagerVisibleSettings[section.name];
-                }
-                return currentSectionVisible;
-            });
-        }
+        let sectionsToDisplay = [];
+        sectionsToDisplay = conditionMetadata.sections.filter((section) => {
+            let preferenceManagerVisibleSettings = this.props.preferenceManager.getPreference('visibleSections');
+            if (_.isNull(preferenceManagerVisibleSettings)) {
+                preferenceManagerVisibleSettings = {};
+                this.props.preferenceManager.setPreference('visibleSections', preferenceManagerVisibleSettings);
+            }
+            let currentSectionVisible = true;
+            if (!_.isNull(preferenceManagerVisibleSettings) && !_.isUndefined(preferenceManagerVisibleSettings[section.name])) {
+                currentSectionVisible = preferenceManagerVisibleSettings[section.name];
+            }
+            if (!currentSectionVisible) {
+                this.props.searchIndex.removeDataBySection(section.name);
+            }
+            return currentSectionVisible;
+        });
         return sectionsToDisplay;
     }
 
@@ -96,7 +92,7 @@ export default class TargetedDataPanel extends Component {
         const shortTitleAttribute = 'data-minimap-short-title';
         const conditionMetadata = this.getConditionMetadata();
 
-        const sectionsToDisplay = this.getSectionsToDisplay(conditionMetadata);
+        const { sectionsToDisplay } = this.state;
         const tdpDisabledClass = this.props.isAppBlurred ? 'content-disabled' : '';
 
         if (conditionMetadata && conditionMetadata.sections.length > 1) {

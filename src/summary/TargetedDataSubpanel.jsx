@@ -138,11 +138,11 @@ export default class TargetedDataSubpanel extends Component {
     }
 
     renderSections() {
-        const { clinicalEvent, patient, condition, allowItemClick, isWide, actions, conditionMetadata } = this.props;
+        const { clinicalEvent, patient, condition, allowItemClick, isWide, actions, conditionMetadata, sectionsToDisplay } = this.props;
 
         if (conditionMetadata == null) return null;
 
-        return this.props.sectionsToDisplay.filter((section, i) => {
+        return sectionsToDisplay.filter((section, i) => {
             return !section.clinicalEvents || section.clinicalEvents.includes(clinicalEvent);
         }).map((section, i) => {
             return (
@@ -165,7 +165,7 @@ export default class TargetedDataSubpanel extends Component {
                         searchSuggestions={this.props.searchSuggestions}
                     />
 
-                    {i < conditionMetadata.sections.length - 1 ? <Divider className="divider"/> : null}
+                    {i < sectionsToDisplay.length - 1 ? <Divider className="divider"/> : null}
                 </div>
             );
         });
