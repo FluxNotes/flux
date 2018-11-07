@@ -21,7 +21,7 @@ export default class TargetedDataPanel extends Component {
         }
         if (nextProps.appState.condition !== this.props.appState.condition) {
             const conditionMetadata = this.getConditionMetadata(nextProps.appState.condition);
-            const sectionsToDisplay = this.getSectionsToDisplay(conditionMetadata);
+            const sectionsToDisplay = this.getSectionsToDisplay(conditionMetadata, nextProps.appState.condition);
             this.setState({ sectionsToDisplay });
         }
     }
@@ -35,7 +35,7 @@ export default class TargetedDataPanel extends Component {
 
     doneEditingMinimap = () => {
         const conditionMetadata = this.getConditionMetadata();
-        const sectionsToDisplay = this.getSectionsToDisplay(conditionMetadata);
+        const sectionsToDisplay = this.getSectionsToDisplay(conditionMetadata, this.props.appState.condition);
         this.props.setAppBlur(false);
         this.setState({ sectionsToDisplay });
     }
@@ -66,7 +66,7 @@ export default class TargetedDataPanel extends Component {
                                                         loginUser.getSpecialty());
     }
 
-    getSectionsToDisplay = (conditionMetadata) => {
+    getSectionsToDisplay = (conditionMetadata, condition) => {
         let sectionsToDisplay = [];
         sectionsToDisplay = conditionMetadata.sections.filter((section) => {
             let preferenceManagerVisibleSettings = this.props.preferenceManager.getPreference('visibleSections');
@@ -75,8 +75,9 @@ export default class TargetedDataPanel extends Component {
                 this.props.preferenceManager.setPreference('visibleSections', preferenceManagerVisibleSettings);
             }
             let currentSectionVisible = true;
-            if (!_.isNull(preferenceManagerVisibleSettings) && !_.isUndefined(preferenceManagerVisibleSettings[section.name])) {
-                currentSectionVisible = preferenceManagerVisibleSettings[section.name];
+            const settingName = `${section.name}-${condition.codeURL}`;
+            if (!_.isNull(preferenceManagerVisibleSettings) && !_.isUndefined(preferenceManagerVisibleSettings[settingName])) {
+                currentSectionVisible = preferenceManagerVisibleSettings[settingName];
             }
             if (!currentSectionVisible) {
                 this.props.searchIndex.removeDataBySection(section.name);
@@ -91,6 +92,7 @@ export default class TargetedDataPanel extends Component {
         const minimapAttribute = 'data-test-summary-section';
         const shortTitleAttribute = 'data-minimap-short-title';
         const conditionMetadata = this.getConditionMetadata();
+        const conditionURL = this.props.appState.condition ? this.props.appState.condition.codeURL : '';
 
         const { sectionsToDisplay } = this.state;
         const tdpDisabledClass = this.props.isAppBlurred ? 'content-disabled' : '';
@@ -106,6 +108,7 @@ export default class TargetedDataPanel extends Component {
                         width={80}
                         isFullHeight={true}
                         ref={(minimap) => { this.minimap = minimap; }}
+                        conditionURL={conditionURL}
                         preferenceManager={this.props.preferenceManager}
                         doneEditingMinimap={this.doneEditingMinimap}
                         startEditingMinimap={this.startEditingMinimap}

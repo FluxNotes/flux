@@ -9,12 +9,15 @@ export default class Child extends Component {
         super(props);
 
         let visibleSections = props.preferenceManager.getPreference('visibleSections');
-        let currentPreference = visibleSections[props.title];
+        if (visibleSections === null) {
+            visibleSections = {};
+        }
+        let currentPreference = visibleSections[`${props.title}-${props.conditionURL}`];
 
         // If not set in preference manager yet, assume it is visible and set preference
         if (_.isUndefined(currentPreference)) {
             currentPreference = true;
-            visibleSections[props.title] = currentPreference;
+            visibleSections[`${props.title}-${props.conditionURL}`] = currentPreference;
             props.preferenceManager.setPreference('visibleSections', visibleSections);
         }
 
@@ -26,12 +29,12 @@ export default class Child extends Component {
     componentWillReceiveProps = (nextProps) => {
         if (nextProps.inEditMode !== this.props.inEditMode && nextProps.inEditMode) {
             let visibleSections = nextProps.preferenceManager.getPreference('visibleSections');
-            let currentPreference = visibleSections[nextProps.title];
+            let currentPreference = visibleSections[`${nextProps.title}-${this.props.conditionURL}`];
 
             // If not set in preference manager yet, assume it is visible and set preference
             if (_.isUndefined(currentPreference)) {
                 currentPreference = true;
-                visibleSections[this.props.title] = currentPreference;
+                visibleSections[`${this.props.title}-${this.props.conditionURL}`] = currentPreference;
                 this.props.preferenceManager.setPreference('visibleSections', visibleSections);
             }
             this.setState({ visible: currentPreference });
@@ -40,7 +43,7 @@ export default class Child extends Component {
 
     childClick = () => {
         const visibleSections = this.props.preferenceManager.getPreference('visibleSections');
-        visibleSections[this.props.title] = !this.state.visible;
+        visibleSections[`${this.props.title}-${this.props.conditionURL}`] = !this.state.visible;
         this.props.preferenceManager.setPreference('visibleSections', visibleSections);
         this.setState({ visible: !this.state.visible });
     }
