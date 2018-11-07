@@ -552,9 +552,10 @@
     "shortcutGroupName":"To"
   },
   { "type": "CreatorChild",
-    "id": "NumericCreator",
+    "id": "NumberCreator",
     "parentAttribute": "number",
-    "regexpTrigger": "(#[0-9]+)",
+    "stringTriggers": [{ "name": "#number", "description": "A number" }],
+    "regexpTrigger": "(#[0-9]+$)",
     "description":"Allows entry of a number.",
     "shortcutGroupName":"Number"
   },
