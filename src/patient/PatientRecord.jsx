@@ -692,7 +692,7 @@ class PatientRecord {
 
             let eitherChangeIsRelated;
 
-            if (medAfterChange) {
+            if (medAfterChange && medBeforeChange) {
                 eitherChangeIsRelated = medBeforeChange.reasons.some((r) => {
                         return r.value.entryId && r.value.entryId === conditionEntryId;
                     }) || medAfterChange.reasons.some((r) => {

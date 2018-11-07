@@ -70,6 +70,10 @@ class FluxMedicationRequested {
         this._medicationRequested.actionContext.expectedPerformanceTime.value.timePeriodStart = timePeriodStart;
     }
 
+    get endDate() {
+        return this.expectedPerformanceTime.timePeriodEnd || null;
+    }
+
     set endDate(date) {
         if (!this._medicationRequested.actionContext) {
             this._medicationRequested.actionContext = new ActionContext();

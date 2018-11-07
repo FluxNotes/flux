@@ -46,9 +46,11 @@ class FluxMedicationChange {
             if (this.medAfterDoseAmount) {
                 const medAfter = this.createMedicationAfterFromMedicationBefore();
                 medAfter.dose = this.medAfterDoseAmount;
-                this.medAfterDoseAmount = null;
             }
         } else {
+            if (this.medicationAfterChange) {
+                this.removeMedicationAfterAndMedicationBefore();
+            }
             this._medicationChange.medicationBeforeChange = null;
         }
     }
@@ -89,12 +91,7 @@ class FluxMedicationChange {
     set afterDosage(amount) {
         if (!amount) {
             if (this.medicationAfterChange) {
-                // Delete medicationAfterChange entry if no amount and reset end date for medicationBefore
-                const medAfter = this._patientRecord.getEntryFromReference(this.medicationAfterChange.value);
-                this._patientRecord.removeEntryFromPatient(medAfter);
-                this._medicationChange.medicationAfterChange = null;
-                const medBefore = this._patientRecord.getEntryFromReference(this.medicationBeforeChange.value);
-                medBefore.endDate = null;
+                this.removeMedicationAfterAndMedicationBefore();
             } else {
                 // Set Stored value to null
                 this.medAfterDoseAmount = null;
@@ -131,6 +128,18 @@ class FluxMedicationChange {
         this._medicationChange.medicationAfterChange.value = this._patientRecord.createEntryReferenceTo(medAfter);
 
         return medAfter;
+    }
+
+    // Removes medicationAfter from patient record and resets end date for medicationBefore
+    removeMedicationAfterAndMedicationBefore() {
+        // Delete medicationAfterChange entry if no amount and reset end date for medicationBefore
+        const medAfter = this._patientRecord.getEntryFromReference(this.medicationAfterChange.value);
+        this._patientRecord.removeEntryFromPatient(medAfter);
+        this._medicationChange.medicationAfterChange = null;
+        if (this.medicationBeforeChange) {
+            const medBefore = this._patientRecord.getEntryFromReference(this.medicationBeforeChange.value);
+            medBefore.endDate = medAfter.endDate;
+        }
     }
 
     /**
