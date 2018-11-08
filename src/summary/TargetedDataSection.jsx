@@ -5,11 +5,12 @@ import MenuItem from 'material-ui/Menu/MenuItem';
 import Checkbox from 'material-ui/Checkbox';
 import { ListItemText } from 'material-ui/List';
 import Button from '../elements/Button';
+import Chip from 'material-ui/Chip';
 import ExpansionPanel, { ExpansionPanelSummary, ExpansionPanelDetails } from 'material-ui/ExpansionPanel';
 import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
 import './TargetedDataSection.css';
 import Lang from 'lodash';
-import { FormControlLabel } from 'material-ui';
+import { FormControl, FormGroup, FormLabel, FormControlLabel } from 'material-ui';
 
 const SHOW_FILTER_AS_MENU = false;
 
@@ -34,6 +35,7 @@ export default class TargetedDataSection extends Component {
             anchorEl: null,
             positionLeft: 0,
             positionTop: 0,
+            expanded: false,
             filters
         };
     }
@@ -276,38 +278,74 @@ export default class TargetedDataSection extends Component {
                 </div>
             );
         } else {
-            let criteriaCheckboxes = [];
+            let criteriaGroups = {};
+            let criteriaCheckboxes, categoryName;
             let criteriaSummaryItems = [];
             this.props.section.data.forEach((subsection) => {
                 this.state.filters[`${this.props.section.name}-${subsection.name}`].forEach((filter) => {
+                    categoryName = filter.category || "";
+                    criteriaCheckboxes = criteriaGroups[categoryName];
+                    if (Lang.isUndefined(criteriaCheckboxes)) {
+                        criteriaCheckboxes = [];
+                        criteriaGroups[categoryName] = criteriaCheckboxes;
+                    }
                     criteriaCheckboxes.push(
-                        <FormControlLabel control={
-                            <Checkbox 
-                                checked={this.getFilterValue(filter, subsection.name)}
-                                onChange={() => this.updateFilterValue(filter, subsection.name)}
-                                value={filter.name}
-                                className="checkbox"
-                                key={filter.name} />
+                        <FormControlLabel 
+                            key={filter.name}
+                            control={
+                                <Checkbox 
+                                    checked={this.getFilterValue(filter, subsection.name)}
+                                    onChange={() => this.updateFilterValue(filter, subsection.name)}
+                                    value={filter.name}
+                                    className="checkbox" />
                         }
                         label={filter.name}
                         />
                     );
-                    criteriaSummaryItems.push(
-                        <span className="criterion-summary" key={filter.name}>
-                            {filter.name}: {filter.value ? 'yes' : 'no'}
-                        </span>);
+                    if (filter.value) {
+                        criteriaSummaryItems.push(
+                            <Chip
+                                key={filter.name}
+                                label={filter.name}
+                                onDelete={() => this.updateFilterValue(filter, subsection.name)}
+                            >
+                            </Chip>);    
+                    }
                 });
             });
+            const { expanded } = this.state;
+            let expansionInstructions = <span className='expansion-instructions'>{expanded ? 'Click here to collapse criteria...' : 'Click here to edit criteria...'}</span>;
             return (
                 <div>
-                    <div>&nbsp;</div>
-                    <ExpansionPanel>
-                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>{criteriaSummaryItems}</ExpansionPanelSummary>
-                        <ExpansionPanelDetails>{criteriaCheckboxes}</ExpansionPanelDetails>
+                    <ExpansionPanel expanded={expanded} onChange={(e, newExpanded) => this.setState({expanded: newExpanded})}>
+                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
+                            {criteriaSummaryItems}
+                            {expansionInstructions}
+                        </ExpansionPanelSummary>
+                        <ExpansionPanelDetails>{this.layoutCheckboxes(criteriaGroups)}</ExpansionPanelDetails>
                     </ExpansionPanel>
                 </div>
             );
         }
+    }
+
+    layoutCheckboxes = (criteriaGroups) => {
+        const keys = Object.keys(criteriaGroups);
+        const numGroups = keys.length;
+        if (numGroups === 0) return null;
+        if (numGroups === 1) return <FormControl component="fieldset">{criteriaGroups[keys[0]]}</FormControl>;
+        return (
+            <div>
+                {keys.map(key => {
+                    return (<FormControl component="fieldset" key={key}>
+                                <FormLabel component="legend">{key}</FormLabel>
+                                <FormGroup>
+                                    {criteriaGroups[key]}
+                                </FormGroup>
+                            </FormControl>);   
+                })}
+            </div>
+        );
     }
 
     getAndIndexSectionData(section) {

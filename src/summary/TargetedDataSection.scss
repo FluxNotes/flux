@@ -38,8 +38,14 @@
     min-height: 0 !important;
 }
 
-.left-icons {
-    display: left;
+.expansion-instructions {
+    margin-left: 5px;
+    font-style: italic;
+    color: #333;
+    font-size: 13px;
+    vertical-align: middle;
+    display: inline-flex;
+    align-items: center;
 }
 
 .right-icons {
