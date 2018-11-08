@@ -25,14 +25,14 @@ export default class TreatmentOptionsSection extends MetadataSection {
                     // eventually, the service API and implementation will need to support this call to figure out the supported criteria based on the condition
                     // filterFunction: this.getTreatmentCriteria
                     filters: [
-                        { name: "Age at diagnosis", servicePropertyName: "ageAtDiagnosis", category: "Demographics", value: false },
-                        { name: "Gender", servicePropertyName: "gender", category: "Demographics", value: false },
-                        { name: "Race", servicePropertyName: "race", category: "Demographics", value: false },
-                        { name: "KIT", servicePropertyName: "kit", category: "Genetics", value: false },
-                        { name: "PDGFRA", servicePropertyName: "pdgfra", category: "Genetics", value: false },
-                        { name: "Grade", servicePropertyName: "dxGrade", category: "Pathology", value: false },
-                        { name: "Stage", servicePropertyName: "stage", category: "Pathology", value: false },
-                        { name: "Surgery", servicePropertyName: "surgery", category: "Past Treatment", value: false }
+                        { name: "Age at diagnosis", servicePropertyName: "ageAtDiagnosis", category: "Demographics", value: true },
+                        { name: "Gender", servicePropertyName: "gender", category: "Demographics", value: true },
+                        { name: "Race", servicePropertyName: "race", category: "Demographics", value: true },
+                        { name: "KIT", servicePropertyName: "kit", category: "Genetics", value: true },
+                        { name: "PDGFRA", servicePropertyName: "pdgfra", category: "Genetics", value: true },
+                        { name: "Grade", servicePropertyName: "dxGrade", category: "Pathology", value: true },
+                        { name: "Stage", servicePropertyName: "stage", category: "Pathology", value: true },
+                        { name: "Surgery", servicePropertyName: "surgery", category: "Past Treatment", value: true }
                     ],
                     itemsFunction: this.getTreatmentData
                 }
@@ -40,26 +40,24 @@ export default class TreatmentOptionsSection extends MetadataSection {
         };
     }
 
-    getTreatmentCriteria = (patient, condition) => {
-        return [ // condition is a given
-            { name: "Age at diagnosis", category: "Demographics" },
-            { name: "Gender", category: "Demographics" },
-            { name: "Race", category: "Demographics" },
-            { name: "KIT", category: "Genetics" },
-            { name: "PDGFRA", category: "Genetics" },
-            { name: "Grade", category: "Pathology" },
-            { name: "Stage", category: "Pathology" },
-            { name: "Surgery", category: "Past Treatment" }
-        ];
-    }
+    // getTreatmentCriteria = (patient, condition) => {
+    //     return [ // condition is a given
+    //         { name: "Age at diagnosis", category: "Demographics" },
+    //         { name: "Gender", category: "Demographics" },
+    //         { name: "Race", category: "Demographics" },
+    //         { name: "KIT", category: "Genetics" },
+    //         { name: "PDGFRA", category: "Genetics" },
+    //         { name: "Grade", category: "Pathology" },
+    //         { name: "Stage", category: "Pathology" },
+    //         { name: "Surgery", category: "Past Treatment" }
+    //     ];
+    // }
 
     getTreatmentData = (patient, condition, subsection) => {
  
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         // If we have cached data, use that instead of making an API call
         if (subsection.data_cache) return subsection.data_cache;
-        console.log("getTreatmentData");
-        console.log(subsection.filters);
         //   {
         //     subsection.filters.forEach(filter => {
         //         switch (filter.name) {
