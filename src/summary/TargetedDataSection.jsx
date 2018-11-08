@@ -202,32 +202,31 @@ export default class TargetedDataSection extends Component {
     updateFilterValue = (filter, subsectionName) => {
         const { section } = this.props;
         const { filters } = this.state;
-    
+      
         // Update subsection data to reflect changed filter value
-        const currentSubsection = section.data.find(subsection => subsection.name === subsectionName);
-        const currentSubsectionFilter = currentSubsection.filters.find(f => f.name === filter.name);
-        currentSubsectionFilter.value = !filter.value;
+ 
+        // Get the current filter value 
+        const currentVal = this.getFilterValue(filter, subsectionName);
+        // Update the filter value in preference manager
+        this.props.preferenceManager.setPreference(`${this.props.section.name}-${subsectionName}-${filter.id}`,  !currentVal);
+      
 
         // Update state to also reflect changed filter value
         const selectedFilter = filters[`${this.props.section.name}-${subsectionName}`].find(f => f.name === filter.name);
-        selectedFilter.value = !filter.value;
-
-        this.props.preferenceManager.setPreference(`${this.props.section.name}-${subsectionName}`, filters[`${this.props.section.name}-${subsectionName}`]);
+        selectedFilter.value = !currentVal;
+ 
         // Set state and re-index data to properly search currently visible data
         this.setState({ filters });
         this.indexSectionData(section);
+        
     }
  
     getFilterValue = (filter, subsectionName) => {
-        // Check preference manager for stored filter
-        const subsectionFilters = this.props.preferenceManager.getPreference(`${this.props.section.name}-${subsectionName}`);
-        if (subsectionFilters) {
-            const selectedFilter = subsectionFilters.find(f => f.name === filter.name);
-            return selectedFilter.value;
-        } else {
-            return filter.value;
-        }
-    } 
+        const { section } = this.props;
+        const subsectionFilters = this.props.preferenceManager.getPreference(`${this.props.section.name}-${subsectionName}-${filter.id}`);
+        return subsectionFilters;   
+        
+    }  
 
     renderFilters = () => {
         let totalNumFilters = 0;
@@ -296,7 +295,9 @@ export default class TargetedDataSection extends Component {
                 newSubsection = subsection;
                 typeToIndex = type;
                 if (Lang.isUndefined(items)) {
+                
                     list = itemsFunction(patient, condition, subsection);
+                   
                 } else {
                     list = items.map((item, i) => {
                         if (Lang.isNull(item.value)) {
