@@ -1368,17 +1368,12 @@
         },
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
         "EntryId": "100",
+        "ReferredBy": "Dr. Stephen341 Vincent483",
         "PersonOfRecord": {
             "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
             "_EntryId": "1",
             "_EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
-            }
-        },
-        "Author": {
-            "Value": "Dr. Stephen341 Vincent483",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
             }
         },
         "CreationTime": {
@@ -5501,12 +5496,7 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
             }
         },
-        "Author": {
-            "Value": "Dr. Nebula341 Gillan483",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
-            }
-        },
+        "ReferredBy": "Dr. Nebula341 Gillan483",
         "CreationTime": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
@@ -5640,12 +5630,7 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
             }
         },
-        "Author": {
-            "Value": "Dr. Tony341 Arks483",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
-            }
-        },
+        "ReferredBy": "Dr. Tony341 Arks483",
         "CreationTime": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
@@ -5955,12 +5940,7 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
             }
         },
-        "Author": {
-            "Value": "Dr. Steve341 Rogers483",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
-            }
-        },
+        "ReferredBy": "Dr. Steve341 Rogers483",
         "CreationTime": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
@@ -6132,12 +6112,7 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
             }
         },
-        "Author": {
-            "Value": "Dr. Natasha341 Ramone483",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
-            }
-        },
+        "ReferredBy": "Dr. Natasha341 Ramone483",
         "CreationTime": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
@@ -6388,12 +6363,7 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
             }
         },
-        "Author": {
-            "Value": "Dr. Bruce341 Bann483",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
-            }
-        },
+        "ReferredBy": "Dr. Bruce341 Bann483",
         "CreationTime": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
@@ -7075,12 +7045,7 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
             }
         },
-        "Author": {
-            "Value": "Dr. Hort341 Odinson483",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
-            }
-        },
+        "ReferredBy": "Dr. Hort341 Odinson483",
         "CreationTime": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
@@ -7854,10 +7819,7 @@
                 }
             }
         }
-    }
-
-
-    ,
+    },
     {
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested"
@@ -7871,12 +7833,7 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
             }
         },
-        "Author": {
-            "Value": "Dr. Chad341 Wakan483",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
-            }
-        },
+        "ReferredBy": "Dr. Chad341 Wakan483",
         "CreationTime": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
@@ -8461,12 +8418,7 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
             }
         },
-        "Author": {
-            "Value": "Dr. Peter341 Arker483",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
-            }
-        },
+        "ReferredBy": "Dr. Peter341 Arker483",
         "CreationTime": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
@@ -9048,12 +9000,7 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
             }
         },
-        "Author": {
-            "Value": "Dr. Pietro341 Maximoff483",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
-            }
-        },
+        "ReferredBy": "Dr. Pietro341 Maximoff483",
         "CreationTime": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
@@ -9635,12 +9582,7 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
             }
         },
-        "Author": {
-            "Value": "Dr. Wanda341 Maximoff483",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
-            }
-        },
+        "ReferredBy": "Dr. Wanda341 Maximoff483",
         "CreationTime": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
@@ -10222,12 +10164,7 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
             }
         },
-        "Author": {
-            "Value": "Dr. Scott341 Lang483",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
-            }
-        },
+        "ReferredBy": "Dr. Scott341 Lang483",
         "CreationTime": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"

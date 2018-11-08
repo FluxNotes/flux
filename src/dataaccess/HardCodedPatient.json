@@ -4436,12 +4436,7 @@
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested"
         },
-        "Author": {
-            "Value": "Dr. Natasha341 Ramone483",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
-            }
-        },
+        "ReferredBy": "Dr. Stephen341 Vincent483",
         "LastUpdated": {
             "Value": "21 May 2018",
             "EntryType": {
@@ -4512,12 +4507,7 @@
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested"
         },
-        "Author": {
-            "Value": "Dr. Natasha341 Ramone483",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
-            }
-        },
+        "ReferredBy": "Dr. Stephen341 Vincent483",
         "LastUpdated": {
             "Value": "21 May 2018",
             "EntryType": {
@@ -4588,12 +4578,7 @@
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested"
         },
-        "Author": {
-            "Value": "Dr. Natasha341 Ramone483",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
-            }
-        },
+        "ReferredBy": "Dr. Stephen341 Vincent483",
         "LastUpdated": {
             "Value": "21 May 2018",
             "EntryType": {

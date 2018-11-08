@@ -289,8 +289,7 @@ class PatientRecord {
 
     getPreviousEncounterDateAsString() {
         let encounter = this.getPreviousEncounter();
-        let encounterDate = new moment(encounter.expectedPerformanceTime).format("D MMM YYYY");
-        return encounterDate;
+        return new moment(encounter.expectedPerformanceTime, "D MMM YYYY").format("D MMM YYYY");
     }
 
     getPreviousEncounterReasonAsText() {
@@ -1138,7 +1137,7 @@ class PatientRecord {
     }
 
     getReferredBy() {
-        let referredBy = this.getPreviousEncounter().author;
+        let referredBy = this.getPreviousEncounter().referredBy;
         return referredBy;
     }
 }

@@ -2,7 +2,10 @@ import EncounterRequested from '../shr/encounter/EncounterRequested';
 
 class FluxEncounterRequested {
     constructor(json) {
-        this._encounterRequested = EncounterRequested.fromJSON(json);
+        if (json.ReferredBy) this._referredBy = json.ReferredBy; 
+        // Delete ReferredBy from the json b/c fromJson method on EncounterRequested looks for setter, which we don't have
+        delete json.ReferredBy;  
+        this._encounterRequested = EncounterRequested.fromJSON(json);        
     }
 
     get entryInfo() {
@@ -67,6 +70,10 @@ class FluxEncounterRequested {
         }
     }
 
+    get referredBy() {
+        return this._referredBy;
+    }
+    
     toJSON() {
         return this._encounterRequested.toJSON();
     }
