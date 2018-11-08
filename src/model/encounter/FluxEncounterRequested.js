@@ -1,11 +1,14 @@
 import EncounterRequested from '../shr/encounter/EncounterRequested';
-
+import Lang from 'lodash';
 class FluxEncounterRequested {
     constructor(json) {
         if (json.ReferredBy) this._referredBy = json.ReferredBy; 
+
+        // Clone the json first otherwise the backend test fails because it looks ReferredBy
+        const clonedJSON = Lang.cloneDeep(json);
         // Delete ReferredBy from the json b/c fromJson method on EncounterRequested looks for setter, which we don't have
-        delete json.ReferredBy;  
-        this._encounterRequested = EncounterRequested.fromJSON(json);        
+        delete clonedJSON.ReferredBy;  
+        this._encounterRequested = EncounterRequested.fromJSON(clonedJSON);        
     }
 
     get entryInfo() {
