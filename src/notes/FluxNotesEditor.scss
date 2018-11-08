@@ -137,6 +137,10 @@
         background-color: rgba(0, 0, 0, 0);
         border-bottom: 1.5px dashed $shr-context-line;
     }
+    
+    div:last-child {
+        padding-bottom: 2px;
+    }
 }
 .placeholder {
     background-color: #dddddd;
