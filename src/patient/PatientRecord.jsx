@@ -1138,6 +1138,7 @@ class PatientRecord {
 
     getReferredBy() {
         let referredBy = this.getPreviousEncounter().referredBy;
+        if (Lang.isUndefined(referredBy)) return "No referral for this appointment";
         return referredBy;
     }
 }
