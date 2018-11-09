@@ -298,6 +298,20 @@ class PatientRecord {
         return previousEncounter.reasons.map((r) => { return r.value; }).join(',');
     }
 
+    // Return today's encounter date if it exsits, otherwise return the previous encounter's date
+    getMostRecentEncounterDate() {
+        let encounters = this.getEntriesOfType(FluxEncounterRequested);
+        const today = new moment().format("D MMM YYYY"); // let today = new moment().format("D MMM YYYY");
+
+        for (var i = 0; i < encounters.length; i++) {          
+            let encounterDate = new moment(encounters[0].expectedPerformanceTime, "D MMM YYYY").format("D MMM YYYY");
+            if (encounterDate === today) {
+               return encounterDate;
+            }
+        }
+        return this.getPreviousEncounterDateAsString();
+    }
+
     getReviewOfSystems() {
         return this.entries.find((e) => {
             // C95618 is code for ROS
