@@ -322,6 +322,13 @@ class FluxCondition {
         return hpiText;
     }
 
+    hasPastTreatment(procedureCode, patient) {
+        const procedure = patient.getProceduresForCondition(this).find((p) => {
+            return (p.code === procedureCode);
+        });
+        return !Lang.isEmpty(procedure);
+    }
+
     buildEventNarrative(hpiText, patient, conditionCode = null) {
         // Build narrative from sorted events
         // Get procedures, medications, recent lab results, and most recent progression from patient

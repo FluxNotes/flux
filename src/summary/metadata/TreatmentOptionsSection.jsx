@@ -40,7 +40,7 @@ export default class TreatmentOptionsSection extends MetadataSection {
                         { name: "Stage", servicePropertyName: "stage", category: "Pathology", value: true,
                                 propertyValueFunction: (patient, condition) => { return condition.getMostRecentStaging().stage } },
                         { name: "Surgery", servicePropertyName: "surgery", category: "Past Treatment", value: true,
-                                propertyValueFunction: (patient, condition) => { return "no" } }
+                                propertyValueFunction: (patient, condition) => { return condition.hasPastTreatment('C0851238', patient) } }
                     ],
                     itemsFunction: this.getTreatmentData
                 }
