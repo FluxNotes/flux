@@ -38,6 +38,8 @@ export default class CoreCancerPilotDashboard extends Component {
                         ref={(tdp) => { this.targetedDataPanel = tdp; }}
                         searchIndex={this.props.searchIndex}
                         searchSuggestions={this.props.searchSuggestions}
+                        isAppBlurred={this.props.isAppBlurred}
+                        setAppBlur={this.props.setAppBlur}
                     />
                 </div>
             </div>
