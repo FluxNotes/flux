@@ -224,6 +224,7 @@ export default class TargetedDataSection extends Component {
     getFilterValue = (filter, subsectionName) => {
         const { section } = this.props;
         const subsectionFilters = this.props.preferenceManager.getPreference(`${this.props.section.name}-${subsectionName}-${filter.id}`);
+        if(Lang.isNull(subsectionFilters)) return true;
         return subsectionFilters;   
         
     }  
