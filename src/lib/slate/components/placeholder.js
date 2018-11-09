@@ -107,7 +107,7 @@ class Placeholder extends React.Component {
     }
 
     return (
-      <span contentEditable={false} className={className} style={styles}>
+      <span contentEditable={true} className={className} style={styles}>
         {children}
       </span>
     )

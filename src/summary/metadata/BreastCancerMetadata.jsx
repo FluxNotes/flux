@@ -16,7 +16,7 @@ import TreatmentOptionsSection from './TreatmentOptionsSection';
 import VisitReasonPostEncounterSection from './VisitReasonPostEncounterSection';
 import VisitReasonPreEncounterSection from './VisitReasonPreEncounterSection';
 import WhiteBloodCellCountSubsection from './WhiteBloodCellCountSubsection';
-import FluxTumorDimensions from '../../model/oncology/FluxTumorDimensions';
+import FluxTumorDimensions from '../../model/flux/oncology/FluxTumorDimensions';
 import moment from 'moment';
 import Lang from 'lodash'
 

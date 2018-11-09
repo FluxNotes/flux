@@ -1,12 +1,37 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
-import Party from './Party';
+import EntityOrRole from './EntityOrRole';
 
 /**
  * Generated class for shr.entity.Entity.
- * @extends Party
+ * @extends EntityOrRole
  */
-class Entity extends Party {
+class Entity extends EntityOrRole {
+
+  /**
+   * Get the PartOf.
+   * @returns {PartOf} The shr.entity.PartOf
+   */
+  get partOf() {
+    return this._partOf;
+  }
+
+  /**
+   * Set the PartOf.
+   * @param {PartOf} partOf - The shr.entity.PartOf
+   */
+  set partOf(partOf) {
+    this._partOf = partOf;
+  }
+
+  /**
+   * Set the PartOf and return 'this' for chaining.
+   * @param {PartOf} partOf - The shr.entity.PartOf
+   * @returns {Entity} this.
+   */
+  withPartOf(partOf) {
+    this.partOf = partOf; return this;
+  }
 
   /**
    * Deserializes JSON data to an instance of the Entity class.
@@ -14,57 +39,57 @@ class Entity extends Party {
    * @param {object} json - the JSON data to deserialize
    * @returns {Entity} An instance of Entity populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new Entity();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the Entity class to a JSON object.
    * The JSON is expected to be valid against the Entity JSON schema, but no validation checks are performed.
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/Entity' } };
-    if (this.relatedEncounter != null) {
-      inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
-    }
-    if (this.author != null) {
-      inst['Author'] = typeof this.author.toJSON === 'function' ? this.author.toJSON() : this.author;
-    }
-    if (this.informant != null) {
-      inst['Informant'] = typeof this.informant.toJSON === 'function' ? this.informant.toJSON() : this.informant;
-    }
-    if (this.type != null) {
-      inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Entity' } };
+    if (this.partOf != null) {
+      inst['PartOf'] = typeof this.partOf.toJSON === 'function' ? this.partOf.toJSON() : this.partOf;
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the Entity class to a FHIR object.
    * The FHIR is expected to be valid against the Entity FHIR profile, but no validation checks are performed.
    * @param {asExtension=false} Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension = false) {
+  toFHIR(asExtension=false) {
     let inst = {};
-    if (this.relatedEncounter != null) {
+    if (this.partOf != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.relatedEncounter.toFHIR(true));
-    }
-    if (this.author != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.author.toFHIR(true));
-    }
-    if (this.informant != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.informant.toFHIR(true));
-    }
-    if (this.type != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.type.toFHIR(true));
+      inst['extension'].push(typeof this.partOf.toFHIR === 'function' ? this.partOf.toFHIR(true) : this.partOf);
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the Entity class.
+   * The FHIR must be valid against the Entity FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {asExtension=false} Whether the provided instance is an extension
+   * @returns {Entity} An instance of Entity populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension=false) {
+    const inst = new Entity();
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension');
+      if (match != null) {
+        inst.partOf = createInstanceFromFHIR('shr.entity.PartOf', match, true);
+      }
+    }
+    return inst;
+  }
+
 }
 export default Entity;

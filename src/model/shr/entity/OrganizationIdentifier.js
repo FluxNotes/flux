@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 import Identifier from '../core/Identifier';
 
@@ -14,18 +14,19 @@ class OrganizationIdentifier extends Identifier {
    * @param {object} json - the JSON data to deserialize
    * @returns {OrganizationIdentifier} An instance of OrganizationIdentifier populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new OrganizationIdentifier();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the OrganizationIdentifier class to a JSON object.
    * The JSON is expected to be valid against the OrganizationIdentifier JSON schema, but no validation checks are performed.
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/OrganizationIdentifier' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/OrganizationIdentifier' } };
     if (this.value != null) {
       inst['Value'] = this.value;
     }
@@ -46,13 +47,14 @@ class OrganizationIdentifier extends Identifier {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the OrganizationIdentifier class to a FHIR object.
    * The FHIR is expected to be valid against the OrganizationIdentifier FHIR profile, but no validation checks are performed.
    * @param {asExtension=false} Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension = false) {
+  toFHIR(asExtension=false) {
     let inst = {};
     if (this.purpose != null) {
       inst['use'] = typeof this.purpose.toFHIR === 'function' ? this.purpose.toFHIR() : this.purpose;
@@ -74,5 +76,36 @@ class OrganizationIdentifier extends Identifier {
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the OrganizationIdentifier class.
+   * The FHIR must be valid against the OrganizationIdentifier FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {asExtension=false} Whether the provided instance is an extension
+   * @returns {OrganizationIdentifier} An instance of OrganizationIdentifier populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension=false) {
+    const inst = new OrganizationIdentifier();
+    if (fhir['use'] != null) {
+      inst.purpose = createInstanceFromFHIR('shr.core.Purpose', fhir['use']);
+    }
+    if (fhir['type'] != null) {
+      inst.type = createInstanceFromFHIR('shr.core.Type', fhir['type']);
+    }
+    if (fhir['system'] != null) {
+      inst.codeSystem = createInstanceFromFHIR('shr.core.CodeSystem', fhir['system']);
+    }
+    if (fhir['value'] != null) {
+      inst.value = fhir['value'];
+    }
+    if (fhir['period'] != null) {
+      inst.effectiveTimePeriod = createInstanceFromFHIR('shr.core.EffectiveTimePeriod', fhir['period']);
+    }
+    if (fhir['assigner'] != null) {
+      inst.issuer = createInstanceFromFHIR('shr.core.Issuer', fhir['assigner']);
+    }
+    return inst;
+  }
+
 }
 export default OrganizationIdentifier;

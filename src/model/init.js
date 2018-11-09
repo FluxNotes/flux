@@ -1,5 +1,5 @@
 import {setObjectFactory} from './json-helper';
-import FluxObjectFactory from './FluxObjectFactory';
+import FluxObjectFactory from './flux/FluxObjectFactory';
 
 /**
  * The init function initializes the ES helper functions with the necessary dependencies for creating

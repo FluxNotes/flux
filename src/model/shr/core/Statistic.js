@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 import Quantity from './Quantity';
 
@@ -41,18 +41,19 @@ class Statistic extends Quantity {
    * @param {object} json - the JSON data to deserialize
    * @returns {Statistic} An instance of Statistic populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new Statistic();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the Statistic class to a JSON object.
    * The JSON is expected to be valid against the Statistic JSON schema, but no validation checks are performed.
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/Statistic' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Statistic' } };
     if (this.value != null) {
       inst['Value'] = this.value;
     }
@@ -67,17 +68,18 @@ class Statistic extends Quantity {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the Statistic class to a FHIR object.
    * The FHIR is expected to be valid against the Statistic FHIR profile, but no validation checks are performed.
    * @param {asExtension=false} Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension = false) {
+  toFHIR(asExtension=false) {
     let inst = {};
     if (this.statisticType != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.statisticType.toFHIR(true));
+      inst['extension'].push(typeof this.statisticType.toFHIR === 'function' ? this.statisticType.toFHIR(true) : this.statisticType);
     }
     if (this.value != null) {
       inst['value'] = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
@@ -93,5 +95,48 @@ class Statistic extends Quantity {
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the Statistic class.
+   * The FHIR must be valid against the Statistic FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {asExtension=false} Whether the provided instance is an extension
+   * @returns {Statistic} An instance of Statistic populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension=false) {
+    const inst = new Statistic();
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-StatisticType-extension');
+      if (match != null) {
+        inst.statisticType = createInstanceFromFHIR('shr.core.StatisticType', match, true);
+      }
+    }
+    if (fhir['value'] != null) {
+      inst.value = fhir['value'];
+    }
+    if (fhir['comparator'] != null) {
+      inst.comparator = createInstanceFromFHIR('shr.core.Comparator', fhir['comparator']);
+    }
+    if (fhir['unit'] != null) {
+      if(inst.units == null) {
+        inst.units = createInstanceFromFHIR('shr.core.Units', {});
+      }
+      if(inst.units.coding == null) {
+        inst.units.coding = createInstanceFromFHIR('shr.core.Coding', {});
+      }
+      inst.units.coding.displayText = createInstanceFromFHIR('shr.core.DisplayText', fhir['unit']);
+    }
+    if (fhir['system'] != null) {
+      if(inst.units == null) {
+        inst.units = createInstanceFromFHIR('shr.core.Units', {});
+      }
+      if(inst.units.coding == null) {
+        inst.units.coding = createInstanceFromFHIR('shr.core.Coding', {});
+      }
+      inst.units.coding.codeSystem = createInstanceFromFHIR('shr.core.CodeSystem', fhir['system']);
+    }
+    return inst;
+  }
+
 }
 export default Statistic;

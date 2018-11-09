@@ -1,6 +1,6 @@
 import PatientRecord from '../patient/PatientRecord';
 import Shortcut from './Shortcut';
-import FluxObjectFactory from '../model/FluxObjectFactory';
+import FluxObjectFactory from '../model/flux/FluxObjectFactory';
 import Lang from 'lodash';
 import moment from 'moment';
 import { createSentenceFromStructuredData } from './ShortcutUtils';

@@ -1,62 +1,36 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+
+import SimpleQuantity from './SimpleQuantity';
 
 /**
  * Generated class for shr.core.Percentage.
+ * @extends SimpleQuantity
  */
-class Percentage {
+class Percentage extends SimpleQuantity {
 
   /**
-   * Get the value (aliases quantity).
-   * @returns {Quantity} The shr.core.Quantity
+   * Get the Units.
+   * @returns {Units} The shr.core.Units
    */
-  get value() {
-    return this._quantity;
+  get units() {
+    return this._units;
   }
 
   /**
-   * Set the value (aliases quantity).
-   * This field/value is required.
-   * @param {Quantity} value - The shr.core.Quantity
+   * Set the Units.
+   * @param {Units} units - The shr.core.Units
    */
-  set value(value) {
-    this._quantity = value;
+  set units(units) {
+    this._units = units;
   }
 
   /**
-   * Set the value (aliases quantity) and return 'this' for chaining.
-   * This field/value is required.
-   * @param {Quantity} value - The shr.core.Quantity
+   * Set the Units and return 'this' for chaining.
+   * @param {Units} units - The shr.core.Units
    * @returns {Percentage} this.
    */
-  withValue(value) {
-    this.value = value; return this;
-  }
-
-  /**
-   * Get the Quantity.
-   * @returns {Quantity} The shr.core.Quantity
-   */
-  get quantity() {
-    return this._quantity;
-  }
-
-  /**
-   * Set the Quantity.
-   * This field/value is required.
-   * @param {Quantity} quantity - The shr.core.Quantity
-   */
-  set quantity(quantity) {
-    this._quantity = quantity;
-  }
-
-  /**
-   * Set the Quantity and return 'this' for chaining.
-   * This field/value is required.
-   * @param {Quantity} quantity - The shr.core.Quantity
-   * @returns {Percentage} this.
-   */
-  withQuantity(quantity) {
-    this.quantity = quantity; return this;
+  withUnits(units) {
+    this.units = units; return this;
   }
 
   /**
@@ -65,37 +39,89 @@ class Percentage {
    * @param {object} json - the JSON data to deserialize
    * @returns {Percentage} An instance of Percentage populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new Percentage();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the Percentage class to a JSON object.
    * The JSON is expected to be valid against the Percentage JSON schema, but no validation checks are performed.
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/Percentage' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Percentage' } };
     if (this.value != null) {
-      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+      inst['Value'] = this.value;
+    }
+    if (this.comparator != null) {
+      inst['Comparator'] = typeof this.comparator.toJSON === 'function' ? this.comparator.toJSON() : this.comparator;
+    }
+    if (this.units != null) {
+      inst['Units'] = typeof this.units.toJSON === 'function' ? this.units.toJSON() : this.units;
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the Percentage class to a FHIR object.
    * The FHIR is expected to be valid against the Percentage FHIR profile, but no validation checks are performed.
    * @param {asExtension=false} Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension = false) {
+  toFHIR(asExtension=false) {
     let inst = {};
-    if (!asExtension && this.value != null) {
-      if (this.value != null) {
-        inst = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
-      }
+    if (this.value != null) {
+      inst['value'] = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
+    }
+    if (this.comparator != null) {
+      inst['comparator'] = typeof this.comparator.toFHIR === 'function' ? this.comparator.toFHIR() : this.comparator;
+    }
+    if (this.units != null && this.units.coding != null && this.units.coding.displayText != null) {
+      inst['unit'] = typeof this.units.coding.displayText.toFHIR === 'function' ? this.units.coding.displayText.toFHIR() : this.units.coding.displayText;
+    }
+    if (this.units != null && this.units.coding != null && this.units.coding.codeSystem != null) {
+      inst['system'] = typeof this.units.coding.codeSystem.toFHIR === 'function' ? this.units.coding.codeSystem.toFHIR() : this.units.coding.codeSystem;
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the Percentage class.
+   * The FHIR must be valid against the Percentage FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {asExtension=false} Whether the provided instance is an extension
+   * @returns {Percentage} An instance of Percentage populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension=false) {
+    const inst = new Percentage();
+    if (fhir['value'] != null) {
+      inst.value = fhir['value'];
+    }
+    if (fhir['comparator'] != null) {
+      inst.comparator = createInstanceFromFHIR('shr.core.Comparator', fhir['comparator']);
+    }
+    if (fhir['unit'] != null) {
+      if(inst.units == null) {
+        inst.units = createInstanceFromFHIR('shr.core.Units', {});
+      }
+      if(inst.units.coding == null) {
+        inst.units.coding = createInstanceFromFHIR('shr.core.Coding', {});
+      }
+      inst.units.coding.displayText = createInstanceFromFHIR('shr.core.DisplayText', fhir['unit']);
+    }
+    if (fhir['system'] != null) {
+      if(inst.units == null) {
+        inst.units = createInstanceFromFHIR('shr.core.Units', {});
+      }
+      if(inst.units.coding == null) {
+        inst.units.coding = createInstanceFromFHIR('shr.core.Coding', {});
+      }
+      inst.units.coding.codeSystem = createInstanceFromFHIR('shr.core.CodeSystem', fhir['system']);
+    }
+    return inst;
+  }
+
 }
 export default Percentage;

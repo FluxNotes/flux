@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 import Entity from './Entity';
 
@@ -34,30 +34,28 @@ class Organization extends Entity {
   }
 
   /**
-   * Get the Type.
-   * @returns {Type} The shr.entity.Type
+   * Get the PartOf.
+   * @returns {PartOf} The shr.entity.PartOf
    */
-  get type() {
-    return this._type;
+  get partOf() {
+    return this._partOf;
   }
 
   /**
-   * Set the Type.
-   * This field/value is required.
-   * @param {Type} type - The shr.entity.Type
+   * Set the PartOf.
+   * @param {PartOf} partOf - The shr.entity.PartOf
    */
-  set type(type) {
-    this._type = type;
+  set partOf(partOf) {
+    this._partOf = partOf;
   }
 
   /**
-   * Set the Type and return 'this' for chaining.
-   * This field/value is required.
-   * @param {Type} type - The shr.entity.Type
+   * Set the PartOf and return 'this' for chaining.
+   * @param {PartOf} partOf - The shr.entity.PartOf
    * @returns {Organization} this.
    */
-  withType(type) {
-    this.type = type; return this;
+  withPartOf(partOf) {
+    this.partOf = partOf; return this;
   }
 
   /**
@@ -137,6 +135,33 @@ class Organization extends Entity {
    */
   withOrganizationIdentifier(organizationIdentifier) {
     this.organizationIdentifier = organizationIdentifier; return this;
+  }
+
+  /**
+   * Get the Type.
+   * @returns {Type} The shr.core.Type
+   */
+  get type() {
+    return this._type;
+  }
+
+  /**
+   * Set the Type.
+   * This field/value is required.
+   * @param {Type} type - The shr.core.Type
+   */
+  set type(type) {
+    this._type = type;
+  }
+
+  /**
+   * Set the Type and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Type} type - The shr.core.Type
+   * @returns {Organization} this.
+   */
+  withType(type) {
+    this.type = type; return this;
   }
 
   /**
@@ -221,41 +246,17 @@ class Organization extends Entity {
   }
 
   /**
-   * Get the PartOf.
-   * @returns {PartOf} The shr.entity.PartOf
-   */
-  get partOf() {
-    return this._partOf;
-  }
-
-  /**
-   * Set the PartOf.
-   * @param {PartOf} partOf - The shr.entity.PartOf
-   */
-  set partOf(partOf) {
-    this._partOf = partOf;
-  }
-
-  /**
-   * Set the PartOf and return 'this' for chaining.
-   * @param {PartOf} partOf - The shr.entity.PartOf
-   * @returns {Organization} this.
-   */
-  withPartOf(partOf) {
-    this.partOf = partOf; return this;
-  }
-
-  /**
    * Deserializes JSON data to an instance of the Organization class.
    * The JSON must be valid against the Organization JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
    * @returns {Organization} An instance of Organization populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new Organization();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the Organization class to a JSON object.
    * The JSON is expected to be valid against the Organization JSON schema, but no validation checks are performed.
@@ -263,18 +264,9 @@ class Organization extends Entity {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/Organization' };
-    if (this.relatedEncounter != null) {
-      inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
-    }
-    if (this.author != null) {
-      inst['Author'] = typeof this.author.toJSON === 'function' ? this.author.toJSON() : this.author;
-    }
-    if (this.informant != null) {
-      inst['Informant'] = typeof this.informant.toJSON === 'function' ? this.informant.toJSON() : this.informant;
-    }
-    if (this.type != null) {
-      inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
+    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Organization' };
+    if (this.partOf != null) {
+      inst['PartOf'] = typeof this.partOf.toJSON === 'function' ? this.partOf.toJSON() : this.partOf;
     }
     if (this.organizationName != null) {
       inst['OrganizationName'] = typeof this.organizationName.toJSON === 'function' ? this.organizationName.toJSON() : this.organizationName;
@@ -285,6 +277,9 @@ class Organization extends Entity {
     if (this.organizationIdentifier != null) {
       inst['OrganizationIdentifier'] = this.organizationIdentifier.map(f => f.toJSON());
     }
+    if (this.type != null) {
+      inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
+    }
     if (this.address != null) {
       inst['Address'] = this.address.map(f => f.toJSON());
     }
@@ -294,66 +289,89 @@ class Organization extends Entity {
     if (this.activeFlag != null) {
       inst['ActiveFlag'] = typeof this.activeFlag.toJSON === 'function' ? this.activeFlag.toJSON() : this.activeFlag;
     }
-    if (this.partOf != null) {
-      inst['PartOf'] = typeof this.partOf.toJSON === 'function' ? this.partOf.toJSON() : this.partOf;
-    }
     return inst;
   }
+
   /**
    * Serializes an instance of the Organization class to a FHIR object.
    * The FHIR is expected to be valid against the Organization FHIR profile, but no validation checks are performed.
    * @param {asExtension=false} Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension = false) {
+  toFHIR(asExtension=false) {
     let inst = {};
     inst['resourceType'] = 'Organization';
-    if (this.relatedEncounter != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.relatedEncounter.toFHIR(true));
-    }
-    if (this.author != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.author.toFHIR(true));
-    }
-    if (this.informant != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.informant.toFHIR(true));
-    }
     if (this.organizationIdentifier != null) {
-      inst['identifier'] = inst['identifier'] || [];
-      inst['identifier'].concat(this.organizationIdentifier.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['identifier'] = inst ['identifier'] || [];
+      inst['identifier'] = inst['identifier'].concat(this.organizationIdentifier.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.activeFlag != null) {
       inst['active'] = typeof this.activeFlag.toFHIR === 'function' ? this.activeFlag.toFHIR() : this.activeFlag;
     }
     if (this.type != null) {
-      inst['type'] = inst['type'] || [];
+      inst['type'] = inst ['type'] || [];
       inst['type'].push(typeof this.type.toFHIR === 'function' ? this.type.toFHIR() : this.type);
     }
     if (this.organizationName != null) {
       inst['name'] = typeof this.organizationName.toFHIR === 'function' ? this.organizationName.toFHIR() : this.organizationName;
     }
     if (this.organizationAlias != null) {
-      inst['alias'] = inst['alias'] || [];
-      inst['alias'].concat(this.organizationAlias.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['alias'] = inst ['alias'] || [];
+      inst['alias'] = inst['alias'].concat(this.organizationAlias.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.address != null) {
-      inst['address'] = inst['address'] || [];
-      inst['address'].concat(this.address.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['address'] = inst ['address'] || [];
+      inst['address'] = inst['address'].concat(this.address.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
-    if (this.partOf != null && this.partOf.content != null) {
-      inst['partOf'] = typeof this.partOf.content.toFHIR === 'function' ? this.partOf.content.toFHIR() : this.partOf.content;
+    if (this.partOf != null) {
+      inst['partOf'] = typeof this.partOf.toFHIR === 'function' ? this.partOf.toFHIR() : this.partOf;
     }
     if (this.contactPoint != null) {
-      inst['contact'] = inst['contact'] || [];
-      inst['contact'].concat(this.contactPoint.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    if (asExtension) {
-      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-entity-Organization-extension';
-      inst['valueReference'] = this.value;
+      inst['contact'] = inst ['contact'] || [];
+      inst['contact'] = inst['contact'].concat(this.contactPoint.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the Organization class.
+   * The FHIR must be valid against the Organization FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {asExtension=false} Whether the provided instance is an extension
+   * @returns {Organization} An instance of Organization populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension=false) {
+    const inst = new Organization();
+    if (fhir['identifier'] != null) {
+      inst.organizationIdentifier = inst.organizationIdentifier || [];
+      inst.organizationIdentifier = inst.organizationIdentifier.concat(fhir['identifier'].map(f => createInstanceFromFHIR('shr.entity.OrganizationIdentifier', f)));
+    }
+    if (fhir['active'] != null) {
+      inst.activeFlag = createInstanceFromFHIR('shr.entity.ActiveFlag', fhir['active']);
+    }
+    if (fhir['type'] != null) {
+      inst.type = createInstanceFromFHIR('shr.core.Type', fhir['type'][0]);
+    }
+    if (fhir['name'] != null) {
+      inst.organizationName = createInstanceFromFHIR('shr.entity.OrganizationName', fhir['name']);
+    }
+    if (fhir['alias'] != null) {
+      inst.organizationAlias = inst.organizationAlias || [];
+      inst.organizationAlias = inst.organizationAlias.concat(fhir['alias'].map(f => createInstanceFromFHIR('shr.entity.OrganizationAlias', f)));
+    }
+    if (fhir['address'] != null) {
+      inst.address = inst.address || [];
+      inst.address = inst.address.concat(fhir['address'].map(f => createInstanceFromFHIR('shr.core.Address', f)));
+    }
+    if (fhir['partOf'] != null) {
+      inst.partOf = createInstanceFromFHIR('shr.entity.PartOf', fhir['partOf']);
+    }
+    if (fhir['contact'] != null) {
+      inst.contactPoint = inst.contactPoint || [];
+      inst.contactPoint = inst.contactPoint.concat(fhir['contact'].map(f => createInstanceFromFHIR('shr.core.ContactPoint', f)));
+    }
+    return inst;
+  }
+
 }
 export default Organization;

@@ -856,7 +856,7 @@ class Content extends React.Component {
         key={this.tmp.forces}
         ref={this.ref}
         data-key={document.key}
-        contentEditable={!readOnly}
+        contentEditable={true}
         suppressContentEditableWarning
         className={className}
         onBeforeInput={this.onBeforeInput}

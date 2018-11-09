@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.base.Attribution.
@@ -6,57 +6,80 @@ import { setPropertiesFromJSON } from '../../json-helper';
 class Attribution {
 
   /**
-   * Get the shr.entity.Role reference.
-   * @returns {Reference} The shr.entity.Role reference
+   * Get the EntityOrRole.
+   * @returns {EntityOrRole} The shr.entity.EntityOrRole
    */
-  get role() {
-    return this._role;
+  get entityOrRole() {
+    return this._entityOrRole;
   }
 
   /**
-   * Set the shr.entity.Role reference.
+   * Set the EntityOrRole.
    * This field/value is required.
-   * @param {Reference} role - The shr.entity.Role reference
+   * @param {EntityOrRole} entityOrRole - The shr.entity.EntityOrRole
    */
-  set role(role) {
-    this._role = role;
+  set entityOrRole(entityOrRole) {
+    this._entityOrRole = entityOrRole;
   }
 
   /**
-   * Set the shr.entity.Role reference and return 'this' for chaining.
+   * Set the EntityOrRole and return 'this' for chaining.
    * This field/value is required.
-   * @param {Reference} role - The shr.entity.Role reference
+   * @param {EntityOrRole} entityOrRole - The shr.entity.EntityOrRole
    * @returns {Attribution} this.
    */
-  withRole(role) {
-    this.role = role; return this;
+  withEntityOrRole(entityOrRole) {
+    this.entityOrRole = entityOrRole; return this;
   }
 
   /**
-   * Get the ParticipationType.
-   * @returns {ParticipationType} The shr.action.ParticipationType
+   * Get the RecordedOn.
+   * @returns {RecordedOn} The shr.base.RecordedOn
    */
-  get participationType() {
-    return this._participationType;
+  get recordedOn() {
+    return this._recordedOn;
   }
 
   /**
-   * Set the ParticipationType.
-   * This field/value is required.
-   * @param {ParticipationType} participationType - The shr.action.ParticipationType
+   * Set the RecordedOn.
+   * @param {RecordedOn} recordedOn - The shr.base.RecordedOn
    */
-  set participationType(participationType) {
-    this._participationType = participationType;
+  set recordedOn(recordedOn) {
+    this._recordedOn = recordedOn;
   }
 
   /**
-   * Set the ParticipationType and return 'this' for chaining.
-   * This field/value is required.
-   * @param {ParticipationType} participationType - The shr.action.ParticipationType
+   * Set the RecordedOn and return 'this' for chaining.
+   * @param {RecordedOn} recordedOn - The shr.base.RecordedOn
    * @returns {Attribution} this.
    */
-  withParticipationType(participationType) {
-    this.participationType = participationType; return this;
+  withRecordedOn(recordedOn) {
+    this.recordedOn = recordedOn; return this;
+  }
+
+  /**
+   * Get the Signature.
+   * @returns {Signature} The shr.core.Signature
+   */
+  get signature() {
+    return this._signature;
+  }
+
+  /**
+   * Set the Signature.
+   * @param {Signature} signature - The shr.core.Signature
+   */
+  set signature(signature) {
+    this._signature = signature;
+  }
+
+  /**
+   * Set the Signature and return 'this' for chaining.
+   * @param {Signature} signature - The shr.core.Signature
+   * @returns {Attribution} this.
+   */
+  withSignature(signature) {
+    this.signature = signature; return this;
   }
 
   /**
@@ -65,35 +88,82 @@ class Attribution {
    * @param {object} json - the JSON data to deserialize
    * @returns {Attribution} An instance of Attribution populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new Attribution();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the Attribution class to a JSON object.
    * The JSON is expected to be valid against the Attribution JSON schema, but no validation checks are performed.
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/base/Attribution' } };
-    if (this.role != null) {
-      inst['Role'] = typeof this.role.toJSON === 'function' ? this.role.toJSON() : this.role;
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/base/Attribution' } };
+    if (this.entityOrRole != null) {
+      inst['EntityOrRole'] = typeof this.entityOrRole.toJSON === 'function' ? this.entityOrRole.toJSON() : this.entityOrRole;
     }
-    if (this.participationType != null) {
-      inst['ParticipationType'] = typeof this.participationType.toJSON === 'function' ? this.participationType.toJSON() : this.participationType;
+    if (this.recordedOn != null) {
+      inst['RecordedOn'] = typeof this.recordedOn.toJSON === 'function' ? this.recordedOn.toJSON() : this.recordedOn;
+    }
+    if (this.signature != null) {
+      inst['Signature'] = typeof this.signature.toJSON === 'function' ? this.signature.toJSON() : this.signature;
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the Attribution class to a FHIR object.
    * The FHIR is expected to be valid against the Attribution FHIR profile, but no validation checks are performed.
    * @param {asExtension=false} Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension = false) {
+  toFHIR(asExtension=false) {
     let inst = {};
+    if (asExtension) {
+      if (this.entityOrRole != null) {
+        inst['extension'] = inst['extension'] || [];
+        inst['extension'].push(this.entityOrRole.toFHIR(true));
+      }
+      if (this.recordedOn != null) {
+        inst['extension'] = inst['extension'] || [];
+        inst['extension'].push(this.recordedOn.toFHIR(true));
+      }
+      if (this.signature != null) {
+        inst['extension'] = inst['extension'] || [];
+        inst['extension'].push(this.signature.toFHIR(true));
+      }
+      inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-base-Attribution-extension';
+    }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the Attribution class.
+   * The FHIR must be valid against the Attribution FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {asExtension=false} Whether the provided instance is an extension
+   * @returns {Attribution} An instance of Attribution populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension=false) {
+    const inst = new Attribution();
+    if (asExtension) {
+      const match_1 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-EntityOrRole-extension');
+      if (match_1 != null) {
+        inst.entityOrRole = createInstanceFromFHIR('shr.entity.EntityOrRole', match_1, true);
+      }
+      const match_2 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-RecordedOn-extension');
+      if (match_2 != null) {
+        inst.recordedOn = createInstanceFromFHIR('shr.base.RecordedOn', match_2, true);
+      }
+      const match_3 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-Signature-extension');
+      if (match_3 != null) {
+        inst.signature = createInstanceFromFHIR('shr.core.Signature', match_3, true);
+      }
+    }
+    return inst;
+  }
+
 }
 export default Attribution;

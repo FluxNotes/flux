@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.base.EntryType.
@@ -65,11 +65,12 @@ class EntryType {
    * @param {object} json - the JSON data to deserialize
    * @returns {EntryType} An instance of EntryType populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new EntryType();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the EntryType class to a JSON object.
    * The JSON is expected to be valid against the EntryType JSON schema, but no validation checks are performed.
@@ -82,13 +83,14 @@ class EntryType {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the EntryType class to a FHIR object.
    * The FHIR is expected to be valid against the EntryType FHIR profile, but no validation checks are performed.
    * @param {asExtension=false} Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension = false) {
+  toFHIR(asExtension=false) {
     let inst = {};
     if (!asExtension && this.value != null) {
       if (this.value != null) {
@@ -97,5 +99,21 @@ class EntryType {
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the EntryType class.
+   * The FHIR must be valid against the EntryType FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {asExtension=false} Whether the provided instance is an extension
+   * @returns {EntryType} An instance of EntryType populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension=false) {
+    const inst = new EntryType();
+    if (!asExtension && fhir != null) {
+      inst.value = fhir;
+    }
+    return inst;
+  }
+
 }
 export default EntryType;

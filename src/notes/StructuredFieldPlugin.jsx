@@ -59,30 +59,30 @@ function StructuredFieldPlugin(opts) {
             structured_field: props => {
                 let shortcut = props.node.get('data').get('shortcut');
                 if (shortcut instanceof InsertValue) {
-                    return <span contentEditable={false} className='structured-field-inserter' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
+                    return <span contentEditable={true} className='structured-field-inserter' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
                 } else {
-                    return <span contentEditable={false} className='structured-field-creator' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
+                    return <span contentEditable={true} className='structured-field-creator' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
                 }
             },
             highlighted_structured_field: props => {
                 let shortcut = props.node.get('data').get('shortcut');
                 if (shortcut instanceof InsertValue) {
-                    return <span contentEditable={false} className='structured-field-inserter structured-field-highlighted' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
+                    return <span contentEditable={true} className='structured-field-inserter structured-field-highlighted' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
                 } else {
-                    return <span contentEditable={false} className='structured-field-creator structured-field-highlighted' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
+                    return <span contentEditable={true} className='structured-field-creator structured-field-highlighted' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
                 }
             },
             structured_field_search_result: props => {
                 let shortcut = props.node.get('data').get('shortcut');
                 if (shortcut instanceof InsertValue) {
-                    return <span contentEditable={false} className='structured-field-inserter structured-field-search-result' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
+                    return <span contentEditable={true} className='structured-field-inserter structured-field-search-result' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
                 } else {
-                    return <span contentEditable={false} className='structured-field-creator structured-field-search-result' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
+                    return <span contentEditable={true} className='structured-field-creator structured-field-search-result' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
                 }
             },
             placeholder: props => {
                 const placeholder = props.node.get('data').get('placeholder');
-                return <span contentEditable={false} className='placeholder'>{placeholder.getTextToDisplayInNote()}</span>;
+                return <span contentEditable={true} className='placeholder'>{placeholder.getTextToDisplayInNote()}</span>;
             },
         },
         rules: [
@@ -202,7 +202,7 @@ function StructuredFieldPlugin(opts) {
         // copy has `contenteditable="false"` the copy will fail, and nothing will
         // be put in the clipboard. So we remove them all. (2017/05/04)
         if (Slate.IS_CHROME || Slate.IS_SAFARI) {
-            const els = [].slice.call(contents.querySelectorAll('[contenteditable="false"]'));
+            const els = [].slice.call(contents.querySelectorAll('[contenteditable="true"]'));
             els.forEach(el => el.removeAttribute('contenteditable'));
         }
 

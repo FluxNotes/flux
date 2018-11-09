@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.procedure.SurgicalApproach.
@@ -65,35 +65,33 @@ class SurgicalApproach {
    * @param {object} json - the JSON data to deserialize
    * @returns {SurgicalApproach} An instance of SurgicalApproach populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new SurgicalApproach();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the SurgicalApproach class to a JSON object.
    * The JSON is expected to be valid against the SurgicalApproach JSON schema, but no validation checks are performed.
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/procedure/SurgicalApproach' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/procedure/SurgicalApproach' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the SurgicalApproach class to a FHIR object.
    * The FHIR is expected to be valid against the SurgicalApproach FHIR profile, but no validation checks are performed.
    * @param {asExtension=false} Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension = false) {
+  toFHIR(asExtension=false) {
     let inst = {};
-    if (asExtension) {
-      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-procedure-SurgicalApproach-extension';
-      inst['valueCodeableConcept'] = this.value;
-    }
     if (!asExtension && this.value != null) {
       if (this.value != null) {
         inst = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
@@ -101,5 +99,21 @@ class SurgicalApproach {
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the SurgicalApproach class.
+   * The FHIR must be valid against the SurgicalApproach FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {asExtension=false} Whether the provided instance is an extension
+   * @returns {SurgicalApproach} An instance of SurgicalApproach populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension=false) {
+    const inst = new SurgicalApproach();
+    if (!asExtension && fhir != null) {
+      inst.value = createInstanceFromFHIR('shr.core.CodeableConcept', fhir);
+    }
+    return inst;
+  }
+
 }
 export default SurgicalApproach;

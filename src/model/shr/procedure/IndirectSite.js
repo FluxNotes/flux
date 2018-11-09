@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.procedure.IndirectSite.
@@ -6,26 +6,26 @@ import { setPropertiesFromJSON } from '../../json-helper';
 class IndirectSite {
 
   /**
-   * Get the value (aliases bodySite).
-   * @returns {BodySite} The shr.entity.BodySite
+   * Get the value (aliases anatomicalLocation).
+   * @returns {AnatomicalLocation} The shr.core.AnatomicalLocation
    */
   get value() {
-    return this._bodySite;
+    return this._anatomicalLocation;
   }
 
   /**
-   * Set the value (aliases bodySite).
+   * Set the value (aliases anatomicalLocation).
    * This field/value is required.
-   * @param {BodySite} value - The shr.entity.BodySite
+   * @param {AnatomicalLocation} value - The shr.core.AnatomicalLocation
    */
   set value(value) {
-    this._bodySite = value;
+    this._anatomicalLocation = value;
   }
 
   /**
-   * Set the value (aliases bodySite) and return 'this' for chaining.
+   * Set the value (aliases anatomicalLocation) and return 'this' for chaining.
    * This field/value is required.
-   * @param {BodySite} value - The shr.entity.BodySite
+   * @param {AnatomicalLocation} value - The shr.core.AnatomicalLocation
    * @returns {IndirectSite} this.
    */
   withValue(value) {
@@ -33,30 +33,30 @@ class IndirectSite {
   }
 
   /**
-   * Get the BodySite.
-   * @returns {BodySite} The shr.entity.BodySite
+   * Get the AnatomicalLocation.
+   * @returns {AnatomicalLocation} The shr.core.AnatomicalLocation
    */
-  get bodySite() {
-    return this._bodySite;
+  get anatomicalLocation() {
+    return this._anatomicalLocation;
   }
 
   /**
-   * Set the BodySite.
+   * Set the AnatomicalLocation.
    * This field/value is required.
-   * @param {BodySite} bodySite - The shr.entity.BodySite
+   * @param {AnatomicalLocation} anatomicalLocation - The shr.core.AnatomicalLocation
    */
-  set bodySite(bodySite) {
-    this._bodySite = bodySite;
+  set anatomicalLocation(anatomicalLocation) {
+    this._anatomicalLocation = anatomicalLocation;
   }
 
   /**
-   * Set the BodySite and return 'this' for chaining.
+   * Set the AnatomicalLocation and return 'this' for chaining.
    * This field/value is required.
-   * @param {BodySite} bodySite - The shr.entity.BodySite
+   * @param {AnatomicalLocation} anatomicalLocation - The shr.core.AnatomicalLocation
    * @returns {IndirectSite} this.
    */
-  withBodySite(bodySite) {
-    this.bodySite = bodySite; return this;
+  withAnatomicalLocation(anatomicalLocation) {
+    this.anatomicalLocation = anatomicalLocation; return this;
   }
 
   /**
@@ -65,35 +65,33 @@ class IndirectSite {
    * @param {object} json - the JSON data to deserialize
    * @returns {IndirectSite} An instance of IndirectSite populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new IndirectSite();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the IndirectSite class to a JSON object.
    * The JSON is expected to be valid against the IndirectSite JSON schema, but no validation checks are performed.
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/procedure/IndirectSite' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/procedure/IndirectSite' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the IndirectSite class to a FHIR object.
    * The FHIR is expected to be valid against the IndirectSite FHIR profile, but no validation checks are performed.
    * @param {asExtension=false} Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension = false) {
+  toFHIR(asExtension=false) {
     let inst = {};
-    if (asExtension) {
-      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-procedure-IndirectSite-extension';
-      inst['valueReference'] = this.value;
-    }
     if (!asExtension && this.value != null) {
       if (this.value != null) {
         inst = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
@@ -101,5 +99,21 @@ class IndirectSite {
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the IndirectSite class.
+   * The FHIR must be valid against the IndirectSite FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {asExtension=false} Whether the provided instance is an extension
+   * @returns {IndirectSite} An instance of IndirectSite populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension=false) {
+    const inst = new IndirectSite();
+    if (!asExtension && fhir != null) {
+      inst.value = createInstanceFromFHIR('shr.core.AnatomicalLocation', fhir);
+    }
+    return inst;
+  }
+
 }
 export default IndirectSite;

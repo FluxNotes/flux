@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 import Quantity from './Quantity';
 
@@ -39,18 +39,19 @@ class IntegerQuantity extends Quantity {
    * @param {object} json - the JSON data to deserialize
    * @returns {IntegerQuantity} An instance of IntegerQuantity populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new IntegerQuantity();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the IntegerQuantity class to a JSON object.
    * The JSON is expected to be valid against the IntegerQuantity JSON schema, but no validation checks are performed.
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/IntegerQuantity' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/IntegerQuantity' } };
     if (this.value != null) {
       inst['Value'] = this.value;
     }
@@ -62,13 +63,14 @@ class IntegerQuantity extends Quantity {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the IntegerQuantity class to a FHIR object.
    * The FHIR is expected to be valid against the IntegerQuantity FHIR profile, but no validation checks are performed.
    * @param {asExtension=false} Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension = false) {
+  toFHIR(asExtension=false) {
     let inst = {};
     if (this.value != null) {
       inst['value'] = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
@@ -84,5 +86,42 @@ class IntegerQuantity extends Quantity {
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the IntegerQuantity class.
+   * The FHIR must be valid against the IntegerQuantity FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {asExtension=false} Whether the provided instance is an extension
+   * @returns {IntegerQuantity} An instance of IntegerQuantity populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension=false) {
+    const inst = new IntegerQuantity();
+    if (fhir['value'] != null) {
+      inst.value = fhir['value'];
+    }
+    if (fhir['comparator'] != null) {
+      inst.comparator = createInstanceFromFHIR('shr.core.Comparator', fhir['comparator']);
+    }
+    if (fhir['unit'] != null) {
+      if(inst.units == null) {
+        inst.units = createInstanceFromFHIR('shr.core.Units', {});
+      }
+      if(inst.units.coding == null) {
+        inst.units.coding = createInstanceFromFHIR('shr.core.Coding', {});
+      }
+      inst.units.coding.displayText = createInstanceFromFHIR('shr.core.DisplayText', fhir['unit']);
+    }
+    if (fhir['system'] != null) {
+      if(inst.units == null) {
+        inst.units = createInstanceFromFHIR('shr.core.Units', {});
+      }
+      if(inst.units.coding == null) {
+        inst.units.coding = createInstanceFromFHIR('shr.core.Coding', {});
+      }
+      inst.units.coding.codeSystem = createInstanceFromFHIR('shr.core.CodeSystem', fhir['system']);
+    }
+    return inst;
+  }
+
 }
 export default IntegerQuantity;

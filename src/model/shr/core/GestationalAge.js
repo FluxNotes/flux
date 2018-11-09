@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 import Age from './Age';
 
@@ -14,18 +14,19 @@ class GestationalAge extends Age {
    * @param {object} json - the JSON data to deserialize
    * @returns {GestationalAge} An instance of GestationalAge populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new GestationalAge();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the GestationalAge class to a JSON object.
    * The JSON is expected to be valid against the GestationalAge JSON schema, but no validation checks are performed.
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/GestationalAge' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/GestationalAge' } };
     if (this.value != null) {
       inst['Value'] = this.value;
     }
@@ -37,13 +38,14 @@ class GestationalAge extends Age {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the GestationalAge class to a FHIR object.
    * The FHIR is expected to be valid against the GestationalAge FHIR profile, but no validation checks are performed.
    * @param {asExtension=false} Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension = false) {
+  toFHIR(asExtension=false) {
     let inst = {};
     if (this.value != null) {
       inst['value'] = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
@@ -57,11 +59,44 @@ class GestationalAge extends Age {
     if (this.units != null && this.units.coding != null && this.units.coding.codeSystem != null) {
       inst['system'] = typeof this.units.coding.codeSystem.toFHIR === 'function' ? this.units.coding.codeSystem.toFHIR() : this.units.coding.codeSystem;
     }
-    if (asExtension) {
-      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-core-GestationalAge-extension';
-      inst['valueReference'] = this.value;
+    return inst;
+  }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the GestationalAge class.
+   * The FHIR must be valid against the GestationalAge FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {asExtension=false} Whether the provided instance is an extension
+   * @returns {GestationalAge} An instance of GestationalAge populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension=false) {
+    const inst = new GestationalAge();
+    if (fhir['value'] != null) {
+      inst.value = fhir['value'];
+    }
+    if (fhir['comparator'] != null) {
+      inst.comparator = createInstanceFromFHIR('shr.core.Comparator', fhir['comparator']);
+    }
+    if (fhir['unit'] != null) {
+      if(inst.units == null) {
+        inst.units = createInstanceFromFHIR('shr.core.Units', {});
+      }
+      if(inst.units.coding == null) {
+        inst.units.coding = createInstanceFromFHIR('shr.core.Coding', {});
+      }
+      inst.units.coding.displayText = createInstanceFromFHIR('shr.core.DisplayText', fhir['unit']);
+    }
+    if (fhir['system'] != null) {
+      if(inst.units == null) {
+        inst.units = createInstanceFromFHIR('shr.core.Units', {});
+      }
+      if(inst.units.coding == null) {
+        inst.units.coding = createInstanceFromFHIR('shr.core.Coding', {});
+      }
+      inst.units.coding.codeSystem = createInstanceFromFHIR('shr.core.CodeSystem', fhir['system']);
     }
     return inst;
   }
+
 }
 export default GestationalAge;

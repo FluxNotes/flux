@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.core.Type.
@@ -65,30 +65,32 @@ class Type {
    * @param {object} json - the JSON data to deserialize
    * @returns {Type} An instance of Type populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new Type();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the Type class to a JSON object.
    * The JSON is expected to be valid against the Type JSON schema, but no validation checks are performed.
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/Type' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Type' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the Type class to a FHIR object.
    * The FHIR is expected to be valid against the Type FHIR profile, but no validation checks are performed.
    * @param {asExtension=false} Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension = false) {
+  toFHIR(asExtension=false) {
     let inst = {};
     if (asExtension) {
       inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-core-Type-extension';
@@ -101,5 +103,24 @@ class Type {
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the Type class.
+   * The FHIR must be valid against the Type FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {asExtension=false} Whether the provided instance is an extension
+   * @returns {Type} An instance of Type populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension=false) {
+    const inst = new Type();
+    if (asExtension) {
+      inst.value = fhir['valueCodeableConcept'];
+    }
+    if (!asExtension && fhir != null) {
+      inst.value = createInstanceFromFHIR('shr.core.CodeableConcept', fhir);
+    }
+    return inst;
+  }
+
 }
 export default Type;

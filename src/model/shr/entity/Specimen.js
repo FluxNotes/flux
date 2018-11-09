@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 import Entity from './Entity';
 
@@ -7,58 +7,6 @@ import Entity from './Entity';
  * @extends Entity
  */
 class Specimen extends Entity {
-
-  /**
-   * Get the entry information.
-   * @returns {Entry} The shr.base.Entry
-   */
-  get entryInfo() {
-    return this._entryInfo;
-  }
-
-  /**
-   * Set the entry information.
-   * @param {Entry} entryInfo - The shr.base.Entry
-   */
-  set entryInfo(entryInfo) {
-    this._entryInfo = entryInfo;
-  }
-
-  /**
-   * Set the entry information and return 'this' for chaining.
-   * @param {Entry} entryInfo - The shr.base.Entry
-   * @returns {Specimen} this.
-   */
-  withEntryInfo(entryInfo) {
-    this.entryInfo = entryInfo; return this;
-  }
-
-  /**
-   * Get the Type.
-   * @returns {Type} The shr.entity.Type
-   */
-  get type() {
-    return this._type;
-  }
-
-  /**
-   * Set the Type.
-   * This field/value is required.
-   * @param {Type} type - The shr.entity.Type
-   */
-  set type(type) {
-    this._type = type;
-  }
-
-  /**
-   * Set the Type and return 'this' for chaining.
-   * This field/value is required.
-   * @param {Type} type - The shr.entity.Type
-   * @returns {Specimen} this.
-   */
-  withType(type) {
-    this.type = type; return this;
-  }
 
   /**
    * Get the AccessionIdentifier.
@@ -86,55 +34,155 @@ class Specimen extends Entity {
   }
 
   /**
-   * Get the Status.
-   * @returns {Status} The shr.action.Status
+   * Get the SpecimenStatus.
+   * @returns {SpecimenStatus} The shr.entity.SpecimenStatus
    */
-  get status() {
-    return this._status;
+  get specimenStatus() {
+    return this._specimenStatus;
   }
 
   /**
-   * Set the Status.
-   * @param {Status} status - The shr.action.Status
+   * Set the SpecimenStatus.
+   * @param {SpecimenStatus} specimenStatus - The shr.entity.SpecimenStatus
    */
-  set status(status) {
-    this._status = status;
+  set specimenStatus(specimenStatus) {
+    this._specimenStatus = specimenStatus;
   }
 
   /**
-   * Set the Status and return 'this' for chaining.
-   * @param {Status} status - The shr.action.Status
+   * Set the SpecimenStatus and return 'this' for chaining.
+   * @param {SpecimenStatus} specimenStatus - The shr.entity.SpecimenStatus
    * @returns {Specimen} this.
    */
-  withStatus(status) {
-    this.status = status; return this;
+  withSpecimenStatus(specimenStatus) {
+    this.specimenStatus = specimenStatus; return this;
   }
 
   /**
-   * Get the Subject.
-   * @returns {Subject} The shr.base.Subject
+   * Get the Type.
+   * @returns {Type} The shr.core.Type
    */
-  get subject() {
-    return this._subject;
+  get type() {
+    return this._type;
   }
 
   /**
-   * Set the Subject.
+   * Set the Type.
    * This field/value is required.
-   * @param {Subject} subject - The shr.base.Subject
+   * @param {Type} type - The shr.core.Type
    */
-  set subject(subject) {
-    this._subject = subject;
+  set type(type) {
+    this._type = type;
   }
 
   /**
-   * Set the Subject and return 'this' for chaining.
+   * Set the Type and return 'this' for chaining.
    * This field/value is required.
-   * @param {Subject} subject - The shr.base.Subject
+   * @param {Type} type - The shr.core.Type
    * @returns {Specimen} this.
    */
-  withSubject(subject) {
-    this.subject = subject; return this;
+  withType(type) {
+    this.type = type; return this;
+  }
+
+  /**
+   * Get the CollectionSource.
+   * @returns {CollectionSource} The shr.entity.CollectionSource
+   */
+  get collectionSource() {
+    return this._collectionSource;
+  }
+
+  /**
+   * Set the CollectionSource.
+   * @param {CollectionSource} collectionSource - The shr.entity.CollectionSource
+   */
+  set collectionSource(collectionSource) {
+    this._collectionSource = collectionSource;
+  }
+
+  /**
+   * Set the CollectionSource and return 'this' for chaining.
+   * @param {CollectionSource} collectionSource - The shr.entity.CollectionSource
+   * @returns {Specimen} this.
+   */
+  withCollectionSource(collectionSource) {
+    this.collectionSource = collectionSource; return this;
+  }
+
+  /**
+   * Get the CollectionTime.
+   * @returns {CollectionTime} The shr.entity.CollectionTime
+   */
+  get collectionTime() {
+    return this._collectionTime;
+  }
+
+  /**
+   * Set the CollectionTime.
+   * @param {CollectionTime} collectionTime - The shr.entity.CollectionTime
+   */
+  set collectionTime(collectionTime) {
+    this._collectionTime = collectionTime;
+  }
+
+  /**
+   * Set the CollectionTime and return 'this' for chaining.
+   * @param {CollectionTime} collectionTime - The shr.entity.CollectionTime
+   * @returns {Specimen} this.
+   */
+  withCollectionTime(collectionTime) {
+    this.collectionTime = collectionTime; return this;
+  }
+
+  /**
+   * Get the CollectionMethod.
+   * @returns {CollectionMethod} The shr.entity.CollectionMethod
+   */
+  get collectionMethod() {
+    return this._collectionMethod;
+  }
+
+  /**
+   * Set the CollectionMethod.
+   * @param {CollectionMethod} collectionMethod - The shr.entity.CollectionMethod
+   */
+  set collectionMethod(collectionMethod) {
+    this._collectionMethod = collectionMethod;
+  }
+
+  /**
+   * Set the CollectionMethod and return 'this' for chaining.
+   * @param {CollectionMethod} collectionMethod - The shr.entity.CollectionMethod
+   * @returns {Specimen} this.
+   */
+  withCollectionMethod(collectionMethod) {
+    this.collectionMethod = collectionMethod; return this;
+  }
+
+  /**
+   * Get the CollectionSite.
+   * @returns {CollectionSite} The shr.entity.CollectionSite
+   */
+  get collectionSite() {
+    return this._collectionSite;
+  }
+
+  /**
+   * Set the CollectionSite.
+   * @param {CollectionSite} collectionSite - The shr.entity.CollectionSite
+   */
+  set collectionSite(collectionSite) {
+    this._collectionSite = collectionSite;
+  }
+
+  /**
+   * Set the CollectionSite and return 'this' for chaining.
+   * @param {CollectionSite} collectionSite - The shr.entity.CollectionSite
+   * @returns {Specimen} this.
+   */
+  withCollectionSite(collectionSite) {
+    this.collectionSite = collectionSite; return this;
   }
 
   /**
@@ -185,31 +233,6 @@ class Specimen extends Entity {
    */
   withReceivedTime(receivedTime) {
     this.receivedTime = receivedTime; return this;
-  }
-
-  /**
-   * Get the shr.procedure.SpecimenCollectionPerformed reference.
-   * @returns {Reference} The shr.procedure.SpecimenCollectionPerformed reference
-   */
-  get specimenCollectionPerformed() {
-    return this._specimenCollectionPerformed;
-  }
-
-  /**
-   * Set the shr.procedure.SpecimenCollectionPerformed reference.
-   * @param {Reference} specimenCollectionPerformed - The shr.procedure.SpecimenCollectionPerformed reference
-   */
-  set specimenCollectionPerformed(specimenCollectionPerformed) {
-    this._specimenCollectionPerformed = specimenCollectionPerformed;
-  }
-
-  /**
-   * Set the shr.procedure.SpecimenCollectionPerformed reference and return 'this' for chaining.
-   * @param {Reference} specimenCollectionPerformed - The shr.procedure.SpecimenCollectionPerformed reference
-   * @returns {Specimen} this.
-   */
-  withSpecimenCollectionPerformed(specimenCollectionPerformed) {
-    this.specimenCollectionPerformed = specimenCollectionPerformed; return this;
   }
 
   /**
@@ -318,48 +341,48 @@ class Specimen extends Entity {
    * @param {object} json - the JSON data to deserialize
    * @returns {Specimen} An instance of Specimen populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new Specimen();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the Specimen class to a JSON object.
    * The JSON is expected to be valid against the Specimen JSON schema, but no validation checks are performed.
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/Specimen' };
-    if (this.relatedEncounter != null) {
-      inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
-    }
-    if (this.author != null) {
-      inst['Author'] = typeof this.author.toJSON === 'function' ? this.author.toJSON() : this.author;
-    }
-    if (this.informant != null) {
-      inst['Informant'] = typeof this.informant.toJSON === 'function' ? this.informant.toJSON() : this.informant;
-    }
-    if (this.type != null) {
-      inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Specimen' } };
+    if (this.partOf != null) {
+      inst['PartOf'] = typeof this.partOf.toJSON === 'function' ? this.partOf.toJSON() : this.partOf;
     }
     if (this.accessionIdentifier != null) {
       inst['AccessionIdentifier'] = typeof this.accessionIdentifier.toJSON === 'function' ? this.accessionIdentifier.toJSON() : this.accessionIdentifier;
     }
-    if (this.status != null) {
-      inst['Status'] = typeof this.status.toJSON === 'function' ? this.status.toJSON() : this.status;
+    if (this.specimenStatus != null) {
+      inst['SpecimenStatus'] = typeof this.specimenStatus.toJSON === 'function' ? this.specimenStatus.toJSON() : this.specimenStatus;
     }
-    if (this.subject != null) {
-      inst['Subject'] = typeof this.subject.toJSON === 'function' ? this.subject.toJSON() : this.subject;
+    if (this.type != null) {
+      inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
+    }
+    if (this.collectionSource != null) {
+      inst['CollectionSource'] = typeof this.collectionSource.toJSON === 'function' ? this.collectionSource.toJSON() : this.collectionSource;
+    }
+    if (this.collectionTime != null) {
+      inst['CollectionTime'] = typeof this.collectionTime.toJSON === 'function' ? this.collectionTime.toJSON() : this.collectionTime;
+    }
+    if (this.collectionMethod != null) {
+      inst['CollectionMethod'] = typeof this.collectionMethod.toJSON === 'function' ? this.collectionMethod.toJSON() : this.collectionMethod;
+    }
+    if (this.collectionSite != null) {
+      inst['CollectionSite'] = typeof this.collectionSite.toJSON === 'function' ? this.collectionSite.toJSON() : this.collectionSite;
     }
     if (this.sourceSpecimen != null) {
       inst['SourceSpecimen'] = typeof this.sourceSpecimen.toJSON === 'function' ? this.sourceSpecimen.toJSON() : this.sourceSpecimen;
     }
     if (this.receivedTime != null) {
       inst['ReceivedTime'] = typeof this.receivedTime.toJSON === 'function' ? this.receivedTime.toJSON() : this.receivedTime;
-    }
-    if (this.specimenCollectionPerformed != null) {
-      inst['SpecimenCollectionPerformed'] = typeof this.specimenCollectionPerformed.toJSON === 'function' ? this.specimenCollectionPerformed.toJSON() : this.specimenCollectionPerformed;
     }
     if (this.specimenContainer != null) {
       inst['SpecimenContainer'] = this.specimenContainer.map(f => f.toJSON());
@@ -375,50 +398,54 @@ class Specimen extends Entity {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the Specimen class to a FHIR object.
    * The FHIR is expected to be valid against the Specimen FHIR profile, but no validation checks are performed.
    * @param {asExtension=false} Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension = false) {
+  toFHIR(asExtension=false) {
     let inst = {};
-    inst['resourceType'] = 'Specimen';
-    if (this.relatedEncounter != null) {
+    if (this.partOf != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.relatedEncounter.toFHIR(true));
+      inst['extension'].push(typeof this.partOf.toFHIR === 'function' ? this.partOf.toFHIR(true) : this.partOf);
     }
-    if (this.author != null) {
+    if (this.collectionTime != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.author.toFHIR(true));
+      inst['extension'].push(typeof this.collectionTime.toFHIR === 'function' ? this.collectionTime.toFHIR(true) : this.collectionTime);
     }
-    if (this.informant != null) {
+    if (this.collectionMethod != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.informant.toFHIR(true));
+      inst['extension'].push(typeof this.collectionMethod.toFHIR === 'function' ? this.collectionMethod.toFHIR(true) : this.collectionMethod);
+    }
+    if (this.collectionSite != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(typeof this.collectionSite.toFHIR === 'function' ? this.collectionSite.toFHIR(true) : this.collectionSite);
     }
     if (this.specimenTreatment != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.specimenTreatment.toFHIR(true));
+      inst['extension'].push(typeof this.specimenTreatment.toFHIR === 'function' ? this.specimenTreatment.toFHIR(true) : this.specimenTreatment);
     }
     if (this.handlingRisk != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.handlingRisk.toFHIR(true));
+      inst['extension'].push(typeof this.handlingRisk.toFHIR === 'function' ? this.handlingRisk.toFHIR(true) : this.handlingRisk);
     }
     if (this.specialHandling != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.specialHandling.toFHIR(true));
+      inst['extension'].push(typeof this.specialHandling.toFHIR === 'function' ? this.specialHandling.toFHIR(true) : this.specialHandling);
     }
     if (this.accessionIdentifier != null) {
       inst['accessionIdentifier'] = typeof this.accessionIdentifier.toFHIR === 'function' ? this.accessionIdentifier.toFHIR() : this.accessionIdentifier;
     }
-    if (this.status != null) {
-      inst['status'] = typeof this.status.toFHIR === 'function' ? this.status.toFHIR() : this.status;
+    if (this.specimenStatus != null) {
+      inst['status'] = typeof this.specimenStatus.toFHIR === 'function' ? this.specimenStatus.toFHIR() : this.specimenStatus;
     }
     if (this.type != null) {
       inst['type'] = typeof this.type.toFHIR === 'function' ? this.type.toFHIR() : this.type;
     }
-    if (this.subject != null) {
-      inst['subject'] = typeof this.subject.toFHIR === 'function' ? this.subject.toFHIR() : this.subject;
+    if (this.collectionSource != null) {
+      inst['subject'] = typeof this.collectionSource.toFHIR === 'function' ? this.collectionSource.toFHIR() : this.collectionSource;
     }
     if (this.receivedTime != null) {
       inst['receivedTime'] = typeof this.receivedTime.toFHIR === 'function' ? this.receivedTime.toFHIR() : this.receivedTime;
@@ -426,86 +453,166 @@ class Specimen extends Entity {
     if (this.sourceSpecimen != null) {
       inst['parent'] = typeof this.sourceSpecimen.toFHIR === 'function' ? this.sourceSpecimen.toFHIR() : this.sourceSpecimen;
     }
-    if (this.specimenCollectionPerformed != null && this.specimenCollectionPerformed.performedContext != null && this.specimenCollectionPerformed.performedContext.relatedRequest != null) {
-      inst['request'] = typeof this.specimenCollectionPerformed.performedContext.relatedRequest.toFHIR === 'function' ? this.specimenCollectionPerformed.performedContext.relatedRequest.toFHIR() : this.specimenCollectionPerformed.performedContext.relatedRequest;
-    }
-    if (this.specimenCollectionPerformed != null && this.specimenCollectionPerformed.performedContext != null && this.specimenCollectionPerformed.performedContext.participant != null) {
-      if (inst['collection'] === undefined) {
-        inst['collection'] = {};
-      }
-      inst['collection']['collector'] = typeof this.specimenCollectionPerformed.performedContext.participant.toFHIR === 'function' ? this.specimenCollectionPerformed.performedContext.participant.toFHIR() : this.specimenCollectionPerformed.performedContext.participant;
-    }
-    if (this.specimenCollectionPerformed != null && this.specimenCollectionPerformed.performedContext != null && this.specimenCollectionPerformed.performedContext.occurrenceTimeOrPeriod != null) {
-      if (inst['collection'] === undefined) {
-        inst['collection'] = {};
-      }
-      inst['collection']['collected[x]'] = typeof this.specimenCollectionPerformed.performedContext.occurrenceTimeOrPeriod.toFHIR === 'function' ? this.specimenCollectionPerformed.performedContext.occurrenceTimeOrPeriod.toFHIR() : this.specimenCollectionPerformed.performedContext.occurrenceTimeOrPeriod;
-    }
-    if (this.specimenCollectionPerformed != null && this.specimenCollectionPerformed.amountOrSize != null) {
-      if (inst['collection'] === undefined) {
-        inst['collection'] = {};
-      }
-      inst['collection']['quantity'] = typeof this.specimenCollectionPerformed.amountOrSize.toFHIR === 'function' ? this.specimenCollectionPerformed.amountOrSize.toFHIR() : this.specimenCollectionPerformed.amountOrSize;
-    }
-    if (this.specimenCollectionPerformed != null && this.specimenCollectionPerformed.performedContext != null && this.specimenCollectionPerformed.performedContext.method != null) {
-      if (inst['collection'] === undefined) {
-        inst['collection'] = {};
-      }
-      inst['collection']['method'] = typeof this.specimenCollectionPerformed.performedContext.method.toFHIR === 'function' ? this.specimenCollectionPerformed.performedContext.method.toFHIR() : this.specimenCollectionPerformed.performedContext.method;
-    }
-    if (this.specimenCollectionPerformed != null && this.specimenCollectionPerformed.bodySite != null) {
-      if (inst['collection'] === undefined) {
-        inst['collection'] = {};
-      }
-      inst['collection']['bodySite'] = typeof this.specimenCollectionPerformed.bodySite.toFHIR === 'function' ? this.specimenCollectionPerformed.bodySite.toFHIR() : this.specimenCollectionPerformed.bodySite;
-    }
     if (this.specimenContainer != null && this.specimenContainer.identifier != null) {
-      if (inst['container'] === undefined) {
+      if(inst['container'] === undefined) {
         inst['container'] = {};
       }
-      inst['container']['identifier'] = inst['container']['identifier'] || [];
-      inst['container']['identifier'].concat(this.specimenContainer.identifier.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['container']['identifier'] = inst ['container']['identifier'] || [];
+      inst['container']['identifier'] = inst['container']['identifier'].concat(this.specimenContainer.identifier.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
-    if (this.specimenContainer != null && this.specimenContainer.details != null) {
-      if (inst['container'] === undefined) {
+    if (this.specimenContainer != null && this.specimenContainer.additionalText != null) {
+      if(inst['container'] === undefined) {
         inst['container'] = {};
       }
-      inst['container']['description'] = inst['container']['description'] || [];
-      inst['container']['description'].concat(this.specimenContainer.details.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['container']['description'] = inst ['container']['description'] || [];
+      inst['container']['description'] = inst['container']['description'].concat(this.specimenContainer.additionalText.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.specimenContainer != null && this.specimenContainer.type != null) {
-      if (inst['container'] === undefined) {
+      if(inst['container'] === undefined) {
         inst['container'] = {};
       }
-      inst['container']['type'] = inst['container']['type'] || [];
-      inst['container']['type'].concat(this.specimenContainer.type.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['container']['type'] = inst ['container']['type'] || [];
+      inst['container']['type'] = inst['container']['type'].concat(this.specimenContainer.type.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.specimenContainer != null && this.specimenContainer.capacity != null) {
-      if (inst['container'] === undefined) {
+      if(inst['container'] === undefined) {
         inst['container'] = {};
       }
-      inst['container']['capacity'] = inst['container']['capacity'] || [];
-      inst['container']['capacity'].concat(this.specimenContainer.capacity.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['container']['capacity'] = inst ['container']['capacity'] || [];
+      inst['container']['capacity'] = inst['container']['capacity'].concat(this.specimenContainer.capacity.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.specimenContainer != null && this.specimenContainer.specimenQuantity != null) {
-      if (inst['container'] === undefined) {
+      if(inst['container'] === undefined) {
         inst['container'] = {};
       }
-      inst['container']['specimenQuantity'] = inst['container']['specimenQuantity'] || [];
-      inst['container']['specimenQuantity'].concat(this.specimenContainer.specimenQuantity.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['container']['specimenQuantity'] = inst ['container']['specimenQuantity'] || [];
+      inst['container']['specimenQuantity'] = inst['container']['specimenQuantity'].concat(this.specimenContainer.specimenQuantity.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.specimenContainer != null && this.specimenContainer.additive != null) {
-      if (inst['container'] === undefined) {
+      if(inst['container'] === undefined) {
         inst['container'] = {};
       }
-      inst['container']['additive[x]'] = inst['container']['additive[x]'] || [];
-      inst['container']['additive[x]'].concat(this.specimenContainer.additive.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['container']['additive[x]'] = inst ['container']['additive[x]'] || [];
+      inst['container']['additive[x]'] = inst['container']['additive[x]'].concat(this.specimenContainer.additive.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (asExtension) {
-      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-entity-Specimen-extension';
+      inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-entity-Specimen-extension';
       inst['valueReference'] = this.value;
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the Specimen class.
+   * The FHIR must be valid against the Specimen FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {asExtension=false} Whether the provided instance is an extension
+   * @returns {Specimen} An instance of Specimen populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension=false) {
+    const inst = new Specimen();
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension');
+      if (match != null) {
+        inst.partOf = createInstanceFromFHIR('shr.entity.PartOf', match, true);
+      }
+    }
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-CollectionTime-extension');
+      if (match != null) {
+        inst.collectionTime = createInstanceFromFHIR('shr.entity.CollectionTime', match, true);
+      }
+    }
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-CollectionMethod-extension');
+      if (match != null) {
+        inst.collectionMethod = createInstanceFromFHIR('shr.entity.CollectionMethod', match, true);
+      }
+    }
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-CollectionSite-extension');
+      if (match != null) {
+        inst.collectionSite = createInstanceFromFHIR('shr.entity.CollectionSite', match, true);
+      }
+    }
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-SpecimenTreatment-extension');
+      if (match != null) {
+        inst.specimenTreatment = createInstanceFromFHIR('shr.entity.SpecimenTreatment', match, true);
+      }
+    }
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-HandlingRisk-extension');
+      if (match != null) {
+        inst.handlingRisk = createInstanceFromFHIR('shr.entity.HandlingRisk', match, true);
+      }
+    }
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-SpecialHandling-extension');
+      if (match != null) {
+        inst.specialHandling = createInstanceFromFHIR('shr.entity.SpecialHandling', match, true);
+      }
+    }
+    if (fhir['accessionIdentifier'] != null) {
+      inst.accessionIdentifier = createInstanceFromFHIR('shr.entity.AccessionIdentifier', fhir['accessionIdentifier']);
+    }
+    if (fhir['status'] != null) {
+      inst.specimenStatus = createInstanceFromFHIR('shr.entity.SpecimenStatus', fhir['status']);
+    }
+    if (fhir['type'] != null) {
+      inst.type = createInstanceFromFHIR('shr.core.Type', fhir['type']);
+    }
+    if (fhir['subject'] != null) {
+      inst.collectionSource = createInstanceFromFHIR('shr.entity.CollectionSource', fhir['subject']);
+    }
+    if (fhir['receivedTime'] != null) {
+      inst.receivedTime = createInstanceFromFHIR('shr.core.ReceivedTime', fhir['receivedTime']);
+    }
+    if (fhir['parent'] != null) {
+      inst.sourceSpecimen = createInstanceFromFHIR('shr.entity.SourceSpecimen', fhir['parent']);
+    }
+    if (fhir['container'] != null && fhir['container']['identifier'] != null) {
+      if(inst.specimenContainer == null) {
+        inst.specimenContainer = createInstanceFromFHIR('shr.entity.SpecimenContainer', {});
+      }
+      inst.specimenContainer.identifier = createInstanceFromFHIR('shr.core.Identifier', fhir['container']['identifier']);
+    }
+    if (fhir['container'] != null && fhir['container']['description'] != null) {
+      if(inst.specimenContainer == null) {
+        inst.specimenContainer = createInstanceFromFHIR('shr.entity.SpecimenContainer', {});
+      }
+      inst.specimenContainer.additionalText = createInstanceFromFHIR('shr.base.AdditionalText', fhir['container']['description']);
+    }
+    if (fhir['container'] != null && fhir['container']['type'] != null) {
+      if(inst.specimenContainer == null) {
+        inst.specimenContainer = createInstanceFromFHIR('shr.entity.SpecimenContainer', {});
+      }
+      inst.specimenContainer.type = createInstanceFromFHIR('shr.core.Type', fhir['container']['type']);
+    }
+    if (fhir['container'] != null && fhir['container']['capacity'] != null) {
+      if(inst.specimenContainer == null) {
+        inst.specimenContainer = createInstanceFromFHIR('shr.entity.SpecimenContainer', {});
+      }
+      inst.specimenContainer.capacity = createInstanceFromFHIR('shr.entity.Capacity', fhir['container']['capacity']);
+    }
+    if (fhir['container'] != null && fhir['container']['specimenQuantity'] != null) {
+      if(inst.specimenContainer == null) {
+        inst.specimenContainer = createInstanceFromFHIR('shr.entity.SpecimenContainer', {});
+      }
+      inst.specimenContainer.specimenQuantity = createInstanceFromFHIR('shr.entity.SpecimenQuantity', fhir['container']['specimenQuantity']);
+    }
+    if (fhir['container'] != null && fhir['container']['additive[x]'] != null) {
+      if(inst.specimenContainer == null) {
+        inst.specimenContainer = createInstanceFromFHIR('shr.entity.SpecimenContainer', {});
+      }
+      inst.specimenContainer.additive = inst.specimenContainer.additive || [];
+      inst.specimenContainer.additive = inst.specimenContainer.additive.concat(fhir['container']['additive[x]'].map(f => createInstanceFromFHIR('shr.entity.Additive', f)));
+    }
+    if (asExtension) {
+      inst.value = fhir['valueReference'];
+    }
+    return inst;
+  }
+
 }
 export default Specimen;

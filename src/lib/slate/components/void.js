@@ -102,7 +102,7 @@ class Void extends React.Component {
     return (
       <Tag data-slate-void style={style} onClick={this.onClick}>
         {this.renderSpacer()}
-        <Tag contentEditable={false}>
+        <Tag contentEditable={true}>
           {children}
         </Tag>
       </Tag>

@@ -1,12 +1,12 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
-import Role from '../entity/Role';
+import Entity from '../entity/Entity';
 
 /**
  * Generated class for shr.research.ResearchSubject.
- * @extends Role
+ * @extends Entity
  */
-class ResearchSubject extends Role {
+class ResearchSubject extends Entity {
 
   /**
    * Get the entry information.
@@ -34,57 +34,30 @@ class ResearchSubject extends Role {
   }
 
   /**
-   * Get the value (aliases party).
-   * @returns {Reference} The shr.entity.Patient reference
-   */
-  get value() {
-    return this._party;
-  }
-
-  /**
-   * Set the value (aliases party).
-   * This field/value is required.
-   * @param {Reference} value - The shr.entity.Patient reference
-   */
-  set value(value) {
-    this._party = value;
-  }
-
-  /**
-   * Set the value (aliases party) and return 'this' for chaining.
-   * This field/value is required.
-   * @param {Reference} value - The shr.entity.Patient reference
-   * @returns {ResearchSubject} this.
-   */
-  withValue(value) {
-    this.value = value; return this;
-  }
-
-  /**
    * Get the shr.entity.Patient reference.
    * @returns {Reference} The shr.entity.Patient reference
    */
-  get party() {
-    return this._party;
+  get patient() {
+    return this._patient;
   }
 
   /**
    * Set the shr.entity.Patient reference.
    * This field/value is required.
-   * @param {Reference} party - The shr.entity.Patient reference
+   * @param {Reference} patient - The shr.entity.Patient reference
    */
-  set party(party) {
-    this._party = party;
+  set patient(patient) {
+    this._patient = patient;
   }
 
   /**
    * Set the shr.entity.Patient reference and return 'this' for chaining.
    * This field/value is required.
-   * @param {Reference} party - The shr.entity.Patient reference
+   * @param {Reference} patient - The shr.entity.Patient reference
    * @returns {ResearchSubject} this.
    */
-  withParty(party) {
-    this.party = party; return this;
+  withPatient(patient) {
+    this.patient = patient; return this;
   }
 
   /**
@@ -116,7 +89,7 @@ class ResearchSubject extends Role {
 
   /**
    * Get the Status.
-   * @returns {Status} The shr.action.Status
+   * @returns {Status} The shr.core.Status
    */
   get status() {
     return this._status;
@@ -125,7 +98,7 @@ class ResearchSubject extends Role {
   /**
    * Set the Status.
    * This field/value is required.
-   * @param {Status} status - The shr.action.Status
+   * @param {Status} status - The shr.core.Status
    */
   set status(status) {
     this._status = status;
@@ -134,7 +107,7 @@ class ResearchSubject extends Role {
   /**
    * Set the Status and return 'this' for chaining.
    * This field/value is required.
-   * @param {Status} status - The shr.action.Status
+   * @param {Status} status - The shr.core.Status
    * @returns {ResearchSubject} this.
    */
   withStatus(status) {
@@ -143,7 +116,7 @@ class ResearchSubject extends Role {
 
   /**
    * Get the ParticipationPeriod.
-   * @returns {ParticipationPeriod} The shr.action.ParticipationPeriod
+   * @returns {ParticipationPeriod} The shr.base.ParticipationPeriod
    */
   get participationPeriod() {
     return this._participationPeriod;
@@ -152,7 +125,7 @@ class ResearchSubject extends Role {
   /**
    * Set the ParticipationPeriod.
    * This field/value is required.
-   * @param {ParticipationPeriod} participationPeriod - The shr.action.ParticipationPeriod
+   * @param {ParticipationPeriod} participationPeriod - The shr.base.ParticipationPeriod
    */
   set participationPeriod(participationPeriod) {
     this._participationPeriod = participationPeriod;
@@ -161,7 +134,7 @@ class ResearchSubject extends Role {
   /**
    * Set the ParticipationPeriod and return 'this' for chaining.
    * This field/value is required.
-   * @param {ParticipationPeriod} participationPeriod - The shr.action.ParticipationPeriod
+   * @param {ParticipationPeriod} participationPeriod - The shr.base.ParticipationPeriod
    * @returns {ResearchSubject} this.
    */
   withParticipationPeriod(participationPeriod) {
@@ -199,11 +172,12 @@ class ResearchSubject extends Role {
    * @param {object} json - the JSON data to deserialize
    * @returns {ResearchSubject} An instance of ResearchSubject populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new ResearchSubject();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the ResearchSubject class to a JSON object.
    * The JSON is expected to be valid against the ResearchSubject JSON schema, but no validation checks are performed.
@@ -211,21 +185,12 @@ class ResearchSubject extends Role {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/research/ResearchSubject' };
-    if (this.value != null) {
-      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/research/ResearchSubject' };
+    if (this.partOf != null) {
+      inst['PartOf'] = typeof this.partOf.toJSON === 'function' ? this.partOf.toJSON() : this.partOf;
     }
-    if (this.relatedEncounter != null) {
-      inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
-    }
-    if (this.author != null) {
-      inst['Author'] = typeof this.author.toJSON === 'function' ? this.author.toJSON() : this.author;
-    }
-    if (this.informant != null) {
-      inst['Informant'] = typeof this.informant.toJSON === 'function' ? this.informant.toJSON() : this.informant;
-    }
-    if (this.type != null) {
-      inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
+    if (this.patient != null) {
+      inst['Patient'] = typeof this.patient.toJSON === 'function' ? this.patient.toJSON() : this.patient;
     }
     if (this.study != null) {
       inst['Study'] = typeof this.study.toJSON === 'function' ? this.study.toJSON() : this.study;
@@ -241,34 +206,23 @@ class ResearchSubject extends Role {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the ResearchSubject class to a FHIR object.
    * The FHIR is expected to be valid against the ResearchSubject FHIR profile, but no validation checks are performed.
    * @param {asExtension=false} Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension = false) {
+  toFHIR(asExtension=false) {
     let inst = {};
     inst['resourceType'] = 'ResearchSubject';
-    if (this.relatedEncounter != null) {
+    if (this.partOf != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.relatedEncounter.toFHIR(true));
-    }
-    if (this.author != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.author.toFHIR(true));
-    }
-    if (this.informant != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.informant.toFHIR(true));
-    }
-    if (this.type != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.type.toFHIR(true));
+      inst['extension'].push(typeof this.partOf.toFHIR === 'function' ? this.partOf.toFHIR(true) : this.partOf);
     }
     if (this.terminationReason != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.terminationReason.toFHIR(true));
+      inst['extension'].push(typeof this.terminationReason.toFHIR === 'function' ? this.terminationReason.toFHIR(true) : this.terminationReason);
     }
     if (this.status != null) {
       inst['status'] = typeof this.status.toFHIR === 'function' ? this.status.toFHIR() : this.status;
@@ -279,7 +233,47 @@ class ResearchSubject extends Role {
     if (this.study != null) {
       inst['study'] = typeof this.study.toFHIR === 'function' ? this.study.toFHIR() : this.study;
     }
+    if (this.patient != null) {
+      inst['individual'] = typeof this.patient.toFHIR === 'function' ? this.patient.toFHIR() : this.patient;
+    }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the ResearchSubject class.
+   * The FHIR must be valid against the ResearchSubject FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {asExtension=false} Whether the provided instance is an extension
+   * @returns {ResearchSubject} An instance of ResearchSubject populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension=false) {
+    const inst = new ResearchSubject();
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension');
+      if (match != null) {
+        inst.partOf = createInstanceFromFHIR('shr.entity.PartOf', match, true);
+      }
+    }
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-research-TerminationReason-extension');
+      if (match != null) {
+        inst.terminationReason = createInstanceFromFHIR('shr.research.TerminationReason', match, true);
+      }
+    }
+    if (fhir['status'] != null) {
+      inst.status = createInstanceFromFHIR('shr.core.Status', fhir['status']);
+    }
+    if (fhir['period'] != null) {
+      inst.participationPeriod = createInstanceFromFHIR('shr.base.ParticipationPeriod', fhir['period']);
+    }
+    if (fhir['study'] != null) {
+      inst.study = createInstanceFromFHIR('shr.research.Study', fhir['study']);
+    }
+    if (fhir['individual'] != null) {
+      inst.patient = createInstanceFromFHIR('shr.entity.Patient', fhir['individual']);
+    }
+    return inst;
+  }
+
 }
 export default ResearchSubject;

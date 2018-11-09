@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 import Entity from './Entity';
 
@@ -35,7 +35,7 @@ class Substance extends Entity {
 
   /**
    * Get the Type.
-   * @returns {Type} The shr.entity.Type
+   * @returns {Type} The shr.core.Type
    */
   get type() {
     return this._type;
@@ -44,7 +44,7 @@ class Substance extends Entity {
   /**
    * Set the Type.
    * This field/value is required.
-   * @param {Type} type - The shr.entity.Type
+   * @param {Type} type - The shr.core.Type
    */
   set type(type) {
     this._type = type;
@@ -53,7 +53,7 @@ class Substance extends Entity {
   /**
    * Set the Type and return 'this' for chaining.
    * This field/value is required.
-   * @param {Type} type - The shr.entity.Type
+   * @param {Type} type - The shr.core.Type
    * @returns {Substance} this.
    */
   withType(type) {
@@ -111,28 +111,28 @@ class Substance extends Entity {
   }
 
   /**
-   * Get the Details.
-   * @returns {Details} The shr.core.Details
+   * Get the AdditionalText.
+   * @returns {AdditionalText} The shr.base.AdditionalText
    */
-  get details() {
-    return this._details;
+  get additionalText() {
+    return this._additionalText;
   }
 
   /**
-   * Set the Details.
-   * @param {Details} details - The shr.core.Details
+   * Set the AdditionalText.
+   * @param {AdditionalText} additionalText - The shr.base.AdditionalText
    */
-  set details(details) {
-    this._details = details;
+  set additionalText(additionalText) {
+    this._additionalText = additionalText;
   }
 
   /**
-   * Set the Details and return 'this' for chaining.
-   * @param {Details} details - The shr.core.Details
+   * Set the AdditionalText and return 'this' for chaining.
+   * @param {AdditionalText} additionalText - The shr.base.AdditionalText
    * @returns {Substance} this.
    */
-  withDetails(details) {
-    this.details = details; return this;
+  withAdditionalText(additionalText) {
+    this.additionalText = additionalText; return this;
   }
 
   /**
@@ -166,11 +166,12 @@ class Substance extends Entity {
    * @param {object} json - the JSON data to deserialize
    * @returns {Substance} An instance of Substance populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new Substance();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the Substance class to a JSON object.
    * The JSON is expected to be valid against the Substance JSON schema, but no validation checks are performed.
@@ -178,15 +179,9 @@ class Substance extends Entity {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/Substance' };
-    if (this.relatedEncounter != null) {
-      inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
-    }
-    if (this.author != null) {
-      inst['Author'] = typeof this.author.toJSON === 'function' ? this.author.toJSON() : this.author;
-    }
-    if (this.informant != null) {
-      inst['Informant'] = typeof this.informant.toJSON === 'function' ? this.informant.toJSON() : this.informant;
+    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Substance' };
+    if (this.partOf != null) {
+      inst['PartOf'] = typeof this.partOf.toJSON === 'function' ? this.partOf.toJSON() : this.partOf;
     }
     if (this.type != null) {
       inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
@@ -197,69 +192,118 @@ class Substance extends Entity {
     if (this.activeFlagAsaCodeableConcept != null) {
       inst['ActiveFlagAsaCodeableConcept'] = typeof this.activeFlagAsaCodeableConcept.toJSON === 'function' ? this.activeFlagAsaCodeableConcept.toJSON() : this.activeFlagAsaCodeableConcept;
     }
-    if (this.details != null) {
-      inst['Details'] = typeof this.details.toJSON === 'function' ? this.details.toJSON() : this.details;
+    if (this.additionalText != null) {
+      inst['AdditionalText'] = typeof this.additionalText.toJSON === 'function' ? this.additionalText.toJSON() : this.additionalText;
     }
     if (this.ingredient != null) {
       inst['Ingredient'] = this.ingredient.map(f => f.toJSON());
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the Substance class to a FHIR object.
    * The FHIR is expected to be valid against the Substance FHIR profile, but no validation checks are performed.
    * @param {asExtension=false} Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension = false) {
+  toFHIR(asExtension=false) {
     let inst = {};
     inst['resourceType'] = 'Substance';
-    if (this.relatedEncounter != null) {
+    if (this.partOf != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.relatedEncounter.toFHIR(true));
-    }
-    if (this.author != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.author.toFHIR(true));
-    }
-    if (this.informant != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.informant.toFHIR(true));
+      inst['extension'].push(typeof this.partOf.toFHIR === 'function' ? this.partOf.toFHIR(true) : this.partOf);
     }
     if (this.category != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.category.toFHIR(true));
+      inst['extension'].push(typeof this.category.toFHIR === 'function' ? this.category.toFHIR(true) : this.category);
     }
     if (this.activeFlagAsaCodeableConcept != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.activeFlagAsaCodeableConcept.toFHIR(true));
+      inst['extension'].push(typeof this.activeFlagAsaCodeableConcept.toFHIR === 'function' ? this.activeFlagAsaCodeableConcept.toFHIR(true) : this.activeFlagAsaCodeableConcept);
     }
-    if (this.details != null) {
+    if (this.additionalText != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.details.toFHIR(true));
+      inst['extension'].push(typeof this.additionalText.toFHIR === 'function' ? this.additionalText.toFHIR(true) : this.additionalText);
     }
     if (this.type != null) {
       inst['code'] = typeof this.type.toFHIR === 'function' ? this.type.toFHIR() : this.type;
     }
     if (this.ingredient != null) {
-      inst['ingredient'] = inst['ingredient'] || [];
-      inst['ingredient'].concat(this.ingredient.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['ingredient'] = inst ['ingredient'] || [];
+      inst['ingredient'] = inst['ingredient'].concat(this.ingredient.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.ingredient != null && this.ingredient.ingredientAmount != null) {
-      if (inst['ingredient'] === undefined) {
+      if(inst['ingredient'] === undefined) {
         inst['ingredient'] = {};
       }
-      inst['ingredient']['quantity'] = inst['ingredient']['quantity'] || [];
-      inst['ingredient']['quantity'].concat(this.ingredient.ingredientAmount.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['ingredient']['quantity'] = inst ['ingredient']['quantity'] || [];
+      inst['ingredient']['quantity'] = inst['ingredient']['quantity'].concat(this.ingredient.ingredientAmount.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.ingredient != null && this.ingredient.codeableConcept != null) {
-      if (inst['ingredient'] === undefined) {
+      if(inst['ingredient'] === undefined) {
         inst['ingredient'] = {};
       }
-      inst['ingredient']['substance[x]'] = inst['ingredient']['substance[x]'] || [];
-      inst['ingredient']['substance[x]'].concat(this.ingredient.codeableConcept.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['ingredient']['substance[x]'] = inst ['ingredient']['substance[x]'] || [];
+      inst['ingredient']['substance[x]'] = inst['ingredient']['substance[x]'].concat(this.ingredient.codeableConcept.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the Substance class.
+   * The FHIR must be valid against the Substance FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {asExtension=false} Whether the provided instance is an extension
+   * @returns {Substance} An instance of Substance populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension=false) {
+    const inst = new Substance();
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension');
+      if (match != null) {
+        inst.partOf = createInstanceFromFHIR('shr.entity.PartOf', match, true);
+      }
+    }
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-Category-extension');
+      if (match != null) {
+        inst.category = createInstanceFromFHIR('shr.core.Category', match, true);
+      }
+    }
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-ActiveFlagAsaCodeableConcept-extension');
+      if (match != null) {
+        inst.activeFlagAsaCodeableConcept = createInstanceFromFHIR('shr.entity.ActiveFlagAsaCodeableConcept', match, true);
+      }
+    }
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-AdditionalText-extension');
+      if (match != null) {
+        inst.additionalText = createInstanceFromFHIR('shr.base.AdditionalText', match, true);
+      }
+    }
+    if (fhir['code'] != null) {
+      inst.type = createInstanceFromFHIR('shr.core.Type', fhir['code']);
+    }
+    if (fhir['ingredient'] != null) {
+      inst.ingredient = inst.ingredient || [];
+      inst.ingredient = inst.ingredient.concat(fhir['ingredient'].map(f => createInstanceFromFHIR('shr.entity.Ingredient', f)));
+    }
+    if (fhir['ingredient'] != null && fhir['ingredient']['quantity'] != null) {
+      if(inst.ingredient == null) {
+        inst.ingredient = createInstanceFromFHIR('shr.entity.Ingredient', {});
+      }
+      inst.ingredient.ingredientAmount = createInstanceFromFHIR('shr.entity.IngredientAmount', fhir['ingredient']['quantity']);
+    }
+    if (fhir['ingredient'] != null && fhir['ingredient']['substance[x]'] != null) {
+      if(inst.ingredient == null) {
+        inst.ingredient = createInstanceFromFHIR('shr.entity.Ingredient', {});
+      }
+      inst.ingredient.codeableConcept = createInstanceFromFHIR('shr.core.CodeableConcept', fhir['ingredient']['substance[x]'][0]);
+    }
+    return inst;
+  }
+
 }
 export default Substance;

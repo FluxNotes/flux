@@ -1,212 +1,61 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+
+import PersonName from './PersonName';
 
 /**
  * Generated class for shr.core.HumanName.
+ * @extends PersonName
  */
-class HumanName {
+class HumanName extends PersonName {
 
   /**
-   * Get the value (aliases string).
-   * @returns {string} The string
+   * Get the MiddleName array.
+   * @returns {Array<MiddleName>} The shr.core.MiddleName array
    */
-  get value() {
-    return this._string;
+  get middleName() {
+    return this._middleName;
   }
 
   /**
-   * Set the value (aliases string).
-   * This field/value is required.
-   * @param {string} value - The string
+   * Set the MiddleName array.
+   * @param {Array<MiddleName>} middleName - The shr.core.MiddleName array
    */
-  set value(value) {
-    this._string = value;
+  set middleName(middleName) {
+    this._middleName = middleName;
   }
 
   /**
-   * Set the value (aliases string) and return 'this' for chaining.
-   * This field/value is required.
-   * @param {string} value - The string
+   * Set the MiddleName array and return 'this' for chaining.
+   * @param {Array<MiddleName>} middleName - The shr.core.MiddleName array
    * @returns {HumanName} this.
    */
-  withValue(value) {
-    this.value = value; return this;
+  withMiddleName(middleName) {
+    this.middleName = middleName; return this;
   }
 
   /**
-   * Get the string.
-   * @returns {string} The string
-   */
-  get string() {
-    return this._string;
-  }
-
-  /**
-   * Set the string.
-   * This field/value is required.
-   * @param {string} string - The string
-   */
-  set string(string) {
-    this._string = string;
-  }
-
-  /**
-   * Set the string and return 'this' for chaining.
-   * This field/value is required.
-   * @param {string} string - The string
-   * @returns {HumanName} this.
-   */
-  withString(string) {
-    this.string = string; return this;
-  }
-
-  /**
-   * Get the HumanNamePrefix.
-   * @returns {HumanNamePrefix} The shr.core.HumanNamePrefix
-   */
-  get humanNamePrefix() {
-    return this._humanNamePrefix;
-  }
-
-  /**
-   * Set the HumanNamePrefix.
-   * @param {HumanNamePrefix} humanNamePrefix - The shr.core.HumanNamePrefix
-   */
-  set humanNamePrefix(humanNamePrefix) {
-    this._humanNamePrefix = humanNamePrefix;
-  }
-
-  /**
-   * Set the HumanNamePrefix and return 'this' for chaining.
-   * @param {HumanNamePrefix} humanNamePrefix - The shr.core.HumanNamePrefix
-   * @returns {HumanName} this.
-   */
-  withHumanNamePrefix(humanNamePrefix) {
-    this.humanNamePrefix = humanNamePrefix; return this;
-  }
-
-  /**
-   * Get the GivenName array.
-   * @returns {Array<GivenName>} The shr.core.GivenName array
-   */
-  get givenName() {
-    return this._givenName;
-  }
-
-  /**
-   * Set the GivenName array.
-   * @param {Array<GivenName>} givenName - The shr.core.GivenName array
-   */
-  set givenName(givenName) {
-    this._givenName = givenName;
-  }
-
-  /**
-   * Set the GivenName array and return 'this' for chaining.
-   * @param {Array<GivenName>} givenName - The shr.core.GivenName array
-   * @returns {HumanName} this.
-   */
-  withGivenName(givenName) {
-    this.givenName = givenName; return this;
-  }
-
-  /**
-   * Get the FamilyName.
-   * @returns {FamilyName} The shr.core.FamilyName
+   * Get the FamilyName array.
+   * @returns {Array<FamilyName>} The shr.core.FamilyName array
    */
   get familyName() {
     return this._familyName;
   }
 
   /**
-   * Set the FamilyName.
-   * @param {FamilyName} familyName - The shr.core.FamilyName
+   * Set the FamilyName array.
+   * @param {Array<FamilyName>} familyName - The shr.core.FamilyName array
    */
   set familyName(familyName) {
     this._familyName = familyName;
   }
 
   /**
-   * Set the FamilyName and return 'this' for chaining.
-   * @param {FamilyName} familyName - The shr.core.FamilyName
+   * Set the FamilyName array and return 'this' for chaining.
+   * @param {Array<FamilyName>} familyName - The shr.core.FamilyName array
    * @returns {HumanName} this.
    */
   withFamilyName(familyName) {
     this.familyName = familyName; return this;
-  }
-
-  /**
-   * Get the HumanNameSuffix array.
-   * @returns {Array<HumanNameSuffix>} The shr.core.HumanNameSuffix array
-   */
-  get humanNameSuffix() {
-    return this._humanNameSuffix;
-  }
-
-  /**
-   * Set the HumanNameSuffix array.
-   * @param {Array<HumanNameSuffix>} humanNameSuffix - The shr.core.HumanNameSuffix array
-   */
-  set humanNameSuffix(humanNameSuffix) {
-    this._humanNameSuffix = humanNameSuffix;
-  }
-
-  /**
-   * Set the HumanNameSuffix array and return 'this' for chaining.
-   * @param {Array<HumanNameSuffix>} humanNameSuffix - The shr.core.HumanNameSuffix array
-   * @returns {HumanName} this.
-   */
-  withHumanNameSuffix(humanNameSuffix) {
-    this.humanNameSuffix = humanNameSuffix; return this;
-  }
-
-  /**
-   * Get the Purpose.
-   * @returns {Purpose} The shr.entity.Purpose
-   */
-  get purpose() {
-    return this._purpose;
-  }
-
-  /**
-   * Set the Purpose.
-   * @param {Purpose} purpose - The shr.entity.Purpose
-   */
-  set purpose(purpose) {
-    this._purpose = purpose;
-  }
-
-  /**
-   * Set the Purpose and return 'this' for chaining.
-   * @param {Purpose} purpose - The shr.entity.Purpose
-   * @returns {HumanName} this.
-   */
-  withPurpose(purpose) {
-    this.purpose = purpose; return this;
-  }
-
-  /**
-   * Get the EffectiveTimePeriod.
-   * @returns {EffectiveTimePeriod} The shr.core.EffectiveTimePeriod
-   */
-  get effectiveTimePeriod() {
-    return this._effectiveTimePeriod;
-  }
-
-  /**
-   * Set the EffectiveTimePeriod.
-   * @param {EffectiveTimePeriod} effectiveTimePeriod - The shr.core.EffectiveTimePeriod
-   */
-  set effectiveTimePeriod(effectiveTimePeriod) {
-    this._effectiveTimePeriod = effectiveTimePeriod;
-  }
-
-  /**
-   * Set the EffectiveTimePeriod and return 'this' for chaining.
-   * @param {EffectiveTimePeriod} effectiveTimePeriod - The shr.core.EffectiveTimePeriod
-   * @returns {HumanName} this.
-   */
-  withEffectiveTimePeriod(effectiveTimePeriod) {
-    this.effectiveTimePeriod = effectiveTimePeriod; return this;
   }
 
   /**
@@ -215,77 +64,127 @@ class HumanName {
    * @param {object} json - the JSON data to deserialize
    * @returns {HumanName} An instance of HumanName populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new HumanName();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the HumanName class to a JSON object.
    * The JSON is expected to be valid against the HumanName JSON schema, but no validation checks are performed.
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/HumanName' } };
-    if (this.value != null) {
-      inst['Value'] = this.value;
-    }
-    if (this.humanNamePrefix != null) {
-      inst['HumanNamePrefix'] = typeof this.humanNamePrefix.toJSON === 'function' ? this.humanNamePrefix.toJSON() : this.humanNamePrefix;
-    }
-    if (this.givenName != null) {
-      inst['GivenName'] = this.givenName.map(f => f.toJSON());
-    }
-    if (this.familyName != null) {
-      inst['FamilyName'] = typeof this.familyName.toJSON === 'function' ? this.familyName.toJSON() : this.familyName;
-    }
-    if (this.humanNameSuffix != null) {
-      inst['HumanNameSuffix'] = this.humanNameSuffix.map(f => f.toJSON());
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/HumanName' } };
+    if (this.nameAsText != null) {
+      inst['NameAsText'] = typeof this.nameAsText.toJSON === 'function' ? this.nameAsText.toJSON() : this.nameAsText;
     }
     if (this.purpose != null) {
-      inst['Purpose'] = typeof this.purpose.toJSON === 'function' ? this.purpose.toJSON() : this.purpose;
+      inst['Purpose'] = this.purpose.map(f => f.toJSON());
     }
     if (this.effectiveTimePeriod != null) {
       inst['EffectiveTimePeriod'] = typeof this.effectiveTimePeriod.toJSON === 'function' ? this.effectiveTimePeriod.toJSON() : this.effectiveTimePeriod;
     }
+    if (this.prefix != null) {
+      inst['Prefix'] = this.prefix.map(f => f.toJSON());
+    }
+    if (this.givenName != null) {
+      inst['GivenName'] = this.givenName.map(f => f.toJSON());
+    }
+    if (this.middleName != null) {
+      inst['MiddleName'] = this.middleName.map(f => f.toJSON());
+    }
+    if (this.familyName != null) {
+      inst['FamilyName'] = this.familyName.map(f => f.toJSON());
+    }
+    if (this.suffix != null) {
+      inst['Suffix'] = this.suffix.map(f => f.toJSON());
+    }
     return inst;
   }
+
   /**
    * Serializes an instance of the HumanName class to a FHIR object.
    * The FHIR is expected to be valid against the HumanName FHIR profile, but no validation checks are performed.
    * @param {asExtension=false} Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension = false) {
+  toFHIR(asExtension=false) {
     let inst = {};
     if (this.purpose != null) {
-      inst['use'] = typeof this.purpose.toFHIR === 'function' ? this.purpose.toFHIR() : this.purpose;
+      inst['use'] = inst ['use'] || [];
+      inst['use'] = inst['use'].concat(this.purpose.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
-    if (this.value != null) {
-      inst['text'] = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
+    if (this.nameAsText != null) {
+      inst['text'] = typeof this.nameAsText.toFHIR === 'function' ? this.nameAsText.toFHIR() : this.nameAsText;
     }
     if (this.familyName != null) {
-      inst['family'] = typeof this.familyName.toFHIR === 'function' ? this.familyName.toFHIR() : this.familyName;
+      inst['family'] = inst ['family'] || [];
+      inst['family'] = inst['family'].concat(this.familyName.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.givenName != null) {
-      inst['given'] = inst['given'] || [];
-      inst['given'].concat(this.givenName.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['given'] = inst ['given'] || [];
+      inst['given'] = inst['given'].concat(this.givenName.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
-    if (this.humanNamePrefix != null) {
-      inst['prefix'] = typeof this.humanNamePrefix.toFHIR === 'function' ? this.humanNamePrefix.toFHIR() : this.humanNamePrefix;
+    if (this.prefix != null) {
+      inst['prefix'] = inst ['prefix'] || [];
+      inst['prefix'] = inst['prefix'].concat(this.prefix.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
-    if (this.humanNameSuffix != null) {
-      inst['suffix'] = inst['suffix'] || [];
-      inst['suffix'].concat(this.humanNameSuffix.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    if (this.suffix != null) {
+      inst['suffix'] = inst ['suffix'] || [];
+      inst['suffix'] = inst['suffix'].concat(this.suffix.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.effectiveTimePeriod != null) {
       inst['period'] = typeof this.effectiveTimePeriod.toFHIR === 'function' ? this.effectiveTimePeriod.toFHIR() : this.effectiveTimePeriod;
     }
     if (asExtension) {
-      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-core-HumanName-extension';
+      inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-core-HumanName-extension';
       inst['valueHumanName'] = this.value;
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the HumanName class.
+   * The FHIR must be valid against the HumanName FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {asExtension=false} Whether the provided instance is an extension
+   * @returns {HumanName} An instance of HumanName populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension=false) {
+    const inst = new HumanName();
+    if (fhir['use'] != null) {
+      inst.purpose = inst.purpose || [];
+      inst.purpose = inst.purpose.concat(fhir['use'].map(f => createInstanceFromFHIR('shr.core.Purpose', f)));
+    }
+    if (fhir['text'] != null) {
+      inst.nameAsText = createInstanceFromFHIR('shr.core.NameAsText', fhir['text']);
+    }
+    if (fhir['family'] != null) {
+      inst.familyName = inst.familyName || [];
+      inst.familyName = inst.familyName.concat(fhir['family'].map(f => createInstanceFromFHIR('shr.core.FamilyName', f)));
+    }
+    if (fhir['given'] != null) {
+      inst.givenName = inst.givenName || [];
+      inst.givenName = inst.givenName.concat(fhir['given'].map(f => createInstanceFromFHIR('shr.core.GivenName', f)));
+    }
+    if (fhir['prefix'] != null) {
+      inst.prefix = inst.prefix || [];
+      inst.prefix = inst.prefix.concat(fhir['prefix'].map(f => createInstanceFromFHIR('shr.core.Prefix', f)));
+    }
+    if (fhir['suffix'] != null) {
+      inst.suffix = inst.suffix || [];
+      inst.suffix = inst.suffix.concat(fhir['suffix'].map(f => createInstanceFromFHIR('shr.core.Suffix', f)));
+    }
+    if (fhir['period'] != null) {
+      inst.effectiveTimePeriod = createInstanceFromFHIR('shr.core.EffectiveTimePeriod', fhir['period']);
+    }
+    if (asExtension) {
+      inst.value = fhir['valueHumanName'];
+    }
+    return inst;
+  }
+
 }
 export default HumanName;

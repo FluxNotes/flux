@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.core.Coding.
@@ -136,18 +136,19 @@ class Coding {
    * @param {object} json - the JSON data to deserialize
    * @returns {Coding} An instance of Coding populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new Coding();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the Coding class to a JSON object.
    * The JSON is expected to be valid against the Coding JSON schema, but no validation checks are performed.
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/Coding' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Coding' } };
     if (this.value != null) {
       inst['Value'] = this.value;
     }
@@ -162,13 +163,14 @@ class Coding {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the Coding class to a FHIR object.
    * The FHIR is expected to be valid against the Coding FHIR profile, but no validation checks are performed.
    * @param {asExtension=false} Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension = false) {
+  toFHIR(asExtension=false) {
     let inst = {};
     if (this.codeSystem != null) {
       inst['system'] = typeof this.codeSystem.toFHIR === 'function' ? this.codeSystem.toFHIR() : this.codeSystem;
@@ -184,5 +186,30 @@ class Coding {
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the Coding class.
+   * The FHIR must be valid against the Coding FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {asExtension=false} Whether the provided instance is an extension
+   * @returns {Coding} An instance of Coding populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension=false) {
+    const inst = new Coding();
+    if (fhir['system'] != null) {
+      inst.codeSystem = createInstanceFromFHIR('shr.core.CodeSystem', fhir['system']);
+    }
+    if (fhir['version'] != null) {
+      inst.codeSystemVersion = createInstanceFromFHIR('shr.core.CodeSystemVersion', fhir['version']);
+    }
+    if (fhir['code'] != null) {
+      inst.value = fhir['code'];
+    }
+    if (fhir['display'] != null) {
+      inst.displayText = createInstanceFromFHIR('shr.core.DisplayText', fhir['display']);
+    }
+    return inst;
+  }
+
 }
 export default Coding;

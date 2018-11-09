@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.base.Narrative.
@@ -92,18 +92,19 @@ class Narrative {
    * @param {object} json - the JSON data to deserialize
    * @returns {Narrative} An instance of Narrative populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new Narrative();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the Narrative class to a JSON object.
    * The JSON is expected to be valid against the Narrative JSON schema, but no validation checks are performed.
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/base/Narrative' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/base/Narrative' } };
     if (this.value != null) {
       inst['Value'] = this.value;
     }
@@ -112,13 +113,14 @@ class Narrative {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the Narrative class to a FHIR object.
    * The FHIR is expected to be valid against the Narrative FHIR profile, but no validation checks are performed.
    * @param {asExtension=false} Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension = false) {
+  toFHIR(asExtension=false) {
     let inst = {};
     if (this.narrativeQualifier != null) {
       inst['status'] = typeof this.narrativeQualifier.toFHIR === 'function' ? this.narrativeQualifier.toFHIR() : this.narrativeQualifier;
@@ -128,5 +130,24 @@ class Narrative {
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the Narrative class.
+   * The FHIR must be valid against the Narrative FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {asExtension=false} Whether the provided instance is an extension
+   * @returns {Narrative} An instance of Narrative populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension=false) {
+    const inst = new Narrative();
+    if (fhir['status'] != null) {
+      inst.narrativeQualifier = createInstanceFromFHIR('shr.base.NarrativeQualifier', fhir['status']);
+    }
+    if (fhir['div'] != null) {
+      inst.value = fhir['div'];
+    }
+    return inst;
+  }
+
 }
 export default Narrative;

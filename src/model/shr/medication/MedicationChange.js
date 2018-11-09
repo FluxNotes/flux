@@ -1,12 +1,12 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
-import Action from '../action/Action';
+import ActionPerformed from '../base/ActionPerformed';
 
 /**
  * Generated class for shr.medication.MedicationChange.
- * @extends Action
+ * @extends ActionPerformed
  */
-class MedicationChange extends Action {
+class MedicationChange extends ActionPerformed {
 
   /**
    * Get the entry information.
@@ -34,57 +34,55 @@ class MedicationChange extends Action {
   }
 
   /**
-   * Get the Type.
-   * @returns {Type} The shr.entity.Type
+   * Get the TopicCode.
+   * @returns {TopicCode} The shr.base.TopicCode
    */
-  get type() {
-    return this._type;
+  get topicCode() {
+    return this._topicCode;
   }
 
   /**
-   * Set the Type.
+   * Set the TopicCode.
    * This field/value is required.
-   * @param {Type} type - The shr.entity.Type
+   * @param {TopicCode} topicCode - The shr.base.TopicCode
    */
-  set type(type) {
-    this._type = type;
+  set topicCode(topicCode) {
+    this._topicCode = topicCode;
   }
 
   /**
-   * Set the Type and return 'this' for chaining.
+   * Set the TopicCode and return 'this' for chaining.
    * This field/value is required.
-   * @param {Type} type - The shr.entity.Type
+   * @param {TopicCode} topicCode - The shr.base.TopicCode
    * @returns {MedicationChange} this.
    */
-  withType(type) {
-    this.type = type; return this;
+  withTopicCode(topicCode) {
+    this.topicCode = topicCode; return this;
   }
 
   /**
-   * Get the PerformedContext.
-   * @returns {PerformedContext} The shr.action.PerformedContext
+   * Get the Reason array.
+   * @returns {Array<Reason>} The shr.base.Reason array
    */
-  get actionContext() {
-    return this._actionContext;
+  get reason() {
+    return this._reason;
   }
 
   /**
-   * Set the PerformedContext.
-   * This field/value is required.
-   * @param {PerformedContext} actionContext - The shr.action.PerformedContext
+   * Set the Reason array.
+   * @param {Array<Reason>} reason - The shr.base.Reason array
    */
-  set actionContext(actionContext) {
-    this._actionContext = actionContext;
+  set reason(reason) {
+    this._reason = reason;
   }
 
   /**
-   * Set the PerformedContext and return 'this' for chaining.
-   * This field/value is required.
-   * @param {PerformedContext} actionContext - The shr.action.PerformedContext
+   * Set the Reason array and return 'this' for chaining.
+   * @param {Array<Reason>} reason - The shr.base.Reason array
    * @returns {MedicationChange} this.
    */
-  withActionContext(actionContext) {
-    this.actionContext = actionContext; return this;
+  withReason(reason) {
+    this.reason = reason; return this;
   }
 
   /**
@@ -143,11 +141,12 @@ class MedicationChange extends Action {
    * @param {object} json - the JSON data to deserialize
    * @returns {MedicationChange} An instance of MedicationChange populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new MedicationChange();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the MedicationChange class to a JSON object.
    * The JSON is expected to be valid against the MedicationChange JSON schema, but no validation checks are performed.
@@ -155,24 +154,42 @@ class MedicationChange extends Action {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/medication/MedicationChange' };
-    if (this.relatedEncounter != null) {
-      inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
-    }
-    if (this.author != null) {
-      inst['Author'] = typeof this.author.toJSON === 'function' ? this.author.toJSON() : this.author;
-    }
-    if (this.informant != null) {
-      inst['Informant'] = typeof this.informant.toJSON === 'function' ? this.informant.toJSON() : this.informant;
-    }
-    if (this.type != null) {
-      inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
+    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/medication/MedicationChange' };
+    if (this.topicCode != null) {
+      inst['TopicCode'] = typeof this.topicCode.toJSON === 'function' ? this.topicCode.toJSON() : this.topicCode;
     }
     if (this.category != null) {
-      inst['Category'] = this.category.map(f => f.toJSON());
+      inst['Category'] = typeof this.category.toJSON === 'function' ? this.category.toJSON() : this.category;
     }
-    if (this.actionContext != null) {
-      inst['ActionContext'] = typeof this.actionContext.toJSON === 'function' ? this.actionContext.toJSON() : this.actionContext;
+    if (this.patient != null) {
+      inst['Patient'] = typeof this.patient.toJSON === 'function' ? this.patient.toJSON() : this.patient;
+    }
+    if (this.encounter != null) {
+      inst['Encounter'] = typeof this.encounter.toJSON === 'function' ? this.encounter.toJSON() : this.encounter;
+    }
+    if (this.reason != null) {
+      inst['Reason'] = this.reason.map(f => f.toJSON());
+    }
+    if (this.occurrenceTimeOrPeriod != null) {
+      inst['OccurrenceTimeOrPeriod'] = typeof this.occurrenceTimeOrPeriod.toJSON === 'function' ? this.occurrenceTimeOrPeriod.toJSON() : this.occurrenceTimeOrPeriod;
+    }
+    if (this.participant != null) {
+      inst['Participant'] = this.participant.map(f => f.toJSON());
+    }
+    if (this.status != null) {
+      inst['Status'] = typeof this.status.toJSON === 'function' ? this.status.toJSON() : this.status;
+    }
+    if (this.method != null) {
+      inst['Method'] = typeof this.method.toJSON === 'function' ? this.method.toJSON() : this.method;
+    }
+    if (this.relatedRequest != null) {
+      inst['RelatedRequest'] = this.relatedRequest.map(f => f.toJSON());
+    }
+    if (this.facility != null) {
+      inst['Facility'] = typeof this.facility.toJSON === 'function' ? this.facility.toJSON() : this.facility;
+    }
+    if (this.outcome != null) {
+      inst['Outcome'] = typeof this.outcome.toJSON === 'function' ? this.outcome.toJSON() : this.outcome;
     }
     if (this.medicationBeforeChange != null) {
       inst['MedicationBeforeChange'] = this.medicationBeforeChange.map(f => f.toJSON());
@@ -182,48 +199,170 @@ class MedicationChange extends Action {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the MedicationChange class to a FHIR object.
    * The FHIR is expected to be valid against the MedicationChange FHIR profile, but no validation checks are performed.
    * @param {asExtension=false} Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension = false) {
+  toFHIR(asExtension=false) {
     let inst = {};
-    inst['resourceType'] = 'Basic';
-    if (this.relatedEncounter != null) {
+    inst['resourceType'] = 'DomainResource';
+    if (this.topicCode != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.relatedEncounter.toFHIR(true));
-    }
-    if (this.author != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.author.toFHIR(true));
-    }
-    if (this.informant != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.informant.toFHIR(true));
-    }
-    if (this.type != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.type.toFHIR(true));
+      inst['extension'].push(typeof this.topicCode.toFHIR === 'function' ? this.topicCode.toFHIR(true) : this.topicCode);
     }
     if (this.category != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.category.toFHIR(true));
+      inst['extension'].push(typeof this.category.toFHIR === 'function' ? this.category.toFHIR(true) : this.category);
+    }
+    if (this.patient != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(typeof this.patient.toFHIR === 'function' ? this.patient.toFHIR(true) : this.patient);
+    }
+    if (this.encounter != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(typeof this.encounter.toFHIR === 'function' ? this.encounter.toFHIR(true) : this.encounter);
+    }
+    if (this.reason != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(typeof this.reason.toFHIR === 'function' ? this.reason.toFHIR(true) : this.reason);
+    }
+    if (this.occurrenceTimeOrPeriod != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(typeof this.occurrenceTimeOrPeriod.toFHIR === 'function' ? this.occurrenceTimeOrPeriod.toFHIR(true) : this.occurrenceTimeOrPeriod);
+    }
+    if (this.participant != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(typeof this.participant.toFHIR === 'function' ? this.participant.toFHIR(true) : this.participant);
+    }
+    if (this.status != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(typeof this.status.toFHIR === 'function' ? this.status.toFHIR(true) : this.status);
+    }
+    if (this.method != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(typeof this.method.toFHIR === 'function' ? this.method.toFHIR(true) : this.method);
+    }
+    if (this.relatedRequest != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(typeof this.relatedRequest.toFHIR === 'function' ? this.relatedRequest.toFHIR(true) : this.relatedRequest);
+    }
+    if (this.facility != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(typeof this.facility.toFHIR === 'function' ? this.facility.toFHIR(true) : this.facility);
+    }
+    if (this.outcome != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(typeof this.outcome.toFHIR === 'function' ? this.outcome.toFHIR(true) : this.outcome);
     }
     if (this.medicationBeforeChange != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.medicationBeforeChange.toFHIR(true));
+      inst['extension'].push(typeof this.medicationBeforeChange.toFHIR === 'function' ? this.medicationBeforeChange.toFHIR(true) : this.medicationBeforeChange);
     }
     if (this.medicationAfterChange != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.medicationAfterChange.toFHIR(true));
-    }
-    if (asExtension) {
-      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-medication-MedicationChange-extension';
-      inst['valueReference'] = this.value;
+      inst['extension'].push(typeof this.medicationAfterChange.toFHIR === 'function' ? this.medicationAfterChange.toFHIR(true) : this.medicationAfterChange);
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the MedicationChange class.
+   * The FHIR must be valid against the MedicationChange FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {asExtension=false} Whether the provided instance is an extension
+   * @returns {MedicationChange} An instance of MedicationChange populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension=false) {
+    const inst = new MedicationChange();
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-TopicCode-extension');
+      if (match != null) {
+        inst.topicCode = createInstanceFromFHIR('shr.base.TopicCode', match, true);
+      }
+    }
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-Category-extension');
+      if (match != null) {
+        inst.category = createInstanceFromFHIR('shr.core.Category', match, true);
+      }
+    }
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-Patient-extension');
+      if (match != null) {
+        inst.patient = createInstanceFromFHIR('shr.entity.Patient', match, true);
+      }
+    }
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-encounter-Encounter-extension');
+      if (match != null) {
+        inst.encounter = createInstanceFromFHIR('shr.encounter.Encounter', match, true);
+      }
+    }
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-Reason-extension');
+      if (match != null) {
+        inst.reason = createInstanceFromFHIR('shr.base.Reason', match, true);
+      }
+    }
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-OccurrenceTimeOrPeriod-extension');
+      if (match != null) {
+        inst.occurrenceTimeOrPeriod = createInstanceFromFHIR('shr.core.OccurrenceTimeOrPeriod', match, true);
+      }
+    }
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-Participant-extension');
+      if (match != null) {
+        inst.participant = createInstanceFromFHIR('shr.base.Participant', match, true);
+      }
+    }
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-Status-extension');
+      if (match != null) {
+        inst.status = createInstanceFromFHIR('shr.core.Status', match, true);
+      }
+    }
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-Method-extension');
+      if (match != null) {
+        inst.method = createInstanceFromFHIR('shr.base.Method', match, true);
+      }
+    }
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-RelatedRequest-extension');
+      if (match != null) {
+        inst.relatedRequest = createInstanceFromFHIR('shr.base.RelatedRequest', match, true);
+      }
+    }
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-Facility-extension');
+      if (match != null) {
+        inst.facility = createInstanceFromFHIR('shr.entity.Facility', match, true);
+      }
+    }
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-Outcome-extension');
+      if (match != null) {
+        inst.outcome = createInstanceFromFHIR('shr.base.Outcome', match, true);
+      }
+    }
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-medication-MedicationBeforeChange-extension');
+      if (match != null) {
+        inst.medicationBeforeChange = createInstanceFromFHIR('shr.medication.MedicationBeforeChange', match, true);
+      }
+    }
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-medication-MedicationAfterChange-extension');
+      if (match != null) {
+        inst.medicationAfterChange = createInstanceFromFHIR('shr.medication.MedicationAfterChange', match, true);
+      }
+    }
+    return inst;
+  }
+
 }
 export default MedicationChange;

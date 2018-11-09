@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.entity.PassportNumber.
@@ -117,18 +117,19 @@ class PassportNumber {
    * @param {object} json - the JSON data to deserialize
    * @returns {PassportNumber} An instance of PassportNumber populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new PassportNumber();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the PassportNumber class to a JSON object.
    * The JSON is expected to be valid against the PassportNumber JSON schema, but no validation checks are performed.
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/PassportNumber' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/PassportNumber' } };
     if (this.value != null) {
       inst['Value'] = this.value;
     }
@@ -140,23 +141,15 @@ class PassportNumber {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the PassportNumber class to a FHIR object.
    * The FHIR is expected to be valid against the PassportNumber FHIR profile, but no validation checks are performed.
    * @param {asExtension=false} Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension = false) {
+  toFHIR(asExtension=false) {
     let inst = {};
-    if (asExtension) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.string.toFHIR(true));
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.countryOfIssue.toFHIR(true));
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.effectiveTimePeriod.toFHIR(true));
-      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-entity-PassportNumber-extension';
-    }
     if (!asExtension && this.value != null) {
       if (this.value != null) {
         inst = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
@@ -164,5 +157,21 @@ class PassportNumber {
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the PassportNumber class.
+   * The FHIR must be valid against the PassportNumber FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {asExtension=false} Whether the provided instance is an extension
+   * @returns {PassportNumber} An instance of PassportNumber populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension=false) {
+    const inst = new PassportNumber();
+    if (!asExtension && fhir != null) {
+      inst.value = fhir;
+    }
+    return inst;
+  }
+
 }
 export default PassportNumber;

@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.core.SampledData.
@@ -221,18 +221,19 @@ class SampledData {
    * @param {object} json - the JSON data to deserialize
    * @returns {SampledData} An instance of SampledData populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new SampledData();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the SampledData class to a JSON object.
    * The JSON is expected to be valid against the SampledData JSON schema, but no validation checks are performed.
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/SampledData' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/SampledData' } };
     if (this.value != null) {
       inst['Value'] = this.value;
     }
@@ -256,13 +257,14 @@ class SampledData {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the SampledData class to a FHIR object.
    * The FHIR is expected to be valid against the SampledData FHIR profile, but no validation checks are performed.
    * @param {asExtension=false} Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension = false) {
+  toFHIR(asExtension=false) {
     let inst = {};
     if (this.origin != null) {
       inst['origin'] = typeof this.origin.toFHIR === 'function' ? this.origin.toFHIR() : this.origin;
@@ -287,5 +289,39 @@ class SampledData {
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the SampledData class.
+   * The FHIR must be valid against the SampledData FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {asExtension=false} Whether the provided instance is an extension
+   * @returns {SampledData} An instance of SampledData populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension=false) {
+    const inst = new SampledData();
+    if (fhir['origin'] != null) {
+      inst.origin = createInstanceFromFHIR('shr.core.Origin', fhir['origin']);
+    }
+    if (fhir['period'] != null) {
+      inst.millisecondsBetweenSamples = createInstanceFromFHIR('shr.core.MillisecondsBetweenSamples', fhir['period']);
+    }
+    if (fhir['factor'] != null) {
+      inst.correctionFactor = createInstanceFromFHIR('shr.core.CorrectionFactor', fhir['factor']);
+    }
+    if (fhir['lowerLimit'] != null) {
+      inst.lowerLimit = createInstanceFromFHIR('shr.core.LowerLimit', fhir['lowerLimit']);
+    }
+    if (fhir['upperLimit'] != null) {
+      inst.upperLimit = createInstanceFromFHIR('shr.core.UpperLimit', fhir['upperLimit']);
+    }
+    if (fhir['dimensions'] != null) {
+      inst.dimensions = createInstanceFromFHIR('shr.core.Dimensions', fhir['dimensions']);
+    }
+    if (fhir['data'] != null) {
+      inst.value = fhir['data'];
+    }
+    return inst;
+  }
+
 }
 export default SampledData;

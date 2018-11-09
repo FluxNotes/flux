@@ -1,4 +1,4 @@
-import FluxObjectFactory from '../model/FluxObjectFactory';
+import FluxObjectFactory from '../model/flux/FluxObjectFactory';
 import PatientRecord from '../patient/PatientRecord';
 import EntryShortcut from './EntryShortcut';
 import Lang from 'lodash';

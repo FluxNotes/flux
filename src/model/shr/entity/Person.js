@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 import Entity from './Entity';
 
@@ -43,6 +43,7 @@ class Person extends Entity {
 
   /**
    * Set the HumanName array.
+   * This field/value is required.
    * @param {Array<HumanName>} humanName - The shr.core.HumanName array
    */
   set humanName(humanName) {
@@ -51,61 +52,12 @@ class Person extends Entity {
 
   /**
    * Set the HumanName array and return 'this' for chaining.
+   * This field/value is required.
    * @param {Array<HumanName>} humanName - The shr.core.HumanName array
    * @returns {Person} this.
    */
   withHumanName(humanName) {
     this.humanName = humanName; return this;
-  }
-
-  /**
-   * Get the AnonymizedFlag.
-   * @returns {AnonymizedFlag} The shr.entity.AnonymizedFlag
-   */
-  get anonymizedFlag() {
-    return this._anonymizedFlag;
-  }
-
-  /**
-   * Set the AnonymizedFlag.
-   * @param {AnonymizedFlag} anonymizedFlag - The shr.entity.AnonymizedFlag
-   */
-  set anonymizedFlag(anonymizedFlag) {
-    this._anonymizedFlag = anonymizedFlag;
-  }
-
-  /**
-   * Set the AnonymizedFlag and return 'this' for chaining.
-   * @param {AnonymizedFlag} anonymizedFlag - The shr.entity.AnonymizedFlag
-   * @returns {Person} this.
-   */
-  withAnonymizedFlag(anonymizedFlag) {
-    this.anonymizedFlag = anonymizedFlag; return this;
-  }
-
-  /**
-   * Get the FictionalPersonFlag.
-   * @returns {FictionalPersonFlag} The shr.entity.FictionalPersonFlag
-   */
-  get fictionalPersonFlag() {
-    return this._fictionalPersonFlag;
-  }
-
-  /**
-   * Set the FictionalPersonFlag.
-   * @param {FictionalPersonFlag} fictionalPersonFlag - The shr.entity.FictionalPersonFlag
-   */
-  set fictionalPersonFlag(fictionalPersonFlag) {
-    this._fictionalPersonFlag = fictionalPersonFlag;
-  }
-
-  /**
-   * Set the FictionalPersonFlag and return 'this' for chaining.
-   * @param {FictionalPersonFlag} fictionalPersonFlag - The shr.entity.FictionalPersonFlag
-   * @returns {Person} this.
-   */
-  withFictionalPersonFlag(fictionalPersonFlag) {
-    this.fictionalPersonFlag = fictionalPersonFlag; return this;
   }
 
   /**
@@ -143,6 +95,7 @@ class Person extends Entity {
 
   /**
    * Set the AdministrativeGender.
+   * This field/value is required.
    * @param {AdministrativeGender} administrativeGender - The shr.entity.AdministrativeGender
    */
   set administrativeGender(administrativeGender) {
@@ -151,6 +104,7 @@ class Person extends Entity {
 
   /**
    * Set the AdministrativeGender and return 'this' for chaining.
+   * This field/value is required.
    * @param {AdministrativeGender} administrativeGender - The shr.entity.AdministrativeGender
    * @returns {Person} this.
    */
@@ -184,24 +138,24 @@ class Person extends Entity {
   }
 
   /**
-   * Get the Headshot.
-   * @returns {Headshot} The shr.entity.Headshot
+   * Get the Headshot array.
+   * @returns {Array<Headshot>} The shr.entity.Headshot array
    */
   get headshot() {
     return this._headshot;
   }
 
   /**
-   * Set the Headshot.
-   * @param {Headshot} headshot - The shr.entity.Headshot
+   * Set the Headshot array.
+   * @param {Array<Headshot>} headshot - The shr.entity.Headshot array
    */
   set headshot(headshot) {
     this._headshot = headshot;
   }
 
   /**
-   * Set the Headshot and return 'this' for chaining.
-   * @param {Headshot} headshot - The shr.entity.Headshot
+   * Set the Headshot array and return 'this' for chaining.
+   * @param {Array<Headshot>} headshot - The shr.entity.Headshot array
    * @returns {Person} this.
    */
   withHeadshot(headshot) {
@@ -284,28 +238,28 @@ class Person extends Entity {
   }
 
   /**
-   * Get the shr.entity.ExternalHealthRecord reference array.
-   * @returns {Array<Reference>} The shr.entity.ExternalHealthRecord reference array
+   * Get the MaritalStatus.
+   * @returns {MaritalStatus} The shr.entity.MaritalStatus
    */
-  get externalHealthRecord() {
-    return this._externalHealthRecord;
+  get maritalStatus() {
+    return this._maritalStatus;
   }
 
   /**
-   * Set the shr.entity.ExternalHealthRecord reference array.
-   * @param {Array<Reference>} externalHealthRecord - The shr.entity.ExternalHealthRecord reference array
+   * Set the MaritalStatus.
+   * @param {MaritalStatus} maritalStatus - The shr.entity.MaritalStatus
    */
-  set externalHealthRecord(externalHealthRecord) {
-    this._externalHealthRecord = externalHealthRecord;
+  set maritalStatus(maritalStatus) {
+    this._maritalStatus = maritalStatus;
   }
 
   /**
-   * Set the shr.entity.ExternalHealthRecord reference array and return 'this' for chaining.
-   * @param {Array<Reference>} externalHealthRecord - The shr.entity.ExternalHealthRecord reference array
+   * Set the MaritalStatus and return 'this' for chaining.
+   * @param {MaritalStatus} maritalStatus - The shr.entity.MaritalStatus
    * @returns {Person} this.
    */
-  withExternalHealthRecord(externalHealthRecord) {
-    this.externalHealthRecord = externalHealthRecord; return this;
+  withMaritalStatus(maritalStatus) {
+    this.maritalStatus = maritalStatus; return this;
   }
 
   /**
@@ -314,11 +268,12 @@ class Person extends Entity {
    * @param {object} json - the JSON data to deserialize
    * @returns {Person} An instance of Person populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new Person();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the Person class to a JSON object.
    * The JSON is expected to be valid against the Person JSON schema, but no validation checks are performed.
@@ -326,27 +281,12 @@ class Person extends Entity {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/Person' };
-    if (this.relatedEncounter != null) {
-      inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
-    }
-    if (this.author != null) {
-      inst['Author'] = typeof this.author.toJSON === 'function' ? this.author.toJSON() : this.author;
-    }
-    if (this.informant != null) {
-      inst['Informant'] = typeof this.informant.toJSON === 'function' ? this.informant.toJSON() : this.informant;
-    }
-    if (this.type != null) {
-      inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
+    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Person' };
+    if (this.partOf != null) {
+      inst['PartOf'] = typeof this.partOf.toJSON === 'function' ? this.partOf.toJSON() : this.partOf;
     }
     if (this.humanName != null) {
       inst['HumanName'] = this.humanName.map(f => f.toJSON());
-    }
-    if (this.anonymizedFlag != null) {
-      inst['AnonymizedFlag'] = typeof this.anonymizedFlag.toJSON === 'function' ? this.anonymizedFlag.toJSON() : this.anonymizedFlag;
-    }
-    if (this.fictionalPersonFlag != null) {
-      inst['FictionalPersonFlag'] = typeof this.fictionalPersonFlag.toJSON === 'function' ? this.fictionalPersonFlag.toJSON() : this.fictionalPersonFlag;
     }
     if (this.dateOfBirth != null) {
       inst['DateOfBirth'] = typeof this.dateOfBirth.toJSON === 'function' ? this.dateOfBirth.toJSON() : this.dateOfBirth;
@@ -358,7 +298,7 @@ class Person extends Entity {
       inst['Address'] = this.address.map(f => f.toJSON());
     }
     if (this.headshot != null) {
-      inst['Headshot'] = typeof this.headshot.toJSON === 'function' ? this.headshot.toJSON() : this.headshot;
+      inst['Headshot'] = this.headshot.map(f => f.toJSON());
     }
     if (this.contactPoint != null) {
       inst['ContactPoint'] = this.contactPoint.map(f => f.toJSON());
@@ -369,81 +309,135 @@ class Person extends Entity {
     if (this.activeFlag != null) {
       inst['ActiveFlag'] = typeof this.activeFlag.toJSON === 'function' ? this.activeFlag.toJSON() : this.activeFlag;
     }
-    if (this.externalHealthRecord != null) {
-      inst['ExternalHealthRecord'] = this.externalHealthRecord.map(f => f.toJSON());
+    if (this.maritalStatus != null) {
+      inst['MaritalStatus'] = typeof this.maritalStatus.toJSON === 'function' ? this.maritalStatus.toJSON() : this.maritalStatus;
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the Person class to a FHIR object.
    * The FHIR is expected to be valid against the Person FHIR profile, but no validation checks are performed.
    * @param {asExtension=false} Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension = false) {
+  toFHIR(asExtension=false) {
     let inst = {};
-    inst['resourceType'] = 'Basic';
-    if (this.relatedEncounter != null) {
+    inst['resourceType'] = 'DomainResource';
+    if (this.partOf != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.relatedEncounter.toFHIR(true));
-    }
-    if (this.author != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.author.toFHIR(true));
-    }
-    if (this.informant != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.informant.toFHIR(true));
-    }
-    if (this.type != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.type.toFHIR(true));
+      inst['extension'].push(typeof this.partOf.toFHIR === 'function' ? this.partOf.toFHIR(true) : this.partOf);
     }
     if (this.humanName != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.humanName.toFHIR(true));
-    }
-    if (this.anonymizedFlag != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.anonymizedFlag.toFHIR(true));
-    }
-    if (this.fictionalPersonFlag != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.fictionalPersonFlag.toFHIR(true));
+      inst['extension'].push(typeof this.humanName.toFHIR === 'function' ? this.humanName.toFHIR(true) : this.humanName);
     }
     if (this.dateOfBirth != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.dateOfBirth.toFHIR(true));
+      inst['extension'].push(typeof this.dateOfBirth.toFHIR === 'function' ? this.dateOfBirth.toFHIR(true) : this.dateOfBirth);
     }
     if (this.administrativeGender != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.administrativeGender.toFHIR(true));
+      inst['extension'].push(typeof this.administrativeGender.toFHIR === 'function' ? this.administrativeGender.toFHIR(true) : this.administrativeGender);
     }
     if (this.address != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.address.toFHIR(true));
+      inst['extension'].push(typeof this.address.toFHIR === 'function' ? this.address.toFHIR(true) : this.address);
     }
     if (this.headshot != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.headshot.toFHIR(true));
+      inst['extension'].push(typeof this.headshot.toFHIR === 'function' ? this.headshot.toFHIR(true) : this.headshot);
     }
     if (this.contactPoint != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.contactPoint.toFHIR(true));
+      inst['extension'].push(typeof this.contactPoint.toFHIR === 'function' ? this.contactPoint.toFHIR(true) : this.contactPoint);
     }
     if (this.languageUsed != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.languageUsed.toFHIR(true));
+      inst['extension'].push(typeof this.languageUsed.toFHIR === 'function' ? this.languageUsed.toFHIR(true) : this.languageUsed);
     }
     if (this.activeFlag != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.activeFlag.toFHIR(true));
+      inst['extension'].push(typeof this.activeFlag.toFHIR === 'function' ? this.activeFlag.toFHIR(true) : this.activeFlag);
     }
-    if (this.externalHealthRecord != null) {
+    if (this.maritalStatus != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.externalHealthRecord.toFHIR(true));
+      inst['extension'].push(typeof this.maritalStatus.toFHIR === 'function' ? this.maritalStatus.toFHIR(true) : this.maritalStatus);
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the Person class.
+   * The FHIR must be valid against the Person FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {asExtension=false} Whether the provided instance is an extension
+   * @returns {Person} An instance of Person populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension=false) {
+    const inst = new Person();
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension');
+      if (match != null) {
+        inst.partOf = createInstanceFromFHIR('shr.entity.PartOf', match, true);
+      }
+    }
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-HumanName-extension');
+      if (match != null) {
+        inst.humanName = createInstanceFromFHIR('shr.core.HumanName', match, true);
+      }
+    }
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-DateOfBirth-extension');
+      if (match != null) {
+        inst.dateOfBirth = createInstanceFromFHIR('shr.entity.DateOfBirth', match, true);
+      }
+    }
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-AdministrativeGender-extension');
+      if (match != null) {
+        inst.administrativeGender = createInstanceFromFHIR('shr.entity.AdministrativeGender', match, true);
+      }
+    }
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-Address-extension');
+      if (match != null) {
+        inst.address = createInstanceFromFHIR('shr.core.Address', match, true);
+      }
+    }
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-Headshot-extension');
+      if (match != null) {
+        inst.headshot = createInstanceFromFHIR('shr.entity.Headshot', match, true);
+      }
+    }
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-ContactPoint-extension');
+      if (match != null) {
+        inst.contactPoint = createInstanceFromFHIR('shr.core.ContactPoint', match, true);
+      }
+    }
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-LanguageUsed-extension');
+      if (match != null) {
+        inst.languageUsed = createInstanceFromFHIR('shr.entity.LanguageUsed', match, true);
+      }
+    }
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-ActiveFlag-extension');
+      if (match != null) {
+        inst.activeFlag = createInstanceFromFHIR('shr.entity.ActiveFlag', match, true);
+      }
+    }
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-MaritalStatus-extension');
+      if (match != null) {
+        inst.maritalStatus = createInstanceFromFHIR('shr.entity.MaritalStatus', match, true);
+      }
+    }
+    return inst;
+  }
+
 }
 export default Person;
