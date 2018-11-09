@@ -139,7 +139,7 @@ describe('3 TargetedDataControl', function() {
 });
 describe('4 TargetedDataControl - correct default visualizer Medications', function() {
     it('4.1 correct default visualizer', function() {
-        const summaryMetadata = new SummaryMetadata();
+        const summaryMetadata = new SummaryMetadata(null);
         const condition = new FluxCondition({
             "Value": {
                 "EntryType": {
@@ -167,7 +167,7 @@ describe('4 TargetedDataControl - correct default visualizer Medications', funct
                 ]
             }
         });
-        const metadata = summaryMetadata.getMetadata(null, condition, null, null, null);
+        const metadata = summaryMetadata.getMetadata(null, null, condition, null, null, null);
         // Look for the first NameValuePair section which should be Summary. Assumes it does not have a defaultVisualizer property
         const section = metadata.sections.find((section) => {
             return (section.type === "Medications");
@@ -177,7 +177,7 @@ describe('4 TargetedDataControl - correct default visualizer Medications', funct
         const preferenceManager = new PreferenceManager(null);
         const visualizerManager = new VisualizerManager();
         const searchIndex = new SearchIndex();
-        const wrapper = shallow(<TargetedDataSection tdpSearchSuggestions={[]} patient={null} condition={null} section={section} type={section.type} visualizerManager={visualizerManager} preferenceManager={preferenceManager} isWide={false} clinicalEvent='pre-encounter' searchIndex={searchIndex} />);
+        const wrapper = shallow(<TargetedDataSection searchSuggestions={[]} patient={null} condition={null} section={section} type={section.type} visualizerManager={visualizerManager} defaultVisualizer={section.defaultVisualizer} preferenceManager={preferenceManager} isWide={false} clinicalEvent='pre-encounter' searchIndex={searchIndex} />);
 
         // Initial state
         expect(wrapper.state('defaultVisualizer'))
