@@ -208,11 +208,11 @@ export default class TargetedDataSection extends Component {
         // Get the current filter value 
         const currentVal = this.getFilterValue(filter, subsectionName);
         // Update the filter value in preference manager
-        this.props.preferenceManager.setPreference(`${this.props.section.name}-${subsectionName}-${filter.id}`,  !currentVal);
+        this.props.preferenceManager.setPreference(`${section.name}-${subsectionName}-${filter.id}`,  !currentVal);
       
 
         // Update state to also reflect changed filter value
-        const selectedFilter = filters[`${this.props.section.name}-${subsectionName}`].find(f => f.name === filter.name);
+        const selectedFilter = filters[`${section.name}-${subsectionName}`].find(f => f.name === filter.name);
         selectedFilter.value = !currentVal;
  
         // Set state and re-index data to properly search currently visible data
@@ -223,7 +223,7 @@ export default class TargetedDataSection extends Component {
  
     getFilterValue = (filter, subsectionName) => {
         const { section } = this.props;
-        const subsectionFilters = this.props.preferenceManager.getPreference(`${this.props.section.name}-${subsectionName}-${filter.id}`);
+        const subsectionFilters = this.props.preferenceManager.getPreference(`${section.name}-${subsectionName}-${filter.id}`);
         if(Lang.isNull(subsectionFilters)) return true;
         return subsectionFilters;   
         
