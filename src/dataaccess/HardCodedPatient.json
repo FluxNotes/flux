@@ -4436,7 +4436,6 @@
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested"
         },
-        "ReferredBy": "Dr. Stephen341 Vincent483",
         "LastUpdated": {
             "Value": "21 May 2018",
             "EntryType": {
@@ -4507,7 +4506,6 @@
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested"
         },
-        "ReferredBy": "Dr. Stephen341 Vincent483",
         "LastUpdated": {
             "Value": "21 May 2018",
             "EntryType": {
@@ -4578,7 +4576,6 @@
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested"
         },
-        "ReferredBy": "Dr. Stephen341 Vincent483",
         "LastUpdated": {
             "Value": "21 May 2018",
             "EntryType": {
