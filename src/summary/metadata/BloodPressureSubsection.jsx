@@ -20,7 +20,7 @@ export default class BloodPressureSubsection extends VitalsSubsection {
             });
     }
 
-    getMetadata = (preferencesManager, condition, roleType, role, specialty) => {
+    getMetadata = (preferencesManager, patient, condition, roleType, role, specialty) => {
         return {
             name: "Blood Pressure",
             code: "55284-4",

@@ -71,12 +71,15 @@ class FluxGastrointestinalStromalTumor extends FluxSolidTumorCancer {
         
         return hpiText;
     }
-    // getPotentialDiagnosisDates() {
-    //     const procedures = this._patientRecord.getProceduresForCondition(this);
-    //     procedures.sort(this._eventsTimeSorter);
 
-    //     console.log(procedures);
-    //     return [];
-    // }
+    getGeneticMutationValue(geneticMutationAbbreviatedName, patient) {
+        const geneticpanels = patient.getGastrointestinalStromalTumorCancerGeneticAnalysisPanelsChronologicalOrder();
+        const panel = geneticpanels.pop();
+        const mutation = panel.members.find((item) => {
+            return (item.abbreviatedName.startsWith(geneticMutationAbbreviatedName));
+        });
+        if (Lang.isEmpty(mutation)) return undefined;
+        return mutation.value;
+    }
 }
 export default FluxGastrointestinalStromalTumor;

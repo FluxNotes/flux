@@ -239,7 +239,7 @@ export default class TargetedDataSection extends Component {
         
     }  
 
-    renderFilters = () => {
+    renderFilters = (patient, condition) => {
         let totalNumFilters = 0;
         this.props.section.data.forEach((subsection) => {
             const filters = this.state.filters[`${this.props.section.name}-${subsection.name}`] || [];
@@ -283,12 +283,15 @@ export default class TargetedDataSection extends Component {
             let criteriaSummaryItems = [];
             this.props.section.data.forEach((subsection) => {
                 this.state.filters[`${this.props.section.name}-${subsection.name}`].forEach((filter) => {
+                    const propertyValue = filter.propertyValueFunction ? filter.propertyValueFunction(patient, condition) : null;
                     categoryName = filter.category || "";
                     criteriaCheckboxes = criteriaGroups[categoryName];
                     if (Lang.isUndefined(criteriaCheckboxes)) {
                         criteriaCheckboxes = [];
                         criteriaGroups[categoryName] = criteriaCheckboxes;
                     }
+                    let label = filter.name;
+                    if (!Lang.isNull(propertyValue)) label += `: ${propertyValue}`;
                     criteriaCheckboxes.push(
                         <FormControlLabel 
                             key={filter.name}
@@ -299,14 +302,14 @@ export default class TargetedDataSection extends Component {
                                     value={filter.name}
                                     className="checkbox" />
                         }
-                        label={filter.name}
+                        label={label}
                         />
                     );
                     if (filter.value) {
                         criteriaSummaryItems.push(
                             <Chip
                                 key={filter.name}
-                                label={filter.name}
+                                label={label}
                                 onDelete={() => this.updateFilterValue(filter, subsection.name)}
                             >
                             </Chip>);    
@@ -322,14 +325,14 @@ export default class TargetedDataSection extends Component {
                             {criteriaSummaryItems}
                             {expansionInstructions}
                         </ExpansionPanelSummary>
-                        <ExpansionPanelDetails>{this.layoutCheckboxes(criteriaGroups)}</ExpansionPanelDetails>
+                        <ExpansionPanelDetails>{this.layoutCriteriaCheckboxes(criteriaGroups)}</ExpansionPanelDetails>
                     </ExpansionPanel>
                 </div>
             );
         }
     }
 
-    layoutCheckboxes = (criteriaGroups) => {
+    layoutCriteriaCheckboxes = (criteriaGroups) => {
         const keys = Object.keys(criteriaGroups);
         const numGroups = keys.length;
         if (numGroups === 0) return null;
@@ -438,7 +441,7 @@ export default class TargetedDataSection extends Component {
     }
 
     render() {
-        const { section, condition, clinicalEvent } = this.props;
+        const { section, patient, condition, clinicalEvent } = this.props;
         const visualizationOptions = this.getOptions(section);
         const selectedCondition = condition && condition.type;
         const encounterView = clinicalEvent === "encounter";
@@ -461,10 +464,10 @@ export default class TargetedDataSection extends Component {
                 <h2 className="section-header">
                     <span className={`section-header__name${highlightClass}`}>{section.name}</span><span>&nbsp;{this.state.sectionNameSuffix}</span>
                     {!encounterView && !notFiltered && <span className="section-header__condition">{selectedCondition}</span>}
-                    {SHOW_FILTER_AS_MENU && this.renderFilters()}
+                    {SHOW_FILTER_AS_MENU && this.renderFilters(patient, condition)}
                     {this.renderVisualizationOptions(visualizationOptions)}
                 </h2>
-                {!SHOW_FILTER_AS_MENU && this.renderFilters()}
+                {!SHOW_FILTER_AS_MENU && this.renderFilters(patient, condition)}
 
                 {encounterView && !notFiltered && <div className="section-header__condition encounter">{selectedCondition}</div>}
 

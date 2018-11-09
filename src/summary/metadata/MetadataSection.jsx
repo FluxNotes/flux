@@ -4,20 +4,20 @@ import Lang from 'lodash'
 import Attachment from '../../model/shr/core/Attachment';
 
 export default class MetadataSection {
-    getMetadata(preferencesManager, condition, roleType, role, specialty) {
+    getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
         return null;
     }
 
-    buildMetadataSections(preferencesManager, condition, roleType, role, specialty, ...sections) {
+    buildMetadataSections(preferencesManager, patient, condition, roleType, role, specialty, ...sections) {
         return sections.map((section) => {
-            return this.buildMetadataSection(preferencesManager, condition, roleType, role, specialty, section);
+            return this.buildMetadataSection(preferencesManager, patient, condition, roleType, role, specialty, section);
         });
     }
 
-    buildMetadataSection(preferencesManager, condition, roleType, role, specialty, section) {
+    buildMetadataSection(preferencesManager, patient, condition, roleType, role, specialty, section) {
         if (!Lang.isFunction(section)) return section;
         let obj = new section();
-        return obj.getMetadata(preferencesManager, condition, roleType, role, specialty);    
+        return obj.getMetadata(preferencesManager, patient, condition, roleType, role, specialty);    
     }
 
     toFirstLetterCapital = (text) => {

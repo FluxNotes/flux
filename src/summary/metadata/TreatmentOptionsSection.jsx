@@ -5,7 +5,7 @@ import {seerdata} from '../Seerdata.js';
 //const ApiClient = new FluxNotesTreatmentOptionsRestClient.ApiClient();
 
 export default class TreatmentOptionsSection extends MetadataSection {
-    getMetadata(preferencesManager, condition, roleType, role, specialty) {
+    getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
         return {
             name: "Treatment Options",
             nameSuffixFunction: (section) => {
@@ -25,14 +25,22 @@ export default class TreatmentOptionsSection extends MetadataSection {
                     // eventually, the service API and implementation will need to support this call to figure out the supported criteria based on the condition
                     // filterFunction: this.getTreatmentCriteria
                     filters: [
-                        { name: "Age at diagnosis", servicePropertyName: "ageAtDiagnosis", category: "Demographics", value: true },
-                        { name: "Gender", servicePropertyName: "gender", category: "Demographics", value: true },
-                        { name: "Race", servicePropertyName: "race", category: "Demographics", value: true },
-                        { name: "KIT", servicePropertyName: "kit", category: "Genetics", value: true },
-                        { name: "PDGFRA", servicePropertyName: "pdgfra", category: "Genetics", value: true },
-                        { name: "Grade", servicePropertyName: "dxGrade", category: "Pathology", value: true },
-                        { name: "Stage", servicePropertyName: "stage", category: "Pathology", value: true },
-                        { name: "Surgery", servicePropertyName: "surgery", category: "Past Treatment", value: true }
+                        { name: "Age at diagnosis", servicePropertyName: "ageAtDiagnosis", category: "Demographics", value: true, 
+                                propertyValueFunction: (patient, condition) => { return patient.getAgeAsOf(new Date(condition.getDiagnosisDate())) } },
+                        { name: "Gender", servicePropertyName: "gender", category: "Demographics", value: true, 
+                                propertyValueFunction: (patient, condition) => { return patient.getGender() } },
+                        { name: "Race", servicePropertyName: "race", category: "Demographics", value: true,
+                                propertyValueFunction: (patient, condition) => { return this.toFirstLetterCapital(patient.getPatient().race) } },
+                        { name: "KIT", servicePropertyName: "kit", category: "Genetics", value: true,
+                                propertyValueFunction: (patient, condition) => { return  condition.getGeneticMutationValue('KIT', patient) } },
+                        { name: "PDGFRA", servicePropertyName: "pdgfra", category: "Genetics", value: true,
+                                propertyValueFunction: (patient, condition) => { return  condition.getGeneticMutationValue('PDGFRA', patient) } },
+                        { name: "Grade", servicePropertyName: "dxGrade", category: "Pathology", value: true,
+                                propertyValueFunction: (patient, condition) => { return condition.getMostRecentHistologicalGrade().getGradeAsSimpleNumber() } },
+                        { name: "Stage", servicePropertyName: "stage", category: "Pathology", value: true,
+                                propertyValueFunction: (patient, condition) => { return condition.getMostRecentStaging().stage } },
+                        { name: "Surgery", servicePropertyName: "surgery", category: "Past Treatment", value: true,
+                                propertyValueFunction: (patient, condition) => { return "no" } }
                     ],
                     itemsFunction: this.getTreatmentData
                 }

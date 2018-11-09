@@ -1,7 +1,7 @@
 import LabTestSubsection from "./LabTestSubsection";
 
 export default class HemoglobinSubsection extends LabTestSubsection {
-    getMetadata(preferencesManager, condition, roleType, role, specialty) {
+    getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
         return {
             name: "Hemoglobin",
             code: "C0019046",

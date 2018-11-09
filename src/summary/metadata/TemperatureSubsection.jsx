@@ -1,7 +1,7 @@
 import VitalsSubsection from './VitalsSubsection';
 
 export default class TemperatureSubsection extends VitalsSubsection {
-    getMetadata(preferencesManager, condition, roleType, role, specialty) {
+    getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
         return {
             name: "Temperature",
             code: "8310-5",

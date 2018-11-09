@@ -142,6 +142,10 @@ class FluxCondition {
         return 0;
     }
 
+    getGeneticMutationValue(geneticMutationAbbreviatedName, patient) {
+        return undefined;
+    }
+
     getToxicities() {
         const entries =this._patientRecord.getEntriesOfType(FluxToxicReaction)
         const conditionEntryId = this._condition.entryInfo.entryId.value || this._condition.entryInfo.entryId;

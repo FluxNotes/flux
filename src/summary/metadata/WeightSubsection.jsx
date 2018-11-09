@@ -1,7 +1,7 @@
 import VitalsSubsection from './VitalsSubsection';
 
 export default class WeightSubsection extends VitalsSubsection {
-    getMetadata(preferencesManager, condition, roleType, role, specialty) {
+    getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
         return {
             name: "Weight",
             code: "29463-7",

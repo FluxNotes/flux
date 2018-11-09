@@ -1,7 +1,7 @@
 import VitalsSubsection from './VitalsSubsection';
 
 export default class HeartRateSubsection extends VitalsSubsection {
-    getMetadata(preferencesManager, condition, roleType, role, specialty) {
+    getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
         return {
             name: "Heart Rate",
             code: "8867-4",

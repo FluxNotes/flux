@@ -3,7 +3,7 @@ import Lang from 'lodash'
 import moment from 'moment';
 
 export default class TimelineSection extends MetadataSection {
-    getMetadata(preferencesManager, condition, roleType, role, specialty) {
+    getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
         const sectionName = 'Timeline';
         const overTheCounter = 'OverTheCounterMedications';
 
