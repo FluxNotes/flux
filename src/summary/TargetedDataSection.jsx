@@ -202,20 +202,32 @@ export default class TargetedDataSection extends Component {
     updateFilterValue = (filter, subsectionName) => {
         const { section } = this.props;
         const { filters } = this.state;
-
+      
         // Update subsection data to reflect changed filter value
-        const currentSubsection = section.data.find(subsection => subsection.name === subsectionName);
-        const currentSubsectionFilter = currentSubsection.filters.find(f => f.name === filter.name);
-        currentSubsectionFilter.value = !filter.value;
+ 
+        // Get the current filter value 
+        const currentVal = this.getFilterValue(filter, subsectionName);
+        // Update the filter value in preference manager
+        this.props.preferenceManager.setPreference(`${section.name}-${subsectionName}-${filter.id}`,  !currentVal);
+      
 
         // Update state to also reflect changed filter value
-        const selectedFilter = filters[`${this.props.section.name}-${subsectionName}`].find(f => f.name === filter.name);
-        selectedFilter.value = !filter.value;
-
+        const selectedFilter = filters[`${section.name}-${subsectionName}`].find(f => f.name === filter.name);
+        selectedFilter.value = !currentVal;
+ 
         // Set state and re-index data to properly search currently visible data
         this.setState({ filters });
         this.indexSectionData(section);
+        
     }
+ 
+    getFilterValue = (filter, subsectionName) => {
+        const { section } = this.props;
+        const subsectionFilters = this.props.preferenceManager.getPreference(`${section.name}-${subsectionName}-${filter.id}`);
+        if(Lang.isNull(subsectionFilters)) return true;
+        return subsectionFilters;   
+        
+    }  
 
     renderFilters = () => {
         let totalNumFilters = 0;
@@ -243,7 +255,7 @@ export default class TargetedDataSection extends Component {
                             return (
                                 <MenuItem key={filter.name}>
                                     <Checkbox
-                                        checked={filter.value}
+                                        checked={this.getFilterValue(filter, subsection.name)}
                                         onChange={() => this.updateFilterValue(filter, subsection.name)}
                                         value={filter.name}
                                         className="checkbox"/>
@@ -284,7 +296,9 @@ export default class TargetedDataSection extends Component {
                 newSubsection = subsection;
                 typeToIndex = type;
                 if (Lang.isUndefined(items)) {
+                
                     list = itemsFunction(patient, condition, subsection);
+                   
                 } else {
                     list = items.map((item, i) => {
                         if (Lang.isNull(item.value)) {

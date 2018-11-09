@@ -4,6 +4,9 @@ import moment from 'moment';
 
 export default class TimelineSection extends MetadataSection {
     getMetadata(preferencesManager, condition, roleType, role, specialty) {
+        const sectionName = 'Timeline';
+        const overTheCounter = 'OverTheCounterMedications';
+
         return {
             name: "Timeline",
             shortName: "Timeline",
@@ -12,8 +15,14 @@ export default class TimelineSection extends MetadataSection {
             data: [
                 {
                     name: "Medications",
+
                     filters: [
-                        { name: 'Over The Counter Medications', value: true }
+                        { name: 'Over The Counter Medications', 
+                            id: overTheCounter,
+                          value: (subsection) => {
+                            return preferencesManager.getPreference(`${sectionName}-${subsection.name}-${overTheCounter}`);
+                            } 
+                        }
                     ],
                     itemsFunction: this.getMedicationItems
                 },
@@ -34,6 +43,7 @@ export default class TimelineSection extends MetadataSection {
     }
 
     nextGroupNumber = 1;
+
 
     resetTimelineData = () => {
         this.nextGroupNumber = 1;
@@ -79,13 +89,13 @@ export default class TimelineSection extends MetadataSection {
     getMedicationItems = (patient, condition, subsection) => {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         let meds = patient.getMedicationsForConditionReverseChronologicalOrder(condition);
-
         if (subsection.filters) {
             subsection.filters.forEach(filter => {
                 switch (filter.name) {
+                    
                     case 'Over The Counter Medications':
                     // If Show Over The Counter meds is not selected, need to filter them out.
-                    if (filter.value === false) {
+                    if (filter.value(subsection) === false) {
                             meds = meds.filter(med => {
                                 // Don't filter out medications if we don't know if they are OTC or not.
                                 if (med.overTheCounter === undefined) {
