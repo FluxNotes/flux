@@ -7,6 +7,7 @@ import './PointOfCare.css';
 export default class PointOfCare extends Component {
     render() {
         const { structuredFieldMapManager } = this.props;
+        const pocDisabledClass = this.props.isAppBlurred ? 'content-disabled' : '';
 
         this.fillPlaceholders = {};
         const result = structuredFieldMapManager.placeholders.map((placeholder, index) => (
@@ -21,7 +22,7 @@ export default class PointOfCare extends Component {
             ));
 
         return (
-            <div id="poc-panel">
+            <div id="poc-panel" className={pocDisabledClass}>
                 {result}
             </div>
         );

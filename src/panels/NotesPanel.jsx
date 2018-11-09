@@ -274,12 +274,13 @@ export default class NotesPanel extends Component {
     }
 
     renderSignButton = () => {
+        const signNoteDisabledClass = this.props.isAppBlurred ? 'content-disabled' : '';
         return (
             <div id="finish-sign-component">
                 <Button 
                     raised 
                     classes={{
-                        root: "btn-finish"
+                        root: `btn-finish ${signNoteDisabledClass}`
                     }} 
                     onClick={() => {
                         this.handleSignButtonClick();
@@ -312,6 +313,7 @@ export default class NotesPanel extends Component {
                             <Row start="xs" style={{ marginLeft: '2px', marginRight: '10px' }}>
                                 <PointOfCare
                                     structuredFieldMapManager={this.props.structuredFieldMapManager}
+                                    isAppBlurred={this.props.isAppBlurred}
                                     ref={(poc) => { this.pointOfCare = poc; }} />
                             </Row>
                         </div>

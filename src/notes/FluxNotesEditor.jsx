@@ -1604,6 +1604,7 @@ class FluxNotesEditor extends React.Component {
         const CreatorsPortal = this.suggestionsPluginCreators.SuggestionPortal;
         const InsertersPortal = this.suggestionsPluginInserters.SuggestionPortal;
         const PlaceholdersPortal = this.suggestionsPluginPlaceholders.SuggestionPortal;
+        const disabledEditorClassName = this.props.isAppBlurred ? 'content-disabled' : '';
         
         let errorDisplay = "";
         if (this.props.errors && this.props.errors.length > 0) {
@@ -1618,7 +1619,7 @@ class FluxNotesEditor extends React.Component {
 
         if (this.props.noteAssistantMode === 'poc') {
             return (
-                <div id="clinical-notes" className="dashboard-panel">
+                <div id="clinical-notes" className={`dashboard-panel ${disabledEditorClassName}`}>
                     {this.renderNoteDescriptionContent()}
                 </div>
             );
@@ -1628,7 +1629,6 @@ class FluxNotesEditor extends React.Component {
         const editorClassName = (this.props.selectedNote && this.props.selectedNote.signed)
             ? "editor-panel"
             : "editor-panel in-progress-note";
-        const disabledEditorClassName = this.props.isAppBlurred ? 'content-disabled' : '';
         /**
          * Render the editor, toolbar, dropdown and description for note
          */
