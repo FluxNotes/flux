@@ -604,7 +604,7 @@
   },
   { "type": "InsertValue",
     "id": "DateOfVisitInserter",
-    "getData": {"object": "patient", "method": "getTodaysEncounter"},
+    "getData": {"object": "patient", "method": "getTodayOrMostRecentEncounterDate"},
     "isContext": false,
     "stringTriggers": [{"name":"@date of visit", "description": "Insert the date of the visit"}],
     "knownParentContexts": "Patient"

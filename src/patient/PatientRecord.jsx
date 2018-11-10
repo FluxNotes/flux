@@ -298,8 +298,16 @@ class PatientRecord {
         return previousEncounter.reasons.map((r) => { return r.value; }).join(',');
     }
 
-    // Return today's encounter date if it exsits, otherwise return the previous encounter's date
-    getTodaysEncounter() {
+    getTodayOrMostRecentEncounterDate() {
+        let mostRecentEncounterDate = this.getTodaysDate();
+        if (Lang.isNull(mostRecentEncounterDate)) {
+            return this.getPreviousEncounterDateAsString();
+        }
+        return mostRecentEncounterDate;
+    }
+
+    // Return today's encounter date if it exists, otherwise return null
+    getTodaysDate() {
         let encounters = this.getEntriesOfType(FluxEncounterRequested);
         const today = new moment().format("D MMM YYYY"); // let today = new moment().format("D MMM YYYY");
 
@@ -309,7 +317,7 @@ class PatientRecord {
                return encounterDate;
             }
         }
-        return this.getPreviousEncounterDateAsString();
+        return null;
     }
 
     getReviewOfSystems() {
