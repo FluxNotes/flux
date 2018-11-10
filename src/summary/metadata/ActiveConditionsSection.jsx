@@ -18,7 +18,7 @@ export default class ActiveConditionsSection extends MetadataSection {
         };
     }
 
-    getItemListForConditions = (patient, currentConditionEntry, subsection) => {
+    getItemListForConditions = (patient, currentConditionEntry, section, subsection) => {
         const conditions = patient.getActiveConditions();
         return conditions.map((c, i) => {
             return [

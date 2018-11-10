@@ -292,12 +292,13 @@ export default class TargetedDataSection extends Component {
                     }
                     let label = filter.name;
                     if (!Lang.isNull(propertyValue)) label += `: ${propertyValue}`;
+                    const filterValue = this.getFilterValue(filter, subsection.name);
                     criteriaCheckboxes.push(
                         <FormControlLabel 
                             key={filter.name}
                             control={
                                 <Checkbox 
-                                    checked={this.getFilterValue(filter, subsection.name)}
+                                    checked={filterValue}
                                     onChange={() => this.updateFilterValue(filter, subsection.name)}
                                     value={filter.name}
                                     className="checkbox" />
@@ -305,7 +306,7 @@ export default class TargetedDataSection extends Component {
                         label={label}
                         />
                     );
-                    if (filter.value) {
+                    if (filterValue) {
                         criteriaSummaryItems.push(
                             <Chip
                                 key={filter.name}
@@ -371,7 +372,7 @@ export default class TargetedDataSection extends Component {
 
             if (sectionTransform) {
                 typeToIndex = viz.renderedFormat;
-                newSubsection = sectionTransform(patient, condition, subsection);
+                newSubsection = sectionTransform(patient, condition, subsection, this.getFilterValue);
                 list = newSubsection.data_cache;
                 Object.assign(subsection, newSubsection);
             } else {
@@ -379,8 +380,7 @@ export default class TargetedDataSection extends Component {
                 typeToIndex = type;
                 if (Lang.isUndefined(items)) {
                 
-                    list = itemsFunction(patient, condition, subsection);
-                   
+                    list = itemsFunction(patient, condition, subsection, this.getFilterValue);
                 } else {
                     list = items.map((item, i) => {
                         if (Lang.isNull(item.value)) {

@@ -25,21 +25,21 @@ export default class TreatmentOptionsSection extends MetadataSection {
                     // eventually, the service API and implementation will need to support this call to figure out the supported criteria based on the condition
                     // filterFunction: this.getTreatmentCriteria
                     filters: [
-                        { name: "Age at diagnosis", servicePropertyName: "ageAtDiagnosis", category: "Demographics", value: true, 
+                        { id:"ageAtDiagnosis", name: "Age at diagnosis", servicePropertyName: "ageAtDiagnosis", category: "Demographics", value: true, 
                                 propertyValueFunction: (patient, condition) => { return patient.getAgeAsOf(new Date(condition.getDiagnosisDate())) } },
-                        { name: "Gender", servicePropertyName: "gender", category: "Demographics", value: true, 
+                        { id:"gender",name: "Gender", servicePropertyName: "gender", category: "Demographics", value: true, 
                                 propertyValueFunction: (patient, condition) => { return patient.getGender() } },
-                        { name: "Race", servicePropertyName: "race", category: "Demographics", value: true,
+                        { id:"race",name: "Race", servicePropertyName: "race", category: "Demographics", value: true,
                                 propertyValueFunction: (patient, condition) => { return this.toFirstLetterCapital(patient.getPatient().race) } },
-                        { name: "KIT", servicePropertyName: "kit", category: "Genetics", value: true,
+                        { id:"kit",name: "KIT", servicePropertyName: "kit", category: "Genetics", value: true,
                                 propertyValueFunction: (patient, condition) => { return  condition.getGeneticMutationValue('KIT', patient) } },
-                        { name: "PDGFRA", servicePropertyName: "pdgfra", category: "Genetics", value: true,
+                        { id:"pdgfra", name: "PDGFRA", servicePropertyName: "pdgfra", category: "Genetics", value: true,
                                 propertyValueFunction: (patient, condition) => { return  condition.getGeneticMutationValue('PDGFRA', patient) } },
-                        { name: "Grade", servicePropertyName: "dxGrade", category: "Pathology", value: true,
+                        { id:"grade",name: "Grade", servicePropertyName: "dxGrade", category: "Pathology", value: true,
                                 propertyValueFunction: (patient, condition) => { return condition.getMostRecentHistologicalGrade().getGradeAsSimpleNumber() } },
-                        { name: "Stage", servicePropertyName: "stage", category: "Pathology", value: true,
+                        { id:"stage",name: "Stage", servicePropertyName: "stage", category: "Pathology", value: true,
                                 propertyValueFunction: (patient, condition) => { return condition.getMostRecentStaging().stage } },
-                        { name: "Surgery", servicePropertyName: "surgery", category: "Past Treatment", value: true,
+                        { id:"surgery",name: "Surgery", servicePropertyName: "surgery", category: "Past Treatment", value: true,
                                 propertyValueFunction: (patient, condition) => { return condition.hasPastTreatment('C0851238', patient) } }
                     ],
                     itemsFunction: this.getTreatmentData
@@ -61,7 +61,7 @@ export default class TreatmentOptionsSection extends MetadataSection {
     //     ];
     // }
 
-    getTreatmentData = (patient, condition, subsection) => {
+    getTreatmentData = (patient, condition, subsection, getFilterValue) => {
  
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         // If we have cached data, use that instead of making an API call
