@@ -299,7 +299,7 @@ class PatientRecord {
     }
 
     // Return today's encounter date if it exsits, otherwise return the previous encounter's date
-    getMostRecentEncounterDate() {
+    getTodaysEncounter() {
         let encounters = this.getEntriesOfType(FluxEncounterRequested);
         const today = new moment().format("D MMM YYYY"); // let today = new moment().format("D MMM YYYY");
 
