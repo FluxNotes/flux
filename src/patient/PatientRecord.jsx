@@ -299,11 +299,10 @@ class PatientRecord {
     }
 
     getTodayOrMostRecentEncounterDate() {
-        let mostRecentEncounterDate = this.getTodaysDate();
-        if (Lang.isNull(mostRecentEncounterDate)) {
+        if (Lang.isNull(this.getTodaysDate())) {
             return this.getPreviousEncounterDateAsString();
         }
-        return mostRecentEncounterDate;
+        return this.getTodaysDate();
     }
 
     // Return today's encounter date if it exists, otherwise return null
