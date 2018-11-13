@@ -423,6 +423,7 @@ export default class NoteAssistant extends Component {
         const searchedForClassName = Lang.includes(this.state.highlightedNoteIds, item.entryInfo.entryId) ? "search-result" : "";
         // If the note is currently highlighted in our searchSuggestions, we want to use the highlighted-result className
         const highlighedSearchSuggestionClassName = (!Lang.isEmpty(this.props.highlightedSearchSuggestion)
+            && this.props.highlightedSearchSuggestion.section === "Clinical Notes"
             && Lang.isEqual(this.props.highlightedSearchSuggestion.note.entryInfo.entryId, item.entryInfo.entryId)
             && Lang.includes(this.state.highlightedNoteIds, item.entryInfo.entryId)) ? "highlighted-result" : "";
         // if (!Lang.isEmpty(this.props.highlightedSearchSuggestion) && Lang.isEqual(this.props.highlightedSearchSuggestion.note.entryInfo.entryId, item.entryInfo.entryId)) { 
