@@ -88,7 +88,7 @@ export class Minimap extends React.Component {
 
     let {width, height} = this.props
     height = (this.props.isFullHeight) ? sourceRect.height : this.props.height;
-    height -= this.heightOfEditButton;
+    height -= (this.heightOfEditButton + 6);
 
     let ratioX = width / scrollWidth;
     let ratioY = height / scrollHeight;
@@ -315,7 +315,7 @@ export class Minimap extends React.Component {
     if (inEditMode) {
       this.props.doneEditingMinimap();
     } else {
-      this.props.startEditingMinimap()
+      this.props.startEditingMinimap();
     }
     this.setState({ inEditMode: !inEditMode });
   }
@@ -341,7 +341,7 @@ export class Minimap extends React.Component {
           className="minimap"
           style={{
             width: `${width}px`,
-            height: `${height - this.heightOfEditButton}px`,
+            height: `${height - this.heightOfEditButton - 6}px`,
           }}
 
           ref={(minimap) => { this.minimap = minimap; }}
