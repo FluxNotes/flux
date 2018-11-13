@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.core.Coding.
@@ -6,49 +6,24 @@ import { setPropertiesFromJSON } from '../../json-helper';
 class Coding {
 
   /**
-   * Get the value (aliases code).
-   * @returns {code} The code
-   */
-  get value() {
-    return this._code;
-  }
-
-  /**
-   * Set the value (aliases code).
-   * @param {code} value - The code
-   */
-  set value(value) {
-    this._code = value;
-  }
-
-  /**
-   * Set the value (aliases code) and return 'this' for chaining.
-   * @param {code} value - The code
-   * @returns {Coding} this.
-   */
-  withValue(value) {
-    this.value = value; return this;
-  }
-
-  /**
-   * Get the code.
-   * @returns {code} The code
+   * Get the Code.
+   * @returns {Code} The shr.core.Code
    */
   get code() {
     return this._code;
   }
 
   /**
-   * Set the code.
-   * @param {code} code - The code
+   * Set the Code.
+   * @param {Code} code - The shr.core.Code
    */
   set code(code) {
     this._code = code;
   }
 
   /**
-   * Set the code and return 'this' for chaining.
-   * @param {code} code - The code
+   * Set the Code and return 'this' for chaining.
+   * @param {Code} code - The shr.core.Code
    * @returns {Coding} this.
    */
   withCode(code) {
@@ -136,20 +111,21 @@ class Coding {
    * @param {object} json - the JSON data to deserialize
    * @returns {Coding} An instance of Coding populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new Coding();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the Coding class to a JSON object.
    * The JSON is expected to be valid against the Coding JSON schema, but no validation checks are performed.
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/Coding' } };
-    if (this.value != null) {
-      inst['Value'] = this.value;
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Coding' } };
+    if (this.code != null) {
+      inst['Code'] = typeof this.code.toJSON === 'function' ? this.code.toJSON() : this.code;
     }
     if (this.codeSystem != null) {
       inst['CodeSystem'] = typeof this.codeSystem.toJSON === 'function' ? this.codeSystem.toJSON() : this.codeSystem;
@@ -162,13 +138,14 @@ class Coding {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the Coding class to a FHIR object.
    * The FHIR is expected to be valid against the Coding FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension = false) {
+  toFHIR(asExtension=false) {
     let inst = {};
     if (this.codeSystem != null) {
       inst['system'] = typeof this.codeSystem.toFHIR === 'function' ? this.codeSystem.toFHIR() : this.codeSystem;
@@ -176,13 +153,38 @@ class Coding {
     if (this.codeSystemVersion != null) {
       inst['version'] = typeof this.codeSystemVersion.toFHIR === 'function' ? this.codeSystemVersion.toFHIR() : this.codeSystemVersion;
     }
-    if (this.value != null) {
-      inst['code'] = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
+    if (this.code != null) {
+      inst['code'] = typeof this.code.toFHIR === 'function' ? this.code.toFHIR() : this.code;
     }
     if (this.displayText != null) {
       inst['display'] = typeof this.displayText.toFHIR === 'function' ? this.displayText.toFHIR() : this.displayText;
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the Coding class.
+   * The FHIR must be valid against the Coding FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {Coding} An instance of Coding populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension=false) {
+    const inst = new Coding();
+    if (fhir['system'] != null) {
+      inst.codeSystem = createInstanceFromFHIR('shr.core.CodeSystem', fhir['system']);
+    }
+    if (fhir['version'] != null) {
+      inst.codeSystemVersion = createInstanceFromFHIR('shr.core.CodeSystemVersion', fhir['version']);
+    }
+    if (fhir['code'] != null) {
+      inst.code = createInstanceFromFHIR('shr.core.Code', fhir['code']);
+    }
+    if (fhir['display'] != null) {
+      inst.displayText = createInstanceFromFHIR('shr.core.DisplayText', fhir['display']);
+    }
+    return inst;
+  }
+
 }
 export default Coding;

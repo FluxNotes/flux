@@ -24,8 +24,8 @@ class FluxPerson {
     }
 
     get headshot() {
-        if (!this._person.headshot || !this._person.headshot.attachment.resourceLocation) return null;
-        return this._person.headshot.attachment.resourceLocation.uri;
+        if (!this._person.headshot || !this._person.headshot.media.resourceLocation) return null;
+        return this._person.headshot.media.resourceLocation.uri;
     }
 
     toJSON() {

@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 import Entity from './Entity';
 
@@ -7,6 +7,31 @@ import Entity from './Entity';
  * @extends Entity
  */
 class ExternalHealthRecord extends Entity {
+
+  /**
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
+   */
+  get entryInfo() {
+    return this._entryInfo;
+  }
+
+  /**
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
+   */
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
+  }
+
+  /**
+   * Set the entry information and return 'this' for chaining.
+   * @param {Entry} entryInfo - The shr.base.Entry
+   * @returns {ExternalHealthRecord} this.
+   */
+  withEntryInfo(entryInfo) {
+    this.entryInfo = entryInfo; return this;
+  }
 
   /**
    * Get the Identifier.
@@ -68,29 +93,22 @@ class ExternalHealthRecord extends Entity {
    * @param {object} json - the JSON data to deserialize
    * @returns {ExternalHealthRecord} An instance of ExternalHealthRecord populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new ExternalHealthRecord();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the ExternalHealthRecord class to a JSON object.
    * The JSON is expected to be valid against the ExternalHealthRecord JSON schema, but no validation checks are performed.
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/ExternalHealthRecord' } };
-    if (this.relatedEncounter != null) {
-      inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
-    }
-    if (this.author != null) {
-      inst['Author'] = typeof this.author.toJSON === 'function' ? this.author.toJSON() : this.author;
-    }
-    if (this.informant != null) {
-      inst['Informant'] = typeof this.informant.toJSON === 'function' ? this.informant.toJSON() : this.informant;
-    }
-    if (this.type != null) {
-      inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
+    const inst = this._entryInfo.toJSON();
+    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/ExternalHealthRecord' };
+    if (this.partOf != null) {
+      inst['PartOf'] = typeof this.partOf.toJSON === 'function' ? this.partOf.toJSON() : this.partOf;
     }
     if (this.identifier != null) {
       inst['Identifier'] = typeof this.identifier.toJSON === 'function' ? this.identifier.toJSON() : this.identifier;
@@ -100,30 +118,48 @@ class ExternalHealthRecord extends Entity {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the ExternalHealthRecord class to a FHIR object.
    * The FHIR is expected to be valid against the ExternalHealthRecord FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension = false) {
+  toFHIR(asExtension=false) {
     let inst = {};
-    if (asExtension) {
+    inst['resourceType'] = 'DomainResource';
+    if (this.partOf != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.relatedEncounter.toFHIR(true));
+      inst['extension'].push(typeof this.partOf.toFHIR === 'function' ? this.partOf.toFHIR(true) : this.partOf);
+    }
+    if (this.identifier != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.author.toFHIR(true));
+      inst['extension'].push(typeof this.identifier.toFHIR === 'function' ? this.identifier.toFHIR(true) : this.identifier);
+    }
+    if (this.accessTime != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.informant.toFHIR(true));
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.type.toFHIR(true));
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.identifier.toFHIR(true));
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.accessTime.toFHIR(true));
-      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-entity-ExternalHealthRecord-extension';
+      inst['extension'].push(typeof this.accessTime.toFHIR === 'function' ? this.accessTime.toFHIR(true) : this.accessTime);
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the ExternalHealthRecord class.
+   * The FHIR must be valid against the ExternalHealthRecord FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {ExternalHealthRecord} An instance of ExternalHealthRecord populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension=false) {
+    const inst = new ExternalHealthRecord();
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension');
+      if (match != null) {
+        inst.partOf = createInstanceFromFHIR('shr.entity.PartOf', match, true);
+      }
+    }
+    return inst;
+  }
+
 }
 export default ExternalHealthRecord;

@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.entity.Headshot.
@@ -6,26 +6,26 @@ import { setPropertiesFromJSON } from '../../json-helper';
 class Headshot {
 
   /**
-   * Get the value (aliases attachment).
-   * @returns {Attachment} The shr.core.Attachment
+   * Get the value (aliases media).
+   * @returns {Media} The shr.core.Media
    */
   get value() {
-    return this._attachment;
+    return this._media;
   }
 
   /**
-   * Set the value (aliases attachment).
+   * Set the value (aliases media).
    * This field/value is required.
-   * @param {Attachment} value - The shr.core.Attachment
+   * @param {Media} value - The shr.core.Media
    */
   set value(value) {
-    this._attachment = value;
+    this._media = value;
   }
 
   /**
-   * Set the value (aliases attachment) and return 'this' for chaining.
+   * Set the value (aliases media) and return 'this' for chaining.
    * This field/value is required.
-   * @param {Attachment} value - The shr.core.Attachment
+   * @param {Media} value - The shr.core.Media
    * @returns {Headshot} this.
    */
   withValue(value) {
@@ -33,30 +33,30 @@ class Headshot {
   }
 
   /**
-   * Get the Attachment.
-   * @returns {Attachment} The shr.core.Attachment
+   * Get the Media.
+   * @returns {Media} The shr.core.Media
    */
-  get attachment() {
-    return this._attachment;
+  get media() {
+    return this._media;
   }
 
   /**
-   * Set the Attachment.
+   * Set the Media.
    * This field/value is required.
-   * @param {Attachment} attachment - The shr.core.Attachment
+   * @param {Media} media - The shr.core.Media
    */
-  set attachment(attachment) {
-    this._attachment = attachment;
+  set media(media) {
+    this._media = media;
   }
 
   /**
-   * Set the Attachment and return 'this' for chaining.
+   * Set the Media and return 'this' for chaining.
    * This field/value is required.
-   * @param {Attachment} attachment - The shr.core.Attachment
+   * @param {Media} media - The shr.core.Media
    * @returns {Headshot} this.
    */
-  withAttachment(attachment) {
-    this.attachment = attachment; return this;
+  withMedia(media) {
+    this.media = media; return this;
   }
 
   /**
@@ -65,33 +65,35 @@ class Headshot {
    * @param {object} json - the JSON data to deserialize
    * @returns {Headshot} An instance of Headshot populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new Headshot();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the Headshot class to a JSON object.
    * The JSON is expected to be valid against the Headshot JSON schema, but no validation checks are performed.
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/Headshot' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Headshot' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the Headshot class to a FHIR object.
    * The FHIR is expected to be valid against the Headshot FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension = false) {
+  toFHIR(asExtension=false) {
     let inst = {};
     if (asExtension) {
-      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-entity-Headshot-extension';
+      inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-entity-Headshot-extension';
       inst['valueAttachment'] = this.value;
     }
     if (!asExtension && this.value != null) {
@@ -101,5 +103,24 @@ class Headshot {
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the Headshot class.
+   * The FHIR must be valid against the Headshot FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {Headshot} An instance of Headshot populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension=false) {
+    const inst = new Headshot();
+    if (asExtension) {
+      inst.value = fhir['valueAttachment'];
+    }
+    if (!asExtension && fhir != null) {
+      inst.value = createInstanceFromFHIR('shr.core.Media', fhir);
+    }
+    return inst;
+  }
+
 }
 export default Headshot;

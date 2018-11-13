@@ -6,7 +6,7 @@ import FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel from '../model
 import FluxClinicalNote from '../model/core/FluxClinicalNote';
 import FluxCondition from '../model/condition/FluxCondition';
 import FluxDiseaseProgression from '../model/condition/FluxDiseaseProgression';
-import FluxEncounterRequested from '../model/encounter/FluxEncounterRequested';
+import FluxEncounter from '../model/encounter/FluxEncounter';
 import FluxMedicationRequested from '../model/medication/FluxMedicationRequested';
 import FluxMedicationChange from '../model/medication/FluxMedicationChange';
 import FluxNoKnownAllergy from '../model/allergy/FluxNoKnownAllergy';
@@ -263,7 +263,7 @@ class PatientRecord {
 
     // returns sorted list of encounters
     getEncountersChronologicalOrder(){
-        let encounters = this.getEntriesOfType(FluxEncounterRequested);
+        let encounters = this.getEntriesOfType(FluxEncounter);
         encounters.sort(this._encounterTimeSorter);
         return encounters;
     }

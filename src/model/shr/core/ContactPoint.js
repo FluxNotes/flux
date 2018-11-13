@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.core.ContactPoint.
@@ -15,7 +15,6 @@ class ContactPoint {
 
   /**
    * Set the TelecomNumberOrAddress.
-   * This field/value is required.
    * @param {TelecomNumberOrAddress} telecomNumberOrAddress - The shr.core.TelecomNumberOrAddress
    */
   set telecomNumberOrAddress(telecomNumberOrAddress) {
@@ -24,7 +23,6 @@ class ContactPoint {
 
   /**
    * Set the TelecomNumberOrAddress and return 'this' for chaining.
-   * This field/value is required.
    * @param {TelecomNumberOrAddress} telecomNumberOrAddress - The shr.core.TelecomNumberOrAddress
    * @returns {ContactPoint} this.
    */
@@ -34,7 +32,7 @@ class ContactPoint {
 
   /**
    * Get the Type.
-   * @returns {Type} The shr.entity.Type
+   * @returns {Type} The shr.core.Type
    */
   get type() {
     return this._type;
@@ -42,8 +40,7 @@ class ContactPoint {
 
   /**
    * Set the Type.
-   * This field/value is required.
-   * @param {Type} type - The shr.entity.Type
+   * @param {Type} type - The shr.core.Type
    */
   set type(type) {
     this._type = type;
@@ -51,8 +48,7 @@ class ContactPoint {
 
   /**
    * Set the Type and return 'this' for chaining.
-   * This field/value is required.
-   * @param {Type} type - The shr.entity.Type
+   * @param {Type} type - The shr.core.Type
    * @returns {ContactPoint} this.
    */
   withType(type) {
@@ -61,7 +57,7 @@ class ContactPoint {
 
   /**
    * Get the Purpose.
-   * @returns {Purpose} The shr.entity.Purpose
+   * @returns {Purpose} The shr.core.Purpose
    */
   get purpose() {
     return this._purpose;
@@ -69,7 +65,7 @@ class ContactPoint {
 
   /**
    * Set the Purpose.
-   * @param {Purpose} purpose - The shr.entity.Purpose
+   * @param {Purpose} purpose - The shr.core.Purpose
    */
   set purpose(purpose) {
     this._purpose = purpose;
@@ -77,7 +73,7 @@ class ContactPoint {
 
   /**
    * Set the Purpose and return 'this' for chaining.
-   * @param {Purpose} purpose - The shr.entity.Purpose
+   * @param {Purpose} purpose - The shr.core.Purpose
    * @returns {ContactPoint} this.
    */
   withPurpose(purpose) {
@@ -85,28 +81,28 @@ class ContactPoint {
   }
 
   /**
-   * Get the Priority.
-   * @returns {Priority} The shr.core.Priority
+   * Get the PriorityRank.
+   * @returns {PriorityRank} The shr.core.PriorityRank
    */
-  get priority() {
-    return this._priority;
+  get priorityRank() {
+    return this._priorityRank;
   }
 
   /**
-   * Set the Priority.
-   * @param {Priority} priority - The shr.core.Priority
+   * Set the PriorityRank.
+   * @param {PriorityRank} priorityRank - The shr.core.PriorityRank
    */
-  set priority(priority) {
-    this._priority = priority;
+  set priorityRank(priorityRank) {
+    this._priorityRank = priorityRank;
   }
 
   /**
-   * Set the Priority and return 'this' for chaining.
-   * @param {Priority} priority - The shr.core.Priority
+   * Set the PriorityRank and return 'this' for chaining.
+   * @param {PriorityRank} priorityRank - The shr.core.PriorityRank
    * @returns {ContactPoint} this.
    */
-  withPriority(priority) {
-    this.priority = priority; return this;
+  withPriorityRank(priorityRank) {
+    this.priorityRank = priorityRank; return this;
   }
 
   /**
@@ -140,18 +136,19 @@ class ContactPoint {
    * @param {object} json - the JSON data to deserialize
    * @returns {ContactPoint} An instance of ContactPoint populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new ContactPoint();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the ContactPoint class to a JSON object.
    * The JSON is expected to be valid against the ContactPoint JSON schema, but no validation checks are performed.
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/ContactPoint' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/ContactPoint' } };
     if (this.telecomNumberOrAddress != null) {
       inst['TelecomNumberOrAddress'] = typeof this.telecomNumberOrAddress.toJSON === 'function' ? this.telecomNumberOrAddress.toJSON() : this.telecomNumberOrAddress;
     }
@@ -161,21 +158,22 @@ class ContactPoint {
     if (this.purpose != null) {
       inst['Purpose'] = typeof this.purpose.toJSON === 'function' ? this.purpose.toJSON() : this.purpose;
     }
-    if (this.priority != null) {
-      inst['Priority'] = typeof this.priority.toJSON === 'function' ? this.priority.toJSON() : this.priority;
+    if (this.priorityRank != null) {
+      inst['PriorityRank'] = typeof this.priorityRank.toJSON === 'function' ? this.priorityRank.toJSON() : this.priorityRank;
     }
     if (this.effectiveTimePeriod != null) {
       inst['EffectiveTimePeriod'] = typeof this.effectiveTimePeriod.toJSON === 'function' ? this.effectiveTimePeriod.toJSON() : this.effectiveTimePeriod;
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the ContactPoint class to a FHIR object.
    * The FHIR is expected to be valid against the ContactPoint FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension = false) {
+  toFHIR(asExtension=false) {
     let inst = {};
     if (this.type != null) {
       inst['system'] = typeof this.type.toFHIR === 'function' ? this.type.toFHIR() : this.type;
@@ -183,20 +181,57 @@ class ContactPoint {
     if (this.telecomNumberOrAddress != null) {
       inst['value'] = typeof this.telecomNumberOrAddress.toFHIR === 'function' ? this.telecomNumberOrAddress.toFHIR() : this.telecomNumberOrAddress;
     }
-    if (this.purpose != null) {
-      inst['use'] = typeof this.purpose.toFHIR === 'function' ? this.purpose.toFHIR() : this.purpose;
+    if (this.purpose != null && this.purpose.coding != null && this.purpose.coding.code != null) {
+      inst['use'] = typeof this.purpose.coding.code.toFHIR === 'function' ? this.purpose.coding.code.toFHIR() : this.purpose.coding.code;
     }
-    if (this.priority != null) {
-      inst['rank'] = typeof this.priority.toFHIR === 'function' ? this.priority.toFHIR() : this.priority;
+    if (this.priorityRank != null) {
+      inst['rank'] = typeof this.priorityRank.toFHIR === 'function' ? this.priorityRank.toFHIR() : this.priorityRank;
     }
     if (this.effectiveTimePeriod != null) {
       inst['period'] = typeof this.effectiveTimePeriod.toFHIR === 'function' ? this.effectiveTimePeriod.toFHIR() : this.effectiveTimePeriod;
     }
     if (asExtension) {
-      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-core-ContactPoint-extension';
+      inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-core-ContactPoint-extension';
       inst['valueContactPoint'] = this.value;
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the ContactPoint class.
+   * The FHIR must be valid against the ContactPoint FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {ContactPoint} An instance of ContactPoint populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension=false) {
+    const inst = new ContactPoint();
+    if (fhir['system'] != null) {
+      inst.type = createInstanceFromFHIR('shr.core.Type', fhir['system']);
+    }
+    if (fhir['value'] != null) {
+      inst.telecomNumberOrAddress = createInstanceFromFHIR('shr.core.TelecomNumberOrAddress', fhir['value']);
+    }
+    if (fhir['use'] != null) {
+      if(inst.purpose == null) {
+        inst.purpose = createInstanceFromFHIR('shr.core.Purpose', {});
+      }
+      if(inst.purpose.value == null) {
+        inst.purpose.value = createInstanceFromFHIR('shr.core.Coding', {});
+      }
+      inst.purpose.value.code = createInstanceFromFHIR('shr.core.Code', fhir['use']);
+    }
+    if (fhir['rank'] != null) {
+      inst.priorityRank = createInstanceFromFHIR('shr.core.PriorityRank', fhir['rank']);
+    }
+    if (fhir['period'] != null) {
+      inst.effectiveTimePeriod = createInstanceFromFHIR('shr.core.EffectiveTimePeriod', fhir['period']);
+    }
+    if (asExtension) {
+      inst.value = fhir['valueContactPoint'];
+    }
+    return inst;
+  }
+
 }
 export default ContactPoint;

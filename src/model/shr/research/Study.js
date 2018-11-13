@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 import Entity from '../entity/Entity';
 
@@ -31,6 +31,31 @@ class Study extends Entity {
    */
   withEntryInfo(entryInfo) {
     this.entryInfo = entryInfo; return this;
+  }
+
+  /**
+   * Get the PartOf.
+   * @returns {PartOf} The shr.entity.PartOf
+   */
+  get partOf() {
+    return this._partOf;
+  }
+
+  /**
+   * Set the PartOf.
+   * @param {PartOf} partOf - The shr.entity.PartOf
+   */
+  set partOf(partOf) {
+    this._partOf = partOf;
+  }
+
+  /**
+   * Set the PartOf and return 'this' for chaining.
+   * @param {PartOf} partOf - The shr.entity.PartOf
+   * @returns {Study} this.
+   */
+  withPartOf(partOf) {
+    this.partOf = partOf; return this;
   }
 
   /**
@@ -88,58 +113,33 @@ class Study extends Entity {
   }
 
   /**
-   * Get the Details.
-   * @returns {Details} The shr.core.Details
+   * Get the CommentOrDescription.
+   * @returns {CommentOrDescription} The shr.core.CommentOrDescription
    */
-  get details() {
-    return this._details;
+  get commentOrDescription() {
+    return this._commentOrDescription;
   }
 
   /**
-   * Set the Details.
-   * @param {Details} details - The shr.core.Details
+   * Set the CommentOrDescription.
+   * @param {CommentOrDescription} commentOrDescription - The shr.core.CommentOrDescription
    */
-  set details(details) {
-    this._details = details;
+  set commentOrDescription(commentOrDescription) {
+    this._commentOrDescription = commentOrDescription;
   }
 
   /**
-   * Set the Details and return 'this' for chaining.
-   * @param {Details} details - The shr.core.Details
+   * Set the CommentOrDescription and return 'this' for chaining.
+   * @param {CommentOrDescription} commentOrDescription - The shr.core.CommentOrDescription
    * @returns {Study} this.
    */
-  withDetails(details) {
-    this.details = details; return this;
-  }
-
-  /**
-   * Get the PartOf array.
-   * @returns {Array<PartOf>} The shr.entity.PartOf array
-   */
-  get partOf() {
-    return this._partOf;
-  }
-
-  /**
-   * Set the PartOf array.
-   * @param {Array<PartOf>} partOf - The shr.entity.PartOf array
-   */
-  set partOf(partOf) {
-    this._partOf = partOf;
-  }
-
-  /**
-   * Set the PartOf array and return 'this' for chaining.
-   * @param {Array<PartOf>} partOf - The shr.entity.PartOf array
-   * @returns {Study} this.
-   */
-  withPartOf(partOf) {
-    this.partOf = partOf; return this;
+  withCommentOrDescription(commentOrDescription) {
+    this.commentOrDescription = commentOrDescription; return this;
   }
 
   /**
    * Get the Status.
-   * @returns {Status} The shr.action.Status
+   * @returns {Status} The shr.core.Status
    */
   get status() {
     return this._status;
@@ -148,7 +148,7 @@ class Study extends Entity {
   /**
    * Set the Status.
    * This field/value is required.
-   * @param {Status} status - The shr.action.Status
+   * @param {Status} status - The shr.core.Status
    */
   set status(status) {
     this._status = status;
@@ -157,7 +157,7 @@ class Study extends Entity {
   /**
    * Set the Status and return 'this' for chaining.
    * This field/value is required.
-   * @param {Status} status - The shr.action.Status
+   * @param {Status} status - The shr.core.Status
    * @returns {Study} this.
    */
   withStatus(status) {
@@ -420,11 +420,12 @@ class Study extends Entity {
    * @param {object} json - the JSON data to deserialize
    * @returns {Study} An instance of Study populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new Study();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the Study class to a JSON object.
    * The JSON is expected to be valid against the Study JSON schema, but no validation checks are performed.
@@ -432,18 +433,9 @@ class Study extends Entity {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/research/Study' };
-    if (this.relatedEncounter != null) {
-      inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
-    }
-    if (this.author != null) {
-      inst['Author'] = typeof this.author.toJSON === 'function' ? this.author.toJSON() : this.author;
-    }
-    if (this.informant != null) {
-      inst['Informant'] = typeof this.informant.toJSON === 'function' ? this.informant.toJSON() : this.informant;
-    }
-    if (this.type != null) {
-      inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
+    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/research/Study' };
+    if (this.partOf != null) {
+      inst['PartOf'] = typeof this.partOf.toJSON === 'function' ? this.partOf.toJSON() : this.partOf;
     }
     if (this.title != null) {
       inst['Title'] = typeof this.title.toJSON === 'function' ? this.title.toJSON() : this.title;
@@ -451,11 +443,8 @@ class Study extends Entity {
     if (this.identifier != null) {
       inst['Identifier'] = typeof this.identifier.toJSON === 'function' ? this.identifier.toJSON() : this.identifier;
     }
-    if (this.details != null) {
-      inst['Details'] = typeof this.details.toJSON === 'function' ? this.details.toJSON() : this.details;
-    }
-    if (this.partOf != null) {
-      inst['PartOf'] = this.partOf.map(f => f.toJSON());
+    if (this.commentOrDescription != null) {
+      inst['CommentOrDescription'] = typeof this.commentOrDescription.toJSON === 'function' ? this.commentOrDescription.toJSON() : this.commentOrDescription;
     }
     if (this.status != null) {
       inst['Status'] = typeof this.status.toJSON === 'function' ? this.status.toJSON() : this.status;
@@ -492,34 +481,19 @@ class Study extends Entity {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the Study class to a FHIR object.
    * The FHIR is expected to be valid against the Study FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension = false) {
+  toFHIR(asExtension=false) {
     let inst = {};
     inst['resourceType'] = 'ResearchStudy';
-    if (this.relatedEncounter != null) {
+    if (this.commentOrDescription != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.relatedEncounter.toFHIR(true));
-    }
-    if (this.author != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.author.toFHIR(true));
-    }
-    if (this.informant != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.informant.toFHIR(true));
-    }
-    if (this.type != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.type.toFHIR(true));
-    }
-    if (this.details != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.details.toFHIR(true));
+      inst['extension'].push(typeof this.commentOrDescription.toFHIR === 'function' ? this.commentOrDescription.toFHIR(true) : this.commentOrDescription);
     }
     if (this.identifier != null) {
       inst['identifier'] = typeof this.identifier.toFHIR === 'function' ? this.identifier.toFHIR() : this.identifier;
@@ -528,22 +502,21 @@ class Study extends Entity {
       inst['title'] = typeof this.title.toFHIR === 'function' ? this.title.toFHIR() : this.title;
     }
     if (this.partOf != null) {
-      inst['partOf'] = inst['partOf'] || [];
-      inst['partOf'].concat(this.partOf.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['partOf'] = typeof this.partOf.toFHIR === 'function' ? this.partOf.toFHIR() : this.partOf;
     }
     if (this.status != null) {
       inst['status'] = typeof this.status.toFHIR === 'function' ? this.status.toFHIR() : this.status;
     }
     if (this.contactDetail != null) {
-      inst['contact'] = inst['contact'] || [];
-      inst['contact'].concat(this.contactDetail.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['contact'] = inst ['contact'] || [];
+      inst['contact'] = inst['contact'].concat(this.contactDetail.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.jurisdiction != null) {
       inst['jurisdiction'] = typeof this.jurisdiction.toFHIR === 'function' ? this.jurisdiction.toFHIR() : this.jurisdiction;
     }
     if (this.enrollment != null) {
-      inst['enrollment'] = inst['enrollment'] || [];
-      inst['enrollment'].concat(this.enrollment.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['enrollment'] = inst ['enrollment'] || [];
+      inst['enrollment'] = inst['enrollment'].concat(this.enrollment.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.effectiveTimePeriod != null) {
       inst['period'] = typeof this.effectiveTimePeriod.toFHIR === 'function' ? this.effectiveTimePeriod.toFHIR() : this.effectiveTimePeriod;
@@ -555,38 +528,118 @@ class Study extends Entity {
       inst['principalInvestigator'] = typeof this.principalInvestigator.toFHIR === 'function' ? this.principalInvestigator.toFHIR() : this.principalInvestigator;
     }
     if (this.facility != null) {
-      inst['site'] = inst['site'] || [];
-      inst['site'].concat(this.facility.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['site'] = inst ['site'] || [];
+      inst['site'] = inst['site'].concat(this.facility.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.terminationReason != null) {
       inst['reasonStopped'] = typeof this.terminationReason.toFHIR === 'function' ? this.terminationReason.toFHIR() : this.terminationReason;
     }
     if (this.annotation != null) {
-      inst['note'] = inst['note'] || [];
-      inst['note'].concat(this.annotation.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['note'] = inst ['note'] || [];
+      inst['note'] = inst['note'].concat(this.annotation.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.studyArm != null && this.studyArm.title != null) {
-      if (inst['arm'] === undefined) {
+      if(inst['arm'] === undefined) {
         inst['arm'] = {};
       }
-      inst['arm']['name'] = inst['arm']['name'] || [];
-      inst['arm']['name'].concat(this.studyArm.title.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['arm']['name'] = inst ['arm']['name'] || [];
+      inst['arm']['name'] = inst['arm']['name'].concat(this.studyArm.title.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.studyArm != null && this.studyArm.type != null) {
-      if (inst['arm'] === undefined) {
+      if(inst['arm'] === undefined) {
         inst['arm'] = {};
       }
-      inst['arm']['code'] = inst['arm']['code'] || [];
-      inst['arm']['code'].concat(this.studyArm.type.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['arm']['code'] = inst ['arm']['code'] || [];
+      inst['arm']['code'] = inst['arm']['code'].concat(this.studyArm.type.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
-    if (this.studyArm != null && this.studyArm.details != null) {
-      if (inst['arm'] === undefined) {
+    if (this.studyArm != null && this.studyArm.commentOrDescription != null) {
+      if(inst['arm'] === undefined) {
         inst['arm'] = {};
       }
-      inst['arm']['description'] = inst['arm']['description'] || [];
-      inst['arm']['description'].concat(this.studyArm.details.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['arm']['description'] = inst ['arm']['description'] || [];
+      inst['arm']['description'] = inst['arm']['description'].concat(this.studyArm.commentOrDescription.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the Study class.
+   * The FHIR must be valid against the Study FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {Study} An instance of Study populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension=false) {
+    const inst = new Study();
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-CommentOrDescription-extension');
+      if (match != null) {
+        inst.commentOrDescription = createInstanceFromFHIR('shr.core.CommentOrDescription', match, true);
+      }
+    }
+    if (fhir['identifier'] != null) {
+      inst.identifier = createInstanceFromFHIR('shr.core.Identifier', fhir['identifier']);
+    }
+    if (fhir['title'] != null) {
+      inst.title = createInstanceFromFHIR('shr.core.Title', fhir['title']);
+    }
+    if (fhir['partOf'] != null) {
+      inst.partOf = createInstanceFromFHIR('shr.entity.PartOf', fhir['partOf']);
+    }
+    if (fhir['status'] != null) {
+      inst.status = createInstanceFromFHIR('shr.core.Status', fhir['status']);
+    }
+    if (fhir['contact'] != null) {
+      inst.contactDetail = inst.contactDetail || [];
+      inst.contactDetail = inst.contactDetail.concat(fhir['contact'].map(f => createInstanceFromFHIR('shr.core.ContactDetail', f)));
+    }
+    if (fhir['jurisdiction'] != null) {
+      inst.jurisdiction = createInstanceFromFHIR('shr.research.Jurisdiction', fhir['jurisdiction']);
+    }
+    if (fhir['enrollment'] != null) {
+      inst.enrollment = inst.enrollment || [];
+      inst.enrollment = inst.enrollment.concat(fhir['enrollment'].map(f => createInstanceFromFHIR('shr.research.Enrollment', f)));
+    }
+    if (fhir['period'] != null) {
+      inst.effectiveTimePeriod = createInstanceFromFHIR('shr.core.EffectiveTimePeriod', fhir['period']);
+    }
+    if (fhir['sponsor'] != null) {
+      inst.sponsor = createInstanceFromFHIR('shr.research.Sponsor', fhir['sponsor']);
+    }
+    if (fhir['principalInvestigator'] != null) {
+      inst.principalInvestigator = createInstanceFromFHIR('shr.research.PrincipalInvestigator', fhir['principalInvestigator']);
+    }
+    if (fhir['site'] != null) {
+      inst.facility = inst.facility || [];
+      inst.facility = inst.facility.concat(fhir['site'].map(f => createInstanceFromFHIR('shr.entity.Facility', f)));
+    }
+    if (fhir['reasonStopped'] != null) {
+      inst.terminationReason = createInstanceFromFHIR('shr.research.TerminationReason', fhir['reasonStopped']);
+    }
+    if (fhir['note'] != null) {
+      inst.annotation = inst.annotation || [];
+      inst.annotation = inst.annotation.concat(fhir['note'].map(f => createInstanceFromFHIR('shr.core.Annotation', f)));
+    }
+    if (fhir['arm'] != null && fhir['arm']['name'] != null) {
+      if(inst.studyArm == null) {
+        inst.studyArm = createInstanceFromFHIR('shr.research.StudyArm', {});
+      }
+      inst.studyArm.title = createInstanceFromFHIR('shr.core.Title', fhir['arm']['name']);
+    }
+    if (fhir['arm'] != null && fhir['arm']['code'] != null) {
+      if(inst.studyArm == null) {
+        inst.studyArm = createInstanceFromFHIR('shr.research.StudyArm', {});
+      }
+      inst.studyArm.type = createInstanceFromFHIR('shr.core.Type', fhir['arm']['code']);
+    }
+    if (fhir['arm'] != null && fhir['arm']['description'] != null) {
+      if(inst.studyArm == null) {
+        inst.studyArm = createInstanceFromFHIR('shr.research.StudyArm', {});
+      }
+      inst.studyArm.commentOrDescription = createInstanceFromFHIR('shr.core.CommentOrDescription', fhir['arm']['description']);
+    }
+    return inst;
+  }
+
 }
 export default Study;

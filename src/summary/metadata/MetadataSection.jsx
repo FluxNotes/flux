@@ -1,7 +1,7 @@
-import EncounterPerformed from '../../model/shr/encounter/EncounterPerformed';
+import Encounter from '../../model/shr/encounter/Encounter';
 import moment from 'moment';
 import Lang from 'lodash'
-import Attachment from '../../model/shr/core/Attachment';
+import Media from '../../model/shr/core/Media';
 
 export default class MetadataSection {
     getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
@@ -53,7 +53,7 @@ export default class MetadataSection {
             };
         }
         
-        else if (entry.value instanceof Attachment) {
+        else if (entry.value instanceof Media) {
             return {
                 link: entry.value.resourceLocation.uri
             };
@@ -68,7 +68,7 @@ export default class MetadataSection {
         }
         if (entry.relatedEncounterReference) {
             const relatedEncounter = patient.getEntryFromReference(entry.relatedEncounterReference);
-            if (relatedEncounter instanceof EncounterPerformed) {
+            if (relatedEncounter instanceof Encounter) {
                 result += (result.length > 0 ? " f" : "F") + "rom encounter on " + new moment(relatedEncounter.actionContext.occurrenceTimeOrPeriod.timePeriod.timePeriodStart.value, 'D MMM YYY HH:mm Z').format('D MMM YYY hh:mm a');
             } else {
                 result += (result.length > 0 ? " f" : "F") + "rom encounter on " + new moment(relatedEncounter.expectedPerformanceTime, 'D MMM YYY HH:mm Z').format('D MMM YYY hh:mm a');

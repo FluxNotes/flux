@@ -219,7 +219,7 @@
             },
             "Value": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/Attachment"
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Media"
                 },
                 "ResourceLocation": {
                     "EntryType": {
@@ -1364,7 +1364,7 @@
     },
     {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested"
+            "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
         },
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
         "EntryId": "100",
@@ -5484,7 +5484,7 @@
     },
     {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested"
+            "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
         },
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
         "EntryId": "3000",
@@ -5617,7 +5617,7 @@
     },
     {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested"
+            "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
         },
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
         "EntryId": "3010",
@@ -5926,7 +5926,7 @@
     },
     {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested"
+            "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
         },
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
         "EntryId": "5100",
@@ -6098,7 +6098,7 @@
     },
     {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested"
+            "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
         },
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
         "EntryId": "5150",
@@ -6345,7 +6345,7 @@
     },
     {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested"
+            "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
         },
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
         "EntryId": "5300",
@@ -7026,7 +7026,7 @@
     },
     {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested"
+            "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
         },
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
         "EntryId": "5400",
@@ -7813,7 +7813,7 @@
     },
     {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested"
+            "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
         },
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
         "EntryId": "5500",
@@ -8397,7 +8397,7 @@
     ,
     {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested"
+            "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
         },
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
         "EntryId": "5600",
@@ -8978,7 +8978,7 @@
     },
     {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested"
+            "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
         },
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
         "EntryId": "5700",
@@ -9559,7 +9559,7 @@
     },
     {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested"
+            "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
         },
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
         "EntryId": "5800",
@@ -10140,7 +10140,7 @@
     },
     {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested"
+            "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
         },
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
         "EntryId": "5900",
@@ -17029,7 +17029,7 @@
         },
         "Value": {
             "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/Attachment"
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Media"
             },
             "ResourceLocation": {
                 "EntryType": {

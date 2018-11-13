@@ -63,4 +63,8 @@ export default class Reference {
       '_EntryType': this._entryType
     };
   }
+
+  toFHIR() {
+    return this._entryId;
+  }
 }

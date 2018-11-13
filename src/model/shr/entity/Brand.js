@@ -6,57 +6,30 @@ import { setPropertiesFromJSON } from '../../json-helper';
 class Brand {
 
   /**
-   * Get the value (aliases boolean).
-   * @returns {boolean} The boolean
+   * Get the IsBrand.
+   * @returns {IsBrand} The shr.entity.IsBrand
    */
-  get value() {
-    return this._boolean;
+  get isBrand() {
+    return this._isBrand;
   }
 
   /**
-   * Set the value (aliases boolean).
+   * Set the IsBrand.
    * This field/value is required.
-   * @param {boolean} value - The boolean
+   * @param {IsBrand} isBrand - The shr.entity.IsBrand
    */
-  set value(value) {
-    this._boolean = value;
+  set isBrand(isBrand) {
+    this._isBrand = isBrand;
   }
 
   /**
-   * Set the value (aliases boolean) and return 'this' for chaining.
+   * Set the IsBrand and return 'this' for chaining.
    * This field/value is required.
-   * @param {boolean} value - The boolean
+   * @param {IsBrand} isBrand - The shr.entity.IsBrand
    * @returns {Brand} this.
    */
-  withValue(value) {
-    this.value = value; return this;
-  }
-
-  /**
-   * Get the boolean.
-   * @returns {boolean} The boolean
-   */
-  get boolean() {
-    return this._boolean;
-  }
-
-  /**
-   * Set the boolean.
-   * This field/value is required.
-   * @param {boolean} boolean - The boolean
-   */
-  set boolean(boolean) {
-    this._boolean = boolean;
-  }
-
-  /**
-   * Set the boolean and return 'this' for chaining.
-   * This field/value is required.
-   * @param {boolean} boolean - The boolean
-   * @returns {Brand} this.
-   */
-  withBoolean(boolean) {
-    this.boolean = boolean; return this;
+  withIsBrand(isBrand) {
+    this.isBrand = isBrand; return this;
   }
 
   /**
@@ -90,40 +63,50 @@ class Brand {
    * @param {object} json - the JSON data to deserialize
    * @returns {Brand} An instance of Brand populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new Brand();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the Brand class to a JSON object.
    * The JSON is expected to be valid against the Brand JSON schema, but no validation checks are performed.
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/Brand' } };
-    if (this.value != null) {
-      inst['Value'] = this.value;
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Brand' } };
+    if (this.isBrand != null) {
+      inst['IsBrand'] = typeof this.isBrand.toJSON === 'function' ? this.isBrand.toJSON() : this.isBrand;
     }
     if (this.brandName != null) {
       inst['BrandName'] = typeof this.brandName.toJSON === 'function' ? this.brandName.toJSON() : this.brandName;
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the Brand class to a FHIR object.
    * The FHIR is expected to be valid against the Brand FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension = false) {
+  toFHIR(asExtension=false) {
     let inst = {};
-    if (!asExtension && this.value != null) {
-      if (this.value != null) {
-        inst = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
-      }
-    }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the Brand class.
+   * The FHIR must be valid against the Brand FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {Brand} An instance of Brand populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension=false) {
+    const inst = new Brand();
+    return inst;
+  }
+
 }
 export default Brand;

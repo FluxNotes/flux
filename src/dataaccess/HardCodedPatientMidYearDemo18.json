@@ -219,7 +219,7 @@
             },
             "Value": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/Attachment"
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Media"
                 },
                 "ResourceLocation": {
                     "Value": "./EllaOrtiz111.png",
@@ -5815,7 +5815,7 @@
             }
         },
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested"
+            "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
         },
         "LastUpdated": {
             "Value": "30 Jul 2018",
@@ -5885,7 +5885,7 @@
             }
         },
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested"
+            "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
         },
         "LastUpdated": {
             "Value": "22 Aug 2018",

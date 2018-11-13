@@ -45,6 +45,35 @@ export function getNamespaceAndName(json={}, type) {
 }
 
 /**
+ * Parses the JSON and/or type to return an object with the namespace and elementName.
+ * @param {Object} fhir - The element data in FHIR JSON format
+ * @param {string} [type] - The (optional) type of the element (e.g., a profile URL 'http://example.com/fhir/StructureDefinition/cimi-entity-Patient' or a fully qualified type name 'cimi.entity.Patient').  This is only used if the type cannot be extracted from the JSON.
+ * @returns {{namespace: string, elementName: string}} An object representing the element
+ */
+export function getNamespaceAndNameFromFHIR(fhir, type) {
+  // Get the type from the JSON if we can
+  if (fhir['meta'] && fhir['meta']['profile']) {
+    type = fhir['meta']['profile'][0];
+  }
+  // Ensure we have a type before proceeding
+  if (!type) {
+    throw new Error(`Couldn't find type for FHIR: ${JSON.stringify(fhir)}`);
+  }
+
+  if (type.includes('/')) {
+    // assume it's a profile URI, where the last part represents the type
+    const parts = type.split('/');
+    type = parts[parts.length - 1].replace(/-/g, '.');
+  }
+
+  const mappingStringArray = type.split('.');
+  const elementName = mappingStringArray.pop();
+  const namespace = mappingStringArray.join('.');
+  return { namespace, elementName };
+}
+
+
+/**
  * Given a (presumably) blank instance of an ES6 class representing an element, and JSON that adheres to the
  * corresponding JSON schema for that element, this function will loop through the JSON and set the applicable
  * properties on the class instance.  If the JSON contains any properties that can't be found or set in the class,
@@ -145,6 +174,27 @@ function createInstance(key, value) {
       throw new Error(`SHR ES6 module is not initialized.  Import 'init' before using the ES6 factories and classes`);
     }
     return OBJECT_FACTORY.createInstance(value, key);
+  }
+  return value;
+}
+
+/**
+ * Creates an ES6 class instance based on a value extracted from the JSON.
+ * @param {string} key - the original key under which the value was stored.  This is used as a backup in case the value
+ *   does not declare its type.
+ * @param {object} value - the FHIR data to create an ES6 class instance for
+ * @returns {object} an instance of an ES6 class representing the data
+ * @private
+ */
+export function createInstanceFromFHIR(key, value, asExtension=false) {
+  if (Array.isArray(value)) {
+    return value.map(v => createInstanceFromFHIR(key, v));
+  }
+  if (typeof value === 'object') {
+    if (OBJECT_FACTORY == null) {
+      throw new Error(`SHR ES6 module is not initialized.  Import 'init' before using the ES6 factories and classes`);
+    }
+    return OBJECT_FACTORY.createInstanceFromFHIR(value, key, asExtension);
   }
   return value;
 }

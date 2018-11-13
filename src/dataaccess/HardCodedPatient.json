@@ -219,7 +219,7 @@
             },
             "Value": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/Attachment"
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Media"
                 },
                 "ResourceLocation": {
                     "Value": "./DebraHernandez672.png",
@@ -4434,7 +4434,7 @@
             }
         },
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested"
+            "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
         },
         "LastUpdated": {
             "Value": "21 May 2018",
@@ -4504,7 +4504,7 @@
             }
         },
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested"
+            "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
         },
         "LastUpdated": {
             "Value": "21 May 2018",
@@ -4574,7 +4574,7 @@
             }
         },
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested"
+            "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
         },
         "LastUpdated": {
             "Value": "21 May 2018",

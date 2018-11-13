@@ -15,7 +15,7 @@ class FluxPathologyReport extends FluxObservation {
 
      /*
      *  Getter for value
-     *  Return value (an attachment or link to pathology report)
+     *  Return value (a media or link to pathology report)
      */
     get value() {
         return this._observation.value;
