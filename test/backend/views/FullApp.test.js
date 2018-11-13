@@ -368,7 +368,7 @@ describe('6 FluxNotesEditor', function() {
 
         // Mock function to create a new shortcut and set text on shortcut. Allows Editor to update correctly.
         let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
-            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, {}, shortcutData, this.handleShortcutUpdate);
+            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, patient, shortcutData, this.handleShortcutUpdate);
             newShortcut.initialize(contextManager, shortcutType, updatePatient, shortcutData);
 
             return newShortcut;
@@ -513,7 +513,7 @@ describe('6 FluxNotesEditor', function() {
 
         // Mock function to create a new shortcut and set text on shortcut. Allows Editor to update correctly.
         let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
-            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, {}, shortcutData, this.handleShortcutUpdate);
+            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, patient, shortcutData, this.handleShortcutUpdate);
             newShortcut.initialize(contextManager, shortcutType, updatePatient, shortcutData);
             return newShortcut;
         }
@@ -569,7 +569,7 @@ describe('6 FluxNotesEditor', function() {
 
         // Mock function to create a new shortcut and set text on shortcut. Allows Editor to update correctly.
         let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
-            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, {}, shortcutData, this.handleShortcutUpdate);
+            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, patient, shortcutData, this.handleShortcutUpdate);
             newShortcut.initialize(contextManager, shortcutType, updatePatient, shortcutData);
             return newShortcut;
         }
@@ -636,7 +636,7 @@ describe('6 FluxNotesEditor', function() {
 
         // Mock function to create a new shortcut and set text on shortcut. Allows Editor to update correctly.
         let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
-            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, {}, shortcutData, this.handleShortcutUpdate);
+            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, patient, shortcutData, this.handleShortcutUpdate);
             newShortcut.initialize(contextManager, shortcutType, updatePatient, shortcutData);
             return newShortcut;
         }
@@ -704,7 +704,7 @@ describe('6 FluxNotesEditor', function() {
 
         // Mock function to create a new shortcut and set text on shortcut. Allows Editor to update correctly.
         let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
-            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, {}, shortcutData, this.handleShortcutUpdate);
+            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, patient, shortcutData, this.handleShortcutUpdate);
             newShortcut.initialize(contextManager, shortcutType, updatePatient, shortcutData);
             return newShortcut;
         }
@@ -758,7 +758,7 @@ describe('6 FluxNotesEditor', function() {
         // wrapper.find('.editor-content').simulate('click'); //goes into on change
 
         // let noteContent = ' #staging t2 n2 m1';
-        const arrayOfStructuredDataToEnter = ["@condition[[Invasive ductal carcinoma of breast]] ", "#staging ", "t2 ", "n2 ", "m1 "];
+        const arrayOfStructuredDataToEnter = ["@condition[[{\"text\":\"Invasive ductal carcinoma of breast\",\"entryId\":\"8\"}]] ", "#staging ", "t2 ", "n2 ", "m1 "];
         const arrayOfExpectedStructuredDataInserters = ["Invasive ductal carcinoma of breast "];
         const arrayOfExpectedStructuredDataCreators = ["staging ", "t2 ", "n2 ", "m1 "];
         const entryId = patient.addClinicalNote('', '', '', '', '', arrayOfStructuredDataToEnter.join(' '), false);
@@ -798,7 +798,7 @@ describe('6 FluxNotesEditor', function() {
 
         // Mock function to create a new shortcut and set text on shortcut. Allows Editor to update correctly.
         let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
-            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, {}, shortcutData, this.handleShortcutUpdate);
+            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, patient, shortcutData, this.handleShortcutUpdate);
             newShortcut.initialize(contextManager, shortcutType, updatePatient, shortcutData);
             return newShortcut;
         }
@@ -868,7 +868,7 @@ describe('6 FluxNotesEditor', function() {
 
         // Mock function to create a new shortcut and set text on shortcut. Allows Editor to update correctly.
         let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
-            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, {}, shortcutData, this.handleShortcutUpdate);
+            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, patient, shortcutData, this.handleShortcutUpdate);
             newShortcut.initialize(contextManager, shortcutType, updatePatient, shortcutData);
             return newShortcut;
         }
@@ -934,7 +934,7 @@ describe('6 FluxNotesEditor', function() {
 
         // Mock function to create a new shortcut and set text on shortcut. Allows Editor to update correctly.
         let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
-            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, {}, shortcutData, this.handleShortcutUpdate);
+            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, patient, shortcutData, this.handleShortcutUpdate);
             newShortcut.initialize(contextManager, shortcutType, updatePatient, shortcutData);
             return newShortcut;
         }
@@ -976,7 +976,7 @@ describe('6 FluxNotesEditor', function() {
         expect(fluxNotesEditor).to.have.lengthOf(1);
         expect(notesPanelWrapper.find(NoteAssistant)).to.have.lengthOf(1);
 
-        const arrayOfStructuredDataToEnter = ["@condition[[Invasive ductal carcinoma of breast]] ", "#PR ", "#Positive "];
+        const arrayOfStructuredDataToEnter = ["@condition[[{\"text\":\"Invasive ductal carcinoma of breast\",\"entryId\":\"8\"}]] ", "#PR ", "#Positive "];
         const arrayOfExpectedStructuredDataInserter = ["Invasive ductal carcinoma of breast "]
         const arrayOfExpectedStructuredDataCreator = ["PR ", "Positive "]
         const entryId = patient.addClinicalNote('', '', '', '', '', arrayOfStructuredDataToEnter.join(' '), false);
@@ -1017,7 +1017,7 @@ describe('6 FluxNotesEditor', function() {
 
         // Mock function to create a new shortcut and set text on shortcut. Allows Editor to update correctly.
         let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
-            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, {}, shortcutData, this.handleShortcutUpdate);
+            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, patient, shortcutData, this.handleShortcutUpdate);
             newShortcut.initialize(contextManager, shortcutType, updatePatient, shortcutData);
             return newShortcut;
         }
@@ -1055,7 +1055,7 @@ describe('6 FluxNotesEditor', function() {
         expect(fluxNotesEditor).to.have.lengthOf(1);
         expect(notesPanelWrapper.find(NoteAssistant)).to.have.lengthOf(1);
 
-        const arrayOfStructuredDataToEnter = ["@condition[[Invasive ductal carcinoma of breast]] ", "#ER ", "#Positive "];
+        const arrayOfStructuredDataToEnter = ["@condition[[{\"text\":\"Invasive ductal carcinoma of breast\",\"entryId\":\"8\"}]] ", "#ER ", "#Positive "];
         const arrayOfExpectedStructuredData = ["Invasive ductal carcinoma of breast ", "#ER ", "#Positive "]
         const updatedEditorNote = { content: arrayOfStructuredDataToEnter.join(' ') };
         // Set updatedEditorNote props because this triggers that a change is coming in to the editor and inserts text with structured phrases.
@@ -1085,7 +1085,7 @@ describe('6 FluxNotesEditor', function() {
 
         // Mock function to create a new shortcut and set text on shortcut. Allows Editor to update correctly.
         let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
-            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, {}, shortcutData, this.handleShortcutUpdate);
+            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, patient, shortcutData, this.handleShortcutUpdate);
             newShortcut.initialize(contextManager, shortcutType, updatePatient, shortcutData);
             return newShortcut;
         }
@@ -1123,7 +1123,7 @@ describe('6 FluxNotesEditor', function() {
         expect(fluxNotesEditor).to.have.lengthOf(1);
         expect(notesPanelWrapper.find(NoteAssistant)).to.have.lengthOf(1);
 
-        const arrayOfStructuredDataToEnter = ["@condition[[Invasive ductal carcinoma of breast]] ", "#HER2 ", "#Positive "];
+        const arrayOfStructuredDataToEnter = ["@condition[[{\"text\":\"Invasive ductal carcinoma of breast\",\"entryId\":\"8\"}]] ", "#HER2 ", "#Positive "];
         const arrayOfExpectedStructuredData = ["Invasive ductal carcinoma of breast ", "#HER2 ", "#Positive "]
         const updatedEditorNote = { content: arrayOfStructuredDataToEnter.join(' ') };
         // Set updatedEditorNote props because this triggers that a change is coming in to the editor and inserts text with structured phrases.
@@ -1154,7 +1154,7 @@ describe('6 FluxNotesEditor', function() {
 
         // Mock function to create a new shortcut and set text on shortcut. Allows Editor to update correctly.
         let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
-            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, {}, shortcutData, this.handleShortcutUpdate);
+            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, patient, shortcutData, this.handleShortcutUpdate);
             newShortcut.initialize(contextManager, shortcutType, updatePatient, shortcutData);
             return newShortcut;
         }
@@ -1196,7 +1196,7 @@ describe('6 FluxNotesEditor', function() {
         // wrapper.find('.editor-content').simulate('click'); //goes into on change
 
         // let noteContent = ' #staging t2 n2 m1';
-        const arrayOfShortcutText = ["@condition[[Invasive ductal carcinoma of breast]] ", "#toxicity ", "#nausea ", "#disease status ", "#imaging "];
+        const arrayOfShortcutText = ["@condition[[{\"text\":\"Invasive ductal carcinoma of breast\",\"entryId\":\"8\"}]] ", "#toxicity ", "#nausea ", "#disease status ", "#imaging "];
         const arrayOfParsedShortcutTextInserter = ["Invasive ductal carcinoma of breast "]
         const arrayOfParsedShortcutTextCreator = ["toxicity ", "nausea ", "disease status ", "imaging "]
         const entryId = patient.addClinicalNote('', '', '', '', '', arrayOfShortcutText.join(' '), false);
@@ -1230,7 +1230,7 @@ describe('6 FluxNotesEditor', function() {
 
         // Mock function to create a new shortcut and set text on shortcut. Allows Editor to update correctly.
         let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
-            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, {}, shortcutData, this.handleShortcutUpdate);
+            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, patient, shortcutData, this.handleShortcutUpdate);
             newShortcut.initialize(contextManager, shortcutType, updatePatient, shortcutData);
             return newShortcut;
         }

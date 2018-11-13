@@ -121,11 +121,9 @@ class MedicationRangeChartVisualizer extends Component {
         } else {
             medChangeClassName = 'medication-change';
         }
+        const medChangeTypeSigned = medChange.unsigned ? 'medication-change-type-unsigned' : 'medication-change-type';
 
         if (medChange.type === 'stop') {
-            let medChangeTypeSigned = 'medication-change-type';
-
-            if (medChange.unsigned) medChangeTypeSigned = 'medication-change-type-unsigned';
             return (
                 <Col xs={12} className={medChangeClassName}>
                     <span className={medChangeTypeSigned}>
@@ -143,7 +141,7 @@ class MedicationRangeChartVisualizer extends Component {
 
         return (
             <Col xs={12} className={medChangeClassName}>
-                <span className="medication-change-type">
+                <span className={medChangeTypeSigned}>
                     {FormatMedicationChange.stringForMedicationChangeType(medChange.type)}
                 </span>
                 <span className="medication-change-prior-amount">
@@ -282,6 +280,7 @@ renderMedicationNarrowView = (med, i) => {
     const dosageUnit = med.medication.amountPerDose ? med.medication.amountPerDose.units : null;
     const timingValue = med.medication.timingOfDoses ? med.medication.timingOfDoses.value : null;
     const timingUnit = med.medication.timingOfDoses ? med.medication.timingOfDoses.units : null;
+    const {doseInstructionsText} = med.medication;
     const name = med.medication.medication;
     const medicationIsChange = (med.medicationChange ? true : false);
     const asNeededIndicator = med.medication.asNeededIndicator;
@@ -292,7 +291,7 @@ renderMedicationNarrowView = (med, i) => {
                 <div className="medication-heading">
                 <Row top="xs">
                     <Col md={8} xs={12}>
-                        {this.renderMedicationTitle(lowerValue, upperValue, name, dosageValue, dosageUnit, timingValue, timingUnit, asNeededIndicator)}
+                        {this.renderMedicationTitle(lowerValue, upperValue, name, dosageValue, dosageUnit, timingValue, timingUnit, asNeededIndicator, doseInstructionsText)}
                     </Col>
                 </Row>
                 </div>

@@ -8,6 +8,7 @@ export default class InsertValue extends Shortcut {
         super();
         this.metadata = metadata;
         this.text = null;
+        this.patient = patient;
     }
 
     initialize(contextManager, trigger = undefined, updatePatient = true, shortcutData = "") {
@@ -27,13 +28,11 @@ export default class InsertValue extends Shortcut {
         }
 
         if (this.needToSelectValueFromMultipleOptions() && shortcutData.length > 0) {
-            this.text = shortcutData;
-            const portalOptions = this.getValueSelectionOptions();
-            portalOptions.forEach((option) => {
-                if (option.context === shortcutData) {
-                    this.setValueObject(option.object);
-                }
-            });
+            // Parse shortcutData and find value object by entryId
+            const shortcutDataObj = JSON.parse(shortcutData);
+            this.text = shortcutDataObj.text;
+            const valueObject = this.patient.getEntryById(shortcutDataObj.entryId);
+            this.setValueObject(valueObject);
         }
     }
 
@@ -187,6 +186,14 @@ export default class InsertValue extends Shortcut {
         if (typeof text === "string" && text.startsWith(this.getPrefixCharacter())) {
             text = text.substring(1);
         }
+        // If this.valueObject exists, put the entryId of the valueObject in the result text
+        if (this.valueObject) {
+            const shortcutDataObj = {
+                text,
+                entryId: this.valueObject.entryInfo.entryId,
+            };
+            return `${this.initiatingTrigger}[[${JSON.stringify(shortcutDataObj)}]]`;
+        }
         return `${this.initiatingTrigger}[[${text}]]`;
     }
 
@@ -194,23 +201,22 @@ export default class InsertValue extends Shortcut {
         const callSpec = this.metadata["createObjectForParsing"];
 
         const object = this._resolveCallSpec(callSpec, contextManager, selectedValue);
-        // this.setValueObject(object);
-        return object;    
+
+        return object;
     }
 
     setText(text) {
         this.text = text;
-       
     }
 
     setValueObject(valueObject) {
         this.valueObject = valueObject;
-        const parentAttribute = this.metadata["parentAttribute"]; 
-        
+        const parentAttribute = this.metadata["parentAttribute"];
+
         // Check parent of shortcut and setAttributeValue 
         if (parentAttribute && (this.parentContext instanceof CreatorBase || this.parentContext instanceof SingleHashtagKeyword) && this.parentContext.isAttributeSupported(parentAttribute)) {
             this.parentContext.setAttributeValue(parentAttribute, this.valueObject);
-        }     
+        }
     }
 
     isGlobalContext() {

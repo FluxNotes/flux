@@ -36,14 +36,16 @@ export default class CreatorChild extends Shortcut {
         /*        const triggerNoPrefix = trigger.substring(1);
          console.log("trigger no prefix = " + triggerNoPrefix);*/
          //console.log(this.metadata.stringTriggers);
-        for (var i = 0; i < this.metadata.stringTriggers.length; i++) {
-            //console.log("  is string trigger? " + this.metadata.stringTriggers[i].name);
-            if (this.metadata.stringTriggers[i].name === trigger) {
-                found = true;
-                if (this.metadata.stringTriggers[i].picker) {
-                    picker = true;
+        if (this.metadata.stringTriggers) {
+            for (var i = 0; i < this.metadata.stringTriggers.length; i++) {
+                //console.log("  is string trigger? " + this.metadata.stringTriggers[i].name);
+                if (this.metadata.stringTriggers[i].name === trigger) {
+                    found = true;
+                    if (this.metadata.stringTriggers[i].picker) {
+                        picker = true;
+                    }
+                    break;
                 }
-                break;
             }
         }
         if (!found || !picker) {

@@ -9,6 +9,8 @@ import ExpectedPerformanceTime from '../shr/action/ExpectedPerformanceTime';
 import moment from 'moment';
 import lookup from '../../lib/MedicationInformationService.jsx';
 import ActionContext from '../shr/action/ActionContext';
+import TimePeriodEnd from '../shr/core/TimePeriodEnd';
+import TimePeriodStart from '../shr/core/TimePeriodStart';
 class FluxMedicationRequested {
     constructor(json) {
         this._medicationRequested = MedicationRequested.fromJSON(json);
@@ -63,7 +65,28 @@ class FluxMedicationRequested {
         if (!this._medicationRequested.actionContext.expectedPerformanceTime.value) {
             this._medicationRequested.actionContext.expectedPerformanceTime.value = new TimePeriod();
         }
-        this._medicationRequested.actionContext.expectedPerformanceTime.value.timePeriodStart = date;
+        const timePeriodStart = new TimePeriodStart();
+        timePeriodStart.value = date;
+        this._medicationRequested.actionContext.expectedPerformanceTime.value.timePeriodStart = timePeriodStart;
+    }
+
+    get endDate() {
+        return this.expectedPerformanceTime.timePeriodEnd || null;
+    }
+
+    set endDate(date) {
+        if (!this._medicationRequested.actionContext) {
+            this._medicationRequested.actionContext = new ActionContext();
+        }
+        if (!this._medicationRequested.actionContext.expectedPerformanceTime) {
+            this._medicationRequested.actionContext.expectedPerformanceTime = new ExpectedPerformanceTime();
+        }
+        if (!this._medicationRequested.actionContext.expectedPerformanceTime.value) {
+            this._medicationRequested.actionContext.expectedPerformanceTime.value = new TimePeriod();
+        }
+        const timePeriodEnd = new TimePeriodEnd();
+        timePeriodEnd.value = date;
+        this._medicationRequested.actionContext.expectedPerformanceTime.value.timePeriodEnd = timePeriodEnd;
     }
 
     isActiveAsOf(date) {
@@ -144,6 +167,11 @@ class FluxMedicationRequested {
             value: this._medicationRequested.dosage.doseAmount.value.decimal,
             units: this._medicationRequested.dosage.doseAmount.value.units.value.code
         };
+    }
+
+    set dose(amount) {
+        if (!this._medicationRequested.dosage || !this._medicationRequested.dosage.doseAmount) return;
+        this._medicationRequested.dosage.doseAmount.value.decimal = amount;
     }
 
     /*

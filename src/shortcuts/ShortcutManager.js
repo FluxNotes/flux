@@ -102,7 +102,7 @@ class ShortcutManager {
     }
 
     getAllShortcutsWithTriggers() {
-        return this.shortcutDefinitions.filter((s) => s.stringTriggers !== undefined);
+        return this.shortcutDefinitions.filter((s) => s.stringTriggers !== undefined || s.regexpTrigger !== undefined);
     }
 
     getAllShortcutsWithKeywords() {

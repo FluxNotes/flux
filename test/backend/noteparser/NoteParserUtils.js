@@ -807,3 +807,93 @@ export const stopMedicationJSON = {
         }
     }
 }
+
+export const reduceMedicationJSON = {
+    "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationChange"
+    },
+    "Type": {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/entity/Type"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+
+                    "CodeSystem": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        },
+                        "Value": "http://standardhealthrecord.org/spec/shr/medication/cs/#MedicationChangeTypeCS"
+                    },
+                    "Value": "reduced",
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "reduced"
+                    }
+                }
+            ],
+            "DisplayText": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                },
+                "Value": "reduced"
+            }
+        }
+    },
+    "MedicationBeforeChange": {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationBeforeChange"
+        }
+    },
+    "MedicationAfterChange": {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationAfterChange"
+        }
+    },
+    "ActionContext": {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/action/PerformedContext"
+        },
+        "Reason": [
+            {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Reason"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    },
+                    "Coding": [
+                        {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "side_effect",
+                            "DisplayText": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                },
+                                "Value": "Side Effect"
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "Status": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/action/Status"
+            },
+            "Value": "completed"
+        }
+    }
+}
