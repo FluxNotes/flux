@@ -366,7 +366,6 @@ export class FullApp extends Component {
     }
 
     setHighlightedSearchSuggestion = (suggestion) => {
-        console.log('highlightedSearchSuggestion: ');
         this.setState({ 
             highlightedSearchSuggestion: suggestion 
         });

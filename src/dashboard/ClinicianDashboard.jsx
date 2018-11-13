@@ -249,6 +249,7 @@ ClinicianDashboard.propTypes = {
     dataAccess: PropTypes.object.isRequired,
     forceRefresh: PropTypes.bool,
     handleSummaryItemSelected: PropTypes.func.isRequired,
+    highlightedSearchSuggestion: PropTypes.object,
     isAppBlurred: PropTypes.bool,
     itemInserted: PropTypes.func.isRequired,
     loginUser: PropTypes.object.isRequired,

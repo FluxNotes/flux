@@ -436,6 +436,7 @@ export default class TargetedDataSection extends Component {
                 actions={actions}
                 searchIndex={searchIndex}
                 tdpSearchSuggestions={this.tdpSearchSuggestions}
+                highlightedSearchSuggestion={this.props.highlightedSearchSuggestion}
             />
         );
     }
@@ -490,5 +491,6 @@ TargetedDataSection.propTypes = {
     loginUser: PropTypes.object.isRequired,
     preferenceManager: PropTypes.object.isRequired,
     searchIndex: PropTypes.object.isRequired,
-    searchSuggestions: PropTypes.array
+    searchSuggestions: PropTypes.array,
+    highlightedSearchSuggestion: PropTypes.object,
 }

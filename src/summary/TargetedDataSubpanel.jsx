@@ -44,6 +44,8 @@ export default class TargetedDataSubpanel extends Component {
         // - searchSuggestions have changed
         // - highlightedSuggestion has changed
 
+        if (!_.isEqual(this.props.highlightedSearchSuggestion, nextProps.highlightedSearchSuggestion)) return true;
+
         const previousTDPSuggestions = this.props.searchSuggestions.filter(s => s.source === 'structuredData');
         const nextTDPSuggestions = nextProps.searchSuggestions.filter(s => s.source === 'structuredData');
         if (!_.isEqual(previousTDPSuggestions, nextTDPSuggestions)) return true;
@@ -165,6 +167,7 @@ export default class TargetedDataSubpanel extends Component {
                         searchIndex={this.props.searchIndex}
                         moveToSubsectionFromSearch={this.props.moveToSubsectionFromSearch}
                         searchSuggestions={this.props.searchSuggestions}
+                        highlightedSearchSuggestion={this.props.highlightedSearchSuggestion}
                     />
 
                     {i < sectionsToDisplay.length - 1 ? <Divider className="divider"/> : null}
@@ -198,6 +201,7 @@ TargetedDataSubpanel.propTypes = {
     searchIndex: PropTypes.object.isRequired,
     loginUser: PropTypes.object.isRequired,
     preferenceManager: PropTypes.object.isRequired,
+    searchSuggestions: PropTypes.array,
     sectionsToDisplay: PropTypes.array.isRequired,
-    searchSuggestions: PropTypes.array
+    highlightedSearchSuggestion: PropTypes.object,
 };

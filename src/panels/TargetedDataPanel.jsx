@@ -181,6 +181,7 @@ TargetedDataPanel.proptypes = {
         condition: PropTypes.object,
     }).isRequired,
     forceRefresh: PropTypes.bool,
+    highlightedSearchSuggestion: PropTypes.object,
     isAppBlurred: PropTypes.bool,
     isNoteViewerEditable: PropTypes.bool.isRequired,
     isTargetedDataSubpanelVisible: PropTypes.bool,
