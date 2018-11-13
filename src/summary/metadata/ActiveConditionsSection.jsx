@@ -1,7 +1,7 @@
 import MetadataSection from "./MetadataSection";
 
 export default class ActiveConditionsSection extends MetadataSection {
-    getMetadata(preferencesManager, condition, roleType, role, specialty) {
+    getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
         return {
             name: "Active Conditions",
             shortName: "Conditions",
@@ -18,7 +18,7 @@ export default class ActiveConditionsSection extends MetadataSection {
         };
     }
 
-    getItemListForConditions = (patient, currentConditionEntry, subsection) => {
+    getItemListForConditions = (patient, currentConditionEntry, section, subsection) => {
         const conditions = patient.getActiveConditions();
         return conditions.map((c, i) => {
             return [

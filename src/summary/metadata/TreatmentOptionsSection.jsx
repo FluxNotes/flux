@@ -5,7 +5,7 @@ import {seerdata} from '../Seerdata.js';
 //const ApiClient = new FluxNotesTreatmentOptionsRestClient.ApiClient();
 
 export default class TreatmentOptionsSection extends MetadataSection {
-    getMetadata(preferencesManager, condition, roleType, role, specialty) {
+    getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
         return {
             name: "Treatment Options",
             nameSuffixFunction: (section) => {
@@ -21,17 +21,71 @@ export default class TreatmentOptionsSection extends MetadataSection {
             data: [
                 {
                     name: "",
+                    // TO DO: need to change filters to support a function. getTreatmentCriteria below that gets patient and condition as arguments
+                    // eventually, the service API and implementation will need to support this call to figure out the supported criteria based on the condition
+                    // filterFunction: this.getTreatmentCriteria
+                    filters: [
+                        { id:"ageAtDiagnosis", name: "Age at diagnosis", servicePropertyName: "ageAtDiagnosis", category: "Demographics", value: true, 
+                                propertyValueFunction: (patient, condition) => { return patient.getAgeAsOf(new Date(condition.getDiagnosisDate())) } },
+                        { id:"gender",name: "Gender", servicePropertyName: "gender", category: "Demographics", value: true, 
+                                propertyValueFunction: (patient, condition) => { return patient.getGender() } },
+                        { id:"race",name: "Race", servicePropertyName: "race", category: "Demographics", value: true,
+                                propertyValueFunction: (patient, condition) => { return this.toFirstLetterCapital(patient.getPatient().race) } },
+                        { id:"kit",name: "KIT", servicePropertyName: "kit", category: "Genetics", value: true,
+                                propertyValueFunction: (patient, condition) => { return  condition.getGeneticMutationValue('KIT', patient) } },
+                        { id:"pdgfra", name: "PDGFRA", servicePropertyName: "pdgfra", category: "Genetics", value: true,
+                                propertyValueFunction: (patient, condition) => { return  condition.getGeneticMutationValue('PDGFRA', patient) } },
+                        { id:"grade",name: "Grade", servicePropertyName: "dxGrade", category: "Pathology", value: true,
+                                propertyValueFunction: (patient, condition) => { return condition.getMostRecentHistologicalGrade().getGradeAsSimpleNumber() } },
+                        { id:"stage",name: "Stage", servicePropertyName: "stage", category: "Pathology", value: true,
+                                propertyValueFunction: (patient, condition) => { return condition.getMostRecentStaging().stage } },
+                        { id:"surgery",name: "Surgery", servicePropertyName: "surgery", category: "Past Treatment", value: true,
+                                propertyValueFunction: (patient, condition) => { return condition.hasPastTreatment('C0851238', patient) } }
+                    ],
                     itemsFunction: this.getTreatmentData
                 }
             ]
         };
     }
 
-    getTreatmentData = (patient, condition, subsection) => {
+    // getTreatmentCriteria = (patient, condition) => {
+    //     return [ // condition is a given
+    //         { name: "Age at diagnosis", category: "Demographics" },
+    //         { name: "Gender", category: "Demographics" },
+    //         { name: "Race", category: "Demographics" },
+    //         { name: "KIT", category: "Genetics" },
+    //         { name: "PDGFRA", category: "Genetics" },
+    //         { name: "Grade", category: "Pathology" },
+    //         { name: "Stage", category: "Pathology" },
+    //         { name: "Surgery", category: "Past Treatment" }
+    //     ];
+    // }
+
+    getTreatmentData = (patient, condition, subsection, getFilterValue) => {
  
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         // If we have cached data, use that instead of making an API call
         if (subsection.data_cache) return subsection.data_cache;
+        //   {
+        //     subsection.filters.forEach(filter => {
+        //         switch (filter.name) {
+        //             case 'Over The Counter Medications':
+        //             // If Show Over The Counter meds is not selected, need to filter them out.
+        //             if (filter.value === false) {
+        //                     meds = meds.filter(med => {
+        //                         // Don't filter out medications if we don't know if they are OTC or not.
+        //                         if (med.overTheCounter === undefined) {
+        //                             return true;
+        //                         }
+        //                         return !med.overTheCounter;
+        //                     });
+        //                 }
+        //                 break;
+        //             default:
+        //                 break;
+        //         }
+        //     });
+        // }
       /*   return fetch('/ServerConfig.json').then((r) => r.json()).then((config) => {
             ApiClient.basePath = config.baseURL;
             const api = new FluxNotesTreatmentOptionsRestClient.DefaultApi(ApiClient);

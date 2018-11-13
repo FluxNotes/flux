@@ -24,9 +24,9 @@ import ReviewOfSystemsSection from './ReviewOfSystemsSection';
 
 
 export default class SarcomaNursePractitionerMetadata extends MetadataSection {
-    getMetadata(preferencesManager, condition, roleType, role, specialty) {
+    getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
         return { // sarcoma NP
-            sections: this.buildMetadataSections(preferencesManager, condition, roleType, role, specialty,
+            sections: this.buildMetadataSections(preferencesManager, patient, condition, roleType, role, specialty,
                 VisitReasonPreEncounterSection,
                 VisitReasonPostEncounterSection,
                 SarcomaSummarySection,

@@ -1,7 +1,7 @@
 import LabTestSubsection from "./LabTestSubsection";
 
 export default class NeutrophilCountSubsection extends LabTestSubsection {
-    getMetadata(preferencesManager, condition, roleType, role, specialty) {
+    getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
         return {
             name: "Neutrophil count",
             code: "C0027950",

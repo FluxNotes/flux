@@ -3,8 +3,7 @@ import Lang from 'lodash'
 import moment from 'moment';
 
 export default class TimelineSection extends MetadataSection {
-    getMetadata(preferencesManager, condition, roleType, role, specialty) {
-        const sectionName = 'Timeline';
+    getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
         const overTheCounter = 'OverTheCounterMedications';
 
         return {
@@ -19,9 +18,6 @@ export default class TimelineSection extends MetadataSection {
                     filters: [
                         { name: 'Over The Counter Medications', 
                             id: overTheCounter,
-                          value: (subsection) => {
-                            return preferencesManager.getPreference(`${sectionName}-${subsection.name}-${overTheCounter}`);
-                            } 
                         }
                     ],
                     itemsFunction: this.getMedicationItems
@@ -86,7 +82,7 @@ export default class TimelineSection extends MetadataSection {
         return items;
     }
 
-    getMedicationItems = (patient, condition, subsection) => {
+    getMedicationItems = (patient, condition, subsection, getFilterValue) => {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         let meds = patient.getMedicationsForConditionReverseChronologicalOrder(condition);
         if (subsection.filters) {
@@ -95,7 +91,8 @@ export default class TimelineSection extends MetadataSection {
                     
                     case 'Over The Counter Medications':
                     // If Show Over The Counter meds is not selected, need to filter them out.
-                    if (filter.value(subsection) === false) {
+                    if (getFilterValue(filter, subsection.name) === false) {
+//                    if (filter.value(subsection) === false) {
                             meds = meds.filter(med => {
                                 // Don't filter out medications if we don't know if they are OTC or not.
                                 if (med.overTheCounter === undefined) {

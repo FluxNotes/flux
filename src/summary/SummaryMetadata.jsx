@@ -76,7 +76,7 @@ export default class SummaryMetadata {
         return [ userType + "/" + conditionType, conditionType, "default" ];
     }
 
-    getMetadata = (preferencesManager, condition, roleType, role, specialty) => {
+    getMetadata = (preferencesManager, patient, condition, roleType, role, specialty) => {
         let metadataDefinition;
         const prioritizedKeyList = this.buildPrioritizedMetadataKeyList(condition, roleType, role, specialty);
         const numKeys = prioritizedKeyList.length;
@@ -98,12 +98,12 @@ export default class SummaryMetadata {
         if (!Lang.isFunction(metadataDefinition)) return metadataDefinition;
 
         let obj = new metadataDefinition();
-        let metadata = obj.getMetadata(preferencesManager, condition, roleType, role, specialty);
+        let metadata = obj.getMetadata(preferencesManager, patient, condition, roleType, role, specialty);
         metadata.sections.forEach((section) => {
             section.data = section.data.map((subsection) => {
                 if (!Lang.isFunction(subsection)) return subsection;
                 let obj = new subsection();
-                return obj.getMetadata(preferencesManager, condition, roleType, role, specialty);
+                return obj.getMetadata(preferencesManager, patient, condition, roleType, role, specialty);
             });
         });
         this.addCachedMetadata(prioritizedKeyList[keyIndex], metadata);

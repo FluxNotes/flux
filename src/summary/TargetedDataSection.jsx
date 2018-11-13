@@ -5,8 +5,14 @@ import MenuItem from 'material-ui/Menu/MenuItem';
 import Checkbox from 'material-ui/Checkbox';
 import { ListItemText } from 'material-ui/List';
 import Button from '../elements/Button';
+import Chip from 'material-ui/Chip';
+import ExpansionPanel, { ExpansionPanelSummary, ExpansionPanelDetails } from 'material-ui/ExpansionPanel';
+import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
 import './TargetedDataSection.css';
 import Lang from 'lodash';
+import { FormControl, FormGroup, FormLabel, FormControlLabel } from 'material-ui';
+
+const SHOW_FILTER_AS_MENU = false;
 
 export default class TargetedDataSection extends Component {
     constructor(props) {
@@ -29,6 +35,7 @@ export default class TargetedDataSection extends Component {
             anchorEl: null,
             positionLeft: 0,
             positionTop: 0,
+            expanded: false,
             filters
         };
     }
@@ -116,12 +123,12 @@ export default class TargetedDataSection extends Component {
 
     handleViewChange = (chosenVisualizer) => {
         this.props.searchIndex.removeDataBySection(this.props.section.name);
-        this.indexSectionData(this.props.section);
+        this.getAndIndexSectionData(this.props.section);
         this.setState({ chosenVisualizer });
         this.props.preferenceManager.setPreference(this.props.section.name, chosenVisualizer);
     }
 
-    checkVisualization = () => {
+    determineVisualizerName = () => {
         let visualization;
         if (this.state.chosenVisualizer === null) {
             visualization = this.state.defaultVisualizer;
@@ -132,8 +139,8 @@ export default class TargetedDataSection extends Component {
     }
 
     renderIcon = (type, i) => {
-        const visualization = this.checkVisualization();
-        const isSelected = visualization === type;
+        const visualizerName = this.determineVisualizerName();
+        const isSelected = visualizerName === type;
         let icon = this.props.visualizerManager.renderIcon(type, isSelected);
 
         if (icon !== null) {
@@ -217,8 +224,11 @@ export default class TargetedDataSection extends Component {
  
         // Set state and re-index data to properly search currently visible data
         this.setState({ filters });
-        this.indexSectionData(section);
-        
+        const subsections = section === null ? [] : section.data;
+        subsections.forEach(subsection => {
+            subsection.data_cache = null;
+        });
+        this.getAndIndexSectionData(section);
     }
  
     getFilterValue = (filter, subsectionName) => {
@@ -229,7 +239,7 @@ export default class TargetedDataSection extends Component {
         
     }  
 
-    renderFilters = () => {
+    renderFilters = (patient, condition) => {
         let totalNumFilters = 0;
         this.props.section.data.forEach((subsection) => {
             const filters = this.state.filters[`${this.props.section.name}-${subsection.name}`] || [];
@@ -238,42 +248,115 @@ export default class TargetedDataSection extends Component {
         if (totalNumFilters === 0) {
             return null;
         }
+        if (SHOW_FILTER_AS_MENU) {
+            return (
+                <div className="right-icons">
+                    <Button className="small-btn" onClick={this.handleFilterMenuOpen}>Filter</Button>
+                    <Menu
+                        id="filter-menu"
+                        anchorEl={this.state.anchorEl}
+                        anchorReference="anchorPosition"
+                        anchorPosition={{ top: this.state.positionTop, left: this.state.positionLeft }}
+                        open={Boolean(this.state.anchorEl)}
+                        onClose={this.handleMenuClose}
+                        className="menu-list">
+                        {this.props.section.data.map((subsection) => {
+                            return this.state.filters[`${this.props.section.name}-${subsection.name}`].map((filter) => {
+                                return (
+                                    <MenuItem key={filter.name}>
+                                        <Checkbox
+                                            checked={this.getFilterValue(filter, subsection.name)}
+                                            onChange={() => this.updateFilterValue(filter, subsection.name)}
+                                            value={filter.name}
+                                            className="checkbox"/>
+                                        <ListItemText inset primary={filter.name} />
+                                    </MenuItem>
+                                );
+                            });
+                        })}
+                    </Menu>
+                </div>
+            );
+        } else {
+            let criteriaGroups = {};
+            let criteriaCheckboxes, categoryName;
+            let criteriaSummaryItems = [];
+            this.props.section.data.forEach((subsection) => {
+                this.state.filters[`${this.props.section.name}-${subsection.name}`].forEach((filter) => {
+                    const propertyValue = filter.propertyValueFunction ? filter.propertyValueFunction(patient, condition) : null;
+                    categoryName = filter.category || "";
+                    criteriaCheckboxes = criteriaGroups[categoryName];
+                    if (Lang.isUndefined(criteriaCheckboxes)) {
+                        criteriaCheckboxes = [];
+                        criteriaGroups[categoryName] = criteriaCheckboxes;
+                    }
+                    let label = filter.name;
+                    if (!Lang.isNull(propertyValue)) label += `: ${propertyValue}`;
+                    const filterValue = this.getFilterValue(filter, subsection.name);
+                    criteriaCheckboxes.push(
+                        <FormControlLabel 
+                            key={filter.name}
+                            control={
+                                <Checkbox 
+                                    checked={filterValue}
+                                    onChange={() => this.updateFilterValue(filter, subsection.name)}
+                                    value={filter.name}
+                                    className="checkbox" />
+                        }
+                        label={label}
+                        />
+                    );
+                    if (filterValue) {
+                        criteriaSummaryItems.push(
+                            <Chip
+                                key={filter.name}
+                                label={label}
+                                onDelete={() => this.updateFilterValue(filter, subsection.name)}
+                            >
+                            </Chip>);    
+                    }
+                });
+            });
+            const { expanded } = this.state;
+            let expansionInstructions = <span className='expansion-instructions'>{expanded ? 'Click here to collapse criteria...' : 'Click here to edit criteria...'}</span>;
+            return (
+                <div>
+                    <ExpansionPanel expanded={expanded} onChange={(e, newExpanded) => this.setState({expanded: newExpanded})}>
+                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
+                            {criteriaSummaryItems}
+                            {expansionInstructions}
+                        </ExpansionPanelSummary>
+                        <ExpansionPanelDetails>{this.layoutCriteriaCheckboxes(criteriaGroups)}</ExpansionPanelDetails>
+                    </ExpansionPanel>
+                </div>
+            );
+        }
+    }
 
+    layoutCriteriaCheckboxes = (criteriaGroups) => {
+        const keys = Object.keys(criteriaGroups);
+        const numGroups = keys.length;
+        if (numGroups === 0) return null;
+        if (numGroups === 1) return <FormControl component="fieldset">{criteriaGroups[keys[0]]}</FormControl>;
         return (
-            <div className="right-icons">
-                <Button className="small-btn" onClick={this.handleFilterMenuOpen}>Filter</Button>
-                <Menu
-                    id="filter-menu"
-                    anchorEl={this.state.anchorEl}
-                    anchorReference="anchorPosition"
-                    anchorPosition={{ top: this.state.positionTop, left: this.state.positionLeft }}
-                    open={Boolean(this.state.anchorEl)}
-                    onClose={this.handleMenuClose}
-                    className="menu-list">
-                    {this.props.section.data.map((subsection) => {
-                        return this.state.filters[`${this.props.section.name}-${subsection.name}`].map((filter) => {
-                            return (
-                                <MenuItem key={filter.name}>
-                                    <Checkbox
-                                        checked={this.getFilterValue(filter, subsection.name)}
-                                        onChange={() => this.updateFilterValue(filter, subsection.name)}
-                                        value={filter.name}
-                                        className="checkbox"/>
-                                    <ListItemText inset primary={filter.name} />
-                                </MenuItem>
-                            );
-                        });
-                    })}
-                </Menu>
+            <div>
+                {keys.map(key => {
+                    return (<FormControl component="fieldset" key={key}>
+                                <FormLabel component="legend">{key}</FormLabel>
+                                <FormGroup>
+                                    {criteriaGroups[key]}
+                                </FormGroup>
+                            </FormControl>);   
+                })}
             </div>
         );
     }
 
-    indexSectionData(section) {
+    getAndIndexSectionData(section) {
         const { patient, condition, type, loginUser, searchIndex } = this.props;
-        const visualization = this.checkVisualization();
+        const visualizerName = this.determineVisualizerName();
 
-        const viz = this.props.visualizerManager.getVisualizer(type, visualization);
+        const viz = this.props.visualizerManager.getVisualizer(type, visualizerName);
 
         if (Lang.isNull(viz)) return null;
         const sectionTransform = viz.transform;
@@ -289,7 +372,7 @@ export default class TargetedDataSection extends Component {
 
             if (sectionTransform) {
                 typeToIndex = viz.renderedFormat;
-                newSubsection = sectionTransform(patient, condition, subsection);
+                newSubsection = sectionTransform(patient, condition, subsection, this.getFilterValue);
                 list = newSubsection.data_cache;
                 Object.assign(subsection, newSubsection);
             } else {
@@ -297,8 +380,7 @@ export default class TargetedDataSection extends Component {
                 typeToIndex = type;
                 if (Lang.isUndefined(items)) {
                 
-                    list = itemsFunction(patient, condition, subsection);
-                   
+                    list = itemsFunction(patient, condition, subsection, this.getFilterValue);
                 } else {
                     list = items.map((item, i) => {
                         if (Lang.isNull(item.value)) {
@@ -335,8 +417,6 @@ export default class TargetedDataSection extends Component {
     }
 
     // renderSection checks the type of data that is being passed and chooses the correct component to render the data
-    // TODO: Add a List type and a tabular renderer for it for Procedures section. case where left column is data
-    //       and not just a label
     renderSection = (section, viz) => {
         const { patient, condition, allowItemClick, isWide, loginUser, actions, searchIndex } = this.props;
 
@@ -361,13 +441,13 @@ export default class TargetedDataSection extends Component {
     }
 
     render() {
-        const { section, condition, clinicalEvent } = this.props;
+        const { section, patient, condition, clinicalEvent } = this.props;
         const visualizationOptions = this.getOptions(section);
         const selectedCondition = condition && condition.type;
         const encounterView = clinicalEvent === "encounter";
         const notFiltered = !Lang.isUndefined(section.notFiltered) && section.notFiltered;
 
-        const viz = this.indexSectionData(section);
+        const viz = this.getAndIndexSectionData(section);
         
         let highlightClass;
         if (!Lang.isUndefined(this.tdpSearchSuggestions)) {
@@ -384,9 +464,10 @@ export default class TargetedDataSection extends Component {
                 <h2 className="section-header">
                     <span className={`section-header__name${highlightClass}`}>{section.name}</span><span>&nbsp;{this.state.sectionNameSuffix}</span>
                     {!encounterView && !notFiltered && <span className="section-header__condition">{selectedCondition}</span>}
-                    {this.renderFilters()}
+                    {SHOW_FILTER_AS_MENU && this.renderFilters(patient, condition)}
                     {this.renderVisualizationOptions(visualizationOptions)}
                 </h2>
+                {!SHOW_FILTER_AS_MENU && this.renderFilters(patient, condition)}
 
                 {encounterView && !notFiltered && <div className="section-header__condition encounter">{selectedCondition}</div>}
 

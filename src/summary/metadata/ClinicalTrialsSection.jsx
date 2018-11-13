@@ -9,7 +9,7 @@ export default class ClinicalTrialsSection extends MetadataSection {
         this.missingEligibleTrialData = null;
     }
 
-    getMetadata(preferencesManager, condition, roleType, role, specialty) {
+    getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
         return {
             name: "Clinical Trials",
             shortName: "Trials",

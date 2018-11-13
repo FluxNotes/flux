@@ -22,10 +22,10 @@ class VisualizerManager {
         this.user = user;
     }
 
-    transformValuesOverTimeToColumns = (patient, condition, subsection) => {
+    transformValuesOverTimeToColumns = (patient, condition, subsection, getFilterValue) => {
         let newsection = {};
 
-        const itemList = subsection.itemsFunction(patient, condition, subsection);
+        const itemList = subsection.itemsFunction(patient, condition, subsection, getFilterValue);
 
         const goodband = subsection.bands.find((band) => {
             return band.assessment === 'good';
@@ -63,10 +63,10 @@ class VisualizerManager {
         return newsection;
     }
 
-    transformMedicationsToColumns = (patient, condition, subsection) => {
+    transformMedicationsToColumns = (patient, condition, subsection, getFilterValue) => {
         let newsection = {};
 
-        const itemList = subsection.itemsFunction(patient, condition, subsection);
+        const itemList = subsection.itemsFunction(patient, condition, subsection, getFilterValue);
 
         newsection.name = "";
         newsection.headings = ["Medication", "Change", "Dosage", "Timing", "Start", "End"];
@@ -170,7 +170,7 @@ class VisualizerManager {
         return "tabular-list";
     }
 
-    transformNameValuePairToColumns = (patient, condition, subsection) => {
+    transformNameValuePairToColumns = (patient, condition, subsection, getFilterValue) => {
         let newsection = {};
 
         const { itemsFunction } = subsection;
@@ -178,7 +178,7 @@ class VisualizerManager {
         let list = null;
 
         if (Lang.isUndefined(items)) {
-            items = itemsFunction(patient, condition, subsection);
+            items = itemsFunction(patient, condition, subsection, getFilterValue);
         }
         // call value functions and get values
         list = items.map((item, i) => {

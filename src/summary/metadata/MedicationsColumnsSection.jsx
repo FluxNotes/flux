@@ -1,7 +1,7 @@
 import MedicationsSection from "./MedicationsSection";
 
 export default class MedicationsColumnsSection extends MedicationsSection {
-    getMetadata(preferencesManager, condition, roleType, role, specialty) {
+    getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
         return {
             name: "Medications",
             shortName: "Meds",

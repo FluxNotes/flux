@@ -2,7 +2,7 @@ import MetadataSection from "./MetadataSection";
 import moment from 'moment';
 
 export default class MostRecentVisitsSubsection extends MetadataSection {
-    getMetadata(preferencesManager, condition, roleType, role, specialty) {
+    getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
         return {
             name: "Most Recent Visit",
             items: [

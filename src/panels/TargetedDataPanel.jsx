@@ -28,8 +28,10 @@ export default class TargetedDataPanel extends Component {
     
     getConditionMetadata() {
         const { loginUser } = this.props;
+        const patient = this.props.appState.patient;
         const condition = this.props.appState.condition;
         return this.props.summaryMetadata.getMetadata(  this.props.preferenceManager,
+                                                        patient,
                                                         condition, 
                                                         loginUser.getRoleType(), 
                                                         loginUser.getRole(), 

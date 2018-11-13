@@ -1,7 +1,7 @@
 import MetadataSection from './MetadataSection';
 
 export default class ImagingSection extends MetadataSection {
-    getMetadata(preferencesManager, condition, roleType, role, specialty) {
+    getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
         return {
             name: "Imaging",
             shortName: "Imaging",

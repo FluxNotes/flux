@@ -142,6 +142,10 @@ class FluxCondition {
         return 0;
     }
 
+    getGeneticMutationValue(geneticMutationAbbreviatedName, patient) {
+        return undefined;
+    }
+
     getToxicities() {
         const entries =this._patientRecord.getEntriesOfType(FluxToxicReaction)
         const conditionEntryId = this._condition.entryInfo.entryId.value || this._condition.entryInfo.entryId;
@@ -316,6 +320,13 @@ class FluxCondition {
         hpiText += ` Patient was diagnosed with ${this.type} on ${this.diagnosisDate}.`;
 
         return hpiText;
+    }
+
+    hasPastTreatment(procedureCode, patient) {
+        const procedure = patient.getProceduresForCondition(this).find((p) => {
+            return (p.code === procedureCode);
+        });
+        return !Lang.isEmpty(procedure);
     }
 
     buildEventNarrative(hpiText, patient, conditionCode = null) {

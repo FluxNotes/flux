@@ -2,7 +2,7 @@ import MetadataSection from "./MetadataSection";
 import Lang from 'lodash'
 
 export default class VisitReasonPreEncounterSection extends MetadataSection {
-    getMetadata(preferencesManager, condition, roleType, role, specialty) {
+    getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
         return {
             name: "Visit Reason",
             shortName: "Reason",

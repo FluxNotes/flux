@@ -24,9 +24,9 @@ import PatientRecord from '../../patient/PatientRecord';
 
 
 export default class SarcomaMetadata extends MetadataSection {
-    getMetadata(preferencesManager, condition, roleType, role, specialty) {
+    getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
         return { // sarcoma
-            sections: this.buildMetadataSections(preferencesManager, condition, roleType, role, specialty, 
+            sections: this.buildMetadataSections(preferencesManager, patient, condition, roleType, role, specialty, 
                 VisitReasonPreEncounterSection,
                 VisitReasonPostEncounterSection,
                 SarcomaSummarySection,
