@@ -1,5 +1,5 @@
 import {setObjectFactory} from './json-helper';
-import ObjectFactory from './ObjectFactory';
+import FluxObjectFactory from './FluxObjectFactory';
 
 /**
  * The init function initializes the ES helper functions with the necessary dependencies for creating
@@ -9,7 +9,7 @@ import ObjectFactory from './ObjectFactory';
  * any of the classes.
  */
 function init() {
-  setObjectFactory(ObjectFactory);
+  setObjectFactory(FluxObjectFactory);
 }
 
 init();
