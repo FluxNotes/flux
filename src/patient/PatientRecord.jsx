@@ -299,24 +299,20 @@ class PatientRecord {
     }
 
     getTodayOrMostRecentEncounterDate() {
-        if (Lang.isNull(this.getTodaysDate())) {
+        if (!this.hasEncounterToday()) {
             return this.getPreviousEncounterDateAsString();
+        } else { 
+            return new moment().format("D MMM YYYY"); 
         }
-        return this.getTodaysDate();
     }
 
-    // Return today's encounter date if it exists, otherwise return null
-    getTodaysDate() {
+    hasEncounterToday() { 
         let encounters = this.getEntriesOfType(FluxEncounterRequested);
-        const today = new moment().format("D MMM YYYY"); // let today = new moment().format("D MMM YYYY");
-
-        for (var i = 0; i < encounters.length; i++) {          
-            let encounterDate = new moment(encounters[0].expectedPerformanceTime, "D MMM YYYY").format("D MMM YYYY");
-            if (encounterDate === today) {
-               return encounterDate;
-            }
-        }
-        return null;
+        const today = new moment().format("D MMM YYYY"); 
+        // Try to find an encounter with a performance time of today
+        return _.find(encounters, (encounter) => { 
+            return new moment(encounter.expectedPerformanceTime, "D MMM YYYY").isSame(today, 'day')
+        }) !== undefined
     }
 
     getReviewOfSystems() {
