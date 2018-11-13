@@ -32,7 +32,7 @@ export default class TargetedDataSubpanel extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) { 
-        // Seven current reasons to update:
+        // Eight current reasons to update:
         // - There is a change to the entries this component cares about
         // - A note has been signed and our representation of the data should reflect it's new signedness
         // - Clinical event has shifted
@@ -40,6 +40,7 @@ export default class TargetedDataSubpanel extends Component {
         // - Condition has changed
         // - allowItemClick has changed
         // - forceRefresh changes from false to true
+        // - The sections to be displayed has changed
         // Case 1: Entries
         // Need to ignore patientRecords on entries, as they reference the clinical notes ignored above. 
         // Solution: Remove them during comparison, restore those value after comparison.
@@ -122,6 +123,9 @@ export default class TargetedDataSubpanel extends Component {
         if (changesToForceRefresh) {
             this.props.setForceRefresh(false);
         }
+
+        // Case 8: sections to display has changed
+        const changesToSectionsDisplayed = !_.isEqual(this.props.sectionsToDisplay, nextProps.sectionsToDisplay);
         
         return changesToRelevantEntries 
             || changesToSignedNotesCount 
@@ -129,15 +133,16 @@ export default class TargetedDataSubpanel extends Component {
             || changesToIsWide
             || changesToConditionString
             || changesToAllowItemClick
-            || changesToForceRefresh;
+            || changesToForceRefresh
+            || changesToSectionsDisplayed;
     }
 
     renderSections() {
-        const { clinicalEvent, patient, condition, allowItemClick, isWide, actions, conditionMetadata } = this.props;
+        const { clinicalEvent, patient, condition, allowItemClick, isWide, actions, conditionMetadata, sectionsToDisplay } = this.props;
 
         if (conditionMetadata == null) return null;
 
-        return conditionMetadata.sections.filter((section, i) => {
+        return sectionsToDisplay.filter((section, i) => {
             return !section.clinicalEvents || section.clinicalEvents.includes(clinicalEvent);
         }).map((section, i) => {
             return (
@@ -160,7 +165,7 @@ export default class TargetedDataSubpanel extends Component {
                         searchSuggestions={this.props.searchSuggestions}
                     />
 
-                    {i < conditionMetadata.sections.length - 1 ? <Divider className="divider"/> : null}
+                    {i < sectionsToDisplay.length - 1 ? <Divider className="divider"/> : null}
                 </div>
             );
         });
@@ -191,5 +196,6 @@ TargetedDataSubpanel.propTypes = {
     searchIndex: PropTypes.object.isRequired,
     loginUser: PropTypes.object.isRequired,
     preferenceManager: PropTypes.object.isRequired,
+    sectionsToDisplay: PropTypes.array.isRequired,
     searchSuggestions: PropTypes.array
 };

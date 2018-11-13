@@ -192,6 +192,8 @@ export default class ClinicianDashboard extends Component {
                         ref={(tdp) => { this.targetedDataPanel = tdp; }}
                         searchIndex={this.props.searchIndex}
                         searchSuggestions={this.props.searchSuggestions}
+                        isAppBlurred={this.props.isAppBlurred}
+                        setAppBlur={this.props.setAppBlur}
                     />
                 </div>
                 <div style={notesPanelStyles}>
@@ -228,6 +230,7 @@ export default class ClinicianDashboard extends Component {
                         updateErrors={this.props.updateErrors}
                         ref={(np) => { this.notesPanel = np; }}
                         searchSuggestions={this.props.searchSuggestions}
+                        isAppBlurred={this.props.isAppBlurred}
                     />
                 </div>
             </div>
@@ -242,6 +245,7 @@ ClinicianDashboard.propTypes = {
     dataAccess: PropTypes.object.isRequired,
     forceRefresh: PropTypes.bool,
     handleSummaryItemSelected: PropTypes.func.isRequired,
+    isAppBlurred: PropTypes.bool,
     itemInserted: PropTypes.func.isRequired,
     loginUser: PropTypes.object.isRequired,
     preferenceManager: PropTypes.object.isRequired,
@@ -253,6 +257,7 @@ ClinicianDashboard.propTypes = {
     ]),
     possibleClinicalEvents: PropTypes.array.isRequired,
     searchSelectedItem: PropTypes.object,
+    setAppBlur: PropTypes.func,
     setForceRefresh: PropTypes.func.isRequired,
     setFullAppStateWithCallback: PropTypes.func.isRequired,
     setLayout: PropTypes.func.isRequired,

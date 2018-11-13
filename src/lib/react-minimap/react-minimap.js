@@ -31,6 +31,7 @@ export class Minimap extends React.Component {
 
   constructor(props) {
     super(props);
+    this.heightOfEditButton = 20;
     this.down = this.down.bind(this)
     this.move = this.move.bind(this)
     this.synchronize = this.synchronize.bind(this)
@@ -44,6 +45,7 @@ export class Minimap extends React.Component {
       viewport: null,
       width: props.width,
       height: props.height,
+      inEditMode: false,
     };
 
     this.downState = false
@@ -86,6 +88,7 @@ export class Minimap extends React.Component {
 
     let {width, height} = this.props
     height = (this.props.isFullHeight) ? sourceRect.height : this.props.height;
+    height -= (this.heightOfEditButton + 6);
 
     let ratioX = width / scrollWidth;
     let ratioY = height / scrollHeight;
@@ -131,6 +134,9 @@ export class Minimap extends React.Component {
             node={node}
             title={title}
             shortTitle={shortTitle}
+            inEditMode={this.state.inEditMode}
+            preferenceManager={this.props.preferenceManager}
+            conditionURL={this.props.conditionURL}
           />
         )
       })
@@ -180,13 +186,15 @@ export class Minimap extends React.Component {
     }
 
   down( e ) {
-    const pos = this.minimap.getBoundingClientRect()
+    if (!this.state.inEditMode) {
+      const pos = this.minimap.getBoundingClientRect()
 
-    this.x = Math.round( pos.left + this.l + this.w / 2 );
-    this.y = Math.round( pos.top + this.t + this.h / 2 );
+      this.x = Math.round( pos.left + this.l + this.w / 2 );
+      this.y = Math.round( pos.top + this.t + this.h / 2 );
 
-    this.downState = true
-    this.move( e );
+      this.downState = true
+      this.move( e );
+    }
   }
 
   up() {
@@ -302,9 +310,19 @@ export class Minimap extends React.Component {
     })
   }
 
+  editMinimapSections = () => {
+    const { inEditMode } = this.state;
+    if (inEditMode) {
+      this.props.doneEditingMinimap();
+    } else {
+      this.props.startEditingMinimap();
+    }
+    this.setState({ inEditMode: !inEditMode });
+  }
 
   render() {
-    const {width, height} = this.state
+    const {width, height, inEditMode} = this.state;
+    const editButtonText = inEditMode ? 'Done' : 'Edit';
 
     return (
       <div
@@ -312,11 +330,18 @@ export class Minimap extends React.Component {
         onScroll={this.synchronize}
         ref={(source) => {this.source = source;}}
       >
+      <div className="minimap-children-wrapper">
+        <button
+          className="minimap-children edit-button"
+          style={{ width: `${width}px`, height: `${this.heightOfEditButton}px` }}
+          onClick={this.editMinimapSections}>
+          {editButtonText}
+        </button>
         <div
           className="minimap"
           style={{
             width: `${width}px`,
-            height: `${height}px`,
+            height: `${height - this.heightOfEditButton - 6}px`,
           }}
 
           ref={(minimap) => { this.minimap = minimap; }}
@@ -328,9 +353,10 @@ export class Minimap extends React.Component {
           onTouchEnd={this.up}
           onMouseUp={this.up}
         >
-          {this.state.viewport}
+          {!inEditMode && this.state.viewport}
           {this.state.children}
         </div>
+      </div>
 
         <div ref={(container) => { this.ref = container; }}>
           {this.props.children}

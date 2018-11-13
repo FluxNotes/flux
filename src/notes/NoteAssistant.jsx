@@ -588,8 +588,9 @@ export default class NoteAssistant extends Component {
         if (this.props.isNoteViewerEditable || this.props.noteAssistantMode === 'pick-list-options-panel') {
             noteAssistantMode = this.props.noteAssistantMode;
         }
+        const noteAssistantDisabledClass = this.props.isAppBlurred ? 'content-disabled' : '';
         return (
-            <div className="note-assistant-wrapper">
+            <div className={`note-assistant-wrapper ${noteAssistantDisabledClass}`}>
                 {this.renderToggleButtons()}
                 <div className="note-assistant-content-wrapper">
                     {this.renderNoteAssistantContent(noteAssistantMode)}
@@ -610,7 +611,7 @@ NoteAssistant.propTypes = {
     handleSummaryItemSelected: PropTypes.func.isRequired,
     handleUpdateArrayOfPickLists: PropTypes.func.isRequired,
     handleUpdateEditorWithNote: PropTypes.func.isRequired,
-    showTemplateView: PropTypes.bool.isRequired,
+    isAppBlurred: PropTypes.bool,
     isNoteViewerEditable: PropTypes.bool.isRequired,
     loadNote: PropTypes.func.isRequired,
     loginUsername: PropTypes.string.isRequired,
@@ -631,6 +632,7 @@ NoteAssistant.propTypes = {
     setUndoTemplateInsertion: PropTypes.func.isRequired,
     shortcutManager: PropTypes.object.isRequired,
     shouldEditorContentUpdate: PropTypes.bool.isRequired,
+    showTemplateView: PropTypes.bool.isRequired,
     structuredFieldMapManager: PropTypes.object.isRequired,
     updateNoteAssistantMode: PropTypes.func.isRequired,
     updateSelectedNote: PropTypes.func.isRequired,

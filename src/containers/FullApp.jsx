@@ -94,7 +94,8 @@ export class FullApp extends Component {
             summaryItemToInsert: '',
             summaryItemToInsertSource: '',
             forceRefresh: false,
-            searchSuggestions: []
+            searchSuggestions: [],
+            isAppBlurred: false
         };
 
         /*  actions is a list of actions passed to the visualizers
@@ -357,6 +358,10 @@ export class FullApp extends Component {
         this.setState({ searchSuggestions: suggestions });
     }
 
+    setAppBlur = (isAppBlurred) => {
+        this.setState({ isAppBlurred });
+    }
+
     render() {
         // Get the Current Dashboard based on superRole of user
         const CurrentDashboard = this.dashboardManager.getDashboardForSuperRole(this.state.loginUser.getSuperRole());
@@ -381,6 +386,7 @@ export class FullApp extends Component {
                                     searchIndex={this.searchIndex}
                                     moveTargetedDataPanelToSubsection={this.moveTargetedDataPanelToSubsection}
                                     setSearchSuggestions={this.setSearchSuggestions}
+                                    isAppBlurred={this.state.isAppBlurred}
                                 />
                             </Col>
                         </Row>
@@ -417,6 +423,8 @@ export class FullApp extends Component {
                             ref={(dashboard) => { this.dashboard = dashboard; }}
                             searchIndex={this.searchIndex}
                             searchSuggestions={this.state.searchSuggestions}
+                            isAppBlurred={this.state.isAppBlurred}
+                            setAppBlur={this.setAppBlur}
                         />
                         <Modal 
                             aria-labelledby="simple-modal-title"

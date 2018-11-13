@@ -80,7 +80,8 @@ export class CoreCancerPilotApp extends Component {
             snackbarMessage: "",
             superRole: 'Clinician', // possibly add that to security manager too
             forceRefresh: false,
-            searchSuggestions: []
+            searchSuggestions: [],
+            isAppBlurred: false
         };
     }
 
@@ -170,6 +171,10 @@ export class CoreCancerPilotApp extends Component {
         this.setState({ searchSuggestions: suggestions })
     }
 
+    setAppBlur = (isAppBlurred) => {
+        this.setState({ isAppBlurred });
+    }
+
     render() {
         return (
             <MuiThemeProvider theme={theme}>
@@ -191,6 +196,7 @@ export class CoreCancerPilotApp extends Component {
                                     searchIndex={this.searchIndex}
                                     moveTargetedDataPanelToSubsection={this.moveTargetedDataPanelToSubsection}
                                     setSearchSuggestions={this.setSearchSuggestions}
+                                    isAppBlurred={this.state.isAppBlurred}
                                 />
                             </Col>
                         </Row>
@@ -211,6 +217,8 @@ export class CoreCancerPilotApp extends Component {
                             ref={(dashboard) => { this.dashboard = dashboard; }}
                             searchIndex={this.searchIndex}
                             searchSuggestions={this.state.searchSuggestions}
+                            isAppBlurred={this.state.isAppBlurred}
+                            setAppBlur={this.setAppBlur}
                         />
                         <Modal 
                             aria-labelledby="simple-modal-title"

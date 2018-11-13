@@ -1604,6 +1604,7 @@ class FluxNotesEditor extends React.Component {
         const CreatorsPortal = this.suggestionsPluginCreators.SuggestionPortal;
         const InsertersPortal = this.suggestionsPluginInserters.SuggestionPortal;
         const PlaceholdersPortal = this.suggestionsPluginPlaceholders.SuggestionPortal;
+        const disabledEditorClassName = this.props.isAppBlurred ? 'content-disabled' : '';
         
         let errorDisplay = "";
         if (this.props.errors && this.props.errors.length > 0) {
@@ -1618,7 +1619,7 @@ class FluxNotesEditor extends React.Component {
 
         if (this.props.noteAssistantMode === 'poc') {
             return (
-                <div id="clinical-notes" className="dashboard-panel">
+                <div id="clinical-notes" className={`dashboard-panel ${disabledEditorClassName}`}>
                     {this.renderNoteDescriptionContent()}
                 </div>
             );
@@ -1632,7 +1633,7 @@ class FluxNotesEditor extends React.Component {
          * Render the editor, toolbar, dropdown and description for note
          */
         return (
-            <div id="clinical-notes" className="dashboard-panel">
+            <div id="clinical-notes" className={`dashboard-panel ${disabledEditorClassName}`}>
                 {this.renderNoteDescriptionContent()}
                 <div className="MyEditor-root" onClick={(event) => { this.refs.editor.focus(); }}>
                     <EditorToolbar
@@ -1712,6 +1713,7 @@ FluxNotesEditor.propTypes = {
     currentViewMode: PropTypes.string.isRequired,
     errors: PropTypes.array.isRequired,
     handleUpdateEditorWithNote: PropTypes.func.isRequired,
+    isAppBlurred: PropTypes.bool,
     isNoteViewerEditable: PropTypes.bool.isRequired,
     itemInserted: PropTypes.func.isRequired,
     openSourceNoteEntryId: PropTypes.oneOfType([
