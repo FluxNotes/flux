@@ -136,7 +136,11 @@ export default class TabularListVisualizer extends Component {
             const matchingSubsection = this.props.tdpSearchSuggestions.find(s => {
                 return s.valueTitle === 'Subsection' && s.subsection === subsectionName;
             });
-            subsectionNameHTML = <h2 className="subsection list-subsection-header"><span className={matchingSubsection ? 'highlighted' : ''}>{subsectionName}</span>{nameSuffix}</h2>;
+            let subsectionClassName = matchingSubsection ? 'highlighted' : '';
+            if (matchingSubsection && !Lang.isNull(this.props.highlightedSearchSuggestion)
+                && this.props.highlightedSearchSuggestion.subsection === matchingSubsection.subsection
+                && matchingSubsection.valueTitle === 'Subsection') subsectionClassName += ' selected';
+            subsectionNameHTML = <h2 className="subsection list-subsection-header"><span className={subsectionClassName}>{subsectionName}</span>{nameSuffix}</h2>;
         }
 
         if (list.length <= 0) {

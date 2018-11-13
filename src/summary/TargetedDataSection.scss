@@ -15,6 +15,10 @@
         background-color: $highlight-yellow;
     }
 
+    &__selected {
+        background-color: $highlight-selected-yellow;
+    }
+
     &__condition {
         text-overflow: ellipsis;
         overflow: hidden;

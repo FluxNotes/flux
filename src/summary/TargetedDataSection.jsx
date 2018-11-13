@@ -456,6 +456,9 @@ export default class TargetedDataSection extends Component {
                 return s.valueTitle === 'Section' && s.section === section.name;
             });
             highlightClass = matchingSection ? ' section-header__highlighted' : '';
+            if (matchingSection && !Lang.isNull(this.props.highlightedSearchSuggestion)
+                && this.props.highlightedSearchSuggestion.section === matchingSection.section
+                && this.props.highlightedSearchSuggestion.valueTitle === 'Section') highlightClass += ' section-header__selected';
         } else {
             highlightClass = '';
         }
