@@ -419,16 +419,13 @@ export default class NoteAssistant extends Component {
         // If the note is selected and open, we want to use the selected className
         const selectedClassName = (Lang.isEqual(this.props.selectedNote, item) && Lang.isEqual(this.props.noteClosed, false)) ? "selected" : "";
         // If the note is in our array of search suggestions, we want to use the search-result className
-        // console.log('this.state.highlightedNoteIds: ', this.state.highlightedNoteIds);
         const searchedForClassName = Lang.includes(this.state.highlightedNoteIds, item.entryInfo.entryId) ? "search-result" : "";
         // If the note is currently highlighted in our searchSuggestions, we want to use the highlighted-result className
         const highlighedSearchSuggestionClassName = (!Lang.isEmpty(this.props.highlightedSearchSuggestion)
             && this.props.highlightedSearchSuggestion.section === "Clinical Notes"
             && Lang.isEqual(this.props.highlightedSearchSuggestion.note.entryInfo.entryId, item.entryInfo.entryId)
             && Lang.includes(this.state.highlightedNoteIds, item.entryInfo.entryId)) ? "highlighted-result" : "";
-        // if (!Lang.isEmpty(this.props.highlightedSearchSuggestion) && Lang.isEqual(this.props.highlightedSearchSuggestion.note.entryInfo.entryId, item.entryInfo.entryId)) { 
-        //     console.log('item.entryInfo.entryId: ', item.entryInfo.entryId);
-        // }
+
         return (
             <div 
                 ref={item.entryInfo.entryId} 

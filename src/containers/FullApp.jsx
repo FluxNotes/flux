@@ -360,13 +360,13 @@ export class FullApp extends Component {
     }
 
     setSearchSuggestions = (suggestions) => {
-        this.setState({ 
+        this.setState({
             searchSuggestions: suggestions 
         });
     }
 
     setHighlightedSearchSuggestion = (suggestion) => {
-        this.setState({ 
+        this.setState({
             highlightedSearchSuggestion: suggestion 
         });
     }
