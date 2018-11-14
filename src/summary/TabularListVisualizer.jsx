@@ -298,7 +298,7 @@ export default class TabularListVisualizer extends Component {
             let matchesId = true;
 
             // If this is a nema value pair table, ensure uniquenes of IDs
-            if (this.props.sectionTransform) {
+            if (this.props.sectionTransform && this.props.conditionSection.type === 'NameValuePairs') {
                 const nameValueId = (this.props.conditionSection.name + ' ' + row[0].value).toLowerCase().replace(/[.,#!$%&;:{}=\-_`~()]/g,"").replace(/ /g, '_');
                 matchesId = s.id === nameValueId;
             }
