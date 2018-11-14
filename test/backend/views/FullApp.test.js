@@ -27,7 +27,8 @@ import FluxInjury from '../../../src/model/condition/FluxInjury';
 import SearchIndex from '../../../src/patientControl/SearchIndex';
 import FluxClinicalNote from '../../../src/model/core/FluxClinicalNote';
 import PreferenceManager from '../../../src/preferences/PreferenceManager';
-import FluxCondition from '../../../src/model/condition/FluxCondition';
+import FluxGastrointestinalStromalTumor from '../../../src/model/oncology/FluxGastrointestinalStromalTumor';
+import FluxBreastCancer from '../../../src/model/oncology/FluxBreastCancer';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -76,7 +77,7 @@ describe('2 setFullAppState', function() {
 describe('3 TargetedDataControl', function() {
     it('3.1 noteDisplayMode buttons update state', function() {
         const summaryMetadata = new SummaryMetadata();
-        const condition = new FluxCondition({
+        const condition = new FluxBreastCancer({
             "Value": {
                 "Coding": [
                     {
@@ -103,7 +104,7 @@ describe('3 TargetedDataControl', function() {
                 }
             }
         });
-        const metadata = summaryMetadata.getMetadata(null, condition, null, null, null);
+        const metadata = summaryMetadata.getMetadata(null, null, condition, null, null, null);
         // Look for the first NameValuePair section which should be Summary. Assumes it does not have a defaultVisualizer property
         const section = metadata.sections.find((section) => {
             return (section.type === "NameValuePairs");
@@ -140,7 +141,7 @@ describe('3 TargetedDataControl', function() {
 describe('4 TargetedDataControl - correct default visualizer Medications', function() {
     it('4.1 correct default visualizer', function() {
         const summaryMetadata = new SummaryMetadata(null);
-        const condition = new FluxCondition({
+        const condition = new FluxGastrointestinalStromalTumor({
             "Value": {
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
