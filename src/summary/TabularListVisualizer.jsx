@@ -295,10 +295,18 @@ export default class TabularListVisualizer extends Component {
             } else if (s.field === 'valueTitle') {
                 doesMatch = s.valueTitle === colText;
             }
-            return s.section === this.props.conditionSection.name && doesMatch;
+            let matchesId = true;
+
+            // If this is a nema value pair table, ensure uniquenes of IDs
+            if (this.props.sectionTransform) {
+                const nameValueId = (this.props.conditionSection.name + ' ' + row[0].value).toLowerCase().replace(/[.,#!$%&;:{}=\-_`~()]/g,"").replace(/ /g, '_');
+                matchesId = s.id === nameValueId;
+            }
+            return s.section === this.props.conditionSection.name && matchesId && doesMatch;
         });
 
-        const highlightedClass = highlightedData ? ' highlighted' : '';
+        let highlightedClass = highlightedData ? ' highlighted' : '';
+        if (Lang.isEqual(highlightedData, this.props.highlightedSearchSuggestion)) highlightedClass += ' selected';
 
         // If this section has an associated formatFunction (that
         // returns a specific) CSS class, it is applied to elementText.
