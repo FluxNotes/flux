@@ -83,7 +83,7 @@
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
     "start-js": "react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
-    "build-js": "node --max-old-space-size=4096 --max_old_space_size=4096 node_modules/.bin/react-scripts build",
+    "build-js": "node --max_old_space_size=4096 node_modules/react-scripts/scripts/build.js",
     "build": "npm-run-all build-css build-js",
     "eject": "react-scripts eject",
     "parse": "babel-node --presets es2015,react --plugins transform-class-properties,transform-es2015-destructuring,transform-object-rest-spread ./src/noteparser/app.js",
