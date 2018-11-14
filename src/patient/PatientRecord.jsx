@@ -311,7 +311,7 @@ class PatientRecord {
         const today = new moment().format("D MMM YYYY"); 
         // Try to find an encounter with a performance time of today
         return _.find(encounters, (encounter) => { 
-            return new moment(encounter.expectedPerformanceTime, "D MMM YYYY").isSame(today, 'day')
+            return new moment(encounter.expectedPerformanceTime, "D MMM YYYY") === today;
         }) !== undefined
     }
 
