@@ -446,7 +446,6 @@ export default class TargetedDataSection extends Component {
         const selectedCondition = condition && condition.type;
         const encounterView = clinicalEvent === "encounter";
         const notFiltered = !Lang.isUndefined(section.notFiltered) && section.notFiltered;
-        const ros = section.shortName === 'ROS';
 
         const viz = this.getAndIndexSectionData(section);
         
@@ -464,7 +463,7 @@ export default class TargetedDataSection extends Component {
             <div id="targeted-data-section">
                 <h2 className="section-header">
                     <span className={`section-header__name${highlightClass}`}>{section.name}</span><span>&nbsp;{this.state.sectionNameSuffix}</span>
-                    {!encounterView && !notFiltered && !ros && <span className="section-header__condition">{selectedCondition}</span>}
+                    {!encounterView && !notFiltered && <span className="section-header__condition">{selectedCondition}</span>}
                     {SHOW_FILTER_AS_MENU && this.renderFilters(patient, condition)}
                     {this.renderVisualizationOptions(visualizationOptions)}
                 </h2>

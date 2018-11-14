@@ -7,6 +7,7 @@ export default class ReviewOfSystemsSection extends MetadataSection {
             shortName: "ROS",
             type: "NameValuePairsOnly",
             isWide: false,
+            notFiltered: true,
             data: [
                 {
                     name: "",                   
