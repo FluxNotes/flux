@@ -37,8 +37,8 @@ export default class TreatmentOptionsSection extends MetadataSection {
                                 propertyValueFunction: (patient, condition) => { return  condition.getGeneticMutationValue('PDGFRA', patient) } },
                         { id:"grade",name: "Grade", servicePropertyName: "dxGrade", category: "Pathology", value: true,
                                 propertyValueFunction: (patient, condition) => { return condition.getMostRecentHistologicalGrade().getGradeAsSimpleNumber() } },
-                        { id:"stage",name: "Stage", servicePropertyName: "stage", category: "Pathology", value: true,
-                                propertyValueFunction: (patient, condition) => { return condition.getMostRecentStaging().stage } },
+                        { id:"stage",name: "Stage", servicePropertyName: "stage", category: "Pathology", value: !Lang.isNull(condition.getMostRecentStaging()),
+                                propertyValueFunction: (patient, condition) => { return condition.getMostRecentStaging() ? condition.getMostRecentStaging().stage : 'Missing data' } },
                         { id:"surgery",name: "Surgery", servicePropertyName: "surgery", category: "Past Treatment", value: true,
                                 propertyValueFunction: (patient, condition) => { return condition.hasPastTreatment('C0851238', patient) } }
                     ],
