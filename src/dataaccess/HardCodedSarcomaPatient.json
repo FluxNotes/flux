@@ -1396,7 +1396,7 @@
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Reason"
                     },
-                    "Value": "Mr. Tnfinity6 requested a follow up due to significant diarrhea and fatigue, despite anti-diarrheal treatment, that makes it hard for him to do daily activities."
+                    "Value": "Mr. Tnfinity6 requested a follow up due to significant diarrhea and fatigue, despite anti-diarrheal treatment, that makes it hard for him to do daily activities"
                 }
             ],
             "Status": {
