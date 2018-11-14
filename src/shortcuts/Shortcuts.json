@@ -601,5 +601,19 @@
     "isContext": false,
     "stringTriggers": [{"name":"@recent imaging", "description": "Insert a summary of the recent imaging procedures"}],
     "knownParentContexts": "Patient"
+  },
+  { "type": "InsertValue",
+    "id": "DateOfVisitInserter",
+    "getData": {"object": "patient", "method": "getTodayOrMostRecentEncounterDate"},
+    "isContext": false,
+    "stringTriggers": [{"name":"@date of visit", "description": "Insert the date of the visit"}],
+    "knownParentContexts": "Patient"
+  },
+  { "type": "InsertValue",
+    "id": "ReferredByInserter",
+    "getData": {"object": "patient", "method": "getReferredBy"},
+    "isContext": false,
+    "stringTriggers": [{"name":"@referred by", "description": "Insert the name of individual who made the referral"}],
+    "knownParentContexts": "Patient"
   }
 ]

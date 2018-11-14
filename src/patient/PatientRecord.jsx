@@ -287,10 +287,32 @@ class PatientRecord {
         }).pop();
     }
 
+    getPreviousEncounterDateAsString() {
+        let encounter = this.getPreviousEncounter();
+        return new moment(encounter.expectedPerformanceTime, "D MMM YYYY").format("D MMM YYYY");
+    }
+
     getPreviousEncounterReasonAsText() {
         const previousEncounter = this.getPreviousEncounter();
         if (Lang.isUndefined(previousEncounter)) return "No recent appointments";
         return previousEncounter.reasons.map((r) => { return r.value; }).join(',');
+    }
+
+    getTodayOrMostRecentEncounterDate() {
+        if (!this.hasEncounterToday()) {
+            return this.getPreviousEncounterDateAsString();
+        } else { 
+            return new moment().format("D MMM YYYY"); 
+        }
+    }
+
+    hasEncounterToday() { 
+        let encounters = this.getEntriesOfType(FluxEncounterRequested);
+        const today = new moment().format("D MMM YYYY"); 
+        // Try to find an encounter with a performance time of today
+        return _.find(encounters, (encounter) => { 
+            return new moment(encounter.expectedPerformanceTime, "D MMM YYYY") === today;
+        }) !== undefined
     }
 
     getReviewOfSystems() {
@@ -1129,6 +1151,12 @@ class PatientRecord {
                         (Lang.isUndefined(bodyWeight) ? "" : "Weight is " + bodyWeight.value + " " + bodyWeight.units + ". ") + 
                         (Lang.isUndefined(heartRate) ? "" : "Heart rate is " + heartRate.value + heartRate.units + ".");;
         return results;
+    }
+
+    getReferredBy() {
+        let referredBy = this.getPreviousEncounter().referredBy;
+        if (Lang.isUndefined(referredBy)) return "No referral for this appointment";
+        return referredBy;
     }
 }
 

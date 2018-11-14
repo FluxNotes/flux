@@ -5937,6 +5937,7 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
             }
         },
+        "ReferredBy": "Dr. Smith952",
         "CreationTime": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
@@ -6341,10 +6342,7 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/base/PersonOfRecord"
             }
         }
-    }
-
-
-    ,
+    },
     {
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested"
@@ -7812,10 +7810,7 @@
                 }
             }
         }
-    }
-
-
-    ,
+    },
     {
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested"
