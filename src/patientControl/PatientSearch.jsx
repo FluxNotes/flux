@@ -66,6 +66,7 @@ class PatientSearch extends React.Component {
             let suggestion;
             if (result.note) {
                 suggestion = {
+                    id: result.id,
                     date: result.note.signedOn || result.note.createdOn,
                     subject: result.note.subject,
                     inputValue: inputValue,
@@ -82,6 +83,7 @@ class PatientSearch extends React.Component {
                 }
             } else {
                 suggestion = {
+                    id: result.id,
                     section: result.section,
                     subsection: result.subsection,
                     contentSnapshot: result.value,
