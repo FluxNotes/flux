@@ -10,11 +10,12 @@ import moment from 'moment';
 import './Timeline.css';
 import './TimelineEventsVisualizer.css';
 import FontAwesome from 'react-fontawesome';
+import Lang from 'lodash';
 
 class TimelineEventsVisualizer extends Component {
     constructor(props) {
         super(props);
-        const items = this.createItems(this.props.patient, this.props.condition, this.props.conditionSection, this.props.tdpSearchSuggestions);
+        const items = this.createItems(this.props.patient, this.props.condition, this.props.conditionSection, this.props.tdpSearchSuggestions, this.props.highlightedSearchSuggestion);
         const groups = this.createGroupsForItems(this.getMaxGroup(items));
 
         // Define the bounds of the timeline
@@ -53,7 +54,7 @@ class TimelineEventsVisualizer extends Component {
     };
 
     componentWillReceiveProps = (nextProps) => {
-        const items = this.createItems(nextProps.patient, nextProps.condition, nextProps.conditionSection, nextProps.tdpSearchSuggestions);
+        const items = this.createItems(nextProps.patient, nextProps.condition, nextProps.conditionSection, nextProps.tdpSearchSuggestions, nextProps.highlightedSearchSuggestion);
         const groups = this.createGroupsForItems(this.getMaxGroup(items));
         this.setState({
             items,
@@ -75,7 +76,7 @@ class TimelineEventsVisualizer extends Component {
         }
     }
 
-    createItems = (patient, condition, section, tdpSearchSuggestions) => {
+    createItems = (patient, condition, section, tdpSearchSuggestions, highlightedSearchSuggestion) => {
         // Create groups and items to display on the timeline
         let items = [];
         if (section.resetData) section.resetData();
@@ -103,7 +104,10 @@ class TimelineEventsVisualizer extends Component {
                 }
                 return false;
             });
-            const highlightedClass = highlightedItem ? ' timeline-highlighted' : '';
+            let highlightedClass = highlightedItem ? ' timeline-highlighted' : '';
+            if (Lang.isEqual(highlightedItem, highlightedSearchSuggestion)) {
+                highlightedClass += ' selected';
+            }
 
             item.className += highlightedClass;
         });
