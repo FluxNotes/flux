@@ -128,7 +128,6 @@ export default class TargetedDataPanel extends Component {
                                     preferenceManager={this.props.preferenceManager}
                                     patient={this.props.appState.patient} 
                                     setForceRefresh={this.props.setForceRefresh}
-                                    conditionMetadata={conditionMetadata}
                                     sectionsToDisplay={sectionsToDisplay}
                                     searchIndex={this.props.searchIndex}
                                     searchSuggestions={this.props.searchSuggestions}
@@ -159,7 +158,6 @@ export default class TargetedDataPanel extends Component {
                                 preferenceManager={this.props.preferenceManager}
                                 patient={this.props.appState.patient} 
                                 setForceRefresh={this.props.setForceRefresh}                                                              
-                                conditionMetadata={conditionMetadata}
                                 sectionsToDisplay={sectionsToDisplay}
                                 searchIndex={this.props.searchIndex}
                                 searchSuggestions={this.props.searchSuggestions}
