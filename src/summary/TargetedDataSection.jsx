@@ -40,6 +40,15 @@ export default class TargetedDataSection extends Component {
         };
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        if (!Lang.isNull(this.props.highlightedSearchSuggestion) && !Lang.isNull(nextProps.highlightedSearchSuggestion) && !Lang.isEqual(this.props.highlightedSearchSuggestion, nextProps.highlightedSearchSuggestion)) {
+            const sectionName = this.props.section.name;
+            if (this.props.highlightedSearchSuggestion.section === sectionName) return true;
+            if (nextProps.highlightedSearchSuggestion.section !== sectionName) return false;
+        }
+        return true;
+    }
+
     componentDidUpdate() {
         const optionsForSection = this.getOptions(this.props.section);
         const defaultVisualizer = this.determineDefaultVisualizer(this.props.section, this.props.clinicalEvent, optionsForSection);

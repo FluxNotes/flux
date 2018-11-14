@@ -130,6 +130,7 @@ class PatientSearch extends React.Component {
     // Autosuggest will call this function every time you need to clear suggestions.
     onSuggestionsClearRequested = () => {
         this.props.setSearchSuggestions([]);
+        this.props.setHighlightedSearchSuggestion(null);
         this.setState({
             suggestions: [],
             openNoteSuggestions: []
