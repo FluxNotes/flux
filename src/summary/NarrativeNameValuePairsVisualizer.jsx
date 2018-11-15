@@ -96,7 +96,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
             return item.name === valueName;
         };
         let _addNameValueToNarrative = (item) => {
-            return item.name + ": " + item.value;
+            return item.name + ": " + (Lang.isObject(item.value) ? item.value.value : item.value);
         };
         let _addListItemToResult = (listItem) => {
             if (!first) result.push( { text: ', ', type: 'plain' });
@@ -107,7 +107,8 @@ class NarrativeNameValuePairsVisualizer extends Component {
                 type: type,
                 item: {
                     value: listItem.value,
-                    unsigned: listItem.isUnsigned
+                    unsigned: listItem.isUnsigned,
+                    name: listItem.name
                 }
             });
             if (first) first = false;
@@ -271,7 +272,8 @@ class NarrativeNameValuePairsVisualizer extends Component {
         let content = [];
         narrative.forEach((snippet, index) => {
             const highlightedData = this.props.tdpSearchSuggestions.find(s => {
-                return snippet.item && s.valueTitle === snippet.item.name && s.contentSnapshot === snippet.text;
+                const matchesSnippet = `${s.valueTitle}: ${s.contentSnapshot}` === snippet.text || s.contentSnapshot === snippet.text;
+                return snippet.item && s.valueTitle === snippet.item.name && matchesSnippet;
             });
             let highlightedClass = highlightedData ? ' highlighted' : '';
             if (Lang.isEqual(highlightedData, this.props.highlightedSearchSuggestion)) {
