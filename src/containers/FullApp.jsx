@@ -325,9 +325,9 @@ export class FullApp extends Component {
                 }
             } else if (item.shortcutData) {
                 if (item.shortcutData.entryId) {
-                    newStateValues = { summaryItemToInsert: `${item.shortcutData.shortcut}[[{"text":"${item.value}", "entryId":${item.shortcutData.entryId}}]]` };
+                    newStateValues = { summaryItemToInsert: `${item.shortcutData.shortcut}[[{"text":"${item.value}", "entryId":"${item.shortcutData.entryId}"}]]` };
                 } else {
-                    newStateValues = newStateValues = { summaryItemToInsert: `${item.shortcutData.shortcut}[[${item.value}]]` };
+                    newStateValues = { summaryItemToInsert: `${item.shortcutData.shortcut}[[${item.value}]]` };
                 }
             } else if (item.value) {
                 newStateValues = { summaryItemToInsert: item.value };
