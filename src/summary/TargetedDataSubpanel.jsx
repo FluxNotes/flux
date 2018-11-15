@@ -44,7 +44,14 @@ export default class TargetedDataSubpanel extends Component {
         // - searchSuggestions have changed
         // - highlightedSuggestion has changed
 
-        if (!_.isNull(nextProps.highlightedSearchSuggestion) && (nextProps.highlightedSearchSuggestion.source === "structuredData" || this.props.highlightedSearchSuggestion.source === "structuredData") && !_.isEqual(this.props.highlightedSearchSuggestion, nextProps.highlightedSearchSuggestion)) return true;
+        const currentHighlightedSrc = !_.isNull(this.props.highlightedSearchSuggestion) ? this.props.highlightedSearchSuggestion.source : null;
+        const nextHighlightedSrc = !_.isNull(nextProps.highlightedSearchSuggestion) ? nextProps.highlightedSearchSuggestion.source : null;
+
+        if ((currentHighlightedSrc === "structuredData" || nextHighlightedSrc === "structuredData")
+            && !_.isEqual(this.props.highlightedSearchSuggestion, nextProps.highlightedSearchSuggestion)
+        ) {
+            return true;
+        }
 
         const previousTDPSuggestions = this.props.searchSuggestions.filter(s => s.source === 'structuredData');
         const nextTDPSuggestions = nextProps.searchSuggestions.filter(s => s.source === 'structuredData');
