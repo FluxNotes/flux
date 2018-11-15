@@ -295,13 +295,12 @@ export default class TabularListVisualizer extends Component {
             } else if (s.field === 'valueTitle') {
                 doesMatch = s.valueTitle === colText;
             }
-            let matchesId = true;
 
-            // If this is a name value pair table, ensure uniquenes of IDs
-            if (this.props.sectionTransform && (this.props.conditionSection.type === 'NameValuePairs' || this.props.conditionSection.type === 'NameValuePairsOnly')) {
-                const nameValueId = (this.props.conditionSection.name + ' ' + row[0].value).toLowerCase().replace(/[.,#!$%&;:{}=\-_`~()]/g,"").replace(/ /g, '_');
-                matchesId = s.id === nameValueId;
-            }
+            // Enforce uniqueness of table cell id
+            const nameValueId = (this.props.conditionSection.name + ' ' + row[0].value).toLowerCase().replace(/[.,#!$%&;:{}=\-_`~()]/g,"").replace(/ /g, '_');
+            const indexId = `${(this.props.conditionSection.name.toLowerCase() + ' ' + subsectionName.toLowerCase()).replace(/ /g, '_')}_${itemIndex}_${colIndex}`;
+            const matchesId = s.id === nameValueId || s.id === indexId;
+
             return s.section === this.props.conditionSection.name && matchesId && doesMatch;
         });
 
