@@ -29,10 +29,13 @@ export default class DefaultMetadata extends MetadataSection {
                                     value: (patient, currentConditionEntry) => {
                                         return  {   value: currentConditionEntry.type, 
                                                     isUnsigned: patient.isUnsigned(currentConditionEntry), 
-                                                    source: this.determineSource(patient, currentConditionEntry)
+                                                    source: this.determineSource(patient, currentConditionEntry),
+                                                    shortcutData: {
+                                                        shortcut: '@condition',
+                                                        entryId: currentConditionEntry.entryInfo.entryId,
+                                                    }
                                                 };
                                     },
-                                    shortcut: "@condition"
                                 },
                                 {
                                     name: "Diagnosis Date",

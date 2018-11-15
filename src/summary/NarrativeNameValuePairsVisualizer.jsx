@@ -209,11 +209,11 @@ class NarrativeNameValuePairsVisualizer extends Component {
 
         // convert snippet to format action is expecting
         const transformedSnippet = {
-            shortcut: snippet.shortcut,
             value: [
                 snippet.value,
                 snippet.unsigned,
-                snippet.source
+                snippet.source,
+                snippet.shortcutData
             ],
         };
 
