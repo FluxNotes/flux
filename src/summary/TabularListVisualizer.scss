@@ -91,6 +91,13 @@ $font-size: 0.8rem;
         text-align: center;
         border-radius: 6px;
     }
+    .highlighted {
+        background-color: $highlight-yellow !important;
+    }
+
+    .selected {
+        background-color: $highlight-selected-yellow !important;
+    }
 }
 
 tr, td {
@@ -109,12 +116,12 @@ h2.subsection {
         font-size: $font-size;
         padding-right: 10px;
     }
-}
 
-.highlighted {
-    background-color: $highlight-yellow !important;
-}
+    .highlighted {
+        background-color: $highlight-yellow !important;
+    }
 
-.selected {
-    background-color: $highlight-selected-yellow !important;
+    .selected {
+        background-color: $highlight-selected-yellow !important;
+    }
 }
