@@ -72,9 +72,6 @@ class FluxMedicationRequested {
     }
 
     set endDate(date) {
-        if (!this._medicationRequested) {
-            this._medicationRequested = new ActionContext();
-        }
         if (!this._medicationRequested.expectedPerformanceTime) {
             this._medicationRequested.expectedPerformanceTime = new ExpectedPerformanceTime();
         }

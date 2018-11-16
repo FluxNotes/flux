@@ -1,5 +1,6 @@
 import EncounterRequested from '../shr/encounter/EncounterRequested';
 import Lang from 'lodash';
+
 class FluxEncounterRequested {
     constructor(json) {
         if (json.ReferredBy) this._referredBy = json.ReferredBy; 

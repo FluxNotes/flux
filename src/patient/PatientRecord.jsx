@@ -307,7 +307,7 @@ class PatientRecord {
     }
 
     hasEncounterToday() { 
-        let encounters = this.getEntriesOfType(FluxEncounterRequested);
+        let encounters = this.getEntriesOfType(FluxEncounter);
         const today = new moment().format("D MMM YYYY"); 
         // Try to find an encounter with a performance time of today
         return _.find(encounters, (encounter) => { 
