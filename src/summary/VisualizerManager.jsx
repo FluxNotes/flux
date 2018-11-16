@@ -64,21 +64,18 @@ class VisualizerManager {
     }
 
     transformMedicationsToColumns = (patient, condition, subsection, getFilterValue) => {
-        let newsection = {};
-
+        const newsection = {};
         const itemList = subsection.itemsFunction(patient, condition, subsection, getFilterValue);
 
         newsection.name = "";
         newsection.headings = ["Medication", "Change", "Dosage", "Timing", "Start", "End"];
-        newsection.data_cache = itemList.map((med) => {
-            
-            
+        newsection.data_cache = itemList.map(med => {
             const dose = med.medication.amountPerDose ? `${med.medication.amountPerDose.value} ${med.medication.amountPerDose.units}` : "";
             const medicationChange = this.formatMedicationChange(med.medicationChange);
             const endDate = this.getEndDate(med);
-            const {doseInstructionsText} = med.medication;
+            const { doseInstructionsText } = med.medication;
             let timing;
-            
+
             if (med.medication.timingOfDoses) {
                 if (!Lang.isNull(med.medication.timingOfDoses.units)) {
                     timing = `${med.medication.timingOfDoses.value} ${med.medication.timingOfDoses.units}`;
@@ -88,29 +85,44 @@ class VisualizerManager {
             } else {
                 timing = "";
             }
-            
+
             // isUnsigned is false by default
             let isUnsigned = false;
-            let sourceClinicalNote;
-            
+            let source;
             if (med.medicationChange) {
-                isUnsigned = med.medicationChange.unsigned;
-                sourceClinicalNote = med.medicationChange.sourceClinicalNote;
+                isUnsigned = med.medicationChange.isUnsigned;
+                source = med.medicationChange.source;
             }
-
             const asNeeded = med.medication.asNeededIndicator ? ' as needed' : '';
 
-            return [    {   value: med.medication.medication },
-                        {   value: medicationChange, 
-                            unsigned: isUnsigned, 
-                            source: sourceClinicalNote },
-                        {   value: dose },
-                        {   value: timing || doseInstructionsText + asNeeded },
-                        {   value: med.medication.expectedPerformanceTime.timePeriodStart },
-                        {   value: endDate, 
-                            unsigned: isUnsigned, 
-                            source: sourceClinicalNote }
-                    ];
+            return [
+                { 
+                    value: med.medication.medication,
+                },
+                {
+                    value: {
+                        isUnsigned,
+                        source,
+                        value: medicationChange,
+                    }
+                },
+                { 
+                    value: dose,
+                },
+                { 
+                    value: timing || doseInstructionsText + asNeeded,
+                },
+                { 
+                    value: med.medication.expectedPerformanceTime.timePeriodStart,
+                },
+                {
+                    value: {
+                        isUnsigned,
+                        source,
+                        value: endDate,
+                    },
+                },
+            ];
         });
 
         // Format function used to 
