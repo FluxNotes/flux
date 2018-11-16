@@ -1,4 +1,4 @@
-import Observation from '../shr/finding/Observation';
+import Observation from '../shr/base/Observation';
 
 class FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel {
     constructor(json) {

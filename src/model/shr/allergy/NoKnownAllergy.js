@@ -1,12 +1,12 @@
 import { setPropertiesFromJSON } from '../../json-helper';
 
-import Observation from '../base/Observation';
+import AbsenceAssertion from '../base/AbsenceAssertion';
 
 /**
- * Generated class for shr.oncology.TumorMargins.
- * @extends Observation
+ * Generated class for shr.allergy.NoKnownAllergy.
+ * @extends AbsenceAssertion
  */
-class TumorMargins extends Observation {
+class NoKnownAllergy extends AbsenceAssertion {
 
   /**
    * Get the entry information.
@@ -27,7 +27,7 @@ class TumorMargins extends Observation {
   /**
    * Set the entry information and return 'this' for chaining.
    * @param {Entry} entryInfo - The shr.base.Entry
-   * @returns {TumorMargins} this.
+   * @returns {NoKnownAllergy} this.
    */
   withEntryInfo(entryInfo) {
     this.entryInfo = entryInfo; return this;
@@ -54,7 +54,7 @@ class TumorMargins extends Observation {
    * Set the value (aliases codeableConcept) and return 'this' for chaining.
    * This field/value is required.
    * @param {CodeableConcept} value - The shr.core.CodeableConcept
-   * @returns {TumorMargins} this.
+   * @returns {NoKnownAllergy} this.
    */
   withValue(value) {
     this.value = value; return this;
@@ -81,83 +81,31 @@ class TumorMargins extends Observation {
    * Set the CodeableConcept and return 'this' for chaining.
    * This field/value is required.
    * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
-   * @returns {TumorMargins} this.
+   * @returns {NoKnownAllergy} this.
    */
   withCodeableConcept(codeableConcept) {
     this.codeableConcept = codeableConcept; return this;
   }
 
   /**
-   * Get the ObservationCode.
-   * @returns {ObservationCode} The shr.finding.ObservationCode
-   */
-  get observationCode() {
-    return this._observationCode;
-  }
-
-  /**
-   * Set the ObservationCode.
-   * This field/value is required.
-   * @param {ObservationCode} observationCode - The shr.finding.ObservationCode
-   */
-  set observationCode(observationCode) {
-    this._observationCode = observationCode;
-  }
-
-  /**
-   * Set the ObservationCode and return 'this' for chaining.
-   * This field/value is required.
-   * @param {ObservationCode} observationCode - The shr.finding.ObservationCode
-   * @returns {TumorMargins} this.
-   */
-  withObservationCode(observationCode) {
-    this.observationCode = observationCode; return this;
-  }
-
-  /**
-   * Get the ObservationComponent array.
-   * @returns {Array<ObservationComponent>} The shr.finding.ObservationComponent array
-   */
-  get observationComponent() {
-    return this._observationComponent;
-  }
-
-  /**
-   * Set the ObservationComponent array.
-   * @param {Array<ObservationComponent>} observationComponent - The shr.finding.ObservationComponent array
-   */
-  set observationComponent(observationComponent) {
-    this._observationComponent = observationComponent;
-  }
-
-  /**
-   * Set the ObservationComponent array and return 'this' for chaining.
-   * @param {Array<ObservationComponent>} observationComponent - The shr.finding.ObservationComponent array
-   * @returns {TumorMargins} this.
-   */
-  withObservationComponent(observationComponent) {
-    this.observationComponent = observationComponent; return this;
-  }
-
-  /**
-   * Deserializes JSON data to an instance of the TumorMargins class.
-   * The JSON must be valid against the TumorMargins JSON schema, although this is not validated by the function.
+   * Deserializes JSON data to an instance of the NoKnownAllergy class.
+   * The JSON must be valid against the NoKnownAllergy JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
-   * @returns {TumorMargins} An instance of TumorMargins populated with the JSON data
+   * @returns {NoKnownAllergy} An instance of NoKnownAllergy populated with the JSON data
    */
   static fromJSON(json = {}) {
-    const inst = new TumorMargins();
+    const inst = new NoKnownAllergy();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
   /**
-   * Serializes an instance of the TumorMargins class to a JSON object.
-   * The JSON is expected to be valid against the TumorMargins JSON schema, but no validation checks are performed.
+   * Serializes an instance of the NoKnownAllergy class to a JSON object.
+   * The JSON is expected to be valid against the NoKnownAllergy JSON schema, but no validation checks are performed.
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/oncology/TumorMargins' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/allergy/NoKnownAllergy' };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -230,11 +178,14 @@ class TumorMargins extends Observation {
     if (this.members != null) {
       inst['Members'] = typeof this.members.toJSON === 'function' ? this.members.toJSON() : this.members;
     }
+    if (this.negationFlag != null) {
+      inst['NegationFlag'] = typeof this.negationFlag.toJSON === 'function' ? this.negationFlag.toJSON() : this.negationFlag;
+    }
     return inst;
   }
   /**
-   * Serializes an instance of the TumorMargins class to a FHIR object.
-   * The FHIR is expected to be valid against the TumorMargins FHIR profile, but no validation checks are performed.
+   * Serializes an instance of the NoKnownAllergy class to a FHIR object.
+   * The FHIR is expected to be valid against the NoKnownAllergy FHIR profile, but no validation checks are performed.
    * @param {asExtension=false} Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
@@ -268,6 +219,10 @@ class TumorMargins extends Observation {
     if (this.observationQualifier != null) {
       inst['extension'] = inst['extension'] || [];
       inst['extension'].push(this.observationQualifier.toFHIR(true));
+    }
+    if (this.negationFlag != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(this.negationFlag.toFHIR(true));
     }
     if (this.findingStatus != null) {
       inst['status'] = typeof this.findingStatus.toFHIR === 'function' ? this.findingStatus.toFHIR() : this.findingStatus;
@@ -358,7 +313,42 @@ class TumorMargins extends Observation {
       inst['component'] = inst['component'] || [];
       inst['component'].concat(this.observationComponent.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
+    if (this.observationComponent != null && this.observationComponent.observationCode != null) {
+      if (inst['component'] === undefined) {
+        inst['component'] = {};
+      }
+      inst['component']['code'] = inst['component']['code'] || [];
+      inst['component']['code'].concat(this.observationComponent.observationCode.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.observationComponent != null && this.observationComponent.quantity != null) {
+      if (inst['component'] === undefined) {
+        inst['component'] = {};
+      }
+      inst['component']['value[x]'] = inst['component']['value[x]'] || [];
+      inst['component']['value[x]'].concat(this.observationComponent.quantity.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.observationComponent != null && this.observationComponent.valueAbsentReason != null) {
+      if (inst['component'] === undefined) {
+        inst['component'] = {};
+      }
+      inst['component']['dataAbsentReason'] = inst['component']['dataAbsentReason'] || [];
+      inst['component']['dataAbsentReason'].concat(this.observationComponent.valueAbsentReason.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.observationComponent != null && this.observationComponent.interpretation != null) {
+      if (inst['component'] === undefined) {
+        inst['component'] = {};
+      }
+      inst['component']['interpretation'] = inst['component']['interpretation'] || [];
+      inst['component']['interpretation'].concat(this.observationComponent.interpretation.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.observationComponent != null && this.observationComponent.referenceRange != null) {
+      if (inst['component'] === undefined) {
+        inst['component'] = {};
+      }
+      inst['component']['referenceRange'] = inst['component']['referenceRange'] || [];
+      inst['component']['referenceRange'].concat(this.observationComponent.referenceRange.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
     return inst;
   }
 }
-export default TumorMargins;
+export default NoKnownAllergy;

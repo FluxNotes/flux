@@ -1,8 +1,8 @@
-import HistologicGrade from '../shr/oncology/HistologicGrade';
+import CancerHistologicGrade from '../mcode/CancerHistologicGrade';
 
 class FluxHistologicGrade {
     constructor(json) {
-        this._histologicGrade = HistologicGrade.fromJSON(json);
+        this._histologicGrade = CancerHistologicGrade.fromJSON(json);
     }
 
     get entryInfo() {

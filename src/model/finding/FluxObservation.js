@@ -1,5 +1,5 @@
 import FluxEntry from '../base/FluxEntry';
-import Observation from '../shr/finding/Observation';
+import Observation from '../shr/base/Observation';
 import Quantity from '../shr/core/Quantity';
 
 class FluxObservation extends FluxEntry {

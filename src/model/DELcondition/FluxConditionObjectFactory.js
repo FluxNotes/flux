@@ -1,7 +1,7 @@
 import { getNamespaceAndName } from '../json-helper';
 import FluxCondition from './FluxCondition';
 import FluxInjury from './FluxInjury';
-import ShrConditionObjectFactory from '../shr/condition/ShrConditionObjectFactory';
+//import ShrConditionObjectFactory from '../shr/condition/ShrConditionObjectFactory';
 import FluxDiseaseProgression from './FluxDiseaseProgression';
 
 export default class FluxConditionObjectFactory {

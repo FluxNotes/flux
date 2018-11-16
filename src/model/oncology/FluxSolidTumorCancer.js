@@ -1,10 +1,10 @@
-import FluxCondition from '../condition/FluxCondition';
 import FluxHistologicGrade from './FluxHistologicGrade';
 import FluxTNMStage from '../oncology/FluxTNMStage';
 import Lang from 'lodash';
 import moment from 'moment';
+import FluxConditionPresentAssertion from '../base/FluxConditionPresentAssertion';
 
-class FluxSolidTumorCancer extends FluxCondition {
+class FluxSolidTumorCancer extends FluxConditionPresentAssertion {
     getHistologicalGrades() {
         return this.getObservationsOfType(FluxHistologicGrade);
     }

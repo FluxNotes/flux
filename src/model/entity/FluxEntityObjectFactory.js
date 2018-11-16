@@ -1,6 +1,6 @@
 import { getNamespaceAndName } from '../json-helper';
 import ShrEntityObjectFactory from '../shr/entity/ShrEntityObjectFactory';
-import FluxDeceased from './FluxDeceased';
+import FluxDeathInformation from './FluxDeathInformation';
 import FluxPatient from './FluxPatient';
 import FluxPerson from './FluxPerson';
 
@@ -12,7 +12,7 @@ export default class FluxEntityObjectFactory {
         }
         // returns Flux wrapper class if found, otherwise use ShrEntityObjectFactory
         switch (elementName) {
-            case 'Deceased': return new FluxDeceased(json);
+            case 'DeathInformation': return new FluxDeathInformation(json);
             case 'Patient': return new FluxPatient(json);
             case 'Person': return new FluxPerson(json);
             default: return ShrEntityObjectFactory.createInstance(json, type);

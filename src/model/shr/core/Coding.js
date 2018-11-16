@@ -21,6 +21,10 @@ class Coding {
     this._code = code;
   }
 
+  set value(code) {
+      this._code = code;
+  }
+
   /**
    * Set the Code and return 'this' for chaining.
    * @param {Code} code - The shr.core.Code

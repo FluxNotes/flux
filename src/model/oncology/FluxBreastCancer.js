@@ -1,22 +1,22 @@
-import BreastCancer from '../shr/oncology/BreastCancer';
 import FluxEstrogenReceptorStatus from './FluxEstrogenReceptorStatus';
 import FluxHER2ReceptorStatus from './FluxHER2ReceptorStatus';
 import FluxHistologicGrade from './FluxHistologicGrade';
 import FluxProgesteroneReceptorStatus from './FluxProgesteroneReceptorStatus';
 import FluxSolidTumorCancer from './FluxSolidTumorCancer';
 import FluxTumorDimensions from '../oncology/FluxTumorDimensions';
+import CancerDisorder from '../mcode/CancerDisorder';
 
 class FluxBreastCancer extends FluxSolidTumorCancer {
     constructor(json, patientRecord) {
         super();
         this._patientRecord = patientRecord;
-        this._condition = BreastCancer.fromJSON(json);
+        this._cancerDisorder = CancerDisorder.fromJSON(json);
     }
 
     // Returns a list of all dates that may be considered a diagnosisDate for this condition
     // getPotentialDiagnosisDates() {
     //     // TODO: Aggregate the relevant candidate dates for diagnosis
-    //     // console.log(this._condition)
+    //     // console.log(this._cancerDisorder)
     //     const procedures = this._patientRecord.getProceduresForCondition(this);
     //     procedures.sort(this._eventsTimeSorter);
 
@@ -85,7 +85,7 @@ class FluxBreastCancer extends FluxSolidTumorCancer {
     }
 
     toJSON() {
-        return this._condition.toJSON();
+        return this._cancerDisorder.toJSON();
     }
 }
 

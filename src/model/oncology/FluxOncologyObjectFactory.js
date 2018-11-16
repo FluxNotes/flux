@@ -1,5 +1,5 @@
 import { getNamespaceAndName } from '../json-helper';
-import ShrOncologyObjectFactory from '../shr/oncology/ShrOncologyObjectFactory';
+//import ShrOncologyObjectFactory from '../shr/oncology/ShrOncologyObjectFactory';
 import FluxBreastCancer from './FluxBreastCancer';
 import FluxBreastCancerGeneticAnalysisPanel from './FluxBreastCancerGeneticAnalysisPanel';
 import FluxBRCA1Variant from './FluxBRCA1Variant';
@@ -42,7 +42,7 @@ export default class FluxOncologyObjectFactory {
             case 'KITVariant': return new FluxKITVariant(json, patientRecord);
             case 'PDGFRAVariant': return new FluxPDGFRAVariant(json, patientRecord);
             case 'MitoticRate': return new FluxMitoticRate(json, patientRecord);
-            default: return ShrOncologyObjectFactory.createInstance(json, type);
+            default: console.log("unknown Flux wrapper in oncology package: " + elementName); //return ShrOncologyObjectFactory.createInstance(json, type);
         }
     }
 }

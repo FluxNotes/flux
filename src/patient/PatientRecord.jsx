@@ -4,8 +4,8 @@ import FluxBreastCancer from '../model/oncology/FluxBreastCancer';
 import FluxBreastCancerGeneticAnalysisPanel from '../model/oncology/FluxBreastCancerGeneticAnalysisPanel';
 import FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel from '../model/oncology/FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel';
 import FluxClinicalNote from '../model/core/FluxClinicalNote';
-import FluxCondition from '../model/condition/FluxCondition';
-import FluxDiseaseProgression from '../model/condition/FluxDiseaseProgression';
+import FluxConditionPresentAssertion from '../model/base/FluxConditionPresentAssertion';
+import FluxCancerProgression from '../model/mcode/FluxCancerProgression';
 import FluxEncounter from '../model/encounter/FluxEncounter';
 import FluxMedicationRequested from '../model/medication/FluxMedicationRequested';
 import FluxMedicationChange from '../model/medication/FluxMedicationChange';
@@ -396,7 +396,7 @@ class PatientRecord {
     }
 
     getConditions() {
-        return this.getEntriesIncludingType(FluxCondition);
+        return this.getEntriesIncludingType(FluxConditionPresentAssertion);
     }
 
     getActiveConditions() {
@@ -839,7 +839,7 @@ class PatientRecord {
     }
 
     getProgressions() {
-        return this.getEntriesOfType(FluxDiseaseProgression);
+        return this.getEntriesOfType(FluxCancerProgression);
     }
 
     getProgressionsChronologicalOrder() {
@@ -851,7 +851,7 @@ class PatientRecord {
     getProgressionsForCondition(condition) {
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         return this.entries.filter((item) => {
-            return item instanceof FluxDiseaseProgression && item.focalSubjectReference.entryId === conditionEntryId;
+            return item instanceof FluxCancerProgression && item.focalSubjectReference.entryId === conditionEntryId;
         });
     }
 
@@ -866,7 +866,7 @@ class PatientRecord {
 
     getFocalConditionForProgression(progression) {
         let result = this.entries.filter((item) => {
-            if (item instanceof FluxCondition) {
+            if (item instanceof FluxConditionPresentAssertion) {
                 const conditionEntryId = item.entryInfo.entryId.value || item.entryInfo.entryId;
                 return progression.focalSubjectReference.entryId === conditionEntryId;
             } else {

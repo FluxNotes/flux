@@ -1,6 +1,6 @@
 import { setPropertiesFromJSON } from '../../json-helper';
 
-import Observation from '../finding/Observation';
+import Observation from '../base/Observation';
 
 /**
  * Generated class for shr.oncology.TumorDimensions.

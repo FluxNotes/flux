@@ -1,18 +1,18 @@
 import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
-import EstrogenReceptorStatus from '../shr/oncology/EstrogenReceptorStatus';
 import FluxObservation from '../finding/FluxObservation';
+import Observation from '../shr/base/Observation';
 import lookup from '../../lib/receptor_lookup.jsx';
 
 // FluxEstrogenReceptorStatus class to hide codeableconcepts
 class FluxEstrogenReceptorStatus extends FluxObservation {
     constructor(json) {
         super();
-        this._entry = this._observation = EstrogenReceptorStatus.fromJSON(json);
+        this._entry = this._observation = Observation.fromJSON(json);
         if (!this._observation.entryInfo) {
             let entry = new Entry();
             entry.entryType = new EntryType();
-            entry.entryType.uri = 'http://standardhealthrecord.org/spec/shr/oncology/EstrogenReceptorStatus';
+            entry.entryType.uri = 'http://standardhealthrecord.org/spec/shr/base/Observation';
             this._observation.entryInfo = entry;
         }
     }

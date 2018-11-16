@@ -1,12 +1,12 @@
 import { setPropertiesFromJSON } from '../../json-helper';
 
-import Observation from '../base/Observation';
+import VitalSign from './VitalSign';
 
 /**
- * Generated class for shr.oncology.TumorMargins.
- * @extends Observation
+ * Generated class for shr.vital.HeartRate.
+ * @extends VitalSign
  */
-class TumorMargins extends Observation {
+class HeartRate extends VitalSign {
 
   /**
    * Get the entry information.
@@ -27,64 +27,89 @@ class TumorMargins extends Observation {
   /**
    * Set the entry information and return 'this' for chaining.
    * @param {Entry} entryInfo - The shr.base.Entry
-   * @returns {TumorMargins} this.
+   * @returns {HeartRate} this.
    */
   withEntryInfo(entryInfo) {
     this.entryInfo = entryInfo; return this;
   }
 
   /**
-   * Get the value (aliases codeableConcept).
-   * @returns {CodeableConcept} The shr.core.CodeableConcept
+   * Get the value (aliases quantity).
+   * @returns {Quantity} The shr.core.Quantity
    */
   get value() {
-    return this._codeableConcept;
+    return this._quantity;
   }
 
   /**
-   * Set the value (aliases codeableConcept).
+   * Set the value (aliases quantity).
    * This field/value is required.
-   * @param {CodeableConcept} value - The shr.core.CodeableConcept
+   * @param {Quantity} value - The shr.core.Quantity
    */
   set value(value) {
-    this._codeableConcept = value;
+    this._quantity = value;
   }
 
   /**
-   * Set the value (aliases codeableConcept) and return 'this' for chaining.
+   * Set the value (aliases quantity) and return 'this' for chaining.
    * This field/value is required.
-   * @param {CodeableConcept} value - The shr.core.CodeableConcept
-   * @returns {TumorMargins} this.
+   * @param {Quantity} value - The shr.core.Quantity
+   * @returns {HeartRate} this.
    */
   withValue(value) {
     this.value = value; return this;
   }
 
   /**
-   * Get the CodeableConcept.
-   * @returns {CodeableConcept} The shr.core.CodeableConcept
+   * Get the Quantity.
+   * @returns {Quantity} The shr.core.Quantity
    */
-  get codeableConcept() {
-    return this._codeableConcept;
+  get quantity() {
+    return this._quantity;
   }
 
   /**
-   * Set the CodeableConcept.
+   * Set the Quantity.
    * This field/value is required.
-   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
+   * @param {Quantity} quantity - The shr.core.Quantity
    */
-  set codeableConcept(codeableConcept) {
-    this._codeableConcept = codeableConcept;
+  set quantity(quantity) {
+    this._quantity = quantity;
   }
 
   /**
-   * Set the CodeableConcept and return 'this' for chaining.
+   * Set the Quantity and return 'this' for chaining.
    * This field/value is required.
-   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
-   * @returns {TumorMargins} this.
+   * @param {Quantity} quantity - The shr.core.Quantity
+   * @returns {HeartRate} this.
    */
-  withCodeableConcept(codeableConcept) {
-    this.codeableConcept = codeableConcept; return this;
+  withQuantity(quantity) {
+    this.quantity = quantity; return this;
+  }
+
+  /**
+   * Get the FindingMethod.
+   * @returns {FindingMethod} The shr.finding.FindingMethod
+   */
+  get findingMethod() {
+    return this._findingMethod;
+  }
+
+  /**
+   * Set the FindingMethod.
+   * @param {FindingMethod} findingMethod - The shr.finding.FindingMethod
+   */
+  set findingMethod(findingMethod) {
+    this._findingMethod = findingMethod;
+  }
+
+  /**
+   * Set the FindingMethod and return 'this' for chaining.
+   * @param {FindingMethod} findingMethod - The shr.finding.FindingMethod
+   * @returns {HeartRate} this.
+   */
+  withFindingMethod(findingMethod) {
+    this.findingMethod = findingMethod; return this;
   }
 
   /**
@@ -108,56 +133,56 @@ class TumorMargins extends Observation {
    * Set the ObservationCode and return 'this' for chaining.
    * This field/value is required.
    * @param {ObservationCode} observationCode - The shr.finding.ObservationCode
-   * @returns {TumorMargins} this.
+   * @returns {HeartRate} this.
    */
   withObservationCode(observationCode) {
     this.observationCode = observationCode; return this;
   }
 
   /**
-   * Get the ObservationComponent array.
-   * @returns {Array<ObservationComponent>} The shr.finding.ObservationComponent array
+   * Get the ObservationQualifier array.
+   * @returns {Array<ObservationQualifier>} The shr.finding.ObservationQualifier array
    */
-  get observationComponent() {
-    return this._observationComponent;
+  get observationQualifier() {
+    return this._observationQualifier;
   }
 
   /**
-   * Set the ObservationComponent array.
-   * @param {Array<ObservationComponent>} observationComponent - The shr.finding.ObservationComponent array
+   * Set the ObservationQualifier array.
+   * @param {Array<ObservationQualifier>} observationQualifier - The shr.finding.ObservationQualifier array
    */
-  set observationComponent(observationComponent) {
-    this._observationComponent = observationComponent;
+  set observationQualifier(observationQualifier) {
+    this._observationQualifier = observationQualifier;
   }
 
   /**
-   * Set the ObservationComponent array and return 'this' for chaining.
-   * @param {Array<ObservationComponent>} observationComponent - The shr.finding.ObservationComponent array
-   * @returns {TumorMargins} this.
+   * Set the ObservationQualifier array and return 'this' for chaining.
+   * @param {Array<ObservationQualifier>} observationQualifier - The shr.finding.ObservationQualifier array
+   * @returns {HeartRate} this.
    */
-  withObservationComponent(observationComponent) {
-    this.observationComponent = observationComponent; return this;
+  withObservationQualifier(observationQualifier) {
+    this.observationQualifier = observationQualifier; return this;
   }
 
   /**
-   * Deserializes JSON data to an instance of the TumorMargins class.
-   * The JSON must be valid against the TumorMargins JSON schema, although this is not validated by the function.
+   * Deserializes JSON data to an instance of the HeartRate class.
+   * The JSON must be valid against the HeartRate JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
-   * @returns {TumorMargins} An instance of TumorMargins populated with the JSON data
+   * @returns {HeartRate} An instance of HeartRate populated with the JSON data
    */
   static fromJSON(json = {}) {
-    const inst = new TumorMargins();
+    const inst = new HeartRate();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
   /**
-   * Serializes an instance of the TumorMargins class to a JSON object.
-   * The JSON is expected to be valid against the TumorMargins JSON schema, but no validation checks are performed.
+   * Serializes an instance of the HeartRate class to a JSON object.
+   * The JSON is expected to be valid against the HeartRate JSON schema, but no validation checks are performed.
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/oncology/TumorMargins' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/vital/HeartRate' };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -233,8 +258,8 @@ class TumorMargins extends Observation {
     return inst;
   }
   /**
-   * Serializes an instance of the TumorMargins class to a FHIR object.
-   * The FHIR is expected to be valid against the TumorMargins FHIR profile, but no validation checks are performed.
+   * Serializes an instance of the HeartRate class to a FHIR object.
+   * The FHIR is expected to be valid against the HeartRate FHIR profile, but no validation checks are performed.
    * @param {asExtension=false} Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
@@ -358,7 +383,42 @@ class TumorMargins extends Observation {
       inst['component'] = inst['component'] || [];
       inst['component'].concat(this.observationComponent.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
+    if (this.observationComponent != null && this.observationComponent.observationCode != null) {
+      if (inst['component'] === undefined) {
+        inst['component'] = {};
+      }
+      inst['component']['code'] = inst['component']['code'] || [];
+      inst['component']['code'].concat(this.observationComponent.observationCode.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.observationComponent != null && this.observationComponent.quantity != null) {
+      if (inst['component'] === undefined) {
+        inst['component'] = {};
+      }
+      inst['component']['value[x]'] = inst['component']['value[x]'] || [];
+      inst['component']['value[x]'].concat(this.observationComponent.quantity.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.observationComponent != null && this.observationComponent.valueAbsentReason != null) {
+      if (inst['component'] === undefined) {
+        inst['component'] = {};
+      }
+      inst['component']['dataAbsentReason'] = inst['component']['dataAbsentReason'] || [];
+      inst['component']['dataAbsentReason'].concat(this.observationComponent.valueAbsentReason.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.observationComponent != null && this.observationComponent.interpretation != null) {
+      if (inst['component'] === undefined) {
+        inst['component'] = {};
+      }
+      inst['component']['interpretation'] = inst['component']['interpretation'] || [];
+      inst['component']['interpretation'].concat(this.observationComponent.interpretation.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.observationComponent != null && this.observationComponent.referenceRange != null) {
+      if (inst['component'] === undefined) {
+        inst['component'] = {};
+      }
+      inst['component']['referenceRange'] = inst['component']['referenceRange'] || [];
+      inst['component']['referenceRange'].concat(this.observationComponent.referenceRange.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
     return inst;
   }
 }
-export default TumorMargins;
+export default HeartRate;

@@ -1,11 +1,12 @@
-import GeneticVariant from '../shr/oncology/GeneticVariant';
+import Observation from '../shr/base/Observation';
 
 class FluxPDGFRAVariant {
     constructor(json) {
-        this._pdgfraVariant = GeneticVariant.fromJSON(json);
+        this._pdgfraVariant = Observation.fromJSON(json);
     }
     
     get abbreviatedName() {
+//        return this._kitVariant.subject.value.coding[0].displayText.value || 'PDGFRA';
         return 'PDGFRA';
     }
 

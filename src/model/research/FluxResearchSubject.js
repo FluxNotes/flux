@@ -1,14 +1,14 @@
 import ResearchSubject from '../shr/research/ResearchSubject';
 import FluxEntry from '../base/FluxEntry';
-import Status from '../shr/action/Status';
+import Status from '../shr/core/Status';
 import Study from '../shr/research/Study';
 import TimePeriod from '../shr/core/TimePeriod';
 import Title from '../shr/core/Title';
-import Details from '../shr/core/Details';
+import CommentOrDescription from '../shr/core/CommentOrDescription';
 import Identifier from '../shr/core/Identifier';
 import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
-import ParticipationPeriod from '../shr/action/ParticipationPeriod';
+import ParticipationPeriod from '../shr/base/ParticipationPeriod';
 import TimePeriodStart from '../shr/core/TimePeriodStart';
 import TimePeriodEnd from '../shr/core/TimePeriodEnd';
 import Lang from 'lodash';
@@ -69,11 +69,11 @@ class FluxResearchSubject extends FluxEntry {
     }
     /**
      *  Getter for detail
-     *  This will return the displayText value from the Details object
+     *  This will return the displayText value from the CommentOrDescription object
      */    
     get details() {
-        if (this._researchSubject.study && this._researchSubject.study.details) {
-            return this._researchSubject.study.details.value;
+        if (this._researchSubject.study && this._researchSubject.study.commentOrDescription) {
+            return this._researchSubject.study.commentOrDescription.value;
         } else {
             return "";
         }
@@ -84,12 +84,12 @@ class FluxResearchSubject extends FluxEntry {
      *  The setter method is expecting a details sting
      *  The method will create a Details object and set the value to the detail string
      */
-    set details(details) {
-        if (Lang.isNull(details)) return;
+    set details(description) {
+        if (Lang.isNull(description)) return;
         this._createStudyIfNeeded();
-        let detailsObj = new Details();
-        detailsObj.value = details; 
-        this._researchSubject.study.details = detailsObj;
+        let commentOrDescriptionObj = new CommentOrDescription();
+        commentOrDescriptionObj.value = description; 
+        this._researchSubject.study.commentOrDescription = commentOrDescriptionObj;
     }    
 
     /**

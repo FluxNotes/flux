@@ -1,9 +1,9 @@
-import ObservationComponent from '../shr/finding/ObservationComponent';
+import Observation from '../shr/base/Observation';
 
 class FluxMitoticRate {
     constructor(json, patientRecord) {
         this._patientRecord = patientRecord;
-        this._observationComponent = ObservationComponent.fromJSON(json);
+        this._observationComponent = Observation.fromJSON(json);
     }
 
     get value() {

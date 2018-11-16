@@ -3,10 +3,10 @@ import { setPropertiesFromJSON } from '../../json-helper';
 import Observation from '../base/Observation';
 
 /**
- * Generated class for shr.oncology.TumorMargins.
+ * Generated class for shr.oncology.BreastCancerGeneticAnalysisPanel.
  * @extends Observation
  */
-class TumorMargins extends Observation {
+class BreastCancerGeneticAnalysisPanel extends Observation {
 
   /**
    * Get the entry information.
@@ -27,64 +27,10 @@ class TumorMargins extends Observation {
   /**
    * Set the entry information and return 'this' for chaining.
    * @param {Entry} entryInfo - The shr.base.Entry
-   * @returns {TumorMargins} this.
+   * @returns {BreastCancerGeneticAnalysisPanel} this.
    */
   withEntryInfo(entryInfo) {
     this.entryInfo = entryInfo; return this;
-  }
-
-  /**
-   * Get the value (aliases codeableConcept).
-   * @returns {CodeableConcept} The shr.core.CodeableConcept
-   */
-  get value() {
-    return this._codeableConcept;
-  }
-
-  /**
-   * Set the value (aliases codeableConcept).
-   * This field/value is required.
-   * @param {CodeableConcept} value - The shr.core.CodeableConcept
-   */
-  set value(value) {
-    this._codeableConcept = value;
-  }
-
-  /**
-   * Set the value (aliases codeableConcept) and return 'this' for chaining.
-   * This field/value is required.
-   * @param {CodeableConcept} value - The shr.core.CodeableConcept
-   * @returns {TumorMargins} this.
-   */
-  withValue(value) {
-    this.value = value; return this;
-  }
-
-  /**
-   * Get the CodeableConcept.
-   * @returns {CodeableConcept} The shr.core.CodeableConcept
-   */
-  get codeableConcept() {
-    return this._codeableConcept;
-  }
-
-  /**
-   * Set the CodeableConcept.
-   * This field/value is required.
-   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
-   */
-  set codeableConcept(codeableConcept) {
-    this._codeableConcept = codeableConcept;
-  }
-
-  /**
-   * Set the CodeableConcept and return 'this' for chaining.
-   * This field/value is required.
-   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
-   * @returns {TumorMargins} this.
-   */
-  withCodeableConcept(codeableConcept) {
-    this.codeableConcept = codeableConcept; return this;
   }
 
   /**
@@ -108,56 +54,58 @@ class TumorMargins extends Observation {
    * Set the ObservationCode and return 'this' for chaining.
    * This field/value is required.
    * @param {ObservationCode} observationCode - The shr.finding.ObservationCode
-   * @returns {TumorMargins} this.
+   * @returns {BreastCancerGeneticAnalysisPanel} this.
    */
   withObservationCode(observationCode) {
     this.observationCode = observationCode; return this;
   }
 
   /**
-   * Get the ObservationComponent array.
-   * @returns {Array<ObservationComponent>} The shr.finding.ObservationComponent array
+   * Get the Members.
+   * @returns {Members} The shr.finding.Members
    */
-  get observationComponent() {
-    return this._observationComponent;
+  get members() {
+    return this._members;
   }
 
   /**
-   * Set the ObservationComponent array.
-   * @param {Array<ObservationComponent>} observationComponent - The shr.finding.ObservationComponent array
+   * Set the Members.
+   * This field/value is required.
+   * @param {Members} members - The shr.finding.Members
    */
-  set observationComponent(observationComponent) {
-    this._observationComponent = observationComponent;
+  set members(members) {
+    this._members = members;
   }
 
   /**
-   * Set the ObservationComponent array and return 'this' for chaining.
-   * @param {Array<ObservationComponent>} observationComponent - The shr.finding.ObservationComponent array
-   * @returns {TumorMargins} this.
+   * Set the Members and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Members} members - The shr.finding.Members
+   * @returns {BreastCancerGeneticAnalysisPanel} this.
    */
-  withObservationComponent(observationComponent) {
-    this.observationComponent = observationComponent; return this;
+  withMembers(members) {
+    this.members = members; return this;
   }
 
   /**
-   * Deserializes JSON data to an instance of the TumorMargins class.
-   * The JSON must be valid against the TumorMargins JSON schema, although this is not validated by the function.
+   * Deserializes JSON data to an instance of the BreastCancerGeneticAnalysisPanel class.
+   * The JSON must be valid against the BreastCancerGeneticAnalysisPanel JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
-   * @returns {TumorMargins} An instance of TumorMargins populated with the JSON data
+   * @returns {BreastCancerGeneticAnalysisPanel} An instance of BreastCancerGeneticAnalysisPanel populated with the JSON data
    */
   static fromJSON(json = {}) {
-    const inst = new TumorMargins();
+    const inst = new BreastCancerGeneticAnalysisPanel();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
   /**
-   * Serializes an instance of the TumorMargins class to a JSON object.
-   * The JSON is expected to be valid against the TumorMargins JSON schema, but no validation checks are performed.
+   * Serializes an instance of the BreastCancerGeneticAnalysisPanel class to a JSON object.
+   * The JSON is expected to be valid against the BreastCancerGeneticAnalysisPanel JSON schema, but no validation checks are performed.
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/oncology/TumorMargins' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/oncology/BreastCancerGeneticAnalysisPanel' };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -233,8 +181,8 @@ class TumorMargins extends Observation {
     return inst;
   }
   /**
-   * Serializes an instance of the TumorMargins class to a FHIR object.
-   * The FHIR is expected to be valid against the TumorMargins FHIR profile, but no validation checks are performed.
+   * Serializes an instance of the BreastCancerGeneticAnalysisPanel class to a FHIR object.
+   * The FHIR is expected to be valid against the BreastCancerGeneticAnalysisPanel FHIR profile, but no validation checks are performed.
    * @param {asExtension=false} Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
@@ -350,15 +298,56 @@ class TumorMargins extends Observation {
     }
     if (this.members != null && this.members.observation != null) {
       if (inst['related'] === undefined) {
-        inst['related'] = {};
+        inst['related'] = [];
       }
-      inst['related']['target'] = typeof this.members.observation.toFHIR === 'function' ? this.members.observation.toFHIR() : this.members.observation;
+      this.members.observation.forEach((elem) => {
+        let containerInst = {};
+        containerInst['target'] = {};
+        containerInst['target'] = typeof elem.toFHIR === 'function' ? elem.toFHIR() : elem;
+        inst['related'].push(containerInst);
+      }
+      );
     }
     if (this.observationComponent != null) {
       inst['component'] = inst['component'] || [];
       inst['component'].concat(this.observationComponent.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
+    if (this.observationComponent != null && this.observationComponent.observationCode != null) {
+      if (inst['component'] === undefined) {
+        inst['component'] = {};
+      }
+      inst['component']['code'] = inst['component']['code'] || [];
+      inst['component']['code'].concat(this.observationComponent.observationCode.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.observationComponent != null && this.observationComponent.quantity != null) {
+      if (inst['component'] === undefined) {
+        inst['component'] = {};
+      }
+      inst['component']['value[x]'] = inst['component']['value[x]'] || [];
+      inst['component']['value[x]'].concat(this.observationComponent.quantity.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.observationComponent != null && this.observationComponent.valueAbsentReason != null) {
+      if (inst['component'] === undefined) {
+        inst['component'] = {};
+      }
+      inst['component']['dataAbsentReason'] = inst['component']['dataAbsentReason'] || [];
+      inst['component']['dataAbsentReason'].concat(this.observationComponent.valueAbsentReason.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.observationComponent != null && this.observationComponent.interpretation != null) {
+      if (inst['component'] === undefined) {
+        inst['component'] = {};
+      }
+      inst['component']['interpretation'] = inst['component']['interpretation'] || [];
+      inst['component']['interpretation'].concat(this.observationComponent.interpretation.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.observationComponent != null && this.observationComponent.referenceRange != null) {
+      if (inst['component'] === undefined) {
+        inst['component'] = {};
+      }
+      inst['component']['referenceRange'] = inst['component']['referenceRange'] || [];
+      inst['component']['referenceRange'].concat(this.observationComponent.referenceRange.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
     return inst;
   }
 }
-export default TumorMargins;
+export default BreastCancerGeneticAnalysisPanel;

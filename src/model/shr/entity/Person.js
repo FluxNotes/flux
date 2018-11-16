@@ -262,6 +262,106 @@ class Person extends Entity {
     this.maritalStatus = maritalStatus; return this;
   }
 
+   /**
+   * Get the Race.
+   * @returns {Race} The shr.entity.Race
+   */
+  get race() {
+    return this._race;
+  }
+
+  /**
+   * Set the Race.
+   * @param {Race} race - The shr.entity.Race
+   */
+  set race(race) {
+    this._race = race;
+  }
+
+  /**
+   * Set the Race and return 'this' for chaining.
+   * @param {Race} race - The shr.entity.Race
+   * @returns {Person} this.
+   */
+  withRace(race) {
+    this.race = race; return this;
+  }
+
+  /**
+   * Get the Ethnicity.
+   * @returns {Ethnicity} The shr.entity.Ethnicity
+   */
+  get ethnicity() {
+    return this._ethnicity;
+  }
+
+  /**
+   * Set the Ethnicity.
+   * @param {Ethnicity} ethnicity - The shr.entity.Ethnicity
+   */
+  set ethnicity(ethnicity) {
+    this._ethnicity = ethnicity;
+  }
+
+  /**
+   * Set the Ethnicity and return 'this' for chaining.
+   * @param {Ethnicity} ethnicity - The shr.entity.Ethnicity
+   * @returns {Person} this.
+   */
+  withEthnicity(ethnicity) {
+    this.ethnicity = ethnicity; return this;
+  }
+
+   /**
+   * Get the MothersMaidenName.
+   * @returns {MothersMaidenName} The shr.entity.MothersMaidenName
+   */
+  get mothersMaidenName() {
+    return this._mothersMaidenName;
+  }
+
+  /**
+   * Set the MothersMaidenName.
+   * @param {MothersMaidenName} mothersMaidenName - The shr.entity.MothersMaidenName
+   */
+  set mothersMaidenName(mothersMaidenName) {
+    this._mothersMaidenName = mothersMaidenName;
+  }
+
+  /**
+   * Set the MothersMaidenName and return 'this' for chaining.
+   * @param {MothersMaidenName} mothersMaidenName - The shr.entity.MothersMaidenName
+   * @returns {Person} this.
+   */
+  withMothersMaidenName(mothersMaidenName) {
+    this.mothersMaidenName = mothersMaidenName; return this;
+  }
+
+  /**
+   * Get the FathersName.
+   * @returns {FathersName} The shr.entity.FathersName
+   */
+  get fathersName() {
+    return this._fathersName;
+  }
+
+  /**
+   * Set the FathersName.
+   * @param {FathersName} fathersName - The shr.entity.FathersName
+   */
+  set fathersName(fathersName) {
+    this._fathersName = fathersName;
+  }
+
+  /**
+   * Set the FathersName and return 'this' for chaining.
+   * @param {FathersName} fathersName - The shr.entity.FathersName
+   * @returns {Person} this.
+   */
+  withFathersName(fathersName) {
+    this.fathersName = fathersName; return this;
+  }
+
   /**
    * Deserializes JSON data to an instance of the Person class.
    * The JSON must be valid against the Person JSON schema, although this is not validated by the function.
@@ -311,6 +411,12 @@ class Person extends Entity {
     }
     if (this.maritalStatus != null) {
       inst['MaritalStatus'] = typeof this.maritalStatus.toJSON === 'function' ? this.maritalStatus.toJSON() : this.maritalStatus;
+    }
+    if (this.race != null) {
+      inst['Race'] = typeof this.race.toJSON === 'function' ? this.race.toJSON : this.race;
+    }
+    if (this.ethnicity != null) {
+      inst['Ethnicity'] = typeof this.ethnicity.toJSON === 'function' ? this.ethnicity.toJSON : this.ethnicity;
     }
     return inst;
   }
@@ -364,7 +470,15 @@ class Person extends Entity {
       inst['extension'] = inst['extension'] || [];
       inst['extension'].push(typeof this.maritalStatus.toFHIR === 'function' ? this.maritalStatus.toFHIR(true) : this.maritalStatus);
     }
-    return inst;
+    if (this.race != null) {
+        inst['extension'] = inst['extension'] || [];
+        inst['extension'].push(typeof this.race.toFHIR === 'function' ? this.race.toFHIR(true) : this.race);
+      }
+      if (this.ethnicity != null) {
+        inst['extension'] = inst['extension'] || [];
+        inst['extension'].push(typeof this.ethnicity.toFHIR === 'function' ? this.ethnicity.toFHIR(true) : this.ethnicity);
+      }
+        return inst;
   }
 
   /**

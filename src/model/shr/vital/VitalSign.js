@@ -3,88 +3,86 @@ import { setPropertiesFromJSON } from '../../json-helper';
 import Observation from '../base/Observation';
 
 /**
- * Generated class for shr.oncology.TumorMargins.
+ * Generated class for shr.vital.VitalSign.
  * @extends Observation
  */
-class TumorMargins extends Observation {
+class VitalSign extends Observation {
 
   /**
-   * Get the entry information.
-   * @returns {Entry} The shr.base.Entry
-   */
-  get entryInfo() {
-    return this._entryInfo;
-  }
-
-  /**
-   * Set the entry information.
-   * @param {Entry} entryInfo - The shr.base.Entry
-   */
-  set entryInfo(entryInfo) {
-    this._entryInfo = entryInfo;
-  }
-
-  /**
-   * Set the entry information and return 'this' for chaining.
-   * @param {Entry} entryInfo - The shr.base.Entry
-   * @returns {TumorMargins} this.
-   */
-  withEntryInfo(entryInfo) {
-    this.entryInfo = entryInfo; return this;
-  }
-
-  /**
-   * Get the value (aliases codeableConcept).
-   * @returns {CodeableConcept} The shr.core.CodeableConcept
+   * Get the value (aliases quantity).
+   * @returns {Quantity} The shr.core.Quantity
    */
   get value() {
-    return this._codeableConcept;
+    return this._quantity;
   }
 
   /**
-   * Set the value (aliases codeableConcept).
-   * This field/value is required.
-   * @param {CodeableConcept} value - The shr.core.CodeableConcept
+   * Set the value (aliases quantity).
+   * @param {Quantity} value - The shr.core.Quantity
    */
   set value(value) {
-    this._codeableConcept = value;
+    this._quantity = value;
   }
 
   /**
-   * Set the value (aliases codeableConcept) and return 'this' for chaining.
-   * This field/value is required.
-   * @param {CodeableConcept} value - The shr.core.CodeableConcept
-   * @returns {TumorMargins} this.
+   * Set the value (aliases quantity) and return 'this' for chaining.
+   * @param {Quantity} value - The shr.core.Quantity
+   * @returns {VitalSign} this.
    */
   withValue(value) {
     this.value = value; return this;
   }
 
   /**
-   * Get the CodeableConcept.
-   * @returns {CodeableConcept} The shr.core.CodeableConcept
+   * Get the Quantity.
+   * @returns {Quantity} The shr.core.Quantity
    */
-  get codeableConcept() {
-    return this._codeableConcept;
+  get quantity() {
+    return this._quantity;
   }
 
   /**
-   * Set the CodeableConcept.
-   * This field/value is required.
-   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
+   * Set the Quantity.
+   * @param {Quantity} quantity - The shr.core.Quantity
    */
-  set codeableConcept(codeableConcept) {
-    this._codeableConcept = codeableConcept;
+  set quantity(quantity) {
+    this._quantity = quantity;
   }
 
   /**
-   * Set the CodeableConcept and return 'this' for chaining.
-   * This field/value is required.
-   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
-   * @returns {TumorMargins} this.
+   * Set the Quantity and return 'this' for chaining.
+   * @param {Quantity} quantity - The shr.core.Quantity
+   * @returns {VitalSign} this.
    */
-  withCodeableConcept(codeableConcept) {
-    this.codeableConcept = codeableConcept; return this;
+  withQuantity(quantity) {
+    this.quantity = quantity; return this;
+  }
+
+  /**
+   * Get the Subject.
+   * @returns {Subject} The shr.base.Subject
+   */
+  get subject() {
+    return this._subject;
+  }
+
+  /**
+   * Set the Subject.
+   * This field/value is required.
+   * @param {Subject} subject - The shr.base.Subject
+   */
+  set subject(subject) {
+    this._subject = subject;
+  }
+
+  /**
+   * Set the Subject and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Subject} subject - The shr.base.Subject
+   * @returns {VitalSign} this.
+   */
+  withSubject(subject) {
+    this.subject = subject; return this;
   }
 
   /**
@@ -108,56 +106,57 @@ class TumorMargins extends Observation {
    * Set the ObservationCode and return 'this' for chaining.
    * This field/value is required.
    * @param {ObservationCode} observationCode - The shr.finding.ObservationCode
-   * @returns {TumorMargins} this.
+   * @returns {VitalSign} this.
    */
   withObservationCode(observationCode) {
     this.observationCode = observationCode; return this;
   }
 
   /**
-   * Get the ObservationComponent array.
-   * @returns {Array<ObservationComponent>} The shr.finding.ObservationComponent array
+   * Get the Category array.
+   * @returns {Array<Category>} The shr.core.Category array
    */
-  get observationComponent() {
-    return this._observationComponent;
+  get category() {
+    return this._category;
   }
 
   /**
-   * Set the ObservationComponent array.
-   * @param {Array<ObservationComponent>} observationComponent - The shr.finding.ObservationComponent array
+   * Set the Category array.
+   * This field/value is required.
+   * @param {Array<Category>} category - The shr.core.Category array
    */
-  set observationComponent(observationComponent) {
-    this._observationComponent = observationComponent;
+  set category(category) {
+    this._category = category;
   }
 
   /**
-   * Set the ObservationComponent array and return 'this' for chaining.
-   * @param {Array<ObservationComponent>} observationComponent - The shr.finding.ObservationComponent array
-   * @returns {TumorMargins} this.
+   * Set the Category array and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Array<Category>} category - The shr.core.Category array
+   * @returns {VitalSign} this.
    */
-  withObservationComponent(observationComponent) {
-    this.observationComponent = observationComponent; return this;
+  withCategory(category) {
+    this.category = category; return this;
   }
 
   /**
-   * Deserializes JSON data to an instance of the TumorMargins class.
-   * The JSON must be valid against the TumorMargins JSON schema, although this is not validated by the function.
+   * Deserializes JSON data to an instance of the VitalSign class.
+   * The JSON must be valid against the VitalSign JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
-   * @returns {TumorMargins} An instance of TumorMargins populated with the JSON data
+   * @returns {VitalSign} An instance of VitalSign populated with the JSON data
    */
   static fromJSON(json = {}) {
-    const inst = new TumorMargins();
+    const inst = new VitalSign();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
   /**
-   * Serializes an instance of the TumorMargins class to a JSON object.
-   * The JSON is expected to be valid against the TumorMargins JSON schema, but no validation checks are performed.
+   * Serializes an instance of the VitalSign class to a JSON object.
+   * The JSON is expected to be valid against the VitalSign JSON schema, but no validation checks are performed.
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/oncology/TumorMargins' };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/vital/VitalSign' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -233,14 +232,13 @@ class TumorMargins extends Observation {
     return inst;
   }
   /**
-   * Serializes an instance of the TumorMargins class to a FHIR object.
-   * The FHIR is expected to be valid against the TumorMargins FHIR profile, but no validation checks are performed.
+   * Serializes an instance of the VitalSign class to a FHIR object.
+   * The FHIR is expected to be valid against the VitalSign FHIR profile, but no validation checks are performed.
    * @param {asExtension=false} Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
     let inst = {};
-    inst['resourceType'] = 'Observation';
     if (this.author != null) {
       inst['extension'] = inst['extension'] || [];
       inst['extension'].push(this.author.toFHIR(true));
@@ -358,7 +356,42 @@ class TumorMargins extends Observation {
       inst['component'] = inst['component'] || [];
       inst['component'].concat(this.observationComponent.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
+    if (this.observationComponent != null && this.observationComponent.observationCode != null) {
+      if (inst['component'] === undefined) {
+        inst['component'] = {};
+      }
+      inst['component']['code'] = inst['component']['code'] || [];
+      inst['component']['code'].concat(this.observationComponent.observationCode.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.observationComponent != null && this.observationComponent.quantity != null) {
+      if (inst['component'] === undefined) {
+        inst['component'] = {};
+      }
+      inst['component']['value[x]'] = inst['component']['value[x]'] || [];
+      inst['component']['value[x]'].concat(this.observationComponent.quantity.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.observationComponent != null && this.observationComponent.valueAbsentReason != null) {
+      if (inst['component'] === undefined) {
+        inst['component'] = {};
+      }
+      inst['component']['dataAbsentReason'] = inst['component']['dataAbsentReason'] || [];
+      inst['component']['dataAbsentReason'].concat(this.observationComponent.valueAbsentReason.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.observationComponent != null && this.observationComponent.interpretation != null) {
+      if (inst['component'] === undefined) {
+        inst['component'] = {};
+      }
+      inst['component']['interpretation'] = inst['component']['interpretation'] || [];
+      inst['component']['interpretation'].concat(this.observationComponent.interpretation.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
+    if (this.observationComponent != null && this.observationComponent.referenceRange != null) {
+      if (inst['component'] === undefined) {
+        inst['component'] = {};
+      }
+      inst['component']['referenceRange'] = inst['component']['referenceRange'] || [];
+      inst['component']['referenceRange'].concat(this.observationComponent.referenceRange.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+    }
     return inst;
   }
 }
-export default TumorMargins;
+export default VitalSign;

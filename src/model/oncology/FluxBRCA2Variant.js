@@ -1,8 +1,10 @@
-import BRCA2Variant from '../shr/oncology/BRCA2Variant';
+import FluxObservation from '../finding/FluxObservation';
+import Observation from '../shr/base/Observation';
 
-class FluxBRCA2Variant {
+class FluxBRCA2Variant extends FluxObservation {
     constructor(json) {
-        this._brca2Variant = BRCA2Variant.fromJSON(json);
+        super();
+        this._brca2Variant = Observation.fromJSON(json);
     }
 
     get abbreviatedName() {
