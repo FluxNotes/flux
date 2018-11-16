@@ -12,7 +12,6 @@ export default class ActiveConditionsSection extends MetadataSection {
                     name: "",
                     headings: ["Condition", "Diagnosed", "Body Site"],
                     itemsFunction: this.getItemListForConditions,
-                    shortcut: "@condition"
                 }
             ]
         };
@@ -25,7 +24,10 @@ export default class ActiveConditionsSection extends MetadataSection {
                 {    value: c.type, 
                      isUnsigned: patient.isUnsigned(c),
                      source: this.determineSource(patient, c),
-                     shortcut: subsection.shortcut
+                     shortcutData: {
+                        shortcut: '@condition',
+                        entryId: c.entryInfo.entryId,
+                    }
                 }, 
                 {   value: c.diagnosisDate
                 },

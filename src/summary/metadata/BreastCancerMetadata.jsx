@@ -111,7 +111,10 @@ export default class BreastCancerMetadata extends MetadataSection {
                                         return {    value: currentConditionEntry.type, 
                                                     isUnsigned: patient.isUnsigned(currentConditionEntry), 
                                                     source: this.determineSource(patient, currentConditionEntry),
-                                                    shortcut: "@condition"
+                                                    shortcutData: {
+                                                        shortcut: '@condition',
+                                                        entryId: currentConditionEntry.entryInfo.entryId,
+                                                    }
                                         };
                                     },
                                 },

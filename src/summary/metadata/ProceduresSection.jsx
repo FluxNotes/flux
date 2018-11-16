@@ -25,7 +25,10 @@ export default class ProceduresSection extends MetadataSection {
                 {   value: p.name, 
                     isUnsigned: patient.isUnsigned(p),
                     source:  this.determineSource(patient, p),
-                    shortcut: "@procedure"
+                    shortcutData: {
+                        shortcut: '@procedure',
+                        entryId: p.entryInfo.entryId,
+                    }
                 }];
             if (typeof p.occurrenceTime !== 'string') {
                 result.push(
