@@ -5,6 +5,7 @@ import EncounterType from './EncounterType';
 import Diagnosis from './Diagnosis';
 import DiagnosisCode from './DiagnosisCode';
 import DetailedEncounter from './DetailedEncounter';
+import ConsultRequested from '../procedure/ConsultRequested';
 
 /**
  * Generated object factory for the shr.encounter namespace.
@@ -25,6 +26,7 @@ export default class ShrEncounterObjectFactory {
     case 'Encounter': return Encounter.fromJSON(json);
     case 'EncounterClass': return EncounterClass.fromJSON(json);
     case 'EncounterType': return EncounterType.fromJSON(json);
+    case 'ConsultRequested': return ConsultRequested.fromJSON(json);
     case 'Diagnosis': return Diagnosis.fromJSON(json);
     case 'DiagnosisCode': return DiagnosisCode.fromJSON(json);
     case 'DetailedEncounter': return DetailedEncounter.fromJSON(json);
@@ -47,6 +49,7 @@ export default class ShrEncounterObjectFactory {
     case 'Encounter': return Encounter.fromFHIR(fhir, asExtension);
     case 'EncounterClass': return EncounterClass.fromFHIR(fhir, asExtension);
     case 'EncounterType': return EncounterType.fromFHIR(fhir, asExtension);
+    case 'ConsultRequested': return ConsultRequested.fromFHIR(fhir, asExtension);
     case 'Diagnosis': return Diagnosis.fromFHIR(fhir, asExtension);
     case 'DiagnosisCode': return DiagnosisCode.fromFHIR(fhir, asExtension);
     case 'DetailedEncounter': return DetailedEncounter.fromFHIR(fhir, asExtension);

@@ -31,7 +31,6 @@ import moment from 'moment';
 import Guid from 'guid';
 import _ from 'lodash';
 
-
 class PatientRecord {
 
     constructor(shrJson = null) {

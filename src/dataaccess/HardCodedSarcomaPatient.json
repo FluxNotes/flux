@@ -1023,7 +1023,7 @@
     },
     {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
+            "Value": "http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested"
         },
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
         "EntryId": "100",
@@ -1039,109 +1039,107 @@
             },
             "Value": "3 SEP 2018"
         },
-        "ActionContext": {
+        "Reason": [
+            {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/Reason"
+                },
+                "Value": "Mr. Tnfinity6 requested a follow up due to significant diarrhea and fatigue, despite anti-diarrheal treatment, that makes it hard for him to do daily activities"
+            }
+        ],
+        "RequestIntent": {
             "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"
+                "Value": "http://standardhealthrecord.org/spec/shr/base/RequestIntent"
             },
-            "Reason": [
-                {
+            "Value": "plan"
+        },
+        "ExpectedPerformer": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformer"
+            },
+            "Value": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Practitioner"
+                },
+                "Person": {
                     "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/base/Reason"
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
                     },
-                    "Value": "Mr. Tnfinity6 requested a follow up due to significant diarrhea and fatigue, despite anti-diarrheal treatment, that makes it hard for him to do daily activities"
+                    "HumanName": [
+                        {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
+                            },
+                            "NameAsText": "Dr. Mona341 Brown483"
+                        }
+                    ]
                 }
-            ],
+            }
+        },
+        "Encounter": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
+            },
             "Status": {
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/core/Status"
                 },
                 "Value": "active"
             },
-            "RequestIntent": {
+            "TimePeriod": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/action/RequestIntent"
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
                 },
-                "Value": "plan"
+                "TimePeriodStart": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
+                    },
+                    "Value": "3 SEP 2018 15:00 -0500"
+                }
             },
-            "ExpectedPerformanceTime": {
+            "ServiceProvider": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
-                },
-                "Value": "3 SEP 2018 15:00 -0500"
-            },
-            "ExpectedPerformer": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformer"
+                    "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
                 },
                 "Value": {
                     "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Practitioner"
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
                     },
-                    "Value": {
+                    "OrganizationName": {
                         "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
+                            "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
                         },
-                        "HumanName": [
-                            {
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
-                                },
-                                "NameAsText": "Dr. Mona341 Brown483"
-                            }
-                        ]
-                    }
-                }
-            }
-        },
-        "Subject": {
-            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-            "_EntryId": "1",
-            "_EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
-            }
-        },
-        "ServiceProvider": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
-            },
-            "Value": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
-                },
-                "OrganizationName": {
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
+                        "Value": "MCI"
                     },
-                    "Value": "MCI"
-                },
-                "Type": {
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
-                    },
-                    "Value": {
+                    "Type": {
                         "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
                         },
-                        "Coding": [
-                            {
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                },
-                                "Code": "prov",
-                                "CodeSystem": {
+                        "Value": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                            },
+                            "Coding": [
+                                {
                                     "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                     },
-                                    "Value": "http://hl7.org/fhir/organization-type"
-                                },
-                                "DisplayText": {
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    "Code": "prov",
+                                    "CodeSystem": {
+                                        "EntryType": {
+                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                        },
+                                        "Value": "http://hl7.org/fhir/organization-type"
                                     },
-                                    "Value": "Healthcare Provider"
+                                    "DisplayText": {
+                                        "EntryType": {
+                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                        },
+                                        "Value": "Healthcare Provider"
+                                    }
                                 }
-                            }
-                        ]
+                            ]
+                        }
                     }
                 }
             }
@@ -4989,25 +4987,25 @@
     },
     {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
+            "Value": "http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested"
         },
-        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-        "EntryId": "3000",
-        "CreationTime": {
+        "Encounter": {
             "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
             },
-            "Value": "2 FEB 2016"
-        },
-        "LastUpdated": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "EntryId": "3000",
+            "CreationTime": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+                },
+                "Value": "2 FEB 2016"
             },
-            "Value": "15 FEB 2016"
-        },
-        "ActionContext": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"
+            "LastUpdated": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+                },
+                "Value": "15 FEB 2016"
             },
             "Reason": [
                 {
@@ -5025,25 +5023,30 @@
             },
             "RequestIntent": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/action/RequestIntent"
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/RequestIntent"
                 },
                 "Value": "plan"
             },
-            "ExpectedPerformanceTime": {
+            "TimePeriod": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
                 },
-                "Value": "15 FEB 2016 15:00 -0500"
+                "TimePeriodStart": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
+                    },
+                    "Value": "15 FEB 2016 15:00 -0500"
+                }
             },
             "ExpectedPerformer": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformer"
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformer"
                 },
                 "Value": {
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/entity/Practitioner"
                     },
-                    "Value": {
+                    "Person": {
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
                         },
@@ -5057,57 +5060,57 @@
                         ]
                     }
                 }
-            }
-        },
-        "Subject": {
-            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-            "_EntryId": "1",
-            "_EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
-            }
-        },
-        "ServiceProvider": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
             },
-            "Value": {
+            "Subject": {
+                "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                "_EntryId": "1",
+                "_EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+                }
+            },
+            "ServiceProvider": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
+                    "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
                 },
-                "OrganizationName": {
+                "Value": {
                     "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
                     },
-                    "Value": "MCI"
-                },
-                "Type": {
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
-                    },
-                    "Value": {
+                    "OrganizationName": {
                         "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                            "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
                         },
-                        "Coding": [
-                            {
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                },
-                                "Value": "prov",
-                                "CodeSystem": {
+                        "Value": "MCI"
+                    },
+                    "Type": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
+                        },
+                        "Value": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                            },
+                            "Coding": [
+                                {
                                     "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                     },
-                                    "Value": "http://hl7.org/fhir/organization-type"
-                                },
-                                "DisplayText": {
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    "Value": "prov",
+                                    "CodeSystem": {
+                                        "EntryType": {
+                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                        },
+                                        "Value": "http://hl7.org/fhir/organization-type"
                                     },
-                                    "Value": "Healthcare Provider"
+                                    "DisplayText": {
+                                        "EntryType": {
+                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                        },
+                                        "Value": "Healthcare Provider"
+                                    }
                                 }
-                            }
-                        ]
+                            ]
+                        }
                     }
                 }
             }
@@ -5115,25 +5118,25 @@
     },
     {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
+            "Value": "http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested"
         },
-        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-        "EntryId": "3010",
-        "CreationTime": {
+        "Encounter": {
             "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
             },
-            "Value": "7 APR 2016"
-        },
-        "LastUpdated": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "EntryId": "3010",
+            "CreationTime": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+                },
+                "Value": "7 APR 2016"
             },
-            "Value": "16 May 2016"
-        },
-        "ActionContext": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"
+            "LastUpdated": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+                },
+                "Value": "16 May 2016"
             },
             "Reason": [
                 {
@@ -5151,25 +5154,30 @@
             },
             "RequestIntent": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/action/RequestIntent"
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/RequestIntent"
                 },
                 "Value": "plan"
             },
-            "ExpectedPerformanceTime": {
+            "TimePeriod": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
                 },
-                "Value": "16 May 2016 14:00 -0500"
+                "TimePeriodStart": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
+                    },
+                    "Value": "16 May 2016 14:00 -0500"
+                }
             },
             "ExpectedPerformer": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformer"
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformer"
                 },
                 "Value": {
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/entity/Practitioner"
                     },
-                    "Value": {
+                    "Person": {
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
                         },
@@ -5183,57 +5191,57 @@
                         ]
                     }
                 }
-            }
-        },
-        "Subject": {
-            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-            "_EntryId": "1",
-            "_EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
-            }
-        },
-        "ServiceProvider": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
             },
-            "Value": {
+            "Subject": {
+                "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                "_EntryId": "1",
+                "_EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+                }
+            },
+            "ServiceProvider": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
+                    "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
                 },
-                "OrganizationName": {
+                "Value": {
                     "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
                     },
-                    "Value": "MCI"
-                },
-                "Type": {
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
-                    },
-                    "Value": {
+                    "OrganizationName": {
                         "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                            "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
                         },
-                        "Coding": [
-                            {
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                },
-                                "Value": "prov",
-                                "CodeSystem": {
+                        "Value": "MCI"
+                    },
+                    "Type": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
+                        },
+                        "Value": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                            },
+                            "Coding": [
+                                {
                                     "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                     },
-                                    "Value": "http://hl7.org/fhir/organization-type"
-                                },
-                                "DisplayText": {
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    "Value": "prov",
+                                    "CodeSystem": {
+                                        "EntryType": {
+                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                        },
+                                        "Value": "http://hl7.org/fhir/organization-type"
                                     },
-                                    "Value": "Healthcare Provider"
+                                    "DisplayText": {
+                                        "EntryType": {
+                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                        },
+                                        "Value": "Healthcare Provider"
+                                    }
                                 }
-                            }
-                        ]
+                            ]
+                        }
                     }
                 }
             }
@@ -5398,26 +5406,26 @@
     },
     {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
+            "Value": "http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested"
         },
-        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-        "EntryId": "5100",
-        "ReferredBy": "Dr. Smith952",
-        "CreationTime": {
+        "Encounter": {
             "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
             },
-            "Value": "3 Mar 2016"
-        },
-        "LastUpdated": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "EntryId": "5100",
+            "ReferredBy": "Dr. Smith952",
+            "CreationTime": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+                },
+                "Value": "3 Mar 2016"
             },
-            "Value": "3 Mar 2016"
-        },
-        "ActionContext": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"
+            "LastUpdated": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+                },
+                "Value": "3 Mar 2016"
             },
             "Reason": [
                 {
@@ -5435,25 +5443,30 @@
             },
             "RequestIntent": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/action/RequestIntent"
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/RequestIntent"
                 },
                 "Value": "plan"
             },
-            "ExpectedPerformanceTime": {
+            "TimePeriod": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
                 },
-                "Value": "3 Mar 2016 16:20 -0500"
+                "TimePeriodStart": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
+                    },
+                    "Value": "3 Mar 2016 16:20 -0500"
+                }
             },
             "ExpectedPerformer": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformer"
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformer"
                 },
                 "Value": {
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/entity/Practitioner"
                     },
-                    "Value": {
+                    "Person": {
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
                         },
@@ -5467,57 +5480,57 @@
                         ]
                     }
                 }
-            }
-        },
-        "Subject": {
-            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-            "_EntryId": "1",
-            "_EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
-            }
-        },
-        "ServiceProvider": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
             },
-            "Value": {
+            "Subject": {
+                "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                "_EntryId": "1",
+                "_EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+                }
+            },
+            "ServiceProvider": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
+                    "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
                 },
-                "OrganizationName": {
+                "Value": {
                     "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
                     },
-                    "Value": "MCI"
-                },
-                "Type": {
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
-                    },
-                    "Value": {
+                    "OrganizationName": {
                         "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                            "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
                         },
-                        "Coding": [
-                            {
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                },
-                                "Value": "prov",
-                                "CodeSystem": {
+                        "Value": "MCI"
+                    },
+                    "Type": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
+                        },
+                        "Value": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                            },
+                            "Coding": [
+                                {
                                     "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                     },
-                                    "Value": "http://hl7.org/fhir/organization-type"
-                                },
-                                "DisplayText": {
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    "Value": "prov",
+                                    "CodeSystem": {
+                                        "EntryType": {
+                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                        },
+                                        "Value": "http://hl7.org/fhir/organization-type"
                                     },
-                                    "Value": "Healthcare Provider"
+                                    "DisplayText": {
+                                        "EntryType": {
+                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                        },
+                                        "Value": "Healthcare Provider"
+                                    }
                                 }
-                            }
-                        ]
+                            ]
+                        }
                     }
                 }
             }
@@ -5551,25 +5564,25 @@
     },
     {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
+            "Value": "http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested"
         },
-        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-        "EntryId": "5150",
-        "CreationTime": {
+        "Encounter": {
             "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
             },
-            "Value": "19 Mar 2016"
-        },
-        "LastUpdated": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "EntryId": "5150",
+            "CreationTime": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+                },
+                "Value": "19 Mar 2016"
             },
-            "Value": "19 Mar 2016"
-        },
-        "ActionContext": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"
+            "LastUpdated": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+                },
+                "Value": "19 Mar 2016"
             },
             "Reason": [
                 {
@@ -5587,25 +5600,30 @@
             },
             "RequestIntent": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/action/RequestIntent"
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/RequestIntent"
                 },
                 "Value": "plan"
             },
-            "ExpectedPerformanceTime": {
+            "TimePeriod": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
                 },
-                "Value": "19 Mar 2016 9:50 -0500"
+                "TimePeriodStart": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
+                    },
+                    "Value": "19 Mar 2016 9:50 -0500"
+                }
             },
             "ExpectedPerformer": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformer"
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformer"
                 },
                 "Value": {
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/entity/Practitioner"
                     },
-                    "Value": {
+                    "Person": {
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
                         },
@@ -5619,57 +5637,57 @@
                         ]
                     }
                 }
-            }
-        },
-        "Subject": {
-            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-            "_EntryId": "1",
-            "_EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
-            }
-        },
-        "ServiceProvider": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
             },
-            "Value": {
+            "Subject": {
+                "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                "_EntryId": "1",
+                "_EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+                }
+            },
+            "ServiceProvider": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
+                    "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
                 },
-                "OrganizationName": {
+                "Value": {
                     "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
                     },
-                    "Value": "MCI"
-                },
-                "Type": {
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
-                    },
-                    "Value": {
+                    "OrganizationName": {
                         "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                            "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
                         },
-                        "Coding": [
-                            {
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                },
-                                "Value": "prov",
-                                "CodeSystem": {
+                        "Value": "MCI"
+                    },
+                    "Type": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
+                        },
+                        "Value": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                            },
+                            "Coding": [
+                                {
                                     "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                     },
-                                    "Value": "http://hl7.org/fhir/organization-type"
-                                },
-                                "DisplayText": {
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    "Value": "prov",
+                                    "CodeSystem": {
+                                        "EntryType": {
+                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                        },
+                                        "Value": "http://hl7.org/fhir/organization-type"
                                     },
-                                    "Value": "Healthcare Provider"
+                                    "DisplayText": {
+                                        "EntryType": {
+                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                        },
+                                        "Value": "Healthcare Provider"
+                                    }
                                 }
-                            }
-                        ]
+                            ]
+                        }
                     }
                 }
             }
@@ -5755,25 +5773,25 @@
     },
     {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
+            "Value": "http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested"
         },
-        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-        "EntryId": "5300",
-        "CreationTime": {
+        "Encounter": {
             "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
             },
-            "Value": "15 Jun 2016"
-        },
-        "LastUpdated": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "EntryId": "5300",
+            "CreationTime": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+                },
+                "Value": "15 Jun 2016"
             },
-            "Value": "15 Jun 2016"
-        },
-        "ActionContext": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"
+            "LastUpdated": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+                },
+                "Value": "15 Jun 2016"
             },
             "Reason": [
                 {
@@ -5791,25 +5809,30 @@
             },
             "RequestIntent": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/action/RequestIntent"
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/RequestIntent"
                 },
                 "Value": "plan"
             },
-            "ExpectedPerformanceTime": {
+            "TimePeriod": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
                 },
-                "Value": "15 June 2016 9:20 -0500"
+                "TimePeriodStart": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
+                    },
+                    "Value": "15 June 2016 9:20 -0500"
+                }
             },
             "ExpectedPerformer": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformer"
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformer"
                 },
                 "Value": {
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/entity/Practitioner"
                     },
-                    "Value": {
+                    "Person": {
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
                         },
@@ -5823,57 +5846,57 @@
                         ]
                     }
                 }
-            }
-        },
-        "Subject": {
-            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-            "_EntryId": "1",
-            "_EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
-            }
-        },
-        "ServiceProvider": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
             },
-            "Value": {
+            "Subject": {
+                "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                "_EntryId": "1",
+                "_EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+                }
+            },
+            "ServiceProvider": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
+                    "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
                 },
-                "OrganizationName": {
+                "Value": {
                     "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
                     },
-                    "Value": "MCI"
-                },
-                "Type": {
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
-                    },
-                    "Value": {
+                    "OrganizationName": {
                         "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                            "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
                         },
-                        "Coding": [
-                            {
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                },
-                                "Value": "prov",
-                                "CodeSystem": {
+                        "Value": "MCI"
+                    },
+                    "Type": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
+                        },
+                        "Value": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                            },
+                            "Coding": [
+                                {
                                     "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                     },
-                                    "Value": "http://hl7.org/fhir/organization-type"
-                                },
-                                "DisplayText": {
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    "Value": "prov",
+                                    "CodeSystem": {
+                                        "EntryType": {
+                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                        },
+                                        "Value": "http://hl7.org/fhir/organization-type"
                                     },
-                                    "Value": "Healthcare Provider"
+                                    "DisplayText": {
+                                        "EntryType": {
+                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                        },
+                                        "Value": "Healthcare Provider"
+                                    }
                                 }
-                            }
-                        ]
+                            ]
+                        }
                     }
                 }
             }
@@ -6396,25 +6419,25 @@
     },
     {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
+            "Value": "http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested"
         },
-        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-        "EntryId": "5400",
-        "CreationTime": {
+        "Encounter": {
             "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
             },
-            "Value": "19 Jul 2016"
-        },
-        "LastUpdated": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "EntryId": "5400",
+            "CreationTime": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+                },
+                "Value": "19 Jul 2016"
             },
-            "Value": "19 Jul 2016"
-        },
-        "ActionContext": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"
+            "LastUpdated": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+                },
+                "Value": "19 Jul 2016"
             },
             "Reason": [
                 {
@@ -6432,25 +6455,30 @@
             },
             "RequestIntent": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/action/RequestIntent"
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/RequestIntent"
                 },
                 "Value": "plan"
             },
-            "ExpectedPerformanceTime": {
+            "TimePeriod": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
                 },
-                "Value": "19 Jul 2016 9:20 -0500"
+                "TimePeriodStart": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
+                    },
+                    "Value": "19 Jul 2016 9:20 -0500"
+                }
             },
             "ExpectedPerformer": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformer"
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformer"
                 },
                 "Value": {
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/entity/Practitioner"
                     },
-                    "Value": {
+                    "Person": {
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
                         },
@@ -6464,57 +6492,57 @@
                         ]
                     }
                 }
-            }
-        },
-        "Subject": {
-            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-            "_EntryId": "1",
-            "_EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
-            }
-        },
-        "ServiceProvider": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
             },
-            "Value": {
+            "Subject": {
+                "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                "_EntryId": "1",
+                "_EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+                }
+            },
+            "ServiceProvider": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
+                    "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
                 },
-                "OrganizationName": {
+                "Value": {
                     "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
                     },
-                    "Value": "MCI"
-                },
-                "Type": {
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
-                    },
-                    "Value": {
+                    "OrganizationName": {
                         "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                            "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
                         },
-                        "Coding": [
-                            {
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                },
-                                "Value": "prov",
-                                "CodeSystem": {
+                        "Value": "MCI"
+                    },
+                    "Type": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
+                        },
+                        "Value": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                            },
+                            "Coding": [
+                                {
                                     "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                     },
-                                    "Value": "http://hl7.org/fhir/organization-type"
-                                },
-                                "DisplayText": {
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    "Value": "prov",
+                                    "CodeSystem": {
+                                        "EntryType": {
+                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                        },
+                                        "Value": "http://hl7.org/fhir/organization-type"
                                     },
-                                    "Value": "Healthcare Provider"
+                                    "DisplayText": {
+                                        "EntryType": {
+                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                        },
+                                        "Value": "Healthcare Provider"
+                                    }
                                 }
-                            }
-                        ]
+                            ]
+                        }
                     }
                 }
             }
@@ -7136,25 +7164,25 @@
     },
     {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
+            "Value": "http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested"
         },
-        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-        "EntryId": "5500",
-        "CreationTime": {
+        "Encounter": {
             "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
             },
-            "Value": "22 Oct 2016"
-        },
-        "LastUpdated": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "EntryId": "5500",
+            "CreationTime": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+                },
+                "Value": "22 Oct 2016"
             },
-            "Value": "22 Oct 2016"
-        },
-        "ActionContext": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"
+            "LastUpdated": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+                },
+                "Value": "22 Oct 2016"
             },
             "Reason": [
                 {
@@ -7172,25 +7200,30 @@
             },
             "RequestIntent": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/action/RequestIntent"
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/RequestIntent"
                 },
                 "Value": "plan"
             },
-            "ExpectedPerformanceTime": {
+            "TimePeriod": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
                 },
-                "Value": "22 Oct 2016 9:30 -0500"
+                "TimePeriodStart": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
+                    },
+                    "Value": "22 Oct 2016 9:30 -0500"
+                }
             },
             "ExpectedPerformer": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformer"
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformer"
                 },
                 "Value": {
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/entity/Practitioner"
                     },
-                    "Value": {
+                    "Person": {
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
                         },
@@ -7204,57 +7237,57 @@
                         ]
                     }
                 }
-            }
-        },
-        "Subject": {
-            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-            "_EntryId": "1",
-            "_EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
-            }
-        },
-        "ServiceProvider": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
             },
-            "Value": {
+            "Subject": {
+                "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                "_EntryId": "1",
+                "_EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+                }
+            },
+            "ServiceProvider": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
+                    "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
                 },
-                "OrganizationName": {
+                "Value": {
                     "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
                     },
-                    "Value": "MCI"
-                },
-                "Type": {
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
-                    },
-                    "Value": {
+                    "OrganizationName": {
                         "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                            "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
                         },
-                        "Coding": [
-                            {
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                },
-                                "Value": "prov",
-                                "CodeSystem": {
+                        "Value": "MCI"
+                    },
+                    "Type": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
+                        },
+                        "Value": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                            },
+                            "Coding": [
+                                {
                                     "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                     },
-                                    "Value": "http://hl7.org/fhir/organization-type"
-                                },
-                                "DisplayText": {
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    "Value": "prov",
+                                    "CodeSystem": {
+                                        "EntryType": {
+                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                        },
+                                        "Value": "http://hl7.org/fhir/organization-type"
                                     },
-                                    "Value": "Healthcare Provider"
+                                    "DisplayText": {
+                                        "EntryType": {
+                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                        },
+                                        "Value": "Healthcare Provider"
+                                    }
                                 }
-                            }
-                        ]
+                            ]
+                        }
                     }
                 }
             }
@@ -7680,25 +7713,25 @@
     ,
     {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
+            "Value": "http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested"
         },
-        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-        "EntryId": "5600",
-        "CreationTime": {
+        "Encounter": {
             "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
             },
-            "Value": "22 Jan 2017"
-        },
-        "LastUpdated": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "EntryId": "5600",
+            "CreationTime": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+                },
+                "Value": "22 Jan 2017"
             },
-            "Value": "22 Jan 2017"
-        },
-        "ActionContext": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"
+            "LastUpdated": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+                },
+                "Value": "22 Jan 2017"
             },
             "Reason": [
                 {
@@ -7716,25 +7749,30 @@
             },
             "RequestIntent": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/action/RequestIntent"
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/RequestIntent"
                 },
                 "Value": "plan"
             },
-            "ExpectedPerformanceTime": {
+            "TimePeriod": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
                 },
-                "Value": "22 Jan 2017 10:20 -0500"
+                "TimePeriodStart": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
+                    },
+                    "Value": "22 Jan 2017 10:20 -0500"
+                }
             },
             "ExpectedPerformer": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformer"
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformer"
                 },
                 "Value": {
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/entity/Practitioner"
                     },
-                    "Value": {
+                    "Person": {
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
                         },
@@ -7748,57 +7786,57 @@
                         ]
                     }
                 }
-            }
-        },
-        "Subject": {
-            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-            "_EntryId": "1",
-            "_EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
-            }
-        },
-        "ServiceProvider": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
             },
-            "Value": {
+            "Subject": {
+                "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                "_EntryId": "1",
+                "_EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+                }
+            },
+            "ServiceProvider": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
+                    "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
                 },
-                "OrganizationName": {
+                "Value": {
                     "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
                     },
-                    "Value": "MCI"
-                },
-                "Type": {
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
-                    },
-                    "Value": {
+                    "OrganizationName": {
                         "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                            "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
                         },
-                        "Coding": [
-                            {
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                },
-                                "Value": "prov",
-                                "CodeSystem": {
+                        "Value": "MCI"
+                    },
+                    "Type": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
+                        },
+                        "Value": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                            },
+                            "Coding": [
+                                {
                                     "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                     },
-                                    "Value": "http://hl7.org/fhir/organization-type"
-                                },
-                                "DisplayText": {
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    "Value": "prov",
+                                    "CodeSystem": {
+                                        "EntryType": {
+                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                        },
+                                        "Value": "http://hl7.org/fhir/organization-type"
                                     },
-                                    "Value": "Healthcare Provider"
+                                    "DisplayText": {
+                                        "EntryType": {
+                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                        },
+                                        "Value": "Healthcare Provider"
+                                    }
                                 }
-                            }
-                        ]
+                            ]
+                        }
                     }
                 }
             }
@@ -8221,25 +8259,25 @@
     },
     {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
+            "Value": "http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested"
         },
-        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-        "EntryId": "5700",
-        "CreationTime": {
+        "Encounter": {
             "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
             },
-            "Value": "14 Jul 2017"
-        },
-        "LastUpdated": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "EntryId": "5700",
+            "CreationTime": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+                },
+                "Value": "14 Jul 2017"
             },
-            "Value": "14 Jul 2017"
-        },
-        "ActionContext": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"
+            "LastUpdated": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+                },
+                "Value": "14 Jul 2017"
             },
             "Reason": [
                 {
@@ -8257,25 +8295,30 @@
             },
             "RequestIntent": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/action/RequestIntent"
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/RequestIntent"
                 },
                 "Value": "plan"
             },
-            "ExpectedPerformanceTime": {
+            "TimePeriod": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
                 },
-                "Value": "14 Jul 2017 10:00 -0500"
+                "TimePeriodStart": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
+                    },
+                    "Value": "14 Jul 2017 10:00 -0500"
+                }
             },
             "ExpectedPerformer": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformer"
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformer"
                 },
                 "Value": {
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/entity/Practitioner"
                     },
-                    "Value": {
+                    "Person": {
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
                         },
@@ -8289,57 +8332,57 @@
                         ]
                     }
                 }
-            }
-        },
-        "Subject": {
-            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-            "_EntryId": "1",
-            "_EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
-            }
-        },
-        "ServiceProvider": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
             },
-            "Value": {
+            "Subject": {
+                "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                "_EntryId": "1",
+                "_EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+                }
+            },
+            "ServiceProvider": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
+                    "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
                 },
-                "OrganizationName": {
+                "Value": {
                     "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
                     },
-                    "Value": "MCI"
-                },
-                "Type": {
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
-                    },
-                    "Value": {
+                    "OrganizationName": {
                         "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                            "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
                         },
-                        "Coding": [
-                            {
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                },
-                                "Value": "prov",
-                                "CodeSystem": {
+                        "Value": "MCI"
+                    },
+                    "Type": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
+                        },
+                        "Value": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                            },
+                            "Coding": [
+                                {
                                     "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                     },
-                                    "Value": "http://hl7.org/fhir/organization-type"
-                                },
-                                "DisplayText": {
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    "Value": "prov",
+                                    "CodeSystem": {
+                                        "EntryType": {
+                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                        },
+                                        "Value": "http://hl7.org/fhir/organization-type"
                                     },
-                                    "Value": "Healthcare Provider"
+                                    "DisplayText": {
+                                        "EntryType": {
+                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                        },
+                                        "Value": "Healthcare Provider"
+                                    }
                                 }
-                            }
-                        ]
+                            ]
+                        }
                     }
                 }
             }
@@ -8762,25 +8805,25 @@
     },
     {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
+            "Value": "http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested"
         },
-        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-        "EntryId": "5800",
-        "CreationTime": {
+        "Encounter": {
             "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
             },
-            "Value": "22 Jan 2018"
-        },
-        "LastUpdated": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "EntryId": "5800",
+            "CreationTime": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+                },
+                "Value": "22 Jan 2018"
             },
-            "Value": "22 Jan 2018"
-        },
-        "ActionContext": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"
+            "LastUpdated": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+                },
+                "Value": "22 Jan 2018"
             },
             "Reason": [
                 {
@@ -8798,25 +8841,30 @@
             },
             "RequestIntent": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/action/RequestIntent"
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/RequestIntent"
                 },
                 "Value": "plan"
             },
-            "ExpectedPerformanceTime": {
+            "TimePeriod": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
                 },
-                "Value": "22 Jan 2018 9:00 -0500"
+                "TimePeriodStart": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
+                    },
+                    "Value": "22 Jan 2018 9:00 -0500"
+                }
             },
             "ExpectedPerformer": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformer"
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformer"
                 },
                 "Value": {
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/entity/Practitioner"
                     },
-                    "Value": {
+                    "Person": {
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
                         },
@@ -8830,57 +8878,57 @@
                         ]
                     }
                 }
-            }
-        },
-        "Subject": {
-            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-            "_EntryId": "1",
-            "_EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
-            }
-        },
-        "ServiceProvider": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
             },
-            "Value": {
+            "Subject": {
+                "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                "_EntryId": "1",
+                "_EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+                }
+            },
+            "ServiceProvider": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
+                    "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
                 },
-                "OrganizationName": {
+                "Value": {
                     "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
                     },
-                    "Value": "MCI"
-                },
-                "Type": {
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
-                    },
-                    "Value": {
+                    "OrganizationName": {
                         "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                            "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
                         },
-                        "Coding": [
-                            {
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                },
-                                "Value": "prov",
-                                "CodeSystem": {
+                        "Value": "MCI"
+                    },
+                    "Type": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
+                        },
+                        "Value": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                            },
+                            "Coding": [
+                                {
                                     "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                     },
-                                    "Value": "http://hl7.org/fhir/organization-type"
-                                },
-                                "DisplayText": {
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    "Value": "prov",
+                                    "CodeSystem": {
+                                        "EntryType": {
+                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                        },
+                                        "Value": "http://hl7.org/fhir/organization-type"
                                     },
-                                    "Value": "Healthcare Provider"
+                                    "DisplayText": {
+                                        "EntryType": {
+                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                        },
+                                        "Value": "Healthcare Provider"
+                                    }
                                 }
-                            }
-                        ]
+                            ]
+                        }
                     }
                 }
             }
@@ -9303,25 +9351,25 @@
     },
     {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
+            "Value": "http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested"
         },
-        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-        "EntryId": "5900",
-        "CreationTime": {
+        "Encounter": {
             "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
             },
-            "Value": "17 Jul 2018"
-        },
-        "LastUpdated": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "EntryId": "5900",
+            "CreationTime": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+                },
+                "Value": "17 Jul 2018"
             },
-            "Value": "17 Jul 2018"
-        },
-        "ActionContext": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"
+            "LastUpdated": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+                },
+                "Value": "17 Jul 2018"
             },
             "Reason": [
                 {
@@ -9339,25 +9387,30 @@
             },
             "RequestIntent": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/action/RequestIntent"
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/RequestIntent"
                 },
                 "Value": "plan"
             },
-            "ExpectedPerformanceTime": {
+            "TimePeriod": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
                 },
-                "Value": "17 Jul 2018 13:45 -0500"
+                "TimePeriodStart": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
+                    },
+                    "Value": "17 Jul 2018 13:45 -0500"
+                }
             },
             "ExpectedPerformer": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformer"
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformer"
                 },
                 "Value": {
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/entity/Practitioner"
                     },
-                    "Value": {
+                    "Person": {
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
                         },
@@ -9371,57 +9424,57 @@
                         ]
                     }
                 }
-            }
-        },
-        "Subject": {
-            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-            "_EntryId": "1",
-            "_EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
-            }
-        },
-        "ServiceProvider": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
             },
-            "Value": {
+            "Subject": {
+                "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                "_EntryId": "1",
+                "_EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+                }
+            },
+            "ServiceProvider": {
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
+                    "Value": "http://standardhealthrecord.org/spec/shr/encounter/ServiceProvider"
                 },
-                "OrganizationName": {
+                "Value": {
                     "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
                     },
-                    "Value": "MCI"
-                },
-                "Type": {
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
-                    },
-                    "Value": {
+                    "OrganizationName": {
                         "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                            "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
                         },
-                        "Coding": [
-                            {
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                },
-                                "Value": "prov",
-                                "CodeSystem": {
+                        "Value": "MCI"
+                    },
+                    "Type": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
+                        },
+                        "Value": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                            },
+                            "Coding": [
+                                {
                                     "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                     },
-                                    "Value": "http://hl7.org/fhir/organization-type"
-                                },
-                                "DisplayText": {
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    "Value": "prov",
+                                    "CodeSystem": {
+                                        "EntryType": {
+                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                        },
+                                        "Value": "http://hl7.org/fhir/organization-type"
                                     },
-                                    "Value": "Healthcare Provider"
+                                    "DisplayText": {
+                                        "EntryType": {
+                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                        },
+                                        "Value": "Healthcare Provider"
+                                    }
                                 }
-                            }
-                        ]
+                            ]
+                        }
                     }
                 }
             }
