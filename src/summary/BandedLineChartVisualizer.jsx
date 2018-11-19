@@ -19,7 +19,7 @@ class BandedLineChartVisualizer extends Component {
         // This var will be used 
         this.state = {
             chartWidth: 600,
-            chartHeight: 400,
+            chartHeight: 250,
         }
     }
 
