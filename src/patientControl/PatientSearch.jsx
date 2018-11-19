@@ -74,6 +74,11 @@ class PatientSearch extends React.Component {
                     valueTitle: result.valueTitle,
                     contentSnapshot: this.getNoteContentWithoutStyle(result.value),
                     source: "clinicalNote",
+                    // Need a way of matching not only with the structuredPhrase, but also with the
+                    // specific instance of that match; we give each matched structured phrase 
+                    // an identifier -- the order its in; that is 'n' where this is the nth phrase we've 
+                    // seen that matches the current search text
+                    indexOfMatch: result.indexOfMatch,
                     section: result.section,
                     matchedOn: result.valueTitle === "Content" ? "contentSnapshot" : "valueTitle",
                     onHighlight: result.onHighlight,

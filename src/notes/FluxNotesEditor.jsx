@@ -864,11 +864,20 @@ class FluxNotesEditor extends React.Component {
                 match = regex.exec(textNode.text);
             }
         });
+        // Need a way of matching not only with the structuredPhrase, but also with the
+        // specific instance of that match; we give each matched structured phrase 
+        // an identifier -- the order its in; that is 'n' where this is the nth phrase we've 
+        // seen that matches the current search text
+        let indexOfMatch = 0
         this.structuredFieldMapManager.keyToShortcutMap.forEach(sf => {
             // TODO: handle highlighting of placeholder text -- should happen in the highlight fn
-            if (sf.getText().toLowerCase().includes(newHighlightedSearchSuggestion.inputValue.toLowerCase())) {
+            if (sf.getText().toLowerCase().includes(newHighlightedSearchSuggestion.inputValue.toLowerCase()) && newHighlightedSearchSuggestion.indexOfMatch === indexOfMatch) {
                 transform = this.selectedHighlightStructuredField(transform, sf);
-            } 
+                indexOfMatch += 1;
+            } else if (sf.getText().toLowerCase().includes(newHighlightedSearchSuggestion.inputValue.toLowerCase())) {
+                transform = this.regularHighlightStructuredField(transform, sf);
+                indexOfMatch += 1;
+            }
         });
 
         this.setState({ 
