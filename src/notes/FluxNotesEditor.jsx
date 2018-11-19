@@ -775,13 +775,9 @@ class FluxNotesEditor extends React.Component {
         }
         // If the highlighted search result has changed, we want to highlight text that matches the highlighted text
         if (!Lang.isEqual(this.props.highlightedSearchSuggestion, nextProps.highlightedSearchSuggestion)) {
-            const highlightedSuggestionIsOpenNote = (!Lang.isEmpty(nextProps.highlightedSearchSuggestion) && nextProps.highlightedSearchSuggestion.section === "Open Note");
-            if (highlightedSuggestionIsOpenNote) {
-                this.highlightCurrentHighlightedSearchSuggestion(nextProps.highlightedSearchSuggestion);
-            } else { 
-                // If the new highlighted suggestion isn't in an open note, we need to update the styling of the previously selected
-                this.updateHighlightingOfPreviouslyHighlightedSearchSuggestion(this.props.highlightedSearchSuggestion, nextProps.searchSuggestions)
-            }
+            // Get a transform with any previously highglighted results removed
+            let transform = this.updateHighlightingOfPreviouslyHighlightedSearchSuggestion(this.props.highlightedSearchSuggestion, nextProps.searchSuggestions)
+            this.highlightCurrentHighlightedSearchSuggestion(nextProps.highlightedSearchSuggestion, transform);
         }
         
     }
@@ -843,49 +839,60 @@ class FluxNotesEditor extends React.Component {
         });
     }
 
-    highlightCurrentHighlightedSearchSuggestion = (newHighlightedSearchSuggestion) => { 
+    highlightCurrentHighlightedSearchSuggestion = (newHighlightedSearchSuggestion, prevTransform=undefined) => { 
         const {document} = this.state.state;
-        let transform = this.state.state.transform();
-        // Highlight matching plaintext
-        document.getTexts().forEach(textNode => {
-            const regex = new RegExp(newHighlightedSearchSuggestion.inputValue, "gi");
-            let match = regex.exec(textNode.text)
-            while (match) {
-                const offset = match.index;
-                const range = {
-                    anchorKey: textNode.key,
-                    anchorOffset: offset,
-                    focusKey: textNode.key,
-                    focusOffset: offset + newHighlightedSearchSuggestion.inputValue.length,
-                    isFocused: false,
-                    isBackward: false,
-                };
-                transform = this.selectedHighlightPlainText(transform, range);
-                match = regex.exec(textNode.text);
-            }
-        });
-        // Need a way of matching not only with the structuredPhrase, but also with the
-        // specific instance of that match; we give each matched structured phrase 
-        // an identifier -- the order its in; that is 'n' where this is the nth phrase we've 
-        // seen that matches the current search text
-        let indexOfMatch = 0
-        this.structuredFieldMapManager.keyToShortcutMap.forEach(sf => {
-            // TODO: handle highlighting of placeholder text -- should happen in the highlight fn
-            if (sf.getText().toLowerCase().includes(newHighlightedSearchSuggestion.inputValue.toLowerCase()) && newHighlightedSearchSuggestion.indexOfMatch === indexOfMatch) {
-                transform = this.selectedHighlightStructuredField(transform, sf);
-                indexOfMatch += 1;
-            } else if (sf.getText().toLowerCase().includes(newHighlightedSearchSuggestion.inputValue.toLowerCase())) {
-                transform = this.regularHighlightStructuredField(transform, sf);
-                indexOfMatch += 1;
-            }
-        });
-
+        let transform = Lang.isUndefined(prevTransform) ? this.state.state.transform() : prevTransform;
+        if (!Lang.isNull(newHighlightedSearchSuggestion)){ 
+            // Highlight matching plaintext
+            //
+            // Need a way of matching a specific instance of that match; we give each match 
+            // an identifier -- the order its in; that is 'n' where this is the nth phrase we've 
+            // seen that matches the current search text
+            let indexOfCurrentMatch = 0
+            document.getTexts().forEach(textNode => {
+                const regex = new RegExp(newHighlightedSearchSuggestion.inputValue, "gi");
+                let match = regex.exec(textNode.text)
+                while (match) {
+                    if (indexOfCurrentMatch === newHighlightedSearchSuggestion.indexOfMatch) { 
+                        const offset = match.index;
+                        const range = {
+                            anchorKey: textNode.key,
+                            anchorOffset: offset,
+                            focusKey: textNode.key,
+                            focusOffset: offset + newHighlightedSearchSuggestion.inputValue.length,
+                            isFocused: false,
+                            isBackward: false,
+                        };
+                        transform = this.selectedHighlightPlainText(transform, range);
+                    } else { 
+                        
+                    }
+                    match = regex.exec(textNode.text);
+                    indexOfCurrentMatch += 1;
+                }
+            });
+            // Need a way of matching a specific instance of that match; we give each match 
+            // an identifier -- the order its in; that is 'n' where this is the nth phrase we've 
+            // seen that matches the current search text
+            indexOfCurrentMatch = 0
+            this.structuredFieldMapManager.keyToShortcutMap.forEach(sf => {
+                // TODO: handle highlighting of placeholder text -- should happen in the highlight fn
+                if (sf.getText().toLowerCase().includes(newHighlightedSearchSuggestion.inputValue.toLowerCase()) && newHighlightedSearchSuggestion.indexOfMatch === indexOfCurrentMatch) {
+                    transform = this.selectedHighlightStructuredField(transform, sf);
+                    indexOfCurrentMatch += 1;
+                } else if (sf.getText().toLowerCase().includes(newHighlightedSearchSuggestion.inputValue.toLowerCase())) { 
+                    indexOfCurrentMatch += 1;
+                }
+            });
+        }
         this.setState({ 
             state: transform.blur().apply()
         });
     }
     
-    //update the styling of our editor based on the previously highlighted search suggestion's current relevance
+    // update the styling of our editor based on the previously highlighted search suggestion's current relevance
+    // N.B. Don't apply the changes yet; we want to accumulate all the transform changes in a single place 
+    // so we get the highlighting of the newly selected element as well
     updateHighlightingOfPreviouslyHighlightedSearchSuggestion = (prevHighlightedSuggestion, newSearchSuggestions) => { 
         const {document} = this.state.state;
         let transform = this.state.state.transform();
@@ -916,9 +923,7 @@ class FluxNotesEditor extends React.Component {
                 } 
             });
         }
-        this.setState({ 
-            state: transform.blur().apply() 
-        });
+        return transform
     }
 
 
