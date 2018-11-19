@@ -53,7 +53,7 @@ class PatientSearch extends React.Component {
         // Removed metadata from inside @ structured phrases
         noteContentWithoutStyle = noteContentWithoutStyle.replace(/{"text":"(.*?)",(.*?)}/g, (match, g1, g2) => g1);
         // Removed brackets from # structured phrases
-        noteContentWithoutStyle = noteContentWithoutStyle.replace(/#(.*?)\[\[(.*?)\]\]/g, (match, g1, g2) => `#${g1}`);
+        noteContentWithoutStyle = noteContentWithoutStyle.replace(/#(.*?)\[\[(.*?)\]\]/g, (match, g1, g2) => g1);
 
         return noteContentWithoutStyle;
     }
