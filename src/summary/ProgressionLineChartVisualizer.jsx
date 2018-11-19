@@ -23,7 +23,7 @@ class ProgressionLineChartVisualizer extends Component {
         super(props);
 
         // This var will be used
-        this.chartHeight = 400;
+        this.chartHeight = 250;
         this.xVarField = "start_time";
         this.xVarNumberField = `${this.xVarField}_number`;
         this.yVarField = "disease_status_code";
