@@ -275,11 +275,11 @@ class NarrativeNameValuePairsVisualizer extends Component {
                 const matchesSnippet = `${s.valueTitle}: ${s.contentSnapshot}` === snippet.text || s.contentSnapshot === snippet.text;
                 return snippet.item && s.valueTitle === snippet.item.name && matchesSnippet;
             });
-            let highlightedClass = highlightedData ? ' highlighted' : '';
+            let highlightedClass = highlightedData ? 'highlighted' : '';
             if (Lang.isEqual(highlightedData, this.props.highlightedSearchSuggestion)) {
                 highlightedClass += ' selected';
             }
-            className = snippet.type + highlightedClass;
+            className = `narrative ${snippet.type} ${highlightedClass}`;
             const isInsertable = (Lang.isNull(snippet.item) || Lang.isUndefined(snippet.item) ? false : (Lang.isUndefined(snippet.item.isInsertable) ? true : snippet.item.IsInsertable));
             if ((snippet.type === 'narrative-structured-data' || snippet.type === "narrative-unsigned-data") && isInsertable) {
                 if (this.props.actions.length > 0) {

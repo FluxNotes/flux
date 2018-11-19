@@ -59,6 +59,14 @@ span.narrative {
         border-bottom: 1.5px dashed $shr-context-line;
         text-decoration: none;
     }
+
+    &.highlighted {
+        background-color: $highlight-yellow !important;
+    }
+
+    &.selected {
+        background-color: $highlight-selected-yellow !important;
+    }
 }
 
 span.has-action-menu {
