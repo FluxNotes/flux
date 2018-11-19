@@ -71,7 +71,8 @@ class SearchIndex {
                 // Need a way of matching not only with the structuredPhrase, but also with the
                 // specific instance of that match; we give each matched structured phrase 
                 // an identifier -- the order its in; that is 'n' where this is the nth phrase we've 
-                // seen that matches the current search text                const indexOfMatch = 0;
+                // seen that matches the current search text
+                let indexOfMatch = 0;
                 while (contentMatches) {
                     let tempDoc = Lang.cloneDeep(doc);
                     tempDoc.indexOfMatch = indexOfMatch;
