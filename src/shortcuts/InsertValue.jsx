@@ -182,13 +182,23 @@ export default class InsertValue extends Shortcut {
     }
 
     getText() {
-        return this.text ? this.text : this.initiatingTrigger;
+        if (Lang.isArray(this.text)) {
+            return this.text ? this.text.map(c => c[0]).join('') : this.initiatingTrigger
+        } else {
+            return this.text ? this.text : this.initiatingTrigger;
+        }
+    }
+
+    getArrayOfText() {
+        return Lang.isArray(this.text) ? this.text : [];
     }
 
     getResultText() {
         let text = this.text;
         if (typeof text === "string" && text.startsWith(this.getPrefixCharacter())) {
             text = text.substring(1);
+        } else if (Lang.isArray(text)) {
+            text = text.map(c => c[0]).join('');
         }
         // If this.valueObject exists, put the entryId of the valueObject in the result text
         if (this.valueObject) {

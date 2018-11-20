@@ -20,8 +20,20 @@ function StructuredFieldPlugin(opts) {
     let insertText = opts.insertText;
     const clearStructuredFieldMap = opts.structuredFieldMapManager.clearStructuredFieldMap;
 
+    function onBeforeInput(e, _, state, editor) {
+        const anchorParent = state.document.getParent(state.selection.anchorKey);
+        const shortcut = opts.structuredFieldMapManager.keyToShortcutMap.get(anchorParent.key);
+        if (shortcut) {
+            const typedLetter = e.nativeEvent.data || ' ';
+            const indexOfTyping = state.anchorOffset;
+            let arr = shortcut.getArrayOfText();
+            if (arr.length === 0) arr = shortcut.getText().split('').map(c => [c, true]);
+            arr.splice(indexOfTyping, 0, [typedLetter, false]);
+            shortcut.setText(arr)
+        }
+    }
+
     function onChange(state, editor) {
-        // console.log(state.document.getParent(state.selection.anchorKey))// Gets the structured field
         var deletedKeys = [];
         const keyToShortcutMap = opts.structuredFieldMapManager.keyToShortcutMap;
         const idToShortcutMap = opts.structuredFieldMapManager.idToShortcutMap;
@@ -60,8 +72,30 @@ function StructuredFieldPlugin(opts) {
             structured_field: props => {
                 let shortcut = props.node.get('data').get('shortcut');
                 if (shortcut instanceof InsertValue) {
-//                    return <span contentEditable={false} className='structured-field-inserter' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
-                    return <span className='structured-field-inserter' {...props.attributes}>{props.children}</span>;
+                    // const arr = shortcut.getArrayOfText();
+                    // let text = [];
+                    // if (arr.length > 0) {
+                    //     let word = '';
+                    //     let prev = true;
+                    //     arr.forEach(char => {
+                    //         if (char[1] === prev) {
+                    //             word += char[0];
+                    //         } else  {
+                    //             text.push(word);
+                    //             word = char[0];
+                    //         }
+                    //         prev = char[1];
+                    //     });
+                    //     text.push(word);
+                    //     let spans = [];
+                    //     text.forEach((snippet, i) => {
+                    //         if (i % 2 === 0) spans.push(<span key={i} className='structured-field-inserter'>{snippet}</span>);
+                    //         else spans.push(<span key={i}>{snippet}</span>);
+                    //     });
+                    //     return <span {...props.attributes}>{spans.map(s => s)}</span>
+                    // } else {
+                        return <span className='structured-field-inserter' {...props.attributes}>{props.children}</span>;
+                    // }
                 } else {
                     return <span contentEditable={false} className='structured-field-creator' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
                 }
@@ -317,7 +351,8 @@ function StructuredFieldPlugin(opts) {
 		positioning needs to go up 1 line to overlap with that BR so user can click on placeholder message and get
 		a cursor. see style top value of -18px  */
 	return {
-	    clearStructuredFieldMap,
+        clearStructuredFieldMap,
+        onBeforeInput,
         onChange,
         onCut,
         onCopy,
@@ -385,19 +420,25 @@ function insertStructuredFieldAtRange(opts, transform, shortcut, range) {
  * @return {State.Block}
  */
 function createStructuredField(opts, shortcut) {
-	let nodes = [ Slate.Text.create({characters: Slate.Character.createList(shortcut.getText()
-                                                                                .split('')
-                                                                                .map((char) => {
-                                                                                    return Slate.Character.create({
-                                                                                        text: char
-                                                                                    })
-                                                                                })
-                                                                            )})];
-	//let nodes = [ Slate.Text.create({})];
+    let nodes = [];
+    const isInserter = shortcut instanceof InsertValue;
+    const isVoid = !isInserter;
+    if (isInserter) {
+        nodes = [Slate.Text.create({
+            characters: Slate.Character.createList(shortcut.getText()
+                .split('')
+                .map((char) => {
+                    return Slate.Character.create({
+                        text: char
+                    })
+                })
+            )
+        })];
+    }
     const properties = {
         type:  opts.typeStructuredField,
         nodes: nodes,
-        //isVoid: true,
+        isVoid,
         data: {
             shortcut: shortcut
         }
