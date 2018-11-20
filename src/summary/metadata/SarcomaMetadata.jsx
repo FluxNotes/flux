@@ -5,6 +5,7 @@ import DiseaseStatusSection from './DiseaseStatusSection';
 import HemoglobinSubsection from './HemoglobinSubsection';
 import MedicationsSection from './MedicationsSection';
 import NeutrophilCountSubsection from './NeutrophilCountSubsection';
+import PathologySection from './PathologySection';
 import PlateletSubsection from "./PlateletSubsection";
 import ProceduresSection from './ProceduresSection';
 import ReviewOfSystemsSection from './ReviewOfSystemsSection';
@@ -19,7 +20,6 @@ import BloodPressureSubsection from './BloodPressureSubsection';
 import TemperatureSubsection from './TemperatureSubsection';
 import WeightSubsection from './WeightSubsection';
 import HeartRateSubsection from './HeartRateSubsection';
-import PatientRecord from '../../patient/PatientRecord';
 
 
 
@@ -59,121 +59,7 @@ export default class SarcomaMetadata extends MetadataSection {
                     ]
                 },
                 MedicationsSection,
-                {
-                    name: "Pathology",
-                    shortName: "Pathology",
-                    type: "NameValuePairs",
-                    /*eslint no-template-curly-in-string: "off"*/
-                    narrative: [
-                        {
-                            defaultTemplate: "Date of pathology report is ${.Report Date}. Pathologist is ${.Pathologist}."
-                        },
-                        {
-                            defaultTemplate: "Primary tumor color is ${.Color}, weight is ${.Weight}, and size is ${.Size}."
-                        },
-                        {
-                            defaultTemplate: "Tumor margins are ${.Tumor Margins}. Histological grade is ${.Histological Grade}."
-                        }
-
-                    ],
-                    data: [
-                        {
-                            name: "",
-                            items: [
-
-                                // TODO: When return value for items that are currently null, need to also return patient.isUnsigned(currentConditionEntry)
-                                {
-                                    name: "Report Date",
-                                    value: (patient, currentConditionEntry) => {
-                                        const list = patient.getPathologyReportsChronologicalOrder();
-                                        if (list.length === 0) return null;
-                                        const report = list.pop();
-                                   
-                                        return  {  value: report.clinicallyRelevantTime,
-                                                   isUnsigned: patient.isUnsigned(report), 
-                                                   source: this.determineSource(patient, report)
-                                        }
-                                    }
-                                },
-                                {
-                                    name: "Pathologist",
-                                    value: (patient, currentConditionEntry) => {
-                                        const list = patient.getPathologyReportsChronologicalOrder();
-                                        if (list.length === 0) return null;
-                                        const report = list.pop();
-                                       
-                                        return  {  value: report.author,
-                                                   isUnsigned: patient.isUnsigned(report), 
-                                                   source: this.determineSource(patient, report)
-                                        }
-                                    }
-                                },
-                                {
-                                    name: "Color",
-                                    value: null
-                                },
-                                {
-                                    name: "Weight",
-                                    value: null
-                                },
-                                {
-                                    name: "Size",
-                                    value: (patient, currentConditionEntry) => { 
-                                        const lists = patient.getPathologyReportsChronologicalOrder();
-                                        if (lists.length === 0) return null;
-                                        const report = lists.pop();
-                                        const observation =  report.members.filter((m) => {
-                                            return PatientRecord.isEntryBasedOnType(m, "TumorDimensions")
-                                        }).map((ref) => {
-                                            return patient.getEntryFromReference(ref);
-                                        });  
-                                        const size = observation.pop();
-                                        return  {   value: size.quantity.value + " " + size.quantity.unit, 
-                                                    isUnsigned: patient.isUnsigned(report), 
-                                                    source: this.determineSource(patient, report)
-                                                };
-                                    }
-                                },
-                                {
-                                    name: "Tumor Margins",
-                                    value: (patient, currentConditionEntry) => {                                       
-                                        const lists = patient.getPathologyReportsChronologicalOrder();
-                                        if (lists.length === 0) return null;
-                                        const report = lists.pop();
-                                        const observation =  report.members.filter((m) => {
-                                            return PatientRecord.isEntryBasedOnType(m, "TumorMargins")
-                                        }).map((ref) => {
-                                            return patient.getEntryFromReference(ref);
-                                        }) 
-                                        const margins = observation.pop(); // last is most recent
-                                        return  {   value: margins.value, 
-                                                    isUnsigned: patient.isUnsigned(report), 
-                                                    source: this.determineSource(patient, report)
-                                                };
-                                    }
-                                },
-                                {
-                                    name: "Histological Grade",
-                                    value: (patient, currentConditionEntry) => {
-                                        const lists = patient.getPathologyReportsChronologicalOrder();
-                                        if (lists.length === 0) return null;
-                                        const report = lists.pop();
-                                        const observation =  report.members.filter((m) => {
-                                            return PatientRecord.isEntryBasedOnType(m, "HistologicGrade")
-                                        }).map((ref) => {
-                                            return patient.getEntryFromReference(ref);
-                                        });  
-                                        const histologicalGrade = observation.pop();
-                                        return  {   value: histologicalGrade.grade, 
-                                                    isUnsigned: patient.isUnsigned(report), 
-                                                    source: this.determineSource(patient, report)
-                                                };
-                                    }
-                                },
-                            ]
-                        }
-                    ]
-                },
+                PathologySection,
                 {
                     name: "Genetics",
                     shortName: "Genetics",
