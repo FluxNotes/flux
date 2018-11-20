@@ -4,6 +4,7 @@ import AllergiesSection from './AllergiesSection';
 import HemoglobinSubsection from './HemoglobinSubsection';
 import MedicationsSection from './MedicationsSection';
 import NeutrophilCountSubsection from './NeutrophilCountSubsection';
+import PathologySection from './PathologySection';
 import PlateletSubsection from './PlateletSubsection';
 import ProceduresSection from './ProceduresSection';
 import ImagingSection from "./ImagingSection";
@@ -14,8 +15,6 @@ import VisitReasonPreEncounterSection from './VisitReasonPreEncounterSection';
 import WhiteBloodCellCountSubsection from './WhiteBloodCellCountSubsection';
 import DiseaseStatusSection from './DiseaseStatusSection';
 import TreatmentOptionsSection from './TreatmentOptionsSection';
-import FluxTumorDimensions from '../../model/oncology/FluxTumorDimensions';
-import FluxTumorMargins from '../../model/oncology/FluxTumorMargins';
 import BloodPressureSubsection from './BloodPressureSubsection';
 import TemperatureSubsection from './TemperatureSubsection';
 import WeightSubsection from './WeightSubsection';
@@ -60,72 +59,7 @@ export default class SarcomaNursePractitionerMetadata extends MetadataSection {
                         PlateletSubsection
                     ]
                 },
-                {
-                    name: "Pathology",
-                    shortName: "Pathology",
-                    type: "NameValuePairs",
-                    /*eslint no-template-curly-in-string: "off"*/
-                    narrative: [
-                        {
-                            defaultTemplate: "Primary tumor color is ${.Color}, weight is ${.Weight}, and size is ${.Size}."
-                        },
-                        {
-                            defaultTemplate: "Tumor margins are ${.Tumor Margins}. Histological grade is ${.Histological Grade}."
-                        }
-
-                    ],
-                    data: [
-                        {
-                            name: "",
-                            items: [
-
-                                // TODO: When return value for items that are currently null, need to also return patient.isUnsigned(currentConditionEntry)
-                                {
-                                    name: "Color",
-                                    value: null
-                                },
-                                {
-                                    name: "Weight",
-                                    value: null
-                                },
-                                {
-                                    name: "Size",
-                                    value: (patient, currentConditionEntry) => {
-                                        const list = currentConditionEntry.getObservationsOfTypeChronologicalOrder(FluxTumorDimensions);
-                                        if (list.length === 0) return null;
-                                        const size = list.pop(); // last is most recent
-                                        return  {   value: size.quantity.value + " " + size.quantity.unit,
-                                                    isUnsigned: patient.isUnsigned(size),
-                                                    source: this.determineSource(patient, size)
-                                                };
-                                    }
-                                },
-                                {
-                                    name: "Tumor Margins",
-                                    value: (patient, currentConditionEntry) => {
-                                        const list = currentConditionEntry.getObservationsOfTypeChronologicalOrder(FluxTumorMargins);
-                                        if (list.length === 0) return null;
-                                        const margins = list.pop(); // last is most recent
-                                        return  {   value: margins.value,
-                                                    isUnsigned: patient.isUnsigned(margins),
-                                                    source: this.determineSource(patient, margins)
-                                                };
-                                    }
-                                },
-                                {
-                                    name: "Histological Grade",
-                                    value: (patient, currentConditionEntry) => {
-                                        let histologicalGrade = currentConditionEntry.getMostRecentHistologicalGrade();
-                                        return  {   value: histologicalGrade.grade,
-                                                    isUnsigned: patient.isUnsigned(histologicalGrade),
-                                                    source: this.determineSource(patient, histologicalGrade)
-                                                };
-                                    }
-                                },
-                            ]
-                        }
-                    ]
-                },
+                PathologySection,
                 {
                     name: "Genetics",
                     shortName: "Genetics",
