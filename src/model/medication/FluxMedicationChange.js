@@ -1,3 +1,4 @@
+import FluxEntry from '../base/FluxEntry';
 import MedicationChange from '../shr/medication/MedicationChange';
 import FluxMedicationBeforeChange from './FluxMedicationBeforeChange';
 import FluxMedicationAfterChange from './FluxMedicationAfterChange';
@@ -8,9 +9,10 @@ import codeableConceptUtils from '../CodeableConceptUtils.jsx';
 import Lang from 'lodash';
 import moment from 'moment';
 
-class FluxMedicationChange {
+class FluxMedicationChange extends FluxEntry {
     constructor(json, patientRecord) {
-        this._medicationChange = MedicationChange.fromJSON(json);
+        super(json);
+        this._entry = this._medicationChange = MedicationChange.fromJSON(json);
         this._patientRecord = patientRecord;
         if (!this._medicationChange.entryInfo) {
             let entry = new Entry();

@@ -121,7 +121,7 @@ class MedicationRangeChartVisualizer extends Component {
         } else {
             medChangeClassName = 'medication-change';
         }
-        const medChangeTypeSigned = medChange.unsigned ? 'medication-change-type-unsigned' : 'medication-change-type';
+        const medChangeTypeSigned = medChange.isUnsigned ? 'medication-change-type-unsigned' : 'medication-change-type';
 
         if (medChange.type === 'stop') {
             return (
