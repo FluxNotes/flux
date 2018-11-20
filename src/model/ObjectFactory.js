@@ -4,15 +4,12 @@ import ShrCompositionObjectFactory from './shr/composition/ShrCompositionObjectF
 import ShrCoreObjectFactory from './shr/core/ShrCoreObjectFactory';
 import ShrEncounterObjectFactory from './shr/encounter/ShrEncounterObjectFactory';
 import ShrEntityObjectFactory from './shr/entity/ShrEntityObjectFactory';
-import FhxObjectFactory from './fhx/FhxObjectFactory';
 import ShrFinancialObjectFactory from './shr/financial/ShrFinancialObjectFactory';
 import McodeObjectFactory from './mcode/McodeObjectFactory';
 import ShrMedicationObjectFactory from './shr/medication/ShrMedicationObjectFactory';
-import OdhObjectFactory from './odh/OdhObjectFactory';
 import OncologyObjectFactory from './oncology/OncologyObjectFactory';
 import ShrProcedureObjectFactory from './shr/procedure/ShrProcedureObjectFactory';
 import ShrResearchObjectFactory from './shr/research/ShrResearchObjectFactory';
-import SwObjectFactory from './sw/SwObjectFactory';
 
 /**
  * Generated top-level object factory for SHR classes.
@@ -32,15 +29,12 @@ export default class ObjectFactory {
     case 'shr.core': return ShrCoreObjectFactory.createInstance(json, type);
     case 'shr.encounter': return ShrEncounterObjectFactory.createInstance(json, type);
     case 'shr.entity': return ShrEntityObjectFactory.createInstance(json, type);
-    case 'fhx': return FhxObjectFactory.createInstance(json, type);
     case 'shr.financial': return ShrFinancialObjectFactory.createInstance(json, type);
     case 'mcode': return McodeObjectFactory.createInstance(json, type);
     case 'shr.medication': return ShrMedicationObjectFactory.createInstance(json, type);
-    case 'odh': return OdhObjectFactory.createInstance(json, type);
     case 'oncology': return OncologyObjectFactory.createInstance(json, type);
     case 'shr.procedure': return ShrProcedureObjectFactory.createInstance(json, type);
     case 'shr.research': return ShrResearchObjectFactory.createInstance(json, type);
-    case 'sw': return SwObjectFactory.createInstance(json, type);
     default: throw new Error(`Unsupported namespace: ${namespace}`);
     }
   }
@@ -59,15 +53,12 @@ export default class ObjectFactory {
     case 'shr.core': return ShrCoreObjectFactory.createInstanceFromFHIR(fhir, type, asExtension);
     case 'shr.encounter': return ShrEncounterObjectFactory.createInstanceFromFHIR(fhir, type, asExtension);
     case 'shr.entity': return ShrEntityObjectFactory.createInstanceFromFHIR(fhir, type, asExtension);
-    case 'fhx': return FhxObjectFactory.createInstanceFromFHIR(fhir, type, asExtension);
     case 'shr.financial': return ShrFinancialObjectFactory.createInstanceFromFHIR(fhir, type, asExtension);
     case 'mcode': return McodeObjectFactory.createInstanceFromFHIR(fhir, type, asExtension);
     case 'shr.medication': return ShrMedicationObjectFactory.createInstanceFromFHIR(fhir, type, asExtension);
-    case 'odh': return OdhObjectFactory.createInstanceFromFHIR(fhir, type, asExtension);
     case 'oncology': return OncologyObjectFactory.createInstanceFromFHIR(fhir, type, asExtension);
     case 'shr.procedure': return ShrProcedureObjectFactory.createInstanceFromFHIR(fhir, type, asExtension);
     case 'shr.research': return ShrResearchObjectFactory.createInstanceFromFHIR(fhir, type, asExtension);
-    case 'sw': return SwObjectFactory.createInstanceFromFHIR(fhir, type, asExtension);
     default: throw new Error(`Unsupported namespace: ${namespace}`);
     }
   }
