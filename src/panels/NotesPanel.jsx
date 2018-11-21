@@ -375,6 +375,7 @@ export default class NotesPanel extends Component {
                     errors={this.props.errors}
                     handleUpdateEditorWithNote={this.handleUpdateEditorWithNote}
                     handleUpdateArrayOfPickLists={this.handleUpdateArrayOfPickLists}
+                    highlightedSearchSuggestion={this.props.highlightedSearchSuggestion}
                     isAppBlurred={this.props.isAppBlurred}
                     isNoteViewerEditable={this.props.isNoteViewerEditable}
                     itemInserted={this.props.itemInserted}
@@ -389,6 +390,7 @@ export default class NotesPanel extends Component {
                     selectedPickListOptions={this.state.selectedPickListOptions}
                     setForceRefresh={this.props.setForceRefresh}
                     setLayout={this.props.setLayout}
+                    setHighlightedSearchSuggestion={this.props.setHighlightedSearchSuggestion}
                     setNoteViewerEditable={this.props.setNoteViewerEditable}
                     setOpenSourceNoteEntryId={this.props.setOpenSourceNoteEntryId}
                     setUndoTemplateInsertion={this.setUndoTemplateInsertion}
@@ -408,6 +410,7 @@ export default class NotesPanel extends Component {
                     updateSelectedNote={this.updateSelectedNote}
                     updateNoteAssistantMode={this.updateNoteAssistantMode}
                     updateContextTrayItemToInsert={this.updateContextTrayItemToInsert}
+
                 />
             </div>
         );
@@ -426,6 +429,7 @@ export default class NotesPanel extends Component {
                     handleSummaryItemSelected={this.props.handleSummaryItemSelected}
                     handleUpdateArrayOfPickLists={this.handleUpdateArrayOfPickLists}
                     handleUpdateEditorWithNote={this.handleUpdateEditorWithNote}
+                    highlightedSearchSuggestion={this.props.highlightedSearchSuggestion}
                     isNoteViewerEditable={this.props.isNoteViewerEditable}
                     itemInserted={this.props.itemInserted}
                     loadNote={this.handleUpdateEditorWithNote}
@@ -441,6 +445,7 @@ export default class NotesPanel extends Component {
                     searchIndex={this.props.searchIndex}
                     searchSelectedItem={this.props.searchSelectedItem}
                     selectedNote={this.state.selectedNote}
+                    setHighlightedSearchSuggestion={this.setHighlightedSearchSuggestion}
                     setLayout={this.props.setLayout} 
                     setNoteClosed={this.props.setNoteClosed}
                     setNoteViewerEditable={this.props.setNoteViewerEditable}

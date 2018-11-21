@@ -53,7 +53,7 @@ class PatientSearch extends React.Component {
         // Removed metadata from inside @ structured phrases
         noteContentWithoutStyle = noteContentWithoutStyle.replace(/{"text":"(.*?)",(.*?)}/g, (match, g1, g2) => g1);
         // Removed brackets from # structured phrases
-        noteContentWithoutStyle = noteContentWithoutStyle.replace(/#(.*?)\[\[(.*?)\]\]/g, (match, g1, g2) => `#${g1}`);
+        noteContentWithoutStyle = noteContentWithoutStyle.replace(/#(.*?)\[\[(.*?)\]\]/g, (match, g1, g2) => g1);
 
         return noteContentWithoutStyle;
     }
@@ -66,6 +66,7 @@ class PatientSearch extends React.Component {
             let suggestion;
             if (result.note) {
                 suggestion = {
+                    id: result.id,
                     date: result.note.signedOn || result.note.createdOn,
                     subject: result.note.subject,
                     inputValue: inputValue,
@@ -73,6 +74,11 @@ class PatientSearch extends React.Component {
                     valueTitle: result.valueTitle,
                     contentSnapshot: this.getNoteContentWithoutStyle(result.value),
                     source: "clinicalNote",
+                    // Need a way of matching not only with the structuredPhrase, but also with the
+                    // specific instance of that match; we give each matched structured phrase 
+                    // an identifier -- the order its in; that is 'n' where this is the nth phrase we've 
+                    // seen that matches the current search text
+                    indexOfMatch: result.indexOfMatch,
                     section: result.section,
                     matchedOn: result.valueTitle === "Content" ? "contentSnapshot" : "valueTitle",
                     onHighlight: result.onHighlight,
@@ -82,6 +88,7 @@ class PatientSearch extends React.Component {
                 }
             } else {
                 suggestion = {
+                    id: result.id,
                     section: result.section,
                     subsection: result.subsection,
                     contentSnapshot: result.value,
@@ -128,6 +135,7 @@ class PatientSearch extends React.Component {
     // Autosuggest will call this function every time you need to clear suggestions.
     onSuggestionsClearRequested = () => {
         this.props.setSearchSuggestions([]);
+        this.props.setHighlightedSearchSuggestion(null);
         this.setState({
             suggestions: [],
             openNoteSuggestions: []
@@ -146,15 +154,16 @@ class PatientSearch extends React.Component {
     }
 
     onSuggestionHighlighted = ({suggestion}) => {
-        const {previousSuggestion} = this.state;
-        if (previousSuggestion && previousSuggestion.onHighlight) previousSuggestion.onHighlight(previousSuggestion, true);
+        const { highlightedSearchSuggestion, setHighlightedSearchSuggestion } = this.props;
+
+        if (highlightedSearchSuggestion && highlightedSearchSuggestion.onHighlight) { 
+            highlightedSearchSuggestion.onHighlight(highlightedSearchSuggestion, true);
+        }
         if (!Lang.isNull(suggestion) && suggestion.onHighlight) {
             suggestion.onHighlight(suggestion);
         }
 
-        this.setState({
-            previousSuggestion: suggestion
-        });
+        setHighlightedSearchSuggestion(suggestion);
     }
 
     // When the input is focused, Autosuggest will consult this function when to render suggestions

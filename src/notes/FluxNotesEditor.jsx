@@ -39,10 +39,11 @@ const schema = {
         'numbered-list': props => <ol {...props.attributes}>{props.children}</ol>,
     },
     marks: {
-        bold: (props) => <strong>{props.children}</strong>,
-        italic: (props) => <em>{props.children}</em>,
-        underlined: (props) => <u>{props.children}</u>,
-        highlighted: (props) => <span className="structured-field-search-result">{props.children}</span>
+        "bold": (props) => <strong>{props.children}</strong>,
+        "italic": (props) => <em>{props.children}</em>,
+        "underlined": (props) => <u>{props.children}</u>,
+        "regular-highlight": (props) => <span className="search-result-regular-highlight">{props.children}</span>,
+        "selected-highlight": (props) => <span className="search-result-selected-highlight">{props.children}</span>
     }
 };
 
@@ -772,9 +773,29 @@ class FluxNotesEditor extends React.Component {
             const openNoteSearchSuggestions = nextProps.searchSuggestions.filter(s => s.section === "Open Note");
             this.highlightOpenNoteResults(openNoteSearchSuggestions);
         }
+        // If the highlighted search result has changed, we want to highlight text that matches the highlighted text
+        if (!Lang.isEqual(this.props.highlightedSearchSuggestion, nextProps.highlightedSearchSuggestion)) {
+            // Get a transform with any previously highglighted results removed
+            let transform = this.updateHighlightingOfPreviouslyHighlightedSearchSuggestion(this.props.highlightedSearchSuggestion, nextProps.searchSuggestions)
+            this.highlightCurrentHighlightedSearchSuggestion(nextProps.highlightedSearchSuggestion, transform);
+        }
+        
     }
 
-    unhighlightPlaintextResults = (transform, document) => {
+    regularHighlightPlainText = (transform, range) => { 
+        return transform.select(range).removeMark('selected-highlight').addMark('regular-highlight').deselect();
+    }
+    
+    selectedHighlightPlainText = (transform, range) => { 
+        return transform.select(range).removeMark('regular-highlight').addMark('selected-highlight').deselect();
+    }
+    
+    unhighlightPlainText = (transform, range) => { 
+        return transform.select(range).removeMark('regular-highlight').removeMark('selected-highlight').deselect();
+    }
+    
+    unhighlightAllPlaintext = (transform) => {
+        const {document} = this.state.state;
 
         const fullDocRange = {
             anchorKey: document.getFirstText().key,
@@ -783,48 +804,153 @@ class FluxNotesEditor extends React.Component {
             focusOffset: document.text.length,
             isFocused: false,
             isBackward: false
-        }
-
-        return transform.select(fullDocRange).removeMark('highlighted').deselect();
+        };
+        return this.unhighlightPlainText(transform, fullDocRange);
+    }    
+    
+    regularHighlightStructuredField = (transform, sf) => { 
+        // TODO: handle highlighting of placeholder text
+        if (!(sf instanceof Placeholder)) return transform.setNodeByKey(sf.key, "structured_field_search_result");
+    }
+    
+    selectedHighlightStructuredField = (transform, sf) => { 
+        // TODO: handle highlighting of placeholder text
+        if (!(sf instanceof Placeholder)) return transform.setNodeByKey(sf.key, "structured_field_selected_search_result");
     }
 
-    unhighlightAllResults = (document) => {
-        let transform = this.state.state.transform();
+    unhighlightStructuredField = (transform, sf) => { 
+        // TODO: handle highlighting of placeholder text
+        if (!(sf instanceof Placeholder)) return transform.setNodeByKey(sf.key, "structured_field");
+    }
+    
+    unhighlightAllStructuredFields = (transform) => { 
         this.structuredFieldMapManager.keyToShortcutMap.forEach(sf => {
-            // TODO: handle highlighting of placeholder text
-            if (!(sf instanceof Placeholder)) transform.setNodeByKey(sf.key, "structured_field");
+            transform = this.unhighlightStructuredField(transform, sf);
         });
-        transform = this.unhighlightPlaintextResults(transform, document);
-        this.setState({ state: transform.blur().apply() });
+        return transform;
     }
+
+    unhighlightAllResults = () => {
+        let transform = this.state.state.transform();
+        transform = this.unhighlightAllStructuredFields(transform);
+        transform = this.unhighlightAllPlaintext(transform);
+        this.setState({ 
+            state: transform.blur().apply() 
+        });
+    }
+
+    highlightCurrentHighlightedSearchSuggestion = (newHighlightedSearchSuggestion, prevTransform=undefined) => { 
+        const {document} = this.state.state;
+        let transform = Lang.isUndefined(prevTransform) ? this.state.state.transform() : prevTransform;
+        if (!Lang.isNull(newHighlightedSearchSuggestion)){ 
+            // Highlight matching plaintext
+            //
+            // Need a way of matching a specific instance of that match; we give each match 
+            // an identifier -- the order its in; that is 'n' where this is the nth phrase we've 
+            // seen that matches the current search text
+            let indexOfCurrentMatch = 0
+            document.getTexts().forEach(textNode => {
+                const regex = new RegExp(newHighlightedSearchSuggestion.inputValue, "gi");
+                let match = regex.exec(textNode.text)
+                while (match) {
+                    if (indexOfCurrentMatch === newHighlightedSearchSuggestion.indexOfMatch) { 
+                        const offset = match.index;
+                        const range = {
+                            anchorKey: textNode.key,
+                            anchorOffset: offset,
+                            focusKey: textNode.key,
+                            focusOffset: offset + newHighlightedSearchSuggestion.inputValue.length,
+                            isFocused: false,
+                            isBackward: false,
+                        };
+                        transform = this.selectedHighlightPlainText(transform, range);
+                    } else { 
+                        
+                    }
+                    match = regex.exec(textNode.text);
+                    indexOfCurrentMatch += 1;
+                }
+            });
+            // Need a way of matching a specific instance of that match; we give each match 
+            // an identifier -- the order its in; that is 'n' where this is the nth phrase we've 
+            // seen that matches the current search text
+            indexOfCurrentMatch = 0
+            this.structuredFieldMapManager.keyToShortcutMap.forEach(sf => {
+                // TODO: handle highlighting of placeholder text -- should happen in the highlight fn
+                if (sf.getText().toLowerCase().includes(newHighlightedSearchSuggestion.inputValue.toLowerCase()) && newHighlightedSearchSuggestion.indexOfMatch === indexOfCurrentMatch) {
+                    transform = this.selectedHighlightStructuredField(transform, sf);
+                    indexOfCurrentMatch += 1;
+                } else if (sf.getText().toLowerCase().includes(newHighlightedSearchSuggestion.inputValue.toLowerCase())) { 
+                    indexOfCurrentMatch += 1;
+                }
+            });
+        }
+        this.setState({ 
+            state: transform.blur().apply()
+        });
+    }
+    
+    // update the styling of our editor based on the previously highlighted search suggestion's current relevance
+    // N.B. Don't apply the changes yet; we want to accumulate all the transform changes in a single place 
+    // so we get the highlighting of the newly selected element as well
+    updateHighlightingOfPreviouslyHighlightedSearchSuggestion = (prevHighlightedSuggestion, newSearchSuggestions) => { 
+        const {document} = this.state.state;
+        let transform = this.state.state.transform();
+        if (newSearchSuggestions.includes(prevHighlightedSuggestion)) { 
+            // If the old suggestion is still relevant, we should use regular highlighting
+            // regular highlighting of plaintext
+            document.getTexts().forEach(textNode => {
+                const regex = new RegExp(prevHighlightedSuggestion.inputValue, "gi");
+                let match = regex.exec(textNode.text)
+                while (match) {
+                    const offset = match.index;
+                    const range = {
+                        anchorKey: textNode.key,
+                        anchorOffset: offset,
+                        focusKey: textNode.key,
+                        focusOffset: offset + prevHighlightedSuggestion.inputValue.length,
+                        isFocused: false,
+                        isBackward: false,
+                    };
+                    transform = this.regularHighlightPlainText(transform, range);
+                    match = regex.exec(textNode.text);
+                }
+            });
+            // regular highlighting of structured fields
+            this.structuredFieldMapManager.keyToShortcutMap.forEach(sf => {
+                if (sf.getText().toLowerCase().includes(prevHighlightedSuggestion.inputValue.toLowerCase())) {
+                    transform = this.regularHighlightStructuredField(transform, sf);
+                } 
+            });
+        }
+        return transform
+    }
+
 
     highlightOpenNoteResults = (suggestions) => {
-
         const {document} = this.state.state;
 
         // Unhighlight all results when suggestions are cleared
         if (suggestions.length === 0) {
-            this.unhighlightAllResults(document);
+            this.unhighlightAllResults();
             return;
         }
 
         let transform = this.state.state.transform();
 
         // Remove any existing plaintext highlights
-        this.unhighlightPlaintextResults(transform, document);
+        this.unhighlightAllPlaintext(transform);
 
-        // Highlight each suggestion
+        // Use regular highlight for each suggestion
         suggestions.forEach(suggestion => {
 
-            // Highlight matching shortcuts
+            // Highlight matching shortcuts; reset highlights of unmatched shortcuts
             this.structuredFieldMapManager.keyToShortcutMap.forEach(sf => {
-                // TODO: handle highlighting of placeholder text
-                if (!(sf instanceof Placeholder)) {
-                    if (sf.getText().toLowerCase().includes(suggestion.inputValue.toLowerCase())) {
-                        transform.setNodeByKey(sf.key, "structured_field_search_result");
-                    } else {
-                        transform.setNodeByKey(sf.key, "structured_field");
-                    }
+                // Handle highlighting of placeholder text should happen in the highlight fn
+                if (sf.getText().toLowerCase().includes(suggestion.inputValue.toLowerCase())) {
+                    transform = this.regularHighlightStructuredField(transform, sf);
+                } else {
+                    transform = this.unhighlightStructuredField(transform, sf);
                 }
             });
 
@@ -842,12 +968,16 @@ class FluxNotesEditor extends React.Component {
                         isFocused: false,
                         isBackward: false,
                     };
-                    transform.select(range).addMark('highlighted').deselect();
+                    transform = this.regularHighlightPlainText(transform, range);
                     match = regex.exec(textNode.text);
                 }
             });
         });
-        this.setState({ state: transform.blur().apply() });
+
+        // Use a pronounced highlight for the selected suggestion in the dropdown
+        this.setState({ 
+            state: transform.blur().apply() 
+        });
     }
 
     onOpenNoteSearchResultHighlight = (suggestion) => {

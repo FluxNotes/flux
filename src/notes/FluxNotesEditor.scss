@@ -96,7 +96,14 @@
         span {
             display: inline;
         }
-        
+
+        // ******** Special editor marks use this
+        .search-result-regular-highlight { 
+            background-color: $highlight-yellow;
+        }
+        .search-result-selected-highlight { 
+            background-color: $highlight-selected-yellow;
+        }
     }
 }
 
@@ -111,7 +118,6 @@
 }
 
 // ******** StructuredFieldPlugin.jsx uses this
-
 .structured-field {
     // Highlighted during template hovering
     &-highlighted {
@@ -129,6 +135,9 @@
 
     &-search-result {
         background-color: $highlight-yellow;
+    }
+    &-selected-search-result {
+        background-color: $highlight-selected-yellow;
     }
 }
 

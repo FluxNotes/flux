@@ -136,7 +136,11 @@ export default class TabularListVisualizer extends Component {
             const matchingSubsection = this.props.tdpSearchSuggestions.find(s => {
                 return s.valueTitle === 'Subsection' && s.subsection === subsectionName;
             });
-            subsectionNameHTML = <h2 className="subsection list-subsection-header"><span className={matchingSubsection ? 'highlighted' : ''}>{subsectionName}</span>{nameSuffix}</h2>;
+            let subsectionClassName = matchingSubsection ? 'highlighted' : '';
+            if (matchingSubsection && !Lang.isNull(this.props.highlightedSearchSuggestion)
+                && this.props.highlightedSearchSuggestion.subsection === matchingSubsection.subsection
+                && matchingSubsection.valueTitle === 'Subsection') subsectionClassName += ' selected';
+            subsectionNameHTML = <h2 className="subsection list-subsection-header"><span className={subsectionClassName}>{subsectionName}</span>{nameSuffix}</h2>;
         }
 
         if (list.length <= 0) {
@@ -291,10 +295,17 @@ export default class TabularListVisualizer extends Component {
             } else if (s.field === 'valueTitle') {
                 doesMatch = s.valueTitle === colText;
             }
-            return s.section === this.props.conditionSection.name && doesMatch;
+
+            // Enforce uniqueness of table cell id
+            const nameValueId = (this.props.conditionSection.name + ' ' + row[0].value).toLowerCase().replace(/[.,#!$%&;:{}=\-_`~()]/g,"").replace(/ /g, '_');
+            const indexId = `${(this.props.conditionSection.name.toLowerCase() + ' ' + subsectionName.toLowerCase()).replace(/ /g, '_')}_${itemIndex}_${colIndex}`;
+            const matchesId = s.id === nameValueId || s.id === indexId;
+
+            return s.section === this.props.conditionSection.name && matchesId && doesMatch;
         });
 
-        const highlightedClass = highlightedData ? ' highlighted' : '';
+        let highlightedClass = highlightedData ? ' highlighted' : '';
+        if (Lang.isEqual(highlightedData, this.props.highlightedSearchSuggestion)) highlightedClass += ' selected';
 
         // If this section has an associated formatFunction (that
         // returns a specific) CSS class, it is applied to elementText.

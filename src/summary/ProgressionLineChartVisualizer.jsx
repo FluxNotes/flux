@@ -260,7 +260,7 @@ class ProgressionLineChartVisualizer extends Component {
     renderDot = (props) => {
         const highlightedData = this.props.tdpSearchSuggestions.find(s => s.valueTitle === props.payload.start_time && s.contentSnapshot === props.payload.disease_status_string);
         if (highlightedData) {
-            props.stroke = 'rgb(255, 255, 70)';
+            props.stroke = Lang.isEqual(highlightedData, this.props.highlightedSearchSuggestion) ? 'rgb(255, 210, 5)' : 'rgb(255, 255, 70)';
             props.fill = 'rgb(255, 255, 70)';
             props.strokeWidth = 5;
         }

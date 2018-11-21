@@ -77,25 +77,26 @@ export class FullApp extends Component {
             condition: null,
             contextManager: this.contextManager,
             errors: [],
-            layout: "",
+            forceRefresh: false,
+            highlightedSearchSuggestion: null,
+            isAppBlurred: false,
             isNoteViewerVisible: false,
             isNoteViewerEditable: false,
             isModalOpen: false,
+            layout: "",
+            loginUser: {},
             modalTitle: '',
             modalContent: '',
-            loginUser: {},
             noteClosed: false,
             openClinicalNote: null,
             openSourceNoteEntryId: null,
             patient: null,
             searchSelectedItem: null,
+            searchSuggestions: [],
             snackbarOpen: false,
             snackbarMessage: "",
             summaryItemToInsert: '',
-            summaryItemToInsertSource: '',
-            forceRefresh: false,
-            searchSuggestions: [],
-            isAppBlurred: false
+            summaryItemToInsertSource: ''
         };
 
         /*  actions is a list of actions passed to the visualizers
@@ -359,7 +360,15 @@ export class FullApp extends Component {
     }
 
     setSearchSuggestions = (suggestions) => {
-        this.setState({ searchSuggestions: suggestions });
+        this.setState({
+            searchSuggestions: suggestions 
+        });
+    }
+
+    setHighlightedSearchSuggestion = (suggestion) => {
+        this.setState({
+            highlightedSearchSuggestion: suggestion 
+        });
     }
 
     setAppBlur = (isAppBlurred) => {
@@ -379,18 +388,20 @@ export class FullApp extends Component {
                                 <PatientControlPanel
                                     appTitle={this.props.display}
                                     clinicalEvent={this.state.clinicalEvent}
+                                    highlightedSearchSuggestion={this.state.highlightedSearchSuggestion}
+                                    isAppBlurred={this.state.isAppBlurred}
                                     layout={this.state.layout}
                                     loginUsername={this.state.loginUser.getUserName()}
+                                    moveTargetedDataPanelToSubsection={this.moveTargetedDataPanelToSubsection}
                                     patient={this.state.patient}
                                     possibleClinicalEvents={this.possibleClinicalEvents}
+                                    searchIndex={this.searchIndex}
                                     setCondition={this.setCondition}
+                                    setHighlightedSearchSuggestion={this.setHighlightedSearchSuggestion}
                                     setLayout={this.setLayout}
                                     setSearchSelectedItem={this.setSearchSelectedItem}
-                                    supportLogin={true}
-                                    searchIndex={this.searchIndex}
-                                    moveTargetedDataPanelToSubsection={this.moveTargetedDataPanelToSubsection}
                                     setSearchSuggestions={this.setSearchSuggestions}
-                                    isAppBlurred={this.state.isAppBlurred}
+                                    supportLogin={true}
                                 />
                             </Col>
                         </Row>
@@ -398,11 +409,13 @@ export class FullApp extends Component {
                         <CurrentDashboard
                             // App default settings
                             actions={this.actions}
-                            forceRefresh={this.state.forceRefresh}
                             appState={this.state}
                             contextManager={this.contextManager}
                             dataAccess={this.dataAccess}
+                            forceRefresh={this.state.forceRefresh}
                             handleSummaryItemSelected={this.handleSummaryItemSelected}
+                            highlightedSearchSuggestion={this.state.highlightedSearchSuggestion}
+                            isAppBlurred={this.state.isAppBlurred}
                             itemInserted={this.itemInserted}
                             loginUser={this.state.loginUser}
                             preferenceManager={this.preferenceManager}
@@ -410,7 +423,12 @@ export class FullApp extends Component {
                             onContextUpdate={this.onContextUpdate}
                             openSourceNoteEntryId={this.state.openSourceNoteEntryId}
                             possibleClinicalEvents={this.possibleClinicalEvents}
+                            ref={(dashboard) => { this.dashboard = dashboard; }}
+                            searchIndex={this.searchIndex}
                             searchSelectedItem={this.state.searchSelectedItem}
+                            searchSuggestions={this.state.searchSuggestions}
+                            setAppBlur={this.setAppBlur}
+                            setHighlightedSearchSuggestion={this.setHighlightedSearchSuggestion}
                             setNoteClosed={this.setNoteClosed}
                             setNoteViewerEditable={this.setNoteViewerEditable}
                             setNoteViewerVisible={this.setNoteViewerVisible}
@@ -424,11 +442,6 @@ export class FullApp extends Component {
                             structuredFieldMapManager={this.structuredFieldMapManager}
                             summaryMetadata={this.summaryMetadata}
                             updateErrors={this.updateErrors}
-                            ref={(dashboard) => { this.dashboard = dashboard; }}
-                            searchIndex={this.searchIndex}
-                            searchSuggestions={this.state.searchSuggestions}
-                            isAppBlurred={this.state.isAppBlurred}
-                            setAppBlur={this.setAppBlur}
                         />
                         <Modal 
                             aria-labelledby="simple-modal-title"

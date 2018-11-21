@@ -416,17 +416,25 @@ export default class NoteAssistant extends Component {
 
     // For each clinical note, render the note image with the text
     renderClinicalNote(item, i) {
-        let selected = Lang.isEqual(this.props.selectedNote, item);
-        const searchedFor = Lang.includes(this.state.highlightedNoteIds, item.entryInfo.entryId);
-        // if we have closed the note, selected = false
-        if (Lang.isEqual(this.props.noteClosed, true)) {
-            selected = false;
-        }
+        // If the note is selected and open, we want to use the selected className
+        const selectedClassName = (Lang.isEqual(this.props.selectedNote, item) && Lang.isEqual(this.props.noteClosed, false)) ? "selected" : "";
+        // If the note is in our array of search suggestions, we want to use the search-result className
+        const searchedForClassName = Lang.includes(this.state.highlightedNoteIds, item.entryInfo.entryId) ? "search-result" : "";
+        // If the note is currently highlighted in our searchSuggestions, we want to use the highlighted-result className
+        const highlighedSearchSuggestionClassName = (!Lang.isEmpty(this.props.highlightedSearchSuggestion)
+            && this.props.highlightedSearchSuggestion.section === "Clinical Notes"
+            && Lang.isEqual(this.props.highlightedSearchSuggestion.note.entryInfo.entryId, item.entryInfo.entryId)
+            && Lang.includes(this.state.highlightedNoteIds, item.entryInfo.entryId)) ? "highlighted-result" : "";
 
         return (
-            <div ref={item.entryInfo.entryId} className={`note existing-note${selected ? " selected" : ""}${searchedFor ? " search-result" : ""}`} key={i} onClick={() => {
-                this.openNote(false, item)
-            }}>
+            <div 
+                ref={item.entryInfo.entryId} 
+                className={`note existing-note ${selectedClassName} ${searchedForClassName} ${highlighedSearchSuggestionClassName}`} 
+                key={i}
+                onClick={() => {
+                    this.openNote(false, item)
+                }}
+            >
                 <div className="existing-note-date">{item.signedOn}</div>
                 <div className="existing-note-subject">{item.subject}</div>
 

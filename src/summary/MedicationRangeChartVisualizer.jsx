@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Grid, Row, Col} from 'react-flexbox-grid';
+import Lang from 'lodash';
 import RangeChart from './RangeChart';
 import MedicationInformationService from '../lib/MedicationInformationService';
 import './MedicationRangeChartVisualizer.css';
@@ -93,6 +94,7 @@ class MedicationRangeChartVisualizer extends Component {
             );
         });
         if (foundMed) titleClass += ' highlighted';
+        if (Lang.isEqual(foundMed, this.props.highlightedSearchSuggestion)) titleClass += ' selected';
 
         // Determining if medication value is out of range.
         if (dosageValue < lowerValue || dosageValue > upperValue) {
@@ -155,14 +157,15 @@ class MedicationRangeChartVisualizer extends Component {
     }
 
     renderMedicationInfo = (med) => {
-        const {routeIntoBody, whenPrescribed, prescribedBy, numberOfRefillsAllowed} = med.medication;
+        const {routeIntoBody, whenPrescribed, prescribedBy, numberOfRefillsAllowed, medication} = med.medication;
+        const medId = `medications_${medication.toLowerCase().replace(/[.,#!$%&;:{}=\-_`~()]/g,"").replace(/ /g, '_')}`;
         let routeClass = '', prescribedClass = '', prescribedByClass = '', numberOfRefillsAllowedClass = '';
         this.props.tdpSearchSuggestions.forEach(s => {
-            if (s.section === 'Medications') {
-                if (s.contentSnapshot === routeIntoBody) routeClass = ' highlighted';
-                if (s.contentSnapshot === whenPrescribed) prescribedClass = ' highlighted';
-                if (s.contentSnapshot === prescribedBy) prescribedByClass = ' highlighted';
-                if (s.contentSnapshot === numberOfRefillsAllowed) numberOfRefillsAllowedClass = ' highlighted';
+            if (s.section === 'Medications' && s.id.includes(medId)) {
+                if (s.contentSnapshot === routeIntoBody) routeClass = Lang.isEqual(s, this.props.highlightedSearchSuggestion) ? ' highlighted selected' : ' highlighted';
+                if (s.contentSnapshot === whenPrescribed) prescribedClass = Lang.isEqual(s, this.props.highlightedSearchSuggestion) ? ' highlighted selected' : ' highlighted';
+                if (s.contentSnapshot === prescribedBy) prescribedByClass = Lang.isEqual(s, this.props.highlightedSearchSuggestion) ? ' highlighted selected' : ' highlighted';
+                if (s.contentSnapshot === numberOfRefillsAllowed) numberOfRefillsAllowedClass = Lang.isEqual(s, this.props.highlightedSearchSuggestion) ? ' highlighted selected' : ' highlighted';
             }
         });
         return (

@@ -111,6 +111,9 @@ $note-assitant-width-3: 160px;
             &.search-result {
                 background-color: $highlight-yellow;
             }
+            &.highlighted-result {
+                background-color: $highlight-selected-yellow;
+            }
             &.existing-note {         
                 .existing-note-date {
                     padding-bottom: 5px;
