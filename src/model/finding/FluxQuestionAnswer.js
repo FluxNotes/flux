@@ -15,7 +15,7 @@ class FluxQuestionAnswer {
      *  ObservationCode is a CodeableConcept and this function will return the coding value
      */
     get observationCodeCoding() {
-        return this._questionAnswer.observationCode.coding[0].value;
+        return this._questionAnswer.value.coding[0].value;
     }
 
     /*
@@ -23,7 +23,7 @@ class FluxQuestionAnswer {
      *  ObservationCode is a CodeableConcept and this function will return the displayText value
      */
     get observationCodeDisplayText() {
-        return this._questionAnswer.observationCode.coding[0].displayText.value;
+        return this._questionAnswer.value.coding[0].displayText.value;
     }
 
     /*

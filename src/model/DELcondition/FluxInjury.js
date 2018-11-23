@@ -1,10 +1,10 @@
 import FluxCondition from './FluxCondition';
-import Injury from '../shr/condition/Injury';
+import ConditionPresentAssertion from '../shr/base/ConditionPresentAssertion';
 
 class FluxInjury extends FluxCondition {
     constructor(json) {
         super();
-        this._condition = Injury.fromJSON(json);
+        this._condition = ConditionPresentAssertion.fromJSON(json);
     }
 
     toJSON() {

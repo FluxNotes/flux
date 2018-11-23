@@ -5,7 +5,7 @@ import EncounterType from './EncounterType';
 import Diagnosis from './Diagnosis';
 import DiagnosisCode from './DiagnosisCode';
 import DetailedEncounter from './DetailedEncounter';
-import ConsultRequested from '../procedure/ConsultRequested';
+import ConsultRequested from './ConsultRequested';
 
 /**
  * Generated object factory for the shr.encounter namespace.

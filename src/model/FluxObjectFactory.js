@@ -7,7 +7,7 @@ import FluxCoreObjectFactory from './core/FluxCoreObjectFactory';
 import FluxEntityObjectFactory from './entity/FluxEntityObjectFactory';
 import FluxEncounterObjectFactory from './encounter/FluxEncounterObjectFactory';
 // import FluxConditionObjectFactory from './condition/FluxConditionObjectFactory';
-// import FluxFindingObjectFactory from './finding/FluxFindingObjectFactory';
+import FluxFindingObjectFactory from './finding/FluxFindingObjectFactory';
 import FluxMedicationObjectFactory from './medication/FluxMedicationObjectFactory';
 import FluxProcedureObjectFactory from './procedure/FluxProcedureObjectFactory';
 import FluxAllergyObjectFactory from './allergy/FluxAllergyObjectFactory';
@@ -29,7 +29,7 @@ export default class FluxObjectFactory {
             case 'shr.core': return FluxCoreObjectFactory.createInstance(json, type, patientRecord);
             case 'shr.encounter': return FluxEncounterObjectFactory.createInstance(json, type, patientRecord);
             case 'shr.entity': return FluxEntityObjectFactory.createInstance(json, type, patientRecord);
-            // case 'shr.finding': return FluxFindingObjectFactory.createInstance(json, type, patientRecord);
+            case 'shr.finding': return FluxFindingObjectFactory.createInstance(json, type, patientRecord);
             case 'mcode': return FluxMcodeObjectFactory.createInstance(json, type, patientRecord);
             case 'shr.medication': return FluxMedicationObjectFactory.createInstance(json, type, patientRecord);
             case 'shr.oncology': return FluxOncologyObjectFactory.createInstance(json, type, patientRecord);
