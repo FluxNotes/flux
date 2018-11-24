@@ -1,8 +1,10 @@
 import CancerHistologicGrade from '../mcode/CancerHistologicGrade';
+import FluxObservation from '../finding/FluxObservation';
 
-class FluxHistologicGrade {
+class FluxHistologicGrade extends FluxObservation {
     constructor(json) {
-        this._histologicGrade = CancerHistologicGrade.fromJSON(json);
+        super();
+        this._histologicGrade = this._observation = this._entry = CancerHistologicGrade.fromJSON(json);
     }
 
     get entryInfo() {
@@ -18,7 +20,7 @@ class FluxHistologicGrade {
     }
 
     getGradeAsSimpleNumber() {
-        const code = this._histologicGrade.value.coding[0].value;
+        const code = this._histologicGrade.value.coding[0].code;
         if (code === "369792005") {
             return 3;
         } else if (code === "369791003") {

@@ -28,6 +28,19 @@ class FluxPerson {
         return this._person.headshot.media.resourceLocation.uri;
     }
 
+    get race() {
+        if (this._person.race) {
+            return this._person.race.raceCode.value.coding[0].code;
+        }
+    }
+
+    get gender() {
+        if (this._person.birthSex) {
+            return this._person.birthSex.value.coding[0].displayText.value;
+        }
+        return null;
+    }
+
     toJSON() {
         return this._person.toJSON();
     }

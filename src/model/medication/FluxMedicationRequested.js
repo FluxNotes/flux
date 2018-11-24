@@ -125,7 +125,7 @@ class FluxMedicationRequested {
      *  Returns displayText string for medication
      */
     get medication() {
-        return this._displayTextOrCode(this._medicationRequested.medication.type.coding[0]);
+        return this._displayTextOrCode(this._medicationRequested.medication.type.value.coding[0]);
     }
 
     /**
@@ -133,7 +133,7 @@ class FluxMedicationRequested {
      */
     set medication(medicationName) {
         this._medicationRequested.medication = new Medication();
-        this._medicationRequested.medication.type = lookup.getCodeableConceptFromName(medicationName);
+        this._medicationRequested.medication.type.value = lookup.getCodeableConceptFromName(medicationName);
     }
 
     /*
@@ -141,11 +141,7 @@ class FluxMedicationRequested {
      *  Returns boolean value for medicationsOrCode of medication type. Returns undefined for codeable concepts.
      */
     get overTheCounter() {
-        if (this._isMedicationObject(this._medicationRequested.medicationOrCode)) {
-            return this._medicationRequested.medicationOrCode.value.overTheCounter;
-        }
-        // CodeableConcept values do not specify if over the counter or not.
-        return undefined;
+        return this._medicationRequested.medication.overTheCounter.value;
     }
 
     /*
@@ -232,10 +228,7 @@ class FluxMedicationRequested {
     }
 
     get code() {
-        if (this._isMedicationObject(this._medicationRequested.medicationOrCode)) {
-            return this._medicationRequested.medicationOrCode.value.type.coding[0].code;
-        }
-        return this._medicationRequested.medicationOrCode.value.coding[0].code;
+        return this._medicationRequested.medication.type.value.coding[0].code;
     }
 
     get routeIntoBody() {
@@ -254,14 +247,6 @@ class FluxMedicationRequested {
 
     get doseInstructionsText() {
         return this._medicationRequested.dosage.doseInstructionsText ? this._medicationRequested.dosage.doseInstructionsText.value : null;
-    }
-
-    _isMedicationObject(medicationOrCode) {
-        if (medicationOrCode.value.entryInfo && medicationOrCode.value.entryInfo.entryType
-            && medicationOrCode.value.entryInfo.entryType.value === 'http://standardhealthrecord.org/spec/shr/entity/Medication') {
-            return true;
-        }
-        return false;
     }
 
     /**

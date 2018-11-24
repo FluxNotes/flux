@@ -366,7 +366,6 @@ export default class TargetedDataSection extends Component {
         const visualizerName = this.determineVisualizerName();
 
         const viz = this.props.visualizerManager.getVisualizer(type, visualizerName);
-
         if (Lang.isNull(viz)) return null;
         const sectionTransform = viz.transform;
         if (section.resetData) section.resetData();

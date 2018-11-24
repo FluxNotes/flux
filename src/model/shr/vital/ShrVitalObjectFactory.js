@@ -10,8 +10,8 @@ import BodyWeight from './BodyWeight';
 // import HeadCircumference from './HeadCircumference';
 // import BodyMassIndex from './BodyMassIndex';
 import BloodPressure from './BloodPressure';
-// import SystolicPressure from './SystolicPressure';
-// import DiastolicPressure from './DiastolicPressure';
+import SystolicPressure from './SystolicPressure';
+import DiastolicPressure from './DiastolicPressure';
 // import HeadTiltAngle from './HeadTiltAngle';
 
 /**
@@ -35,8 +35,8 @@ export default class ShrVitalObjectFactory {
       case 'BodyTemperature': return BodyTemperature.fromJSON(json);
       case 'BodyWeight': return BodyWeight.fromJSON(json);
       case 'BloodPressure': return BloodPressure.fromJSON(json);
-    //   case 'SystolicPressure': return SystolicPressure.fromJSON(json);
-    //   case 'DiastolicPressure': return DiastolicPressure.fromJSON(json);
+      case 'SystolicPressure': return SystolicPressure.fromJSON(json);
+      case 'DiastolicPressure': return DiastolicPressure.fromJSON(json);
       default: throw new Error(`Unsupported type in ShrVitalObjectFactory: ${type}`);
     }
   }

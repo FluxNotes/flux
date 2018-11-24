@@ -23,7 +23,7 @@ export default class MedicationsSection extends MetadataSection {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         
         // Only showing active medications
-        let meds = patient.getActiveAndRecentlyStoppedMedicationsForConditionReverseChronologicalOrder(condition);
+        let meds = patient.getActiveAndRecentlyStoppedMedicationsForConditionReverseChronologicalOrder  (condition);
         const medicationChanges = patient.getMedicationChangesForConditionChronologicalOrder(condition).filter(change => {
             // Filter reduced medication changes that don't have medBefore and medAfter
             if (change.type === 'reduced') return change.medicationBeforeChange && change.medicationAfterChange;

@@ -9,8 +9,8 @@ class FluxPathologyReport extends FluxObservation {
      *  Return array of observations within the pathology report
      */
     get members() {
-        if (Lang.isUndefined(this._observation.members)) return [];
-        return this._observation.members.value;
+        if (Lang.isUndefined(this._observation.panelMembers)) return [];
+        return this._observation.panelMembers.observation;
     } 
 
      /*
@@ -22,7 +22,7 @@ class FluxPathologyReport extends FluxObservation {
     }
 
     get author() {
-        return this._observation.author.value;
+        return this._observation.entryInfo.recordedBy.value;
     }
 
     toJSON() {

@@ -14,7 +14,7 @@ class FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel {
     }
     
     get members() {
-        return this._gastrointestinalStromalTumorCancerGeneticAnalysisPanel.members.value;
+        return this._gastrointestinalStromalTumorCancerGeneticAnalysisPanel.panelMembers.observation;
     }
 
     toJSON() {

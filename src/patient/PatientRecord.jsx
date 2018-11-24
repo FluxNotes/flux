@@ -226,8 +226,9 @@ class PatientRecord {
     }
 
     getPerson() {
+//        console.log(this.patient.person);
         if (Lang.isUndefined(this.patient.person)) return null;
-        return this.getEntryFromReference(this.patient.person);
+        return this.patient.person;
     }
 
     getMRN() {
@@ -850,7 +851,7 @@ class PatientRecord {
     getProgressionsForCondition(condition) {
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         return this.entries.filter((item) => {
-            return item instanceof FluxCancerProgression && item.focalSubjectReference.entryId === conditionEntryId;
+            return item instanceof FluxCancerProgression && item.specificFocusOfFinding.entryId === conditionEntryId;
         });
     }
 
@@ -858,7 +859,7 @@ class PatientRecord {
         let progressions = this.getProgressionsChronologicalOrder();
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         progressions = progressions.filter((progression) => {
-            return progression.focalSubjectReference.entryId === conditionEntryId;
+            return progression.specificFocusOfFinding.entryId === conditionEntryId;
         });
         return progressions;
     }
@@ -867,7 +868,7 @@ class PatientRecord {
         let result = this.entries.filter((item) => {
             if (item instanceof FluxConditionPresentAssertion) {
                 const conditionEntryId = item.entryInfo.entryId.value || item.entryInfo.entryId;
-                return progression.focalSubjectReference.entryId === conditionEntryId;
+                return progression.specificFocusOfFinding.entryId === conditionEntryId;
             } else {
                 return false;
             }

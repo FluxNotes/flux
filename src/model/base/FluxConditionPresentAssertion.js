@@ -43,7 +43,7 @@ class FluxConditionPresentAssertion {
 
     get code() {
         if (!this._condition.value) return null;
-        return this._condition.value.coding[0].value;
+        return this._condition.value.coding[0].code;
     }
 
     get codeSystem() {
@@ -61,7 +61,10 @@ class FluxConditionPresentAssertion {
     }
 
     get observation() {
-        return this._condition.evidence.map((item) => {
+        const conditionEntryId = this._condition.entryInfo.entryId.value || this._condition.entryInfo.entryId;
+        return this._patientRecord.getEntriesOfType(FluxObservation).filter((item) => {
+            return item._observation && item._observation.specificFocusOfFinding && item._observation.specificFocusOfFinding.value._entryId === conditionEntryId;
+        }).map((item) => {
             return this._patientRecord.getEntryFromReference(item);
         }) || [];
     }
@@ -117,7 +120,6 @@ class FluxConditionPresentAssertion {
 
         // Get all the toxicities
         let toxicities = this.getToxicities().filter((toxicity) => {
-            //console.log(toxicity._adverseEvent.value.coding);
             return toxicity._adverseEvent.value.coding.some((code) => {
                 return codes.includes(code.value);
             });
@@ -149,12 +151,12 @@ class FluxConditionPresentAssertion {
         const entries =this._patientRecord.getEntriesOfType(FluxToxicReaction)
         const conditionEntryId = this._condition.entryInfo.entryId.value || this._condition.entryInfo.entryId;
         return entries.filter((item) => {
-            return item instanceof FluxToxicReaction && item._adverseEvent && item._adverseEvent.focalSubjectReference && item._adverseEvent.focalSubjectReference._entryId === conditionEntryId;
+            return item instanceof FluxToxicReaction && item._adverseEvent && item._adverseEvent.specificFocusOfFinding && item._adverseEvent.specificFocusOfFinding.value._entryId === conditionEntryId;
         });
     }
 
     addToxicity(toxicity, clinicalNote) {
-        toxicity._adverseEvent.focalSubjectReference = this._patientRecord.createEntryReferenceTo(this);
+        toxicity._adverseEvent.specificFocusOfFinding = this._patientRecord.createEntryReferenceTo(this);
         this.addObservation(toxicity, clinicalNote);
     }
 
@@ -197,20 +199,33 @@ class FluxConditionPresentAssertion {
     }
 
     getObservationsWithObservationCode(code) {
-        if (!this._condition.evidence) return [];
-        return this._condition.evidence.map((item) => {
-            if (item.value instanceof Reference) item = item.value;
-            return this._patientRecord.getEntryFromReference(item);
+        const conditionEntryId = this._condition.entryInfo.entryId.value || this._condition.entryInfo.entryId;
+        return this._patientRecord.getEntriesOfType(FluxObservation).filter((item) => {
+            return item._observation && item._observation.specificFocusOfFinding && item._observation.specificFocusOfFinding.value._entryId === conditionEntryId;
+        }).map((item) => {
+            if (item.value instanceof Reference) {
+                item = item.value;
+                return this._patientRecord.getEntryFromReference(item);
+            } else {
+                return item;
+            }
         }).filter((item) => {
             return item.codeableConceptCode === code;
         });
     }
     
     getObservationsOfType(type) {
-        if (!this._condition.evidence) return [];
-        return this._condition.evidence.map((item) => {
-            if (item.value instanceof Reference) item = item.value;
-            return this._patientRecord.getEntryFromReference(item);
+        const conditionEntryId = this._condition.entryInfo.entryId.value || this._condition.entryInfo.entryId;
+        return this._patientRecord.getEntriesOfType(type).filter((item) => {
+            return  item._observation && item._observation.specificFocusOfFinding && 
+                    item._observation.specificFocusOfFinding.value._entryId === conditionEntryId;
+        }).map((item) => {
+            if (item.value instanceof Reference) {
+                item = item.value;
+                return this._patientRecord.getEntryFromReference(item);
+            } else {
+                return item;
+            }
         }).filter((item) => {
             return item.constructor === type;
         });

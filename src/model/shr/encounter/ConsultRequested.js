@@ -212,6 +212,14 @@ class ConsultRequested extends ActionRequested {
     this.location = location; return this;
   }
 
+  get referredBy() {
+    return this._referredBy;
+  }
+
+  set referredBy(referredBy) {
+    this._referredBy = referredBy;
+  }
+
   /**
    * Deserializes JSON data to an instance of the ConsultRequested class.
    * The JSON must be valid against the ConsultRequested JSON schema, although this is not validated by the function.

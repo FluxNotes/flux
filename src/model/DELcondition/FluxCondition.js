@@ -43,7 +43,7 @@ class FluxCondition {
 
     get code() {
         if (!this._condition.value) return null;
-        return this._condition.value.coding[0].value;
+        return this._condition.value.coding[0].code;
     }
 
     get codeSystem() {
