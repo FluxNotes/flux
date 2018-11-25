@@ -814,19 +814,19 @@ class PatientRecord {
 
     getBreastCancerGeneticAnalysisPanelsChronologicalOrder() {
         let panels = this.getEntriesOfType(FluxBreastCancerGeneticAnalysisPanel);
-        panels.sort(this._clinicallyRelevantTimeTimeSorter);
+        panels.sort(this._relevantTimeTimeSorter);
         return panels;
     }
 
     getGastrointestinalStromalTumorCancerGeneticAnalysisPanelsChronologicalOrder() {
         let panels = this.getEntriesOfType(FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel);
-        panels.sort(this._clinicallyRelevantTimeTimeSorter);
+        panels.sort(this._relevantTimeTimeSorter);
         return panels;
     }
 
     getPathologyReportsChronologicalOrder() {
         let reports = this.getPathologyReports();
-        //reports.sort(this._clinicallyRelevantTimeTimeSorter);
+        //reports.sort(this._relevantTimeTimeSorter);
     
         return reports;
 
@@ -938,9 +938,9 @@ class PatientRecord {
         }
         return 0;
     }
-    _clinicallyRelevantTimeTimeSorter(a, b) {
-        const a_startTime = new moment(a.clinicallyRelevantTime, "D MMM YYYY");
-        const b_startTime = new moment(b.clinicallyRelevantTime, "D MMM YYYY");
+    _relevantTimeTimeSorter(a, b) {
+        const a_startTime = new moment(a.relevantTime, "D MMM YYYY");
+        const b_startTime = new moment(b.relevantTime, "D MMM YYYY");
         if (a_startTime < b_startTime) {
             return -1;
         }
@@ -1106,7 +1106,7 @@ class PatientRecord {
     getVitalByCode(code) {
         return this.entries
             .filter(e => e.codeableConceptCode === code) // Find vital of matching code
-            .sort(this._clinicallyRelevantTimeTimeSorter);
+            .sort(this._relevantTimeTimeSorter);
     }
 
     static getMostRecentEntryFromList(list) {
@@ -1128,20 +1128,20 @@ class PatientRecord {
     getTodaysVitalsAsString() {
         let today = new moment().format("D MMM YYYY");
         const bloodPressure = this.getEntriesOfType(FluxBloodPressure).find((bloodPressure) => {  
-            const clinicallyRelevantTime = new moment(bloodPressure.clinicallyRelevantTime, "D MMM YYYY").format("D MMM YYYY");
-            return clinicallyRelevantTime === today; 
+            const relevantTime = new moment(bloodPressure.relevantTime, "D MMM YYYY").format("D MMM YYYY");
+            return relevantTime === today; 
         });
         const bodyTemperature = this.getEntriesOfType(FluxBodyTemperature).find((bodyTemperature) => {  
-            const clinicallyRelevantTime = new moment(bodyTemperature.clinicallyRelevantTime, "D MMM YYYY").format("D MMM YYYY");
-            return clinicallyRelevantTime === today; 
+            const relevantTime = new moment(bodyTemperature.relevantTime, "D MMM YYYY").format("D MMM YYYY");
+            return relevantTime === today; 
         });
         const bodyWeight = this.getEntriesOfType(FluxBodyWeight).find((bodyWeight) => {  
-            const clinicallyRelevantTime = new moment(bodyWeight.clinicallyRelevantTime, "D MMM YYYY").format("D MMM YYYY");
-            return clinicallyRelevantTime === today; 
+            const relevantTime = new moment(bodyWeight.relevantTime, "D MMM YYYY").format("D MMM YYYY");
+            return relevantTime === today; 
         });
         const heartRate = this.getEntriesOfType(FluxHeartRate).find((heartRate) => {  
-            const clinicallyRelevantTime = new moment(heartRate.clinicallyRelevantTime, "D MMM YYYY").format("D MMM YYYY");
-            return clinicallyRelevantTime === today; 
+            const relevantTime = new moment(heartRate.relevantTime, "D MMM YYYY").format("D MMM YYYY");
+            return relevantTime === today; 
         });
         if (Lang.isUndefined(bloodPressure) && Lang.isUndefined(bodyTemperature) && Lang.isUndefined(bodyWeight) && Lang.isUndefined(heartRate)){
             return "no vital signs taken today";

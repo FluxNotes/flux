@@ -8,7 +8,7 @@ export default class BloodPressureSubsection extends VitalsSubsection {
             .map(v => {
                 let processedVital = {};
                 const [systolic, diastolic] = v.value.split('/');
-                processedVital["start_time"] = v.clinicallyRelevantTime;
+                processedVital["start_time"] = v.relevantTime;
                 processedVital.unit = 'mmHg';
                 processedVital["Systolic"] = systolic;
                 processedVital["Diastolic"] = diastolic;

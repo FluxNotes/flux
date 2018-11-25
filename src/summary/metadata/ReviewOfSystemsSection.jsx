@@ -75,7 +75,7 @@ export default class ReviewOfSystemsSection extends MetadataSection {
                     shortcut: null               
                 },
                 {   name: "Date",
-                    value: {value: ros.clinicallyRelevantTime},
+                    value: {value: ros.relevantTime},
                     shortcut: null               
                 },
             ]                    

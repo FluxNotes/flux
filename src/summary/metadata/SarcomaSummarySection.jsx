@@ -172,32 +172,32 @@ export default class SarcomaSummarySection extends MetadataSection {
                             },
                             // shortcut: "@stage"
                         },
-                        {
-                            name: "Mitosis",
-                            value: (patient, currentConditionEntry) => {
-                                let mr = currentConditionEntry.getMostRecentMitosis();
-                                if (mr) {
-                                    return  {   value: mr.quantity.number + " " + mr.quantity.unit, 
-                                                isUnsigned: patient.isUnsigned(mr), 
-                                                source: this.determineSource(patient, mr)
-                                            };
-                                } else {
-                                    return null;
-                                }
-                            },
-                        },
-                        {
-                            name: "Tumor Size",
-                            value: (patient, currentConditionEntry) => {
-                                const list = currentConditionEntry.getObservationsOfTypeChronologicalOrder(FluxTumorDimensions);
-                                if (list.length === 0) return null;
-                                const size = list.pop(); // last is most recent
-                                return  {   value: size.quantity.value + " " + size.quantity.unit, 
-                                            isUnsigned: patient.isUnsigned(size), 
-                                            source: this.determineSource(patient, size)
-                                        };
-                    },
-                        },
+                        // {
+                        //     name: "Mitosis",
+                        //     value: (patient, currentConditionEntry) => {
+                        //         let mr = currentConditionEntry.getMostRecentMitosis();
+                        //         if (mr) {
+                        //             return  {   value: mr.quantity.number + " " + mr.quantity.unit, 
+                        //                         isUnsigned: patient.isUnsigned(mr), 
+                        //                         source: this.determineSource(patient, mr)
+                        //                     };
+                        //         } else {
+                        //             return null;
+                        //         }
+                        //     },
+                        // },
+                        // {
+                        //     name: "Tumor Size",
+                        //     value: (patient, currentConditionEntry) => {
+                        //         const list = currentConditionEntry.getObservationsOfTypeChronologicalOrder(FluxTumorDimensions);
+                        //         if (list.length === 0) return null;
+                        //         const size = list.pop(); // last is most recent
+                        //         return  {   value: size.quantity.number + " " + size.quantity.unit, 
+                        //                     isUnsigned: patient.isUnsigned(size), 
+                        //                     source: this.determineSource(patient, size)
+                        //                 };
+                        //     },
+                        // },
                         {
                             name: "Disease Status",
                             value: (patient, currentConditionEntry) => {

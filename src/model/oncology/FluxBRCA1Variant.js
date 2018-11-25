@@ -1,4 +1,4 @@
-import FluxObservation from '../finding/FluxObservation';
+import FluxObservation from '../base/FluxObservation';
 import Observation from '../shr/base/Observation';
 
 class FluxBRCA1Variant extends FluxObservation {

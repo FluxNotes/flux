@@ -142,8 +142,8 @@ class BreastCancerGeneticAnalysisPanel extends Observation {
     if (this.observationCode != null) {
       inst['ObservationCode'] = typeof this.observationCode.toJSON === 'function' ? this.observationCode.toJSON() : this.observationCode;
     }
-    if (this.clinicallyRelevantTime != null) {
-      inst['ClinicallyRelevantTime'] = typeof this.clinicallyRelevantTime.toJSON === 'function' ? this.clinicallyRelevantTime.toJSON() : this.clinicallyRelevantTime;
+    if (this.relevantTime != null) {
+      inst['relevantTime'] = typeof this.relevantTime.toJSON === 'function' ? this.relevantTime.toJSON() : this.relevantTime;
     }
     if (this.category != null) {
       inst['Category'] = this.category.map(f => f.toJSON());
@@ -233,8 +233,8 @@ class BreastCancerGeneticAnalysisPanel extends Observation {
     if (this.relatedEncounter != null) {
       inst['context'] = typeof this.relatedEncounter.toFHIR === 'function' ? this.relatedEncounter.toFHIR() : this.relatedEncounter;
     }
-    if (this.clinicallyRelevantTime != null) {
-      inst['effective[x]'] = typeof this.clinicallyRelevantTime.toFHIR === 'function' ? this.clinicallyRelevantTime.toFHIR() : this.clinicallyRelevantTime;
+    if (this.relevantTime != null) {
+      inst['effective[x]'] = typeof this.relevantTime.toFHIR === 'function' ? this.relevantTime.toFHIR() : this.relevantTime;
     }
     if (this.valueAbsentReason != null) {
       inst['dataAbsentReason'] = typeof this.valueAbsentReason.toFHIR === 'function' ? this.valueAbsentReason.toFHIR() : this.valueAbsentReason;

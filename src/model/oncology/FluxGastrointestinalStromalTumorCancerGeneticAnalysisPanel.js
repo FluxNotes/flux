@@ -9,8 +9,8 @@ class FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel {
         return this._gastrointestinalStromalTumorCancerGeneticAnalysisPanel.entryInfo;
     }
 
-    get clinicallyRelevantTime() {
-        return this._gastrointestinalStromalTumorCancerGeneticAnalysisPanel.clinicallyRelevantTime.value;
+    get relevantTime() {
+        return this._gastrointestinalStromalTumorCancerGeneticAnalysisPanel.relevantTime.value;
     }
     
     get members() {

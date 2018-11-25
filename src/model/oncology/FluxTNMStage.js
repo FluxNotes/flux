@@ -5,7 +5,7 @@ import RelevantTime from '../shr/base/RelevantTime';
 import CancerStageInformation from '../mcode/CancerStageInformation';
 import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
-import FluxObservation from '../finding/FluxObservation';
+import FluxObservation from '../base/FluxObservation';
 import FluxMitoticRate from './FluxMitoticRate';
 import lookup from '../../lib/tnmstage_lookup.jsx';
 import staging from '../../lib/staging.jsx';

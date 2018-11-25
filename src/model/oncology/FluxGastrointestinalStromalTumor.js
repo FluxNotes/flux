@@ -50,7 +50,7 @@ class FluxGastrointestinalStromalTumor extends FluxSolidTumorCancer {
         const tumorSize = this.getObservationsOfType(FluxTumorDimensions);
         const histologicGrade = this.getObservationsOfType(FluxHistologicGrade);
         if (tumorSize.length > 0) {
-            hpiText += ` Primary tumor size ${tumorSize[tumorSize.length - 1].quantity.value} ${tumorSize[tumorSize.length - 1].quantity.unit}.`;
+            hpiText += ` Primary tumor size ${tumorSize[tumorSize.length - 1].quantity.number} ${tumorSize[tumorSize.length - 1].quantity.unit}.`;
         }
         if (histologicGrade.length > 0) {
             hpiText += ` ${histologicGrade[0].grade}.`;

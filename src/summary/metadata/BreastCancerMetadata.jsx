@@ -321,7 +321,7 @@ export default class BreastCancerMetadata extends MetadataSection {
                                     value: (patient, currentConditionEntry) => {
                                         let list = currentConditionEntry.getObservationsOfType(FluxTumorDimensions);
                                         if (list.length === 0) return null;
-                                        return  {   value: list[0].quantity.value + " " + list[0].quantity.unit, 
+                                        return  {   value: list[0].quantity.number + " " + list[0].quantity.unit, 
                                                     isUnsigned: patient.isUnsigned(list[0]), 
                                                     source: this.determineSource(patient, list[0])
                                                 };

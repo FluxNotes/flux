@@ -9,7 +9,7 @@ export default class LabTestSubsection extends MetadataSection {
             return lab.codeableConceptCode === subsection.code;
         }).map((lab, i) => {
             const processedLab = {};
-            processedLab["start_time"] = lab.clinicallyRelevantTime;
+            processedLab["start_time"] = lab.relevantTime;
             processedLab[subsection.name] = lab.quantity.number;
             processedLab["unit"] = lab.quantity.unit;
 

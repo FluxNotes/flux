@@ -1,5 +1,5 @@
 import BodyTemperature from '../shr/vital/BodyTemperature';
-import FluxObservation from '../finding/FluxObservation';
+import FluxObservation from '../base/FluxObservation';
 
 class FluxBodyTemperature extends FluxObservation{
     constructor(json) {

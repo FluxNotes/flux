@@ -1,8 +1,10 @@
 import TumorDimensions from '../shr/oncology/TumorDimensions';
+import FluxObservation from '../base/FluxObservation';
 
-class FluxTumorDimensions {
+class FluxTumorDimensions extends FluxObservation {
     constructor(json) {
-        this._tumorDimensions = TumorDimensions.fromJSON(json);
+        super();
+        this._tumorDimensions = this._observation = this._entry = TumorDimensions.fromJSON(json);
     }
 
     get entryInfo() {
@@ -15,7 +17,7 @@ class FluxTumorDimensions {
      */
     get quantity() {
         return {
-            value: this._tumorDimensions.value.decimal,
+            number: this._tumorDimensions.value.decimalValue.value,
             unit: this._tumorDimensions.value.units.value.code
         };
     }

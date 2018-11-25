@@ -1,13 +1,13 @@
-import Observation from '../shr/base/Observation';
+import FluxObservation from '../base/FluxObservation';
 
-class FluxMitoticRate {
+class FluxMitoticRate extends FluxObservation {
     constructor(json, patientRecord) {
+        super(json);
         this._patientRecord = patientRecord;
-        this._observationComponent = Observation.fromJSON(json);
     }
 
     get value() {
-        return this._observationComponent.value.coding[0].displayText.value;
+        return this._observation.value.coding[0].displayText.value;
     }
 }
 

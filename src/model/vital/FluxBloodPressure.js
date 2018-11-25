@@ -1,5 +1,5 @@
 import BloodPressure from '../shr/vital/BloodPressure';
-import FluxObservation from '../finding/FluxObservation';
+import FluxObservation from '../base/FluxObservation';
 
 class FluxBloodPressure extends FluxObservation{
     constructor(json) {
@@ -8,7 +8,7 @@ class FluxBloodPressure extends FluxObservation{
     }
 
     get value() {
-        return this._observation._observationComponent.map((comp) => {
+        return this._observation.panelMembers.observation.map((comp) => {
             return comp.value.value;
         }).join("/");
     }

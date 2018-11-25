@@ -52,7 +52,7 @@ export default class TimelineSection extends MetadataSection {
         let items = [];
 
         progressions.forEach((prog) => {
-            const assignedGroup = this.assignItemToGroup(items, prog.clinicallyRelevantTime);
+            const assignedGroup = this.assignItemToGroup(items, prog.relevantTime);
 
             let classes = 'progression-item';
             // Do not include progression on timeline if status not set

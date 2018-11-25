@@ -1,5 +1,5 @@
 import CancerHistologicGrade from '../mcode/CancerHistologicGrade';
-import FluxObservation from '../finding/FluxObservation';
+import FluxObservation from '../base/FluxObservation';
 
 class FluxHistologicGrade extends FluxObservation {
     constructor(json) {

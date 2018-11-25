@@ -59,7 +59,7 @@ class FluxBreastCancer extends FluxSolidTumorCancer {
         const tumorSize = this.getObservationsOfType(FluxTumorDimensions);
         const histologicGrade = this.getObservationsOfType(FluxHistologicGrade);
         if (tumorSize.length > 0) {
-            hpiText += ` Primary tumor size ${tumorSize[0].quantity.value} ${tumorSize[0].quantity.unit}.`;
+            hpiText += ` Primary tumor size ${tumorSize[0].quantity.number} ${tumorSize[0].quantity.unit}.`;
         }
         if (histologicGrade.length > 0) {
             hpiText += ` Histological grade ${histologicGrade[0].grade}.`;

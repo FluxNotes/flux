@@ -1,5 +1,5 @@
 import BodyWeight from '../shr/vital/BodyWeight';
-import FluxObservation from '../finding/FluxObservation';
+import FluxObservation from '../base/FluxObservation';
 
 class FluxBodyWeight extends FluxObservation{
     constructor(json) {

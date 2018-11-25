@@ -3,7 +3,7 @@ import ConditionPresentAssertion from '../shr/base/ConditionPresentAssertion';
 import FluxCancerProgression from '../mcode/FluxCancerProgression';
 import FluxMedicationRequested from '../medication/FluxMedicationRequested';
 import FluxToxicReaction from '../adverse/FluxToxicReaction';
-import FluxObservation from '../finding/FluxObservation';
+import FluxObservation from '../base/FluxObservation';
 import FluxProcedureRequested from '../procedure/FluxProcedureRequested';
 import hpiConfig from '../hpi-configuration.json';
 import Lang from 'lodash';
@@ -22,8 +22,8 @@ class FluxConditionPresentAssertion {
     }
 
     get diagnosisDate() {
-        if (this._condition.whenClinicallyRecognized) {
-            return this._condition.whenClinicallyRecognized.value.value;
+        if (this._condition.onset) {
+            return this._condition.onset.value;
         }
         return null;
     }
@@ -120,8 +120,8 @@ class FluxConditionPresentAssertion {
 
         // Get all the toxicities
         let toxicities = this.getToxicities().filter((toxicity) => {
-            return toxicity._adverseEvent.value.coding.some((code) => {
-                return codes.includes(code.value);
+            return toxicity._adverseEvent.value.coding.some((coding) => {
+                return codes.includes(coding.code);
             });
         });
 
@@ -148,7 +148,7 @@ class FluxConditionPresentAssertion {
     }
 
     getToxicities() {
-        const entries =this._patientRecord.getEntriesOfType(FluxToxicReaction)
+        const entries = this._patientRecord.getEntriesOfType(FluxToxicReaction);
         const conditionEntryId = this._condition.entryInfo.entryId.value || this._condition.entryInfo.entryId;
         return entries.filter((item) => {
             return item instanceof FluxToxicReaction && item._adverseEvent && item._adverseEvent.specificFocusOfFinding && item._adverseEvent.specificFocusOfFinding.value._entryId === conditionEntryId;
@@ -202,13 +202,6 @@ class FluxConditionPresentAssertion {
         const conditionEntryId = this._condition.entryInfo.entryId.value || this._condition.entryInfo.entryId;
         return this._patientRecord.getEntriesOfType(FluxObservation).filter((item) => {
             return item._observation && item._observation.specificFocusOfFinding && item._observation.specificFocusOfFinding.value._entryId === conditionEntryId;
-        }).map((item) => {
-            if (item.value instanceof Reference) {
-                item = item.value;
-                return this._patientRecord.getEntryFromReference(item);
-            } else {
-                return item;
-            }
         }).filter((item) => {
             return item.codeableConceptCode === code;
         });
@@ -219,27 +212,19 @@ class FluxConditionPresentAssertion {
         return this._patientRecord.getEntriesOfType(type).filter((item) => {
             return  item._observation && item._observation.specificFocusOfFinding && 
                     item._observation.specificFocusOfFinding.value._entryId === conditionEntryId;
-        }).map((item) => {
-            if (item.value instanceof Reference) {
-                item = item.value;
-                return this._patientRecord.getEntryFromReference(item);
-            } else {
-                return item;
-            }
-        }).filter((item) => {
-            return item.constructor === type;
         });
     }
 
     getTests() {
-        return this.getObservationsOfType(FluxObservation);
+        return this.getObservationsOfType(FluxObservation).filter((item) => {
+            return !Lang.isNull(item.quantity);
+        });
     }
 
     // This method takes in a sinceDate, oldest date acceptable. All results returned must be more recent than sinceDate
     getLabResultsChronologicalOrder(sinceDate) {
         let results = this.getTests();
         results.sort(this._observationsTimeSorter);
-
         let mostRecentLabResults = results;
         if (sinceDate && !Lang.isNull(sinceDate)) {
             mostRecentLabResults = this.getMostRecentLabResults(results, sinceDate);
@@ -255,7 +240,7 @@ class FluxConditionPresentAssertion {
         const mostRecentLabResults = this.getLabResultsChronologicalOrder(moment().subtract(numberOfMonths, 'months'));
         if (mostRecentLabResults.length === 0) return 'No recent lab results.';
         
-        return mostRecentLabResults.map(l => `${l.name} ${l.quantity.number} ${l.quantity.unit} (${l.clinicallyRelevantTime})`).join('\r\n');
+        return mostRecentLabResults.map(l => `${l.name} ${l.quantity.number} ${l.quantity.unit} (${l.relevantTime})`).join('\r\n');
     }
 
     // Grab the most recent lab results within a set threshold date
@@ -267,7 +252,7 @@ class FluxConditionPresentAssertion {
 
         // Create mostRecentLabResultsLookupTable with unique lab results that fall after threshold date
         results.map((lab, i) => {
-            const startTime = new moment(lab.clinicallyRelevantTime, "D MMM YYYY");
+            const startTime = new moment(lab.relevantTime, "D MMM YYYY");
 
             // Check that the current lab result date is more later than the threshold date
             if (startTime > sinceDateMoment) {
@@ -279,19 +264,19 @@ class FluxConditionPresentAssertion {
                     // If the lab result type doesn't already exist, add it to the table
                     mostRecentLabResultsLookupTable[id] = {
                         labResult: lab,
-                        clinicallyRelevantTime: lab.clinicallyRelevantTime
+                        relevantTime: lab.relevantTime
                     }
                 } else {
                     // Check if current lab result is the most recent compared to what is in the lookup table
-                    let time1 = new moment(mostRecentLabResultsLookupTable[id].clinicallyRelevantTime, "D MMM YYYY");
-                    let time2 = new moment(lab.clinicallyRelevantTime, "D MMM YYYY");
+                    let time1 = new moment(mostRecentLabResultsLookupTable[id].relevantTime, "D MMM YYYY");
+                    let time2 = new moment(lab.relevantTime, "D MMM YYYY");
 
                     // If the current lab result is more recent than what is stored in the lookup table, update the data
                     // Lookup will only contain the most recent lab result for that type
                     if (time2 > time1) {
                         mostRecentLabResultsLookupTable[id] = {
                             labResult: lab,
-                            clinicallyRelevantTime: lab.clinicallyRelevantTime
+                            relevantTime: lab.relevantTime
                         }
                     }
                 }
@@ -433,7 +418,7 @@ class FluxConditionPresentAssertion {
                 }
                 case FluxObservation: {
                     if (event.quantity && event.quantity.number && event.quantity.unit) {
-                        hpiText += `\r\nPatient had a ${event.name} lab result of ${event.quantity.number} ${event.quantity.unit} on ${event.clinicallyRelevantTime}.`;
+                        hpiText += `\r\nPatient had a ${event.name} lab result of ${event.quantity.number} ${event.quantity.unit} on ${event.relevantTime}.`;
                     }
                     break;
                 }
@@ -465,7 +450,7 @@ class FluxConditionPresentAssertion {
                 break;
             }
             case FluxObservation: {
-                a_startTime = new moment(a.clinicallyRelevantTime, "D MMM YYYY");
+                a_startTime = new moment(a.relevantTime, "D MMM YYYY");
                 break;
             }
             default: {
@@ -490,7 +475,7 @@ class FluxConditionPresentAssertion {
                 break;
             }
             case FluxObservation: {
-                b_startTime = new moment(b.clinicallyRelevantTime, "D MMM YYYY");
+                b_startTime = new moment(b.relevantTime, "D MMM YYYY");
                 break;
             }
             default: {
@@ -522,8 +507,8 @@ class FluxConditionPresentAssertion {
 
     // Sorts the lab results in chronological order
     _observationsTimeSorter(a, b) {
-        const a_startTime = new moment(a.clinicallyRelevantTime, "D MMM YYYY");
-        const b_startTime = new moment(b.clinicallyRelevantTime, "D MMM YYYY");
+        const a_startTime = new moment(a.relevantTime, "D MMM YYYY");
+        const b_startTime = new moment(b.relevantTime, "D MMM YYYY");
         if (a_startTime < b_startTime) {
             return -1;
         }

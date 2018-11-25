@@ -34,7 +34,7 @@ export default class PathologySection extends MetadataSection {
                                 if (list.length === 0) return null;
                                 const report = list.pop();
                            
-                                return  {  value: report.clinicallyRelevantTime,
+                                return  {  value: report.relevantTime,
                                            isUnsigned: patient.isUnsigned(report), 
                                            source: this.determineSource(patient, report)
                                 }
@@ -67,7 +67,7 @@ export default class PathologySection extends MetadataSection {
                                 const list = currentConditionEntry.getObservationsOfTypeChronologicalOrder(FluxTumorDimensions);
                                 if (list.length === 0) return null;
                                 const size = list.pop(); // last is most recent
-                                return  {   value: size.quantity.value + " " + size.quantity.unit,
+                                return  {   value: size.quantity.number + " " + size.quantity.unit,
                                             isUnsigned: patient.isUnsigned(size),
                                             source: this.determineSource(patient, size)
                                         };

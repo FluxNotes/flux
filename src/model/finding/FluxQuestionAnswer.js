@@ -11,16 +11,16 @@ class FluxQuestionAnswer {
     }
 
     /*
-     *  Getter for ObservationCode coding
-     *  ObservationCode is a CodeableConcept and this function will return the coding value
+     *  Getter for FindingTopicCode coding
+     *  FindingTopicCode is a CodeableConcept and this function will return the coding value
      */
     get observationCodeCoding() {
         return this._questionAnswer.findingTopicCode.value.coding[0].code;
     }
 
     /*
-     *  Getter for ObservationCode DisplayText
-     *  ObservationCode is a CodeableConcept and this function will return the displayText value
+     *  Getter for FindingTopicCode DisplayText
+     *  FindingTopicCode is a CodeableConcept and this function will return the displayText value
      */
     get observationCodeDisplayText() {
         return this._questionAnswer.findingTopicCode.value.coding[0].displayText.value;
@@ -54,7 +54,7 @@ class FluxQuestionAnswer {
         return null;       
     }
 
-    get clinicallyRelevantTime() {
+    get relevantTime() {
         if(this._questionAnswer.relevantTime) {
             return this._questionAnswer.relevantTime.value;
         } 
