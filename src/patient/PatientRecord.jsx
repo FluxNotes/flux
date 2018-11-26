@@ -6,7 +6,7 @@ import FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel from '../model
 import FluxClinicalNote from '../model/core/FluxClinicalNote';
 import FluxConditionPresentAssertion from '../model/base/FluxConditionPresentAssertion';
 import FluxCancerProgression from '../model/mcode/FluxCancerProgression';
-import FluxEncounter from '../model/encounter/FluxEncounter';
+import FluxConsultRequested from '../model/encounter/FluxConsultRequested';
 import FluxMedicationRequested from '../model/medication/FluxMedicationRequested';
 import FluxMedicationChange from '../model/medication/FluxMedicationChange';
 import FluxNoKnownAllergy from '../model/allergy/FluxNoKnownAllergy';
@@ -263,7 +263,7 @@ class PatientRecord {
 
     // returns sorted list of encounters
     getEncountersChronologicalOrder(){
-        let encounters = this.getEntriesOfType(FluxEncounter);
+        let encounters = this.getEntriesOfType(FluxConsultRequested);
         encounters.sort(this._encounterTimeSorter);
         return encounters;
     }
@@ -307,7 +307,7 @@ class PatientRecord {
     }
 
     hasEncounterToday() { 
-        let encounters = this.getEntriesOfType(FluxEncounter);
+        let encounters = this.getEntriesOfType(FluxConsultRequested);
         const today = new moment().format("D MMM YYYY"); 
         // Try to find an encounter with a performance time of today
         return _.find(encounters, (encounter) => { 
