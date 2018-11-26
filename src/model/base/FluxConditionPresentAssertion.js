@@ -12,7 +12,7 @@ import Reference from '../Reference';
 
 
 class FluxConditionPresentAssertion {
-    constructor(json, patientRecord) {
+    constructor(json, type, patientRecord) {
         this._patientRecord = patientRecord;
         this._condition = ConditionPresentAssertion.fromJSON(json);
     }

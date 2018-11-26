@@ -9,7 +9,7 @@ class FluxBloodPressure extends FluxObservation{
 
     get value() {
         return this._observation.panelMembers.observation.map((comp) => {
-            return comp.value.value;
+            return comp.value.decimalValue.value;
         }).join("/");
     }
 

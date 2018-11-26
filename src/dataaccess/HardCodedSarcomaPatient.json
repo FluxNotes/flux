@@ -5875,6 +5875,18 @@
             },
             "Value": "12 Apr 2016"
         },
+        "SpecificFocusOfFinding": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/SpecificFocusOfFinding"
+            },
+            "Value": {
+                "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                "_EntryId": "8",
+                "_EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor"
+                }
+            }
+        },
         "Value": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"

@@ -69,16 +69,16 @@ export default class ReviewOfSystemsSection extends MetadataSection {
 
     getROSmetadata = (patient) => {
         const ros = patient.getReviewOfSystems();
-            let result = [
-                {   name: "Author",
-                    value: {value: ros.author},
-                    shortcut: null               
-                },
-                {   name: "Date",
-                    value: {value: ros.relevantTime},
-                    shortcut: null               
-                },
-            ]                    
+        let result = [
+            {   name: "Author",
+                value: {value: ros.author},
+                shortcut: null               
+            },
+            {   name: "Date",
+                value: {value: ros.relevantTime},
+                shortcut: null               
+            },
+        ]                    
         return result;              
     }
 

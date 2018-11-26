@@ -151,14 +151,14 @@ class FluxMedicationRequested {
     get amountPerDose() {
         if (!this._medicationRequested.dosage || !this._medicationRequested.dosage.doseAmount) return null;
         return {
-            value: this._medicationRequested.dosage.doseAmount.value.decimal,
+            value: this._medicationRequested.dosage.doseAmount.value.decimalValue.value,
             units: this._medicationRequested.dosage.doseAmount.value.units.value.code
         };
     }
 
     set dose(amount) {
         if (!this._medicationRequested.dosage || !this._medicationRequested.dosage.doseAmount) return;
-        this._medicationRequested.dosage.doseAmount.value.decimal = amount;
+        this._medicationRequested.dosage.doseAmount.value.decimalValue.value = amount;
     }
 
     /*
@@ -200,7 +200,7 @@ class FluxMedicationRequested {
      *  Returns status string
      */
     get status() {
-        return this._medicationRequested.status.value.coding[0].displayText.value.value;
+        return this._medicationRequested.status.value; //.coding[0].displayText.value.value;
     }
 
     /*
@@ -208,7 +208,7 @@ class FluxMedicationRequested {
      * Returns author string
      */
     get prescribedBy() {
-        return this._medicationRequested.author ? this._medicationRequested.author.value : null;
+        return this._medicationRequested.entryInfo.recordedBy ? this._medicationRequested.entryInfo.recordedBy.value : null;
     }
 
     /*
@@ -246,7 +246,7 @@ class FluxMedicationRequested {
     }
 
     get doseInstructionsText() {
-        return this._medicationRequested.dosage.doseInstructionsText ? this._medicationRequested.dosage.doseInstructionsText.value : null;
+        return this._medicationRequested.dosage.dosageInstructionsText ? this._medicationRequested.dosage.dosageInstructionsText.value : null;
     }
 
     /**

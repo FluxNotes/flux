@@ -55,8 +55,8 @@ class FluxProcedureRequested {
      *  Returns procedure code string
      */
     get code() {
-        if (!this._procedureRequested.type) return null;
-        return this._procedureRequested.type.value.coding[0].code;
+        if (!this._procedureRequested.topicCode) return null;
+        return this._procedureRequested.topicCode.value.coding[0].code;
     }
 
     /*
