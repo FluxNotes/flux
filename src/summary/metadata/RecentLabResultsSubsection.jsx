@@ -14,7 +14,7 @@ export default class RecentLabResultsSubsection extends MetadataSection {
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
 
         // Set the max number of months prior to today that a lab result can be
-        const numberOfMonths = 36;
+        const numberOfMonths = 6;
 
         // labResultsInOrder contains all lab results within a specified number of months from today
         const labResultsInOrder = currentConditionEntry.getLabResultsChronologicalOrder(moment().subtract(numberOfMonths, 'months'));

@@ -3,7 +3,6 @@ import MetadataSection from "./MetadataSection";
 import KeyDatesSubsection from './KeyDatesSubsection';
 import MostRecentVisitsSubsection from './MostRecentVisitsSubsection';
 import RecentLabResultsSubsection from './RecentLabResultsSubsection';
-import FluxTumorDimensions from '../../model/oncology/FluxTumorDimensions';
 import Lang from 'lodash'
 import moment from 'moment';
 
