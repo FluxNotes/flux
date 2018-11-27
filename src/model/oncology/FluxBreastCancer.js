@@ -10,7 +10,7 @@ class FluxBreastCancer extends FluxSolidTumorCancer {
     constructor(json, patientRecord) {
         super();
         this._patientRecord = patientRecord;
-        this._cancerDisorder = CancerDisorder.fromJSON(json);
+        this._entry = this._condition = this._cancerDisorder = CancerDisorder.fromJSON(json);
     }
 
     // Returns a list of all dates that may be considered a diagnosisDate for this condition

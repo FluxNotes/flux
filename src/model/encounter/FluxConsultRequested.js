@@ -2,7 +2,22 @@ import ConsultRequested from '../shr/encounter/ConsultRequested';
 
 class FluxConsultRequested {
     constructor(json) {
+        this._referralDate = json["ReferralDate"].value;
+        delete json.ReferralDate;
         this._consultRequested = ConsultRequested.fromJSON(json);
+    }
+
+    get ReferralDate() {
+        return this._referralDate;
+    }
+
+    /**
+     *  Setter for evidence
+     *  The method is expecting an array of reason strings
+     *  The method will lookup the corresponding coding/codesystem and set the evidence array
+     */
+    set referralDate(date) {
+        this._referralDate = date;
     }
 
     get entryInfo() {

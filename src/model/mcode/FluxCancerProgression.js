@@ -9,6 +9,13 @@ import Reference from '../Reference';
 export default class FluxCancerProgression extends FluxEntry {
     constructor(json) {
         super();
+        const evidence = json["Evidence"];
+        if (evidence) {
+            this._evidence = evidence.map(e => {
+                return new FluxEvidence(e);
+            });
+            delete json.Evidence;
+        }
         this._entry = this._cancerProgression = CancerProgression.fromJSON(json);
     }
     get entryInfo() {
@@ -46,8 +53,8 @@ export default class FluxCancerProgression extends FluxEntry {
      *  This will return an array of displayText strings from Evidence array
      */
     get evidence() {
-        if (!this._cancerProgression.evidence) return [];
-        return this._cancerProgression.evidence.map((e) => {
+        if (!this._evidence) return [];
+        return this._evidence.map((e) => {
             return e.value;
         });
     }
@@ -63,7 +70,7 @@ export default class FluxCancerProgression extends FluxEntry {
             return arr.indexOf(e) === index;
         });
 
-        this._cancerProgression.evidence = filteredEvidence.map((e) => {
+        this._evidence = filteredEvidence.map((e) => {
             let ev = new FluxEvidence();
             ev.value = lookup.getEvidenceCodeableConcept(e);   
             return ev;
