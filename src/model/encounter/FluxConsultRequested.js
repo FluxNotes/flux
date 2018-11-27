@@ -2,7 +2,9 @@ import ConsultRequested from '../shr/encounter/ConsultRequested';
 
 class FluxConsultRequested {
     constructor(json) {
-        this._referralDate = json["ReferralDate"].value;
+        if (json["ReferralDate"]) {
+            this._referralDate = json["ReferralDate"].value;
+        }
         delete json.ReferralDate;
         this._consultRequested = ConsultRequested.fromJSON(json);
     }
