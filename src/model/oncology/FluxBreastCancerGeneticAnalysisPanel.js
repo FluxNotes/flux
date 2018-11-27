@@ -14,7 +14,7 @@ class FluxBreastCancerGeneticAnalysisPanel {
     }
     
     get members() {
-        return this._breastCancerGeneticAnalysisPanel.panelMembers.value;
+        return this._breastCancerGeneticAnalysisPanel.panelMembers.observation;
     }
 
     toJSON() {

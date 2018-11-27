@@ -8,7 +8,6 @@ import FluxProcedureRequested from '../procedure/FluxProcedureRequested';
 import hpiConfig from '../hpi-configuration.json';
 import Lang from 'lodash';
 import moment from 'moment';
-import Reference from '../Reference';
 
 
 class FluxConditionPresentAssertion {
@@ -87,8 +86,8 @@ class FluxConditionPresentAssertion {
         if (    !this._condition.anatomicalLocation || 
                 this._condition.anatomicalLocation.length < 1 ||
                 !this._condition.anatomicalLocation[0].laterality ||
-                !this._condition.anatomicalLocation[0].laterality.vaue) return null;
-        return this._condition.anatomicalLocation[0].laterality.value.coding[0].displayText.value;
+                !this._condition.anatomicalLocation[0].laterality.value) return null;
+        return this._displayTextOrCode(this._condition.anatomicalLocation[0].laterality.value.coding[0]);
     }
 
     get author() {
