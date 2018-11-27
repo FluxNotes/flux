@@ -58,6 +58,53 @@
             },
             "Value": "female"
         },
+        "Race": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Race"
+            },
+            "RaceCode": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/RaceCode"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    },
+                    "Coding": [
+                        {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Code": "white"
+                        }
+                    ]
+                }
+            }
+        },
+        "Ethnicity": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Ethnicity"
+            },
+            "EthnicityCode": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/EthnicityCode"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    },
+                    "Coding": [
+                        {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Code": "2135-2",
+                            "DisplayText": "Hispanic or Latino"
+                        }
+                    ]
+                }
+            }
+        },
         "Address": [
             {
                 "City": {
@@ -1935,29 +1982,29 @@
                 },
                 "Value": {
                     "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Medication"
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
                     },
-                    "Type": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                        },
-                        "Coding": [
-                            {
+                    "Coding": [
+                        {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "316077",
+                            "DisplayText": {
                                 "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                                 },
-                                "Value": "316077",
-                                "DisplayText": {
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                    },
-                                    "Value": "ibuprofen 600mg tablet"
-                                }
+                                "Value": "ibuprofen 600mg tablet"
                             }
-                        ]
-                    },
-                    "OverTheCounter": true
+                        }
+                    ]
                 }
+            },
+            "OverTheCounter": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/OverTheCounter"
+                },
+                "Value": true
             }
         }
     },
@@ -2139,29 +2186,29 @@
                 },
                 "Value": {
                     "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Medication"
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
                     },
-                    "Type": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                        },
-                        "Coding": [
-                            {
+                    "Coding": [
+                        {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "310891",
+                            "DisplayText": {
                                 "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                                 },
-                                "Value": "310891",
-                                "DisplayText": {
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                    },
-                                    "Value": "hydrocortisone 2.5% ointment"
-                                }
+                                "Value": "hydrocortisone 2.5% ointment"
                             }
-                        ]
-                    },
-                    "OverTheCounter": true
+                        }
+                    ]
                 }
+            },
+            "OverTheCounter": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/OverTheCounter"
+                },
+                "Value": true
             }
         }
     },
@@ -5965,28 +6012,33 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/core/AnatomicalLocation"
                 },
                 "AnatomicalLocationOrLandmarkCode": {
-                    "Coding": [
-                        {
-                            "Value": "724231006",
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                            },
-                            "CodeSystem": {
-                                "Value": "http://snomed.info/sct",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/AnatomicalLocationOrLandmarkCode"
+                    },
+                    "Value": {
+                        "Coding": [
+                            {
+                                "Value": "724231006",
                                 "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                }
-                            },
-                            "DisplayText": {
-                                "Value": "Bone structure of left fibula",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                                },
+                                "CodeSystem": {
+                                    "Value": "http://snomed.info/sct",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                    }
+                                },
+                                "DisplayText": {
+                                    "Value": "Bone structure of left fibula",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    }
                                 }
                             }
+                        ],
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
                         }
-                    ],
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
                     }
                 }
             }
@@ -7908,10 +7960,10 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
             }
         },
-        "ClinicallyRelevantTime": {
+        "RelevantTime": {
             "Value": "15 May 2016",
             "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+                "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
         },
         "FindingStatus": {
@@ -7983,10 +8035,10 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
             }
         },
-        "ClinicallyRelevantTime": {
+        "RelevantTime": {
             "Value": "15 May 2016",
             "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+                "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
         },
         "FindingStatus": {
@@ -8058,10 +8110,10 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
             }
         },
-        "ClinicallyRelevantTime": {
+        "RelevantTime": {
             "Value": "15 May 2016",
             "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+                "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
         },
         "FindingStatus": {
@@ -8491,10 +8543,10 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
             }
         },
-        "ClinicallyRelevantTime": {
+        "RelevantTime": {
             "Value": "07 Mar 2018",
             "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+                "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
         },
         "FindingStatus": {
@@ -8566,10 +8618,10 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
             }
         },
-        "ClinicallyRelevantTime": {
+        "RelevantTime": {
             "Value": "07 Mar 2018",
             "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+                "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
         },
         "FindingStatus": {
@@ -8641,10 +8693,10 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
             }
         },
-        "ClinicallyRelevantTime": {
+        "RelevantTime": {
             "Value": "07 Mar 2018",
             "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+                "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
         },
         "FindingStatus": {
