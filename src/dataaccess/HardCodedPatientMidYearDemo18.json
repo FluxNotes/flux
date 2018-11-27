@@ -646,7 +646,13 @@
                     }
                 }
             }
-        ]
+        ],
+        "Onset": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/Onset"
+            },
+            "Value": "15 May 2016"
+         }
     },
     {
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -7935,6 +7941,18 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
         },
+        "SpecificFocusOfFinding": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/SpecificFocusOfFinding"
+            },
+            "Value": {
+                "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+                "_EntryId": "8",
+                "_EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"
+                }
+            }
+        },
         "Value": {
             "Coding": [
                 {
@@ -8010,6 +8028,18 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
         },
+        "SpecificFocusOfFinding": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/SpecificFocusOfFinding"
+            },
+            "Value": {
+                "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+                "_EntryId": "8",
+                "_EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"
+                }
+            }
+        },
         "Value": {
             "Coding": [
                 {
@@ -8083,6 +8113,18 @@
             "Value": "15 May 2016",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "SpecificFocusOfFinding": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/SpecificFocusOfFinding"
+            },
+            "Value": {
+                "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+                "_EntryId": "8",
+                "_EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"
+                }
             }
         },
         "Value": {
