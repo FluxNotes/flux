@@ -67,6 +67,7 @@ export class CoreCancerPilotApp extends Component {
             clinicalEvent: "pre-encounter",
             condition: null,
             errors: [],
+            highlightedSearchSuggestion: null,
             layout: "right-collapsed",
             isModalOpen: false,
             modalTitle: '',
@@ -141,6 +142,12 @@ export class CoreCancerPilotApp extends Component {
         this.setState(state, callback);
     }
 
+    setHighlightedSearchSuggestion = (suggestion) => {
+        this.setState({
+            highlightedSearchSuggestion: suggestion
+        });
+    }
+
     sourceActionIsDisabled = (element) => {
         if (element.source) {
             return false;
@@ -185,11 +192,13 @@ export class CoreCancerPilotApp extends Component {
                                 <PatientControlPanel
                                     appTitle={this.props.display}
                                     clinicalEvent={this.state.clinicalEvent}
+                                    highlightedSearchSuggestion={this.state.highlightedSearchSuggestion}
                                     layout={this.state.layout}
                                     loginUsername={this.state.loginUser.getUserName()}
                                     patient={this.state.patient}
                                     possibleClinicalEvents={[]}
                                     setCondition={this.setCondition}
+                                    setHighlightedSearchSuggestion={this.setHighlightedSearchSuggestion}
                                     setLayout={this.setLayout}
                                     setSearchSelectedItem={this.setSearchSelectedItem}
                                     supportLogin={true}
@@ -207,11 +216,13 @@ export class CoreCancerPilotApp extends Component {
                             forceRefresh={this.state.forceRefresh}
                             appState={this.state}
                             dataAccess={this.dataAccess}
+                            highlightedSearchSuggestion={this.state.highlightedSearchSuggestion}
                             loginUser={this.state.loginUser}
                             preferenceManager={this.preferenceManager}
                             searchSelectedItem={this.state.searchSelectedItem}
                             setForceRefresh={this.setForceRefresh}
                             setFullAppStateWithCallback={this.setFullAppStateWithCallback}
+                            setHighlightedSearchSuggestion={this.setHighlightedSearchSuggestion}
                             setSearchSelectedItem={this.setSearchSelectedItem}
                             summaryMetadata={this.summaryMetadata}
                             ref={(dashboard) => { this.dashboard = dashboard; }}

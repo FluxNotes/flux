@@ -27,6 +27,7 @@ export default class CoreCancerPilotDashboard extends Component {
                         actions={this.props.actions}
                         forceRefresh={this.props.forceRefresh}
                         appState={this.props.appState}
+                        highlightedSearchSuggestion={this.props.highlightedSearchSuggestion}
                         isNoteViewerEditable={false}
                         isTargetedDataSubpanelVisible={true}
                         isWide={true}
@@ -38,6 +39,7 @@ export default class CoreCancerPilotDashboard extends Component {
                         ref={(tdp) => { this.targetedDataPanel = tdp; }}
                         searchIndex={this.props.searchIndex}
                         searchSuggestions={this.props.searchSuggestions}
+                        setHighlightedSearchSuggestion={this.props.setHighlightedSearchSuggestion}
                         isAppBlurred={this.props.isAppBlurred}
                         setAppBlur={this.props.setAppBlur}
                     />
