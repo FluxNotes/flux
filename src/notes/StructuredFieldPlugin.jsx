@@ -33,6 +33,36 @@ function StructuredFieldPlugin(opts) {
         }
     }
 
+    function onKeyDown(e, key, state, editor) {
+        const anchorParent = state.document.getParent(state.selection.anchorKey);
+        const shortcut = opts.structuredFieldMapManager.keyToShortcutMap.get(anchorParent.key);
+        const ignoredKeys = [20, 37, 38, 39, 40];
+        const { isAlt, isCmd, isCtrl, isLine, isMeta, isMod, isModAlt, isShift, isWord } = key;
+        const isModifier = isAlt || isCmd || isCtrl || isLine || isMeta || isMod || isModAlt || isShift || isWord;
+        if (shortcut && !Lang.includes(ignoredKeys, e.keyCode) && !isModifier) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            // const indexOfTyping = state.anchorOffset;
+            // let arr = shortcut.getArrayOfText();
+            // if (arr.length === 0) arr = shortcut.getText().split('').map(c => [c, true]);
+            // arr.splice(indexOfTyping, 0, [e.key, false]);
+            // shortcut.setText(arr)
+
+            let transform = state.transform();
+            transform = transform.splitInline();
+            const key = transform.state.document.getNode(anchorParent.key).key;
+            const newTextNode = transform.state.document.getNextSibling(key);
+            transform = transform.moveToRangeOf(newTextNode).insertText(e.key).apply();
+
+            // transform = transform.setNodeByKey(anchorParent.key, {
+            //     data: { shortcut }
+            // }).insertText(e.key).focus().apply();
+
+            editor.onChange(transform);
+        }
+    }
+
     function onChange(state, editor) {
         var deletedKeys = [];
         const keyToShortcutMap = opts.structuredFieldMapManager.keyToShortcutMap;
@@ -353,6 +383,7 @@ function StructuredFieldPlugin(opts) {
 	return {
         clearStructuredFieldMap,
         onBeforeInput,
+        onKeyDown,
         onChange,
         onCut,
         onCopy,
