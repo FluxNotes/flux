@@ -3668,7 +3668,7 @@
                 },
                 "Severity": {
                     "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/condition/Severity"
+                        "Value": "http://standardhealthrecord.org/spec/shr/base/Severity"
                     },
                     "Value": {
                         "Coding": [
@@ -3739,7 +3739,7 @@
                 },
                 "Severity": {
                     "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/condition/Severity"
+                        "Value": "http://standardhealthrecord.org/spec/shr/base/Severity"
                     },
                     "Value": {
                         "Coding": [
@@ -3859,7 +3859,7 @@
                 },
                 "Severity": {
                     "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/condition/Severity"
+                        "Value": "http://standardhealthrecord.org/spec/shr/base/Severity"
                     },
                     "Value": {
                         "Coding": [
@@ -3930,7 +3930,7 @@
                 },
                 "Severity": {
                     "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/condition/Severity"
+                        "Value": "http://standardhealthrecord.org/spec/shr/base/Severity"
                     },
                     "Value": {
                         "Coding": [

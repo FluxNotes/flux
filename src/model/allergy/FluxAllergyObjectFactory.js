@@ -15,8 +15,8 @@ export default class FluxAllergyIntoleranceObjectFactory {
         switch (elementName) {
             case 'AllergyIntolerance': return new FluxAllergyIntolerance(json);
             case 'NoKnownAllergy': return new FluxNoKnownAllergy(json);
-            case 'SubstanceCategory': return new SubstanceCategory(json);
-            case 'AdverseReaction': return new AdverseReaction(json);
+            case 'SubstanceCategory': return SubstanceCategory.fromJSON(json);
+            case 'AdverseReaction': return AdverseReaction.fromJSON(json);
             // default: return ShrAllergyObjectFactory.createInstance(json, type);
             default: console.log('unsupported allergy namespace class ' + elementName);
         }
