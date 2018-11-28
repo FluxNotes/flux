@@ -197,8 +197,6 @@ export default class InsertValue extends Shortcut {
         let text = this.text;
         if (typeof text === "string" && text.startsWith(this.getPrefixCharacter())) {
             text = text.substring(1);
-        } else if (Lang.isArray(text)) {
-            text = text.map(c => c[0]).join('');
         }
         // If this.valueObject exists, put the entryId of the valueObject in the result text
         if (this.valueObject) {

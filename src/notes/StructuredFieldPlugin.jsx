@@ -43,10 +43,21 @@ function StructuredFieldPlugin(opts) {
             transform = transform.moveToRangeOf(newTextNode).insertText(e.key);
 
             const newShortcutNode = transform.state.document.getNextSibling(newTextNode.key);
+            const newShortcut = Lang.cloneDeep(shortcut);
+            newShortcut.setText(newShortcutNode.text);
+            transform = transform.setNodeByKey(newShortcutNode.key, {
+                data: { shortcut: newShortcut }
+            });
+
+            const oldShortcutNode = transform.state.document.getPreviousSibling(newTextNode.key);
+            shortcut.setText(oldShortcutNode.text);
+            transform = transform.setNodeByKey(anchorParent.key, {
+                data: { shortcut }
+            });
 
             transform = transform.apply();
 
-            opts.structuredFieldMapManager.keyToShortcutMap.set(newShortcutNode.key, shortcut);
+            opts.structuredFieldMapManager.keyToShortcutMap.set(newShortcutNode.key, newShortcut);
 
             // transform = transform.setNodeByKey(anchorParent.key, {
             //     data: { shortcut }
