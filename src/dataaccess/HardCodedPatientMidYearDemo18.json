@@ -56,7 +56,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/AdministrativeGender"
             },
-            "Value": "female"
+            "Value": "Female"
         },
         "Race": {
             "EntryType": {
