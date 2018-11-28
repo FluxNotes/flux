@@ -81,7 +81,7 @@ export default class SarcomaNursePractitionerMetadata extends MetadataSection {
                                         const panels = patient.getGastrointestinalStromalTumorCancerGeneticAnalysisPanelsChronologicalOrder();
                                         if (!panels || panels.length === 0) return null;
                                         const panel = panels.pop();
-                                        return  {   value: panel.panelMembers.filter((item) => {
+                                        return  {   value: panel.members.filter((item) => {
                                                             return (item.value === 'Positive');
                                                         }).map((item) => {
                                                             const v = item.value === 'Positive' ? '+' : '-';
