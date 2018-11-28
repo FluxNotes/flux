@@ -375,7 +375,6 @@ class Content extends React.Component {
    */
 
   onCopy = (event) => {
-    console.log('here content copy return now?', !this.isInEditor(event.target), event.target)
     if (!this.isInEditor(event.target)) return
     const window = getWindow(event.target)
     this.tmp.isCopying = true
