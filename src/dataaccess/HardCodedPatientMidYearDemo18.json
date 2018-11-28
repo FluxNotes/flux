@@ -1024,7 +1024,111 @@
             }
         }
     },
-
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+        "EntryId": "11",
+        "RecordedBy": {
+            "Value": "Dr. Mona341 Brown483",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/RecordedBy"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationChange"
+        },
+        "LastUpdated": {
+            "Value": "17 Jul 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "17 Jul 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "TopicCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/TopicCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Value": "reduced",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "DisplayText": {
+                            "Value": "Dose Reduced",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        },
+        "Status": {
+            "Value": "completed",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Status"
+            }
+        },
+        "Reason": [
+            {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/Reason"
+                },
+                "Value": {
+                    "Coding": [
+                        {
+                            "Value": "side_effect",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "DisplayText": {
+                                "Value": "Side Effect",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                }
+                            }
+                        }
+                    ],
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    }
+                }
+            }
+        ],
+        "MedicationAfterChange": {
+            "Value": {
+                "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+                "EntryId": "19",
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested"
+                }
+            },
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationAfterChange"
+            }
+        },
+        "MedicationBeforeChange": {
+            "Value": {
+                "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+                "EntryId": "14",
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested"
+                }
+            },
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationBeforeChange"
+            }
+        }
+    },
     {
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
         "EntryId": "12",
