@@ -110,7 +110,7 @@ class VisualizerManager {
                     value: dose,
                 },
                 { 
-                    value: timing || doseInstructionsText + asNeeded,
+                    value: (timing || doseInstructionsText) + asNeeded,
                 },
                 { 
                     value: med.medication.expectedPerformanceTime.timePeriodStart,

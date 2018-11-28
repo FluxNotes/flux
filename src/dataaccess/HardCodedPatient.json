@@ -6929,6 +6929,16 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
         },
+        "SpecificFocusOfFinding": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/SpecificFocusOfFinding"
+            },
+            "Value": {
+                "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                "_EntryId": "8",
+                "_EntryType": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"
+            }
+        },
         "RelevantTime": {
             "Value": "01 Jun 2012",
             "EntryType": {

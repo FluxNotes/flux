@@ -8,6 +8,7 @@ import KeyDatesSubsection from './KeyDatesSubsection';
 import MedicationsSection from './MedicationsSection';
 import MostRecentVisitSubsection from './MostRecentVisitsSubsection';
 import NeutrophilCountSubsection from './NeutrophilCountSubsection';
+import PathologySection from './PathologySection';
 import ProceduresSection from './ProceduresSection';
 import ImagingSection from "./ImagingSection";
 import RecentLabResultsSubsection from './RecentLabResultsSubsection';
@@ -286,107 +287,7 @@ export default class BreastCancerMetadata extends MetadataSection {
                     ]
                 },
                 MedicationsSection,
-                {
-                    name: "Pathology",
-                    shortName: "Pathology",
-                    type: "NameValuePairs",
-                    /*eslint no-template-curly-in-string: "off"*/
-                    narrative: [
-                        {
-                            defaultTemplate: "Primary tumor color is ${.Color}, weight is ${.Weight}, and size is ${.Size}."
-                        },
-                        {
-                            defaultTemplate: "Tumor margins are ${.Tumor Margins}. Histological grade is ${.Histological Grade}."
-                        },
-                        {
-                            defaultTemplate: "ER-${.Receptor Status ER} PR-${.Receptor Status PR} HER2-${.Receptor Status HER2}."
-                        }
-                    ],
-                    data: [
-                        {
-                            name: "",
-                            items: [
-
-                                // TODO: When return value for items that are currently null, need to also return patient.isUnsigned(currentConditionEntry)
-                                {
-                                    name: "Color",
-                                    value: null
-                                },
-                                {
-                                    name: "Weight",
-                                    value: null
-                                },
-                                {
-                                    name: "Size",
-                                    value: (patient, currentConditionEntry) => {
-                                        let list = currentConditionEntry.getObservationsOfType(FluxTumorDimensions);
-                                        if (list.length === 0) return null;
-                                        return  {   value: list[0].quantity.number + " " + list[0].quantity.unit, 
-                                                    isUnsigned: patient.isUnsigned(list[0]), 
-                                                    source: this.determineSource(patient, list[0])
-                                                };
-                                    }
-                                },
-                                {
-                                    name: "Tumor Margins",
-                                    value: null
-                                },
-                                {
-                                    name: "Histological Grade",
-                                    value: (patient, currentConditionEntry) => {
-                                        let histologicalGrade = currentConditionEntry.getMostRecentHistologicalGrade();
-                                        return  {   value: histologicalGrade.grade, 
-                                                    isUnsigned: patient.isUnsigned(histologicalGrade), 
-                                                    source: this.determineSource(patient, histologicalGrade)
-                                                };
-                                    }
-                                },
-                                {
-                                    name: "Receptor Status ER",
-                                    value: (patient, currentConditionEntry) => {
-                                        let er = currentConditionEntry.getMostRecentERReceptorStatus();
-                                        if (Lang.isNull(er)) {
-                                            return null;
-                                        } else {
-                                            return  {   value: er.status, 
-                                                        isUnsigned: patient.isUnsigned(er), 
-                                                        source: this.determineSource(patient, er)
-                                                    };
-                                        }
-                                    }
-                                },
-                                {
-                                    name: "Receptor Status PR",
-                                    value: (patient, currentConditionEntry) => {
-                                        let pr = currentConditionEntry.getMostRecentPRReceptorStatus();
-                                        if (Lang.isNull(pr)) {
-                                            return null;
-                                        } else {
-                                            return  {   value: pr.status, 
-                                                        isUnsigned: patient.isUnsigned(pr), 
-                                                        source: this.determineSource(patient, pr)
-                                                    };
-                                        }
-                                    }
-                                },
-                                {
-                                    name: "Receptor Status HER2",
-                                    value: (patient, currentConditionEntry) => {
-                                        let her2 = currentConditionEntry.getMostRecentHER2ReceptorStatus();
-                                        if (Lang.isNull(her2)) {
-                                            return null;
-                                        } else {
-                                            return  {   value: her2.status, 
-                                                        isUnsigned: patient.isUnsigned(her2), 
-                                                        source: this.determineSource(patient, her2)
-                                                    };
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                },
+                PathologySection,
                 {
                     name: "Genetics",
                     shortName: "Genetics",
