@@ -20,19 +20,6 @@ function StructuredFieldPlugin(opts) {
     let insertText = opts.insertText;
     const clearStructuredFieldMap = opts.structuredFieldMapManager.clearStructuredFieldMap;
 
-    function onBeforeInput(e, _, state, editor) {
-        const anchorParent = state.document.getParent(state.selection.anchorKey);
-        const shortcut = opts.structuredFieldMapManager.keyToShortcutMap.get(anchorParent.key);
-        if (shortcut) {
-            const typedLetter = e.nativeEvent.data || ' ';
-            const indexOfTyping = state.anchorOffset;
-            let arr = shortcut.getArrayOfText();
-            if (arr.length === 0) arr = shortcut.getText().split('').map(c => [c, true]);
-            arr.splice(indexOfTyping, 0, [typedLetter, false]);
-            shortcut.setText(arr)
-        }
-    }
-
     function onKeyDown(e, key, state, editor) {
         const anchorParent = state.document.getParent(state.selection.anchorKey);
         const shortcut = opts.structuredFieldMapManager.keyToShortcutMap.get(anchorParent.key);
@@ -53,7 +40,13 @@ function StructuredFieldPlugin(opts) {
             transform = transform.splitInline();
             const key = transform.state.document.getNode(anchorParent.key).key;
             const newTextNode = transform.state.document.getNextSibling(key);
-            transform = transform.moveToRangeOf(newTextNode).insertText(e.key).apply();
+            transform = transform.moveToRangeOf(newTextNode).insertText(e.key);
+
+            const newShortcutNode = transform.state.document.getNextSibling(newTextNode.key);
+
+            transform = transform.apply();
+
+            opts.structuredFieldMapManager.keyToShortcutMap.set(newShortcutNode.key, shortcut);
 
             // transform = transform.setNodeByKey(anchorParent.key, {
             //     data: { shortcut }
@@ -382,7 +375,6 @@ function StructuredFieldPlugin(opts) {
 		a cursor. see style top value of -18px  */
 	return {
         clearStructuredFieldMap,
-        onBeforeInput,
         onKeyDown,
         onChange,
         onCut,
