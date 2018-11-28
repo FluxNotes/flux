@@ -26,7 +26,7 @@ function StructuredFieldPlugin(opts) {
         const ignoredKeys = [20, 37, 38, 39, 40];
         const { isAlt, isCmd, isCtrl, isLine, isMeta, isMod, isModAlt, isShift, isWord } = key;
         const isModifier = isAlt || isCmd || isCtrl || isLine || isMeta || isMod || isModAlt || isShift || isWord;
-        if (shortcut && !Lang.includes(ignoredKeys, e.keyCode) && !isModifier) {
+        if (shortcut && !Lang.includes(ignoredKeys, e.keyCode) && !isModifier && e.key !== 'Enter') {
             e.preventDefault();
             e.stopPropagation();
 
@@ -62,6 +62,35 @@ function StructuredFieldPlugin(opts) {
             // transform = transform.setNodeByKey(anchorParent.key, {
             //     data: { shortcut }
             // }).insertText(e.key).focus().apply();
+
+            editor.onChange(transform);
+        } else if (shortcut && e.key === 'Enter') {
+            e.preventDefault();
+            e.stopPropagation();
+
+            // Split block and move focus into the new text node
+            let transform = state.transform().splitBlock();
+            const parentBlock = transform.state.document.getParent(anchorParent.key);
+            const newBlock = transform.state.document.getNextSibling(parentBlock.key);
+            const newTextNode = newBlock.getFirstText();
+            transform = transform.moveToRangeOf(newTextNode);
+
+            const newShortcutNode = transform.state.document.getNextSibling(newTextNode.key);
+            const newShortcut = Lang.cloneDeep(shortcut);
+            newShortcut.setText(newShortcutNode.text);
+            transform = transform.setNodeByKey(newShortcutNode.key, {
+                data: { shortcut: newShortcut }
+            });
+
+            const oldShortcutNode = parentBlock.getChild(anchorParent.key);
+            shortcut.setText(oldShortcutNode.text);
+            transform = transform.setNodeByKey(anchorParent.key, {
+                data: { shortcut }
+            });
+
+            transform = transform.apply();
+
+            opts.structuredFieldMapManager.keyToShortcutMap.set(newShortcutNode.key, newShortcut);
 
             editor.onChange(transform);
         }

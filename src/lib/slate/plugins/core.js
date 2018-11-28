@@ -448,7 +448,9 @@ function Plugin(options = {}) {
   function onKeyDownEnter(e, data, state) {
     const { document, startKey } = state
     const hasVoidParent = document.hasVoidParent(startKey)
-
+    if (e.isPropagationStopped()) {
+      return state;
+    }
     // For void nodes, we don't want to split. Instead we just move to the start
     // of the next text node if one exists.
     if (hasVoidParent) {
