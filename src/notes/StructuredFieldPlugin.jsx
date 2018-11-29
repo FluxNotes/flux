@@ -162,8 +162,9 @@ function StructuredFieldPlugin(opts) {
         return result;
     }
 
-    function convertToText(state) {
-        return `${convertSlateNodesToText(state.document.toJSON().nodes)}`;
+    function convertToText(fragment) {
+
+        return `${convertSlateNodesToText(fragment.toJSON().nodes)}`;
     }
 
     function onCopy(event, data, state, editor) {
@@ -176,8 +177,7 @@ function StructuredFieldPlugin(opts) {
 
         // If the selection is collapsed, and it isn't inside a void node, abort.
         if (native.isCollapsed && !isVoid) return;
-
-        let fluxString = convertToText(state);
+        let fluxString = convertToText(data.fragment);
         const encoded = window.btoa(window.encodeURIComponent(fluxString));
         const range = native.getRangeAt(0);
         let contents = range.cloneContents();
@@ -258,7 +258,6 @@ function StructuredFieldPlugin(opts) {
             const matches = FRAGMENT_MATCHER.exec(html);
             const [ full, encoded ] = matches; // eslint-disable-line no-unused-vars
             const decoded = window.decodeURIComponent(window.atob(encoded));
-
             // because insertion of shortcuts into the context relies on the current selection, during a paste
             // we override the routine that checks the location of a structured field relative to the selection
             // since we know we are inserting from left to right always. Make sure we restore the normal method

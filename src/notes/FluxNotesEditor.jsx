@@ -485,7 +485,7 @@ class FluxNotesEditor extends React.Component {
     }
 
     getNoteText = (state) => {
-        const documentText = this.structuredFieldPlugin.convertToText(state);
+        const documentText = this.structuredFieldPlugin.convertToText(state.document);
 
         return documentText;
     }
@@ -666,6 +666,7 @@ class FluxNotesEditor extends React.Component {
             }
         });
     }
+
 
     // This gets called before the component receives new properties
     componentWillReceiveProps = (nextProps) => {
@@ -1762,6 +1763,8 @@ class FluxNotesEditor extends React.Component {
         /**
          * Render the editor, toolbar, dropdown and description for note
          */
+
+       
         return (
             <div id="clinical-notes" className={`dashboard-panel ${disabledEditorClassName}`}>
                 {this.renderNoteDescriptionContent()}

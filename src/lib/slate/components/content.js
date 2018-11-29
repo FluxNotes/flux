@@ -377,17 +377,14 @@ class Content extends React.Component {
   onCopy = (event) => {
     if (!this.isInEditor(event.target)) return
     const window = getWindow(event.target)
-
     this.tmp.isCopying = true
     window.requestAnimationFrame(() => {
       this.tmp.isCopying = false
-    })
-
+    }) 
     const { state } = this.props
     const data = {}
     data.type = 'fragment'
     data.fragment = state.fragment
-
     debug('onCopy', { event, data })
     this.props.onCopy(event, data)
   }
