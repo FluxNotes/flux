@@ -2,7 +2,7 @@ import CodeableConcept from '../shr/core/CodeableConcept';
 
 export default class FluxEvidence {
     constructor(json) {
-        this._value = CodeableConcept.fromJSON(json.Value);
+        if (json) this._value = CodeableConcept.fromJSON(json.Value);
     }
 
     get value() {

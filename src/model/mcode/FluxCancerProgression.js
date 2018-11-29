@@ -4,7 +4,11 @@ import CreationTime from '../shr/core/CreationTime';
 import FluxEntry from '../base/FluxEntry';
 import FluxEvidence from './FluxEvidence';
 import RelevantTime from '../shr/base/RelevantTime';
+import Entry from '../shr/base/Entry';
 import Reference from '../Reference';
+import EntryType from '../shr/base/EntryType';
+import moment from 'moment';
+import LastUpdated from '../shr/base/LastUpdated';
 
 export default class FluxCancerProgression extends FluxEntry {
     constructor(json) {
@@ -17,7 +21,17 @@ export default class FluxCancerProgression extends FluxEntry {
             delete json.Evidence;
         }
         this._entry = this._cancerProgression = CancerProgression.fromJSON(json);
+        if (!this._cancerProgression.entryInfo) {
+            let entry = new Entry();
+            entry.entryType = new EntryType();
+            entry.entryType.uri = 'http://standardhealthrecord.org/spec/mcode/CancerProgression';
+            let today = new moment().format("D MMM YYYY");
+            entry.lastUpdated = new LastUpdated();
+            entry.lastUpdated.instant = today;
+            this._cancerProgression.entryInfo = entry;
+        }
     }
+
     get entryInfo() {
         return this._cancerProgression.entryInfo;
     }
