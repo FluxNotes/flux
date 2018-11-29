@@ -1,6 +1,8 @@
 import FluxEntry from '../base/FluxEntry';
 import Observation from '../shr/base/Observation';
 import Quantity from '../shr/core/Quantity';
+import Reference from '../Reference';
+import SpecificFocusOfFinding from '../shr/base/SpecificFocusOfFinding.js';
 
 class FluxObservation extends FluxEntry {
     constructor(json) {
@@ -49,6 +51,28 @@ class FluxObservation extends FluxEntry {
             return this._observation.relevantTime.value;
         } else { 
             return null;
+        }
+    }
+
+    get specificFocusOfFinding() {
+        if (this._observation.specificFocusOfFinding) {
+            return this._observation.specificFocusOfFinding;
+        }
+        return null;
+    }
+
+    set specificFocusOfFinding(val) {
+        this._observation.specificFocusOfFinding = val;
+    }
+
+    setSpecificFocusOfFinding(obj) {
+        if (!obj) {
+            this.specificFocusOfFinding = null;
+        } else {
+            let ref = new Reference(obj.entryInfo.shrId, obj.entryInfo.entryId, obj.entryInfo.entryType);
+            let sff = new SpecificFocusOfFinding();
+            sff.value = ref;
+            this.specificFocusOfFinding = sff;
         }
     }
 

@@ -55,8 +55,10 @@
                                 {"name":"N", "attribute":"n_Stage", "isSettable":"true", "setMethod":"n_Stage", "childShortcut": "StagingNCreator"},
                                 {"name":"M", "attribute":"m_Stage", "isSettable":"true", "setMethod":"m_Stage", "childShortcut": "StagingMCreator"},
                                 {"name":"stage", "attribute":"stage", "isSettable":"false"} ],
-    "updatePatient": [ {"object":"patient", "method": "addEntryToPatientWithPatientFocalSubject", "args": [ "$valueObject", "$clinicalNote" ]},
-                       {"object":"$parentValueObject", "method": "addObservation", "args": [ "$valueObject", "$clinicalNote" ]}],
+    "updatePatient": [ 
+                        {"object":"$valueObject", "method": "setSpecificFocusOfFinding", "args": [ "$parentValueObject"]},
+                        {"object":"patient", "method": "addEntryToPatientWithPatientFocalSubject", "args": [ "$valueObject", "$clinicalNote" ]}
+    ],
     "undoUpdatePatient": [{"object":"$parentValueObject", "method": "removeObservation", "args": [ "$valueObject" ]}],
     "isContext": true,
     "stringTriggers": [{ "name": "#staging", "description": "The stage of a cancer, assessed according to the standard established by American Joint Committee on Cancer (AJCC). TNM Stage Grouping categorizes the progression of cancer using the Roman Numeral system."}],

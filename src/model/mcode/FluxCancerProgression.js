@@ -9,6 +9,7 @@ import Reference from '../Reference';
 import EntryType from '../shr/base/EntryType';
 import moment from 'moment';
 import LastUpdated from '../shr/base/LastUpdated';
+import SpecificFocusOfFinding from '../shr/base/SpecificFocusOfFinding.js';
 
 export default class FluxCancerProgression extends FluxEntry {
     constructor(json) {
@@ -139,7 +140,9 @@ export default class FluxCancerProgression extends FluxEntry {
             this.specificFocusOfFinding = null;
         } else {
             let ref = new Reference(obj.entryInfo.shrId, obj.entryInfo.entryId, obj.entryInfo.entryType);
-            this.specificFocusOfFinding = ref;
+            let sff = new SpecificFocusOfFinding();
+            sff.value = ref;
+            this.specificFocusOfFinding = sff;
         }
     }
 

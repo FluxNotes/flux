@@ -19,7 +19,7 @@ class FluxTNMStage extends FluxObservation {
         if (!this._observation.entryInfo) {
             let entry = new Entry();
             entry.entryType = new EntryType();
-            entry.entryType.uri = 'http://standardhealthrecord.org/spec/mcode/CancerStage';
+            entry.entryType.uri = 'http://standardhealthrecord.org/spec/mcode/CancerStageInformation';
             this._observation.entryInfo = entry;
             this._observation.panelMembers = [];
         }
@@ -66,7 +66,7 @@ class FluxTNMStage extends FluxObservation {
     set t_Stage(tStage) {
         let t = new TNMClinicalPrimaryTumorClassification();
         t.value = lookup.getTStageCodeableConcept(tStage);
-        const tIndex = this._observation.observationComponent.findIndex((o) => {
+        const tIndex = this._observation.panelMembers.findIndex((o) => {
             return o instanceof TNMClinicalPrimaryTumorClassification;
         });
         if (tIndex >= 0) {

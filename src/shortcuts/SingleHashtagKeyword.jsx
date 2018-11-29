@@ -183,7 +183,6 @@ export default class SingleHashtagKeyword extends EntryShortcut {
     }
 
     callMethod(patient, spec, clinicalNote) {
-        //{"object":"patient", "method": "addObservationToCondition", "args": [ "$valueObject", "$parentValueObject"]}
         const obj = spec["object"];
         const method = spec["method"];
         const listAttribute = spec["listAttribute"];
