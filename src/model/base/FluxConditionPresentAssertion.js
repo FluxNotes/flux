@@ -154,37 +154,6 @@ class FluxConditionPresentAssertion {
         });
     }
 
-    addToxicity(toxicity, clinicalNote) {
-        toxicity._adverseEvent.specificFocusOfFinding = this._patientRecord.createEntryReferenceTo(this);
-        this.addObservation(toxicity, clinicalNote);
-    }
-
-    removeToxicity(toxicity) {
-        this.removeObservation(toxicity);
-    }
-
-    addObservation(observation, clinicalNote) {
-        let ref = this._patientRecord.createEntryReferenceTo(observation);
-        let currentObservations = this._condition.evidence || [];
-        currentObservations.push(ref);
-        this._condition.evidence  = currentObservations;
-    }
-
-    removeObservation(observation) {
-        this._patientRecord.removeEntryFromPatient(observation);
-        const matchingRefs = this._condition.evidence.filter((ref) => {
-            return (    ref.entryId === observation.entryInfo.entryId &&
-                        ref.entryType === observation.entryInfo.entryType.value &&
-                        ref.shrId === observation.entryInfo.shrId);
-        });
-        if (matchingRefs.length > 0) {
-            const index = this._condition.evidence.indexOf(matchingRefs[0]);
-            this._condition.evidence.splice(index, 1);
-        } else {
-            console.error("Attempted to delete an entry that does not exist: " + observation.entryInfo.entryId);
-        }
-    }
-
     getObservationsOfTypeChronologicalOrder(type) {
         let results = this.getObservationsOfType(type);
         results.sort(this._observationsTimeSorter);
