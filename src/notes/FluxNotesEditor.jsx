@@ -54,25 +54,6 @@ const structuredFieldTypes = [
     }
 ]
 
-// Given  text and starting index, recursively traverse text to find index location of text
-function getIndexRangeForCurrentWord(text, index, initialIndex, initialChar) {
-    if (index === initialIndex) {
-        return {
-            start: getIndexRangeForCurrentWord(text, index - 1, initialIndex, initialChar),
-            end: getIndexRangeForCurrentWord(text, index + 1, initialIndex, initialChar)
-        }
-    }
-    if (text[index] === initialChar || text[index] === undefined) {
-        return index
-    }
-    if (index < initialIndex) {
-        return getIndexRangeForCurrentWord(text, index - 1, initialIndex, initialChar)
-    }
-    if (index > initialIndex) {
-        return getIndexRangeForCurrentWord(text, index + 1, initialIndex, initialChar)
-    }
-}
-
 class FluxNotesEditor extends React.Component {
     constructor(props) {
         super(props);
@@ -440,6 +421,7 @@ class FluxNotesEditor extends React.Component {
         }
         let {anchorText, anchorOffset} = state;
         let anchorKey = state.anchorBlock.key;
+        // All the text in this block
         let text = anchorText.text
         if (text.length === 0) {
             const block = state.document.getPreviousSibling(anchorKey);
@@ -448,19 +430,17 @@ class FluxNotesEditor extends React.Component {
                 anchorOffset = text.length;
             }
         }
-
-        let index = {start: anchorOffset - 1, end: anchorOffset}
-
-        if (text[anchorOffset - 1] !== prefixCharacter) {
-            index = getIndexRangeForCurrentWord(text, anchorOffset - 1, anchorOffset - 1, prefixCharacter)
+        
+        const indexOfPrefixInText = text.indexOf(prefixCharacter)
+        if (indexOfPrefixInText === -1) { 
+            // If the prefix character and the text don't match up, error
+            console.error(`In suggestionDeleteExistingTransform: prefix character ${prefixCharacter} not found in current text ${text}`)
+            return transform
+        } else { 
+            const charactersToDelete = anchorOffset - indexOfPrefixInText;
+            return transform
+                .deleteBackward(charactersToDelete);
         }
-
-        // const newText = `${text.substring(0, index.start)}`
-        const charactersInStructuredPhrase = (text.length - index.start)
-
-        return transform
-            .deleteBackward(0)
-            .deleteBackward(charactersInStructuredPhrase);
     }
 
     insertStructuredFieldTransform = (transform, shortcut) => {
