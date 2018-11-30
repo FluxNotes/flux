@@ -141,6 +141,7 @@ class FluxMedicationRequested {
      *  Returns boolean value for medicationsOrCode of medication type. Returns undefined for codeable concepts.
      */
     get overTheCounter() {
+        if (!this._medicationRequested.medication.overTheCounter) return undefined;
         return this._medicationRequested.medication.overTheCounter.value;
     }
 
