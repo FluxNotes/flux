@@ -13,7 +13,7 @@ class FluxDeathInformation {
         if (!this._deathInformation.entryInfo) {
             let entry = new Entry();
             entry.entryType = new EntryType();
-            entry.entryType.uri = 'http://standardhealthrecord.org/spec/shr/entity/Deceased';
+            entry.entryType.uri = 'http://standardhealthrecord.org/spec/shr/entity/DeathInformation';
             let today = new moment().format("D MMM YYYY");
             entry.lastUpdated = new LastUpdated();
             entry.lastUpdated.instant = today;
@@ -30,8 +30,8 @@ class FluxDeathInformation {
      *  This will return the date value
      */
     get dateOfDeath() {
-        if (Lang.isUndefined(this._deathInformation.dateOfDeath) || Lang.isUndefined(this._deathInformation.dateOfDeath.dateTime)) return null; 
-        return this._deathInformation.dateOfDeath.dateTime.value;
+        if (Lang.isUndefined(this._deathInformation.dateOfDeath)) return null; 
+        return this._deathInformation.dateOfDeath.value;
     }
 
     /**

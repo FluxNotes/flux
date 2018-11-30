@@ -285,7 +285,7 @@
     "id": "DeceasedCreator",
     "name": "deceased",
     "getData": null,
-    "valueObject": "http://standardhealthrecord.org/spec/shr/entity/Deceased",
+    "valueObject": "http://standardhealthrecord.org/spec/shr/entity/DeathInformation",
     "valueObjectAttributes": [  {"name":"date", "attribute":"dateOfDeath", "isSettable":"true", "setMethod": "dateOfDeath", "childShortcut": "DateCreator"} ],
     "updatePatient": [{"object":"patient", "method": "setDeceased", "args": [ "$valueObject" ]},
                       {"object":"patient", "method": "addEntryToPatientWithPatientFocalSubject", "args": [ "$valueObject", "$clinicalNote" ]}],
