@@ -69,7 +69,7 @@ class FluxProcedureRequested {
     
     get annotation() {
         if (this._procedureRequested.annotation && this._procedureRequested.annotation.length > 0) {
-            return this._procedureRequested.annotation[0].value;
+            return this._procedureRequested.annotation[0].text;
         } else {
             return null;
         }
