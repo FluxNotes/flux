@@ -584,6 +584,11 @@ class FluxNotesEditor extends React.Component {
                 shortcut
             }
         });
+
+        // Update text on the node
+        const shortcutNode = transform.state.document.getNode(shortcut.getKey());
+        transform = transform.moveToRangeOf(shortcutNode).insertText(shortcut.getText()).collapseToStartOfNextText().focus();
+
         return transform;
     }
 
