@@ -1,10 +1,12 @@
 import MetadataSection from "./MetadataSection";
 import FluxTumorDimensions from '../../model/oncology/FluxTumorDimensions';
 import FluxTumorMargins from '../../model/oncology/FluxTumorMargins';
+import FluxBreastCancer from '../../model/oncology/FluxBreastCancer';
+import Lang from 'lodash'
 
 export default class PathologySection extends MetadataSection {
     getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
-        return {
+        const metadata = {
             name: "Pathology",
             shortName: "Pathology",
             type: "NameValuePairs",
@@ -99,5 +101,58 @@ export default class PathologySection extends MetadataSection {
                 }
             ]
         };
+
+        // Include receptor statuses for Breast Cancer metadata
+        if (condition instanceof FluxBreastCancer) {
+            metadata.narrative.push({
+                    defaultTemplate: "ER-${.Receptor Status ER} PR-${.Receptor Status PR} HER2-${.Receptor Status HER2}."
+            });
+            metadata.data[0].items.push(
+                {
+                    name: "Receptor Status ER",
+                    value: (patient, currentConditionEntry) => {
+                        let er = currentConditionEntry.getMostRecentERReceptorStatus();
+                        if (Lang.isNull(er)) {
+                            return null;
+                        } else {
+                            return  {   value: er.status, 
+                                        isUnsigned: patient.isUnsigned(er), 
+                                        source: this.determineSource(patient, er)
+                                    };
+                        }
+                    }
+                },
+                {
+                    name: "Receptor Status PR",
+                    value: (patient, currentConditionEntry) => {
+                        let pr = currentConditionEntry.getMostRecentPRReceptorStatus();
+                        if (Lang.isNull(pr)) {
+                            return null;
+                        } else {
+                            return  {   value: pr.status, 
+                                        isUnsigned: patient.isUnsigned(pr), 
+                                        source: this.determineSource(patient, pr)
+                                    };
+                        }
+                    }
+                },
+                {
+                    name: "Receptor Status HER2",
+                    value: (patient, currentConditionEntry) => {
+                        let her2 = currentConditionEntry.getMostRecentHER2ReceptorStatus();
+                        if (Lang.isNull(her2)) {
+                            return null;
+                        } else {
+                            return  {   value: her2.status, 
+                                        isUnsigned: patient.isUnsigned(her2), 
+                                        source: this.determineSource(patient, her2)
+                                    };
+                        }
+                    }
+                }
+            );
+        }
+
+        return metadata;
     }
 }
