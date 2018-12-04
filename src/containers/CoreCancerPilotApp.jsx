@@ -34,7 +34,7 @@ const theme = createMuiTheme({
 function getModalStyle() {
     const top = 50;
     const left = 50;
-  
+
     return {
       top: `${top}%`,
       left: `${left}%`,
@@ -82,7 +82,8 @@ export class CoreCancerPilotApp extends Component {
             superRole: 'Clinician', // possibly add that to security manager too
             forceRefresh: false,
             searchSuggestions: [],
-            isAppBlurred: false
+            isAppBlurred: false,
+            highlightedSearchSuggestion: null
         };
     }
 
@@ -230,8 +231,9 @@ export class CoreCancerPilotApp extends Component {
                             searchSuggestions={this.state.searchSuggestions}
                             isAppBlurred={this.state.isAppBlurred}
                             setAppBlur={this.setAppBlur}
+                            highlightedSearchSuggestion={this.state.highlightedSearchSuggestion}
                         />
-                        <Modal 
+                        <Modal
                             aria-labelledby="simple-modal-title"
                             aria-describedby="simple-modal-description"
                             open={this.state.isModalOpen}

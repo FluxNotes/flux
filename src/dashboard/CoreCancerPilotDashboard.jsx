@@ -42,6 +42,7 @@ export default class CoreCancerPilotDashboard extends Component {
                         setHighlightedSearchSuggestion={this.props.setHighlightedSearchSuggestion}
                         isAppBlurred={this.props.isAppBlurred}
                         setAppBlur={this.props.setAppBlur}
+                        highlightedSearchSuggestion={this.props.highlightedSearchSuggestion}
                     />
                 </div>
             </div>
@@ -63,4 +64,5 @@ CoreCancerPilotDashboard.propTypes = {
     summaryMetadata: PropTypes.object.isRequired,
     searchIndex: PropTypes.object.isRequired,
     searchSuggestions: PropTypes.array,
+    highlightedSearchSuggestion: PropTypes.object
 };
