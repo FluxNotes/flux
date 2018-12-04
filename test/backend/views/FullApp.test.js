@@ -76,6 +76,7 @@ describe('2 setFullAppState', function() {
 
 describe('3 TargetedDataControl', function() {
     it('3.1 noteDisplayMode buttons update state', function() {
+        let patient = new PatientRecord(hardCodedPatient);
         const summaryMetadata = new SummaryMetadata();
         const condition = new FluxBreastCancer({
             "Value": {
@@ -103,8 +104,7 @@ describe('3 TargetedDataControl', function() {
                     "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
                 }
             }
-        });
-        console.log(condition)
+        }, patient);
         const metadata = summaryMetadata.getMetadata(null, null, condition, null, null, null);
         // Look for the first NameValuePair section which should be Summary. Assumes it does not have a defaultVisualizer property
         const section = metadata.sections.find((section) => {
@@ -141,6 +141,7 @@ describe('3 TargetedDataControl', function() {
 });
 describe('4 TargetedDataControl - correct default visualizer Medications', function() {
     it('4.1 correct default visualizer', function() {
+        let patient = new PatientRecord(hardCodedPatient);
         const summaryMetadata = new SummaryMetadata(null);
         const condition = new FluxGastrointestinalStromalTumor({
             "Value": {
@@ -168,7 +169,7 @@ describe('4 TargetedDataControl - correct default visualizer Medications', funct
                     }
                 ]
             }
-        });
+        }, patient);
         const metadata = summaryMetadata.getMetadata(null, null, condition, null, null, null);
         // Look for the first NameValuePair section which should be Summary. Assumes it does not have a defaultVisualizer property
         const section = metadata.sections.find((section) => {
