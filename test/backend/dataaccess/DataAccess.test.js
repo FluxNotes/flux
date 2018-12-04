@@ -45,7 +45,7 @@ describe('create hard coded read only data source', function() {
     it('get list of patients should return the hard coded patient', function () { 
         expect(hardCodedReadOnlyDataAccess.getListOfPatients())
             .to.be.an('array')
-            .to.deep.include(referenceHardCodedPatient);
+            .to.deep.include(new PatientRecord(hardCodedPatient));
     });
     it('new patient should return undefined', function () {
         expect(hardCodedReadOnlyDataAccess.newPatient())
