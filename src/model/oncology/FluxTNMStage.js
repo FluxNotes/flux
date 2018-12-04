@@ -22,7 +22,7 @@ class FluxTNMStage extends FluxObservation {
             entry.entryType = new EntryType();
             entry.entryType.uri = 'http://standardhealthrecord.org/spec/mcode/CancerStageInformation';
             this._observation.entryInfo = entry;
-            this._observation = new PanelMembers();
+            this._observation.panelMembers = new PanelMembers();
             this._observation.panelMembers.observation = [];
         }
     }
