@@ -8,6 +8,7 @@ import TimePeriodStart from '../shr/core/TimePeriodStart';
 import TimePeriodEnd from '../shr/core/TimePeriodEnd';
 import Timing from '../shr/core/Timing';
 import ExpectedPerformanceTime from '../shr/base/ExpectedPerformanceTime';
+import Type from '../shr/core/Type';
 import moment from 'moment';
 import lookup from '../../lib/MedicationInformationService.jsx';
 
@@ -132,8 +133,11 @@ class FluxMedicationRequested {
      *  Setter for medication
      */
     set medication(medicationName) {
-        this._medicationRequested.medication = new Medication();
-        this._medicationRequested.medication.type.value = lookup.getCodeableConceptFromName(medicationName);
+        const medication = new Medication();
+        const type = new Type();
+        type.value = lookup.getCodeableConceptFromName(medicationName);
+        medication.type = type;
+        this._medicationRequested.medication = medication;
     }
 
     /*

@@ -210,8 +210,8 @@ describe('parse', function() {
             .to.be.an('array');
         expect(record[0][0]._medicationChange._entryInfo.entryType)
             .eql(expectedOutputStopMedication[0][0]._medicationChange._entryInfo.entryType);
-        expect(record[0][0]._medicationChange._type._codeableConcept._coding)
-            .eql(expectedOutputStopMedication[0][0]._medicationChange._type._codeableConcept._coding);
+        expect(record[0][0]._medicationChange._topicCode._codeableConcept._coding)
+            .eql(expectedOutputStopMedication[0][0]._medicationChange._topicCode._codeableConcept._coding);
         expect(record[0][0]._medicationChange._medicationBeforeChange)
             .to.exist;
     });

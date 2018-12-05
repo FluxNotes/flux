@@ -725,11 +725,9 @@ export const stopMedicationJSON = {
     "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationChange"
     },
-   
-    
-    "Type": {
+    "TopicCode": {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/entity/Type"
+            "Value": "http://standardhealthrecord.org/spec/shr/base/TopicCode"
         },
         "Value": {
             "EntryType": {
@@ -769,42 +767,37 @@ export const stopMedicationJSON = {
             "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationBeforeChange"
         }             
     },
-    "ActionContext": {
-        "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/action/PerformedContext"
-        },
-        "Reason": [
-            {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/Reason"
-                },
-                "Value": {
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                    },
-                    "Coding": [
-                        {
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                            },
-                            "Value": "side_effect",
-                            "DisplayText": {
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                },
-                                "Value": "Side Effect"
-                            }
-                        }
-                    ]
-                }
-            }
-        ],
-        "Status": {
+    "Reason": [
+        {
             "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/action/Status"
+                "Value": "http://standardhealthrecord.org/spec/shr/base/Reason"
             },
-            "Value": "completed"
+            "Value": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                },
+                "Coding": [
+                    {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "Value": "side_effect",
+                        "DisplayText": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            },
+                            "Value": "Side Effect"
+                        }
+                    }
+                ]
+            }
         }
+    ],
+    "Status": {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/core/Status"
+        },
+        "Value": "completed"
     }
 }
 
