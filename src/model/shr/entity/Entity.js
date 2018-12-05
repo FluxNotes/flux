@@ -39,7 +39,7 @@ class Entity extends EntityOrRole {
    * @param {object} json - the JSON data to deserialize
    * @returns {Entity} An instance of Entity populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Entity();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -51,7 +51,7 @@ class Entity extends EntityOrRole {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Entity' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/Entity' } };
     if (this.partOf != null) {
       inst['PartOf'] = typeof this.partOf.toJSON === 'function' ? this.partOf.toJSON() : this.partOf;
     }
@@ -64,7 +64,7 @@ class Entity extends EntityOrRole {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (this.partOf != null) {
       inst['extension'] = inst['extension'] || [];
@@ -80,10 +80,10 @@ class Entity extends EntityOrRole {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Entity} An instance of Entity populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Entity();
     if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension');
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension');
       if (match != null) {
         inst.partOf = createInstanceFromFHIR('shr.entity.PartOf', match, true);
       }

@@ -113,7 +113,7 @@ class LanguageUsed {
    * @param {object} json - the JSON data to deserialize
    * @returns {LanguageUsed} An instance of LanguageUsed populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new LanguageUsed();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -125,7 +125,7 @@ class LanguageUsed {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/LanguageUsed' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/LanguageUsed' } };
     if (this.language != null) {
       inst['Language'] = typeof this.language.toJSON === 'function' ? this.language.toJSON() : this.language;
     }
@@ -147,7 +147,7 @@ class LanguageUsed {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (asExtension) {
       if (this.language != null) {
@@ -178,22 +178,22 @@ class LanguageUsed {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {LanguageUsed} An instance of LanguageUsed populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new LanguageUsed();
     if (asExtension) {
-      const match_1 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-Language-extension');
+      const match_1 = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-core-Language-extension');
       if (match_1 != null) {
         inst.language = createInstanceFromFHIR('shr.core.Language', match_1, true);
       }
-      const match_2 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-SpokenLanguageProficiency-extension');
+      const match_2 = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-entity-SpokenLanguageProficiency-extension');
       if (match_2 != null) {
         inst.spokenLanguageProficiency = createInstanceFromFHIR('shr.entity.SpokenLanguageProficiency', match_2, true);
       }
-      const match_3 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-WrittenLanguageProficiency-extension');
+      const match_3 = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-entity-WrittenLanguageProficiency-extension');
       if (match_3 != null) {
         inst.writtenLanguageProficiency = createInstanceFromFHIR('shr.entity.WrittenLanguageProficiency', match_3, true);
       }
-      const match_4 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-LanguageQualifier-extension');
+      const match_4 = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-entity-LanguageQualifier-extension');
       if (match_4 != null) {
         inst.languageQualifier = createInstanceFromFHIR('shr.entity.LanguageQualifier', match_4, true);
       }

@@ -64,7 +64,7 @@ class HumanName extends PersonName {
    * @param {object} json - the JSON data to deserialize
    * @returns {HumanName} An instance of HumanName populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new HumanName();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -76,7 +76,7 @@ class HumanName extends PersonName {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/HumanName' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/HumanName' } };
     if (this.nameAsText != null) {
       inst['NameAsText'] = typeof this.nameAsText.toJSON === 'function' ? this.nameAsText.toJSON() : this.nameAsText;
     }
@@ -110,29 +110,29 @@ class HumanName extends PersonName {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (this.purpose != null && this.purpose.coding != null && this.purpose.coding.code != null) {
-      inst['use'] = inst ['use'] || [];
+      inst['use'] = inst['use'] || [];
       inst['use'] = inst['use'].concat(this.purpose.coding.code.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.nameAsText != null) {
       inst['text'] = typeof this.nameAsText.toFHIR === 'function' ? this.nameAsText.toFHIR() : this.nameAsText;
     }
     if (this.familyName != null) {
-      inst['family'] = inst ['family'] || [];
+      inst['family'] = inst['family'] || [];
       inst['family'] = inst['family'].concat(this.familyName.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.givenName != null) {
-      inst['given'] = inst ['given'] || [];
+      inst['given'] = inst['given'] || [];
       inst['given'] = inst['given'].concat(this.givenName.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.prefix != null) {
-      inst['prefix'] = inst ['prefix'] || [];
+      inst['prefix'] = inst['prefix'] || [];
       inst['prefix'] = inst['prefix'].concat(this.prefix.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.suffix != null) {
-      inst['suffix'] = inst ['suffix'] || [];
+      inst['suffix'] = inst['suffix'] || [];
       inst['suffix'] = inst['suffix'].concat(this.suffix.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.effectiveTimePeriod != null) {
@@ -152,13 +152,13 @@ class HumanName extends PersonName {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {HumanName} An instance of HumanName populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new HumanName();
     if (fhir['use'] != null) {
-      if(inst.purpose == null) {
+      if (inst.purpose === null) {
         inst.purpose = createInstanceFromFHIR('shr.core.Purpose', {});
       }
-      if(inst.purpose.value == null) {
+      if (inst.purpose.value === null) {
         inst.purpose.value = createInstanceFromFHIR('shr.core.Coding', {});
       }
       inst.purpose.value.code = createInstanceFromFHIR('shr.core.Code', fhir['use']);

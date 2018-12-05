@@ -39,7 +39,7 @@ class Percentage extends SimpleQuantity {
    * @param {object} json - the JSON data to deserialize
    * @returns {Percentage} An instance of Percentage populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Percentage();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -51,7 +51,7 @@ class Percentage extends SimpleQuantity {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Percentage' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/Percentage' } };
     if (this.decimalValue != null) {
       inst['DecimalValue'] = typeof this.decimalValue.toJSON === 'function' ? this.decimalValue.toJSON() : this.decimalValue;
     }
@@ -70,7 +70,7 @@ class Percentage extends SimpleQuantity {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (this.decimalValue != null) {
       inst['value'] = typeof this.decimalValue.toFHIR === 'function' ? this.decimalValue.toFHIR() : this.decimalValue;
@@ -97,34 +97,34 @@ class Percentage extends SimpleQuantity {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Percentage} An instance of Percentage populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Percentage();
     if (fhir['value'] != null) {
       inst.decimalValue = createInstanceFromFHIR('shr.core.DecimalValue', fhir['value']);
     }
     if (fhir['unit'] != null) {
-      if(inst.units == null) {
+      if (inst.units === null) {
         inst.units = createInstanceFromFHIR('shr.core.Units', {});
       }
-      if(inst.units.value == null) {
+      if (inst.units.value === null) {
         inst.units.value = createInstanceFromFHIR('shr.core.Coding', {});
       }
       inst.units.value.displayText = createInstanceFromFHIR('shr.core.DisplayText', fhir['unit']);
     }
     if (fhir['system'] != null) {
-      if(inst.units == null) {
+      if (inst.units === null) {
         inst.units = createInstanceFromFHIR('shr.core.Units', {});
       }
-      if(inst.units.value == null) {
+      if (inst.units.value === null) {
         inst.units.value = createInstanceFromFHIR('shr.core.Coding', {});
       }
       inst.units.value.codeSystem = createInstanceFromFHIR('shr.core.CodeSystem', fhir['system']);
     }
     if (fhir['code'] != null) {
-      if(inst.units == null) {
+      if (inst.units === null) {
         inst.units = createInstanceFromFHIR('shr.core.Units', {});
       }
-      if(inst.units.value == null) {
+      if (inst.units.value === null) {
         inst.units.value = createInstanceFromFHIR('shr.core.Coding', {});
       }
       inst.units.value.code = createInstanceFromFHIR('shr.core.Code', fhir['code']);

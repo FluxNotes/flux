@@ -166,7 +166,7 @@ class Substance extends Entity {
    * @param {object} json - the JSON data to deserialize
    * @returns {Substance} An instance of Substance populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Substance();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -179,7 +179,7 @@ class Substance extends Entity {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Substance' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/Substance' };
     if (this.partOf != null) {
       inst['PartOf'] = typeof this.partOf.toJSON === 'function' ? this.partOf.toJSON() : this.partOf;
     }
@@ -207,7 +207,7 @@ class Substance extends Entity {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     inst['resourceType'] = 'Substance';
     if (this.partOf != null) {
@@ -230,21 +230,21 @@ class Substance extends Entity {
       inst['code'] = typeof this.type.toFHIR === 'function' ? this.type.toFHIR() : this.type;
     }
     if (this.ingredient != null) {
-      inst['ingredient'] = inst ['ingredient'] || [];
+      inst['ingredient'] = inst['ingredient'] || [];
       inst['ingredient'] = inst['ingredient'].concat(this.ingredient.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.ingredient != null && this.ingredient.ingredientAmount != null) {
-      if(inst['ingredient'] === undefined) {
+      if (inst['ingredient'] === undefined) {
         inst['ingredient'] = {};
       }
-      inst['ingredient']['quantity'] = inst ['ingredient']['quantity'] || [];
+      inst['ingredient']['quantity'] = inst['ingredient']['quantity'] || [];
       inst['ingredient']['quantity'] = inst['ingredient']['quantity'].concat(this.ingredient.ingredientAmount.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.ingredient != null && this.ingredient.substanceOrCode != null) {
-      if(inst['ingredient'] === undefined) {
+      if (inst['ingredient'] === undefined) {
         inst['ingredient'] = {};
       }
-      inst['ingredient']['substance[x]'] = inst ['ingredient']['substance[x]'] || [];
+      inst['ingredient']['substance[x]'] = inst['ingredient']['substance[x]'] || [];
       inst['ingredient']['substance[x]'] = inst['ingredient']['substance[x]'].concat(this.ingredient.substanceOrCode.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     return inst;
@@ -257,10 +257,10 @@ class Substance extends Entity {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Substance} An instance of Substance populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Substance();
     if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension');
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension');
       if (match != null) {
         inst.partOf = createInstanceFromFHIR('shr.entity.PartOf', match, true);
       }
@@ -273,13 +273,13 @@ class Substance extends Entity {
       inst.ingredient = inst.ingredient.concat(fhir['ingredient'].map(f => createInstanceFromFHIR('shr.entity.Ingredient', f)));
     }
     if (fhir['ingredient'] != null && fhir['ingredient']['quantity'] != null) {
-      if(inst.ingredient == null) {
+      if (inst.ingredient === null) {
         inst.ingredient = createInstanceFromFHIR('shr.entity.Ingredient', {});
       }
       inst.ingredient.ingredientAmount = createInstanceFromFHIR('shr.entity.IngredientAmount', fhir['ingredient']['quantity']);
     }
     if (fhir['ingredient'] != null && fhir['ingredient']['substanceCodeableConcept'] != null) {
-      if(inst.ingredient == null) {
+      if (inst.ingredient === null) {
         inst.ingredient = createInstanceFromFHIR('shr.entity.Ingredient', {});
       }
       inst.ingredient.substanceOrCode = createInstanceFromFHIR('shr.entity.SubstanceOrCode', fhir['ingredient']['substanceCodeableConcept']);

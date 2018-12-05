@@ -63,7 +63,7 @@ class MultipleBirthInformation {
    * @param {object} json - the JSON data to deserialize
    * @returns {MultipleBirthInformation} An instance of MultipleBirthInformation populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new MultipleBirthInformation();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -75,7 +75,7 @@ class MultipleBirthInformation {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/MultipleBirthInformation' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/MultipleBirthInformation' } };
     if (this.isMultipleBirth != null) {
       inst['IsMultipleBirth'] = typeof this.isMultipleBirth.toJSON === 'function' ? this.isMultipleBirth.toJSON() : this.isMultipleBirth;
     }
@@ -91,7 +91,7 @@ class MultipleBirthInformation {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     return inst;
   }
@@ -103,7 +103,7 @@ class MultipleBirthInformation {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {MultipleBirthInformation} An instance of MultipleBirthInformation populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new MultipleBirthInformation();
     return inst;
   }

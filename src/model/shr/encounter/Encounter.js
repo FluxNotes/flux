@@ -216,7 +216,7 @@ class Encounter extends InformationItem {
    * @param {object} json - the JSON data to deserialize
    * @returns {Encounter} An instance of Encounter populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Encounter();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -228,7 +228,7 @@ class Encounter extends InformationItem {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/encounter/Encounter' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/encounter/Encounter' } };
     if (this.patient != null) {
       inst['Patient'] = typeof this.patient.toJSON === 'function' ? this.patient.toJSON() : this.patient;
     }
@@ -262,7 +262,7 @@ class Encounter extends InformationItem {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (this.encounterClass != null) {
       inst['extension'] = inst['extension'] || [];
@@ -284,7 +284,7 @@ class Encounter extends InformationItem {
       inst['status'] = typeof this.status.toFHIR === 'function' ? this.status.toFHIR() : this.status;
     }
     if (this.encounterType != null) {
-      inst['type'] = inst ['type'] || [];
+      inst['type'] = inst['type'] || [];
       inst['type'] = inst['type'].concat(this.encounterType.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.patient != null) {
@@ -307,10 +307,10 @@ class Encounter extends InformationItem {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Encounter} An instance of Encounter populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Encounter();
     if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-encounter-EncounterClass-extension');
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-encounter-EncounterClass-extension');
       if (match != null) {
         inst.encounterClass = createInstanceFromFHIR('shr.encounter.EncounterClass', match, true);
       }

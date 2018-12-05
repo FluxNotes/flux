@@ -38,7 +38,7 @@ class RecurrenceRange {
    * @param {object} json - the JSON data to deserialize
    * @returns {RecurrenceRange} An instance of RecurrenceRange populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new RecurrenceRange();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -50,7 +50,7 @@ class RecurrenceRange {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/RecurrenceRange' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/RecurrenceRange' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -63,7 +63,7 @@ class RecurrenceRange {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (asExtension) {
       if (this.timePeriod != null) {
@@ -91,14 +91,14 @@ class RecurrenceRange {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {RecurrenceRange} An instance of RecurrenceRange populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new RecurrenceRange();
     if (asExtension) {
-      const match_1 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-TimePeriod-extension');
+      const match_1 = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-core-TimePeriod-extension');
       if (match_1 != null) {
         inst.timePeriod = createInstanceFromFHIR('shr.core.TimePeriod', match_1, true);
       }
-      const match_2 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-NumberOfRepeats-extension');
+      const match_2 = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-core-NumberOfRepeats-extension');
       if (match_2 != null) {
         inst.numberOfRepeats = createInstanceFromFHIR('shr.core.NumberOfRepeats', match_2, true);
       }

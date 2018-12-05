@@ -65,7 +65,7 @@ class RadiationFractionsDelivered {
    * @param {object} json - the JSON data to deserialize
    * @returns {RadiationFractionsDelivered} An instance of RadiationFractionsDelivered populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new RadiationFractionsDelivered();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -77,7 +77,7 @@ class RadiationFractionsDelivered {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/mcode/RadiationFractionsDelivered' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/mcode/RadiationFractionsDelivered' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -90,7 +90,7 @@ class RadiationFractionsDelivered {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (asExtension) {
       inst['url'] = 'http://example.com/fhir/StructureDefinition/mcode-RadiationFractionsDelivered-extension';
@@ -111,7 +111,7 @@ class RadiationFractionsDelivered {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {RadiationFractionsDelivered} An instance of RadiationFractionsDelivered populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new RadiationFractionsDelivered();
     if (asExtension) {
       inst.value = fhir['valueQuantity'];

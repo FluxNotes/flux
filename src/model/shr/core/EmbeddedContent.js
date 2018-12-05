@@ -11,7 +11,7 @@ class EmbeddedContent {
    * @param {object} json - the JSON data to deserialize
    * @returns {EmbeddedContent} An instance of EmbeddedContent populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new EmbeddedContent();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -23,7 +23,7 @@ class EmbeddedContent {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/EmbeddedContent' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/EmbeddedContent' } };
     return inst;
   }
 
@@ -33,7 +33,7 @@ class EmbeddedContent {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     return inst;
   }
@@ -45,7 +45,7 @@ class EmbeddedContent {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {EmbeddedContent} An instance of EmbeddedContent populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new EmbeddedContent();
     return inst;
   }

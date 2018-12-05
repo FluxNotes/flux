@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { setPropertiesFromJSON } from '../../json-helper';
 
 /**
  * Generated class for shr.entity.Actual.
@@ -65,7 +65,7 @@ class Actual {
    * @param {object} json - the JSON data to deserialize
    * @returns {Actual} An instance of Actual populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Actual();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -77,7 +77,7 @@ class Actual {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Actual' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/Actual' } };
     if (this.value != null) {
       inst['Value'] = this.value;
     }
@@ -90,7 +90,7 @@ class Actual {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (!asExtension && this.value != null) {
       if (this.value != null) {
@@ -107,7 +107,7 @@ class Actual {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Actual} An instance of Actual populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Actual();
     if (!asExtension && fhir != null) {
       inst.value = fhir;

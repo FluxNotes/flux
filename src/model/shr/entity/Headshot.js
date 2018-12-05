@@ -65,7 +65,7 @@ class Headshot {
    * @param {object} json - the JSON data to deserialize
    * @returns {Headshot} An instance of Headshot populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Headshot();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -77,7 +77,7 @@ class Headshot {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Headshot' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/Headshot' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -90,7 +90,7 @@ class Headshot {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (asExtension) {
       inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-entity-Headshot-extension';
@@ -111,7 +111,7 @@ class Headshot {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Headshot} An instance of Headshot populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Headshot();
     if (asExtension) {
       inst.value = fhir['valueAttachment'];

@@ -243,7 +243,7 @@ class TNMClinicalPrimaryTumorClassification extends CodedNonLaboratoryObservatio
    * @param {object} json - the JSON data to deserialize
    * @returns {TNMClinicalPrimaryTumorClassification} An instance of TNMClinicalPrimaryTumorClassification populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new TNMClinicalPrimaryTumorClassification();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -256,7 +256,7 @@ class TNMClinicalPrimaryTumorClassification extends CodedNonLaboratoryObservatio
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/mcode/TNMClinicalPrimaryTumorClassification' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/mcode/TNMClinicalPrimaryTumorClassification' };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -326,7 +326,7 @@ class TNMClinicalPrimaryTumorClassification extends CodedNonLaboratoryObservatio
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     inst['resourceType'] = 'Observation';
     if (this.specificFocusOfFinding != null) {
@@ -337,7 +337,7 @@ class TNMClinicalPrimaryTumorClassification extends CodedNonLaboratoryObservatio
       inst['status'] = typeof this.findingStatus.toFHIR === 'function' ? this.findingStatus.toFHIR() : this.findingStatus;
     }
     if (this.category != null) {
-      inst['category'] = inst ['category'] || [];
+      inst['category'] = inst['category'] || [];
       inst['category'] = inst['category'].concat(this.category.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.findingTopicCode != null) {
@@ -377,31 +377,31 @@ class TNMClinicalPrimaryTumorClassification extends CodedNonLaboratoryObservatio
       inst['referenceRange'] = typeof this.referenceRange.toFHIR === 'function' ? this.referenceRange.toFHIR() : this.referenceRange;
     }
     if (this.referenceRange != null && this.referenceRange.range != null && this.referenceRange.range.lowerBound != null) {
-      if(inst['referenceRange'] === undefined) {
+      if (inst['referenceRange'] === undefined) {
         inst['referenceRange'] = {};
       }
       inst['referenceRange']['low'] = typeof this.referenceRange.range.lowerBound.toFHIR === 'function' ? this.referenceRange.range.lowerBound.toFHIR() : this.referenceRange.range.lowerBound;
     }
     if (this.referenceRange != null && this.referenceRange.range != null && this.referenceRange.range.upperBound != null) {
-      if(inst['referenceRange'] === undefined) {
+      if (inst['referenceRange'] === undefined) {
         inst['referenceRange'] = {};
       }
       inst['referenceRange']['high'] = typeof this.referenceRange.range.upperBound.toFHIR === 'function' ? this.referenceRange.range.upperBound.toFHIR() : this.referenceRange.range.upperBound;
     }
     if (this.referenceRange != null && this.referenceRange.type != null) {
-      if(inst['referenceRange'] === undefined) {
+      if (inst['referenceRange'] === undefined) {
         inst['referenceRange'] = {};
       }
       inst['referenceRange']['type'] = typeof this.referenceRange.type.toFHIR === 'function' ? this.referenceRange.type.toFHIR() : this.referenceRange.type;
     }
     if (this.referenceRange != null && this.referenceRange.applicableSubpopulation != null) {
-      if(inst['referenceRange'] === undefined) {
+      if (inst['referenceRange'] === undefined) {
         inst['referenceRange'] = {};
       }
       inst['referenceRange']['appliesTo'] = typeof this.referenceRange.applicableSubpopulation.toFHIR === 'function' ? this.referenceRange.applicableSubpopulation.toFHIR() : this.referenceRange.applicableSubpopulation;
     }
     if (this.referenceRange != null && this.referenceRange.applicableAgeRange != null) {
-      if(inst['referenceRange'] === undefined) {
+      if (inst['referenceRange'] === undefined) {
         inst['referenceRange'] = {};
       }
       inst['referenceRange']['age'] = typeof this.referenceRange.applicableAgeRange.toFHIR === 'function' ? this.referenceRange.applicableAgeRange.toFHIR() : this.referenceRange.applicableAgeRange;
@@ -410,13 +410,13 @@ class TNMClinicalPrimaryTumorClassification extends CodedNonLaboratoryObservatio
       inst['related'] = typeof this.panelMembers.toFHIR === 'function' ? this.panelMembers.toFHIR() : this.panelMembers;
     }
     if (this.panelMembers != null && this.panelMembers.observation != null) {
-      if(inst['related'] === undefined) {
+      if (inst['related'] === undefined) {
         inst['related'] = {};
       }
       inst['related']['target'] = typeof this.panelMembers.observation.toFHIR === 'function' ? this.panelMembers.observation.toFHIR() : this.panelMembers.observation;
     }
     if (this.nonIndependentFinding != null) {
-      inst['component'] = inst ['component'] || [];
+      inst['component'] = inst['component'] || [];
       inst['component'] = inst['component'].concat(this.nonIndependentFinding.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     return inst;
@@ -429,10 +429,10 @@ class TNMClinicalPrimaryTumorClassification extends CodedNonLaboratoryObservatio
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {TNMClinicalPrimaryTumorClassification} An instance of TNMClinicalPrimaryTumorClassification populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new TNMClinicalPrimaryTumorClassification();
     if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-SpecificFocusOfFinding-extension');
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-base-SpecificFocusOfFinding-extension');
       if (match != null) {
         inst.specificFocusOfFinding = createInstanceFromFHIR('shr.base.SpecificFocusOfFinding', match, true);
       }
@@ -475,7 +475,7 @@ class TNMClinicalPrimaryTumorClassification extends CodedNonLaboratoryObservatio
       inst.panelMembers = createInstanceFromFHIR('shr.base.PanelMembers', fhir['related']);
     }
     if (fhir['related'] != null && fhir['related']['target'] != null) {
-      if(inst.panelMembers == null) {
+      if (inst.panelMembers === null) {
         inst.panelMembers = createInstanceFromFHIR('shr.base.PanelMembers', {});
       }
       inst.panelMembers.observation = inst.panelMembers.observation || [];

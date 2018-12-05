@@ -38,7 +38,7 @@ class CollectionTime {
    * @param {object} json - the JSON data to deserialize
    * @returns {CollectionTime} An instance of CollectionTime populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new CollectionTime();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -50,7 +50,7 @@ class CollectionTime {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/CollectionTime' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/CollectionTime' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -63,7 +63,7 @@ class CollectionTime {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (asExtension) {
       inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-entity-CollectionTime-extension';
@@ -83,7 +83,7 @@ class CollectionTime {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {CollectionTime} An instance of CollectionTime populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new CollectionTime();
     if (asExtension) {
     }

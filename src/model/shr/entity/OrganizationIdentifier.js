@@ -14,7 +14,7 @@ class OrganizationIdentifier extends Identifier {
    * @param {object} json - the JSON data to deserialize
    * @returns {OrganizationIdentifier} An instance of OrganizationIdentifier populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new OrganizationIdentifier();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -26,7 +26,7 @@ class OrganizationIdentifier extends Identifier {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/OrganizationIdentifier' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/OrganizationIdentifier' } };
     if (this.text != null) {
       inst['Text'] = typeof this.text.toJSON === 'function' ? this.text.toJSON() : this.text;
     }
@@ -54,7 +54,7 @@ class OrganizationIdentifier extends Identifier {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (this.purpose != null && this.purpose.coding != null && this.purpose.coding.code != null) {
       inst['use'] = typeof this.purpose.coding.code.toFHIR === 'function' ? this.purpose.coding.code.toFHIR() : this.purpose.coding.code;
@@ -84,13 +84,13 @@ class OrganizationIdentifier extends Identifier {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {OrganizationIdentifier} An instance of OrganizationIdentifier populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new OrganizationIdentifier();
     if (fhir['use'] != null) {
-      if(inst.purpose == null) {
+      if (inst.purpose === null) {
         inst.purpose = createInstanceFromFHIR('shr.core.Purpose', {});
       }
-      if(inst.purpose.value == null) {
+      if (inst.purpose.value === null) {
         inst.purpose.value = createInstanceFromFHIR('shr.core.Coding', {});
       }
       inst.purpose.value.code = createInstanceFromFHIR('shr.core.Code', fhir['use']);

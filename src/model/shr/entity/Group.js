@@ -218,7 +218,7 @@ class Group extends Entity {
    * @param {object} json - the JSON data to deserialize
    * @returns {Group} An instance of Group populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Group();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -231,7 +231,7 @@ class Group extends Entity {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Group' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/Group' };
     if (this.partOf != null) {
       inst['PartOf'] = typeof this.partOf.toJSON === 'function' ? this.partOf.toJSON() : this.partOf;
     }
@@ -265,7 +265,7 @@ class Group extends Entity {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     inst['resourceType'] = 'Group';
     if (this.partOf != null) {
@@ -288,52 +288,52 @@ class Group extends Entity {
       inst['quantity'] = typeof this.count.toFHIR === 'function' ? this.count.toFHIR() : this.count;
     }
     if (this.groupCharacteristic != null && this.groupCharacteristic.groupCharacteristicCode != null) {
-      if(inst['characteristic'] === undefined) {
+      if (inst['characteristic'] === undefined) {
         inst['characteristic'] = {};
       }
-      inst['characteristic']['code'] = inst ['characteristic']['code'] || [];
+      inst['characteristic']['code'] = inst['characteristic']['code'] || [];
       inst['characteristic']['code'] = inst['characteristic']['code'].concat(this.groupCharacteristic.groupCharacteristicCode.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.groupCharacteristic != null && this.groupCharacteristic.groupCharacteristicValue != null) {
-      if(inst['characteristic'] === undefined) {
+      if (inst['characteristic'] === undefined) {
         inst['characteristic'] = {};
       }
-      inst['characteristic']['value[x]'] = inst ['characteristic']['value[x]'] || [];
+      inst['characteristic']['value[x]'] = inst['characteristic']['value[x]'] || [];
       inst['characteristic']['value[x]'] = inst['characteristic']['value[x]'].concat(this.groupCharacteristic.groupCharacteristicValue.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.groupCharacteristic != null && this.groupCharacteristic.excludeFlag != null) {
-      if(inst['characteristic'] === undefined) {
+      if (inst['characteristic'] === undefined) {
         inst['characteristic'] = {};
       }
-      inst['characteristic']['exclude'] = inst ['characteristic']['exclude'] || [];
+      inst['characteristic']['exclude'] = inst['characteristic']['exclude'] || [];
       inst['characteristic']['exclude'] = inst['characteristic']['exclude'].concat(this.groupCharacteristic.excludeFlag.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.groupCharacteristic != null && this.groupCharacteristic.timePeriod != null) {
-      if(inst['characteristic'] === undefined) {
+      if (inst['characteristic'] === undefined) {
         inst['characteristic'] = {};
       }
-      inst['characteristic']['period'] = inst ['characteristic']['period'] || [];
+      inst['characteristic']['period'] = inst['characteristic']['period'] || [];
       inst['characteristic']['period'] = inst['characteristic']['period'].concat(this.groupCharacteristic.timePeriod.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.memberParticipation != null && this.memberParticipation.member != null) {
-      if(inst['member'] === undefined) {
+      if (inst['member'] === undefined) {
         inst['member'] = {};
       }
-      inst['member']['entity'] = inst ['member']['entity'] || [];
+      inst['member']['entity'] = inst['member']['entity'] || [];
       inst['member']['entity'] = inst['member']['entity'].concat(this.memberParticipation.member.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.memberParticipation != null && this.memberParticipation.participationPeriod != null) {
-      if(inst['member'] === undefined) {
+      if (inst['member'] === undefined) {
         inst['member'] = {};
       }
-      inst['member']['period'] = inst ['member']['period'] || [];
+      inst['member']['period'] = inst['member']['period'] || [];
       inst['member']['period'] = inst['member']['period'].concat(this.memberParticipation.participationPeriod.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.memberParticipation != null && this.memberParticipation.activeFlag != null) {
-      if(inst['member'] === undefined) {
+      if (inst['member'] === undefined) {
         inst['member'] = {};
       }
-      inst['member']['inactive'] = inst ['member']['inactive'] || [];
+      inst['member']['inactive'] = inst['member']['inactive'] || [];
       inst['member']['inactive'] = inst['member']['inactive'].concat(this.memberParticipation.activeFlag.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     return inst;
@@ -346,10 +346,10 @@ class Group extends Entity {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Group} An instance of Group populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Group();
     if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension');
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension');
       if (match != null) {
         inst.partOf = createInstanceFromFHIR('shr.entity.PartOf', match, true);
       }
@@ -370,55 +370,55 @@ class Group extends Entity {
       inst.count = createInstanceFromFHIR('shr.core.Count', fhir['quantity']);
     }
     if (fhir['characteristic'] != null && fhir['characteristic']['code'] != null) {
-      if(inst.groupCharacteristic == null) {
+      if (inst.groupCharacteristic === null) {
         inst.groupCharacteristic = createInstanceFromFHIR('shr.entity.GroupCharacteristic', {});
       }
       inst.groupCharacteristic.groupCharacteristicCode = createInstanceFromFHIR('shr.entity.GroupCharacteristicCode', fhir['characteristic']['code']);
     }
     if (fhir['characteristic'] != null && fhir['characteristic']['valueBoolean'] != null) {
-      if(inst.groupCharacteristic == null) {
+      if (inst.groupCharacteristic === null) {
         inst.groupCharacteristic = createInstanceFromFHIR('shr.entity.GroupCharacteristic', {});
       }
       inst.groupCharacteristic.groupCharacteristicValue = createInstanceFromFHIR('shr.entity.GroupCharacteristicValue', fhir['characteristic']['valueBoolean']);
     }
     if (fhir['characteristic'] != null && fhir['characteristic']['valueQuantity'] != null) {
-      if(inst.groupCharacteristic == null) {
+      if (inst.groupCharacteristic === null) {
         inst.groupCharacteristic = createInstanceFromFHIR('shr.entity.GroupCharacteristic', {});
       }
       inst.groupCharacteristic.groupCharacteristicValue = createInstanceFromFHIR('shr.entity.GroupCharacteristicValue', fhir['characteristic']['valueQuantity']);
     }
     if (fhir['characteristic'] != null && fhir['characteristic']['valueRange'] != null) {
-      if(inst.groupCharacteristic == null) {
+      if (inst.groupCharacteristic === null) {
         inst.groupCharacteristic = createInstanceFromFHIR('shr.entity.GroupCharacteristic', {});
       }
       inst.groupCharacteristic.groupCharacteristicValue = createInstanceFromFHIR('shr.entity.GroupCharacteristicValue', fhir['characteristic']['valueRange']);
     }
     if (fhir['characteristic'] != null && fhir['characteristic']['exclude'] != null) {
-      if(inst.groupCharacteristic == null) {
+      if (inst.groupCharacteristic === null) {
         inst.groupCharacteristic = createInstanceFromFHIR('shr.entity.GroupCharacteristic', {});
       }
       inst.groupCharacteristic.excludeFlag = createInstanceFromFHIR('shr.entity.ExcludeFlag', fhir['characteristic']['exclude']);
     }
     if (fhir['characteristic'] != null && fhir['characteristic']['period'] != null) {
-      if(inst.groupCharacteristic == null) {
+      if (inst.groupCharacteristic === null) {
         inst.groupCharacteristic = createInstanceFromFHIR('shr.entity.GroupCharacteristic', {});
       }
       inst.groupCharacteristic.timePeriod = createInstanceFromFHIR('shr.core.TimePeriod', fhir['characteristic']['period']);
     }
     if (fhir['member'] != null && fhir['member']['entity'] != null) {
-      if(inst.memberParticipation == null) {
+      if (inst.memberParticipation === null) {
         inst.memberParticipation = createInstanceFromFHIR('shr.entity.MemberParticipation', {});
       }
       inst.memberParticipation.member = createInstanceFromFHIR('shr.entity.Member', fhir['member']['entity']);
     }
     if (fhir['member'] != null && fhir['member']['period'] != null) {
-      if(inst.memberParticipation == null) {
+      if (inst.memberParticipation === null) {
         inst.memberParticipation = createInstanceFromFHIR('shr.entity.MemberParticipation', {});
       }
       inst.memberParticipation.participationPeriod = createInstanceFromFHIR('shr.base.ParticipationPeriod', fhir['member']['period']);
     }
     if (fhir['member'] != null && fhir['member']['inactive'] != null) {
-      if(inst.memberParticipation == null) {
+      if (inst.memberParticipation === null) {
         inst.memberParticipation = createInstanceFromFHIR('shr.entity.MemberParticipation', {});
       }
       inst.memberParticipation.activeFlag = createInstanceFromFHIR('shr.entity.ActiveFlag', fhir['member']['inactive']);

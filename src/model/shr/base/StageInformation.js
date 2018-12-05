@@ -61,7 +61,7 @@ class StageInformation {
    * @param {object} json - the JSON data to deserialize
    * @returns {StageInformation} An instance of StageInformation populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new StageInformation();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -73,7 +73,7 @@ class StageInformation {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/base/StageInformation' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/base/StageInformation' } };
     if (this.stageSummary != null) {
       inst['StageSummary'] = typeof this.stageSummary.toJSON === 'function' ? this.stageSummary.toJSON() : this.stageSummary;
     }
@@ -89,7 +89,7 @@ class StageInformation {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     return inst;
   }
@@ -101,7 +101,7 @@ class StageInformation {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {StageInformation} An instance of StageInformation populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new StageInformation();
     return inst;
   }

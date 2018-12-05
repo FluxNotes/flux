@@ -38,7 +38,7 @@ class Status {
    * @param {object} json - the JSON data to deserialize
    * @returns {Status} An instance of Status populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Status();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -50,7 +50,7 @@ class Status {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Status' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/Status' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -63,7 +63,7 @@ class Status {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (asExtension) {
       inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-core-Status-extension';
@@ -83,7 +83,7 @@ class Status {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Status} An instance of Status populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Status();
     if (asExtension) {
     }

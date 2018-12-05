@@ -116,7 +116,7 @@ class Finding extends NonIndependentFinding {
    * @param {object} json - the JSON data to deserialize
    * @returns {Finding} An instance of Finding populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Finding();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -128,7 +128,7 @@ class Finding extends NonIndependentFinding {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/base/Finding' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/base/Finding' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -162,7 +162,7 @@ class Finding extends NonIndependentFinding {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (this.findingTopicCode != null) {
       inst['extension'] = inst['extension'] || [];
@@ -202,10 +202,10 @@ class Finding extends NonIndependentFinding {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Finding} An instance of Finding populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Finding();
     if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-FindingTopicCode-extension');
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-base-FindingTopicCode-extension');
       if (match != null) {
         inst.findingTopicCode = createInstanceFromFHIR('shr.base.FindingTopicCode', match, true);
       }

@@ -88,7 +88,7 @@ class Diagnosis {
    * @param {object} json - the JSON data to deserialize
    * @returns {Diagnosis} An instance of Diagnosis populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Diagnosis();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -100,7 +100,7 @@ class Diagnosis {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/encounter/Diagnosis' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/encounter/Diagnosis' } };
     if (this.diagnosisCode != null) {
       inst['DiagnosisCode'] = typeof this.diagnosisCode.toJSON === 'function' ? this.diagnosisCode.toJSON() : this.diagnosisCode;
     }
@@ -119,7 +119,7 @@ class Diagnosis {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (asExtension) {
       if (this.diagnosisCode != null) {
@@ -146,18 +146,18 @@ class Diagnosis {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Diagnosis} An instance of Diagnosis populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Diagnosis();
     if (asExtension) {
-      const match_1 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-encounter-DiagnosisCode-extension');
+      const match_1 = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-encounter-DiagnosisCode-extension');
       if (match_1 != null) {
         inst.diagnosisCode = createInstanceFromFHIR('shr.encounter.DiagnosisCode', match_1, true);
       }
-      const match_2 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-PriorityRank-extension');
+      const match_2 = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-core-PriorityRank-extension');
       if (match_2 != null) {
         inst.priorityRank = createInstanceFromFHIR('shr.core.PriorityRank', match_2, true);
       }
-      const match_3 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-Type-extension');
+      const match_3 = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-core-Type-extension');
       if (match_3 != null) {
         inst.type = createInstanceFromFHIR('shr.core.Type', match_3, true);
       }

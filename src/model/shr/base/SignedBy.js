@@ -65,7 +65,7 @@ class SignedBy {
    * @param {object} json - the JSON data to deserialize
    * @returns {SignedBy} An instance of SignedBy populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new SignedBy();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -77,7 +77,7 @@ class SignedBy {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/base/SignedBy' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/base/SignedBy' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -90,7 +90,7 @@ class SignedBy {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (asExtension) {
       if (this.attribution != null) {
@@ -114,10 +114,10 @@ class SignedBy {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {SignedBy} An instance of SignedBy populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new SignedBy();
     if (asExtension) {
-      const match_1 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-Attribution-extension');
+      const match_1 = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-base-Attribution-extension');
       if (match_1 != null) {
         inst.attribution = createInstanceFromFHIR('shr.base.Attribution', match_1, true);
       }

@@ -61,7 +61,7 @@ class Range {
    * @param {object} json - the JSON data to deserialize
    * @returns {Range} An instance of Range populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Range();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -73,7 +73,7 @@ class Range {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Range' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/Range' } };
     if (this.lowerBound != null) {
       inst['LowerBound'] = typeof this.lowerBound.toJSON === 'function' ? this.lowerBound.toJSON() : this.lowerBound;
     }
@@ -89,7 +89,7 @@ class Range {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (this.lowerBound != null) {
       inst['low'] = typeof this.lowerBound.toFHIR === 'function' ? this.lowerBound.toFHIR() : this.lowerBound;
@@ -111,7 +111,7 @@ class Range {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Range} An instance of Range populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Range();
     if (fhir['low'] != null) {
       inst.lowerBound = createInstanceFromFHIR('shr.core.LowerBound', fhir['low']);

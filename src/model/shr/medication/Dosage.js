@@ -236,7 +236,7 @@ class Dosage {
    * @param {object} json - the JSON data to deserialize
    * @returns {Dosage} An instance of Dosage populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Dosage();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -248,7 +248,7 @@ class Dosage {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/medication/Dosage' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/medication/Dosage' } };
     if (this.doseAmount != null) {
       inst['DoseAmount'] = typeof this.doseAmount.toJSON === 'function' ? this.doseAmount.toJSON() : this.doseAmount;
     }
@@ -285,13 +285,13 @@ class Dosage {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (this.dosageInstructionsText != null) {
       inst['text'] = typeof this.dosageInstructionsText.toFHIR === 'function' ? this.dosageInstructionsText.toFHIR() : this.dosageInstructionsText;
     }
     if (this.additionalDosageInstruction != null) {
-      inst['additionalInstruction'] = inst ['additionalInstruction'] || [];
+      inst['additionalInstruction'] = inst['additionalInstruction'] || [];
       inst['additionalInstruction'] = inst['additionalInstruction'].concat(this.additionalDosageInstruction.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.timingOfDoses != null) {
@@ -325,7 +325,7 @@ class Dosage {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Dosage} An instance of Dosage populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Dosage();
     if (fhir['text'] != null) {
       inst.dosageInstructionsText = createInstanceFromFHIR('shr.medication.DosageInstructionsText', fhir['text']);
@@ -344,10 +344,10 @@ class Dosage {
       inst.asNeededIndicator = createInstanceFromFHIR('shr.medication.AsNeededIndicator', fhir['asNeededCodeableConcept']);
     }
     if (fhir['site'] != null) {
-      if(inst.dosageBodySite == null) {
+      if (inst.dosageBodySite === null) {
         inst.dosageBodySite = createInstanceFromFHIR('shr.medication.DosageBodySite', {});
       }
-      if(inst.dosageBodySite.value == null) {
+      if (inst.dosageBodySite.value === null) {
         inst.dosageBodySite.value = createInstanceFromFHIR('shr.core.AnatomicalLocation', {});
       }
       inst.dosageBodySite.value.anatomicalLocationOrLandmarkCode = createInstanceFromFHIR('shr.core.AnatomicalLocationOrLandmarkCode', fhir['site']);

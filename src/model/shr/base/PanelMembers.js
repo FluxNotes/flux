@@ -36,7 +36,7 @@ class PanelMembers {
    * @param {object} json - the JSON data to deserialize
    * @returns {PanelMembers} An instance of PanelMembers populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new PanelMembers();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -48,7 +48,7 @@ class PanelMembers {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/base/PanelMembers' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/base/PanelMembers' } };
     if (this.observation != null) {
       inst['Observation'] = this.observation.map(f => f.toJSON());
     }
@@ -61,7 +61,7 @@ class PanelMembers {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     return inst;
   }
@@ -73,7 +73,7 @@ class PanelMembers {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {PanelMembers} An instance of PanelMembers populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new PanelMembers();
     return inst;
   }

@@ -65,7 +65,7 @@ class UsingDevice {
    * @param {object} json - the JSON data to deserialize
    * @returns {UsingDevice} An instance of UsingDevice populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new UsingDevice();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -77,7 +77,7 @@ class UsingDevice {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/procedure/UsingDevice' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/procedure/UsingDevice' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -90,7 +90,7 @@ class UsingDevice {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (asExtension) {
       inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-procedure-UsingDevice-extension';
@@ -111,7 +111,7 @@ class UsingDevice {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {UsingDevice} An instance of UsingDevice populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new UsingDevice();
     if (asExtension) {
       inst.value = fhir['valueReference'];

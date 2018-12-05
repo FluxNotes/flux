@@ -89,7 +89,7 @@ class MedicationTreatmentPerformed extends MedicationStatement {
    * @param {object} json - the JSON data to deserialize
    * @returns {MedicationTreatmentPerformed} An instance of MedicationTreatmentPerformed populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new MedicationTreatmentPerformed();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -102,7 +102,7 @@ class MedicationTreatmentPerformed extends MedicationStatement {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/mcode/MedicationTreatmentPerformed' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/mcode/MedicationTreatmentPerformed' };
     if (this.topicCode != null) {
       inst['TopicCode'] = typeof this.topicCode.toJSON === 'function' ? this.topicCode.toJSON() : this.topicCode;
     }
@@ -160,7 +160,7 @@ class MedicationTreatmentPerformed extends MedicationStatement {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     inst['resourceType'] = 'MedicationStatement';
     if (this.topicCode != null) {
@@ -212,11 +212,11 @@ class MedicationTreatmentPerformed extends MedicationStatement {
       inst['effective[x]'] = typeof this.occurrenceTimeOrPeriod.toFHIR === 'function' ? this.occurrenceTimeOrPeriod.toFHIR() : this.occurrenceTimeOrPeriod;
     }
     if (this.reason != null) {
-      inst['reasonCode'] = inst ['reasonCode'] || [];
+      inst['reasonCode'] = inst['reasonCode'] || [];
       inst['reasonCode'] = inst['reasonCode'].concat(this.reason.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.dosage != null) {
-      inst['dosage'] = inst ['dosage'] || [];
+      inst['dosage'] = inst['dosage'] || [];
       inst['dosage'].push(typeof this.dosage.toFHIR === 'function' ? this.dosage.toFHIR() : this.dosage);
     }
     return inst;
@@ -229,10 +229,10 @@ class MedicationTreatmentPerformed extends MedicationStatement {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {MedicationTreatmentPerformed} An instance of MedicationTreatmentPerformed populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new MedicationTreatmentPerformed();
     if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-TopicCode-extension');
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-base-TopicCode-extension');
       if (match != null) {
         inst.topicCode = createInstanceFromFHIR('shr.base.TopicCode', match, true);
       }

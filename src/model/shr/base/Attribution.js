@@ -88,7 +88,7 @@ class Attribution {
    * @param {object} json - the JSON data to deserialize
    * @returns {Attribution} An instance of Attribution populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Attribution();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -100,7 +100,7 @@ class Attribution {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/base/Attribution' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/base/Attribution' } };
     if (this.entityOrRole != null) {
       inst['EntityOrRole'] = typeof this.entityOrRole.toJSON === 'function' ? this.entityOrRole.toJSON() : this.entityOrRole;
     }
@@ -119,7 +119,7 @@ class Attribution {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (asExtension) {
       if (this.entityOrRole != null) {
@@ -146,18 +146,18 @@ class Attribution {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Attribution} An instance of Attribution populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Attribution();
     if (asExtension) {
-      const match_1 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-EntityOrRole-extension');
+      const match_1 = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-entity-EntityOrRole-extension');
       if (match_1 != null) {
         inst.entityOrRole = createInstanceFromFHIR('shr.entity.EntityOrRole', match_1, true);
       }
-      const match_2 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-RecordedOn-extension');
+      const match_2 = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-base-RecordedOn-extension');
       if (match_2 != null) {
         inst.recordedOn = createInstanceFromFHIR('shr.base.RecordedOn', match_2, true);
       }
-      const match_3 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-Signature-extension');
+      const match_3 = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-core-Signature-extension');
       if (match_3 != null) {
         inst.signature = createInstanceFromFHIR('shr.core.Signature', match_3, true);
       }

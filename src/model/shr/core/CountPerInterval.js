@@ -61,7 +61,7 @@ class CountPerInterval {
    * @param {object} json - the JSON data to deserialize
    * @returns {CountPerInterval} An instance of CountPerInterval populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new CountPerInterval();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -73,7 +73,7 @@ class CountPerInterval {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/CountPerInterval' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/CountPerInterval' } };
     if (this.minCount != null) {
       inst['MinCount'] = typeof this.minCount.toJSON === 'function' ? this.minCount.toJSON() : this.minCount;
     }
@@ -89,7 +89,7 @@ class CountPerInterval {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     return inst;
   }
@@ -101,7 +101,7 @@ class CountPerInterval {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {CountPerInterval} An instance of CountPerInterval populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new CountPerInterval();
     return inst;
   }

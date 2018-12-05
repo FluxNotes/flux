@@ -38,7 +38,7 @@ class EthnicityDetail {
    * @param {object} json - the JSON data to deserialize
    * @returns {EthnicityDetail} An instance of EthnicityDetail populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new EthnicityDetail();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -50,7 +50,7 @@ class EthnicityDetail {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/EthnicityDetail' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/EthnicityDetail' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -63,7 +63,7 @@ class EthnicityDetail {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (!asExtension && this.value != null) {
       if (this.value != null) {
@@ -80,7 +80,7 @@ class EthnicityDetail {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {EthnicityDetail} An instance of EthnicityDetail populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new EthnicityDetail();
     if (!asExtension && fhir != null) {
       inst.value = createInstanceFromFHIR(null, fhir);

@@ -143,7 +143,7 @@ class ClinicalNote extends Finding {
    * @param {object} json - the JSON data to deserialize
    * @returns {ClinicalNote} An instance of ClinicalNote populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new ClinicalNote();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -156,7 +156,7 @@ class ClinicalNote extends Finding {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/base/ClinicalNote' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/base/ClinicalNote' };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -193,7 +193,7 @@ class ClinicalNote extends Finding {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     inst['resourceType'] = 'DomainResource';
     if (this.findingTopicCode != null) {
@@ -238,10 +238,10 @@ class ClinicalNote extends Finding {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {ClinicalNote} An instance of ClinicalNote populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new ClinicalNote();
     if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-FindingTopicCode-extension');
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-base-FindingTopicCode-extension');
       if (match != null) {
         inst.findingTopicCode = createInstanceFromFHIR('shr.base.FindingTopicCode', match, true);
       }

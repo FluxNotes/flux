@@ -61,7 +61,7 @@ class TimePeriod {
    * @param {object} json - the JSON data to deserialize
    * @returns {TimePeriod} An instance of TimePeriod populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new TimePeriod();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -73,7 +73,7 @@ class TimePeriod {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/TimePeriod' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/TimePeriod' } };
     if (this.timePeriodStart != null) {
       inst['TimePeriodStart'] = typeof this.timePeriodStart.toJSON === 'function' ? this.timePeriodStart.toJSON() : this.timePeriodStart;
     }
@@ -89,7 +89,7 @@ class TimePeriod {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (this.timePeriodStart != null) {
       inst['start'] = typeof this.timePeriodStart.toFHIR === 'function' ? this.timePeriodStart.toFHIR() : this.timePeriodStart;
@@ -111,7 +111,7 @@ class TimePeriod {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {TimePeriod} An instance of TimePeriod populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new TimePeriod();
     if (fhir['start'] != null) {
       inst.timePeriodStart = createInstanceFromFHIR('shr.core.TimePeriodStart', fhir['start']);

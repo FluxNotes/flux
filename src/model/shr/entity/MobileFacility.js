@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { setPropertiesFromJSON } from '../../json-helper';
 
 /**
  * Generated class for shr.entity.MobileFacility.
@@ -65,7 +65,7 @@ class MobileFacility {
    * @param {object} json - the JSON data to deserialize
    * @returns {MobileFacility} An instance of MobileFacility populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new MobileFacility();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -77,7 +77,7 @@ class MobileFacility {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/MobileFacility' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/MobileFacility' } };
     if (this.value != null) {
       inst['Value'] = this.value;
     }
@@ -90,7 +90,7 @@ class MobileFacility {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (asExtension) {
       inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-entity-MobileFacility-extension';
@@ -111,7 +111,7 @@ class MobileFacility {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {MobileFacility} An instance of MobileFacility populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new MobileFacility();
     if (asExtension) {
       inst.value = fhir['valueBoolean'];

@@ -61,7 +61,7 @@ class Ratio {
    * @param {object} json - the JSON data to deserialize
    * @returns {Ratio} An instance of Ratio populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Ratio();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -73,7 +73,7 @@ class Ratio {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Ratio' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/Ratio' } };
     if (this.numerator != null) {
       inst['Numerator'] = typeof this.numerator.toJSON === 'function' ? this.numerator.toJSON() : this.numerator;
     }
@@ -89,7 +89,7 @@ class Ratio {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (this.numerator != null) {
       inst['numerator'] = typeof this.numerator.toFHIR === 'function' ? this.numerator.toFHIR() : this.numerator;
@@ -107,7 +107,7 @@ class Ratio {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Ratio} An instance of Ratio populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Ratio();
     if (fhir['numerator'] != null) {
       inst.numerator = createInstanceFromFHIR('shr.core.Numerator', fhir['numerator']);

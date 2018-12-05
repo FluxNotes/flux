@@ -163,7 +163,7 @@ class Identifier {
    * @param {object} json - the JSON data to deserialize
    * @returns {Identifier} An instance of Identifier populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Identifier();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -175,7 +175,7 @@ class Identifier {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Identifier' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/Identifier' } };
     if (this.text != null) {
       inst['Text'] = typeof this.text.toJSON === 'function' ? this.text.toJSON() : this.text;
     }
@@ -203,7 +203,7 @@ class Identifier {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (this.purpose != null && this.purpose.coding != null && this.purpose.coding.code != null) {
       inst['use'] = typeof this.purpose.coding.code.toFHIR === 'function' ? this.purpose.coding.code.toFHIR() : this.purpose.coding.code;
@@ -237,13 +237,13 @@ class Identifier {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Identifier} An instance of Identifier populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Identifier();
     if (fhir['use'] != null) {
-      if(inst.purpose == null) {
+      if (inst.purpose === null) {
         inst.purpose = createInstanceFromFHIR('shr.core.Purpose', {});
       }
-      if(inst.purpose.value == null) {
+      if (inst.purpose.value === null) {
         inst.purpose.value = createInstanceFromFHIR('shr.core.Coding', {});
       }
       inst.purpose.value.code = createInstanceFromFHIR('shr.core.Code', fhir['use']);

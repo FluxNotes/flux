@@ -266,7 +266,7 @@ class Medication extends Entity {
    * @param {object} json - the JSON data to deserialize
    * @returns {Medication} An instance of Medication populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Medication();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -279,7 +279,7 @@ class Medication extends Entity {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Medication' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/Medication' };
     if (this.partOf != null) {
       inst['PartOf'] = typeof this.partOf.toJSON === 'function' ? this.partOf.toJSON() : this.partOf;
     }
@@ -319,7 +319,7 @@ class Medication extends Entity {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     inst['resourceType'] = 'Medication';
     if (this.partOf != null) {
@@ -342,46 +342,46 @@ class Medication extends Entity {
       inst['form'] = typeof this.doseForm.toFHIR === 'function' ? this.doseForm.toFHIR() : this.doseForm;
     }
     if (this.ingredient != null && this.ingredient.substanceOrCode != null) {
-      if(inst['ingredient'] === undefined) {
+      if (inst['ingredient'] === undefined) {
         inst['ingredient'] = {};
       }
-      inst['ingredient']['item[x]'] = inst ['ingredient']['item[x]'] || [];
+      inst['ingredient']['item[x]'] = inst['ingredient']['item[x]'] || [];
       inst['ingredient']['item[x]'] = inst['ingredient']['item[x]'].concat(this.ingredient.substanceOrCode.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.ingredient != null && this.ingredient.isActiveIngredient != null) {
-      if(inst['ingredient'] === undefined) {
+      if (inst['ingredient'] === undefined) {
         inst['ingredient'] = {};
       }
-      inst['ingredient']['isActive'] = inst ['ingredient']['isActive'] || [];
+      inst['ingredient']['isActive'] = inst['ingredient']['isActive'] || [];
       inst['ingredient']['isActive'] = inst['ingredient']['isActive'].concat(this.ingredient.isActiveIngredient.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.ingredient != null && this.ingredient.ingredientAmount != null) {
-      if(inst['ingredient'] === undefined) {
+      if (inst['ingredient'] === undefined) {
         inst['ingredient'] = {};
       }
-      inst['ingredient']['amount'] = inst ['ingredient']['amount'] || [];
+      inst['ingredient']['amount'] = inst['ingredient']['amount'] || [];
       inst['ingredient']['amount'] = inst['ingredient']['amount'].concat(this.ingredient.ingredientAmount.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.package != null) {
-      if(inst['package'] === undefined) {
+      if (inst['package'] === undefined) {
         inst['package'] = {};
       }
       inst['package']['container'] = typeof this.package.toFHIR === 'function' ? this.package.toFHIR() : this.package;
     }
     if (this.lotNumber != null) {
-      if(inst['package'] === undefined) {
+      if (inst['package'] === undefined) {
         inst['package'] = {};
       }
-      if(inst['package']['batch'] === undefined) {
+      if (inst['package']['batch'] === undefined) {
         inst['package']['batch'] = {};
       }
       inst['package']['batch']['lotNumber'] = typeof this.lotNumber.toFHIR === 'function' ? this.lotNumber.toFHIR() : this.lotNumber;
     }
     if (this.expirationDate != null) {
-      if(inst['package'] === undefined) {
+      if (inst['package'] === undefined) {
         inst['package'] = {};
       }
-      if(inst['package']['batch'] === undefined) {
+      if (inst['package']['batch'] === undefined) {
         inst['package']['batch'] = {};
       }
       inst['package']['batch']['expirationDate'] = typeof this.expirationDate.toFHIR === 'function' ? this.expirationDate.toFHIR() : this.expirationDate;
@@ -400,10 +400,10 @@ class Medication extends Entity {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Medication} An instance of Medication populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Medication();
     if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension');
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension');
       if (match != null) {
         inst.partOf = createInstanceFromFHIR('shr.entity.PartOf', match, true);
       }
@@ -412,7 +412,7 @@ class Medication extends Entity {
       inst.type = createInstanceFromFHIR('shr.core.Type', fhir['code']);
     }
     if (fhir['isBrand'] != null) {
-      if(inst.brand == null) {
+      if (inst.brand === null) {
         inst.brand = createInstanceFromFHIR('shr.entity.Brand', {});
       }
       inst.brand.isBrand = createInstanceFromFHIR('shr.entity.IsBrand', fhir['isBrand']);
@@ -427,19 +427,19 @@ class Medication extends Entity {
       inst.doseForm = createInstanceFromFHIR('shr.entity.DoseForm', fhir['form']);
     }
     if (fhir['ingredient'] != null && fhir['ingredient']['itemCodeableConcept'] != null) {
-      if(inst.ingredient == null) {
+      if (inst.ingredient === null) {
         inst.ingredient = createInstanceFromFHIR('shr.entity.Ingredient', {});
       }
       inst.ingredient.substanceOrCode = createInstanceFromFHIR('shr.entity.SubstanceOrCode', fhir['ingredient']['itemCodeableConcept']);
     }
     if (fhir['ingredient'] != null && fhir['ingredient']['isActive'] != null) {
-      if(inst.ingredient == null) {
+      if (inst.ingredient === null) {
         inst.ingredient = createInstanceFromFHIR('shr.entity.Ingredient', {});
       }
       inst.ingredient.isActiveIngredient = createInstanceFromFHIR('shr.entity.IsActiveIngredient', fhir['ingredient']['isActive']);
     }
     if (fhir['ingredient'] != null && fhir['ingredient']['amount'] != null) {
-      if(inst.ingredient == null) {
+      if (inst.ingredient === null) {
         inst.ingredient = createInstanceFromFHIR('shr.entity.Ingredient', {});
       }
       inst.ingredient.ingredientAmount = createInstanceFromFHIR('shr.entity.IngredientAmount', fhir['ingredient']['amount']);

@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { setPropertiesFromJSON } from '../../json-helper';
 
 /**
  * Generated class for shr.core.NumberOfRepeats.
@@ -65,7 +65,7 @@ class NumberOfRepeats {
    * @param {object} json - the JSON data to deserialize
    * @returns {NumberOfRepeats} An instance of NumberOfRepeats populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new NumberOfRepeats();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -77,7 +77,7 @@ class NumberOfRepeats {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/NumberOfRepeats' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/NumberOfRepeats' } };
     if (this.value != null) {
       inst['Value'] = this.value;
     }
@@ -90,7 +90,7 @@ class NumberOfRepeats {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (asExtension) {
       inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-core-NumberOfRepeats-extension';
@@ -111,7 +111,7 @@ class NumberOfRepeats {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {NumberOfRepeats} An instance of NumberOfRepeats populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new NumberOfRepeats();
     if (asExtension) {
       inst.value = fhir['valuePositiveInt'];

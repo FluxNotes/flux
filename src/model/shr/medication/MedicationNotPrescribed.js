@@ -91,7 +91,7 @@ class MedicationNotPrescribed extends ActionRequestedAgainst {
    * @param {object} json - the JSON data to deserialize
    * @returns {MedicationNotPrescribed} An instance of MedicationNotPrescribed populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new MedicationNotPrescribed();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -104,7 +104,7 @@ class MedicationNotPrescribed extends ActionRequestedAgainst {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/medication/MedicationNotPrescribed' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/medication/MedicationNotPrescribed' };
     if (this.topicCode != null) {
       inst['TopicCode'] = typeof this.topicCode.toJSON === 'function' ? this.topicCode.toJSON() : this.topicCode;
     }
@@ -132,7 +132,7 @@ class MedicationNotPrescribed extends ActionRequestedAgainst {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     inst['resourceType'] = 'DomainResource';
     if (this.topicCode != null) {
@@ -169,10 +169,10 @@ class MedicationNotPrescribed extends ActionRequestedAgainst {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {MedicationNotPrescribed} An instance of MedicationNotPrescribed populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new MedicationNotPrescribed();
     if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-TopicCode-extension');
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-base-TopicCode-extension');
       if (match != null) {
         inst.topicCode = createInstanceFromFHIR('shr.base.TopicCode', match, true);
       }

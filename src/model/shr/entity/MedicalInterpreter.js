@@ -65,7 +65,7 @@ class MedicalInterpreter {
    * @param {object} json - the JSON data to deserialize
    * @returns {MedicalInterpreter} An instance of MedicalInterpreter populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new MedicalInterpreter();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -77,7 +77,7 @@ class MedicalInterpreter {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/MedicalInterpreter' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/MedicalInterpreter' } };
     if (this.medicalInterpreterNeeded != null) {
       inst['MedicalInterpreterNeeded'] = typeof this.medicalInterpreterNeeded.toJSON === 'function' ? this.medicalInterpreterNeeded.toJSON() : this.medicalInterpreterNeeded;
     }
@@ -93,7 +93,7 @@ class MedicalInterpreter {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     return inst;
   }
@@ -105,7 +105,7 @@ class MedicalInterpreter {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {MedicalInterpreter} An instance of MedicalInterpreter populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new MedicalInterpreter();
     return inst;
   }

@@ -341,7 +341,7 @@ class Specimen extends Entity {
    * @param {object} json - the JSON data to deserialize
    * @returns {Specimen} An instance of Specimen populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Specimen();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -353,7 +353,7 @@ class Specimen extends Entity {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Specimen' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/Specimen' } };
     if (this.partOf != null) {
       inst['PartOf'] = typeof this.partOf.toJSON === 'function' ? this.partOf.toJSON() : this.partOf;
     }
@@ -405,7 +405,7 @@ class Specimen extends Entity {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (this.partOf != null) {
       inst['extension'] = inst['extension'] || [];
@@ -454,45 +454,45 @@ class Specimen extends Entity {
       inst['parent'] = typeof this.sourceSpecimen.toFHIR === 'function' ? this.sourceSpecimen.toFHIR() : this.sourceSpecimen;
     }
     if (this.specimenContainer != null && this.specimenContainer.identifier != null) {
-      if(inst['container'] === undefined) {
+      if (inst['container'] === undefined) {
         inst['container'] = {};
       }
-      inst['container']['identifier'] = inst ['container']['identifier'] || [];
+      inst['container']['identifier'] = inst['container']['identifier'] || [];
       inst['container']['identifier'] = inst['container']['identifier'].concat(this.specimenContainer.identifier.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.specimenContainer != null && this.specimenContainer.commentOrDescription != null) {
-      if(inst['container'] === undefined) {
+      if (inst['container'] === undefined) {
         inst['container'] = {};
       }
-      inst['container']['description'] = inst ['container']['description'] || [];
+      inst['container']['description'] = inst['container']['description'] || [];
       inst['container']['description'] = inst['container']['description'].concat(this.specimenContainer.commentOrDescription.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.specimenContainer != null && this.specimenContainer.type != null) {
-      if(inst['container'] === undefined) {
+      if (inst['container'] === undefined) {
         inst['container'] = {};
       }
-      inst['container']['type'] = inst ['container']['type'] || [];
+      inst['container']['type'] = inst['container']['type'] || [];
       inst['container']['type'] = inst['container']['type'].concat(this.specimenContainer.type.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.specimenContainer != null && this.specimenContainer.capacity != null) {
-      if(inst['container'] === undefined) {
+      if (inst['container'] === undefined) {
         inst['container'] = {};
       }
-      inst['container']['capacity'] = inst ['container']['capacity'] || [];
+      inst['container']['capacity'] = inst['container']['capacity'] || [];
       inst['container']['capacity'] = inst['container']['capacity'].concat(this.specimenContainer.capacity.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.specimenContainer != null && this.specimenContainer.specimenQuantity != null) {
-      if(inst['container'] === undefined) {
+      if (inst['container'] === undefined) {
         inst['container'] = {};
       }
-      inst['container']['specimenQuantity'] = inst ['container']['specimenQuantity'] || [];
+      inst['container']['specimenQuantity'] = inst['container']['specimenQuantity'] || [];
       inst['container']['specimenQuantity'] = inst['container']['specimenQuantity'].concat(this.specimenContainer.specimenQuantity.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.specimenContainer != null && this.specimenContainer.additive != null) {
-      if(inst['container'] === undefined) {
+      if (inst['container'] === undefined) {
         inst['container'] = {};
       }
-      inst['container']['additive[x]'] = inst ['container']['additive[x]'] || [];
+      inst['container']['additive[x]'] = inst['container']['additive[x]'] || [];
       inst['container']['additive[x]'] = inst['container']['additive[x]'].concat(this.specimenContainer.additive.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (asExtension) {
@@ -509,10 +509,10 @@ class Specimen extends Entity {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Specimen} An instance of Specimen populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Specimen();
     if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension');
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension');
       if (match != null) {
         inst.partOf = createInstanceFromFHIR('shr.entity.PartOf', match, true);
       }
@@ -536,37 +536,37 @@ class Specimen extends Entity {
       inst.sourceSpecimen = createInstanceFromFHIR('shr.entity.SourceSpecimen', fhir['parent']);
     }
     if (fhir['container'] != null && fhir['container']['identifier'] != null) {
-      if(inst.specimenContainer == null) {
+      if (inst.specimenContainer === null) {
         inst.specimenContainer = createInstanceFromFHIR('shr.entity.SpecimenContainer', {});
       }
       inst.specimenContainer.identifier = createInstanceFromFHIR('shr.core.Identifier', fhir['container']['identifier']);
     }
     if (fhir['container'] != null && fhir['container']['description'] != null) {
-      if(inst.specimenContainer == null) {
+      if (inst.specimenContainer === null) {
         inst.specimenContainer = createInstanceFromFHIR('shr.entity.SpecimenContainer', {});
       }
       inst.specimenContainer.commentOrDescription = createInstanceFromFHIR('shr.core.CommentOrDescription', fhir['container']['description']);
     }
     if (fhir['container'] != null && fhir['container']['type'] != null) {
-      if(inst.specimenContainer == null) {
+      if (inst.specimenContainer === null) {
         inst.specimenContainer = createInstanceFromFHIR('shr.entity.SpecimenContainer', {});
       }
       inst.specimenContainer.type = createInstanceFromFHIR('shr.core.Type', fhir['container']['type']);
     }
     if (fhir['container'] != null && fhir['container']['capacity'] != null) {
-      if(inst.specimenContainer == null) {
+      if (inst.specimenContainer === null) {
         inst.specimenContainer = createInstanceFromFHIR('shr.entity.SpecimenContainer', {});
       }
       inst.specimenContainer.capacity = createInstanceFromFHIR('shr.entity.Capacity', fhir['container']['capacity']);
     }
     if (fhir['container'] != null && fhir['container']['specimenQuantity'] != null) {
-      if(inst.specimenContainer == null) {
+      if (inst.specimenContainer === null) {
         inst.specimenContainer = createInstanceFromFHIR('shr.entity.SpecimenContainer', {});
       }
       inst.specimenContainer.specimenQuantity = createInstanceFromFHIR('shr.entity.SpecimenQuantity', fhir['container']['specimenQuantity']);
     }
     if (fhir['container'] != null && fhir['container']['additiveCodeableConcept'] != null) {
-      if(inst.specimenContainer == null) {
+      if (inst.specimenContainer === null) {
         inst.specimenContainer = createInstanceFromFHIR('shr.entity.SpecimenContainer', {});
       }
       inst.specimenContainer.additive = inst.specimenContainer.additive || [];

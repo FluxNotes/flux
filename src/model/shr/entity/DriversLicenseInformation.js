@@ -86,7 +86,7 @@ class DriversLicenseInformation {
    * @param {object} json - the JSON data to deserialize
    * @returns {DriversLicenseInformation} An instance of DriversLicenseInformation populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new DriversLicenseInformation();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -98,7 +98,7 @@ class DriversLicenseInformation {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/DriversLicenseInformation' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/DriversLicenseInformation' } };
     if (this.driversLicenseNumber != null) {
       inst['DriversLicenseNumber'] = typeof this.driversLicenseNumber.toJSON === 'function' ? this.driversLicenseNumber.toJSON() : this.driversLicenseNumber;
     }
@@ -117,7 +117,7 @@ class DriversLicenseInformation {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     return inst;
   }
@@ -129,7 +129,7 @@ class DriversLicenseInformation {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {DriversLicenseInformation} An instance of DriversLicenseInformation populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new DriversLicenseInformation();
     return inst;
   }

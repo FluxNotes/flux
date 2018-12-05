@@ -39,7 +39,7 @@ class Section extends InformationItem {
    * @param {object} json - the JSON data to deserialize
    * @returns {Section} An instance of Section populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Section();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -51,7 +51,7 @@ class Section extends InformationItem {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/composition/Section' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/composition/Section' } };
     if (this.informationItem != null) {
       inst['InformationItem'] = this.informationItem.map(f => f.toJSON());
     }
@@ -64,7 +64,7 @@ class Section extends InformationItem {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (this.informationItem != null) {
       inst['extension'] = inst['extension'] || [];
@@ -80,10 +80,10 @@ class Section extends InformationItem {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Section} An instance of Section populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Section();
     if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-InformationItem-extension');
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-base-InformationItem-extension');
       if (match != null) {
         inst.informationItem = createInstanceFromFHIR('shr.base.InformationItem', match, true);
       }

@@ -197,7 +197,7 @@ class Facility extends Entity {
    * @param {object} json - the JSON data to deserialize
    * @returns {Facility} An instance of Facility populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Facility();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -210,7 +210,7 @@ class Facility extends Entity {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Facility' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/Facility' };
     if (this.partOf != null) {
       inst['PartOf'] = typeof this.partOf.toJSON === 'function' ? this.partOf.toJSON() : this.partOf;
     }
@@ -241,7 +241,7 @@ class Facility extends Entity {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     inst['resourceType'] = 'Location';
     if (this.partOf != null) {
@@ -259,26 +259,26 @@ class Facility extends Entity {
       inst['type'] = typeof this.type.toFHIR === 'function' ? this.type.toFHIR() : this.type;
     }
     if (this.contactPoint != null) {
-      inst['telecom'] = inst ['telecom'] || [];
+      inst['telecom'] = inst['telecom'] || [];
       inst['telecom'].push(typeof this.contactPoint.toFHIR === 'function' ? this.contactPoint.toFHIR() : this.contactPoint);
     }
     if (this.location != null && this.location.address != null) {
       inst['address'] = typeof this.location.address.toFHIR === 'function' ? this.location.address.toFHIR() : this.location.address;
     }
     if (this.location != null && this.location.geoposition != null && this.location.geoposition.longitude != null) {
-      if(inst['position'] === undefined) {
+      if (inst['position'] === undefined) {
         inst['position'] = {};
       }
       inst['position']['longitude'] = typeof this.location.geoposition.longitude.toFHIR === 'function' ? this.location.geoposition.longitude.toFHIR() : this.location.geoposition.longitude;
     }
     if (this.location != null && this.location.geoposition != null && this.location.geoposition.latitude != null) {
-      if(inst['position'] === undefined) {
+      if (inst['position'] === undefined) {
         inst['position'] = {};
       }
       inst['position']['latitude'] = typeof this.location.geoposition.latitude.toFHIR === 'function' ? this.location.geoposition.latitude.toFHIR() : this.location.geoposition.latitude;
     }
     if (this.location != null && this.location.geoposition != null && this.location.geoposition.altitude != null) {
-      if(inst['position'] === undefined) {
+      if (inst['position'] === undefined) {
         inst['position'] = {};
       }
       inst['position']['altitude'] = typeof this.location.geoposition.altitude.toFHIR === 'function' ? this.location.geoposition.altitude.toFHIR() : this.location.geoposition.altitude;
@@ -300,10 +300,10 @@ class Facility extends Entity {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Facility} An instance of Facility populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Facility();
     if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension');
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension');
       if (match != null) {
         inst.partOf = createInstanceFromFHIR('shr.entity.PartOf', match, true);
       }
@@ -318,34 +318,34 @@ class Facility extends Entity {
       inst.contactPoint = createInstanceFromFHIR('shr.core.ContactPoint', fhir['telecom'][0]);
     }
     if (fhir['address'] != null) {
-      if(inst.location == null) {
+      if (inst.location === null) {
         inst.location = createInstanceFromFHIR('shr.entity.Location', {});
       }
       inst.location.value = createInstanceFromFHIR('shr.core.Address', fhir['address']);
     }
     if (fhir['position'] != null && fhir['position']['longitude'] != null) {
-      if(inst.location == null) {
+      if (inst.location === null) {
         inst.location = createInstanceFromFHIR('shr.entity.Location', {});
       }
-      if(inst.location.value == null) {
+      if (inst.location.value === null) {
         inst.location.value = createInstanceFromFHIR('shr.core.Geoposition', {});
       }
       inst.location.value.longitude = createInstanceFromFHIR('shr.core.Longitude', fhir['position']['longitude']);
     }
     if (fhir['position'] != null && fhir['position']['latitude'] != null) {
-      if(inst.location == null) {
+      if (inst.location === null) {
         inst.location = createInstanceFromFHIR('shr.entity.Location', {});
       }
-      if(inst.location.value == null) {
+      if (inst.location.value === null) {
         inst.location.value = createInstanceFromFHIR('shr.core.Geoposition', {});
       }
       inst.location.value.latitude = createInstanceFromFHIR('shr.core.Latitude', fhir['position']['latitude']);
     }
     if (fhir['position'] != null && fhir['position']['altitude'] != null) {
-      if(inst.location == null) {
+      if (inst.location === null) {
         inst.location = createInstanceFromFHIR('shr.entity.Location', {});
       }
-      if(inst.location.value == null) {
+      if (inst.location.value === null) {
         inst.location.value = createInstanceFromFHIR('shr.core.Geoposition', {});
       }
       inst.location.value.altitude = createInstanceFromFHIR('shr.core.Altitude', fhir['position']['altitude']);

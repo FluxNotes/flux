@@ -39,7 +39,7 @@ class Duration extends SimpleQuantity {
    * @param {object} json - the JSON data to deserialize
    * @returns {Duration} An instance of Duration populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Duration();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -51,7 +51,7 @@ class Duration extends SimpleQuantity {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Duration' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/Duration' } };
     if (this.decimalValue != null) {
       inst['DecimalValue'] = typeof this.decimalValue.toJSON === 'function' ? this.decimalValue.toJSON() : this.decimalValue;
     }
@@ -70,7 +70,7 @@ class Duration extends SimpleQuantity {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (this.decimalValue != null) {
       inst['extension'] = inst['extension'] || [];
@@ -90,10 +90,10 @@ class Duration extends SimpleQuantity {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Duration} An instance of Duration populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Duration();
     if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-DecimalValue-extension');
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-core-DecimalValue-extension');
       if (match != null) {
         inst.decimalValue = createInstanceFromFHIR('shr.core.DecimalValue', match, true);
       }

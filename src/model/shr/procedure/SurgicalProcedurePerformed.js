@@ -341,7 +341,7 @@ class SurgicalProcedurePerformed extends ProcedurePerformed {
    * @param {object} json - the JSON data to deserialize
    * @returns {SurgicalProcedurePerformed} An instance of SurgicalProcedurePerformed populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new SurgicalProcedurePerformed();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -353,7 +353,7 @@ class SurgicalProcedurePerformed extends ProcedurePerformed {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/procedure/SurgicalProcedurePerformed' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/procedure/SurgicalProcedurePerformed' } };
     if (this.topicCode != null) {
       inst['TopicCode'] = typeof this.topicCode.toJSON === 'function' ? this.topicCode.toJSON() : this.topicCode;
     }
@@ -462,7 +462,7 @@ class SurgicalProcedurePerformed extends ProcedurePerformed {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (this.indirectSite != null) {
       inst['extension'] = inst['extension'] || [];
@@ -537,11 +537,11 @@ class SurgicalProcedurePerformed extends ProcedurePerformed {
       inst['extension'].push(typeof this.indirectDeviceCode.toFHIR === 'function' ? this.indirectDeviceCode.toFHIR(true) : this.indirectDeviceCode);
     }
     if (this.relatedRequest != null && this.relatedRequest.actionRequested != null) {
-      inst['basedOn'] = inst ['basedOn'] || [];
+      inst['basedOn'] = inst['basedOn'] || [];
       inst['basedOn'] = inst['basedOn'].concat(this.relatedRequest.actionRequested.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.partOf != null) {
-      inst['partOf'] = inst ['partOf'] || [];
+      inst['partOf'] = inst['partOf'] || [];
       inst['partOf'].push(typeof this.partOf.toFHIR === 'function' ? this.partOf.toFHIR() : this.partOf);
     }
     if (this.status != null) {
@@ -563,42 +563,42 @@ class SurgicalProcedurePerformed extends ProcedurePerformed {
       inst['performed[x]'] = typeof this.occurrenceTimeOrPeriod.toFHIR === 'function' ? this.occurrenceTimeOrPeriod.toFHIR() : this.occurrenceTimeOrPeriod;
     }
     if (this.participation != null && this.participation.participationType != null) {
-      if(inst['performer'] === undefined) {
+      if (inst['performer'] === undefined) {
         inst['performer'] = {};
       }
-      inst['performer']['role'] = inst ['performer']['role'] || [];
+      inst['performer']['role'] = inst['performer']['role'] || [];
       inst['performer']['role'] = inst['performer']['role'].concat(this.participation.participationType.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.participation != null && this.participation.participant != null) {
-      if(inst['performer'] === undefined) {
+      if (inst['performer'] === undefined) {
         inst['performer'] = {};
       }
-      inst['performer']['actor'] = inst ['performer']['actor'] || [];
+      inst['performer']['actor'] = inst['performer']['actor'] || [];
       inst['performer']['actor'] = inst['performer']['actor'].concat(this.participation.participant.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.participation != null && this.participation.onBehalfOf != null) {
-      if(inst['performer'] === undefined) {
+      if (inst['performer'] === undefined) {
         inst['performer'] = {};
       }
-      inst['performer']['onBehalfOf'] = inst ['performer']['onBehalfOf'] || [];
+      inst['performer']['onBehalfOf'] = inst['performer']['onBehalfOf'] || [];
       inst['performer']['onBehalfOf'] = inst['performer']['onBehalfOf'].concat(this.participation.onBehalfOf.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.facility != null) {
       inst['location'] = typeof this.facility.toFHIR === 'function' ? this.facility.toFHIR() : this.facility;
     }
     if (this.reason != null) {
-      inst['reasonCode'] = inst ['reasonCode'] || [];
+      inst['reasonCode'] = inst['reasonCode'] || [];
       inst['reasonCode'] = inst['reasonCode'].concat(this.reason.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.anatomicalLocation != null && this.anatomicalLocation.anatomicalLocationOrLandmarkCode != null) {
-      inst['bodySite'] = inst ['bodySite'] || [];
+      inst['bodySite'] = inst['bodySite'] || [];
       inst['bodySite'] = inst['bodySite'].concat(this.anatomicalLocation.anatomicalLocationOrLandmarkCode.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.outcome != null) {
       inst['outcome'] = typeof this.outcome.toFHIR === 'function' ? this.outcome.toFHIR() : this.outcome;
     }
     if (this.annotation != null) {
-      inst['note'] = inst ['note'] || [];
+      inst['note'] = inst['note'] || [];
       inst['note'] = inst['note'].concat(this.annotation.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     return inst;
@@ -611,16 +611,16 @@ class SurgicalProcedurePerformed extends ProcedurePerformed {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {SurgicalProcedurePerformed} An instance of SurgicalProcedurePerformed populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new SurgicalProcedurePerformed();
     if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url == 'http://hl7.org/fhir/StructureDefinition/procedure-approachBodySite');
+      const match = fhir['extension'].find(e => e.url === 'http://hl7.org/fhir/StructureDefinition/procedure-approachBodySite');
       if (match != null) {
         inst.indirectSite = createInstanceFromFHIR('shr.procedure.IndirectSite', match, true);
       }
     }
     if (fhir['basedOn'] != null) {
-      if(inst.relatedRequest == null) {
+      if (inst.relatedRequest === null) {
         inst.relatedRequest = createInstanceFromFHIR('shr.base.RelatedRequest', {});
       }
       inst.relatedRequest.value = createInstanceFromFHIR('shr.base.ActionRequested', fhir['basedOn'][0]);
@@ -650,19 +650,19 @@ class SurgicalProcedurePerformed extends ProcedurePerformed {
       inst.occurrenceTimeOrPeriod = createInstanceFromFHIR('shr.core.OccurrenceTimeOrPeriod', fhir['performedPeriod']);
     }
     if (fhir['performer'] != null && fhir['performer']['role'] != null) {
-      if(inst.participation == null) {
+      if (inst.participation === null) {
         inst.participation = createInstanceFromFHIR('shr.base.Participation', {});
       }
       inst.participation.participationType = createInstanceFromFHIR('shr.base.ParticipationType', fhir['performer']['role']);
     }
     if (fhir['performer'] != null && fhir['performer']['actor'] != null) {
-      if(inst.participation == null) {
+      if (inst.participation === null) {
         inst.participation = createInstanceFromFHIR('shr.base.Participation', {});
       }
       inst.participation.participant = createInstanceFromFHIR('shr.base.Participant', fhir['performer']['actor']);
     }
     if (fhir['performer'] != null && fhir['performer']['onBehalfOf'] != null) {
-      if(inst.participation == null) {
+      if (inst.participation === null) {
         inst.participation = createInstanceFromFHIR('shr.base.Participation', {});
       }
       inst.participation.onBehalfOf = createInstanceFromFHIR('shr.core.OnBehalfOf', fhir['performer']['onBehalfOf']);
@@ -675,7 +675,7 @@ class SurgicalProcedurePerformed extends ProcedurePerformed {
       inst.reason = inst.reason.concat(fhir['reasonCode'].map(f => createInstanceFromFHIR('shr.base.Reason', f)));
     }
     if (fhir['bodySite'] != null) {
-      if(inst.anatomicalLocation == null) {
+      if (inst.anatomicalLocation === null) {
         inst.anatomicalLocation = createInstanceFromFHIR('shr.core.AnatomicalLocation', {});
       }
       inst.anatomicalLocation.anatomicalLocationOrLandmarkCode = createInstanceFromFHIR('shr.core.AnatomicalLocationOrLandmarkCode', fhir['bodySite'][0]);

@@ -188,7 +188,7 @@ class AnatomicalLocation {
    * @param {object} json - the JSON data to deserialize
    * @returns {AnatomicalLocation} An instance of AnatomicalLocation populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new AnatomicalLocation();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -200,7 +200,7 @@ class AnatomicalLocation {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/AnatomicalLocation' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/AnatomicalLocation' } };
     if (this.anatomicalLocationOrLandmarkCode != null) {
       inst['AnatomicalLocationOrLandmarkCode'] = typeof this.anatomicalLocationOrLandmarkCode.toJSON === 'function' ? this.anatomicalLocationOrLandmarkCode.toJSON() : this.anatomicalLocationOrLandmarkCode;
     }
@@ -231,7 +231,7 @@ class AnatomicalLocation {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (this.distanceFromLandmark != null) {
       inst['extension'] = inst['extension'] || [];
@@ -254,7 +254,7 @@ class AnatomicalLocation {
       inst['description'] = typeof this.commentOrDescription.toFHIR === 'function' ? this.commentOrDescription.toFHIR() : this.commentOrDescription;
     }
     if (this.media != null) {
-      inst['image'] = inst ['image'] || [];
+      inst['image'] = inst['image'] || [];
       inst['image'] = inst['image'].concat(this.media.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (asExtension) {
@@ -271,10 +271,10 @@ class AnatomicalLocation {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {AnatomicalLocation} An instance of AnatomicalLocation populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new AnatomicalLocation();
     if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-DistanceFromLandmark-extension');
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-core-DistanceFromLandmark-extension');
       if (match != null) {
         inst.distanceFromLandmark = createInstanceFromFHIR('shr.core.DistanceFromLandmark', match, true);
       }

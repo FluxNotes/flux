@@ -61,7 +61,7 @@ class ContactDetail {
    * @param {object} json - the JSON data to deserialize
    * @returns {ContactDetail} An instance of ContactDetail populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new ContactDetail();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -73,7 +73,7 @@ class ContactDetail {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/ContactDetail' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/ContactDetail' } };
     if (this.humanName != null) {
       inst['HumanName'] = typeof this.humanName.toJSON === 'function' ? this.humanName.toJSON() : this.humanName;
     }
@@ -89,13 +89,13 @@ class ContactDetail {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (this.humanName != null && this.humanName.nameAsText != null) {
       inst['name'] = typeof this.humanName.nameAsText.toFHIR === 'function' ? this.humanName.nameAsText.toFHIR() : this.humanName.nameAsText;
     }
     if (this.contactPoint != null) {
-      inst['telecom'] = inst ['telecom'] || [];
+      inst['telecom'] = inst['telecom'] || [];
       inst['telecom'] = inst['telecom'].concat(this.contactPoint.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     return inst;
@@ -108,10 +108,10 @@ class ContactDetail {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {ContactDetail} An instance of ContactDetail populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new ContactDetail();
     if (fhir['name'] != null) {
-      if(inst.humanName == null) {
+      if (inst.humanName === null) {
         inst.humanName = createInstanceFromFHIR('shr.core.HumanName', {});
       }
       inst.humanName.nameAsText = createInstanceFromFHIR('shr.core.NameAsText', fhir['name']);

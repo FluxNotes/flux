@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { setPropertiesFromJSON } from '../../json-helper';
 
 import GeopoliticalLocation from './GeopoliticalLocation';
 
@@ -68,7 +68,7 @@ class State extends GeopoliticalLocation {
    * @param {object} json - the JSON data to deserialize
    * @returns {State} An instance of State populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new State();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -80,7 +80,7 @@ class State extends GeopoliticalLocation {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/State' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/State' } };
     if (this.value != null) {
       inst['Value'] = this.value;
     }
@@ -93,7 +93,7 @@ class State extends GeopoliticalLocation {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (!asExtension && this.value != null) {
       if (this.value != null) {
@@ -110,7 +110,7 @@ class State extends GeopoliticalLocation {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {State} An instance of State populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new State();
     if (!asExtension && fhir != null) {
       inst.value = fhir;

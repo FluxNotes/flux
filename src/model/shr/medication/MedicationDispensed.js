@@ -14,7 +14,7 @@ class MedicationDispensed extends ActionPerformed {
    * @param {object} json - the JSON data to deserialize
    * @returns {MedicationDispensed} An instance of MedicationDispensed populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new MedicationDispensed();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -26,7 +26,7 @@ class MedicationDispensed extends ActionPerformed {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/medication/MedicationDispensed' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/medication/MedicationDispensed' } };
     if (this.topicCode != null) {
       inst['TopicCode'] = typeof this.topicCode.toJSON === 'function' ? this.topicCode.toJSON() : this.topicCode;
     }
@@ -72,7 +72,7 @@ class MedicationDispensed extends ActionPerformed {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (this.topicCode != null) {
       inst['extension'] = inst['extension'] || [];
@@ -132,10 +132,10 @@ class MedicationDispensed extends ActionPerformed {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {MedicationDispensed} An instance of MedicationDispensed populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new MedicationDispensed();
     if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-TopicCode-extension');
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-base-TopicCode-extension');
       if (match != null) {
         inst.topicCode = createInstanceFromFHIR('shr.base.TopicCode', match, true);
       }

@@ -61,7 +61,7 @@ class CodeableConcept {
    * @param {object} json - the JSON data to deserialize
    * @returns {CodeableConcept} An instance of CodeableConcept populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new CodeableConcept();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -73,7 +73,7 @@ class CodeableConcept {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/CodeableConcept' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/CodeableConcept' } };
     if (this.coding != null) {
       inst['Coding'] = this.coding.map(f => f.toJSON());
     }
@@ -89,10 +89,10 @@ class CodeableConcept {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (this.coding != null) {
-      inst['coding'] = inst ['coding'] || [];
+      inst['coding'] = inst['coding'] || [];
       inst['coding'] = inst['coding'].concat(this.coding.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.displayText != null) {
@@ -112,7 +112,7 @@ class CodeableConcept {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {CodeableConcept} An instance of CodeableConcept populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new CodeableConcept();
     if (fhir['coding'] != null) {
       inst.coding = inst.coding || [];

@@ -143,7 +143,7 @@ class ActionStatement extends InformationItem {
    * @param {object} json - the JSON data to deserialize
    * @returns {ActionStatement} An instance of ActionStatement populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new ActionStatement();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -155,7 +155,7 @@ class ActionStatement extends InformationItem {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/base/ActionStatement' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/base/ActionStatement' } };
     if (this.topicCode != null) {
       inst['TopicCode'] = typeof this.topicCode.toJSON === 'function' ? this.topicCode.toJSON() : this.topicCode;
     }
@@ -180,7 +180,7 @@ class ActionStatement extends InformationItem {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (this.topicCode != null) {
       inst['extension'] = inst['extension'] || [];
@@ -212,10 +212,10 @@ class ActionStatement extends InformationItem {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {ActionStatement} An instance of ActionStatement populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new ActionStatement();
     if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-TopicCode-extension');
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-base-TopicCode-extension');
       if (match != null) {
         inst.topicCode = createInstanceFromFHIR('shr.base.TopicCode', match, true);
       }

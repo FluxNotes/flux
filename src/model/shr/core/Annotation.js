@@ -92,7 +92,7 @@ class Annotation {
    * @param {object} json - the JSON data to deserialize
    * @returns {Annotation} An instance of Annotation populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Annotation();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -104,7 +104,7 @@ class Annotation {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Annotation' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/Annotation' } };
     if (this.text != null) {
       inst['Text'] = typeof this.text.toJSON === 'function' ? this.text.toJSON() : this.text;
     }
@@ -123,7 +123,7 @@ class Annotation {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (this.author != null) {
       inst['author[x]'] = typeof this.author.toFHIR === 'function' ? this.author.toFHIR() : this.author;
@@ -148,7 +148,7 @@ class Annotation {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Annotation} An instance of Annotation populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Annotation();
     if (fhir['authorString'] != null) {
       inst.author = createInstanceFromFHIR('shr.core.Author', fhir['authorString']);

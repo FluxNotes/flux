@@ -111,7 +111,7 @@ class Participation {
    * @param {object} json - the JSON data to deserialize
    * @returns {Participation} An instance of Participation populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Participation();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -123,7 +123,7 @@ class Participation {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/base/Participation' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/base/Participation' } };
     if (this.participant != null) {
       inst['Participant'] = typeof this.participant.toJSON === 'function' ? this.participant.toJSON() : this.participant;
     }
@@ -145,7 +145,7 @@ class Participation {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (asExtension) {
       if (this.participant != null) {
@@ -176,22 +176,22 @@ class Participation {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Participation} An instance of Participation populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Participation();
     if (asExtension) {
-      const match_1 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-Participant-extension');
+      const match_1 = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-base-Participant-extension');
       if (match_1 != null) {
         inst.participant = createInstanceFromFHIR('shr.base.Participant', match_1, true);
       }
-      const match_2 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-ParticipationType-extension');
+      const match_2 = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-base-ParticipationType-extension');
       if (match_2 != null) {
         inst.participationType = createInstanceFromFHIR('shr.base.ParticipationType', match_2, true);
       }
-      const match_3 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-ParticipationPeriod-extension');
+      const match_3 = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-base-ParticipationPeriod-extension');
       if (match_3 != null) {
         inst.participationPeriod = createInstanceFromFHIR('shr.base.ParticipationPeriod', match_3, true);
       }
-      const match_4 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-OnBehalfOf-extension');
+      const match_4 = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-core-OnBehalfOf-extension');
       if (match_4 != null) {
         inst.onBehalfOf = createInstanceFromFHIR('shr.core.OnBehalfOf', match_4, true);
       }

@@ -93,7 +93,7 @@ class PresenceAssertion extends ExistenceAssertion {
    * @param {object} json - the JSON data to deserialize
    * @returns {PresenceAssertion} An instance of PresenceAssertion populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new PresenceAssertion();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -105,7 +105,7 @@ class PresenceAssertion extends ExistenceAssertion {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/base/PresenceAssertion' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/base/PresenceAssertion' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -145,7 +145,7 @@ class PresenceAssertion extends ExistenceAssertion {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (this.findingTopicCode != null) {
       inst['extension'] = inst['extension'] || [];
@@ -189,10 +189,10 @@ class PresenceAssertion extends ExistenceAssertion {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {PresenceAssertion} An instance of PresenceAssertion populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new PresenceAssertion();
     if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-CodeableConcept-extension');
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-core-CodeableConcept-extension');
       if (match != null) {
         inst.value = createInstanceFromFHIR('shr.core.CodeableConcept', match, true);
       }

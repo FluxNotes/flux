@@ -193,7 +193,7 @@ class ProcedureNotPerformed extends ActionNotPerformed {
    * @param {object} json - the JSON data to deserialize
    * @returns {ProcedureNotPerformed} An instance of ProcedureNotPerformed populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new ProcedureNotPerformed();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -206,7 +206,7 @@ class ProcedureNotPerformed extends ActionNotPerformed {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/procedure/ProcedureNotPerformed' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/procedure/ProcedureNotPerformed' };
     if (this.topicCode != null) {
       inst['TopicCode'] = typeof this.topicCode.toJSON === 'function' ? this.topicCode.toJSON() : this.topicCode;
     }
@@ -246,7 +246,7 @@ class ProcedureNotPerformed extends ActionNotPerformed {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     inst['resourceType'] = 'Procedure';
     if (this.encounter != null) {
@@ -262,11 +262,11 @@ class ProcedureNotPerformed extends ActionNotPerformed {
       inst['extension'].push(typeof this.status.toFHIR === 'function' ? this.status.toFHIR(true) : this.status);
     }
     if (this.relatedRequest != null && this.relatedRequest.actionRequested != null) {
-      inst['basedOn'] = inst ['basedOn'] || [];
+      inst['basedOn'] = inst['basedOn'] || [];
       inst['basedOn'].push(typeof this.relatedRequest.actionRequested.toFHIR === 'function' ? this.relatedRequest.actionRequested.toFHIR() : this.relatedRequest.actionRequested);
     }
     if (this.reason != null) {
-      inst['notDoneReason'] = inst ['notDoneReason'] || [];
+      inst['notDoneReason'] = inst['notDoneReason'] || [];
       inst['notDoneReason'] = inst['notDoneReason'].concat(this.reason.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.category != null) {
@@ -279,11 +279,11 @@ class ProcedureNotPerformed extends ActionNotPerformed {
       inst['subject'] = typeof this.patient.toFHIR === 'function' ? this.patient.toFHIR() : this.patient;
     }
     if (this.anatomicalLocation != null && this.anatomicalLocation.anatomicalLocationOrLandmarkCode != null) {
-      inst['bodySite'] = inst ['bodySite'] || [];
+      inst['bodySite'] = inst['bodySite'] || [];
       inst['bodySite'] = inst['bodySite'].concat(this.anatomicalLocation.anatomicalLocationOrLandmarkCode.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.annotation != null) {
-      inst['note'] = inst ['note'] || [];
+      inst['note'] = inst['note'] || [];
       inst['note'] = inst['note'].concat(this.annotation.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     return inst;
@@ -296,16 +296,16 @@ class ProcedureNotPerformed extends ActionNotPerformed {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {ProcedureNotPerformed} An instance of ProcedureNotPerformed populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new ProcedureNotPerformed();
     if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-encounter-Encounter-extension');
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-encounter-Encounter-extension');
       if (match != null) {
         inst.encounter = createInstanceFromFHIR('shr.encounter.Encounter', match, true);
       }
     }
     if (fhir['basedOn'] != null) {
-      if(inst.relatedRequest == null) {
+      if (inst.relatedRequest === null) {
         inst.relatedRequest = createInstanceFromFHIR('shr.base.RelatedRequest', {});
       }
       inst.relatedRequest.value = createInstanceFromFHIR('shr.base.ActionRequested', fhir['basedOn'][0]);
@@ -324,7 +324,7 @@ class ProcedureNotPerformed extends ActionNotPerformed {
       inst.patient = createInstanceFromFHIR('shr.entity.Patient', fhir['subject']);
     }
     if (fhir['bodySite'] != null) {
-      if(inst.anatomicalLocation == null) {
+      if (inst.anatomicalLocation === null) {
         inst.anatomicalLocation = createInstanceFromFHIR('shr.core.AnatomicalLocation', {});
       }
       inst.anatomicalLocation.anatomicalLocationOrLandmarkCode = createInstanceFromFHIR('shr.core.AnatomicalLocationOrLandmarkCode', fhir['bodySite'][0]);

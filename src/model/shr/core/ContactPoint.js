@@ -136,7 +136,7 @@ class ContactPoint {
    * @param {object} json - the JSON data to deserialize
    * @returns {ContactPoint} An instance of ContactPoint populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new ContactPoint();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -148,7 +148,7 @@ class ContactPoint {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/ContactPoint' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/ContactPoint' } };
     if (this.telecomNumberOrAddress != null) {
       inst['TelecomNumberOrAddress'] = typeof this.telecomNumberOrAddress.toJSON === 'function' ? this.telecomNumberOrAddress.toJSON() : this.telecomNumberOrAddress;
     }
@@ -173,7 +173,7 @@ class ContactPoint {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (this.type != null) {
       inst['system'] = typeof this.type.toFHIR === 'function' ? this.type.toFHIR() : this.type;
@@ -204,7 +204,7 @@ class ContactPoint {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {ContactPoint} An instance of ContactPoint populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new ContactPoint();
     if (fhir['system'] != null) {
       inst.type = createInstanceFromFHIR('shr.core.Type', fhir['system']);
@@ -213,10 +213,10 @@ class ContactPoint {
       inst.telecomNumberOrAddress = createInstanceFromFHIR('shr.core.TelecomNumberOrAddress', fhir['value']);
     }
     if (fhir['use'] != null) {
-      if(inst.purpose == null) {
+      if (inst.purpose === null) {
         inst.purpose = createInstanceFromFHIR('shr.core.Purpose', {});
       }
-      if(inst.purpose.value == null) {
+      if (inst.purpose.value === null) {
         inst.purpose.value = createInstanceFromFHIR('shr.core.Coding', {});
       }
       inst.purpose.value.code = createInstanceFromFHIR('shr.core.Code', fhir['use']);

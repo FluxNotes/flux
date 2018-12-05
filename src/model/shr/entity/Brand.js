@@ -63,7 +63,7 @@ class Brand {
    * @param {object} json - the JSON data to deserialize
    * @returns {Brand} An instance of Brand populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Brand();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -75,7 +75,7 @@ class Brand {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Brand' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/Brand' } };
     if (this.isBrand != null) {
       inst['IsBrand'] = typeof this.isBrand.toJSON === 'function' ? this.isBrand.toJSON() : this.isBrand;
     }
@@ -91,7 +91,7 @@ class Brand {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     return inst;
   }
@@ -103,7 +103,7 @@ class Brand {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Brand} An instance of Brand populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Brand();
     return inst;
   }

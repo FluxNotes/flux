@@ -65,7 +65,7 @@ class DerivedFrom {
    * @param {object} json - the JSON data to deserialize
    * @returns {DerivedFrom} An instance of DerivedFrom populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new DerivedFrom();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -77,7 +77,7 @@ class DerivedFrom {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/base/DerivedFrom' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/base/DerivedFrom' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -90,7 +90,7 @@ class DerivedFrom {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (asExtension) {
       inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-base-DerivedFrom-extension';
@@ -111,7 +111,7 @@ class DerivedFrom {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {DerivedFrom} An instance of DerivedFrom populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new DerivedFrom();
     if (asExtension) {
       inst.value = fhir['valueReference'];

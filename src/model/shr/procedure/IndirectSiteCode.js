@@ -65,7 +65,7 @@ class IndirectSiteCode {
    * @param {object} json - the JSON data to deserialize
    * @returns {IndirectSiteCode} An instance of IndirectSiteCode populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new IndirectSiteCode();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -77,7 +77,7 @@ class IndirectSiteCode {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/procedure/IndirectSiteCode' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/procedure/IndirectSiteCode' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -90,7 +90,7 @@ class IndirectSiteCode {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (asExtension) {
       inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-procedure-IndirectSiteCode-extension';
@@ -111,7 +111,7 @@ class IndirectSiteCode {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {IndirectSiteCode} An instance of IndirectSiteCode populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new IndirectSiteCode();
     if (asExtension) {
       inst.value = fhir['valueCodeableConcept'];

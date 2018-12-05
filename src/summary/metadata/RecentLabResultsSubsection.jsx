@@ -1,6 +1,6 @@
 import MetadataSection from "./MetadataSection";
 import Lang from 'lodash'
-import moment from 'moment';
+// import moment from 'moment';
 
 export default class RecentLabResultsSubsection extends MetadataSection {
     getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {

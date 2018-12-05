@@ -118,7 +118,7 @@ class Practitioner extends Role {
    * @param {object} json - the JSON data to deserialize
    * @returns {Practitioner} An instance of Practitioner populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Practitioner();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -131,7 +131,7 @@ class Practitioner extends Role {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Practitioner' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/Practitioner' };
     if (this.person != null) {
       inst['Person'] = typeof this.person.toJSON === 'function' ? this.person.toJSON() : this.person;
     }
@@ -150,62 +150,62 @@ class Practitioner extends Role {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     inst['resourceType'] = 'Practitioner';
     if (this.nationalProviderIdentifier != null) {
-      inst['identifier'] = inst ['identifier'] || [];
+      inst['identifier'] = inst['identifier'] || [];
       inst['identifier'].push(typeof this.nationalProviderIdentifier.toFHIR === 'function' ? this.nationalProviderIdentifier.toFHIR() : this.nationalProviderIdentifier);
     }
     if (this.person != null && this.person.activeFlag != null) {
       inst['active'] = typeof this.person.activeFlag.toFHIR === 'function' ? this.person.activeFlag.toFHIR() : this.person.activeFlag;
     }
     if (this.person != null && this.person.humanName != null) {
-      inst['name'] = inst ['name'] || [];
+      inst['name'] = inst['name'] || [];
       inst['name'].push(typeof this.person.humanName.toFHIR === 'function' ? this.person.humanName.toFHIR() : this.person.humanName);
     }
     if (this.person != null && this.person.contactPoint != null) {
-      inst['telecom'] = inst ['telecom'] || [];
+      inst['telecom'] = inst['telecom'] || [];
       inst['telecom'].push(typeof this.person.contactPoint.toFHIR === 'function' ? this.person.contactPoint.toFHIR() : this.person.contactPoint);
     }
     if (this.person != null && this.person.address != null) {
-      inst['address'] = inst ['address'] || [];
+      inst['address'] = inst['address'] || [];
       inst['address'].push(typeof this.person.address.toFHIR === 'function' ? this.person.address.toFHIR() : this.person.address);
     }
     if (this.person != null && this.person.administrativeGender != null) {
       inst['gender'] = typeof this.person.administrativeGender.toFHIR === 'function' ? this.person.administrativeGender.toFHIR() : this.person.administrativeGender;
     }
     if (this.person != null && this.person.headshot != null) {
-      inst['photo'] = inst ['photo'] || [];
+      inst['photo'] = inst['photo'] || [];
       inst['photo'].push(typeof this.person.headshot.toFHIR === 'function' ? this.person.headshot.toFHIR() : this.person.headshot);
     }
     if (this.qualification != null) {
-      inst['qualification'] = inst ['qualification'] || [];
+      inst['qualification'] = inst['qualification'] || [];
       inst['qualification'] = inst['qualification'].concat(this.qualification.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.qualification != null && this.qualification.type != null) {
-      if(inst['qualification'] === undefined) {
+      if (inst['qualification'] === undefined) {
         inst['qualification'] = {};
       }
-      inst['qualification']['code'] = inst ['qualification']['code'] || [];
+      inst['qualification']['code'] = inst['qualification']['code'] || [];
       inst['qualification']['code'] = inst['qualification']['code'].concat(this.qualification.type.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.qualification != null && this.qualification.effectiveTimePeriod != null) {
-      if(inst['qualification'] === undefined) {
+      if (inst['qualification'] === undefined) {
         inst['qualification'] = {};
       }
-      inst['qualification']['period'] = inst ['qualification']['period'] || [];
+      inst['qualification']['period'] = inst['qualification']['period'] || [];
       inst['qualification']['period'] = inst['qualification']['period'].concat(this.qualification.effectiveTimePeriod.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.qualification != null && this.qualification.issuer != null) {
-      if(inst['qualification'] === undefined) {
+      if (inst['qualification'] === undefined) {
         inst['qualification'] = {};
       }
-      inst['qualification']['issuer'] = inst ['qualification']['issuer'] || [];
+      inst['qualification']['issuer'] = inst['qualification']['issuer'] || [];
       inst['qualification']['issuer'] = inst['qualification']['issuer'].concat(this.qualification.issuer.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.person != null && this.person.languageUsed != null && this.person.languageUsed.language != null) {
-      inst['communication'] = inst ['communication'] || [];
+      inst['communication'] = inst['communication'] || [];
       inst['communication'].push(typeof this.person.languageUsed.language.toFHIR === 'function' ? this.person.languageUsed.language.toFHIR() : this.person.languageUsed.language);
     }
     return inst;
@@ -218,46 +218,46 @@ class Practitioner extends Role {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Practitioner} An instance of Practitioner populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Practitioner();
     if (fhir['identifier'] != null) {
       inst.nationalProviderIdentifier = createInstanceFromFHIR('shr.entity.NationalProviderIdentifier', fhir['identifier'][0]);
     }
     if (fhir['active'] != null) {
-      if(inst.person == null) {
+      if (inst.person === null) {
         inst.person = createInstanceFromFHIR('shr.entity.Person', {});
       }
       inst.person.activeFlag = createInstanceFromFHIR('shr.entity.ActiveFlag', fhir['active']);
     }
     if (fhir['name'] != null) {
-      if(inst.person == null) {
+      if (inst.person === null) {
         inst.person = createInstanceFromFHIR('shr.entity.Person', {});
       }
       inst.person.humanName = inst.person.humanName || [];
       inst.person.humanName = inst.person.humanName.concat(fhir['name'].map(f => createInstanceFromFHIR('shr.core.HumanName', f)));
     }
     if (fhir['telecom'] != null) {
-      if(inst.person == null) {
+      if (inst.person === null) {
         inst.person = createInstanceFromFHIR('shr.entity.Person', {});
       }
       inst.person.contactPoint = inst.person.contactPoint || [];
       inst.person.contactPoint = inst.person.contactPoint.concat(fhir['telecom'].map(f => createInstanceFromFHIR('shr.core.ContactPoint', f)));
     }
     if (fhir['address'] != null) {
-      if(inst.person == null) {
+      if (inst.person === null) {
         inst.person = createInstanceFromFHIR('shr.entity.Person', {});
       }
       inst.person.address = inst.person.address || [];
       inst.person.address = inst.person.address.concat(fhir['address'].map(f => createInstanceFromFHIR('shr.core.Address', f)));
     }
     if (fhir['gender'] != null) {
-      if(inst.person == null) {
+      if (inst.person === null) {
         inst.person = createInstanceFromFHIR('shr.entity.Person', {});
       }
       inst.person.administrativeGender = createInstanceFromFHIR('shr.entity.AdministrativeGender', fhir['gender']);
     }
     if (fhir['photo'] != null) {
-      if(inst.person == null) {
+      if (inst.person === null) {
         inst.person = createInstanceFromFHIR('shr.entity.Person', {});
       }
       inst.person.headshot = inst.person.headshot || [];
@@ -268,28 +268,28 @@ class Practitioner extends Role {
       inst.qualification = inst.qualification.concat(fhir['qualification'].map(f => createInstanceFromFHIR('shr.entity.Qualification', f)));
     }
     if (fhir['qualification'] != null && fhir['qualification']['code'] != null) {
-      if(inst.qualification == null) {
+      if (inst.qualification === null) {
         inst.qualification = createInstanceFromFHIR('shr.entity.Qualification', {});
       }
       inst.qualification.type = createInstanceFromFHIR('shr.core.Type', fhir['qualification']['code']);
     }
     if (fhir['qualification'] != null && fhir['qualification']['period'] != null) {
-      if(inst.qualification == null) {
+      if (inst.qualification === null) {
         inst.qualification = createInstanceFromFHIR('shr.entity.Qualification', {});
       }
       inst.qualification.effectiveTimePeriod = createInstanceFromFHIR('shr.core.EffectiveTimePeriod', fhir['qualification']['period']);
     }
     if (fhir['qualification'] != null && fhir['qualification']['issuer'] != null) {
-      if(inst.qualification == null) {
+      if (inst.qualification === null) {
         inst.qualification = createInstanceFromFHIR('shr.entity.Qualification', {});
       }
       inst.qualification.issuer = createInstanceFromFHIR('shr.core.Issuer', fhir['qualification']['issuer']);
     }
     if (fhir['communication'] != null) {
-      if(inst.person == null) {
+      if (inst.person === null) {
         inst.person = createInstanceFromFHIR('shr.entity.Person', {});
       }
-      if(inst.person.languageUsed == null) {
+      if (inst.person.languageUsed === null) {
         inst.person.languageUsed = createInstanceFromFHIR('shr.entity.LanguageUsed', {});
       }
       inst.person.languageUsed.language = createInstanceFromFHIR('shr.core.Language', fhir['communication'][0]);

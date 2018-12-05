@@ -251,7 +251,7 @@ class Organization extends Entity {
    * @param {object} json - the JSON data to deserialize
    * @returns {Organization} An instance of Organization populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Organization();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -264,7 +264,7 @@ class Organization extends Entity {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Organization' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/Organization' };
     if (this.partOf != null) {
       inst['PartOf'] = typeof this.partOf.toJSON === 'function' ? this.partOf.toJSON() : this.partOf;
     }
@@ -298,36 +298,36 @@ class Organization extends Entity {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     inst['resourceType'] = 'Organization';
     if (this.organizationIdentifier != null) {
-      inst['identifier'] = inst ['identifier'] || [];
+      inst['identifier'] = inst['identifier'] || [];
       inst['identifier'] = inst['identifier'].concat(this.organizationIdentifier.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.activeFlag != null) {
       inst['active'] = typeof this.activeFlag.toFHIR === 'function' ? this.activeFlag.toFHIR() : this.activeFlag;
     }
     if (this.type != null) {
-      inst['type'] = inst ['type'] || [];
+      inst['type'] = inst['type'] || [];
       inst['type'].push(typeof this.type.toFHIR === 'function' ? this.type.toFHIR() : this.type);
     }
     if (this.organizationName != null) {
       inst['name'] = typeof this.organizationName.toFHIR === 'function' ? this.organizationName.toFHIR() : this.organizationName;
     }
     if (this.organizationAlias != null) {
-      inst['alias'] = inst ['alias'] || [];
+      inst['alias'] = inst['alias'] || [];
       inst['alias'] = inst['alias'].concat(this.organizationAlias.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.address != null) {
-      inst['address'] = inst ['address'] || [];
+      inst['address'] = inst['address'] || [];
       inst['address'] = inst['address'].concat(this.address.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.partOf != null) {
       inst['partOf'] = typeof this.partOf.toFHIR === 'function' ? this.partOf.toFHIR() : this.partOf;
     }
     if (this.contactPoint != null) {
-      inst['contact'] = inst ['contact'] || [];
+      inst['contact'] = inst['contact'] || [];
       inst['contact'] = inst['contact'].concat(this.contactPoint.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     return inst;
@@ -340,7 +340,7 @@ class Organization extends Entity {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Organization} An instance of Organization populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Organization();
     if (fhir['identifier'] != null) {
       inst.organizationIdentifier = inst.organizationIdentifier || [];

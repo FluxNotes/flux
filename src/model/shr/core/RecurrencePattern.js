@@ -161,7 +161,7 @@ class RecurrencePattern {
    * @param {object} json - the JSON data to deserialize
    * @returns {RecurrencePattern} An instance of RecurrencePattern populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new RecurrencePattern();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -173,7 +173,7 @@ class RecurrencePattern {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/RecurrencePattern' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/RecurrencePattern' } };
     if (this.recurrenceInterval != null) {
       inst['RecurrenceInterval'] = typeof this.recurrenceInterval.toJSON === 'function' ? this.recurrenceInterval.toJSON() : this.recurrenceInterval;
     }
@@ -201,7 +201,7 @@ class RecurrencePattern {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     return inst;
   }
@@ -213,7 +213,7 @@ class RecurrencePattern {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {RecurrencePattern} An instance of RecurrencePattern populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new RecurrencePattern();
     return inst;
   }

@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { setPropertiesFromJSON } from '../../json-helper';
 
 /**
  * Generated class for shr.base.RequestIntent.
@@ -65,7 +65,7 @@ class RequestIntent {
    * @param {object} json - the JSON data to deserialize
    * @returns {RequestIntent} An instance of RequestIntent populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new RequestIntent();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -77,7 +77,7 @@ class RequestIntent {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/base/RequestIntent' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/base/RequestIntent' } };
     if (this.value != null) {
       inst['Value'] = this.value;
     }
@@ -90,7 +90,7 @@ class RequestIntent {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (asExtension) {
       inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-base-RequestIntent-extension';
@@ -111,7 +111,7 @@ class RequestIntent {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {RequestIntent} An instance of RequestIntent populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new RequestIntent();
     if (asExtension) {
       inst.value = fhir['valueCode'];

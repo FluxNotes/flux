@@ -366,7 +366,7 @@ class Observation extends Finding {
    * @param {object} json - the JSON data to deserialize
    * @returns {Observation} An instance of Observation populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Observation();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -379,7 +379,7 @@ class Observation extends Finding {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/base/Observation' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/base/Observation' };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -449,7 +449,7 @@ class Observation extends Finding {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     inst['resourceType'] = 'Observation';
     if (this.deltaFlag != null) {
@@ -468,7 +468,7 @@ class Observation extends Finding {
       inst['status'] = typeof this.findingStatus.toFHIR === 'function' ? this.findingStatus.toFHIR() : this.findingStatus;
     }
     if (this.category != null) {
-      inst['category'] = inst ['category'] || [];
+      inst['category'] = inst['category'] || [];
       inst['category'] = inst['category'].concat(this.category.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.findingTopicCode != null) {
@@ -508,31 +508,31 @@ class Observation extends Finding {
       inst['referenceRange'] = typeof this.referenceRange.toFHIR === 'function' ? this.referenceRange.toFHIR() : this.referenceRange;
     }
     if (this.referenceRange != null && this.referenceRange.range != null && this.referenceRange.range.lowerBound != null) {
-      if(inst['referenceRange'] === undefined) {
+      if (inst['referenceRange'] === undefined) {
         inst['referenceRange'] = {};
       }
       inst['referenceRange']['low'] = typeof this.referenceRange.range.lowerBound.toFHIR === 'function' ? this.referenceRange.range.lowerBound.toFHIR() : this.referenceRange.range.lowerBound;
     }
     if (this.referenceRange != null && this.referenceRange.range != null && this.referenceRange.range.upperBound != null) {
-      if(inst['referenceRange'] === undefined) {
+      if (inst['referenceRange'] === undefined) {
         inst['referenceRange'] = {};
       }
       inst['referenceRange']['high'] = typeof this.referenceRange.range.upperBound.toFHIR === 'function' ? this.referenceRange.range.upperBound.toFHIR() : this.referenceRange.range.upperBound;
     }
     if (this.referenceRange != null && this.referenceRange.type != null) {
-      if(inst['referenceRange'] === undefined) {
+      if (inst['referenceRange'] === undefined) {
         inst['referenceRange'] = {};
       }
       inst['referenceRange']['type'] = typeof this.referenceRange.type.toFHIR === 'function' ? this.referenceRange.type.toFHIR() : this.referenceRange.type;
     }
     if (this.referenceRange != null && this.referenceRange.applicableSubpopulation != null) {
-      if(inst['referenceRange'] === undefined) {
+      if (inst['referenceRange'] === undefined) {
         inst['referenceRange'] = {};
       }
       inst['referenceRange']['appliesTo'] = typeof this.referenceRange.applicableSubpopulation.toFHIR === 'function' ? this.referenceRange.applicableSubpopulation.toFHIR() : this.referenceRange.applicableSubpopulation;
     }
     if (this.referenceRange != null && this.referenceRange.applicableAgeRange != null) {
-      if(inst['referenceRange'] === undefined) {
+      if (inst['referenceRange'] === undefined) {
         inst['referenceRange'] = {};
       }
       inst['referenceRange']['age'] = typeof this.referenceRange.applicableAgeRange.toFHIR === 'function' ? this.referenceRange.applicableAgeRange.toFHIR() : this.referenceRange.applicableAgeRange;
@@ -541,41 +541,41 @@ class Observation extends Finding {
       inst['related'] = typeof this.panelMembers.toFHIR === 'function' ? this.panelMembers.toFHIR() : this.panelMembers;
     }
     if (this.panelMembers != null && this.panelMembers.observation != null) {
-      if(inst['related'] === undefined) {
+      if (inst['related'] === undefined) {
         inst['related'] = {};
       }
       inst['related']['target'] = typeof this.panelMembers.observation.toFHIR === 'function' ? this.panelMembers.observation.toFHIR() : this.panelMembers.observation;
     }
     if (this.nonIndependentFinding != null) {
-      inst['component'] = inst ['component'] || [];
+      inst['component'] = inst['component'] || [];
       inst['component'] = inst['component'].concat(this.nonIndependentFinding.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.nonIndependentFinding != null && this.nonIndependentFinding.findingTopicCode != null) {
-      if(inst['component'] === undefined) {
+      if (inst['component'] === undefined) {
         inst['component'] = {};
       }
-      inst['component']['code'] = inst ['component']['code'] || [];
+      inst['component']['code'] = inst['component']['code'] || [];
       inst['component']['code'] = inst['component']['code'].concat(this.nonIndependentFinding.findingTopicCode.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.nonIndependentFinding != null && this.nonIndependentFinding.quantity != null) {
-      if(inst['component'] === undefined) {
+      if (inst['component'] === undefined) {
         inst['component'] = {};
       }
-      inst['component']['value[x]'] = inst ['component']['value[x]'] || [];
+      inst['component']['value[x]'] = inst['component']['value[x]'] || [];
       inst['component']['value[x]'] = inst['component']['value[x]'].concat(this.nonIndependentFinding.quantity.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.nonIndependentFinding != null && this.nonIndependentFinding.exceptionValue != null) {
-      if(inst['component'] === undefined) {
+      if (inst['component'] === undefined) {
         inst['component'] = {};
       }
-      inst['component']['dataAbsentReason'] = inst ['component']['dataAbsentReason'] || [];
+      inst['component']['dataAbsentReason'] = inst['component']['dataAbsentReason'] || [];
       inst['component']['dataAbsentReason'] = inst['component']['dataAbsentReason'].concat(this.nonIndependentFinding.exceptionValue.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.nonIndependentFinding != null && this.nonIndependentFinding.referenceRange != null) {
-      if(inst['component'] === undefined) {
+      if (inst['component'] === undefined) {
         inst['component'] = {};
       }
-      inst['component']['referenceRange'] = inst ['component']['referenceRange'] || [];
+      inst['component']['referenceRange'] = inst['component']['referenceRange'] || [];
       inst['component']['referenceRange'] = inst['component']['referenceRange'].concat(this.nonIndependentFinding.referenceRange.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     return inst;
@@ -588,10 +588,10 @@ class Observation extends Finding {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Observation} An instance of Observation populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Observation();
     if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url == 'http://hl7.org/fhir/StructureDefinition/observation-delta');
+      const match = fhir['extension'].find(e => e.url === 'http://hl7.org/fhir/StructureDefinition/observation-delta');
       if (match != null) {
         inst.deltaFlag = createInstanceFromFHIR('shr.base.DeltaFlag', match, true);
       }
@@ -643,7 +643,7 @@ class Observation extends Finding {
       inst.commentOrDescription = createInstanceFromFHIR('shr.core.CommentOrDescription', fhir['comment']);
     }
     if (fhir['bodySite'] != null) {
-      if(inst.anatomicalLocation == null) {
+      if (inst.anatomicalLocation === null) {
         inst.anatomicalLocation = createInstanceFromFHIR('shr.core.AnatomicalLocation', {});
       }
       inst.anatomicalLocation.anatomicalLocationOrLandmarkCode = createInstanceFromFHIR('shr.core.AnatomicalLocationOrLandmarkCode', fhir['bodySite']);
@@ -661,37 +661,37 @@ class Observation extends Finding {
       inst.referenceRange = createInstanceFromFHIR('shr.base.ReferenceRange', fhir['referenceRange']);
     }
     if (fhir['referenceRange'] != null && fhir['referenceRange']['low'] != null) {
-      if(inst.referenceRange == null) {
+      if (inst.referenceRange === null) {
         inst.referenceRange = createInstanceFromFHIR('shr.base.ReferenceRange', {});
       }
-      if(inst.referenceRange.range == null) {
+      if (inst.referenceRange.range === null) {
         inst.referenceRange.range = createInstanceFromFHIR('shr.core.Range', {});
       }
       inst.referenceRange.range.lowerBound = createInstanceFromFHIR('shr.core.LowerBound', fhir['referenceRange']['low']);
     }
     if (fhir['referenceRange'] != null && fhir['referenceRange']['high'] != null) {
-      if(inst.referenceRange == null) {
+      if (inst.referenceRange === null) {
         inst.referenceRange = createInstanceFromFHIR('shr.base.ReferenceRange', {});
       }
-      if(inst.referenceRange.range == null) {
+      if (inst.referenceRange.range === null) {
         inst.referenceRange.range = createInstanceFromFHIR('shr.core.Range', {});
       }
       inst.referenceRange.range.upperBound = createInstanceFromFHIR('shr.core.UpperBound', fhir['referenceRange']['high']);
     }
     if (fhir['referenceRange'] != null && fhir['referenceRange']['type'] != null) {
-      if(inst.referenceRange == null) {
+      if (inst.referenceRange === null) {
         inst.referenceRange = createInstanceFromFHIR('shr.base.ReferenceRange', {});
       }
       inst.referenceRange.type = createInstanceFromFHIR('shr.core.Type', fhir['referenceRange']['type']);
     }
     if (fhir['referenceRange'] != null && fhir['referenceRange']['appliesTo'] != null) {
-      if(inst.referenceRange == null) {
+      if (inst.referenceRange === null) {
         inst.referenceRange = createInstanceFromFHIR('shr.base.ReferenceRange', {});
       }
       inst.referenceRange.applicableSubpopulation = createInstanceFromFHIR('shr.base.ApplicableSubpopulation', fhir['referenceRange']['appliesTo']);
     }
     if (fhir['referenceRange'] != null && fhir['referenceRange']['age'] != null) {
-      if(inst.referenceRange == null) {
+      if (inst.referenceRange === null) {
         inst.referenceRange = createInstanceFromFHIR('shr.base.ReferenceRange', {});
       }
       inst.referenceRange.applicableAgeRange = createInstanceFromFHIR('shr.base.ApplicableAgeRange', fhir['referenceRange']['age']);
@@ -700,7 +700,7 @@ class Observation extends Finding {
       inst.panelMembers = createInstanceFromFHIR('shr.base.PanelMembers', fhir['related']);
     }
     if (fhir['related'] != null && fhir['related']['target'] != null) {
-      if(inst.panelMembers == null) {
+      if (inst.panelMembers === null) {
         inst.panelMembers = createInstanceFromFHIR('shr.base.PanelMembers', {});
       }
       inst.panelMembers.observation = inst.panelMembers.observation || [];
@@ -711,49 +711,49 @@ class Observation extends Finding {
       inst.nonIndependentFinding = inst.nonIndependentFinding.concat(fhir['component'].map(f => createInstanceFromFHIR('shr.base.NonIndependentFinding', f)));
     }
     if (fhir['component'] != null && fhir['component']['code'] != null) {
-      if(inst.nonIndependentFinding == null) {
+      if (inst.nonIndependentFinding === null) {
         inst.nonIndependentFinding = createInstanceFromFHIR('shr.base.NonIndependentFinding', {});
       }
       inst.nonIndependentFinding.findingTopicCode = createInstanceFromFHIR('shr.base.FindingTopicCode', fhir['component']['code']);
     }
     if (fhir['component'] != null && fhir['component']['valueQuantity'] != null) {
-      if(inst.nonIndependentFinding == null) {
+      if (inst.nonIndependentFinding === null) {
         inst.nonIndependentFinding = createInstanceFromFHIR('shr.base.NonIndependentFinding', {});
       }
       inst.nonIndependentFinding.value = createInstanceFromFHIR('shr.core.Quantity', fhir['component']['valueQuantity']);
     }
     if (fhir['component'] != null && fhir['component']['valueCodeableConcept'] != null) {
-      if(inst.nonIndependentFinding == null) {
+      if (inst.nonIndependentFinding === null) {
         inst.nonIndependentFinding = createInstanceFromFHIR('shr.base.NonIndependentFinding', {});
       }
       inst.nonIndependentFinding.value = createInstanceFromFHIR('shr.core.CodeableConcept', fhir['component']['valueCodeableConcept']);
     }
     if (fhir['component'] != null && fhir['component']['valueRange'] != null) {
-      if(inst.nonIndependentFinding == null) {
+      if (inst.nonIndependentFinding === null) {
         inst.nonIndependentFinding = createInstanceFromFHIR('shr.base.NonIndependentFinding', {});
       }
       inst.nonIndependentFinding.value = createInstanceFromFHIR('shr.core.Range', fhir['component']['valueRange']);
     }
     if (fhir['component'] != null && fhir['component']['valueRatio'] != null) {
-      if(inst.nonIndependentFinding == null) {
+      if (inst.nonIndependentFinding === null) {
         inst.nonIndependentFinding = createInstanceFromFHIR('shr.base.NonIndependentFinding', {});
       }
       inst.nonIndependentFinding.value = createInstanceFromFHIR('shr.core.Ratio', fhir['component']['valueRatio']);
     }
     if (fhir['component'] != null && fhir['component']['valuePeriod'] != null) {
-      if(inst.nonIndependentFinding == null) {
+      if (inst.nonIndependentFinding === null) {
         inst.nonIndependentFinding = createInstanceFromFHIR('shr.base.NonIndependentFinding', {});
       }
       inst.nonIndependentFinding.value = createInstanceFromFHIR('shr.core.TimePeriod', fhir['component']['valuePeriod']);
     }
     if (fhir['component'] != null && fhir['component']['dataAbsentReason'] != null) {
-      if(inst.nonIndependentFinding == null) {
+      if (inst.nonIndependentFinding === null) {
         inst.nonIndependentFinding = createInstanceFromFHIR('shr.base.NonIndependentFinding', {});
       }
       inst.nonIndependentFinding.exceptionValue = createInstanceFromFHIR('shr.base.ExceptionValue', fhir['component']['dataAbsentReason']);
     }
     if (fhir['component'] != null && fhir['component']['referenceRange'] != null) {
-      if(inst.nonIndependentFinding == null) {
+      if (inst.nonIndependentFinding === null) {
         inst.nonIndependentFinding = createInstanceFromFHIR('shr.base.NonIndependentFinding', {});
       }
       inst.nonIndependentFinding.referenceRange = createInstanceFromFHIR('shr.base.ReferenceRange', fhir['component']['referenceRange']);

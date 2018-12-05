@@ -385,7 +385,7 @@ class Entry {
    * @param {object} json - the JSON data to deserialize
    * @returns {Entry} An instance of Entry populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Entry();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -397,7 +397,7 @@ class Entry {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/base/Entry' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/base/Entry' } };
     if (this.shrId != null) {
       inst['ShrId'] = typeof this.shrId.toJSON === 'function' ? this.shrId.toJSON() : this.shrId;
     }
@@ -449,41 +449,41 @@ class Entry {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (this.entryId != null) {
       inst['id'] = typeof this.entryId.toFHIR === 'function' ? this.entryId.toFHIR() : this.entryId;
     }
     if (this.version != null) {
-      if(inst['meta'] === undefined) {
+      if (inst['meta'] === undefined) {
         inst['meta'] = {};
       }
       inst['meta']['versionId'] = typeof this.version.toFHIR === 'function' ? this.version.toFHIR() : this.version;
     }
     if (this.lastUpdated != null) {
-      if(inst['meta'] === undefined) {
+      if (inst['meta'] === undefined) {
         inst['meta'] = {};
       }
       inst['meta']['lastUpdated'] = typeof this.lastUpdated.toFHIR === 'function' ? this.lastUpdated.toFHIR() : this.lastUpdated;
     }
     if (this.entryType != null) {
-      if(inst['meta'] === undefined) {
+      if (inst['meta'] === undefined) {
         inst['meta'] = {};
       }
       inst['meta']['profile'] = typeof this.entryType.toFHIR === 'function' ? this.entryType.toFHIR() : this.entryType;
     }
     if (this.securityLabel != null) {
-      if(inst['meta'] === undefined) {
+      if (inst['meta'] === undefined) {
         inst['meta'] = {};
       }
-      inst['meta']['security'] = inst ['meta']['security'] || [];
+      inst['meta']['security'] = inst['meta']['security'] || [];
       inst['meta']['security'] = inst['meta']['security'].concat(this.securityLabel.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.tag != null) {
-      if(inst['meta'] === undefined) {
+      if (inst['meta'] === undefined) {
         inst['meta'] = {};
       }
-      inst['meta']['tag'] = inst ['meta']['tag'] || [];
+      inst['meta']['tag'] = inst['meta']['tag'] || [];
       inst['meta']['tag'] = inst['meta']['tag'].concat(this.tag.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.language != null) {
@@ -526,7 +526,7 @@ class Entry {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Entry} An instance of Entry populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Entry();
     if (fhir['id'] != null) {
       inst.entryId = createInstanceFromFHIR('shr.base.EntryId', fhir['id']);
@@ -555,7 +555,7 @@ class Entry {
       inst.narrative = createInstanceFromFHIR('shr.base.Narrative', fhir['text']);
     }
     if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-ShrId-extension');
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-base-ShrId-extension');
       if (match != null) {
         inst.shrId = createInstanceFromFHIR('shr.base.ShrId', match, true);
       }

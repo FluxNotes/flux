@@ -68,7 +68,7 @@ class OccurrencePeriod extends OccurrenceTimeOrPeriod {
    * @param {object} json - the JSON data to deserialize
    * @returns {OccurrencePeriod} An instance of OccurrencePeriod populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new OccurrencePeriod();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -80,7 +80,7 @@ class OccurrencePeriod extends OccurrenceTimeOrPeriod {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/OccurrencePeriod' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/OccurrencePeriod' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -93,7 +93,7 @@ class OccurrencePeriod extends OccurrenceTimeOrPeriod {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (!asExtension && this.value != null) {
       if (this.value != null) {
@@ -110,7 +110,7 @@ class OccurrencePeriod extends OccurrenceTimeOrPeriod {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {OccurrencePeriod} An instance of OccurrencePeriod populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new OccurrencePeriod();
     if (!asExtension && fhir != null) {
       inst.value = createInstanceFromFHIR('shr.core.TimePeriod', fhir);

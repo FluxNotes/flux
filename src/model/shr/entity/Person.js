@@ -262,10 +262,10 @@ class Person extends Entity {
     this.maritalStatus = maritalStatus; return this;
   }
 
-   /**
-   * Get the Race.
-   * @returns {Race} The shr.entity.Race
-   */
+  /**
+  * Get the Race.
+  * @returns {Race} The shr.entity.Race
+  */
   get race() {
     return this._race;
   }
@@ -312,10 +312,10 @@ class Person extends Entity {
     this.ethnicity = ethnicity; return this;
   }
 
-   /**
-   * Get the MothersMaidenName.
-   * @returns {MothersMaidenName} The shr.entity.MothersMaidenName
-   */
+  /**
+  * Get the MothersMaidenName.
+  * @returns {MothersMaidenName} The shr.entity.MothersMaidenName
+  */
   get mothersMaidenName() {
     return this._mothersMaidenName;
   }
@@ -368,7 +368,7 @@ class Person extends Entity {
    * @param {object} json - the JSON data to deserialize
    * @returns {Person} An instance of Person populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Person();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -381,7 +381,7 @@ class Person extends Entity {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Person' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/Person' };
     if (this.partOf != null) {
       inst['PartOf'] = typeof this.partOf.toJSON === 'function' ? this.partOf.toJSON() : this.partOf;
     }
@@ -427,7 +427,7 @@ class Person extends Entity {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     inst['resourceType'] = 'DomainResource';
     if (this.partOf != null) {
@@ -471,14 +471,14 @@ class Person extends Entity {
       inst['extension'].push(typeof this.maritalStatus.toFHIR === 'function' ? this.maritalStatus.toFHIR(true) : this.maritalStatus);
     }
     if (this.race != null) {
-        inst['extension'] = inst['extension'] || [];
-        inst['extension'].push(typeof this.race.toFHIR === 'function' ? this.race.toFHIR(true) : this.race);
-      }
-      if (this.ethnicity != null) {
-        inst['extension'] = inst['extension'] || [];
-        inst['extension'].push(typeof this.ethnicity.toFHIR === 'function' ? this.ethnicity.toFHIR(true) : this.ethnicity);
-      }
-        return inst;
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(typeof this.race.toFHIR === 'function' ? this.race.toFHIR(true) : this.race);
+    }
+    if (this.ethnicity != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(typeof this.ethnicity.toFHIR === 'function' ? this.ethnicity.toFHIR(true) : this.ethnicity);
+    }
+    return inst;
   }
 
   /**
@@ -488,10 +488,10 @@ class Person extends Entity {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Person} An instance of Person populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Person();
     if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension');
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension');
       if (match != null) {
         inst.partOf = createInstanceFromFHIR('shr.entity.PartOf', match, true);
       }

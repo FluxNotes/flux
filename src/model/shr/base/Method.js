@@ -65,7 +65,7 @@ class Method {
    * @param {object} json - the JSON data to deserialize
    * @returns {Method} An instance of Method populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Method();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -77,7 +77,7 @@ class Method {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/base/Method' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/base/Method' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -90,7 +90,7 @@ class Method {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (asExtension) {
       inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-base-Method-extension';
@@ -111,7 +111,7 @@ class Method {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Method} An instance of Method populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Method();
     if (asExtension) {
       inst.value = fhir['valueCodeableConcept'];

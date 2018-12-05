@@ -64,7 +64,7 @@ class Composition extends InformationItem {
    * @param {object} json - the JSON data to deserialize
    * @returns {Composition} An instance of Composition populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Composition();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -77,7 +77,7 @@ class Composition extends InformationItem {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/composition/Composition' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/composition/Composition' };
     if (this.section != null) {
       inst['Section'] = this.section.map(f => f.toJSON());
     }
@@ -90,18 +90,18 @@ class Composition extends InformationItem {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     inst['resourceType'] = 'Composition';
     if (this.section != null) {
-      inst['section'] = inst ['section'] || [];
+      inst['section'] = inst['section'] || [];
       inst['section'] = inst['section'].concat(this.section.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.section != null && this.section.informationItem != null) {
-      if(inst['section'] === undefined) {
+      if (inst['section'] === undefined) {
         inst['section'] = {};
       }
-      inst['section']['entry'] = inst ['section']['entry'] || [];
+      inst['section']['entry'] = inst['section']['entry'] || [];
       inst['section']['entry'] = inst['section']['entry'].concat(this.section.informationItem.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     return inst;
@@ -114,14 +114,14 @@ class Composition extends InformationItem {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Composition} An instance of Composition populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Composition();
     if (fhir['section'] != null) {
       inst.section = inst.section || [];
       inst.section = inst.section.concat(fhir['section'].map(f => createInstanceFromFHIR('shr.composition.Section', f)));
     }
     if (fhir['section'] != null && fhir['section']['entry'] != null) {
-      if(inst.section == null) {
+      if (inst.section === null) {
         inst.section = createInstanceFromFHIR('shr.composition.Section', {});
       }
       inst.section.informationItem = inst.section.informationItem || [];

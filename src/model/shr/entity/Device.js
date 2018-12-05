@@ -216,7 +216,7 @@ class Device extends Entity {
    * @param {object} json - the JSON data to deserialize
    * @returns {Device} An instance of Device populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Device();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -228,7 +228,7 @@ class Device extends Entity {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Device' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/Device' } };
     if (this.partOf != null) {
       inst['PartOf'] = typeof this.partOf.toJSON === 'function' ? this.partOf.toJSON() : this.partOf;
     }
@@ -265,17 +265,17 @@ class Device extends Entity {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (this.partOf != null) {
       inst['extension'] = inst['extension'] || [];
       inst['extension'].push(typeof this.partOf.toFHIR === 'function' ? this.partOf.toFHIR(true) : this.partOf);
     }
     if (this.deviceUdi != null) {
-      if(inst['udi'] === undefined) {
+      if (inst['udi'] === undefined) {
         inst['udi'] = {};
       }
-      inst['udi']['carrierHRF'] = inst ['udi']['carrierHRF'] || [];
+      inst['udi']['carrierHRF'] = inst['udi']['carrierHRF'] || [];
       inst['udi']['carrierHRF'] = inst['udi']['carrierHRF'].concat(this.deviceUdi.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.type != null) {
@@ -313,10 +313,10 @@ class Device extends Entity {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Device} An instance of Device populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Device();
     if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension');
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension');
       if (match != null) {
         inst.partOf = createInstanceFromFHIR('shr.entity.PartOf', match, true);
       }

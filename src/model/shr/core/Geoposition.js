@@ -90,7 +90,7 @@ class Geoposition {
    * @param {object} json - the JSON data to deserialize
    * @returns {Geoposition} An instance of Geoposition populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Geoposition();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -102,7 +102,7 @@ class Geoposition {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Geoposition' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/Geoposition' } };
     if (this.latitude != null) {
       inst['Latitude'] = typeof this.latitude.toJSON === 'function' ? this.latitude.toJSON() : this.latitude;
     }
@@ -121,22 +121,22 @@ class Geoposition {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (this.longitude != null) {
-      if(inst['position'] === undefined) {
+      if (inst['position'] === undefined) {
         inst['position'] = {};
       }
       inst['position']['longitude'] = typeof this.longitude.toFHIR === 'function' ? this.longitude.toFHIR() : this.longitude;
     }
     if (this.latitude != null) {
-      if(inst['position'] === undefined) {
+      if (inst['position'] === undefined) {
         inst['position'] = {};
       }
       inst['position']['latitude'] = typeof this.latitude.toFHIR === 'function' ? this.latitude.toFHIR() : this.latitude;
     }
     if (this.altitude != null) {
-      if(inst['position'] === undefined) {
+      if (inst['position'] === undefined) {
         inst['position'] = {};
       }
       inst['position']['altitude'] = typeof this.altitude.toFHIR === 'function' ? this.altitude.toFHIR() : this.altitude;
@@ -151,7 +151,7 @@ class Geoposition {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Geoposition} An instance of Geoposition populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Geoposition();
     if (fhir['position'] != null && fhir['position']['longitude'] != null) {
       inst.longitude = createInstanceFromFHIR('shr.core.Longitude', fhir['position']['longitude']);

@@ -65,7 +65,7 @@ class DoseForm {
    * @param {object} json - the JSON data to deserialize
    * @returns {DoseForm} An instance of DoseForm populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new DoseForm();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -77,7 +77,7 @@ class DoseForm {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/DoseForm' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/DoseForm' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -90,7 +90,7 @@ class DoseForm {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (!asExtension && this.value != null) {
       if (this.value != null) {
@@ -107,7 +107,7 @@ class DoseForm {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {DoseForm} An instance of DoseForm populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new DoseForm();
     if (!asExtension && fhir != null) {
       inst.value = createInstanceFromFHIR('shr.core.CodeableConcept', fhir);

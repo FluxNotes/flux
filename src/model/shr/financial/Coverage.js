@@ -166,7 +166,7 @@ class Coverage extends InformationItem {
    * @param {object} json - the JSON data to deserialize
    * @returns {Coverage} An instance of Coverage populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Coverage();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -179,7 +179,7 @@ class Coverage extends InformationItem {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/financial/Coverage' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/financial/Coverage' };
     if (this.status != null) {
       inst['Status'] = typeof this.status.toJSON === 'function' ? this.status.toJSON() : this.status;
     }
@@ -204,7 +204,7 @@ class Coverage extends InformationItem {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     inst['resourceType'] = 'Coverage';
     if (this.status != null) {
@@ -232,7 +232,7 @@ class Coverage extends InformationItem {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Coverage} An instance of Coverage populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Coverage();
     if (fhir['status'] != null) {
       inst.status = createInstanceFromFHIR('shr.core.Status', fhir['status']);

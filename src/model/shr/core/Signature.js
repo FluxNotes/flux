@@ -167,7 +167,7 @@ class Signature {
    * @param {object} json - the JSON data to deserialize
    * @returns {Signature} An instance of Signature populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Signature();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -179,7 +179,7 @@ class Signature {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Signature' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/Signature' } };
     if (this.signatureType != null) {
       inst['SignatureType'] = this.signatureType.map(f => f.toJSON());
     }
@@ -207,10 +207,10 @@ class Signature {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (this.signatureType != null) {
-      inst['type'] = inst ['type'] || [];
+      inst['type'] = inst['type'] || [];
       inst['type'] = inst['type'].concat(this.signatureType.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.creationTime != null) {
@@ -242,7 +242,7 @@ class Signature {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Signature} An instance of Signature populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Signature();
     if (fhir['type'] != null) {
       inst.signatureType = inst.signatureType || [];

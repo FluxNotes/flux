@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { setPropertiesFromJSON } from '../../json-helper';
 
 /**
  * Generated class for shr.base.PatientInstructions.
@@ -65,7 +65,7 @@ class PatientInstructions {
    * @param {object} json - the JSON data to deserialize
    * @returns {PatientInstructions} An instance of PatientInstructions populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new PatientInstructions();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -77,7 +77,7 @@ class PatientInstructions {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/base/PatientInstructions' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/base/PatientInstructions' } };
     if (this.value != null) {
       inst['Value'] = this.value;
     }
@@ -90,7 +90,7 @@ class PatientInstructions {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (asExtension) {
       inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-base-PatientInstructions-extension';
@@ -111,7 +111,7 @@ class PatientInstructions {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {PatientInstructions} An instance of PatientInstructions populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new PatientInstructions();
     if (asExtension) {
       inst.value = fhir['valueString'];

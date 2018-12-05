@@ -65,7 +65,7 @@ class CollectionMethod {
    * @param {object} json - the JSON data to deserialize
    * @returns {CollectionMethod} An instance of CollectionMethod populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new CollectionMethod();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -77,7 +77,7 @@ class CollectionMethod {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/CollectionMethod' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/CollectionMethod' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -90,7 +90,7 @@ class CollectionMethod {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (asExtension) {
       inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-entity-CollectionMethod-extension';
@@ -111,7 +111,7 @@ class CollectionMethod {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {CollectionMethod} An instance of CollectionMethod populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new CollectionMethod();
     if (asExtension) {
       inst.value = fhir['valueCodeableConcept'];

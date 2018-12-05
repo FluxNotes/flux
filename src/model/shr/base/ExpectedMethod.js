@@ -65,7 +65,7 @@ class ExpectedMethod {
    * @param {object} json - the JSON data to deserialize
    * @returns {ExpectedMethod} An instance of ExpectedMethod populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new ExpectedMethod();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -77,7 +77,7 @@ class ExpectedMethod {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/base/ExpectedMethod' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/base/ExpectedMethod' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -90,7 +90,7 @@ class ExpectedMethod {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (asExtension) {
       if (this.method != null) {
@@ -114,10 +114,10 @@ class ExpectedMethod {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {ExpectedMethod} An instance of ExpectedMethod populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new ExpectedMethod();
     if (asExtension) {
-      const match_1 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-Method-extension');
+      const match_1 = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-base-Method-extension');
       if (match_1 != null) {
         inst.method = createInstanceFromFHIR('shr.base.Method', match_1, true);
       }

@@ -61,7 +61,7 @@ class SpecimenTreatment {
    * @param {object} json - the JSON data to deserialize
    * @returns {SpecimenTreatment} An instance of SpecimenTreatment populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new SpecimenTreatment();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -74,7 +74,7 @@ class SpecimenTreatment {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/SpecimenTreatment' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/SpecimenTreatment' };
     if (this.additive != null) {
       inst['Additive'] = this.additive.map(f => f.toJSON());
     }
@@ -87,7 +87,7 @@ class SpecimenTreatment {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     inst['resourceType'] = 'Basic';
     if (this.additive != null) {
@@ -108,10 +108,10 @@ class SpecimenTreatment {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {SpecimenTreatment} An instance of SpecimenTreatment populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new SpecimenTreatment();
     if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-Additive-extension');
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-entity-Additive-extension');
       if (match != null) {
         inst.additive = createInstanceFromFHIR('shr.entity.Additive', match, true);
       }

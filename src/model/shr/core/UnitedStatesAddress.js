@@ -68,7 +68,7 @@ class UnitedStatesAddress extends Address {
    * @param {object} json - the JSON data to deserialize
    * @returns {UnitedStatesAddress} An instance of UnitedStatesAddress populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new UnitedStatesAddress();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -80,7 +80,7 @@ class UnitedStatesAddress extends Address {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/UnitedStatesAddress' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/UnitedStatesAddress' } };
     if (this.purpose != null) {
       inst['Purpose'] = typeof this.purpose.toJSON === 'function' ? this.purpose.toJSON() : this.purpose;
     }
@@ -120,7 +120,7 @@ class UnitedStatesAddress extends Address {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (this.purpose != null && this.purpose.coding != null && this.purpose.coding.code != null) {
       inst['use'] = typeof this.purpose.coding.code.toFHIR === 'function' ? this.purpose.coding.code.toFHIR() : this.purpose.coding.code;
@@ -132,7 +132,7 @@ class UnitedStatesAddress extends Address {
       inst['text'] = typeof this.displayText.toFHIR === 'function' ? this.displayText.toFHIR() : this.displayText;
     }
     if (this.addressLine != null) {
-      inst['line'] = inst ['line'] || [];
+      inst['line'] = inst['line'] || [];
       inst['line'] = inst['line'].concat(this.addressLine.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.city != null) {
@@ -160,13 +160,13 @@ class UnitedStatesAddress extends Address {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {UnitedStatesAddress} An instance of UnitedStatesAddress populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new UnitedStatesAddress();
     if (fhir['use'] != null) {
-      if(inst.purpose == null) {
+      if (inst.purpose === null) {
         inst.purpose = createInstanceFromFHIR('shr.core.Purpose', {});
       }
-      if(inst.purpose.value == null) {
+      if (inst.purpose.value === null) {
         inst.purpose.value = createInstanceFromFHIR('shr.core.Coding', {});
       }
       inst.purpose.value.code = createInstanceFromFHIR('shr.core.Code', fhir['use']);

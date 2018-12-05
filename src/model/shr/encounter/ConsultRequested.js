@@ -226,7 +226,7 @@ class ConsultRequested extends ActionRequested {
    * @param {object} json - the JSON data to deserialize
    * @returns {ConsultRequested} An instance of ConsultRequested populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new ConsultRequested();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -239,7 +239,7 @@ class ConsultRequested extends ActionRequested {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested' };
     if (this.topicCode != null) {
       inst['TopicCode'] = typeof this.topicCode.toJSON === 'function' ? this.topicCode.toJSON() : this.topicCode;
     }
@@ -303,7 +303,7 @@ class ConsultRequested extends ActionRequested {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     inst['resourceType'] = 'ConsultRequest';
     if (this.expectedMethod != null) {
@@ -365,7 +365,7 @@ class ConsultRequested extends ActionRequested {
       inst['performer'] = typeof this.expectedPerformer.toFHIR === 'function' ? this.expectedPerformer.toFHIR() : this.expectedPerformer;
     }
     if (this.reason != null) {
-      inst['reasonCode'] = inst ['reasonCode'] || [];
+      inst['reasonCode'] = inst['reasonCode'] || [];
       inst['reasonCode'] = inst['reasonCode'].concat(this.reason.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     return inst;
@@ -378,10 +378,10 @@ class ConsultRequested extends ActionRequested {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {ConsultRequested} An instance of ConsultRequested populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new ConsultRequested();
     if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-ExpectedMethod-extension');
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-base-ExpectedMethod-extension');
       if (match != null) {
         inst.expectedMethod = createInstanceFromFHIR('shr.base.ExpectedMethod', match, true);
       }

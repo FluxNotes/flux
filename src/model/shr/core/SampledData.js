@@ -194,7 +194,7 @@ class SampledData {
    * @param {object} json - the JSON data to deserialize
    * @returns {SampledData} An instance of SampledData populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new SampledData();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -206,7 +206,7 @@ class SampledData {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/SampledData' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/SampledData' } };
     if (this.text != null) {
       inst['Text'] = typeof this.text.toJSON === 'function' ? this.text.toJSON() : this.text;
     }
@@ -237,7 +237,7 @@ class SampledData {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (this.origin != null) {
       inst['origin'] = typeof this.origin.toFHIR === 'function' ? this.origin.toFHIR() : this.origin;
@@ -270,7 +270,7 @@ class SampledData {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {SampledData} An instance of SampledData populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new SampledData();
     if (fhir['origin'] != null) {
       inst.origin = createInstanceFromFHIR('shr.core.Origin', fhir['origin']);

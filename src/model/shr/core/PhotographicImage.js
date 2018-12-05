@@ -14,7 +14,7 @@ class PhotographicImage extends Media {
    * @param {object} json - the JSON data to deserialize
    * @returns {PhotographicImage} An instance of PhotographicImage populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new PhotographicImage();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -26,7 +26,7 @@ class PhotographicImage extends Media {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/PhotographicImage' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/PhotographicImage' } };
     if (this.binaryData != null) {
       inst['BinaryData'] = typeof this.binaryData.toJSON === 'function' ? this.binaryData.toJSON() : this.binaryData;
     }
@@ -60,7 +60,7 @@ class PhotographicImage extends Media {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (this.contentType != null) {
       inst['contentType'] = typeof this.contentType.toFHIR === 'function' ? this.contentType.toFHIR() : this.contentType;
@@ -100,7 +100,7 @@ class PhotographicImage extends Media {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {PhotographicImage} An instance of PhotographicImage populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new PhotographicImage();
     if (fhir['contentType'] != null) {
       inst.contentType = createInstanceFromFHIR('shr.core.ContentType', fhir['contentType']);

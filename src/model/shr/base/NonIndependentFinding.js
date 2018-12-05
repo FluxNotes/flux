@@ -116,7 +116,7 @@ class NonIndependentFinding extends InformationItem {
    * @param {object} json - the JSON data to deserialize
    * @returns {NonIndependentFinding} An instance of NonIndependentFinding populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new NonIndependentFinding();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -128,7 +128,7 @@ class NonIndependentFinding extends InformationItem {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/base/NonIndependentFinding' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/base/NonIndependentFinding' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -150,7 +150,7 @@ class NonIndependentFinding extends InformationItem {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (this.findingTopicCode != null) {
       inst['extension'] = inst['extension'] || [];
@@ -174,10 +174,10 @@ class NonIndependentFinding extends InformationItem {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {NonIndependentFinding} An instance of NonIndependentFinding populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new NonIndependentFinding();
     if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-FindingTopicCode-extension');
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-base-FindingTopicCode-extension');
       if (match != null) {
         inst.findingTopicCode = createInstanceFromFHIR('shr.base.FindingTopicCode', match, true);
       }

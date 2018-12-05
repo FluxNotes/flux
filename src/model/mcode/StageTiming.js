@@ -120,7 +120,7 @@ class StageTiming extends NonIndependentFinding {
    * @param {object} json - the JSON data to deserialize
    * @returns {StageTiming} An instance of StageTiming populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new StageTiming();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -132,7 +132,7 @@ class StageTiming extends NonIndependentFinding {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/mcode/StageTiming' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/mcode/StageTiming' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -154,7 +154,7 @@ class StageTiming extends NonIndependentFinding {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (this.findingTopicCode != null) {
       inst['extension'] = inst['extension'] || [];
@@ -174,10 +174,10 @@ class StageTiming extends NonIndependentFinding {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {StageTiming} An instance of StageTiming populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new StageTiming();
     if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-CodeableConcept-extension');
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-core-CodeableConcept-extension');
       if (match != null) {
         inst.value = createInstanceFromFHIR('shr.core.CodeableConcept', match, true);
       }

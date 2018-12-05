@@ -91,7 +91,7 @@ class CancerDisorder extends ConditionPresentAssertion {
    * @param {object} json - the JSON data to deserialize
    * @returns {CancerDisorder} An instance of CancerDisorder populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new CancerDisorder();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -104,7 +104,7 @@ class CancerDisorder extends ConditionPresentAssertion {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/mcode/CancerDisorder' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/mcode/CancerDisorder' };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -171,7 +171,7 @@ class CancerDisorder extends ConditionPresentAssertion {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     inst['resourceType'] = 'Condition';
     if (this.anatomicalLocation != null && this.anatomicalLocation.anatomicalLocationOrLandmarkCode != null) {
@@ -191,7 +191,7 @@ class CancerDisorder extends ConditionPresentAssertion {
       inst['extension'].push(typeof this.criticality.toFHIR === 'function' ? this.criticality.toFHIR(true) : this.criticality);
     }
     if (this.objectIdentifier != null) {
-      inst['identifier'] = inst ['identifier'] || [];
+      inst['identifier'] = inst['identifier'] || [];
       inst['identifier'].push(typeof this.objectIdentifier.toFHIR === 'function' ? this.objectIdentifier.toFHIR() : this.objectIdentifier);
     }
     if (this.clinicalStatus != null) {
@@ -201,7 +201,7 @@ class CancerDisorder extends ConditionPresentAssertion {
       inst['verificationStatus'] = typeof this.findingStatus.toFHIR === 'function' ? this.findingStatus.toFHIR() : this.findingStatus;
     }
     if (this.category != null) {
-      inst['category'] = inst ['category'] || [];
+      inst['category'] = inst['category'] || [];
       inst['category'] = inst['category'].concat(this.category.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.severity != null) {
@@ -226,16 +226,16 @@ class CancerDisorder extends ConditionPresentAssertion {
       inst['stage'] = typeof this.stageInformation.toFHIR === 'function' ? this.stageInformation.toFHIR() : this.stageInformation;
     }
     if (this.stageInformation != null && this.stageInformation.stageSummary != null) {
-      if(inst['stage'] === undefined) {
+      if (inst['stage'] === undefined) {
         inst['stage'] = {};
       }
       inst['stage']['summary'] = typeof this.stageInformation.stageSummary.toFHIR === 'function' ? this.stageInformation.stageSummary.toFHIR() : this.stageInformation.stageSummary;
     }
     if (this.stageInformation != null && this.stageInformation.stageDetail != null) {
-      if(inst['stage'] === undefined) {
+      if (inst['stage'] === undefined) {
         inst['stage'] = {};
       }
-      inst['stage']['assessment'] = inst ['stage']['assessment'] || [];
+      inst['stage']['assessment'] = inst['stage']['assessment'] || [];
       inst['stage']['assessment'].push(typeof this.stageInformation.stageDetail.toFHIR === 'function' ? this.stageInformation.stageDetail.toFHIR() : this.stageInformation.stageDetail);
     }
     return inst;
@@ -248,13 +248,13 @@ class CancerDisorder extends ConditionPresentAssertion {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {CancerDisorder} An instance of CancerDisorder populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new CancerDisorder();
     if (fhir['extension'] != null) {
-      if(inst.anatomicalLocation == null) {
+      if (inst.anatomicalLocation === null) {
         inst.anatomicalLocation = createInstanceFromFHIR('shr.core.AnatomicalLocation', {});
       }
-      const match = fhir['extension'].find(e => e.url == 'http://hl7.org/fhir/StructureDefinition/condition-targetBodySite');
+      const match = fhir['extension'].find(e => e.url === 'http://hl7.org/fhir/StructureDefinition/condition-targetBodySite');
       if (match != null) {
         inst.anatomicalLocation.anatomicalLocationOrLandmarkCode = createInstanceFromFHIR('shr.core.AnatomicalLocationOrLandmarkCode', match, true);
       }
@@ -321,13 +321,13 @@ class CancerDisorder extends ConditionPresentAssertion {
       inst.stageInformation = createInstanceFromFHIR('shr.base.StageInformation', fhir['stage']);
     }
     if (fhir['stage'] != null && fhir['stage']['summary'] != null) {
-      if(inst.stageInformation == null) {
+      if (inst.stageInformation === null) {
         inst.stageInformation = createInstanceFromFHIR('shr.base.StageInformation', {});
       }
       inst.stageInformation.stageSummary = createInstanceFromFHIR('shr.base.StageSummary', fhir['stage']['summary']);
     }
     if (fhir['stage'] != null && fhir['stage']['assessment'] != null) {
-      if(inst.stageInformation == null) {
+      if (inst.stageInformation === null) {
         inst.stageInformation = createInstanceFromFHIR('shr.base.StageInformation', {});
       }
       inst.stageInformation.stageDetail = createInstanceFromFHIR('shr.base.StageDetail', fhir['stage']['assessment'][0]);

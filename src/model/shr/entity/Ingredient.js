@@ -90,7 +90,7 @@ class Ingredient {
    * @param {object} json - the JSON data to deserialize
    * @returns {Ingredient} An instance of Ingredient populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Ingredient();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -102,7 +102,7 @@ class Ingredient {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Ingredient' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/Ingredient' } };
     if (this.substanceOrCode != null) {
       inst['SubstanceOrCode'] = typeof this.substanceOrCode.toJSON === 'function' ? this.substanceOrCode.toJSON() : this.substanceOrCode;
     }
@@ -121,7 +121,7 @@ class Ingredient {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     return inst;
   }
@@ -133,7 +133,7 @@ class Ingredient {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Ingredient} An instance of Ingredient populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Ingredient();
     return inst;
   }

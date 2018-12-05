@@ -214,7 +214,7 @@ class Media extends EmbeddedContent {
    * @param {object} json - the JSON data to deserialize
    * @returns {Media} An instance of Media populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Media();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -226,7 +226,7 @@ class Media extends EmbeddedContent {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Media' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/Media' } };
     if (this.binaryData != null) {
       inst['BinaryData'] = typeof this.binaryData.toJSON === 'function' ? this.binaryData.toJSON() : this.binaryData;
     }
@@ -260,7 +260,7 @@ class Media extends EmbeddedContent {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (this.contentType != null) {
       inst['contentType'] = typeof this.contentType.toFHIR === 'function' ? this.contentType.toFHIR() : this.contentType;
@@ -300,7 +300,7 @@ class Media extends EmbeddedContent {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Media} An instance of Media populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Media();
     if (fhir['contentType'] != null) {
       inst.contentType = createInstanceFromFHIR('shr.core.ContentType', fhir['contentType']);

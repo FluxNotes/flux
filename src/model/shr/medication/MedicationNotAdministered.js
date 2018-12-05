@@ -116,7 +116,7 @@ class MedicationNotAdministered extends ActionNotPerformed {
    * @param {object} json - the JSON data to deserialize
    * @returns {MedicationNotAdministered} An instance of MedicationNotAdministered populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new MedicationNotAdministered();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -129,7 +129,7 @@ class MedicationNotAdministered extends ActionNotPerformed {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/medication/MedicationNotAdministered' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/medication/MedicationNotAdministered' };
     if (this.topicCode != null) {
       inst['TopicCode'] = typeof this.topicCode.toJSON === 'function' ? this.topicCode.toJSON() : this.topicCode;
     }
@@ -163,7 +163,7 @@ class MedicationNotAdministered extends ActionNotPerformed {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     inst['resourceType'] = 'MedicationAdministration';
     if (this.topicCode != null) {
@@ -192,7 +192,7 @@ class MedicationNotAdministered extends ActionNotPerformed {
       inst['effective[x]'] = typeof this.nonOccurrenceTimeOrPeriod.toFHIR === 'function' ? this.nonOccurrenceTimeOrPeriod.toFHIR() : this.nonOccurrenceTimeOrPeriod;
     }
     if (this.reason != null) {
-      inst['reasonNotGiven'] = inst ['reasonNotGiven'] || [];
+      inst['reasonNotGiven'] = inst['reasonNotGiven'] || [];
       inst['reasonNotGiven'] = inst['reasonNotGiven'].concat(this.reason.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     return inst;
@@ -205,10 +205,10 @@ class MedicationNotAdministered extends ActionNotPerformed {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {MedicationNotAdministered} An instance of MedicationNotAdministered populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new MedicationNotAdministered();
     if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-TopicCode-extension');
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-base-TopicCode-extension');
       if (match != null) {
         inst.topicCode = createInstanceFromFHIR('shr.base.TopicCode', match, true);
       }

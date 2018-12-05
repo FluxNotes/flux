@@ -115,7 +115,7 @@ class GroupCharacteristic {
    * @param {object} json - the JSON data to deserialize
    * @returns {GroupCharacteristic} An instance of GroupCharacteristic populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new GroupCharacteristic();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -127,7 +127,7 @@ class GroupCharacteristic {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/GroupCharacteristic' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/GroupCharacteristic' } };
     if (this.groupCharacteristicCode != null) {
       inst['GroupCharacteristicCode'] = typeof this.groupCharacteristicCode.toJSON === 'function' ? this.groupCharacteristicCode.toJSON() : this.groupCharacteristicCode;
     }
@@ -149,7 +149,7 @@ class GroupCharacteristic {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     return inst;
   }
@@ -161,7 +161,7 @@ class GroupCharacteristic {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {GroupCharacteristic} An instance of GroupCharacteristic populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new GroupCharacteristic();
     return inst;
   }

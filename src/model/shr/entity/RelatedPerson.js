@@ -114,7 +114,7 @@ class RelatedPerson extends Role {
    * @param {object} json - the JSON data to deserialize
    * @returns {RelatedPerson} An instance of RelatedPerson populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new RelatedPerson();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -127,7 +127,7 @@ class RelatedPerson extends Role {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/RelatedPerson' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/RelatedPerson' };
     if (this.person != null) {
       inst['Person'] = typeof this.person.toJSON === 'function' ? this.person.toJSON() : this.person;
     }
@@ -146,7 +146,7 @@ class RelatedPerson extends Role {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     inst['resourceType'] = 'RelatedPerson';
     if (this.person != null && this.person.activeFlag != null) {
@@ -186,10 +186,10 @@ class RelatedPerson extends Role {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {RelatedPerson} An instance of RelatedPerson populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new RelatedPerson();
     if (fhir['active'] != null) {
-      if(inst.person == null) {
+      if (inst.person === null) {
         inst.person = createInstanceFromFHIR('shr.entity.Person', {});
       }
       inst.person.activeFlag = createInstanceFromFHIR('shr.entity.ActiveFlag', fhir['active']);
@@ -198,40 +198,40 @@ class RelatedPerson extends Role {
       inst.relationshipToPersonOfRecord = createInstanceFromFHIR('shr.base.RelationshipToPersonOfRecord', fhir['relationship']);
     }
     if (fhir['name'] != null) {
-      if(inst.person == null) {
+      if (inst.person === null) {
         inst.person = createInstanceFromFHIR('shr.entity.Person', {});
       }
       inst.person.humanName = inst.person.humanName || [];
       inst.person.humanName = inst.person.humanName.concat(fhir['name'].map(f => createInstanceFromFHIR('shr.core.HumanName', f)));
     }
     if (fhir['telecom'] != null) {
-      if(inst.person == null) {
+      if (inst.person === null) {
         inst.person = createInstanceFromFHIR('shr.entity.Person', {});
       }
       inst.person.contactPoint = inst.person.contactPoint || [];
       inst.person.contactPoint = inst.person.contactPoint.concat(fhir['telecom'].map(f => createInstanceFromFHIR('shr.core.ContactPoint', f)));
     }
     if (fhir['gender'] != null) {
-      if(inst.person == null) {
+      if (inst.person === null) {
         inst.person = createInstanceFromFHIR('shr.entity.Person', {});
       }
       inst.person.administrativeGender = createInstanceFromFHIR('shr.entity.AdministrativeGender', fhir['gender']);
     }
     if (fhir['birthDate'] != null) {
-      if(inst.person == null) {
+      if (inst.person === null) {
         inst.person = createInstanceFromFHIR('shr.entity.Person', {});
       }
       inst.person.dateOfBirth = createInstanceFromFHIR('shr.entity.DateOfBirth', fhir['birthDate']);
     }
     if (fhir['address'] != null) {
-      if(inst.person == null) {
+      if (inst.person === null) {
         inst.person = createInstanceFromFHIR('shr.entity.Person', {});
       }
       inst.person.address = inst.person.address || [];
       inst.person.address = inst.person.address.concat(fhir['address'].map(f => createInstanceFromFHIR('shr.core.Address', f)));
     }
     if (fhir['photo'] != null) {
-      if(inst.person == null) {
+      if (inst.person === null) {
         inst.person = createInstanceFromFHIR('shr.entity.Person', {});
       }
       inst.person.headshot = inst.person.headshot || [];

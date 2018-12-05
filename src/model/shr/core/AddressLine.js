@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { setPropertiesFromJSON } from '../../json-helper';
 
 /**
  * Generated class for shr.core.AddressLine.
@@ -65,7 +65,7 @@ class AddressLine {
    * @param {object} json - the JSON data to deserialize
    * @returns {AddressLine} An instance of AddressLine populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new AddressLine();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -77,7 +77,7 @@ class AddressLine {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/AddressLine' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/AddressLine' } };
     if (this.value != null) {
       inst['Value'] = this.value;
     }
@@ -90,7 +90,7 @@ class AddressLine {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (!asExtension && this.value != null) {
       if (this.value != null) {
@@ -107,7 +107,7 @@ class AddressLine {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {AddressLine} An instance of AddressLine populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new AddressLine();
     if (!asExtension && fhir != null) {
       inst.value = fhir;

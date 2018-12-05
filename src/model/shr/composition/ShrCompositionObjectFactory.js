@@ -18,9 +18,9 @@ export default class ShrCompositionObjectFactory {
       throw new Error(`Unsupported type in ShrCompositionObjectFactory: ${type}`);
     }
     switch (elementName) {
-    case 'Composition': return Composition.fromJSON(json);
-    case 'Section': return Section.fromJSON(json);
-    default: throw new Error(`Unsupported type in ShrCompositionObjectFactory: ${type}`);
+      case 'Composition': return Composition.fromJSON(json);
+      case 'Section': return Section.fromJSON(json);
+      default: throw new Error(`Unsupported type in ShrCompositionObjectFactory: ${type}`);
     }
   }
 
@@ -30,15 +30,15 @@ export default class ShrCompositionObjectFactory {
    * @param {string} [type] - The (optional) type of the element (e.g., 'http://standardhealthrecord.org/spec/shr/demographics/PersonOfRecord').  This is only used if the type cannot be extracted from the JSON.
    * @returns {Object} An instance of the requested class populated with the provided data
    */
-  static createInstanceFromFHIR(fhir, type, asExtension=false) {
+  static createInstanceFromFHIR(fhir, type, asExtension = false) {
     const { namespace, elementName } = getNamespaceAndNameFromFHIR(fhir, type);
     if (namespace !== 'shr.composition') {
       throw new Error(`Unsupported type in ShrCompositionObjectFactory: ${type}`);
     }
     switch (elementName) {
-    case 'Composition': return Composition.fromFHIR(fhir, asExtension);
-    case 'Section': return Section.fromFHIR(fhir, asExtension);
-    default: throw new Error(`Unsupported type in ShrCompositionObjectFactory: ${type}`);
+      case 'Composition': return Composition.fromFHIR(fhir, asExtension);
+      case 'Section': return Section.fromFHIR(fhir, asExtension);
+      default: throw new Error(`Unsupported type in ShrCompositionObjectFactory: ${type}`);
     }
   }
 }

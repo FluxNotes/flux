@@ -87,7 +87,7 @@ export default class FluxCancerProgression extends FluxEntry {
 
         this._evidence = filteredEvidence.map((e) => {
             let ev = new FluxEvidence();
-            ev.value = lookup.getEvidenceCodeableConcept(e);   
+            ev.value = lookup.getEvidenceCodeableConcept(e);
             return ev;
         });
     }
@@ -113,7 +113,7 @@ export default class FluxCancerProgression extends FluxEntry {
         if (!this._cancerProgression.entryInfo || !this._cancerProgression.entryInfo.creationTime) return null;
         return this._cancerProgression.entryInfo.creationTime.value;
     }
-  
+
     set asOfDate(val) {
         if (!this._cancerProgression.entryInfo.creationTime) {
             let creationTime = new CreationTime();
@@ -123,18 +123,18 @@ export default class FluxCancerProgression extends FluxEntry {
             this._cancerProgression.entryInfo.creationTime.value = val;
         }
     }
-    
+
     get specificFocusOfFinding() {
         if (this._cancerProgression.specificFocusOfFinding) {
             return this._cancerProgression.specificFocusOfFinding.value || this._cancerProgression.specificFocusOfFinding;
         }
         return null;
     }
-    
+
     set specificFocusOfFinding(val) {
         this._cancerProgression.specificFocusOfFinding = val;
     }
-    
+
     setSpecificFocusOfFinding(obj) {
         if (!obj) {
             this.specificFocusOfFinding = null;

@@ -164,7 +164,7 @@ class PersonName extends Name {
    * @param {object} json - the JSON data to deserialize
    * @returns {PersonName} An instance of PersonName populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new PersonName();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -176,7 +176,7 @@ class PersonName extends Name {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/PersonName' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/PersonName' } };
     if (this.nameAsText != null) {
       inst['NameAsText'] = typeof this.nameAsText.toJSON === 'function' ? this.nameAsText.toJSON() : this.nameAsText;
     }
@@ -210,7 +210,7 @@ class PersonName extends Name {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     return inst;
   }
@@ -222,7 +222,7 @@ class PersonName extends Name {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {PersonName} An instance of PersonName populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new PersonName();
     return inst;
   }

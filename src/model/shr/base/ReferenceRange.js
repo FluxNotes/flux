@@ -111,7 +111,7 @@ class ReferenceRange {
    * @param {object} json - the JSON data to deserialize
    * @returns {ReferenceRange} An instance of ReferenceRange populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new ReferenceRange();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -123,7 +123,7 @@ class ReferenceRange {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/base/ReferenceRange' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/base/ReferenceRange' } };
     if (this.range != null) {
       inst['Range'] = typeof this.range.toJSON === 'function' ? this.range.toJSON() : this.range;
     }
@@ -145,7 +145,7 @@ class ReferenceRange {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (asExtension) {
       if (this.range != null) {
@@ -176,22 +176,22 @@ class ReferenceRange {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {ReferenceRange} An instance of ReferenceRange populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new ReferenceRange();
     if (asExtension) {
-      const match_1 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-Range-extension');
+      const match_1 = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-core-Range-extension');
       if (match_1 != null) {
         inst.range = createInstanceFromFHIR('shr.core.Range', match_1, true);
       }
-      const match_2 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-Type-extension');
+      const match_2 = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-core-Type-extension');
       if (match_2 != null) {
         inst.type = createInstanceFromFHIR('shr.core.Type', match_2, true);
       }
-      const match_4 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-ApplicableSubpopulation-extension');
+      const match_4 = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-base-ApplicableSubpopulation-extension');
       if (match_4 != null) {
         inst.applicableSubpopulation = createInstanceFromFHIR('shr.base.ApplicableSubpopulation', match_4, true);
       }
-      const match_5 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-ApplicableAgeRange-extension');
+      const match_5 = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-base-ApplicableAgeRange-extension');
       if (match_5 != null) {
         inst.applicableAgeRange = createInstanceFromFHIR('shr.base.ApplicableAgeRange', match_5, true);
       }

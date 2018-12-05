@@ -243,7 +243,7 @@ class MedicationRequested extends ActionRequested {
    * @param {object} json - the JSON data to deserialize
    * @returns {MedicationRequested} An instance of MedicationRequested populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new MedicationRequested();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -256,7 +256,7 @@ class MedicationRequested extends ActionRequested {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/medication/MedicationRequested' };
+    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/medication/MedicationRequested' };
     if (this.topicCode != null) {
       inst['TopicCode'] = typeof this.topicCode.toJSON === 'function' ? this.topicCode.toJSON() : this.topicCode;
     }
@@ -329,7 +329,7 @@ class MedicationRequested extends ActionRequested {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     inst['resourceType'] = 'MedicationRequest';
     if (this.topicCode != null) {
@@ -382,45 +382,45 @@ class MedicationRequested extends ActionRequested {
       inst['medicationReference'] = typeof this.medication.toFHIR === 'function' ? this.medication.toFHIR() : this.medication;
     }
     if (this.reason != null) {
-      inst['reasonCode'] = inst ['reasonCode'] || [];
+      inst['reasonCode'] = inst['reasonCode'] || [];
       inst['reasonCode'] = inst['reasonCode'].concat(this.reason.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.performerInstructions != null) {
-      if(inst['note'] === undefined) {
+      if (inst['note'] === undefined) {
         inst['note'] = {};
       }
       inst['note']['text'] = typeof this.performerInstructions.toFHIR === 'function' ? this.performerInstructions.toFHIR() : this.performerInstructions;
     }
     if (this.dosage != null) {
-      inst['dosageInstruction'] = inst ['dosageInstruction'] || [];
+      inst['dosageInstruction'] = inst['dosageInstruction'] || [];
       inst['dosageInstruction'].push(typeof this.dosage.toFHIR === 'function' ? this.dosage.toFHIR() : this.dosage);
     }
     if (this.expectedPerformanceTime != null) {
-      if(inst['dispenseRequest'] === undefined) {
+      if (inst['dispenseRequest'] === undefined) {
         inst['dispenseRequest'] = {};
       }
       inst['dispenseRequest']['validityPeriod'] = typeof this.expectedPerformanceTime.toFHIR === 'function' ? this.expectedPerformanceTime.toFHIR() : this.expectedPerformanceTime;
     }
     if (this.numberOfRefillsAllowed != null) {
-      if(inst['dispenseRequest'] === undefined) {
+      if (inst['dispenseRequest'] === undefined) {
         inst['dispenseRequest'] = {};
       }
       inst['dispenseRequest']['numberOfRepeatsAllowed'] = typeof this.numberOfRefillsAllowed.toFHIR === 'function' ? this.numberOfRefillsAllowed.toFHIR() : this.numberOfRefillsAllowed;
     }
     if (this.quantityPerDispense != null) {
-      if(inst['dispenseRequest'] === undefined) {
+      if (inst['dispenseRequest'] === undefined) {
         inst['dispenseRequest'] = {};
       }
       inst['dispenseRequest']['quantity'] = typeof this.quantityPerDispense.toFHIR === 'function' ? this.quantityPerDispense.toFHIR() : this.quantityPerDispense;
     }
     if (this.supplyDuration != null) {
-      if(inst['dispenseRequest'] === undefined) {
+      if (inst['dispenseRequest'] === undefined) {
         inst['dispenseRequest'] = {};
       }
       inst['dispenseRequest']['expectedSupplyDuration'] = typeof this.supplyDuration.toFHIR === 'function' ? this.supplyDuration.toFHIR() : this.supplyDuration;
     }
     if (this.expectedPerformer != null && this.expectedPerformer.organization != null) {
-      if(inst['dispenseRequest'] === undefined) {
+      if (inst['dispenseRequest'] === undefined) {
         inst['dispenseRequest'] = {};
       }
       inst['dispenseRequest']['performer'] = typeof this.expectedPerformer.organization.toFHIR === 'function' ? this.expectedPerformer.organization.toFHIR() : this.expectedPerformer.organization;
@@ -435,10 +435,10 @@ class MedicationRequested extends ActionRequested {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {MedicationRequested} An instance of MedicationRequested populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new MedicationRequested();
     if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-TopicCode-extension');
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-base-TopicCode-extension');
       if (match != null) {
         inst.topicCode = createInstanceFromFHIR('shr.base.TopicCode', match, true);
       }
@@ -475,7 +475,7 @@ class MedicationRequested extends ActionRequested {
       inst.supplyDuration = createInstanceFromFHIR('shr.medication.SupplyDuration', fhir['dispenseRequest']['expectedSupplyDuration']);
     }
     if (fhir['dispenseRequest'] != null && fhir['dispenseRequest']['performer'] != null) {
-      if(inst.expectedPerformer == null) {
+      if (inst.expectedPerformer === null) {
         inst.expectedPerformer = createInstanceFromFHIR('shr.base.ExpectedPerformer', {});
       }
       inst.expectedPerformer.value = createInstanceFromFHIR('shr.entity.Organization', fhir['dispenseRequest']['performer']);

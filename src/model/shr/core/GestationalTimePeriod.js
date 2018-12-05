@@ -65,7 +65,7 @@ class GestationalTimePeriod {
    * @param {object} json - the JSON data to deserialize
    * @returns {GestationalTimePeriod} An instance of GestationalTimePeriod populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new GestationalTimePeriod();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -77,7 +77,7 @@ class GestationalTimePeriod {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/GestationalTimePeriod' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/GestationalTimePeriod' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -90,7 +90,7 @@ class GestationalTimePeriod {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (!asExtension && this.value != null) {
       if (this.value != null) {
@@ -107,7 +107,7 @@ class GestationalTimePeriod {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {GestationalTimePeriod} An instance of GestationalTimePeriod populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new GestationalTimePeriod();
     if (!asExtension && fhir != null) {
       inst.value = createInstanceFromFHIR('shr.core.CodeableConcept', fhir);

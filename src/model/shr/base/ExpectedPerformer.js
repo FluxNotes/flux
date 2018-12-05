@@ -38,7 +38,7 @@ class ExpectedPerformer {
    * @param {object} json - the JSON data to deserialize
    * @returns {ExpectedPerformer} An instance of ExpectedPerformer populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new ExpectedPerformer();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -50,7 +50,7 @@ class ExpectedPerformer {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/base/ExpectedPerformer' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/base/ExpectedPerformer' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
@@ -63,7 +63,7 @@ class ExpectedPerformer {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (asExtension) {
       inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-base-ExpectedPerformer-extension';
@@ -83,7 +83,7 @@ class ExpectedPerformer {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {ExpectedPerformer} An instance of ExpectedPerformer populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new ExpectedPerformer();
     if (asExtension) {
     }

@@ -63,7 +63,7 @@ class Observer {
    * @param {object} json - the JSON data to deserialize
    * @returns {Observer} An instance of Observer populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Observer();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -75,7 +75,7 @@ class Observer {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/base/Observer' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/base/Observer' } };
     if (this.entityOrRole != null) {
       inst['EntityOrRole'] = typeof this.entityOrRole.toJSON === 'function' ? this.entityOrRole.toJSON() : this.entityOrRole;
     }
@@ -91,7 +91,7 @@ class Observer {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     return inst;
   }
@@ -103,7 +103,7 @@ class Observer {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Observer} An instance of Observer populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Observer();
     return inst;
   }

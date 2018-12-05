@@ -22,7 +22,7 @@ class Coding {
   }
 
   set value(code) {
-      this._code = code;
+    this._code = code;
   }
 
   /**
@@ -115,7 +115,7 @@ class Coding {
    * @param {object} json - the JSON data to deserialize
    * @returns {Coding} An instance of Coding populated with the JSON data
    */
-  static fromJSON(json={}) {
+  static fromJSON(json = {}) {
     const inst = new Coding();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -127,7 +127,7 @@ class Coding {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Coding' } };
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/Coding' } };
     if (this.code != null) {
       inst['Code'] = typeof this.code.toJSON === 'function' ? this.code.toJSON() : this.code;
     }
@@ -149,7 +149,7 @@ class Coding {
    * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
-  toFHIR(asExtension=false) {
+  toFHIR(asExtension = false) {
     let inst = {};
     if (this.codeSystem != null) {
       inst['system'] = typeof this.codeSystem.toFHIR === 'function' ? this.codeSystem.toFHIR() : this.codeSystem;
@@ -173,7 +173,7 @@ class Coding {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Coding} An instance of Coding populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension=false) {
+  static fromFHIR(fhir, asExtension = false) {
     const inst = new Coding();
     if (fhir['system'] != null) {
       inst.codeSystem = createInstanceFromFHIR('shr.core.CodeSystem', fhir['system']);
