@@ -1,0 +1,12 @@
+div.treatment-options-selector {
+  box-shadow: none;
+  margin: 5px 0; }
+  div.treatment-options-selector::before {
+    background-color: transparent; }
+  div.treatment-options-selector__header {
+    cursor: pointer; }
+    div.treatment-options-selector__header-icon, div.treatment-options-selector__header-title {
+      display: inline-block; }
+    div.treatment-options-selector__header-title {
+      font-weight: bold;
+      margin-left: 5px; }

@@ -1,0 +1,23 @@
+div.treatment-options-selector {
+  box-shadow: none;
+  margin: 5px 0;
+
+  &::before {
+    background-color: transparent;
+  }
+
+
+  &__header {
+    cursor: pointer;
+
+    &-icon,
+    &-title {
+      display: inline-block;
+    }
+
+    &-title {
+      font-weight: bold;
+      margin-left: 5px;
+    }
+  }
+}
