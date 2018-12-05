@@ -249,7 +249,7 @@ class FluxConditionPresentAssertion {
         const numberOfMonths = 6;
 
         const mostRecentLabResults = this.getLabResultsChronologicalOrder(moment().subtract(numberOfMonths, 'months'));
-        if (mostRecentLabResults.length === 0) return 'No recent lab results.';
+        if (mostRecentLabResults.length === 0) return 'No lab results.';
         
         return mostRecentLabResults.map(l => `${l.name} ${l.quantity.number} ${l.quantity.unit} (${l.relevantTime})`).join('\r\n');
     }

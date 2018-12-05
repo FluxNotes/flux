@@ -70,10 +70,10 @@ export default class SarcomaSummarySection extends MetadataSection {
                     ]
                 },
                 {
-                    defaultTemplate: "Recent lab results include ${Recent Lab Results}.",
+                    defaultTemplate: "Most recent lab results include ${Most Recent Lab Results}.",
                     dataMissingTemplate: "No recent ${lab results}.",
                     useDataMissingTemplateCriteria: [
-                        "Recent Lab Results"
+                        "Most Recent Lab Results"
                     ]
                 },
                 {
