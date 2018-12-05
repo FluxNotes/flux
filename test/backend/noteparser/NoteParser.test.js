@@ -61,7 +61,7 @@ function removeAttributes(record, entry) {
     if (record && record[entry].entryInfo._creationTime) {
         delete record[entry].entryInfo._creationTime;
     }
-    if (record && record[entry].entryInfo._lastUpdated && entry !== "_deceased") {
+    if (record && record[entry].entryInfo._lastUpdated && entry !== "_deathInformation") {
         delete record[entry].entryInfo._lastUpdated;
     } 
 }
@@ -122,8 +122,8 @@ describe('parse', function() {
     it('should return a patient record with disease status data when parsing a note with disease status phrases', function () {
         const record = noteParser.parse(sampleTextDiseaseStatus);
 
-        removeAttributes(record[0][0], "_diseaseProgression");
-
+        removeAttributes(record[0][0], "_cancerProgression");
+       
         expect(record)
             .to.be.an('array')
             .and.to.eql(expectedOutputDiseaseStatus);
@@ -131,8 +131,8 @@ describe('parse', function() {
     it('should return a patient record with disease status data when parsing a note with disease status phrases including dates', function () {
         const record = noteParser.parse(sampleTextDiseaseStatus2);
       
-        removeAttributes(record[0][0], "_diseaseProgression");
-        
+        removeAttributes(record[0][0], "_cancerProgression");
+
         expect(record)
             .to.be.an('array')
             .and.to.eql(expectedOutputDiseaseStatus2);
@@ -150,17 +150,15 @@ describe('parse', function() {
 
         expect(record)
             .to.be.an('array');
-
         expect(record[0][0])
             .to.be.an('object')
             .and.to.eql(expectedOutputToxicity[0][0]);
     });
     it('should return a patient record with deceased data when parsing a note with deceased phrases', function () {
         const record = noteParser.parse(sampleTextDeceased);
-        /* console.log(record[0][0])
+  
         removeAttributes(record[0][0], "_deathInformation");
-        console.log(record)
-        console.log(expectedOutputDeceased) */
+    
         expect(record)
             .to.be.an('array')
             .and.to.eql(expectedOutputDeceased);
@@ -187,14 +185,14 @@ describe('parse', function() {
         const record = noteParser.parse(sampleTextClinicalTrialUnenrolled);
        
         removeAttributes(record[0][0], "_researchSubject");
-
+     
         expect(record)
             .to.be.an('array')
             .and.to.eql(expectedOutputClinicalTrialUnenrolled);
     });
     it('should return a patient record with study unenrolled data correctly defaulted when parsing a note with only #unenrolled', function () {
         const record = noteParser.parse(sampleTextClinicalTrialUnenrolledMinimal);
-                      
+                
         expect(record)
             .to.be.an('array')
             .and.to.eql([[],[]]);
@@ -218,16 +216,17 @@ describe('parse', function() {
     it('should return a patient record with medication change with type set to reduced and a medication when parsing a note with #reduce medication and a medication ', function () {
         const record = noteParser.parse(sampleTextReduceMedication);
         // Because reduce medication structured phrase is a bit different from the other shortcuts, this test checks for certian attributes intead of doing a deep equals
-        
+        //console.log(record[0][0]._medicationChange)
         removeAttributes(record[0][0], "_medicationChange");
         delete record[0][0]._patientRecord;
-
+        //console.log(record[0][0]._medicationChange)
+        //console.log(expectedOutputReduceMedication[0][0]._medicationChange)
         expect(record)
             .to.be.an('array');
         expect(record[0][0]._medicationChange._entryInfo.entryType)
             .eql(expectedOutputReduceMedication[0][0]._medicationChange._entryInfo.entryType);
-        expect(record[0][0]._medicationChange._type._codeableConcept._coding)
-            .eql(expectedOutputReduceMedication[0][0]._medicationChange._type._codeableConcept._coding);
+        expect(record[0][0]._medicationChange._topicCode._codeableConcept._coding)
+            .eql(expectedOutputReduceMedication[0][0]._medicationChange._topicCode._codeableConcept._coding);
         expect(record[0][0]._medicationChange._medicationBeforeChange)
             .to.exist;
     });

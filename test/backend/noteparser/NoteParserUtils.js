@@ -36,7 +36,7 @@ export const stagingJSON = {
           "Value": "IIA"
       }
   },
-  "ObservationComponent": [
+  "Observation": [
       {
           "EntryType": {
               "Value": "http://standardhealthrecord.org/spec/shr/oncology/T_Stage"
@@ -150,7 +150,7 @@ export const stagingJSON = {
 
 export const diseaseStatusJSON = {
     "EntryType": {
-        "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
+        "Value": "http://standardhealthrecord.org/spec/mcode/CancerProgression"
     },
     "Value": {
         "EntryType": {
@@ -183,7 +183,7 @@ export const diseaseStatusJSON = {
             "Value": "Stable"
         }
     },
-    "FocalSubjectReference": null,
+    "SpecificFocusOfFinding": null,
     "Evidence": [
         {
             "EntryType": {
@@ -262,7 +262,7 @@ export const diseaseStatusJSON = {
 
 export const diseaseStatus2JSON = {
     "EntryType": {
-        "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
+        "Value": "http://standardhealthrecord.org/spec/mcode/CancerProgression"
     },
     "Value": {
         "EntryType": {
@@ -295,7 +295,7 @@ export const diseaseStatus2JSON = {
             "Value": "Stable"
         }
     },
-    "FocalSubjectReference": null,
+    "SpecificFocusOfFinding": null,
     "Evidence": [
         {
             "EntryType": {
@@ -370,9 +370,9 @@ export const diseaseStatus2JSON = {
             }
         }
     ],
-    "ClinicallyRelevantTime": {
+    "RelevantTime": {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/finding/ClinicallyRelevantTime"
+            "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
         },
         "Value": "7 Jun 2017"
     }
@@ -413,6 +413,7 @@ export const toxicityJSON = {
             "Value": "Nausea"
         }
     },
+    "SpecificFocusOfFinding": null,
     "AdverseEventGrade": {
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/adverse/AdverseEventGrade"
@@ -485,6 +486,7 @@ export const toxicityJSON = {
             }
         }
     },
+    "SpecificFocusOfFinding": null,
     "AdverseEventAttribution": {
         "_ShrId": "test-id",
         "_EntryId": 2,
@@ -531,7 +533,7 @@ export const clinicalTrialEnrollmentJSON = {
     },
     "Status": {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/base/ClinicalStatus"
+            "Value": "http://standardhealthrecord.org/spec/shr/core/Status"
         }, 
         "Value": {
             "EntryType": {
@@ -600,7 +602,7 @@ export const clinicalTrialEnrollmentMinimalJSON = {
     },
     "Status": {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/base/ClinicalStatus"
+            "Value": "http://standardhealthrecord.org/spec/shr/core/Status"
         }, 
         "Value": {
             "EntryType": {
@@ -669,7 +671,7 @@ export const clinicalTrialUnenrolledJSON = {
     },
     "Status": {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/base/ClinicalStatus"
+            "Value": "http://standardhealthrecord.org/spec/shr/core/Status"
         }, 
         "Value": {
             "EntryType": {
@@ -799,15 +801,16 @@ export const stopMedicationJSON = {
         },
         "Value": "completed"
     }
+    
 }
 
 export const reduceMedicationJSON = {
     "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationChange"
     },
-    "Type": {
+    "TopicCode": {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/entity/Type"
+            "Value": "http://standardhealthrecord.org/spec/shr/base/TopicCode"
         },
         "Value": {
             "EntryType": {
@@ -884,7 +887,7 @@ export const reduceMedicationJSON = {
         ],
         "Status": {
             "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/action/Status"
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Status"
             },
             "Value": "completed"
         }
