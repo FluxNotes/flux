@@ -1,12 +1,16 @@
 import ConsultRequested from '../shr/encounter/ConsultRequested';
+import Lang from 'lodash';
 
 class FluxConsultRequested {
     constructor(json) {
         if (json["ReferralDate"]) {
             this._referralDate = json["ReferralDate"].value;
         }
-        delete json.ReferralDate;
-        this._consultRequested = ConsultRequested.fromJSON(json);
+
+        // Clone the json first otherwise the backend test fails
+        const clonedJSON = Lang.cloneDeep(json);
+        delete clonedJSON.ReferralDate;
+        this._consultRequested = ConsultRequested.fromJSON(clonedJSON);
     }
 
     get ReferralDate() {

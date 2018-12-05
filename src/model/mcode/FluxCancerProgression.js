@@ -10,6 +10,7 @@ import EntryType from '../shr/base/EntryType';
 import moment from 'moment';
 import LastUpdated from '../shr/base/LastUpdated';
 import SpecificFocusOfFinding from '../shr/base/SpecificFocusOfFinding.js';
+import Lang from 'lodash';
 
 export default class FluxCancerProgression extends FluxEntry {
     constructor(json) {
@@ -19,9 +20,12 @@ export default class FluxCancerProgression extends FluxEntry {
             this._evidence = evidence.map(e => {
                 return new FluxEvidence(e);
             });
-            delete json.Evidence;
         }
-        this._entry = this._cancerProgression = CancerProgression.fromJSON(json);
+
+        // Clone the json first otherwise the backend test fails
+        const clonedJSON = Lang.cloneDeep(json);
+        delete clonedJSON.Evidence;
+        this._entry = this._cancerProgression = CancerProgression.fromJSON(clonedJSON);
         if (!this._cancerProgression.entryInfo) {
             let entry = new Entry();
             entry.entryType = new EntryType();
