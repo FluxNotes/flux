@@ -1,10 +1,10 @@
 import NoteParser from '../../../src/noteparser/NoteParser';
 import { stagingJSON, diseaseStatusJSON, diseaseStatus2JSON, toxicityJSON, deceasedJSON,
     clinicalTrialEnrollmentJSON, clinicalTrialEnrollmentMinimalJSON, clinicalTrialUnenrolledJSON, stopMedicationJSON, reduceMedicationJSON } from './NoteParserUtils';
-import CancerProgression from '../../../src/model/mcode/CancerProgression';
+import FluxCancerProgression from '../../../src/model/mcode/FluxCancerProgression';
 import FluxTNMStage from '../../../src/model/oncology/FluxTNMStage';
 import FluxToxicReaction from '../../../src/model/adverse/FluxToxicReaction';
-import DeathInformation from '../../../src/model/shr/entity/DeathInformation';
+import FluxDeathInformation from '../../../src/model/entity/FluxDeathInformation';
 import FluxResearchSubject from '../../../src/model/research/FluxResearchSubject';
 import FluxMedicationChange from '../../../src/model/medication/FluxMedicationChange';
 import moment from 'moment';
@@ -32,10 +32,10 @@ const expectedOutputEmpty = [[], []];
 const expectedOutputPlain = [[], []];
 const expectedOutputNonsense = [[], [ sampleTextNonsense] ];
 const expectedOutputStaging = [[ new FluxTNMStage(stagingJSON) ], []];
-const expectedOutputDiseaseStatus = [[ new CancerProgression(diseaseStatusJSON) ], []];
-const expectedOutputDiseaseStatus2 = [[ new CancerProgression(diseaseStatus2JSON) ], []];
+const expectedOutputDiseaseStatus = [[ new FluxCancerProgression(diseaseStatusJSON) ], []];
+const expectedOutputDiseaseStatus2 = [[ new FluxCancerProgression(diseaseStatus2JSON) ], []];
 const expectedOutputToxicity = [[ new FluxToxicReaction(toxicityJSON) ], []];
-const expectedOutputDeceased = [[ new DeathInformation(deceasedJSON) ], []];
+const expectedOutputDeceased = [[ new FluxDeathInformation(deceasedJSON) ], []];
 const expectedOutputClinicalTrialEnrollment = [[ new FluxResearchSubject(clinicalTrialEnrollmentJSON) ], []];
 const expectedOutputClinicalTrialEnrollmentMinimal = [[ new FluxResearchSubject(clinicalTrialEnrollmentMinimalJSON) ], []];
 const expectedOutputClinicalTrialUnenrolled = [[ new FluxResearchSubject(clinicalTrialUnenrolledJSON) ], []];
@@ -157,9 +157,10 @@ describe('parse', function() {
     });
     it('should return a patient record with deceased data when parsing a note with deceased phrases', function () {
         const record = noteParser.parse(sampleTextDeceased);
-    
-        removeAttributes(record[0][0], "_deceased");
-
+        /* console.log(record[0][0])
+        removeAttributes(record[0][0], "_deathInformation");
+        console.log(record)
+        console.log(expectedOutputDeceased) */
         expect(record)
             .to.be.an('array')
             .and.to.eql(expectedOutputDeceased);

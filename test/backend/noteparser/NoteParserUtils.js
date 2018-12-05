@@ -498,19 +498,19 @@ export const toxicityJSON = {
 
 export const deceasedJSON = {
     "EntryType": {
-        "Value": "http://standardhealthrecord.org/spec/shr/entity/Deceased"
+        "Value": "http://standardhealthrecord.org/spec/shr/entity/DeathInformation"
     },
-    "Value": true,
+    "IsDeceased": {
+        "Value": true,
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/entity/IsDeceased"
+        }
+    },
     "DateOfDeath": {
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/entity/DateOfDeath"
         },
-        "Value": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/GeneralizedDateTime"
-            },
-            "Value": "1 Oct 2017"
-        }
+        "Value": "1 Oct 2017"
     }
 }
 
