@@ -1,12 +1,30 @@
 div.treatment-options-selector {
   box-shadow: none;
-  margin: 5px 0; }
+  margin: 10px 0; }
   div.treatment-options-selector::before {
     background-color: transparent; }
   div.treatment-options-selector__header {
     cursor: pointer; }
-    div.treatment-options-selector__header-icon, div.treatment-options-selector__header-title {
+    div.treatment-options-selector__header-icon, div.treatment-options-selector__header-title, div.treatment-options-selector__header-subtitle {
       display: inline-block; }
+    div.treatment-options-selector__header-icon {
+      font-size: 1.2em;
+      color: #aaa; }
     div.treatment-options-selector__header-title {
-      font-weight: bold;
-      margin-left: 5px; }
+      font-weight: 600;
+      font-size: 0.9em; }
+    div.treatment-options-selector__header-subtitle {
+      font-size: 0.8em;
+      margin-left: 15px; }
+    div.treatment-options-selector__header-subheader {
+      font-size: 0.8em;
+      margin-left: 35px; }
+    div.treatment-options-selector__header .bold {
+      font-weight: bold; }
+    div.treatment-options-selector__header .italic {
+      font-style: italic; }
+    div.treatment-options-selector__header .muted {
+      color: #888;
+      margin-left: 10px; }
+  div.treatment-options-selector__content {
+    margin: 10px 25px; }

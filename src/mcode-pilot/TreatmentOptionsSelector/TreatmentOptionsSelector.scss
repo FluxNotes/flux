@@ -1,23 +1,50 @@
 div.treatment-options-selector {
-  box-shadow: none;
-  margin: 5px 0;
+    box-shadow: none;
+    margin: 10px 0;
 
-  &::before {
-    background-color: transparent;
-  }
-
-
-  &__header {
-    cursor: pointer;
-
-    &-icon,
-    &-title {
-      display: inline-block;
+    &::before {
+        background-color: transparent;
     }
 
-    &-title {
-      font-weight: bold;
-      margin-left: 5px;
+    &__header {
+        cursor: pointer;
+
+        &-icon,
+        &-title,
+        &-subtitle {
+            display: inline-block;
+        }
+
+        &-icon {
+            font-size: 1.2em;
+            color: #aaa;
+        }
+
+        &-title {
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        &-subtitle {
+            font-size: 0.8em;
+            margin-left: 15px;
+        }
+
+        &-subheader {
+            font-size: 0.8em;
+            margin-left: 35px;
+        }
+
+        .bold { font-weight: bold; }
+        .italic { font-style: italic; }
+
+        .muted {
+            color: #888;
+            margin-left: 10px;
+        }
     }
-  }
+
+    &__content {
+        margin: 10px 25px;
+    }
 }

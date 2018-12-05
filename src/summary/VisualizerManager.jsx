@@ -1,11 +1,14 @@
 import React from 'react';
-import TabularListVisualizer from './TabularListVisualizer'; //ordering of these lines matters
+import Lang from 'lodash';
+
+//ordering of these lines matters
+import TabularListVisualizer from './TabularListVisualizer';
 import NarrativeNameValuePairsVisualizer from './NarrativeNameValuePairsVisualizer';
 import BandedLineChartVisualizer from './BandedLineChartVisualizer';
 import ProgressionLineChartVisualizer from './ProgressionLineChartVisualizer';
 import TimelineEventsVisualizer from '../timeline/TimelineEventsVisualizer';
 import MedicationRangeChartVisualizer from './MedicationRangeChartVisualizer';
-import TreatmentOptionsVisualizer from '../mcode-pilot/TreatmentOptionsVisualizer';
+import TreatmentOptionsVisualizer from '../mcode-pilot/TreatmentOptionsVisualizer/TreatmentOptionsVisualizer';
 import ScatterPlotVisualizer from './ScatterPlotVisualizer';
 import FormatMedicationChange from './FormatMedicationChange.js';
 import NameValuePairsIndexer from '../patientControl/NameValuePairsIndexer';
@@ -14,11 +17,9 @@ import EventsIndexer from '../patientControl/EventsIndexer';
 import MedicationsIndexer from '../patientControl/MedicationsIndexer';
 import ValueOverTimeIndexer from '../patientControl/ValueOverTimeIndexer';
 import DiseaseStatusValuesIndexer from '../patientControl/DiseaseStatusValuesIndexer';
-import Lang from 'lodash';
 import ClusterPointsIndexer from '../patientControl/ClusterPointsIndexer';
 
-class VisualizerManager {
-
+export default class VisualizerManager {
     constructor(user) {
         this.user = user;
     }
@@ -340,5 +341,3 @@ class VisualizerManager {
 
 
 }
-
-export default VisualizerManager;
