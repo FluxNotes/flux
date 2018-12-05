@@ -82,8 +82,7 @@ export class CoreCancerPilotApp extends Component {
             superRole: 'Clinician', // possibly add that to security manager too
             forceRefresh: false,
             searchSuggestions: [],
-            isAppBlurred: false,
-            highlightedSearchSuggestion: null
+            isAppBlurred: false
         };
     }
 
@@ -231,7 +230,6 @@ export class CoreCancerPilotApp extends Component {
                             searchSuggestions={this.state.searchSuggestions}
                             isAppBlurred={this.state.isAppBlurred}
                             setAppBlur={this.setAppBlur}
-                            highlightedSearchSuggestion={this.state.highlightedSearchSuggestion}
                         />
                         <Modal
                             aria-labelledby="simple-modal-title"
