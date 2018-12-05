@@ -531,7 +531,7 @@ export const clinicalTrialEnrollmentJSON = {
     },
     "Status": {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/action/Status"
+            "Value": "http://standardhealthrecord.org/spec/shr/base/ClinicalStatus"
         }, 
         "Value": {
             "EntryType": {
@@ -567,7 +567,7 @@ export const clinicalTrialEnrollmentJSON = {
     },
     "ParticipationPeriod": {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/action/ParticipationPeriod"
+            "Value": "http://standardhealthrecord.org/spec/shr/base/ParticipationPeriod"
         },
         "Value": {
             "EntryType": {
@@ -600,7 +600,7 @@ export const clinicalTrialEnrollmentMinimalJSON = {
     },
     "Status": {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/action/Status"
+            "Value": "http://standardhealthrecord.org/spec/shr/base/ClinicalStatus"
         }, 
         "Value": {
             "EntryType": {
@@ -636,7 +636,7 @@ export const clinicalTrialEnrollmentMinimalJSON = {
     },
     "ParticipationPeriod": {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/action/ParticipationPeriod"
+            "Value": "http://standardhealthrecord.org/spec/shr/base/ParticipationPeriod"
         },
         "Value": {
             "EntryType": {
@@ -669,7 +669,7 @@ export const clinicalTrialUnenrolledJSON = {
     },
     "Status": {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/action/Status"
+            "Value": "http://standardhealthrecord.org/spec/shr/base/ClinicalStatus"
         }, 
         "Value": {
             "EntryType": {
@@ -705,7 +705,7 @@ export const clinicalTrialUnenrolledJSON = {
     },
     "ParticipationPeriod": {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/action/ParticipationPeriod"
+            "Value": "http://standardhealthrecord.org/spec/shr/base/ParticipationPeriod"
         },
         "Value": {
             "EntryType": {
