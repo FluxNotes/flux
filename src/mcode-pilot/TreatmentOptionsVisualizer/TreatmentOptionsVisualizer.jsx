@@ -24,8 +24,6 @@ export default class TreatmentOptionsVisualizer extends Component {
     }
 
     renderedFilterSubheader(filteredTreatments) {
-        console.debug('filteredTreatments', filteredTreatments);
-
         return (
             <div>
                 {filteredTreatments.map((treatment, i) => (
