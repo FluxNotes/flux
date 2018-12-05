@@ -51,14 +51,14 @@ export default class TreatmentOptionsVisualizer extends Component {
                 </TreatmentOptionsSelector>
 
                 <TreatmentOptionsSelector
-                    title="Filter"
+                    title="Filter treatments"
                     subTitle="all treatment types"
                     subHeader={this.renderedFilterSubheader(['most common 3 treatments', 'none'])}>
                     Filter placeholder
                 </TreatmentOptionsSelector>
 
                 <TreatmentOptionsSelector
-                    title="Features"
+                    title="Outcomes"
                     subTitle="cancer specific survival rate, ECOG score, Hospitalization due to side effects">
                     Features placeholder
                 </TreatmentOptionsSelector>
