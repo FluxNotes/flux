@@ -201,6 +201,49 @@ class FluxConditionPresentAssertion {
         return mostRecentLabResults;
     }
 
+    getMostRecentLabResultOfEachType() {
+        let allResults = this.getTests();
+        allResults.sort(this._observationsTimeSorter);
+
+        let id, mostRecentResultOfEachType = {};
+        allResults.forEach((lab, i) => {
+            id = lab.codeableConceptCode;
+
+            // Check that the lab result type (i.e hemoglobin, white blood cell, etc) doesn't already exist in the lookup table
+            if (!mostRecentResultOfEachType[id]) {
+
+                // If the lab result type doesn't already exist, add it to the table
+                mostRecentResultOfEachType[id] = {
+                    labResult: lab,
+                    relevantTime: lab.relevantTime
+                }
+            } else {
+                // Check if current lab result is the most recent compared to what is in the lookup table
+                let time1 = new moment(mostRecentResultOfEachType[id].relevantTime, "D MMM YYYY");
+                let time2 = new moment(lab.relevantTime, "D MMM YYYY");
+
+                // If the current lab result is more recent than what is stored in the lookup table, update the data
+                // Lookup will only contain the most recent lab result for that type
+                if (time2 > time1) {
+                    mostRecentResultOfEachType[id] = {
+                        labResult: lab,
+                        relevantTime: lab.relevantTime
+                    }
+                }
+            }
+        });
+
+        // Generate array from lookup table
+        let mostRecentLabResultsArray = [];
+        for (var key in mostRecentResultOfEachType) {
+            if (mostRecentResultOfEachType.hasOwnProperty(key)) {
+                mostRecentLabResultsArray.push(mostRecentResultOfEachType[key].labResult);
+            }
+        }
+
+        return mostRecentLabResultsArray;
+    }
+
     getMostRecentLabResultsAsText() {
         // Set the max number of months prior to today that a lab result can be
         const numberOfMonths = 6;

@@ -129,8 +129,8 @@ export default class TabularListVisualizer extends Component {
         }
 
         let nameSuffix = '';
-        if (transformedSubsection.name_suffix) {
-            nameSuffix = <span>{transformedSubsection.name_suffix}</span>;
+        if (transformedSubsection.nameSuffix) {
+            nameSuffix = <span>{transformedSubsection.nameSuffix}</span>;
         }
         if (subsectionName && subsectionName.length > 0) {
             const matchingSubsection = this.props.tdpSearchSuggestions.find(s => {
