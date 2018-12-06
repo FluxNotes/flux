@@ -19,6 +19,7 @@ function StructuredFieldPlugin(opts) {
     let updateErrors = opts.updateErrors;
     let insertText = opts.insertText;
     const clearStructuredFieldMap = opts.structuredFieldMapManager.clearStructuredFieldMap;
+    const createShortcut = opts.createShortcut;
 
     function onKeyDown(e, key, state, editor) {
         const anchorParent = state.document.getParent(state.selection.anchorKey);
@@ -43,7 +44,8 @@ function StructuredFieldPlugin(opts) {
             transform = transform.moveToRangeOf(newTextNode).insertText(e.key);
 
             const newShortcutNode = transform.state.document.getNextSibling(newTextNode.key);
-            const newShortcut = Lang.cloneDeep(shortcut);
+            const newShortcut = createShortcut(shortcut.metadata, shortcut.initiatingTrigger, `{"text": "${newShortcutNode.text}", "entryId": "${shortcut.valueObject.entryInfo.entryId}"}`, true, shortcut.getSource());
+            newShortcut.setKey(newShortcutNode.key);
             newShortcut.setText(newShortcutNode.text);
             transform = transform.setNodeByKey(newShortcutNode.key, {
                 data: { shortcut: newShortcut }
@@ -51,6 +53,8 @@ function StructuredFieldPlugin(opts) {
 
             const oldShortcutNode = transform.state.document.getPreviousSibling(newTextNode.key);
             shortcut.setText(oldShortcutNode.text);
+            contextManager.removeShortcutFromContext(shortcut);
+            shortcut.setWasRemovedFromContext(true);
             transform = transform.setNodeByKey(anchorParent.key, {
                 data: { shortcut }
             });
@@ -58,6 +62,7 @@ function StructuredFieldPlugin(opts) {
             transform = transform.apply();
 
             opts.structuredFieldMapManager.keyToShortcutMap.set(newShortcutNode.key, newShortcut);
+            contextManager.contextUpdated();
 
             // transform = transform.setNodeByKey(anchorParent.key, {
             //     data: { shortcut }
@@ -76,7 +81,8 @@ function StructuredFieldPlugin(opts) {
             transform = transform.moveToRangeOf(newTextNode);
 
             const newShortcutNode = transform.state.document.getNextSibling(newTextNode.key);
-            const newShortcut = Lang.cloneDeep(shortcut);
+            const newShortcut = createShortcut(shortcut.metadata, shortcut.initiatingTrigger, `{"text": "${newShortcutNode.text}", "entryId": "${shortcut.valueObject.entryInfo.entryId}"}`, true, shortcut.getSource());
+            newShortcut.setKey(newShortcutNode.key);
             newShortcut.setText(newShortcutNode.text);
             transform = transform.setNodeByKey(newShortcutNode.key, {
                 data: { shortcut: newShortcut }
@@ -84,6 +90,8 @@ function StructuredFieldPlugin(opts) {
 
             const oldShortcutNode = parentBlock.getChild(anchorParent.key);
             shortcut.setText(oldShortcutNode.text);
+            contextManager.removeShortcutFromContext(shortcut);
+            shortcut.setWasRemovedFromContext(true);
             transform = transform.setNodeByKey(anchorParent.key, {
                 data: { shortcut }
             });
@@ -91,6 +99,7 @@ function StructuredFieldPlugin(opts) {
             transform = transform.apply();
 
             opts.structuredFieldMapManager.keyToShortcutMap.set(newShortcutNode.key, newShortcut);
+            contextManager.contextUpdated();
 
             editor.onChange(transform);
         }

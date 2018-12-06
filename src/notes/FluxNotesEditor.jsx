@@ -86,7 +86,8 @@ class FluxNotesEditor extends React.Component {
             contextManager: this.contextManager,
             structuredFieldMapManager: this.structuredFieldMapManager,
             updateErrors: this.updateErrors,
-            insertText: this.insertTextWithStructuredPhrases
+            insertText: this.insertTextWithStructuredPhrases,
+            createShortcut: this.props.newCurrentShortcut
         };
         structuredFieldTypes.forEach((type) => {
             const typeName = type.name;

@@ -9,6 +9,8 @@ export default class InsertValue extends Shortcut {
         this.metadata = metadata;
         this.text = null;
         this.patient = patient;
+        this._wasRemovedFromContext = false;
+        this._shouldRemoveFromContext = false;
     }
 
     initialize(contextManager, trigger = undefined, updatePatient = true, shortcutData = "") {
@@ -33,6 +35,9 @@ export default class InsertValue extends Shortcut {
             this.text = shortcutDataObj.text;
             const valueObject = this.patient.getEntryById(shortcutDataObj.entryId);
             this.setValueObject(valueObject);
+            if (shortcutDataObj.wasRemovedFromContext) {
+                this._shouldRemoveFromContext = true;
+            }
         }
     }
 
@@ -170,7 +175,7 @@ export default class InsertValue extends Shortcut {
     }
 
     isContext() {
-        return this.metadata.isContext;
+        return this.metadata.isContext && !this._shouldRemoveFromContext;
     }
 
     getLabel() {
@@ -203,6 +208,7 @@ export default class InsertValue extends Shortcut {
             const shortcutDataObj = {
                 text,
                 entryId: this.valueObject.entryInfo.entryId,
+                wasRemovedFromContext: this._wasRemovedFromContext,
             };
             return `${this.initiatingTrigger}[[${JSON.stringify(shortcutDataObj)}]]`;
         }
@@ -215,6 +221,10 @@ export default class InsertValue extends Shortcut {
         const object = this._resolveCallSpec(callSpec, contextManager, selectedValue);
 
         return object;
+    }
+
+    setWasRemovedFromContext(value) {
+        this._wasRemovedFromContext = value;
     }
 
     setText(text) {
