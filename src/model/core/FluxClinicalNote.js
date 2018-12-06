@@ -2,7 +2,6 @@ import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
 import CreationTime from '../shr/core/CreationTime';
 import LastUpdated from '../shr/base/LastUpdated';
-// import PersonOfRecord from '../shr/base/PersonOfRecord';
 import moment from 'moment';
 import Lang from 'lodash';
 
@@ -18,8 +17,6 @@ class FluxClinicalNote {
         this._entryInfo.creationTime.dateTime = today;
         this._entryInfo.lastUpdated = new LastUpdated();
         this._entryInfo.lastUpdated.instant = today;
-        // this._entryInfo.personOfRecord = new PersonOfRecord();
-        // this._entryInfo.personOfRecord.value = json['PersonOfRecord'];
         if (json.signedOn) this._signedOn = json.signedOn;
         if (json.subject) this._subject = json.subject;
         if (json.hospital) this._hospital = json.hospital;

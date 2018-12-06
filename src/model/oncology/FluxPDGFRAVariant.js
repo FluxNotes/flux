@@ -6,7 +6,6 @@ class FluxPDGFRAVariant {
     }
     
     get abbreviatedName() {
-//        return this._kitVariant.subject.value.coding[0].displayText.value || 'PDGFRA';
         return 'PDGFRA';
     }
 

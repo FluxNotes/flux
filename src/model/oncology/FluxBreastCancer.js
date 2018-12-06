@@ -10,20 +10,9 @@ class FluxBreastCancer extends FluxSolidTumorCancer {
     constructor(json, patientRecord) {
         super();
         this._patientRecord = patientRecord;
-        this._entry = this._condition = this._cancerDisorder = CancerDisorder.fromJSON(json);
+        this._condition = CancerDisorder.fromJSON(json);
     }
 
-    // Returns a list of all dates that may be considered a diagnosisDate for this condition
-    // getPotentialDiagnosisDates() {
-    //     // TODO: Aggregate the relevant candidate dates for diagnosis
-    //     // console.log(this._cancerDisorder)
-    //     const procedures = this._patientRecord.getProceduresForCondition(this);
-    //     procedures.sort(this._eventsTimeSorter);
-
-    //     console.log(procedures);
-    //     return [];
-    // }
-    
     getMostRecentERReceptorStatus() {
         return this._getMostRecentReceptorStatus(FluxEstrogenReceptorStatus);
     }
@@ -85,7 +74,7 @@ class FluxBreastCancer extends FluxSolidTumorCancer {
     }
 
     toJSON() {
-        return this._cancerDisorder.toJSON();
+        return this._condition.toJSON();
     }
 }
 

@@ -1,7 +1,5 @@
 import { getNamespaceAndName } from '../../json-helper';
-// import NoAdverseEvent from './NoAdverseEvent';
 import AdverseEvent from './AdverseEvent';
-// import SeriousAdverseEvent from './SeriousAdverseEvent';
 import AdverseEventGrade from './AdverseEventGrade';
 import CauseCategory from './CauseCategory';
 import AdverseEventAttribution from './AdverseEventAttribution';
@@ -24,9 +22,7 @@ export default class ShrAdverseObjectFactory {
       throw new Error(`Unsupported type in ShrAdverseObjectFactory: ${type}`);
     }
     switch (elementName) {
-      //   case 'NoAdverseEvent': return NoAdverseEvent.fromJSON(json);
       case 'AdverseEvent': return AdverseEvent.fromJSON(json);
-      //   case 'SeriousAdverseEvent': return SeriousAdverseEvent.fromJSON(json);
       case 'AdverseEventGrade': return AdverseEventGrade.fromJSON(json);
       case 'CauseCategory': return CauseCategory.fromJSON(json);
       case 'AdverseEventAttribution': return AdverseEventAttribution.fromJSON(json);

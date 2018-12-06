@@ -1,5 +1,4 @@
 import { getNamespaceAndName } from '../json-helper';
-//import ShrAllergyObjectFactory from '../shr/allergy/ShrAllergyObjectFactory';
 import FluxAllergyIntolerance from './FluxAllergyIntolerance';
 import FluxNoKnownAllergy from './FluxNoKnownAllergy';
 import SubstanceCategory from '../shr/allergy/SubstanceCategory';
@@ -19,8 +18,7 @@ export default class FluxAllergyIntoleranceObjectFactory {
             case 'SubstanceCategory': return SubstanceCategory.fromJSON(json);
             case 'AdverseReaction': return AdverseReaction.fromJSON(json);
             case 'Manifestation': return Manifestation.fromJSON(json);
-            // default: return ShrAllergyObjectFactory.createInstance(json, type);
-            default: console.log('unsupported allergy namespace class ' + elementName);
+            default: console.error('unsupported allergy namespace class ' + elementName);
         }
     }
 }

@@ -226,7 +226,6 @@ class PatientRecord {
     }
 
     getPerson() {
-//        console.log(this.patient.person);
         if (Lang.isUndefined(this.patient.person)) return null;
         return this.patient.person;
     }
@@ -825,8 +824,7 @@ class PatientRecord {
 
     getPathologyReportsChronologicalOrder() {
         let reports = this.getPathologyReports();
-        //reports.sort(this._relevantTimeTimeSorter);
-    
+
         return reports;
 
     } 

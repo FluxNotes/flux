@@ -2,7 +2,6 @@ import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
 import CreationTime from '../shr/core/CreationTime';
 import LastUpdated from '../shr/base/LastUpdated';
-// import PersonOfRecord from '../shr/base/PersonOfRecord';
 import moment from 'moment';
 
 class FluxPatientIdentifier {
@@ -17,8 +16,6 @@ class FluxPatientIdentifier {
         this._entryInfo.creationTime.dateTime = today;
         this._entryInfo.lastUpdated = new LastUpdated();
         this._entryInfo.lastUpdated.instant = today;
-        // this._entryInfo.personOfRecord = new PersonOfRecord();
-        // this._entryInfo.personOfRecord.value = json['PersonOfRecord'];
         if (json.organization) this._organization = json.organization;
         if (json.identifierType) this._identifierType = json.identifierType;
         if (json.value) this._value = json.value;

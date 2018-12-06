@@ -1,5 +1,4 @@
 import { getNamespaceAndName } from '../json-helper';
-//import ShrFindingObjectFactory from '../shr/finding/ShrFindingObjectFactory';
 import FluxQuestionAnswer from './FluxQuestionAnswer';
 import FluxPathologyReport from './FluxPathologyReport';
 
@@ -13,7 +12,7 @@ export default class FluxFindingObjectFactory {
         switch (elementName) {
             case 'QuestionAnswer': return new FluxQuestionAnswer(json);
             case 'PathologyReport': return new FluxPathologyReport(json);
-            default: console.error("Unsupport element type " + elementName); //return ShrFindingObjectFactory.createInstance(json, type);
+            default: console.error("Unsupport element type " + elementName);
         }
     }
 }
