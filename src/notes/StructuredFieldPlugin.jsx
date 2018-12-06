@@ -488,7 +488,7 @@ function createStructuredField(opts, shortcut) {
     const isVoid = !isInserter;
     if (isInserter) {
         nodes = [Slate.Text.create({
-            characters: Slate.Character.createList(shortcut.getText()
+            characters: Slate.Character.createList(String(shortcut.getText())
                 .split('')
                 .map((char) => {
                     return Slate.Character.create({
