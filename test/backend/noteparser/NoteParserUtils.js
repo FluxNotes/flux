@@ -3,149 +3,154 @@ const today = new moment().format("D MMM YYYY");
 
 export const stagingJSON = {
     "EntryType": {
-        "Value": "http://standardhealthrecord.org/spec/shr/oncology/TNMStage"
-    }, 
+        "Value": "http://standardhealthrecord.org/spec/mcode/CancerStageInformation"
+    },
     "Value": {
-      "EntryType": {
-          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-      },
-      "Coding": [
-          {
-              "EntryType": {
-                  "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-              },
-              "Value": "52774001",
-              "CodeSystem": {
-                  "EntryType": {
-                      "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                  },
-                  "Value": "urn:oid:2.16.840.1.113883.6.96"
-              },
-              "DisplayText": {
-                  "EntryType": {
-                      "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                  },
-                  "Value": "IIA"
-              }
-          }
-      ],
-      "DisplayText": {
-          "EntryType": {
-              "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-          },
-          "Value": "IIA"
-      }
-  },
-  "Observation": [
-      {
-          "EntryType": {
-              "Value": "http://standardhealthrecord.org/spec/shr/oncology/T_Stage"
-          },
-          "Value": {
-              "EntryType": {
-                  "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-              },
-              "Coding": [
-                  {
-                      "EntryType": {
-                          "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                      },
-                      "Value": "369900003",
-                      "CodeSystem": {
-                          "EntryType": {
-                              "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                          },
-                          "Value": "urn:oid:2.16.840.1.113883.6.96"
-                      },
-                      "DisplayText": {
-                          "EntryType": {
-                              "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                          },
-                          "Value": "T2"
-                      }
-                  }
-              ],
-              "DisplayText": {
-                  "EntryType": {
-                      "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                  },
-                  "Value": "T2"
-              }
-          }
-      },
-      {
-          "EntryType": {
-              "Value": "http://standardhealthrecord.org/spec/shr/oncology/N_Stage"
-          },
-          "Value": {
-              "EntryType": {
-                  "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-              },
-              "Coding": [
-                  {
-                      "EntryType": {
-                          "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                      },
-                      "Value": "436311000124105",
-                      "CodeSystem": {
-                          "EntryType": {
-                              "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                          },
-                          "Value": "urn:oid:2.16.840.1.113883.6.96"
-                      },
-                      "DisplayText": {
-                          "EntryType": {
-                              "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                          },
-                          "Value": "N0"
-                      }
-                  }
-              ],
-              "DisplayText": {
-                  "EntryType": {
-                      "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                  },
-                  "Value": "N0"
-              }
-          }
-      },
-      {
-          "EntryType": {
-              "Value": "http://standardhealthrecord.org/spec/shr/oncology/M_Stage"
-          },
-          "Value": {
-              "EntryType": {
-                  "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-              },
-              "Coding": [
-                  {
-                      "EntryType": {
-                          "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                      },
-                      "Value": "433581000124101",
-                      "CodeSystem": {
-                          "EntryType": {
-                              "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                          },
-                          "Value": "urn:oid:2.16.840.1.113883.6.96"
-                      },
-                      "DisplayText": {
-                          "EntryType": {
-                              "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                          },
-                          "Value": "M0"
-                      }
-                  }
-              ],
-              "DisplayText": {
-                  "EntryType": {
-                      "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                  },
-                  "Value": "M0"
-              }
-          }
-      }
-  ]
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+        },
+        "Coding": [
+            {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                },
+                "Value": "52774001",
+                "CodeSystem": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                    },
+                    "Value": "urn:oid:2.16.840.1.113883.6.96"
+                },
+                "DisplayText": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                    },
+                    "Value": "IIA"
+                }
+            }
+        ],
+        "DisplayText": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+            },
+            "Value": "IIA"
+        }
+    },
+    "PanelMembers": {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/base/PanelMembers"
+        },
+        "Observation": [
+            {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/mcode/TNMClinicalPrimaryTumorClassification"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    },
+                    "Coding": [
+                        {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "369900003",
+                            "CodeSystem": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                },
+                                "Value": "urn:oid:2.16.840.1.113883.6.96"
+                            },
+                            "DisplayText": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                },
+                                "Value": "T2"
+                            }
+                        }
+                    ],
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "T2"
+                    }
+                }
+            },
+            {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/mcode/TNMClinicalRegionalNodesClassification"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    },
+                    "Coding": [
+                        {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "436311000124105",
+                            "CodeSystem": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                },
+                                "Value": "urn:oid:2.16.840.1.113883.6.96"
+                            },
+                            "DisplayText": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                },
+                                "Value": "N0"
+                            }
+                        }
+                    ],
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "N0"
+                    }
+                }
+            },
+            {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/mcode/TNMClinicalDistantMetastasesClassification"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    },
+                    "Coding": [
+                        {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "433581000124101",
+                            "CodeSystem": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                },
+                                "Value": "urn:oid:2.16.840.1.113883.6.96"
+                            },
+                            "DisplayText": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                },
+                                "Value": "M0"
+                            }
+                        }
+                    ],
+                    "DisplayText": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        },
+                        "Value": "M0"
+                    }
+                }
+            }
+        ]
+    }
 }
 
 export const diseaseStatusJSON = {
