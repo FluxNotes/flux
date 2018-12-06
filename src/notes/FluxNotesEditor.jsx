@@ -585,9 +585,15 @@ class FluxNotesEditor extends React.Component {
             }
         });
 
+        // Save anchor block to reset selection after updating shortcut text
+        const {anchorBlock} = transform.state;
+
         // Update text on the node
         const shortcutNode = transform.state.document.getNode(shortcut.getKey());
         transform = transform.moveToRangeOf(shortcutNode).insertText(shortcut.getText()).collapseToStartOfNextText().focus();
+
+        // Move to previous anchor block to not lose the valid selection
+        transform = transform.moveToRangeOf(anchorBlock).collapseToEnd().focus();
 
         return transform;
     }
