@@ -124,7 +124,9 @@ class Placeholder {
 
     addEntry() {
         this._entryShortcuts.push(this._shortcutManager.createShortcut(null, this._shortcutName, this._patient, undefined, this.onUpdate.bind(this)));
-        this._entryShortcuts[this._entryShortcuts.length - 1].initialize();
+        const last = this._entryShortcuts.length - 1;
+        this._entryShortcuts[last].initialize();
+        this._entryShortcuts[last].setKey(this.key);
         this._setForceRefresh();
     }
 
