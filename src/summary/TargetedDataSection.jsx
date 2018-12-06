@@ -373,23 +373,38 @@ export default class TargetedDataSection extends Component {
         if (section.resetData) section.resetData();
         searchIndex.removeDataBySection(section.name);
 
+        let typeToIndex;
+        if (sectionTransform) {
+            typeToIndex = viz.renderedFormat;
+        } else {
+            typeToIndex = type;
+        }
+        const indexer = this.props.visualizerManager.getIndexer(typeToIndex);
+        if (indexer) {
+            const sectionId = section.name.toLowerCase().replace(/ /g, '_');
+            searchIndex.addSearchableData({
+                id: `${sectionId}_${sectionId}`,
+                section: section.name,
+                subsection: "",
+                valueTitle: "Section",
+                value: section.name,
+                onHighlight: this.props.moveToSubsectionFromSearch
+            });
+        }
+
         const subsections = patient === null || condition === null || section === null ? [] : section.data;
         subsections.forEach(subsection => {
             let items = subsection.items;
             let itemsFunction = subsection.itemsFunction;
             let list, newSubsection;
-            let typeToIndex;
 
             if (sectionTransform) {
-                typeToIndex = viz.renderedFormat;
                 newSubsection = sectionTransform(patient, condition, subsection, this.getFilterValue);
                 list = newSubsection.data_cache;
                 Object.assign(subsection, newSubsection);
             } else {
                 newSubsection = subsection;
-                typeToIndex = type;
                 if (Lang.isUndefined(items)) {
-                
                     list = itemsFunction(patient, condition, subsection, this.getFilterValue);
                 } else {
                     list = items.map((item, i) => {
@@ -407,18 +422,8 @@ export default class TargetedDataSection extends Component {
                 }
             }
             subsection.data_cache = list;
-            const indexer = this.props.visualizerManager.getIndexer(typeToIndex);
             if (!Lang.isUndefined(subsection.nameFunction)) subsection.name = subsection.nameFunction();
             if (indexer) {
-                const sectionId = section.name.toLowerCase().replace(/ /g, '_');
-                searchIndex.addSearchableData({
-                    id: `${sectionId}_${sectionId}`,
-                    section: section.name,
-                    subsection: "",
-                    valueTitle: "Section",
-                    value: section.name,
-                    onHighlight: this.props.moveToSubsectionFromSearch
-                });
                 indexer.indexData(section.name, subsection.name, list, searchIndex, this.props.moveToSubsectionFromSearch, newSubsection);
             }
         });

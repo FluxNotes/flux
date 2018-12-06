@@ -18,6 +18,7 @@ import MedicationsIndexer from '../patientControl/MedicationsIndexer';
 import ValueOverTimeIndexer from '../patientControl/ValueOverTimeIndexer';
 import DiseaseStatusValuesIndexer from '../patientControl/DiseaseStatusValuesIndexer';
 import ClusterPointsIndexer from '../patientControl/ClusterPointsIndexer';
+import BaseIndexer from '../patientControl/BaseIndexer';
 
 export default class VisualizerManager {
     constructor(user) {
@@ -258,7 +259,10 @@ export default class VisualizerManager {
                 return new DiseaseStatusValuesIndexer();
             case "ClusterPoints":
                 return new ClusterPointsIndexer();
+            case "TreatmentOptions":
+                return new BaseIndexer();
             default:
+                console.warn(`Targeted Data Panel data type '${dataType}' has no registered indexer.`);
                 return null;
         }
     }
