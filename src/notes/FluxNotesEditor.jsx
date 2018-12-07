@@ -591,7 +591,7 @@ class FluxNotesEditor extends React.Component {
 
         // Update text on the node
         const shortcutNode = transform.state.document.getNode(shortcut.getKey());
-        transform = transform.moveToRangeOf(shortcutNode).insertText(shortcut.getText()).collapseToStartOfNextText().focus();
+        transform = transform.moveToRangeOf(shortcutNode).insertText(shortcut.getText());
 
         // Move to previous anchor block to not lose the valid selection
         transform = transform.moveToRangeOf(anchorBlock).collapseToEnd().focus();

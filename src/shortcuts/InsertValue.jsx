@@ -188,11 +188,7 @@ export default class InsertValue extends Shortcut {
     }
 
     getText() {
-        // if (Lang.isArray(this.text)) {
-        //     return this.text ? this.text.map(c => c[0]).join('') : this.initiatingTrigger
-        // } else {
-            return this.text ? this.text : this.initiatingTrigger;
-        // }
+        return this.text ? this.text : this.initiatingTrigger;
     }
 
     getArrayOfText() {

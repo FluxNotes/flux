@@ -31,18 +31,14 @@ function StructuredFieldPlugin(opts) {
             e.preventDefault();
             e.stopPropagation();
 
-            // const indexOfTyping = state.anchorOffset;
-            // let arr = shortcut.getArrayOfText();
-            // if (arr.length === 0) arr = shortcut.getText().split('').map(c => [c, true]);
-            // arr.splice(indexOfTyping, 0, [e.key, false]);
-            // shortcut.setText(arr)
-
+            // Split the inline and insert typed text into new text node
             let transform = state.transform();
             transform = transform.splitInline();
             const key = transform.state.document.getNode(anchorParent.key).key;
             const newTextNode = transform.state.document.getNextSibling(key);
             transform = transform.moveToRangeOf(newTextNode).insertText(e.key);
 
+            // Create a new shortcut with the trailing shortcut text after split
             const newShortcutNode = transform.state.document.getNextSibling(newTextNode.key);
             let shortcutText = newShortcutNode.text;
             if (shortcut.valueObject) {
@@ -56,6 +52,7 @@ function StructuredFieldPlugin(opts) {
                 data: { shortcut: newShortcut }
             });
 
+            // Update the existing shortcut to reflect the leading text after split
             const oldShortcutNode = transform.state.document.getPreviousSibling(newTextNode.key);
             newShortcut.setOriginalText(shortcut.getLabel());
             shortcut.setText(oldShortcutNode.text);
@@ -70,10 +67,6 @@ function StructuredFieldPlugin(opts) {
             opts.structuredFieldMapManager.keyToShortcutMap.set(newShortcutNode.key, newShortcut);
             contextManager.contextUpdated();
 
-            // transform = transform.setNodeByKey(anchorParent.key, {
-            //     data: { shortcut }
-            // }).insertText(e.key).focus().apply();
-
             editor.onChange(transform);
         } else if (shortcut && e.key === 'Enter') {
             e.preventDefault();
@@ -86,6 +79,7 @@ function StructuredFieldPlugin(opts) {
             const newTextNode = newBlock.getFirstText();
             transform = transform.moveToRangeOf(newTextNode);
 
+            // Create a new shortcut with the trailing shortcut text after split
             const newShortcutNode = transform.state.document.getNextSibling(newTextNode.key);
             let shortcutText = newShortcutNode.text;
             if (shortcut.valueObject) {
@@ -99,6 +93,7 @@ function StructuredFieldPlugin(opts) {
                 data: { shortcut: newShortcut }
             });
 
+            // Update the existing shortcut to reflect the leading text after split
             const oldShortcutNode = parentBlock.getChild(anchorParent.key);
             newShortcut.setOriginalText(shortcut.getLabel());
             shortcut.setText(oldShortcutNode.text);
@@ -156,30 +151,7 @@ function StructuredFieldPlugin(opts) {
             structured_field: props => {
                 let shortcut = props.node.get('data').get('shortcut');
                 if (shortcut instanceof InsertValue) {
-                    // const arr = shortcut.getArrayOfText();
-                    // let text = [];
-                    // if (arr.length > 0) {
-                    //     let word = '';
-                    //     let prev = true;
-                    //     arr.forEach(char => {
-                    //         if (char[1] === prev) {
-                    //             word += char[0];
-                    //         } else  {
-                    //             text.push(word);
-                    //             word = char[0];
-                    //         }
-                    //         prev = char[1];
-                    //     });
-                    //     text.push(word);
-                    //     let spans = [];
-                    //     text.forEach((snippet, i) => {
-                    //         if (i % 2 === 0) spans.push(<span key={i} className='structured-field-inserter'>{snippet}</span>);
-                    //         else spans.push(<span key={i}>{snippet}</span>);
-                    //     });
-                    //     return <span {...props.attributes}>{spans.map(s => s)}</span>
-                    // } else {
-                        return <span className='structured-field-inserter' {...props.attributes}>{props.children}</span>;
-                    // }
+                    return <span className='structured-field-inserter' {...props.attributes}>{props.children}</span>;
                 } else {
                     return <span contentEditable={false} className='structured-field-creator' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
                 }
