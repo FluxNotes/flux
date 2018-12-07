@@ -44,7 +44,11 @@ function StructuredFieldPlugin(opts) {
             transform = transform.moveToRangeOf(newTextNode).insertText(e.key);
 
             const newShortcutNode = transform.state.document.getNextSibling(newTextNode.key);
-            const newShortcut = createShortcut(shortcut.metadata, shortcut.initiatingTrigger, `{"text": "${newShortcutNode.text}", "entryId": "${shortcut.valueObject.entryInfo.entryId}"}`, true, shortcut.getSource());
+            let shortcutText = newShortcutNode.text;
+            if (shortcut.valueObject) {
+                shortcutText = `{"text": "${newShortcutNode.text}", "entryId": "${shortcut.valueObject.entryInfo.entryId}"}`;
+            }
+            const newShortcut = createShortcut(shortcut.metadata, shortcut.initiatingTrigger, shortcutText, true, shortcut.getSource());
             newShortcut.setKey(newShortcutNode.key);
             newShortcut.setOriginalText(shortcut.getLabel());
             newShortcut.setText(newShortcutNode.text);
@@ -83,7 +87,11 @@ function StructuredFieldPlugin(opts) {
             transform = transform.moveToRangeOf(newTextNode);
 
             const newShortcutNode = transform.state.document.getNextSibling(newTextNode.key);
-            const newShortcut = createShortcut(shortcut.metadata, shortcut.initiatingTrigger, `{"text": "${newShortcutNode.text}", "entryId": "${shortcut.valueObject.entryInfo.entryId}"}`, true, shortcut.getSource());
+            let shortcutText = newShortcutNode.text;
+            if (shortcut.valueObject) {
+                shortcutText = `{"text": "${newShortcutNode.text}", "entryId": "${shortcut.valueObject.entryInfo.entryId}"}`;
+            }
+            const newShortcut = createShortcut(shortcut.metadata, shortcut.initiatingTrigger, shortcutText, true, shortcut.getSource());
             newShortcut.setKey(newShortcutNode.key);
             newShortcut.setOriginalText(shortcut.getLabel());
             newShortcut.setText(newShortcutNode.text);
