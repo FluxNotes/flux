@@ -305,7 +305,8 @@ class ScatterPlotVisualizer extends Component {
         if (Lang.isString(myData) || (Lang.isObject(myData) && Lang.isUndefined(myData.then))) {
             // If myData is a string or an object that isn't a promise, we've already queried data
             // Re-build chart with that data
-            setTimeout(function() { this.setState({ chartHeight: '600px' }, () => { this.buildChart(myData, conditionSection); }); }.bind(this), 100);
+            // timeout needed for css transition when opening/closing notes
+            setTimeout(function() { this.setState({ chartHeight: '600px' }, () => { this.buildChart(myData, conditionSection); }); }.bind(this), 500);
             return;
         } else {
             this.setState({
