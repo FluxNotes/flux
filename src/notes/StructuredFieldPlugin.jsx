@@ -46,12 +46,14 @@ function StructuredFieldPlugin(opts) {
             const newShortcutNode = transform.state.document.getNextSibling(newTextNode.key);
             const newShortcut = createShortcut(shortcut.metadata, shortcut.initiatingTrigger, `{"text": "${newShortcutNode.text}", "entryId": "${shortcut.valueObject.entryInfo.entryId}"}`, true, shortcut.getSource());
             newShortcut.setKey(newShortcutNode.key);
+            newShortcut.setOriginalText(shortcut.getLabel());
             newShortcut.setText(newShortcutNode.text);
             transform = transform.setNodeByKey(newShortcutNode.key, {
                 data: { shortcut: newShortcut }
             });
 
             const oldShortcutNode = transform.state.document.getPreviousSibling(newTextNode.key);
+            newShortcut.setOriginalText(shortcut.getLabel());
             shortcut.setText(oldShortcutNode.text);
             contextManager.removeShortcutFromContext(shortcut);
             shortcut.setWasRemovedFromContext(true);
@@ -83,12 +85,14 @@ function StructuredFieldPlugin(opts) {
             const newShortcutNode = transform.state.document.getNextSibling(newTextNode.key);
             const newShortcut = createShortcut(shortcut.metadata, shortcut.initiatingTrigger, `{"text": "${newShortcutNode.text}", "entryId": "${shortcut.valueObject.entryInfo.entryId}"}`, true, shortcut.getSource());
             newShortcut.setKey(newShortcutNode.key);
+            newShortcut.setOriginalText(shortcut.getLabel());
             newShortcut.setText(newShortcutNode.text);
             transform = transform.setNodeByKey(newShortcutNode.key, {
                 data: { shortcut: newShortcut }
             });
 
             const oldShortcutNode = parentBlock.getChild(anchorParent.key);
+            newShortcut.setOriginalText(shortcut.getLabel());
             shortcut.setText(oldShortcutNode.text);
             contextManager.removeShortcutFromContext(shortcut);
             shortcut.setWasRemovedFromContext(true);
