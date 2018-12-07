@@ -24,9 +24,9 @@ function StructuredFieldPlugin(opts) {
     function onKeyDown(e, key, state, editor) {
         const anchorParent = state.document.getParent(state.selection.anchorKey);
         const shortcut = opts.structuredFieldMapManager.keyToShortcutMap.get(anchorParent.key);
-        const ignoredKeys = [20, 37, 38, 39, 40];
-        const { isAlt, isCmd, isCtrl, isLine, isMeta, isMod, isModAlt, isShift, isWord } = key;
-        const isModifier = isAlt || isCmd || isCtrl || isLine || isMeta || isMod || isModAlt || isShift || isWord;
+        const ignoredKeys = [16, 20, 37, 38, 39, 40];
+        const { isAlt, isCmd, isCtrl, isLine, isMeta, isMod, isModAlt, isWord } = key;
+        const isModifier = isAlt || isCmd || isCtrl || isLine || isMeta || isMod || isModAlt || isWord;
         if (shortcut && !Lang.includes(ignoredKeys, e.keyCode) && !isModifier && e.key !== 'Enter') {
             e.preventDefault();
             e.stopPropagation();
