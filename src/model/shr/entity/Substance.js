@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 import Entity from './Entity';
 
@@ -35,7 +35,7 @@ class Substance extends Entity {
 
   /**
    * Get the Type.
-   * @returns {Type} The shr.entity.Type
+   * @returns {Type} The shr.core.Type
    */
   get type() {
     return this._type;
@@ -44,7 +44,7 @@ class Substance extends Entity {
   /**
    * Set the Type.
    * This field/value is required.
-   * @param {Type} type - The shr.entity.Type
+   * @param {Type} type - The shr.core.Type
    */
   set type(type) {
     this._type = type;
@@ -53,7 +53,7 @@ class Substance extends Entity {
   /**
    * Set the Type and return 'this' for chaining.
    * This field/value is required.
-   * @param {Type} type - The shr.entity.Type
+   * @param {Type} type - The shr.core.Type
    * @returns {Substance} this.
    */
   withType(type) {
@@ -86,53 +86,53 @@ class Substance extends Entity {
   }
 
   /**
-   * Get the ActiveFlagAsaCodeableConcept.
-   * @returns {ActiveFlagAsaCodeableConcept} The shr.entity.ActiveFlagAsaCodeableConcept
+   * Get the ActiveFlag.
+   * @returns {ActiveFlag} The shr.entity.ActiveFlag
    */
-  get activeFlagAsaCodeableConcept() {
-    return this._activeFlagAsaCodeableConcept;
+  get activeFlag() {
+    return this._activeFlag;
   }
 
   /**
-   * Set the ActiveFlagAsaCodeableConcept.
-   * @param {ActiveFlagAsaCodeableConcept} activeFlagAsaCodeableConcept - The shr.entity.ActiveFlagAsaCodeableConcept
+   * Set the ActiveFlag.
+   * @param {ActiveFlag} activeFlag - The shr.entity.ActiveFlag
    */
-  set activeFlagAsaCodeableConcept(activeFlagAsaCodeableConcept) {
-    this._activeFlagAsaCodeableConcept = activeFlagAsaCodeableConcept;
+  set activeFlag(activeFlag) {
+    this._activeFlag = activeFlag;
   }
 
   /**
-   * Set the ActiveFlagAsaCodeableConcept and return 'this' for chaining.
-   * @param {ActiveFlagAsaCodeableConcept} activeFlagAsaCodeableConcept - The shr.entity.ActiveFlagAsaCodeableConcept
+   * Set the ActiveFlag and return 'this' for chaining.
+   * @param {ActiveFlag} activeFlag - The shr.entity.ActiveFlag
    * @returns {Substance} this.
    */
-  withActiveFlagAsaCodeableConcept(activeFlagAsaCodeableConcept) {
-    this.activeFlagAsaCodeableConcept = activeFlagAsaCodeableConcept; return this;
+  withActiveFlag(activeFlag) {
+    this.activeFlag = activeFlag; return this;
   }
 
   /**
-   * Get the Details.
-   * @returns {Details} The shr.core.Details
+   * Get the CommentOrDescription.
+   * @returns {CommentOrDescription} The shr.core.CommentOrDescription
    */
-  get details() {
-    return this._details;
+  get commentOrDescription() {
+    return this._commentOrDescription;
   }
 
   /**
-   * Set the Details.
-   * @param {Details} details - The shr.core.Details
+   * Set the CommentOrDescription.
+   * @param {CommentOrDescription} commentOrDescription - The shr.core.CommentOrDescription
    */
-  set details(details) {
-    this._details = details;
+  set commentOrDescription(commentOrDescription) {
+    this._commentOrDescription = commentOrDescription;
   }
 
   /**
-   * Set the Details and return 'this' for chaining.
-   * @param {Details} details - The shr.core.Details
+   * Set the CommentOrDescription and return 'this' for chaining.
+   * @param {CommentOrDescription} commentOrDescription - The shr.core.CommentOrDescription
    * @returns {Substance} this.
    */
-  withDetails(details) {
-    this.details = details; return this;
+  withCommentOrDescription(commentOrDescription) {
+    this.commentOrDescription = commentOrDescription; return this;
   }
 
   /**
@@ -171,6 +171,7 @@ class Substance extends Entity {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the Substance class to a JSON object.
    * The JSON is expected to be valid against the Substance JSON schema, but no validation checks are performed.
@@ -179,14 +180,8 @@ class Substance extends Entity {
   toJSON() {
     const inst = this._entryInfo.toJSON();
     inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/Substance' };
-    if (this.relatedEncounter != null) {
-      inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
-    }
-    if (this.author != null) {
-      inst['Author'] = typeof this.author.toJSON === 'function' ? this.author.toJSON() : this.author;
-    }
-    if (this.informant != null) {
-      inst['Informant'] = typeof this.informant.toJSON === 'function' ? this.informant.toJSON() : this.informant;
+    if (this.partOf != null) {
+      inst['PartOf'] = typeof this.partOf.toJSON === 'function' ? this.partOf.toJSON() : this.partOf;
     }
     if (this.type != null) {
       inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
@@ -194,72 +189,103 @@ class Substance extends Entity {
     if (this.category != null) {
       inst['Category'] = this.category.map(f => f.toJSON());
     }
-    if (this.activeFlagAsaCodeableConcept != null) {
-      inst['ActiveFlagAsaCodeableConcept'] = typeof this.activeFlagAsaCodeableConcept.toJSON === 'function' ? this.activeFlagAsaCodeableConcept.toJSON() : this.activeFlagAsaCodeableConcept;
+    if (this.activeFlag != null) {
+      inst['ActiveFlag'] = typeof this.activeFlag.toJSON === 'function' ? this.activeFlag.toJSON() : this.activeFlag;
     }
-    if (this.details != null) {
-      inst['Details'] = typeof this.details.toJSON === 'function' ? this.details.toJSON() : this.details;
+    if (this.commentOrDescription != null) {
+      inst['CommentOrDescription'] = typeof this.commentOrDescription.toJSON === 'function' ? this.commentOrDescription.toJSON() : this.commentOrDescription;
     }
     if (this.ingredient != null) {
       inst['Ingredient'] = this.ingredient.map(f => f.toJSON());
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the Substance class to a FHIR object.
    * The FHIR is expected to be valid against the Substance FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
     let inst = {};
     inst['resourceType'] = 'Substance';
-    if (this.relatedEncounter != null) {
+    if (this.partOf != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.relatedEncounter.toFHIR(true));
-    }
-    if (this.author != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.author.toFHIR(true));
-    }
-    if (this.informant != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.informant.toFHIR(true));
+      inst['extension'].push(typeof this.partOf.toFHIR === 'function' ? this.partOf.toFHIR(true) : this.partOf);
     }
     if (this.category != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.category.toFHIR(true));
+      inst['extension'].push(typeof this.category.toFHIR === 'function' ? this.category.toFHIR(true) : this.category);
     }
-    if (this.activeFlagAsaCodeableConcept != null) {
+    if (this.activeFlag != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.activeFlagAsaCodeableConcept.toFHIR(true));
+      inst['extension'].push(typeof this.activeFlag.toFHIR === 'function' ? this.activeFlag.toFHIR(true) : this.activeFlag);
     }
-    if (this.details != null) {
+    if (this.commentOrDescription != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.details.toFHIR(true));
+      inst['extension'].push(typeof this.commentOrDescription.toFHIR === 'function' ? this.commentOrDescription.toFHIR(true) : this.commentOrDescription);
     }
     if (this.type != null) {
       inst['code'] = typeof this.type.toFHIR === 'function' ? this.type.toFHIR() : this.type;
     }
     if (this.ingredient != null) {
       inst['ingredient'] = inst['ingredient'] || [];
-      inst['ingredient'].concat(this.ingredient.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['ingredient'] = inst['ingredient'].concat(this.ingredient.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.ingredient != null && this.ingredient.ingredientAmount != null) {
       if (inst['ingredient'] === undefined) {
         inst['ingredient'] = {};
       }
       inst['ingredient']['quantity'] = inst['ingredient']['quantity'] || [];
-      inst['ingredient']['quantity'].concat(this.ingredient.ingredientAmount.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['ingredient']['quantity'] = inst['ingredient']['quantity'].concat(this.ingredient.ingredientAmount.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
-    if (this.ingredient != null && this.ingredient.codeableConcept != null) {
+    if (this.ingredient != null && this.ingredient.substanceOrCode != null) {
       if (inst['ingredient'] === undefined) {
         inst['ingredient'] = {};
       }
       inst['ingredient']['substance[x]'] = inst['ingredient']['substance[x]'] || [];
-      inst['ingredient']['substance[x]'].concat(this.ingredient.codeableConcept.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['ingredient']['substance[x]'] = inst['ingredient']['substance[x]'].concat(this.ingredient.substanceOrCode.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the Substance class.
+   * The FHIR must be valid against the Substance FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {Substance} An instance of Substance populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new Substance();
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension');
+      if (match != null) {
+        inst.partOf = createInstanceFromFHIR('shr.entity.PartOf', match, true);
+      }
+    }
+    if (fhir['code'] != null) {
+      inst.type = createInstanceFromFHIR('shr.core.Type', fhir['code']);
+    }
+    if (fhir['ingredient'] != null) {
+      inst.ingredient = inst.ingredient || [];
+      inst.ingredient = inst.ingredient.concat(fhir['ingredient'].map(f => createInstanceFromFHIR('shr.entity.Ingredient', f)));
+    }
+    if (fhir['ingredient'] != null && fhir['ingredient']['quantity'] != null) {
+      if (inst.ingredient === null) {
+        inst.ingredient = createInstanceFromFHIR('shr.entity.Ingredient', {});
+      }
+      inst.ingredient.ingredientAmount = createInstanceFromFHIR('shr.entity.IngredientAmount', fhir['ingredient']['quantity']);
+    }
+    if (fhir['ingredient'] != null && fhir['ingredient']['substanceCodeableConcept'] != null) {
+      if (inst.ingredient === null) {
+        inst.ingredient = createInstanceFromFHIR('shr.entity.Ingredient', {});
+      }
+      inst.ingredient.substanceOrCode = createInstanceFromFHIR('shr.entity.SubstanceOrCode', fhir['ingredient']['substanceCodeableConcept']);
+    }
+    return inst;
+  }
+
 }
 export default Substance;

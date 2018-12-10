@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.core.OccurrenceTimeOrPeriod.
@@ -43,6 +43,7 @@ class OccurrenceTimeOrPeriod {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the OccurrenceTimeOrPeriod class to a JSON object.
    * The JSON is expected to be valid against the OccurrenceTimeOrPeriod JSON schema, but no validation checks are performed.
@@ -55,16 +56,17 @@ class OccurrenceTimeOrPeriod {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the OccurrenceTimeOrPeriod class to a FHIR object.
    * The FHIR is expected to be valid against the OccurrenceTimeOrPeriod FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
     let inst = {};
     if (asExtension) {
-      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-core-OccurrenceTimeOrPeriod-extension';
+      inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-core-OccurrenceTimeOrPeriod-extension';
     }
     if (!asExtension && this.value != null) {
       if (this.value != null) {
@@ -73,5 +75,23 @@ class OccurrenceTimeOrPeriod {
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the OccurrenceTimeOrPeriod class.
+   * The FHIR must be valid against the OccurrenceTimeOrPeriod FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {OccurrenceTimeOrPeriod} An instance of OccurrenceTimeOrPeriod populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new OccurrenceTimeOrPeriod();
+    if (asExtension) {
+    }
+    if (!asExtension && fhir != null) {
+      inst.value = createInstanceFromFHIR(null, fhir);
+    }
+    return inst;
+  }
+
 }
 export default OccurrenceTimeOrPeriod;

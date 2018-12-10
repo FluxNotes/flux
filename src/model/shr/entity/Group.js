@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 import Entity from './Entity';
 
@@ -34,33 +34,6 @@ class Group extends Entity {
   }
 
   /**
-   * Get the Type.
-   * @returns {Type} The shr.entity.Type
-   */
-  get type() {
-    return this._type;
-  }
-
-  /**
-   * Set the Type.
-   * This field/value is required.
-   * @param {Type} type - The shr.entity.Type
-   */
-  set type(type) {
-    this._type = type;
-  }
-
-  /**
-   * Set the Type and return 'this' for chaining.
-   * This field/value is required.
-   * @param {Type} type - The shr.entity.Type
-   * @returns {Group} this.
-   */
-  withType(type) {
-    this.type = type; return this;
-  }
-
-  /**
    * Get the ActiveFlag.
    * @returns {ActiveFlag} The shr.entity.ActiveFlag
    */
@@ -83,6 +56,33 @@ class Group extends Entity {
    */
   withActiveFlag(activeFlag) {
     this.activeFlag = activeFlag; return this;
+  }
+
+  /**
+   * Get the Type.
+   * @returns {Type} The shr.core.Type
+   */
+  get type() {
+    return this._type;
+  }
+
+  /**
+   * Set the Type.
+   * This field/value is required.
+   * @param {Type} type - The shr.core.Type
+   */
+  set type(type) {
+    this._type = type;
+  }
+
+  /**
+   * Set the Type and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Type} type - The shr.core.Type
+   * @returns {Group} this.
+   */
+  withType(type) {
+    this.type = type; return this;
   }
 
   /**
@@ -111,80 +111,80 @@ class Group extends Entity {
   }
 
   /**
-   * Get the Definitional.
-   * @returns {Definitional} The shr.core.Definitional
+   * Get the Actual.
+   * @returns {Actual} The shr.entity.Actual
    */
-  get definitional() {
-    return this._definitional;
+  get actual() {
+    return this._actual;
   }
 
   /**
-   * Set the Definitional.
+   * Set the Actual.
    * This field/value is required.
-   * @param {Definitional} definitional - The shr.core.Definitional
+   * @param {Actual} actual - The shr.entity.Actual
    */
-  set definitional(definitional) {
-    this._definitional = definitional;
+  set actual(actual) {
+    this._actual = actual;
   }
 
   /**
-   * Set the Definitional and return 'this' for chaining.
+   * Set the Actual and return 'this' for chaining.
    * This field/value is required.
-   * @param {Definitional} definitional - The shr.core.Definitional
+   * @param {Actual} actual - The shr.entity.Actual
    * @returns {Group} this.
    */
-  withDefinitional(definitional) {
-    this.definitional = definitional; return this;
+  withActual(actual) {
+    this.actual = actual; return this;
   }
 
   /**
-   * Get the MembershipCriterion array.
-   * @returns {Array<MembershipCriterion>} The shr.entity.MembershipCriterion array
+   * Get the GroupCharacteristic array.
+   * @returns {Array<GroupCharacteristic>} The shr.entity.GroupCharacteristic array
    */
-  get membershipCriterion() {
-    return this._membershipCriterion;
+  get groupCharacteristic() {
+    return this._groupCharacteristic;
   }
 
   /**
-   * Set the MembershipCriterion array.
-   * @param {Array<MembershipCriterion>} membershipCriterion - The shr.entity.MembershipCriterion array
+   * Set the GroupCharacteristic array.
+   * @param {Array<GroupCharacteristic>} groupCharacteristic - The shr.entity.GroupCharacteristic array
    */
-  set membershipCriterion(membershipCriterion) {
-    this._membershipCriterion = membershipCriterion;
+  set groupCharacteristic(groupCharacteristic) {
+    this._groupCharacteristic = groupCharacteristic;
   }
 
   /**
-   * Set the MembershipCriterion array and return 'this' for chaining.
-   * @param {Array<MembershipCriterion>} membershipCriterion - The shr.entity.MembershipCriterion array
+   * Set the GroupCharacteristic array and return 'this' for chaining.
+   * @param {Array<GroupCharacteristic>} groupCharacteristic - The shr.entity.GroupCharacteristic array
    * @returns {Group} this.
    */
-  withMembershipCriterion(membershipCriterion) {
-    this.membershipCriterion = membershipCriterion; return this;
+  withGroupCharacteristic(groupCharacteristic) {
+    this.groupCharacteristic = groupCharacteristic; return this;
   }
 
   /**
-   * Get the Member array.
-   * @returns {Array<Member>} The shr.entity.Member array
+   * Get the MemberParticipation array.
+   * @returns {Array<MemberParticipation>} The shr.entity.MemberParticipation array
    */
-  get member() {
-    return this._member;
+  get memberParticipation() {
+    return this._memberParticipation;
   }
 
   /**
-   * Set the Member array.
-   * @param {Array<Member>} member - The shr.entity.Member array
+   * Set the MemberParticipation array.
+   * @param {Array<MemberParticipation>} memberParticipation - The shr.entity.MemberParticipation array
    */
-  set member(member) {
-    this._member = member;
+  set memberParticipation(memberParticipation) {
+    this._memberParticipation = memberParticipation;
   }
 
   /**
-   * Set the Member array and return 'this' for chaining.
-   * @param {Array<Member>} member - The shr.entity.Member array
+   * Set the MemberParticipation array and return 'this' for chaining.
+   * @param {Array<MemberParticipation>} memberParticipation - The shr.entity.MemberParticipation array
    * @returns {Group} this.
    */
-  withMember(member) {
-    this.member = member; return this;
+  withMemberParticipation(memberParticipation) {
+    this.memberParticipation = memberParticipation; return this;
   }
 
   /**
@@ -223,6 +223,7 @@ class Group extends Entity {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the Group class to a JSON object.
    * The JSON is expected to be valid against the Group JSON schema, but no validation checks are performed.
@@ -231,58 +232,45 @@ class Group extends Entity {
   toJSON() {
     const inst = this._entryInfo.toJSON();
     inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/Group' };
-    if (this.relatedEncounter != null) {
-      inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
-    }
-    if (this.author != null) {
-      inst['Author'] = typeof this.author.toJSON === 'function' ? this.author.toJSON() : this.author;
-    }
-    if (this.informant != null) {
-      inst['Informant'] = typeof this.informant.toJSON === 'function' ? this.informant.toJSON() : this.informant;
-    }
-    if (this.type != null) {
-      inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
+    if (this.partOf != null) {
+      inst['PartOf'] = typeof this.partOf.toJSON === 'function' ? this.partOf.toJSON() : this.partOf;
     }
     if (this.activeFlag != null) {
       inst['ActiveFlag'] = typeof this.activeFlag.toJSON === 'function' ? this.activeFlag.toJSON() : this.activeFlag;
     }
+    if (this.type != null) {
+      inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
+    }
     if (this.title != null) {
       inst['Title'] = typeof this.title.toJSON === 'function' ? this.title.toJSON() : this.title;
     }
-    if (this.definitional != null) {
-      inst['Definitional'] = typeof this.definitional.toJSON === 'function' ? this.definitional.toJSON() : this.definitional;
+    if (this.actual != null) {
+      inst['Actual'] = typeof this.actual.toJSON === 'function' ? this.actual.toJSON() : this.actual;
     }
-    if (this.membershipCriterion != null) {
-      inst['MembershipCriterion'] = this.membershipCriterion.map(f => f.toJSON());
+    if (this.groupCharacteristic != null) {
+      inst['GroupCharacteristic'] = this.groupCharacteristic.map(f => f.toJSON());
     }
-    if (this.member != null) {
-      inst['Member'] = this.member.map(f => f.toJSON());
+    if (this.memberParticipation != null) {
+      inst['MemberParticipation'] = this.memberParticipation.map(f => f.toJSON());
     }
     if (this.count != null) {
       inst['Count'] = typeof this.count.toJSON === 'function' ? this.count.toJSON() : this.count;
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the Group class to a FHIR object.
    * The FHIR is expected to be valid against the Group FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
     let inst = {};
     inst['resourceType'] = 'Group';
-    if (this.relatedEncounter != null) {
+    if (this.partOf != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.relatedEncounter.toFHIR(true));
-    }
-    if (this.author != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.author.toFHIR(true));
-    }
-    if (this.informant != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.informant.toFHIR(true));
+      inst['extension'].push(typeof this.partOf.toFHIR === 'function' ? this.partOf.toFHIR(true) : this.partOf);
     }
     if (this.activeFlag != null) {
       inst['active'] = typeof this.activeFlag.toFHIR === 'function' ? this.activeFlag.toFHIR() : this.activeFlag;
@@ -290,8 +278,8 @@ class Group extends Entity {
     if (this.type != null) {
       inst['type'] = typeof this.type.toFHIR === 'function' ? this.type.toFHIR() : this.type;
     }
-    if (this.definitional != null) {
-      inst['actual'] = typeof this.definitional.toFHIR === 'function' ? this.definitional.toFHIR() : this.definitional;
+    if (this.actual != null) {
+      inst['actual'] = typeof this.actual.toFHIR === 'function' ? this.actual.toFHIR() : this.actual;
     }
     if (this.title != null) {
       inst['name'] = typeof this.title.toFHIR === 'function' ? this.title.toFHIR() : this.title;
@@ -299,60 +287,144 @@ class Group extends Entity {
     if (this.count != null) {
       inst['quantity'] = typeof this.count.toFHIR === 'function' ? this.count.toFHIR() : this.count;
     }
-    if (this.membershipCriterion != null && this.membershipCriterion.observationCode != null) {
+    if (this.groupCharacteristic != null && this.groupCharacteristic.groupCharacteristicCode != null) {
       if (inst['characteristic'] === undefined) {
         inst['characteristic'] = {};
       }
       inst['characteristic']['code'] = inst['characteristic']['code'] || [];
-      inst['characteristic']['code'].concat(this.membershipCriterion.observationCode.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['characteristic']['code'] = inst['characteristic']['code'].concat(this.groupCharacteristic.groupCharacteristicCode.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
-    if (this.membershipCriterion != null) {
+    if (this.groupCharacteristic != null && this.groupCharacteristic.groupCharacteristicValue != null) {
       if (inst['characteristic'] === undefined) {
         inst['characteristic'] = {};
       }
       inst['characteristic']['value[x]'] = inst['characteristic']['value[x]'] || [];
-      inst['characteristic']['value[x]'].concat(this.membershipCriterion.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['characteristic']['value[x]'] = inst['characteristic']['value[x]'].concat(this.groupCharacteristic.groupCharacteristicValue.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
-    if (this.membershipCriterion != null && this.membershipCriterion.excludeFlag != null) {
+    if (this.groupCharacteristic != null && this.groupCharacteristic.excludeFlag != null) {
       if (inst['characteristic'] === undefined) {
         inst['characteristic'] = {};
       }
       inst['characteristic']['exclude'] = inst['characteristic']['exclude'] || [];
-      inst['characteristic']['exclude'].concat(this.membershipCriterion.excludeFlag.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['characteristic']['exclude'] = inst['characteristic']['exclude'].concat(this.groupCharacteristic.excludeFlag.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
-    if (this.membershipCriterion != null && this.membershipCriterion.timePeriod != null) {
+    if (this.groupCharacteristic != null && this.groupCharacteristic.timePeriod != null) {
       if (inst['characteristic'] === undefined) {
         inst['characteristic'] = {};
       }
       inst['characteristic']['period'] = inst['characteristic']['period'] || [];
-      inst['characteristic']['period'].concat(this.membershipCriterion.timePeriod.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['characteristic']['period'] = inst['characteristic']['period'].concat(this.groupCharacteristic.timePeriod.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
-    if (this.member != null && this.member.patient != null) {
+    if (this.memberParticipation != null && this.memberParticipation.member != null) {
       if (inst['member'] === undefined) {
         inst['member'] = {};
       }
       inst['member']['entity'] = inst['member']['entity'] || [];
-      inst['member']['entity'].concat(this.member.patient.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['member']['entity'] = inst['member']['entity'].concat(this.memberParticipation.member.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
-    if (this.member != null && this.member.participationPeriod != null) {
+    if (this.memberParticipation != null && this.memberParticipation.participationPeriod != null) {
       if (inst['member'] === undefined) {
         inst['member'] = {};
       }
       inst['member']['period'] = inst['member']['period'] || [];
-      inst['member']['period'].concat(this.member.participationPeriod.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['member']['period'] = inst['member']['period'].concat(this.memberParticipation.participationPeriod.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
-    if (this.member != null && this.member.activeFlag != null) {
+    if (this.memberParticipation != null && this.memberParticipation.activeFlag != null) {
       if (inst['member'] === undefined) {
         inst['member'] = {};
       }
       inst['member']['inactive'] = inst['member']['inactive'] || [];
-      inst['member']['inactive'].concat(this.member.activeFlag.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    if (asExtension) {
-      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-entity-Group-extension';
-      inst['valueReference'] = this.value;
+      inst['member']['inactive'] = inst['member']['inactive'].concat(this.memberParticipation.activeFlag.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the Group class.
+   * The FHIR must be valid against the Group FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {Group} An instance of Group populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new Group();
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension');
+      if (match != null) {
+        inst.partOf = createInstanceFromFHIR('shr.entity.PartOf', match, true);
+      }
+    }
+    if (fhir['active'] != null) {
+      inst.activeFlag = createInstanceFromFHIR('shr.entity.ActiveFlag', fhir['active']);
+    }
+    if (fhir['type'] != null) {
+      inst.type = createInstanceFromFHIR('shr.core.Type', fhir['type']);
+    }
+    if (fhir['actual'] != null) {
+      inst.actual = createInstanceFromFHIR('shr.entity.Actual', fhir['actual']);
+    }
+    if (fhir['name'] != null) {
+      inst.title = createInstanceFromFHIR('shr.core.Title', fhir['name']);
+    }
+    if (fhir['quantity'] != null) {
+      inst.count = createInstanceFromFHIR('shr.core.Count', fhir['quantity']);
+    }
+    if (fhir['characteristic'] != null && fhir['characteristic']['code'] != null) {
+      if (inst.groupCharacteristic === null) {
+        inst.groupCharacteristic = createInstanceFromFHIR('shr.entity.GroupCharacteristic', {});
+      }
+      inst.groupCharacteristic.groupCharacteristicCode = createInstanceFromFHIR('shr.entity.GroupCharacteristicCode', fhir['characteristic']['code']);
+    }
+    if (fhir['characteristic'] != null && fhir['characteristic']['valueBoolean'] != null) {
+      if (inst.groupCharacteristic === null) {
+        inst.groupCharacteristic = createInstanceFromFHIR('shr.entity.GroupCharacteristic', {});
+      }
+      inst.groupCharacteristic.groupCharacteristicValue = createInstanceFromFHIR('shr.entity.GroupCharacteristicValue', fhir['characteristic']['valueBoolean']);
+    }
+    if (fhir['characteristic'] != null && fhir['characteristic']['valueQuantity'] != null) {
+      if (inst.groupCharacteristic === null) {
+        inst.groupCharacteristic = createInstanceFromFHIR('shr.entity.GroupCharacteristic', {});
+      }
+      inst.groupCharacteristic.groupCharacteristicValue = createInstanceFromFHIR('shr.entity.GroupCharacteristicValue', fhir['characteristic']['valueQuantity']);
+    }
+    if (fhir['characteristic'] != null && fhir['characteristic']['valueRange'] != null) {
+      if (inst.groupCharacteristic === null) {
+        inst.groupCharacteristic = createInstanceFromFHIR('shr.entity.GroupCharacteristic', {});
+      }
+      inst.groupCharacteristic.groupCharacteristicValue = createInstanceFromFHIR('shr.entity.GroupCharacteristicValue', fhir['characteristic']['valueRange']);
+    }
+    if (fhir['characteristic'] != null && fhir['characteristic']['exclude'] != null) {
+      if (inst.groupCharacteristic === null) {
+        inst.groupCharacteristic = createInstanceFromFHIR('shr.entity.GroupCharacteristic', {});
+      }
+      inst.groupCharacteristic.excludeFlag = createInstanceFromFHIR('shr.entity.ExcludeFlag', fhir['characteristic']['exclude']);
+    }
+    if (fhir['characteristic'] != null && fhir['characteristic']['period'] != null) {
+      if (inst.groupCharacteristic === null) {
+        inst.groupCharacteristic = createInstanceFromFHIR('shr.entity.GroupCharacteristic', {});
+      }
+      inst.groupCharacteristic.timePeriod = createInstanceFromFHIR('shr.core.TimePeriod', fhir['characteristic']['period']);
+    }
+    if (fhir['member'] != null && fhir['member']['entity'] != null) {
+      if (inst.memberParticipation === null) {
+        inst.memberParticipation = createInstanceFromFHIR('shr.entity.MemberParticipation', {});
+      }
+      inst.memberParticipation.member = createInstanceFromFHIR('shr.entity.Member', fhir['member']['entity']);
+    }
+    if (fhir['member'] != null && fhir['member']['period'] != null) {
+      if (inst.memberParticipation === null) {
+        inst.memberParticipation = createInstanceFromFHIR('shr.entity.MemberParticipation', {});
+      }
+      inst.memberParticipation.participationPeriod = createInstanceFromFHIR('shr.base.ParticipationPeriod', fhir['member']['period']);
+    }
+    if (fhir['member'] != null && fhir['member']['inactive'] != null) {
+      if (inst.memberParticipation === null) {
+        inst.memberParticipation = createInstanceFromFHIR('shr.entity.MemberParticipation', {});
+      }
+      inst.memberParticipation.activeFlag = createInstanceFromFHIR('shr.entity.ActiveFlag', fhir['member']['inactive']);
+    }
+    return inst;
+  }
+
 }
 export default Group;

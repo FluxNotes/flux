@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.core.Ratio.
@@ -15,7 +15,6 @@ class Ratio {
 
   /**
    * Set the Numerator.
-   * This field/value is required.
    * @param {Numerator} numerator - The shr.core.Numerator
    */
   set numerator(numerator) {
@@ -24,7 +23,6 @@ class Ratio {
 
   /**
    * Set the Numerator and return 'this' for chaining.
-   * This field/value is required.
    * @param {Numerator} numerator - The shr.core.Numerator
    * @returns {Ratio} this.
    */
@@ -42,7 +40,6 @@ class Ratio {
 
   /**
    * Set the Denominator.
-   * This field/value is required.
    * @param {Denominator} denominator - The shr.core.Denominator
    */
   set denominator(denominator) {
@@ -51,7 +48,6 @@ class Ratio {
 
   /**
    * Set the Denominator and return 'this' for chaining.
-   * This field/value is required.
    * @param {Denominator} denominator - The shr.core.Denominator
    * @returns {Ratio} this.
    */
@@ -70,6 +66,7 @@ class Ratio {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the Ratio class to a JSON object.
    * The JSON is expected to be valid against the Ratio JSON schema, but no validation checks are performed.
@@ -85,10 +82,11 @@ class Ratio {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the Ratio class to a FHIR object.
    * The FHIR is expected to be valid against the Ratio FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
@@ -101,5 +99,24 @@ class Ratio {
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the Ratio class.
+   * The FHIR must be valid against the Ratio FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {Ratio} An instance of Ratio populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new Ratio();
+    if (fhir['numerator'] != null) {
+      inst.numerator = createInstanceFromFHIR('shr.core.Numerator', fhir['numerator']);
+    }
+    if (fhir['denominator'] != null) {
+      inst.denominator = createInstanceFromFHIR('shr.core.Denominator', fhir['denominator']);
+    }
+    return inst;
+  }
+
 }
 export default Ratio;

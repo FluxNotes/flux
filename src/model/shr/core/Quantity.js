@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.core.Quantity.
@@ -6,57 +6,28 @@ import { setPropertiesFromJSON } from '../../json-helper';
 class Quantity {
 
   /**
-   * Get the value (aliases decimal).
-   * @returns {decimal} The decimal
+   * Get the DecimalValue.
+   * @returns {DecimalValue} The shr.core.DecimalValue
    */
-  get value() {
-    return this._decimal;
+  get decimalValue() {
+    return this._decimalValue;
   }
 
   /**
-   * Set the value (aliases decimal).
-   * This field/value is required.
-   * @param {decimal} value - The decimal
+   * Set the DecimalValue.
+   * @param {DecimalValue} decimalValue - The shr.core.DecimalValue
    */
-  set value(value) {
-    this._decimal = value;
+  set decimalValue(decimalValue) {
+    this._decimalValue = decimalValue;
   }
 
   /**
-   * Set the value (aliases decimal) and return 'this' for chaining.
-   * This field/value is required.
-   * @param {decimal} value - The decimal
+   * Set the DecimalValue and return 'this' for chaining.
+   * @param {DecimalValue} decimalValue - The shr.core.DecimalValue
    * @returns {Quantity} this.
    */
-  withValue(value) {
-    this.value = value; return this;
-  }
-
-  /**
-   * Get the decimal.
-   * @returns {decimal} The decimal
-   */
-  get decimal() {
-    return this._decimal;
-  }
-
-  /**
-   * Set the decimal.
-   * This field/value is required.
-   * @param {decimal} decimal - The decimal
-   */
-  set decimal(decimal) {
-    this._decimal = decimal;
-  }
-
-  /**
-   * Set the decimal and return 'this' for chaining.
-   * This field/value is required.
-   * @param {decimal} decimal - The decimal
-   * @returns {Quantity} this.
-   */
-  withDecimal(decimal) {
-    this.decimal = decimal; return this;
+  withDecimalValue(decimalValue) {
+    this.decimalValue = decimalValue; return this;
   }
 
   /**
@@ -120,6 +91,7 @@ class Quantity {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the Quantity class to a JSON object.
    * The JSON is expected to be valid against the Quantity JSON schema, but no validation checks are performed.
@@ -127,8 +99,8 @@ class Quantity {
    */
   toJSON() {
     const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/Quantity' } };
-    if (this.value != null) {
-      inst['Value'] = this.value;
+    if (this.decimalValue != null) {
+      inst['DecimalValue'] = typeof this.decimalValue.toJSON === 'function' ? this.decimalValue.toJSON() : this.decimalValue;
     }
     if (this.comparator != null) {
       inst['Comparator'] = typeof this.comparator.toJSON === 'function' ? this.comparator.toJSON() : this.comparator;
@@ -138,16 +110,17 @@ class Quantity {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the Quantity class to a FHIR object.
    * The FHIR is expected to be valid against the Quantity FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
     let inst = {};
-    if (this.value != null) {
-      inst['value'] = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
+    if (this.decimalValue != null) {
+      inst['value'] = typeof this.decimalValue.toFHIR === 'function' ? this.decimalValue.toFHIR() : this.decimalValue;
     }
     if (this.comparator != null) {
       inst['comparator'] = typeof this.comparator.toFHIR === 'function' ? this.comparator.toFHIR() : this.comparator;
@@ -158,7 +131,63 @@ class Quantity {
     if (this.units != null && this.units.coding != null && this.units.coding.codeSystem != null) {
       inst['system'] = typeof this.units.coding.codeSystem.toFHIR === 'function' ? this.units.coding.codeSystem.toFHIR() : this.units.coding.codeSystem;
     }
+    if (this.units != null && this.units.coding != null && this.units.coding.code != null) {
+      inst['code'] = typeof this.units.coding.code.toFHIR === 'function' ? this.units.coding.code.toFHIR() : this.units.coding.code;
+    }
+    if (asExtension) {
+      inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-core-Quantity-extension';
+      inst['valueQuantity'] = this.value;
+    }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the Quantity class.
+   * The FHIR must be valid against the Quantity FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {Quantity} An instance of Quantity populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new Quantity();
+    if (fhir['value'] != null) {
+      inst.decimalValue = createInstanceFromFHIR('shr.core.DecimalValue', fhir['value']);
+    }
+    if (fhir['comparator'] != null) {
+      inst.comparator = createInstanceFromFHIR('shr.core.Comparator', fhir['comparator']);
+    }
+    if (fhir['unit'] != null) {
+      if (inst.units === null) {
+        inst.units = createInstanceFromFHIR('shr.core.Units', {});
+      }
+      if (inst.units.value === null) {
+        inst.units.value = createInstanceFromFHIR('shr.core.Coding', {});
+      }
+      inst.units.value.displayText = createInstanceFromFHIR('shr.core.DisplayText', fhir['unit']);
+    }
+    if (fhir['system'] != null) {
+      if (inst.units === null) {
+        inst.units = createInstanceFromFHIR('shr.core.Units', {});
+      }
+      if (inst.units.value === null) {
+        inst.units.value = createInstanceFromFHIR('shr.core.Coding', {});
+      }
+      inst.units.value.codeSystem = createInstanceFromFHIR('shr.core.CodeSystem', fhir['system']);
+    }
+    if (fhir['code'] != null) {
+      if (inst.units === null) {
+        inst.units = createInstanceFromFHIR('shr.core.Units', {});
+      }
+      if (inst.units.value === null) {
+        inst.units.value = createInstanceFromFHIR('shr.core.Coding', {});
+      }
+      inst.units.value.code = createInstanceFromFHIR('shr.core.Code', fhir['code']);
+    }
+    if (asExtension) {
+      inst.value = fhir['valueQuantity'];
+    }
+    return inst;
+  }
+
 }
 export default Quantity;

@@ -5,7 +5,7 @@ import Autosuggest from 'react-autosuggest';
 import {Row, Col} from 'react-flexbox-grid';
 import Divider from 'material-ui/Divider';
 import toxicityLookup from '../lib/toxicreaction_lookup';
-import ToxicReaction from '../model/shr/adverse/ToxicReaction';
+import FluxToxicReaction from '../model/adverse/FluxToxicReaction';
 import Lang from 'lodash'
 import Collection from 'lodash'
 import './ToxicityForm.css';
@@ -259,7 +259,7 @@ class ToxicityForm extends Component {
     }
 
     render() {
-        let potentialToxicity = Lang.isNull(this.props.object) ? new ToxicReaction() : this.props.object;
+        let potentialToxicity = Lang.isNull(this.props.object) ? new FluxToxicReaction() : this.props.object;
         let topAdverseEventSection = null;
         const marginSize = "10px";
         const inputProps = {

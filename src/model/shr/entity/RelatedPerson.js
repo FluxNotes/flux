@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 import Role from './Role';
 
@@ -34,82 +34,53 @@ class RelatedPerson extends Role {
   }
 
   /**
-   * Get the value (aliases party).
-   * @returns {Reference} The shr.entity.Person reference
-   */
-  get value() {
-    return this._party;
-  }
-
-  /**
-   * Set the value (aliases party).
-   * This field/value is required.
-   * @param {Reference} value - The shr.entity.Person reference
-   */
-  set value(value) {
-    this._party = value;
-  }
-
-  /**
-   * Set the value (aliases party) and return 'this' for chaining.
-   * This field/value is required.
-   * @param {Reference} value - The shr.entity.Person reference
-   * @returns {RelatedPerson} this.
-   */
-  withValue(value) {
-    this.value = value; return this;
-  }
-
-  /**
    * Get the shr.entity.Person reference.
    * @returns {Reference} The shr.entity.Person reference
    */
-  get party() {
-    return this._party;
+  get person() {
+    return this._person;
   }
 
   /**
    * Set the shr.entity.Person reference.
-   * This field/value is required.
-   * @param {Reference} party - The shr.entity.Person reference
+   * @param {Reference} person - The shr.entity.Person reference
    */
-  set party(party) {
-    this._party = party;
+  set person(person) {
+    this._person = person;
   }
 
   /**
    * Set the shr.entity.Person reference and return 'this' for chaining.
-   * This field/value is required.
-   * @param {Reference} party - The shr.entity.Person reference
+   * @param {Reference} person - The shr.entity.Person reference
    * @returns {RelatedPerson} this.
    */
-  withParty(party) {
-    this.party = party; return this;
+  withPerson(person) {
+    this.person = person; return this;
   }
 
   /**
-   * Get the RelationshipType.
-   * @returns {RelationshipType} The shr.entity.RelationshipType
+   * Get the RelationshipToPersonOfRecord.
+   * @returns {RelationshipToPersonOfRecord} The shr.base.RelationshipToPersonOfRecord
    */
-  get relationshipType() {
-    return this._relationshipType;
+  get relationshipToPersonOfRecord() {
+    return this._relationshipToPersonOfRecord;
   }
 
   /**
-   * Set the RelationshipType.
-   * @param {RelationshipType} relationshipType - The shr.entity.RelationshipType
+   * Set the RelationshipToPersonOfRecord.
+   * @param {RelationshipToPersonOfRecord} relationshipToPersonOfRecord - The shr.base.RelationshipToPersonOfRecord
    */
-  set relationshipType(relationshipType) {
-    this._relationshipType = relationshipType;
+  set relationshipToPersonOfRecord(relationshipToPersonOfRecord) {
+    this._relationshipToPersonOfRecord = relationshipToPersonOfRecord;
   }
 
   /**
-   * Set the RelationshipType and return 'this' for chaining.
-   * @param {RelationshipType} relationshipType - The shr.entity.RelationshipType
+   * Set the RelationshipToPersonOfRecord and return 'this' for chaining.
+   * @param {RelationshipToPersonOfRecord} relationshipToPersonOfRecord - The shr.base.RelationshipToPersonOfRecord
    * @returns {RelatedPerson} this.
    */
-  withRelationshipType(relationshipType) {
-    this.relationshipType = relationshipType; return this;
+  withRelationshipToPersonOfRecord(relationshipToPersonOfRecord) {
+    this.relationshipToPersonOfRecord = relationshipToPersonOfRecord; return this;
   }
 
   /**
@@ -148,6 +119,7 @@ class RelatedPerson extends Role {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the RelatedPerson class to a JSON object.
    * The JSON is expected to be valid against the RelatedPerson JSON schema, but no validation checks are performed.
@@ -156,65 +128,120 @@ class RelatedPerson extends Role {
   toJSON() {
     const inst = this._entryInfo.toJSON();
     inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/RelatedPerson' };
-    if (this.value != null) {
-      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    if (this.person != null) {
+      inst['Person'] = typeof this.person.toJSON === 'function' ? this.person.toJSON() : this.person;
     }
-    if (this.relatedEncounter != null) {
-      inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
-    }
-    if (this.author != null) {
-      inst['Author'] = typeof this.author.toJSON === 'function' ? this.author.toJSON() : this.author;
-    }
-    if (this.informant != null) {
-      inst['Informant'] = typeof this.informant.toJSON === 'function' ? this.informant.toJSON() : this.informant;
-    }
-    if (this.type != null) {
-      inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
-    }
-    if (this.relationshipType != null) {
-      inst['RelationshipType'] = typeof this.relationshipType.toJSON === 'function' ? this.relationshipType.toJSON() : this.relationshipType;
+    if (this.relationshipToPersonOfRecord != null) {
+      inst['RelationshipToPersonOfRecord'] = typeof this.relationshipToPersonOfRecord.toJSON === 'function' ? this.relationshipToPersonOfRecord.toJSON() : this.relationshipToPersonOfRecord;
     }
     if (this.effectiveTimePeriod != null) {
       inst['EffectiveTimePeriod'] = typeof this.effectiveTimePeriod.toJSON === 'function' ? this.effectiveTimePeriod.toJSON() : this.effectiveTimePeriod;
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the RelatedPerson class to a FHIR object.
    * The FHIR is expected to be valid against the RelatedPerson FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
     let inst = {};
     inst['resourceType'] = 'RelatedPerson';
-    if (this.relatedEncounter != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.relatedEncounter.toFHIR(true));
+    if (this.person != null && this.person.activeFlag != null) {
+      inst['active'] = typeof this.person.activeFlag.toFHIR === 'function' ? this.person.activeFlag.toFHIR() : this.person.activeFlag;
     }
-    if (this.author != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.author.toFHIR(true));
+    if (this.relationshipToPersonOfRecord != null) {
+      inst['relationship'] = typeof this.relationshipToPersonOfRecord.toFHIR === 'function' ? this.relationshipToPersonOfRecord.toFHIR() : this.relationshipToPersonOfRecord;
     }
-    if (this.informant != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.informant.toFHIR(true));
+    if (this.person != null && this.person.humanName != null) {
+      inst['name'] = typeof this.person.humanName.toFHIR === 'function' ? this.person.humanName.toFHIR() : this.person.humanName;
     }
-    if (this.type != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.type.toFHIR(true));
+    if (this.person != null && this.person.contactPoint != null) {
+      inst['telecom'] = typeof this.person.contactPoint.toFHIR === 'function' ? this.person.contactPoint.toFHIR() : this.person.contactPoint;
     }
-    if (this.relationshipType != null) {
-      inst['relationship'] = typeof this.relationshipType.toFHIR === 'function' ? this.relationshipType.toFHIR() : this.relationshipType;
+    if (this.person != null && this.person.administrativeGender != null) {
+      inst['gender'] = typeof this.person.administrativeGender.toFHIR === 'function' ? this.person.administrativeGender.toFHIR() : this.person.administrativeGender;
+    }
+    if (this.person != null && this.person.dateOfBirth != null) {
+      inst['birthDate'] = typeof this.person.dateOfBirth.toFHIR === 'function' ? this.person.dateOfBirth.toFHIR() : this.person.dateOfBirth;
+    }
+    if (this.person != null && this.person.address != null) {
+      inst['address'] = typeof this.person.address.toFHIR === 'function' ? this.person.address.toFHIR() : this.person.address;
+    }
+    if (this.person != null && this.person.headshot != null) {
+      inst['photo'] = typeof this.person.headshot.toFHIR === 'function' ? this.person.headshot.toFHIR() : this.person.headshot;
     }
     if (this.effectiveTimePeriod != null) {
       inst['period'] = typeof this.effectiveTimePeriod.toFHIR === 'function' ? this.effectiveTimePeriod.toFHIR() : this.effectiveTimePeriod;
     }
-    if (asExtension) {
-      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-entity-RelatedPerson-extension';
-      inst['valueReference'] = this.value;
+    return inst;
+  }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the RelatedPerson class.
+   * The FHIR must be valid against the RelatedPerson FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {RelatedPerson} An instance of RelatedPerson populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new RelatedPerson();
+    if (fhir['active'] != null) {
+      if (inst.person === null) {
+        inst.person = createInstanceFromFHIR('shr.entity.Person', {});
+      }
+      inst.person.activeFlag = createInstanceFromFHIR('shr.entity.ActiveFlag', fhir['active']);
+    }
+    if (fhir['relationship'] != null) {
+      inst.relationshipToPersonOfRecord = createInstanceFromFHIR('shr.base.RelationshipToPersonOfRecord', fhir['relationship']);
+    }
+    if (fhir['name'] != null) {
+      if (inst.person === null) {
+        inst.person = createInstanceFromFHIR('shr.entity.Person', {});
+      }
+      inst.person.humanName = inst.person.humanName || [];
+      inst.person.humanName = inst.person.humanName.concat(fhir['name'].map(f => createInstanceFromFHIR('shr.core.HumanName', f)));
+    }
+    if (fhir['telecom'] != null) {
+      if (inst.person === null) {
+        inst.person = createInstanceFromFHIR('shr.entity.Person', {});
+      }
+      inst.person.contactPoint = inst.person.contactPoint || [];
+      inst.person.contactPoint = inst.person.contactPoint.concat(fhir['telecom'].map(f => createInstanceFromFHIR('shr.core.ContactPoint', f)));
+    }
+    if (fhir['gender'] != null) {
+      if (inst.person === null) {
+        inst.person = createInstanceFromFHIR('shr.entity.Person', {});
+      }
+      inst.person.administrativeGender = createInstanceFromFHIR('shr.entity.AdministrativeGender', fhir['gender']);
+    }
+    if (fhir['birthDate'] != null) {
+      if (inst.person === null) {
+        inst.person = createInstanceFromFHIR('shr.entity.Person', {});
+      }
+      inst.person.dateOfBirth = createInstanceFromFHIR('shr.entity.DateOfBirth', fhir['birthDate']);
+    }
+    if (fhir['address'] != null) {
+      if (inst.person === null) {
+        inst.person = createInstanceFromFHIR('shr.entity.Person', {});
+      }
+      inst.person.address = inst.person.address || [];
+      inst.person.address = inst.person.address.concat(fhir['address'].map(f => createInstanceFromFHIR('shr.core.Address', f)));
+    }
+    if (fhir['photo'] != null) {
+      if (inst.person === null) {
+        inst.person = createInstanceFromFHIR('shr.entity.Person', {});
+      }
+      inst.person.headshot = inst.person.headshot || [];
+      inst.person.headshot = inst.person.headshot.concat(fhir['photo'].map(f => createInstanceFromFHIR('shr.entity.Headshot', f)));
+    }
+    if (fhir['period'] != null) {
+      inst.effectiveTimePeriod = createInstanceFromFHIR('shr.core.EffectiveTimePeriod', fhir['period']);
     }
     return inst;
   }
+
 }
 export default RelatedPerson;

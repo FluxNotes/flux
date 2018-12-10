@@ -22,7 +22,7 @@ if (typeof input === 'undefined') {
 }
 
 const patientEntries = JSON.parse(fs.readFileSync(input, 'utf8'));
-const encounter = patientEntries.find(entry => entry.EntryType.Value === 'http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested' && entry.EntryId === entryid);
+const encounter = patientEntries.find(entry => entry.EntryType.Value === 'http://standardhealthrecord.org/spec/shr/encounter/Encounter' && entry.EntryId === entryid);
 
 // Encounter not found in patient entries so exit the program
 if (encounter === undefined) {

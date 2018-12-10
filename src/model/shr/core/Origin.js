@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.core.Origin.
@@ -70,6 +70,7 @@ class Origin {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the Origin class to a JSON object.
    * The JSON is expected to be valid against the Origin JSON schema, but no validation checks are performed.
@@ -82,10 +83,11 @@ class Origin {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the Origin class to a FHIR object.
    * The FHIR is expected to be valid against the Origin FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
@@ -97,5 +99,21 @@ class Origin {
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the Origin class.
+   * The FHIR must be valid against the Origin FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {Origin} An instance of Origin populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new Origin();
+    if (!asExtension && fhir != null) {
+      inst.value = createInstanceFromFHIR('shr.core.SimpleQuantity', fhir);
+    }
+    return inst;
+  }
+
 }
 export default Origin;

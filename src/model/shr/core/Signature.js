@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.core.Signature.
@@ -6,30 +6,30 @@ import { setPropertiesFromJSON } from '../../json-helper';
 class Signature {
 
   /**
-   * Get the TypeAsaCoding array.
-   * @returns {Array<TypeAsaCoding>} The shr.core.TypeAsaCoding array
+   * Get the SignatureType array.
+   * @returns {Array<SignatureType>} The shr.core.SignatureType array
    */
-  get typeAsaCoding() {
-    return this._typeAsaCoding;
+  get signatureType() {
+    return this._signatureType;
   }
 
   /**
-   * Set the TypeAsaCoding array.
+   * Set the SignatureType array.
    * This field/value is required.
-   * @param {Array<TypeAsaCoding>} typeAsaCoding - The shr.core.TypeAsaCoding array
+   * @param {Array<SignatureType>} signatureType - The shr.core.SignatureType array
    */
-  set typeAsaCoding(typeAsaCoding) {
-    this._typeAsaCoding = typeAsaCoding;
+  set signatureType(signatureType) {
+    this._signatureType = signatureType;
   }
 
   /**
-   * Set the TypeAsaCoding array and return 'this' for chaining.
+   * Set the SignatureType array and return 'this' for chaining.
    * This field/value is required.
-   * @param {Array<TypeAsaCoding>} typeAsaCoding - The shr.core.TypeAsaCoding array
+   * @param {Array<SignatureType>} signatureType - The shr.core.SignatureType array
    * @returns {Signature} this.
    */
-  withTypeAsaCoding(typeAsaCoding) {
-    this.typeAsaCoding = typeAsaCoding; return this;
+  withSignatureType(signatureType) {
+    this.signatureType = signatureType; return this;
   }
 
   /**
@@ -172,6 +172,7 @@ class Signature {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the Signature class to a JSON object.
    * The JSON is expected to be valid against the Signature JSON schema, but no validation checks are performed.
@@ -179,8 +180,8 @@ class Signature {
    */
   toJSON() {
     const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/Signature' } };
-    if (this.typeAsaCoding != null) {
-      inst['TypeAsaCoding'] = this.typeAsaCoding.map(f => f.toJSON());
+    if (this.signatureType != null) {
+      inst['SignatureType'] = this.signatureType.map(f => f.toJSON());
     }
     if (this.creationTime != null) {
       inst['CreationTime'] = typeof this.creationTime.toJSON === 'function' ? this.creationTime.toJSON() : this.creationTime;
@@ -199,17 +200,18 @@ class Signature {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the Signature class to a FHIR object.
    * The FHIR is expected to be valid against the Signature FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
     let inst = {};
-    if (this.typeAsaCoding != null) {
+    if (this.signatureType != null) {
       inst['type'] = inst['type'] || [];
-      inst['type'].concat(this.typeAsaCoding.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['type'] = inst['type'].concat(this.signatureType.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.creationTime != null) {
       inst['when'] = typeof this.creationTime.toFHIR === 'function' ? this.creationTime.toFHIR() : this.creationTime;
@@ -218,7 +220,7 @@ class Signature {
       inst['whoUri'] = typeof this.signatory.toFHIR === 'function' ? this.signatory.toFHIR() : this.signatory;
     }
     if (this.onBehalfOf != null) {
-      inst['onBehalfOfUri'] = typeof this.onBehalfOf.toFHIR === 'function' ? this.onBehalfOf.toFHIR() : this.onBehalfOf;
+      inst['onBehalfOf[x]'] = typeof this.onBehalfOf.toFHIR === 'function' ? this.onBehalfOf.toFHIR() : this.onBehalfOf;
     }
     if (this.contentType != null) {
       inst['contentType'] = typeof this.contentType.toFHIR === 'function' ? this.contentType.toFHIR() : this.contentType;
@@ -226,7 +228,46 @@ class Signature {
     if (this.binaryData != null) {
       inst['blob'] = typeof this.binaryData.toFHIR === 'function' ? this.binaryData.toFHIR() : this.binaryData;
     }
+    if (asExtension) {
+      inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-core-Signature-extension';
+      inst['valueSignature'] = this.value;
+    }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the Signature class.
+   * The FHIR must be valid against the Signature FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {Signature} An instance of Signature populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new Signature();
+    if (fhir['type'] != null) {
+      inst.signatureType = inst.signatureType || [];
+      inst.signatureType = inst.signatureType.concat(fhir['type'].map(f => createInstanceFromFHIR('shr.core.SignatureType', f)));
+    }
+    if (fhir['when'] != null) {
+      inst.creationTime = createInstanceFromFHIR('shr.core.CreationTime', fhir['when']);
+    }
+    if (fhir['whoUri'] != null) {
+      inst.signatory = createInstanceFromFHIR('shr.core.Signatory', fhir['whoUri']);
+    }
+    if (fhir['onBehalfOfUri'] != null) {
+      inst.onBehalfOf = createInstanceFromFHIR('shr.core.OnBehalfOf', fhir['onBehalfOfUri']);
+    }
+    if (fhir['contentType'] != null) {
+      inst.contentType = createInstanceFromFHIR('shr.core.ContentType', fhir['contentType']);
+    }
+    if (fhir['blob'] != null) {
+      inst.binaryData = createInstanceFromFHIR('shr.core.BinaryData', fhir['blob']);
+    }
+    if (asExtension) {
+      inst.value = fhir['valueSignature'];
+    }
+    return inst;
+  }
+
 }
 export default Signature;

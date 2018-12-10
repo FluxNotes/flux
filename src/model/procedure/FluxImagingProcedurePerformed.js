@@ -16,13 +16,13 @@ class FluxImagingProcedurePerformed {
      *  Returns a date if a single value
      */
     get occurrenceTime() {
-        if (this._imagingProcedurePerformed.actionContext.occurrenceTimeOrPeriod.value instanceof TimePeriod) {
+        if (this._imagingProcedurePerformed.occurrenceTimeOrPeriod.value instanceof TimePeriod) {
             return {
-                timePeriodStart: this._imagingProcedurePerformed.actionContext.occurrenceTimeOrPeriod.value.timePeriodStart.value,
-                timePeriodEnd: this._imagingProcedurePerformed.actionContext.occurrenceTimeOrPeriod.value.timePeriodEnd.value
+                timePeriodStart: this._imagingProcedurePerformed.occurrenceTimeOrPeriod.value.timePeriodStart.value,
+                timePeriodEnd: this._imagingProcedurePerformed.occurrenceTimeOrPeriod.value.timePeriodEnd.value
             };
         } else {
-            return this._imagingProcedurePerformed.actionContext.occurrenceTimeOrPeriod.value;
+            return this._imagingProcedurePerformed.occurrenceTimeOrPeriod.value;
         }
     }
 
@@ -31,7 +31,7 @@ class FluxImagingProcedurePerformed {
      *  Returns status string
      */
     get status() {
-        return this._imagingProcedurePerformed.actionContext.status.value.coding[0].displayText.value;
+        return this._imagingProcedurePerformed.status.value.coding[0].displayText.value;
     }
 
     /*
@@ -39,7 +39,7 @@ class FluxImagingProcedurePerformed {
      *  Returns procedure name string
      */
     get name() {
-        return this._imagingProcedurePerformed.type.value.coding[0].displayText.value;
+        return this._imagingProcedurePerformed.topicCode.value.coding[0].displayText.value;
     }
 
     /*
@@ -47,7 +47,7 @@ class FluxImagingProcedurePerformed {
      *  Returns array of reasons
      */
     get reasons() {
-        return this._imagingProcedurePerformed.actionContext.reason;
+        return this._imagingProcedurePerformed.reason;
     }
 
     get annotation() {

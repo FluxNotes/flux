@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.core.Geoposition.
@@ -95,6 +95,7 @@ class Geoposition {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the Geoposition class to a JSON object.
    * The JSON is expected to be valid against the Geoposition JSON schema, but no validation checks are performed.
@@ -113,10 +114,11 @@ class Geoposition {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the Geoposition class to a FHIR object.
    * The FHIR is expected to be valid against the Geoposition FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
@@ -139,11 +141,29 @@ class Geoposition {
       }
       inst['position']['altitude'] = typeof this.altitude.toFHIR === 'function' ? this.altitude.toFHIR() : this.altitude;
     }
-    if (asExtension) {
-      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-core-Geoposition-extension';
-      inst['valueReference'] = this.value;
+    return inst;
+  }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the Geoposition class.
+   * The FHIR must be valid against the Geoposition FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {Geoposition} An instance of Geoposition populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new Geoposition();
+    if (fhir['position'] != null && fhir['position']['longitude'] != null) {
+      inst.longitude = createInstanceFromFHIR('shr.core.Longitude', fhir['position']['longitude']);
+    }
+    if (fhir['position'] != null && fhir['position']['latitude'] != null) {
+      inst.latitude = createInstanceFromFHIR('shr.core.Latitude', fhir['position']['latitude']);
+    }
+    if (fhir['position'] != null && fhir['position']['altitude'] != null) {
+      inst.altitude = createInstanceFromFHIR('shr.core.Altitude', fhir['position']['altitude']);
     }
     return inst;
   }
+
 }
 export default Geoposition;

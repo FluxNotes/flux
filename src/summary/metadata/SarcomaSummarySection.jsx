@@ -3,7 +3,6 @@ import MetadataSection from "./MetadataSection";
 import KeyDatesSubsection from './KeyDatesSubsection';
 import MostRecentVisitsSubsection from './MostRecentVisitsSubsection';
 import RecentLabResultsSubsection from './RecentLabResultsSubsection';
-import FluxTumorDimensions from '../../model/oncology/FluxTumorDimensions';
 import Lang from 'lodash'
 import moment from 'moment';
 
@@ -23,20 +22,6 @@ export default class SarcomaSummarySection extends MetadataSection {
                     dataMissingTemplate: "No current ${.Status}.",
                     useDataMissingTemplateCriteria: [
                         ".Status"
-                    ]
-                },
-                {
-                    defaultTemplate: "Mitosis is ${.Mitosis}.",
-                    dataMissingTemplate: "Mitosis is ${.Mitosis}.",
-                    useDataMissingTemplateCriteria: [
-                        ".Mitosis"
-                    ]
-                },
-                {
-                    defaultTemplate: "Tumor is ${.Tumor Size}.",
-                    dataMissingTemplate: "Tumor is ${.Tumor Size}.",
-                    useDataMissingTemplateCriteria: [
-                        ".Tumor Size"
                     ]
                 },
                 {
@@ -71,10 +56,10 @@ export default class SarcomaSummarySection extends MetadataSection {
                     ]
                 },
                 {
-                    defaultTemplate: "Recent lab results include ${Recent Lab Results}.",
+                    defaultTemplate: "Most recent lab results include ${Most Recent Lab Results}.",
                     dataMissingTemplate: "No recent ${lab results}.",
                     useDataMissingTemplateCriteria: [
-                        "Recent Lab Results"
+                        "Most Recent Lab Results"
                     ]
                 },
                 {
@@ -170,33 +155,6 @@ export default class SarcomaSummarySection extends MetadataSection {
                                     return null;
                                 }
                             },
-                            // shortcut: "@stage"
-                        },
-                        {
-                            name: "Mitosis",
-                            value: (patient, currentConditionEntry) => {
-                                let mr = currentConditionEntry.getMostRecentMitosis();
-                                if (mr) {
-                                    return  {   value: mr.quantity.number + " " + mr.quantity.unit, 
-                                                isUnsigned: patient.isUnsigned(mr), 
-                                                source: this.determineSource(patient, mr)
-                                            };
-                                } else {
-                                    return null;
-                                }
-                            },
-                        },
-                        {
-                            name: "Tumor Size",
-                            value: (patient, currentConditionEntry) => {
-                                const list = currentConditionEntry.getObservationsOfTypeChronologicalOrder(FluxTumorDimensions);
-                                if (list.length === 0) return null;
-                                const size = list.pop(); // last is most recent
-                                return  {   value: size.quantity.value + " " + size.quantity.unit, 
-                                            isUnsigned: patient.isUnsigned(size), 
-                                            source: this.determineSource(patient, size)
-                                        };
-                    },
                         },
                         {
                             name: "Disease Status",

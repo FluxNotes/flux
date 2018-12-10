@@ -1,21 +1,21 @@
 import { getNamespaceAndName } from '../json-helper';
 import ShrEntityObjectFactory from '../shr/entity/ShrEntityObjectFactory';
-import FluxDeceased from './FluxDeceased';
+import FluxDeathInformation from './FluxDeathInformation';
 import FluxPatient from './FluxPatient';
 import FluxPerson from './FluxPerson';
 
 export default class FluxEntityObjectFactory {
-    static createInstance(json, type) {
+    static createInstance(json, type, patientRecord) {
         const { namespace, elementName } = getNamespaceAndName(json, type);
         if (namespace !== 'shr.entity') {
             throw new Error(`Unsupported type in ShrEntityObjectFactory: ${type}`);
         }
         // returns Flux wrapper class if found, otherwise use ShrEntityObjectFactory
         switch (elementName) {
-            case 'Deceased': return new FluxDeceased(json);
-            case 'Patient': return new FluxPatient(json);
-            case 'Person': return new FluxPerson(json);
-            default: return ShrEntityObjectFactory.createInstance(json, type);
+            case 'DeathInformation': return new FluxDeathInformation(json, type, patientRecord);
+            case 'Patient': return new FluxPatient(json, type, patientRecord);
+            case 'Person': return new FluxPerson(json, type, patientRecord);
+            default: return ShrEntityObjectFactory.createInstance(json, type, patientRecord);
         }
     }
 }

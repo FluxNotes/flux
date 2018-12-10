@@ -1,12 +1,9 @@
-import { setPropertiesFromJSON } from '../../json-helper';
-
-import Any from './Any';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.base.Entry.
- * @extends Any
  */
-class Entry extends Any {
+class Entry {
 
   /**
    * Get the ShrId.
@@ -18,7 +15,6 @@ class Entry extends Any {
 
   /**
    * Set the ShrId.
-   * This field/value is required.
    * @param {ShrId} shrId - The shr.base.ShrId
    */
   set shrId(shrId) {
@@ -27,7 +23,6 @@ class Entry extends Any {
 
   /**
    * Set the ShrId and return 'this' for chaining.
-   * This field/value is required.
    * @param {ShrId} shrId - The shr.base.ShrId
    * @returns {Entry} this.
    */
@@ -60,31 +55,6 @@ class Entry extends Any {
    */
   withEntryId(entryId) {
     this.entryId = entryId; return this;
-  }
-
-  /**
-   * Get the PersonOfRecord.
-   * @returns {PersonOfRecord} The shr.base.PersonOfRecord
-   */
-  get personOfRecord() {
-    return this._personOfRecord;
-  }
-
-  /**
-   * Set the PersonOfRecord.
-   * @param {PersonOfRecord} personOfRecord - The shr.base.PersonOfRecord
-   */
-  set personOfRecord(personOfRecord) {
-    this._personOfRecord = personOfRecord;
-  }
-
-  /**
-   * Set the PersonOfRecord and return 'this' for chaining.
-   * @param {PersonOfRecord} personOfRecord - The shr.base.PersonOfRecord
-   * @returns {Entry} this.
-   */
-  withPersonOfRecord(personOfRecord) {
-    this.personOfRecord = personOfRecord; return this;
   }
 
   /**
@@ -194,6 +164,31 @@ class Entry extends Any {
   }
 
   /**
+   * Get the RecordStatus.
+   * @returns {RecordStatus} The shr.base.RecordStatus
+   */
+  get recordStatus() {
+    return this._recordStatus;
+  }
+
+  /**
+   * Set the RecordStatus.
+   * @param {RecordStatus} recordStatus - The shr.base.RecordStatus
+   */
+  set recordStatus(recordStatus) {
+    this._recordStatus = recordStatus;
+  }
+
+  /**
+   * Set the RecordStatus and return 'this' for chaining.
+   * @param {RecordStatus} recordStatus - The shr.base.RecordStatus
+   * @returns {Entry} this.
+   */
+  withRecordStatus(recordStatus) {
+    this.recordStatus = recordStatus; return this;
+  }
+
+  /**
    * Get the Narrative.
    * @returns {Narrative} The shr.base.Narrative
    */
@@ -220,7 +215,7 @@ class Entry extends Any {
 
   /**
    * Get the Language.
-   * @returns {Language} The shr.base.Language
+   * @returns {Language} The shr.core.Language
    */
   get language() {
     return this._language;
@@ -228,7 +223,7 @@ class Entry extends Any {
 
   /**
    * Set the Language.
-   * @param {Language} language - The shr.base.Language
+   * @param {Language} language - The shr.core.Language
    */
   set language(language) {
     this._language = language;
@@ -236,7 +231,7 @@ class Entry extends Any {
 
   /**
    * Set the Language and return 'this' for chaining.
-   * @param {Language} language - The shr.base.Language
+   * @param {Language} language - The shr.core.Language
    * @returns {Entry} this.
    */
   withLanguage(language) {
@@ -294,6 +289,81 @@ class Entry extends Any {
   }
 
   /**
+   * Get the DerivedFrom array.
+   * @returns {Array<DerivedFrom>} The shr.base.DerivedFrom array
+   */
+  get derivedFrom() {
+    return this._derivedFrom;
+  }
+
+  /**
+   * Set the DerivedFrom array.
+   * @param {Array<DerivedFrom>} derivedFrom - The shr.base.DerivedFrom array
+   */
+  set derivedFrom(derivedFrom) {
+    this._derivedFrom = derivedFrom;
+  }
+
+  /**
+   * Set the DerivedFrom array and return 'this' for chaining.
+   * @param {Array<DerivedFrom>} derivedFrom - The shr.base.DerivedFrom array
+   * @returns {Entry} this.
+   */
+  withDerivedFrom(derivedFrom) {
+    this.derivedFrom = derivedFrom; return this;
+  }
+
+  /**
+   * Get the RecordedBy.
+   * @returns {RecordedBy} The shr.base.RecordedBy
+   */
+  get recordedBy() {
+    return this._recordedBy;
+  }
+
+  /**
+   * Set the RecordedBy.
+   * @param {RecordedBy} recordedBy - The shr.base.RecordedBy
+   */
+  set recordedBy(recordedBy) {
+    this._recordedBy = recordedBy;
+  }
+
+  /**
+   * Set the RecordedBy and return 'this' for chaining.
+   * @param {RecordedBy} recordedBy - The shr.base.RecordedBy
+   * @returns {Entry} this.
+   */
+  withRecordedBy(recordedBy) {
+    this.recordedBy = recordedBy; return this;
+  }
+
+  /**
+   * Get the SignedBy.
+   * @returns {SignedBy} The shr.base.SignedBy
+   */
+  get signedBy() {
+    return this._signedBy;
+  }
+
+  /**
+   * Set the SignedBy.
+   * @param {SignedBy} signedBy - The shr.base.SignedBy
+   */
+  set signedBy(signedBy) {
+    this._signedBy = signedBy;
+  }
+
+  /**
+   * Set the SignedBy and return 'this' for chaining.
+   * @param {SignedBy} signedBy - The shr.base.SignedBy
+   * @returns {Entry} this.
+   */
+  withSignedBy(signedBy) {
+    this.signedBy = signedBy; return this;
+  }
+
+  /**
    * Get the SourceClinicalNote.
    * @returns {SourceClinicalNote} The shr.base.SourceClinicalNote
    */
@@ -320,6 +390,7 @@ class Entry extends Any {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the Entry class to a JSON object.
    * The JSON is expected to be valid against the Entry JSON schema, but no validation checks are performed.
@@ -333,9 +404,6 @@ class Entry extends Any {
     if (this.entryId != null) {
       inst['EntryId'] = typeof this.entryId.toJSON === 'function' ? this.entryId.toJSON() : this.entryId;
     }
-    if (this.personOfRecord != null) {
-      inst['PersonOfRecord'] = typeof this.personOfRecord.toJSON === 'function' ? this.personOfRecord.toJSON() : this.personOfRecord;
-    }
     if (this.version != null) {
       inst['Version'] = typeof this.version.toJSON === 'function' ? this.version.toJSON() : this.version;
     }
@@ -347,6 +415,9 @@ class Entry extends Any {
     }
     if (this.lastUpdated != null) {
       inst['LastUpdated'] = typeof this.lastUpdated.toJSON === 'function' ? this.lastUpdated.toJSON() : this.lastUpdated;
+    }
+    if (this.recordStatus != null) {
+      inst['RecordStatus'] = typeof this.recordStatus.toJSON === 'function' ? this.recordStatus.toJSON() : this.recordStatus;
     }
     if (this.narrative != null) {
       inst['Narrative'] = typeof this.narrative.toJSON === 'function' ? this.narrative.toJSON() : this.narrative;
@@ -360,12 +431,22 @@ class Entry extends Any {
     if (this.tag != null) {
       inst['Tag'] = this.tag.map(f => f.toJSON());
     }
+    if (this.derivedFrom != null) {
+      inst['DerivedFrom'] = this.derivedFrom.map(f => f.toJSON());
+    }
+    if (this.recordedBy != null) {
+      inst['RecordedBy'] = typeof this.recordedBy.toJSON === 'function' ? this.recordedBy.toJSON() : this.recordedBy;
+    }
+    if (this.signedBy != null) {
+      inst['SignedBy'] = typeof this.signedBy.toJSON === 'function' ? this.signedBy.toJSON() : this.signedBy;
+    }
     return inst;
   }
+
   /**
    * Serializes an instance of the Entry class to a FHIR object.
    * The FHIR is expected to be valid against the Entry FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
@@ -396,14 +477,14 @@ class Entry extends Any {
         inst['meta'] = {};
       }
       inst['meta']['security'] = inst['meta']['security'] || [];
-      inst['meta']['security'].concat(this.securityLabel.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['meta']['security'] = inst['meta']['security'].concat(this.securityLabel.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.tag != null) {
       if (inst['meta'] === undefined) {
         inst['meta'] = {};
       }
       inst['meta']['tag'] = inst['meta']['tag'] || [];
-      inst['meta']['tag'].concat(this.tag.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['meta']['tag'] = inst['meta']['tag'].concat(this.tag.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.language != null) {
       inst['language'] = typeof this.language.toFHIR === 'function' ? this.language.toFHIR() : this.language;
@@ -413,17 +494,74 @@ class Entry extends Any {
     }
     if (this.shrId != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.shrId.toFHIR(true));
-    }
-    if (this.personOfRecord != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.personOfRecord.toFHIR(true));
+      inst['extension'].push(typeof this.shrId.toFHIR === 'function' ? this.shrId.toFHIR(true) : this.shrId);
     }
     if (this.creationTime != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.creationTime.toFHIR(true));
+      inst['extension'].push(typeof this.creationTime.toFHIR === 'function' ? this.creationTime.toFHIR(true) : this.creationTime);
+    }
+    if (this.recordStatus != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(typeof this.recordStatus.toFHIR === 'function' ? this.recordStatus.toFHIR(true) : this.recordStatus);
+    }
+    if (this.derivedFrom != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(typeof this.derivedFrom.toFHIR === 'function' ? this.derivedFrom.toFHIR(true) : this.derivedFrom);
+    }
+    if (this.recordedBy != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(typeof this.recordedBy.toFHIR === 'function' ? this.recordedBy.toFHIR(true) : this.recordedBy);
+    }
+    if (this.signedBy != null) {
+      inst['extension'] = inst['extension'] || [];
+      inst['extension'].push(typeof this.signedBy.toFHIR === 'function' ? this.signedBy.toFHIR(true) : this.signedBy);
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the Entry class.
+   * The FHIR must be valid against the Entry FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {Entry} An instance of Entry populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new Entry();
+    if (fhir['id'] != null) {
+      inst.entryId = createInstanceFromFHIR('shr.base.EntryId', fhir['id']);
+    }
+    if (fhir['meta'] != null && fhir['meta']['versionId'] != null) {
+      inst.version = createInstanceFromFHIR('shr.core.Version', fhir['meta']['versionId']);
+    }
+    if (fhir['meta'] != null && fhir['meta']['lastUpdated'] != null) {
+      inst.lastUpdated = createInstanceFromFHIR('shr.base.LastUpdated', fhir['meta']['lastUpdated']);
+    }
+    if (fhir['meta'] != null && fhir['meta']['profile'] != null) {
+      inst.entryType = createInstanceFromFHIR('shr.base.EntryType', fhir['meta']['profile']);
+    }
+    if (fhir['meta'] != null && fhir['meta']['security'] != null) {
+      inst.securityLabel = inst.securityLabel || [];
+      inst.securityLabel = inst.securityLabel.concat(fhir['meta']['security'].map(f => createInstanceFromFHIR('shr.base.SecurityLabel', f)));
+    }
+    if (fhir['meta'] != null && fhir['meta']['tag'] != null) {
+      inst.tag = inst.tag || [];
+      inst.tag = inst.tag.concat(fhir['meta']['tag'].map(f => createInstanceFromFHIR('shr.base.Tag', f)));
+    }
+    if (fhir['language'] != null) {
+      inst.language = createInstanceFromFHIR('shr.core.Language', fhir['language']);
+    }
+    if (fhir['text'] != null) {
+      inst.narrative = createInstanceFromFHIR('shr.base.Narrative', fhir['text']);
+    }
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-base-ShrId-extension');
+      if (match != null) {
+        inst.shrId = createInstanceFromFHIR('shr.base.ShrId', match, true);
+      }
+    }
+    return inst;
+  }
+
 }
 export default Entry;

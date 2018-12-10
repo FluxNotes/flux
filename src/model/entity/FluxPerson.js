@@ -11,7 +11,7 @@ class FluxPerson {
 
     get name() {
         if (!this._person.humanName || this._person.humanName.length < 1) return null;
-        return this._person.humanName[0].value;
+        return this._person.humanName[0].nameAsText;
     }
 
     get dateOfBirth() {
@@ -24,8 +24,28 @@ class FluxPerson {
     }
 
     get headshot() {
-        if (!this._person.headshot || !this._person.headshot.attachment.resourceLocation) return null;
-        return this._person.headshot.attachment.resourceLocation.uri;
+        if (!this._person.headshot || !this._person.headshot.media.resourceLocation) return null;
+        return this._person.headshot.media.resourceLocation.uri;
+    }
+
+    get race() {
+        if (this._person.race) {
+            return this._person.race.raceCode.value.coding[0].code;
+        }
+    }
+
+    get gender() {
+        if (this._person.administrativeGender) {
+            return this._person.administrativeGender.value;
+        }
+        return null;
+    }
+
+    get partOf() {
+        if (this._person.partOf) {
+            return this._person.partOf.value;
+        }
+        return null;
     }
 
     toJSON() {

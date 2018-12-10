@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.financial.PolicyHolder.
@@ -6,26 +6,26 @@ import { setPropertiesFromJSON } from '../../json-helper';
 class PolicyHolder {
 
   /**
-   * Get the choice value; one of: cimi.entity.Patient reference, cimi.entity.RelatedPerson reference, cimi.entity.Organization reference.
-   * @returns {Reference} The choice value; one of: cimi.entity.Patient reference, cimi.entity.RelatedPerson reference, cimi.entity.Organization reference
+   * Get the choice value; one of: shr.entity.Patient reference, shr.entity.RelatedPerson reference, shr.entity.Organization reference.
+   * @returns {Reference} The choice value; one of: shr.entity.Patient reference, shr.entity.RelatedPerson reference, shr.entity.Organization reference
    */
   get value() {
     return this._value;
   }
 
   /**
-   * Set the choice value; one of: cimi.entity.Patient reference, cimi.entity.RelatedPerson reference, cimi.entity.Organization reference.
+   * Set the choice value; one of: shr.entity.Patient reference, shr.entity.RelatedPerson reference, shr.entity.Organization reference.
    * This field/value is required.
-   * @param {Reference} value - The choice value; one of: cimi.entity.Patient reference, cimi.entity.RelatedPerson reference, cimi.entity.Organization reference
+   * @param {Reference} value - The choice value; one of: shr.entity.Patient reference, shr.entity.RelatedPerson reference, shr.entity.Organization reference
    */
   set value(value) {
     this._value = value;
   }
 
   /**
-   * Set the choice value; one of: cimi.entity.Patient reference, cimi.entity.RelatedPerson reference, cimi.entity.Organization reference and return 'this' for chaining.
+   * Set the choice value; one of: shr.entity.Patient reference, shr.entity.RelatedPerson reference, shr.entity.Organization reference and return 'this' for chaining.
    * This field/value is required.
-   * @param {Reference} value - The choice value; one of: cimi.entity.Patient reference, cimi.entity.RelatedPerson reference, cimi.entity.Organization reference
+   * @param {Reference} value - The choice value; one of: shr.entity.Patient reference, shr.entity.RelatedPerson reference, shr.entity.Organization reference
    * @returns {PolicyHolder} this.
    */
   withValue(value) {
@@ -43,6 +43,7 @@ class PolicyHolder {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the PolicyHolder class to a JSON object.
    * The JSON is expected to be valid against the PolicyHolder JSON schema, but no validation checks are performed.
@@ -55,10 +56,11 @@ class PolicyHolder {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the PolicyHolder class to a FHIR object.
    * The FHIR is expected to be valid against the PolicyHolder FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
@@ -70,5 +72,21 @@ class PolicyHolder {
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the PolicyHolder class.
+   * The FHIR must be valid against the PolicyHolder FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {PolicyHolder} An instance of PolicyHolder populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new PolicyHolder();
+    if (!asExtension && fhir != null) {
+      inst.value = createInstanceFromFHIR(null, fhir);
+    }
+    return inst;
+  }
+
 }
 export default PolicyHolder;

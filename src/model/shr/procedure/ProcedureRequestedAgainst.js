@@ -1,12 +1,12 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
-import ProcedureAction from './ProcedureAction';
+import ActionRequestedAgainst from '../base/ActionRequestedAgainst';
 
 /**
  * Generated class for shr.procedure.ProcedureRequestedAgainst.
- * @extends ProcedureAction
+ * @extends ActionRequestedAgainst
  */
-class ProcedureRequestedAgainst extends ProcedureAction {
+class ProcedureRequestedAgainst extends ActionRequestedAgainst {
 
   /**
    * Get the entry information.
@@ -34,30 +34,55 @@ class ProcedureRequestedAgainst extends ProcedureAction {
   }
 
   /**
-   * Get the RequestedAgainstContext.
-   * @returns {RequestedAgainstContext} The shr.action.RequestedAgainstContext
+   * Get the TopicCode.
+   * @returns {TopicCode} The shr.base.TopicCode
    */
-  get actionContext() {
-    return this._actionContext;
+  get topicCode() {
+    return this._topicCode;
   }
 
   /**
-   * Set the RequestedAgainstContext.
+   * Set the TopicCode.
    * This field/value is required.
-   * @param {RequestedAgainstContext} actionContext - The shr.action.RequestedAgainstContext
+   * @param {TopicCode} topicCode - The shr.base.TopicCode
    */
-  set actionContext(actionContext) {
-    this._actionContext = actionContext;
+  set topicCode(topicCode) {
+    this._topicCode = topicCode;
   }
 
   /**
-   * Set the RequestedAgainstContext and return 'this' for chaining.
+   * Set the TopicCode and return 'this' for chaining.
    * This field/value is required.
-   * @param {RequestedAgainstContext} actionContext - The shr.action.RequestedAgainstContext
+   * @param {TopicCode} topicCode - The shr.base.TopicCode
    * @returns {ProcedureRequestedAgainst} this.
    */
-  withActionContext(actionContext) {
-    this.actionContext = actionContext; return this;
+  withTopicCode(topicCode) {
+    this.topicCode = topicCode; return this;
+  }
+
+  /**
+   * Get the AnatomicalLocation array.
+   * @returns {Array<AnatomicalLocation>} The shr.core.AnatomicalLocation array
+   */
+  get anatomicalLocation() {
+    return this._anatomicalLocation;
+  }
+
+  /**
+   * Set the AnatomicalLocation array.
+   * @param {Array<AnatomicalLocation>} anatomicalLocation - The shr.core.AnatomicalLocation array
+   */
+  set anatomicalLocation(anatomicalLocation) {
+    this._anatomicalLocation = anatomicalLocation;
+  }
+
+  /**
+   * Set the AnatomicalLocation array and return 'this' for chaining.
+   * @param {Array<AnatomicalLocation>} anatomicalLocation - The shr.core.AnatomicalLocation array
+   * @returns {ProcedureRequestedAgainst} this.
+   */
+  withAnatomicalLocation(anatomicalLocation) {
+    this.anatomicalLocation = anatomicalLocation; return this;
   }
 
   /**
@@ -71,6 +96,7 @@ class ProcedureRequestedAgainst extends ProcedureAction {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the ProcedureRequestedAgainst class to a JSON object.
    * The JSON is expected to be valid against the ProcedureRequestedAgainst JSON schema, but no validation checks are performed.
@@ -79,91 +105,96 @@ class ProcedureRequestedAgainst extends ProcedureAction {
   toJSON() {
     const inst = this._entryInfo.toJSON();
     inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequestedAgainst' };
-    if (this.relatedEncounter != null) {
-      inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
-    }
-    if (this.author != null) {
-      inst['Author'] = typeof this.author.toJSON === 'function' ? this.author.toJSON() : this.author;
-    }
-    if (this.informant != null) {
-      inst['Informant'] = typeof this.informant.toJSON === 'function' ? this.informant.toJSON() : this.informant;
-    }
-    if (this.type != null) {
-      inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
+    if (this.topicCode != null) {
+      inst['TopicCode'] = typeof this.topicCode.toJSON === 'function' ? this.topicCode.toJSON() : this.topicCode;
     }
     if (this.category != null) {
-      inst['Category'] = this.category.map(f => f.toJSON());
+      inst['Category'] = typeof this.category.toJSON === 'function' ? this.category.toJSON() : this.category;
     }
-    if (this.actionContext != null) {
-      inst['ActionContext'] = typeof this.actionContext.toJSON === 'function' ? this.actionContext.toJSON() : this.actionContext;
+    if (this.patient != null) {
+      inst['Patient'] = typeof this.patient.toJSON === 'function' ? this.patient.toJSON() : this.patient;
     }
-    if (this.subject != null) {
-      inst['Subject'] = typeof this.subject.toJSON === 'function' ? this.subject.toJSON() : this.subject;
+    if (this.encounter != null) {
+      inst['Encounter'] = typeof this.encounter.toJSON === 'function' ? this.encounter.toJSON() : this.encounter;
     }
-    if (this.bodySite != null) {
-      inst['BodySite'] = this.bodySite.map(f => f.toJSON());
+    if (this.reason != null) {
+      inst['Reason'] = this.reason.map(f => f.toJSON());
     }
-    if (this.associatedStudy != null) {
-      inst['AssociatedStudy'] = typeof this.associatedStudy.toJSON === 'function' ? this.associatedStudy.toJSON() : this.associatedStudy;
-    }
-    if (this.partOf != null) {
-      inst['PartOf'] = typeof this.partOf.toJSON === 'function' ? this.partOf.toJSON() : this.partOf;
-    }
-    if (this.annotation != null) {
-      inst['Annotation'] = this.annotation.map(f => f.toJSON());
+    if (this.anatomicalLocation != null) {
+      inst['AnatomicalLocation'] = this.anatomicalLocation.map(f => f.toJSON());
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the ProcedureRequestedAgainst class to a FHIR object.
    * The FHIR is expected to be valid against the ProcedureRequestedAgainst FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
     let inst = {};
-    inst['resourceType'] = 'Basic';
-    if (this.relatedEncounter != null) {
+    inst['resourceType'] = 'ProcedureRequest';
+    if (this.encounter != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.relatedEncounter.toFHIR(true));
-    }
-    if (this.author != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.author.toFHIR(true));
-    }
-    if (this.informant != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.informant.toFHIR(true));
-    }
-    if (this.type != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.type.toFHIR(true));
+      inst['extension'].push(typeof this.encounter.toFHIR === 'function' ? this.encounter.toFHIR(true) : this.encounter);
     }
     if (this.category != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.category.toFHIR(true));
+      inst['category'] = typeof this.category.toFHIR === 'function' ? this.category.toFHIR() : this.category;
     }
-    if (this.subject != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.subject.toFHIR(true));
+    if (this.topicCode != null) {
+      inst['code'] = typeof this.topicCode.toFHIR === 'function' ? this.topicCode.toFHIR() : this.topicCode;
     }
-    if (this.bodySite != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.bodySite.toFHIR(true));
+    if (this.patient != null) {
+      inst['subject'] = typeof this.patient.toFHIR === 'function' ? this.patient.toFHIR() : this.patient;
     }
-    if (this.associatedStudy != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.associatedStudy.toFHIR(true));
+    if (this.reason != null) {
+      inst['reasonCode'] = inst['reasonCode'] || [];
+      inst['reasonCode'] = inst['reasonCode'].concat(this.reason.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
-    if (this.partOf != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.partOf.toFHIR(true));
-    }
-    if (this.annotation != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.annotation.toFHIR(true));
+    if (this.anatomicalLocation != null && this.anatomicalLocation.anatomicalLocationOrLandmarkCode != null) {
+      inst['bodySite'] = inst['bodySite'] || [];
+      inst['bodySite'] = inst['bodySite'].concat(this.anatomicalLocation.anatomicalLocationOrLandmarkCode.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the ProcedureRequestedAgainst class.
+   * The FHIR must be valid against the ProcedureRequestedAgainst FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {ProcedureRequestedAgainst} An instance of ProcedureRequestedAgainst populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new ProcedureRequestedAgainst();
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-encounter-Encounter-extension');
+      if (match != null) {
+        inst.encounter = createInstanceFromFHIR('shr.encounter.Encounter', match, true);
+      }
+    }
+    if (fhir['category'] != null) {
+      inst.category = createInstanceFromFHIR('shr.core.Category', fhir['category']);
+    }
+    if (fhir['code'] != null) {
+      inst.topicCode = createInstanceFromFHIR('shr.base.TopicCode', fhir['code']);
+    }
+    if (fhir['subject'] != null) {
+      inst.patient = createInstanceFromFHIR('shr.entity.Patient', fhir['subject']);
+    }
+    if (fhir['reasonCode'] != null) {
+      inst.reason = inst.reason || [];
+      inst.reason = inst.reason.concat(fhir['reasonCode'].map(f => createInstanceFromFHIR('shr.base.Reason', f)));
+    }
+    if (fhir['bodySite'] != null) {
+      if (inst.anatomicalLocation === null) {
+        inst.anatomicalLocation = createInstanceFromFHIR('shr.core.AnatomicalLocation', {});
+      }
+      inst.anatomicalLocation.anatomicalLocationOrLandmarkCode = createInstanceFromFHIR('shr.core.AnatomicalLocationOrLandmarkCode', fhir['bodySite']);
+    }
+    return inst;
+  }
+
 }
 export default ProcedureRequestedAgainst;

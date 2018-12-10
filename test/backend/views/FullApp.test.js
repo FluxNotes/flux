@@ -22,7 +22,7 @@ import NotesPanel from '../../../src/panels/NotesPanel';
 import NoteAssistant from '../../../src/notes/NoteAssistant';
 import hardCodedPatient from '../../../src/dataaccess/HardCodedPatient.json';
 import PatientRecord from '../../../src/patient/PatientRecord.jsx';
-import FluxInjury from '../../../src/model/condition/FluxInjury';
+import FluxConditionPresentAssertion from '../../../src/model/base/FluxConditionPresentAssertion';
 
 import SearchIndex from '../../../src/patientControl/SearchIndex';
 import FluxClinicalNote from '../../../src/model/core/FluxClinicalNote';
@@ -76,6 +76,7 @@ describe('2 setFullAppState', function() {
 
 describe('3 TargetedDataControl', function() {
     it('3.1 noteDisplayMode buttons update state', function() {
+        let patient = new PatientRecord(hardCodedPatient);
         const summaryMetadata = new SummaryMetadata();
         const condition = new FluxBreastCancer({
             "Value": {
@@ -103,7 +104,7 @@ describe('3 TargetedDataControl', function() {
                     "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
                 }
             }
-        });
+        }, patient);
         const metadata = summaryMetadata.getMetadata(null, null, condition, null, null, null);
         // Look for the first NameValuePair section which should be Summary. Assumes it does not have a defaultVisualizer property
         const section = metadata.sections.find((section) => {
@@ -140,6 +141,7 @@ describe('3 TargetedDataControl', function() {
 });
 describe('4 TargetedDataControl - correct default visualizer Medications', function() {
     it('4.1 correct default visualizer', function() {
+        let patient = new PatientRecord(hardCodedPatient);
         const summaryMetadata = new SummaryMetadata(null);
         const condition = new FluxGastrointestinalStromalTumor({
             "Value": {
@@ -167,7 +169,7 @@ describe('4 TargetedDataControl - correct default visualizer Medications', funct
                     }
                 ]
             }
-        });
+        }, patient);
         const metadata = summaryMetadata.getMetadata(null, null, condition, null, null, null);
         // Look for the first NameValuePair section which should be Summary. Assumes it does not have a defaultVisualizer property
         const section = metadata.sections.find((section) => {
@@ -214,7 +216,7 @@ describe('5 FullApp', function() {
         conditionSelector.at(0).props().onChange({target: { value: 1}});
         expect(conditionSelector.text()).to.equal('Fracture');
 
-        expect(wrapper.state('condition') instanceof FluxInjury);
+        expect(wrapper.state('condition') instanceof FluxConditionPresentAssertion);
         //const conditionName = wrapper.find('[data-test-summary-section="Summary"] [data-test-summary-item="Name"]');
        //expect(conditionName.exists()).to.equal(true);
        //expect(conditionName.text()).to.equal('Fracture');

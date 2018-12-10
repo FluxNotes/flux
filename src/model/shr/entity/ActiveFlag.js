@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.entity.ActiveFlag.
@@ -6,57 +6,30 @@ import { setPropertiesFromJSON } from '../../json-helper';
 class ActiveFlag {
 
   /**
-   * Get the value (aliases boolean).
-   * @returns {boolean} The boolean
+   * Get the choice value; one of: boolean, shr.core.CodeableConcept.
+   * @returns {(boolean|CodeableConcept)} The choice value; one of: boolean, shr.core.CodeableConcept
    */
   get value() {
-    return this._boolean;
+    return this._value;
   }
 
   /**
-   * Set the value (aliases boolean).
+   * Set the choice value; one of: boolean, shr.core.CodeableConcept.
    * This field/value is required.
-   * @param {boolean} value - The boolean
+   * @param {(boolean|CodeableConcept)} value - The choice value; one of: boolean, shr.core.CodeableConcept
    */
   set value(value) {
-    this._boolean = value;
+    this._value = value;
   }
 
   /**
-   * Set the value (aliases boolean) and return 'this' for chaining.
+   * Set the choice value; one of: boolean, shr.core.CodeableConcept and return 'this' for chaining.
    * This field/value is required.
-   * @param {boolean} value - The boolean
+   * @param {(boolean|CodeableConcept)} value - The choice value; one of: boolean, shr.core.CodeableConcept
    * @returns {ActiveFlag} this.
    */
   withValue(value) {
     this.value = value; return this;
-  }
-
-  /**
-   * Get the boolean.
-   * @returns {boolean} The boolean
-   */
-  get boolean() {
-    return this._boolean;
-  }
-
-  /**
-   * Set the boolean.
-   * This field/value is required.
-   * @param {boolean} boolean - The boolean
-   */
-  set boolean(boolean) {
-    this._boolean = boolean;
-  }
-
-  /**
-   * Set the boolean and return 'this' for chaining.
-   * This field/value is required.
-   * @param {boolean} boolean - The boolean
-   * @returns {ActiveFlag} this.
-   */
-  withBoolean(boolean) {
-    this.boolean = boolean; return this;
   }
 
   /**
@@ -70,6 +43,7 @@ class ActiveFlag {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the ActiveFlag class to a JSON object.
    * The JSON is expected to be valid against the ActiveFlag JSON schema, but no validation checks are performed.
@@ -78,21 +52,21 @@ class ActiveFlag {
   toJSON() {
     const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/ActiveFlag' } };
     if (this.value != null) {
-      inst['Value'] = this.value;
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the ActiveFlag class to a FHIR object.
    * The FHIR is expected to be valid against the ActiveFlag FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
     let inst = {};
     if (asExtension) {
-      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-entity-ActiveFlag-extension';
-      inst['valueBoolean'] = this.value;
+      inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-entity-ActiveFlag-extension';
     }
     if (!asExtension && this.value != null) {
       if (this.value != null) {
@@ -101,5 +75,23 @@ class ActiveFlag {
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the ActiveFlag class.
+   * The FHIR must be valid against the ActiveFlag FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {ActiveFlag} An instance of ActiveFlag populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new ActiveFlag();
+    if (asExtension) {
+    }
+    if (!asExtension && fhir != null) {
+      inst.value = createInstanceFromFHIR(null, fhir);
+    }
+    return inst;
+  }
+
 }
 export default ActiveFlag;

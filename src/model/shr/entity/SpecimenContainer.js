@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 import Entity from './Entity';
 
@@ -34,6 +34,31 @@ class SpecimenContainer extends Entity {
   }
 
   /**
+   * Get the Type.
+   * @returns {Type} The shr.core.Type
+   */
+  get type() {
+    return this._type;
+  }
+
+  /**
+   * Set the Type.
+   * @param {Type} type - The shr.core.Type
+   */
+  set type(type) {
+    this._type = type;
+  }
+
+  /**
+   * Set the Type and return 'this' for chaining.
+   * @param {Type} type - The shr.core.Type
+   * @returns {SpecimenContainer} this.
+   */
+  withType(type) {
+    this.type = type; return this;
+  }
+
+  /**
    * Get the Identifier.
    * @returns {Identifier} The shr.core.Identifier
    */
@@ -59,28 +84,28 @@ class SpecimenContainer extends Entity {
   }
 
   /**
-   * Get the Details.
-   * @returns {Details} The shr.core.Details
+   * Get the CommentOrDescription.
+   * @returns {CommentOrDescription} The shr.core.CommentOrDescription
    */
-  get details() {
-    return this._details;
+  get commentOrDescription() {
+    return this._commentOrDescription;
   }
 
   /**
-   * Set the Details.
-   * @param {Details} details - The shr.core.Details
+   * Set the CommentOrDescription.
+   * @param {CommentOrDescription} commentOrDescription - The shr.core.CommentOrDescription
    */
-  set details(details) {
-    this._details = details;
+  set commentOrDescription(commentOrDescription) {
+    this._commentOrDescription = commentOrDescription;
   }
 
   /**
-   * Set the Details and return 'this' for chaining.
-   * @param {Details} details - The shr.core.Details
+   * Set the CommentOrDescription and return 'this' for chaining.
+   * @param {CommentOrDescription} commentOrDescription - The shr.core.CommentOrDescription
    * @returns {SpecimenContainer} this.
    */
-  withDetails(details) {
-    this.details = details; return this;
+  withCommentOrDescription(commentOrDescription) {
+    this.commentOrDescription = commentOrDescription; return this;
   }
 
   /**
@@ -194,6 +219,7 @@ class SpecimenContainer extends Entity {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the SpecimenContainer class to a JSON object.
    * The JSON is expected to be valid against the SpecimenContainer JSON schema, but no validation checks are performed.
@@ -202,14 +228,8 @@ class SpecimenContainer extends Entity {
   toJSON() {
     const inst = this._entryInfo.toJSON();
     inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/SpecimenContainer' };
-    if (this.relatedEncounter != null) {
-      inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
-    }
-    if (this.author != null) {
-      inst['Author'] = typeof this.author.toJSON === 'function' ? this.author.toJSON() : this.author;
-    }
-    if (this.informant != null) {
-      inst['Informant'] = typeof this.informant.toJSON === 'function' ? this.informant.toJSON() : this.informant;
+    if (this.partOf != null) {
+      inst['PartOf'] = typeof this.partOf.toJSON === 'function' ? this.partOf.toJSON() : this.partOf;
     }
     if (this.type != null) {
       inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
@@ -217,8 +237,8 @@ class SpecimenContainer extends Entity {
     if (this.identifier != null) {
       inst['Identifier'] = typeof this.identifier.toJSON === 'function' ? this.identifier.toJSON() : this.identifier;
     }
-    if (this.details != null) {
-      inst['Details'] = typeof this.details.toJSON === 'function' ? this.details.toJSON() : this.details;
+    if (this.commentOrDescription != null) {
+      inst['CommentOrDescription'] = typeof this.commentOrDescription.toJSON === 'function' ? this.commentOrDescription.toJSON() : this.commentOrDescription;
     }
     if (this.capacity != null) {
       inst['Capacity'] = typeof this.capacity.toJSON === 'function' ? this.capacity.toJSON() : this.capacity;
@@ -234,56 +254,68 @@ class SpecimenContainer extends Entity {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the SpecimenContainer class to a FHIR object.
    * The FHIR is expected to be valid against the SpecimenContainer FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
     let inst = {};
-    inst['resourceType'] = 'Basic';
-    if (this.relatedEncounter != null) {
+    inst['resourceType'] = 'DomainResource';
+    if (this.partOf != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.relatedEncounter.toFHIR(true));
-    }
-    if (this.author != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.author.toFHIR(true));
-    }
-    if (this.informant != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.informant.toFHIR(true));
+      inst['extension'].push(typeof this.partOf.toFHIR === 'function' ? this.partOf.toFHIR(true) : this.partOf);
     }
     if (this.type != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.type.toFHIR(true));
+      inst['extension'].push(typeof this.type.toFHIR === 'function' ? this.type.toFHIR(true) : this.type);
     }
     if (this.identifier != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.identifier.toFHIR(true));
+      inst['extension'].push(typeof this.identifier.toFHIR === 'function' ? this.identifier.toFHIR(true) : this.identifier);
     }
-    if (this.details != null) {
+    if (this.commentOrDescription != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.details.toFHIR(true));
+      inst['extension'].push(typeof this.commentOrDescription.toFHIR === 'function' ? this.commentOrDescription.toFHIR(true) : this.commentOrDescription);
     }
     if (this.capacity != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.capacity.toFHIR(true));
+      inst['extension'].push(typeof this.capacity.toFHIR === 'function' ? this.capacity.toFHIR(true) : this.capacity);
     }
     if (this.specimenQuantity != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.specimenQuantity.toFHIR(true));
+      inst['extension'].push(typeof this.specimenQuantity.toFHIR === 'function' ? this.specimenQuantity.toFHIR(true) : this.specimenQuantity);
     }
     if (this.additive != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.additive.toFHIR(true));
+      inst['extension'].push(typeof this.additive.toFHIR === 'function' ? this.additive.toFHIR(true) : this.additive);
     }
     if (this.sequenceNumber != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.sequenceNumber.toFHIR(true));
+      inst['extension'].push(typeof this.sequenceNumber.toFHIR === 'function' ? this.sequenceNumber.toFHIR(true) : this.sequenceNumber);
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the SpecimenContainer class.
+   * The FHIR must be valid against the SpecimenContainer FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {SpecimenContainer} An instance of SpecimenContainer populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new SpecimenContainer();
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension');
+      if (match != null) {
+        inst.partOf = createInstanceFromFHIR('shr.entity.PartOf', match, true);
+      }
+    }
+    return inst;
+  }
+
 }
 export default SpecimenContainer;

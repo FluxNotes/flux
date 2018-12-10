@@ -1,9 +1,12 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+
+import Range from './Range';
 
 /**
  * Generated class for shr.core.DurationRange.
+ * @extends Range
  */
-class DurationRange {
+class DurationRange extends Range {
 
   /**
    * Get the LowerBound.
@@ -66,6 +69,7 @@ class DurationRange {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the DurationRange class to a JSON object.
    * The JSON is expected to be valid against the DurationRange JSON schema, but no validation checks are performed.
@@ -81,15 +85,41 @@ class DurationRange {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the DurationRange class to a FHIR object.
    * The FHIR is expected to be valid against the DurationRange FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
     let inst = {};
+    if (this.lowerBound != null) {
+      inst['low'] = typeof this.lowerBound.toFHIR === 'function' ? this.lowerBound.toFHIR() : this.lowerBound;
+    }
+    if (this.upperBound != null) {
+      inst['high'] = typeof this.upperBound.toFHIR === 'function' ? this.upperBound.toFHIR() : this.upperBound;
+    }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the DurationRange class.
+   * The FHIR must be valid against the DurationRange FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {DurationRange} An instance of DurationRange populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new DurationRange();
+    if (fhir['low'] != null) {
+      inst.lowerBound = createInstanceFromFHIR('shr.core.LowerBound', fhir['low']);
+    }
+    if (fhir['high'] != null) {
+      inst.upperBound = createInstanceFromFHIR('shr.core.UpperBound', fhir['high']);
+    }
+    return inst;
+  }
+
 }
 export default DurationRange;

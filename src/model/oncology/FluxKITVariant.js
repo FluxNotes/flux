@@ -1,12 +1,12 @@
-import GeneticVariant from '../shr/oncology/GeneticVariant';
+import Observation from '../shr/base/Observation';
 
 class FluxKITVariant {
     constructor(json) {
-        this._kitVariant = GeneticVariant.fromJSON(json);
+        this._kitVariant = Observation.fromJSON(json);
     }
     
     get abbreviatedName() {
-        return this._kitVariant.focalSubject.value.coding[0].displayText.value || 'KIT';
+        return this._kitVariant.specificFocusOfFinding.value.coding[0].displayText.value || 'KIT';
     }
 
     get value() {

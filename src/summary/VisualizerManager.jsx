@@ -51,7 +51,7 @@ class VisualizerManager {
         }
 
         newsection.name = subsection.name;
-        newsection.name_suffix = typicalRange;
+        newsection.nameSuffix = typicalRange;
         newsection.headings = ["Date", "Value"];
         newsection.data_cache = itemList.map((labResult) => {
             const displayValue = labResult.displayValue ? labResult.displayValue : `${labResult[subsection.name]} ${labResult["unit"]}`
@@ -110,7 +110,7 @@ class VisualizerManager {
                     value: dose,
                 },
                 { 
-                    value: timing || doseInstructionsText + asNeeded,
+                    value: (timing || doseInstructionsText) + asNeeded,
                 },
                 { 
                     value: med.medication.expectedPerformanceTime.timePeriodStart,
@@ -202,6 +202,7 @@ class VisualizerManager {
         // need to eliminate when value is an array as came from value of a name/value pair. In that case the value array
         // contains [0] value, [1] isUnsigned, and [2] source
         newsection.name = subsection.name;
+        newsection.nameSuffix = subsection.nameSuffix;
         newsection.data_cache = list;
         return newsection;
     };

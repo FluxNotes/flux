@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.core.CodeableConcept.
@@ -66,6 +66,7 @@ class CodeableConcept {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the CodeableConcept class to a JSON object.
    * The JSON is expected to be valid against the CodeableConcept JSON schema, but no validation checks are performed.
@@ -81,26 +82,50 @@ class CodeableConcept {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the CodeableConcept class to a FHIR object.
    * The FHIR is expected to be valid against the CodeableConcept FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
     let inst = {};
     if (this.coding != null) {
       inst['coding'] = inst['coding'] || [];
-      inst['coding'].concat(this.coding.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['coding'] = inst['coding'].concat(this.coding.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.displayText != null) {
       inst['text'] = typeof this.displayText.toFHIR === 'function' ? this.displayText.toFHIR() : this.displayText;
     }
     if (asExtension) {
-      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-core-CodeableConcept-extension';
+      inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-core-CodeableConcept-extension';
       inst['valueCodeableConcept'] = this.value;
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the CodeableConcept class.
+   * The FHIR must be valid against the CodeableConcept FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {CodeableConcept} An instance of CodeableConcept populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new CodeableConcept();
+    if (fhir['coding'] != null) {
+      inst.coding = inst.coding || [];
+      inst.coding = inst.coding.concat(fhir['coding'].map(f => createInstanceFromFHIR('shr.core.Coding', f)));
+    }
+    if (fhir['text'] != null) {
+      inst.displayText = createInstanceFromFHIR('shr.core.DisplayText', fhir['text']);
+    }
+    if (asExtension) {
+      inst.value = fhir['valueCodeableConcept'];
+    }
+    return inst;
+  }
+
 }
 export default CodeableConcept;

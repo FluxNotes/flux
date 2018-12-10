@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.core.Timing.
@@ -141,6 +141,7 @@ class Timing {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the Timing class to a JSON object.
    * The JSON is expected to be valid against the Timing JSON schema, but no validation checks are performed.
@@ -165,33 +166,40 @@ class Timing {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the Timing class to a FHIR object.
    * The FHIR is expected to be valid against the Timing FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
     let inst = {};
     if (this.recurrenceRange != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.recurrenceRange.toFHIR(true));
+      inst['extension'].push(typeof this.recurrenceRange.toFHIR === 'function' ? this.recurrenceRange.toFHIR(true) : this.recurrenceRange);
     }
     if (this.occurrenceTime != null) {
       inst['event'] = inst['event'] || [];
-      inst['event'].concat(this.occurrenceTime.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['event'] = inst['event'].concat(this.occurrenceTime.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
-    if (this.eventDuration != null && this.eventDuration.durationRange != null && this.eventDuration.durationRange.lowerBound != null) {
+    if (this.eventDuration != null && this.eventDuration.durationRange != null && this.eventDuration.durationRange.lowerBound != null && this.eventDuration.durationRange.lowerBound.simpleQuantity != null && this.eventDuration.durationRange.lowerBound.simpleQuantity.decimalValue != null) {
       if (inst['repeat'] === undefined) {
         inst['repeat'] = {};
       }
-      inst['repeat']['duration'] = typeof this.eventDuration.durationRange.lowerBound.toFHIR === 'function' ? this.eventDuration.durationRange.lowerBound.toFHIR() : this.eventDuration.durationRange.lowerBound;
+      inst['repeat']['duration'] = typeof this.eventDuration.durationRange.lowerBound.simpleQuantity.decimalValue.toFHIR === 'function' ? this.eventDuration.durationRange.lowerBound.simpleQuantity.decimalValue.toFHIR() : this.eventDuration.durationRange.lowerBound.simpleQuantity.decimalValue;
     }
-    if (this.eventDuration != null && this.eventDuration.durationRange != null && this.eventDuration.durationRange.upperBound != null) {
+    if (this.eventDuration != null && this.eventDuration.durationRange != null && this.eventDuration.durationRange.upperBound != null && this.eventDuration.durationRange.upperBound.simpleQuantity != null && this.eventDuration.durationRange.upperBound.simpleQuantity.decimalValue != null) {
       if (inst['repeat'] === undefined) {
         inst['repeat'] = {};
       }
-      inst['repeat']['durationMax'] = typeof this.eventDuration.durationRange.upperBound.toFHIR === 'function' ? this.eventDuration.durationRange.upperBound.toFHIR() : this.eventDuration.durationRange.upperBound;
+      inst['repeat']['durationMax'] = typeof this.eventDuration.durationRange.upperBound.simpleQuantity.decimalValue.toFHIR === 'function' ? this.eventDuration.durationRange.upperBound.simpleQuantity.decimalValue.toFHIR() : this.eventDuration.durationRange.upperBound.simpleQuantity.decimalValue;
+    }
+    if (this.eventDuration != null && this.eventDuration.durationRange != null && this.eventDuration.durationRange.lowerBound != null && this.eventDuration.durationRange.lowerBound.simpleQuantity != null && this.eventDuration.durationRange.lowerBound.simpleQuantity.units != null && this.eventDuration.durationRange.lowerBound.simpleQuantity.units.coding != null && this.eventDuration.durationRange.lowerBound.simpleQuantity.units.coding.code != null) {
+      if (inst['repeat'] === undefined) {
+        inst['repeat'] = {};
+      }
+      inst['repeat']['durationUnit'] = typeof this.eventDuration.durationRange.lowerBound.simpleQuantity.units.coding.code.toFHIR === 'function' ? this.eventDuration.durationRange.lowerBound.simpleQuantity.units.coding.code.toFHIR() : this.eventDuration.durationRange.lowerBound.simpleQuantity.units.coding.code;
     }
     if (this.recurrencePattern != null && this.recurrencePattern.countPerInterval != null && this.recurrencePattern.countPerInterval.minCount != null) {
       if (inst['repeat'] === undefined) {
@@ -205,11 +213,17 @@ class Timing {
       }
       inst['repeat']['frequencyMax'] = typeof this.recurrencePattern.countPerInterval.maxCount.toFHIR === 'function' ? this.recurrencePattern.countPerInterval.maxCount.toFHIR() : this.recurrencePattern.countPerInterval.maxCount;
     }
-    if (this.recurrencePattern != null && this.recurrencePattern.recurrenceInterval != null && this.recurrencePattern.recurrenceInterval.duration != null) {
+    if (this.recurrencePattern != null && this.recurrencePattern.recurrenceInterval != null && this.recurrencePattern.recurrenceInterval.duration != null && this.recurrencePattern.recurrenceInterval.duration.decimalValue != null) {
       if (inst['repeat'] === undefined) {
         inst['repeat'] = {};
       }
-      inst['repeat']['period'] = typeof this.recurrencePattern.recurrenceInterval.duration.toFHIR === 'function' ? this.recurrencePattern.recurrenceInterval.duration.toFHIR() : this.recurrencePattern.recurrenceInterval.duration;
+      inst['repeat']['period'] = typeof this.recurrencePattern.recurrenceInterval.duration.decimalValue.toFHIR === 'function' ? this.recurrencePattern.recurrenceInterval.duration.decimalValue.toFHIR() : this.recurrencePattern.recurrenceInterval.duration.decimalValue;
+    }
+    if (this.recurrencePattern != null && this.recurrencePattern.recurrenceInterval != null && this.recurrencePattern.recurrenceInterval.duration != null && this.recurrencePattern.recurrenceInterval.duration.units != null && this.recurrencePattern.recurrenceInterval.duration.units.coding != null && this.recurrencePattern.recurrenceInterval.duration.units.coding.code != null) {
+      if (inst['repeat'] === undefined) {
+        inst['repeat'] = {};
+      }
+      inst['repeat']['periodUnit'] = typeof this.recurrencePattern.recurrenceInterval.duration.units.coding.code.toFHIR === 'function' ? this.recurrencePattern.recurrenceInterval.duration.units.coding.code.toFHIR() : this.recurrencePattern.recurrenceInterval.duration.units.coding.code;
     }
     if (this.recurrencePattern != null && this.recurrencePattern.dayOfWeek != null) {
       if (inst['repeat'] === undefined) {
@@ -240,5 +254,157 @@ class Timing {
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the Timing class.
+   * The FHIR must be valid against the Timing FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {Timing} An instance of Timing populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new Timing();
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-core-RecurrenceRange-extension');
+      if (match != null) {
+        inst.recurrenceRange = createInstanceFromFHIR('shr.core.RecurrenceRange', match, true);
+      }
+    }
+    if (fhir['event'] != null) {
+      inst.occurrenceTime = inst.occurrenceTime || [];
+      inst.occurrenceTime = inst.occurrenceTime.concat(fhir['event'].map(f => createInstanceFromFHIR('shr.core.OccurrenceTime', f)));
+    }
+    if (fhir['repeat'] != null && fhir['repeat']['duration'] != null) {
+      if (inst.eventDuration === null) {
+        inst.eventDuration = createInstanceFromFHIR('shr.core.EventDuration', {});
+      }
+      if (inst.eventDuration.value === null) {
+        inst.eventDuration.value = createInstanceFromFHIR('shr.core.DurationRange', {});
+      }
+      if (inst.eventDuration.value.lowerBound === null) {
+        inst.eventDuration.value.lowerBound = createInstanceFromFHIR('shr.core.LowerBound', {});
+      }
+      if (inst.eventDuration.value.lowerBound.value === null) {
+        inst.eventDuration.value.lowerBound.value = createInstanceFromFHIR('shr.core.SimpleQuantity', {});
+      }
+      inst.eventDuration.value.lowerBound.value.decimalValue = createInstanceFromFHIR('shr.core.DecimalValue', fhir['repeat']['duration']);
+    }
+    if (fhir['repeat'] != null && fhir['repeat']['durationMax'] != null) {
+      if (inst.eventDuration === null) {
+        inst.eventDuration = createInstanceFromFHIR('shr.core.EventDuration', {});
+      }
+      if (inst.eventDuration.value === null) {
+        inst.eventDuration.value = createInstanceFromFHIR('shr.core.DurationRange', {});
+      }
+      if (inst.eventDuration.value.upperBound === null) {
+        inst.eventDuration.value.upperBound = createInstanceFromFHIR('shr.core.UpperBound', {});
+      }
+      if (inst.eventDuration.value.upperBound.value === null) {
+        inst.eventDuration.value.upperBound.value = createInstanceFromFHIR('shr.core.SimpleQuantity', {});
+      }
+      inst.eventDuration.value.upperBound.value.decimalValue = createInstanceFromFHIR('shr.core.DecimalValue', fhir['repeat']['durationMax']);
+    }
+    if (fhir['repeat'] != null && fhir['repeat']['durationUnit'] != null) {
+      if (inst.eventDuration === null) {
+        inst.eventDuration = createInstanceFromFHIR('shr.core.EventDuration', {});
+      }
+      if (inst.eventDuration.value === null) {
+        inst.eventDuration.value = createInstanceFromFHIR('shr.core.DurationRange', {});
+      }
+      if (inst.eventDuration.value.lowerBound === null) {
+        inst.eventDuration.value.lowerBound = createInstanceFromFHIR('shr.core.LowerBound', {});
+      }
+      if (inst.eventDuration.value.lowerBound.value === null) {
+        inst.eventDuration.value.lowerBound.value = createInstanceFromFHIR('shr.core.SimpleQuantity', {});
+      }
+      if (inst.eventDuration.value.lowerBound.value.units === null) {
+        inst.eventDuration.value.lowerBound.value.units = createInstanceFromFHIR('shr.core.Units', {});
+      }
+      if (inst.eventDuration.value.lowerBound.value.units.value === null) {
+        inst.eventDuration.value.lowerBound.value.units.value = createInstanceFromFHIR('shr.core.Coding', {});
+      }
+      inst.eventDuration.value.lowerBound.value.units.value.code = createInstanceFromFHIR('shr.core.Code', fhir['repeat']['durationUnit']);
+    }
+    if (fhir['repeat'] != null && fhir['repeat']['frequency'] != null) {
+      if (inst.recurrencePattern === null) {
+        inst.recurrencePattern = createInstanceFromFHIR('shr.core.RecurrencePattern', {});
+      }
+      if (inst.recurrencePattern.countPerInterval === null) {
+        inst.recurrencePattern.countPerInterval = createInstanceFromFHIR('shr.core.CountPerInterval', {});
+      }
+      inst.recurrencePattern.countPerInterval.minCount = createInstanceFromFHIR('shr.core.MinCount', fhir['repeat']['frequency']);
+    }
+    if (fhir['repeat'] != null && fhir['repeat']['frequencyMax'] != null) {
+      if (inst.recurrencePattern === null) {
+        inst.recurrencePattern = createInstanceFromFHIR('shr.core.RecurrencePattern', {});
+      }
+      if (inst.recurrencePattern.countPerInterval === null) {
+        inst.recurrencePattern.countPerInterval = createInstanceFromFHIR('shr.core.CountPerInterval', {});
+      }
+      inst.recurrencePattern.countPerInterval.maxCount = createInstanceFromFHIR('shr.core.MaxCount', fhir['repeat']['frequencyMax']);
+    }
+    if (fhir['repeat'] != null && fhir['repeat']['period'] != null) {
+      if (inst.recurrencePattern === null) {
+        inst.recurrencePattern = createInstanceFromFHIR('shr.core.RecurrencePattern', {});
+      }
+      if (inst.recurrencePattern.recurrenceInterval === null) {
+        inst.recurrencePattern.recurrenceInterval = createInstanceFromFHIR('shr.core.RecurrenceInterval', {});
+      }
+      if (inst.recurrencePattern.recurrenceInterval.value === null) {
+        inst.recurrencePattern.recurrenceInterval.value = createInstanceFromFHIR('shr.core.Duration', {});
+      }
+      inst.recurrencePattern.recurrenceInterval.value.decimalValue = createInstanceFromFHIR('shr.core.DecimalValue', fhir['repeat']['period']);
+    }
+    if (fhir['repeat'] != null && fhir['repeat']['periodUnit'] != null) {
+      if (inst.recurrencePattern === null) {
+        inst.recurrencePattern = createInstanceFromFHIR('shr.core.RecurrencePattern', {});
+      }
+      if (inst.recurrencePattern.recurrenceInterval === null) {
+        inst.recurrencePattern.recurrenceInterval = createInstanceFromFHIR('shr.core.RecurrenceInterval', {});
+      }
+      if (inst.recurrencePattern.recurrenceInterval.value === null) {
+        inst.recurrencePattern.recurrenceInterval.value = createInstanceFromFHIR('shr.core.Duration', {});
+      }
+      if (inst.recurrencePattern.recurrenceInterval.value.units === null) {
+        inst.recurrencePattern.recurrenceInterval.value.units = createInstanceFromFHIR('shr.core.Units', {});
+      }
+      if (inst.recurrencePattern.recurrenceInterval.value.units.value === null) {
+        inst.recurrencePattern.recurrenceInterval.value.units.value = createInstanceFromFHIR('shr.core.Coding', {});
+      }
+      inst.recurrencePattern.recurrenceInterval.value.units.value.code = createInstanceFromFHIR('shr.core.Code', fhir['repeat']['periodUnit']);
+    }
+    if (fhir['repeat'] != null && fhir['repeat']['dayOfWeek'] != null) {
+      if (inst.recurrencePattern === null) {
+        inst.recurrencePattern = createInstanceFromFHIR('shr.core.RecurrencePattern', {});
+      }
+      inst.recurrencePattern.dayOfWeek = inst.recurrencePattern.dayOfWeek || [];
+      inst.recurrencePattern.dayOfWeek = inst.recurrencePattern.dayOfWeek.concat(fhir['repeat']['dayOfWeek'].map(f => createInstanceFromFHIR('shr.core.DayOfWeek', f)));
+    }
+    if (fhir['repeat'] != null && fhir['repeat']['timeOfDay'] != null) {
+      if (inst.recurrencePattern === null) {
+        inst.recurrencePattern = createInstanceFromFHIR('shr.core.RecurrencePattern', {});
+      }
+      inst.recurrencePattern.timeOfDay = inst.recurrencePattern.timeOfDay || [];
+      inst.recurrencePattern.timeOfDay = inst.recurrencePattern.timeOfDay.concat(fhir['repeat']['timeOfDay'].map(f => createInstanceFromFHIR('shr.core.TimeOfDay', f)));
+    }
+    if (fhir['repeat'] != null && fhir['repeat']['when'] != null) {
+      if (inst.recurrencePattern === null) {
+        inst.recurrencePattern = createInstanceFromFHIR('shr.core.RecurrencePattern', {});
+      }
+      inst.recurrencePattern.dailyLifeEvent = inst.recurrencePattern.dailyLifeEvent || [];
+      inst.recurrencePattern.dailyLifeEvent = inst.recurrencePattern.dailyLifeEvent.concat(fhir['repeat']['when'].map(f => createInstanceFromFHIR('shr.core.DailyLifeEvent', f)));
+    }
+    if (fhir['repeat'] != null && fhir['repeat']['offset'] != null) {
+      if (inst.recurrencePattern === null) {
+        inst.recurrencePattern = createInstanceFromFHIR('shr.core.RecurrencePattern', {});
+      }
+      inst.recurrencePattern.lifeEventOffset = createInstanceFromFHIR('shr.core.LifeEventOffset', fhir['repeat']['offset']);
+    }
+    if (fhir['code'] != null) {
+      inst.timingCode = createInstanceFromFHIR('shr.core.TimingCode', fhir['code']);
+    }
+    return inst;
+  }
+
 }
 export default Timing;

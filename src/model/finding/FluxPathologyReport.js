@@ -1,5 +1,4 @@
-import FluxObservation from './FluxObservation';
-
+import FluxObservation from '../base/FluxObservation';
 import Lang from 'lodash';
 
 class FluxPathologyReport extends FluxObservation {
@@ -9,20 +8,20 @@ class FluxPathologyReport extends FluxObservation {
      *  Return array of observations within the pathology report
      */
     get members() {
-        if (Lang.isUndefined(this._observation.members)) return [];
-        return this._observation.members.value;
+        if (Lang.isUndefined(this._observation.panelMembers)) return [];
+        return this._observation.panelMembers.observation;
     } 
 
      /*
      *  Getter for value
-     *  Return value (an attachment or link to pathology report)
+     *  Return value (a media or link to pathology report)
      */
     get value() {
         return this._observation.value;
     }
 
     get author() {
-        return this._observation.author.value;
+        return this._observation.entryInfo.recordedBy.value;
     }
 
     toJSON() {

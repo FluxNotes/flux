@@ -1,4 +1,4 @@
-import Observation from '../shr/finding/Observation';
+import Observation from '../shr/base/Observation';
 
 class FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel {
     constructor(json) {
@@ -9,12 +9,12 @@ class FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel {
         return this._gastrointestinalStromalTumorCancerGeneticAnalysisPanel.entryInfo;
     }
 
-    get clinicallyRelevantTime() {
-        return this._gastrointestinalStromalTumorCancerGeneticAnalysisPanel.clinicallyRelevantTime.value;
+    get relevantTime() {
+        return this._gastrointestinalStromalTumorCancerGeneticAnalysisPanel.relevantTime.value;
     }
     
     get members() {
-        return this._gastrointestinalStromalTumorCancerGeneticAnalysisPanel.members.value;
+        return this._gastrointestinalStromalTumorCancerGeneticAnalysisPanel.panelMembers.observation;
     }
 
     toJSON() {

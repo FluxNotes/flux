@@ -1,9 +1,10 @@
 import Patient from "../shr/entity/Patient";
-import Deceased from "../shr/entity/Deceased";
+import IsDeceased from "../shr/entity/IsDeceased";
 
 class FluxPatient {
-    constructor(json) {
+    constructor(json, type, patientRecord) {
         this._patient = Patient.fromJSON(json);
+        this._patientRecord = patientRecord;
     }
 
     get entryInfo() {
@@ -11,20 +12,15 @@ class FluxPatient {
     }
 
     get gender() {
-        if (this._patient.birthSex) {
-            return this._patient.birthSex.value.coding[0].displayText.value;
-        }
-        return null;
+        return this.person.gender;
     }
 
     get race() {
-        if (this._patient.race) {
-            return this._patient.race.value.coding[0].value;
-        }
+        return this.person.race;
     }
 
     get person() {
-        return this._patient.value;
+        return this._patientRecord.getEntryFromReference(this._patient.person);
     }
 
     get deceased() {
@@ -32,7 +28,7 @@ class FluxPatient {
     }
 
     set deceased(val) {
-        let deceased = new Deceased();
+        let deceased = new IsDeceased();
         deceased.value = val;
         this._patient.deceased = deceased;
     }

@@ -70,6 +70,7 @@ class AdministrativeGender {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the AdministrativeGender class to a JSON object.
    * The JSON is expected to be valid against the AdministrativeGender JSON schema, but no validation checks are performed.
@@ -82,16 +83,17 @@ class AdministrativeGender {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the AdministrativeGender class to a FHIR object.
    * The FHIR is expected to be valid against the AdministrativeGender FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
     let inst = {};
     if (asExtension) {
-      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-entity-AdministrativeGender-extension';
+      inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-entity-AdministrativeGender-extension';
       inst['valueCode'] = this.value;
     }
     if (!asExtension && this.value != null) {
@@ -101,5 +103,24 @@ class AdministrativeGender {
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the AdministrativeGender class.
+   * The FHIR must be valid against the AdministrativeGender FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {AdministrativeGender} An instance of AdministrativeGender populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new AdministrativeGender();
+    if (asExtension) {
+      inst.value = fhir['valueCode'];
+    }
+    if (!asExtension && fhir != null) {
+      inst.value = fhir;
+    }
+    return inst;
+  }
+
 }
 export default AdministrativeGender;

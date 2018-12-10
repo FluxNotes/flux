@@ -66,6 +66,7 @@ class CountPerInterval {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the CountPerInterval class to a JSON object.
    * The JSON is expected to be valid against the CountPerInterval JSON schema, but no validation checks are performed.
@@ -81,15 +82,29 @@ class CountPerInterval {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the CountPerInterval class to a FHIR object.
    * The FHIR is expected to be valid against the CountPerInterval FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
     let inst = {};
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the CountPerInterval class.
+   * The FHIR must be valid against the CountPerInterval FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {CountPerInterval} An instance of CountPerInterval populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new CountPerInterval();
+    return inst;
+  }
+
 }
 export default CountPerInterval;

@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.medication.Dosage.
@@ -15,7 +15,6 @@ class Dosage {
 
   /**
    * Set the DoseAmount.
-   * This field/value is required.
    * @param {DoseAmount} doseAmount - The shr.medication.DoseAmount
    */
   set doseAmount(doseAmount) {
@@ -24,7 +23,6 @@ class Dosage {
 
   /**
    * Set the DoseAmount and return 'this' for chaining.
-   * This field/value is required.
    * @param {DoseAmount} doseAmount - The shr.medication.DoseAmount
    * @returns {Dosage} this.
    */
@@ -42,7 +40,6 @@ class Dosage {
 
   /**
    * Set the TimingOfDoses.
-   * This field/value is required.
    * @param {TimingOfDoses} timingOfDoses - The shr.medication.TimingOfDoses
    */
   set timingOfDoses(timingOfDoses) {
@@ -51,7 +48,6 @@ class Dosage {
 
   /**
    * Set the TimingOfDoses and return 'this' for chaining.
-   * This field/value is required.
    * @param {TimingOfDoses} timingOfDoses - The shr.medication.TimingOfDoses
    * @returns {Dosage} this.
    */
@@ -69,7 +65,6 @@ class Dosage {
 
   /**
    * Set the AsNeededIndicator.
-   * This field/value is required.
    * @param {AsNeededIndicator} asNeededIndicator - The shr.medication.AsNeededIndicator
    */
   set asNeededIndicator(asNeededIndicator) {
@@ -78,7 +73,6 @@ class Dosage {
 
   /**
    * Set the AsNeededIndicator and return 'this' for chaining.
-   * This field/value is required.
    * @param {AsNeededIndicator} asNeededIndicator - The shr.medication.AsNeededIndicator
    * @returns {Dosage} this.
    */
@@ -87,58 +81,58 @@ class Dosage {
   }
 
   /**
-   * Get the DoseInstructionsText.
-   * @returns {DoseInstructionsText} The shr.medication.DoseInstructionsText
+   * Get the DosageInstructionsText.
+   * @returns {DosageInstructionsText} The shr.medication.DosageInstructionsText
    */
-  get doseInstructionsText() {
-    return this._doseInstructionsText;
+  get dosageInstructionsText() {
+    return this._dosageInstructionsText;
   }
 
   /**
-   * Set the DoseInstructionsText.
-   * @param {DoseInstructionsText} doseInstructionsText - The shr.medication.DoseInstructionsText
+   * Set the DosageInstructionsText.
+   * @param {DosageInstructionsText} dosageInstructionsText - The shr.medication.DosageInstructionsText
    */
-  set doseInstructionsText(doseInstructionsText) {
-    this._doseInstructionsText = doseInstructionsText;
+  set dosageInstructionsText(dosageInstructionsText) {
+    this._dosageInstructionsText = dosageInstructionsText;
   }
 
   /**
-   * Set the DoseInstructionsText and return 'this' for chaining.
-   * @param {DoseInstructionsText} doseInstructionsText - The shr.medication.DoseInstructionsText
+   * Set the DosageInstructionsText and return 'this' for chaining.
+   * @param {DosageInstructionsText} dosageInstructionsText - The shr.medication.DosageInstructionsText
    * @returns {Dosage} this.
    */
-  withDoseInstructionsText(doseInstructionsText) {
-    this.doseInstructionsText = doseInstructionsText; return this;
+  withDosageInstructionsText(dosageInstructionsText) {
+    this.dosageInstructionsText = dosageInstructionsText; return this;
   }
 
   /**
-   * Get the AdditionalDoseInstruction array.
-   * @returns {Array<AdditionalDoseInstruction>} The shr.medication.AdditionalDoseInstruction array
+   * Get the AdditionalDosageInstruction array.
+   * @returns {Array<AdditionalDosageInstruction>} The shr.medication.AdditionalDosageInstruction array
    */
-  get additionalDoseInstruction() {
-    return this._additionalDoseInstruction;
+  get additionalDosageInstruction() {
+    return this._additionalDosageInstruction;
   }
 
   /**
-   * Set the AdditionalDoseInstruction array.
-   * @param {Array<AdditionalDoseInstruction>} additionalDoseInstruction - The shr.medication.AdditionalDoseInstruction array
+   * Set the AdditionalDosageInstruction array.
+   * @param {Array<AdditionalDosageInstruction>} additionalDosageInstruction - The shr.medication.AdditionalDosageInstruction array
    */
-  set additionalDoseInstruction(additionalDoseInstruction) {
-    this._additionalDoseInstruction = additionalDoseInstruction;
+  set additionalDosageInstruction(additionalDosageInstruction) {
+    this._additionalDosageInstruction = additionalDosageInstruction;
   }
 
   /**
-   * Set the AdditionalDoseInstruction array and return 'this' for chaining.
-   * @param {Array<AdditionalDoseInstruction>} additionalDoseInstruction - The shr.medication.AdditionalDoseInstruction array
+   * Set the AdditionalDosageInstruction array and return 'this' for chaining.
+   * @param {Array<AdditionalDosageInstruction>} additionalDosageInstruction - The shr.medication.AdditionalDosageInstruction array
    * @returns {Dosage} this.
    */
-  withAdditionalDoseInstruction(additionalDoseInstruction) {
-    this.additionalDoseInstruction = additionalDoseInstruction; return this;
+  withAdditionalDosageInstruction(additionalDosageInstruction) {
+    this.additionalDosageInstruction = additionalDosageInstruction; return this;
   }
 
   /**
    * Get the RouteIntoBody.
-   * @returns {RouteIntoBody} The shr.medication.RouteIntoBody
+   * @returns {RouteIntoBody} The shr.core.RouteIntoBody
    */
   get routeIntoBody() {
     return this._routeIntoBody;
@@ -146,7 +140,7 @@ class Dosage {
 
   /**
    * Set the RouteIntoBody.
-   * @param {RouteIntoBody} routeIntoBody - The shr.medication.RouteIntoBody
+   * @param {RouteIntoBody} routeIntoBody - The shr.core.RouteIntoBody
    */
   set routeIntoBody(routeIntoBody) {
     this._routeIntoBody = routeIntoBody;
@@ -154,7 +148,7 @@ class Dosage {
 
   /**
    * Set the RouteIntoBody and return 'this' for chaining.
-   * @param {RouteIntoBody} routeIntoBody - The shr.medication.RouteIntoBody
+   * @param {RouteIntoBody} routeIntoBody - The shr.core.RouteIntoBody
    * @returns {Dosage} this.
    */
   withRouteIntoBody(routeIntoBody) {
@@ -162,53 +156,53 @@ class Dosage {
   }
 
   /**
-   * Get the AdministrationMethod.
-   * @returns {AdministrationMethod} The shr.medication.AdministrationMethod
+   * Get the DosageMethod.
+   * @returns {DosageMethod} The shr.medication.DosageMethod
    */
-  get administrationMethod() {
-    return this._administrationMethod;
+  get dosageMethod() {
+    return this._dosageMethod;
   }
 
   /**
-   * Set the AdministrationMethod.
-   * @param {AdministrationMethod} administrationMethod - The shr.medication.AdministrationMethod
+   * Set the DosageMethod.
+   * @param {DosageMethod} dosageMethod - The shr.medication.DosageMethod
    */
-  set administrationMethod(administrationMethod) {
-    this._administrationMethod = administrationMethod;
+  set dosageMethod(dosageMethod) {
+    this._dosageMethod = dosageMethod;
   }
 
   /**
-   * Set the AdministrationMethod and return 'this' for chaining.
-   * @param {AdministrationMethod} administrationMethod - The shr.medication.AdministrationMethod
+   * Set the DosageMethod and return 'this' for chaining.
+   * @param {DosageMethod} dosageMethod - The shr.medication.DosageMethod
    * @returns {Dosage} this.
    */
-  withAdministrationMethod(administrationMethod) {
-    this.administrationMethod = administrationMethod; return this;
+  withDosageMethod(dosageMethod) {
+    this.dosageMethod = dosageMethod; return this;
   }
 
   /**
-   * Get the AdministrationBodySite.
-   * @returns {AdministrationBodySite} The shr.medication.AdministrationBodySite
+   * Get the DosageBodySite.
+   * @returns {DosageBodySite} The shr.medication.DosageBodySite
    */
-  get administrationBodySite() {
-    return this._administrationBodySite;
+  get dosageBodySite() {
+    return this._dosageBodySite;
   }
 
   /**
-   * Set the AdministrationBodySite.
-   * @param {AdministrationBodySite} administrationBodySite - The shr.medication.AdministrationBodySite
+   * Set the DosageBodySite.
+   * @param {DosageBodySite} dosageBodySite - The shr.medication.DosageBodySite
    */
-  set administrationBodySite(administrationBodySite) {
-    this._administrationBodySite = administrationBodySite;
+  set dosageBodySite(dosageBodySite) {
+    this._dosageBodySite = dosageBodySite;
   }
 
   /**
-   * Set the AdministrationBodySite and return 'this' for chaining.
-   * @param {AdministrationBodySite} administrationBodySite - The shr.medication.AdministrationBodySite
+   * Set the DosageBodySite and return 'this' for chaining.
+   * @param {DosageBodySite} dosageBodySite - The shr.medication.DosageBodySite
    * @returns {Dosage} this.
    */
-  withAdministrationBodySite(administrationBodySite) {
-    this.administrationBodySite = administrationBodySite; return this;
+  withDosageBodySite(dosageBodySite) {
+    this.dosageBodySite = dosageBodySite; return this;
   }
 
   /**
@@ -247,6 +241,7 @@ class Dosage {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the Dosage class to a JSON object.
    * The JSON is expected to be valid against the Dosage JSON schema, but no validation checks are performed.
@@ -263,40 +258,41 @@ class Dosage {
     if (this.asNeededIndicator != null) {
       inst['AsNeededIndicator'] = typeof this.asNeededIndicator.toJSON === 'function' ? this.asNeededIndicator.toJSON() : this.asNeededIndicator;
     }
-    if (this.doseInstructionsText != null) {
-      inst['DoseInstructionsText'] = typeof this.doseInstructionsText.toJSON === 'function' ? this.doseInstructionsText.toJSON() : this.doseInstructionsText;
+    if (this.dosageInstructionsText != null) {
+      inst['DosageInstructionsText'] = typeof this.dosageInstructionsText.toJSON === 'function' ? this.dosageInstructionsText.toJSON() : this.dosageInstructionsText;
     }
-    if (this.additionalDoseInstruction != null) {
-      inst['AdditionalDoseInstruction'] = this.additionalDoseInstruction.map(f => f.toJSON());
+    if (this.additionalDosageInstruction != null) {
+      inst['AdditionalDosageInstruction'] = this.additionalDosageInstruction.map(f => f.toJSON());
     }
     if (this.routeIntoBody != null) {
       inst['RouteIntoBody'] = typeof this.routeIntoBody.toJSON === 'function' ? this.routeIntoBody.toJSON() : this.routeIntoBody;
     }
-    if (this.administrationMethod != null) {
-      inst['AdministrationMethod'] = typeof this.administrationMethod.toJSON === 'function' ? this.administrationMethod.toJSON() : this.administrationMethod;
+    if (this.dosageMethod != null) {
+      inst['DosageMethod'] = typeof this.dosageMethod.toJSON === 'function' ? this.dosageMethod.toJSON() : this.dosageMethod;
     }
-    if (this.administrationBodySite != null) {
-      inst['AdministrationBodySite'] = typeof this.administrationBodySite.toJSON === 'function' ? this.administrationBodySite.toJSON() : this.administrationBodySite;
+    if (this.dosageBodySite != null) {
+      inst['DosageBodySite'] = typeof this.dosageBodySite.toJSON === 'function' ? this.dosageBodySite.toJSON() : this.dosageBodySite;
     }
     if (this.maximumDosePerTimePeriod != null) {
       inst['MaximumDosePerTimePeriod'] = typeof this.maximumDosePerTimePeriod.toJSON === 'function' ? this.maximumDosePerTimePeriod.toJSON() : this.maximumDosePerTimePeriod;
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the Dosage class to a FHIR object.
    * The FHIR is expected to be valid against the Dosage FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
     let inst = {};
-    if (this.doseInstructionsText != null) {
-      inst['text'] = typeof this.doseInstructionsText.toFHIR === 'function' ? this.doseInstructionsText.toFHIR() : this.doseInstructionsText;
+    if (this.dosageInstructionsText != null) {
+      inst['text'] = typeof this.dosageInstructionsText.toFHIR === 'function' ? this.dosageInstructionsText.toFHIR() : this.dosageInstructionsText;
     }
-    if (this.additionalDoseInstruction != null) {
+    if (this.additionalDosageInstruction != null) {
       inst['additionalInstruction'] = inst['additionalInstruction'] || [];
-      inst['additionalInstruction'].concat(this.additionalDoseInstruction.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['additionalInstruction'] = inst['additionalInstruction'].concat(this.additionalDosageInstruction.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.timingOfDoses != null) {
       inst['timing'] = typeof this.timingOfDoses.toFHIR === 'function' ? this.timingOfDoses.toFHIR() : this.timingOfDoses;
@@ -304,14 +300,14 @@ class Dosage {
     if (this.asNeededIndicator != null) {
       inst['asNeeded[x]'] = typeof this.asNeededIndicator.toFHIR === 'function' ? this.asNeededIndicator.toFHIR() : this.asNeededIndicator;
     }
-    if (this.administrationBodySite != null) {
-      inst['site'] = typeof this.administrationBodySite.toFHIR === 'function' ? this.administrationBodySite.toFHIR() : this.administrationBodySite;
+    if (this.dosageBodySite != null && this.dosageBodySite.anatomicalLocation != null && this.dosageBodySite.anatomicalLocation.anatomicalLocationOrLandmarkCode != null) {
+      inst['site'] = typeof this.dosageBodySite.anatomicalLocation.anatomicalLocationOrLandmarkCode.toFHIR === 'function' ? this.dosageBodySite.anatomicalLocation.anatomicalLocationOrLandmarkCode.toFHIR() : this.dosageBodySite.anatomicalLocation.anatomicalLocationOrLandmarkCode;
     }
     if (this.routeIntoBody != null) {
       inst['route'] = typeof this.routeIntoBody.toFHIR === 'function' ? this.routeIntoBody.toFHIR() : this.routeIntoBody;
     }
-    if (this.administrationMethod != null) {
-      inst['method'] = typeof this.administrationMethod.toFHIR === 'function' ? this.administrationMethod.toFHIR() : this.administrationMethod;
+    if (this.dosageMethod != null) {
+      inst['method'] = typeof this.dosageMethod.toFHIR === 'function' ? this.dosageMethod.toFHIR() : this.dosageMethod;
     }
     if (this.doseAmount != null) {
       inst['dose[x]'] = typeof this.doseAmount.toFHIR === 'function' ? this.doseAmount.toFHIR() : this.doseAmount;
@@ -319,11 +315,60 @@ class Dosage {
     if (this.maximumDosePerTimePeriod != null) {
       inst['maxDosePerPeriod'] = typeof this.maximumDosePerTimePeriod.toFHIR === 'function' ? this.maximumDosePerTimePeriod.toFHIR() : this.maximumDosePerTimePeriod;
     }
-    if (asExtension) {
-      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-medication-Dosage-extension';
-      inst['valueReference'] = this.value;
+    return inst;
+  }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the Dosage class.
+   * The FHIR must be valid against the Dosage FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {Dosage} An instance of Dosage populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new Dosage();
+    if (fhir['text'] != null) {
+      inst.dosageInstructionsText = createInstanceFromFHIR('shr.medication.DosageInstructionsText', fhir['text']);
+    }
+    if (fhir['additionalInstruction'] != null) {
+      inst.additionalDosageInstruction = inst.additionalDosageInstruction || [];
+      inst.additionalDosageInstruction = inst.additionalDosageInstruction.concat(fhir['additionalInstruction'].map(f => createInstanceFromFHIR('shr.medication.AdditionalDosageInstruction', f)));
+    }
+    if (fhir['timing'] != null) {
+      inst.timingOfDoses = createInstanceFromFHIR('shr.medication.TimingOfDoses', fhir['timing']);
+    }
+    if (fhir['asNeededBoolean'] != null) {
+      inst.asNeededIndicator = createInstanceFromFHIR('shr.medication.AsNeededIndicator', fhir['asNeededBoolean']);
+    }
+    if (fhir['asNeededCodeableConcept'] != null) {
+      inst.asNeededIndicator = createInstanceFromFHIR('shr.medication.AsNeededIndicator', fhir['asNeededCodeableConcept']);
+    }
+    if (fhir['site'] != null) {
+      if (inst.dosageBodySite === null) {
+        inst.dosageBodySite = createInstanceFromFHIR('shr.medication.DosageBodySite', {});
+      }
+      if (inst.dosageBodySite.value === null) {
+        inst.dosageBodySite.value = createInstanceFromFHIR('shr.core.AnatomicalLocation', {});
+      }
+      inst.dosageBodySite.value.anatomicalLocationOrLandmarkCode = createInstanceFromFHIR('shr.core.AnatomicalLocationOrLandmarkCode', fhir['site']);
+    }
+    if (fhir['route'] != null) {
+      inst.routeIntoBody = createInstanceFromFHIR('shr.core.RouteIntoBody', fhir['route']);
+    }
+    if (fhir['method'] != null) {
+      inst.dosageMethod = createInstanceFromFHIR('shr.medication.DosageMethod', fhir['method']);
+    }
+    if (fhir['doseQuantity'] != null) {
+      inst.doseAmount = createInstanceFromFHIR('shr.medication.DoseAmount', fhir['doseQuantity']);
+    }
+    if (fhir['doseRange'] != null) {
+      inst.doseAmount = createInstanceFromFHIR('shr.medication.DoseAmount', fhir['doseRange']);
+    }
+    if (fhir['maxDosePerPeriod'] != null) {
+      inst.maximumDosePerTimePeriod = createInstanceFromFHIR('shr.medication.MaximumDosePerTimePeriod', fhir['maxDosePerPeriod']);
     }
     return inst;
   }
+
 }
 export default Dosage;

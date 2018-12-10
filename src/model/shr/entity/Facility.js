@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 import Entity from './Entity';
 
@@ -34,33 +34,6 @@ class Facility extends Entity {
   }
 
   /**
-   * Get the Type.
-   * @returns {Type} The shr.entity.Type
-   */
-  get type() {
-    return this._type;
-  }
-
-  /**
-   * Set the Type.
-   * This field/value is required.
-   * @param {Type} type - The shr.entity.Type
-   */
-  set type(type) {
-    this._type = type;
-  }
-
-  /**
-   * Set the Type and return 'this' for chaining.
-   * This field/value is required.
-   * @param {Type} type - The shr.entity.Type
-   * @returns {Facility} this.
-   */
-  withType(type) {
-    this.type = type; return this;
-  }
-
-  /**
    * Get the FacilityName.
    * @returns {FacilityName} The shr.entity.FacilityName
    */
@@ -88,8 +61,35 @@ class Facility extends Entity {
   }
 
   /**
+   * Get the Type.
+   * @returns {Type} The shr.core.Type
+   */
+  get type() {
+    return this._type;
+  }
+
+  /**
+   * Set the Type.
+   * This field/value is required.
+   * @param {Type} type - The shr.core.Type
+   */
+  set type(type) {
+    this._type = type;
+  }
+
+  /**
+   * Set the Type and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Type} type - The shr.core.Type
+   * @returns {Facility} this.
+   */
+  withType(type) {
+    this.type = type; return this;
+  }
+
+  /**
    * Get the Location.
-   * @returns {Location} The shr.core.Location
+   * @returns {Location} The shr.entity.Location
    */
   get location() {
     return this._location;
@@ -98,7 +98,7 @@ class Facility extends Entity {
   /**
    * Set the Location.
    * This field/value is required.
-   * @param {Location} location - The shr.core.Location
+   * @param {Location} location - The shr.entity.Location
    */
   set location(location) {
     this._location = location;
@@ -107,7 +107,7 @@ class Facility extends Entity {
   /**
    * Set the Location and return 'this' for chaining.
    * This field/value is required.
-   * @param {Location} location - The shr.core.Location
+   * @param {Location} location - The shr.entity.Location
    * @returns {Facility} this.
    */
   withLocation(location) {
@@ -202,6 +202,7 @@ class Facility extends Entity {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the Facility class to a JSON object.
    * The JSON is expected to be valid against the Facility JSON schema, but no validation checks are performed.
@@ -210,20 +211,14 @@ class Facility extends Entity {
   toJSON() {
     const inst = this._entryInfo.toJSON();
     inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/Facility' };
-    if (this.relatedEncounter != null) {
-      inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
-    }
-    if (this.author != null) {
-      inst['Author'] = typeof this.author.toJSON === 'function' ? this.author.toJSON() : this.author;
-    }
-    if (this.informant != null) {
-      inst['Informant'] = typeof this.informant.toJSON === 'function' ? this.informant.toJSON() : this.informant;
-    }
-    if (this.type != null) {
-      inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
+    if (this.partOf != null) {
+      inst['PartOf'] = typeof this.partOf.toJSON === 'function' ? this.partOf.toJSON() : this.partOf;
     }
     if (this.facilityName != null) {
       inst['FacilityName'] = typeof this.facilityName.toJSON === 'function' ? this.facilityName.toJSON() : this.facilityName;
+    }
+    if (this.type != null) {
+      inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
     }
     if (this.location != null) {
       inst['Location'] = typeof this.location.toJSON === 'function' ? this.location.toJSON() : this.location;
@@ -239,30 +234,23 @@ class Facility extends Entity {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the Facility class to a FHIR object.
    * The FHIR is expected to be valid against the Facility FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
     let inst = {};
     inst['resourceType'] = 'Location';
-    if (this.relatedEncounter != null) {
+    if (this.partOf != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.relatedEncounter.toFHIR(true));
-    }
-    if (this.author != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.author.toFHIR(true));
-    }
-    if (this.informant != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.informant.toFHIR(true));
+      inst['extension'].push(typeof this.partOf.toFHIR === 'function' ? this.partOf.toFHIR(true) : this.partOf);
     }
     if (this.mobileFacility != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.mobileFacility.toFHIR(true));
+      inst['extension'].push(typeof this.mobileFacility.toFHIR === 'function' ? this.mobileFacility.toFHIR(true) : this.mobileFacility);
     }
     if (this.facilityName != null) {
       inst['name'] = typeof this.facilityName.toFHIR === 'function' ? this.facilityName.toFHIR() : this.facilityName;
@@ -299,10 +287,77 @@ class Facility extends Entity {
       inst['managingOrganization'] = typeof this.managingOrganization.toFHIR === 'function' ? this.managingOrganization.toFHIR() : this.managingOrganization;
     }
     if (asExtension) {
-      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-entity-Facility-extension';
+      inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-entity-Facility-extension';
       inst['valueReference'] = this.value;
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the Facility class.
+   * The FHIR must be valid against the Facility FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {Facility} An instance of Facility populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new Facility();
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension');
+      if (match != null) {
+        inst.partOf = createInstanceFromFHIR('shr.entity.PartOf', match, true);
+      }
+    }
+    if (fhir['name'] != null) {
+      inst.facilityName = createInstanceFromFHIR('shr.entity.FacilityName', fhir['name']);
+    }
+    if (fhir['type'] != null) {
+      inst.type = createInstanceFromFHIR('shr.core.Type', fhir['type']);
+    }
+    if (fhir['telecom'] != null) {
+      inst.contactPoint = createInstanceFromFHIR('shr.core.ContactPoint', fhir['telecom'][0]);
+    }
+    if (fhir['address'] != null) {
+      if (inst.location === null) {
+        inst.location = createInstanceFromFHIR('shr.entity.Location', {});
+      }
+      inst.location.value = createInstanceFromFHIR('shr.core.Address', fhir['address']);
+    }
+    if (fhir['position'] != null && fhir['position']['longitude'] != null) {
+      if (inst.location === null) {
+        inst.location = createInstanceFromFHIR('shr.entity.Location', {});
+      }
+      if (inst.location.value === null) {
+        inst.location.value = createInstanceFromFHIR('shr.core.Geoposition', {});
+      }
+      inst.location.value.longitude = createInstanceFromFHIR('shr.core.Longitude', fhir['position']['longitude']);
+    }
+    if (fhir['position'] != null && fhir['position']['latitude'] != null) {
+      if (inst.location === null) {
+        inst.location = createInstanceFromFHIR('shr.entity.Location', {});
+      }
+      if (inst.location.value === null) {
+        inst.location.value = createInstanceFromFHIR('shr.core.Geoposition', {});
+      }
+      inst.location.value.latitude = createInstanceFromFHIR('shr.core.Latitude', fhir['position']['latitude']);
+    }
+    if (fhir['position'] != null && fhir['position']['altitude'] != null) {
+      if (inst.location === null) {
+        inst.location = createInstanceFromFHIR('shr.entity.Location', {});
+      }
+      if (inst.location.value === null) {
+        inst.location.value = createInstanceFromFHIR('shr.core.Geoposition', {});
+      }
+      inst.location.value.altitude = createInstanceFromFHIR('shr.core.Altitude', fhir['position']['altitude']);
+    }
+    if (fhir['managingOrganization'] != null) {
+      inst.managingOrganization = createInstanceFromFHIR('shr.entity.ManagingOrganization', fhir['managingOrganization']);
+    }
+    if (asExtension) {
+      inst.value = fhir['valueReference'];
+    }
+    return inst;
+  }
+
 }
 export default Facility;

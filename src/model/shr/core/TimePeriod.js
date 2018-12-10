@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.core.TimePeriod.
@@ -66,6 +66,7 @@ class TimePeriod {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the TimePeriod class to a JSON object.
    * The JSON is expected to be valid against the TimePeriod JSON schema, but no validation checks are performed.
@@ -81,10 +82,11 @@ class TimePeriod {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the TimePeriod class to a FHIR object.
    * The FHIR is expected to be valid against the TimePeriod FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
@@ -96,10 +98,32 @@ class TimePeriod {
       inst['end'] = typeof this.timePeriodEnd.toFHIR === 'function' ? this.timePeriodEnd.toFHIR() : this.timePeriodEnd;
     }
     if (asExtension) {
-      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-core-TimePeriod-extension';
+      inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-core-TimePeriod-extension';
       inst['valuePeriod'] = this.value;
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the TimePeriod class.
+   * The FHIR must be valid against the TimePeriod FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {TimePeriod} An instance of TimePeriod populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new TimePeriod();
+    if (fhir['start'] != null) {
+      inst.timePeriodStart = createInstanceFromFHIR('shr.core.TimePeriodStart', fhir['start']);
+    }
+    if (fhir['end'] != null) {
+      inst.timePeriodEnd = createInstanceFromFHIR('shr.core.TimePeriodEnd', fhir['end']);
+    }
+    if (asExtension) {
+      inst.value = fhir['valuePeriod'];
+    }
+    return inst;
+  }
+
 }
 export default TimePeriod;

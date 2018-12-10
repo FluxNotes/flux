@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.core.Version.
@@ -6,57 +6,30 @@ import { setPropertiesFromJSON } from '../../json-helper';
 class Version {
 
   /**
-   * Get the value (aliases id).
-   * @returns {id} The id
+   * Get the choice value; one of: string, id.
+   * @returns {(string|id)} The choice value; one of: string, id
    */
   get value() {
-    return this._id;
+    return this._value;
   }
 
   /**
-   * Set the value (aliases id).
+   * Set the choice value; one of: string, id.
    * This field/value is required.
-   * @param {id} value - The id
+   * @param {(string|id)} value - The choice value; one of: string, id
    */
   set value(value) {
-    this._id = value;
+    this._value = value;
   }
 
   /**
-   * Set the value (aliases id) and return 'this' for chaining.
+   * Set the choice value; one of: string, id and return 'this' for chaining.
    * This field/value is required.
-   * @param {id} value - The id
+   * @param {(string|id)} value - The choice value; one of: string, id
    * @returns {Version} this.
    */
   withValue(value) {
     this.value = value; return this;
-  }
-
-  /**
-   * Get the id.
-   * @returns {id} The id
-   */
-  get id() {
-    return this._id;
-  }
-
-  /**
-   * Set the id.
-   * This field/value is required.
-   * @param {id} id - The id
-   */
-  set id(id) {
-    this._id = id;
-  }
-
-  /**
-   * Set the id and return 'this' for chaining.
-   * This field/value is required.
-   * @param {id} id - The id
-   * @returns {Version} this.
-   */
-  withId(id) {
-    this.id = id; return this;
   }
 
   /**
@@ -70,6 +43,7 @@ class Version {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the Version class to a JSON object.
    * The JSON is expected to be valid against the Version JSON schema, but no validation checks are performed.
@@ -78,14 +52,15 @@ class Version {
   toJSON() {
     const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/Version' } };
     if (this.value != null) {
-      inst['Value'] = this.value;
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the Version class to a FHIR object.
    * The FHIR is expected to be valid against the Version FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
@@ -97,5 +72,21 @@ class Version {
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the Version class.
+   * The FHIR must be valid against the Version FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {Version} An instance of Version populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new Version();
+    if (!asExtension && fhir != null) {
+      inst.value = createInstanceFromFHIR(null, fhir);
+    }
+    return inst;
+  }
+
 }
 export default Version;

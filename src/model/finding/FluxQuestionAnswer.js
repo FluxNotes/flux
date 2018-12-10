@@ -11,19 +11,19 @@ class FluxQuestionAnswer {
     }
 
     /*
-     *  Getter for ObservationCode coding
-     *  ObservationCode is a CodeableConcept and this function will return the coding value
+     *  Getter for FindingTopicCode coding
+     *  FindingTopicCode is a CodeableConcept and this function will return the coding value
      */
     get observationCodeCoding() {
-        return this._questionAnswer.observationCode.coding[0].value;
+        return this._questionAnswer.findingTopicCode.value.coding[0].code;
     }
 
     /*
-     *  Getter for ObservationCode DisplayText
-     *  ObservationCode is a CodeableConcept and this function will return the displayText value
+     *  Getter for FindingTopicCode DisplayText
+     *  FindingTopicCode is a CodeableConcept and this function will return the displayText value
      */
     get observationCodeDisplayText() {
-        return this._questionAnswer.observationCode.coding[0].displayText.value;
+        return this._questionAnswer.findingTopicCode.value.coding[0].displayText.value;
     }
 
     /*
@@ -31,8 +31,8 @@ class FluxQuestionAnswer {
      *  Return array of references
      */
     get members() {
-        if (Lang.isUndefined(this._questionAnswer.members)) return [];
-        return this._questionAnswer.members.value;
+        if (Lang.isUndefined(this._questionAnswer.panelMembers)) return [];
+        return this._questionAnswer.panelMembers.observation;
     }
 
     /*
@@ -48,15 +48,15 @@ class FluxQuestionAnswer {
      *  Return author
      */
     get author() {
-        if(this._questionAnswer.author) {
-            return this._questionAnswer.author.value;
+        if (this._questionAnswer.entryInfo.recordedBy) {
+            return this._questionAnswer.entryInfo.recordedBy.value;
         } 
         return null;       
     }
 
-    get clinicallyRelevantTime() {
-        if(this._questionAnswer.clinicallyRelevantTime) {
-            return this._questionAnswer.clinicallyRelevantTime.value;
+    get relevantTime() {
+        if (this._questionAnswer.relevantTime) {
+            return this._questionAnswer.relevantTime.value;
         } 
         return null;      
     }

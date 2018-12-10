@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.core.Address.
@@ -7,7 +7,7 @@ class Address {
 
   /**
    * Get the Purpose.
-   * @returns {Purpose} The shr.entity.Purpose
+   * @returns {Purpose} The shr.core.Purpose
    */
   get purpose() {
     return this._purpose;
@@ -15,7 +15,7 @@ class Address {
 
   /**
    * Set the Purpose.
-   * @param {Purpose} purpose - The shr.entity.Purpose
+   * @param {Purpose} purpose - The shr.core.Purpose
    */
   set purpose(purpose) {
     this._purpose = purpose;
@@ -23,7 +23,7 @@ class Address {
 
   /**
    * Set the Purpose and return 'this' for chaining.
-   * @param {Purpose} purpose - The shr.entity.Purpose
+   * @param {Purpose} purpose - The shr.core.Purpose
    * @returns {Address} this.
    */
   withPurpose(purpose) {
@@ -32,7 +32,7 @@ class Address {
 
   /**
    * Get the Type.
-   * @returns {Type} The shr.entity.Type
+   * @returns {Type} The shr.core.Type
    */
   get type() {
     return this._type;
@@ -40,7 +40,7 @@ class Address {
 
   /**
    * Set the Type.
-   * @param {Type} type - The shr.entity.Type
+   * @param {Type} type - The shr.core.Type
    */
   set type(type) {
     this._type = type;
@@ -48,7 +48,7 @@ class Address {
 
   /**
    * Set the Type and return 'this' for chaining.
-   * @param {Type} type - The shr.entity.Type
+   * @param {Type} type - The shr.core.Type
    * @returns {Address} this.
    */
   withType(type) {
@@ -215,7 +215,6 @@ class Address {
 
   /**
    * Set the Country.
-   * This field/value is required.
    * @param {Country} country - The shr.core.Country
    */
   set country(country) {
@@ -224,7 +223,6 @@ class Address {
 
   /**
    * Set the Country and return 'this' for chaining.
-   * This field/value is required.
    * @param {Country} country - The shr.core.Country
    * @returns {Address} this.
    */
@@ -268,6 +266,7 @@ class Address {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the Address class to a JSON object.
    * The JSON is expected to be valid against the Address JSON schema, but no validation checks are performed.
@@ -307,16 +306,17 @@ class Address {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the Address class to a FHIR object.
    * The FHIR is expected to be valid against the Address FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
     let inst = {};
-    if (this.purpose != null) {
-      inst['use'] = typeof this.purpose.toFHIR === 'function' ? this.purpose.toFHIR() : this.purpose;
+    if (this.purpose != null && this.purpose.coding != null && this.purpose.coding.code != null) {
+      inst['use'] = typeof this.purpose.coding.code.toFHIR === 'function' ? this.purpose.coding.code.toFHIR() : this.purpose.coding.code;
     }
     if (this.type != null) {
       inst['type'] = typeof this.type.toFHIR === 'function' ? this.type.toFHIR() : this.type;
@@ -326,7 +326,7 @@ class Address {
     }
     if (this.addressLine != null) {
       inst['line'] = inst['line'] || [];
-      inst['line'].concat(this.addressLine.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
+      inst['line'] = inst['line'].concat(this.addressLine.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
     if (this.city != null) {
       inst['city'] = typeof this.city.toFHIR === 'function' ? this.city.toFHIR() : this.city;
@@ -347,10 +347,63 @@ class Address {
       inst['period'] = typeof this.effectiveTimePeriod.toFHIR === 'function' ? this.effectiveTimePeriod.toFHIR() : this.effectiveTimePeriod;
     }
     if (asExtension) {
-      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-core-Address-extension';
+      inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-core-Address-extension';
       inst['valueAddress'] = this.value;
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the Address class.
+   * The FHIR must be valid against the Address FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {Address} An instance of Address populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new Address();
+    if (fhir['use'] != null) {
+      if (inst.purpose === null) {
+        inst.purpose = createInstanceFromFHIR('shr.core.Purpose', {});
+      }
+      if (inst.purpose.value === null) {
+        inst.purpose.value = createInstanceFromFHIR('shr.core.Coding', {});
+      }
+      inst.purpose.value.code = createInstanceFromFHIR('shr.core.Code', fhir['use']);
+    }
+    if (fhir['type'] != null) {
+      inst.type = createInstanceFromFHIR('shr.core.Type', fhir['type']);
+    }
+    if (fhir['text'] != null) {
+      inst.displayText = createInstanceFromFHIR('shr.core.DisplayText', fhir['text']);
+    }
+    if (fhir['line'] != null) {
+      inst.addressLine = inst.addressLine || [];
+      inst.addressLine = inst.addressLine.concat(fhir['line'].map(f => createInstanceFromFHIR('shr.core.AddressLine', f)));
+    }
+    if (fhir['city'] != null) {
+      inst.city = createInstanceFromFHIR('shr.core.City', fhir['city']);
+    }
+    if (fhir['district'] != null) {
+      inst.district = createInstanceFromFHIR('shr.core.District', fhir['district']);
+    }
+    if (fhir['state'] != null) {
+      inst.state = createInstanceFromFHIR('shr.core.State', fhir['state']);
+    }
+    if (fhir['postalCode'] != null) {
+      inst.postalCode = createInstanceFromFHIR('shr.core.PostalCode', fhir['postalCode']);
+    }
+    if (fhir['country'] != null) {
+      inst.country = createInstanceFromFHIR('shr.core.Country', fhir['country']);
+    }
+    if (fhir['period'] != null) {
+      inst.effectiveTimePeriod = createInstanceFromFHIR('shr.core.EffectiveTimePeriod', fhir['period']);
+    }
+    if (asExtension) {
+      inst.value = fhir['valueAddress'];
+    }
+    return inst;
+  }
+
 }
 export default Address;

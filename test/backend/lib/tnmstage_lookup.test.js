@@ -96,7 +96,7 @@ describe('getStagingCodeableConcept', function() {
         expect(codeableConcept.coding)
             .to.be.an('array')
             .that.is.not.empty;
-        expect(codeableConcept.coding[0].value)
+        expect(codeableConcept.coding[0].code)
             .to.be.a('string')
             .that.is.empty;
         expect(codeableConcept.coding[0].codeSystem.value)
@@ -117,7 +117,7 @@ describe('getStagingCodeableConcept', function() {
         expect(codeableConcept.coding)
             .to.be.an('array')
             .that.is.not.empty;
-        expect(codeableConcept.coding[0].value)
+        expect(codeableConcept.coding[0].code)
             .to.be.a('string')
             .eql('64062008');
         expect(codeableConcept.coding[0].codeSystem.value)
@@ -139,7 +139,7 @@ describe('getTStageCodeableConcept', function() {
         expect(codeableConcept.coding)
             .to.be.an('array')
             .that.is.not.empty;
-        expect(codeableConcept.coding[0].value)
+        expect(codeableConcept.coding[0].code)
             .to.be.a('string')
             .that.is.empty;
         expect(codeableConcept.coding[0].codeSystem.value)
@@ -160,7 +160,7 @@ describe('getTStageCodeableConcept', function() {
         expect(codeableConcept.coding)
             .to.be.an('array')
             .that.is.not.empty;
-        expect(codeableConcept.coding[0].value)
+        expect(codeableConcept.coding[0].code)
             .to.be.a('string')
             .eql('369901004');
         expect(codeableConcept.coding[0].codeSystem.value)
@@ -182,7 +182,7 @@ describe('getNStageCodeableConcept', function() {
         expect(codeableConcept.coding)
             .to.be.an('array')
             .that.is.not.empty;
-        expect(codeableConcept.coding[0].value)
+        expect(codeableConcept.coding[0].code)
             .to.be.a('string')
             .that.is.empty;
         expect(codeableConcept.coding[0].codeSystem.value)
@@ -203,7 +203,7 @@ describe('getNStageCodeableConcept', function() {
         expect(codeableConcept.coding)
             .to.be.an('array')
             .that.is.not.empty;
-        expect(codeableConcept.coding[0].value)
+        expect(codeableConcept.coding[0].code)
             .to.be.a('string')
             .eql('C95955');
         expect(codeableConcept.coding[0].codeSystem.value)
@@ -225,7 +225,7 @@ describe('getMStageCodeableConcept', function() {
         expect(codeableConcept.coding)
             .to.be.an('array')
             .that.is.not.empty;
-        expect(codeableConcept.coding[0].value)
+        expect(codeableConcept.coding[0].code)
             .to.be.a('string')
             .that.is.empty;
         expect(codeableConcept.coding[0].codeSystem.value)
@@ -246,7 +246,7 @@ describe('getMStageCodeableConcept', function() {
         expect(codeableConcept.coding)
             .to.be.an('array')
             .that.is.not.empty;
-        expect(codeableConcept.coding[0].value)
+        expect(codeableConcept.coding[0].code)
             .to.be.a('string')
             .eql('433581000124101');
         expect(codeableConcept.coding[0].codeSystem.value)

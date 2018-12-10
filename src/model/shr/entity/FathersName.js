@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.entity.FathersName.
@@ -70,6 +70,7 @@ class FathersName {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the FathersName class to a JSON object.
    * The JSON is expected to be valid against the FathersName JSON schema, but no validation checks are performed.
@@ -82,18 +83,15 @@ class FathersName {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the FathersName class to a FHIR object.
    * The FHIR is expected to be valid against the FathersName FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
     let inst = {};
-    if (asExtension) {
-      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-entity-FathersName-extension';
-      inst['valueHumanName'] = this.value;
-    }
     if (!asExtension && this.value != null) {
       if (this.value != null) {
         inst = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
@@ -101,5 +99,21 @@ class FathersName {
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the FathersName class.
+   * The FHIR must be valid against the FathersName FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {FathersName} An instance of FathersName populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new FathersName();
+    if (!asExtension && fhir != null) {
+      inst.value = createInstanceFromFHIR('shr.core.HumanName', fhir);
+    }
+    return inst;
+  }
+
 }
 export default FathersName;

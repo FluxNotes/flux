@@ -1,12 +1,9 @@
-import { setPropertiesFromJSON } from '../../json-helper';
-
-import ObservationComponent from '../finding/ObservationComponent';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.core.Area.
- * @extends ObservationComponent
  */
-class Area extends ObservationComponent {
+class Area {
 
   /**
    * Get the value (aliases quantity).
@@ -73,6 +70,7 @@ class Area extends ObservationComponent {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the Area class to a JSON object.
    * The JSON is expected to be valid against the Area JSON schema, but no validation checks are performed.
@@ -83,24 +81,13 @@ class Area extends ObservationComponent {
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
-    if (this.valueAbsentReason != null) {
-      inst['ValueAbsentReason'] = typeof this.valueAbsentReason.toJSON === 'function' ? this.valueAbsentReason.toJSON() : this.valueAbsentReason;
-    }
-    if (this.observationCode != null) {
-      inst['ObservationCode'] = typeof this.observationCode.toJSON === 'function' ? this.observationCode.toJSON() : this.observationCode;
-    }
-    if (this.interpretation != null) {
-      inst['Interpretation'] = typeof this.interpretation.toJSON === 'function' ? this.interpretation.toJSON() : this.interpretation;
-    }
-    if (this.referenceRange != null) {
-      inst['ReferenceRange'] = this.referenceRange.map(f => f.toJSON());
-    }
     return inst;
   }
+
   /**
    * Serializes an instance of the Area class to a FHIR object.
    * The FHIR is expected to be valid against the Area FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
@@ -112,5 +99,21 @@ class Area extends ObservationComponent {
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the Area class.
+   * The FHIR must be valid against the Area FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {Area} An instance of Area populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new Area();
+    if (!asExtension && fhir != null) {
+      inst.value = createInstanceFromFHIR('shr.core.Quantity', fhir);
+    }
+    return inst;
+  }
+
 }
 export default Area;

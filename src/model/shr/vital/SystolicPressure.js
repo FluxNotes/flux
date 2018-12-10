@@ -1,12 +1,12 @@
 import { setPropertiesFromJSON } from '../../json-helper';
 
-import ObservationComponent from '../finding/ObservationComponent';
+import Observation from '../base/Observation';
 
 /**
  * Generated class for shr.vital.SystolicPressure.
- * @extends ObservationComponent
+ * @extends Observation
  */
-class SystolicPressure extends ObservationComponent {
+class SystolicPressure extends Observation {
 
   /**
    * Get the value (aliases quantity).

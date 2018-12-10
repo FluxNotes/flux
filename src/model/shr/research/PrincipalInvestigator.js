@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.research.PrincipalInvestigator.
@@ -70,6 +70,7 @@ class PrincipalInvestigator {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the PrincipalInvestigator class to a JSON object.
    * The JSON is expected to be valid against the PrincipalInvestigator JSON schema, but no validation checks are performed.
@@ -82,10 +83,11 @@ class PrincipalInvestigator {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the PrincipalInvestigator class to a FHIR object.
    * The FHIR is expected to be valid against the PrincipalInvestigator FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
@@ -97,5 +99,21 @@ class PrincipalInvestigator {
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the PrincipalInvestigator class.
+   * The FHIR must be valid against the PrincipalInvestigator FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {PrincipalInvestigator} An instance of PrincipalInvestigator populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new PrincipalInvestigator();
+    if (!asExtension && fhir != null) {
+      inst.value = createInstanceFromFHIR('shr.entity.Practitioner', fhir);
+    }
+    return inst;
+  }
+
 }
 export default PrincipalInvestigator;

@@ -1,12 +1,9 @@
-import { setPropertiesFromJSON } from '../../json-helper';
-
-import ObservationComponent from '../finding/ObservationComponent';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.core.ClockDirection.
- * @extends ObservationComponent
  */
-class ClockDirection extends ObservationComponent {
+class ClockDirection {
 
   /**
    * Get the value (aliases codeableConcept).
@@ -73,6 +70,7 @@ class ClockDirection extends ObservationComponent {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the ClockDirection class to a JSON object.
    * The JSON is expected to be valid against the ClockDirection JSON schema, but no validation checks are performed.
@@ -83,40 +81,20 @@ class ClockDirection extends ObservationComponent {
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
-    if (this.valueAbsentReason != null) {
-      inst['ValueAbsentReason'] = typeof this.valueAbsentReason.toJSON === 'function' ? this.valueAbsentReason.toJSON() : this.valueAbsentReason;
-    }
-    if (this.observationCode != null) {
-      inst['ObservationCode'] = typeof this.observationCode.toJSON === 'function' ? this.observationCode.toJSON() : this.observationCode;
-    }
-    if (this.interpretation != null) {
-      inst['Interpretation'] = typeof this.interpretation.toJSON === 'function' ? this.interpretation.toJSON() : this.interpretation;
-    }
-    if (this.referenceRange != null) {
-      inst['ReferenceRange'] = this.referenceRange.map(f => f.toJSON());
-    }
     return inst;
   }
+
   /**
    * Serializes an instance of the ClockDirection class to a FHIR object.
    * The FHIR is expected to be valid against the ClockDirection FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
     let inst = {};
     if (asExtension) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.codeableConcept.toFHIR(true));
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.valueAbsentReason.toFHIR(true));
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.observationCode.toFHIR(true));
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.interpretation.toFHIR(true));
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.referenceRange.toFHIR(true));
-      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-core-ClockDirection-extension';
+      inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-core-ClockDirection-extension';
+      inst['valueCodeableConcept'] = this.value;
     }
     if (!asExtension && this.value != null) {
       if (this.value != null) {
@@ -125,5 +103,24 @@ class ClockDirection extends ObservationComponent {
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the ClockDirection class.
+   * The FHIR must be valid against the ClockDirection FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {ClockDirection} An instance of ClockDirection populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new ClockDirection();
+    if (asExtension) {
+      inst.value = fhir['valueCodeableConcept'];
+    }
+    if (!asExtension && fhir != null) {
+      inst.value = createInstanceFromFHIR('shr.core.CodeableConcept', fhir);
+    }
+    return inst;
+  }
+
 }
 export default ClockDirection;

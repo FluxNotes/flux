@@ -1,251 +1,214 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
-import Action from '../action/Action';
+import InformationItem from '../base/InformationItem';
 
 /**
  * Generated class for shr.encounter.Encounter.
- * @extends Action
+ * @extends InformationItem
  */
-class Encounter extends Action {
+class Encounter extends InformationItem {
 
   /**
-   * Get the entry information.
-   * @returns {Entry} The shr.base.Entry
+   * Get the Patient.
+   * @returns {Patient} The shr.entity.Patient
    */
-  get entryInfo() {
-    return this._entryInfo;
+  get patient() {
+    return this._patient;
   }
 
   /**
-   * Set the entry information.
-   * @param {Entry} entryInfo - The shr.base.Entry
+   * Set the Patient.
+   * @param {Patient} patient - The shr.entity.Patient
    */
-  set entryInfo(entryInfo) {
-    this._entryInfo = entryInfo;
+  set patient(patient) {
+    this._patient = patient;
   }
 
   /**
-   * Set the entry information and return 'this' for chaining.
-   * @param {Entry} entryInfo - The shr.base.Entry
+   * Set the Patient and return 'this' for chaining.
+   * @param {Patient} patient - The shr.entity.Patient
    * @returns {Encounter} this.
    */
-  withEntryInfo(entryInfo) {
-    this.entryInfo = entryInfo; return this;
+  withPatient(patient) {
+    this.patient = patient; return this;
   }
 
   /**
-   * Get the Subject.
-   * @returns {Subject} The shr.base.Subject
+   * Get the EncounterClass.
+   * @returns {EncounterClass} The shr.encounter.EncounterClass
    */
-  get subject() {
-    return this._subject;
+  get encounterClass() {
+    return this._encounterClass;
   }
 
   /**
-   * Set the Subject.
-   * @param {Subject} subject - The shr.base.Subject
+   * Set the EncounterClass.
+   * @param {EncounterClass} encounterClass - The shr.encounter.EncounterClass
    */
-  set subject(subject) {
-    this._subject = subject;
+  set encounterClass(encounterClass) {
+    this._encounterClass = encounterClass;
   }
 
   /**
-   * Set the Subject and return 'this' for chaining.
-   * @param {Subject} subject - The shr.base.Subject
+   * Set the EncounterClass and return 'this' for chaining.
+   * @param {EncounterClass} encounterClass - The shr.encounter.EncounterClass
    * @returns {Encounter} this.
    */
-  withSubject(subject) {
-    this.subject = subject; return this;
+  withEncounterClass(encounterClass) {
+    this.encounterClass = encounterClass; return this;
   }
 
   /**
-   * Get the ReferralDate.
-   * @returns {ReferralDate} The shr.encounter.ReferralDate
+   * Get the EncounterType array.
+   * @returns {Array<EncounterType>} The shr.encounter.EncounterType array
    */
-  get referralDate() {
-    return this._referralDate;
+  get encounterType() {
+    return this._encounterType;
   }
 
   /**
-   * Set the ReferralDate.
-   * @param {ReferralDate} referralDate - The shr.encounter.ReferralDate
+   * Set the EncounterType array.
+   * @param {Array<EncounterType>} encounterType - The shr.encounter.EncounterType array
    */
-  set referralDate(referralDate) {
-    this._referralDate = referralDate;
+  set encounterType(encounterType) {
+    this._encounterType = encounterType;
   }
 
   /**
-   * Set the ReferralDate and return 'this' for chaining.
-   * @param {ReferralDate} referralDate - The shr.encounter.ReferralDate
+   * Set the EncounterType array and return 'this' for chaining.
+   * @param {Array<EncounterType>} encounterType - The shr.encounter.EncounterType array
    * @returns {Encounter} this.
    */
-  withReferralDate(referralDate) {
-    this.referralDate = referralDate; return this;
+  withEncounterType(encounterType) {
+    this.encounterType = encounterType; return this;
   }
 
   /**
-   * Get the ReferralSourceType.
-   * @returns {ReferralSourceType} The shr.encounter.ReferralSourceType
+   * Get the TimePeriod.
+   * @returns {TimePeriod} The shr.core.TimePeriod
    */
-  get referralSourceType() {
-    return this._referralSourceType;
+  get timePeriod() {
+    return this._timePeriod;
   }
 
   /**
-   * Set the ReferralSourceType.
-   * @param {ReferralSourceType} referralSourceType - The shr.encounter.ReferralSourceType
+   * Set the TimePeriod.
+   * @param {TimePeriod} timePeriod - The shr.core.TimePeriod
    */
-  set referralSourceType(referralSourceType) {
-    this._referralSourceType = referralSourceType;
+  set timePeriod(timePeriod) {
+    this._timePeriod = timePeriod;
   }
 
   /**
-   * Set the ReferralSourceType and return 'this' for chaining.
-   * @param {ReferralSourceType} referralSourceType - The shr.encounter.ReferralSourceType
+   * Set the TimePeriod and return 'this' for chaining.
+   * @param {TimePeriod} timePeriod - The shr.core.TimePeriod
    * @returns {Encounter} this.
    */
-  withReferralSourceType(referralSourceType) {
-    this.referralSourceType = referralSourceType; return this;
+  withTimePeriod(timePeriod) {
+    this.timePeriod = timePeriod; return this;
   }
 
   /**
-   * Get the TypeAsaCoding.
-   * @returns {TypeAsaCoding} The shr.core.TypeAsaCoding
+   * Get the Status.
+   * @returns {Status} The shr.core.Status
    */
-  get typeAsaCoding() {
-    return this._typeAsaCoding;
+  get status() {
+    return this._status;
   }
 
   /**
-   * Set the TypeAsaCoding.
-   * @param {TypeAsaCoding} typeAsaCoding - The shr.core.TypeAsaCoding
+   * Set the Status.
+   * This field/value is required.
+   * @param {Status} status - The shr.core.Status
    */
-  set typeAsaCoding(typeAsaCoding) {
-    this._typeAsaCoding = typeAsaCoding;
+  set status(status) {
+    this._status = status;
   }
 
   /**
-   * Set the TypeAsaCoding and return 'this' for chaining.
-   * @param {TypeAsaCoding} typeAsaCoding - The shr.core.TypeAsaCoding
+   * Set the Status and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Status} status - The shr.core.Status
    * @returns {Encounter} this.
    */
-  withTypeAsaCoding(typeAsaCoding) {
-    this.typeAsaCoding = typeAsaCoding; return this;
+  withStatus(status) {
+    this.status = status; return this;
   }
 
   /**
-   * Get the ServiceGiven array.
-   * @returns {Array<ServiceGiven>} The shr.encounter.ServiceGiven array
+   * Get the PartOf.
+   * @returns {PartOf} The shr.entity.PartOf
    */
-  get serviceGiven() {
-    return this._serviceGiven;
+  get partOf() {
+    return this._partOf;
   }
 
   /**
-   * Set the ServiceGiven array.
-   * @param {Array<ServiceGiven>} serviceGiven - The shr.encounter.ServiceGiven array
+   * Set the PartOf.
+   * @param {PartOf} partOf - The shr.entity.PartOf
    */
-  set serviceGiven(serviceGiven) {
-    this._serviceGiven = serviceGiven;
+  set partOf(partOf) {
+    this._partOf = partOf;
   }
 
   /**
-   * Set the ServiceGiven array and return 'this' for chaining.
-   * @param {Array<ServiceGiven>} serviceGiven - The shr.encounter.ServiceGiven array
+   * Set the PartOf and return 'this' for chaining.
+   * @param {PartOf} partOf - The shr.entity.PartOf
    * @returns {Encounter} this.
    */
-  withServiceGiven(serviceGiven) {
-    this.serviceGiven = serviceGiven; return this;
+  withPartOf(partOf) {
+    this.partOf = partOf; return this;
   }
 
   /**
-   * Get the ServiceProvider.
-   * @returns {ServiceProvider} The shr.encounter.ServiceProvider
+   * Get the Diagnosis array.
+   * @returns {Array<Diagnosis>} The shr.encounter.Diagnosis array
    */
-  get serviceProvider() {
-    return this._serviceProvider;
+  get diagnosis() {
+    return this._diagnosis;
   }
 
   /**
-   * Set the ServiceProvider.
-   * @param {ServiceProvider} serviceProvider - The shr.encounter.ServiceProvider
+   * Set the Diagnosis array.
+   * @param {Array<Diagnosis>} diagnosis - The shr.encounter.Diagnosis array
    */
-  set serviceProvider(serviceProvider) {
-    this._serviceProvider = serviceProvider;
+  set diagnosis(diagnosis) {
+    this._diagnosis = diagnosis;
   }
 
   /**
-   * Set the ServiceProvider and return 'this' for chaining.
-   * @param {ServiceProvider} serviceProvider - The shr.encounter.ServiceProvider
+   * Set the Diagnosis array and return 'this' for chaining.
+   * @param {Array<Diagnosis>} diagnosis - The shr.encounter.Diagnosis array
    * @returns {Encounter} this.
    */
-  withServiceProvider(serviceProvider) {
-    this.serviceProvider = serviceProvider; return this;
+  withDiagnosis(diagnosis) {
+    this.diagnosis = diagnosis; return this;
   }
 
   /**
-   * Get the TreatmentCooperation.
-   * @returns {TreatmentCooperation} The shr.encounter.TreatmentCooperation
+   * Get the shr.base.ClinicalNote reference.
+   * @returns {Reference} The shr.base.ClinicalNote reference
    */
-  get treatmentCooperation() {
-    return this._treatmentCooperation;
+  get clinicalNote() {
+    return this._clinicalNote;
   }
 
   /**
-   * Set the TreatmentCooperation.
-   * @param {TreatmentCooperation} treatmentCooperation - The shr.encounter.TreatmentCooperation
+   * Set the shr.base.ClinicalNote reference.
+   * @param {Reference} clinicalNote - The shr.base.ClinicalNote reference
    */
-  set treatmentCooperation(treatmentCooperation) {
-    this._treatmentCooperation = treatmentCooperation;
+  set clinicalNote(clinicalNote) {
+    this._clinicalNote = clinicalNote;
   }
 
   /**
-   * Set the TreatmentCooperation and return 'this' for chaining.
-   * @param {TreatmentCooperation} treatmentCooperation - The shr.encounter.TreatmentCooperation
+   * Set the shr.base.ClinicalNote reference and return 'this' for chaining.
+   * @param {Reference} clinicalNote - The shr.base.ClinicalNote reference
    * @returns {Encounter} this.
    */
-  withTreatmentCooperation(treatmentCooperation) {
-    this.treatmentCooperation = treatmentCooperation; return this;
+  withClinicalNote(clinicalNote) {
+    this.clinicalNote = clinicalNote; return this;
   }
-
-  /**
-   * Get the PaymentSource.
-   * @returns {PaymentSource} The shr.encounter.PaymentSource
-   */
-  get paymentSource() {
-    return this._paymentSource;
-  }
-
-  /**
-   * Set the PaymentSource.
-   * @param {PaymentSource} paymentSource - The shr.encounter.PaymentSource
-   */
-  set paymentSource(paymentSource) {
-    this._paymentSource = paymentSource;
-  }
-
-  /**
-   * Set the PaymentSource and return 'this' for chaining.
-   * @param {PaymentSource} paymentSource - The shr.encounter.PaymentSource
-   * @returns {Encounter} this.
-   */
-  withPaymentSource(paymentSource) {
-    this.paymentSource = paymentSource; return this;
-  }
-
-  // Ommitting getter/setter for TBD: HealthConcern
-
-  // Ommitting getter/setter for TBD: PertinentFindings
-
-  // Ommitting getter/setter for TBD: Diagnosis
-
-  // Ommitting getter/setter for TBD: FullClinicalNote
-
-  // Ommitting getter/setter for TBD: ClinicalSummary
-
-  // Ommitting getter/setter for TBD: TreatmentServiceRendered
-
-  // Ommitting getter/setter for TBD: CompletionStatus
 
   /**
    * Deserializes JSON data to an instance of the Encounter class.
@@ -258,124 +221,118 @@ class Encounter extends Action {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the Encounter class to a JSON object.
    * The JSON is expected to be valid against the Encounter JSON schema, but no validation checks are performed.
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/encounter/Encounter' };
-    if (this.relatedEncounter != null) {
-      inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
+    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/encounter/Encounter' } };
+    if (this.patient != null) {
+      inst['Patient'] = typeof this.patient.toJSON === 'function' ? this.patient.toJSON() : this.patient;
     }
-    if (this.author != null) {
-      inst['Author'] = typeof this.author.toJSON === 'function' ? this.author.toJSON() : this.author;
+    if (this.encounterClass != null) {
+      inst['EncounterClass'] = typeof this.encounterClass.toJSON === 'function' ? this.encounterClass.toJSON() : this.encounterClass;
     }
-    if (this.informant != null) {
-      inst['Informant'] = typeof this.informant.toJSON === 'function' ? this.informant.toJSON() : this.informant;
+    if (this.encounterType != null) {
+      inst['EncounterType'] = this.encounterType.map(f => f.toJSON());
     }
-    if (this.type != null) {
-      inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
+    if (this.timePeriod != null) {
+      inst['TimePeriod'] = typeof this.timePeriod.toJSON === 'function' ? this.timePeriod.toJSON() : this.timePeriod;
     }
-    if (this.category != null) {
-      inst['Category'] = this.category.map(f => f.toJSON());
+    if (this.status != null) {
+      inst['Status'] = typeof this.status.toJSON === 'function' ? this.status.toJSON() : this.status;
     }
-    if (this.actionContext != null) {
-      inst['ActionContext'] = typeof this.actionContext.toJSON === 'function' ? this.actionContext.toJSON() : this.actionContext;
+    if (this.partOf != null) {
+      inst['PartOf'] = typeof this.partOf.toJSON === 'function' ? this.partOf.toJSON() : this.partOf;
     }
-    if (this.subject != null) {
-      inst['Subject'] = typeof this.subject.toJSON === 'function' ? this.subject.toJSON() : this.subject;
+    if (this.diagnosis != null) {
+      inst['Diagnosis'] = this.diagnosis.map(f => f.toJSON());
     }
-    if (this.referralDate != null) {
-      inst['ReferralDate'] = typeof this.referralDate.toJSON === 'function' ? this.referralDate.toJSON() : this.referralDate;
-    }
-    if (this.referralSourceType != null) {
-      inst['ReferralSourceType'] = typeof this.referralSourceType.toJSON === 'function' ? this.referralSourceType.toJSON() : this.referralSourceType;
-    }
-    if (this.typeAsaCoding != null) {
-      inst['TypeAsaCoding'] = typeof this.typeAsaCoding.toJSON === 'function' ? this.typeAsaCoding.toJSON() : this.typeAsaCoding;
-    }
-    if (this.serviceGiven != null) {
-      inst['ServiceGiven'] = this.serviceGiven.map(f => f.toJSON());
-    }
-    if (this.serviceProvider != null) {
-      inst['ServiceProvider'] = typeof this.serviceProvider.toJSON === 'function' ? this.serviceProvider.toJSON() : this.serviceProvider;
-    }
-    if (this.treatmentCooperation != null) {
-      inst['TreatmentCooperation'] = typeof this.treatmentCooperation.toJSON === 'function' ? this.treatmentCooperation.toJSON() : this.treatmentCooperation;
-    }
-    if (this.paymentSource != null) {
-      inst['PaymentSource'] = typeof this.paymentSource.toJSON === 'function' ? this.paymentSource.toJSON() : this.paymentSource;
+    if (this.clinicalNote != null) {
+      inst['ClinicalNote'] = typeof this.clinicalNote.toJSON === 'function' ? this.clinicalNote.toJSON() : this.clinicalNote;
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the Encounter class to a FHIR object.
    * The FHIR is expected to be valid against the Encounter FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
     let inst = {};
-    inst['resourceType'] = 'Basic';
-    if (this.relatedEncounter != null) {
+    if (this.encounterClass != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.relatedEncounter.toFHIR(true));
+      inst['extension'].push(typeof this.encounterClass.toFHIR === 'function' ? this.encounterClass.toFHIR(true) : this.encounterClass);
     }
-    if (this.author != null) {
+    if (this.partOf != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.author.toFHIR(true));
+      inst['extension'].push(typeof this.partOf.toFHIR === 'function' ? this.partOf.toFHIR(true) : this.partOf);
     }
-    if (this.informant != null) {
+    if (this.diagnosis != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.informant.toFHIR(true));
+      inst['extension'].push(typeof this.diagnosis.toFHIR === 'function' ? this.diagnosis.toFHIR(true) : this.diagnosis);
     }
-    if (this.type != null) {
+    if (this.clinicalNote != null) {
       inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.type.toFHIR(true));
+      inst['extension'].push(typeof this.clinicalNote.toFHIR === 'function' ? this.clinicalNote.toFHIR(true) : this.clinicalNote);
     }
-    if (this.category != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.category.toFHIR(true));
+    if (this.status != null) {
+      inst['status'] = typeof this.status.toFHIR === 'function' ? this.status.toFHIR() : this.status;
     }
-    if (this.actionContext != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.actionContext.toFHIR(true));
+    if (this.encounterType != null) {
+      inst['type'] = inst['type'] || [];
+      inst['type'] = inst['type'].concat(this.encounterType.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
     }
-    if (this.subject != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.subject.toFHIR(true));
+    if (this.patient != null) {
+      inst['subject'] = typeof this.patient.toFHIR === 'function' ? this.patient.toFHIR() : this.patient;
     }
-    if (this.referralDate != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.referralDate.toFHIR(true));
+    if (this.timePeriod != null) {
+      inst['period'] = typeof this.timePeriod.toFHIR === 'function' ? this.timePeriod.toFHIR() : this.timePeriod;
     }
-    if (this.referralSourceType != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.referralSourceType.toFHIR(true));
-    }
-    if (this.typeAsaCoding != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.typeAsaCoding.toFHIR(true));
-    }
-    if (this.serviceGiven != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.serviceGiven.toFHIR(true));
-    }
-    if (this.serviceProvider != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.serviceProvider.toFHIR(true));
-    }
-    if (this.treatmentCooperation != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.treatmentCooperation.toFHIR(true));
-    }
-    if (this.paymentSource != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.paymentSource.toFHIR(true));
+    if (asExtension) {
+      inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-encounter-Encounter-extension';
+      inst['valueReference'] = this.value;
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the Encounter class.
+   * The FHIR must be valid against the Encounter FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {Encounter} An instance of Encounter populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new Encounter();
+    if (fhir['extension'] != null) {
+      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-encounter-EncounterClass-extension');
+      if (match != null) {
+        inst.encounterClass = createInstanceFromFHIR('shr.encounter.EncounterClass', match, true);
+      }
+    }
+    if (fhir['status'] != null) {
+      inst.status = createInstanceFromFHIR('shr.core.Status', fhir['status']);
+    }
+    if (fhir['type'] != null) {
+      inst.encounterType = inst.encounterType || [];
+      inst.encounterType = inst.encounterType.concat(fhir['type'].map(f => createInstanceFromFHIR('shr.encounter.EncounterType', f)));
+    }
+    if (fhir['subject'] != null) {
+      inst.patient = createInstanceFromFHIR('shr.entity.Patient', fhir['subject']);
+    }
+    if (fhir['period'] != null) {
+      inst.timePeriod = createInstanceFromFHIR('shr.core.TimePeriod', fhir['period']);
+    }
+    if (asExtension) {
+      inst.value = fhir['valueReference'];
+    }
+    return inst;
+  }
+
 }
 export default Encounter;

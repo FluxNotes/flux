@@ -70,6 +70,7 @@ class OrganizationAlias {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the OrganizationAlias class to a JSON object.
    * The JSON is expected to be valid against the OrganizationAlias JSON schema, but no validation checks are performed.
@@ -82,10 +83,11 @@ class OrganizationAlias {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the OrganizationAlias class to a FHIR object.
    * The FHIR is expected to be valid against the OrganizationAlias FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
@@ -97,5 +99,21 @@ class OrganizationAlias {
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the OrganizationAlias class.
+   * The FHIR must be valid against the OrganizationAlias FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {OrganizationAlias} An instance of OrganizationAlias populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new OrganizationAlias();
+    if (!asExtension && fhir != null) {
+      inst.value = fhir;
+    }
+    return inst;
+  }
+
 }
 export default OrganizationAlias;

@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.base.Narrative.
@@ -6,57 +6,30 @@ import { setPropertiesFromJSON } from '../../json-helper';
 class Narrative {
 
   /**
-   * Get the value (aliases xhtml).
-   * @returns {xhtml} The xhtml
+   * Get the NarrativeText.
+   * @returns {NarrativeText} The shr.base.NarrativeText
    */
-  get value() {
-    return this._xhtml;
+  get narrativeText() {
+    return this._narrativeText;
   }
 
   /**
-   * Set the value (aliases xhtml).
+   * Set the NarrativeText.
    * This field/value is required.
-   * @param {xhtml} value - The xhtml
+   * @param {NarrativeText} narrativeText - The shr.base.NarrativeText
    */
-  set value(value) {
-    this._xhtml = value;
+  set narrativeText(narrativeText) {
+    this._narrativeText = narrativeText;
   }
 
   /**
-   * Set the value (aliases xhtml) and return 'this' for chaining.
+   * Set the NarrativeText and return 'this' for chaining.
    * This field/value is required.
-   * @param {xhtml} value - The xhtml
+   * @param {NarrativeText} narrativeText - The shr.base.NarrativeText
    * @returns {Narrative} this.
    */
-  withValue(value) {
-    this.value = value; return this;
-  }
-
-  /**
-   * Get the xhtml.
-   * @returns {xhtml} The xhtml
-   */
-  get xhtml() {
-    return this._xhtml;
-  }
-
-  /**
-   * Set the xhtml.
-   * This field/value is required.
-   * @param {xhtml} xhtml - The xhtml
-   */
-  set xhtml(xhtml) {
-    this._xhtml = xhtml;
-  }
-
-  /**
-   * Set the xhtml and return 'this' for chaining.
-   * This field/value is required.
-   * @param {xhtml} xhtml - The xhtml
-   * @returns {Narrative} this.
-   */
-  withXhtml(xhtml) {
-    this.xhtml = xhtml; return this;
+  withNarrativeText(narrativeText) {
+    this.narrativeText = narrativeText; return this;
   }
 
   /**
@@ -97,6 +70,7 @@ class Narrative {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the Narrative class to a JSON object.
    * The JSON is expected to be valid against the Narrative JSON schema, but no validation checks are performed.
@@ -104,18 +78,19 @@ class Narrative {
    */
   toJSON() {
     const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/base/Narrative' } };
-    if (this.value != null) {
-      inst['Value'] = this.value;
+    if (this.narrativeText != null) {
+      inst['NarrativeText'] = typeof this.narrativeText.toJSON === 'function' ? this.narrativeText.toJSON() : this.narrativeText;
     }
     if (this.narrativeQualifier != null) {
       inst['NarrativeQualifier'] = typeof this.narrativeQualifier.toJSON === 'function' ? this.narrativeQualifier.toJSON() : this.narrativeQualifier;
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the Narrative class to a FHIR object.
    * The FHIR is expected to be valid against the Narrative FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
@@ -123,10 +98,29 @@ class Narrative {
     if (this.narrativeQualifier != null) {
       inst['status'] = typeof this.narrativeQualifier.toFHIR === 'function' ? this.narrativeQualifier.toFHIR() : this.narrativeQualifier;
     }
-    if (this.value != null) {
-      inst['div'] = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
+    if (this.narrativeText != null) {
+      inst['div'] = typeof this.narrativeText.toFHIR === 'function' ? this.narrativeText.toFHIR() : this.narrativeText;
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the Narrative class.
+   * The FHIR must be valid against the Narrative FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {Narrative} An instance of Narrative populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new Narrative();
+    if (fhir['status'] != null) {
+      inst.narrativeQualifier = createInstanceFromFHIR('shr.base.NarrativeQualifier', fhir['status']);
+    }
+    if (fhir['div'] != null) {
+      inst.narrativeText = createInstanceFromFHIR('shr.base.NarrativeText', fhir['div']);
+    }
+    return inst;
+  }
+
 }
 export default Narrative;

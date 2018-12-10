@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.entity.AgeAtDeath.
@@ -6,57 +6,30 @@ import { setPropertiesFromJSON } from '../../json-helper';
 class AgeAtDeath {
 
   /**
-   * Get the value (aliases generalizedAge).
-   * @returns {GeneralizedAge} The shr.core.GeneralizedAge
+   * Get the choice value; one of: shr.core.Age, shr.core.Range.
+   * @returns {(Age|Range)} The choice value; one of: shr.core.Age, shr.core.Range
    */
   get value() {
-    return this._generalizedAge;
+    return this._value;
   }
 
   /**
-   * Set the value (aliases generalizedAge).
+   * Set the choice value; one of: shr.core.Age, shr.core.Range.
    * This field/value is required.
-   * @param {GeneralizedAge} value - The shr.core.GeneralizedAge
+   * @param {(Age|Range)} value - The choice value; one of: shr.core.Age, shr.core.Range
    */
   set value(value) {
-    this._generalizedAge = value;
+    this._value = value;
   }
 
   /**
-   * Set the value (aliases generalizedAge) and return 'this' for chaining.
+   * Set the choice value; one of: shr.core.Age, shr.core.Range and return 'this' for chaining.
    * This field/value is required.
-   * @param {GeneralizedAge} value - The shr.core.GeneralizedAge
+   * @param {(Age|Range)} value - The choice value; one of: shr.core.Age, shr.core.Range
    * @returns {AgeAtDeath} this.
    */
   withValue(value) {
     this.value = value; return this;
-  }
-
-  /**
-   * Get the GeneralizedAge.
-   * @returns {GeneralizedAge} The shr.core.GeneralizedAge
-   */
-  get generalizedAge() {
-    return this._generalizedAge;
-  }
-
-  /**
-   * Set the GeneralizedAge.
-   * This field/value is required.
-   * @param {GeneralizedAge} generalizedAge - The shr.core.GeneralizedAge
-   */
-  set generalizedAge(generalizedAge) {
-    this._generalizedAge = generalizedAge;
-  }
-
-  /**
-   * Set the GeneralizedAge and return 'this' for chaining.
-   * This field/value is required.
-   * @param {GeneralizedAge} generalizedAge - The shr.core.GeneralizedAge
-   * @returns {AgeAtDeath} this.
-   */
-  withGeneralizedAge(generalizedAge) {
-    this.generalizedAge = generalizedAge; return this;
   }
 
   /**
@@ -70,6 +43,7 @@ class AgeAtDeath {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the AgeAtDeath class to a JSON object.
    * The JSON is expected to be valid against the AgeAtDeath JSON schema, but no validation checks are performed.
@@ -82,10 +56,11 @@ class AgeAtDeath {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the AgeAtDeath class to a FHIR object.
    * The FHIR is expected to be valid against the AgeAtDeath FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
@@ -97,5 +72,21 @@ class AgeAtDeath {
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the AgeAtDeath class.
+   * The FHIR must be valid against the AgeAtDeath FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {AgeAtDeath} An instance of AgeAtDeath populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new AgeAtDeath();
+    if (!asExtension && fhir != null) {
+      inst.value = createInstanceFromFHIR(null, fhir);
+    }
+    return inst;
+  }
+
 }
 export default AgeAtDeath;

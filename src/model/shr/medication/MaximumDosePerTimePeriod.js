@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.medication.MaximumDosePerTimePeriod.
@@ -70,6 +70,7 @@ class MaximumDosePerTimePeriod {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the MaximumDosePerTimePeriod class to a JSON object.
    * The JSON is expected to be valid against the MaximumDosePerTimePeriod JSON schema, but no validation checks are performed.
@@ -82,10 +83,11 @@ class MaximumDosePerTimePeriod {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the MaximumDosePerTimePeriod class to a FHIR object.
    * The FHIR is expected to be valid against the MaximumDosePerTimePeriod FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
@@ -97,5 +99,21 @@ class MaximumDosePerTimePeriod {
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the MaximumDosePerTimePeriod class.
+   * The FHIR must be valid against the MaximumDosePerTimePeriod FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {MaximumDosePerTimePeriod} An instance of MaximumDosePerTimePeriod populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new MaximumDosePerTimePeriod();
+    if (!asExtension && fhir != null) {
+      inst.value = createInstanceFromFHIR('shr.core.Ratio', fhir);
+    }
+    return inst;
+  }
+
 }
 export default MaximumDosePerTimePeriod;

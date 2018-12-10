@@ -34,7 +34,7 @@ class StudyArm {
 
   /**
    * Get the Type.
-   * @returns {Type} The shr.entity.Type
+   * @returns {Type} The shr.core.Type
    */
   get type() {
     return this._type;
@@ -42,7 +42,7 @@ class StudyArm {
 
   /**
    * Set the Type.
-   * @param {Type} type - The shr.entity.Type
+   * @param {Type} type - The shr.core.Type
    */
   set type(type) {
     this._type = type;
@@ -50,7 +50,7 @@ class StudyArm {
 
   /**
    * Set the Type and return 'this' for chaining.
-   * @param {Type} type - The shr.entity.Type
+   * @param {Type} type - The shr.core.Type
    * @returns {StudyArm} this.
    */
   withType(type) {
@@ -58,28 +58,28 @@ class StudyArm {
   }
 
   /**
-   * Get the Details.
-   * @returns {Details} The shr.core.Details
+   * Get the CommentOrDescription.
+   * @returns {CommentOrDescription} The shr.core.CommentOrDescription
    */
-  get details() {
-    return this._details;
+  get commentOrDescription() {
+    return this._commentOrDescription;
   }
 
   /**
-   * Set the Details.
-   * @param {Details} details - The shr.core.Details
+   * Set the CommentOrDescription.
+   * @param {CommentOrDescription} commentOrDescription - The shr.core.CommentOrDescription
    */
-  set details(details) {
-    this._details = details;
+  set commentOrDescription(commentOrDescription) {
+    this._commentOrDescription = commentOrDescription;
   }
 
   /**
-   * Set the Details and return 'this' for chaining.
-   * @param {Details} details - The shr.core.Details
+   * Set the CommentOrDescription and return 'this' for chaining.
+   * @param {CommentOrDescription} commentOrDescription - The shr.core.CommentOrDescription
    * @returns {StudyArm} this.
    */
-  withDetails(details) {
-    this.details = details; return this;
+  withCommentOrDescription(commentOrDescription) {
+    this.commentOrDescription = commentOrDescription; return this;
   }
 
   /**
@@ -93,6 +93,7 @@ class StudyArm {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the StudyArm class to a JSON object.
    * The JSON is expected to be valid against the StudyArm JSON schema, but no validation checks are performed.
@@ -106,20 +107,34 @@ class StudyArm {
     if (this.type != null) {
       inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
     }
-    if (this.details != null) {
-      inst['Details'] = typeof this.details.toJSON === 'function' ? this.details.toJSON() : this.details;
+    if (this.commentOrDescription != null) {
+      inst['CommentOrDescription'] = typeof this.commentOrDescription.toJSON === 'function' ? this.commentOrDescription.toJSON() : this.commentOrDescription;
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the StudyArm class to a FHIR object.
    * The FHIR is expected to be valid against the StudyArm FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
     let inst = {};
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the StudyArm class.
+   * The FHIR must be valid against the StudyArm FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {StudyArm} An instance of StudyArm populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new StudyArm();
+    return inst;
+  }
+
 }
 export default StudyArm;

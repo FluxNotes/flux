@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.core.SampledData.
@@ -6,57 +6,30 @@ import { setPropertiesFromJSON } from '../../json-helper';
 class SampledData {
 
   /**
-   * Get the value (aliases string).
-   * @returns {string} The string
+   * Get the Text.
+   * @returns {Text} The shr.core.Text
    */
-  get value() {
-    return this._string;
+  get text() {
+    return this._text;
   }
 
   /**
-   * Set the value (aliases string).
+   * Set the Text.
    * This field/value is required.
-   * @param {string} value - The string
+   * @param {Text} text - The shr.core.Text
    */
-  set value(value) {
-    this._string = value;
+  set text(text) {
+    this._text = text;
   }
 
   /**
-   * Set the value (aliases string) and return 'this' for chaining.
+   * Set the Text and return 'this' for chaining.
    * This field/value is required.
-   * @param {string} value - The string
+   * @param {Text} text - The shr.core.Text
    * @returns {SampledData} this.
    */
-  withValue(value) {
-    this.value = value; return this;
-  }
-
-  /**
-   * Get the string.
-   * @returns {string} The string
-   */
-  get string() {
-    return this._string;
-  }
-
-  /**
-   * Set the string.
-   * This field/value is required.
-   * @param {string} string - The string
-   */
-  set string(string) {
-    this._string = string;
-  }
-
-  /**
-   * Set the string and return 'this' for chaining.
-   * This field/value is required.
-   * @param {string} string - The string
-   * @returns {SampledData} this.
-   */
-  withString(string) {
-    this.string = string; return this;
+  withText(text) {
+    this.text = text; return this;
   }
 
   /**
@@ -226,6 +199,7 @@ class SampledData {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the SampledData class to a JSON object.
    * The JSON is expected to be valid against the SampledData JSON schema, but no validation checks are performed.
@@ -233,8 +207,8 @@ class SampledData {
    */
   toJSON() {
     const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/SampledData' } };
-    if (this.value != null) {
-      inst['Value'] = this.value;
+    if (this.text != null) {
+      inst['Text'] = typeof this.text.toJSON === 'function' ? this.text.toJSON() : this.text;
     }
     if (this.origin != null) {
       inst['Origin'] = typeof this.origin.toJSON === 'function' ? this.origin.toJSON() : this.origin;
@@ -256,10 +230,11 @@ class SampledData {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the SampledData class to a FHIR object.
    * The FHIR is expected to be valid against the SampledData FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
@@ -282,10 +257,44 @@ class SampledData {
     if (this.dimensions != null) {
       inst['dimensions'] = typeof this.dimensions.toFHIR === 'function' ? this.dimensions.toFHIR() : this.dimensions;
     }
-    if (this.value != null) {
-      inst['data'] = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
+    if (this.text != null) {
+      inst['data'] = typeof this.text.toFHIR === 'function' ? this.text.toFHIR() : this.text;
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the SampledData class.
+   * The FHIR must be valid against the SampledData FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {SampledData} An instance of SampledData populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new SampledData();
+    if (fhir['origin'] != null) {
+      inst.origin = createInstanceFromFHIR('shr.core.Origin', fhir['origin']);
+    }
+    if (fhir['period'] != null) {
+      inst.millisecondsBetweenSamples = createInstanceFromFHIR('shr.core.MillisecondsBetweenSamples', fhir['period']);
+    }
+    if (fhir['factor'] != null) {
+      inst.correctionFactor = createInstanceFromFHIR('shr.core.CorrectionFactor', fhir['factor']);
+    }
+    if (fhir['lowerLimit'] != null) {
+      inst.lowerLimit = createInstanceFromFHIR('shr.core.LowerLimit', fhir['lowerLimit']);
+    }
+    if (fhir['upperLimit'] != null) {
+      inst.upperLimit = createInstanceFromFHIR('shr.core.UpperLimit', fhir['upperLimit']);
+    }
+    if (fhir['dimensions'] != null) {
+      inst.dimensions = createInstanceFromFHIR('shr.core.Dimensions', fhir['dimensions']);
+    }
+    if (fhir['data'] != null) {
+      inst.text = createInstanceFromFHIR('shr.core.Text', fhir['data']);
+    }
+    return inst;
+  }
+
 }
 export default SampledData;

@@ -16,13 +16,13 @@ class FluxProcedureRequested {
      *  Returns a date if a single value
      */
     get occurrenceTime() {
-        if(this._procedureRequested.actionContext.expectedPerformanceTime.value instanceof TimePeriod) {
+        if(this._procedureRequested.expectedPerformanceTime.value instanceof TimePeriod) {
             return {
-                timePeriodStart: this._procedureRequested.actionContext.expectedPerformanceTime.value.timePeriodStart.value,
-                timePeriodEnd: this._procedureRequested.actionContext.expectedPerformanceTime.value.timePeriodEnd.value
+                timePeriodStart: this._procedureRequested.expectedPerformanceTime.value.timePeriodStart.value,
+                timePeriodEnd: this._procedureRequested.expectedPerformanceTime.value.timePeriodEnd.value
             };
         } else {
-            return this._procedureRequested.actionContext.expectedPerformanceTime.value;
+            return this._procedureRequested.expectedPerformanceTime.value;
         }
     }
 
@@ -39,7 +39,7 @@ class FluxProcedureRequested {
      *  Returns status string
      */
     get status() {
-        return this._procedureRequested.actionContext.status.value;
+        return this._procedureRequested.status.value;
     }
 
     /*
@@ -47,7 +47,7 @@ class FluxProcedureRequested {
      *  Returns procedure name string
      */
     get name() {
-        return this._displayTextOrCode(this._procedureRequested.type.value.coding[0]);
+        return this._displayTextOrCode(this._procedureRequested.topicCode.value.coding[0]);
     }
 
     /*
@@ -55,8 +55,8 @@ class FluxProcedureRequested {
      *  Returns procedure code string
      */
     get code() {
-        if (!this._procedureRequested.type) return null;
-        return this._procedureRequested.type.value.coding[0].code;
+        if (!this._procedureRequested.topicCode) return null;
+        return this._procedureRequested.topicCode.value.coding[0].code;
     }
 
     /*
@@ -64,12 +64,12 @@ class FluxProcedureRequested {
      *  Returns array of reasons
      */
     get reasons() {
-        return this._procedureRequested.actionContext.reason;
+        return this._procedureRequested.reason;
     }
     
     get annotation() {
         if (this._procedureRequested.annotation && this._procedureRequested.annotation.length > 0) {
-            return this._procedureRequested.annotation[0].value;
+            return this._procedureRequested.annotation[0].text;
         } else {
             return null;
         }

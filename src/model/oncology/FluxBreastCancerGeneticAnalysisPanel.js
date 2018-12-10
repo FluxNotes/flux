@@ -9,12 +9,12 @@ class FluxBreastCancerGeneticAnalysisPanel {
         return this._breastCancerGeneticAnalysisPanel.entryInfo;
     }
 
-    get clinicallyRelevantTime() {
-        return this._breastCancerGeneticAnalysisPanel.clinicallyRelevantTime.value;
+    get relevantTime() {
+        return this._breastCancerGeneticAnalysisPanel.relevantTime.value;
     }
     
     get members() {
-        return this._breastCancerGeneticAnalysisPanel.members.value;
+        return this._breastCancerGeneticAnalysisPanel.panelMembers.observation;
     }
 
     toJSON() {

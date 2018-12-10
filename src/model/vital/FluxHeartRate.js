@@ -1,5 +1,5 @@
 import HeartRate from '../shr/vital/HeartRate';
-import FluxObservation from '../finding/FluxObservation';
+import FluxObservation from '../base/FluxObservation';
 
 class FluxHeartRate extends FluxObservation{
     constructor(json) {

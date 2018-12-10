@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.research.TerminationReason.
@@ -70,6 +70,7 @@ class TerminationReason {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the TerminationReason class to a JSON object.
    * The JSON is expected to be valid against the TerminationReason JSON schema, but no validation checks are performed.
@@ -82,16 +83,17 @@ class TerminationReason {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the TerminationReason class to a FHIR object.
    * The FHIR is expected to be valid against the TerminationReason FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
     let inst = {};
     if (asExtension) {
-      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-research-TerminationReason-extension';
+      inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-research-TerminationReason-extension';
       inst['valueCodeableConcept'] = this.value;
     }
     if (!asExtension && this.value != null) {
@@ -101,5 +103,24 @@ class TerminationReason {
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the TerminationReason class.
+   * The FHIR must be valid against the TerminationReason FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {TerminationReason} An instance of TerminationReason populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new TerminationReason();
+    if (asExtension) {
+      inst.value = fhir['valueCodeableConcept'];
+    }
+    if (!asExtension && fhir != null) {
+      inst.value = createInstanceFromFHIR('shr.core.CodeableConcept', fhir);
+    }
+    return inst;
+  }
+
 }
 export default TerminationReason;

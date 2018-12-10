@@ -1,6 +1,6 @@
 import { setPropertiesFromJSON } from '../../json-helper';
 
-import Finding from './Finding';
+import Finding from '../base/Finding';
 
 /**
  * Generated class for shr.finding.SpecializedFinding.

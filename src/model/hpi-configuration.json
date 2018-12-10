@@ -23,6 +23,11 @@
                     "name": "hydrocortisone 2.5% ointment",
                     "code": "310891",
                     "codeSystem": "http://snomed.info/sct"
+                },
+                {
+                    "name": "loperamide hydrochloride 2mg tablet",
+                    "code": "C0715002",
+                    "codeSystem": ""
                 }
             ]
         }
@@ -41,6 +46,11 @@
                     "name": "hydrocortisone 2.5% ointment",
                     "code": "310891",
                     "codeSystem": "http://snomed.info/sct"
+                },
+                {
+                    "name": "loperamide hydrochloride 2mg tablet",
+                    "code": "C0715002",
+                    "codeSystem": ""
                 }
             ]
         }

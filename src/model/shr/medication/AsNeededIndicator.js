@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.medication.AsNeededIndicator.
@@ -43,6 +43,7 @@ class AsNeededIndicator {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the AsNeededIndicator class to a JSON object.
    * The JSON is expected to be valid against the AsNeededIndicator JSON schema, but no validation checks are performed.
@@ -55,10 +56,11 @@ class AsNeededIndicator {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the AsNeededIndicator class to a FHIR object.
    * The FHIR is expected to be valid against the AsNeededIndicator FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
@@ -70,5 +72,21 @@ class AsNeededIndicator {
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the AsNeededIndicator class.
+   * The FHIR must be valid against the AsNeededIndicator FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {AsNeededIndicator} An instance of AsNeededIndicator populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new AsNeededIndicator();
+    if (!asExtension && fhir != null) {
+      inst.value = createInstanceFromFHIR(null, fhir);
+    }
+    return inst;
+  }
+
 }
 export default AsNeededIndicator;

@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.core.LowerBound.
@@ -6,26 +6,26 @@ import { setPropertiesFromJSON } from '../../json-helper';
 class LowerBound {
 
   /**
-   * Get the value (aliases quantity).
-   * @returns {Quantity} The shr.core.Quantity
+   * Get the value (aliases simpleQuantity).
+   * @returns {SimpleQuantity} The shr.core.SimpleQuantity
    */
   get value() {
-    return this._quantity;
+    return this._simpleQuantity;
   }
 
   /**
-   * Set the value (aliases quantity).
+   * Set the value (aliases simpleQuantity).
    * This field/value is required.
-   * @param {Quantity} value - The shr.core.Quantity
+   * @param {SimpleQuantity} value - The shr.core.SimpleQuantity
    */
   set value(value) {
-    this._quantity = value;
+    this._simpleQuantity = value;
   }
 
   /**
-   * Set the value (aliases quantity) and return 'this' for chaining.
+   * Set the value (aliases simpleQuantity) and return 'this' for chaining.
    * This field/value is required.
-   * @param {Quantity} value - The shr.core.Quantity
+   * @param {SimpleQuantity} value - The shr.core.SimpleQuantity
    * @returns {LowerBound} this.
    */
   withValue(value) {
@@ -33,30 +33,30 @@ class LowerBound {
   }
 
   /**
-   * Get the Quantity.
-   * @returns {Quantity} The shr.core.Quantity
+   * Get the SimpleQuantity.
+   * @returns {SimpleQuantity} The shr.core.SimpleQuantity
    */
-  get quantity() {
-    return this._quantity;
+  get simpleQuantity() {
+    return this._simpleQuantity;
   }
 
   /**
-   * Set the Quantity.
+   * Set the SimpleQuantity.
    * This field/value is required.
-   * @param {Quantity} quantity - The shr.core.Quantity
+   * @param {SimpleQuantity} simpleQuantity - The shr.core.SimpleQuantity
    */
-  set quantity(quantity) {
-    this._quantity = quantity;
+  set simpleQuantity(simpleQuantity) {
+    this._simpleQuantity = simpleQuantity;
   }
 
   /**
-   * Set the Quantity and return 'this' for chaining.
+   * Set the SimpleQuantity and return 'this' for chaining.
    * This field/value is required.
-   * @param {Quantity} quantity - The shr.core.Quantity
+   * @param {SimpleQuantity} simpleQuantity - The shr.core.SimpleQuantity
    * @returns {LowerBound} this.
    */
-  withQuantity(quantity) {
-    this.quantity = quantity; return this;
+  withSimpleQuantity(simpleQuantity) {
+    this.simpleQuantity = simpleQuantity; return this;
   }
 
   /**
@@ -70,6 +70,7 @@ class LowerBound {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the LowerBound class to a JSON object.
    * The JSON is expected to be valid against the LowerBound JSON schema, but no validation checks are performed.
@@ -82,18 +83,15 @@ class LowerBound {
     }
     return inst;
   }
+
   /**
    * Serializes an instance of the LowerBound class to a FHIR object.
    * The FHIR is expected to be valid against the LowerBound FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
     let inst = {};
-    if (asExtension) {
-      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-core-LowerBound-extension';
-      inst['valueQuantity'] = this.value;
-    }
     if (!asExtension && this.value != null) {
       if (this.value != null) {
         inst = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
@@ -101,5 +99,21 @@ class LowerBound {
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the LowerBound class.
+   * The FHIR must be valid against the LowerBound FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {LowerBound} An instance of LowerBound populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new LowerBound();
+    if (!asExtension && fhir != null) {
+      inst.value = createInstanceFromFHIR('shr.core.SimpleQuantity', fhir);
+    }
+    return inst;
+  }
+
 }
 export default LowerBound;

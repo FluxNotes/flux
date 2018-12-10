@@ -1,17 +1,17 @@
 import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
-import FluxObservation from '../finding/FluxObservation';
-import HER2ReceptorStatus from '../shr/oncology/HER2ReceptorStatus';
+import FluxObservation from '../base/FluxObservation';
 import lookup from '../../lib/receptor_lookup.jsx';
+import Observation from '../shr/base/Observation';
 
 class FluxHER2ReceptorStatus extends FluxObservation {
     constructor(json) {
         super();
-        this._entry = this._observation = HER2ReceptorStatus.fromJSON(json);
+        this._entry = this._observation = Observation.fromJSON(json);
         if (!this._observation.entryInfo) {
             let entry = new Entry();
             entry.entryType = new EntryType();
-            entry.entryType.uri = 'http://standardhealthrecord.org/spec/shr/oncology/HER2ReceptorStatus';
+            entry.entryType.uri = 'http://standardhealthrecord.org/spec/shr/base/Observation';
             this._observation.entryInfo = entry;
         }
     }

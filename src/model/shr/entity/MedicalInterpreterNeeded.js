@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
 
 /**
  * Generated class for shr.entity.MedicalInterpreterNeeded.
@@ -60,33 +60,6 @@ class MedicalInterpreterNeeded {
   }
 
   /**
-   * Get the Language.
-   * @returns {Language} The shr.base.Language
-   */
-  get language() {
-    return this._language;
-  }
-
-  /**
-   * Set the Language.
-   * This field/value is required.
-   * @param {Language} language - The shr.base.Language
-   */
-  set language(language) {
-    this._language = language;
-  }
-
-  /**
-   * Set the Language and return 'this' for chaining.
-   * This field/value is required.
-   * @param {Language} language - The shr.base.Language
-   * @returns {MedicalInterpreterNeeded} this.
-   */
-  withLanguage(language) {
-    this.language = language; return this;
-  }
-
-  /**
    * Deserializes JSON data to an instance of the MedicalInterpreterNeeded class.
    * The JSON must be valid against the MedicalInterpreterNeeded JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
@@ -97,6 +70,7 @@ class MedicalInterpreterNeeded {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the MedicalInterpreterNeeded class to a JSON object.
    * The JSON is expected to be valid against the MedicalInterpreterNeeded JSON schema, but no validation checks are performed.
@@ -107,15 +81,13 @@ class MedicalInterpreterNeeded {
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
-    if (this.language != null) {
-      inst['Language'] = typeof this.language.toJSON === 'function' ? this.language.toJSON() : this.language;
-    }
     return inst;
   }
+
   /**
    * Serializes an instance of the MedicalInterpreterNeeded class to a FHIR object.
    * The FHIR is expected to be valid against the MedicalInterpreterNeeded FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
+   * @param {boolean} asExtension - Render this instance as an extension
    * @returns {object} a FHIR object populated with the data from the element
    */
   toFHIR(asExtension = false) {
@@ -127,5 +99,21 @@ class MedicalInterpreterNeeded {
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the MedicalInterpreterNeeded class.
+   * The FHIR must be valid against the MedicalInterpreterNeeded FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {MedicalInterpreterNeeded} An instance of MedicalInterpreterNeeded populated with the FHIR data
+   */
+  static fromFHIR(fhir, asExtension = false) {
+    const inst = new MedicalInterpreterNeeded();
+    if (!asExtension && fhir != null) {
+      inst.value = createInstanceFromFHIR('shr.core.CodeableConcept', fhir);
+    }
+    return inst;
+  }
+
 }
 export default MedicalInterpreterNeeded;

@@ -28,6 +28,7 @@ const newPatientEntries = newPatient.entries;
 // Data Access with REST API
 const restApiDataAccess = new DataAccess("RestApiDataSource");
 const newPatientRest = restApiDataAccess.newPatient();
+import util from 'util';
 
 // Data Access with FHIR
 /*const fhirApiDataAccess = new DataAccess("FHIRApiDataSource");
@@ -38,7 +39,7 @@ const fhirReferencePatient = referenceHardCodedFHIRPatient.getPatient();
 */
 
 describe('create hard coded read only data source', function() {
-    it('get demo patient should return the hard coded patient', function () { 
+    it('get demo patient should return the hard coded patient', function () {
         expect(hardCodedPatientPatient)
             .eql(referencePatient);
     });
