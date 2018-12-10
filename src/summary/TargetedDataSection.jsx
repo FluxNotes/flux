@@ -332,8 +332,10 @@ export default class TargetedDataSection extends Component {
                 <div>
                     <ExpansionPanel expanded={expanded} onChange={(e, newExpanded) => this.setState({expanded: newExpanded})}>
                         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
-                            {criteriaSummaryItems}
-                            {expansionInstructions}
+                            <div className='expansion-summary'>
+                                {criteriaSummaryItems}
+                                {expansionInstructions}
+                            </div>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>{this.layoutCriteriaCheckboxes(criteriaGroups)}</ExpansionPanelDetails>
                     </ExpansionPanel>
