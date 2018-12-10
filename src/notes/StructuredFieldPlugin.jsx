@@ -27,6 +27,8 @@ function StructuredFieldPlugin(opts) {
         const ignoredKeys = [16, 20, 37, 38, 39, 40];
         const { isAlt, isCmd, isCtrl, isLine, isMeta, isMod, isModAlt, isWord } = key;
         const isModifier = isAlt || isCmd || isCtrl || isLine || isMeta || isMod || isModAlt || isWord;
+
+        // Override native typing when typing inside a structured field
         if (shortcut && !Lang.includes(ignoredKeys, e.keyCode) && !isModifier && e.key !== 'Enter') {
             e.preventDefault();
             e.stopPropagation();
@@ -271,7 +273,6 @@ function StructuredFieldPlugin(opts) {
     }
 
     function convertToText(fragment) {
-
         return `${convertSlateNodesToText(fragment.toJSON().nodes)}`;
     }
 
@@ -480,6 +481,7 @@ function createStructuredField(opts, shortcut) {
     const isInserter = shortcut instanceof InsertValue;
     const isVoid = !isInserter;
     if (isInserter) {
+        // Make inserter shortcuts editable by initialized nodes for each character in shortcut
         nodes = [Slate.Text.create({
             characters: Slate.Character.createList(String(shortcut.getText())
                 .split('')

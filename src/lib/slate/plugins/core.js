@@ -448,6 +448,8 @@ function Plugin(options = {}) {
   function onKeyDownEnter(e, data, state) {
     const { document, startKey } = state
     const hasVoidParent = document.hasVoidParent(startKey)
+
+    // Override block splitting if enter is pressed inside a structured field
     if (e.isPropagationStopped()) {
       return state;
     }
