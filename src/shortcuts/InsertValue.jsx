@@ -34,6 +34,7 @@ export default class InsertValue extends Shortcut {
             // Parse shortcutData and find value object by entryId
             const shortcutDataObj = JSON.parse(shortcutData);
             this.text = shortcutDataObj.text;
+            if (shortcutDataObj.originalText) this.setOriginalText(shortcutDataObj.originalText);
             const valueObject = this.patient.getEntryById(shortcutDataObj.entryId);
             this.setValueObject(valueObject);
             if (shortcutDataObj.wasRemovedFromContext) {
@@ -206,6 +207,7 @@ export default class InsertValue extends Shortcut {
                 text,
                 entryId: this.valueObject.entryInfo.entryId,
                 wasRemovedFromContext: this._wasRemovedFromContext,
+                originalText: this.originalText,
             };
             return `${this.initiatingTrigger}[[${JSON.stringify(shortcutDataObj)}]]`;
         }
