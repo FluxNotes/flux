@@ -50,6 +50,10 @@ function StructuredFieldPlugin(opts) {
             newShortcut.setKey(newShortcutNode.key);
             newShortcut.setOriginalText(shortcut.getLabel());
             newShortcut.setText(newShortcutNode.text);
+            if (shortcut.wasRemovedFromContext) {
+                contextManager.removeShortcutFromContext(newShortcut);
+                newShortcut.setWasRemovedFromContext(true);
+            }
             transform = transform.setNodeByKey(newShortcutNode.key, {
                 data: { shortcut: newShortcut }
             });
@@ -91,6 +95,10 @@ function StructuredFieldPlugin(opts) {
             newShortcut.setKey(newShortcutNode.key);
             newShortcut.setOriginalText(shortcut.getLabel());
             newShortcut.setText(newShortcutNode.text);
+            if (shortcut.wasRemovedFromContext) {
+                contextManager.removeShortcutFromContext(newShortcut);
+                newShortcut.setWasRemovedFromContext(true);
+            }
             transform = transform.setNodeByKey(newShortcutNode.key, {
                 data: { shortcut: newShortcut }
             });

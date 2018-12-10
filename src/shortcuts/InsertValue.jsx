@@ -10,7 +10,7 @@ export default class InsertValue extends Shortcut {
         this.text = null;
         this.originalText = null;
         this.patient = patient;
-        this._wasRemovedFromContext = false;
+        this.wasRemovedFromContext = false;
         this._shouldRemoveFromContext = false;
     }
 
@@ -206,7 +206,7 @@ export default class InsertValue extends Shortcut {
             const shortcutDataObj = {
                 text,
                 entryId: this.valueObject.entryInfo.entryId,
-                wasRemovedFromContext: this._wasRemovedFromContext,
+                wasRemovedFromContext: this.wasRemovedFromContext,
                 originalText: this.originalText,
             };
             return `${this.initiatingTrigger}[[${JSON.stringify(shortcutDataObj)}]]`;
@@ -223,7 +223,7 @@ export default class InsertValue extends Shortcut {
     }
 
     setWasRemovedFromContext(value) {
-        this._wasRemovedFromContext = value;
+        this.wasRemovedFromContext = value;
     }
 
     setText(text) {
