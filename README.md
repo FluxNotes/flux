@@ -8,19 +8,29 @@ In addition, a no-patient version of the above concept has been created for situ
 
 ## Getting Started
 
-* Ensure that [Git](https://git-scm.com/downloads), [Node.js](https://nodejs.org/en/) (LTS edition, currently 8.x) and [Yarn](https://yarnpkg.com/en/docs/install) are all installed.
-    * If Node Package Manager was not installed with Node, make sure to also install [NPM](https://www.npmjs.com/get-npm).
+* Ensure that the following are installed: 
+
+    - [Git](https://git-scm.com/downloads);
+    - [Node.js](https://nodejs.org/en/) **(LTS version v10.14.1)** ;
+      - If Node Package Manager was not installed with Node, make sure to also install [NPM](https://www.npmjs.com/get-npm).
+    - and [Yarn](https://yarnpkg.com/en/docs/install).
+
 * Git clone the repository
     * If proxy issues are encountered, make sure to set HTTP_PROXY and HTTPS_PROXY environment variables.
+
 * Check out the master branch (or the branch you want to work in)
+
 * In a terminal navigate into the flux folder (stay at the project root)
+
 * Enter `yarn install`
     * If proxy issues are encountered, make sure to set npm config proxy variables.  Type these commands into your terminal:
         ```bash
         npm config set https-proxy <proxy-server-url>:<port>
         npm config set proxy <proxy-server-url>:<port>
         ```
+
 * Enter `yarn start` to launch the development web server and open a browser to view the application
+
 * To view patient mode, append patient to the end of the default url (result url would be <http://localhost:3000/demo1>)
 
 ## Technical Details
