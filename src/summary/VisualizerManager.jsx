@@ -1,10 +1,14 @@
 import React from 'react';
-import TabularListVisualizer from './TabularListVisualizer'; //ordering of these lines matters
+import Lang from 'lodash';
+
+//ordering of these lines matters
+import TabularListVisualizer from './TabularListVisualizer';
 import NarrativeNameValuePairsVisualizer from './NarrativeNameValuePairsVisualizer';
 import BandedLineChartVisualizer from './BandedLineChartVisualizer';
 import ProgressionLineChartVisualizer from './ProgressionLineChartVisualizer';
 import TimelineEventsVisualizer from '../timeline/TimelineEventsVisualizer';
 import MedicationRangeChartVisualizer from './MedicationRangeChartVisualizer';
+import TreatmentOptionsVisualizer from '../mcode-pilot/TreatmentOptionsVisualizer/TreatmentOptionsVisualizer';
 import ScatterPlotVisualizer from './ScatterPlotVisualizer';
 import FormatMedicationChange from './FormatMedicationChange.js';
 import NameValuePairsIndexer from '../patientControl/NameValuePairsIndexer';
@@ -13,11 +17,10 @@ import EventsIndexer from '../patientControl/EventsIndexer';
 import MedicationsIndexer from '../patientControl/MedicationsIndexer';
 import ValueOverTimeIndexer from '../patientControl/ValueOverTimeIndexer';
 import DiseaseStatusValuesIndexer from '../patientControl/DiseaseStatusValuesIndexer';
-import Lang from 'lodash';
 import ClusterPointsIndexer from '../patientControl/ClusterPointsIndexer';
+import BaseIndexer from '../patientControl/BaseIndexer';
 
-class VisualizerManager {
-
+export default class VisualizerManager {
     constructor(user) {
         this.user = user;
     }
@@ -96,7 +99,7 @@ class VisualizerManager {
             const asNeeded = med.medication.asNeededIndicator ? ' as needed' : '';
 
             return [
-                { 
+                {
                     value: med.medication.medication,
                 },
                 {
@@ -106,13 +109,13 @@ class VisualizerManager {
                         value: medicationChange,
                     }
                 },
-                { 
+                {
                     value: dose,
                 },
-                { 
+                {
                     value: (timing || doseInstructionsText) + asNeeded,
                 },
-                { 
+                {
                     value: med.medication.expectedPerformanceTime.timePeriodStart,
                 },
                 {
@@ -125,13 +128,13 @@ class VisualizerManager {
             ];
         });
 
-        // Format function used to 
+        // Format function used to
         newsection.formatFunction = this.formatStoppedMedication;
         return newsection;
     };
 
 
-    // Returns today's date if the medication has just been stopped 
+    // Returns today's date if the medication has just been stopped
     getEndDate = (med) => {
         let endDate = med.medication.expectedPerformanceTime.timePeriodEnd;
         if (med.medicationChange && med.medicationChange.type === "stop") {
@@ -152,7 +155,7 @@ class VisualizerManager {
         return formattedMedicationChange;
     }
 
-    // This is a formatting function passed into TabularListVisualizer with the 
+    // This is a formatting function passed into TabularListVisualizer with the
     // medication columns.  It returns a css class if it finds a stopped medication.
     formatStoppedMedication = (elementText, element, columnNumber) => {
         if (elementText && elementText === "Stopped" && columnNumber === 1) {
@@ -208,19 +211,20 @@ class VisualizerManager {
     };
 
     visualizers = [
-                    { "dataType": "Columns", "visualizerType": "tabular", "visualizer": TabularListVisualizer },
-                    { "dataType": "NameValuePairs", "visualizerType": "tabular", "visualizer": TabularListVisualizer, "transform": this.transformNameValuePairToColumns, renderedFormat: "Columns" },
-                    { "dataType": "NameValuePairsOnly", "visualizerType": "tabular", "visualizer": TabularListVisualizer, "transform": this.transformNameValuePairToColumns, renderedFormat: "Columns" },
-                    { "dataType": "NameValuePairs", "visualizerType": "narrative", "visualizer": NarrativeNameValuePairsVisualizer },
-                    { "dataType": "Events", "visualizerType": "timeline", "visualizer": TimelineEventsVisualizer },
-                    { "dataType": "Medications", "visualizerType": "tabular", "visualizer": TabularListVisualizer, "transform": this.transformMedicationsToColumns, renderedFormat: "Columns" },
-                    { "dataType": "Medications", "visualizerType": "chart", "visualizer": MedicationRangeChartVisualizer },
-                    { "dataType": "ValueOverTime", "visualizerType": "chart", "visualizer": BandedLineChartVisualizer },
-                    { "dataType": "ValueOverTime", "visualizerType": "tabular", "visualizer": TabularListVisualizer, "transform": this.transformValuesOverTimeToColumns, renderedFormat: "Columns" },
-                    { "dataType": "NarrativeOnly", "visualizerType": "narrative", "visualizer": NarrativeNameValuePairsVisualizer },
-                    { "dataType": "DiseaseStatusValues", "visualizerType": "chart", "visualizer": ProgressionLineChartVisualizer },
-                    { "dataType": "ClusterPoints", "visualizerType": "scatter", "visualizer": ScatterPlotVisualizer}
-                  ];
+        { "dataType": "Columns", "visualizerType": "tabular", "visualizer": TabularListVisualizer },
+        { "dataType": "NameValuePairs", "visualizerType": "tabular", "visualizer": TabularListVisualizer, "transform": this.transformNameValuePairToColumns, renderedFormat: "Columns" },
+        { "dataType": "NameValuePairsOnly", "visualizerType": "tabular", "visualizer": TabularListVisualizer, "transform": this.transformNameValuePairToColumns, renderedFormat: "Columns" },
+        { "dataType": "NameValuePairs", "visualizerType": "narrative", "visualizer": NarrativeNameValuePairsVisualizer },
+        { "dataType": "Events", "visualizerType": "timeline", "visualizer": TimelineEventsVisualizer },
+        { "dataType": "Medications", "visualizerType": "tabular", "visualizer": TabularListVisualizer, "transform": this.transformMedicationsToColumns, renderedFormat: "Columns" },
+        { "dataType": "Medications", "visualizerType": "chart", "visualizer": MedicationRangeChartVisualizer },
+        { "dataType": "ValueOverTime", "visualizerType": "chart", "visualizer": BandedLineChartVisualizer },
+        { "dataType": "ValueOverTime", "visualizerType": "tabular", "visualizer": TabularListVisualizer, "transform": this.transformValuesOverTimeToColumns, renderedFormat: "Columns" },
+        { "dataType": "NarrativeOnly", "visualizerType": "narrative", "visualizer": NarrativeNameValuePairsVisualizer },
+        { "dataType": "DiseaseStatusValues", "visualizerType": "chart", "visualizer": ProgressionLineChartVisualizer },
+        { "dataType": "ClusterPoints", "visualizerType": "scatter", "visualizer": ScatterPlotVisualizer},
+        { "dataType": "TreatmentOptions", "visualizerType": "custom", "visualizer": TreatmentOptionsVisualizer }
+    ];
 
     getSupportedVisualizerTypesForDataType(dataType) {
         return this.visualizers.filter((viz) => {
@@ -255,7 +259,10 @@ class VisualizerManager {
                 return new DiseaseStatusValuesIndexer();
             case "ClusterPoints":
                 return new ClusterPointsIndexer();
+            case "TreatmentOptions":
+                return new BaseIndexer();
             default:
+                console.warn(`Targeted Data Panel data type '${dataType}' has no registered indexer.`);
                 return null;
         }
     }
@@ -336,7 +343,5 @@ class VisualizerManager {
         );
     }
 
-    
-}
 
-export default VisualizerManager;
+}

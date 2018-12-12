@@ -63,4 +63,5 @@ CoreCancerPilotDashboard.propTypes = {
     summaryMetadata: PropTypes.object.isRequired,
     searchIndex: PropTypes.object.isRequired,
     searchSuggestions: PropTypes.array,
+    highlightedSearchSuggestion: PropTypes.object
 };

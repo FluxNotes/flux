@@ -34,7 +34,7 @@ const theme = createMuiTheme({
 function getModalStyle() {
     const top = 50;
     const left = 50;
-  
+
     return {
       top: `${top}%`,
       left: `${left}%`,
@@ -231,7 +231,7 @@ export class CoreCancerPilotApp extends Component {
                             isAppBlurred={this.state.isAppBlurred}
                             setAppBlur={this.setAppBlur}
                         />
-                        <Modal 
+                        <Modal
                             aria-labelledby="simple-modal-title"
                             aria-describedby="simple-modal-description"
                             open={this.state.isModalOpen}
