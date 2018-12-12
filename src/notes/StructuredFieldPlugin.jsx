@@ -161,6 +161,8 @@ function StructuredFieldPlugin(opts) {
             structured_field: props => {
                 let shortcut = props.node.get('data').get('shortcut');
                 if (shortcut instanceof InsertValue) {
+                    // Added a zero-width-space at the end of the structured field so Safari doesn't think we are still typing in a
+                    // structured field once one has been inserted
                     return <span className='structured-field-inserter' {...props.attributes}>{props.children}&#8203;</span>;
                 } else {
                     return <span contentEditable={false} className='structured-field-creator' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
