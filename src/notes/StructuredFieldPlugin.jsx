@@ -24,7 +24,10 @@ function StructuredFieldPlugin(opts) {
     function onKeyDown(e, key, state, editor) {
         const anchorParent = state.document.getParent(state.selection.anchorKey);
         const shortcut = opts.structuredFieldMapManager.keyToShortcutMap.get(anchorParent.key);
-        const ignoredKeys = [16, 20, 37, 38, 39, 40];
+        // Arrow keys, shift, escape, tab, numlock, page up/down, etc
+        let ignoredKeys = [9, 12, 16, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 93, 144, 145];
+        const fKeys = [112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124];
+        ignoredKeys = ignoredKeys.concat(fKeys);
         const { isAlt, isCmd, isCtrl, isLine, isMeta, isMod, isModAlt, isWord } = key;
         const isModifier = isAlt || isCmd || isCtrl || isLine || isMeta || isMod || isModAlt || isWord;
 
