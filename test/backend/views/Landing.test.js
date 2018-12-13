@@ -12,7 +12,5 @@ describe('Landing', function() {
         const wrapper = shallow(<LandingPage/>);
         const fullAppDiv = wrapper.find('#link-to-full');
         expect(fullAppDiv.prop('href')).to.equal('/pilot1')
-        const patinaDiv = wrapper.find('#link-to-patina');
-        expect(patinaDiv.prop('href')).to.equal('/patina');
     });
 });
