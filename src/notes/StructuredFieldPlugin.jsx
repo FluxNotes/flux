@@ -342,6 +342,10 @@ function StructuredFieldPlugin(opts) {
         attach.setAttribute('flux-string', encoded);
         if (contents.childNodes.length > 1) {
             contents.childNodes[1].setAttribute('flux-string', encoded);
+            if (state.selection.focusOffset === 0) {
+                // Reset contenteditable prop to make copy work for editable structured fields
+                contents.childNodes[1].setAttribute('contenteditable', false);
+            }
         }
 
         // Add the phony content to the DOM, and select it, so it will be copied.
