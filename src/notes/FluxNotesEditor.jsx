@@ -528,6 +528,9 @@ class FluxNotesEditor extends React.Component {
         if (key1 === key2) {
             return offset1 < offset2;
         } else {
+            const parentNode = state.document.getParent(state.selection.anchorKey);
+            const shortcut = this.props.structuredFieldMapManager.keyToShortcutMap.get(parentNode.key);
+            if (shortcut && shortcut.getKey() === key1) return false;
             return state.document.areDescendantsSorted(key1, key2);
         }
     }
