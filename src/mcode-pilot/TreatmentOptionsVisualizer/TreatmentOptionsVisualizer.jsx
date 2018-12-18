@@ -5,6 +5,8 @@ import TreatmentOptionsSelector from '../TreatmentOptionsSelector/TreatmentOptio
 import numberWithCommas from '../utils/numberWithCommas';
 import './TreatmentOptionsVisualizer.css';
 
+import TreatmentOptionsOutcomes from '../OutcomesTable/TreatmentOptionsOutcomes';
+
 export default class TreatmentOptionsVisualizer extends Component {
     renderedSimilarPatientsSubtitle(numPatients) {
         return <div><span className="bold">{numPatients}</span> patients</div>;
@@ -62,6 +64,8 @@ export default class TreatmentOptionsVisualizer extends Component {
                     subTitle="cancer specific survival rate, ECOG score, Hospitalization due to side effects">
                     Features placeholder
                 </TreatmentOptionsSelector>
+
+                <TreatmentOptionsOutcomes />
             </div>
         );
     }
