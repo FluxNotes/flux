@@ -37,6 +37,7 @@ export default class InsertValue extends Shortcut {
             if (shortcutDataObj.originalText) this.setOriginalText(shortcutDataObj.originalText);
             const valueObject = this.patient.getEntryById(shortcutDataObj.entryId);
             this.setValueObject(valueObject);
+            this.setWasRemovedFromContext(shortcutDataObj.wasRemovedFromContext);
             if (shortcutDataObj.wasRemovedFromContext) {
                 this._shouldRemoveFromContext = true;
             }
