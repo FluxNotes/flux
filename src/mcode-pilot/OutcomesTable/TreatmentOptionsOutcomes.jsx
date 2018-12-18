@@ -1,10 +1,7 @@
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import Paper from 'material-ui/Paper';
-import Table, { TableCell, TableHead, TableBody, TableFooter, TablePagination, TableRow } from 'material-ui/Table';
+import Table, { TableCell, TableHead, TableBody, TableRow } from 'material-ui/Table';
 import './TreatmentOptionsOutcomes.css';
-
 
   let id = 0;
   function createData(name) {
@@ -19,30 +16,64 @@ import './TreatmentOptionsOutcomes.css';
     createData('none (actively monitoring)'),
   ];
   
-  function TreatmentOptionsOutcomes(props) {
-    return (
+
+  export default class TreatmentOptionsOutcomes extends Component {
+    constructor(props) {
+      super(props);
+
+      this.state = {
+          placeholder:{}
+      };
+
+  }
+
+    createHeader(headers) {
+      // iterator key
+      let id = 0;
+
+      const subheaders = [];
+      const header = headers.map(thisHeader=>{
+        // header type selection
+        // bold: default
+        // centered: centers the text (non-bold)
+        const type = thisHeader.type?thisHeader.type:"bold";
+        const subBool = thisHeader.hasOwnProperty('subheaders');
+        if(subBool){
+          subheaders.push(...thisHeader["subheaders"])
+        }
+        // !: could cause problems if headers change order
+        // or more get added to the front.
+        id++; 
+        return (<TableCell 
+          key={id}
+          className={"outcome-"+type+"-header"}
+          // !: only allows max two tiered headers/subheaders
+          rowSpan={subBool?1:2}
+          colSpan={subBool?thisHeader.subheaders.length:1}>
+          {thisHeader.header}
+          </TableCell>)
+      })
+
+      const subheader = subheaders.map(subList=>{
+        id++;
+          return (<TableCell key={id}>{subList}</TableCell>)
+      })
+
+      return {header, subheader};
+    }
+    render(){
+      const header = (this.createHeader(this.props.headers));
+      return (
         <div className="outcome-list">
         <Table >
           {/* Top Level Header */}
-
           <TableHead >
             <TableRow className="outcome-header">
-              <TableCell rowSpan={2}>select to compare</TableCell>
-              <TableCell className="outcome-center-header" rowSpan={2}><span className="fa fa-user user-icon"></span></TableCell>
-              <TableCell className="outcome-bold-header" colSpan={3}>Overall survival rates</TableCell>
-              <TableCell className="outcome-bold-header" rowSpan={2}>Change in ECOG score</TableCell>
-              <TableCell className="outcome-bold-header" colSpan={2}>Hospitalization due to side effects</TableCell>
+              {header.header}
             </TableRow>
             {/* Subheaders */}
             <TableRow className="outcome-subheader">
-
-              <TableCell >1 yr</TableCell>
-              <TableCell >2 yr</TableCell>
-              <TableCell >5 yr</TableCell>
-
-              <TableCell >all</TableCell>
-              <TableCell >leading cause</TableCell>
-
+              {header.subheader}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -57,7 +88,7 @@ import './TreatmentOptionsOutcomes.css';
                   <TableCell ><div className="prog-fill-top"><div className="prog-fill" style={{"width":Math.random()*100}}></div></div></TableCell>
                   <TableCell ><div className="prog-fill-top"><div className="prog-fill" style={{"width":Math.random()*100}}></div></div></TableCell>
                   <TableCell > 0.5 .4</TableCell>
-                  <TableCell > 15% ^4</TableCell>
+                  <TableCell > 15% ^ 4</TableCell>
                   <TableCell > neuropathy (4%) <br /> other thing (19%)</TableCell>
 
                 </TableRow>
@@ -68,10 +99,11 @@ import './TreatmentOptionsOutcomes.css';
         </div>
 
     );
+    }
+    
   }
   
   TreatmentOptionsOutcomes.propTypes = {
-    classes: PropTypes.object.isRequired,
+    headers: PropTypes.array.isRequired,
   };
   
-  export default (TreatmentOptionsOutcomes);

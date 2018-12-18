@@ -7,6 +7,30 @@ import './TreatmentOptionsVisualizer.css';
 
 import TreatmentOptionsOutcomes from '../OutcomesTable/TreatmentOptionsOutcomes';
 
+// example header object
+// TODO: decide on format for this
+const headers = [
+    {
+      "header": "select to compare",
+      "type":"thin"
+    },
+    {
+      "header":<span className="fa fa-user user-icon"></span>,
+      "type":"center"
+    },
+    {
+      "header": "Overall survival rates",
+      "subheaders":["1 yr", "2 yr", "3 yr"]
+    },
+    {
+      "header":"Change in ECOG score"
+    },
+    {
+      "header":"Hospitalization due to side effects",
+      "subheaders":["all","leading cause"]
+    }
+]
+
 export default class TreatmentOptionsVisualizer extends Component {
     renderedSimilarPatientsSubtitle(numPatients) {
         return <div><span className="bold">{numPatients}</span> patients</div>;
@@ -65,7 +89,7 @@ export default class TreatmentOptionsVisualizer extends Component {
                     Features placeholder
                 </TreatmentOptionsSelector>
 
-                <TreatmentOptionsOutcomes />
+                <TreatmentOptionsOutcomes headers={headers} />
             </div>
         );
     }
