@@ -1,0 +1,82 @@
+.outcome-list {
+  margin-bottom: 20px; }
+  .outcome-list table {
+    table-layout: auto;
+    border-collapse: collapse;
+    width: 98%;
+    margin-top: 10px;
+    margin-bottom: 30px !important;
+    font-size: 0.8rem; }
+  .outcome-list .user-icon {
+    font-size: 1.5rem;
+    text-align: center; }
+  .outcome-list .outcome-center-header {
+    text-align: center; }
+  .outcome-list .outcome-bold-header {
+    font-size: 0.9rem;
+    font-weight: 550; }
+  .outcome-list .list-subsection-header {
+    color: #3F3F3F !important;
+    font-weight: 600; }
+  .outcome-list .prog-fill {
+    height: 10px;
+    width: 50%;
+    background-color: #9e9e9e; }
+  .outcome-list .prog-fill-top {
+    background-color: #e1e1e1;
+    width: 100px; }
+  .outcome-list tr {
+    height: inherit; }
+  .outcome-list tbody th {
+    padding: 4px 8px; }
+  .outcome-list th {
+    color: rgba(0, 0, 0, 0.64);
+    padding: 4px 18px 4px 6px;
+    border: none; }
+  .outcome-list td {
+    text-align: left;
+    padding: 10px 18px 10px 6px;
+    border: none;
+    color: rgba(0, 0, 0, 0.54);
+    font-family: "Open Sans", Arial, sans-serif; }
+  .outcome-list ul {
+    list-style-type: none;
+    padding: 0; }
+    .outcome-list ul li {
+      font-size: 0.8rem;
+      text-decoration: underline #0182D7;
+      cursor: pointer; }
+  .outcome-list tbody tr:nth-child(odd) {
+    background-color: #F9F9F9; }
+  .outcome-list tbody tr:nth-child(even) {
+    background-color: #FFFFFF; }
+  .outcome-list span.list-missing {
+    border-bottom: 1px solid #FFB0A2; }
+  .outcome-list span.list-unsigned span {
+    border-bottom: 1.5px dashed #5EBFFF;
+    text-decoration: none; }
+  .outcome-list span.list-captured span {
+    border-bottom: 1px solid #5EBFFF; }
+  .outcome-list span.has-action-menu span {
+    cursor: pointer; }
+  .outcome-list .list-column-heading {
+    color: #000;
+    background-color: #FFFFFF;
+    padding: 8px 10px;
+    border-bottom: 1px solid lightgray;
+    font-weight: 600 !important;
+    font-family: "Open Sans", Arial, sans-serif;
+    text-align: left; }
+  .outcome-list span.stopped-cell {
+    border: 0;
+    color: #C80B0B;
+    font-family: "Open Sans", Arial, sans-serif; }
+  .outcome-list-tooltip .rc-tooltip-inner {
+    width: 200px;
+    min-height: 22px;
+    text-align: center;
+    border-radius: 6px; }
+  .outcome-list .highlighted {
+    background-color: #ffff03 !important; }
+  .outcome-list .selected {
+    background-color: #ff9632 !important; }
