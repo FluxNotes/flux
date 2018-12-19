@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 import Paper from 'material-ui/Paper';
-import Button from '../elements/Button';
 import '../styles/LandingPage.css';
 
 export default class LandingPage extends Component {
@@ -140,33 +139,9 @@ export default class LandingPage extends Component {
                                 </p>
                             </div>
                         </div>
+
                     </div>
                 </div>
-
-                <div className="landing-clinical-trial-banner">
-                    <div className="landing-clinical-trial-banner-title">
-                        Real World Data Capture for Clinical Trial Endpoints
-                    </div>
-
-                    <div className="landing-clinical-trial-banner-text">
-                        Enable clinical research by prospectively gathering real world clinical treatment data of the
-                        highest quality.
-                    </div>
-                </div>
-
-                <div className="landing-clinical-trials">
-                    <div className="landing-clinical-trials-section patina">
-                        <Button raised href="/patina" className="landing-clinical-trials-button" id="link-to-patina">
-                            Flux Notes™ for PATINA
-                        </Button>
-
-                        <div className="landing-clinical-trials-description">
-                            The PATINA trial is a phase 3 trial that is exploring the effect of adding palbociclib, an
-                            investigational medicine, into standard treatments for HR+/HER2+ metastatic breast cancer.
-                        </div>
-                    </div>
-                </div>
-
                 <div className="divider divider-long"></div>
 
                 <div className="landing-get-involved">
@@ -247,8 +222,8 @@ export default class LandingPage extends Component {
                     <a href="https://www.mitre.org/" alt="MITRE Site" target="_blank">
                         <img src="./logos/MITRE.png" alt="MITRE Logo" className="landing-partners-logo mitre" />
                     </a>
-
                 </div>
+
             </div>
         )
     }
