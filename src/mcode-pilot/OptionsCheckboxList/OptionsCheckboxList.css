@@ -1,0 +1,25 @@
+.options-checkbox-list {
+  margin: 10px 0; }
+  .options-checkbox-list__header .expand-icon {
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 1.2em;
+    color: #aaa; }
+  .options-checkbox-list__header .header-title {
+    font-weight: 600;
+    color: #555; }
+  .options-checkbox-list__header .selected-count {
+    margin-left: 10px;
+    font-size: 0.9em;
+    color: #888; }
+  .options-checkbox-list__options .selection-options {
+    display: flex;
+    flex-direction: column;
+    margin-left: 60px; }
+    .options-checkbox-list__options .selection-options__title {
+      color: #555; }
+  .options-checkbox-list .checkbox {
+    height: 22px;
+    width: 22px;
+    margin-right: 5px;
+    color: #0084B8; }

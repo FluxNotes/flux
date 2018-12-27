@@ -36,7 +36,7 @@ export default class TreatmentOptionsSelector extends Component {
                     {subHeader && <div className="treatment-options-selector__header-subheader">{subHeader}</div>}
                 </div>
 
-                {this.state.expanded &&
+                {expanded &&
                     <div className="treatment-options-selector__content">
                         {children}
                     </div>

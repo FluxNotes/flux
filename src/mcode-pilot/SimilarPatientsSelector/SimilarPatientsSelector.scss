@@ -1,0 +1,38 @@
+.similar-patients-selector {
+    &__select-buttons {
+        button {
+            border: 0;
+            cursor: pointer;
+            color: #0084B8;
+            font-size: 0.9em;
+            font-weight: 600;
+
+            &:hover {
+                color: darken(#0084B8, 10%);
+            }
+
+            &:focus {
+                outline: none;
+                background-color: #0084B8;
+                color: #fff;
+                border-radius: 5px;
+            }
+        }
+    }
+
+    .selection-option {
+        display: flex;
+        flex-direction: column;
+        margin: 20px 0;
+    }
+
+    &__options {
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+
+        .options-checkbox-list {
+            flex: 0 1 calc(33% - 1em);
+        }
+    }
+}
