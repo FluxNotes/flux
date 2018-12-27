@@ -3,9 +3,9 @@
   font-size: 0.9em;
   color: #888;
   cursor: pointer;
-}
-
-.template:hover {
-  color: #555;
-  font-weight: bold;
+  
+  &:hover {
+    color: #555;
+    font-weight: bold;
+  }
 }
