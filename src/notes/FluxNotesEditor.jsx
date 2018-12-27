@@ -1331,10 +1331,10 @@ class FluxNotesEditor extends React.Component {
                 }
                 remainder = remainder.substring(start + trigger.trigger.length);
 
-                // FIXME: Temporary work around that adds spaces when needed to @-phrases inserted via mic
-                if (start !== 0 && trigger.trigger.startsWith('@') && !before.endsWith(' ')) {
-                    transform = this.insertPlainText(transform, ' ');
-                }
+                // // FIXME: Temporary work around that adds spaces when needed to @-phrases inserted via mic
+                // if (start !== 0 && trigger.trigger.startsWith('@') && !before.endsWith(' ')) {
+                //     transform = this.insertPlainText(transform, ' ');
+                // }
 
                 // Deals with @condition phrases inserted via data summary panel buttons. 
                 if (remainder.startsWith("[[")) {
