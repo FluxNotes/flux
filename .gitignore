@@ -20,6 +20,7 @@ yarn-error.log*
 /src/forms/SingleChoiceButton.css
 /src/forms/MultiChoiceButton.css
 /src/mcode-pilot/**/*.css
+/src/forms/TemplateForm.css
 /src/notes/FluxNotesEditor.css
 /src/notes/NoteAssistant.css
 /src/notes/fillFieldComponents/MenuItemSetFillForPlaceholder.css
