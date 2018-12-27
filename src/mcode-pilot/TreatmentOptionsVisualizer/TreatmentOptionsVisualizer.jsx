@@ -114,16 +114,33 @@ export default class TreatmentOptionsVisualizer extends Component {
     }
 
     renderedSimilarPatientsSubheader() {
-        const { excludedCriteria } = this.state;
+        const {
+            demographicOptions,
+            pathologyOptions,
+            treatmentHistoryOptions,
+            geneticsOptions,
+            medicalHistoryOptions,
+            excludedCriteria
+        } = this.state;
+        const totalOptions = demographicOptions.length + pathologyOptions.length + treatmentHistoryOptions.length + geneticsOptions.length + medicalHistoryOptions.length;
+
+        let excludedCriteriaDisplay;
+        if (excludedCriteria.length === 0) {
+            excludedCriteriaDisplay = <em>none</em>;
+        } else if (excludedCriteria.length === totalOptions) {
+            excludedCriteriaDisplay = <em>all</em>;
+        } else {
+            excludedCriteriaDisplay = excludedCriteria.map((criteria, i) => (
+                <span key={i}>
+                    {criteria.split(':')[0]}{i !== excludedCriteria.length - 1 && <span>, </span>}
+                </span>
+            ));
+        }
 
         return (
             <div>
                 <span className="bold italic">excluded</span> criteria:
-                <span className="muted">
-                    {excludedCriteria.map((criteria, i) => (
-                        <span key={i}>{criteria.split(':')[0]}{i !== excludedCriteria.length - 1 && <span>, </span>}</span>
-                    ))}
-                </span>
+                <span className="muted">{excludedCriteriaDisplay}</span>
             </div>
         );
     }
