@@ -159,14 +159,16 @@ function StructuredFieldPlugin(opts) {
         return result;
     }
 
+    // Added a zero-width-space at the end of the structured field so Safari doesn't think we are still typing in a
+    // structured field once one has been inserted
+    const safariSpacing = Slate.IS_SAFARI ? '\u200B' : '';
+
     const schema = {
         nodes: {
             structured_field: props => {
                 let shortcut = props.node.get('data').get('shortcut');
                 if (shortcut instanceof InsertValue) {
-                    // Added a zero-width-space at the end of the structured field so Safari doesn't think we are still typing in a
-                    // structured field once one has been inserted
-                    return <span className='structured-field-inserter' {...props.attributes}>{props.children}&#8203;</span>;
+                    return <span className='structured-field-inserter' {...props.attributes}>{props.children}{safariSpacing}</span>;
                 } else {
                     return <span contentEditable={false} className='structured-field-creator' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
                 }
@@ -174,7 +176,7 @@ function StructuredFieldPlugin(opts) {
             bolded_structured_field: props => {
                 let shortcut = props.node.get('data').get('shortcut');
                 if (shortcut instanceof InsertValue) {
-                    return <span className='structured-field-inserter structured-field-bolded' {...props.attributes}>{props.children}&#8203;</span>;
+                    return <span className='structured-field-inserter structured-field-bolded' {...props.attributes}>{props.children}{safariSpacing}</span>;
                 } else {
                     return <span contentEditable={false} className='structured-field-creator structured-field-bolded' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
                 }
@@ -182,7 +184,7 @@ function StructuredFieldPlugin(opts) {
             structured_field_selected_search_result: props => {
                 let shortcut = props.node.get('data').get('shortcut');
                 if (shortcut instanceof InsertValue) {
-                    return <span className='structured-field-inserter structured-field-selected-search-result' {...props.attributes}>{props.children}&#8203;</span>;
+                    return <span className='structured-field-inserter structured-field-selected-search-result' {...props.attributes}>{props.children}{safariSpacing}</span>;
                 } else {
                     return <span contentEditable={false} className='structured-field-creator structured-field-selected-search-result' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
                 }
@@ -190,7 +192,7 @@ function StructuredFieldPlugin(opts) {
             structured_field_search_result: props => {
                 let shortcut = props.node.get('data').get('shortcut');
                 if (shortcut instanceof InsertValue) {
-                    return <span className='structured-field-inserter structured-field-search-result' {...props.attributes}>{props.children}&#8203;</span>;
+                    return <span className='structured-field-inserter structured-field-search-result' {...props.attributes}>{props.children}{safariSpacing}</span>;
                 } else {
                     return <span contentEditable={false} className='structured-field-creator structured-field-search-result' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
                 }
