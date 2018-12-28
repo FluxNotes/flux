@@ -36,13 +36,16 @@ export default class TreatmentOptionsOutcomes extends Component {
             const type = thisHeader.type ? thisHeader.type : "bold";
             if (thisHeader.subheaders) {
                 subheaders.push(...thisHeader.subheaders)
+            }else if(type === "bold") {
+                // give lone headers an empty subheader so they're aligned
+                subheaders.push(...[""]);
             }
             return (
             <TableCell
                 key={index}
                 className={`outcome-${type}-header`}
                 // !: only allows max two tiered headers/subheaders
-                rowSpan={thisHeader.subheaders ? 1 : 2}
+                rowSpan={!thisHeader.subheaders && type !== "bold" ? 2 : 1}
                 colSpan={thisHeader.subheaders ? thisHeader.subheaders.length : 1}>
                 {thisHeader.header}
             </TableCell>
