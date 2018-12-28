@@ -24,39 +24,31 @@ import './TreatmentOptionsOutcomes.css';
       this.state = {
           placeholder:{}
       };
-
   }
 
     createHeader(headers) {
-      // iterator key
-      let id = 0;
 
       const subheaders = [];
-      const header = headers.map(thisHeader=>{
+      const header = headers.map((thisHeader, index)=>{
         // header type selection
         // bold: default
         // centered: centers the text (non-bold)
         const type = thisHeader.type?thisHeader.type:"bold";
-        const subBool = thisHeader.hasOwnProperty('subheaders');
-        if(subBool){
-          subheaders.push(...thisHeader["subheaders"])
+        if(thisHeader.subheaders){
+          subheaders.push(...thisHeader.subheaders)
         }
-        // !: could cause problems if headers change order
-        // or more get added to the front.
-        id++; 
         return (<TableCell 
-          key={id}
-          className={"outcome-"+type+"-header"}
+          key={index}
+          className={`outcome-${type}-header`}
           // !: only allows max two tiered headers/subheaders
-          rowSpan={subBool?1:2}
-          colSpan={subBool?thisHeader.subheaders.length:1}>
+          rowSpan={thisHeader.subheaders?1:2}
+          colSpan={thisHeader.subheaders?thisHeader.subheaders.length:1}>
           {thisHeader.header}
           </TableCell>)
       })
 
-      const subheader = subheaders.map(subList=>{
-        id++;
-          return (<TableCell key={id}>{subList}</TableCell>)
+      const subheader = subheaders.map((subList, index)=>{
+          <TableCell key={index}>{subList}</TableCell>
       })
 
       return {header, subheader};
@@ -90,17 +82,14 @@ import './TreatmentOptionsOutcomes.css';
                   <TableCell > 0.5 .4</TableCell>
                   <TableCell > 15% ^ 4</TableCell>
                   <TableCell > neuropathy (4%) <br /> other thing (19%)</TableCell>
-
                 </TableRow>
               );
             })}
           </TableBody>
         </Table>
         </div>
-
-    );
+      );
     }
-    
   }
   
   TreatmentOptionsOutcomes.propTypes = {

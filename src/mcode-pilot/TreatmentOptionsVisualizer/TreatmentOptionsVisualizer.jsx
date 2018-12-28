@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 import TreatmentOptionsSelector from '../TreatmentOptionsSelector/TreatmentOptionsSelector';
 import numberWithCommas from '../utils/numberWithCommas';
-import './TreatmentOptionsVisualizer.css';
+import TreatmentOptionsOutcomes from '../TreatmentOptionsOutcomes/TreatmentOptionsOutcomes';
 
-import TreatmentOptionsOutcomes from '../OutcomesTable/TreatmentOptionsOutcomes';
+import './TreatmentOptionsVisualizer.css';
 
 // example header object
 // TODO: decide on format for this
@@ -86,10 +86,9 @@ export default class TreatmentOptionsVisualizer extends Component {
                 <TreatmentOptionsSelector
                     title="Outcomes"
                     subTitle="cancer specific survival rate, ECOG score, Hospitalization due to side effects">
-                    Features placeholder
+                    <TreatmentOptionsOutcomes headers={headers} />
                 </TreatmentOptionsSelector>
 
-                <TreatmentOptionsOutcomes headers={headers} />
             </div>
         );
     }
