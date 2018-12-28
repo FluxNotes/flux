@@ -4,6 +4,8 @@ import BreastCancerMetadata from './metadata/BreastCancerMetadata';
 import DefaultMetadata from './metadata/DefaultMetadata';
 import SarcomaMetadata from './metadata/SarcomaMetadata';
 import SarcomaNursePractitionerMetadata from './metadata/SarcomaNursePractitionerMetadata';
+import AlwaysMatcher from './matchers/AlwaysMatcher';
+import StringMatcher from './matchers/StringMatcher';
 
 /*
     Each section has the following properties:
@@ -43,12 +45,12 @@ export default class SummaryMetadata {
     constructor(setForceRefresh) {
         this.setForceRefresh = setForceRefresh;
 
-        this.hardCodedMetadata = {
-            "default": DefaultMetadata,
-            "http://snomed.info/sct/408643008": BreastCancerMetadata,
-            "http://snomed.info/sct/420120006": SarcomaMetadata,
-            "Doctor/Nurse/Medical oncology/http://snomed.info/sct/420120006": SarcomaNursePractitionerMetadata
-        };
+        this.hardCodedMetadata = [
+            { "enabled": true, "type": StringMatcher, "matchString": "Doctor/Nurse/Medical oncology/http://snomed.info/sct/420120006", "metadata": SarcomaNursePractitionerMetadata },
+            { "enabled": true, "type": StringMatcher, "matchString": "http://snomed.info/sct/420120006", "metadata": SarcomaMetadata },
+            { "enabled": true, "type": StringMatcher, "matchString": "http://snomed.info/sct/408643008", "metadata": BreastCancerMetadata },
+            { "enabled": true, "type": AlwaysMatcher, "metadata": DefaultMetadata }
+        ];
     }
 
     _cachedMetadata = {};
@@ -66,28 +68,20 @@ export default class SummaryMetadata {
         return this._cachedMetadata[key];
     }
 
-    // returns an array of strings which are keys to find the metadata for summary in priority order (1st one should be used first). List should always end with DefautMetadata
-    buildPrioritizedMetadataKeyList = (condition, roleType, role, specialty) => {
-        if (Lang.isNull(condition)) return [ "default" ];
-        const codeSystem = condition.codeSystem;
-        const code = condition.code;
-        const conditionType = `${codeSystem}/${code}`;
-        const userType = `${roleType}/${role}/${specialty}`;
-        return [ userType + "/" + conditionType, conditionType, "default" ];
-    }
-
     getMetadata = (preferencesManager, patient, condition, roleType, role, specialty) => {
         let metadataDefinition;
-        const prioritizedKeyList = this.buildPrioritizedMetadataKeyList(condition, roleType, role, specialty);
-        const numKeys = prioritizedKeyList.length;
-        let keyIndex = 0;
-        while (!metadataDefinition && keyIndex < numKeys) {
-            if (this.doesCachedMetadataExist(prioritizedKeyList[keyIndex])) {
-                return this.getCachedMetadata(prioritizedKeyList[keyIndex]);
+
+        this.hardCodedMetadata.forEach((potentialMetadata) => {
+            if (Lang.isUndefined(metadataDefinition) && potentialMetadata.enabled) {
+                const className = potentialMetadata.type;
+                const metadataDiscovery = new className(potentialMetadata);
+                if (metadataDiscovery.match(condition, roleType, role, specialty)) {
+                    // console.log("match function returned true for " + className);
+                    metadataDefinition = potentialMetadata.metadata;
+                }
             }
-            metadataDefinition = this.hardCodedMetadata[prioritizedKeyList[keyIndex]];
-            if (!metadataDefinition) keyIndex++;
-        }
+        });
+        
         if (!metadataDefinition) {
             console.error("No metadata available for ", condition, roleType, role, specialty);
             return null;
@@ -106,7 +100,8 @@ export default class SummaryMetadata {
                 return obj.getMetadata(preferencesManager, patient, condition, roleType, role, specialty);
             });
         });
-        this.addCachedMetadata(prioritizedKeyList[keyIndex], metadata);
+        // cache the metadata but only if condition is not null because we force default in that case
+//        if (prioritizedKeyList[keyIndex] !== 'default') this.addCachedMetadata(prioritizedKeyList[keyIndex], metadata);
         return metadata;
     }
 

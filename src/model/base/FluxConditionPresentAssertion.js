@@ -8,12 +8,13 @@ import FluxProcedureRequested from '../procedure/FluxProcedureRequested';
 import hpiConfig from '../hpi-configuration.json';
 import Lang from 'lodash';
 import moment from 'moment';
+import FluxEntry from './FluxEntry';
 
-
-class FluxConditionPresentAssertion {
+class FluxConditionPresentAssertion extends FluxEntry {
     constructor(json, type, patientRecord) {
+        super();
         this._patientRecord = patientRecord;
-        this._condition = ConditionPresentAssertion.fromJSON(json);
+        this._condition = this._entry = ConditionPresentAssertion.fromJSON(json);
     }
 
     get entryInfo() {

@@ -1,7 +1,13 @@
 import MetadataSection from "./MetadataSection";
+// import FluxCancerDisorder from "../../model/mcode/FluxCancerDisorder";
+// import McodeMetadata from './McodeMetadata';
 
 export default class DefaultCoreCancerPilotMetadata extends MetadataSection {
     getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
+        // if (condition instanceof FluxCancerDisorder) {
+        //     const metadataObj = new McodeMetadata();
+        //     return metadataObj.getMetadata(preferencesManager, patient, condition, roleType, role, specialty);
+        // }
         return {
             sections: this.buildMetadataSections(preferencesManager, patient, condition, roleType, role, specialty,
                 {
