@@ -2,6 +2,12 @@ import Lang from 'lodash';
 import moment from 'moment';
 
 export function createSentenceFromStructuredData(structuredPhraseTemplate, getAttributeValue, textIfNoData) {
+    
+    console.log("-------- create sentence from structured data ----------");
+
+    console.log("---------structured phrase template");
+    console.log(structuredPhraseTemplate);
+    
     let last = 0, valueName, value;
     let start = structuredPhraseTemplate.indexOf("${"), end;
     let result = "";
@@ -59,5 +65,8 @@ export function createSentenceFromStructuredData(structuredPhraseTemplate, getAt
     if (!haveAValue) {
         return textIfNoData;
     }
+
+    console.log("----- result -----");
+    console.log(result);
     return result;
 }

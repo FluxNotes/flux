@@ -1298,6 +1298,9 @@ class FluxNotesEditor extends React.Component {
         let start, end;
         let before = '', after = '';
 
+        console.log("-------- inserttext with structured phrases ----------");
+        console.log(textToBeInserted);
+
         // Open div tags don't trigger any action now, so just remove them.
         if (!Lang.isUndefined(remainder)) {
             remainder = remainder.split('<div>').join('');

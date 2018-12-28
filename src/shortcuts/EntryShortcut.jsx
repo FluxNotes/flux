@@ -86,6 +86,11 @@ export default class EntryShortcut extends Shortcut {
     }
 
     getAsString() {
+        console.log("-------- get as string ----------");    
+        
+        console.log("---------template ------------");
+
+        console.log(this.metadata["structuredPhrase"]);
         return createSentenceFromStructuredData(this.metadata["structuredPhrase"], this.getAttributeValue.bind(this), this.getText());
     }
 

@@ -1,3 +1,4 @@
+import React from 'react';
 class Placeholder {
     constructor(placeholderText, shortcutName, data, metadata, shortcutManager, contextManager, patient, clinicalNote, setForceRefresh) {
         this._placeholderText = placeholderText;
@@ -103,13 +104,22 @@ class Placeholder {
     }
 
     getTextToDisplayInNote(index = 0) {
+        console.log("-------- here ----------");
         if (this._numUpdates > 0 && this._entryShortcuts[index].hasData()) {
             let displayText = "";
             this._entryShortcuts.forEach((shortcut) => {
                 displayText += `${shortcut.getAsString()}. `;
             });
-            return displayText;
+
+            console.log("-------- display text ----------");
+            console.log(displayText);
+
+             // TODO: in here break up structured data into spans and add an underline
+            return <span className='placeholder-data'>{displayText}</span>;
+
+            //return displayText;
         }
+       
         return this._placeholderText;
     }
 
