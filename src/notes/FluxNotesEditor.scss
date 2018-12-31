@@ -97,6 +97,30 @@
             display: inline;
         }
 
+        // ******** StructuredFieldPlugin.jsx uses this
+        .structured-field {
+            // Bolded during template hovering
+            &-bolded {
+                font-weight: bold;
+            }
+        
+            // Inserter values are grayed out
+            &-inserter {
+                color: $state;
+                display: inline-block;
+            }
+        
+            &-creator {
+                border-bottom: 1px solid $shr-context-line;
+            }
+        
+            &-search-result {
+                background-color: $highlight-yellow;
+            }
+            &-selected-search-result {
+                background-color: $highlight-selected-yellow;
+            }
+        }
         // ******** Special editor marks use this
         .search-result-regular-highlight { 
             background-color: $highlight-yellow;
@@ -105,54 +129,39 @@
             background-color: $highlight-selected-yellow;
         }
     }
-}
-
-.editor-content {
-    /* 96px is the height of the Patient Control Panel, 20px is the height of the top margin of post encounter view
-    content and a little extra for potential scroll bars, 130px accounts for the editor header and editor toolbar 
-    plus margins, 76px is the height of the sign button, 20px is the margin on the sign button */
-    height: calc(100vh - 96px - 20px - 130px - 76px - 20px) !important;
-    overflow-y: auto;
-    overflow-x: hidden;
-    text-align: left;
-}
-
-// ******** StructuredFieldPlugin.jsx uses this
-.structured-field {
-    // Bolded during template hovering
-    &-bolded {
-        font-weight: bold;
-    }
-
-    // Inserter values are grayed out
-    &-inserter {
-        color: $state;
-    }
-
-    &-creator {
-        border-bottom: 1px solid $shr-context-line;
-    }
-
-    &-search-result {
-        background-color: $highlight-yellow;
-    }
-    &-selected-search-result {
-        background-color: $highlight-selected-yellow;
-    }
-}
-
-.in-progress-note { 
-    .structured-field-creator {
-        background-color: rgba(0, 0, 0, 0);
-        border-bottom: 1.5px dashed $shr-context-line;
+    
+    .editor-content {
+        /* 96px is the height of the Patient Control Panel, 20px is the height of the top margin of post encounter view
+        content and a little extra for potential scroll bars, 130px accounts for the editor header and editor toolbar 
+        plus margins, 76px is the height of the sign button, 20px is the margin on the sign button */
+        height: calc(100vh - 96px - 20px - 130px - 76px - 20px) !important;
+        overflow-y: auto;
+        overflow-x: hidden;
+        text-align: left;
     }
     
-    div {
-        padding-bottom: 2px;
+    .in-progress-note { 
+        .structured-field-creator {
+            background-color: rgba(0, 0, 0, 0);
+            border-bottom: 1.5px dashed $shr-context-line;
+        }
+        
+        div:last-child {
+            padding-bottom: 2px;
+        }
     }
-}
-.placeholder {
-    background-color: #dddddd;
+    .placeholder {
+        background-color: #dddddd;
+    }
+    
+    @media only screen and (max-width: 1024px) { 
+        .editor-content {
+            /* 117px is the height of the Patient Control Panel, 20px is the height of the top margin of post encounter view
+            content and a little extra for potential scroll bars, 130px accounts for the editor header and editor toolbar 
+            plus margins, 76px is the height of the sign button, 20px is the margin on the sign button */
+            height: calc(100vh - 117px - 20px - 130px - 76px - 20px) !important;
+        }
+    }
 }
 
 .placeholder-data {
@@ -177,6 +186,8 @@
     line-height: 140%;
 }
 
+// TODO: Move this code into the suggestion portal code 
+//
 // ******** suggestion-portal.js uses this
 .suggestion-portal { 
     position: absolute;
@@ -212,14 +223,5 @@
     li.selected {
         background-color: #297DA2;
         color: #fff;
-    }
-}
-
-@media only screen and (max-width: 1200px) { 
-    .editor-content {
-        /* 117px is the height of the Patient Control Panel, 20px is the height of the top margin of post encounter view
-        content and a little extra for potential scroll bars, 130px accounts for the editor header and editor toolbar 
-        plus margins, 76px is the height of the sign button, 20px is the margin on the sign button */
-        height: calc(100vh - 117px - 20px - 130px - 76px - 20px) !important;
     }
 }
