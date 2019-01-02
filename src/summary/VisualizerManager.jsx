@@ -35,7 +35,7 @@ export default class VisualizerManager {
         });
         const unit = (itemList && itemList.length > 0) ? itemList[0]["unit"] : "";
         let typicalRange = "";
-        if (goodband) {
+        if (goodband && unit !== "") {
             typicalRange = " (";
             if (goodband.low === 'min' && goodband.high === 'max') {
                 typicalRange += "all";
