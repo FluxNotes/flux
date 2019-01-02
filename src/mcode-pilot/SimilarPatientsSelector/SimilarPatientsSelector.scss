@@ -4,17 +4,17 @@
             background-color: #fff;
             border: 0;
             cursor: pointer;
-            color: #0084B8;
+            color: #0079CA;
             font-size: 0.9em;
             font-weight: 600;
 
             &:hover {
-                color: darken(#0084B8, 10%);
+                color: darken(#0079CA, 10%);
             }
 
             &:focus {
                 outline: none;
-                background-color: #0084B8;
+                background-color: #0079CA;
                 color: #fff;
                 border-radius: 5px;
             }
