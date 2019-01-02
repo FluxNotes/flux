@@ -1,9 +1,10 @@
+import React from 'react';
 import Lang from 'lodash';
 import moment from 'moment';
 
 export function createSentenceFromStructuredData(structuredPhraseTemplate, getAttributeValue, textIfNoData) {
     
-    console.log("-------- create sentence from structured data ----------");
+    // console.log("-------- create sentence from structured data ----------");
 
     console.log("---------structured phrase template");
     console.log(structuredPhraseTemplate);
@@ -16,7 +17,11 @@ export function createSentenceFromStructuredData(structuredPhraseTemplate, getAt
     let conditional, start2, end2, before, after;
     while (start !== -1) {
         if (last !== start) {
-            result += structuredPhraseTemplate.substring(last, start);
+            //result += structuredPhraseTemplate.substring(last, start);
+            result = result + '<span className="placeholder-data">' + structuredPhraseTemplate.substring(last, start) + '</span>';
+           
+            console.log("result");
+            console.log(result);
         }
         end = structuredPhraseTemplate.indexOf("}", start + 2);
         valueName = structuredPhraseTemplate.substring(start + 2, end);
@@ -66,7 +71,8 @@ export function createSentenceFromStructuredData(structuredPhraseTemplate, getAt
         return textIfNoData;
     }
 
-    console.log("----- result -----");
-    console.log(result);
+    // console.log("----- result -----");
+    // console.log(result);
+   
     return result;
 }

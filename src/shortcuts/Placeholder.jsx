@@ -104,20 +104,22 @@ class Placeholder {
     }
 
     getTextToDisplayInNote(index = 0) {
-        console.log("-------- here ----------");
+        // console.log("-------- here ----------");
         if (this._numUpdates > 0 && this._entryShortcuts[index].hasData()) {
             let displayText = "";
             this._entryShortcuts.forEach((shortcut) => {
                 displayText += `${shortcut.getAsString()}. `;
+                console.log("------ displayText------");
+                console.log(displayText);
             });
 
             console.log("-------- display text ----------");
             console.log(displayText);
 
-             // TODO: in here break up structured data into spans and add an underline
-            return <span className='placeholder-data'>{displayText}</span>;
+             // TODO: in here break up displayText into structured data wrapped with spans and add an underline
+            // return <span className="placeholder-data">{displayText}</span>;
 
-            //return displayText;
+            return displayText;
         }
        
         return this._placeholderText;
