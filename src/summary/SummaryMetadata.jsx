@@ -68,28 +68,52 @@ export default class SummaryMetadata {
         return this._cachedMetadata[key];
     }
 
+    buildStringKey = (condition, roleType, role, specialty) => {
+        return `${roleType}/${role}/${specialty}/${condition.codeSystem}/${condition.code}`;
+    }
+
     getMetadata = (preferencesManager, patient, condition, roleType, role, specialty) => {
         let metadataDefinition;
-
-        this.hardCodedMetadata.forEach((potentialMetadata) => {
-            if (Lang.isUndefined(metadataDefinition) && potentialMetadata.enabled) {
-                const className = potentialMetadata.type;
-                const metadataDiscovery = new className(potentialMetadata);
-                if (metadataDiscovery.match(condition, roleType, role, specialty)) {
-                    // console.log("match function returned true for " + className);
-                    metadataDefinition = potentialMetadata.metadata;
-                }
+        let stringKey;
+        if (Lang.isNull(condition)) {
+            metadataDefinition = DefaultMetadata;
+        } else {
+            stringKey = this.buildStringKey(condition, roleType, role, specialty);
+            // can we get metadata from cache?
+            if (this.doesCachedMetadataExist(stringKey)) {
+                return this.getCachedMetadata(stringKey);
             }
-        });
+    
+            // loop over potential metadata matches until we find a match 
+            this.hardCodedMetadata.forEach((potentialMetadata) => {
+                if (Lang.isUndefined(metadataDefinition) && potentialMetadata.enabled) {
+                    const className = potentialMetadata.type; // the type is AlwaysMatcher, FunctionMatcher, StringMatcher, or any other subclass of Matcher
+                    // Matcher abstract base class defines a single method match
+                    // match(condition, roleType, role, specialty) which return boolean
+                    // true means the metadata is a match for the condition, roleType, role, and specialty.
+                    // order matters. more specific should appear first
+                    const metadataDiscovery = new className(potentialMetadata);
+                    if (metadataDiscovery.match(condition, roleType, role, specialty)) {
+                        // match function returned true for className
+                        metadataDefinition = potentialMetadata.metadata;
+                    }
+                }
+            });
+        }
         
+        // no match found
         if (!metadataDefinition) {
             console.error("No metadata available for ", condition, roleType, role, specialty);
             return null;
         }
 
-        // metadataDefinition now contains either the class for generating the metadata or the actual metadata. If metadataDefinition is a function, that's a 'class'
+        // metadataDefinition now contains either the class for generating the metadata or the actual metadata.
+        // If metadataDefinition is a function, that's a 'class'
         // if we don't have a class, we have metadata so return it
-        if (!Lang.isFunction(metadataDefinition)) return metadataDefinition;
+        if (!Lang.isFunction(metadataDefinition)) {
+            if (!Lang.isUndefined(stringKey)) this.addCachedMetadata(stringKey, metadataDefinition);
+            return metadataDefinition;
+        }
 
         let obj = new metadataDefinition();
         let metadata = obj.getMetadata(preferencesManager, patient, condition, roleType, role, specialty);
@@ -100,6 +124,7 @@ export default class SummaryMetadata {
                 return obj.getMetadata(preferencesManager, patient, condition, roleType, role, specialty);
             });
         });
+        if (!Lang.isUndefined(stringKey)) this.addCachedMetadata(stringKey, metadata);
         // cache the metadata but only if condition is not null because we force default in that case
 //        if (prioritizedKeyList[keyIndex] !== 'default') this.addCachedMetadata(prioritizedKeyList[keyIndex], metadata);
         return metadata;
