@@ -19,8 +19,6 @@ yarn-error.log*
 # *.css // Add once project has completely converted to SASS
 /src/forms/SingleChoiceButton.css
 /src/forms/MultiChoiceButton.css
-/src/mcode-pilot/TreatmentOptionsSelector/TreatmentOptionsSelector.css
-/src/mcode-pilot/TreatmentOptionsVisualizer/TreatmentOptionsVisualizer.css
 /src/mcode-pilot/**/*.css
 /src/notes/FluxNotesEditor.css
 /src/notes/NoteAssistant.css
