@@ -171,7 +171,7 @@ class PatientRecord {
     }
 
     setDeceased(deceased) {
-        if (this.patient) this.patient.deceased = deceased;       
+        if (this.patient) this.patient.deceased = deceased;
     }
 
     static isEntryOfType(entry, type) {
@@ -300,16 +300,16 @@ class PatientRecord {
     getTodayOrMostRecentEncounterDate() {
         if (!this.hasEncounterToday()) {
             return this.getPreviousEncounterDateAsString();
-        } else { 
-            return new moment().format("D MMM YYYY"); 
+        } else {
+            return new moment().format("D MMM YYYY");
         }
     }
 
-    hasEncounterToday() { 
+    hasEncounterToday() {
         let encounters = this.getEntriesOfType(FluxConsultRequested);
-        const today = new moment().format("D MMM YYYY"); 
+        const today = new moment().format("D MMM YYYY");
         // Try to find an encounter with a performance time of today
-        return _.find(encounters, (encounter) => { 
+        return _.find(encounters, (encounter) => {
             return new moment(encounter.expectedPerformanceTime, "D MMM YYYY").format("D MMM YYYY") === today;
         }) !== undefined
     }
@@ -550,7 +550,7 @@ class PatientRecord {
         return this.getEntriesOfType(FluxMedicationRequested);
     }
 
-    getMedicationsAsText() { 
+    getMedicationsAsText() {
         const meds = this.getMedications();
         // Basic attributes to be listed in order
         let attributeList =  ["medication", "amountPerDose.value", "amountPerDose.units", "timingOfDoses.value", "timingOfDoses.units"];
@@ -573,7 +573,7 @@ class PatientRecord {
                 strResult += "\r\n";
             }
         });
-        
+
         return strResult
     }
 
@@ -604,7 +604,7 @@ class PatientRecord {
 
         return allmeds.filter((med) => {
             let medChanges = this.getMedicationChanges();
-            let stopMedicationFound = medChanges.some((medChange) => { 
+            let stopMedicationFound = medChanges.some((medChange) => {
                 return ((medChange.medicationBeforeChange) && (med === this.getEntryFromReference(medChange.medicationBeforeChange.value)) && (medChange.type === "stop"));
             });
 
@@ -612,8 +612,8 @@ class PatientRecord {
         });
     }
 
-    getActiveMedicationsAsText() { 
-        const activeMeds = this.getActiveMedicationsChronologicalOrder(); 
+    getActiveMedicationsAsText() {
+        const activeMeds = this.getActiveMedicationsChronologicalOrder();
 
         // Basic attributes to be listed in order
         let attributeList =  ["medication", "amountPerDose.value", "amountPerDose.units", "timingOfDoses.value", "timingOfDoses.units"];
@@ -734,7 +734,7 @@ class PatientRecord {
         let medication = FluxObjectFactory.createInstance({}, "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested", this);
         medication.medication = selectedValue;
         medication.startDate = new Date();
-     
+
         return medication;
     }
 
@@ -827,11 +827,11 @@ class PatientRecord {
 
         return reports;
 
-    } 
+    }
 
     getPathologyReports() {
         var result = this.getEntriesOfType(FluxPathologyReport);
-        
+
         return result
     }
 
@@ -1124,28 +1124,28 @@ class PatientRecord {
 
     getTodaysVitalsAsString() {
         let today = new moment().format("D MMM YYYY");
-        const bloodPressure = this.getEntriesOfType(FluxBloodPressure).find((bloodPressure) => {  
+        const bloodPressure = this.getEntriesOfType(FluxBloodPressure).find((bloodPressure) => {
             const relevantTime = new moment(bloodPressure.relevantTime, "D MMM YYYY").format("D MMM YYYY");
-            return relevantTime === today; 
+            return relevantTime === today;
         });
-        const bodyTemperature = this.getEntriesOfType(FluxBodyTemperature).find((bodyTemperature) => {  
+        const bodyTemperature = this.getEntriesOfType(FluxBodyTemperature).find((bodyTemperature) => {
             const relevantTime = new moment(bodyTemperature.relevantTime, "D MMM YYYY").format("D MMM YYYY");
-            return relevantTime === today; 
+            return relevantTime === today;
         });
-        const bodyWeight = this.getEntriesOfType(FluxBodyWeight).find((bodyWeight) => {  
+        const bodyWeight = this.getEntriesOfType(FluxBodyWeight).find((bodyWeight) => {
             const relevantTime = new moment(bodyWeight.relevantTime, "D MMM YYYY").format("D MMM YYYY");
-            return relevantTime === today; 
+            return relevantTime === today;
         });
-        const heartRate = this.getEntriesOfType(FluxHeartRate).find((heartRate) => {  
+        const heartRate = this.getEntriesOfType(FluxHeartRate).find((heartRate) => {
             const relevantTime = new moment(heartRate.relevantTime, "D MMM YYYY").format("D MMM YYYY");
-            return relevantTime === today; 
+            return relevantTime === today;
         });
         if (Lang.isUndefined(bloodPressure) && Lang.isUndefined(bodyTemperature) && Lang.isUndefined(bodyWeight) && Lang.isUndefined(heartRate)){
             return "no vital signs taken today";
         }
         const results = (Lang.isUndefined(bloodPressure) ? "" : "Blood pressure is " + bloodPressure.value + ". ") +
                         (Lang.isUndefined(bodyTemperature) ? "" : "Temperature is " + bodyTemperature.value + " "+ bodyTemperature.units + ". ") +
-                        (Lang.isUndefined(bodyWeight) ? "" : "Weight is " + bodyWeight.value + " " + bodyWeight.units + ". ") + 
+                        (Lang.isUndefined(bodyWeight) ? "" : "Weight is " + bodyWeight.value + " " + bodyWeight.units + ". ") +
                         (Lang.isUndefined(heartRate) ? "" : "Heart rate is " + heartRate.value + heartRate.units + ".");;
         return results;
     }
