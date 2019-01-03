@@ -1,6 +1,9 @@
 import TNMClinicalPrimaryTumorClassification from '../mcode/TNMClinicalPrimaryTumorClassification';
 import TNMClinicalRegionalNodesClassification from '../mcode/TNMClinicalRegionalNodesClassification';
 import TNMClinicalDistantMetastasesClassification from '../mcode/TNMClinicalDistantMetastasesClassification';
+import TNMPathologicPrimaryTumorClassification from '../mcode/TNMPathologicPrimaryTumorClassification';
+import TNMPathologicRegionalNodesClassification from '../mcode/TNMPathologicRegionalNodesClassification';
+import TNMPathologicDistantMetastasesClassification from '../mcode/TNMPathologicDistantMetastasesClassification';
 import RelevantTime from '../shr/base/RelevantTime';
 import CancerStageInformation from '../mcode/CancerStageInformation';
 import Entry from '../shr/base/Entry';
@@ -46,6 +49,13 @@ class FluxTNMStage extends FluxObservation {
      */
     set stage(stage) {
         this._observation.value = lookup.getStagingCodeableConcept(stage);
+    }
+
+    isPathologic() {
+        this._observation.panelMembers.observation.forEach((o) => {
+            if (o instanceof TNMPathologicPrimaryTumorClassification || o instanceof TNMPathologicRegionalNodesClassification || o instanceof TNMPathologicDistantMetastasesClassification) return true;
+        });
+        return false;
     }
 
     /**

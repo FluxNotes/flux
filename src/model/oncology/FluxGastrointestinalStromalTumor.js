@@ -1,5 +1,5 @@
 import FluxSolidTumorCancer from './FluxSolidTumorCancer';
-import ConditionPresentAssertion from '../shr/base/ConditionPresentAssertion';
+import CancerDisorder from '../mcode/CancerDisorder';
 import FluxHistologicGrade from './FluxHistologicGrade';
 import FluxTumorDimensions from '../oncology/FluxTumorDimensions';
 import Lang from 'lodash';
@@ -8,7 +8,7 @@ class FluxGastrointestinalStromalTumor extends FluxSolidTumorCancer {
     constructor(json, patientRecord) {
         super();
         this._patientRecord = patientRecord;
-        this._condition = ConditionPresentAssertion.fromJSON(json);
+        this._condition = this._entry = CancerDisorder.fromJSON(json);
     }
 
     getMostRecentMitosis() {

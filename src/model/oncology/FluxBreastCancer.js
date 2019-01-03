@@ -10,7 +10,7 @@ class FluxBreastCancer extends FluxSolidTumorCancer {
     constructor(json, patientRecord) {
         super();
         this._patientRecord = patientRecord;
-        this._condition = CancerDisorder.fromJSON(json);
+        this._condition = this._entry = CancerDisorder.fromJSON(json);
     }
 
     getMostRecentERReceptorStatus() {
