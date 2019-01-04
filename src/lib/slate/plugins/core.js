@@ -484,6 +484,11 @@ function Plugin(options = {}) {
     if (data.isWord) boundary = 'Word'
     if (data.isLine) boundary = 'Line'
 
+    // Override line deletion if deleting structured field text at the beginning of a line
+    if (e.isPropagationStopped()) {
+      return state;
+    }
+
     return state
       .transform()
       [`delete${boundary}Backward`]()

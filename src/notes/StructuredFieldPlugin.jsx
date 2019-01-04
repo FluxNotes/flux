@@ -32,7 +32,7 @@ function StructuredFieldPlugin(opts) {
         const isModifier = isAlt || isCmd || isCtrl || isLine || isMeta || isMod || isModAlt || isWord;
 
         // Override native typing when typing inside a structured field
-        if (shortcut && !Lang.includes(ignoredKeys, e.keyCode) && !isModifier && e.key !== 'Enter') {
+        if (shortcut && !Lang.includes(ignoredKeys, e.keyCode) && !isModifier && e.key !== 'Enter' && e.key !== 'Backspace') {
             e.preventDefault();
             e.stopPropagation();
 
@@ -122,6 +122,14 @@ function StructuredFieldPlugin(opts) {
             contextManager.contextUpdated();
 
             editor.onChange(transform);
+        } else if (shortcut && e.key === 'Backspace' && state.anchorOffset === 0) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            let transform = state.transform();
+            const prevTextNode = transform.state.document.getPreviousSibling(anchorParent.key);
+            transform = transform.collapseToStartOf(prevTextNode).deleteBackward(1);
+            editor.onChange(transform.apply());
         }
     }
 
