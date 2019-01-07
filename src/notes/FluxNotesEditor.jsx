@@ -602,17 +602,17 @@ class FluxNotesEditor extends React.Component {
     }
 
     scrollToAnchorEl = () => {
-        const anchorEl = Slate.findDOMNode(this.state.state.anchorBlock);
-        const anchorBottom = anchorEl.getBoundingClientRect().top + anchorEl.getBoundingClientRect().height;
-        const editorEl = document.getElementsByClassName('editor-content')[0];
-        const editorBottom = editorEl.getBoundingClientRect().top + editorEl.getBoundingClientRect().height;
-        let anchorElInView = true;
+        const anchorElement = Slate.findDOMNode(this.state.state.anchorBlock);
+        const anchorBottom = anchorElement.getBoundingClientRect().top + anchorElement.getBoundingClientRect().height;
+        const editorElement = document.getElementsByClassName('editor-content')[0];
+        const editorBottom = editorElement.getBoundingClientRect().top + editorElement.getBoundingClientRect().height;
+        let anchorElementInView = true;
 
         // add a slight offset to the anchor bottom to account for padding
-        if (anchorBottom + 2 > editorBottom) anchorElInView = false;
+        if (anchorBottom + 2 > editorBottom) anchorElementInView = false;
 
-        if (anchorEl && anchorEl.scrollIntoView && !anchorElInView) {
-            anchorEl.scrollIntoView({block: 'end'});
+        if (anchorElement && anchorElement.scrollIntoView && !anchorElementInView) {
+            anchorElement.scrollIntoView({block: 'end'});
         }
     }
 
