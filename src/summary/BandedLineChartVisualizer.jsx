@@ -194,7 +194,7 @@ class BandedLineChartVisualizer extends Component {
             return s.valueTitle === dataKey && s.contentSnapshot === dotValue;
         });
         if (highlightedData) {
-            props.stroke = Lang.isEqual(highlightedData, this.props.highlightedSearchSuggestion) ? 'rgb(255, 210, 5)' : 'rgb(255, 255, 70)';
+            props.stroke = Lang.isEqual(highlightedData, this.props.highlightedSearchSuggestion) ? 'rgb(255, 150, 50)' : 'rgb(255, 210, 5)';
             props.fill = 'rgb(255, 255, 70)';
             props.strokeWidth = 5;
         }
