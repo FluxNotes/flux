@@ -446,7 +446,7 @@ class FluxNotesEditor extends React.Component {
     insertStructuredFieldTransform = (transform, shortcut) => {
         if (Lang.isNull(shortcut)) return transform.focus();
         const result = this.structuredFieldPlugin.transforms.insertStructuredField(transform, shortcut);
-        this.scrollToAnchorEl();
+        this.scrollToAnchorElement();
         return result[0];
     }
 
@@ -601,7 +601,7 @@ class FluxNotesEditor extends React.Component {
         }
     }
 
-    scrollToAnchorEl = () => {
+    scrollToAnchorElement = () => {
         const anchorElement = Slate.findDOMNode(this.state.state.anchorBlock);
         const anchorBottom = anchorElement.getBoundingClientRect().top + anchorElement.getBoundingClientRect().height;
         const editorElement = document.getElementsByClassName('editor-content')[0];
@@ -748,7 +748,7 @@ class FluxNotesEditor extends React.Component {
             if (nextProps.shouldRevertTemplate) {
                 this.revertTemplate();
             }
-            this.scrollToAnchorEl();
+            this.scrollToAnchorElement();
         }
 
         // The note will still scroll to structured data when the user clicks on `Open Source Note` action but note is already open
