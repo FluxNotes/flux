@@ -48,6 +48,10 @@ export default class InsertValue extends Shortcut {
         return result;
     }
 
+    // callSpec: {"object": "patient | $parentValueObject", "method":"<methodName>"}
+    // callSpec: {"object": "patient | $parentValueObject", "method":"<methodName>", "itemKey": "<itemKey>", "itemContext":"<itemContext>", "dateLabel":"<dateLabel>"}
+    // callSpec: {"object": "parent", "attribute":"<attributeName>"}
+    // callSpec: {"string": "<string with ${x} expressions", "params": { "x": <callSpec>}}
     _resolveCallSpec(callSpec, contextManager, selectedValue) {
         let result;
         const callObject = callSpec["object"];

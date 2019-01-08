@@ -115,7 +115,7 @@ export default class SummaryMetadata {
             return metadataDefinition;
         }
 
-        let obj = new metadataDefinition();
+        let obj = new metadataDefinition(this.setForceRefresh);
         let metadata = obj.getMetadata(preferencesManager, patient, condition, roleType, role, specialty);
         metadata.sections.forEach((section) => {
             section.data = section.data.map((subsection) => {

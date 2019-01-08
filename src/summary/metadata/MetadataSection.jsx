@@ -4,6 +4,10 @@ import Lang from 'lodash'
 import Media from '../../model/shr/core/Media';
 
 export default class MetadataSection {
+    constructor(setForceRefresh) {
+        this.setForceRefresh = setForceRefresh;
+    }
+
     getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
         return null;
     }
@@ -16,7 +20,7 @@ export default class MetadataSection {
 
     buildMetadataSection(preferencesManager, patient, condition, roleType, role, specialty, section) {
         if (!Lang.isFunction(section)) return section;
-        let obj = new section();
+        let obj = new section(this.setForceRefresh);
         return obj.getMetadata(preferencesManager, patient, condition, roleType, role, specialty);    
     }
 
