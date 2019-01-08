@@ -1,0 +1,58 @@
+
+    .bar-chart {
+        width: 100px;
+        padding:0;
+    }
+
+    .bar-chart-text {
+        display:inline-block;
+        margin-bottom:0px;
+        margin-top:0px;
+    }
+    .right-text {
+        float:right;
+        padding-right: 5px;
+    }
+    .prog-border {
+        border-top: 1px solid #d1d1d1;
+        height: 10px;
+        display: inline-block;
+        border-bottom:1px solid #d1d1d1;
+    }
+    .prog-fill {
+        padding:0;
+        height: 12px;
+        width:0px;
+        display: inline-block;
+
+        background-color: #9e9e9e;
+    }
+
+    .prog-fill-top { 
+        background-color: #e1e1e1;
+        width: 100px;
+    }
+
+    .arrow-up {
+        width: 0; 
+        height: 0; 
+        position:relative;
+        bottom:.8em;
+        right: 2px;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        
+        border-bottom: 4px solid #5cb85c;
+      }
+      
+      .arrow-down {
+        width: 0; 
+        height: 0; 
+        position:relative;
+        top:0.9em;
+        right:2px;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        
+        border-top: 4px solid #d9534f;
+      }
