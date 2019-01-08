@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
 import PropTypes from 'prop-types';
 import Lang from 'lodash';
+import Collection from 'lodash';
 import { TableCell, TableRow } from 'material-ui/Table';
 import Tooltip from 'rc-tooltip';
 import TabularListVisualizerTable from './TabularListVisualizerTable';
@@ -45,20 +46,26 @@ export default class TabularListVisualizer extends Component {
 
     renderedSubsections(subsections) {
         if (subsections.length === 0) return null;
-  
+        
+        // If the isWide flag is set, all sections become single-column due to lack of real estate
         let isSingleColumn = this.props.conditionSection.isWide !== undefined ? !this.props.conditionSection.isWide : !this.props.isWide;
 
-        const numColumns = (subsections[0].data_cache.length === 0) ? 1 : subsections[0].data_cache[0].length;
+        // Iterate over all subsections to determine the max number of columsn taken up by subsections
+        const maxNumColumns = Collection.reduce(subsections, (maxSize, subsection) => {
+            // if this subsection has no dataCache, or if the length of a single element in that cache is less than our maxSize, stick with max;
+            // else, the single element has more attributes than our previous max; use its length as new max.
+            return (subsection.data_cache.length === 0 || maxSize >= subsection.data_cache[0].length) ? maxSize : subsection.data_cache[0].length;
+        }, 1) // Start wiht a minimum of one column
 
-        // currently including 2 column sections with a single subsection to use full width. could change to only use left side
-        // easily if we get feedback that people don't like this.
-        if (isSingleColumn || numColumns > 2 || subsections.length === 1) {
+        // If there is only space for one column, if the maxNumber of columns is greater than 2, or if number of subsections we have is just one, 
+        // render subsections using full width available.
+        if (isSingleColumn || maxNumColumns > 2 || subsections.length === 1) {
             return subsections.map((subsection, index) => {
                 return this.renderedSubsection(subsection, index);
             });
         }
-
-        // We are doing 2 columns of sections
+        // Else, we break up subsections into two columns of data
+        //
         // Grab the sections from subsections and create 2 arrays, one for the first half of the sections and another
         // for the second half of sections
         let numRows = 0;
@@ -328,7 +335,8 @@ export default class TabularListVisualizer extends Component {
         } else if (isInsertable) {
             const whenRendering = when ? ` (as of ${when})` : '';
             columnItem = (
-                <TableCell width={colSize}
+                <TableCell 
+                    width={colSize}
                     key={columnId}
                 >
                     <span className={itemClass}>
@@ -341,7 +349,8 @@ export default class TabularListVisualizer extends Component {
             );
         } else {
             columnItem = (
-                <TableCell width={colSize}
+                <TableCell 
+                    width={colSize}
                     key={columnId}
                 >
                     <span className={highlightedClass}>
