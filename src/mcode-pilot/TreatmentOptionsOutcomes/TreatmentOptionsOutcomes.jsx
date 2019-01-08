@@ -57,17 +57,17 @@ const outcome_survival = {
         'yr1':{
             'survived':43,
             'cancerDeath':23,
-            'otherDeath':4
+            'otherDeath':43
         },
         'yr2':{
-            'survived':39,
+            'survived':145,
             'cancerDeath':27,
-            'otherDeath':4
+            'otherDeath':35
         },
         'yr3':{
             'survived':32,
             'cancerDeath':34,
-            'otherDeath':4
+            'otherDeath':31
         }
     },
     'surgery & radiation':{
@@ -131,6 +131,10 @@ export default class TreatmentOptionsOutcomes extends Component {
 
         return { header, subheader };
     }
+
+    setActiveRow(row){
+        this.setState({activeRow:row})
+    }
     render() {
         const header = (this.createHeader(this.props.headers));
         return (
@@ -149,16 +153,20 @@ export default class TreatmentOptionsOutcomes extends Component {
                     <TableBody>
                         {rows.map(row => {
                             return (
-                                <TableRow key={row.id}>
+                                <TableRow key={row.id} onClick={()=>{this.setState({activeRow:row.name})}}>
                                     <TableCell component="th" scope="row">
                                         {row.name}
                                     </TableCell>
-                                    <TableCell >({Math.round(Math.random() * 100)})</TableCell>
+                                    {/* outcome_survival is mock data and will need to be replaced */}
+                                    <TableCell >({outcome_survival[row.name].yr1.survived+outcome_survival[row.name].yr1.cancerDeath+outcome_survival[row.name].yr1.otherDeath})</TableCell>
                                     {Object.keys(outcome_survival[row.name]).map(year=>{
-                                        return(<TableCell >
+                                        // 
+                                        return(<TableCell key={row.id+year}>
+                                            
                                             <BarChart 
                                                 values={outcome_survival[row.name][year]}
-                                                compareTo={outcome_survival[this.state.activeRow][year]}/>
+                                                compareTo={outcome_survival[this.state.activeRow][year]}
+                                                active={row.name == this.state.activeRow}/>
                                         </TableCell>)
                                     })}
                                     <TableCell > 0.5 .4</TableCell>
