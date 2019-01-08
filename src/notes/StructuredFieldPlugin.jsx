@@ -133,12 +133,26 @@ function StructuredFieldPlugin(opts) {
         }
     }
 
+    function getAllStructuredFields(nodes) {
+        let allStructuredFields = [];
+        nodes.forEach(node => {
+            if (node.type === 'structured_field') {
+                allStructuredFields.push(node);
+            }
+            if (node.nodes) {
+                allStructuredFields = allStructuredFields.concat(getAllStructuredFields(node.nodes));
+            }
+        });
+        return allStructuredFields;
+    }
+
     function onChange(state, editor) {
         var deletedKeys = [];
         const keyToShortcutMap = opts.structuredFieldMapManager.keyToShortcutMap;
         const idToShortcutMap = opts.structuredFieldMapManager.idToShortcutMap;
-        const nodes = state.document.getInlines();
-        if (nodes.size !== keyToShortcutMap.size) {
+        const nodes = getAllStructuredFields(state.document.toJSON().nodes);
+
+        if (nodes.length !== keyToShortcutMap.size) {
             var currentNodesMap = new Map(nodes.map((i) => [i.key, i]));
             keyToShortcutMap.forEach((value, key) => {
                 if (!currentNodesMap.has(key)) {
