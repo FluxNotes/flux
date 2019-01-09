@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
 import PropTypes from 'prop-types';
-import Lang from 'lodash';
+import _ from 'lodash';
 import { TableCell, TableRow } from 'material-ui/Table';
 import Tooltip from 'rc-tooltip';
 import TabularListVisualizerTable from './TabularListVisualizerTable';
@@ -22,9 +22,20 @@ export default class TabularListVisualizer extends Component {
             positionTop: 0,  // Just so the menu can be spotted more easily
             positionLeft: 0, // Same as above
         }
+        this.oldData = Object.assign({}, this.props.conditionSection);
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        if (!_.isEqual(this.oldData, nextProps.conditionSection)) { 
+            this.oldData = Object.assign({}, nextProps.conditionSection);
+            return true
+        } else { 
+            return false
+        }
     }
 
     render() {
+        console.log('this: ', this)
         const subsections = this.getSubsections();
 
         return (
@@ -137,7 +148,7 @@ export default class TabularListVisualizer extends Component {
                 return s.valueTitle === 'Subsection' && s.subsection === subsectionName;
             });
             let subsectionClassName = matchingSubsection ? 'highlighted' : '';
-            if (matchingSubsection && !Lang.isNull(this.props.highlightedSearchSuggestion)
+            if (matchingSubsection && !_.isNull(this.props.highlightedSearchSuggestion)
                 && this.props.highlightedSearchSuggestion.subsection === matchingSubsection.subsection
                 && matchingSubsection.valueTitle === 'Subsection') subsectionClassName += ' selected';
             subsectionNameHTML = <h2 className="subsection list-subsection-header"><span className={subsectionClassName}>{subsectionName}</span>{nameSuffix}</h2>;
@@ -189,7 +200,7 @@ export default class TabularListVisualizer extends Component {
         const itemsFunction = subsection.itemsFunction;
         let list;
 
-        if (Lang.isUndefined(items)) {
+        if (_.isUndefined(items)) {
             list = itemsFunction(patient, condition, subsection);
         } else {
             list = items;
@@ -206,11 +217,11 @@ export default class TabularListVisualizer extends Component {
 
     renderedPostTableList(itemsFunction, subsectionName, subsectionActions, arrayIndex) {
         const {patient, condition} = this.props;
-        if (patient == null || condition == null || Lang.isUndefined(itemsFunction)) return [];
+        if (patient == null || condition == null || _.isUndefined(itemsFunction)) return [];
         const list = itemsFunction(patient, condition);
         return list.map((element, index) => {
             const elementId = `post-item-${index}`;
-            const elementText = Lang.isNull(element) ? null : (Lang.isObject(element) ? element.value : element);
+            const elementText = _.isNull(element) ? null : (_.isObject(element) ? element.value : element);
             if (this.props.allowItemClick) {
                 return (
                     <li key={elementId}>
@@ -271,21 +282,21 @@ export default class TabularListVisualizer extends Component {
 
     renderColumn = (row, subsectionindex, itemIndex, subsectionName, subsectionActions, formatFunction, col, colIndex, colSize) => {
         const columnId = `${subsectionindex}-${itemIndex}-item-${colIndex}`
-        const isInsertable = Lang.isUndefined(col.isInsertable) ? true : col.isInsertable;
+        const isInsertable = _.isUndefined(col.isInsertable) ? true : col.isInsertable;
         let columnItem = null;
         const when = (col.value ? (col.value.when || null) : null);
         const isUnsigned = (col.value) ? col.value.isUnsigned || false : false;
-        let colText = Lang.isObject(col.value) ? col.value.value : col.value;
+        let colText = _.isObject(col.value) ? col.value.value : col.value;
         const longElementText = colText;
 
-        if (!Lang.isNull(colText) && colText.length > 100) colText = colText.substring(0, 100) + "...";
+        if (!_.isNull(colText) && colText.length > 100) colText = colText.substring(0, 100) + "...";
 
         let itemClass = isUnsigned ? 'list-unsigned' : 'list-captured';
         if (subsectionActions.length > 0 || this.props.actions.length > 0) {
             itemClass += " has-action-menu";
         }
 
-        const isMissingData = Lang.isUndefined(colText) || Lang.isNull(colText) || (typeof(colText) === 'string' && colText.length === 0);
+        const isMissingData = _.isUndefined(colText) || _.isNull(colText) || (typeof(colText) === 'string' && colText.length === 0);
 
         // Highlight matching key or value
         const highlightedData = this.props.tdpSearchSuggestions.find(s => {
@@ -305,7 +316,7 @@ export default class TabularListVisualizer extends Component {
         });
 
         let highlightedClass = highlightedData ? ' highlighted' : '';
-        if (Lang.isEqual(highlightedData, this.props.highlightedSearchSuggestion)) highlightedClass += ' selected';
+        if (_.isEqual(highlightedData, this.props.highlightedSearchSuggestion)) highlightedClass += ' selected';
 
         // If this section has an associated formatFunction (that
         // returns a specific) CSS class, it is applied to elementText.
@@ -351,7 +362,7 @@ export default class TabularListVisualizer extends Component {
             );
         }
 
-        if (!Lang.isNull(colText) && !Lang.isUndefined(colText) && colText.length > 100) {
+        if (!_.isNull(colText) && !_.isUndefined(colText) && colText.length > 100) {
             const text = <span>{longElementText}</span>
             columnItem = (
                 <Tooltip
