@@ -1,10 +1,10 @@
-@import '../../styles/variables';
+@import '../../../styles/variables';
 
 $font-size: 0.8rem;
 
 .outcome-list {
     margin-bottom: 20px;
-    
+
     table {
         table-layout: auto;
         border-collapse: collapse;
@@ -45,7 +45,7 @@ $font-size: 0.8rem;
         padding: 4px 8px;
     }
 
-    th { 
+    th {
         color: rgba(0,0,0,0.64);
         padding: 4px 18px 4px 6px;
         border: none;

@@ -8,7 +8,7 @@ import BandedLineChartVisualizer from './BandedLineChartVisualizer';
 import ProgressionLineChartVisualizer from './ProgressionLineChartVisualizer';
 import TimelineEventsVisualizer from '../timeline/TimelineEventsVisualizer';
 import MedicationRangeChartVisualizer from './MedicationRangeChartVisualizer';
-import TreatmentOptionsVisualizer from '../mcode-pilot/TreatmentOptionsVisualizer/TreatmentOptionsVisualizer';
+import TreatmentOptionsVisualizer from '../mcode-pilot/containers/TreatmentOptionsVisualizer/TreatmentOptionsVisualizer';
 import ScatterPlotVisualizer from './ScatterPlotVisualizer';
 import FormatMedicationChange from './FormatMedicationChange.js';
 import NameValuePairsIndexer from '../patientControl/NameValuePairsIndexer';
