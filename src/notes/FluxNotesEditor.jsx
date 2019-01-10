@@ -1369,7 +1369,9 @@ class FluxNotesEditor extends React.Component {
                 }
             });
         } else {
-            this.setState({ state });
+            this.setState({ state }, () => {
+                if (source === 'paste') this.scrollToAnchorElement();
+            });
         }
     }
 

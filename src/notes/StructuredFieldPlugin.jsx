@@ -273,13 +273,13 @@ function StructuredFieldPlugin(opts) {
             // NoteParser also overrides this function since there is no slate
             const saveIsBlock1BeforeBlock2 = contextManager.getIsBlock1BeforeBlock2();
             contextManager.setIsBlock1BeforeBlock2(() => { return false; });
-            insertText(decoded, undefined, true, true, 'paste');
+            insertText(decoded, undefined, true, 'paste');
             contextManager.setIsBlock1BeforeBlock2(saveIsBlock1BeforeBlock2);
             event.preventDefault();
             return state;
         } else if (data.text) {
             event.preventDefault();
-            insertText(data.text, undefined, true, true, 'paste');
+            insertText(data.text, undefined, true, 'paste');
             return state;
         }
     }
