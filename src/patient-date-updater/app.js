@@ -22,7 +22,7 @@ if (typeof input === 'undefined') {
 }
 
 const patientEntries = JSON.parse(fs.readFileSync(input, 'utf8'));
-const encounter = patientEntries.find(entry => entry.EntryType.Value === 'http://standardhealthrecord.org/spec/shr/encounter/Encounter' && entry.EntryId === entryid);
+const encounter = patientEntries.find(entry => entry.EntryType.Value === 'http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested' && entry.EntryId === entryid);
 
 // Encounter not found in patient entries so exit the program
 if (encounter === undefined) {
@@ -34,7 +34,7 @@ if (encounter === undefined) {
 fs.writeFileSync(`${input}.backup`, JSON.stringify(patientEntries, null, 4), 'utf8');
 console.log(`Saved backup JSON file to ${input}.backup`);
 
-const encounterDate = moment(encounter.ActionContext.ExpectedPerformanceTime.Value, 'D MMM YYYY HH:mm ZZ').startOf('day');
+const encounterDate = moment(encounter.Encounter.TimePeriod.TimePeriodStart.Value, 'D MMM YYYY HH:mm ZZ').startOf('day');
 const today = moment().startOf('day');
 const deltaDuration = moment.duration(today.diff(encounterDate));
 
