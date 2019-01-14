@@ -446,7 +446,7 @@ class FluxNotesEditor extends React.Component {
     insertStructuredFieldTransform = (transform, shortcut) => {
         if (Lang.isNull(shortcut)) return transform.focus();
         const result = this.structuredFieldPlugin.transforms.insertStructuredField(transform, shortcut);
-
+        this.scrollToAnchorElement();
         return result[0];
     }
 
@@ -601,6 +601,21 @@ class FluxNotesEditor extends React.Component {
         }
     }
 
+    scrollToAnchorElement = () => {
+        const anchorElement = Slate.findDOMNode(this.state.state.anchorBlock);
+        const anchorBottom = anchorElement.getBoundingClientRect().top + anchorElement.getBoundingClientRect().height;
+        const editorElement = document.getElementsByClassName('editor-content')[0];
+        const editorBottom = editorElement.getBoundingClientRect().top + editorElement.getBoundingClientRect().height;
+        let anchorElementInView = true;
+
+        // add a slight offset to the anchor bottom to account for padding
+        if (anchorBottom + 2 > editorBottom) anchorElementInView = false;
+
+        if (anchorElement && anchorElement.scrollIntoView && !anchorElementInView) {
+            anchorElement.scrollIntoView({block: 'end'});
+        }
+    }
+
     updateTemplateWithPickListOptions = (nextProps) => {
         if (nextProps.shouldUpdateShortcutType) {
             let transform = this.state.state.transform();
@@ -733,10 +748,7 @@ class FluxNotesEditor extends React.Component {
             if (nextProps.shouldRevertTemplate) {
                 this.revertTemplate();
             }
-            const anchorEl = Slate.findDOMNode(this.state.state.anchorBlock);
-            if (anchorEl && anchorEl.scrollIntoView) {
-                anchorEl.scrollIntoView();
-            }
+            this.scrollToAnchorElement();
         }
 
         // The note will still scroll to structured data when the user clicks on `Open Source Note` action but note is already open
@@ -1357,7 +1369,9 @@ class FluxNotesEditor extends React.Component {
                 }
             });
         } else {
-            this.setState({ state });
+            this.setState({ state }, () => {
+                if (source === 'paste') this.scrollToAnchorElement();
+            });
         }
     }
 
