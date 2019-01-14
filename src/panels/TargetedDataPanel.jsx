@@ -94,7 +94,6 @@ export default class TargetedDataPanel extends Component {
         const conditionURL = this.props.appState.condition ? this.props.appState.condition.codeURL : '';
 
         const { sectionsToDisplay } = this.state;
-        console.log('sectionsToDisplay: ', sectionsToDisplay);
         const tdpDisabledClass = this.props.isAppBlurred ? 'content-disabled' : '';
 
         if (conditionMetadata && conditionMetadata.sections.length > 1) {

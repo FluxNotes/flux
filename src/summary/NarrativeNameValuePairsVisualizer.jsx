@@ -1,13 +1,14 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Lang from 'lodash';
 import './NarrativeNameValuePairsVisualizer.css';
 import VisualizerMenu from './VisualizerMenu.jsx';
+import Visualizer from './Visualizer';
 
 /*
  A narrative view of one or more data summary items.
  */
-class NarrativeNameValuePairsVisualizer extends Component {
+class NarrativeNameValuePairsVisualizer extends Visualizer {
     // Initialize values for insertion popups
     constructor(props) { 
         super(props);

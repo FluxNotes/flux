@@ -157,7 +157,7 @@ export default class TargetedDataSubpanel extends Component {
             return !section.clinicalEvents || section.clinicalEvents.includes(clinicalEvent);
         }).map((section, i) => {
             return (
-                <div key={i} data-test-summary-section={section.name} data-minimap-short-title={section.shortName}>
+                <div key={section.name} data-test-summary-section={section.name} data-minimap-short-title={section.shortName}>
                     <TargetedDataSection
                         type={section.type}
                         visualizerManager={this._visualizerManager}

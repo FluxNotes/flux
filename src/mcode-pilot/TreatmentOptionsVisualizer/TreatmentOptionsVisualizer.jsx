@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
@@ -8,13 +8,15 @@ import SimilarPatientsSelector from '../SimilarPatientsSelector/SimilarPatientsS
 import numberWithCommas from '../utils/numberWithCommas';
 import TreatmentOptionsOutcomes from '../TreatmentOptionsOutcomes/TreatmentOptionsOutcomes';
 import headers from '../mock-data/Headers';
+import Visualizer from '../../summary/Visualizer';
+
 import './TreatmentOptionsVisualizer.css';
 
 // example header object
 // TODO: decide on format for this
 
 
-export default class TreatmentOptionsVisualizer extends Component {
+export default class TreatmentOptionsVisualizer extends Visualizer {
     constructor(props) {
         super(props);
 

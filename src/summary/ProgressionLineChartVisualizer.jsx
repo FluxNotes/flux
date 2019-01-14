@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {
     LineChart,
     Line,
@@ -13,12 +13,13 @@ import moment from 'moment';
 import Collection from 'lodash';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
+import Visualizer from './Visualizer';
 
 import './ProgressionLineChartVisualizer.css';
 /*
  A BandedLineGraphVisualizer that graphs a set of data over time
  */
-class ProgressionLineChartVisualizer extends Component {
+class ProgressionLineChartVisualizer extends Visualizer {
     constructor(props) {
         super(props);
 
@@ -55,16 +56,6 @@ class ProgressionLineChartVisualizer extends Component {
             // 'Inevaluable'
             "null" : 'Inevaluable',
         };
-        this.oldData = Object.assign({}, this.props.conditionSection);
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        if (!_.isEqual(this.oldData, nextProps.conditionSection)) { 
-            this.oldData = Object.assign({}, nextProps.conditionSection);
-            return true
-        } else { 
-            return false
-        }
     }
 
     // Single function translating date strings to numbers

@@ -178,7 +178,6 @@ export class FullApp extends Component {
 
     // pass this function to children to set full app global state
     setFullAppState = (state, value) => {
-        console.log('state, value: ', state, value);
         this.setState({[state]: value});
     }
 

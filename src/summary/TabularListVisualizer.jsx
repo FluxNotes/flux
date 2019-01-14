@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Row, Col } from 'react-flexbox-grid';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
@@ -7,12 +7,13 @@ import Tooltip from 'rc-tooltip';
 import TabularListVisualizerTable from './TabularListVisualizerTable';
 import './TabularListVisualizer.css';
 import VisualizerMenu from './VisualizerMenu.jsx';
+import Visualizer from './Visualizer';
 
 /*
  A table view of one or more data summary items. Items could be pathology-related,
  diagnosis-related, genetics-related, etc.
  */
-export default class TabularListVisualizer extends Component {
+export default class TabularListVisualizer extends Visualizer {
     // Initialize values for insertion popups
     constructor(props) {
         super(props);
@@ -22,20 +23,9 @@ export default class TabularListVisualizer extends Component {
             positionTop: 0,  // Just so the menu can be spotted more easily
             positionLeft: 0, // Same as above
         }
-        this.oldData = Object.assign({}, this.props.conditionSection);
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        if (!_.isEqual(this.oldData, nextProps.conditionSection)) { 
-            this.oldData = Object.assign({}, nextProps.conditionSection);
-            return true
-        } else { 
-            return false
-        }
     }
 
     render() {
-        console.log('this: ', this)
         const subsections = this.getSubsections();
 
         return (
@@ -180,32 +170,13 @@ export default class TabularListVisualizer extends Component {
 
                 <TabularListVisualizerTable
                     headers={headings}
-                    rows={this.renderedListItems(subsectionindex, list, numberOfHeadings, subsectionName, subsectionActions, transformedSubsection.formatFunction)} />
-
+                    rows={this.renderedListItems(subsectionindex, list, numberOfHeadings, subsectionName, subsectionActions, transformedSubsection.formatFunction)} 
+                />
                 <ul>
                     {this.renderedPostTableList(transformedSubsection.postTableList, subsectionName, subsectionActions, -1)}
                 </ul>
             </div>
         );
-    }
-
-    // Get a formatted list of objects corresponding to every item to be displayed
-    getList(subsection) {
-        const {patient, condition, conditionSection } = this.props;
-        if (patient == null || condition == null || conditionSection == null) {
-            return [];
-        }
-
-        const items = subsection.items;
-        const itemsFunction = subsection.itemsFunction;
-        let list;
-
-        if (_.isUndefined(items)) {
-            list = itemsFunction(patient, condition, subsection);
-        } else {
-            list = items;
-        }
-        return list;
     }
 
     // Render all list items
