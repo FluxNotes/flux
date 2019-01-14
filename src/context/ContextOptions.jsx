@@ -35,7 +35,6 @@ export default class ContextOptions extends Component {
     }
 
     renderGroup = (groupObj, i, parentContext) => { 
-        // console.log('groupObj: ', groupObj);
         return (
             <div key={`group-${i}`}>
                 {/* Use group name if available */}
@@ -98,12 +97,8 @@ export default class ContextOptions extends Component {
         // build our list of filtered triggers (only filter if we will be showing search bar)
         let triggers = [];
         // count = 0;
-        
-        // console.log('validShortcuts: ', validShortcuts);
-        // console.log(this.props.shortcutManager.shortcuts)
         validShortcuts.forEach((shortcut, i) => {
             let groupName = this.props.shortcutManager.getShortcutGroupName(shortcut);
-            // console.log('groupName: ', groupName);
             this.props.shortcutManager.getTriggersForShortcut(shortcut, context).forEach((trigger, j) => {
                 // If there's a search string to filter on, filter
                 if (this.props.searchString.length === 0 || trigger.name.toLowerCase().indexOf(this.props.searchString.toLowerCase()) !== -1) {
@@ -156,7 +151,6 @@ export default class ContextOptions extends Component {
                 }).length !== 0
             )
         );
-        // console.log('groupList: ', groupList);
         return (
             <section
                 className={'context-options-section'}

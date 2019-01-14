@@ -126,7 +126,7 @@ export class Minimap extends React.Component {
 
         return (
           <ChildComponent
-            key={key}
+            key={title}
             width={Math.round( wM )}
             height={hM}
             left={Math.round( xM )}
