@@ -118,6 +118,17 @@ export class Minimap extends React.Component {
         const yM = ((top + scrollTop - sourceRect.top) * ratioY) + diff;
         const title = node.getAttribute(this.props.titleAttribute);
         const shortTitle = node.getAttribute(this.props.shortTitleAttribute);
+        if (yM < 0) { 
+          console.log('yM: ', yM);
+          console.log('------------------');
+          console.log('ratioY: ', ratioY);
+          console.log('hM: ', hM);
+          console.log('diff: ', diff);
+          console.log('sourceRect: ', sourceRect);
+          console.log('scrollTop: ', scrollTop);
+          console.log('top: ', top);
+
+        }
 
         if (hM < 0) {
           diff += 0 - hM;
