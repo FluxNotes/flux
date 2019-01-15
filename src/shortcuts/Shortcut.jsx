@@ -11,6 +11,7 @@ class Shortcut extends Context {
         }
         this.optionsToSelectFrom = null;
         this.valueChangeHandlers = {};
+        this.uniqueId = Lang.uniqueId('shortcut-');
     }
     
     initialize(contextManager, trigger = undefined, updatePatient = true) {

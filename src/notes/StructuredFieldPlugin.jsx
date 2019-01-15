@@ -140,7 +140,7 @@ function StructuredFieldPlugin(opts) {
     function getAllStructuredFields(nodes) {
         let allStructuredFields = [];
         nodes.forEach(node => {
-            if (node.type === 'structured_field') {
+            if (node.type === 'structured_field' || node.type === 'placeholder') {
                 allStructuredFields.push(node);
             }
             if (node.nodes) {
@@ -154,6 +154,7 @@ function StructuredFieldPlugin(opts) {
         var deletedKeys = [];
         const keyToShortcutMap = opts.structuredFieldMapManager.keyToShortcutMap;
         const idToShortcutMap = opts.structuredFieldMapManager.idToShortcutMap;
+        const idToKeysMap = opts.structuredFieldMapManager.idToKeysMap;
         const nodes = getAllStructuredFields(state.document.toJSON().nodes);
 
         if (nodes.length !== keyToShortcutMap.size) {
@@ -175,7 +176,8 @@ function StructuredFieldPlugin(opts) {
                     opts.structuredFieldMapManager.removePlaceholder(shortcut);
                 }
                 keyToShortcutMap.delete(key);
-                idToShortcutMap.delete(shortcut.metadata.id)
+                idToShortcutMap.delete(shortcut.uniqueId);
+                idToKeysMap.delete(shortcut.uniqueId);
                 contextManager.contextUpdated();
             } else {
                 result = editor.getState(); // don't allow state change
@@ -562,14 +564,13 @@ function createStructuredField(opts, shortcut) {
             }
             opts.structuredFieldMapManager.keyToShortcutMap.set(inlineNode.key, shortcut);
 
-            // TODO: Need a unique id to set on this map
-            const shortcutKeys = opts.structuredFieldMapManager.idToKeysMap.get(`${shortcut.metadata.id}`) || [];
+            const shortcutKeys = opts.structuredFieldMapManager.idToKeysMap.get(shortcut.uniqueId) || [];
             shortcutKeys.push(inlineNode.key);
-            opts.structuredFieldMapManager.idToKeysMap.set(`${shortcut.metadata.id}`, shortcutKeys);
+            opts.structuredFieldMapManager.idToKeysMap.set(shortcut.uniqueId, shortcutKeys);
 
             inlines.push(sf);
         });
-        opts.structuredFieldMapManager.idToShortcutMap.set(shortcut.metadata.id, shortcut);
+        opts.structuredFieldMapManager.idToShortcutMap.set(shortcut.uniqueId, shortcut);
         return inlines;
     }
 
@@ -583,7 +584,10 @@ function createStructuredField(opts, shortcut) {
     };
     let sf = Slate.Inline.create(properties);
     opts.structuredFieldMapManager.keyToShortcutMap.set(sf.key, shortcut);
-    opts.structuredFieldMapManager.idToShortcutMap.set(shortcut.metadata.id, shortcut);
+    opts.structuredFieldMapManager.idToShortcutMap.set(shortcut.uniqueId, shortcut);
+    const shortcutKeys = opts.structuredFieldMapManager.idToKeysMap.get(shortcut.uniqueId) || [];
+    shortcutKeys.push(sf.key);
+    opts.structuredFieldMapManager.idToKeysMap.set(shortcut.uniqueId, shortcutKeys);
     return [sf];
 }
 
@@ -597,7 +601,7 @@ function updateStructuredField(opts, transform, shortcut) {
     const keyToShortcutMap = opts.structuredFieldMapManager.keyToShortcutMap;
     const idToShortcutMap = opts.structuredFieldMapManager.idToShortcutMap;
     const idToKeysMap = opts.structuredFieldMapManager.idToKeysMap;
-    const allKeysForShortcut = idToKeysMap.get(shortcut.metadata.id);
+    const allKeysForShortcut = idToKeysMap.get(shortcut.uniqueId);
     const contextManager = opts.contextManager;
     if (shortcut.onBeforeDeleted()) {
         if (shortcut instanceof Placeholder) {
@@ -606,7 +610,7 @@ function updateStructuredField(opts, transform, shortcut) {
         allKeysForShortcut.forEach(key => {
             keyToShortcutMap.delete(key);
         });
-        idToShortcutMap.delete(shortcut.metadata.id);
+        idToShortcutMap.delete(shortcut.uniqueId);
         contextManager.contextUpdated();
     }
 
@@ -617,7 +621,7 @@ function updateStructuredField(opts, transform, shortcut) {
         transform = deleteNode(shortcutNode, transform, i === allKeysForShortcut.length - 1);
     });
     // Clear key map after deleting
-    idToKeysMap.delete(shortcut.metadata.id);
+    idToKeysMap.delete(shortcut.uniqueId);
 
     const newShortcuts = insertStructuredField(opts, transform, newShortcut);
     transform = newShortcuts[0].moveToEnd();
