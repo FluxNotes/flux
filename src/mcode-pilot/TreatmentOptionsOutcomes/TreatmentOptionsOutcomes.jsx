@@ -31,7 +31,6 @@ export default class TreatmentOptionsOutcomes extends Component {
 
         const subheaders = [];
         const header = headers.map((thisHeader, index) => {
-            console.log(thisHeader.header);
             // header type selection
             // bold: default
             // centered: centers the text (non-bold)
