@@ -33,26 +33,7 @@
         width: 100px;
     }
 
-    .arrow-up {
-        width: 0; 
-        height: 0; 
-        position:relative;
-        bottom:.8em;
-        right: 2px;
-        border-left: 4px solid transparent;
-        border-right: 4px solid transparent;
-        
-        border-bottom: 4px solid #5cb85cbe;
-      }
-      
-      .arrow-down {
-        width: 0; 
-        height: 0; 
-        position:relative;
-        top:0.9em;
-        right:2px;
-        border-left: 4px solid transparent;
-        border-right: 4px solid transparent;
-        
-        border-top: 4px solid #d9544fbe;
-      }
+    .tiny-arrow{
+        opacity: .75;
+        padding-right: 2px;
+    }
