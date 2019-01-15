@@ -465,6 +465,7 @@ function StructuredFieldPlugin(opts) {
 
         transforms: {
             insertStructuredField:      	insertStructuredField.bind(null, opts),
+            updateStructuredField:          updateStructuredField.bind(null, opts),
             insertPlaceholder:              insertPlaceholder.bind(null, opts),
             insertStructuredFieldAtRange:   insertStructuredFieldAtRange.bind(null, opts)
         }
@@ -526,48 +527,50 @@ function createStructuredField(opts, shortcut) {
     let nodes = [];
     const isInserter = shortcut instanceof InsertValue;
     const isVoid = !isInserter;
-    if (isInserter) {   
-        const lines = String(shortcut.getText()).split('\n');
-        let inlineNodes = [];
+    if (isInserter) {
+        const lines = String(shortcut.getText()).split(/\n\r|\r\n|\r|\n/g);
+        let textNodes = [];
         let inlines = [];
         lines.forEach((line, i) => {
-            inlineNodes = [Slate.Text.create({
+            textNodes = [Slate.Text.create({
                 characters: Slate.Character.createListFromText(line)
             })];
 
             const properties = {
-                type:  opts.typeStructuredField,
-                nodes: inlineNodes,
+                type: opts.typeStructuredField,
+                nodes: textNodes,
                 isVoid,
                 data: {
                     shortcut: shortcut
                 }
             };
-            let sf
-            if (i + 1 < lines.length){
-                sf = Slate.Block.create(properties);
-            } else { 
-                sf = Slate.Inline.create(properties);
+
+            const inlineNode = Slate.Inline.create(properties);
+            let sf;
+            if (lines.length === 1) {
+                sf = inlineNode;
+            } else {
+                sf = Slate.Block.create({
+                    type: 'line',
+                    nodes: [inlineNode],
+                    isVoid,
+                });
             }
-            opts.structuredFieldMapManager.keyToShortcutMap.set(sf.key, shortcut);
+            opts.structuredFieldMapManager.keyToShortcutMap.set(inlineNode.key, shortcut);
+
+            // TODO: Need a unique id to set on this map
+            const shortcutKeys = opts.structuredFieldMapManager.idToKeysMap.get(`${shortcut.metadata.id}`) || [];
+            shortcutKeys.push(inlineNode.key);
+            opts.structuredFieldMapManager.idToKeysMap.set(`${shortcut.metadata.id}`, shortcutKeys);
+
             inlines.push(sf);
         });
-        // Make inserter shortcuts editable by initialized nodes for each character in shortcut
-        // nodes = [Slate.Text.create({
-        //     characters: Slate.Character.createList(String(shortcut.getText())
-        //         .split('')
-        //         .map((char) => {
-        //             return Slate.Character.create({
-        //                 text: char
-        //             })
-        //         })
-        //     )
-        // })];
         opts.structuredFieldMapManager.idToShortcutMap.set(shortcut.metadata.id, shortcut);
         return inlines;
     }
+
     const properties = {
-        type:  opts.typeStructuredField,
+        type: opts.typeStructuredField,
         nodes: nodes,
         isVoid,
         data: {
@@ -577,7 +580,44 @@ function createStructuredField(opts, shortcut) {
     let sf = Slate.Inline.create(properties);
     opts.structuredFieldMapManager.keyToShortcutMap.set(sf.key, shortcut);
     opts.structuredFieldMapManager.idToShortcutMap.set(shortcut.metadata.id, shortcut);
-	return [sf];
+    return [sf];
+}
+
+function deleteNode(node, transform, isLastBlock) {
+    transform = transform.moveToRangeOf(node).deleteBackward();
+    if (!isLastBlock) transform = transform.deleteBackward();
+    return transform;
+}
+
+function updateStructuredField(opts, transform, shortcut) {
+    const keyToShortcutMap = opts.structuredFieldMapManager.keyToShortcutMap;
+    const idToShortcutMap = opts.structuredFieldMapManager.idToShortcutMap;
+    const idToKeysMap = opts.structuredFieldMapManager.idToKeysMap;
+    const allKeysForShortcut = idToKeysMap.get(shortcut.metadata.id);
+    const contextManager = opts.contextManager;
+    if (shortcut.onBeforeDeleted()) {
+        if (shortcut instanceof Placeholder) {
+            opts.structuredFieldMapManager.removePlaceholder(shortcut);
+        }
+        allKeysForShortcut.forEach(key => {
+            keyToShortcutMap.delete(key);
+        });
+        idToShortcutMap.delete(shortcut.metadata.id);
+        contextManager.contextUpdated();
+    }
+
+    const newShortcut = opts.createShortcut(shortcut.metadata, shortcut.initiatingTrigger, shortcut.getText(), true, shortcut.getSource());
+
+    allKeysForShortcut.forEach((key, i) => {
+        const shortcutNode = transform.state.document.getNode(key);
+        transform = deleteNode(shortcutNode, transform, i === allKeysForShortcut.length - 1);
+    });
+    // Clear key map after deleting
+    idToKeysMap.delete(shortcut.metadata.id);
+
+    const newShortcuts = insertStructuredField(opts, transform, newShortcut);
+    transform = newShortcuts[0].moveToEnd();
+    return transform;
 }
 
 function insertPlaceholder(opts, transform, placeholder) {

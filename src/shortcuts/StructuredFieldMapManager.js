@@ -1,7 +1,8 @@
 class StructuredFieldMapManager { 
     constructor () { 
         this._keyToShortcutMap = new Map();
-        this._idToShortcutMap = new Map()
+        this._idToShortcutMap = new Map();
+        this._idToKeysMap = new Map();
         this._placeholders = [];
     }
 
@@ -33,6 +34,14 @@ class StructuredFieldMapManager {
 
     set idToShortcutMap(idToShortcutMap) { 
         this._idToShortcutMap = idToShortcutMap;
+    }
+
+    get idToKeysMap() {
+        return this._idToKeysMap;
+    }
+
+    set idToKeysMap(idToKeysMap) {
+        this._idToKeysMap = idToKeysMap;
     }
 
     addPlaceholder(placeholder) {

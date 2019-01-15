@@ -581,6 +581,17 @@ class FluxNotesEditor extends React.Component {
         this.contextManager.contextUpdated();
     }
 
+    updateStructuredFieldResetSelection = (shortcut, transform) => {
+        // Save anchor block to reset selection after updating shortcut text
+        const { anchorBlock } = transform.state;
+
+        transform = this.structuredFieldPlugin.transforms.updateStructuredField(transform, shortcut);
+
+        // Move to previous anchor block to not lose the valid selection
+        transform = transform.moveToRangeOf(anchorBlock).collapseToEnd().focus();
+        return transform;
+    }
+
     resetShortcutData = (shortcut, transform) => {
         const key = shortcut.getKey();
         transform = transform.setNodeByKey(key, {
@@ -658,10 +669,10 @@ class FluxNotesEditor extends React.Component {
                                 // Set the text, then change the data of the shortcut to trigger a re-render.
                                 const text = childShortcut.determineText(this.contextManager);
                                 childShortcut.setText(text);
-                                transform = this.resetShortcutData(childShortcut, transform);
+                                transform = this.updateStructuredFieldResetSelection(childShortcut, transform);
                             } else {
                                 childShortcut.setText(null);
-                                transform = this.resetShortcutData(childShortcut, transform);
+                                transform = this.updateStructuredFieldResetSelection(childShortcut, transform);
                             }
                         });
 
