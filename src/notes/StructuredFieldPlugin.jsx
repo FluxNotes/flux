@@ -12,6 +12,12 @@ function createOpts(opts) {
 	return opts;
 }
 
+function stopEventPropagation(e) {
+    // Prevent native event handling in Slate
+    // Used for inserting text inside an inserter shortcut
+    e.preventDefault();
+    e.stopPropagation();
+}
 
 function StructuredFieldPlugin(opts) {
     opts = createOpts(opts);
@@ -32,9 +38,8 @@ function StructuredFieldPlugin(opts) {
         const isModifier = isAlt || isCmd || isCtrl || isLine || isMeta || isMod || isModAlt || isWord;
 
         // Override native typing when typing inside a structured field
-        if (shortcut && !Lang.includes(ignoredKeys, e.keyCode) && !isModifier && e.key !== 'Enter' && e.key !== 'Backspace') {
-            e.preventDefault();
-            e.stopPropagation();
+        if (shortcut && !Lang.includes(ignoredKeys, e.keyCode) && !isModifier && e.key !== 'Enter') {
+            stopEventPropagation(e);
 
             // Split the inline and insert typed text into new text node
             let transform = state.transform();
@@ -78,8 +83,7 @@ function StructuredFieldPlugin(opts) {
 
             editor.onChange(transform);
         } else if (shortcut && e.key === 'Enter') {
-            e.preventDefault();
-            e.stopPropagation();
+            stopEventPropagation(e);
 
             // Split block and move focus into the new text node
             let transform = state.transform().splitBlock();
