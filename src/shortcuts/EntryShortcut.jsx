@@ -1,7 +1,9 @@
 import Shortcut from './Shortcut';
-import React from 'react';
 import Lang from 'lodash';
 import { createSentenceFromStructuredData } from './ShortcutUtils';
+import { createStyledSentenceFromStructuredData } from './ShortcutUtils';
+
+
 
 export default class EntryShortcut extends Shortcut {
     constructor(metadata) {
@@ -86,10 +88,11 @@ export default class EntryShortcut extends Shortcut {
         return this.object.entryInfo.entryId;
     }
 
-    getAsString() {
-        // console.log("-------- get as string ----------");    
-        // console.log(this.metadata["structuredPhrase"]);
-        
+    getAsStringWithStyling(isSigned) {      
+        return createStyledSentenceFromStructuredData(this.metadata["structuredPhrase"], this.getAttributeValue.bind(this), this.getText(), isSigned);
+    }
+
+    getAsString() {        
         return createSentenceFromStructuredData(this.metadata["structuredPhrase"], this.getAttributeValue.bind(this), this.getText());
     }
 

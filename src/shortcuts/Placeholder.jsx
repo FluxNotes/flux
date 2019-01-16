@@ -1,4 +1,3 @@
-import React from 'react';
 class Placeholder {
     constructor(placeholderText, shortcutName, data, metadata, shortcutManager, contextManager, patient, clinicalNote, setForceRefresh) {
         this._placeholderText = placeholderText;
@@ -103,25 +102,28 @@ class Placeholder {
         }
     }
 
-    getTextToDisplayInNote(index = 0) {
-        // console.log("-------- here ----------");
+    getTextWithStylingToDisplayInNote(index = 0) {       
+ 
+        let isSigned = this._clinicalNote.signed;
+      
+        if (this._numUpdates > 0 && this._entryShortcuts[index].hasData()) {
+            let displayText = "";
+            this._entryShortcuts.forEach((shortcut) => {
+                displayText += `${shortcut.getAsStringWithStyling(isSigned)}. `;   
+            });         
+            return {__html: displayText};
+        }     
+        return this._placeholderText;      
+    }
+
+    getTextToDisplayInNote(index = 0) {      
         if (this._numUpdates > 0 && this._entryShortcuts[index].hasData()) {
             let displayText = "";
             this._entryShortcuts.forEach((shortcut) => {
                 displayText += `${shortcut.getAsString()}. `;
-                console.log("------ displayText------");
-                console.log(displayText);
             });
-
-            console.log("-------- display text ----------");
-            console.log(displayText);
-
-             // TODO: in here break up displayText into structured data wrapped with spans and add an underline
-            // return <span className="placeholder-data">{displayText}</span>;
-
             return displayText;
-        }
-       
+        }       
         return this._placeholderText;
     }
 

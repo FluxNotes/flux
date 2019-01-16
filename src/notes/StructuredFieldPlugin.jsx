@@ -90,9 +90,16 @@ function StructuredFieldPlugin(opts) {
             },
             placeholder: props => {
                 const placeholder = props.node.get('data').get('placeholder');
-
-                // TODO: in here break up structured data into spans and add an underline
-                return <span contentEditable={false} className='placeholder'>{placeholder.getTextToDisplayInNote()}</span>;
+                           
+                let textToDisplay = placeholder.getTextWithStylingToDisplayInNote();
+               
+                // Check if textTodisplay is an object or not. If it is an object, then getTextWithStylingToDisplayInNote returned html
+                if (typeof textToDisplay === "object") {                    
+                    // Use dangerouslysetInnerHTML to set html
+                    return <span contentEditable={false} className='placeholder' ><span dangerouslySetInnerHTML={placeholder.getTextWithStylingToDisplayInNote()}/> </span>;  
+                } else {                   
+                    return <span contentEditable={false} className='placeholder'>{placeholder.getTextWithStylingToDisplayInNote()}</span>;
+                }               
             },
         },
         rules: [

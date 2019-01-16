@@ -156,7 +156,11 @@
 }
 
 .placeholder-data {
-     background-color: pink;
+    border-bottom: 1.5px dashed #5EBFFF;
+}
+
+.placeholder-data-signed {
+    border-bottom: 1px solid #5EBFFF;
 }
 
 // ******** suggestion-portal.js uses this
