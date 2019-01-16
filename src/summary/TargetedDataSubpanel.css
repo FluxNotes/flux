@@ -1,6 +1,6 @@
 #condition-summary-section { 
     text-align: left;
-    overflow: hidden;
+    overflow-x: hidden;
  }
 
 .tabs-container div .tab{
