@@ -1,17 +1,18 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {LineChart, Line, XAxis, YAxis, Tooltip, ReferenceArea, ResponsiveContainer, Dot} from 'recharts';
 import moment from 'moment';
 import {scaleLinear} from "d3-scale";
 import Collection from 'lodash';
 import Lang from 'lodash';
 import PropTypes from 'prop-types';
+import Visualizer from './Visualizer';
 
 import './BandedLineChartVisualizer.css';
 
 /*
  A BandedLineGraphVisualizer that graphs a set of data over time
  */
-class BandedLineChartVisualizer extends Component {
+class BandedLineChartVisualizer extends Visualizer {
     constructor(props) {
         super(props);
 

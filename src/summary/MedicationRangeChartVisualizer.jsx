@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 import Lang from 'lodash';
@@ -6,11 +6,12 @@ import RangeChart from './RangeChart';
 import MedicationInformationService from '../lib/MedicationInformationService';
 import './MedicationRangeChartVisualizer.css';
 import FormatMedicationChange from './FormatMedicationChange';
+import Visualizer from './Visualizer';
 
 /*
  A MedicationRangeChart with additional information displayed to the right.
  */
-class MedicationRangeChartVisualizer extends Component {
+class MedicationRangeChartVisualizer extends Visualizer {
     constructor(props) {
         super(props);
 
