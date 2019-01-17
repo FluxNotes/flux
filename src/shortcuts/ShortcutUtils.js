@@ -8,7 +8,7 @@ export function createStyledSentenceFromStructuredData(structuredPhraseTemplate,
     let start = structuredPhraseTemplate.indexOf("${"), end;
     let result = "";
     let haveAValue = false;
-    let isConditional;
+    let isConditional, textIsStructuredData;
     let conditional, start2, end2, before, after;
     let styleClassName, styleClassNameMissingValue;
     
@@ -25,16 +25,17 @@ export function createStyledSentenceFromStructuredData(structuredPhraseTemplate,
         if (last !== start) {
             result += structuredPhraseTemplate.substring(last, start);
         }
-        end = structuredPhraseTemplate.indexOf("}", start + 2);
 
+        end = structuredPhraseTemplate.indexOf("}", start + 2); 
         valueName = structuredPhraseTemplate.substring(start + 2, end);
         isConditional = valueName.startsWith("%");
+        textIsStructuredData = valueName.startsWith('*');
 
         if (isConditional) {
-            end = structuredPhraseTemplate.indexOf("}", end + 1); // adjust end to be 2nd close bracket
+            end = structuredPhraseTemplate.indexOf('}', end + 1);
             conditional = structuredPhraseTemplate.substring(start + 3, end);
-            start2 = conditional.indexOf("${");
-            end2 = conditional.indexOf("}", start2 + 2);
+            start2 = conditional.indexOf('${');
+            end2 = conditional.indexOf('}', start2 + 2);
             valueName = conditional.substring(start2 + 2, end2);
             before = conditional.substring(0, start2);
             after = conditional.substring(end2 + 1);
@@ -56,6 +57,9 @@ export function createStyledSentenceFromStructuredData(structuredPhraseTemplate,
                 }
                 result += after;
             }
+        } else if (textIsStructuredData) { // this covers the case where the text should be underlined but is not a conditional
+            valueName = structuredPhraseTemplate.substring(start + 3, end);
+            result += `<span class=${styleClassName}>${valueName}</span>`;
         } else {
             value = getAttributeValue(valueName);
             if (Lang.isNull(value) || value === '' || (Lang.isArray(value) && value.length === 0)) {
@@ -86,7 +90,6 @@ export function createStyledSentenceFromStructuredData(structuredPhraseTemplate,
     if (!haveAValue) {
         return textIfNoData;
     }
-
     return result;
 }
 
