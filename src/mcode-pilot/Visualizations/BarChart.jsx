@@ -69,7 +69,7 @@ export default class BarChart extends Component {
                     {!this.props.active?
                         <p className="bar-chart-text right-text" style={roundedPercent!==0?textStyle:null}>
                         {/* makes the tiny arrow */}
-                        <FontAwesome className={"tiny-arrow fas "} name={roundedPercent!==0?(roundedPercent>0?"caret-up":"caret-down"):null} />
+                        <FontAwesome className="tiny-arrow fas" name={roundedPercent!==0?(roundedPercent>0?"caret-up":"caret-down"):null} />
                         {Math.abs(roundedPercent)}%
                         </p>:null}
                     
