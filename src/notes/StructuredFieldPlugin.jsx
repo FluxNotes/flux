@@ -96,7 +96,7 @@ function StructuredFieldPlugin(opts) {
                 // Check if textTodisplay is an object or not. If it is an object, then getTextWithStylingToDisplayInNote returned html
                 if (typeof textToDisplay === "object") {                    
                     // Use dangerouslysetInnerHTML to set html
-                    return <span contentEditable={false} className='placeholder' ><span dangerouslySetInnerHTML={placeholder.getTextWithStylingToDisplayInNote()}/> </span>;  
+                    return <span contentEditable={false} className='placeholder'><span dangerouslySetInnerHTML={placeholder.getTextWithStylingToDisplayInNote()}/> </span>;  
                 } else {                   
                     return <span contentEditable={false} className='placeholder'>{placeholder.getTextWithStylingToDisplayInNote()}</span>;
                 }               

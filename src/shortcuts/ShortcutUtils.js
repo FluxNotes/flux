@@ -1,7 +1,6 @@
 import Lang from 'lodash';
 import moment from 'moment';
 
-
 // This function is similar to createSentenceFromStructuredData except it adds spans around the structured data so that placeholders are styled appropriately
 export function createStyledSentenceFromStructuredData(structuredPhraseTemplate, getAttributeValue, textIfNoData, isSigned) {
 
@@ -44,7 +43,12 @@ export function createStyledSentenceFromStructuredData(structuredPhraseTemplate,
                 haveAValue = true;
                 result += before;
                 if (Lang.isArray(value)) {
-                    result += value.join(", #");                  
+                    for (let index in value) {
+                        result += ` <span class=${styleClassName}>${value[index]}</span>`;
+                        if (index !== value.length - 1) {
+                            result += ',';
+                        }
+                    }
                 } else {
                     result += `<span class=${styleClassName}>${value}</span>`;
                 }
@@ -59,7 +63,12 @@ export function createStyledSentenceFromStructuredData(structuredPhraseTemplate,
                 haveAValue = true;
             }
             if (Lang.isArray(value)) {
-                result += value.join(", #");
+                for (let index in value) {
+                    result += ` <span class=${styleClassName}>${value[index]}</span>`;
+                    if (index !== value.length - 1) {
+                        result += ',';
+                    }
+                }
             } else {
                 result += `<span class=${styleClassName}>${value}</span>`;
             }
