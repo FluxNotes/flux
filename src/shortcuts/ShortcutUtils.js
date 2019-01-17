@@ -10,13 +10,15 @@ export function createStyledSentenceFromStructuredData(structuredPhraseTemplate,
     let haveAValue = false;
     let isConditional;
     let conditional, start2, end2, before, after;
-    let styleClassName;
+    let styleClassName, styleClassNameMissingValue;
     
     // Check if the note is signed or not and return the appropriate class for styling
     if (isSigned) {
         styleClassName = 'placeholder-data-signed';
+        styleClassNameMissingValue = 'placeholder-data-missing-signed';
     } else {
         styleClassName = 'placeholder-data';
+        styleClassNameMissingValue = 'placeholder-data-missing';
     }
   
     while (start !== -1) {
@@ -69,6 +71,8 @@ export function createStyledSentenceFromStructuredData(structuredPhraseTemplate,
                         result += ',';
                     }
                 }
+            } else if (value === '?') {
+                result += `<span class=${styleClassNameMissingValue}>${value}</span>`;
             } else {
                 result += `<span class=${styleClassName}>${value}</span>`;
             }

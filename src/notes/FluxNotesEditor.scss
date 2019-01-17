@@ -163,6 +163,14 @@
     border-bottom: 1px solid #5EBFFF;
 }
 
+.placeholder-data-missing {
+    border-bottom: 1.5px dashed red;
+}
+
+.placeholder-data-missing-signed {
+    border-bottom: 1px solid red;
+}
+
 // ******** suggestion-portal.js uses this
 .suggestion-portal { 
     position: absolute;
