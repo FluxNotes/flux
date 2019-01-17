@@ -10,6 +10,7 @@ import red from 'material-ui/colors/red';
 import Snackbar from 'material-ui/Snackbar';
 import Modal from 'material-ui/Modal';
 import Typography from 'material-ui/Typography';
+import { CircularProgress, Paper, Fade } from 'material-ui';
 import Lang from 'lodash';
 
 import SecurityManager from '../security/SecurityManager';
@@ -84,6 +85,8 @@ export class FullApp extends Component {
             isNoteViewerEditable: false,
             isModalOpen: false,
             layout: "",
+            // Start the app loading information
+            loading: true,
             loginUser: {},
             modalTitle: '',
             modalContent: '',
@@ -150,11 +153,20 @@ export class FullApp extends Component {
     loadPatient(patientId) {
         let patient = this.dataAccess.getPatient(patientId);
         this.contextManager = new ContextManager(patient, this.onContextUpdate);
+        if (patient) { 
+            this.setState({ 
+                patient, 
+                loading: false
+            })
+        } else { 
+            this.setState({ 
+                loading: false
+            })
+        }
         this.setState({patient: patient})
     }
 
     componentWillMount() {
-        this.loadPatient(this.props.patientId);
         const userProfile = this.securityManager.getDemoUser(this.props.clinicianId);
         if (userProfile) {
             this.setState({loginUser: userProfile});
@@ -162,6 +174,19 @@ export class FullApp extends Component {
         } else {
             console.error("Login failed");
         }
+    }
+
+    componentDidMount() { 
+        //
+        // TESTING CODE
+        setTimeout(() => { 
+            this.loadPatient(this.props.patientId);
+        }, 3000);
+        // TESTING CODE
+        //
+        
+        // TODO: Restore this line and remove the above testing code
+        // this.loadPatient(this.props.patientId);
     }
 
     receive_command(commandType, data) {
@@ -375,17 +400,62 @@ export class FullApp extends Component {
         this.setState({ isAppBlurred });
     }
 
+    renderLoadingAnimation = () => { 
+        if(this.state.loading) { 
+
+        } else { 
+            
+        }
+        return (
+            <Fade in={this.state.loading} timeout={1000}>
+                <Paper
+                    style={{
+                        'position': 'absolute',
+                        'top': '50%',
+                        'left': '50%',
+                        'transform': 'translate(-50%, -50%)',
+                        'padding': '30px 0',
+                        'width': '200px',
+                        'textAlign': 'center'
+                    }}
+                >
+                    <Typography
+                        type="display3"
+                        style={{
+                            'padding': '0 0 15px 0'
+                        }}
+                    >
+                        Loading Data
+                    </Typography>
+                        
+                    <CircularProgress
+                        style={{
+                            'height': '80px',
+                            'width': '80px'
+                        }}
+                        classes={{
+                            root: 'table-loading-animation'
+                        }}
+                    />
+                </Paper>
+            </Fade>
+        )
+    }
+
     render() {
         // Get the Current Dashboard based on superRole of user
         const CurrentDashboard = this.dashboardManager.getDashboardForSuperRole(this.state.loginUser.getSuperRole());
-
+        const loadingStyle = (this.state.loading ? {'background' : 'lightGrey'} : {})
         return (
             <MuiThemeProvider theme={theme}>
-                <div className="FullApp">
-                    <Grid className="FullApp-content" fluid>
-                        <Row center="xs">
-                            <Col sm={12}>
-                                <PatientControlPanel
+                <div className="FullApp-content" style={loadingStyle}>
+                    {this.renderLoadingAnimation()}
+                    <Fade in={!this.state.loading} timeout={1000}>
+                        <Grid fluid>
+                            <Row center="xs">
+                                <Col sm={12}>
+                                {!Lang.isNull(this.state.patient) && 
+                                    <PatientControlPanel
                                     appTitle={this.props.display}
                                     clinicalEvent={this.state.clinicalEvent}
                                     highlightedSearchSuggestion={this.state.highlightedSearchSuggestion}
@@ -403,11 +473,12 @@ export class FullApp extends Component {
                                     setSearchSelectedItem={this.setSearchSelectedItem}
                                     setSearchSuggestions={this.setSearchSuggestions}
                                     supportLogin={true}
-                                />
-                            </Col>
-                        </Row>
-
-                        <CurrentDashboard
+                                    />
+                                }
+                                </Col>
+                            </Row>
+                            {!Lang.isNull(this.state.patient) && 
+                            <CurrentDashboard
                             // App default settings
                             actions={this.actions}
                             appState={this.state}
@@ -443,32 +514,34 @@ export class FullApp extends Component {
                             structuredFieldMapManager={this.structuredFieldMapManager}
                             summaryMetadata={this.summaryMetadata}
                             updateErrors={this.updateErrors}
-                        />
-                        <Modal 
-                            aria-labelledby="simple-modal-title"
-                            aria-describedby="simple-modal-description"
-                            open={this.state.isModalOpen}
-                            onClose={this.handleModalClose}
-                            onClick={this.handleModalClose}
-                        >
-                            <div style={getModalStyle()} >
-                                <Typography id="modal-title">
-                                    {this.state.modalTitle}
-                                </Typography>
-                                <Typography id="simple-modal-description">
-                                    {this.state.modalContent}
-                                </Typography>
-                            </div>
-                        </Modal>
+                            />
+                        }
+                            <Modal 
+                                aria-labelledby="simple-modal-title"
+                                aria-describedby="simple-modal-description"
+                                open={this.state.isModalOpen}
+                                onClose={this.handleModalClose}
+                                onClick={this.handleModalClose}
+                                >
+                                <div style={getModalStyle()} >
+                                    <Typography id="modal-title">
+                                        {this.state.modalTitle}
+                                    </Typography>
+                                    <Typography id="simple-modal-description">
+                                        {this.state.modalContent}
+                                    </Typography>
+                                </div>
+                            </Modal>
 
-                        <Snackbar
-                            anchorOrigin={{vertical: 'bottom', horizontal: 'center',}}
-                            autoHideDuration={3000}
-                            onClose={this.handleSnackbarClose}
-                            open={this.state.snackbarOpen}
-                            message={this.state.snackbarMessage}
-                        />
-                    </Grid>
+                            <Snackbar
+                                anchorOrigin={{vertical: 'bottom', horizontal: 'center',}}
+                                autoHideDuration={3000}
+                                onClose={this.handleSnackbarClose}
+                                open={this.state.snackbarOpen}
+                                message={this.state.snackbarMessage}
+                                />
+                        </Grid>
+                    </Fade>
                 </div>
             </MuiThemeProvider>
         );

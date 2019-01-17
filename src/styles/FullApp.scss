@@ -1,57 +1,54 @@
 @import './variables';
 
-.FullApp {
+.FullApp-content {
     min-height: 100vh;
     background-color: $background;
     overflow: hidden;
+    /* Reduce padding that is set using fluid-container from react flex box */
+    padding-right: 0rem !important;
+    padding-left: 0rem !important;
 
-    &-content {
-        /* Reduce padding that is set using fluid-container from react flex box */
-        padding-right: 0rem !important;
-        padding-left: 0rem !important;
+    .container-fluid {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
 
-        .container-fluid {
-            padding-left: 12px;
-            padding-right: 12px;
-        }
+    .panel-content {
+        padding: 5px;
+        text-align: left;
+    }
 
-        .panel-content {
-            padding: 5px;
-            text-align: left;
-        }
+    .dashboard-panel {
+        text-align: left;
+    }
 
-        .dashboard-panel {
-            text-align: left;
-        }
+    .divider {
+        margin: 20px 0px !important;
+        clear: both;
+    }
 
-        .divider {
-            margin: 20px 0px !important;
-            clear: both;
-        }
+    h1 {
+        margin: 0px;
+        font-size: 1.0rem;
+        font-weight: 400;
+    }
 
-        h1 {
-            margin: 0px;
-            font-size: 1.0rem;
-            font-weight: 400;
-        }
+    h2 {
+        margin: 0px;
+        font-size: .9rem;
+        font-weight: lighter;
+    }
 
-        h2 {
-            margin: 0px;
-            font-size: .9rem;
-            font-weight: lighter;
-        }
+    h3 {
+        margin: 2px 0;
+        font-size: 0.7rem;
+        font-weight: 400;
+    }
 
-        h3 {
-            margin: 2px 0;
-            font-size: 0.7rem;
-            font-weight: 400;
-        }
-
-        ::-webkit-scrollbar-track {
-            -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0);
-            border-radius: 10px;
-            background-color: #FFFFFF;
-        }
+    ::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0);
+        border-radius: 10px;
+        background-color: #FFFFFF;
     }
 }
 
