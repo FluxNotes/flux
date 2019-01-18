@@ -2,10 +2,10 @@ import Lang from 'lodash';
 import moment from 'moment';
 
 // This function is similar to createSentenceFromStructuredData except it adds spans around the structured data so that placeholders are styled appropriately
-export function createStyledSentenceFromStructuredData(structuredPhraseTemplate, getAttributeValue, textIfNoData, isSigned) {
+export function createSentenceFromStructuredData(structuredPhraseTemplate, getAttributeValue, textIfNoData, isStyled, isSigned) {
     let last = 0, valueName, value1Name, value2Name, value, value2;
-    let start = structuredPhraseTemplate.indexOf("${"), end;
-    let result = "";
+    let start = structuredPhraseTemplate.indexOf('${'), end;
+    let result = '';
     let haveAValue = false;
     let isConditional, isConditionalWithStructuredDataValues, textIsStructuredData;
     let conditional, start1, start2, end1, end2, before, middle, after;
@@ -24,10 +24,10 @@ export function createStyledSentenceFromStructuredData(structuredPhraseTemplate,
         if (last !== start) {
             result += structuredPhraseTemplate.substring(last, start);
         }
-        end = structuredPhraseTemplate.indexOf("}", start + 2); 
+        end = structuredPhraseTemplate.indexOf('}', start + 2); 
         valueName = structuredPhraseTemplate.substring(start + 2, end);
-        isConditional = valueName.startsWith("%");
-        isConditionalWithStructuredDataValues = valueName.startsWith("&");
+        isConditional = valueName.startsWith('%');
+        isConditionalWithStructuredDataValues = valueName.startsWith('&');
         textIsStructuredData = valueName.startsWith('*');
 
         if (isConditional) { // case where the structured data must be defined in order to show up
@@ -43,7 +43,13 @@ export function createStyledSentenceFromStructuredData(structuredPhraseTemplate,
             } else {
                 if (value instanceof moment) value = value.format('MM/DD/YYYY');
                 haveAValue = true;
-                result += before + createStructuredPhraseHtml(value, styleClassName) + after;
+                result += before;
+                if (isStyled) {
+                    result += createStructuredPhraseHtml(value, styleClassName);
+                } else {
+                    result += createStructuredPhraseText(value);
+                }
+                result += after;
             }
         } else if (isConditionalWithStructuredDataValues) { // case where the the structured data is conditional and there are two values that need to be underlined (i.e. as of & date)
             end = structuredPhraseTemplate.indexOf('}', end + 1);
@@ -64,7 +70,19 @@ export function createStyledSentenceFromStructuredData(structuredPhraseTemplate,
             } else {
                 if (value instanceof moment) value = value.format('MM/DD/YYYY');
                 haveAValue = true;
-                result += before + createStructuredPhraseHtml(value1Name, styleClassName) + middle + createStructuredPhraseHtml(value2, styleClassName) + after;
+                result += before;
+                if (isStyled) {
+                    result += createStructuredPhraseHtml(value1Name, styleClassName);
+                } else {
+                    result += createStructuredPhraseText(value1Name);
+                }
+                result += middle;
+                if (isStyled) {
+                    result += createStructuredPhraseHtml(value2, styleClassName);
+                } else {
+                    result += createStructuredPhraseText(value2);
+                }
+                result += after;
             }
         } else if (textIsStructuredData) { // case where the text should be underlined but is not a conditional or a fill in value (i.e. disease status, toxicity, etc)
             valueName = structuredPhraseTemplate.substring(start + 3, end);
@@ -77,10 +95,14 @@ export function createStyledSentenceFromStructuredData(structuredPhraseTemplate,
                 if (value instanceof moment) value = value.format('MM/DD/YYYY');
                 haveAValue = true;
             }
-            result += createStructuredPhraseHtml(value, styleClassName);
+            if (isStyled) {
+                result += createStructuredPhraseHtml(value, styleClassName);
+            } else {
+                result += createStructuredPhraseText(value);
+            }
         }
         last = end + 1;
-        start = structuredPhraseTemplate.indexOf("${", last);
+        start = structuredPhraseTemplate.indexOf('${', last);
     }
     if (last < structuredPhraseTemplate.length) {
         result += structuredPhraseTemplate.substring(last);
@@ -91,7 +113,7 @@ export function createStyledSentenceFromStructuredData(structuredPhraseTemplate,
     return result;
 }
 
-// helper method for createStyledSentenceFromStructuredData method
+// helper method for createSentenceFromStructuredData method to create styled structured data
 function createStructuredPhraseHtml(value, styleClassName) {
     if (Lang.isArray(value)) {
         let htmlString = '';
@@ -107,64 +129,11 @@ function createStructuredPhraseHtml(value, styleClassName) {
     }
 }
 
-export function createSentenceFromStructuredData(structuredPhraseTemplate, getAttributeValue, textIfNoData) {
-    let last = 0, valueName, value;
-    let start = structuredPhraseTemplate.indexOf("${"), end;
-    let result = "";
-    let haveAValue = false;
-    let isConditional;
-    let conditional, start2, end2, before, after;
-
-    while (start !== -1) {
-        if (last !== start) {
-            result += structuredPhraseTemplate.substring(last, start);
-        }
-        end = structuredPhraseTemplate.indexOf("}", start + 2);
-        valueName = structuredPhraseTemplate.substring(start + 2, end);
-        isConditional = valueName.startsWith("%");
-        if (isConditional) {
-            end = structuredPhraseTemplate.indexOf("}", end + 1); // adjust end to be 2nd close bracket
-            conditional = structuredPhraseTemplate.substring(start + 3, end);
-            start2 = conditional.indexOf("${");
-            end2 = conditional.indexOf("}", start2 + 2);
-            valueName = conditional.substring(start2 + 2, end2);
-            before = conditional.substring(0, start2);
-            after = conditional.substring(end2 + 1);
-            value = getAttributeValue(valueName);
-            if (Lang.isNull(value) || Lang.isUndefined(value) || value === '' || (Lang.isArray(value) && value.length === 0)) {
-            } else {
-                if (value instanceof moment) value = value.format('MM/DD/YYYY');
-                haveAValue = true;
-                result += before;
-                if (Lang.isArray(value)) {
-                    result += value.join(", #");
-                } else {
-                    result += value;
-                }
-                result += after;
-            }
-        } else {
-            value = getAttributeValue(valueName);
-            if (Lang.isNull(value) || value === '' || (Lang.isArray(value) && value.length === 0)) {
-                value = '?';
-            } else {
-                if (value instanceof moment) value = value.format('MM/DD/YYYY');
-                haveAValue = true;
-            }
-            if (Lang.isArray(value)) {
-                result += value.join(", #");
-            } else {
-                result += value;
-            }
-        }
-        last = end + 1;
-        start = structuredPhraseTemplate.indexOf("${", last);
+// helper method for createSentenceFromStructuredData method to create structured data string
+function createStructuredPhraseText(value) {
+    if (Lang.isArray(value)) {
+        return value.join(', #');
+    } else {
+        return value;
     }
-    if (last < structuredPhraseTemplate.length) {
-        result += structuredPhraseTemplate.substring(last);
-    }
-    if (!haveAValue) {
-        return textIfNoData;
-    }
-    return result;
 }
