@@ -59,6 +59,7 @@ export class FullApp extends Component {
             "encounter",
             "post-encounter"
         ];
+        this.timeoutDuration = 1000;
 
         if (Lang.isUndefined(this.props.dataSource)) {
             this.dataAccess = new DataAccess("HardCodedReadOnlyDataSource");
@@ -407,7 +408,7 @@ export class FullApp extends Component {
             
         }
         return (
-            <Fade in={this.state.loading} timeout={1000}>
+            <Fade in={this.state.loading} timeout={this.timeoutDuration}>
                 <Paper
                     style={{
                         'position': 'absolute',
@@ -450,7 +451,7 @@ export class FullApp extends Component {
             <MuiThemeProvider theme={theme}>
                 <div className="FullApp-content" style={loadingStyle}>
                     {this.renderLoadingAnimation()}
-                    <Fade in={!this.state.loading} timeout={1000}>
+                    <Fade in={!this.state.loading} timeout={this.timeoutDuration}>
                         <Grid fluid>
                             <Row center="xs">
                                 <Col sm={12}>
@@ -478,44 +479,44 @@ export class FullApp extends Component {
                                 </Col>
                             </Row>
                             {!Lang.isNull(this.state.patient) && 
-                            <CurrentDashboard
-                            // App default settings
-                            actions={this.actions}
-                            appState={this.state}
-                            contextManager={this.contextManager}
-                            dataAccess={this.dataAccess}
-                            forceRefresh={this.state.forceRefresh}
-                            handleSummaryItemSelected={this.handleSummaryItemSelected}
-                            highlightedSearchSuggestion={this.state.highlightedSearchSuggestion}
-                            isAppBlurred={this.state.isAppBlurred}
-                            itemInserted={this.itemInserted}
-                            loginUser={this.state.loginUser}
-                            preferenceManager={this.preferenceManager}
-                            newCurrentShortcut={this.newCurrentShortcut}
-                            onContextUpdate={this.onContextUpdate}
-                            openSourceNoteEntryId={this.state.openSourceNoteEntryId}
-                            possibleClinicalEvents={this.possibleClinicalEvents}
-                            ref={(dashboard) => { this.dashboard = dashboard; }}
-                            searchIndex={this.searchIndex}
-                            searchSelectedItem={this.state.searchSelectedItem}
-                            searchSuggestions={this.state.searchSuggestions}
-                            setAppBlur={this.setAppBlur}
-                            setHighlightedSearchSuggestion={this.setHighlightedSearchSuggestion}
-                            setNoteClosed={this.setNoteClosed}
-                            setNoteViewerEditable={this.setNoteViewerEditable}
-                            setNoteViewerVisible={this.setNoteViewerVisible}
-                            setForceRefresh={this.setForceRefresh}
-                            setFullAppStateWithCallback={this.setFullAppStateWithCallback}
-                            setLayout={this.setLayout}
-                            setOpenClinicalNote={this.setOpenClinicalNote}
-                            setOpenSourceNoteEntryId={this.setOpenSourceNoteEntryId}
-                            setSearchSelectedItem={this.setSearchSelectedItem}
-                            shortcutManager={this.shortcutManager}
-                            structuredFieldMapManager={this.structuredFieldMapManager}
-                            summaryMetadata={this.summaryMetadata}
-                            updateErrors={this.updateErrors}
-                            />
-                        }
+                                <CurrentDashboard
+                                // App default settings
+                                actions={this.actions}
+                                appState={this.state}
+                                contextManager={this.contextManager}
+                                dataAccess={this.dataAccess}
+                                forceRefresh={this.state.forceRefresh}
+                                handleSummaryItemSelected={this.handleSummaryItemSelected}
+                                highlightedSearchSuggestion={this.state.highlightedSearchSuggestion}
+                                isAppBlurred={this.state.isAppBlurred}
+                                itemInserted={this.itemInserted}
+                                loginUser={this.state.loginUser}
+                                preferenceManager={this.preferenceManager}
+                                newCurrentShortcut={this.newCurrentShortcut}
+                                onContextUpdate={this.onContextUpdate}
+                                openSourceNoteEntryId={this.state.openSourceNoteEntryId}
+                                possibleClinicalEvents={this.possibleClinicalEvents}
+                                ref={(dashboard) => { this.dashboard = dashboard; }}
+                                searchIndex={this.searchIndex}
+                                searchSelectedItem={this.state.searchSelectedItem}
+                                searchSuggestions={this.state.searchSuggestions}
+                                setAppBlur={this.setAppBlur}
+                                setHighlightedSearchSuggestion={this.setHighlightedSearchSuggestion}
+                                setNoteClosed={this.setNoteClosed}
+                                setNoteViewerEditable={this.setNoteViewerEditable}
+                                setNoteViewerVisible={this.setNoteViewerVisible}
+                                setForceRefresh={this.setForceRefresh}
+                                setFullAppStateWithCallback={this.setFullAppStateWithCallback}
+                                setLayout={this.setLayout}
+                                setOpenClinicalNote={this.setOpenClinicalNote}
+                                setOpenSourceNoteEntryId={this.setOpenSourceNoteEntryId}
+                                setSearchSelectedItem={this.setSearchSelectedItem}
+                                shortcutManager={this.shortcutManager}
+                                structuredFieldMapManager={this.structuredFieldMapManager}
+                                summaryMetadata={this.summaryMetadata}
+                                updateErrors={this.updateErrors}
+                                />
+                            }
                             <Modal 
                                 aria-labelledby="simple-modal-title"
                                 aria-describedby="simple-modal-description"
