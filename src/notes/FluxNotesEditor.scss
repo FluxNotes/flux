@@ -156,22 +156,22 @@
 }
 
 .placeholder-data {
-    border-bottom: 1.5px dashed #5EBFFF;
+    border-bottom: 1.5px dashed $shr-context-line;
     line-height: 140%;
 }
 
 .placeholder-data-signed {
-    border-bottom: 1px solid #5EBFFF;
+    border-bottom: 1px solid $shr-context-line;
     line-height: 140%;
 }
 
 .placeholder-data-missing {
-    border-bottom: 1.5px dashed red;
+    border-bottom: 1.5px dashed $missing-data-red;
     line-height: 140%;
 }
 
 .placeholder-data-missing-signed {
-    border-bottom: 1px solid red;
+    border-bottom: 1px solid $missing-data-red;
     line-height: 140%;
 }
 

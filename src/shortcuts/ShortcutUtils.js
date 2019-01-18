@@ -65,7 +65,7 @@ export function createStyledSentenceFromStructuredData(structuredPhraseTemplate,
         } else {
             value = getAttributeValue(valueName);
             if (Lang.isNull(value) || value === '' || (Lang.isArray(value) && value.length === 0)) {
-                result += `<span class=${styleClassNameMissingValue}>?</span>`;
+                result += `<span class=${styleClassNameMissingValue}>#${valueName}</span>`;
             } else {
                 if (value instanceof moment) value = value.format('MM/DD/YYYY');
                 haveAValue = true;
