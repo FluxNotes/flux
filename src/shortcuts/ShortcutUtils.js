@@ -68,7 +68,7 @@ export function createSentenceFromStructuredData(structuredPhraseTemplate, getAt
             
             if (Lang.isNull(value2) || Lang.isUndefined(value2) || value2 === '' || (Lang.isArray(value2) && value2.length === 0)) {
             } else {
-                if (value instanceof moment) value = value.format('MM/DD/YYYY');
+                if (value2 instanceof moment) value2 = value2.format('MM/DD/YYYY');
                 haveAValue = true;
                 result += before;
                 if (isStyled) {
@@ -85,20 +85,28 @@ export function createSentenceFromStructuredData(structuredPhraseTemplate, getAt
                 result += after;
             }
         } else if (textIsStructuredData) { // case where the text should be underlined but is not a conditional or a fill in value (i.e. disease status, toxicity, etc)
-            valueName = structuredPhraseTemplate.substring(start + 3, end);
-            result += `<span class=${styleClassName}>${valueName}</span>`;
+            valueName = structuredPhraseTemplate.substring(start + 3, end)
+            if (isStyled) {
+                result += `<span class=${styleClassName}>${valueName}</span>`;
+            } else {
+                result += `#${valueName}`;
+            }
         } else {
             value = getAttributeValue(valueName);
             if (Lang.isNull(value) || value === '' || (Lang.isArray(value) && value.length === 0)) {
-                result += `<span class=${styleClassNameMissingValue}>#${valueName}</span>`;
+                if (isStyled) {
+                    result += `<span class=${styleClassNameMissingValue}>#${valueName}</span>`;    
+                } else {
+                    result += `#${valueName}`;
+                }
             } else {
                 if (value instanceof moment) value = value.format('MM/DD/YYYY');
                 haveAValue = true;
-            }
-            if (isStyled) {
-                result += createStructuredPhraseHtml(value, styleClassName);
-            } else {
-                result += createStructuredPhraseText(value);
+                if (isStyled) {
+                    result += createStructuredPhraseHtml(value, styleClassName);
+                } else {
+                    result += createStructuredPhraseText(value);
+                }
             }
         }
         last = end + 1;
@@ -132,8 +140,8 @@ function createStructuredPhraseHtml(value, styleClassName) {
 // helper method for createSentenceFromStructuredData method to create structured data string
 function createStructuredPhraseText(value) {
     if (Lang.isArray(value)) {
-        return value.join(', #');
+        return '#' + value.join(', #');
     } else {
-        return value;
+        return `#${value}`;
     }
 }

@@ -75,7 +75,7 @@ describe('Lite Mode - Toxicity', () => {
         const adverseEventInput = toxicityWrapper.find('.react-autosuggest__input');
         adverseEventInput.simulate('change', { target: { value: 'Anemia' } });
         const copyContent = toxicityWrapper.find('#copy-content');
-        expect(copyContent.text()).to.contain('Anemia');
+        expect(copyContent.text()).to.contain('#Anemia');
     });
     it('Changing adverseEvent via button updates copy-content', () => {
         const adverseEventButtons = toxicityWrapper.find('.btn-group-adverse-event').find('button');
@@ -102,6 +102,6 @@ describe('Lite Mode - Enrollment', () => {
         const enrollmentDatePicker = enrollmentWrapper.find("#enrollment-date").find('input');
         enrollmentDatePicker.simulate('change', { target: { value: '10/06/2017' } });
         const copyContent = enrollmentWrapper.find('#copy-content');
-        expect(copyContent.text()).to.contain('10/06/2017');
+        expect(copyContent.text()).to.contain('#10/06/2017');
     });
 });

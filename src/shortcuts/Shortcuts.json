@@ -276,7 +276,7 @@
     "stringTriggers": [{ "name": "#unenrolled", "description": "Support specifying the unenrollment of the patient from a clinical trial."}],
     "regexpTrigger": null,
     "form": "ClinicalTrialUnenrolledForm",
-    "structuredPhrase": "#unenrolled from #${title}${% on #${date}}",
+    "structuredPhrase": "${*unenrolled} from ${title}${% on ${date}}",
     "knownParentContexts": "Patient",
     "description": "Support specifying the unenrollment of the patient from a clinical trial.",
     "structuredPhraseDocumentation": "clinicalTrialUnenrolledSheet.pdf"
@@ -294,7 +294,7 @@
     "stringTriggers": [{ "name": "#deceased", "description": "An indication that the person is no longer living, given by a date"}],
     "regexpTrigger": null,
     "form": "DeceasedForm",
-    "structuredPhrase": "#deceased #${date}",
+    "structuredPhrase": "${*deceased} ${date}",
     "knownParentContexts": "Patient",
     "description": "An indication that the person is no longer living as of the specified date.",
     "structuredPhraseDocumentation": "deceasedSheet.pdf"
@@ -569,7 +569,7 @@
     "stringTriggers": [{ "name": "#nlptoxicity", "description": "Side effects to treatment, important for effective evaluation of disease and treatment, based on Common Terminology Criteria for Adverse Events (CTCAE) version 4.03 (June 14, 2010)."}],
     "regexpTrigger": null,
     "form": "ToxicityForm",
-    "structuredPhrase": "#nlptoxicity of #${grade} #${adverseEvent}${% related to #${attribution}}",
+    "structuredPhrase": "{*nlptoxicity} of ${grade} ${adverseEvent}${% related to ${attribution}}",
     "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/shr/oncology/BreastCancer", "http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor"],
     "knownParentContexts": "ConditionInserter",
     "description": "Side effects to treatment, important for effective evaluation of disease and treatment, based on Common Terminology Criteria for Adverse Events (CTCAE) version 4.03 (June 14, 2010).",
