@@ -45,18 +45,7 @@ export function createStyledSentenceFromStructuredData(structuredPhraseTemplate,
             } else {
                 if (value instanceof moment) value = value.format('MM/DD/YYYY');
                 haveAValue = true;
-                result += before;
-                if (Lang.isArray(value)) {
-                    for (let index in value) {
-                        result += ` <span class=${styleClassName}>${value[index]}</span>`;
-                        if (index != value.length - 1) {
-                            result += ',';
-                        }
-                    }
-                } else {
-                    result += `<span class=${styleClassName}>${value}</span>`;
-                }
-                result += after;
+                result += before + createStructuredPhraseHtml(value, styleClassName) + after;
             }
         } else if (isConditionalWithStructuredDataValues) { // case where the the structured data is conditional and there are two values that need to be underlined (i.e. as of & date)
             end = structuredPhraseTemplate.indexOf('}', end + 1);
@@ -90,16 +79,7 @@ export function createStyledSentenceFromStructuredData(structuredPhraseTemplate,
                 if (value instanceof moment) value = value.format('MM/DD/YYYY');
                 haveAValue = true;
             }
-            if (Lang.isArray(value)) {
-                for (let index in value) {
-                    result += ` <span class=${styleClassName}>${value[index]}</span>`;
-                    if (index != value.length - 1) {
-                        result += ',';
-                    }
-                }
-            } else {
-                result += `<span class=${styleClassName}>${value}</span>`;
-            }
+            result += createStructuredPhraseHtml(value, styleClassName);
         }
         last = end + 1;
         start = structuredPhraseTemplate.indexOf("${", last);
