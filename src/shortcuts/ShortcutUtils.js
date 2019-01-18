@@ -31,7 +31,7 @@ export function createStyledSentenceFromStructuredData(structuredPhraseTemplate,
         isConditional = valueName.startsWith("%");
         textIsStructuredData = valueName.startsWith('*');
 
-        if (isConditional) {
+        if (isConditional) { // ADD DESCRIPTION
             end = structuredPhraseTemplate.indexOf('}', end + 1);
             conditional = structuredPhraseTemplate.substring(start + 3, end);
             start2 = conditional.indexOf('${');
@@ -48,7 +48,7 @@ export function createStyledSentenceFromStructuredData(structuredPhraseTemplate,
                 if (Lang.isArray(value)) {
                     for (let index in value) {
                         result += ` <span class=${styleClassName}>${value[index]}</span>`;
-                        if (index !== value.length - 1) {
+                        if (index != value.length - 1) {
                             result += ',';
                         }
                     }
@@ -57,13 +57,15 @@ export function createStyledSentenceFromStructuredData(structuredPhraseTemplate,
                 }
                 result += after;
             }
-        } else if (textIsStructuredData) { // this covers the case where the text should be underlined but is not a conditional
+        // } else if () {
+
+        } else if (textIsStructuredData) { // this covers the case where the text should be underlined but is not a conditional or a fill in value (i.e. disease status, toxicity, etc)
             valueName = structuredPhraseTemplate.substring(start + 3, end);
             result += `<span class=${styleClassName}>${valueName}</span>`;
         } else {
             value = getAttributeValue(valueName);
             if (Lang.isNull(value) || value === '' || (Lang.isArray(value) && value.length === 0)) {
-                value = '?';
+                result += `<span class=${styleClassNameMissingValue}>?</span>`;
             } else {
                 if (value instanceof moment) value = value.format('MM/DD/YYYY');
                 haveAValue = true;
@@ -71,12 +73,10 @@ export function createStyledSentenceFromStructuredData(structuredPhraseTemplate,
             if (Lang.isArray(value)) {
                 for (let index in value) {
                     result += ` <span class=${styleClassName}>${value[index]}</span>`;
-                    if (index !== value.length - 1) {
+                    if (index != value.length - 1) {
                         result += ',';
                     }
                 }
-            } else if (value === '?') {
-                result += `<span class=${styleClassNameMissingValue}>${value}</span>`;
             } else {
                 result += `<span class=${styleClassName}>${value}</span>`;
             }

@@ -69,7 +69,7 @@
                         {   "title":"Metastasis", "name":"M", "type":"radioButtons", "values": {"category":"staging", "valueSet":"M", "args":"7"} }
                       ]
     },
-    "structuredPhrase": "${*staging ${T} ${N}${% ${M}}",
+    "structuredPhrase": "${*staging} ${T} ${N}${% ${M}}",
     "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/shr/oncology/BreastCancer", "http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor"],
     "knownParentContexts": "ConditionInserter",
     "description": "The stage of a cancer, assessed according to the standard established by American Joint Committee on Cancer (AJCC). TNM Stage Grouping categorizes the progression of cancer using the Roman Numeral system.",
@@ -196,7 +196,7 @@
                         {   "title":"Attribution", "name":"attribution", "type":"radioButtons", "values": {"category":"toxicity", "valueSet":"attribution"} }
                       ]
     },
-    "structuredPhrase": "${*toxicity of ${grade} ${adverseEvent}${% related to ${attribution}}",
+    "structuredPhrase": "${*toxicity} of ${grade} ${adverseEvent}${% related to ${attribution}}",
     "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/shr/oncology/BreastCancer", "http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor"],
     "knownParentContexts": "ConditionInserter",
     "description": "Side effects to treatment, important for effective evaluation of disease and treatment, based on Common Terminology Criteria for Adverse Events (CTCAE) version 4.03 (June 14, 2010).",
@@ -255,7 +255,7 @@
                         {   "title":"Enrolled on", "name":"date", "type":"date" }
                       ]
     },
-    "structuredPhrase": "${*enrollment in ${title}${% on ${date}}",
+    "structuredPhrase": "${*enrollment} in ${title}${% on ${date}}",
     "knownParentContexts": "Patient",
     "description": "Support specifying the enrollment of the patient in a clinical trial.",
     "structuredPhraseDocumentation": "clinicalTrialEnrollmentSheet.pdf"
