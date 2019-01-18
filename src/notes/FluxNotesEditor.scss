@@ -157,18 +157,22 @@
 
 .placeholder-data {
     border-bottom: 1.5px dashed #5EBFFF;
+    line-height: 140%;
 }
 
 .placeholder-data-signed {
     border-bottom: 1px solid #5EBFFF;
+    line-height: 140%;
 }
 
 .placeholder-data-missing {
     border-bottom: 1.5px dashed red;
+    line-height: 140%;
 }
 
 .placeholder-data-missing-signed {
     border-bottom: 1px solid red;
+    line-height: 140%;
 }
 
 // ******** suggestion-portal.js uses this
