@@ -3,7 +3,6 @@ import moment from 'moment';
 
 // This function is similar to createSentenceFromStructuredData except it adds spans around the structured data so that placeholders are styled appropriately
 export function createStyledSentenceFromStructuredData(structuredPhraseTemplate, getAttributeValue, textIfNoData, isSigned) {
-
     let last = 0, valueName, value1Name, value2Name, value, value2;
     let start = structuredPhraseTemplate.indexOf("${"), end;
     let result = "";
@@ -25,7 +24,6 @@ export function createStyledSentenceFromStructuredData(structuredPhraseTemplate,
         if (last !== start) {
             result += structuredPhraseTemplate.substring(last, start);
         }
-
         end = structuredPhraseTemplate.indexOf("}", start + 2); 
         valueName = structuredPhraseTemplate.substring(start + 2, end);
         isConditional = valueName.startsWith("%");
@@ -110,13 +108,13 @@ function createStructuredPhraseHtml(value, styleClassName) {
 }
 
 export function createSentenceFromStructuredData(structuredPhraseTemplate, getAttributeValue, textIfNoData) {
- 
     let last = 0, valueName, value;
     let start = structuredPhraseTemplate.indexOf("${"), end;
     let result = "";
     let haveAValue = false;
     let isConditional;
     let conditional, start2, end2, before, after;
+
     while (start !== -1) {
         if (last !== start) {
             result += structuredPhraseTemplate.substring(last, start);
@@ -167,6 +165,6 @@ export function createSentenceFromStructuredData(structuredPhraseTemplate, getAt
     }
     if (!haveAValue) {
         return textIfNoData;
-    }   
+    }
     return result;
 }

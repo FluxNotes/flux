@@ -102,8 +102,7 @@ class Placeholder {
         }
     }
 
-    getTextWithStylingToDisplayInNote(index = 0) {       
- 
+    getTextWithStylingToDisplayInNote(index = 0) {
         let isSigned = this._clinicalNote.signed;
       
         if (this._numUpdates > 0 && this._entryShortcuts[index].hasData()) {
@@ -114,17 +113,6 @@ class Placeholder {
             return {__html: displayText};
         }     
         return this._placeholderText;      
-    }
-
-    getTextToDisplayInNote(index = 0) {      
-        if (this._numUpdates > 0 && this._entryShortcuts[index].hasData()) {
-            let displayText = "";
-            this._entryShortcuts.forEach((shortcut) => {
-                displayText += `${shortcut.getAsString()}. `;
-            });
-            return displayText;
-        }       
-        return this._placeholderText;
     }
 
     getKey() {

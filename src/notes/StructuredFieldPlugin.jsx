@@ -90,8 +90,7 @@ function StructuredFieldPlugin(opts) {
             },
             placeholder: props => {
                 const placeholder = props.node.get('data').get('placeholder');
-                           
-                let textToDisplay = placeholder.getTextWithStylingToDisplayInNote();
+                const textToDisplay = placeholder.getTextWithStylingToDisplayInNote();
                
                 // Check if textTodisplay is an object or not. If it is an object, then getTextWithStylingToDisplayInNote returned html
                 if (typeof textToDisplay === "object") {                    
