@@ -6,41 +6,8 @@ import OptionsCheckboxList from '../OptionsCheckboxList/OptionsCheckboxList';
 import './SimilarPatientsSelector.css';
 
 export default class SimilarPatientsSelector extends Component {
-    // setOptions = (options) => {
-    //     const {
-    //         demographicOptions,
-    //         pathologyOptions,
-    //         treatmentHistoryOptions,
-    //         geneticsOptions,
-    //         medicalHistoryOptions
-    //     } = this.state;
-    //     let excludedCriteria = [];
-
-    //     excludedCriteria = excludedCriteria.concat(demographicOptions.filter((option) => (options.selectedDemographicOptions || this.state.selectedDemographicOptions).indexOf(option.option) === -1));
-    //     excludedCriteria = excludedCriteria.concat(pathologyOptions.filter((option) => (options.selectedPathologyOptions || this.state.selectedPathologyOptions).indexOf(option.option) === -1));
-    //     excludedCriteria = excludedCriteria.concat(treatmentHistoryOptions.filter((option) => (options.selectedTreatmentHistoryOptions || this.state.selectedTreatmentHistoryOptions).indexOf(option.option) === -1));
-    //     excludedCriteria = excludedCriteria.concat(geneticsOptions.filter((option) => (options.selectedGeneticsOptions || this.state.selectedGeneticsOptions).indexOf(option.option) === -1));
-    //     excludedCriteria = excludedCriteria.concat(medicalHistoryOptions.filter((option) => (options.selectedMedicalHistoryOptions || this.state.selectedMedicalHistoryOptions).indexOf(option.option) === -1));
-
-    //     this.setState({
-    //         ...options,
-    //         excludedCriteria: excludedCriteria.map(({ option }) => option)
-    //     });
-    // }
-
     render() {
         const {
-            // setOptions,
-            // demographicOptions,
-            // pathologyOptions,
-            // treatmentHistoryOptions,
-            // geneticsOptions,
-            // medicalHistoryOptions,
-            // selectedDemographicOptions,
-            // selectedGeneticsOptions,
-            // selectedPathologyOptions,
-            // selectedTreatmentHistoryOptions,
-            // selectedMedicalHistoryOptions,
             similarPatientProps,
             selectSimilarPatientOption,
             selectAllCategorySimilarPatientOptions,
@@ -70,33 +37,29 @@ export default class SimilarPatientsSelector extends Component {
                         setAllSelected={(selected) => selectAllCategorySimilarPatientOptions('demographic', selected)}
                     />
 
-                    {/*<OptionsCheckboxList
-                        optionsHeader="pathology"
-                        options={pathologyOptions}
-                        selectedOptions={selectedPathologyOptions}
-                        setSelected={(selectedPathologyOptions) => setOptions({ selectedPathologyOptions })}
+                    <OptionsCheckboxList
+                        options={similarPatientProps.pathology}
+                        setSelected={(key, selected) => selectSimilarPatientOption('pathology', key, selected)}
+                        setAllSelected={(selected) => selectAllCategorySimilarPatientOptions('pathology', selected)}
                     />
 
                     <OptionsCheckboxList
-                        optionsHeader="treatment history"
-                        options={treatmentHistoryOptions}
-                        selectedOptions={selectedTreatmentHistoryOptions}
-                        setSelected={(selectedTreatmentHistoryOptions) => setOptions({ selectedTreatmentHistoryOptions })}
+                        options={similarPatientProps.treatmentHistory}
+                        setSelected={(key, selected) => selectSimilarPatientOption('treatmentHistory', key, selected)}
+                        setAllSelected={(selected) => selectAllCategorySimilarPatientOptions('treatmentHistory', selected)}
                     />
 
                     <OptionsCheckboxList
-                        optionsHeader="genetics"
-                        options={geneticsOptions}
-                        selectedOptions={selectedGeneticsOptions}
-                        setSelected={(selectedGeneticsOptions) => setOptions({ selectedGeneticsOptions })}
+                        options={similarPatientProps.genetics}
+                        setSelected={(key, selected) => selectSimilarPatientOption('genetics', key, selected)}
+                        setAllSelected={(selected) => selectAllCategorySimilarPatientOptions('genetics', selected)}
                     />
 
                     <OptionsCheckboxList
-                        optionsHeader="medical history"
-                        options={medicalHistoryOptions}
-                        selectedOptions={selectedMedicalHistoryOptions}
-                        setSelected={(selectedMedicalHistoryOptions) => setOptions({ selectedMedicalHistoryOptions })}
-                    /> */}
+                        options={similarPatientProps.medicalHistory}
+                        setSelected={(key, selected) => selectSimilarPatientOption('medicalHistory', key, selected)}
+                        setAllSelected={(selected) => selectAllCategorySimilarPatientOptions('medicalHistory', selected)}
+                    />
                 </div>
             </div>
         );
@@ -106,17 +69,6 @@ export default class SimilarPatientsSelector extends Component {
 SimilarPatientsSelector.propTypes = {
     patient: PropTypes.object.isRequired,
     condition: PropTypes.object.isRequired,
-    // setOptions: PropTypes.func.isRequired,
-    // demographicOptions: PropTypes.array.isRequired,
-    // pathologyOptions: PropTypes.array.isRequired,
-    // treatmentHistoryOptions: PropTypes.array.isRequired,
-    // geneticsOptions: PropTypes.array.isRequired,
-    // medicalHistoryOptions: PropTypes.array.isRequired,
-    // selectedDemographicOptions: PropTypes.array.isRequired,
-    // selectedPathologyOptions: PropTypes.array.isRequired,
-    // selectedTreatmentHistoryOptions: PropTypes.array.isRequired,
-    // selectedGeneticsOptions: PropTypes.array.isRequired,
-    // selectedMedicalHistoryOptions: PropTypes.array.isRequired,
     similarPatientProps: PropTypes.object.isRequired,
     selectSimilarPatientOption: PropTypes.func.isRequired,
     selectAllCategorySimilarPatientOptions: PropTypes.func.isRequired,

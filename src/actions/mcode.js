@@ -36,9 +36,16 @@ function selectAllSimilarPatientOptions(selected) {
     };
 }
 
+function processSimilarPatientOutcomes() {
+    return {
+        type: types.PROCESS_SIMILAR_PATIENT_OUTCOMES
+    };
+}
+
 export {
     selectSimilarPatientOption,
     initializeSimilarPatientProps,
     selectAllSimilarPatientOptions,
-    selectAllCategorySimilarPatientOptions
-}
+    selectAllCategorySimilarPatientOptions,
+    processSimilarPatientOutcomes
+};

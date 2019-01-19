@@ -9,7 +9,7 @@ export default class TreatmentOptionsSelector extends Component {
         super(props);
 
         this.state = {
-            expanded: false
+            expanded: true
         };
     }
 
