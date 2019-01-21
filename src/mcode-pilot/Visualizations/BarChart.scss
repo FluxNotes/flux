@@ -1,0 +1,39 @@
+
+    .bar-chart {
+        width: 100px;
+        padding:0;
+    }
+
+    .bar-chart-text {
+        display:inline-block;
+        margin-bottom:0px;
+        margin-top:0px;
+    }
+    .right-text {
+        float:right;
+        padding-right: 5px;
+    }
+    .prog-border {
+        border-top: 1px solid #d1d1d1;
+        height: 10px;
+        display: inline-block;
+        border-bottom:1px solid #d1d1d1;
+    }
+    .prog-fill {
+        padding:0;
+        height: 12px;
+        width:0px;
+        display: inline-block;
+
+        background-color: #9e9e9e;
+    }
+
+    .prog-fill-top { 
+        background-color: #e1e1e1;
+        width: 100px;
+    }
+
+    .tiny-arrow{
+        opacity: .75;
+        padding-right: 2px;
+    }
