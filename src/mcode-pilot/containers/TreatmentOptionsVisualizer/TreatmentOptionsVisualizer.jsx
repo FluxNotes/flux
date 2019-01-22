@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import numberWithCommas from '../../utils/numberWithCommas';
+import { outcomeHeaders } from '../../mock-data/outcomeHeaders';
 
 import TreatmentOptionsSelector from '../../components/TreatmentOptionsSelector/TreatmentOptionsSelector';
 import SimilarPatientsSelector from '../../components/SimilarPatientsSelector/SimilarPatientsSelector';
@@ -19,29 +20,6 @@ import {
 
 import './TreatmentOptionsVisualizer.css';
 
-// example header object
-// TODO: decide on format for this
-const headers = [
-    {
-      "header": "select to compare",
-      "type":"thin"
-    },
-    {
-      "header":<span className="fa fa-user user-icon"></span>,
-      "type":"center"
-    },
-    {
-      "header": "Overall survival rates",
-      "subheaders":["1 yr", "2 yr", "3 yr"]
-    },
-    {
-      "header":"Change in ECOG score"
-    },
-    {
-      "header":"Hospitalization due to side effects",
-      "subheaders":["all","leading cause"]
-    }
-]
 
 export class TreatmentOptionsVisualizer extends Component {
     componentDidMount() {
@@ -51,6 +29,12 @@ export class TreatmentOptionsVisualizer extends Component {
 
         initializeSimilarPatientProps(patientAge, patientAgeAtDiagnosis, patient.patient.race, patient.patient.gender);
         processSimilarPatientOutcomes();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.similarPatientProps !== this.props.similarPatientProps) {
+            this.props.processSimilarPatientOutcomes();
+        }
     }
 
     renderedSimilarPatientsSubtitle(numPatients) {
@@ -66,8 +50,7 @@ export class TreatmentOptionsVisualizer extends Component {
             similarPatients,
             selectSimilarPatientOption,
             selectAllSimilarPatientOptions,
-            selectAllCategorySimilarPatientOptions,
-            processSimilarPatientOutcomes
+            selectAllCategorySimilarPatientOptions
         } = this.props;
 
         return (
@@ -94,9 +77,8 @@ export class TreatmentOptionsVisualizer extends Component {
                     title="Outcomes"
                     subTitle="cancer specific survival rate, ECOG score, Hospitalization due to side effects">
                     <TreatmentOptionsOutcomes
-                        headers={headers}
-                        similarPatientProps={similarPatientProps}
-                        processSimilarPatientOutcomes={processSimilarPatientOutcomes}
+                        headers={outcomeHeaders}
+                        similarPatients={similarPatients}
                     />
                 </TreatmentOptionsSelector>
 

@@ -1,21 +1,40 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Table, { TableCell, TableHead, TableBody, TableRow } from 'material-ui/Table';
-import BarChart from '../Visualizations/BarChart';
-import './TreatmentOptionsOutcomes.css';
-import outcome_survival from '../mock-data/outcome_survival';
-let id = 0;
-function createData(name) {
-    id += 1;
-    return { id, name };
-}
 
-const rows = [
-    createData('surgery & radiation'),
-    createData('hormonal therapy'),
-    createData('chemotherapy'),
-    createData('none (actively monitoring)'),
-];
+import BarChart from '../../visualizations/BarChart';
+
+import './TreatmentOptionsOutcomes.css';
+
+const NO_TREATMENT = 'none (actively monitoring)';
+const sideEffectNames = {
+    "hotFlash": "Hot Flashes",
+    "decLibido": "Decreased Libido",
+    "fatigue": "Fatigue",
+    "nauseaVomiting": "Nausea/Vomiting",
+    "anemia": "Anemia",
+    "bowelDys": "Bowel Dysfunction",
+    "erectileDys": "Erectile Dysfunction",
+    "weightLoss": "Weight Loss",
+    "urinaryDys": "Urinary Dysfunction"
+};
+
+let _rowId = 0;
+function buildRow(name) {
+    return {
+        id: ++_rowId,
+        name,
+        active: false,
+        totalPatients: 0,
+        oneYrSurvival: 0,
+        threeYrSurvival: 0,
+        fiveYrSurvival: 0,
+        sideEffects: {
+            totalReporting: 0,
+            effects: {}
+        }
+    };
+}
 
 export default class TreatmentOptionsOutcomes extends Component {
     constructor(props) {
@@ -23,14 +42,64 @@ export default class TreatmentOptionsOutcomes extends Component {
 
         this.state = {
             placeholder: {},
-            activeRow:'none (actively monitoring)'
+            rows: this.generateRows(props.similarPatients)
         };
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.similarPatientProps !== this.props.similarPatientProps) {
-            this.props.processSimilarPatientOutcomes();
+        if (nextProps.similarPatients !== this.props.similarPatients) {
+            this.setState({
+                rows: this.generateRows(nextProps.similarPatients)
+            });
         }
+    }
+
+    generateRows(similarPatients) {
+        if (similarPatients.length === 0) {
+            return [];
+        }
+
+        const rowMappings = {};
+        similarPatients.forEach((patient) => {
+            const treatments = patient.treatments.sort().join(' & ');
+            const category = treatments === 'noTreatment' ? NO_TREATMENT : treatments;
+
+            if (!rowMappings[category]) {
+                rowMappings[category] = buildRow(category);
+            }
+
+            const row = rowMappings[category];
+            row.totalPatients += 1;
+
+            const survivalYears = Math.floor(patient.diseaseStatus.survivalMonths / 12);
+            if (survivalYears >= 1) {
+                row.oneYrSurvival += 1;
+            }
+            if (survivalYears >= 3) {
+                row.threeYrSurvival += 1;
+            }
+            if (survivalYears >= 5) {
+                row.fiveYrSurvival += 1;
+            }
+
+            if (patient.sideEffects.length > 0) {
+                row.sideEffects.totalReporting += 1;
+                patient.sideEffects.forEach((sideEffect) => {
+                    if (!row.sideEffects.effects[sideEffect]) {
+                        row.sideEffects.effects[sideEffect] = 0;
+                    }
+                    row.sideEffects.effects[sideEffect] += 1;
+                })
+            }
+        });
+
+        const keys = Object.keys(rowMappings).sort();
+        const rows = keys.map((key) => rowMappings[key]);
+
+        // set active row
+        (rows.find((row) => row.name === NO_TREATMENT) || rows[0]).active = true;
+
+        return rows;
     }
 
     createHeader(headers) {
@@ -66,20 +135,75 @@ export default class TreatmentOptionsOutcomes extends Component {
         return { header, subheader };
     }
 
-    setActiveRow(row){
-        this.setState({activeRow:row})
+    setActiveRow(activeRow) {
+        this.setState({
+            rows: this.state.rows.map((row) => {
+                row.active = row === activeRow;
+                return row;
+            })
+        });
     }
+
+    renderRow(row) {
+        const {
+            id,
+            name,
+            active,
+            totalPatients,
+            sideEffects
+        } = row;
+        const activeRow = this.state.rows.find((row) => row.active);
+
+        const topSideEffects = Object.keys(sideEffects.effects).map((sideEffect) => ({ sideEffect, occurrences: sideEffects.effects[sideEffect] })).sort((a, b) => b.occurrences - a.occurrences).slice(0, 2);
+
+        return (
+            <TableRow key={id} onClick={() => this.setActiveRow(row)} selected={active} classes={{ selected: 'row-selected' }}>
+                <TableCell component="th" scope="row">
+                    {name}
+                </TableCell>
+                <TableCell>
+                    ({totalPatients})
+                </TableCell>
+                {['oneYrSurvival', 'threeYrSurvival', 'fiveYrSurvival'].map((prop, i) =>
+                    <TableCell key={i}>
+                        <BarChart
+                            numerator={row[prop]}
+                            denominator={totalPatients}
+                            compareToNumerator={activeRow[prop]}
+                            compareToDenominator={activeRow.totalPatients}
+                            active={active}
+                        />
+                    </TableCell>
+                )}
+                <TableCell>
+                    {Math.floor(sideEffects.totalReporting / totalPatients * 100)}%
+                </TableCell>
+                <TableCell>
+                    <ul>
+                        {topSideEffects.map(({ sideEffect, occurrences }, i) =>
+                            <li key={i}>
+                                {`${sideEffectNames[sideEffect]} `}
+                                ({Math.floor(occurrences / totalPatients * 100)}%)
+                            </li>
+                        )}
+                    </ul>
+                </TableCell>
+            </TableRow>
+        );
+    }
+
     render() {
         const header = (this.createHeader(this.props.headers));
 
         return (
             <div className="outcome-list">
-                <Table >
+                <Table>
                     {/* Top Level Header */}
-                    <TableHead >
+                    <TableHead>
                         <TableRow className="outcome-header">
                             {header.header}
                         </TableRow>
+
                         {/* Subheaders */}
                         <TableRow className="outcome-subheader">
                             {header.subheader}
@@ -87,29 +211,7 @@ export default class TreatmentOptionsOutcomes extends Component {
                     </TableHead>
 
                     <TableBody>
-                        {rows.map(row => {
-                            const outcome1Yr = outcome_survival[row.name].yr1;
-                            return (
-                                <TableRow key={row.id} onClick={()=>{this.setState({activeRow:row.name})}}>
-                                    <TableCell component="th" scope="row">
-                                        {row.name}
-                                    </TableCell>
-                                    <TableCell >({outcome1Yr.survived+outcome1Yr.cancerDeath+outcome1Yr.otherDeath})</TableCell>
-                                    {Object.keys(outcome_survival[row.name]).map(year=>{
-                                        return(<TableCell key={row.id+year}>
-                                            
-                                            <BarChart 
-                                                values={outcome_survival[row.name][year]}
-                                                compareTo={outcome_survival[this.state.activeRow][year]}
-                                                active={row.name === this.state.activeRow}/>
-                                        </TableCell>)
-                                    })}
-                                    <TableCell > 0.5 .4</TableCell>
-                                    <TableCell > 15% ^ 4</TableCell>
-                                    <TableCell > neuropathy (4%) <br /> other thing (19%)</TableCell>
-                                </TableRow>
-                            );
-                        })}
+                        {this.state.rows.map(row => this.renderRow(row))}
                     </TableBody>
                 </Table>
             </div>
@@ -119,6 +221,5 @@ export default class TreatmentOptionsOutcomes extends Component {
 
 TreatmentOptionsOutcomes.propTypes = {
     headers: PropTypes.array.isRequired,
-    similarPatientProps: PropTypes.object.isRequired,
-    processSimilarPatientOutcomes: PropTypes.func.isRequired
+    similarPatients: PropTypes.array.isRequired
 };

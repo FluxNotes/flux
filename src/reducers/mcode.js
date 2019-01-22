@@ -52,12 +52,6 @@ const defaultState = {
                 ECOG: { selected: true, displayText: 'ECOG score', minValue: 2, maxValue: 3 }
             }
         }
-    },
-    similarPatientOutcomes: {
-        "surgery & radiation": [], // filtered seer data goes into these arrays
-        "hormonal therapy": [],
-        "chemotherapy": [],
-        "none (actively monitoring)": []
     }
 };
 

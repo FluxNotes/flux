@@ -34,7 +34,7 @@ $font-size: 0.8rem;
         color: $body-gray !important;
         font-weight: 600;
     }
-    
+
 
     tr {
         height: inherit;
@@ -66,8 +66,6 @@ $font-size: 0.8rem;
 
         li {
             font-size: $font-size;
-            text-decoration: underline #0182D7;
-            cursor: pointer;
         }
     }
 
@@ -78,6 +76,10 @@ $font-size: 0.8rem;
 
         &:nth-child(even) {
             background-color: $background;
+        }
+
+        &.row-selected {
+            background-color: #ddd;
         }
     }
 
