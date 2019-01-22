@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Highcharts from 'highcharts';
 import PropTypes from 'prop-types';
 import Lang from 'lodash';
 import { CircularProgress } from 'material-ui';
 import './ScatterPlotVisualizer.css';
+import Visualizer from './Visualizer';
 
 /*
 A scatterplot that plots points by category
 */
-class ScatterPlotVisualizer extends Component {
+class ScatterPlotVisualizer extends Visualizer {
     constructor(props) {
         super(props);
         this.state = {

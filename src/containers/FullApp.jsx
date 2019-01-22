@@ -257,7 +257,7 @@ export class FullApp extends Component {
     setOpenClinicalNote = (openClinicalNote) => {
         this.setState({
             openClinicalNote: openClinicalNote
-        });
+        }); 
     }
 
     setOpenSourceNoteEntryId = (openSourceNoteEntryId) => {

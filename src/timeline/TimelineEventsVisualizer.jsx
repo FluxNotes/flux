@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Legend from './TimelineLegend';
 import HoverItem from './HoverItem';
@@ -11,8 +11,9 @@ import './Timeline.css';
 import './TimelineEventsVisualizer.css';
 import FontAwesome from 'react-fontawesome';
 import Lang from 'lodash';
+import Visualizer from '../summary/Visualizer';
 
-class TimelineEventsVisualizer extends Component {
+class TimelineEventsVisualizer extends Visualizer {
     constructor(props) {
         super(props);
         const items = this.createItems(this.props.patient, this.props.condition, this.props.conditionSection, this.props.tdpSearchSuggestions, this.props.highlightedSearchSuggestion);

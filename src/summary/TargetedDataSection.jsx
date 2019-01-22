@@ -433,7 +433,7 @@ export default class TargetedDataSection extends Component {
 
     // renderSection checks the type of data that is being passed and chooses the correct component to render the data
     renderSection = (section, viz) => {
-        const { patient, condition, allowItemClick, isWide, loginUser, actions, searchIndex } = this.props;
+        const { patient, condition, allowItemClick, isWide, loginUser, actions } = this.props;
 
         if (Lang.isNull(viz)) return null;
         const Visualizer = viz.visualizer;
@@ -449,7 +449,6 @@ export default class TargetedDataSection extends Component {
                 isWide={isWide}
                 loginUser={loginUser}
                 actions={actions}
-                searchIndex={searchIndex}
                 tdpSearchSuggestions={this.tdpSearchSuggestions}
                 highlightedSearchSuggestion={this.props.highlightedSearchSuggestion}
             />

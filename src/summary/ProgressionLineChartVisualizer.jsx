@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {
     LineChart,
     Line,
@@ -11,14 +11,15 @@ import {
 } from 'recharts';
 import moment from 'moment';
 import Collection from 'lodash';
-import Lang from 'lodash';
+import _ from 'lodash';
 import PropTypes from 'prop-types';
+import Visualizer from './Visualizer';
 
 import './ProgressionLineChartVisualizer.css';
 /*
  A BandedLineGraphVisualizer that graphs a set of data over time
  */
-class ProgressionLineChartVisualizer extends Component {
+class ProgressionLineChartVisualizer extends Visualizer {
     constructor(props) {
         super(props);
 
@@ -64,7 +65,7 @@ class ProgressionLineChartVisualizer extends Component {
 
     // Turns dates into numeric representations for graphing
     processForGraphing = (data) => {
-        return Lang.cloneDeep(data).map((d, i) => {
+        return _.cloneDeep(data).map((d, i) => {
             const code = d[this.yVarField];
             const numberBasedOnCode = this.codeToValueMap[code];
 
@@ -164,12 +165,12 @@ class ProgressionLineChartVisualizer extends Component {
     diseaseStatusTooltipFunction = (props) => {
         const { payload } = props;
         // If there's a payload, we have a tooltip to display
-        if (!Lang.isEmpty(payload)) {
+        if (!_.isEmpty(payload)) {
             const { start_time, disease_status_string, evidence } = payload[0].payload;
             // Create blurbs of text based on whether or not we have data to display
             const disease_status_blurb = disease_status_string;
-            const evidence_blurb =  !Lang.isEmpty(evidence) ? ` based on ${evidence}` : "";
-            const as_of_blurb = !Lang.isEmpty(start_time)   ? ` on ${start_time}`  : "";
+            const evidence_blurb =  !_.isEmpty(evidence) ? ` based on ${evidence}` : "";
+            const as_of_blurb = !_.isEmpty(start_time)   ? ` on ${start_time}`  : "";
             return (
                 <div className="disease-status-tooltip">
                     <span>
@@ -260,7 +261,7 @@ class ProgressionLineChartVisualizer extends Component {
     renderDot = (props) => {
         const highlightedData = this.props.tdpSearchSuggestions.find(s => s.valueTitle === props.payload.start_time && s.contentSnapshot === props.payload.disease_status_string);
         if (highlightedData) {
-            props.stroke = Lang.isEqual(highlightedData, this.props.highlightedSearchSuggestion) ? 'rgb(255, 150, 50)' : 'rgb(255, 210, 5)';
+            props.stroke = _.isEqual(highlightedData, this.props.highlightedSearchSuggestion) ? 'rgb(255, 150, 50)' : 'rgb(255, 210, 5)';
             props.fill = 'rgb(255, 255, 70)';
             props.strokeWidth = 5;
         }

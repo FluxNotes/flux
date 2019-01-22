@@ -97,7 +97,6 @@ export default class ContextOptions extends Component {
         // build our list of filtered triggers (only filter if we will be showing search bar)
         let triggers = [];
         // count = 0;
-
         validShortcuts.forEach((shortcut, i) => {
             let groupName = this.props.shortcutManager.getShortcutGroupName(shortcut);
             this.props.shortcutManager.getTriggersForShortcut(shortcut, context).forEach((trigger, j) => {
