@@ -164,7 +164,6 @@ export class FullApp extends Component {
                 loading: false
             })
         }
-        this.setState({patient: patient})
     }
 
     componentWillMount() {
@@ -178,16 +177,12 @@ export class FullApp extends Component {
     }
 
     componentDidMount() { 
-        //
-        // TESTING CODE
-        setTimeout(() => { 
-            this.loadPatient(this.props.patientId);
-        }, 3000);
-        // TESTING CODE
-        //
-        
-        // TODO: Restore this line and remove the above testing code
-        // this.loadPatient(this.props.patientId);
+        // Add a non-burdensome timeout so that the loading animation doesn't flicker oppreseively
+        //TODO: REMOVE -- FOR TESTING ANIMATION
+        setTimeout( () => 
+            this.loadPatient(this.props.patientId),
+        2000)
+        // TESTING
     }
 
     receive_command(commandType, data) {
@@ -402,11 +397,6 @@ export class FullApp extends Component {
     }
 
     renderLoadingAnimation = () => { 
-        if(this.state.loading) { 
-
-        } else { 
-            
-        }
         return (
             <Fade in={this.state.loading} timeout={this.timeoutDuration}>
                 <Paper
@@ -450,13 +440,10 @@ export class FullApp extends Component {
         return (
             <MuiThemeProvider theme={theme}>
                 <div className="FullApp-content" style={loadingStyle}>
-                    {this.renderLoadingAnimation()}
-                    <Fade in={!this.state.loading} timeout={this.timeoutDuration}>
-                        <Grid fluid>
-                            <Row center="xs">
-                                <Col sm={12}>
-                                {!Lang.isNull(this.state.patient) && 
-                                    <PatientControlPanel
+                    <Grid fluid>
+                        <Row center="xs">
+                            <Col sm={12}>    
+                                <PatientControlPanel
                                     appTitle={this.props.display}
                                     clinicalEvent={this.state.clinicalEvent}
                                     highlightedSearchSuggestion={this.state.highlightedSearchSuggestion}
@@ -474,75 +461,78 @@ export class FullApp extends Component {
                                     setSearchSelectedItem={this.setSearchSelectedItem}
                                     setSearchSuggestions={this.setSearchSuggestions}
                                     supportLogin={true}
+                                />
+                            </Col>
+                        </Row>
+                        {this.renderLoadingAnimation()}
+                        <Fade in={!this.state.loading} timeout={this.timeoutDuration}>
+                            <div>
+                                {!Lang.isNull(this.state.patient) && 
+                                    <CurrentDashboard
+                                        // App default settings
+                                        actions={this.actions}
+                                        appState={this.state}
+                                        contextManager={this.contextManager}
+                                        dataAccess={this.dataAccess}
+                                        forceRefresh={this.state.forceRefresh}
+                                        handleSummaryItemSelected={this.handleSummaryItemSelected}
+                                        highlightedSearchSuggestion={this.state.highlightedSearchSuggestion}
+                                        isAppBlurred={this.state.isAppBlurred}
+                                        itemInserted={this.itemInserted}
+                                        loginUser={this.state.loginUser}
+                                        preferenceManager={this.preferenceManager}
+                                        newCurrentShortcut={this.newCurrentShortcut}
+                                        onContextUpdate={this.onContextUpdate}
+                                        openSourceNoteEntryId={this.state.openSourceNoteEntryId}
+                                        possibleClinicalEvents={this.possibleClinicalEvents}
+                                        ref={(dashboard) => { this.dashboard = dashboard; }}
+                                        searchIndex={this.searchIndex}
+                                        searchSelectedItem={this.state.searchSelectedItem}
+                                        searchSuggestions={this.state.searchSuggestions}
+                                        setAppBlur={this.setAppBlur}
+                                        setHighlightedSearchSuggestion={this.setHighlightedSearchSuggestion}
+                                        setNoteClosed={this.setNoteClosed}
+                                        setNoteViewerEditable={this.setNoteViewerEditable}
+                                        setNoteViewerVisible={this.setNoteViewerVisible}
+                                        setForceRefresh={this.setForceRefresh}
+                                        setFullAppStateWithCallback={this.setFullAppStateWithCallback}
+                                        setLayout={this.setLayout}
+                                        setOpenClinicalNote={this.setOpenClinicalNote}
+                                        setOpenSourceNoteEntryId={this.setOpenSourceNoteEntryId}
+                                        setSearchSelectedItem={this.setSearchSelectedItem}
+                                        shortcutManager={this.shortcutManager}
+                                        structuredFieldMapManager={this.structuredFieldMapManager}
+                                        summaryMetadata={this.summaryMetadata}
+                                        updateErrors={this.updateErrors}
                                     />
                                 }
-                                </Col>
-                            </Row>
-                            {!Lang.isNull(this.state.patient) && 
-                                <CurrentDashboard
-                                // App default settings
-                                actions={this.actions}
-                                appState={this.state}
-                                contextManager={this.contextManager}
-                                dataAccess={this.dataAccess}
-                                forceRefresh={this.state.forceRefresh}
-                                handleSummaryItemSelected={this.handleSummaryItemSelected}
-                                highlightedSearchSuggestion={this.state.highlightedSearchSuggestion}
-                                isAppBlurred={this.state.isAppBlurred}
-                                itemInserted={this.itemInserted}
-                                loginUser={this.state.loginUser}
-                                preferenceManager={this.preferenceManager}
-                                newCurrentShortcut={this.newCurrentShortcut}
-                                onContextUpdate={this.onContextUpdate}
-                                openSourceNoteEntryId={this.state.openSourceNoteEntryId}
-                                possibleClinicalEvents={this.possibleClinicalEvents}
-                                ref={(dashboard) => { this.dashboard = dashboard; }}
-                                searchIndex={this.searchIndex}
-                                searchSelectedItem={this.state.searchSelectedItem}
-                                searchSuggestions={this.state.searchSuggestions}
-                                setAppBlur={this.setAppBlur}
-                                setHighlightedSearchSuggestion={this.setHighlightedSearchSuggestion}
-                                setNoteClosed={this.setNoteClosed}
-                                setNoteViewerEditable={this.setNoteViewerEditable}
-                                setNoteViewerVisible={this.setNoteViewerVisible}
-                                setForceRefresh={this.setForceRefresh}
-                                setFullAppStateWithCallback={this.setFullAppStateWithCallback}
-                                setLayout={this.setLayout}
-                                setOpenClinicalNote={this.setOpenClinicalNote}
-                                setOpenSourceNoteEntryId={this.setOpenSourceNoteEntryId}
-                                setSearchSelectedItem={this.setSearchSelectedItem}
-                                shortcutManager={this.shortcutManager}
-                                structuredFieldMapManager={this.structuredFieldMapManager}
-                                summaryMetadata={this.summaryMetadata}
-                                updateErrors={this.updateErrors}
-                                />
-                            }
-                            <Modal 
-                                aria-labelledby="simple-modal-title"
-                                aria-describedby="simple-modal-description"
-                                open={this.state.isModalOpen}
-                                onClose={this.handleModalClose}
-                                onClick={this.handleModalClose}
-                                >
-                                <div style={getModalStyle()} >
-                                    <Typography id="modal-title">
-                                        {this.state.modalTitle}
-                                    </Typography>
-                                    <Typography id="simple-modal-description">
-                                        {this.state.modalContent}
-                                    </Typography>
-                                </div>
-                            </Modal>
+                            </div>
+                        </Fade>
+                        <Modal 
+                            aria-labelledby="simple-modal-title"
+                            aria-describedby="simple-modal-description"
+                            open={this.state.isModalOpen}
+                            onClose={this.handleModalClose}
+                            onClick={this.handleModalClose}
+                            >
+                            <div style={getModalStyle()} >
+                                <Typography id="modal-title">
+                                    {this.state.modalTitle}
+                                </Typography>
+                                <Typography id="simple-modal-description">
+                                    {this.state.modalContent}
+                                </Typography>
+                            </div>
+                        </Modal>
 
-                            <Snackbar
-                                anchorOrigin={{vertical: 'bottom', horizontal: 'center',}}
-                                autoHideDuration={3000}
-                                onClose={this.handleSnackbarClose}
-                                open={this.state.snackbarOpen}
-                                message={this.state.snackbarMessage}
-                                />
-                        </Grid>
-                    </Fade>
+                        <Snackbar
+                            anchorOrigin={{vertical: 'bottom', horizontal: 'center',}}
+                            autoHideDuration={3000}
+                            onClose={this.handleSnackbarClose}
+                            open={this.state.snackbarOpen}
+                            message={this.state.snackbarMessage}
+                            />
+                    </Grid>
                 </div>
             </MuiThemeProvider>
         );

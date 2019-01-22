@@ -207,7 +207,7 @@ $note-assitant-width-3: 160px;
     }
 }
 
-@media only screen and (max-width: 1024px) { 
+@media only screen and (max-width: 1200px) { 
     .note-assistant-wrapper {
         /* 117px is the height of the on large screens Patient Control Panel, 20px is the height of the top margin of post encounter view content and a little extra for potential scroll bars*/
         max-height: calc(100vh - 117px - 20px);
