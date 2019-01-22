@@ -100,7 +100,6 @@ class PatientControlPanel extends Component {
     }
 
     render() {
-        const { patient } = this.props;
         const disabledClassName = this.props.isAppBlurred ? 'content-disabled' : '';
         const logoObject = this.getLogoObject(); 
         return (
