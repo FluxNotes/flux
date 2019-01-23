@@ -4,7 +4,7 @@ import moment from 'moment';
 // Creates a sentance from structured data
 // Sentence is styled with structured data underlines if isStyled is true
 // If not it is a string with # designating the structured data 
-export function createSentenceFromStructuredData(structuredPhraseTemplate, getAttributeValue, textIfNoData, isStyled, isSigned) {
+export function createSentenceFromStructuredData(structuredPhraseTemplate, getAttributeValue, textIfNoData, isStyled, isSigned = false) {
     let last = 0, valueName, value1Name, value2Name, value, value2;
     let start = structuredPhraseTemplate.indexOf('${'), end;
     let result = '';

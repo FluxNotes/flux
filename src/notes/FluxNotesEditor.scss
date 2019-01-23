@@ -167,11 +167,13 @@
 
 .placeholder-data-missing {
     border-bottom: 1.5px dashed $missing-data-red;
+    font-style: italic;
     line-height: 140%;
 }
 
 .placeholder-data-missing-signed {
     border-bottom: 1px solid $missing-data-red;
+    font-style: italic;
     line-height: 140%;
 }
 
