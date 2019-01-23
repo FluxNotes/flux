@@ -127,12 +127,12 @@ export function createSentenceFromStructuredData(structuredPhraseTemplate, getAt
 function createStructuredPhraseHtml(value, styleClassName) {
     if (Lang.isArray(value)) {
         let htmlString = '';
-        for (let index in value) {
-            htmlString += ` <span class=${styleClassName}>${value[index]}</span>`;
+        value.forEach((val, index) => {
+            htmlString += ` <span class=${styleClassName}>${val}</span>`;
             if (index !== value.length - 1) {
                 htmlString += ',';
             }
-        }
+        });
         return htmlString;
     } else {
         return `<span class=${styleClassName}>${value}</span>`;
