@@ -155,6 +155,28 @@
     background-color: #dddddd;
 }
 
+.placeholder-data {
+    border-bottom: 1.5px dashed $shr-context-line;
+    line-height: 140%;
+}
+
+.placeholder-data-signed {
+    border-bottom: 1px solid $shr-context-line;
+    line-height: 140%;
+}
+
+.placeholder-data-missing {
+    border-bottom: 1.5px dashed $missing-data-red;
+    font-style: italic;
+    line-height: 140%;
+}
+
+.placeholder-data-missing-signed {
+    border-bottom: 1px solid $missing-data-red;
+    font-style: italic;
+    line-height: 140%;
+}
+
 // ******** suggestion-portal.js uses this
 .suggestion-portal { 
     position: absolute;

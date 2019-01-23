@@ -85,8 +85,12 @@ export default class EntryShortcut extends Shortcut {
         return this.object.entryInfo.entryId;
     }
 
-    getAsString() {
-        return createSentenceFromStructuredData(this.metadata["structuredPhrase"], this.getAttributeValue.bind(this), this.getText());
+    getAsStringWithStyling(isSigned) {      
+        return createSentenceFromStructuredData(this.metadata["structuredPhrase"], this.getAttributeValue.bind(this), this.getText(), true, isSigned);
+    }
+
+    getAsString() {        
+        return createSentenceFromStructuredData(this.metadata["structuredPhrase"], this.getAttributeValue.bind(this), this.getText(), false);
     }
 
     _followPath(object, attributePath, startIndex) {

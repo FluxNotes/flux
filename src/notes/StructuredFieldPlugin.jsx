@@ -90,7 +90,15 @@ function StructuredFieldPlugin(opts) {
             },
             placeholder: props => {
                 const placeholder = props.node.get('data').get('placeholder');
-                return <span contentEditable={false} className='placeholder'>{placeholder.getTextToDisplayInNote()}</span>;
+                const textToDisplay = placeholder.getTextWithStylingToDisplayInNote();
+
+                // Check if textToDisplay is an object or not. If it is an object, then getTextWithStylingToDisplayInNote returned html
+                if (typeof textToDisplay === "object") {
+                    // Use dangerouslySetInnerHTML to set html
+                    return <span contentEditable={false} className='placeholder'><span dangerouslySetInnerHTML={placeholder.getTextWithStylingToDisplayInNote()}/> </span>;
+                } else {
+                    return <span contentEditable={false} className='placeholder'>{placeholder.getTextWithStylingToDisplayInNote()}</span>;
+                }
             },
         },
         rules: [

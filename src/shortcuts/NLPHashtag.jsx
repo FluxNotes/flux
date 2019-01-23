@@ -134,7 +134,7 @@ export default class NLPHashtag extends Shortcut {
     }
 
     getAsString() {
-        return createSentenceFromStructuredData(this.metadata["structuredPhrase"], this.getAttributeValue.bind(this), this.getText());
+        return createSentenceFromStructuredData(this.metadata["structuredPhrase"], this.getAttributeValue.bind(this), this.getText(), false);
     }
 
     _followPath(object, attributePath, startIndex) {

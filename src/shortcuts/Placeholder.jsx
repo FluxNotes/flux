@@ -102,13 +102,15 @@ class Placeholder {
         }
     }
 
-    getTextToDisplayInNote(index = 0) {
+    getTextWithStylingToDisplayInNote(index = 0) {
+        let isSigned = this._clinicalNote.signed;
+
         if (this._numUpdates > 0 && this._entryShortcuts[index].hasData()) {
             let displayText = "";
             this._entryShortcuts.forEach((shortcut) => {
-                displayText += `${shortcut.getAsString()}. `;
+                displayText += `${shortcut.getAsStringWithStyling(isSigned)}. `;
             });
-            return displayText;
+            return {__html: displayText};
         }
         return this._placeholderText;
     }

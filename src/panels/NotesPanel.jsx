@@ -61,7 +61,8 @@ export default class NotesPanel extends Component {
                     if (Lang.isUndefined(foundItem)) return undefined;
                     return foundItem.value;
                 },
-                `#${data.phrase}`);
+                `#${data.phrase}`,
+                false);
             this.props.handleSummaryItemSelected(structuredPhrase, -1, source);
             return null;
         } else {
