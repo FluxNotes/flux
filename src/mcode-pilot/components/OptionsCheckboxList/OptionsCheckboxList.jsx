@@ -19,31 +19,8 @@ export default class OptionsCheckboxList extends Component {
         this.setState({ expanded: !this.state.expanded });
     };
 
-    toggleAll = () => {
-        // const { options, selectedOptions } = this.props;
-        // if (options.length === selectedOptions.length) {
-        //     this.props.setSelected([]);
-        // } else {
-        //     this.props.setSelected(options.map(option => option.option));
-        // }
-    }
-
     toggleOption(option) {
         this.props.setSelected(option, !this.props.options.options[option].selected);
-    }
-
-    _toggleOption(option) {
-        const { selectedOptions } = this.props;
-        const newOptions = selectedOptions.slice();
-        const optionIndex = selectedOptions.indexOf(option.option);
-
-        if (optionIndex !== -1) {
-            newOptions.splice(optionIndex, 1);
-            this.props.setSelected(newOptions);
-        } else {
-            newOptions.push(option.option);
-            this.props.setSelected(newOptions);
-        }
     }
 
     renderOptions = () => {
