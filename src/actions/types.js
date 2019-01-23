@@ -1,4 +1,4 @@
-// ------------------------- SELECTT SIMILAR PATIENT OPTION ---------------- //
+// ------------------------- MCODE ----------------------------------------- //
 
 export const SELECT_SIMILAR_PATIENT_OPTION = 'SELECT_SIMILAR_PATIENT_OPTION';
 export const INITIALIZE_SIMILAR_PATIENT_PROPS = 'INITIALIZE_SIMILAR_PATIENT_PROPS';
