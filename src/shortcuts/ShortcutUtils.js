@@ -129,7 +129,7 @@ function createStructuredPhraseHtml(value, styleClassName) {
         let htmlString = '';
         for (let index in value) {
             htmlString += ` <span class=${styleClassName}>${value[index]}</span>`;
-            if (index != value.length - 1) {
+            if (index !== value.length - 1) {
                 htmlString += ',';
             }
         }
