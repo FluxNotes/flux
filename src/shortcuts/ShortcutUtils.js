@@ -1,7 +1,9 @@
 import Lang from 'lodash';
 import moment from 'moment';
 
-// This function is similar to createSentenceFromStructuredData except it adds spans around the structured data so that placeholders are styled appropriately
+// Creates a sentance from structured data
+// Sentence is styled with structured data underlines if isStyled is true
+// If not it is a string with # designating the structured data 
 export function createSentenceFromStructuredData(structuredPhraseTemplate, getAttributeValue, textIfNoData, isStyled, isSigned) {
     let last = 0, valueName, value1Name, value2Name, value, value2;
     let start = structuredPhraseTemplate.indexOf('${'), end;
