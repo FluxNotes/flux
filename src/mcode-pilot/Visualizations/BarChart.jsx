@@ -6,14 +6,7 @@ import './BarChart.css';
 
 export default class BarChart extends Component {
     render() {
-        const {
-            numerator,
-            denominator,
-            compareToNumerator,
-            compareToDenominator,
-            active
-        } = this.props;
-
+        const { numerator, denominator, compareToNumerator, compareToDenominator, active } = this.props;
         const survivedPercent = numerator / denominator * 100;
         const compareToPercent = compareToNumerator / compareToDenominator * 100;
         const percentChange = survivedPercent - compareToPercent;
@@ -23,12 +16,12 @@ export default class BarChart extends Component {
         if (percentChange < 0) {
             // style for when survival decreases (red)
             mainStyle = {"width": `${survivedPercent}%`, "backgroundColor": "#9e9e9e" };
-            changeStyle = {"width": `${Math.abs(percentChange)}%`, "backgroundColor": "#d9534f" };
+            changeStyle = {"width": `${Math.abs(percentChange)}%`, "backgroundColor": "#e13949" };
             textStyle = { "color": "#d9534f" };
         } else {
             // styles for when survival increases (green)
             mainStyle = { "width": `${compareToPercent}%`, "backgroundColor": "#9e9e9e" };
-            changeStyle = { "width": `${percentChange}%`, "backgroundColor": "#5cb85c" };
+            changeStyle = { "width": `${percentChange}%`, "backgroundColor": "#91bd7b" };
             textStyle = { "color": "#5cb85c" };
         }
 

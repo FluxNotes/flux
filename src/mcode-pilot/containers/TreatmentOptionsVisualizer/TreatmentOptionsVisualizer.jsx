@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import numberWithCommas from '../../utils/numberWithCommas';
-import { outcomeHeaders } from '../../mock-data/outcomeHeaders';
 
 import TreatmentOptionsSelector from '../../components/TreatmentOptionsSelector/TreatmentOptionsSelector';
 import SimilarPatientsSelector from '../../components/SimilarPatientsSelector/SimilarPatientsSelector';
@@ -73,15 +72,7 @@ export class TreatmentOptionsVisualizer extends Component {
                     />
                 </TreatmentOptionsSelector>
 
-                <TreatmentOptionsSelector
-                    title="Outcomes"
-                    subTitle="cancer specific survival rate, ECOG score, Hospitalization due to side effects">
-                    <TreatmentOptionsOutcomes
-                        headers={outcomeHeaders}
-                        similarPatients={similarPatients}
-                    />
-                </TreatmentOptionsSelector>
-
+                <TreatmentOptionsOutcomes similarPatients={similarPatients} />
             </div>
         );
     }
