@@ -104,15 +104,15 @@ class Placeholder {
 
     getTextWithStylingToDisplayInNote(index = 0) {
         let isSigned = this._clinicalNote.signed;
-      
+
         if (this._numUpdates > 0 && this._entryShortcuts[index].hasData()) {
             let displayText = "";
             this._entryShortcuts.forEach((shortcut) => {
-                displayText += `${shortcut.getAsStringWithStyling(isSigned)}. `;   
-            });         
+                displayText += `${shortcut.getAsStringWithStyling(isSigned)}. `;
+            });
             return {__html: displayText};
-        }     
-        return this._placeholderText;      
+        }
+        return this._placeholderText;
     }
 
     getKey() {
