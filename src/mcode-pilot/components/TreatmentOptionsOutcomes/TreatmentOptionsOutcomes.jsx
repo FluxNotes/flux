@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import _ from 'lodash';
 
-import BarChart from '../../visualizations/BarChart';
+import BarChart from '../../visualizations/BarChart/BarChart';
 
 import './TreatmentOptionsOutcomes.css';
 
@@ -123,14 +123,15 @@ export default class TreatmentOptionsOutcomes extends Component {
         return (
             <div className={"table-row flex " + (active ? "selected" : "")} key={id} onClick={() => this.setActiveRow(row)}>
                 <div className="flex-2 flex-padding">{name}</div>
+                <div className="flex-1 flex-padding total-patients">({totalPatients})</div>
 
-                <div className="flex flex-4 flex-padding">
+                <div className="flex flex-6 flex-padding flex-center">
                     <div className="flex-1">{this.renderBarChart(row, 'oneYrSurvival')}</div>
                     <div className="flex-1">{this.renderBarChart(row, 'threeYrSurvival')}</div>
                     <div className="flex-1">{this.renderBarChart(row, 'fiveYrSurvival')}</div>
                 </div>
 
-                <div className="flex flex-3 flex-padding">
+                <div className="flex flex-4 flex-padding flex-center">
                     <div className="flex-1">{Math.floor(sideEffects.totalReporting / totalPatients * 100)}%</div>
 
                     <div className="flex-3">
@@ -150,9 +151,10 @@ export default class TreatmentOptionsOutcomes extends Component {
         return (
             <div className="treatment-options-outcomes">
                 <div className="treatment-options-outcomes__header">
-                    <div className="flex-2 flex-padding user-icon"><FontAwesome name="user" /></div>
+                    <div className="flex-2 flex-padding"></div>
+                    <div className="flex-1 flex-padding user-icon"><FontAwesome name="user" /></div>
 
-                    <div className="flex-4 flex-padding">
+                    <div className="flex-6 flex-padding">
                         <div className="header-title">Overall survival rates</div>
                         <div className="flex">
                             <div className="flex-1">1 yr</div>
@@ -161,7 +163,7 @@ export default class TreatmentOptionsOutcomes extends Component {
                         </div>
                     </div>
 
-                    <div className="flex-3 flex-padding">
+                    <div className="flex-4 flex-padding">
                         <div className="header-title">Reporting severe side effects</div>
                         <div className="flex">
                             <div className="flex-1">all</div>

@@ -33,6 +33,10 @@ $color-gray-lighter: #eee;
             &:hover {
                 background-color: $color-gray-lighter;
             }
+
+            .total-patients {
+                text-align: right;
+            }
         }
     }
 
@@ -41,5 +45,7 @@ $color-gray-lighter: #eee;
     .flex-2 { flex: 2; }
     .flex-3 { flex: 3; }
     .flex-4 { flex: 4; }
+    .flex-6 { flex: 6; }
     .flex-padding { padding: 0 20px; }
+    .flex-center { align-items: center; }
 }
