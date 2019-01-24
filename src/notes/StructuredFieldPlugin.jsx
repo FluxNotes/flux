@@ -228,7 +228,7 @@ function StructuredFieldPlugin(opts) {
                 if (shortcut instanceof InsertValue) {
                     return <span className='structured-field-inserter' {...props.attributes}>{props.children}{safariSpacing}</span>;
                 } else {
-                    return <span contentEditable={false} className='structured-field-creator' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
+                    return <span contentEditable={false} className='structured-field-creator' {...props.attributes}>{props.children}</span>;
                 }
             },
             bolded_structured_field: props => {
@@ -711,7 +711,7 @@ function createPlaceholderStructuredField(opts, placeholder) {
     const properties = {
         type: opts.typePlaceholder,
         nodes: nodes,
-        isVoid: true,
+     //   isVoid: true,
         data: {
             placeholder
         }
