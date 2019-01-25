@@ -102,6 +102,14 @@ export default class AppManager {
                 patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7f'
             },
             {
+                path: '/ccp2',
+                display: 'MCODE Pilot',
+                app: CoreCancerPilotApp,
+                isExact: true,
+                dataSource: 'HardCodedReadOnlyDataSource',
+                patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7g'
+            },
+            {
                 path: '/demo1',
                 display: 'Flux Notes™',
                 app: FullApp,

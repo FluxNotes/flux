@@ -2,14 +2,17 @@ import IDataSource from './IDataSource';
 import DataAccess from './DataAccess';
 import PatientRecord from '../patient/PatientRecord';
 import hardCodedPatient from './HardCodedPatient.json';
+import hardCodedPatient2 from './HardCodedPatient2.json';
 import hardCodedPatientMidYearDemo18 from './HardCodedPatientMidYearDemo18.json';
 import hardCodedSarcomaPatient from './HardCodedSarcomaPatient.json';
 import curationPatient from './sample_curation_output.json';
 
 class HardCodedReadOnlyDataSource extends IDataSource {
-    getPatient(id) {  
+    getPatient(id) {
         if (id === DataAccess.DEMO_PATIENT_ID) {
             return new PatientRecord(hardCodedPatient);
+        } else if (hardCodedPatient2[0]["ShrId"] === id) {
+            return new PatientRecord(hardCodedPatient2);
         } else if (hardCodedPatientMidYearDemo18[0]["ShrId"] === id) {
             return new PatientRecord(hardCodedPatientMidYearDemo18);
         } else if (curationPatient[0]["ShrId"].Value === id) {
