@@ -711,7 +711,7 @@ function createPlaceholderStructuredField(opts, placeholder) {
     const properties = {
         type: opts.typePlaceholder,
         nodes: nodes,
-     //   isVoid: true,
+        isVoid: true,
         data: {
             placeholder
         }

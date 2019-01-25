@@ -655,6 +655,7 @@ describe('6 FluxNotesEditor', function() {
         expect(conditionSection).to.have.lengthOf(1);
 
         expect(notesPanelWrapper.find('.structured-field-inserter')).to.have.length(1);
+        console.log(notesPanelWrapper.find('.structured-field-inserter').debug())
         expect(notesPanelWrapper.find('.structured-field-inserter').text()).to.contain('Invasive ductal carcinoma of breast');
     });
 
