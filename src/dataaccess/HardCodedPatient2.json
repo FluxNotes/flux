@@ -13,13 +13,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
         },
         "LastUpdated": {
-            "Value": "01 Jun 2012",
+            "Value": "18 Dec 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "01 Jun 2012",
+            "Value": "18 Dec 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -28,20 +28,20 @@
     {
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
         "EntryId": "2",
-        "DateOfBirth": "23 Aug 1966",
+        "DateOfBirth": "5 Apr 1966",
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
         },
         "HumanName": [
             {
-                "NameAsText": "Debra Hernandez672",
+                "NameAsText": "Jane Bradshaw146",
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
                 }
             }
         ],
         "FathersName": {
-            "Value": "Jose Hernandez672",
+            "Value": "Milton Bradshaw146",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/FathersName"
             }
@@ -70,7 +70,7 @@
             }
         },
         "MothersMaidenName": {
-            "Value": "Himinez221",
+            "Value": "Rafferty457",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/MothersMaidenName"
             }
@@ -136,13 +136,13 @@
             }
         },
         "LastUpdated": {
-            "Value": "01 Jun 2012",
+            "Value": "18 Dec 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "01 Jun 2012",
+            "Value": "18 Dec 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -370,7 +370,7 @@
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
         "signed": true,
         "subject": "Clinical follow-up",
-        "content": "@name[[Debra Hernandez672]] is a @age[[49]] year old @gender[[Female]] presenting with @condition[[{\"text\":\"Invasive ductal carcinoma of breast\",\"entryId\":\"8\"}]].\nDisease #disease status #Stable based on #Pathology and #Symptoms #as of #08/02/2015.",
+        "content": "@name[[Jane Bradshaw146]] is a @age[[49]] year old @gender[[Female]] presenting with @condition[[{\"text\":\"Invasive ductal carcinoma of breast\",\"entryId\":\"8\"}]].\nDisease #disease status #Stable based on #Pathology and #Symptoms #as of #08/02/2015.",
         "EntryId": "4",
         "hospital": "Dana Farber",
         "createdBy": "Dr. Smith952",
@@ -396,7 +396,7 @@
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
         "signed": true,
         "subject": "Consult",
-        "content": "@patient[[Debra Hernandez672 is a 46 year old Female]] presenting with @condition[[{\"text\":\"Invasive ductal carcinoma of breast\",\"entryId\":\"8\"}]].\nPathology report indicates @name[[Debra Hernandez672]] has staging values T1 N1 and M0, corresponding to stage IIA.",
+        "content": "@patient[[Jane Bradshaw146 is a 46 year old Female]] presenting with @condition[[{\"text\":\"Invasive ductal carcinoma of breast\",\"entryId\":\"8\"}]].\nPathology report indicates @name[[Jane Bradshaw146]] has staging values T1 N1 and M0, corresponding to stage IIA.",
         "EntryId": "5",
         "hospital": "Dana Farber",
         "createdBy": "Dr. Zheng581",
@@ -422,7 +422,7 @@
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
         "signed": true,
         "subject": "Clinical post-op",
-        "content": "@patient[[Debra Hernandez672 is a 46 year old Female]] presenting with @condition[[{\"text\":\"Invasive ductal carcinoma of breast\",\"entryId\":\"8\"}]].\nToxicity Grade 4 Anemia related to Treatment",
+        "content": "@patient[[Jane Bradshaw146 is a 46 year old Female]] presenting with @condition[[{\"text\":\"Invasive ductal carcinoma of breast\",\"entryId\":\"8\"}]].\nToxicity Grade 4 Anemia related to Treatment",
         "EntryId": "6",
         "hospital": "Brigham and Women's",
         "createdBy": "Dr. Smith952",
@@ -448,7 +448,7 @@
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
         "signed": true,
         "subject": "Clinical follow-up",
-        "content": "@patient[[Debra Hernandez672 is a 46 year old Female]] presenting with @condition[[{\"text\":\"Invasive ductal carcinoma of breast\",\"entryId\":\"8\"}]].\n@name[[Debra Hernandez672]] is enrolled in the clinical trial PATINA on 12/24/2017.",
+        "content": "@patient[[Jane Bradshaw146 is a 46 year old Female]] presenting with @condition[[{\"text\":\"Invasive ductal carcinoma of breast\",\"entryId\":\"8\"}]].\n@name[[Jane Bradshaw146]] is enrolled in the clinical trial PATINA on 12/24/2017.",
         "EntryId": "7",
         "hospital": "Dana Farber",
         "createdBy": "Dr. Strauss179",
@@ -482,7 +482,7 @@
             }
         },
         "CreationTime": {
-            "Value": "01 Jun 2012",
+            "Value": "18 Dec 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -611,1237 +611,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/Onset"
             },
-            "Value": "01 Jun 2012"
-        }
-    },
-    {
-        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
-        "EntryId": "9",
-        "RecordedBy": {
-            "Value": "Dr. Mona341 Brown483",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/RecordedBy"
-            }
-        },
-        "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested"
-        },
-        "LastUpdated": {
-            "Value": "20 Apr 2014",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
-            }
-        },
-        "CreationTime": {
-            "Value": "20 Apr 2014",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
-            }
-        },
-        "Dosage": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/medication/Dosage"
-            },
-            "DoseAmount": {
-                "Value": {
-                    "DecimalValue": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                        },
-                        "Value": 6
-                    },
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/SimpleQuantity"
-                    },
-                    "Units": {
-                        "Value": {
-                            "Value": "10^9/L",
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                            }
-                        },
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                        }
-                    }
-                },
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/medication/DoseAmount"
-                }
-            },
-            "AsNeededIndicator": {
-                "Value": false,
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/medication/AsNeededIndicator"
-                }
-            },
-            "TimingOfDoses": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/medication/TimingOfDoses"
-                },
-                "Value": {
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/Timing"
-                    },
-                    "RecurrenceRange": {
-                        "Value": {
-                            "Value": 6,
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/NumberOfRepeats"
-                            }
-                        },
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/RecurrenceRange"
-                        }
-                    }
-                }
-            },
-            "RouteIntoBody": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/RouteIntoBody"
-                },
-                "Value": {
-                    "Coding": [
-                        {
-                            "Value": "26643006",
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                            },
-                            "CodeSystem": {
-                                "Value": "http://snomed.info/sct",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                }
-                            },
-                            "DisplayText": {
-                                "Value": "Oral route",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                }
-                            }
-                        }
-                    ],
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                    }
-                }
-            }
-        },
-        "Status": {
-            "Value": "completed",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/Status"
-            }
-        },
-        "Reason": [
-            {
-                "Value": {
-                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
-                    "_EntryId": "8",
-                    "_EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/base/ConditionPresentAssertion"
-                    }
-                },
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/base/Reason"
-                }
-            }
-        ],
-        "ExpectedPerformanceTime": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
-            },
-            "Value": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
-                },
-                "TimePeriodEnd": {
-                    "Value": "07 Jan 2013",
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodEnd"
-                    }
-                },
-                "TimePeriodStart": {
-                    "Value": "29 Jun 2012",
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
-                    }
-                }
-            }
-        },
-        "NumberOfRefillsAllowed": {
-            "Value": 5,
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/medication/NumberOfRefillsAllowed"
-            }
-        },
-        "Medication": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/entity/Medication"
-            },
-            "Type": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
-                },
-                "Value": {
-                    "Coding": [
-                        {
-                            "Value": "42512",
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                            },
-                            "DisplayText": {
-                                "Value": "Adriamycin",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                }
-                            }
-                        }
-                    ],
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                    }
-                }
-            }
-        }
-    },
-    {
-        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
-        "EntryId": "10",
-        "RecordedBy": {
-            "Value": "Dr. Mona341 Brown483",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/RecordedBy"
-            }
-        },
-        "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested"
-        },
-        "LastUpdated": {
-            "Value": "20 Jun 2012",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
-            }
-        },
-        "CreationTime": {
-            "Value": "20 Jun 2012",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
-            }
-        },
-        "Dosage": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/medication/Dosage"
-            },
-            "DoseAmount": {
-                "Value": {
-                    "DecimalValue": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                        },
-                        "Value": 10
-                    },
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/SimpleQuantity"
-                    },
-                    "Units": {
-                        "Value": {
-                            "Value": "mg/kg",
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                            }
-                        },
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                        }
-                    }
-                },
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/medication/DoseAmount"
-                }
-            },
-            "AsNeededIndicator": {
-                "Value": false,
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/medication/AsNeededIndicator"
-                }
-            },
-            "TimingOfDoses": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/medication/TimingOfDoses"
-                },
-                "Value": {
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/Timing"
-                    },
-                    "RecurrenceRange": {
-                        "Value": {
-                            "Value": 6,
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/NumberOfRepeats"
-                            }
-                        },
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/RecurrenceRange"
-                        }
-                    }
-                }
-            },
-            "RouteIntoBody": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/RouteIntoBody"
-                },
-                "Value": {
-                    "Coding": [
-                        {
-                            "Value": "26643006",
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                            },
-                            "CodeSystem": {
-                                "Value": "http://snomed.info/sct",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                }
-                            },
-                            "DisplayText": {
-                                "Value": "Oral route",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                }
-                            }
-                        }
-                    ],
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                    }
-                }
-            }
-        },
-        "Status": {
-            "Value": "completed",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/Status"
-            }
-        },
-        "Reason": [
-            {
-                "Value": {
-                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
-                    "_EntryId": "8",
-                    "_EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/base/ConditionPresentAssertion"
-                    }
-                },
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/base/Reason"
-                }
-            }
-        ],
-        "ExpectedPerformanceTime": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
-            },
-            "Value": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
-                },
-                "TimePeriodEnd": {
-                    "Value": "07 Jan 2013",
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodEnd"
-                    }
-                },
-                "TimePeriodStart": {
-                    "Value": "29 Jun 2012",
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
-                    }
-                }
-            }
-        },
-        "NumberOfRefillsAllowed": {
-            "Value": 2,
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/medication/NumberOfRefillsAllowed"
-            }
-        },
-        "Medication": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/entity/Medication"
-            },
-            "Type": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
-                },
-                "Value": {
-                    "Coding": [
-                        {
-                            "Value": "3002",
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                            },
-                            "DisplayText": {
-                                "Value": "Cyclophosphamide",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                }
-                            }
-                        }
-                    ],
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                    }
-                }
-            }
-        }
-    },
-    {
-        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
-        "EntryId": "11",
-        "RecordedBy": {
-            "Value": "Dr. Mona341 Brown483",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/RecordedBy"
-            }
-        },
-        "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested"
-        },
-        "LastUpdated": {
-            "Value": "21 Mar 2014",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
-            }
-        },
-        "CreationTime": {
-            "Value": "21 Mar 2014",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
-            }
-        },
-        "Dosage": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/medication/Dosage"
-            },
-            "DoseAmount": {
-                "Value": {
-                    "DecimalValue": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                        },
-                        "Value": 20
-                    },
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/SimpleQuantity"
-                    },
-                    "Units": {
-                        "Value": {
-                            "Value": "mg",
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                            }
-                        },
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                        }
-                    }
-                },
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/medication/DoseAmount"
-                }
-            },
-            "AsNeededIndicator": {
-                "Value": false,
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/medication/AsNeededIndicator"
-                }
-            },
-            "TimingOfDoses": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/medication/TimingOfDoses"
-                },
-                "Value": {
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/Timing"
-                    },
-                    "RecurrencePattern": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/RecurrencePattern"
-                        },
-                        "RecurrenceInterval": {
-                            "Value": {
-                                "DecimalValue": {
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                                    },
-                                    "Value": 1
-                                },
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Duration"
-                                },
-                                "Units": {
-                                    "Value": {
-                                        "Value": "d",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                        }
-                                    },
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                                    }
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/RecurrenceInterval"
-                            }
-                        }
-                    }
-                }
-            },
-            "RouteIntoBody": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/RouteIntoBody"
-                },
-                "Value": {
-                    "Coding": [
-                        {
-                            "Value": "26643006",
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                            },
-                            "CodeSystem": {
-                                "Value": "http://snomed.info/sct",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                }
-                            },
-                            "DisplayText": {
-                                "Value": "Oral route",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                }
-                            }
-                        }
-                    ],
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                    }
-                }
-            }
-        },
-        "Status": {
-            "Value": "completed",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/Status"
-            }
-        },
-        "Reason": [
-            {
-                "Value": {
-                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
-                    "_EntryId": "8",
-                    "_EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/base/ConditionPresentAssertion"
-                    }
-                },
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/base/Reason"
-                }
-            }
-        ],
-        "ExpectedPerformanceTime": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
-            },
-            "Value": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
-                },
-                "TimePeriodEnd": {
-                    "Value": "31 Dec 2016",
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodEnd"
-                    }
-                },
-                "TimePeriodStart": {
-                    "Value": "21 Mar 2014",
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
-                    }
-                }
-            }
-        },
-        "NumberOfRefillsAllowed": {
-            "Value": 0,
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/medication/NumberOfRefillsAllowed"
-            }
-        },
-        "Medication": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/entity/Medication"
-            },
-            "Type": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
-                },
-                "Value": {
-                    "Coding": [
-                        {
-                            "Value": "10324",
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                            },
-                            "DisplayText": {
-                                "Value": "Tamoxifen",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                }
-                            }
-                        }
-                    ],
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                    }
-                }
-            }
-        }
-    },
-    {
-        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
-        "EntryId": "12",
-        "RecordedBy": {
-            "Value": "Dr. Mona341 Brown483",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/RecordedBy"
-            }
-        },
-        "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested"
-        },
-        "LastUpdated": {
-            "Value": "29 May 2015",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
-            }
-        },
-        "CreationTime": {
-            "Value": "29 May 2015",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
-            }
-        },
-        "Dosage": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/medication/Dosage"
-            },
-            "DoseAmount": {
-                "Value": {
-                    "DecimalValue": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                        },
-                        "Value": 2.5
-                    },
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/SimpleQuantity"
-                    },
-                    "Units": {
-                        "Value": {
-                            "Value": "mg",
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                            }
-                        },
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                        }
-                    }
-                },
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/medication/DoseAmount"
-                }
-            },
-            "AsNeededIndicator": {
-                "Value": false,
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/medication/AsNeededIndicator"
-                }
-            },
-            "TimingOfDoses": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/medication/TimingOfDoses"
-                },
-                "Value": {
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/Timing"
-                    },
-                    "RecurrencePattern": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/RecurrencePattern"
-                        },
-                        "RecurrenceInterval": {
-                            "Value": {
-                                "DecimalValue": {
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                                    },
-                                    "Value": 1
-                                },
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Duration"
-                                },
-                                "Units": {
-                                    "Value": {
-                                        "Value": "d",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                        }
-                                    },
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                                    }
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/RecurrenceInterval"
-                            }
-                        }
-                    }
-                }
-            },
-            "RouteIntoBody": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/RouteIntoBody"
-                },
-                "Value": {
-                    "Coding": [
-                        {
-                            "Value": "26643006",
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                            },
-                            "CodeSystem": {
-                                "Value": "http://snomed.info/sct",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                }
-                            },
-                            "DisplayText": {
-                                "Value": "Oral route",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                }
-                            }
-                        }
-                    ],
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                    }
-                }
-            }
-        },
-        "Status": {
-            "Value": "completed",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/Status"
-            }
-        },
-        "Reason": [
-            {
-                "Value": {
-                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
-                    "_EntryId": "8",
-                    "_EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/base/ConditionPresentAssertion"
-                    }
-                },
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/base/Reason"
-                }
-            }
-        ],
-        "ExpectedPerformanceTime": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
-            },
-            "Value": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
-                },
-                "TimePeriodEnd": {
-                    "Value": "29 May 2016",
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodEnd"
-                    }
-                },
-                "TimePeriodStart": {
-                    "Value": "30 May 2015",
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
-                    }
-                }
-            }
-        },
-        "NumberOfRefillsAllowed": {
-            "Value": 2,
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/medication/NumberOfRefillsAllowed"
-            }
-        },
-        "Medication": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/entity/Medication"
-            },
-            "Type": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
-                },
-                "Value": {
-                    "Coding": [
-                        {
-                            "Value": "72965",
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                            },
-                            "DisplayText": {
-                                "Value": "Letrozole",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                }
-                            }
-                        }
-                    ],
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                    }
-                }
-            }
-        }
-    },
-    {
-        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
-        "EntryId": "13",
-        "RecordedBy": {
-            "Value": "Dr. Mona341 Brown483",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/RecordedBy"
-            }
-        },
-        "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested"
-        },
-        "LastUpdated": {
-            "Value": "23 Jan 2016",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
-            }
-        },
-        "CreationTime": {
-            "Value": "23 Jan 2016",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
-            }
-        },
-        "Dosage": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/medication/Dosage"
-            },
-            "DoseAmount": {
-                "Value": {
-                    "DecimalValue": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                        },
-                        "Value": 2
-                    },
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/SimpleQuantity"
-                    },
-                    "Units": {
-                        "Value": {
-                            "Value": "mg",
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                            }
-                        },
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                        }
-                    }
-                },
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/medication/DoseAmount"
-                }
-            },
-            "AsNeededIndicator": {
-                "Value": false,
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/medication/AsNeededIndicator"
-                }
-            },
-            "TimingOfDoses": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/medication/TimingOfDoses"
-                },
-                "Value": {
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/Timing"
-                    },
-                    "RecurrencePattern": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/RecurrencePattern"
-                        },
-                        "RecurrenceInterval": {
-                            "Value": {
-                                "DecimalValue": {
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                                    },
-                                    "Value": 1
-                                },
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Duration"
-                                },
-                                "Units": {
-                                    "Value": {
-                                        "Value": "d",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                        }
-                                    },
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                                    }
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/RecurrenceInterval"
-                            }
-                        }
-                    }
-                }
-            },
-            "RouteIntoBody": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/RouteIntoBody"
-                },
-                "Value": {
-                    "Coding": [
-                        {
-                            "Value": "26643006",
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                            },
-                            "CodeSystem": {
-                                "Value": "http://snomed.info/sct",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                }
-                            },
-                            "DisplayText": {
-                                "Value": "Oral route",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                }
-                            }
-                        }
-                    ],
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                    }
-                }
-            }
-        },
-        "Status": {
-            "Value": "completed",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/Status"
-            }
-        },
-        "Reason": [
-            {
-                "Value": {
-                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
-                    "_EntryId": "8",
-                    "_EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/base/ConditionPresentAssertion"
-                    }
-                },
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/base/Reason"
-                }
-            }
-        ],
-        "ExpectedPerformanceTime": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
-            },
-            "Value": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
-                },
-                "TimePeriodEnd": {
-                    "Value": "19 Oct 2017",
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodEnd"
-                    }
-                },
-                "TimePeriodStart": {
-                    "Value": "23 Jan 2016",
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
-                    }
-                }
-            }
-        },
-        "NumberOfRefillsAllowed": {
-            "Value": 5,
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/medication/NumberOfRefillsAllowed"
-            }
-        },
-        "Medication": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/entity/Medication"
-            },
-            "Type": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
-                },
-                "Value": {
-                    "Coding": [
-                        {
-                            "Value": "202421",
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                            },
-                            "DisplayText": {
-                                "Value": "Coumadin",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                }
-                            }
-                        }
-                    ],
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                    }
-                }
-            }
-        }
-    },
-    {
-        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
-        "EntryId": "14",
-        "RecordedBy": {
-            "Value": "Dr. Mona341 Brown483",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/RecordedBy"
-            }
-        },
-        "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested"
-        },
-        "LastUpdated": {
-            "Value": "23 Oct 2017",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
-            }
-        },
-        "CreationTime": {
-            "Value": "23 Oct 2017",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
-            }
-        },
-        "Dosage": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/medication/Dosage"
-            },
-            "DoseAmount": {
-                "Value": {
-                    "DecimalValue": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                        },
-                        "Value": 25
-                    },
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/SimpleQuantity"
-                    },
-                    "Units": {
-                        "Value": {
-                            "Value": "mg",
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                            }
-                        },
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                        }
-                    }
-                },
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/medication/DoseAmount"
-                }
-            },
-            "AsNeededIndicator": {
-                "Value": false,
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/medication/AsNeededIndicator"
-                }
-            },
-            "TimingOfDoses": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/medication/TimingOfDoses"
-                },
-                "Value": {
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/Timing"
-                    },
-                    "RecurrencePattern": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/RecurrencePattern"
-                        },
-                        "RecurrenceInterval": {
-                            "Value": {
-                                "DecimalValue": {
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                                    },
-                                    "Value": 1
-                                },
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Duration"
-                                },
-                                "Units": {
-                                    "Value": {
-                                        "Value": "d",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                        }
-                                    },
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                                    }
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/RecurrenceInterval"
-                            }
-                        }
-                    }
-                }
-            },
-            "RouteIntoBody": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/RouteIntoBody"
-                },
-                "Value": {
-                    "Coding": [
-                        {
-                            "Value": "26643006",
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                            },
-                            "CodeSystem": {
-                                "Value": "http://snomed.info/sct",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                }
-                            },
-                            "DisplayText": {
-                                "Value": "Oral route",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                }
-                            }
-                        }
-                    ],
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                    }
-                }
-            }
-        },
-        "Status": {
-            "Value": "active",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/Status"
-            }
-        },
-        "Reason": [
-            {
-                "Value": {
-                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
-                    "_EntryId": "8",
-                    "_EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/base/ConditionPresentAssertion"
-                    }
-                },
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/base/Reason"
-                }
-            }
-        ],
-        "ExpectedPerformanceTime": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
-            },
-            "Value": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
-                },
-                "TimePeriodEnd": {
-                    "Value": "18 Sep 2018",
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodEnd"
-                    }
-                },
-                "TimePeriodStart": {
-                    "Value": "22 Feb 2018",
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
-                    }
-                }
-            }
-        },
-        "NumberOfRefillsAllowed": {
-            "Value": 3,
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/medication/NumberOfRefillsAllowed"
-            }
-        },
-        "Medication": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/entity/Medication"
-            },
-            "Type": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
-                },
-                "Value": {
-                    "Coding": [
-                        {
-                            "Value": "262105",
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                            },
-                            "DisplayText": {
-                                "Value": "Aromasin",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                }
-                            }
-                        }
-                    ],
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                    }
-                }
-            }
+            "Value": "18 Dec 2017"
         }
     },
     {
@@ -1851,13 +621,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"
         },
         "LastUpdated": {
-            "Value": "01 Jun 2012",
+            "Value": "18 Dec 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "01 Jun 2012",
+            "Value": "18 Dec 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -1913,7 +683,7 @@
             }
         ],
         "ExpectedPerformanceTime": {
-            "Value": "01 Jun 2012",
+            "Value": "18 Dec 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
             }
@@ -2311,7 +1081,7 @@
             }
         ],
         "RelevantTime": {
-            "Value": "01 Jun 2012",
+            "Value": "18 Dec 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
@@ -2498,7 +1268,7 @@
             }
         },
         "RelevantTime": {
-            "Value": "01 Jun 2012",
+            "Value": "18 Dec 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
@@ -2670,7 +1440,7 @@
             }
         },
         "RelevantTime": {
-            "Value": "01 Jun 2012",
+            "Value": "18 Dec 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
@@ -2817,7 +1587,7 @@
             }
         },
         "RelevantTime": {
-            "Value": "01 Jun 2012",
+            "Value": "18 Dec 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
@@ -2969,7 +1739,7 @@
             }
         },
         "RelevantTime": {
-            "Value": "01 Jun 2012",
+            "Value": "18 Dec 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
@@ -3146,7 +1916,7 @@
             }
         },
         "RelevantTime": {
-            "Value": "01 Jun 2012",
+            "Value": "18 Dec 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
@@ -3353,7 +2123,7 @@
             }
         },
         "RelevantTime": {
-            "Value": "01 Jun 2012",
+            "Value": "18 Dec 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
@@ -4056,7 +2826,7 @@
         },
         "Reason": [
             {
-                "Value": "Debra Hernandez672 is coming in to see Dr. Mona341 Brown483 for a regular check up on the progress of her treatment for Invasive ductal carcinoma of the breast",
+                "Value": "Jane Bradshaw146 is coming in to see Dr. Mona341 Brown483 for a regular check up on the progress of her treatment for Invasive ductal carcinoma of the breast",
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/base/Reason"
                 }
@@ -4117,7 +2887,7 @@
         },
         "Reason": [
             {
-                "Value": "Debra Hernandez672 saw Dr. Mona341 Brown483 for a check up on the progress of her treatment for Invasive ductal carcinoma of the breast",
+                "Value": "Jane Bradshaw146 saw Dr. Mona341 Brown483 for a check up on the progress of her treatment for Invasive ductal carcinoma of the breast",
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/base/Reason"
                 }
@@ -4178,7 +2948,7 @@
         },
         "Reason": [
             {
-                "Value": "Debra Hernandez672 is coming in to see Dr. Mona341 Brown483 for a check up on the progress of her treatment for Invasive ductal carcinoma of the breast",
+                "Value": "Jane Bradshaw146 is coming in to see Dr. Mona341 Brown483 for a check up on the progress of her treatment for Invasive ductal carcinoma of the breast",
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/base/Reason"
                 }
@@ -6811,13 +5581,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/oncology/HistologicGrade"
         },
         "LastUpdated": {
-            "Value": "01 Jun 2012",
+            "Value": "18 Dec 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "01 Jun 2012",
+            "Value": "18 Dec 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -6858,7 +5628,7 @@
             }
         },
         "RelevantTime": {
-            "Value": "01 Jun 2012",
+            "Value": "18 Dec 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
@@ -6918,13 +5688,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/oncology/TumorDimensions"
         },
         "LastUpdated": {
-            "Value": "01 Jun 2012",
+            "Value": "18 Dec 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "01 Jun 2012",
+            "Value": "18 Dec 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -6940,7 +5710,7 @@
             }
         },
         "RelevantTime": {
-            "Value": "01 Jun 2012",
+            "Value": "18 Dec 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
