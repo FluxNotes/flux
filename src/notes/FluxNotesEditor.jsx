@@ -1032,8 +1032,7 @@ class FluxNotesEditor extends React.Component {
         } else if (node.characters) {
             length += node.characters.length;
         } else if (node.type === 'structured_field') {
-            let shortcut = node.data.shortcut;
-            length += shortcut.getText().length;
+            length += node.data.shortcut.getText().length;
         }
         return length;
     }

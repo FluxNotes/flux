@@ -197,8 +197,8 @@ export default class InsertValue extends Shortcut {
         return Lang.isArray(this.text) ? this.text : [];
     }
 
-    getResultText() {
-        let text = this.text;
+    getResultText(displayText = null) {
+        let text = displayText || this.text; // Use provided text to override shortcut text
         if (typeof text === "string" && text.startsWith(this.getPrefixCharacter())) {
             text = text.substring(1);
         }

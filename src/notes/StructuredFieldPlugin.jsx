@@ -32,6 +32,9 @@ function StructuredFieldPlugin(opts) {
         // NOTE: This uses the new suggested approach. keyToShortcutMap approach works until keys change after enter and map is incorrect.
         // const shortcut = opts.structuredFieldMapManager.keyToShortcutMap.get(anchorParent.key);
         const shortcut = anchorParent.data.get('shortcut');
+
+        if (!(shortcut instanceof InsertValue)) return;
+
         // Arrow keys, shift, escape, tab, numlock, page up/down, etc
         let ignoredKeys = [9, 12, 16, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 93, 144, 145];
         const fKeys = [112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124];
@@ -302,7 +305,12 @@ function StructuredFieldPlugin(opts) {
                 }
             } else if (node.type === 'structured_field') {
                 const shortcut = node.data.shortcut;
-                result += shortcut.getResultText(node.data.displayText);
+                if (shortcut instanceof InsertValue) {
+                    // Inserters have characters as their children. Use characters to get current text in the node.
+                    result += shortcut.getResultText(node.nodes[0].characters.map(c => c.text).join(''));
+                } else {
+                    result += shortcut.getResultText();
+                }
             } else if (node.type === 'placeholder') {
                 result += node.data.placeholder.getResultText();
             } else if (node.type === 'bulleted-list') {
@@ -549,7 +557,6 @@ function createStructuredField(opts, shortcut) {
                 nodes: textNodes,
                 isVoid,
                 data: {
-                    displayText: line,
                     shortcut: shortcut
                 }
             };
