@@ -621,13 +621,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"
         },
         "LastUpdated": {
-            "Value": "18 Dec 2017",
+            "Value": "11 Dec 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "18 Dec 2017",
+            "Value": "11 Dec 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -683,7 +683,7 @@
             }
         ],
         "ExpectedPerformanceTime": {
-            "Value": "18 Dec 2017",
+            "Value": "11 Dec 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
             }
@@ -696,13 +696,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"
         },
         "LastUpdated": {
-            "Value": "19 Nov 2012",
+            "Value": "27 Dec 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "19 Nov 2012",
+            "Value": "27 Dec 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -714,7 +714,7 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "C0454059",
+                        "Value": "C1699633",
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -725,7 +725,7 @@
                             }
                         },
                         "DisplayText": {
-                            "Value": "Radiation therapy procedure or service",
+                            "Value": "PET/CT scan",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                             }
@@ -758,25 +758,9 @@
             }
         ],
         "ExpectedPerformanceTime": {
+            "Value": "27 Dec 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
-            },
-            "Value": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
-                },
-                "TimePeriodEnd": {
-                    "Value": "03 Jan 2013",
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodEnd"
-                    }
-                },
-                "TimePeriodStart": {
-                    "Value": "29 Nov 2012",
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
-                    }
-                }
             }
         }
     },
@@ -787,13 +771,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"
         },
         "LastUpdated": {
-            "Value": "07 Feb 2013",
+            "Value": "18 Dec 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "07 Feb 2013",
+            "Value": "18 Dec 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -805,7 +789,7 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "C0851238",
+                        "Value": "C2368280",
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -816,7 +800,7 @@
                             }
                         },
                         "DisplayText": {
-                            "Value": "Lumpectomy",
+                            "Value": "Percutaneous automated vacuum assisted biopsy of breast with ultrasonic guidance",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                             }
@@ -849,157 +833,7 @@
             }
         ],
         "ExpectedPerformanceTime": {
-            "Value": "07 Feb 2013",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
-            }
-        }
-    },
-    {
-        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
-        "EntryId": "18",
-        "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"
-        },
-        "LastUpdated": {
-            "Value": "07 Feb 2013",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
-            }
-        },
-        "CreationTime": {
-            "Value": "07 Feb 2013",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
-            }
-        },
-        "TopicCode": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/TopicCode"
-            },
-            "Value": {
-                "Coding": [
-                    {
-                        "Value": "C0796693",
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                        },
-                        "CodeSystem": {
-                            "Value": "http://ncimeta.nci.nih.gov",
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                            }
-                        },
-                        "DisplayText": {
-                            "Value": "Sentinel Lymph Node Biopsy",
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                            }
-                        }
-                    }
-                ],
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                }
-            }
-        },
-        "Status": {
-            "Value": "completed",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/Status"
-            }
-        },
-        "Reason": [
-            {
-                "Value": {
-                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
-                    "_EntryId": "8",
-                    "_EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/base/ConditionPresentAssertion"
-                    }
-                },
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/base/Reason"
-                }
-            }
-        ],
-        "ExpectedPerformanceTime": {
-            "Value": "07 Feb 2013",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
-            }
-        }
-    },
-    {
-        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
-        "EntryId": "19",
-        "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"
-        },
-        "LastUpdated": {
-            "Value": "21 Feb 2014",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
-            }
-        },
-        "CreationTime": {
-            "Value": "21 Feb 2014",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
-            }
-        },
-        "TopicCode": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/TopicCode"
-            },
-            "Value": {
-                "Coding": [
-                    {
-                        "Value": "C0024671",
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                        },
-                        "CodeSystem": {
-                            "Value": "http://ncimeta.nci.nih.gov",
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                            }
-                        },
-                        "DisplayText": {
-                            "Value": "Mammography",
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                            }
-                        }
-                    }
-                ],
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                }
-            }
-        },
-        "Status": {
-            "Value": "completed",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/Status"
-            }
-        },
-        "Reason": [
-            {
-                "Value": {
-                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
-                    "_EntryId": "8",
-                    "_EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/base/ConditionPresentAssertion"
-                    }
-                },
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/base/Reason"
-                }
-            }
-        ],
-        "ExpectedPerformanceTime": {
-            "Value": "21 Feb 2014",
+            "Value": "18 Dec 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
             }
