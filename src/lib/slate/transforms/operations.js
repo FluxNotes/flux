@@ -246,7 +246,10 @@ Transforms.removeNodeOperation = (transform, path) => {
 Transforms.removeTextOperation = (transform, path, offset, length) => {
   const { state } = transform
   const { document } = state
-  const node = document.assertPath(path)
+  let node = document.assertPath(path)
+  if(node.kind != 'text'){
+    node = node.getTextAtOffset(offset)
+  }
   const ranges = node.getRanges()
   const inverse = []
 

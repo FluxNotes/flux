@@ -114,8 +114,10 @@ function insertText(state, operation) {
   let { document, selection } = state
   const { anchorKey, focusKey, anchorOffset, focusOffset } = selection
   let node = document.assertPath(path)
-
   // Update the document
+  if(node.kind != 'text'){
+    node = node.getTextAtOffset(offset)
+  }
   node = node.insertText(offset, text, marks)
   document = document.updateDescendant(node)
 
@@ -327,7 +329,9 @@ function removeText(state, operation) {
   if (focusKey == node.key && focusOffset >= rangeOffset) {
     selection = selection.moveFocus(-length)
   }
-
+  if(node.kind != 'text'){
+    node = node.getTextAtOffset(offset)
+  }
   node = node.removeText(offset, length)
   document = document.updateDescendant(node)
   state = state.set('document', document).set('selection', selection)
