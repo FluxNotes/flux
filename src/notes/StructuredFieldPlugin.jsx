@@ -51,7 +51,7 @@ function StructuredFieldPlugin(opts) {
         if (!(shortcut instanceof InsertValue)) return;
 
         // Arrow keys, shift, escape, tab, numlock, page up/down, etc
-        let ignoredKeys = [9, 12, 16, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 93, 144, 145];
+        let ignoredKeys = [8, 9, 12, 16, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 93, 144, 145];
         const fKeys = [112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124];
         ignoredKeys = ignoredKeys.concat(fKeys);
         const { isAlt, isCmd, isCtrl, isLine, isMeta, isMod, isModAlt, isWord } = key;
@@ -130,14 +130,6 @@ function StructuredFieldPlugin(opts) {
             contextManager.contextUpdated();
 
             editor.onChange(transform);
-        } else if (shortcut && e.key === 'Backspace' && state.anchorOffset === 0) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            let transform = state.transform();
-            const prevTextNode = transform.state.document.getPreviousSibling(anchorParent.key);
-            transform = transform.collapseToStartOf(prevTextNode).deleteBackward(1);
-            editor.onChange(transform.apply());
         }
     }
 
@@ -181,7 +173,8 @@ function StructuredFieldPlugin(opts) {
                 }
                 keyToShortcutMap.delete(key);
                 idToShortcutMap.delete(shortcut.uniqueId);
-                idToKeysMap.delete(shortcut.uniqueId);
+                const updatedShortcutKeys = idToKeysMap.get(shortcut.uniqueId).filter(k => k !== key);
+                idToKeysMap.set(shortcut.uniqueId, updatedShortcutKeys);
                 contextManager.contextUpdated();
             } else {
                 result = editor.getState(); // don't allow state change
