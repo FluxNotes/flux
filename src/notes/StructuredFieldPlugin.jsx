@@ -64,9 +64,9 @@ function StructuredFieldPlugin(opts) {
             // Split the inline and insert typed text into new text node
             let transform = state.transform();
             transform = transform.splitInline();
-            const key = transform.state.document.getNode(anchorParent.key).key;
-            const newTextNode = transform.state.document.getNextSibling(key);
-            transform = transform.moveToRangeOf(newTextNode).insertText(e.key);
+            const key = transform.state.selection.anchorKey;
+            const newTextNode = transform.state.document.getPreviousText(key);
+            transform = transform.collapseToEndOf(newTextNode).insertText(e.key);
 
             // Create a new shortcut with the trailing shortcut text after split
             const newShortcutNode = transform.state.document.getNextSibling(newTextNode.key);
@@ -97,12 +97,14 @@ function StructuredFieldPlugin(opts) {
         } else if (shortcut && e.key === 'Enter') {
             stopEventPropagation(e);
 
+            // Get the current shortcut node before splitting the block
+            const oldShortcutNode = state.document.getParent(state.selection.anchorKey);
+
             // Split block and move focus into the new text node
             let transform = state.transform().splitBlock();
-            const parentBlock = transform.state.document.getParent(anchorParent.key);
-            const newBlock = transform.state.document.getNextSibling(parentBlock.key);
-            const newTextNode = newBlock.getFirstText();
-            transform = transform.moveToRangeOf(newTextNode);
+            const key = transform.state.selection.anchorKey;
+            const newTextNode = transform.state.document.getPreviousText(key);
+            transform = transform.collapseToEndOf(newTextNode);
 
             // Create a new shortcut with the trailing shortcut text after split
             const newShortcutNode = transform.state.document.getNextSibling(newTextNode.key);
@@ -119,7 +121,6 @@ function StructuredFieldPlugin(opts) {
             }
 
             // Update the existing shortcut to reflect the leading text after split
-            const oldShortcutNode = parentBlock.getChild(anchorParent.key);
             transform = updateShortcut(shortcut, transform, anchorParent.key, shortcut.getLabel(), oldShortcutNode.text);
             contextManager.removeShortcutFromContext(shortcut);
             shortcut.setWasRemovedFromContext(true);
