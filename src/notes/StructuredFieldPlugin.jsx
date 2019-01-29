@@ -19,6 +19,21 @@ function stopEventPropagation(e) {
     e.stopPropagation();
 }
 
+function updateShortcut(shortcut, transform, key, label, text) {
+    shortcut.setOriginalText(label);
+    shortcut.setText(text);
+    transform = transform.setNodeByKey(key, {
+        data: { shortcut }
+    });
+    return transform;
+}
+
+function updateMaps(shortcut, opts) {
+    opts.structuredFieldMapManager.keyToShortcutMap.set(shortcut.getKey(), shortcut);
+    opts.structuredFieldMapManager.idToShortcutMap.set(shortcut.uniqueId, shortcut);
+    opts.structuredFieldMapManager.idToKeysMap.set(shortcut.uniqueId, [shortcut.getKey()]);
+}
+
 function StructuredFieldPlugin(opts) {
     opts = createOpts(opts);
     let contextManager = opts.contextManager;
@@ -61,29 +76,21 @@ function StructuredFieldPlugin(opts) {
             }
             const newShortcut = createShortcut(shortcut.metadata, shortcut.initiatingTrigger, shortcutText, true, shortcut.getSource());
             newShortcut.setKey(newShortcutNode.key);
-            newShortcut.setOriginalText(shortcut.getLabel());
-            newShortcut.setText(newShortcutNode.text);
+            transform = updateShortcut(newShortcut, transform, newShortcutNode.key, shortcut.getLabel(), newShortcutNode.text);
             if (shortcut.wasRemovedFromContext) {
                 contextManager.removeShortcutFromContext(newShortcut);
                 newShortcut.setWasRemovedFromContext(true);
             }
-            transform = transform.setNodeByKey(newShortcutNode.key, {
-                data: { shortcut: newShortcut }
-            });
 
             // Update the existing shortcut to reflect the leading text after split
             const oldShortcutNode = transform.state.document.getPreviousSibling(newTextNode.key);
-            newShortcut.setOriginalText(shortcut.getLabel());
-            shortcut.setText(oldShortcutNode.text);
+            transform = updateShortcut(shortcut, transform, oldShortcutNode.key, shortcut.getLabel(), oldShortcutNode.text);
             contextManager.removeShortcutFromContext(shortcut);
             shortcut.setWasRemovedFromContext(true);
-            transform = transform.setNodeByKey(anchorParent.key, {
-                data: { shortcut }
-            });
 
             transform = transform.apply();
 
-            opts.structuredFieldMapManager.keyToShortcutMap.set(newShortcutNode.key, newShortcut);
+            updateMaps(newShortcut, opts);
             contextManager.contextUpdated();
 
             editor.onChange(transform);
@@ -105,29 +112,21 @@ function StructuredFieldPlugin(opts) {
             }
             const newShortcut = createShortcut(shortcut.metadata, shortcut.initiatingTrigger, shortcutText, true, shortcut.getSource());
             newShortcut.setKey(newShortcutNode.key);
-            newShortcut.setOriginalText(shortcut.getLabel());
-            newShortcut.setText(newShortcutNode.text);
+            transform = updateShortcut(newShortcut, transform, newShortcutNode.key, shortcut.getLabel(), newShortcutNode.text);
             if (shortcut.wasRemovedFromContext) {
                 contextManager.removeShortcutFromContext(newShortcut);
                 newShortcut.setWasRemovedFromContext(true);
             }
-            transform = transform.setNodeByKey(newShortcutNode.key, {
-                data: { shortcut: newShortcut }
-            });
 
             // Update the existing shortcut to reflect the leading text after split
             const oldShortcutNode = parentBlock.getChild(anchorParent.key);
-            newShortcut.setOriginalText(shortcut.getLabel());
-            shortcut.setText(oldShortcutNode.text);
+            transform = updateShortcut(shortcut, transform, anchorParent.key, shortcut.getLabel(), oldShortcutNode.text);
             contextManager.removeShortcutFromContext(shortcut);
             shortcut.setWasRemovedFromContext(true);
-            transform = transform.setNodeByKey(anchorParent.key, {
-                data: { shortcut }
-            });
 
             transform = transform.apply();
 
-            opts.structuredFieldMapManager.keyToShortcutMap.set(newShortcutNode.key, newShortcut);
+            updateMaps(newShortcut, opts);
             contextManager.contextUpdated();
 
             editor.onChange(transform);
