@@ -11,7 +11,7 @@ $color-gray-lighter: #eee;
         margin-bottom: 10px;
 
         .user-icon {
-            text-align: right;
+            text-align: center;
             font-size: 1.5em;
             color: $color-gray-light;
         }
@@ -35,7 +35,7 @@ $color-gray-lighter: #eee;
             }
 
             .total-patients {
-                text-align: right;
+                text-align: center;
             }
         }
     }
