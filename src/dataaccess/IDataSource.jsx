@@ -1,5 +1,5 @@
 class IDataSource {
-    getPatient(id) {
+    getPatient(id, optionalCallback) {
         throw new Error("getPatient not implemented by " + this.constructor.name);
     }
     getListOfPatients() {
@@ -12,6 +12,23 @@ class IDataSource {
     
     savePatient(patient) {
         throw new Error("savePatient not implemented by " + this.constructor.name);
+    }
+
+    // On the origins of this term see: https://en.wikipedia.org/wiki/Gestalt_(Mac_OS)
+    getGestalt() { 
+        // 
+        // Shape of the gestalt : { 
+        //      requestTypes: {
+        //          sync: bool
+        //          asynch: bool
+        //      }
+        //      create: bool
+        //      read: bool
+        //      update: bool
+        //      delete: bool
+        // } 
+        //
+        throw new Error("getGestalt not implemented by " + this.constructor.name);
     }
 }
 

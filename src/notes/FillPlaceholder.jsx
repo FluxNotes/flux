@@ -292,7 +292,7 @@ export default class FillPlaceholder extends Component {
                 nextButton =
                 <Grid item xs={2}>
                     <Button
-                        raised
+                        variant="raised"
                         classes={{
                             root:"poc-next-item-btn"
                         }}

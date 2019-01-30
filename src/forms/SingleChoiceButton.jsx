@@ -11,7 +11,8 @@ class SingleChoiceButton extends Component {
         className += (this.props.isSelected) ? "selected " : "";
 
         return (
-            <ChoiceButton raised
+            <ChoiceButton 
+                variant="raised"
                 key={this.props.buttonKey}
                 label={this.props.buttonText}
                 onClick={this.props.onClick}

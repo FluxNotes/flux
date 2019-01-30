@@ -182,6 +182,7 @@ export default class AppManager {
                 app: FullApp,
                 isExact: false,
                 dataSource: 'RestApiDataSource',
+                patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7d',
                 shortcuts: []
             },
             {

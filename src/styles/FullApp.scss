@@ -1,6 +1,9 @@
 @import './variables';
 
 .FullApp-content {
+    &.loading-background { 
+        background: grey;
+    }
     min-height: 100vh;
     background-color: $background;
     overflow: hidden;

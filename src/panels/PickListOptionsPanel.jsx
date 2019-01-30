@@ -247,7 +247,7 @@ export default class PickListOptionsPanel extends Component {
 
                 <div id="pickList-action-buttons">
                     <MaterialButton
-                        raised
+                        variant="raised"
                         id="cancel-btn"
                         onClick={this.handleCancelButtonClick}>
                         Cancel
@@ -255,7 +255,7 @@ export default class PickListOptionsPanel extends Component {
 
                     {this.state.isAllSelected ?
                         <MaterialButton
-                            raised
+                            variant="raised"
                             id="ok-btn"
                             onClick={this.handleOkButtonClick}
                         >

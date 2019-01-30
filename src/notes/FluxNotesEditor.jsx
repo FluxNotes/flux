@@ -1676,7 +1676,7 @@ class FluxNotesEditor extends React.Component {
                         </Col>
                         <Col xs={3}>
                             <Button
-                                raised
+                                variant="raised"
                                 className="close-note-btn"
                                 disabled={this.context_disabled}
                                 onClick={this.closeNote}

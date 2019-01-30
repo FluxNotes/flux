@@ -59,6 +59,7 @@ export class FullApp extends Component {
             "encounter",
             "post-encounter"
         ];
+        // Determines how long the fade-in v. fade-out animation lasts
         this.timeoutDuration = 1000;
 
         if (Lang.isUndefined(this.props.dataSource)) {
@@ -88,6 +89,8 @@ export class FullApp extends Component {
             layout: "",
             // Start the app loading information
             loading: true,
+            // If there is an error produced when loading data, it will go here
+            loadingError: null,
             loginUser: {},
             modalTitle: '',
             modalContent: '',
@@ -152,17 +155,31 @@ export class FullApp extends Component {
     }
 
     loadPatient(patientId) {
-        let patient = this.dataAccess.getPatient(patientId);
-        this.contextManager = new ContextManager(patient, this.onContextUpdate);
-        if (patient) { 
-            this.setState({ 
-                patient, 
-                loading: false
-            })
+        if (this.dataAccess.getGestalt().requestTypes.async) { 
+            console.log('async')
+            this.dataAccess.getPatient(patientId, (patient, error) => { 
+                this.contextManager = new ContextManager(patient, this.onContextUpdate);
+                setTimeout(()=>this.setState({ 
+                    patient, 
+                    loading: false,
+                    loadingError: error
+                }), 3000);
+            });
         } else { 
-            this.setState({ 
-                loading: false
-            })
+            // Assume sync
+            try {
+                let patient = this.dataAccess.getPatient(patientId);
+                this.contextManager = new ContextManager(patient, this.onContextUpdate);
+                this.setState({ 
+                    patient, 
+                    loading: false
+                });
+            } catch (error) {
+                this.setState({
+                    loading: false, 
+                    loadingError: error
+                })
+            }
         }
     }
 
@@ -177,12 +194,8 @@ export class FullApp extends Component {
     }
 
     componentDidMount() { 
-        // Add a non-burdensome timeout so that the loading animation doesn't flicker oppreseively
-        //TODO: REMOVE -- FOR TESTING ANIMATION
-        setTimeout( () => 
-            this.loadPatient(this.props.patientId),
-        2000)
-        // TESTING
+        // Once the component has mounted, we can try to load the patient data
+        this.loadPatient(this.props.patientId)
     }
 
     receive_command(commandType, data) {
@@ -396,6 +409,66 @@ export class FullApp extends Component {
         this.setState({ isAppBlurred });
     }
 
+    renderLoadingInformation = () => { 
+        // Note well: The renders below fade in or out based on state of the loading in the app
+        return (
+            <div>
+                {this.renderLoadingAnimation()}
+                {this.renderLoadingError()}
+            </div>
+        )
+    }
+
+    renderLoadingError = () => { 
+        // We define a loading error as occuring when: 
+        // - The app has no patient 
+        // - The app is not loading
+        const isSomeError = Lang.isEmpty(this.state.patient) && !this.state.loading;
+        return ( 
+            <Fade in={isSomeError} timeout={this.timeoutDuration}>
+                <Paper
+                    style={{
+                        'position': 'absolute',
+                        'top': '50%',
+                        'left': '50%',
+                        'transform': 'translate(-50%, -50%)',
+                        'padding': '30px 0',
+                        'width': '300px',
+                        'textAlign': 'left'
+                    }}
+                >
+                    <Typography
+                        variant="display3"
+                        style={{
+                            'padding': '0 10px 15px 10px'
+                        }}
+                    >
+                        Error Loading Data
+                    </Typography>
+                    <Typography
+                        variant="body2"
+                        style={{
+                            'padding': '0 10px 15px 10px'
+                        }}
+                    >
+                        There was a problem loading data from the current data source: 
+                    </Typography>
+                    {/* If there is a loading error, log the message here */}
+                    {this.state.loadingError && 
+                        <Typography
+                            variant="body2"
+                            style={{
+                                'padding': '0 10px 15px 10px'
+                            }}
+                        >
+                            {this.state.loadingError.message} 
+                        </Typography>
+                    }
+                </Paper>
+            </Fade>
+        );
+    }
+
     renderLoadingAnimation = () => { 
         return (
             <Fade in={this.state.loading} timeout={this.timeoutDuration}>
@@ -406,14 +479,14 @@ export class FullApp extends Component {
                         'left': '50%',
                         'transform': 'translate(-50%, -50%)',
                         'padding': '30px 0',
-                        'width': '200px',
+                        'width': '300px',
                         'textAlign': 'center'
                     }}
                 >
                     <Typography
-                        type="display3"
+                        variant="display3"
                         style={{
-                            'padding': '0 0 15px 0'
+                            'padding': '0 10px 15px 10px'
                         }}
                     >
                         Loading Data
@@ -436,10 +509,9 @@ export class FullApp extends Component {
     render() {
         // Get the Current Dashboard based on superRole of user
         const CurrentDashboard = this.dashboardManager.getDashboardForSuperRole(this.state.loginUser.getSuperRole());
-        const loadingStyle = (this.state.loading ? {'background' : 'lightGrey'} : {})
         return (
             <MuiThemeProvider theme={theme}>
-                <div className="FullApp-content" style={loadingStyle}>
+                <div className={(this.state.loading || this.state.loadingError) ? "FullApp-content loading-background" : "FullApp-content"}>
                     <Grid fluid>
                         <Row center="xs">
                             <Col sm={12}>    
@@ -464,7 +536,7 @@ export class FullApp extends Component {
                                 />
                             </Col>
                         </Row>
-                        {this.renderLoadingAnimation()}
+                        {this.renderLoadingInformation()}
                         <Fade in={!this.state.loading} timeout={this.timeoutDuration}>
                             <div>
                                 {!Lang.isNull(this.state.patient) && 

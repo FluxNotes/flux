@@ -8,7 +8,23 @@ import hardCodedSarcomaPatient from './HardCodedSarcomaPatient.json';
 import curationPatient from './sample_curation_output.json';
 
 class HardCodedReadOnlyDataSource extends IDataSource {
-    getPatient(id) {
+    constructor() { 
+        super();
+        this._gestalt = { 
+            requestTypes: {
+                async: false,
+                sync: true
+            },
+            create: false,
+            read: true,
+            update: false,
+            delete: false
+        };
+    }
+    getGestalt() { 
+        return this._gestalt
+    } 
+    getPatient(id) {  
         if (id === DataAccess.DEMO_PATIENT_ID) {
             return new PatientRecord(hardCodedPatient);
         } else if (hardCodedPatient2[0]["ShrId"] === id) {

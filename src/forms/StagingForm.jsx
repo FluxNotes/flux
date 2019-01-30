@@ -63,7 +63,8 @@ class StagingForm extends Component {
                 return (
                   <div key={t.name} className="tooltip-staging-form">
                      <span id={t.name} className={buttonClass}>{t.description}</span>
-                      <Button raised
+                      <Button 
+                          variant="raised"
                           className="btn tumor-size"
                           key={i}
                           label={titlecase(t.name)}
@@ -89,7 +90,8 @@ class StagingForm extends Component {
                 return (
                   <div key={n.name} className="tooltip-staging-form">
                      <span id={n.name} className={buttonClass}>{n.description}</span>
-                      <Button raised
+                      <Button 
+                          variant="raised"
                           className="btn node"
                           key={i}
                           label={titlecase(n.name)}
@@ -115,7 +117,8 @@ class StagingForm extends Component {
                 return (
                   <div key={m.name} className="tooltip-staging-form">
                    <span id={m.name} className={buttonClass}>{m.description}</span>
-                    <Button raised
+                    <Button 
+                        variant="raised"
                         className="btn metastasis"
                         key={i}
                         label={titlecase(m.name)}
