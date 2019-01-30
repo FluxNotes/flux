@@ -46,9 +46,9 @@ export default class BarChart extends Component {
 }
 
 BarChart.propTypes = {
-    numerator: PropTypes.number.isRequired,
-    denominator: PropTypes.number.isRequired,
-    compareToNumerator: PropTypes.number.isRequired,
-    compareToDenominator: PropTypes.number.isRequired,
+    numerator: PropTypes.number,
+    denominator: PropTypes.number,
+    compareToNumerator: PropTypes.number,
+    compareToDenominator: PropTypes.number,
     active: PropTypes.bool
 };
