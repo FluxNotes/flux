@@ -1,0 +1,51 @@
+$color-gray-light: #bbb;
+$color-gray-lighter: #eee;
+
+.treatment-options-outcomes {
+    margin: 20px;
+    font-size: 0.9em;
+
+    &__header {
+        display: flex;
+        align-items: flex-end;
+        margin-bottom: 10px;
+
+        .user-icon {
+            text-align: center;
+            font-size: 1.5em;
+            color: $color-gray-light;
+        }
+
+        .header-title {
+            font-weight: 600;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+    }
+
+    &__table {
+        .table-row {
+            height: 50px;
+            align-items: center;
+            cursor: pointer;
+
+            &.selected,
+            &:hover {
+                background-color: $color-gray-lighter;
+            }
+
+            .total-patients {
+                text-align: center;
+            }
+        }
+    }
+
+    .flex { display: flex; }
+    .flex-1 { flex: 1; }
+    .flex-2 { flex: 2; }
+    .flex-3 { flex: 3; }
+    .flex-4 { flex: 4; }
+    .flex-6 { flex: 6; }
+    .flex-padding { padding: 0 20px; }
+    .flex-center { align-items: center; }
+}

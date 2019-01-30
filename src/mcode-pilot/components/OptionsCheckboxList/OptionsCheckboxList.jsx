@@ -19,48 +19,32 @@ export default class OptionsCheckboxList extends Component {
         this.setState({ expanded: !this.state.expanded });
     };
 
-    toggleAll = () => {
-        const { options, selectedOptions } = this.props;
-        if (options.length === selectedOptions.length) {
-            this.props.setSelected([]);
-        } else {
-            this.props.setSelected(options.map(option => option.option));
-        }
-    }
-
     toggleOption(option) {
-        const { selectedOptions } = this.props;
-        const newOptions = selectedOptions.slice();
-        const optionIndex = selectedOptions.indexOf(option.option);
-
-        if (optionIndex !== -1) {
-            newOptions.splice(optionIndex, 1);
-            this.props.setSelected(newOptions);
-        } else {
-            newOptions.push(option.option);
-            this.props.setSelected(newOptions);
-        }
+        this.props.setSelected(option, !this.props.options.options[option].selected);
     }
 
     renderOptions = () => {
-        const { options, selectedOptions } = this.props;
+        const { options } = this.props.options;
 
         return (
             <div className="selection-options">
-                {options.map((option, i) => {
+                {Object.keys(options).map((key, i) => {
+                    const { selected, displayText, minValue, maxValue, value } = options[key];
+                    const hasRange = minValue !== undefined && maxValue !== undefined;
+                    const optionText = hasRange ? `${displayText}: ${minValue}-${maxValue}` : `${displayText}: ${value}`;
+
                     return (
-                        <FormControl key={i} className="selection-options__selection">
+                        <FormControl key={key} className="selection-options__selection">
                             <FormLabel>
                                 <FormControlLabel
-                                    key={i}
                                     control={
                                         <Checkbox
-                                            checked={selectedOptions.indexOf(option.option) !== -1}
-                                            onChange={() => this.toggleOption(option)}
-                                            value={option.option}
+                                            checked={selected}
+                                            onChange={() => this.toggleOption(key)}
+                                            value={displayText}
                                             className="checkbox" />
                                     }
-                                    label={<span className="selection-options__title">{option.option}</span>}
+                                    label={<span className="selection-options__title">{optionText}</span>}
                                 />
                             </FormLabel>
                         </FormControl>
@@ -71,26 +55,27 @@ export default class OptionsCheckboxList extends Component {
     }
 
     renderOptionsHeader = () => {
-        const { optionsHeader, selectedOptions, options } = this.props;
+        const { displayText, selected, options } = this.props.options;
+        const optionKeys = Object.keys(options);
+        const selectedOptions = optionKeys.filter((key) => options[key].selected);
 
-        const checked = selectedOptions.length === options.length;
-        const indeterminate = selectedOptions.length > 0 && !checked;
+        const indeterminate = !selected && selectedOptions.length > 0;
 
         return (
             <FormLabel>
                 <FormControlLabel
                     control={
                         <Checkbox
-                            checked={checked}
+                            checked={selected}
                             indeterminate={indeterminate}
-                            onChange={this.toggleAll}
-                            value={optionsHeader}
+                            onChange={() => this.props.setAllSelected(!selected)}
+                            value={displayText}
                             className="checkbox" />
                     }
                     label={
                         <span>
-                            <span className="header-title">{optionsHeader}</span>
-                            <span className="selected-count">{selectedOptions.length}/{options.length}</span>
+                            <span className="header-title">{displayText}</span>
+                            <span className="selected-count">{selectedOptions.length}/{optionKeys.length}</span>
                         </span>
                     }
                 />
@@ -118,8 +103,7 @@ export default class OptionsCheckboxList extends Component {
 }
 
 OptionsCheckboxList.propTypes = {
-    optionsHeader: PropTypes.string.isRequired,
-    options: PropTypes.array.isRequired,
-    selectedOptions: PropTypes.array.isRequired,
-    setSelected: PropTypes.func.isRequired
+    options: PropTypes.object.isRequired,
+    setSelected: PropTypes.func.isRequired,
+    setAllSelected: PropTypes.func.isRequired
 }
