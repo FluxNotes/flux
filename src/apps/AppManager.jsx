@@ -99,7 +99,7 @@ export default class AppManager {
                 app: CoreCancerPilotApp,
                 isExact: true,
                 dataSource: 'HardCodedReadOnlyDataSource',
-                patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7f'
+                patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7g'
             },
             {
                 path: '/ccp2',
@@ -107,7 +107,7 @@ export default class AppManager {
                 app: CoreCancerPilotApp,
                 isExact: true,
                 dataSource: 'HardCodedReadOnlyDataSource',
-                patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7g'
+                patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7f'
             },
             {
                 path: '/demo1',
