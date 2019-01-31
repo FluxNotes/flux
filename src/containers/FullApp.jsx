@@ -10,7 +10,7 @@ import red from 'material-ui/colors/red';
 import Snackbar from 'material-ui/Snackbar';
 import Modal from 'material-ui/Modal';
 import Typography from 'material-ui/Typography';
-import { CircularProgress, Paper, Fade } from 'material-ui';
+import { Fade } from 'material-ui';
 import Lang from 'lodash';
 
 import SecurityManager from '../security/SecurityManager';
@@ -23,6 +23,8 @@ import SummaryMetadata from '../summary/SummaryMetadata';
 import PatientControlPanel from '../panels/PatientControlPanel';
 import PreferenceManager from '../preferences/PreferenceManager';
 import SearchIndex from '../patientControl/SearchIndex';
+import LoadingAnimation from '../loading/LoadingAnimation';
+import LoadingError from '../loading/LoadingError';
 
 import '../styles/FullApp.css';
 
@@ -90,7 +92,7 @@ export class FullApp extends Component {
             // Start the app loading information
             loading: true,
             // If there is an error produced when loading data, it will go here
-            loadingError: null,
+            loadingErrorObject: null,
             loginUser: {},
             modalTitle: '',
             modalContent: '',
@@ -156,29 +158,50 @@ export class FullApp extends Component {
 
     loadPatient(patientId) {
         if (this.dataAccess.getGestalt().requestTypes.async) { 
-            console.log('async')
             this.dataAccess.getPatient(patientId, (patient, error) => { 
                 this.contextManager = new ContextManager(patient, this.onContextUpdate);
+                // TODO: REMOVE AFTER TESTING
                 setTimeout(()=>this.setState({ 
                     patient, 
                     loading: false,
-                    loadingError: error
-                }), 3000);
+                    loadingErrorObject: error
+                }), 5000);
+                //
+                // TODO: RESTORE AFTER TESTING
+                // this.setState({ 
+                //     patient, 
+                //     loading: false,
+                //     loadingErrorObject: error
+                // });
             });
         } else { 
-            // Assume sync
+            // Else, assume sync
             try {
                 let patient = this.dataAccess.getPatient(patientId);
                 this.contextManager = new ContextManager(patient, this.onContextUpdate);
-                this.setState({ 
+                // TODO: REMOVE AFTER TESTING
+                setTimeout(()=>this.setState({ 
                     patient, 
-                    loading: false
-                });
+                    loading: false,
+                }), 5000);
+                //
+                // TODO: RESTORE AFTER TESTING
+                // this.setState({
+                //     patient, 
+                //     loading: false
+                // });
             } catch (error) {
-                this.setState({
-                    loading: false, 
-                    loadingError: error
-                })
+                // TODO: REMOVE AFTER TESTING
+                setTimeout(()=>this.setState({ 
+                    loading: false,
+                    loadingErrorObject: error
+                }), 5000);
+                //
+                // TODO: RESTORE AFTER TESTING
+                // this.setState({
+                //     loading: false, 
+                //     loadingErrorObject: error
+                // });
             }
         }
     }
@@ -411,98 +434,22 @@ export class FullApp extends Component {
 
     renderLoadingInformation = () => { 
         // Note well: The renders below fade in or out based on state of the loading in the app
-        return (
-            <div>
-                {this.renderLoadingAnimation()}
-                {this.renderLoadingError()}
-            </div>
-        )
-    }
-
-    renderLoadingError = () => { 
         // We define a loading error as occuring when: 
         // - The app has no patient 
         // - The app is not loading
         const isSomeError = Lang.isEmpty(this.state.patient) && !this.state.loading;
-        return ( 
-            <Fade in={isSomeError} timeout={this.timeoutDuration}>
-                <Paper
-                    style={{
-                        'position': 'absolute',
-                        'top': '50%',
-                        'left': '50%',
-                        'transform': 'translate(-50%, -50%)',
-                        'padding': '30px 0',
-                        'width': '300px',
-                        'textAlign': 'left'
-                    }}
-                >
-                    <Typography
-                        variant="display3"
-                        style={{
-                            'padding': '0 10px 15px 10px'
-                        }}
-                    >
-                        Error Loading Data
-                    </Typography>
-                    <Typography
-                        variant="body2"
-                        style={{
-                            'padding': '0 10px 15px 10px'
-                        }}
-                    >
-                        There was a problem loading data from the current data source: 
-                    </Typography>
-                    {/* If there is a loading error, log the message here */}
-                    {this.state.loadingError && 
-                        <Typography
-                            variant="body2"
-                            style={{
-                                'padding': '0 10px 15px 10px'
-                            }}
-                        >
-                            {this.state.loadingError.message} 
-                        </Typography>
-                    }
-                </Paper>
-            </Fade>
-        );
-    }
-
-    renderLoadingAnimation = () => { 
         return (
-            <Fade in={this.state.loading} timeout={this.timeoutDuration}>
-                <Paper
-                    style={{
-                        'position': 'absolute',
-                        'top': '50%',
-                        'left': '50%',
-                        'transform': 'translate(-50%, -50%)',
-                        'padding': '30px 0',
-                        'width': '300px',
-                        'textAlign': 'center'
-                    }}
-                >
-                    <Typography
-                        variant="display3"
-                        style={{
-                            'padding': '0 10px 15px 10px'
-                        }}
-                    >
-                        Loading Data
-                    </Typography>
-                        
-                    <CircularProgress
-                        style={{
-                            'height': '80px',
-                            'width': '80px'
-                        }}
-                        classes={{
-                            root: 'table-loading-animation'
-                        }}
-                    />
-                </Paper>
-            </Fade>
+            <div>
+                <LoadingAnimation
+                    loading={this.state.loading}
+                    timeoutDuration={this.timeoutDuration}
+                />
+                <LoadingError
+                    isSomeError={isSomeError}
+                    loadingErrorObject={this.state.loadingErrorObject}
+                    timeoutDuration={this.timeoutDuration}
+                />
+            </div>
         )
     }
 
@@ -511,7 +458,7 @@ export class FullApp extends Component {
         const CurrentDashboard = this.dashboardManager.getDashboardForSuperRole(this.state.loginUser.getSuperRole());
         return (
             <MuiThemeProvider theme={theme}>
-                <div className={(this.state.loading || this.state.loadingError) ? "FullApp-content loading-background" : "FullApp-content"}>
+                <div className={(this.state.loading || this.state.loadingErrorObject) ? "FullApp-content loading-background" : "FullApp-content"}>
                     <Grid fluid>
                         <Row center="xs">
                             <Col sm={12}>    

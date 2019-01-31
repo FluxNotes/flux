@@ -10,6 +10,7 @@ import red from 'material-ui/colors/red';
 import Snackbar from 'material-ui/Snackbar';
 import Modal from 'material-ui/Modal';
 import Typography from 'material-ui/Typography';
+import { Fade } from 'material-ui';
 import Lang from 'lodash';
 import Reference from '../model/Reference';
 
@@ -20,6 +21,8 @@ import CoreCancerPilotSummaryMetadata from '../summary/CoreCancerPilotSummaryMet
 import PatientControlPanel from '../panels/PatientControlPanel';
 import PreferenceManager from '../preferences/PreferenceManager';
 import SearchIndex from '../patientControl/SearchIndex';
+import LoadingAnimation from '../loading/LoadingAnimation';
+import LoadingError from '../loading/LoadingError';
 
 import '../styles/CoreCancerPilotApp.css';
 
@@ -87,8 +90,29 @@ export class CoreCancerPilotApp extends Component {
     }
 
     loadPatient(patientId) {
-        let patient = this.dataAccess.getPatient(patientId);
-        this.setState({patient: patient})
+        if (this.dataAccess.getGestalt().requestTypes.async) { 
+            this.dataAccess.getPatient(patientId, (patient, error) => { 
+                this.setState({ 
+                    patient, 
+                    loading: false,
+                    loadingError: error
+                });
+            });
+        } else { 
+            // Assume sync
+            try {
+                let patient = this.dataAccess.getPatient(patientId);
+                this.setState({ 
+                    patient, 
+                    loading: false
+                });
+            } catch (error) {
+                this.setState({
+                    loading: false, 
+                    loadingError: error
+                });
+            }
+        }
     }
 
     componentDidMount = () => {
@@ -100,10 +124,10 @@ export class CoreCancerPilotApp extends Component {
                 icon.href = this.props.logoObject.path;
             });
         }
+        this.loadPatient(this.props.patientId);
     }
 
     componentWillMount() {
-        this.loadPatient(this.props.patientId);
         const userProfile = this.securityManager.getDemoUser(this.props.clinicianId);
         if (userProfile) {
             this.setState({loginUser: userProfile});
@@ -189,6 +213,27 @@ export class CoreCancerPilotApp extends Component {
         this.setState({ isAppBlurred });
     }
 
+    renderLoadingInformation = () => { 
+        // Note well: The renders below fade in or out based on state of the loading in the app
+        // We define a loading error as occuring when: 
+        // - The app has no patient 
+        // - The app is not loading
+        const isSomeError = Lang.isEmpty(this.state.patient) && !this.state.loading;
+        return (
+            <div>
+                <LoadingAnimation
+                    loading={this.state.loading}
+                    timeoutDuration={this.timeoutDuration}
+                />
+                <LoadingError
+                    isSomeError={isSomeError}
+                    loadingError={this.state.loadingError}
+                    timeoutDuration={this.timeoutDuration}
+                />
+            </div>
+        )
+    }
+
     render() {
         return (
             <MuiThemeProvider theme={theme}>
@@ -217,28 +262,34 @@ export class CoreCancerPilotApp extends Component {
                                 />
                             </Col>
                         </Row>
-
-                        <CoreCancerPilotDashboard
-                            // App default settings
-                            actions={[]}
-                            forceRefresh={this.state.forceRefresh}
-                            appState={this.state}
-                            dataAccess={this.dataAccess}
-                            highlightedSearchSuggestion={this.state.highlightedSearchSuggestion}
-                            loginUser={this.state.loginUser}
-                            preferenceManager={this.preferenceManager}
-                            searchSelectedItem={this.state.searchSelectedItem}
-                            setForceRefresh={this.setForceRefresh}
-                            setFullAppStateWithCallback={this.setFullAppStateWithCallback}
-                            setHighlightedSearchSuggestion={this.setHighlightedSearchSuggestion}
-                            setSearchSelectedItem={this.setSearchSelectedItem}
-                            summaryMetadata={this.summaryMetadata}
-                            ref={(dashboard) => { this.dashboard = dashboard; }}
-                            searchIndex={this.searchIndex}
-                            searchSuggestions={this.state.searchSuggestions}
-                            isAppBlurred={this.state.isAppBlurred}
-                            setAppBlur={this.setAppBlur}
-                        />
+                        {this.renderLoadingInformation()}
+                        <Fade in={!this.state.loading} timeout={this.timeoutDuration}>
+                            <div>
+                                {!Lang.isNull(this.state.patient) && 
+                                    <CoreCancerPilotDashboard
+                                        // App default settings
+                                        actions={[]}
+                                        forceRefresh={this.state.forceRefresh}
+                                        appState={this.state}
+                                        dataAccess={this.dataAccess}
+                                        highlightedSearchSuggestion={this.state.highlightedSearchSuggestion}
+                                        loginUser={this.state.loginUser}
+                                        preferenceManager={this.preferenceManager}
+                                        searchSelectedItem={this.state.searchSelectedItem}
+                                        setForceRefresh={this.setForceRefresh}
+                                        setFullAppStateWithCallback={this.setFullAppStateWithCallback}
+                                        setHighlightedSearchSuggestion={this.setHighlightedSearchSuggestion}
+                                        setSearchSelectedItem={this.setSearchSelectedItem}
+                                        summaryMetadata={this.summaryMetadata}
+                                        ref={(dashboard) => { this.dashboard = dashboard; }}
+                                        searchIndex={this.searchIndex}
+                                        searchSuggestions={this.state.searchSuggestions}
+                                        isAppBlurred={this.state.isAppBlurred}
+                                        setAppBlur={this.setAppBlur}
+                                    />
+                                }
+                            </div>
+                        </Fade> 
                         <Modal
                             aria-labelledby="simple-modal-title"
                             aria-describedby="simple-modal-description"
