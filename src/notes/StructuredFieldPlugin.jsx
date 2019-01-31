@@ -84,9 +84,14 @@ function StructuredFieldPlugin(opts) {
 
             // Update the existing shortcut to reflect the leading text after split
             const oldShortcutNode = transform.state.document.getPreviousSibling(newTextNode.key);
-            transform = updateShortcut(shortcut, transform, oldShortcutNode.key, shortcut.getLabel(), oldShortcutNode.text);
-            contextManager.removeShortcutFromContext(shortcut);
-            shortcut.setWasRemovedFromContext(true);
+
+            // In the case where there is no prior shortcut node in this block
+            // nothing needs to be updated
+            if (oldShortcutNode) {
+                transform = updateShortcut(shortcut, transform, oldShortcutNode.key, shortcut.getLabel(), oldShortcutNode.text);
+                contextManager.removeShortcutFromContext(shortcut);
+                shortcut.setWasRemovedFromContext(true);
+            }
 
             transform = transform.apply();
 
