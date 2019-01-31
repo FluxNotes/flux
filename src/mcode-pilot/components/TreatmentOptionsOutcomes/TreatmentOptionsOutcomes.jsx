@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import _ from 'lodash';
 
-import isSame from '../../utils/arrayCompare';
+import { isSame, getCombinations } from '../../utils/arrayCompare';
 import BarChart from '../../visualizations/BarChart/BarChart';
 
 import './TreatmentOptionsOutcomes.css';
@@ -37,14 +37,6 @@ export default class TreatmentOptionsOutcomes extends Component {
         };
     }
 
-    // componentWillReceiveProps(nextProps) {
-    //     if (nextProps.similarPatients !== this.props.similarPatients) {
-    //         this.setState({
-    //             rows: this.generateRows(nextProps.similarPatients)
-    //         });
-    //     }
-    // }
-
     initializeRow(name) {
         return {
             id: _.uniqueId('row_'),
@@ -63,10 +55,7 @@ export default class TreatmentOptionsOutcomes extends Component {
     generateRow(patients, treatments) {
         if (patients.length === 0) return [];
 
-        const rowMappings = {};
-        similarPatients.forEach((patient) => {
-            const treatments = patient.treatments.sort().join(' & ');
-            const category = treatments === 'noTreatment' ? NO_TREATMENT : treatments;
+        let row = this.initializeRow(treatments.join(' & '));
 
         patients.forEach(patient => {
             row.totalPatients += 1;
@@ -78,7 +67,7 @@ export default class TreatmentOptionsOutcomes extends Component {
 
             if (patient.sideEffects.length > 0) {
                 row.sideEffects.totalReporting += 1;
-                patient.sideEffects.forEach((sideEffect) => {
+                patient.sideEffects.forEach(sideEffect => {
                     if (!row.sideEffects.effects[sideEffect]) row.sideEffects.effects[sideEffect] = 0;
                     row.sideEffects.effects[sideEffect] += 1;
                 })
@@ -87,42 +76,6 @@ export default class TreatmentOptionsOutcomes extends Component {
 
         return row;
     }
-
-    // generateRows(similarPatients) {
-    //     if (similarPatients.length === 0) return [];
-
-    //     const rowMappings = {};
-    //     similarPatients.forEach((patient) => {
-    //         const treatments = patient.treatments.sort().join(' & ');
-    //         // const category = treatments[0] === 'noTreatment' ? NO_TREATMENT : treatments;
-    //         const category = TREATMENT_NAMES[treatments[0]];
-    //         if (!rowMappings[category]) rowMappings[category] = this.initializeRow(category);
-
-    //         const row = rowMappings[category];
-    //         row.totalPatients += 1;
-
-    //         const survivalYears = Math.floor(patient.diseaseStatus.survivalMonths / 12);
-    //         if (survivalYears >= 1) row.oneYrSurvival += 1;
-    //         if (survivalYears >= 3) row.threeYrSurvival += 1;
-    //         if (survivalYears >= 5) row.fiveYrSurvival += 1;
-
-    //         if (patient.sideEffects.length > 0) {
-    //             row.sideEffects.totalReporting += 1;
-    //             patient.sideEffects.forEach((sideEffect) => {
-    //                 if (!row.sideEffects.effects[sideEffect]) row.sideEffects.effects[sideEffect] = 0;
-    //                 row.sideEffects.effects[sideEffect] += 1;
-    //             })
-    //         }
-    //     });
-
-    //     const keys = Object.keys(rowMappings).sort();
-    //     const rows = keys.map((key) => rowMappings[key]);
-
-    //     // set active row
-    //     (rows.find((row) => row.name === NO_TREATMENT) || rows[0]).active = true;
-
-    //     return rows;
-    // }
 
     renderBarChart = (row, compareRow, survivalRate) => {
         const { totalPatients } = row;
@@ -199,13 +152,23 @@ export default class TreatmentOptionsOutcomes extends Component {
         );
     }
 
+    renderComparedRow = (treatmentCombination, i, includedRow) => {
+        const { similarPatients } = this.props;
+        const comparedPatients = similarPatients.filter(patient => isSame(patient.treatments, treatmentCombination));
+
+        return (
+            <div key={i}>
+                {this.renderRow(this.generateRow(comparedPatients, treatmentCombination), includedRow)}
+            </div>
+        );
+    }
+
     render() {
         const { includedTreatments, comparedTreatments } = this.state;
         const { similarPatients } = this.props;
         const includedTreatmentPatients = similarPatients.filter(patient => isSame(patient.treatments, includedTreatments));
+        const comparedTreatmentCombinations = getCombinations(comparedTreatments);
         const includedRow = this.generateRow(includedTreatmentPatients, includedTreatments);
-        console.debug('comparedTreatments', comparedTreatments);
-        console.debug('similarPatients', similarPatients);
 
         return (
             <div className="treatment-options-outcomes">
@@ -219,8 +182,8 @@ export default class TreatmentOptionsOutcomes extends Component {
 
                     <div className="compared-treatments">
                         <div>combine with:</div>
-                        {comparedTreatments.map(treatment =>
-                            {this.renderRow(this.generateRow(similarPatients, includedRow))}
+                        {comparedTreatmentCombinations.map((treatmentCombination, i) =>
+                            this.renderComparedRow(treatmentCombination, i, includedRow)
                         )}
                     </div>
                 </div>
