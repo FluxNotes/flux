@@ -343,7 +343,7 @@
         ]
     },
     {
-        "value": "026-DH-678945",
+        "value": "026-DH-678986",
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
         "EntryId": "3",
         "organization": "MITRE",
@@ -351,7 +351,7 @@
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/base/PatientIdentifier"
         },
-        "fictionalPerson": "026-DH-678945",
+        "fictionalPerson": "026-DH-678986",
         "LastUpdated": {
             "Value": "17 Sep 2018",
             "EntryType": {
@@ -366,11 +366,11 @@
         }
     },
     {
-        "signedOn": "20 Dec 2015",
+        "signedOn": "20 Dec 2018",
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
         "signed": true,
         "subject": "Clinical follow-up",
-        "content": "@name[[Jane Bradshaw146]] is a @age[[49]] year old @gender[[Female]] presenting with @condition[[{\"text\":\"Invasive ductal carcinoma of breast\",\"entryId\":\"8\"}]].",
+        "content": "@name[[Jane Bradshaw146]] is a @age[[49]] year old @gender[[Female]] presenting with @condition[[{\"text\":\"Invasive ductal carcinoma of breast\",\"entryId\":\"8\"}]].\nDisease #disease status #Stable based on #Pathology and #Symptoms #as of #08/02/2018.",
         "EntryId": "4",
         "hospital": "Dana Farber",
         "createdBy": "Dr. Smith952",
@@ -392,7 +392,7 @@
         }
     },
     {
-        "signedOn": "29 Nov 2012",
+        "signedOn": "29 Nov 2017",
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
         "signed": true,
         "subject": "Consult",
@@ -418,7 +418,7 @@
         }
     },
     {
-        "signedOn": "07 Nov 2012",
+        "signedOn": "07 Nov 2017",
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
         "signed": true,
         "subject": "Clinical post-op",
@@ -444,7 +444,7 @@
         }
     },
     {
-        "signedOn": "03 Oct 2012",
+        "signedOn": "03 Oct 2017",
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
         "signed": true,
         "subject": "Clinical follow-up",
@@ -476,7 +476,7 @@
             "Value": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"
         },
         "LastUpdated": {
-            "Value": "20 Jun 2018",
+            "Value": "18 Dec 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
@@ -496,7 +496,7 @@
         "Value": {
             "Coding": [
                 {
-                    "Value": "C1134719",
+                    "Value": "408643008",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -841,6 +841,126 @@
     },
     {
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
+        "EntryId": "1161",
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/base/ConditionPresentAssertion"
+        },
+        "LastUpdated": {
+            "Value": "31 Oct 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "12 April 2010",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "ClinicalStatus": {
+            "Value": "active",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/ClinicalStatus"
+            }
+        },
+        "Value": {
+            "Coding": [
+                {
+                    "Value": "C1282951",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "CodeSystem": {
+                        "Value": "http://ncimeta.nci.nih.gov",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        }
+                    },
+                    "DisplayText": {
+                        "Value": "Type 2 Diabetes Mellitus",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    }
+                }
+            ],
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            }
+        },
+        "SpecificFocusOfFinding": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/SpecificFocusOfFinding"
+            },
+            "Value": {
+                "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
+                "_EntryId": "1",
+                "_EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+                }
+            }
+        },
+        "Category": [
+            {
+                "Coding": [
+                    {
+                        "Value": "#disease",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        ],
+        "AnatomicalLocation": [
+            {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/AnatomicalLocation"
+                },
+                "AnatomicalLocationOrLandmarkCode": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/AnatomicalLocationOrLandmarkCode"
+                    },
+                    "Value": {
+                        "Coding": [
+                            {
+                                "Value": "C1272460",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                                },
+                                "CodeSystem": {
+                                    "Value": "http://snomed.info/sct",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                    }
+                                },
+                                "DisplayText": {
+                                    "Value": "N/A",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    }
+                                }
+                            }
+                        ],
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                        }
+                    }
+                }
+            }
+        ],
+        "Onset": {
+            "Value": "12 April 2010",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/Onset"
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
         "EntryId": "27",
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/base/ConditionPresentAssertion"
@@ -904,7 +1024,7 @@
             {
                 "Coding": [
                     {
-                        "Value": "#structural_abnormality",
+                        "Value": "#disease",
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         }
@@ -961,18 +1081,93 @@
     },
     {
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
-        "EntryId": "29",
+        "EntryId": "28",
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/allergy/AllergyIntolerance"
+            "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"
         },
         "LastUpdated": {
-            "Value": "31 Oct 2015",
+            "Value": "02 Jun 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "02 Jun 2015",
+            "Value": "02 Jun 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "TopicCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/TopicCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Value": "433341001",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "http://snomed.info/sct",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Application of long leg splint",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        },
+        "Status": {
+            "Value": "completed",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Status"
+            }
+        },
+        "Reason": [
+            {
+                "Value": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
+                    "_EntryId": "27",
+                    "_EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/base/ConditionPresentAssertion"
+                    }
+                },
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/Reason"
+                }
+            }
+        ],
+        "ExpectedPerformanceTime": {
+            "Value": "02 Jun 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
+        "EntryId": "29",
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/allergy/AllergyIntolerance"
+        },
+        "LastUpdated": {
+            "Value": "31 Oct 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "02 Jun 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -1011,7 +1206,7 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/allergy/AdverseReaction"
                 },
                 "OccurrenceTime": {
-                    "Value": "02 Jun 2015",
+                    "Value": "02 Jun 2018",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/OccurrenceTime"
                     }
@@ -1082,7 +1277,7 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/allergy/AdverseReaction"
                 },
                 "OccurrenceTime": {
-                    "Value": "02 Jun 2015",
+                    "Value": "02 Jun 2018",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/OccurrenceTime"
                     }
@@ -1157,13 +1352,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/allergy/AllergyIntolerance"
         },
         "LastUpdated": {
-            "Value": "31 Oct 2015",
+            "Value": "31 Oct 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "02 Jun 2015",
+            "Value": "02 Jun 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -1202,7 +1397,7 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/allergy/AdverseReaction"
                 },
                 "OccurrenceTime": {
-                    "Value": "02 Jun 2015",
+                    "Value": "02 Jun 2018",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/OccurrenceTime"
                     }
@@ -1273,7 +1468,7 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/allergy/AdverseReaction"
                 },
                 "OccurrenceTime": {
-                    "Value": "02 Jun 2015",
+                    "Value": "02 Jun 2018",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/OccurrenceTime"
                     }
@@ -1348,13 +1543,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/allergy/NoKnownAllergy"
         },
         "LastUpdated": {
-            "Value": "31 Oct 2015",
+            "Value": "31 Oct 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "02 Jun 2015",
+            "Value": "02 Jun 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -4247,14 +4442,14 @@
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
                 },
-                "Value": 30
+                "Value": 2
             },
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
             },
             "Units": {
                 "Value": {
-                    "Value": "mm",
+                    "Value": "cm",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     }
@@ -4353,32 +4548,32 @@
     },
     {
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
-        "EntryId": "1161",
+        "EntryId": "2220",
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/base/ConditionPresentAssertion"
+            "Value": "http://standardhealthrecord.org/spec/shr/oncology/EstrogenReceptorStatus"
         },
         "LastUpdated": {
-            "Value": "31 Oct 2018",
+            "Value": "25 Aug 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "12 April 2010",
+            "Value": "25 Aug 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
         },
-        "ClinicalStatus": {
-            "Value": "active",
+        "RelevantTime": {
+            "Value": "25 Aug 2018",
             "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/ClinicalStatus"
+                "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
         },
         "Value": {
             "Coding": [
                 {
-                    "Value": "C1282951",
+                    "Value": "C0205160",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -4389,7 +4584,32 @@
                         }
                     },
                     "DisplayText": {
-                        "Value": "Type 2 Diabetes Mellitus",
+                        "Value": "Positive",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    }
+                }
+            ],
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            }
+        },
+        "FindingStatus": {
+            "Coding": [
+                {
+                    "Value": "final",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "CodeSystem": {
+                        "Value": "http://hl7.org/fhir/observation-status",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        }
+                    },
+                    "DisplayText": {
+                        "Value": "Final",
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                         }
@@ -4401,73 +4621,189 @@
             }
         },
         "SpecificFocusOfFinding": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/SpecificFocusOfFinding"
-            },
             "Value": {
                 "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
-                "_EntryId": "1",
+                "_EntryId": "8",
                 "_EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+                    "Value": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"
                 }
+            },
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/SpecificFocusOfFinding"
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
+        "EntryId": "2230",
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/oncology/ProgesteroneReceptorStatus"
+        },
+        "LastUpdated": {
+            "Value": "25 Aug 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
-        "Category": [
-            {
-                "Coding": [
-                    {
-                        "Value": "#structural_abnormality",
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                        }
-                    }
-                ],
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                }
-            }
-        ],
-        "AnatomicalLocation": [
-            {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/AnatomicalLocation"
-                },
-                "AnatomicalLocationOrLandmarkCode": {
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/AnatomicalLocationOrLandmarkCode"
-                    },
-                    "Value": {
-                        "Coding": [
-                            {
-                                "Value": "C1272460",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                },
-                                "CodeSystem": {
-                                    "Value": "http://snomed.info/sct",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                    }
-                                },
-                                "DisplayText": {
-                                    "Value": "N/A",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                    }
-                                }
-                            }
-                        ],
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                        }
-                    }
-                }
-            }
-        ],
-        "Onset": {
-            "Value": "12 April 2010",
+        "CreationTime": {
+            "Value": "25 Aug 2018",
             "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/Onset"
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "RelevantTime": {
+            "Value": "25 Aug 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
+            }
+        },
+        "Value": {
+            "Coding": [
+                {
+                    "Value": "C1446409",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "CodeSystem": {
+                        "Value": "http://ncimeta.nci.nih.gov",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        }
+                    },
+                    "DisplayText": {
+                        "Value": "Negative",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    }
+                }
+            ],
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            }
+        },
+        "FindingStatus": {
+            "Coding": [
+                {
+                    "Value": "final",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "CodeSystem": {
+                        "Value": "http://hl7.org/fhir/observation-status",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        }
+                    },
+                    "DisplayText": {
+                        "Value": "Final",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    }
+                }
+            ],
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            }
+        },
+        "SpecificFocusOfFinding": {
+            "Value": {
+                "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
+                "_EntryId": "8",
+                "_EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"
+                }
+            },
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/SpecificFocusOfFinding"
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
+        "EntryId": "2240",
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/oncology/HER2ReceptorStatus"
+        },
+        "LastUpdated": {
+            "Value": "25 Aug 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "25 Aug 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "RelevantTime": {
+            "Value": "25 Aug 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
+            }
+        },
+        "Value": {
+            "Coding": [
+                {
+                    "Value": "C1446409",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "CodeSystem": {
+                        "Value": "http://ncimeta.nci.nih.gov",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        }
+                    },
+                    "DisplayText": {
+                        "Value": "Positive",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    }
+                }
+            ],
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            }
+        },
+        "FindingStatus": {
+            "Coding": [
+                {
+                    "Value": "final",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "CodeSystem": {
+                        "Value": "http://hl7.org/fhir/observation-status",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        }
+                    },
+                    "DisplayText": {
+                        "Value": "Final",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    }
+                }
+            ],
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            }
+        },
+        "SpecificFocusOfFinding": {
+            "Value": {
+                "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
+                "_EntryId": "8",
+                "_EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"
+                }
+            },
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/SpecificFocusOfFinding"
             }
         }
     },
@@ -4599,7 +4935,293 @@
                     "Value": {
                         "Coding": [
                             {
-                                "Code": "103802014",
+                                "Code": "103802018",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                                },
+                                "CodeSystem": {
+                                    "Value": "http://snomed.info/sct",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                    }
+                                },
+                                "DisplayText": {
+                                    "Value": "N0",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    }
+                                }
+                            }
+                        ],
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                        }
+                    }
+                },
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/mcode/TNMClinicalDistantMetastasesClassification"
+                    },
+                    "Value": {
+                        "Coding": [
+                            {
+                                "Code": "51703010",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                                },
+                                "CodeSystem": {
+                                    "Value": "http://snomed.info/sct",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                    }
+                                },
+                                "DisplayText": {
+                                    "Value": "M0",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    }
+                                }
+                            }
+                        ],
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                        }
+                    }
+                },
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/oncology/MitoticRate"
+                    },
+                    "Value": {
+                        "Coding": [
+                            {
+                                "Code": "C35960",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                                },
+                                "CodeSystem": {
+                                    "Value": "http://ncimeta.nci.nih.gov",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                    }
+                                },
+                                "DisplayText": {
+                                    "Value": "high",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    }
+                                }
+                            }
+                        ],
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                        }
+                    }
+                }
+            ]
+        },
+        "FindingMethod": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/FindingMethod"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": "ajcc_v7",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "AJCC GIST Version 7",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        },
+        "FindingTopicCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": "",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "http://ncimeta.nci.nih.gov",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Staging",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        },
+        "SpecificFocusOfFinding": {
+            "Value": {
+                "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
+                "_EntryId": "8",
+                "_EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor"
+                }
+            },
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/SpecificFocusOfFinding"
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
+        "EntryId": "2210",
+        "SignedBy": {
+            "Value": "Dr. Kyle298 Jennings681",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/SignedBy"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/mcode/CancerStageInformation"
+        },
+        "RecordedBy": {
+            "Value": "Joe Rodney22A",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/RecordedBy"
+            }
+        },
+        "LastUpdated": {
+            "Value": "02 Jul 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "02 Jul 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "RelevantTime": {
+            "Value": "02 Jul 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
+            }
+        },
+        "Value": {
+            "Coding": [
+                {
+                    "Code": "C0456595",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "CodeSystem": {
+                        "Value": "http://snomed.info/sct",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        }
+                    },
+                    "DisplayText": {
+                        "Value": "IA",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    }
+                }
+            ],
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            }
+        },
+        "FindingStatus": {
+            "Coding": [
+                {
+                    "Code": "final",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "CodeSystem": {
+                        "Value": "http://hl7.org/fhir/observation-status",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        }
+                    },
+                    "DisplayText": {
+                        "Value": "Final",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    }
+                }
+            ],
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            }
+        },
+        "PanelMembers": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/PanelMembers"
+            },
+            "Observation": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/mcode/TNMClinicalPrimaryTumorClassification"
+                    },
+                    "Value": {
+                        "Coding": [
+                            {
+                                "Code": "369918000",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                                },
+                                "CodeSystem": {
+                                    "Value": "http://snomed.info/sct",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                    }
+                                },
+                                "DisplayText": {
+                                    "Value": "T3",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    }
+                                }
+                            }
+                        ],
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                        }
+                    }
+                },
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/mcode/TNMClinicalRegionalNodesClassification"
+                    },
+                    "Value": {
+                        "Coding": [
+                            {
+                                "Code": "103802018",
                                 "EntryType": {
                                     "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                 },
