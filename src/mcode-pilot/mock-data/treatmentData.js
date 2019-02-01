@@ -24305,7 +24305,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -24326,7 +24331,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -24347,7 +24357,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -24368,7 +24383,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -24388,7 +24408,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -24409,7 +24434,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -24429,7 +24459,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "weightLoss"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -24450,7 +24485,12 @@ export const transformedTreatmentData = [
       "urinaryDys",
       "decLibido",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -24470,7 +24510,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -24487,7 +24532,12 @@ export const transformedTreatmentData = [
     "treatments": [
       "surgery"
     ],
-    "sideEffects": []
+    "sideEffects": [],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -24509,7 +24559,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -24530,7 +24585,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -24551,7 +24611,12 @@ export const transformedTreatmentData = [
       "urinaryDys",
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -24571,7 +24636,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -24591,7 +24661,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -24611,7 +24686,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -24631,7 +24711,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -24652,7 +24737,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -24670,7 +24760,12 @@ export const transformedTreatmentData = [
       "chemo",
       "radiation"
     ],
-    "sideEffects": []
+    "sideEffects": [],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -24691,7 +24786,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -24712,7 +24812,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -24732,7 +24837,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -24753,7 +24863,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -24774,7 +24889,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -24796,7 +24916,12 @@ export const transformedTreatmentData = [
       "weightLoss",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -24816,7 +24941,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -24838,7 +24968,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -24858,7 +24993,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -24879,7 +25019,12 @@ export const transformedTreatmentData = [
       "urinaryDys",
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -24899,7 +25044,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -24919,7 +25069,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -24938,7 +25093,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -24957,7 +25117,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -24978,7 +25143,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -24998,7 +25168,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25020,7 +25195,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -25040,7 +25220,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25061,7 +25246,12 @@ export const transformedTreatmentData = [
       "hotFlash",
       "decLibido",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25082,7 +25272,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -25104,7 +25299,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25124,7 +25324,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25144,7 +25349,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -25163,7 +25373,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "hotFlash"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -25184,7 +25399,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25205,7 +25425,12 @@ export const transformedTreatmentData = [
       "urinaryDys",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25222,7 +25447,12 @@ export const transformedTreatmentData = [
     "treatments": [
       "hormonal"
     ],
-    "sideEffects": []
+    "sideEffects": [],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25243,7 +25473,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25264,7 +25499,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25284,7 +25524,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25304,7 +25549,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -25324,7 +25574,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "urinaryDys",
       "nauseaVomiting"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25345,7 +25600,12 @@ export const transformedTreatmentData = [
       "weightLoss",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25366,7 +25626,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25386,7 +25651,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -25406,7 +25676,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25428,7 +25703,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25448,7 +25728,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "weightLoss"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25469,7 +25754,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25488,7 +25778,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25508,7 +25803,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25527,7 +25827,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "nauseaVomiting"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25548,7 +25853,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25567,7 +25877,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25589,7 +25904,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -25608,7 +25928,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "hotFlash"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25628,7 +25953,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -25649,7 +25979,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -25671,7 +26006,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -25692,7 +26032,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25712,7 +26057,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25734,7 +26084,12 @@ export const transformedTreatmentData = [
       "weightLoss",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25754,7 +26109,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -25774,7 +26134,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25794,7 +26159,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25814,7 +26184,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25834,7 +26209,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "bowelDys",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25854,7 +26234,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25875,7 +26260,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25895,7 +26285,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25917,7 +26312,12 @@ export const transformedTreatmentData = [
       "weightLoss",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25937,7 +26337,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25957,7 +26362,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25976,7 +26386,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "hotFlash"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -25996,7 +26411,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -26016,7 +26436,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26037,7 +26462,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -26057,7 +26487,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26077,7 +26512,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26098,7 +26538,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -26119,7 +26564,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26140,7 +26590,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26161,7 +26616,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26182,7 +26642,12 @@ export const transformedTreatmentData = [
       "hotFlash",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26204,7 +26669,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26223,7 +26693,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26242,7 +26717,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26262,7 +26742,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -26282,7 +26767,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26302,7 +26792,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "bowelDys",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -26322,7 +26817,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26343,7 +26843,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26364,7 +26869,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26383,7 +26893,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "nauseaVomiting"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26403,7 +26918,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26423,7 +26943,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26443,7 +26968,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26462,7 +26992,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26479,7 +27014,12 @@ export const transformedTreatmentData = [
     "treatments": [
       "surgery"
     ],
-    "sideEffects": []
+    "sideEffects": [],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26499,7 +27039,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -26519,7 +27064,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26538,7 +27088,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "bowelDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26557,7 +27112,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26577,7 +27137,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26599,7 +27164,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26618,7 +27188,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26639,7 +27214,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -26658,7 +27238,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "nauseaVomiting"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26679,7 +27264,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26698,7 +27288,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26716,7 +27311,12 @@ export const transformedTreatmentData = [
       "chemo",
       "radiation"
     ],
-    "sideEffects": []
+    "sideEffects": [],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26738,7 +27338,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26758,7 +27363,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26778,7 +27388,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26797,7 +27412,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26816,7 +27436,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "nauseaVomiting"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26836,7 +27461,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -26857,7 +27487,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26878,7 +27513,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26899,7 +27539,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26919,7 +27564,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26939,7 +27589,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -26959,7 +27614,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -26979,7 +27639,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -27000,7 +27665,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -27020,7 +27690,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -27041,7 +27716,12 @@ export const transformedTreatmentData = [
       "urinaryDys",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -27062,7 +27742,12 @@ export const transformedTreatmentData = [
       "urinaryDys",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -27083,7 +27768,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -27103,7 +27793,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -27125,7 +27820,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -27146,7 +27846,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -27168,7 +27873,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -27187,7 +27897,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -27207,7 +27922,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -27228,7 +27948,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -27249,7 +27974,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -27269,7 +27999,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -27289,7 +28024,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -27310,7 +28050,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -27332,7 +28077,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -27354,7 +28104,12 @@ export const transformedTreatmentData = [
       "weightLoss",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -27374,7 +28129,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -27395,7 +28155,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -27416,7 +28181,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -27438,7 +28208,12 @@ export const transformedTreatmentData = [
       "weightLoss",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -27458,7 +28233,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -27479,7 +28259,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -27499,7 +28284,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "bowelDys",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -27519,7 +28309,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -27538,7 +28333,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "hotFlash"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -27555,7 +28355,12 @@ export const transformedTreatmentData = [
     "treatments": [
       "surgery"
     ],
-    "sideEffects": []
+    "sideEffects": [],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -27575,7 +28380,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -27594,7 +28404,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "hotFlash"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -27614,7 +28429,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -27633,7 +28453,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "weightLoss"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -27654,7 +28479,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -27674,7 +28504,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -27695,7 +28530,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -27716,7 +28556,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -27737,7 +28582,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -27759,7 +28609,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -27781,7 +28636,12 @@ export const transformedTreatmentData = [
       "weightLoss",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -27803,7 +28663,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -27825,7 +28690,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -27845,7 +28715,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -27866,7 +28741,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -27886,7 +28766,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -27906,7 +28791,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -27923,7 +28813,12 @@ export const transformedTreatmentData = [
     "treatments": [
       "surgery"
     ],
-    "sideEffects": []
+    "sideEffects": [],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -27943,7 +28838,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -27964,7 +28864,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -27985,7 +28890,12 @@ export const transformedTreatmentData = [
       "weightLoss",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -28006,7 +28916,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -28025,7 +28940,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "weightLoss"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28047,7 +28967,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28067,7 +28992,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28087,7 +29017,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -28107,7 +29042,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28129,7 +29069,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28149,7 +29094,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "urinaryDys",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28170,7 +29120,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28191,7 +29146,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28210,7 +29170,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28232,7 +29197,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28252,7 +29222,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28273,7 +29248,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28295,7 +29275,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28315,7 +29300,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28336,7 +29326,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28357,7 +29352,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28376,7 +29376,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -28397,7 +29402,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28418,7 +29428,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28439,7 +29454,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28460,7 +29480,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28481,7 +29506,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28501,7 +29531,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28521,7 +29556,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28540,7 +29580,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "weightLoss"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -28560,7 +29605,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28581,7 +29631,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -28602,7 +29657,12 @@ export const transformedTreatmentData = [
       "urinaryDys",
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28623,7 +29683,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "weightLoss"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28643,7 +29708,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28664,7 +29734,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28685,7 +29760,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28706,7 +29786,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28726,7 +29811,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "weightLoss"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28743,7 +29833,12 @@ export const transformedTreatmentData = [
     "treatments": [
       "noTreatment"
     ],
-    "sideEffects": []
+    "sideEffects": [],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28764,7 +29859,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "weightLoss"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28785,7 +29885,12 @@ export const transformedTreatmentData = [
       "hotFlash",
       "decLibido",
       "weightLoss"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28805,7 +29910,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -28827,7 +29937,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28847,7 +29962,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -28867,7 +29987,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28888,7 +30013,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -28907,7 +30037,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28928,7 +30063,12 @@ export const transformedTreatmentData = [
       "urinaryDys",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -28949,7 +30089,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28971,7 +30116,12 @@ export const transformedTreatmentData = [
       "weightLoss",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -28991,7 +30141,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "urinaryDys",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29011,7 +30166,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29030,7 +30190,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "hotFlash"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29050,7 +30215,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29070,7 +30240,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29092,7 +30267,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29113,7 +30293,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29135,7 +30320,12 @@ export const transformedTreatmentData = [
       "hotFlash",
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29158,7 +30348,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29175,7 +30370,12 @@ export const transformedTreatmentData = [
     "treatments": [
       "noTreatment"
     ],
-    "sideEffects": []
+    "sideEffects": [],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29197,7 +30397,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -29218,7 +30423,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -29238,7 +30448,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -29259,7 +30474,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29280,7 +30500,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29300,7 +30525,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29320,7 +30550,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29340,7 +30575,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29359,7 +30599,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "nauseaVomiting"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29380,7 +30625,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -29400,7 +30650,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "urinaryDys",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29420,7 +30675,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29442,7 +30702,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29464,7 +30729,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29483,7 +30753,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -29502,7 +30777,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "weightLoss"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29524,7 +30804,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29543,7 +30828,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "nauseaVomiting"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -29564,7 +30854,12 @@ export const transformedTreatmentData = [
       "hotFlash",
       "decLibido",
       "nauseaVomiting"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -29583,7 +30878,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29603,7 +30903,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "weightLoss"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29623,7 +30928,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29644,7 +30954,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29664,7 +30979,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29684,7 +31004,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -29706,7 +31031,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29726,7 +31056,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29748,7 +31083,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29768,7 +31108,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -29790,7 +31135,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29812,7 +31162,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29832,7 +31187,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29852,7 +31212,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "weightLoss"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -29874,7 +31239,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -29895,7 +31265,12 @@ export const transformedTreatmentData = [
       "urinaryDys",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29916,7 +31291,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29936,7 +31316,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29956,7 +31341,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29976,7 +31366,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -29996,7 +31391,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -30018,7 +31418,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30038,7 +31443,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -30055,7 +31465,12 @@ export const transformedTreatmentData = [
     "treatments": [
       "radiation"
     ],
-    "sideEffects": []
+    "sideEffects": [],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30077,7 +31492,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30099,7 +31519,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -30120,7 +31545,12 @@ export const transformedTreatmentData = [
       "urinaryDys",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -30139,7 +31569,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30161,7 +31596,12 @@ export const transformedTreatmentData = [
       "weightLoss",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -30181,7 +31621,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "urinaryDys",
       "nauseaVomiting"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30203,7 +31648,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30225,7 +31675,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30246,7 +31701,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30266,7 +31726,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30287,7 +31752,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30307,7 +31777,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30328,7 +31803,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30347,7 +31827,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30369,7 +31854,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30389,7 +31879,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30410,7 +31905,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30429,7 +31929,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "nauseaVomiting"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30449,7 +31954,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30469,7 +31979,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -30490,7 +32005,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30510,7 +32030,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30531,7 +32056,12 @@ export const transformedTreatmentData = [
       "urinaryDys",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30553,7 +32083,12 @@ export const transformedTreatmentData = [
       "fatigue",
       "anemia",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -30573,7 +32108,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30593,7 +32133,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30613,7 +32158,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -30634,7 +32184,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30655,7 +32210,12 @@ export const transformedTreatmentData = [
       "urinaryDys",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30676,7 +32236,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30696,7 +32261,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30716,7 +32286,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "urinaryDys",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30736,7 +32311,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30755,7 +32335,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -30777,7 +32362,12 @@ export const transformedTreatmentData = [
       "urinaryDys",
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30798,7 +32388,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -30817,7 +32412,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30838,7 +32438,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30858,7 +32463,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30877,7 +32487,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "hotFlash"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30898,7 +32513,12 @@ export const transformedTreatmentData = [
       "urinaryDys",
       "decLibido",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30919,7 +32539,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30941,7 +32566,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -30961,7 +32591,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -30982,7 +32617,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -31003,7 +32643,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -31024,7 +32669,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -31045,7 +32695,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31066,7 +32721,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31085,7 +32745,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31105,7 +32770,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31126,7 +32796,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31146,7 +32821,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31166,7 +32846,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31186,7 +32871,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -31206,7 +32896,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31225,7 +32920,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "hotFlash"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31245,7 +32945,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31266,7 +32971,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -31286,7 +32996,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -31306,7 +33021,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -31327,7 +33047,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31347,7 +33072,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31367,7 +33097,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31386,7 +33121,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31408,7 +33148,12 @@ export const transformedTreatmentData = [
       "weightLoss",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31429,7 +33174,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31449,7 +33199,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31469,7 +33224,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31489,7 +33249,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31510,7 +33275,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31531,7 +33301,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31553,7 +33328,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31573,7 +33353,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31593,7 +33378,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "bowelDys",
       "nauseaVomiting"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -31615,7 +33405,12 @@ export const transformedTreatmentData = [
       "weightLoss",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31634,7 +33429,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31654,7 +33454,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31675,7 +33480,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31694,7 +33504,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31715,7 +33530,12 @@ export const transformedTreatmentData = [
       "urinaryDys",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31735,7 +33555,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31757,7 +33582,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31778,7 +33608,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31798,7 +33633,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31819,7 +33659,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31838,7 +33683,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31857,7 +33707,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "nauseaVomiting"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31878,7 +33733,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31898,7 +33758,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31920,7 +33785,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31941,7 +33811,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -31961,7 +33836,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -31980,7 +33860,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "weightLoss"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -32001,7 +33886,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -32018,7 +33908,12 @@ export const transformedTreatmentData = [
     "treatments": [
       "radiation"
     ],
-    "sideEffects": []
+    "sideEffects": [],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -32039,7 +33934,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -32061,7 +33961,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -32082,7 +33987,12 @@ export const transformedTreatmentData = [
       "urinaryDys",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -32103,7 +34013,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -32125,7 +34040,12 @@ export const transformedTreatmentData = [
       "weightLoss",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -32146,7 +34066,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -32166,7 +34091,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -32187,7 +34117,12 @@ export const transformedTreatmentData = [
       "urinaryDys",
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -32207,7 +34142,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -32228,7 +34168,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -32249,7 +34194,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -32270,7 +34220,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -32290,7 +34245,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -32312,7 +34272,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -32332,7 +34297,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -32352,7 +34322,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -32372,7 +34347,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -32393,7 +34373,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -32412,7 +34397,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "hotFlash"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -32433,7 +34423,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -32454,7 +34449,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -32474,7 +34474,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -32493,7 +34498,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -32513,7 +34523,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -32534,7 +34549,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -32555,7 +34575,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "bowelDys",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -32575,7 +34600,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -32596,7 +34626,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -32613,7 +34648,12 @@ export const transformedTreatmentData = [
     "treatments": [
       "hormonal"
     ],
-    "sideEffects": []
+    "sideEffects": [],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -32632,7 +34672,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -32652,7 +34697,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -32672,7 +34722,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -32693,7 +34748,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -32712,7 +34772,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -32732,7 +34797,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -32753,7 +34823,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -32774,7 +34849,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -32795,7 +34875,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -32817,7 +34902,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -32838,7 +34928,12 @@ export const transformedTreatmentData = [
       "urinaryDys",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -32861,7 +34956,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -32882,7 +34982,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -32904,7 +35009,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -32924,7 +35034,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -32945,7 +35060,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -32965,7 +35085,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -32984,7 +35109,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33005,7 +35135,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33025,7 +35160,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33046,7 +35186,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "urinaryDys",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33066,7 +35211,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33086,7 +35236,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33108,7 +35263,12 @@ export const transformedTreatmentData = [
       "weightLoss",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33128,7 +35288,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "nauseaVomiting"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33149,7 +35314,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33169,7 +35339,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33190,7 +35365,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33211,7 +35391,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -33230,7 +35415,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33252,7 +35442,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33272,7 +35467,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -33293,7 +35493,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33313,7 +35518,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "urinaryDys",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -33334,7 +35544,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33353,7 +35568,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33373,7 +35593,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33393,7 +35618,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33413,7 +35643,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33435,7 +35670,12 @@ export const transformedTreatmentData = [
       "weightLoss",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33455,7 +35695,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -33476,7 +35721,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "urinaryDys",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33493,7 +35743,12 @@ export const transformedTreatmentData = [
     "treatments": [
       "noTreatment"
     ],
-    "sideEffects": []
+    "sideEffects": [],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33513,7 +35768,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33533,7 +35793,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "nauseaVomiting"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33552,7 +35817,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33573,7 +35843,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33594,7 +35869,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "weightLoss"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33615,7 +35895,12 @@ export const transformedTreatmentData = [
       "urinaryDys",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33636,7 +35921,12 @@ export const transformedTreatmentData = [
       "hotFlash",
       "decLibido",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33658,7 +35948,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33677,7 +35972,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "hotFlash"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33697,7 +35997,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33717,7 +36022,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33738,7 +36048,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33759,7 +36074,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33778,7 +36098,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33797,7 +36122,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "hotFlash"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33816,7 +36146,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33835,7 +36170,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33857,7 +36197,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33878,7 +36223,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33898,7 +36248,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33918,7 +36273,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33939,7 +36299,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33960,7 +36325,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -33982,7 +36352,12 @@ export const transformedTreatmentData = [
       "hotFlash",
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34003,7 +36378,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -34023,7 +36403,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34043,7 +36428,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -34063,7 +36453,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34084,7 +36479,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "weightLoss"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -34106,7 +36506,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34127,7 +36532,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34147,7 +36557,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34167,7 +36582,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34186,7 +36606,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "hotFlash"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34207,7 +36632,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34228,7 +36658,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34248,7 +36683,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34269,7 +36709,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "weightLoss",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34289,7 +36734,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34306,7 +36756,12 @@ export const transformedTreatmentData = [
     "treatments": [
       "hormonal"
     ],
-    "sideEffects": []
+    "sideEffects": [],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34327,7 +36782,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34348,7 +36808,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34368,7 +36833,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34389,7 +36859,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34410,7 +36885,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34432,7 +36912,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "weightLoss",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34451,7 +36936,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34472,7 +36962,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34494,7 +36989,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34514,7 +37014,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "weightLoss"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34535,7 +37040,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34555,7 +37065,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -34577,7 +37092,12 @@ export const transformedTreatmentData = [
       "fatigue",
       "anemia",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34598,7 +37118,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34620,7 +37145,12 @@ export const transformedTreatmentData = [
       "weightLoss",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34641,7 +37171,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34662,7 +37197,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34682,7 +37222,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "bowelDys",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34704,7 +37249,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34726,7 +37276,12 @@ export const transformedTreatmentData = [
       "weightLoss",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34747,7 +37302,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34766,7 +37326,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34786,7 +37351,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -34806,7 +37376,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34827,7 +37402,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34847,7 +37427,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34868,7 +37453,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34889,7 +37479,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34910,7 +37505,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -34929,7 +37529,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34949,7 +37554,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34969,7 +37579,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -34990,7 +37605,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -35012,7 +37632,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35033,7 +37658,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -35053,7 +37683,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35072,7 +37707,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "weightLoss"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35093,7 +37733,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35113,7 +37758,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35134,7 +37784,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35155,7 +37810,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35175,7 +37835,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35196,7 +37861,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -35215,7 +37885,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35235,7 +37910,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35255,7 +37935,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -35276,7 +37961,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35295,7 +37985,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "hotFlash"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35315,7 +38010,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "anemia",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -35337,7 +38037,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -35358,7 +38063,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35379,7 +38089,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35398,7 +38113,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "hotFlash"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35419,7 +38139,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35438,7 +38163,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35459,7 +38189,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35479,7 +38214,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35499,7 +38239,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35521,7 +38266,12 @@ export const transformedTreatmentData = [
       "weightLoss",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35542,7 +38292,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35563,7 +38318,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -35582,7 +38342,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "nauseaVomiting"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35602,7 +38367,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35623,7 +38393,12 @@ export const transformedTreatmentData = [
       "weightLoss",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35645,7 +38420,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -35665,7 +38445,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35684,7 +38469,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -35704,7 +38494,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35723,7 +38518,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "nauseaVomiting"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35744,7 +38544,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35764,7 +38569,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35783,7 +38593,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "nauseaVomiting"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35803,7 +38618,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35822,7 +38642,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "nauseaVomiting"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35843,7 +38668,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35862,7 +38692,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "hotFlash"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35881,7 +38716,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -35902,7 +38742,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35924,7 +38769,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35944,7 +38794,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35965,7 +38820,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -35986,7 +38846,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -36007,7 +38872,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -36028,7 +38898,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "weightLoss",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -36048,7 +38923,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -36070,7 +38950,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -36091,7 +38976,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -36113,7 +39003,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -36133,7 +39028,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -36155,7 +39055,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -36177,7 +39082,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -36197,7 +39107,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -36217,7 +39132,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -36236,7 +39156,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "nauseaVomiting"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -36256,7 +39181,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "nauseaVomiting"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -36277,7 +39207,12 @@ export const transformedTreatmentData = [
       "urinaryDys",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -36296,7 +39231,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -36317,7 +39257,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "weightLoss"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -36336,7 +39281,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "weightLoss"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -36356,7 +39306,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -36378,7 +39333,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -36399,7 +39359,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -36418,7 +39383,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "nauseaVomiting"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -36441,7 +39411,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -36462,7 +39437,12 @@ export const transformedTreatmentData = [
       "urinaryDys",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -36482,7 +39462,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -36501,7 +39486,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "hotFlash"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -36522,7 +39512,12 @@ export const transformedTreatmentData = [
       "urinaryDys",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -36543,7 +39538,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -36563,7 +39563,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -36582,7 +39587,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -36602,7 +39612,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -36622,7 +39637,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -36643,7 +39663,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -36663,7 +39688,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -36684,7 +39714,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -36704,7 +39739,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -36725,7 +39765,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -36746,7 +39791,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -36765,7 +39815,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "nauseaVomiting"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -36787,7 +39842,12 @@ export const transformedTreatmentData = [
       "weightLoss",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -36807,7 +39867,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -36826,7 +39891,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -36846,7 +39916,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -36867,7 +39942,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -36889,7 +39969,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -36910,7 +39995,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -36930,7 +40020,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -36953,7 +40048,12 @@ export const transformedTreatmentData = [
       "weightLoss",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -36973,7 +40073,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -36995,7 +40100,12 @@ export const transformedTreatmentData = [
       "weightLoss",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37015,7 +40125,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "bowelDys",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37035,7 +40150,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37057,7 +40177,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -37078,7 +40203,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37100,7 +40230,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37120,7 +40255,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37141,7 +40281,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37162,7 +40307,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37182,7 +40332,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37202,7 +40357,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -37222,7 +40382,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37242,7 +40407,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37262,7 +40432,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37279,7 +40454,12 @@ export const transformedTreatmentData = [
     "treatments": [
       "radiation"
     ],
-    "sideEffects": []
+    "sideEffects": [],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37300,7 +40480,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37320,7 +40505,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37341,7 +40531,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37364,7 +40559,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37384,7 +40584,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37401,7 +40606,12 @@ export const transformedTreatmentData = [
     "treatments": [
       "surgery"
     ],
-    "sideEffects": []
+    "sideEffects": [],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37424,7 +40634,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37444,7 +40659,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37466,7 +40686,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -37487,7 +40712,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37507,7 +40737,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37526,7 +40761,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37547,7 +40787,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37568,7 +40813,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37590,7 +40840,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37611,7 +40866,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37631,7 +40891,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37652,7 +40917,12 @@ export const transformedTreatmentData = [
       "urinaryDys",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37669,7 +40939,12 @@ export const transformedTreatmentData = [
     "treatments": [
       "noTreatment"
     ],
-    "sideEffects": []
+    "sideEffects": [],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37688,7 +40963,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37708,7 +40988,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37729,7 +41014,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37750,7 +41040,12 @@ export const transformedTreatmentData = [
       "urinaryDys",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37772,7 +41067,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37792,7 +41092,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37813,7 +41118,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37834,7 +41144,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37853,7 +41168,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "weightLoss"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37875,7 +41195,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37896,7 +41221,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37918,7 +41248,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37939,7 +41274,12 @@ export const transformedTreatmentData = [
       "hotFlash",
       "decLibido",
       "weightLoss"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37959,7 +41299,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37979,7 +41324,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -37997,7 +41347,12 @@ export const transformedTreatmentData = [
       "chemo",
       "radiation"
     ],
-    "sideEffects": []
+    "sideEffects": [],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38018,7 +41373,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38038,7 +41398,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38058,7 +41423,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38078,7 +41448,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -38100,7 +41475,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38120,7 +41500,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38140,7 +41525,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38160,7 +41550,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "urinaryDys",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38179,7 +41574,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38199,7 +41599,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38218,7 +41623,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38237,7 +41647,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38257,7 +41672,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38277,7 +41697,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "urinaryDys",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38297,7 +41722,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "bowelDys",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38318,7 +41748,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38339,7 +41774,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -38359,7 +41799,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38380,7 +41825,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38401,7 +41851,12 @@ export const transformedTreatmentData = [
       "urinaryDys",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38421,7 +41876,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "urinaryDys",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -38443,7 +41903,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38463,7 +41928,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38485,7 +41955,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38507,7 +41982,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38527,7 +42007,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38548,7 +42033,12 @@ export const transformedTreatmentData = [
       "urinaryDys",
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38568,7 +42058,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -38588,7 +42083,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38610,7 +42110,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38632,7 +42137,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38653,7 +42163,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -38674,7 +42189,12 @@ export const transformedTreatmentData = [
       "hotFlash",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38694,7 +42214,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -38714,7 +42239,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "bowelDys",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38733,7 +42263,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "hotFlash"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38753,7 +42288,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -38774,7 +42314,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38794,7 +42339,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38814,7 +42364,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38835,7 +42390,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -38854,7 +42414,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "nauseaVomiting"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38874,7 +42439,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38896,7 +42466,12 @@ export const transformedTreatmentData = [
       "weightLoss",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38917,7 +42492,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38939,7 +42519,12 @@ export const transformedTreatmentData = [
       "hotFlash",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -38960,7 +42545,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -38982,7 +42572,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -39002,7 +42597,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -39022,7 +42622,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39042,7 +42647,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39063,7 +42673,12 @@ export const transformedTreatmentData = [
       "hotFlash",
       "nauseaVomiting",
       "weightLoss"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39082,7 +42697,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39102,7 +42722,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39123,7 +42748,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39143,7 +42773,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39163,7 +42798,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39182,7 +42822,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39202,7 +42847,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39223,7 +42873,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39243,7 +42898,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39262,7 +42922,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39282,7 +42947,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39304,7 +42974,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39324,7 +42999,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -39346,7 +43026,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39366,7 +43051,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -39386,7 +43076,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39406,7 +43101,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39425,7 +43125,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39445,7 +43150,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39467,7 +43177,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39488,7 +43203,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -39509,7 +43229,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39530,7 +43255,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "weightLoss"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39551,7 +43281,12 @@ export const transformedTreatmentData = [
       "urinaryDys",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39572,7 +43307,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39593,7 +43333,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39614,7 +43359,12 @@ export const transformedTreatmentData = [
       "urinaryDys",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -39635,7 +43385,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39656,7 +43411,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39676,7 +43436,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39697,7 +43462,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39714,7 +43484,12 @@ export const transformedTreatmentData = [
     "treatments": [
       "radiation"
     ],
-    "sideEffects": []
+    "sideEffects": [],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -39734,7 +43509,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39754,7 +43534,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -39774,7 +43559,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39791,7 +43581,12 @@ export const transformedTreatmentData = [
     "treatments": [
       "surgery"
     ],
-    "sideEffects": []
+    "sideEffects": [],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39812,7 +43607,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39832,7 +43632,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "bowelDys",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39854,7 +43659,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -39875,7 +43685,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "weightLoss",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39895,7 +43710,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39915,7 +43735,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -39934,7 +43759,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39954,7 +43784,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -39975,7 +43810,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -39996,7 +43836,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40016,7 +43861,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40036,7 +43886,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "weightLoss"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40057,7 +43912,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "weightLoss"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40078,7 +43938,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40099,7 +43964,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40121,7 +43991,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40141,7 +44016,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40161,7 +44041,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40182,7 +44067,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40202,7 +44092,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40224,7 +44119,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40245,7 +44145,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40265,7 +44170,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -40285,7 +44195,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40305,7 +44220,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40325,7 +44245,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40345,7 +44270,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40365,7 +44295,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "bowelDys",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -40386,7 +44321,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40406,7 +44346,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40427,7 +44372,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40447,7 +44397,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40467,7 +44422,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "weightLoss"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40487,7 +44447,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40510,7 +44475,12 @@ export const transformedTreatmentData = [
       "weightLoss",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40529,7 +44499,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40551,7 +44526,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40571,7 +44551,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40591,7 +44576,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40611,7 +44601,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40632,7 +44627,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40652,7 +44652,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40673,7 +44678,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -40694,7 +44704,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40714,7 +44729,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40734,7 +44754,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -40755,7 +44780,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40774,7 +44804,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "nauseaVomiting"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -40794,7 +44829,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40816,7 +44856,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40836,7 +44881,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40856,7 +44906,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -40876,7 +44931,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40896,7 +44956,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -40917,7 +44982,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40937,7 +45007,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40958,7 +45033,12 @@ export const transformedTreatmentData = [
       "urinaryDys",
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40978,7 +45058,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -40999,7 +45084,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -41018,7 +45108,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41039,7 +45134,12 @@ export const transformedTreatmentData = [
       "urinaryDys",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41059,7 +45159,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41078,7 +45183,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41100,7 +45210,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -41121,7 +45236,12 @@ export const transformedTreatmentData = [
       "hotFlash",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41142,7 +45262,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41162,7 +45287,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41183,7 +45313,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41201,7 +45336,12 @@ export const transformedTreatmentData = [
       "chemo",
       "radiation"
     ],
-    "sideEffects": []
+    "sideEffects": [],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41222,7 +45362,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41241,7 +45386,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41262,7 +45412,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -41283,7 +45438,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41303,7 +45463,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41325,7 +45490,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -41345,7 +45515,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41365,7 +45540,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41385,7 +45565,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -41406,7 +45591,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "weightLoss"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41427,7 +45617,12 @@ export const transformedTreatmentData = [
       "urinaryDys",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41447,7 +45642,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -41467,7 +45667,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41487,7 +45692,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41507,7 +45717,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41527,7 +45742,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -41549,7 +45769,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -41569,7 +45794,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "weightLoss"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41590,7 +45820,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41609,7 +45844,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41629,7 +45869,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41649,7 +45894,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "weightLoss"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41666,7 +45916,12 @@ export const transformedTreatmentData = [
     "treatments": [
       "surgery"
     ],
-    "sideEffects": []
+    "sideEffects": [],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41688,7 +45943,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41709,7 +45969,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41730,7 +45995,12 @@ export const transformedTreatmentData = [
       "urinaryDys",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41750,7 +46020,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -41770,7 +46045,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41790,7 +46070,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41811,7 +46096,12 @@ export const transformedTreatmentData = [
       "urinaryDys",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41833,7 +46123,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41852,7 +46147,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "nauseaVomiting"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41872,7 +46172,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41892,7 +46197,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41914,7 +46224,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41934,7 +46249,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41953,7 +46273,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41974,7 +46299,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -41995,7 +46325,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42016,7 +46351,12 @@ export const transformedTreatmentData = [
       "hotFlash",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42036,7 +46376,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42057,7 +46402,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42078,7 +46428,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -42098,7 +46453,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42118,7 +46478,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42138,7 +46503,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42160,7 +46530,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42181,7 +46556,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42200,7 +46580,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42222,7 +46607,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42242,7 +46632,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42261,7 +46656,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "hotFlash"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42283,7 +46683,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42305,7 +46710,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42325,7 +46735,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42345,7 +46760,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -42365,7 +46785,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42385,7 +46810,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42406,7 +46836,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42426,7 +46861,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42447,7 +46887,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42467,7 +46912,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -42486,7 +46936,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "hotFlash"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42506,7 +46961,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -42525,7 +46985,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "nauseaVomiting"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42545,7 +47010,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42566,7 +47036,12 @@ export const transformedTreatmentData = [
       "urinaryDys",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -42586,7 +47061,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -42603,7 +47083,12 @@ export const transformedTreatmentData = [
     "treatments": [
       "hormonal"
     ],
-    "sideEffects": []
+    "sideEffects": [],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42624,7 +47109,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42644,7 +47134,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -42664,7 +47159,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -42683,7 +47183,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "urinaryDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42703,7 +47208,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42725,7 +47235,12 @@ export const transformedTreatmentData = [
       "weightLoss",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42745,7 +47260,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42766,7 +47286,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42786,7 +47311,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -42807,7 +47337,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -42827,7 +47362,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -42847,7 +47387,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42867,7 +47412,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42886,7 +47436,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42906,7 +47461,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "hotFlash",
       "decLibido"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42926,7 +47486,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42946,7 +47511,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "bowelDys",
       "nauseaVomiting"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42968,7 +47538,12 @@ export const transformedTreatmentData = [
       "weightLoss",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -42988,7 +47563,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -43009,7 +47589,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -43031,7 +47616,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -43051,7 +47641,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -43073,7 +47668,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -43094,7 +47694,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "decLibido",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -43114,7 +47719,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -43136,7 +47746,12 @@ export const transformedTreatmentData = [
       "weightLoss",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -43157,7 +47772,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -43176,7 +47796,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "nauseaVomiting"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -43197,7 +47822,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "anemia"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -43218,7 +47848,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -43239,7 +47874,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "nauseaVomiting",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -43259,7 +47899,12 @@ export const transformedTreatmentData = [
     "sideEffects": [
       "nauseaVomiting",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Negative",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -43278,7 +47923,12 @@ export const transformedTreatmentData = [
     ],
     "sideEffects": [
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -43299,7 +47949,12 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "anemia",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -43321,7 +47976,12 @@ export const transformedTreatmentData = [
       "decLibido",
       "weightLoss",
       "fatigue"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Negative",
+      "her2": "Positive"
+    }
   },
   {
     "demographics": {
@@ -43342,7 +48002,12 @@ export const transformedTreatmentData = [
       "bowelDys",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   },
   {
     "demographics": {
@@ -43363,6 +48028,11 @@ export const transformedTreatmentData = [
       "nauseaVomiting",
       "fatigue",
       "erectileDys"
-    ]
+    ],
+    "tumorMarkers": {
+      "er": "Positive",
+      "pr": "Positive",
+      "her2": "Negative"
+    }
   }
 ];
