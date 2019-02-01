@@ -9,8 +9,8 @@ import Identifier from '../shr/core/Identifier';
 import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
 import ParticipationPeriod from '../shr/base/ParticipationPeriod';
-import TimePeriodStart from '../shr/core/TimePeriodStart';
-import TimePeriodEnd from '../shr/core/TimePeriodEnd';
+import BeginDateTime from '../shr/core/BeginDateTime';
+import EndDateTime from '../shr/core/EndDateTime';
 import Lang from 'lodash';
 import lookup from '../../lib/clinicaltrial_lookup.jsx';
 
@@ -131,7 +131,7 @@ class FluxResearchSubject extends FluxEntry {
             this._researchSubject.participationPeriod.timePeriod = new TimePeriod();
         }
         if (!this._researchSubject.participationPeriod.timePeriod.timePeriodStart) {
-            this._researchSubject.participationPeriod.timePeriod.timePeriodStart = new TimePeriodStart();
+            this._researchSubject.participationPeriod.timePeriod.timePeriodStart = new BeginDateTime();
         }
         this._researchSubject.participationPeriod.timePeriod.timePeriodStart.value = val;
     }
@@ -155,7 +155,7 @@ class FluxResearchSubject extends FluxEntry {
             this._researchSubject.participationPeriod.timePeriod = new TimePeriod();
         }
         if (!this._researchSubject.participationPeriod.timePeriod.timePeriodEnd) {
-            this._researchSubject.participationPeriod.timePeriod.timePeriodEnd = new TimePeriodEnd();
+            this._researchSubject.participationPeriod.timePeriod.timePeriodEnd = new EndDateTime();
         }
         this._researchSubject.participationPeriod.timePeriod.timePeriodEnd.value = val;
     }

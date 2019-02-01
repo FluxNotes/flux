@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 /**
  * Generated class for shr.core.Timing.
@@ -136,7 +136,7 @@ class Timing {
    * @param {object} json - the JSON data to deserialize
    * @returns {Timing} An instance of Timing populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new Timing();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -148,7 +148,7 @@ class Timing {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/Timing' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Timing' } };
     if (this.occurrenceTime != null) {
       inst['OccurrenceTime'] = this.occurrenceTime.map(f => f.toJSON());
     }
@@ -168,240 +168,89 @@ class Timing {
   }
 
   /**
-   * Serializes an instance of the Timing class to a FHIR object.
-   * The FHIR is expected to be valid against the Timing FHIR profile, but no validation checks are performed.
-   * @param {boolean} asExtension - Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
-    if (this.recurrenceRange != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.recurrenceRange.toFHIR === 'function' ? this.recurrenceRange.toFHIR(true) : this.recurrenceRange);
-    }
-    if (this.occurrenceTime != null) {
-      inst['event'] = inst['event'] || [];
-      inst['event'] = inst['event'].concat(this.occurrenceTime.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    if (this.eventDuration != null && this.eventDuration.durationRange != null && this.eventDuration.durationRange.lowerBound != null && this.eventDuration.durationRange.lowerBound.simpleQuantity != null && this.eventDuration.durationRange.lowerBound.simpleQuantity.decimalValue != null) {
-      if (inst['repeat'] === undefined) {
-        inst['repeat'] = {};
-      }
-      inst['repeat']['duration'] = typeof this.eventDuration.durationRange.lowerBound.simpleQuantity.decimalValue.toFHIR === 'function' ? this.eventDuration.durationRange.lowerBound.simpleQuantity.decimalValue.toFHIR() : this.eventDuration.durationRange.lowerBound.simpleQuantity.decimalValue;
-    }
-    if (this.eventDuration != null && this.eventDuration.durationRange != null && this.eventDuration.durationRange.upperBound != null && this.eventDuration.durationRange.upperBound.simpleQuantity != null && this.eventDuration.durationRange.upperBound.simpleQuantity.decimalValue != null) {
-      if (inst['repeat'] === undefined) {
-        inst['repeat'] = {};
-      }
-      inst['repeat']['durationMax'] = typeof this.eventDuration.durationRange.upperBound.simpleQuantity.decimalValue.toFHIR === 'function' ? this.eventDuration.durationRange.upperBound.simpleQuantity.decimalValue.toFHIR() : this.eventDuration.durationRange.upperBound.simpleQuantity.decimalValue;
-    }
-    if (this.eventDuration != null && this.eventDuration.durationRange != null && this.eventDuration.durationRange.lowerBound != null && this.eventDuration.durationRange.lowerBound.simpleQuantity != null && this.eventDuration.durationRange.lowerBound.simpleQuantity.units != null && this.eventDuration.durationRange.lowerBound.simpleQuantity.units.coding != null && this.eventDuration.durationRange.lowerBound.simpleQuantity.units.coding.code != null) {
-      if (inst['repeat'] === undefined) {
-        inst['repeat'] = {};
-      }
-      inst['repeat']['durationUnit'] = typeof this.eventDuration.durationRange.lowerBound.simpleQuantity.units.coding.code.toFHIR === 'function' ? this.eventDuration.durationRange.lowerBound.simpleQuantity.units.coding.code.toFHIR() : this.eventDuration.durationRange.lowerBound.simpleQuantity.units.coding.code;
-    }
-    if (this.recurrencePattern != null && this.recurrencePattern.countPerInterval != null && this.recurrencePattern.countPerInterval.minCount != null) {
-      if (inst['repeat'] === undefined) {
-        inst['repeat'] = {};
-      }
-      inst['repeat']['frequency'] = typeof this.recurrencePattern.countPerInterval.minCount.toFHIR === 'function' ? this.recurrencePattern.countPerInterval.minCount.toFHIR() : this.recurrencePattern.countPerInterval.minCount;
-    }
-    if (this.recurrencePattern != null && this.recurrencePattern.countPerInterval != null && this.recurrencePattern.countPerInterval.maxCount != null) {
-      if (inst['repeat'] === undefined) {
-        inst['repeat'] = {};
-      }
-      inst['repeat']['frequencyMax'] = typeof this.recurrencePattern.countPerInterval.maxCount.toFHIR === 'function' ? this.recurrencePattern.countPerInterval.maxCount.toFHIR() : this.recurrencePattern.countPerInterval.maxCount;
-    }
-    if (this.recurrencePattern != null && this.recurrencePattern.recurrenceInterval != null && this.recurrencePattern.recurrenceInterval.duration != null && this.recurrencePattern.recurrenceInterval.duration.decimalValue != null) {
-      if (inst['repeat'] === undefined) {
-        inst['repeat'] = {};
-      }
-      inst['repeat']['period'] = typeof this.recurrencePattern.recurrenceInterval.duration.decimalValue.toFHIR === 'function' ? this.recurrencePattern.recurrenceInterval.duration.decimalValue.toFHIR() : this.recurrencePattern.recurrenceInterval.duration.decimalValue;
-    }
-    if (this.recurrencePattern != null && this.recurrencePattern.recurrenceInterval != null && this.recurrencePattern.recurrenceInterval.duration != null && this.recurrencePattern.recurrenceInterval.duration.units != null && this.recurrencePattern.recurrenceInterval.duration.units.coding != null && this.recurrencePattern.recurrenceInterval.duration.units.coding.code != null) {
-      if (inst['repeat'] === undefined) {
-        inst['repeat'] = {};
-      }
-      inst['repeat']['periodUnit'] = typeof this.recurrencePattern.recurrenceInterval.duration.units.coding.code.toFHIR === 'function' ? this.recurrencePattern.recurrenceInterval.duration.units.coding.code.toFHIR() : this.recurrencePattern.recurrenceInterval.duration.units.coding.code;
-    }
-    if (this.recurrencePattern != null && this.recurrencePattern.dayOfWeek != null) {
-      if (inst['repeat'] === undefined) {
-        inst['repeat'] = {};
-      }
-      inst['repeat']['dayOfWeek'] = typeof this.recurrencePattern.dayOfWeek.toFHIR === 'function' ? this.recurrencePattern.dayOfWeek.toFHIR() : this.recurrencePattern.dayOfWeek;
-    }
-    if (this.recurrencePattern != null && this.recurrencePattern.timeOfDay != null) {
-      if (inst['repeat'] === undefined) {
-        inst['repeat'] = {};
-      }
-      inst['repeat']['timeOfDay'] = typeof this.recurrencePattern.timeOfDay.toFHIR === 'function' ? this.recurrencePattern.timeOfDay.toFHIR() : this.recurrencePattern.timeOfDay;
-    }
-    if (this.recurrencePattern != null && this.recurrencePattern.dailyLifeEvent != null) {
-      if (inst['repeat'] === undefined) {
-        inst['repeat'] = {};
-      }
-      inst['repeat']['when'] = typeof this.recurrencePattern.dailyLifeEvent.toFHIR === 'function' ? this.recurrencePattern.dailyLifeEvent.toFHIR() : this.recurrencePattern.dailyLifeEvent;
-    }
-    if (this.recurrencePattern != null && this.recurrencePattern.lifeEventOffset != null) {
-      if (inst['repeat'] === undefined) {
-        inst['repeat'] = {};
-      }
-      inst['repeat']['offset'] = typeof this.recurrencePattern.lifeEventOffset.toFHIR === 'function' ? this.recurrencePattern.lifeEventOffset.toFHIR() : this.recurrencePattern.lifeEventOffset;
-    }
-    if (this.timingCode != null) {
-      inst['code'] = typeof this.timingCode.toFHIR === 'function' ? this.timingCode.toFHIR() : this.timingCode;
-    }
-    return inst;
-  }
-
-  /**
    * Deserializes FHIR JSON data to an instance of the Timing class.
    * The FHIR must be valid against the Timing FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Timing} An instance of Timing populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension = false) {
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new Timing();
-    if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-core-RecurrenceRange-extension');
-      if (match != null) {
-        inst.recurrenceRange = createInstanceFromFHIR('shr.core.RecurrenceRange', match, true);
+    for (const fhir_extension of fhir['extension'] || []) {
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-RecurrenceRange-extension') {
+        inst.recurrenceRange = FHIRHelper.createInstanceFromFHIR('shr.core.RecurrenceRange', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
       }
     }
-    if (fhir['event'] != null) {
+    for (const fhir_event of fhir['event'] || []) {
       inst.occurrenceTime = inst.occurrenceTime || [];
-      inst.occurrenceTime = inst.occurrenceTime.concat(fhir['event'].map(f => createInstanceFromFHIR('shr.core.OccurrenceTime', f)));
+      const inst_occurrenceTime = FHIRHelper.createInstanceFromFHIR('shr.core.OccurrenceTime', fhir_event, shrId, allEntries, mappedResources, referencesOut, false);
+      inst.occurrenceTime.push(inst_occurrenceTime);
     }
-    if (fhir['repeat'] != null && fhir['repeat']['duration'] != null) {
-      if (inst.eventDuration === null) {
-        inst.eventDuration = createInstanceFromFHIR('shr.core.EventDuration', {});
+    if (fhir['repeat'] != null) {
+      if (fhir['repeat']['duration'] != null) {
+        inst.eventDuration = inst.eventDuration || FHIRHelper.createInstanceFromFHIR('shr.core.EventDuration', {}, shrId);
+        inst.eventDuration.value = inst.eventDuration.value || FHIRHelper.createInstanceFromFHIR('shr.core.DurationRange', {}, shrId);
+        inst.eventDuration.value.lowerBound = inst.eventDuration.value.lowerBound || FHIRHelper.createInstanceFromFHIR('shr.core.LowerBound', {}, shrId);
+        inst.eventDuration.value.lowerBound.value = inst.eventDuration.value.lowerBound.value || FHIRHelper.createInstanceFromFHIR('shr.core.SimpleQuantity', {}, shrId);
+        inst.eventDuration.value.lowerBound.value.number = FHIRHelper.createInstanceFromFHIR('shr.core.Number', fhir['repeat']['duration'], shrId, allEntries, mappedResources, referencesOut, false);
+        if (fhir['repeat']['durationMax'] != null) {
+          inst.eventDuration.value.upperBound = inst.eventDuration.value.upperBound || FHIRHelper.createInstanceFromFHIR('shr.core.UpperBound', {}, shrId);
+          inst.eventDuration.value.upperBound.value = inst.eventDuration.value.upperBound.value || FHIRHelper.createInstanceFromFHIR('shr.core.SimpleQuantity', {}, shrId);
+        }
+        if (fhir['repeat']['durationUnit'] != null) {
+          inst.eventDuration.value.lowerBound.value.units = inst.eventDuration.value.lowerBound.value.units || FHIRHelper.createInstanceFromFHIR('shr.core.Units', {}, shrId);
+          inst.eventDuration.value.lowerBound.value.units.value = inst.eventDuration.value.lowerBound.value.units.value || FHIRHelper.createInstanceFromFHIR('shr.core.Coding', {}, shrId);
+          inst.eventDuration.value.lowerBound.value.units.value.code = FHIRHelper.createInstanceFromFHIR('shr.core.Code', fhir['repeat']['durationUnit'], shrId, allEntries, mappedResources, referencesOut, false);
+        }
       }
-      if (inst.eventDuration.value === null) {
-        inst.eventDuration.value = createInstanceFromFHIR('shr.core.DurationRange', {});
+      if (fhir['repeat']['frequency'] != null) {
+        inst.recurrencePattern = inst.recurrencePattern || FHIRHelper.createInstanceFromFHIR('shr.core.RecurrencePattern', {}, shrId);
+        inst.recurrencePattern.countPerInterval = inst.recurrencePattern.countPerInterval || FHIRHelper.createInstanceFromFHIR('shr.core.CountPerInterval', {}, shrId);
+        inst.recurrencePattern.countPerInterval.minCount = FHIRHelper.createInstanceFromFHIR('shr.core.MinCount', fhir['repeat']['frequency'], shrId, allEntries, mappedResources, referencesOut, false);
+        if (fhir['repeat']['frequencyMax'] != null) {
+          inst.recurrencePattern.countPerInterval.maxCount = FHIRHelper.createInstanceFromFHIR('shr.core.MaxCount', fhir['repeat']['frequencyMax'], shrId, allEntries, mappedResources, referencesOut, false);
+        }
       }
-      if (inst.eventDuration.value.lowerBound === null) {
-        inst.eventDuration.value.lowerBound = createInstanceFromFHIR('shr.core.LowerBound', {});
+      if (fhir['repeat']['period'] != null) {
+        inst.recurrencePattern = inst.recurrencePattern || FHIRHelper.createInstanceFromFHIR('shr.core.RecurrencePattern', {}, shrId);
+        inst.recurrencePattern.recurrenceInterval = inst.recurrencePattern.recurrenceInterval || FHIRHelper.createInstanceFromFHIR('shr.core.RecurrenceInterval', {}, shrId);
+        inst.recurrencePattern.recurrenceInterval.value = inst.recurrencePattern.recurrenceInterval.value || FHIRHelper.createInstanceFromFHIR('shr.core.Duration', {}, shrId);
+        inst.recurrencePattern.recurrenceInterval.value.number = FHIRHelper.createInstanceFromFHIR('shr.core.Number', fhir['repeat']['period'], shrId, allEntries, mappedResources, referencesOut, false);
+        if (fhir['repeat']['periodUnit'] != null) {
+          inst.recurrencePattern.recurrenceInterval.value.units = inst.recurrencePattern.recurrenceInterval.value.units || FHIRHelper.createInstanceFromFHIR('shr.core.Units', {}, shrId);
+          inst.recurrencePattern.recurrenceInterval.value.units.value = inst.recurrencePattern.recurrenceInterval.value.units.value || FHIRHelper.createInstanceFromFHIR('shr.core.Coding', {}, shrId);
+          inst.recurrencePattern.recurrenceInterval.value.units.value.code = FHIRHelper.createInstanceFromFHIR('shr.core.Code', fhir['repeat']['periodUnit'], shrId, allEntries, mappedResources, referencesOut, false);
+        }
       }
-      if (inst.eventDuration.value.lowerBound.value === null) {
-        inst.eventDuration.value.lowerBound.value = createInstanceFromFHIR('shr.core.SimpleQuantity', {});
+      for (const fhir_repeat_dayOfWeek of fhir['repeat']['dayOfWeek'] || []) {
+        inst.recurrencePattern = inst.recurrencePattern || FHIRHelper.createInstanceFromFHIR('shr.core.RecurrencePattern', {}, shrId);
+        inst.recurrencePattern.dayOfWeek = inst.recurrencePattern.dayOfWeek || [];
+        const inst_recurrencePattern_dayOfWeek = FHIRHelper.createInstanceFromFHIR('shr.core.DayOfWeek', fhir_repeat_dayOfWeek, shrId, allEntries, mappedResources, referencesOut, false);
+        inst.recurrencePattern.dayOfWeek.push(inst_recurrencePattern_dayOfWeek);
       }
-      inst.eventDuration.value.lowerBound.value.decimalValue = createInstanceFromFHIR('shr.core.DecimalValue', fhir['repeat']['duration']);
-    }
-    if (fhir['repeat'] != null && fhir['repeat']['durationMax'] != null) {
-      if (inst.eventDuration === null) {
-        inst.eventDuration = createInstanceFromFHIR('shr.core.EventDuration', {});
+      for (const fhir_repeat_timeOfDay of fhir['repeat']['timeOfDay'] || []) {
+        inst.recurrencePattern = inst.recurrencePattern || FHIRHelper.createInstanceFromFHIR('shr.core.RecurrencePattern', {}, shrId);
+        inst.recurrencePattern.timeOfDay = inst.recurrencePattern.timeOfDay || [];
+        const inst_recurrencePattern_timeOfDay = FHIRHelper.createInstanceFromFHIR('shr.core.TimeOfDay', fhir_repeat_timeOfDay, shrId, allEntries, mappedResources, referencesOut, false);
+        inst.recurrencePattern.timeOfDay.push(inst_recurrencePattern_timeOfDay);
       }
-      if (inst.eventDuration.value === null) {
-        inst.eventDuration.value = createInstanceFromFHIR('shr.core.DurationRange', {});
+      for (const fhir_repeat_when of fhir['repeat']['when'] || []) {
+        inst.recurrencePattern = inst.recurrencePattern || FHIRHelper.createInstanceFromFHIR('shr.core.RecurrencePattern', {}, shrId);
+        inst.recurrencePattern.dailyLifeEvent = inst.recurrencePattern.dailyLifeEvent || [];
+        const inst_recurrencePattern_dailyLifeEvent = FHIRHelper.createInstanceFromFHIR('shr.core.DailyLifeEvent', fhir_repeat_when, shrId, allEntries, mappedResources, referencesOut, false);
+        inst.recurrencePattern.dailyLifeEvent.push(inst_recurrencePattern_dailyLifeEvent);
       }
-      if (inst.eventDuration.value.upperBound === null) {
-        inst.eventDuration.value.upperBound = createInstanceFromFHIR('shr.core.UpperBound', {});
+      if (fhir['repeat']['offset'] != null) {
+        inst.recurrencePattern = inst.recurrencePattern || FHIRHelper.createInstanceFromFHIR('shr.core.RecurrencePattern', {}, shrId);
+        inst.recurrencePattern.lifeEventOffset = FHIRHelper.createInstanceFromFHIR('shr.core.LifeEventOffset', fhir['repeat']['offset'], shrId, allEntries, mappedResources, referencesOut, false);
       }
-      if (inst.eventDuration.value.upperBound.value === null) {
-        inst.eventDuration.value.upperBound.value = createInstanceFromFHIR('shr.core.SimpleQuantity', {});
-      }
-      inst.eventDuration.value.upperBound.value.decimalValue = createInstanceFromFHIR('shr.core.DecimalValue', fhir['repeat']['durationMax']);
-    }
-    if (fhir['repeat'] != null && fhir['repeat']['durationUnit'] != null) {
-      if (inst.eventDuration === null) {
-        inst.eventDuration = createInstanceFromFHIR('shr.core.EventDuration', {});
-      }
-      if (inst.eventDuration.value === null) {
-        inst.eventDuration.value = createInstanceFromFHIR('shr.core.DurationRange', {});
-      }
-      if (inst.eventDuration.value.lowerBound === null) {
-        inst.eventDuration.value.lowerBound = createInstanceFromFHIR('shr.core.LowerBound', {});
-      }
-      if (inst.eventDuration.value.lowerBound.value === null) {
-        inst.eventDuration.value.lowerBound.value = createInstanceFromFHIR('shr.core.SimpleQuantity', {});
-      }
-      if (inst.eventDuration.value.lowerBound.value.units === null) {
-        inst.eventDuration.value.lowerBound.value.units = createInstanceFromFHIR('shr.core.Units', {});
-      }
-      if (inst.eventDuration.value.lowerBound.value.units.value === null) {
-        inst.eventDuration.value.lowerBound.value.units.value = createInstanceFromFHIR('shr.core.Coding', {});
-      }
-      inst.eventDuration.value.lowerBound.value.units.value.code = createInstanceFromFHIR('shr.core.Code', fhir['repeat']['durationUnit']);
-    }
-    if (fhir['repeat'] != null && fhir['repeat']['frequency'] != null) {
-      if (inst.recurrencePattern === null) {
-        inst.recurrencePattern = createInstanceFromFHIR('shr.core.RecurrencePattern', {});
-      }
-      if (inst.recurrencePattern.countPerInterval === null) {
-        inst.recurrencePattern.countPerInterval = createInstanceFromFHIR('shr.core.CountPerInterval', {});
-      }
-      inst.recurrencePattern.countPerInterval.minCount = createInstanceFromFHIR('shr.core.MinCount', fhir['repeat']['frequency']);
-    }
-    if (fhir['repeat'] != null && fhir['repeat']['frequencyMax'] != null) {
-      if (inst.recurrencePattern === null) {
-        inst.recurrencePattern = createInstanceFromFHIR('shr.core.RecurrencePattern', {});
-      }
-      if (inst.recurrencePattern.countPerInterval === null) {
-        inst.recurrencePattern.countPerInterval = createInstanceFromFHIR('shr.core.CountPerInterval', {});
-      }
-      inst.recurrencePattern.countPerInterval.maxCount = createInstanceFromFHIR('shr.core.MaxCount', fhir['repeat']['frequencyMax']);
-    }
-    if (fhir['repeat'] != null && fhir['repeat']['period'] != null) {
-      if (inst.recurrencePattern === null) {
-        inst.recurrencePattern = createInstanceFromFHIR('shr.core.RecurrencePattern', {});
-      }
-      if (inst.recurrencePattern.recurrenceInterval === null) {
-        inst.recurrencePattern.recurrenceInterval = createInstanceFromFHIR('shr.core.RecurrenceInterval', {});
-      }
-      if (inst.recurrencePattern.recurrenceInterval.value === null) {
-        inst.recurrencePattern.recurrenceInterval.value = createInstanceFromFHIR('shr.core.Duration', {});
-      }
-      inst.recurrencePattern.recurrenceInterval.value.decimalValue = createInstanceFromFHIR('shr.core.DecimalValue', fhir['repeat']['period']);
-    }
-    if (fhir['repeat'] != null && fhir['repeat']['periodUnit'] != null) {
-      if (inst.recurrencePattern === null) {
-        inst.recurrencePattern = createInstanceFromFHIR('shr.core.RecurrencePattern', {});
-      }
-      if (inst.recurrencePattern.recurrenceInterval === null) {
-        inst.recurrencePattern.recurrenceInterval = createInstanceFromFHIR('shr.core.RecurrenceInterval', {});
-      }
-      if (inst.recurrencePattern.recurrenceInterval.value === null) {
-        inst.recurrencePattern.recurrenceInterval.value = createInstanceFromFHIR('shr.core.Duration', {});
-      }
-      if (inst.recurrencePattern.recurrenceInterval.value.units === null) {
-        inst.recurrencePattern.recurrenceInterval.value.units = createInstanceFromFHIR('shr.core.Units', {});
-      }
-      if (inst.recurrencePattern.recurrenceInterval.value.units.value === null) {
-        inst.recurrencePattern.recurrenceInterval.value.units.value = createInstanceFromFHIR('shr.core.Coding', {});
-      }
-      inst.recurrencePattern.recurrenceInterval.value.units.value.code = createInstanceFromFHIR('shr.core.Code', fhir['repeat']['periodUnit']);
-    }
-    if (fhir['repeat'] != null && fhir['repeat']['dayOfWeek'] != null) {
-      if (inst.recurrencePattern === null) {
-        inst.recurrencePattern = createInstanceFromFHIR('shr.core.RecurrencePattern', {});
-      }
-      inst.recurrencePattern.dayOfWeek = inst.recurrencePattern.dayOfWeek || [];
-      inst.recurrencePattern.dayOfWeek = inst.recurrencePattern.dayOfWeek.concat(fhir['repeat']['dayOfWeek'].map(f => createInstanceFromFHIR('shr.core.DayOfWeek', f)));
-    }
-    if (fhir['repeat'] != null && fhir['repeat']['timeOfDay'] != null) {
-      if (inst.recurrencePattern === null) {
-        inst.recurrencePattern = createInstanceFromFHIR('shr.core.RecurrencePattern', {});
-      }
-      inst.recurrencePattern.timeOfDay = inst.recurrencePattern.timeOfDay || [];
-      inst.recurrencePattern.timeOfDay = inst.recurrencePattern.timeOfDay.concat(fhir['repeat']['timeOfDay'].map(f => createInstanceFromFHIR('shr.core.TimeOfDay', f)));
-    }
-    if (fhir['repeat'] != null && fhir['repeat']['when'] != null) {
-      if (inst.recurrencePattern === null) {
-        inst.recurrencePattern = createInstanceFromFHIR('shr.core.RecurrencePattern', {});
-      }
-      inst.recurrencePattern.dailyLifeEvent = inst.recurrencePattern.dailyLifeEvent || [];
-      inst.recurrencePattern.dailyLifeEvent = inst.recurrencePattern.dailyLifeEvent.concat(fhir['repeat']['when'].map(f => createInstanceFromFHIR('shr.core.DailyLifeEvent', f)));
-    }
-    if (fhir['repeat'] != null && fhir['repeat']['offset'] != null) {
-      if (inst.recurrencePattern === null) {
-        inst.recurrencePattern = createInstanceFromFHIR('shr.core.RecurrencePattern', {});
-      }
-      inst.recurrencePattern.lifeEventOffset = createInstanceFromFHIR('shr.core.LifeEventOffset', fhir['repeat']['offset']);
     }
     if (fhir['code'] != null) {
-      inst.timingCode = createInstanceFromFHIR('shr.core.TimingCode', fhir['code']);
+      inst.timingCode = FHIRHelper.createInstanceFromFHIR('shr.core.TimingCode', fhir['code'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     return inst;
   }

@@ -1,12 +1,12 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
-import Finding from './Finding';
+import SimpleNonLaboratoryObservation from './SimpleNonLaboratoryObservation';
 
 /**
  * Generated class for shr.base.ClinicalNote.
- * @extends Finding
+ * @extends SimpleNonLaboratoryObservation
  */
-class ClinicalNote extends Finding {
+class ClinicalNote extends SimpleNonLaboratoryObservation {
 
   /**
    * Get the entry information.
@@ -34,28 +34,55 @@ class ClinicalNote extends Finding {
   }
 
   /**
-   * Get the choice value; one of: shr.core.Quantity, shr.core.CodeableConcept, string, shr.core.Range, shr.core.Ratio, time, dateTime, shr.core.TimePeriod.
-   * @returns {(Quantity|CodeableConcept|string|Range|Ratio|time|dateTime|TimePeriod)} The choice value; one of: shr.core.Quantity, shr.core.CodeableConcept, string, shr.core.Range, shr.core.Ratio, time, dateTime, shr.core.TimePeriod
+   * Get the FindingResult.
+   * @returns {FindingResult} The shr.base.FindingResult
    */
-  get value() {
-    return this._value;
+  get findingResult() {
+    return this._findingResult;
   }
 
   /**
-   * Set the choice value; one of: shr.core.Quantity, shr.core.CodeableConcept, string, shr.core.Range, shr.core.Ratio, time, dateTime, shr.core.TimePeriod.
-   * @param {(Quantity|CodeableConcept|string|Range|Ratio|time|dateTime|TimePeriod)} value - The choice value; one of: shr.core.Quantity, shr.core.CodeableConcept, string, shr.core.Range, shr.core.Ratio, time, dateTime, shr.core.TimePeriod
+   * Set the FindingResult.
+   * @param {FindingResult} findingResult - The shr.base.FindingResult
    */
-  set value(value) {
-    this._value = value;
+  set findingResult(findingResult) {
+    this._findingResult = findingResult;
   }
 
   /**
-   * Set the choice value; one of: shr.core.Quantity, shr.core.CodeableConcept, string, shr.core.Range, shr.core.Ratio, time, dateTime, shr.core.TimePeriod and return 'this' for chaining.
-   * @param {(Quantity|CodeableConcept|string|Range|Ratio|time|dateTime|TimePeriod)} value - The choice value; one of: shr.core.Quantity, shr.core.CodeableConcept, string, shr.core.Range, shr.core.Ratio, time, dateTime, shr.core.TimePeriod
+   * Set the FindingResult and return 'this' for chaining.
+   * @param {FindingResult} findingResult - The shr.base.FindingResult
    * @returns {ClinicalNote} this.
    */
-  withValue(value) {
-    this.value = value; return this;
+  withFindingResult(findingResult) {
+    this.findingResult = findingResult; return this;
+  }
+
+  /**
+   * Get the FindingTopicCode.
+   * @returns {FindingTopicCode} The shr.base.FindingTopicCode
+   */
+  get findingTopicCode() {
+    return this._findingTopicCode;
+  }
+
+  /**
+   * Set the FindingTopicCode.
+   * This field/value is required.
+   * @param {FindingTopicCode} findingTopicCode - The shr.base.FindingTopicCode
+   */
+  set findingTopicCode(findingTopicCode) {
+    this._findingTopicCode = findingTopicCode;
+  }
+
+  /**
+   * Set the FindingTopicCode and return 'this' for chaining.
+   * This field/value is required.
+   * @param {FindingTopicCode} findingTopicCode - The shr.base.FindingTopicCode
+   * @returns {ClinicalNote} this.
+   */
+  withFindingTopicCode(findingTopicCode) {
+    this.findingTopicCode = findingTopicCode; return this;
   }
 
   /**
@@ -111,39 +138,12 @@ class ClinicalNote extends Finding {
   }
 
   /**
-   * Get the CommentOrDescription.
-   * @returns {CommentOrDescription} The shr.core.CommentOrDescription
-   */
-  get commentOrDescription() {
-    return this._commentOrDescription;
-  }
-
-  /**
-   * Set the CommentOrDescription.
-   * This field/value is required.
-   * @param {CommentOrDescription} commentOrDescription - The shr.core.CommentOrDescription
-   */
-  set commentOrDescription(commentOrDescription) {
-    this._commentOrDescription = commentOrDescription;
-  }
-
-  /**
-   * Set the CommentOrDescription and return 'this' for chaining.
-   * This field/value is required.
-   * @param {CommentOrDescription} commentOrDescription - The shr.core.CommentOrDescription
-   * @returns {ClinicalNote} this.
-   */
-  withCommentOrDescription(commentOrDescription) {
-    this.commentOrDescription = commentOrDescription; return this;
-  }
-
-  /**
    * Deserializes JSON data to an instance of the ClinicalNote class.
    * The JSON must be valid against the ClinicalNote JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
    * @returns {ClinicalNote} An instance of ClinicalNote populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new ClinicalNote();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -156,9 +156,18 @@ class ClinicalNote extends Finding {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/base/ClinicalNote' };
-    if (this.value != null) {
-      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/base/ClinicalNote' };
+    if (this.narrative != null) {
+      inst['Narrative'] = typeof this.narrative.toJSON === 'function' ? this.narrative.toJSON() : this.narrative;
+    }
+    if (this.language != null) {
+      inst['Language'] = typeof this.language.toJSON === 'function' ? this.language.toJSON() : this.language;
+    }
+    if (this.metadata != null) {
+      inst['Metadata'] = typeof this.metadata.toJSON === 'function' ? this.metadata.toJSON() : this.metadata;
+    }
+    if (this.findingResult != null) {
+      inst['FindingResult'] = typeof this.findingResult.toJSON === 'function' ? this.findingResult.toJSON() : this.findingResult;
     }
     if (this.findingTopicCode != null) {
       inst['FindingTopicCode'] = typeof this.findingTopicCode.toJSON === 'function' ? this.findingTopicCode.toJSON() : this.findingTopicCode;
@@ -181,52 +190,32 @@ class ClinicalNote extends Finding {
     if (this.specificFocusOfFinding != null) {
       inst['SpecificFocusOfFinding'] = typeof this.specificFocusOfFinding.toJSON === 'function' ? this.specificFocusOfFinding.toJSON() : this.specificFocusOfFinding;
     }
+    if (this.findingMethod != null) {
+      inst['FindingMethod'] = typeof this.findingMethod.toJSON === 'function' ? this.findingMethod.toJSON() : this.findingMethod;
+    }
+    if (this.relevantTime != null) {
+      inst['RelevantTime'] = typeof this.relevantTime.toJSON === 'function' ? this.relevantTime.toJSON() : this.relevantTime;
+    }
+    if (this.nonIndependentFinding != null) {
+      inst['NonIndependentFinding'] = this.nonIndependentFinding.map(f => f.toJSON());
+    }
+    if (this.category != null) {
+      inst['Category'] = typeof this.category.toJSON === 'function' ? this.category.toJSON() : this.category;
+    }
+    if (this.anatomicalLocation != null) {
+      inst['AnatomicalLocation'] = typeof this.anatomicalLocation.toJSON === 'function' ? this.anatomicalLocation.toJSON() : this.anatomicalLocation;
+    }
     if (this.commentOrDescription != null) {
       inst['CommentOrDescription'] = typeof this.commentOrDescription.toJSON === 'function' ? this.commentOrDescription.toJSON() : this.commentOrDescription;
     }
-    return inst;
-  }
-
-  /**
-   * Serializes an instance of the ClinicalNote class to a FHIR object.
-   * The FHIR is expected to be valid against the ClinicalNote FHIR profile, but no validation checks are performed.
-   * @param {boolean} asExtension - Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
-    inst['resourceType'] = 'DomainResource';
-    if (this.findingTopicCode != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.findingTopicCode.toFHIR === 'function' ? this.findingTopicCode.toFHIR(true) : this.findingTopicCode);
+    if (this.interpretation != null) {
+      inst['Interpretation'] = typeof this.interpretation.toJSON === 'function' ? this.interpretation.toJSON() : this.interpretation;
     }
-    if (this.exceptionValue != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.exceptionValue.toFHIR === 'function' ? this.exceptionValue.toFHIR(true) : this.exceptionValue);
+    if (this.device != null) {
+      inst['Device'] = typeof this.device.toJSON === 'function' ? this.device.toJSON() : this.device;
     }
-    if (this.patient != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.patient.toFHIR === 'function' ? this.patient.toFHIR(true) : this.patient);
-    }
-    if (this.encounter != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.encounter.toFHIR === 'function' ? this.encounter.toFHIR(true) : this.encounter);
-    }
-    if (this.findingStatus != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.findingStatus.toFHIR === 'function' ? this.findingStatus.toFHIR(true) : this.findingStatus);
-    }
-    if (this.specificFocusOfFinding != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.specificFocusOfFinding.toFHIR === 'function' ? this.specificFocusOfFinding.toFHIR(true) : this.specificFocusOfFinding);
-    }
-    if (this.commentOrDescription != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.commentOrDescription.toFHIR === 'function' ? this.commentOrDescription.toFHIR(true) : this.commentOrDescription);
-    }
-    if (asExtension) {
-      inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-base-ClinicalNote-extension';
-      inst['valueReference'] = this.value;
+    if (this.panelMembers != null) {
+      inst['PanelMembers'] = typeof this.panelMembers.toJSON === 'function' ? this.panelMembers.toJSON() : this.panelMembers;
     }
     return inst;
   }
@@ -235,16 +224,121 @@ class ClinicalNote extends Finding {
    * Deserializes FHIR JSON data to an instance of the ClinicalNote class.
    * The FHIR must be valid against the ClinicalNote FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {ClinicalNote} An instance of ClinicalNote populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension = false) {
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new ClinicalNote();
-    if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-base-FindingTopicCode-extension');
-      if (match != null) {
-        inst.findingTopicCode = createInstanceFromFHIR('shr.base.FindingTopicCode', match, true);
+    inst.entryInfo = FHIRHelper.createInstanceFromFHIR('shr.base.Entry', {});
+    inst.entryInfo.shrId = FHIRHelper.createInstanceFromFHIR('shr.base.ShrId', shrId);
+    inst.entryInfo.entryId = FHIRHelper.createInstanceFromFHIR('shr.base.EntryId', fhir['id'] || uuid());
+    inst.entryInfo.entryType = FHIRHelper.createInstanceFromFHIR('shr.base.EntryType', 'http://standardhealthrecord.org/spec/shr/base/ClinicalNote');
+    if (fhir['meta'] != null) {
+      if (fhir['meta']['versionId'] != null) {
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata.versionId = FHIRHelper.createInstanceFromFHIR('shr.core.VersionId', fhir['meta']['versionId'], shrId, allEntries, mappedResources, referencesOut, false);
       }
+      if (fhir['meta']['lastUpdated'] != null) {
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata.lastUpdated = FHIRHelper.createInstanceFromFHIR('shr.base.LastUpdated', fhir['meta']['lastUpdated'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      for (const fhir_meta_security of fhir['meta']['security'] || []) {
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata.securityLabel = inst.metadata.securityLabel || [];
+        const inst_metadata_securityLabel = FHIRHelper.createInstanceFromFHIR('shr.base.SecurityLabel', fhir_meta_security, shrId, allEntries, mappedResources, referencesOut, false);
+        inst.metadata.securityLabel.push(inst_metadata_securityLabel);
+      }
+      for (const fhir_meta_tag of fhir['meta']['tag'] || []) {
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata.tag = inst.metadata.tag || [];
+        const inst_metadata_tag = FHIRHelper.createInstanceFromFHIR('shr.base.Tag', fhir_meta_tag, shrId, allEntries, mappedResources, referencesOut, false);
+        inst.metadata.tag.push(inst_metadata_tag);
+      }
+    }
+    if (fhir['language'] != null) {
+      inst.language = FHIRHelper.createInstanceFromFHIR('shr.core.Language', fhir['language'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['text'] != null) {
+      inst.narrative = FHIRHelper.createInstanceFromFHIR('shr.base.Narrative', fhir['text'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    for (const fhir_extension of fhir['extension'] || []) {
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://hl7.org/fhir/StructureDefinition/condition-targetBodySite') {
+        inst.anatomicalLocation = inst.anatomicalLocation || FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocation', {}, shrId);
+        inst.anatomicalLocation.value = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocationStructured', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-base-SpecificFocusOfFinding-extension') {
+        inst.specificFocusOfFinding = FHIRHelper.createInstanceFromFHIR('shr.base.SpecificFocusOfFinding', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+    }
+    if (fhir['status'] != null) {
+      inst.findingStatus = FHIRHelper.createInstanceFromFHIR('shr.base.FindingStatus', fhir['status'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['category'] != null && fhir['category'][0] != null) {
+      inst.category = FHIRHelper.createInstanceFromFHIR('shr.core.Category', fhir['category'][0], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['code'] != null) {
+      inst.findingTopicCode = FHIRHelper.createInstanceFromFHIR('shr.base.FindingTopicCode', fhir['code'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['subject'] != null) {
+      const entryId = fhir['subject']['reference'];
+      if (!mappedResources[entryId]) {
+        const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
+        if (referencedEntry) {
+          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Patient', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
+        }
+      }
+      inst.patient = mappedResources[entryId];
+    }
+    if (fhir['context'] != null) {
+      const entryId = fhir['context']['reference'];
+      if (!mappedResources[entryId]) {
+        const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
+        if (referencedEntry) {
+          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.encounter.Encounter', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
+        }
+      }
+      inst.encounter = mappedResources[entryId];
+    }
+    if (fhir['effectiveDateTime'] != null) {
+      inst.relevantTime = FHIRHelper.createInstanceFromFHIR('shr.base.RelevantTime', fhir['effectiveDateTime'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['effectivePeriod'] != null) {
+      inst.relevantTime = FHIRHelper.createInstanceFromFHIR('shr.base.RelevantTime', fhir['effectivePeriod'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['valueString'] != null) {
+      inst.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir['valueString'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['dataAbsentReason'] != null) {
+      inst.exceptionValue = FHIRHelper.createInstanceFromFHIR('shr.base.ExceptionValue', fhir['dataAbsentReason'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['interpretation'] != null) {
+      inst.interpretation = FHIRHelper.createInstanceFromFHIR('shr.base.Interpretation', fhir['interpretation'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['comment'] != null) {
+      inst.commentOrDescription = FHIRHelper.createInstanceFromFHIR('shr.core.CommentOrDescription', fhir['comment'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['bodySite'] != null) {
+      inst.anatomicalLocation = inst.anatomicalLocation || FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocation', {}, shrId);
+      inst.anatomicalLocation.value = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocationPrecoordinated', fhir['bodySite'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['method'] != null) {
+      inst.findingMethod = FHIRHelper.createInstanceFromFHIR('shr.base.FindingMethod', fhir['method'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['device'] != null) {
+      const entryId = fhir['device']['reference'];
+      if (!mappedResources[entryId]) {
+        const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
+        if (referencedEntry) {
+          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Device', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
+        }
+      }
+      inst.device = mappedResources[entryId];
+    }
+    for (const fhir_related of fhir['related'] || []) {
     }
     if (asExtension) {
       inst.value = fhir['valueReference'];

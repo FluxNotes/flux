@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 import Entity from './Entity';
 
@@ -138,28 +138,28 @@ class Person extends Entity {
   }
 
   /**
-   * Get the Headshot array.
-   * @returns {Array<Headshot>} The shr.entity.Headshot array
+   * Get the PhotographicImage array.
+   * @returns {Array<PhotographicImage>} The shr.core.PhotographicImage array
    */
-  get headshot() {
-    return this._headshot;
+  get photographicImage() {
+    return this._photographicImage;
   }
 
   /**
-   * Set the Headshot array.
-   * @param {Array<Headshot>} headshot - The shr.entity.Headshot array
+   * Set the PhotographicImage array.
+   * @param {Array<PhotographicImage>} photographicImage - The shr.core.PhotographicImage array
    */
-  set headshot(headshot) {
-    this._headshot = headshot;
+  set photographicImage(photographicImage) {
+    this._photographicImage = photographicImage;
   }
 
   /**
-   * Set the Headshot array and return 'this' for chaining.
-   * @param {Array<Headshot>} headshot - The shr.entity.Headshot array
+   * Set the PhotographicImage array and return 'this' for chaining.
+   * @param {Array<PhotographicImage>} photographicImage - The shr.core.PhotographicImage array
    * @returns {Person} this.
    */
-  withHeadshot(headshot) {
-    this.headshot = headshot; return this;
+  withPhotographicImage(photographicImage) {
+    this.photographicImage = photographicImage; return this;
   }
 
   /**
@@ -263,9 +263,34 @@ class Person extends Entity {
   }
 
   /**
-  * Get the Race.
-  * @returns {Race} The shr.entity.Race
-  */
+   * Get the BirthSex.
+   * @returns {BirthSex} The shr.entity.BirthSex
+   */
+  get birthSex() {
+    return this._birthSex;
+  }
+
+  /**
+   * Set the BirthSex.
+   * @param {BirthSex} birthSex - The shr.entity.BirthSex
+   */
+  set birthSex(birthSex) {
+    this._birthSex = birthSex;
+  }
+
+  /**
+   * Set the BirthSex and return 'this' for chaining.
+   * @param {BirthSex} birthSex - The shr.entity.BirthSex
+   * @returns {Person} this.
+   */
+  withBirthSex(birthSex) {
+    this.birthSex = birthSex; return this;
+  }
+
+  /**
+   * Get the Race.
+   * @returns {Race} The shr.entity.Race
+   */
   get race() {
     return this._race;
   }
@@ -313,62 +338,12 @@ class Person extends Entity {
   }
 
   /**
-  * Get the MothersMaidenName.
-  * @returns {MothersMaidenName} The shr.entity.MothersMaidenName
-  */
-  get mothersMaidenName() {
-    return this._mothersMaidenName;
-  }
-
-  /**
-   * Set the MothersMaidenName.
-   * @param {MothersMaidenName} mothersMaidenName - The shr.entity.MothersMaidenName
-   */
-  set mothersMaidenName(mothersMaidenName) {
-    this._mothersMaidenName = mothersMaidenName;
-  }
-
-  /**
-   * Set the MothersMaidenName and return 'this' for chaining.
-   * @param {MothersMaidenName} mothersMaidenName - The shr.entity.MothersMaidenName
-   * @returns {Person} this.
-   */
-  withMothersMaidenName(mothersMaidenName) {
-    this.mothersMaidenName = mothersMaidenName; return this;
-  }
-
-  /**
-   * Get the FathersName.
-   * @returns {FathersName} The shr.entity.FathersName
-   */
-  get fathersName() {
-    return this._fathersName;
-  }
-
-  /**
-   * Set the FathersName.
-   * @param {FathersName} fathersName - The shr.entity.FathersName
-   */
-  set fathersName(fathersName) {
-    this._fathersName = fathersName;
-  }
-
-  /**
-   * Set the FathersName and return 'this' for chaining.
-   * @param {FathersName} fathersName - The shr.entity.FathersName
-   * @returns {Person} this.
-   */
-  withFathersName(fathersName) {
-    this.fathersName = fathersName; return this;
-  }
-
-  /**
    * Deserializes JSON data to an instance of the Person class.
    * The JSON must be valid against the Person JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
    * @returns {Person} An instance of Person populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new Person();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -381,7 +356,16 @@ class Person extends Entity {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/Person' };
+    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Person' };
+    if (this.narrative != null) {
+      inst['Narrative'] = typeof this.narrative.toJSON === 'function' ? this.narrative.toJSON() : this.narrative;
+    }
+    if (this.language != null) {
+      inst['Language'] = typeof this.language.toJSON === 'function' ? this.language.toJSON() : this.language;
+    }
+    if (this.metadata != null) {
+      inst['Metadata'] = typeof this.metadata.toJSON === 'function' ? this.metadata.toJSON() : this.metadata;
+    }
     if (this.partOf != null) {
       inst['PartOf'] = typeof this.partOf.toJSON === 'function' ? this.partOf.toJSON() : this.partOf;
     }
@@ -397,8 +381,8 @@ class Person extends Entity {
     if (this.address != null) {
       inst['Address'] = this.address.map(f => f.toJSON());
     }
-    if (this.headshot != null) {
-      inst['Headshot'] = this.headshot.map(f => f.toJSON());
+    if (this.photographicImage != null) {
+      inst['PhotographicImage'] = this.photographicImage.map(f => f.toJSON());
     }
     if (this.contactPoint != null) {
       inst['ContactPoint'] = this.contactPoint.map(f => f.toJSON());
@@ -412,71 +396,14 @@ class Person extends Entity {
     if (this.maritalStatus != null) {
       inst['MaritalStatus'] = typeof this.maritalStatus.toJSON === 'function' ? this.maritalStatus.toJSON() : this.maritalStatus;
     }
-    if (this.race != null) {
-      inst['Race'] = typeof this.race.toJSON === 'function' ? this.race.toJSON : this.race;
-    }
-    if (this.ethnicity != null) {
-      inst['Ethnicity'] = typeof this.ethnicity.toJSON === 'function' ? this.ethnicity.toJSON : this.ethnicity;
-    }
-    return inst;
-  }
-
-  /**
-   * Serializes an instance of the Person class to a FHIR object.
-   * The FHIR is expected to be valid against the Person FHIR profile, but no validation checks are performed.
-   * @param {boolean} asExtension - Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
-    inst['resourceType'] = 'DomainResource';
-    if (this.partOf != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.partOf.toFHIR === 'function' ? this.partOf.toFHIR(true) : this.partOf);
-    }
-    if (this.humanName != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.humanName.toFHIR === 'function' ? this.humanName.toFHIR(true) : this.humanName);
-    }
-    if (this.dateOfBirth != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.dateOfBirth.toFHIR === 'function' ? this.dateOfBirth.toFHIR(true) : this.dateOfBirth);
-    }
-    if (this.administrativeGender != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.administrativeGender.toFHIR === 'function' ? this.administrativeGender.toFHIR(true) : this.administrativeGender);
-    }
-    if (this.address != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.address.toFHIR === 'function' ? this.address.toFHIR(true) : this.address);
-    }
-    if (this.headshot != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.headshot.toFHIR === 'function' ? this.headshot.toFHIR(true) : this.headshot);
-    }
-    if (this.contactPoint != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.contactPoint.toFHIR === 'function' ? this.contactPoint.toFHIR(true) : this.contactPoint);
-    }
-    if (this.languageUsed != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.languageUsed.toFHIR === 'function' ? this.languageUsed.toFHIR(true) : this.languageUsed);
-    }
-    if (this.activeFlag != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.activeFlag.toFHIR === 'function' ? this.activeFlag.toFHIR(true) : this.activeFlag);
-    }
-    if (this.maritalStatus != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.maritalStatus.toFHIR === 'function' ? this.maritalStatus.toFHIR(true) : this.maritalStatus);
+    if (this.birthSex != null) {
+      inst['BirthSex'] = typeof this.birthSex.toJSON === 'function' ? this.birthSex.toJSON() : this.birthSex;
     }
     if (this.race != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.race.toFHIR === 'function' ? this.race.toFHIR(true) : this.race);
+      inst['Race'] = typeof this.race.toJSON === 'function' ? this.race.toJSON() : this.race;
     }
     if (this.ethnicity != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.ethnicity.toFHIR === 'function' ? this.ethnicity.toFHIR(true) : this.ethnicity);
+      inst['Ethnicity'] = typeof this.ethnicity.toJSON === 'function' ? this.ethnicity.toJSON() : this.ethnicity;
     }
     return inst;
   }
@@ -485,15 +412,96 @@ class Person extends Entity {
    * Deserializes FHIR JSON data to an instance of the Person class.
    * The FHIR must be valid against the Person FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Person} An instance of Person populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension = false) {
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new Person();
-    if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension');
-      if (match != null) {
-        inst.partOf = createInstanceFromFHIR('shr.entity.PartOf', match, true);
+    inst.entryInfo = FHIRHelper.createInstanceFromFHIR('shr.base.Entry', {});
+    inst.entryInfo.shrId = FHIRHelper.createInstanceFromFHIR('shr.base.ShrId', shrId);
+    inst.entryInfo.entryId = FHIRHelper.createInstanceFromFHIR('shr.base.EntryId', fhir['id'] || uuid());
+    inst.entryInfo.entryType = FHIRHelper.createInstanceFromFHIR('shr.base.EntryType', 'http://standardhealthrecord.org/spec/shr/entity/Person');
+    if (fhir['meta'] != null) {
+      if (fhir['meta']['versionId'] != null) {
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata.versionId = FHIRHelper.createInstanceFromFHIR('shr.core.VersionId', fhir['meta']['versionId'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      if (fhir['meta']['lastUpdated'] != null) {
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata.lastUpdated = FHIRHelper.createInstanceFromFHIR('shr.base.LastUpdated', fhir['meta']['lastUpdated'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      for (const fhir_meta_security of fhir['meta']['security'] || []) {
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata.securityLabel = inst.metadata.securityLabel || [];
+        const inst_metadata_securityLabel = FHIRHelper.createInstanceFromFHIR('shr.base.SecurityLabel', fhir_meta_security, shrId, allEntries, mappedResources, referencesOut, false);
+        inst.metadata.securityLabel.push(inst_metadata_securityLabel);
+      }
+      for (const fhir_meta_tag of fhir['meta']['tag'] || []) {
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata.tag = inst.metadata.tag || [];
+        const inst_metadata_tag = FHIRHelper.createInstanceFromFHIR('shr.base.Tag', fhir_meta_tag, shrId, allEntries, mappedResources, referencesOut, false);
+        inst.metadata.tag.push(inst_metadata_tag);
+      }
+    }
+    if (fhir['language'] != null) {
+      inst.language = FHIRHelper.createInstanceFromFHIR('shr.core.Language', fhir['language'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['text'] != null) {
+      inst.narrative = FHIRHelper.createInstanceFromFHIR('shr.base.Narrative', fhir['text'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    for (const fhir_extension of fhir['extension'] || []) {
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension') {
+        inst.partOf = FHIRHelper.createInstanceFromFHIR('shr.entity.PartOf', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-HumanName-extension') {
+        inst.humanName = inst.humanName || [];
+        const inst_humanName = FHIRHelper.createInstanceFromFHIR('shr.core.HumanName', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+        inst.humanName.push(inst_humanName);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-DateOfBirth-extension') {
+        inst.dateOfBirth = FHIRHelper.createInstanceFromFHIR('shr.entity.DateOfBirth', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-AdministrativeGender-extension') {
+        inst.administrativeGender = FHIRHelper.createInstanceFromFHIR('shr.entity.AdministrativeGender', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-Address-extension') {
+        inst.address = inst.address || [];
+        const inst_address = FHIRHelper.createInstanceFromFHIR('shr.core.Address', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+        inst.address.push(inst_address);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-PhotographicImage-extension') {
+        inst.photographicImage = inst.photographicImage || [];
+        const inst_photographicImage = FHIRHelper.createInstanceFromFHIR('shr.core.PhotographicImage', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+        inst.photographicImage.push(inst_photographicImage);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-ContactPoint-extension') {
+        inst.contactPoint = inst.contactPoint || [];
+        const inst_contactPoint = FHIRHelper.createInstanceFromFHIR('shr.core.ContactPoint', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+        inst.contactPoint.push(inst_contactPoint);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-LanguageUsed-extension') {
+        inst.languageUsed = inst.languageUsed || [];
+        const inst_languageUsed = FHIRHelper.createInstanceFromFHIR('shr.entity.LanguageUsed', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+        inst.languageUsed.push(inst_languageUsed);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-ActiveFlag-extension') {
+        inst.activeFlag = FHIRHelper.createInstanceFromFHIR('shr.entity.ActiveFlag', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-MaritalStatus-extension') {
+        inst.maritalStatus = FHIRHelper.createInstanceFromFHIR('shr.entity.MaritalStatus', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-BirthSex-extension') {
+        inst.birthSex = FHIRHelper.createInstanceFromFHIR('shr.entity.BirthSex', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-Race-extension') {
+        inst.race = FHIRHelper.createInstanceFromFHIR('shr.entity.Race', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-Ethnicity-extension') {
+        inst.ethnicity = FHIRHelper.createInstanceFromFHIR('shr.entity.Ethnicity', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
       }
     }
     return inst;

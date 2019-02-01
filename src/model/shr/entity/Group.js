@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 import Entity from './Entity';
 
@@ -218,7 +218,7 @@ class Group extends Entity {
    * @param {object} json - the JSON data to deserialize
    * @returns {Group} An instance of Group populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new Group();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -231,7 +231,16 @@ class Group extends Entity {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/Group' };
+    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Group' };
+    if (this.narrative != null) {
+      inst['Narrative'] = typeof this.narrative.toJSON === 'function' ? this.narrative.toJSON() : this.narrative;
+    }
+    if (this.language != null) {
+      inst['Language'] = typeof this.language.toJSON === 'function' ? this.language.toJSON() : this.language;
+    }
+    if (this.metadata != null) {
+      inst['Metadata'] = typeof this.metadata.toJSON === 'function' ? this.metadata.toJSON() : this.metadata;
+    }
     if (this.partOf != null) {
       inst['PartOf'] = typeof this.partOf.toJSON === 'function' ? this.partOf.toJSON() : this.partOf;
     }
@@ -260,168 +269,134 @@ class Group extends Entity {
   }
 
   /**
-   * Serializes an instance of the Group class to a FHIR object.
-   * The FHIR is expected to be valid against the Group FHIR profile, but no validation checks are performed.
-   * @param {boolean} asExtension - Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
-    inst['resourceType'] = 'Group';
-    if (this.partOf != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.partOf.toFHIR === 'function' ? this.partOf.toFHIR(true) : this.partOf);
-    }
-    if (this.activeFlag != null) {
-      inst['active'] = typeof this.activeFlag.toFHIR === 'function' ? this.activeFlag.toFHIR() : this.activeFlag;
-    }
-    if (this.type != null) {
-      inst['type'] = typeof this.type.toFHIR === 'function' ? this.type.toFHIR() : this.type;
-    }
-    if (this.actual != null) {
-      inst['actual'] = typeof this.actual.toFHIR === 'function' ? this.actual.toFHIR() : this.actual;
-    }
-    if (this.title != null) {
-      inst['name'] = typeof this.title.toFHIR === 'function' ? this.title.toFHIR() : this.title;
-    }
-    if (this.count != null) {
-      inst['quantity'] = typeof this.count.toFHIR === 'function' ? this.count.toFHIR() : this.count;
-    }
-    if (this.groupCharacteristic != null && this.groupCharacteristic.groupCharacteristicCode != null) {
-      if (inst['characteristic'] === undefined) {
-        inst['characteristic'] = {};
-      }
-      inst['characteristic']['code'] = inst['characteristic']['code'] || [];
-      inst['characteristic']['code'] = inst['characteristic']['code'].concat(this.groupCharacteristic.groupCharacteristicCode.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    if (this.groupCharacteristic != null && this.groupCharacteristic.groupCharacteristicValue != null) {
-      if (inst['characteristic'] === undefined) {
-        inst['characteristic'] = {};
-      }
-      inst['characteristic']['value[x]'] = inst['characteristic']['value[x]'] || [];
-      inst['characteristic']['value[x]'] = inst['characteristic']['value[x]'].concat(this.groupCharacteristic.groupCharacteristicValue.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    if (this.groupCharacteristic != null && this.groupCharacteristic.excludeFlag != null) {
-      if (inst['characteristic'] === undefined) {
-        inst['characteristic'] = {};
-      }
-      inst['characteristic']['exclude'] = inst['characteristic']['exclude'] || [];
-      inst['characteristic']['exclude'] = inst['characteristic']['exclude'].concat(this.groupCharacteristic.excludeFlag.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    if (this.groupCharacteristic != null && this.groupCharacteristic.timePeriod != null) {
-      if (inst['characteristic'] === undefined) {
-        inst['characteristic'] = {};
-      }
-      inst['characteristic']['period'] = inst['characteristic']['period'] || [];
-      inst['characteristic']['period'] = inst['characteristic']['period'].concat(this.groupCharacteristic.timePeriod.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    if (this.memberParticipation != null && this.memberParticipation.member != null) {
-      if (inst['member'] === undefined) {
-        inst['member'] = {};
-      }
-      inst['member']['entity'] = inst['member']['entity'] || [];
-      inst['member']['entity'] = inst['member']['entity'].concat(this.memberParticipation.member.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    if (this.memberParticipation != null && this.memberParticipation.participationPeriod != null) {
-      if (inst['member'] === undefined) {
-        inst['member'] = {};
-      }
-      inst['member']['period'] = inst['member']['period'] || [];
-      inst['member']['period'] = inst['member']['period'].concat(this.memberParticipation.participationPeriod.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    if (this.memberParticipation != null && this.memberParticipation.activeFlag != null) {
-      if (inst['member'] === undefined) {
-        inst['member'] = {};
-      }
-      inst['member']['inactive'] = inst['member']['inactive'] || [];
-      inst['member']['inactive'] = inst['member']['inactive'].concat(this.memberParticipation.activeFlag.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    return inst;
-  }
-
-  /**
    * Deserializes FHIR JSON data to an instance of the Group class.
    * The FHIR must be valid against the Group FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Group} An instance of Group populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension = false) {
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new Group();
-    if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension');
-      if (match != null) {
-        inst.partOf = createInstanceFromFHIR('shr.entity.PartOf', match, true);
+    inst.entryInfo = FHIRHelper.createInstanceFromFHIR('shr.base.Entry', {});
+    inst.entryInfo.shrId = FHIRHelper.createInstanceFromFHIR('shr.base.ShrId', shrId);
+    inst.entryInfo.entryId = FHIRHelper.createInstanceFromFHIR('shr.base.EntryId', fhir['id'] || uuid());
+    inst.entryInfo.entryType = FHIRHelper.createInstanceFromFHIR('shr.base.EntryType', 'http://standardhealthrecord.org/spec/shr/entity/Group');
+    if (fhir['meta'] != null) {
+      if (fhir['meta']['versionId'] != null) {
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata.versionId = FHIRHelper.createInstanceFromFHIR('shr.core.VersionId', fhir['meta']['versionId'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      if (fhir['meta']['lastUpdated'] != null) {
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata.lastUpdated = FHIRHelper.createInstanceFromFHIR('shr.base.LastUpdated', fhir['meta']['lastUpdated'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      for (const fhir_meta_security of fhir['meta']['security'] || []) {
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata.securityLabel = inst.metadata.securityLabel || [];
+        const inst_metadata_securityLabel = FHIRHelper.createInstanceFromFHIR('shr.base.SecurityLabel', fhir_meta_security, shrId, allEntries, mappedResources, referencesOut, false);
+        inst.metadata.securityLabel.push(inst_metadata_securityLabel);
+      }
+      for (const fhir_meta_tag of fhir['meta']['tag'] || []) {
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata.tag = inst.metadata.tag || [];
+        const inst_metadata_tag = FHIRHelper.createInstanceFromFHIR('shr.base.Tag', fhir_meta_tag, shrId, allEntries, mappedResources, referencesOut, false);
+        inst.metadata.tag.push(inst_metadata_tag);
+      }
+    }
+    if (fhir['language'] != null) {
+      inst.language = FHIRHelper.createInstanceFromFHIR('shr.core.Language', fhir['language'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['text'] != null) {
+      inst.narrative = FHIRHelper.createInstanceFromFHIR('shr.base.Narrative', fhir['text'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    for (const fhir_extension of fhir['extension'] || []) {
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension') {
+        inst.partOf = FHIRHelper.createInstanceFromFHIR('shr.entity.PartOf', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
       }
     }
     if (fhir['active'] != null) {
-      inst.activeFlag = createInstanceFromFHIR('shr.entity.ActiveFlag', fhir['active']);
+      inst.activeFlag = FHIRHelper.createInstanceFromFHIR('shr.entity.ActiveFlag', fhir['active'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['type'] != null) {
-      inst.type = createInstanceFromFHIR('shr.core.Type', fhir['type']);
+      inst.type = FHIRHelper.createInstanceFromFHIR('shr.core.Type', fhir['type'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['actual'] != null) {
-      inst.actual = createInstanceFromFHIR('shr.entity.Actual', fhir['actual']);
+      inst.actual = FHIRHelper.createInstanceFromFHIR('shr.entity.Actual', fhir['actual'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['name'] != null) {
-      inst.title = createInstanceFromFHIR('shr.core.Title', fhir['name']);
+      inst.title = FHIRHelper.createInstanceFromFHIR('shr.core.Title', fhir['name'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['quantity'] != null) {
-      inst.count = createInstanceFromFHIR('shr.core.Count', fhir['quantity']);
+      inst.count = FHIRHelper.createInstanceFromFHIR('shr.core.Count', fhir['quantity'], shrId, allEntries, mappedResources, referencesOut, false);
     }
-    if (fhir['characteristic'] != null && fhir['characteristic']['code'] != null) {
-      if (inst.groupCharacteristic === null) {
-        inst.groupCharacteristic = createInstanceFromFHIR('shr.entity.GroupCharacteristic', {});
+    if (fhir['characteristic'] != null && fhir['characteristic'][0] != null) {
+      if (fhir['characteristic'][0]['code'] != null) {
+        inst.groupCharacteristic = inst.groupCharacteristic || [];
+        const inst_groupCharacteristic = FHIRHelper.createInstanceFromFHIR('shr.entity.GroupCharacteristic', {}, shrId);
+        inst.groupCharacteristic.push(inst_groupCharacteristic);
+        inst_groupCharacteristic.groupCharacteristicCode = FHIRHelper.createInstanceFromFHIR('shr.entity.GroupCharacteristicCode', fhir['characteristic'][0]['code'], shrId, allEntries, mappedResources, referencesOut, false);
       }
-      inst.groupCharacteristic.groupCharacteristicCode = createInstanceFromFHIR('shr.entity.GroupCharacteristicCode', fhir['characteristic']['code']);
+      if (fhir['characteristic'][0]['valueBoolean'] != null) {
+        inst.groupCharacteristic = inst.groupCharacteristic || [];
+        const inst_groupCharacteristic = FHIRHelper.createInstanceFromFHIR('shr.entity.GroupCharacteristic', {}, shrId);
+        inst.groupCharacteristic.push(inst_groupCharacteristic);
+        inst_groupCharacteristic.groupCharacteristicValue = FHIRHelper.createInstanceFromFHIR('shr.entity.GroupCharacteristicValue', fhir['characteristic'][0]['valueBoolean'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      if (fhir['characteristic'][0]['valueQuantity'] != null) {
+        inst.groupCharacteristic = inst.groupCharacteristic || [];
+        const inst_groupCharacteristic = FHIRHelper.createInstanceFromFHIR('shr.entity.GroupCharacteristic', {}, shrId);
+        inst.groupCharacteristic.push(inst_groupCharacteristic);
+        inst_groupCharacteristic.groupCharacteristicValue = FHIRHelper.createInstanceFromFHIR('shr.entity.GroupCharacteristicValue', fhir['characteristic'][0]['valueQuantity'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      if (fhir['characteristic'][0]['valueRange'] != null) {
+        inst.groupCharacteristic = inst.groupCharacteristic || [];
+        const inst_groupCharacteristic = FHIRHelper.createInstanceFromFHIR('shr.entity.GroupCharacteristic', {}, shrId);
+        inst.groupCharacteristic.push(inst_groupCharacteristic);
+        inst_groupCharacteristic.groupCharacteristicValue = FHIRHelper.createInstanceFromFHIR('shr.entity.GroupCharacteristicValue', fhir['characteristic'][0]['valueRange'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      if (fhir['characteristic'][0]['exclude'] != null) {
+        inst.groupCharacteristic = inst.groupCharacteristic || [];
+        const inst_groupCharacteristic = FHIRHelper.createInstanceFromFHIR('shr.entity.GroupCharacteristic', {}, shrId);
+        inst.groupCharacteristic.push(inst_groupCharacteristic);
+        inst_groupCharacteristic.excludeFlag = FHIRHelper.createInstanceFromFHIR('shr.entity.ExcludeFlag', fhir['characteristic'][0]['exclude'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      if (fhir['characteristic'][0]['period'] != null) {
+        inst.groupCharacteristic = inst.groupCharacteristic || [];
+        const inst_groupCharacteristic = FHIRHelper.createInstanceFromFHIR('shr.entity.GroupCharacteristic', {}, shrId);
+        inst.groupCharacteristic.push(inst_groupCharacteristic);
+        inst_groupCharacteristic.timePeriod = FHIRHelper.createInstanceFromFHIR('shr.core.TimePeriod', fhir['characteristic'][0]['period'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
     }
-    if (fhir['characteristic'] != null && fhir['characteristic']['valueBoolean'] != null) {
-      if (inst.groupCharacteristic === null) {
-        inst.groupCharacteristic = createInstanceFromFHIR('shr.entity.GroupCharacteristic', {});
+    if (fhir['member'] != null && fhir['member'][0] != null) {
+      if (fhir['member'][0]['entity'] != null) {
+        inst.memberParticipation = inst.memberParticipation || [];
+        const inst_memberParticipation = FHIRHelper.createInstanceFromFHIR('shr.entity.MemberParticipation', {}, shrId);
+        inst.memberParticipation.push(inst_memberParticipation);
+        const entryId = fhir['member'][0]['entity']['reference'];
+        if (!mappedResources[entryId]) {
+          const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
+          if (referencedEntry) {
+            mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Patient', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
+          }
+        }
+        inst_memberParticipation.member = mappedResources[entryId];
       }
-      inst.groupCharacteristic.groupCharacteristicValue = createInstanceFromFHIR('shr.entity.GroupCharacteristicValue', fhir['characteristic']['valueBoolean']);
-    }
-    if (fhir['characteristic'] != null && fhir['characteristic']['valueQuantity'] != null) {
-      if (inst.groupCharacteristic === null) {
-        inst.groupCharacteristic = createInstanceFromFHIR('shr.entity.GroupCharacteristic', {});
+      if (fhir['member'][0]['period'] != null) {
+        inst.memberParticipation = inst.memberParticipation || [];
+        const inst_memberParticipation = FHIRHelper.createInstanceFromFHIR('shr.entity.MemberParticipation', {}, shrId);
+        inst.memberParticipation.push(inst_memberParticipation);
+        inst_memberParticipation.participationPeriod = FHIRHelper.createInstanceFromFHIR('shr.base.ParticipationPeriod', fhir['member'][0]['period'], shrId, allEntries, mappedResources, referencesOut, false);
       }
-      inst.groupCharacteristic.groupCharacteristicValue = createInstanceFromFHIR('shr.entity.GroupCharacteristicValue', fhir['characteristic']['valueQuantity']);
-    }
-    if (fhir['characteristic'] != null && fhir['characteristic']['valueRange'] != null) {
-      if (inst.groupCharacteristic === null) {
-        inst.groupCharacteristic = createInstanceFromFHIR('shr.entity.GroupCharacteristic', {});
+      if (fhir['member'][0]['inactive'] != null) {
+        inst.memberParticipation = inst.memberParticipation || [];
+        const inst_memberParticipation = FHIRHelper.createInstanceFromFHIR('shr.entity.MemberParticipation', {}, shrId);
+        inst.memberParticipation.push(inst_memberParticipation);
+        inst_memberParticipation.inactiveFlag = FHIRHelper.createInstanceFromFHIR('shr.entity.InactiveFlag', fhir['member'][0]['inactive'], shrId, allEntries, mappedResources, referencesOut, false);
       }
-      inst.groupCharacteristic.groupCharacteristicValue = createInstanceFromFHIR('shr.entity.GroupCharacteristicValue', fhir['characteristic']['valueRange']);
-    }
-    if (fhir['characteristic'] != null && fhir['characteristic']['exclude'] != null) {
-      if (inst.groupCharacteristic === null) {
-        inst.groupCharacteristic = createInstanceFromFHIR('shr.entity.GroupCharacteristic', {});
-      }
-      inst.groupCharacteristic.excludeFlag = createInstanceFromFHIR('shr.entity.ExcludeFlag', fhir['characteristic']['exclude']);
-    }
-    if (fhir['characteristic'] != null && fhir['characteristic']['period'] != null) {
-      if (inst.groupCharacteristic === null) {
-        inst.groupCharacteristic = createInstanceFromFHIR('shr.entity.GroupCharacteristic', {});
-      }
-      inst.groupCharacteristic.timePeriod = createInstanceFromFHIR('shr.core.TimePeriod', fhir['characteristic']['period']);
-    }
-    if (fhir['member'] != null && fhir['member']['entity'] != null) {
-      if (inst.memberParticipation === null) {
-        inst.memberParticipation = createInstanceFromFHIR('shr.entity.MemberParticipation', {});
-      }
-      inst.memberParticipation.member = createInstanceFromFHIR('shr.entity.Member', fhir['member']['entity']);
-    }
-    if (fhir['member'] != null && fhir['member']['period'] != null) {
-      if (inst.memberParticipation === null) {
-        inst.memberParticipation = createInstanceFromFHIR('shr.entity.MemberParticipation', {});
-      }
-      inst.memberParticipation.participationPeriod = createInstanceFromFHIR('shr.base.ParticipationPeriod', fhir['member']['period']);
-    }
-    if (fhir['member'] != null && fhir['member']['inactive'] != null) {
-      if (inst.memberParticipation === null) {
-        inst.memberParticipation = createInstanceFromFHIR('shr.entity.MemberParticipation', {});
-      }
-      inst.memberParticipation.activeFlag = createInstanceFromFHIR('shr.entity.ActiveFlag', fhir['member']['inactive']);
     }
     return inst;
   }

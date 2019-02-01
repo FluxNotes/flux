@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 /**
  * Generated class for shr.entity.SpecimenTreatment.
@@ -61,7 +61,7 @@ class SpecimenTreatment {
    * @param {object} json - the JSON data to deserialize
    * @returns {SpecimenTreatment} An instance of SpecimenTreatment populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new SpecimenTreatment();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -74,29 +74,9 @@ class SpecimenTreatment {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/SpecimenTreatment' };
+    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/SpecimenTreatment' };
     if (this.additive != null) {
       inst['Additive'] = this.additive.map(f => f.toJSON());
-    }
-    return inst;
-  }
-
-  /**
-   * Serializes an instance of the SpecimenTreatment class to a FHIR object.
-   * The FHIR is expected to be valid against the SpecimenTreatment FHIR profile, but no validation checks are performed.
-   * @param {boolean} asExtension - Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
-    inst['resourceType'] = 'Basic';
-    if (this.additive != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.additive.toFHIR === 'function' ? this.additive.toFHIR(true) : this.additive);
-    }
-    if (asExtension) {
-      inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-entity-SpecimenTreatment-extension';
-      inst['valueReference'] = this.value;
     }
     return inst;
   }
@@ -105,15 +85,24 @@ class SpecimenTreatment {
    * Deserializes FHIR JSON data to an instance of the SpecimenTreatment class.
    * The FHIR must be valid against the SpecimenTreatment FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {SpecimenTreatment} An instance of SpecimenTreatment populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension = false) {
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new SpecimenTreatment();
-    if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-entity-Additive-extension');
-      if (match != null) {
-        inst.additive = createInstanceFromFHIR('shr.entity.Additive', match, true);
+    inst.entryInfo = FHIRHelper.createInstanceFromFHIR('shr.base.Entry', {});
+    inst.entryInfo.shrId = FHIRHelper.createInstanceFromFHIR('shr.base.ShrId', shrId);
+    inst.entryInfo.entryId = FHIRHelper.createInstanceFromFHIR('shr.base.EntryId', fhir['id'] || uuid());
+    inst.entryInfo.entryType = FHIRHelper.createInstanceFromFHIR('shr.base.EntryType', 'http://standardhealthrecord.org/spec/shr/entity/SpecimenTreatment');
+    for (const fhir_extension of fhir['extension'] || []) {
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-Additive-extension') {
+        inst.additive = inst.additive || [];
+        const inst_additive = FHIRHelper.createInstanceFromFHIR('shr.entity.Additive', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+        inst.additive.push(inst_additive);
       }
     }
     if (asExtension) {

@@ -153,7 +153,7 @@ export default class AppManager {
                 display: 'Flux Notes™',
                 app: FullApp,
                 isExact: true,
-                dataSource: 'HardCodedReadOnlyDataSource',
+                dataSource: 'HardCodedMcodeV01DataSource',
                 patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7f',
                 clinicianId: '1234567890',
                 shortcuts: []

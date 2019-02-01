@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 /**
  * Generated class for shr.core.Annotation.
@@ -92,7 +92,7 @@ class Annotation {
    * @param {object} json - the JSON data to deserialize
    * @returns {Annotation} An instance of Annotation populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new Annotation();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -104,7 +104,7 @@ class Annotation {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/Annotation' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Annotation' } };
     if (this.text != null) {
       inst['Text'] = typeof this.text.toJSON === 'function' ? this.text.toJSON() : this.text;
     }
@@ -118,46 +118,26 @@ class Annotation {
   }
 
   /**
-   * Serializes an instance of the Annotation class to a FHIR object.
-   * The FHIR is expected to be valid against the Annotation FHIR profile, but no validation checks are performed.
-   * @param {boolean} asExtension - Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
-    if (this.author != null) {
-      inst['author[x]'] = typeof this.author.toFHIR === 'function' ? this.author.toFHIR() : this.author;
-    }
-    if (this.occurrenceTime != null) {
-      inst['time'] = typeof this.occurrenceTime.toFHIR === 'function' ? this.occurrenceTime.toFHIR() : this.occurrenceTime;
-    }
-    if (this.text != null) {
-      inst['text'] = typeof this.text.toFHIR === 'function' ? this.text.toFHIR() : this.text;
-    }
-    if (asExtension) {
-      inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-core-Annotation-extension';
-      inst['valueAnnotation'] = this.value;
-    }
-    return inst;
-  }
-
-  /**
    * Deserializes FHIR JSON data to an instance of the Annotation class.
    * The FHIR must be valid against the Annotation FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Annotation} An instance of Annotation populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension = false) {
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new Annotation();
     if (fhir['authorString'] != null) {
-      inst.author = createInstanceFromFHIR('shr.core.Author', fhir['authorString']);
+      inst.author = FHIRHelper.createInstanceFromFHIR('shr.core.Author', fhir['authorString'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['time'] != null) {
-      inst.occurrenceTime = createInstanceFromFHIR('shr.core.OccurrenceTime', fhir['time']);
+      inst.occurrenceTime = FHIRHelper.createInstanceFromFHIR('shr.core.OccurrenceTime', fhir['time'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['text'] != null) {
-      inst.text = createInstanceFromFHIR('shr.core.Text', fhir['text']);
+      inst.text = FHIRHelper.createInstanceFromFHIR('shr.core.Text', fhir['text'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (asExtension) {
       inst.value = fhir['valueAnnotation'];

@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, uuid } from '../../json-helper';
 
 import EmbeddedContent from './EmbeddedContent';
 
@@ -68,7 +68,7 @@ class ParsableContent extends EmbeddedContent {
    * @param {object} json - the JSON data to deserialize
    * @returns {ParsableContent} An instance of ParsableContent populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new ParsableContent();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -80,7 +80,7 @@ class ParsableContent extends EmbeddedContent {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/ParsableContent' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/ParsableContent' } };
     if (this.text != null) {
       inst['Text'] = typeof this.text.toJSON === 'function' ? this.text.toJSON() : this.text;
     }
@@ -91,24 +91,17 @@ class ParsableContent extends EmbeddedContent {
   }
 
   /**
-   * Serializes an instance of the ParsableContent class to a FHIR object.
-   * The FHIR is expected to be valid against the ParsableContent FHIR profile, but no validation checks are performed.
-   * @param {boolean} asExtension - Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
-    return inst;
-  }
-
-  /**
    * Deserializes FHIR JSON data to an instance of the ParsableContent class.
    * The FHIR must be valid against the ParsableContent FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {ParsableContent} An instance of ParsableContent populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension = false) {
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new ParsableContent();
     return inst;
   }

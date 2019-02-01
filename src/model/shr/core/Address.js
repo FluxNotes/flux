@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 /**
  * Generated class for shr.core.Address.
@@ -261,7 +261,7 @@ class Address {
    * @param {object} json - the JSON data to deserialize
    * @returns {Address} An instance of Address populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new Address();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -273,7 +273,7 @@ class Address {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/Address' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Address' } };
     if (this.purpose != null) {
       inst['Purpose'] = typeof this.purpose.toJSON === 'function' ? this.purpose.toJSON() : this.purpose;
     }
@@ -308,96 +308,49 @@ class Address {
   }
 
   /**
-   * Serializes an instance of the Address class to a FHIR object.
-   * The FHIR is expected to be valid against the Address FHIR profile, but no validation checks are performed.
-   * @param {boolean} asExtension - Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
-    if (this.purpose != null && this.purpose.coding != null && this.purpose.coding.code != null) {
-      inst['use'] = typeof this.purpose.coding.code.toFHIR === 'function' ? this.purpose.coding.code.toFHIR() : this.purpose.coding.code;
-    }
-    if (this.type != null) {
-      inst['type'] = typeof this.type.toFHIR === 'function' ? this.type.toFHIR() : this.type;
-    }
-    if (this.displayText != null) {
-      inst['text'] = typeof this.displayText.toFHIR === 'function' ? this.displayText.toFHIR() : this.displayText;
-    }
-    if (this.addressLine != null) {
-      inst['line'] = inst['line'] || [];
-      inst['line'] = inst['line'].concat(this.addressLine.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    if (this.city != null) {
-      inst['city'] = typeof this.city.toFHIR === 'function' ? this.city.toFHIR() : this.city;
-    }
-    if (this.district != null) {
-      inst['district'] = typeof this.district.toFHIR === 'function' ? this.district.toFHIR() : this.district;
-    }
-    if (this.state != null) {
-      inst['state'] = typeof this.state.toFHIR === 'function' ? this.state.toFHIR() : this.state;
-    }
-    if (this.postalCode != null) {
-      inst['postalCode'] = typeof this.postalCode.toFHIR === 'function' ? this.postalCode.toFHIR() : this.postalCode;
-    }
-    if (this.country != null) {
-      inst['country'] = typeof this.country.toFHIR === 'function' ? this.country.toFHIR() : this.country;
-    }
-    if (this.effectiveTimePeriod != null) {
-      inst['period'] = typeof this.effectiveTimePeriod.toFHIR === 'function' ? this.effectiveTimePeriod.toFHIR() : this.effectiveTimePeriod;
-    }
-    if (asExtension) {
-      inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-core-Address-extension';
-      inst['valueAddress'] = this.value;
-    }
-    return inst;
-  }
-
-  /**
    * Deserializes FHIR JSON data to an instance of the Address class.
    * The FHIR must be valid against the Address FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Address} An instance of Address populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension = false) {
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new Address();
     if (fhir['use'] != null) {
-      if (inst.purpose === null) {
-        inst.purpose = createInstanceFromFHIR('shr.core.Purpose', {});
-      }
-      if (inst.purpose.value === null) {
-        inst.purpose.value = createInstanceFromFHIR('shr.core.Coding', {});
-      }
-      inst.purpose.value.code = createInstanceFromFHIR('shr.core.Code', fhir['use']);
+      inst.purpose = FHIRHelper.createInstanceFromFHIR('shr.core.Purpose', fhir['use'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['type'] != null) {
-      inst.type = createInstanceFromFHIR('shr.core.Type', fhir['type']);
+      inst.type = FHIRHelper.createInstanceFromFHIR('shr.core.Type', fhir['type'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['text'] != null) {
-      inst.displayText = createInstanceFromFHIR('shr.core.DisplayText', fhir['text']);
+      inst.displayText = FHIRHelper.createInstanceFromFHIR('shr.core.DisplayText', fhir['text'], shrId, allEntries, mappedResources, referencesOut, false);
     }
-    if (fhir['line'] != null) {
+    for (const fhir_line of fhir['line'] || []) {
       inst.addressLine = inst.addressLine || [];
-      inst.addressLine = inst.addressLine.concat(fhir['line'].map(f => createInstanceFromFHIR('shr.core.AddressLine', f)));
+      const inst_addressLine = FHIRHelper.createInstanceFromFHIR('shr.core.AddressLine', fhir_line, shrId, allEntries, mappedResources, referencesOut, false);
+      inst.addressLine.push(inst_addressLine);
     }
     if (fhir['city'] != null) {
-      inst.city = createInstanceFromFHIR('shr.core.City', fhir['city']);
+      inst.city = FHIRHelper.createInstanceFromFHIR('shr.core.City', fhir['city'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['district'] != null) {
-      inst.district = createInstanceFromFHIR('shr.core.District', fhir['district']);
+      inst.district = FHIRHelper.createInstanceFromFHIR('shr.core.District', fhir['district'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['state'] != null) {
-      inst.state = createInstanceFromFHIR('shr.core.State', fhir['state']);
+      inst.state = FHIRHelper.createInstanceFromFHIR('shr.core.State', fhir['state'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['postalCode'] != null) {
-      inst.postalCode = createInstanceFromFHIR('shr.core.PostalCode', fhir['postalCode']);
+      inst.postalCode = FHIRHelper.createInstanceFromFHIR('shr.core.PostalCode', fhir['postalCode'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['country'] != null) {
-      inst.country = createInstanceFromFHIR('shr.core.Country', fhir['country']);
+      inst.country = FHIRHelper.createInstanceFromFHIR('shr.core.Country', fhir['country'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['period'] != null) {
-      inst.effectiveTimePeriod = createInstanceFromFHIR('shr.core.EffectiveTimePeriod', fhir['period']);
+      inst.effectiveTimePeriod = FHIRHelper.createInstanceFromFHIR('shr.core.EffectiveTimePeriod', fhir['period'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (asExtension) {
       inst.value = fhir['valueAddress'];

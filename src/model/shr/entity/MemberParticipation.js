@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, uuid } from '../../json-helper';
 
 /**
  * Generated class for shr.entity.MemberParticipation.
@@ -58,30 +58,30 @@ class MemberParticipation {
   }
 
   /**
-   * Get the ActiveFlag.
-   * @returns {ActiveFlag} The shr.entity.ActiveFlag
+   * Get the InactiveFlag.
+   * @returns {InactiveFlag} The shr.entity.InactiveFlag
    */
-  get activeFlag() {
-    return this._activeFlag;
+  get inactiveFlag() {
+    return this._inactiveFlag;
   }
 
   /**
-   * Set the ActiveFlag.
+   * Set the InactiveFlag.
    * This field/value is required.
-   * @param {ActiveFlag} activeFlag - The shr.entity.ActiveFlag
+   * @param {InactiveFlag} inactiveFlag - The shr.entity.InactiveFlag
    */
-  set activeFlag(activeFlag) {
-    this._activeFlag = activeFlag;
+  set inactiveFlag(inactiveFlag) {
+    this._inactiveFlag = inactiveFlag;
   }
 
   /**
-   * Set the ActiveFlag and return 'this' for chaining.
+   * Set the InactiveFlag and return 'this' for chaining.
    * This field/value is required.
-   * @param {ActiveFlag} activeFlag - The shr.entity.ActiveFlag
+   * @param {InactiveFlag} inactiveFlag - The shr.entity.InactiveFlag
    * @returns {MemberParticipation} this.
    */
-  withActiveFlag(activeFlag) {
-    this.activeFlag = activeFlag; return this;
+  withInactiveFlag(inactiveFlag) {
+    this.inactiveFlag = inactiveFlag; return this;
   }
 
   /**
@@ -90,7 +90,7 @@ class MemberParticipation {
    * @param {object} json - the JSON data to deserialize
    * @returns {MemberParticipation} An instance of MemberParticipation populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new MemberParticipation();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -102,27 +102,16 @@ class MemberParticipation {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/MemberParticipation' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/MemberParticipation' } };
     if (this.member != null) {
       inst['Member'] = typeof this.member.toJSON === 'function' ? this.member.toJSON() : this.member;
     }
     if (this.participationPeriod != null) {
       inst['ParticipationPeriod'] = typeof this.participationPeriod.toJSON === 'function' ? this.participationPeriod.toJSON() : this.participationPeriod;
     }
-    if (this.activeFlag != null) {
-      inst['ActiveFlag'] = typeof this.activeFlag.toJSON === 'function' ? this.activeFlag.toJSON() : this.activeFlag;
+    if (this.inactiveFlag != null) {
+      inst['InactiveFlag'] = typeof this.inactiveFlag.toJSON === 'function' ? this.inactiveFlag.toJSON() : this.inactiveFlag;
     }
-    return inst;
-  }
-
-  /**
-   * Serializes an instance of the MemberParticipation class to a FHIR object.
-   * The FHIR is expected to be valid against the MemberParticipation FHIR profile, but no validation checks are performed.
-   * @param {boolean} asExtension - Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
     return inst;
   }
 
@@ -130,10 +119,14 @@ class MemberParticipation {
    * Deserializes FHIR JSON data to an instance of the MemberParticipation class.
    * The FHIR must be valid against the MemberParticipation FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {MemberParticipation} An instance of MemberParticipation populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension = false) {
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new MemberParticipation();
     return inst;
   }

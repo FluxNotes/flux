@@ -1,115 +1,88 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
-import SpecializedFinding from '../finding/SpecializedFinding';
+import InformationItem from '../base/InformationItem';
 
 /**
  * Generated class for shr.adverse.AdverseEvent.
- * @extends SpecializedFinding
+ * @extends InformationItem
  */
-class AdverseEvent extends SpecializedFinding {
+class AdverseEvent extends InformationItem {
 
   /**
-   * Get the entry information.
-   * @returns {Entry} The shr.base.Entry
+   * Get the Metadata.
+   * @returns {Metadata} The shr.base.Metadata
    */
-  get entryInfo() {
-    return this._entryInfo;
+  get metadata() {
+    return this._metadata;
   }
 
   /**
-   * Set the entry information.
-   * @param {Entry} entryInfo - The shr.base.Entry
+   * Set the Metadata.
+   * @param {Metadata} metadata - The shr.base.Metadata
    */
-  set entryInfo(entryInfo) {
-    this._entryInfo = entryInfo;
+  set metadata(metadata) {
+    this._metadata = metadata;
   }
 
   /**
-   * Set the entry information and return 'this' for chaining.
-   * @param {Entry} entryInfo - The shr.base.Entry
+   * Set the Metadata and return 'this' for chaining.
+   * @param {Metadata} metadata - The shr.base.Metadata
    * @returns {AdverseEvent} this.
    */
-  withEntryInfo(entryInfo) {
-    this.entryInfo = entryInfo; return this;
+  withMetadata(metadata) {
+    this.metadata = metadata; return this;
   }
 
   /**
-   * Get the value (aliases codeableConcept).
-   * @returns {CodeableConcept} The shr.core.CodeableConcept
+   * Get the Patient.
+   * @returns {Patient} The shr.entity.Patient
    */
-  get value() {
-    return this._codeableConcept;
+  get patient() {
+    return this._patient;
   }
 
   /**
-   * Set the value (aliases codeableConcept).
+   * Set the Patient.
    * This field/value is required.
-   * @param {CodeableConcept} value - The shr.core.CodeableConcept
+   * @param {Patient} patient - The shr.entity.Patient
    */
-  set value(value) {
-    this._codeableConcept = value;
+  set patient(patient) {
+    this._patient = patient;
   }
 
   /**
-   * Set the value (aliases codeableConcept) and return 'this' for chaining.
+   * Set the Patient and return 'this' for chaining.
    * This field/value is required.
-   * @param {CodeableConcept} value - The shr.core.CodeableConcept
+   * @param {Patient} patient - The shr.entity.Patient
    * @returns {AdverseEvent} this.
    */
-  withValue(value) {
-    this.value = value; return this;
+  withPatient(patient) {
+    this.patient = patient; return this;
   }
 
   /**
-   * Get the CodeableConcept.
-   * @returns {CodeableConcept} The shr.core.CodeableConcept
+   * Get the Type.
+   * @returns {Type} The shr.core.Type
    */
-  get codeableConcept() {
-    return this._codeableConcept;
+  get type() {
+    return this._type;
   }
 
   /**
-   * Set the CodeableConcept.
-   * This field/value is required.
-   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
+   * Set the Type.
+   * @param {Type} type - The shr.core.Type
    */
-  set codeableConcept(codeableConcept) {
-    this._codeableConcept = codeableConcept;
+  set type(type) {
+    this._type = type;
   }
 
   /**
-   * Set the CodeableConcept and return 'this' for chaining.
-   * This field/value is required.
-   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
+   * Set the Type and return 'this' for chaining.
+   * @param {Type} type - The shr.core.Type
    * @returns {AdverseEvent} this.
    */
-  withCodeableConcept(codeableConcept) {
-    this.codeableConcept = codeableConcept; return this;
-  }
-
-  /**
-   * Get the Details.
-   * @returns {Details} The shr.core.Details
-   */
-  get details() {
-    return this._details;
-  }
-
-  /**
-   * Set the Details.
-   * @param {Details} details - The shr.core.Details
-   */
-  set details(details) {
-    this._details = details;
-  }
-
-  /**
-   * Set the Details and return 'this' for chaining.
-   * @param {Details} details - The shr.core.Details
-   * @returns {AdverseEvent} this.
-   */
-  withDetails(details) {
-    this.details = details; return this;
+  withType(type) {
+    this.type = type; return this;
   }
 
   /**
@@ -122,6 +95,7 @@ class AdverseEvent extends SpecializedFinding {
 
   /**
    * Set the OccurrenceTime.
+   * This field/value is required.
    * @param {OccurrenceTime} occurrenceTime - The shr.core.OccurrenceTime
    */
   set occurrenceTime(occurrenceTime) {
@@ -130,6 +104,7 @@ class AdverseEvent extends SpecializedFinding {
 
   /**
    * Set the OccurrenceTime and return 'this' for chaining.
+   * This field/value is required.
    * @param {OccurrenceTime} occurrenceTime - The shr.core.OccurrenceTime
    * @returns {AdverseEvent} this.
    */
@@ -138,62 +113,35 @@ class AdverseEvent extends SpecializedFinding {
   }
 
   /**
-   * Get the AdverseEventGrade.
-   * @returns {AdverseEventGrade} The shr.adverse.AdverseEventGrade
+   * Get the Seriousness.
+   * @returns {Seriousness} The shr.adverse.Seriousness
    */
-  get adverseEventGrade() {
-    return this._adverseEventGrade;
+  get seriousness() {
+    return this._seriousness;
   }
 
   /**
-   * Set the AdverseEventGrade.
+   * Set the Seriousness.
    * This field/value is required.
-   * @param {AdverseEventGrade} adverseEventGrade - The shr.adverse.AdverseEventGrade
+   * @param {Seriousness} seriousness - The shr.adverse.Seriousness
    */
-  set adverseEventGrade(adverseEventGrade) {
-    this._adverseEventGrade = adverseEventGrade;
+  set seriousness(seriousness) {
+    this._seriousness = seriousness;
   }
 
   /**
-   * Set the AdverseEventGrade and return 'this' for chaining.
+   * Set the Seriousness and return 'this' for chaining.
    * This field/value is required.
-   * @param {AdverseEventGrade} adverseEventGrade - The shr.adverse.AdverseEventGrade
+   * @param {Seriousness} seriousness - The shr.adverse.Seriousness
    * @returns {AdverseEvent} this.
    */
-  withAdverseEventGrade(adverseEventGrade) {
-    this.adverseEventGrade = adverseEventGrade; return this;
+  withSeriousness(seriousness) {
+    this.seriousness = seriousness; return this;
   }
-
-  /**
-   * Get the SeriousAdverseEvent.
-   * @returns {SeriousAdverseEvent} The shr.adverse.SeriousAdverseEvent
-   */
-  get seriousAdverseEvent() {
-    return this._seriousAdverseEvent;
-  }
-
-  /**
-   * Set the SeriousAdverseEvent.
-   * @param {SeriousAdverseEvent} seriousAdverseEvent - The shr.adverse.SeriousAdverseEvent
-   */
-  set seriousAdverseEvent(seriousAdverseEvent) {
-    this._seriousAdverseEvent = seriousAdverseEvent;
-  }
-
-  /**
-   * Set the SeriousAdverseEvent and return 'this' for chaining.
-   * @param {SeriousAdverseEvent} seriousAdverseEvent - The shr.adverse.SeriousAdverseEvent
-   * @returns {AdverseEvent} this.
-   */
-  withSeriousAdverseEvent(seriousAdverseEvent) {
-    this.seriousAdverseEvent = seriousAdverseEvent; return this;
-  }
-
-  // Ommitting getter/setter for TBD: PatternOfEvent
 
   /**
    * Get the Outcome.
-   * @returns {Outcome} The shr.action.Outcome
+   * @returns {Outcome} The shr.base.Outcome
    */
   get outcome() {
     return this._outcome;
@@ -201,7 +149,7 @@ class AdverseEvent extends SpecializedFinding {
 
   /**
    * Set the Outcome.
-   * @param {Outcome} outcome - The shr.action.Outcome
+   * @param {Outcome} outcome - The shr.base.Outcome
    */
   set outcome(outcome) {
     this._outcome = outcome;
@@ -209,7 +157,7 @@ class AdverseEvent extends SpecializedFinding {
 
   /**
    * Set the Outcome and return 'this' for chaining.
-   * @param {Outcome} outcome - The shr.action.Outcome
+   * @param {Outcome} outcome - The shr.base.Outcome
    * @returns {AdverseEvent} this.
    */
   withOutcome(outcome) {
@@ -217,80 +165,78 @@ class AdverseEvent extends SpecializedFinding {
   }
 
   /**
-   * Get the shr.procedure.AssociatedStudy reference.
-   * @returns {Reference} The shr.procedure.AssociatedStudy reference
+   * Get the CommentOrDescription.
+   * @returns {CommentOrDescription} The shr.core.CommentOrDescription
    */
-  get associatedStudy() {
-    return this._associatedStudy;
+  get commentOrDescription() {
+    return this._commentOrDescription;
   }
 
   /**
-   * Set the shr.procedure.AssociatedStudy reference.
-   * @param {Reference} associatedStudy - The shr.procedure.AssociatedStudy reference
+   * Set the CommentOrDescription.
+   * @param {CommentOrDescription} commentOrDescription - The shr.core.CommentOrDescription
    */
-  set associatedStudy(associatedStudy) {
-    this._associatedStudy = associatedStudy;
+  set commentOrDescription(commentOrDescription) {
+    this._commentOrDescription = commentOrDescription;
   }
 
   /**
-   * Set the shr.procedure.AssociatedStudy reference and return 'this' for chaining.
-   * @param {Reference} associatedStudy - The shr.procedure.AssociatedStudy reference
+   * Set the CommentOrDescription and return 'this' for chaining.
+   * @param {CommentOrDescription} commentOrDescription - The shr.core.CommentOrDescription
    * @returns {AdverseEvent} this.
    */
-  withAssociatedStudy(associatedStudy) {
-    this.associatedStudy = associatedStudy; return this;
+  withCommentOrDescription(commentOrDescription) {
+    this.commentOrDescription = commentOrDescription; return this;
   }
 
   /**
-   * Get the CauseCategory.
-   * @returns {CauseCategory} The shr.adverse.CauseCategory
+   * Get the AdverseEventCondition array.
+   * @returns {Array<AdverseEventCondition>} The shr.adverse.AdverseEventCondition array
    */
-  get causeCategory() {
-    return this._causeCategory;
+  get adverseEventCondition() {
+    return this._adverseEventCondition;
   }
 
   /**
-   * Set the CauseCategory.
-   * This field/value is required.
-   * @param {CauseCategory} causeCategory - The shr.adverse.CauseCategory
+   * Set the AdverseEventCondition array.
+   * @param {Array<AdverseEventCondition>} adverseEventCondition - The shr.adverse.AdverseEventCondition array
    */
-  set causeCategory(causeCategory) {
-    this._causeCategory = causeCategory;
+  set adverseEventCondition(adverseEventCondition) {
+    this._adverseEventCondition = adverseEventCondition;
   }
 
   /**
-   * Set the CauseCategory and return 'this' for chaining.
-   * This field/value is required.
-   * @param {CauseCategory} causeCategory - The shr.adverse.CauseCategory
+   * Set the AdverseEventCondition array and return 'this' for chaining.
+   * @param {Array<AdverseEventCondition>} adverseEventCondition - The shr.adverse.AdverseEventCondition array
    * @returns {AdverseEvent} this.
    */
-  withCauseCategory(causeCategory) {
-    this.causeCategory = causeCategory; return this;
+  withAdverseEventCondition(adverseEventCondition) {
+    this.adverseEventCondition = adverseEventCondition; return this;
   }
 
   /**
-   * Get the AdverseEventAttribution array.
-   * @returns {Array<AdverseEventAttribution>} The shr.adverse.AdverseEventAttribution array
+   * Get the CausalAttribution array.
+   * @returns {Array<CausalAttribution>} The shr.adverse.CausalAttribution array
    */
-  get adverseEventAttribution() {
-    return this._adverseEventAttribution;
+  get causalAttribution() {
+    return this._causalAttribution;
   }
 
   /**
-   * Set the AdverseEventAttribution array.
-   * @param {Array<AdverseEventAttribution>} adverseEventAttribution - The shr.adverse.AdverseEventAttribution array
+   * Set the CausalAttribution array.
+   * @param {Array<CausalAttribution>} causalAttribution - The shr.adverse.CausalAttribution array
    */
-  set adverseEventAttribution(adverseEventAttribution) {
-    this._adverseEventAttribution = adverseEventAttribution;
+  set causalAttribution(causalAttribution) {
+    this._causalAttribution = causalAttribution;
   }
 
   /**
-   * Set the AdverseEventAttribution array and return 'this' for chaining.
-   * @param {Array<AdverseEventAttribution>} adverseEventAttribution - The shr.adverse.AdverseEventAttribution array
+   * Set the CausalAttribution array and return 'this' for chaining.
+   * @param {Array<CausalAttribution>} causalAttribution - The shr.adverse.CausalAttribution array
    * @returns {AdverseEvent} this.
    */
-  withAdverseEventAttribution(adverseEventAttribution) {
-    this.adverseEventAttribution = adverseEventAttribution; return this;
+  withCausalAttribution(causalAttribution) {
+    this.causalAttribution = causalAttribution; return this;
   }
 
   /**
@@ -319,168 +265,213 @@ class AdverseEvent extends SpecializedFinding {
   }
 
   /**
+   * Get the AssociatedStudy.
+   * @returns {AssociatedStudy} The shr.adverse.AssociatedStudy
+   */
+  get associatedStudy() {
+    return this._associatedStudy;
+  }
+
+  /**
+   * Set the AssociatedStudy.
+   * @param {AssociatedStudy} associatedStudy - The shr.adverse.AssociatedStudy
+   */
+  set associatedStudy(associatedStudy) {
+    this._associatedStudy = associatedStudy;
+  }
+
+  /**
+   * Set the AssociatedStudy and return 'this' for chaining.
+   * @param {AssociatedStudy} associatedStudy - The shr.adverse.AssociatedStudy
+   * @returns {AdverseEvent} this.
+   */
+  withAssociatedStudy(associatedStudy) {
+    this.associatedStudy = associatedStudy; return this;
+  }
+
+  /**
    * Deserializes JSON data to an instance of the AdverseEvent class.
    * The JSON must be valid against the AdverseEvent JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
    * @returns {AdverseEvent} An instance of AdverseEvent populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new AdverseEvent();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the AdverseEvent class to a JSON object.
    * The JSON is expected to be valid against the AdverseEvent JSON schema, but no validation checks are performed.
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/adverse/AdverseEvent' };
-    if (this.value != null) {
-      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/adverse/AdverseEvent' } };
+    if (this.narrative != null) {
+      inst['Narrative'] = typeof this.narrative.toJSON === 'function' ? this.narrative.toJSON() : this.narrative;
     }
-    if (this.relatedEncounter != null) {
-      inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
+    if (this.language != null) {
+      inst['Language'] = typeof this.language.toJSON === 'function' ? this.language.toJSON() : this.language;
     }
-    if (this.author != null) {
-      inst['Author'] = typeof this.author.toJSON === 'function' ? this.author.toJSON() : this.author;
+    if (this.metadata != null) {
+      inst['Metadata'] = typeof this.metadata.toJSON === 'function' ? this.metadata.toJSON() : this.metadata;
     }
-    if (this.informant != null) {
-      inst['Informant'] = typeof this.informant.toJSON === 'function' ? this.informant.toJSON() : this.informant;
+    if (this.patient != null) {
+      inst['Patient'] = typeof this.patient.toJSON === 'function' ? this.patient.toJSON() : this.patient;
     }
-    if (this.subject != null) {
-      inst['Subject'] = typeof this.subject.toJSON === 'function' ? this.subject.toJSON() : this.subject;
-    }
-    if (this.focalSubject != null) {
-      inst['FocalSubject'] = typeof this.focalSubject.toJSON === 'function' ? this.focalSubject.toJSON() : this.focalSubject;
-    }
-    if (this.focalSubjectReference != null) {
-      inst['FocalSubjectReference'] = typeof this.focalSubjectReference.toJSON === 'function' ? this.focalSubjectReference.toJSON() : this.focalSubjectReference;
-    }
-    if (this.findingMethod != null) {
-      inst['FindingMethod'] = typeof this.findingMethod.toJSON === 'function' ? this.findingMethod.toJSON() : this.findingMethod;
-    }
-    if (this.findingStatus != null) {
-      inst['FindingStatus'] = typeof this.findingStatus.toJSON === 'function' ? this.findingStatus.toJSON() : this.findingStatus;
-    }
-    if (this.evidence != null) {
-      inst['Evidence'] = this.evidence.map(f => f.toJSON());
-    }
-    if (this.details != null) {
-      inst['Details'] = typeof this.details.toJSON === 'function' ? this.details.toJSON() : this.details;
+    if (this.type != null) {
+      inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
     }
     if (this.occurrenceTime != null) {
       inst['OccurrenceTime'] = typeof this.occurrenceTime.toJSON === 'function' ? this.occurrenceTime.toJSON() : this.occurrenceTime;
     }
-    if (this.adverseEventGrade != null) {
-      inst['AdverseEventGrade'] = typeof this.adverseEventGrade.toJSON === 'function' ? this.adverseEventGrade.toJSON() : this.adverseEventGrade;
-    }
-    if (this.seriousAdverseEvent != null) {
-      inst['SeriousAdverseEvent'] = typeof this.seriousAdverseEvent.toJSON === 'function' ? this.seriousAdverseEvent.toJSON() : this.seriousAdverseEvent;
+    if (this.seriousness != null) {
+      inst['Seriousness'] = typeof this.seriousness.toJSON === 'function' ? this.seriousness.toJSON() : this.seriousness;
     }
     if (this.outcome != null) {
       inst['Outcome'] = typeof this.outcome.toJSON === 'function' ? this.outcome.toJSON() : this.outcome;
     }
-    if (this.associatedStudy != null) {
-      inst['AssociatedStudy'] = typeof this.associatedStudy.toJSON === 'function' ? this.associatedStudy.toJSON() : this.associatedStudy;
+    if (this.commentOrDescription != null) {
+      inst['CommentOrDescription'] = typeof this.commentOrDescription.toJSON === 'function' ? this.commentOrDescription.toJSON() : this.commentOrDescription;
     }
-    if (this.causeCategory != null) {
-      inst['CauseCategory'] = typeof this.causeCategory.toJSON === 'function' ? this.causeCategory.toJSON() : this.causeCategory;
+    if (this.adverseEventCondition != null) {
+      inst['AdverseEventCondition'] = this.adverseEventCondition.map(f => f.toJSON());
     }
-    if (this.adverseEventAttribution != null) {
-      inst['AdverseEventAttribution'] = this.adverseEventAttribution.map(f => f.toJSON());
+    if (this.causalAttribution != null) {
+      inst['CausalAttribution'] = this.causalAttribution.map(f => f.toJSON());
     }
     if (this.actionTaken != null) {
       inst['ActionTaken'] = this.actionTaken.map(f => f.toJSON());
     }
-    return inst;
-  }
-  /**
-   * Serializes an instance of the AdverseEvent class to a FHIR object.
-   * The FHIR is expected to be valid against the AdverseEvent FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
-    inst['resourceType'] = 'AdverseEvent';
-    if (this.relatedEncounter != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.relatedEncounter.toFHIR(true));
-    }
-    if (this.informant != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.informant.toFHIR(true));
-    }
-    if (this.focalSubject != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.focalSubject.toFHIR(true));
-    }
-    if (this.focalSubjectReference != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.focalSubjectReference.toFHIR(true));
-    }
-    if (this.findingMethod != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.findingMethod.toFHIR(true));
-    }
-    if (this.findingStatus != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.findingStatus.toFHIR(true));
-    }
-    if (this.evidence != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.evidence.toFHIR(true));
-    }
-    if (this.adverseEventGrade != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.adverseEventGrade.toFHIR(true));
-    }
-    if (this.causeCategory != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.causeCategory.toFHIR(true));
-    }
-    if (this.actionTaken != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.actionTaken.toFHIR(true));
-    }
-    if (this.subject != null) {
-      inst['subject'] = typeof this.subject.toFHIR === 'function' ? this.subject.toFHIR() : this.subject;
-    }
-    if (this.occurrenceTime != null) {
-      inst['date'] = typeof this.occurrenceTime.toFHIR === 'function' ? this.occurrenceTime.toFHIR() : this.occurrenceTime;
-    }
-    if (this.seriousAdverseEvent != null) {
-      inst['seriousness'] = typeof this.seriousAdverseEvent.toFHIR === 'function' ? this.seriousAdverseEvent.toFHIR() : this.seriousAdverseEvent;
-    }
-    if (this.outcome != null) {
-      inst['outcome'] = typeof this.outcome.toFHIR === 'function' ? this.outcome.toFHIR() : this.outcome;
-    }
-    if (this.author != null) {
-      inst['recorder'] = typeof this.author.toFHIR === 'function' ? this.author.toFHIR() : this.author;
-    }
-    if (this.details != null) {
-      inst['description'] = typeof this.details.toFHIR === 'function' ? this.details.toFHIR() : this.details;
-    }
-    if (this.adverseEventAttribution != null) {
-      if (inst['suspectEntity'] === undefined) {
-        inst['suspectEntity'] = {};
-      }
-      inst['suspectEntity']['instance'] = inst['suspectEntity']['instance'] || [];
-      inst['suspectEntity']['instance'].concat(this.adverseEventAttribution.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    if (this.adverseEventAttribution != null && this.adverseEventAttribution.certainty != null) {
-      if (inst['suspectEntity'] === undefined) {
-        inst['suspectEntity'] = {};
-      }
-      inst['suspectEntity']['causalityAssessment'] = inst['suspectEntity']['causalityAssessment'] || [];
-      inst['suspectEntity']['causalityAssessment'].concat(this.adverseEventAttribution.certainty.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
     if (this.associatedStudy != null) {
-      inst['study'] = typeof this.associatedStudy.toFHIR === 'function' ? this.associatedStudy.toFHIR() : this.associatedStudy;
+      inst['AssociatedStudy'] = typeof this.associatedStudy.toJSON === 'function' ? this.associatedStudy.toJSON() : this.associatedStudy;
     }
     return inst;
   }
+
+  /**
+   * Deserializes FHIR JSON data to an instance of the AdverseEvent class.
+   * The FHIR must be valid against the AdverseEvent FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {AdverseEvent} An instance of AdverseEvent populated with the FHIR data
+   */
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+    const inst = new AdverseEvent();
+    if (fhir['meta'] != null) {
+      if (fhir['meta']['versionId'] != null) {
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata.versionId = FHIRHelper.createInstanceFromFHIR('shr.core.VersionId', fhir['meta']['versionId'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      if (fhir['meta']['lastUpdated'] != null) {
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata.lastUpdated = FHIRHelper.createInstanceFromFHIR('shr.base.LastUpdated', fhir['meta']['lastUpdated'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      for (const fhir_meta_security of fhir['meta']['security'] || []) {
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata.securityLabel = inst.metadata.securityLabel || [];
+        const inst_metadata_securityLabel = FHIRHelper.createInstanceFromFHIR('shr.base.SecurityLabel', fhir_meta_security, shrId, allEntries, mappedResources, referencesOut, false);
+        inst.metadata.securityLabel.push(inst_metadata_securityLabel);
+      }
+      for (const fhir_meta_tag of fhir['meta']['tag'] || []) {
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata.tag = inst.metadata.tag || [];
+        const inst_metadata_tag = FHIRHelper.createInstanceFromFHIR('shr.base.Tag', fhir_meta_tag, shrId, allEntries, mappedResources, referencesOut, false);
+        inst.metadata.tag.push(inst_metadata_tag);
+      }
+    }
+    if (fhir['language'] != null) {
+      inst.language = FHIRHelper.createInstanceFromFHIR('shr.core.Language', fhir['language'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['text'] != null) {
+      inst.narrative = FHIRHelper.createInstanceFromFHIR('shr.base.Narrative', fhir['text'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    for (const fhir_extension of fhir['extension'] || []) {
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-adverse-AdverseEventCondition-extension') {
+        inst.adverseEventCondition = inst.adverseEventCondition || [];
+        const inst_adverseEventCondition = FHIRHelper.createInstanceFromFHIR('shr.adverse.AdverseEventCondition', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+        inst.adverseEventCondition.push(inst_adverseEventCondition);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-adverse-ActionTaken-extension') {
+        inst.actionTaken = inst.actionTaken || [];
+        const inst_actionTaken = FHIRHelper.createInstanceFromFHIR('shr.adverse.ActionTaken', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+        inst.actionTaken.push(inst_actionTaken);
+      }
+    }
+    if (fhir['type'] != null) {
+      inst.type = FHIRHelper.createInstanceFromFHIR('shr.core.Type', fhir['type'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['subject'] != null) {
+      const entryId = fhir['subject']['reference'];
+      if (!mappedResources[entryId]) {
+        const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
+        if (referencedEntry) {
+          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Patient', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
+        }
+      }
+      inst.patient = mappedResources[entryId];
+    }
+    if (fhir['date'] != null) {
+      inst.occurrenceTime = FHIRHelper.createInstanceFromFHIR('shr.core.OccurrenceTime', fhir['date'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['seriousness'] != null) {
+      inst.seriousness = FHIRHelper.createInstanceFromFHIR('shr.adverse.Seriousness', fhir['seriousness'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['outcome'] != null) {
+      inst.outcome = FHIRHelper.createInstanceFromFHIR('shr.base.Outcome', fhir['outcome'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['recorder'] != null) {
+      inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+      const entryId = fhir['recorder']['reference'];
+      if (!mappedResources[entryId]) {
+        const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
+        if (referencedEntry) {
+          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Patient', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
+        }
+      }
+      inst.metadata.informationRecorder = mappedResources[entryId];
+    }
+    if (fhir['description'] != null) {
+      inst.commentOrDescription = FHIRHelper.createInstanceFromFHIR('shr.core.CommentOrDescription', fhir['description'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['suspectEntity'] != null && fhir['suspectEntity'][0] != null) {
+      if (fhir['suspectEntity'][0]['instance'] != null) {
+        inst.causalAttribution = inst.causalAttribution || [];
+        const inst_causalAttribution = FHIRHelper.createInstanceFromFHIR('shr.adverse.CausalAttribution', {}, shrId);
+        inst.causalAttribution.push(inst_causalAttribution);
+        const entryId = fhir['suspectEntity'][0]['instance']['reference'];
+        if (!mappedResources[entryId]) {
+          const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
+          if (referencedEntry) {
+            mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Substance', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
+          }
+        }
+        inst_causalAttribution.possibleCause = mappedResources[entryId];
+      }
+      if (fhir['suspectEntity'][0]['causalityAssessment'] != null) {
+        inst.causalAttribution = inst.causalAttribution || [];
+        const inst_causalAttribution = FHIRHelper.createInstanceFromFHIR('shr.adverse.CausalAttribution', {}, shrId);
+        inst.causalAttribution.push(inst_causalAttribution);
+        inst_causalAttribution.certainty = FHIRHelper.createInstanceFromFHIR('shr.base.Certainty', fhir['suspectEntity'][0]['causalityAssessment'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+    }
+    if (fhir['study'] != null && fhir['study'][0] != null) {
+      const entryId = fhir['study'][0]['reference'];
+      if (!mappedResources[entryId]) {
+        const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
+        if (referencedEntry) {
+          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.research.Study', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
+        }
+      }
+      inst.associatedStudy = mappedResources[entryId];
+    }
+    return inst;
+  }
+
 }
 export default AdverseEvent;

@@ -1,7 +1,7 @@
 import SummaryMetadata from './SummaryMetadata';
 import DefaultCoreCancerPilotMetadata from './metadata/DefaultCoreCancerPilotMetadata';
 import McodeMetadata from './metadata/McodeMetadata';
-import FluxCancerDisorder from '../model/mcode/FluxCancerDisorder';
+import FluxCancerDisorder from '../model/oncocore/FluxCancerDisorder';
 import FunctionMatcher from './matchers/FunctionMatcher';
 import AlwaysMatcher from './matchers/AlwaysMatcher';
 

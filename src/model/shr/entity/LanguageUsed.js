@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 /**
  * Generated class for shr.entity.LanguageUsed.
@@ -113,7 +113,7 @@ class LanguageUsed {
    * @param {object} json - the JSON data to deserialize
    * @returns {LanguageUsed} An instance of LanguageUsed populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new LanguageUsed();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -125,7 +125,7 @@ class LanguageUsed {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/LanguageUsed' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/LanguageUsed' } };
     if (this.language != null) {
       inst['Language'] = typeof this.language.toJSON === 'function' ? this.language.toJSON() : this.language;
     }
@@ -142,60 +142,34 @@ class LanguageUsed {
   }
 
   /**
-   * Serializes an instance of the LanguageUsed class to a FHIR object.
-   * The FHIR is expected to be valid against the LanguageUsed FHIR profile, but no validation checks are performed.
-   * @param {boolean} asExtension - Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
-    if (asExtension) {
-      if (this.language != null) {
-        inst['extension'] = inst['extension'] || [];
-        inst['extension'].push(this.language.toFHIR(true));
-      }
-      if (this.spokenLanguageProficiency != null) {
-        inst['extension'] = inst['extension'] || [];
-        inst['extension'].push(this.spokenLanguageProficiency.toFHIR(true));
-      }
-      if (this.writtenLanguageProficiency != null) {
-        inst['extension'] = inst['extension'] || [];
-        inst['extension'].push(this.writtenLanguageProficiency.toFHIR(true));
-      }
-      if (this.languageQualifier != null) {
-        inst['extension'] = inst['extension'] || [];
-        inst['extension'].push(this.languageQualifier.toFHIR(true));
-      }
-      inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-entity-LanguageUsed-extension';
-    }
-    return inst;
-  }
-
-  /**
    * Deserializes FHIR JSON data to an instance of the LanguageUsed class.
    * The FHIR must be valid against the LanguageUsed FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {LanguageUsed} An instance of LanguageUsed populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension = false) {
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new LanguageUsed();
     if (asExtension) {
-      const match_1 = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-core-Language-extension');
+      const match_1 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-Language-extension');
       if (match_1 != null) {
-        inst.language = createInstanceFromFHIR('shr.core.Language', match_1, true);
+        inst.language = FHIRHelper.createInstanceFromFHIR('shr.core.Language', match_1, shrId, allEntries, mappedResources, referencesOut, true);
       }
-      const match_2 = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-entity-SpokenLanguageProficiency-extension');
+      const match_2 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-SpokenLanguageProficiency-extension');
       if (match_2 != null) {
-        inst.spokenLanguageProficiency = createInstanceFromFHIR('shr.entity.SpokenLanguageProficiency', match_2, true);
+        inst.spokenLanguageProficiency = FHIRHelper.createInstanceFromFHIR('shr.entity.SpokenLanguageProficiency', match_2, shrId, allEntries, mappedResources, referencesOut, true);
       }
-      const match_3 = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-entity-WrittenLanguageProficiency-extension');
+      const match_3 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-WrittenLanguageProficiency-extension');
       if (match_3 != null) {
-        inst.writtenLanguageProficiency = createInstanceFromFHIR('shr.entity.WrittenLanguageProficiency', match_3, true);
+        inst.writtenLanguageProficiency = FHIRHelper.createInstanceFromFHIR('shr.entity.WrittenLanguageProficiency', match_3, shrId, allEntries, mappedResources, referencesOut, true);
       }
-      const match_4 = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-entity-LanguageQualifier-extension');
+      const match_4 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-LanguageQualifier-extension');
       if (match_4 != null) {
-        inst.languageQualifier = createInstanceFromFHIR('shr.entity.LanguageQualifier', match_4, true);
+        inst.languageQualifier = FHIRHelper.createInstanceFromFHIR('shr.entity.LanguageQualifier', match_4, shrId, allEntries, mappedResources, referencesOut, true);
       }
     }
     return inst;

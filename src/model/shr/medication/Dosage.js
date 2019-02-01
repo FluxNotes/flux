@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 /**
  * Generated class for shr.medication.Dosage.
@@ -236,7 +236,7 @@ class Dosage {
    * @param {object} json - the JSON data to deserialize
    * @returns {Dosage} An instance of Dosage populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new Dosage();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -248,7 +248,7 @@ class Dosage {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/medication/Dosage' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/medication/Dosage' } };
     if (this.doseAmount != null) {
       inst['DoseAmount'] = typeof this.doseAmount.toJSON === 'function' ? this.doseAmount.toJSON() : this.doseAmount;
     }
@@ -280,92 +280,53 @@ class Dosage {
   }
 
   /**
-   * Serializes an instance of the Dosage class to a FHIR object.
-   * The FHIR is expected to be valid against the Dosage FHIR profile, but no validation checks are performed.
-   * @param {boolean} asExtension - Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
-    if (this.dosageInstructionsText != null) {
-      inst['text'] = typeof this.dosageInstructionsText.toFHIR === 'function' ? this.dosageInstructionsText.toFHIR() : this.dosageInstructionsText;
-    }
-    if (this.additionalDosageInstruction != null) {
-      inst['additionalInstruction'] = inst['additionalInstruction'] || [];
-      inst['additionalInstruction'] = inst['additionalInstruction'].concat(this.additionalDosageInstruction.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    if (this.timingOfDoses != null) {
-      inst['timing'] = typeof this.timingOfDoses.toFHIR === 'function' ? this.timingOfDoses.toFHIR() : this.timingOfDoses;
-    }
-    if (this.asNeededIndicator != null) {
-      inst['asNeeded[x]'] = typeof this.asNeededIndicator.toFHIR === 'function' ? this.asNeededIndicator.toFHIR() : this.asNeededIndicator;
-    }
-    if (this.dosageBodySite != null && this.dosageBodySite.anatomicalLocation != null && this.dosageBodySite.anatomicalLocation.anatomicalLocationOrLandmarkCode != null) {
-      inst['site'] = typeof this.dosageBodySite.anatomicalLocation.anatomicalLocationOrLandmarkCode.toFHIR === 'function' ? this.dosageBodySite.anatomicalLocation.anatomicalLocationOrLandmarkCode.toFHIR() : this.dosageBodySite.anatomicalLocation.anatomicalLocationOrLandmarkCode;
-    }
-    if (this.routeIntoBody != null) {
-      inst['route'] = typeof this.routeIntoBody.toFHIR === 'function' ? this.routeIntoBody.toFHIR() : this.routeIntoBody;
-    }
-    if (this.dosageMethod != null) {
-      inst['method'] = typeof this.dosageMethod.toFHIR === 'function' ? this.dosageMethod.toFHIR() : this.dosageMethod;
-    }
-    if (this.doseAmount != null) {
-      inst['dose[x]'] = typeof this.doseAmount.toFHIR === 'function' ? this.doseAmount.toFHIR() : this.doseAmount;
-    }
-    if (this.maximumDosePerTimePeriod != null) {
-      inst['maxDosePerPeriod'] = typeof this.maximumDosePerTimePeriod.toFHIR === 'function' ? this.maximumDosePerTimePeriod.toFHIR() : this.maximumDosePerTimePeriod;
-    }
-    return inst;
-  }
-
-  /**
    * Deserializes FHIR JSON data to an instance of the Dosage class.
    * The FHIR must be valid against the Dosage FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Dosage} An instance of Dosage populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension = false) {
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new Dosage();
     if (fhir['text'] != null) {
-      inst.dosageInstructionsText = createInstanceFromFHIR('shr.medication.DosageInstructionsText', fhir['text']);
+      inst.dosageInstructionsText = FHIRHelper.createInstanceFromFHIR('shr.medication.DosageInstructionsText', fhir['text'], shrId, allEntries, mappedResources, referencesOut, false);
     }
-    if (fhir['additionalInstruction'] != null) {
+    for (const fhir_additionalInstruction of fhir['additionalInstruction'] || []) {
       inst.additionalDosageInstruction = inst.additionalDosageInstruction || [];
-      inst.additionalDosageInstruction = inst.additionalDosageInstruction.concat(fhir['additionalInstruction'].map(f => createInstanceFromFHIR('shr.medication.AdditionalDosageInstruction', f)));
+      const inst_additionalDosageInstruction = FHIRHelper.createInstanceFromFHIR('shr.medication.AdditionalDosageInstruction', fhir_additionalInstruction, shrId, allEntries, mappedResources, referencesOut, false);
+      inst.additionalDosageInstruction.push(inst_additionalDosageInstruction);
     }
     if (fhir['timing'] != null) {
-      inst.timingOfDoses = createInstanceFromFHIR('shr.medication.TimingOfDoses', fhir['timing']);
+      inst.timingOfDoses = FHIRHelper.createInstanceFromFHIR('shr.medication.TimingOfDoses', fhir['timing'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['asNeededBoolean'] != null) {
-      inst.asNeededIndicator = createInstanceFromFHIR('shr.medication.AsNeededIndicator', fhir['asNeededBoolean']);
+      inst.asNeededIndicator = FHIRHelper.createInstanceFromFHIR('shr.medication.AsNeededIndicator', fhir['asNeededBoolean'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['asNeededCodeableConcept'] != null) {
-      inst.asNeededIndicator = createInstanceFromFHIR('shr.medication.AsNeededIndicator', fhir['asNeededCodeableConcept']);
+      inst.asNeededIndicator = FHIRHelper.createInstanceFromFHIR('shr.medication.AsNeededIndicator', fhir['asNeededCodeableConcept'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['site'] != null) {
-      if (inst.dosageBodySite === null) {
-        inst.dosageBodySite = createInstanceFromFHIR('shr.medication.DosageBodySite', {});
-      }
-      if (inst.dosageBodySite.value === null) {
-        inst.dosageBodySite.value = createInstanceFromFHIR('shr.core.AnatomicalLocation', {});
-      }
-      inst.dosageBodySite.value.anatomicalLocationOrLandmarkCode = createInstanceFromFHIR('shr.core.AnatomicalLocationOrLandmarkCode', fhir['site']);
+      inst.dosageBodySite = inst.dosageBodySite || FHIRHelper.createInstanceFromFHIR('shr.medication.DosageBodySite', {}, shrId);
+      inst.dosageBodySite.value = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocationPrecoordinated', fhir['site'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['route'] != null) {
-      inst.routeIntoBody = createInstanceFromFHIR('shr.core.RouteIntoBody', fhir['route']);
+      inst.routeIntoBody = FHIRHelper.createInstanceFromFHIR('shr.core.RouteIntoBody', fhir['route'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['method'] != null) {
-      inst.dosageMethod = createInstanceFromFHIR('shr.medication.DosageMethod', fhir['method']);
+      inst.dosageMethod = FHIRHelper.createInstanceFromFHIR('shr.medication.DosageMethod', fhir['method'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['doseQuantity'] != null) {
-      inst.doseAmount = createInstanceFromFHIR('shr.medication.DoseAmount', fhir['doseQuantity']);
+      inst.doseAmount = FHIRHelper.createInstanceFromFHIR('shr.medication.DoseAmount', fhir['doseQuantity'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['doseRange'] != null) {
-      inst.doseAmount = createInstanceFromFHIR('shr.medication.DoseAmount', fhir['doseRange']);
+      inst.doseAmount = FHIRHelper.createInstanceFromFHIR('shr.medication.DoseAmount', fhir['doseRange'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['maxDosePerPeriod'] != null) {
-      inst.maximumDosePerTimePeriod = createInstanceFromFHIR('shr.medication.MaximumDosePerTimePeriod', fhir['maxDosePerPeriod']);
+      inst.maximumDosePerTimePeriod = FHIRHelper.createInstanceFromFHIR('shr.medication.MaximumDosePerTimePeriod', fhir['maxDosePerPeriod'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     return inst;
   }

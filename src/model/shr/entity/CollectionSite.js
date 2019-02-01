@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 /**
  * Generated class for shr.entity.CollectionSite.
@@ -65,7 +65,7 @@ class CollectionSite {
    * @param {object} json - the JSON data to deserialize
    * @returns {CollectionSite} An instance of CollectionSite populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new CollectionSite();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -77,29 +77,9 @@ class CollectionSite {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/CollectionSite' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/CollectionSite' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
-    }
-    return inst;
-  }
-
-  /**
-   * Serializes an instance of the CollectionSite class to a FHIR object.
-   * The FHIR is expected to be valid against the CollectionSite FHIR profile, but no validation checks are performed.
-   * @param {boolean} asExtension - Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
-    if (asExtension) {
-      inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-entity-CollectionSite-extension';
-      inst['valueReference'] = this.value;
-    }
-    if (!asExtension && this.value != null) {
-      if (this.value != null) {
-        inst = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
-      }
     }
     return inst;
   }
@@ -108,16 +88,23 @@ class CollectionSite {
    * Deserializes FHIR JSON data to an instance of the CollectionSite class.
    * The FHIR must be valid against the CollectionSite FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {CollectionSite} An instance of CollectionSite populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension = false) {
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new CollectionSite();
     if (asExtension) {
-      inst.value = fhir['valueReference'];
+      const match_1 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-AnatomicalLocation-extension');
+      if (match_1 != null) {
+        inst.anatomicalLocation = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocation', match_1, shrId, allEntries, mappedResources, referencesOut, true);
+      }
     }
     if (!asExtension && fhir != null) {
-      inst.value = createInstanceFromFHIR('shr.core.AnatomicalLocation', fhir);
+      inst.value = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocation', fhir, shrId, allEntries, mappedResources, referencesOut);
     }
     return inst;
   }

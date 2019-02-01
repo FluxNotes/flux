@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 /**
  * Generated class for shr.adverse.ActionTaken.
@@ -6,55 +6,55 @@ import { setPropertiesFromJSON } from '../../json-helper';
 class ActionTaken {
 
   /**
-   * Get the Details.
-   * @returns {Details} The shr.core.Details
+   * Get the CommentOrDescription.
+   * @returns {CommentOrDescription} The shr.core.CommentOrDescription
    */
-  get details() {
-    return this._details;
+  get commentOrDescription() {
+    return this._commentOrDescription;
   }
 
   /**
-   * Set the Details.
+   * Set the CommentOrDescription.
    * This field/value is required.
-   * @param {Details} details - The shr.core.Details
+   * @param {CommentOrDescription} commentOrDescription - The shr.core.CommentOrDescription
    */
-  set details(details) {
-    this._details = details;
+  set commentOrDescription(commentOrDescription) {
+    this._commentOrDescription = commentOrDescription;
   }
 
   /**
-   * Set the Details and return 'this' for chaining.
+   * Set the CommentOrDescription and return 'this' for chaining.
    * This field/value is required.
-   * @param {Details} details - The shr.core.Details
+   * @param {CommentOrDescription} commentOrDescription - The shr.core.CommentOrDescription
    * @returns {ActionTaken} this.
    */
-  withDetails(details) {
-    this.details = details; return this;
+  withCommentOrDescription(commentOrDescription) {
+    this.commentOrDescription = commentOrDescription; return this;
   }
 
   /**
-   * Get the shr.medication.MedicationChange reference.
-   * @returns {Reference} The shr.medication.MedicationChange reference
+   * Get the shr.base.ActionStatement reference.
+   * @returns {Reference} The shr.base.ActionStatement reference
    */
-  get medicationChange() {
-    return this._medicationChange;
+  get actionStatement() {
+    return this._actionStatement;
   }
 
   /**
-   * Set the shr.medication.MedicationChange reference.
-   * @param {Reference} medicationChange - The shr.medication.MedicationChange reference
+   * Set the shr.base.ActionStatement reference.
+   * @param {Reference} actionStatement - The shr.base.ActionStatement reference
    */
-  set medicationChange(medicationChange) {
-    this._medicationChange = medicationChange;
+  set actionStatement(actionStatement) {
+    this._actionStatement = actionStatement;
   }
 
   /**
-   * Set the shr.medication.MedicationChange reference and return 'this' for chaining.
-   * @param {Reference} medicationChange - The shr.medication.MedicationChange reference
+   * Set the shr.base.ActionStatement reference and return 'this' for chaining.
+   * @param {Reference} actionStatement - The shr.base.ActionStatement reference
    * @returns {ActionTaken} this.
    */
-  withMedicationChange(medicationChange) {
-    this.medicationChange = medicationChange; return this;
+  withActionStatement(actionStatement) {
+    this.actionStatement = actionStatement; return this;
   }
 
   /**
@@ -63,42 +63,53 @@ class ActionTaken {
    * @param {object} json - the JSON data to deserialize
    * @returns {ActionTaken} An instance of ActionTaken populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new ActionTaken();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+
   /**
    * Serializes an instance of the ActionTaken class to a JSON object.
    * The JSON is expected to be valid against the ActionTaken JSON schema, but no validation checks are performed.
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/adverse/ActionTaken' } };
-    if (this.details != null) {
-      inst['Details'] = typeof this.details.toJSON === 'function' ? this.details.toJSON() : this.details;
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/adverse/ActionTaken' } };
+    if (this.commentOrDescription != null) {
+      inst['CommentOrDescription'] = typeof this.commentOrDescription.toJSON === 'function' ? this.commentOrDescription.toJSON() : this.commentOrDescription;
     }
-    if (this.medicationChange != null) {
-      inst['MedicationChange'] = typeof this.medicationChange.toJSON === 'function' ? this.medicationChange.toJSON() : this.medicationChange;
+    if (this.actionStatement != null) {
+      inst['ActionStatement'] = typeof this.actionStatement.toJSON === 'function' ? this.actionStatement.toJSON() : this.actionStatement;
     }
     return inst;
   }
+
   /**
-   * Serializes an instance of the ActionTaken class to a FHIR object.
-   * The FHIR is expected to be valid against the ActionTaken FHIR profile, but no validation checks are performed.
-   * @param {asExtension=false} Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
+   * Deserializes FHIR JSON data to an instance of the ActionTaken class.
+   * The FHIR must be valid against the ActionTaken FHIR profile, although this is not validated by the function.
+   * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
+   * @param {boolean} asExtension - Whether the provided instance is an extension
+   * @returns {ActionTaken} An instance of ActionTaken populated with the FHIR data
    */
-  toFHIR(asExtension = false) {
-    let inst = {};
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+    const inst = new ActionTaken();
     if (asExtension) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.details.toFHIR(true));
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(this.medicationChange.toFHIR(true));
-      inst['url'] = 'http://standardhealthrecord.org/fhir/StructureDefinition/shr-adverse-ActionTaken-extension';
+      const match_1 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-CommentOrDescription-extension');
+      if (match_1 != null) {
+        inst.commentOrDescription = FHIRHelper.createInstanceFromFHIR('shr.core.CommentOrDescription', match_1, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      const match_2 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-ActionStatement-extension');
+      if (match_2 != null) {
+        inst.actionStatement = FHIRHelper.createInstanceFromFHIR('shr.base.ActionStatement', match_2, shrId, allEntries, mappedResources, referencesOut, true);
+      }
     }
     return inst;
   }
+
 }
 export default ActionTaken;

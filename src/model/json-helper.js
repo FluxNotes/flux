@@ -1,5 +1,11 @@
 import Reference from './Reference';
 import Entry from './shr/base/Entry';
+import ShrId from './shr/base/ShrId';
+import EntryId from './shr/base/EntryId';
+import EntryType from './shr/base/EntryType';
+
+import { ALL_KNOWN_VALUE_SETS } from './valueSets';
+
 
 // A variable to hold the root ObjectFactory.  This can be set via the exported setObjectFactory function,
 // but should typically be set by importing the module's init file.
@@ -51,6 +57,10 @@ export function getNamespaceAndName(json={}, type) {
  * @returns {{namespace: string, elementName: string}} An object representing the element
  */
 export function getNamespaceAndNameFromFHIR(fhir, type) {
+  // Special case for primitives
+  if (typeof fhir !== 'object' && type != null && type.indexOf('.') === -1) {
+    return { namespace: 'primitive', elementName: type };
+  }
   // Get the type from the JSON if we can
   if (fhir['meta'] && fhir['meta']['profile']) {
     type = fhir['meta']['profile'][0];
@@ -179,24 +189,79 @@ function createInstance(key, value) {
 }
 
 /**
- * Creates an ES6 class instance based on a value extracted from the JSON.
- * @param {string} key - the original key under which the value was stored.  This is used as a backup in case the value
- *   does not declare its type.
- * @param {object} value - the FHIR data to create an ES6 class instance for
- * @returns {object} an instance of an ES6 class representing the data
- * @private
+ * Wrapper object to contain multiple functions, so that generated classes don't have to pre-determine which functions to specifically import.
  */
-export function createInstanceFromFHIR(key, value, asExtension=false) {
-  if (Array.isArray(value)) {
-    return value.map(v => createInstanceFromFHIR(key, v));
-  }
-  if (typeof value === 'object') {
+export const FHIRHelper = {
+
+  /**
+   * Creates an ES6 class instance based on a value extracted from the JSON.
+   * @param {string} key - the original key under which the value was stored.  This is used as a backup in case the value
+   *   does not declare its type.
+   * @param {object} value - the FHIR data to create an ES6 class instance for
+   * @returns {object} an instance of an ES6 class representing the data
+   * @private
+   */
+  createInstanceFromFHIR: function(key, value, shrId, allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+    if (Array.isArray(value)) {
+      return value.map(v => FHIRHelper.createInstanceFromFHIR(key, v, shrId, allEntries, mappedResources, referencesOut, asExtension));
+    }
     if (OBJECT_FACTORY == null) {
       throw new Error(`SHR ES6 module is not initialized.  Import 'init' before using the ES6 factories and classes`);
     }
-    return OBJECT_FACTORY.createInstanceFromFHIR(value, key, asExtension);
+    return OBJECT_FACTORY.createInstanceFromFHIR(value, key, shrId, allEntries, mappedResources, referencesOut, asExtension);
+  },
+
+  /**
+   * Given an SHR object, return a Reference that points to that object, and add the object to the given list.
+   */
+  createReference: function(shrObject, referenceList=[], setReference=true) {
+    if (!shrObject) {
+      return null;
+    }
+
+    const ref = new Reference(shrObject.entryInfo.shrId, shrObject.entryInfo.entryId, shrObject.entryInfo.entryType);
+    ref.reference = shrObject;
+    referenceList.push(shrObject);
+    return ref;
+  },
+
+  createReferenceWithoutObject: function(shrId, entryId, entryType) {
+    return new Reference(
+      new ShrId().withValue(shrId),
+      new EntryId().withValue(entryId),
+      new EntryType().withValue(entryType)
+    );
+  },
+
+  /**
+   * Determines if a resource in a FHIR entry conforms to a specific profile.  Conformance is only checked by
+   * inspecting the instance's meta.profile field.
+   * @param {Object} fhirEntry - a FHIR entry object (with fullUrl and resource keys)
+   * @param {string} targetProfile - the URL of the target profile
+   * @returns {boolean} true if the entry's resource conforms, false otherwise
+   */
+  conformsToProfile: function(fhirEntry = {}, targetProfile = '') {
+    return fhirEntry.resource && fhirEntry.resource.meta && fhirEntry.resource.meta.profile && fhirEntry.resource.meta.profile.some(p => p === targetProfile);
+  },
+
+  /**
+   * Look up the valueset in the map of all known value sets.
+   * See valueSets.js for the actual generated map, and shr-es6-export/lib/export.js for how the map is built up.
+   */
+  valueSet: function(url) {
+    return ALL_KNOWN_VALUE_SETS[url] || [];
   }
-  return value;
+};
+
+/**
+ * Generate a random v4 UUID.
+ */
+export function uuid() {
+  // source: https://stackoverflow.com/a/2117523
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
 }
 
 /**

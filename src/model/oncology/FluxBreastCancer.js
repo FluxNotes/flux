@@ -4,13 +4,13 @@ import FluxHistologicGrade from './FluxHistologicGrade';
 import FluxProgesteroneReceptorStatus from './FluxProgesteroneReceptorStatus';
 import FluxSolidTumorCancer from './FluxSolidTumorCancer';
 import FluxTumorDimensions from '../oncology/FluxTumorDimensions';
-import CancerDisorder from '../mcode/CancerDisorder';
+import CancerDisorderPresent from '../oncocore/CancerDisorderPresent';
 
 class FluxBreastCancer extends FluxSolidTumorCancer {
     constructor(json, patientRecord) {
         super();
         this._patientRecord = patientRecord;
-        this._condition = this._entry = CancerDisorder.fromJSON(json);
+        this._condition = this._entry = CancerDisorderPresent.fromJSON(json);
     }
 
     getMostRecentERReceptorStatus() {

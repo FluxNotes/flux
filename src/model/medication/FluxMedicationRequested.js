@@ -4,8 +4,8 @@ import RecurrencePattern from '../shr/core/RecurrencePattern';
 import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
 import TimePeriod from '../shr/core/TimePeriod';
-import TimePeriodStart from '../shr/core/TimePeriodStart';
-import TimePeriodEnd from '../shr/core/TimePeriodEnd';
+import BeginDateTime from '../shr/core/BeginDateTime';
+import EndDateTime from '../shr/core/EndDateTime';
 import Timing from '../shr/core/Timing';
 import ExpectedPerformanceTime from '../shr/base/ExpectedPerformanceTime';
 import Type from '../shr/core/Type';
@@ -63,7 +63,7 @@ class FluxMedicationRequested {
         if (!this._medicationRequested.expectedPerformanceTime.value) {
             this._medicationRequested.expectedPerformanceTime.value = new TimePeriod();
         }
-        const timePeriodStart = new TimePeriodStart();
+        const timePeriodStart = new BeginDateTime();
         timePeriodStart.value = date;
         this._medicationRequested.expectedPerformanceTime.value.timePeriodStart = timePeriodStart;
     }
@@ -79,7 +79,7 @@ class FluxMedicationRequested {
         if (!this._medicationRequested.expectedPerformanceTime.value) {
             this._medicationRequested.expectedPerformanceTime.value = new TimePeriod();
         }
-        const timePeriodEnd = new TimePeriodEnd();
+        const timePeriodEnd = new EndDateTime();
         timePeriodEnd.value = date;
         this._medicationRequested.expectedPerformanceTime.value.timePeriodEnd = timePeriodEnd;
     }

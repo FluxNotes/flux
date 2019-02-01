@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 /**
  * Generated class for shr.core.Range.
@@ -61,7 +61,7 @@ class Range {
    * @param {object} json - the JSON data to deserialize
    * @returns {Range} An instance of Range populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new Range();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -73,7 +73,7 @@ class Range {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/Range' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Range' } };
     if (this.lowerBound != null) {
       inst['LowerBound'] = typeof this.lowerBound.toJSON === 'function' ? this.lowerBound.toJSON() : this.lowerBound;
     }
@@ -84,40 +84,23 @@ class Range {
   }
 
   /**
-   * Serializes an instance of the Range class to a FHIR object.
-   * The FHIR is expected to be valid against the Range FHIR profile, but no validation checks are performed.
-   * @param {boolean} asExtension - Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
-    if (this.lowerBound != null) {
-      inst['low'] = typeof this.lowerBound.toFHIR === 'function' ? this.lowerBound.toFHIR() : this.lowerBound;
-    }
-    if (this.upperBound != null) {
-      inst['high'] = typeof this.upperBound.toFHIR === 'function' ? this.upperBound.toFHIR() : this.upperBound;
-    }
-    if (asExtension) {
-      inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-core-Range-extension';
-      inst['valueRange'] = this.value;
-    }
-    return inst;
-  }
-
-  /**
    * Deserializes FHIR JSON data to an instance of the Range class.
    * The FHIR must be valid against the Range FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Range} An instance of Range populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension = false) {
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new Range();
     if (fhir['low'] != null) {
-      inst.lowerBound = createInstanceFromFHIR('shr.core.LowerBound', fhir['low']);
+      inst.lowerBound = FHIRHelper.createInstanceFromFHIR('shr.core.LowerBound', fhir['low'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['high'] != null) {
-      inst.upperBound = createInstanceFromFHIR('shr.core.UpperBound', fhir['high']);
+      inst.upperBound = FHIRHelper.createInstanceFromFHIR('shr.core.UpperBound', fhir['high'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (asExtension) {
       inst.value = fhir['valueRange'];

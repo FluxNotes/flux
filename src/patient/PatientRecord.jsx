@@ -5,7 +5,7 @@ import FluxBreastCancerGeneticAnalysisPanel from '../model/oncology/FluxBreastCa
 import FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel from '../model/oncology/FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel';
 import FluxClinicalNote from '../model/core/FluxClinicalNote';
 import FluxConditionPresentAssertion from '../model/base/FluxConditionPresentAssertion';
-import FluxCancerProgression from '../model/mcode/FluxCancerProgression';
+import FluxCancerProgression from '../model/oncocore/FluxCancerProgression';
 import FluxConsultRequested from '../model/encounter/FluxConsultRequested';
 import FluxMedicationRequested from '../model/medication/FluxMedicationRequested';
 import FluxMedicationChange from '../model/medication/FluxMedicationChange';

@@ -1,0 +1,64 @@
+{
+    "408643008": {
+        "exclusions": {
+            "procedures": [
+                {
+                    "name": "Insertion of Port-a-cath",
+                    "code": "312376000",
+                    "codeSystem": "http://snomed.info/sct"
+                },
+                {
+                    "name": "Removal of Port-a-cath",
+                    "code": "312379007",
+                    "codeSystem": "http://snomed.info/sct"
+                }
+            ],
+            "medications": [
+                {
+                    "name": "ibuprofen 600mg tablet",
+                    "code": "316077",
+                    "codeSystem": "http://snomed.info/sct"
+                },
+                {
+                    "name": "hydrocortisone 2.5% ointment",
+                    "code": "310891",
+                    "codeSystem": "http://snomed.info/sct"
+                },
+                {
+                    "name": "loperamide hydrochloride 2mg tablet",
+                    "code": "C0715002",
+                    "codeSystem": ""
+                }
+            ]
+        }
+    },
+    "420120006" : { 
+        "exclusions": {
+            "procedures": [
+            ],
+            "medications": [
+                {
+                    "name": "ibuprofen 600mg tablet",
+                    "code": "316077",
+                    "codeSystem": "http://snomed.info/sct"
+                },
+                {
+                    "name": "hydrocortisone 2.5% ointment",
+                    "code": "310891",
+                    "codeSystem": "http://snomed.info/sct"
+                },
+                {
+                    "name": "loperamide hydrochloride 2mg tablet",
+                    "code": "C0715002",
+                    "codeSystem": ""
+                }
+            ]
+        }
+    },
+    "default": {
+        "exclusions": {
+            "procedures": [],
+            "medications": []
+        }
+    }
+}

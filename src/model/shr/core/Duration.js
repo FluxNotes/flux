@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 import SimpleQuantity from './SimpleQuantity';
 
@@ -39,7 +39,7 @@ class Duration extends SimpleQuantity {
    * @param {object} json - the JSON data to deserialize
    * @returns {Duration} An instance of Duration populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new Duration();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -51,9 +51,9 @@ class Duration extends SimpleQuantity {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/Duration' } };
-    if (this.decimalValue != null) {
-      inst['DecimalValue'] = typeof this.decimalValue.toJSON === 'function' ? this.decimalValue.toJSON() : this.decimalValue;
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Duration' } };
+    if (this.number != null) {
+      inst['Number'] = typeof this.number.toJSON === 'function' ? this.number.toJSON() : this.number;
     }
     if (this.comparator != null) {
       inst['Comparator'] = typeof this.comparator.toJSON === 'function' ? this.comparator.toJSON() : this.comparator;
@@ -65,37 +65,24 @@ class Duration extends SimpleQuantity {
   }
 
   /**
-   * Serializes an instance of the Duration class to a FHIR object.
-   * The FHIR is expected to be valid against the Duration FHIR profile, but no validation checks are performed.
-   * @param {boolean} asExtension - Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
-    if (this.decimalValue != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.decimalValue.toFHIR === 'function' ? this.decimalValue.toFHIR(true) : this.decimalValue);
-    }
-    if (this.units != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.units.toFHIR === 'function' ? this.units.toFHIR(true) : this.units);
-    }
-    return inst;
-  }
-
-  /**
    * Deserializes FHIR JSON data to an instance of the Duration class.
    * The FHIR must be valid against the Duration FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Duration} An instance of Duration populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension = false) {
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new Duration();
-    if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-core-DecimalValue-extension');
-      if (match != null) {
-        inst.decimalValue = createInstanceFromFHIR('shr.core.DecimalValue', match, true);
+    for (const fhir_extension of fhir['extension'] || []) {
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-Number-extension') {
+        inst.number = FHIRHelper.createInstanceFromFHIR('shr.core.Number', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-Units-extension') {
+        inst.units = FHIRHelper.createInstanceFromFHIR('shr.core.Units', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
       }
     }
     return inst;

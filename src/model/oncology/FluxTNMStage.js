@@ -1,11 +1,11 @@
-import TNMClinicalPrimaryTumorClassification from '../mcode/TNMClinicalPrimaryTumorClassification';
-import TNMClinicalRegionalNodesClassification from '../mcode/TNMClinicalRegionalNodesClassification';
-import TNMClinicalDistantMetastasesClassification from '../mcode/TNMClinicalDistantMetastasesClassification';
-import TNMPathologicPrimaryTumorClassification from '../mcode/TNMPathologicPrimaryTumorClassification';
-import TNMPathologicRegionalNodesClassification from '../mcode/TNMPathologicRegionalNodesClassification';
-import TNMPathologicDistantMetastasesClassification from '../mcode/TNMPathologicDistantMetastasesClassification';
+import TNMClinicalPrimaryTumorClassification from '../oncocore/TNMClinicalPrimaryTumorClassification';
+import TNMClinicalRegionalNodesClassification from '../oncocore/TNMClinicalRegionalNodesClassification';
+import TNMClinicalDistantMetastasesClassification from '../oncocore/TNMClinicalDistantMetastasesClassification';
+// import TNMPathologicPrimaryTumorClassification from '../oncocore/TNMPathologicPrimaryTumorClassification';
+// import TNMPathologicRegionalNodesClassification from '../oncocore/TNMPathologicRegionalNodesClassification';
+// import TNMPathologicDistantMetastasesClassification from '../oncocore/TNMPathologicDistantMetastasesClassification';
 import RelevantTime from '../shr/base/RelevantTime';
-import CancerStageInformation from '../mcode/CancerStageInformation';
+import CancerStagePanel from '../oncocore/CancerStagePanel';
 import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
 import PanelMembers from '../shr/base/PanelMembers';
@@ -19,11 +19,11 @@ import Lang from 'lodash';
 class FluxTNMStage extends FluxObservation {
     constructor(json) {
         super();
-        this._entry = this._observation = CancerStageInformation.fromJSON(json);
+        this._entry = this._observation = CancerStagePanel.fromJSON(json);
         if (!this._observation.entryInfo) {
             let entry = new Entry();
             entry.entryType = new EntryType();
-            entry.entryType.uri = 'http://standardhealthrecord.org/spec/mcode/CancerStageInformation';
+            entry.entryType.uri = 'http://standardhealthrecord.org/spec/oncocore/CancerStageInformation';
             this._observation.entryInfo = entry;
             this._observation.panelMembers = new PanelMembers();
             this._observation.panelMembers.observation = [];
@@ -51,12 +51,12 @@ class FluxTNMStage extends FluxObservation {
         this._observation.value = lookup.getStagingCodeableConcept(stage);
     }
 
-    isPathologic() {
-        this._observation.panelMembers.observation.forEach((o) => {
-            if (o instanceof TNMPathologicPrimaryTumorClassification || o instanceof TNMPathologicRegionalNodesClassification || o instanceof TNMPathologicDistantMetastasesClassification) return true;
-        });
-        return false;
-    }
+    // isPathologic() {
+    //     this._observation.panelMembers.observation.forEach((o) => {
+    //         if (o instanceof TNMPathologicPrimaryTumorClassification || o instanceof TNMPathologicRegionalNodesClassification || o instanceof TNMPathologicDistantMetastasesClassification) return true;
+    //     });
+    //     return false;
+    // }
 
     /**
      *  Getter for t_Stage

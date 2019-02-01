@@ -2,7 +2,7 @@ import FluxEntry from '../base/FluxEntry';
 import MedicationChange from '../shr/medication/MedicationChange';
 import FluxMedicationBeforeChange from './FluxMedicationBeforeChange';
 import FluxMedicationAfterChange from './FluxMedicationAfterChange';
-import TopicCode from '../shr/base/TopicCode';
+import FindingTopicCode from '../shr/base/FindingTopicCode';
 import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
 import codeableConceptUtils from '../CodeableConceptUtils.jsx';
@@ -75,7 +75,7 @@ class FluxMedicationChange extends FluxEntry {
 
     set type(code) {
         if (!this._medicationChange.topicCode) {
-            this._medicationChange.topicCode = new TopicCode();
+            this._medicationChange.topicCode = new FindingTopicCode();
         }
 
         this._medicationChange.topicCode.value = codeableConceptUtils.getCodeableConceptFromTuple({value: code, codeSystem: "http://standardhealthrecord.org/spec/shr/medication/cs/#MedicationChangeTypeCS", displayText: code} );

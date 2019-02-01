@@ -22,6 +22,7 @@ export default class Reference {
    */
   set shrId(shrId) {
     this._shrId = shrId;
+    this._reference = undefined; // unset the cached reference if anything changes
   }
 
   /**
@@ -38,6 +39,7 @@ export default class Reference {
    */
   set entryId(entryId) {
     this._entryId = entryId;
+    this._reference = undefined; // unset the cached reference if anything changes
   }
 
   /**
@@ -54,6 +56,25 @@ export default class Reference {
    */
   set entryType(entryType) {
     this._entryType = entryType;
+    this._reference = undefined; // unset the cached reference if anything changes
+  }
+
+  /**
+   * Get the object this Reference is pointing to, if present.
+   * This reference is not assigned automatically and must be manually set for it to be present,
+   * and will automatically be unset if any of the other fields are changed.
+   * @returns {object} The SHR object this Reference is pointing to.
+   */
+  get reference() {
+    return this._reference;
+  }
+
+  /**
+   * Set the object this Reference is pointing to.
+   * @param {object} reference - The SHR object this Reference is pointing to.
+   */
+  set reference(reference) {
+    this._reference = reference;
   }
 
   toJSON() {

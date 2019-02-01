@@ -1,6 +1,6 @@
 //import BodySite from '../shr/entity/BodySite';
 import ConditionPresentAssertion from '../shr/base/ConditionPresentAssertion';
-import FluxCancerProgression from '../mcode/FluxCancerProgression';
+import FluxCancerProgression from '../oncocore/FluxCancerProgression';
 import FluxMedicationRequested from '../medication/FluxMedicationRequested';
 import FluxToxicReaction from '../adverse/FluxToxicReaction';
 import FluxObservation from '../base/FluxObservation';
