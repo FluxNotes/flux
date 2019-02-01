@@ -3,57 +3,7 @@ import _ from 'lodash';
 
 import filterSeerData from '../mcode-pilot/utils/filterSeerData';
 
-const defaultState = {
-    totalPatients: 0,
-    similarPatients: [],
-    similarPatientProps: {
-        demographic: {
-            selected: true,
-            displayText: 'demographic',
-            options: {
-                age: { selected: true, displayText: 'age', minValue: 0, maxValue: 0 },
-                diagnosedAge: { selected: true, displayText: 'age at diagnosis', minValue: 0, maxValue: 0 },
-                race: { selected: true, displayText: 'race', value: '' },
-                gender: { selected: true, displayText: 'gender', value: '' }
-            }
-        },
-        pathology: {
-            selected: true,
-            displayText: 'pathology',
-            options: {
-                ER: { selected: true, displayText: 'ER', value: 'negative' },
-                PR: { selected: true, displayText: 'PR', value: 'positive' },
-                HER2: { selected: true, displayText: 'HER2', value: 'positive' },
-                grade: { selected: true, displayText: 'grade', value: 3 },
-                size: { selected: true, displayText: 'size (mm)', minValue: 10, maxValue: 20 }
-            }
-        },
-        treatmentHistory: {
-            selected: true,
-            displayText: 'treatment history',
-            options: {
-                hadSurgery: { selected: true, displayText: 'had surgery', value: 'yes' },
-                receivedRadTherapy: { selected: true, displayText: 'received radiation therapy', value: 'yes' },
-                receivedChemo: { selected: true, displayText: 'received chemotherapy', value: 'yes' }
-            }
-        },
-        genetics: {
-            selected: true,
-            displayText: 'genetics',
-            options: {
-                BRCA1: { selected: true, displayText: 'BRCA1', value: 'negative' },
-                BRCA2: { selected: true, displayText: 'BRCA2', value: 'negative' }
-            }
-        },
-        medicalHistory: {
-            selected: true,
-            displayText: 'medical history',
-            options: {
-                ECOG: { selected: true, displayText: 'ECOG score', minValue: 2, maxValue: 3 }
-            }
-        }
-    }
-};
+import defaultState from './initial.json';
 
 export default function mcode(state = defaultState, action) {
     if (action.type === types.INITIALIZE_SIMILAR_PATIENT_PROPS) {
