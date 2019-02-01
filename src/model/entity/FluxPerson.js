@@ -15,7 +15,7 @@ class FluxPerson {
     }
 
     get dateOfBirth() {
-        return this._person.dateOfBirth;
+        return this._person.dateOfBirth.value;
     }
 
     get address() {
@@ -23,9 +23,9 @@ class FluxPerson {
         return this._person.address[0];
     }
 
-    get headshot() {
-        if (!this._person.headshot || !this._person.headshot.media.resourceLocation) return null;
-        return this._person.headshot.media.resourceLocation.uri;
+    get photographicImage() {
+        if (!this._person.photographicImage || !this._person.photographicImage[0].resourceLocation) return null;
+        return this._person.photographicImage[0].resourceLocation.uri;
     }
 
     get race() {
@@ -36,7 +36,7 @@ class FluxPerson {
 
     get gender() {
         if (this._person.administrativeGender) {
-            return this._person.administrativeGender.value;
+            return this._person.administrativeGender.value.coding[0].code;
         }
         return null;
     }

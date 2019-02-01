@@ -73,7 +73,7 @@ class FluxPatientIdentifier {
         patientIdentifierJSON.organization = this.organization;
         patientIdentifierJSON.CreationTime = this.entryInfo.creationTime;
         patientIdentifierJSON.EntryId = this.entryInfo.entryId;
-        patientIdentifierJSON.EntryType = this.entryInfo.entryType;
+        patientIdentifierJSON.EntryType = this.entryInfo.entryType.toJSON();
         patientIdentifierJSON.LastUpdated = this.entryInfo.lastUpdated;
         patientIdentifierJSON.PersonOfRecord = this.entryInfo.personOfRecord;
         patientIdentifierJSON.ShrId = this.entryInfo.shrId;

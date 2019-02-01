@@ -240,7 +240,7 @@ class PatientRecord {
     }
 
     getMostRecentPhoto() {
-        return this.person.headshot;
+        return this.person.photographicImage;
     }
 
     getCurrentHomeAddress() {
