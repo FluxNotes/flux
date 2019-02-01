@@ -20,7 +20,7 @@ class IDataSource {
         // Shape of the gestalt : { 
         //      requestTypes: {
         //          sync: bool
-        //          asynch: bool
+        //          async: bool
         //      }
         //      create: bool
         //      read: bool
