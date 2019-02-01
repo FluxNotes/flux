@@ -60,7 +60,7 @@ export default class TreatmentOptionsOutcomes extends Component {
         const rowMappings = {};
         similarPatients.forEach((patient) => {
             const treatments = patient.treatments.sort().join(' & ');
-            const category = treatments === 'noTreatment' ? NO_TREATMENT : treatments;
+            const category = (treatments === 'noTreatment' || treatments === '') ? NO_TREATMENT : treatments;
 
             if (!rowMappings[category]) rowMappings[category] = this.buildRow(category);
 

@@ -1,4 +1,4 @@
-import { transformedTreatmentData } from '../mock-data/treatmentData.js';
+import { transformedTreatmentData } from '../mock-data/mock-data.js';
 import _ from 'lodash';
 
 export default function filterTreatmentData(similarPatientProps) {
@@ -50,7 +50,9 @@ function isSimilarPatient(treatmentDataPatient, similarPatientProps) {
                      return false
                 } else if (option === 'HER2' && (tumorMarkers.her2 && _.lowerCase(tumorMarkers.her2) !== _.lowerCase(value))) {
                      return false
-                } else if (option === 'receivedRadTherapy') {
+                } else if (option === 'stage' && (diseaseStatus.stage && _.lowerCase(diseaseStatus.stage) !== _.lowerCase(value))) {
+                     return false
+                }  else if (option === 'receivedRadTherapy') {
                     let hadTreatmentOption = (value === 'yes')
                     let hadTreatment = treatments.includes('radiation')
                     if((!hadTreatmentOption && hadTreatment) || (hadTreatmentOption && !hadTreatment)){
@@ -58,7 +60,7 @@ function isSimilarPatient(treatmentDataPatient, similarPatientProps) {
                     }
                 } else if (option === 'receivedChemo') {
                     let hadTreatmentOption = (value === 'yes')
-                    let hadTreatment = treatments.includes('chemo')
+                    let hadTreatment = treatments.includes('chemo') || treatments.includes('chemotherapy')
                     if((!hadTreatmentOption && hadTreatment) || (hadTreatmentOption && !hadTreatment)){
                       return false;
                   }

@@ -84,7 +84,7 @@
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
     "start-js": "react-scripts start",
     "check-version": "node ./scripts/check-version.js",
-    "start": "npm-run-all -p watch-css start-js check-version",
+    "start": "NODE_OPTIONS=--max-old-space-size=4096 npm-run-all -p watch-css start-js check-version",
     "build-js": "node --max_old_space_size=4096 node_modules/react-scripts/scripts/build.js",
     "build": "npm-run-all build-css build-js",
     "eject": "react-scripts eject",
