@@ -1,0 +1,199 @@
+{
+"testGroup1":
+    [
+        {
+            "demographics": {
+                "birthDate": "1954-00",
+                "gender": "male",
+                "race": "White"
+            },
+            "diseaseStatus": {
+                "disease": "http://snomed.info/sct/420120006",
+                "diagnosisDate": "2004-12",
+                "isAlive": true,
+                "survivalMonths": 66
+            },
+            "treatments": [
+                "test1"
+            ],
+            "sideEffects": [
+                "urinaryDys",
+                "nauseaVomiting",
+                "erectileDys"
+            ]
+        },
+        {
+            "demographics": {
+                "birthDate": "1952-00",
+                "gender": "male",
+                "race": "White"
+            },
+            "diseaseStatus": {
+                "disease": "http://snomed.info/sct/420120006",
+                "diagnosisDate": "2004-05",
+                "isAlive": true,
+                "survivalMonths": 66
+            },
+            "treatments": [
+                "test2",
+                "test1"
+            ],
+            "sideEffects": [
+                "decLibido",
+                "weightLoss",
+                "fatigue"
+            ]
+        },
+        {
+            "demographics": {
+                "birthDate": "1954-11",
+                "gender": "male",
+                "race": "White"
+            },
+            "diseaseStatus": {
+                "disease": "http://snomed.info/sct/420120006",
+                "diagnosisDate": "2004-07",
+                "isAlive": true,
+                "survivalMonths": 67
+            },
+            "treatments": [
+                "test1"
+            ],
+            "sideEffects": [
+                "nauseaVomiting",
+                "fatigue"
+            ]
+        },
+        {
+            "demographics": {
+                "birthDate": "1954-01",
+                "gender": "male",
+                "race": "White"
+            },
+            "diseaseStatus": {
+                "disease": "http://snomed.info/sct/420120006",
+                "diagnosisDate": "2004-03",
+                "isAlive": true,
+                "survivalMonths": 62
+            },
+            "treatments": [
+                "test2"
+            ],
+            "sideEffects": [
+                "nauseaVomiting",
+                "fatigue"
+            ]
+        },
+        {
+            "demographics": {
+                "birthDate": "1956-11",
+                "gender": "male",
+                "race": "White"
+            },
+            "diseaseStatus": {
+                "disease": "http://snomed.info/sct/420120006",
+                "diagnosisDate": "2004-07",
+                "isAlive": true,
+                "survivalMonths": 69
+            },
+            "treatments": [
+                "test2"
+            ],
+            "sideEffects": [
+                "hotFlash",
+                "decLibido"
+            ]
+        },
+        {
+            "demographics": {
+                "birthDate": "1959-08",
+                "gender": "male",
+                "race": "White"
+            },
+            "diseaseStatus": {
+                "disease": "http://snomed.info/sct/420120006",
+                "diagnosisDate": "2004-02",
+                "isAlive": false,
+                "survivalMonths": 16
+            },
+            "treatments": [
+                "test2"
+            ],
+            "sideEffects": [
+                "nauseaVomiting",
+                "fatigue"
+            ]
+        },
+        {
+            "demographics": {
+                "birthDate": "1955-05",
+                "gender": "male",
+                "race": "White"
+            },
+            "diseaseStatus": {
+                "disease": "http://snomed.info/sct/420120006",
+                "diagnosisDate": "2004-02",
+                "isAlive": true,
+                "survivalMonths": 60
+            },
+            "treatments": [
+                "test1"
+            ],
+            "sideEffects": [
+                "nauseaVomiting",
+                "weightLoss",
+                "fatigue",
+                "anemia"
+            ]
+        },
+        {
+            "demographics": {
+                "birthDate": "1955-05",
+                "gender": "male",
+                "race": "White"
+            },
+            "diseaseStatus": {
+                "disease": "http://snomed.info/sct/420120006",
+                "diagnosisDate": "2004-02",
+                "isAlive": true,
+                "survivalMonths": 60
+            },
+            "treatments": [
+                "test1",
+                "test2",
+                "test3",
+                "test4",
+                "test5",
+                "test6"
+            ],
+            "sideEffects": [
+                "nauseaVomiting",
+                "weightLoss",
+                "fatigue",
+                "anemia"
+            ]
+        }
+    ],
+    "testGroup2":
+      [
+          {
+            "demographics": {
+                "birthDate": "1954-00",
+                "gender": "male",
+                "race": "White"
+            },
+            "diseaseStatus": {
+                "disease": "http://snomed.info/sct/420120006",
+                "diagnosisDate": "2004-12",
+                "isAlive": true,
+                "survivalMonths": 66
+            },
+            "treatments": [
+                "test1"
+            ],
+            "sideEffects": [
+                "death"
+            ]
+        }
+      ]
+}
