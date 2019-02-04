@@ -691,33 +691,23 @@ class FluxNotesEditor extends React.Component {
                         const childShortcuts = shortcut.getChildren();
                         childShortcuts.forEach(childShortcut => {
                             if (this.shortcutTriggerCheck(childShortcut, childShortcut.initiatingTrigger)) {
-                            
                                 // Set the text, then change the data of the shortcut to trigger a re-render.
                                 const text = childShortcut.determineText(this.contextManager);
-                             
                                 childShortcut.setText(text);
                                 transform = this.updateStructuredFieldResetSelection(childShortcut, transform);
                             } else {
-                            
                                 childShortcut.setText(null);
                                 transform = this.updateStructuredFieldResetSelection(childShortcut, transform);
                             }
                         });
-                    
+
                         // Force shortcut to re-render with updated data
                         transform = this.resetShortcutData(shortcut, transform);
-                        //const key = shortcut.getKey();
-                        //const shortcutNode = transform.state.document.getDescendant(key);
-                        //console.log('shortcut node', shortcutNode)
-                        //transform = transform.collapseToEndOf(transform.state.document);
-                        //this.refs.editor.focus();
-                        
                         let state = transform.apply();
                         this.setState({ state }, () => {
                             this.scrollToData(state.document, shortcut.getKey());
                         });
                     }
-
                 }
             }
         });

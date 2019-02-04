@@ -179,6 +179,20 @@ function StructuredFieldPlugin(opts) {
         return allStructuredFields;
     }
 
+    function onKeyDown(e, key, state, editor) {   
+        const keyToShortcutMap = opts.structuredFieldMapManager.keyToShortcutMap;
+        const previousNode = state.document.getPreviousSibling(state.selection.anchorKey);
+        if(e.key === 'Backspace' && previousNode){
+            if (previousNode.type === 'structured_field' && state.selection.anchorOffset === 0 && state.selection.isCollapsed) {
+                const shortcut = previousNode.get('data').get('shortcut');
+                let transform = state.transform();
+                transform = transform.removeNodeByKey(previousNode.key);
+                let newstate = transform.apply();
+                return newstate;
+            }
+        }
+    }
+
     function onChange(state, editor) {
         var deletedKeys = [];
         const keyToShortcutMap = opts.structuredFieldMapManager.keyToShortcutMap;
