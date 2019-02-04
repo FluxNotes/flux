@@ -488,7 +488,7 @@
             }
         },
         "ClinicalStatus": {
-            "Value": "remission",
+            "Value": "active",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/ClinicalStatus"
             }
