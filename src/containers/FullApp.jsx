@@ -160,6 +160,7 @@ export class FullApp extends Component {
         if (this.dataAccess.getGestalt().requestTypes.async) { 
             this.dataAccess.getPatient(patientId, (patient, error) => { 
                 this.contextManager = new ContextManager(patient, this.onContextUpdate);
+                if (!Lang.isEmpty(error)) console.error(error)
                 // TODO: REMOVE AFTER TESTING
                 setTimeout(()=>this.setState({ 
                     patient, 
@@ -191,6 +192,7 @@ export class FullApp extends Component {
                 //     loading: false
                 // });
             } catch (error) {
+                console.error(error)
                 // TODO: REMOVE AFTER TESTING
                 setTimeout(()=>this.setState({ 
                     loading: false,

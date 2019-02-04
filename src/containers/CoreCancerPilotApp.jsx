@@ -92,6 +92,7 @@ export class CoreCancerPilotApp extends Component {
     loadPatient(patientId) {
         if (this.dataAccess.getGestalt().requestTypes.async) { 
             this.dataAccess.getPatient(patientId, (patient, error) => { 
+                if (!Lang.isEmpty(error)) console.error(error)
                 this.setState({ 
                     patient, 
                     loading: false,
@@ -107,6 +108,7 @@ export class CoreCancerPilotApp extends Component {
                     loading: false
                 });
             } catch (error) {
+                console.error(error)
                 this.setState({
                     loading: false, 
                     loadingError: error
