@@ -462,7 +462,23 @@ class FluxNotesEditor extends React.Component {
         let documentText = this.getNoteText(state);
         this.props.updateLocalDocumentText(documentText);
 
-        this.setState({ state });
+        // Fix error where the anchor/focus do not update properly after deleting an expanded selection in a structured field
+        const {selection} = state;
+        const focusNode = state.document.getParent(selection.focusKey);
+        const anchorNode = state.document.getNode(selection.anchorKey);
+        let transform = state.transform();
+
+        // If the selections do not match, collapse selection to the anchor to properly update
+        if (
+            selection.anchorKey !== selection.focusKey
+            && selection.anchorOffset === 0
+            && focusNode.type === "structured_field"
+            && selection.focusOffset === focusNode.text.length
+        ) {
+            transform = transform.collapseToStartOf(anchorNode);
+        }
+
+        this.setState({ state: transform.apply() });
     }
 
     getNoteText = (state) => {
