@@ -43,10 +43,13 @@ function StructuredFieldPlugin(opts) {
     const createShortcut = opts.createShortcut;
 
     function onKeyDown(e, key, state, editor) {
-        const anchorParent = state.document.getParent(state.selection.anchorKey);
-        // NOTE: This uses the new suggested approach. keyToShortcutMap approach works until keys change after enter and map is incorrect.
-        // const shortcut = opts.structuredFieldMapManager.keyToShortcutMap.get(anchorParent.key);
-        const shortcut = anchorParent.data.get('shortcut');
+        const {selection} = state;
+
+        // We want to consider where the cursor is focused if an expanded selection
+        const useFocusKey = selection.isExpanded && selection.isBackward;
+        const selectionKey = useFocusKey ? selection.focusKey : selection.anchorKey;
+        const parentNode = state.document.getParent(selectionKey);
+        const shortcut = parentNode.data.get('shortcut');
 
         if (!(shortcut instanceof InsertValue)) return;
 
@@ -64,22 +67,36 @@ function StructuredFieldPlugin(opts) {
             // Split the inline and insert typed text into new text node
             let transform = state.transform();
             transform = transform.splitInline();
-            const key = transform.state.selection.anchorKey;
-            const newTextNode = transform.state.document.getPreviousText(key);
+            let newTextNode;
+            const key = useFocusKey ? transform.state.selection.focusKey : transform.state.selection.anchorKey;
+
+            // If we expand selection into a different node, text will be deleted
+            // We want the cursor to go to the next text in this case instead of the empty zero-width node
+            if (selection.isExpanded && selection.focusKey !== selection.anchorKey) {
+                newTextNode = transform.state.document.getNextText(key);
+            } else {
+                newTextNode = transform.state.document.getPreviousText(key);
+            }
+
             transform = transform.collapseToEndOf(newTextNode).insertText(e.key);
 
             // Create a new shortcut with the trailing shortcut text after split
             const newShortcutNode = transform.state.document.getNextSibling(newTextNode.key);
-            let shortcutText = newShortcutNode.text;
-            if (shortcut.valueObject) {
-                shortcutText = `{"text": "${newShortcutNode.text}", "entryId": "${shortcut.valueObject.entryInfo.entryId}"}`;
-            }
-            const newShortcut = createShortcut(shortcut.metadata, shortcut.initiatingTrigger, shortcutText, true, shortcut.getSource());
-            newShortcut.setKey(newShortcutNode.key);
-            transform = updateShortcut(newShortcut, transform, newShortcutNode.key, shortcut.getLabel(), newShortcutNode.text);
-            if (shortcut.wasRemovedFromContext) {
-                contextManager.removeShortcutFromContext(newShortcut);
-                newShortcut.setWasRemovedFromContext(true);
+
+            // Ignore updating the latter split shortcut if it is deleted by typing a character
+            if (newShortcutNode) {
+                let shortcutText = newShortcutNode.text;
+                if (shortcut.valueObject) {
+                    shortcutText = `{"text": "${newShortcutNode.text}", "entryId": "${shortcut.valueObject.entryInfo.entryId}"}`;
+                }
+                const newShortcut = createShortcut(shortcut.metadata, shortcut.initiatingTrigger, shortcutText, true, shortcut.getSource());
+                newShortcut.setKey(newShortcutNode.key);
+                transform = updateShortcut(newShortcut, transform, newShortcutNode.key, shortcut.getLabel(), newShortcutNode.text);
+                if (shortcut.wasRemovedFromContext) {
+                    contextManager.removeShortcutFromContext(newShortcut);
+                    newShortcut.setWasRemovedFromContext(true);
+                }
+                updateMaps(newShortcut, opts);
             }
 
             // Update the existing shortcut to reflect the leading text after split
@@ -89,15 +106,15 @@ function StructuredFieldPlugin(opts) {
             // nothing needs to be updated
             if (oldShortcutNode) {
                 transform = updateShortcut(shortcut, transform, oldShortcutNode.key, shortcut.getLabel(), oldShortcutNode.text);
-                contextManager.removeShortcutFromContext(shortcut);
-                shortcut.setWasRemovedFromContext(true);
+                if (newShortcutNode) {
+                    contextManager.removeShortcutFromContext(shortcut);
+                    shortcut.setWasRemovedFromContext(true);
+                }
             }
 
-            transform = transform.apply();
-
-            updateMaps(newShortcut, opts);
             contextManager.contextUpdated();
 
+            transform = transform.apply();
             editor.onChange(transform);
         } else if (shortcut && e.key === 'Enter') {
             stopEventPropagation(e);
@@ -126,7 +143,7 @@ function StructuredFieldPlugin(opts) {
             }
 
             // Update the existing shortcut to reflect the leading text after split
-            transform = updateShortcut(shortcut, transform, anchorParent.key, shortcut.getLabel(), oldShortcutNode.text);
+            transform = updateShortcut(shortcut, transform, parentNode.key, shortcut.getLabel(), oldShortcutNode.text);
             contextManager.removeShortcutFromContext(shortcut);
             shortcut.setWasRemovedFromContext(true);
 
