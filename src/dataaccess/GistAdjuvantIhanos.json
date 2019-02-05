@@ -439,8 +439,11 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/base/ClinicalStatus"
             }
         },
-        "Category": [
-            {
+        "Category": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Category"
+            },
+            "Value": {
                 "Coding": [
                     {
                         "Code": "#disease",
@@ -453,7 +456,7 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
                 }
             }
-        ],
+        },
         "AnatomicalLocation": [
             {
                 "EntryType": {
@@ -643,38 +646,12 @@
                     }
                 }
             },
-            "DosageInstructionsText": [
-                {
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/medication/DosageInstructionsText"
-                    },
-                    "Value": {
-                        "Coding": [
-                            {
-                                "Code": "311504000",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                },
-                                "CodeSystem": {
-                                    "Value": "http://snomed.info/sct",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                    }
-                                },
-                                "DisplayText": {
-                                    "Value": "With or after food",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                    }
-                                }
-                            }
-                        ],
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                        }
-                    }
-                }
-            ]
+            "DosageInstructionsText": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/medication/DosageInstructionsText"
+                },
+                "Value": "With or after food"
+            }
         },
         "Medication": {
             "EntryType": {
@@ -7548,38 +7525,12 @@
                     }
                 }
             },
-            "DosageInstructionsText": [
-                {
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/medication/DosageInstructionsText"
-                    },
-                    "Value": {
-                        "Coding": [
-                            {
-                                "Code": "311504000",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                },
-                                "CodeSystem": {
-                                    "Value": "http://snomed.info/sct",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                    }
-                                },
-                                "DisplayText": {
-                                    "Value": "With or after food",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                    }
-                                }
-                            }
-                        ],
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                        }
-                    }
-                }
-            ]
+            "DosageInstructionsText": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/medication/DosageInstructionsText"
+                },
+                "Value": "With or after food"
+            }
         },
         "Medication": {
             "EntryType": {

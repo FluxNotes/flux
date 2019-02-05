@@ -105,7 +105,7 @@ class FluxClinicalNote {
         let clinicalNoteJSON = {};
         clinicalNoteJSON.ShrId = this.entryInfo.shrId;
         clinicalNoteJSON.EntryId = this.entryInfo.entryId;
-        clinicalNoteJSON.EntryType = this.entryInfo.entryType;
+        clinicalNoteJSON.EntryType = this.entryInfo.entryType.toJSON();
         clinicalNoteJSON.PersonOfRecord = this.entryInfo.personOfRecord;
         clinicalNoteJSON.signedOn = this.signedOn;
         clinicalNoteJSON.subject = this.subject;

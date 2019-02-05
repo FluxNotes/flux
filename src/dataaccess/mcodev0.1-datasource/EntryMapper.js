@@ -22,6 +22,34 @@ import LanguageUsed from '../../model/shr/entity/LanguageUsed';
 import MaritalStatus from '../../model/shr/entity/MaritalStatus';
 import Race from '../../model/shr/entity/Race';
 import FluxPatientIdentifierV01 from './model/base/FluxPatientIdentifier';
+import FluxClinicalNoteV01 from './model/core/FluxClinicalNote';
+import FluxGastrointestinalStromalTumorV01 from './model/oncology/FluxGastrointestinalStromalTumor';
+import ConditionPresentAssertion from '../../model/shr/base/ConditionPresentAssertion';
+import Category from '../../model/shr/core/Category';
+import AnatomicalLocation from '../../model/shr/core/AnatomicalLocation';
+import ClinicalStatus from '../../model/shr/base/ClinicalStatus';
+import Onset from '../../model/shr/base/Onset';
+import CancerDisorderPresent from '../../model/oncocore/CancerDisorderPresent';
+import AnatomicalLocationPrecoordinated from '../../model/shr/core/AnatomicalLocationPrecoordinated';
+import FluxMedicationRequestedV01 from './model/medication/FluxMedicationRequested';
+import MedicationRequested from '../../model/shr/medication/MedicationRequested';
+import Dosage from '../../model/shr/medication/Dosage';
+import DoseAmount from '../../model/shr/medication/DoseAmount';
+import SimpleQuantity from '../../model/shr/core/SimpleQuantity';
+import Number from '../../model/shr/core/Number';
+import Units from '../../model/shr/core/Units';
+import AsNeededIndicator from '../../model/shr/medication/AsNeededIndicator';
+import DosageInstructionsText from '../../model/shr/medication/DosageInstructionsText';
+import RouteIntoBody from '../../model/shr/core/RouteIntoBody';
+import TimingOfDoses from '../../model/shr/medication/TimingOfDoses';
+import Medication from '../../model/shr/entity/Medication';
+import Status from '../../model/shr/core/Status';
+import Reason from '../../model/shr/base/Reason';
+import ExpectedPerformanceTime from '../../model/shr/base/ExpectedPerformanceTime';
+import TimePeriodV01 from './model/shr/core/TimePeriod';
+import TimePeriod from '../../model/shr/core/TimePeriod';
+import BeginDateTime from '../../model/shr/core/BeginDateTime';
+import EndDateTime from '../../model/shr/core/EndDateTime';
 
 // Maps mCODE v0.1 entries to Flux Object Model
 const mapEntryInfo = (entryInfo, entry) => {
@@ -59,11 +87,64 @@ const mapGender = (gender) => {
     newGender.value.coding = [newCoding];
     newGender.value.displayText = new DisplayText();
     newGender.value.displayText.value = gender.value;
-    console.log(newGender.toJSON());
+
     return newGender; 
 }
 
-exports.map = (entries) => {
+const mapAnatomicalLocation = (anatomicalLocation) => {
+    const newAnatomicalLocation = new AnatomicalLocation();
+    newAnatomicalLocation.value = new AnatomicalLocationPrecoordinated();
+    newAnatomicalLocation.value.value = CodeableConcept.fromJSON(anatomicalLocation.anatomicalLocationOrLandmarkCode.value.toJSON());
+
+    return newAnatomicalLocation;
+};
+
+const mapDosage = (dosage) => {
+    const newDosage = new Dosage();
+    newDosage.doseAmount = new DoseAmount();
+    newDosage.doseAmount.value = new SimpleQuantity();
+
+    newDosage.doseAmount.value.number = new Number();
+    newDosage.doseAmount.value.number.value = dosage.doseAmount.value.decimalValue.value;
+    newDosage.doseAmount.value.units = new Units();
+    newDosage.doseAmount.value.units.value = dosage.doseAmount.value.units.value;
+
+    newDosage.asNeededIndicator = mapPassThrough(dosage.asNeededIndicator, AsNeededIndicator);
+    if (dosage.dosageInstructionsText) newDosage.dosageInstructionsText = mapPassThrough(dosage.dosageInstructionsText, DosageInstructionsText);
+    newDosage.routeIntoBody = mapPassThrough(dosage.routeIntoBody, RouteIntoBody);
+    newDosage.timingOfDoses = mapPassThrough(dosage.timingOfDoses, TimingOfDoses);
+
+    return newDosage;
+};
+
+const mapTimePeriod = (timePeriod) => {
+    const newTimePeriod = new TimePeriod();
+
+    if (timePeriod.timePeriodStart) {
+        newTimePeriod.beginDateTime = new BeginDateTime();
+        newTimePeriod.beginDateTime.value = timePeriod.timePeriodStart.value;
+    }
+    if (timePeriod.timePeriodEnd) {
+        newTimePeriod.endDateTime = new EndDateTime();
+        newTimePeriod.endDateTime.value = timePeriod.timePeriodEnd.value;
+    }
+
+    return newTimePeriod;
+}
+
+const mapExpectedPerformanceTime = (expectedPerformanceTime) => {
+    const newExpectedPerformanceTime = new ExpectedPerformanceTime();
+
+    if (expectedPerformanceTime.value instanceof TimePeriodV01) {
+        newExpectedPerformanceTime.value = mapTimePeriod(expectedPerformanceTime.value);
+    } else {
+        newExpectedPerformanceTime.value = expectedPerformanceTime.value;
+    }
+
+    return newExpectedPerformanceTime;
+};
+
+exports.mapEntries = (entries) => {
     const result = [];
     entries.forEach(entry => {
         if (entry instanceof FluxPatientV01) {
@@ -92,8 +173,33 @@ exports.map = (entries) => {
             console.log(newPerson);
             // console.log(newPerson._person.toJSON());
             result.push(newPerson._person.toJSON());
-        } else if (entry instanceof FluxPatientIdentifierV01) {
+        } else if (entry instanceof FluxPatientIdentifierV01 || entry instanceof FluxClinicalNoteV01) {
             result.push(entry.toJSON());
+        } else if (entry instanceof FluxGastrointestinalStromalTumorV01) {
+            const newCondition = new CancerDisorderPresent();
+            mapEntryInfo(entry.entryInfo, newCondition);
+            newCondition.patient = mapReference(entry._condition.patient);
+            newCondition.anatomicalLocation = entry._condition.anatomicalLocation.map(a => mapAnatomicalLocation(a));
+            newCondition.category = mapPassThrough(entry._condition.category, Category);
+            newCondition.clinicalStatus = mapPassThrough(entry._condition.clinicalStatus, ClinicalStatus);
+            // console.log(CodeableConcept.fromJSON(entry._condition.value.toJSON()));
+            // newCondition.codeableConcept = mapPassThrough(entry._condition.value, CodeableConcept);
+            newCondition.onset = mapPassThrough(entry._condition.onset, Onset);
+            const entryJSON = newCondition.toJSON();
+            entryJSON.EntryType.Value = 'http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor';
+            console.log(newCondition);
+            result.push(entryJSON);
+        } else if (entry instanceof FluxMedicationRequestedV01) {
+            const newMedicationRequested = new MedicationRequested();
+
+            mapEntryInfo(entry.entryInfo, newMedicationRequested);
+            newMedicationRequested.dosage = mapDosage(entry._medicationRequested.dosage);
+            newMedicationRequested.medication = mapPassThrough(entry._medicationRequested.medication, Medication);
+            newMedicationRequested.status = mapPassThrough(entry._medicationRequested.status, Status);
+            newMedicationRequested.reason = entry._medicationRequested.reason.map(r => mapPassThrough(r, Reason));
+            newMedicationRequested.expectedPerformanceTime = mapExpectedPerformanceTime(entry._medicationRequested.expectedPerformanceTime);
+
+            result.push(newMedicationRequested.toJSON());
         }
     });
 

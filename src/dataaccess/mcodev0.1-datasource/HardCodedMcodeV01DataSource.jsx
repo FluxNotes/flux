@@ -9,7 +9,7 @@ class HardCodedMcodeV01DataSource extends IDataSource {
     getPatient() {
         console.log(patientJson);
         const mcodeV01Entries = patientJson.map(entry => MCODEV01ObjectFactory.createInstance(entry));
-        const fluxEntries = EntryMapper.map(mcodeV01Entries);
+        const fluxEntries = EntryMapper.mapEntries(mcodeV01Entries);
 
         console.log(mcodeV01Entries);
         console.log(fluxEntries);
