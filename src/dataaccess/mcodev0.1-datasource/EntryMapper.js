@@ -94,6 +94,7 @@ import Seriousness from '../../model/shr/adverse/Seriousness';
 import Type from '../../model/shr/core/Type';
 import CausalAttribution from '../../model/shr/adverse/CausalAttribution';
 import AdverseEventCondition from '../../model/shr/adverse/AdverseEventCondition';
+<<<<<<< HEAD
 import SystolicPressureV01 from './model/shr/vital/SystolicPressure';
 import SystolicPressure from '../../model/shr/vital/SystolicPressure';
 import DiastolicPressureV01 from './model/shr/vital/DiastolicPressure';
@@ -181,6 +182,8 @@ import Text from '../../model/shr/core/Text.js';
 import ConditionOrDiagnosisCode from '../../model/shr/base/ConditionOrDiagnosisCode.js';
 =======
 >>>>>>> Added entry mapping for GIST and MedicationRequested.
+=======
+>>>>>>> Added entry mapping for HistologicGrade, ToxicReaction, ConditionPresentAssertion.
 
 const mapEntryInfo = (entryInfo, entry) => {
     const newEntry = new Entry();
@@ -593,11 +596,34 @@ exports.mapEntries = (entries) => {
             mapEntryInfo(entry.entryInfo, newCondition);
             newCondition.anatomicalLocation = entry._condition.anatomicalLocation.map(a => mapAnatomicalLocation(a));
             newCondition.category = mapPassThrough(entry._condition.category, Category);
+<<<<<<< HEAD
             newCondition.clinicalStatus = mapClinicalStatus(entry._condition.clinicalStatus);
             newCondition.findingTopicCode = mapConditionValue(entry._condition.value);
             newCondition.onset = mapPassThrough(entry._condition.onset, Onset);
 
             v05Json.push(newCondition.toJSON());
+=======
+            newCondition.clinicalStatus = mapPassThrough(entry._condition.clinicalStatus, ClinicalStatus);
+            newCondition.findingResult = new FindingResult();
+            newCondition.findingResult.value = mapPassThrough(entry._condition.value, CodeableConcept);
+            newCondition.onset = mapPassThrough(entry._condition.onset, Onset);
+            const entryJSON = newCondition.toJSON();
+            entryJSON.EntryType.Value = 'http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor';
+            console.log(newCondition);
+            result.push(entryJSON);
+        } else if (entry instanceof FluxConditionPresentAssertionV01) {
+            const newCondition = new ConditionPresentAssertion();
+
+            mapEntryInfo(entry.entryInfo, newCondition);
+            newCondition.anatomicalLocation = entry._condition.anatomicalLocation.map(a => mapAnatomicalLocation(a));
+            newCondition.category = mapPassThrough(entry._condition.category, Category);
+            newCondition.clinicalStatus = mapPassThrough(entry._condition.clinicalStatus, ClinicalStatus);
+            newCondition.findingResult = new FindingResult();
+            newCondition.findingResult.value = mapPassThrough(entry._condition.value, CodeableConcept);
+            newCondition.onset = mapPassThrough(entry._condition.onset, Onset);
+
+            result.push(newCondition.toJSON());
+>>>>>>> Added entry mapping for HistologicGrade, ToxicReaction, ConditionPresentAssertion.
         } else if (entry instanceof FluxProcedureRequestedV01) {
             const newProcedure = new ProcedureRequested();
 
@@ -628,6 +654,7 @@ exports.mapEntries = (entries) => {
 
             v05Json.push(newAllergyIntolerance.toJSON());
         } else if (entry instanceof FluxConsultRequestedV01) {
+<<<<<<< HEAD
             const newConsultRequested = new ConsultRequested();
 
             mapEntryInfo(entry.entryInfo, newConsultRequested);
@@ -808,6 +835,32 @@ exports.mapEntries = (entries) => {
             v05Json.push(newPathologyReport.toJSON());
         }
         else if (entry instanceof FluxObservationV01) {
+=======
+            const entryJSON = entry.toJSON();
+            entryJSON.Encounter.TimePeriod.EntryType.Value = 'http://standardhealthrecord.org/spec/shr/core/TimePeriod';
+            entryJSON.Encounter.TimePeriod.BeginDateTime = {
+                EntryType: {
+                    Value : 'http://standardhealthrecord.org/spec/shr/core/BeginDateTime'
+                },
+                Value: entryJSON.Encounter.TimePeriod.TimePeriodStart.Value
+            };
+            delete entryJSON.LastUpdated;
+            delete entryJSON.CreationTime;
+            delete entryJSON.Encounter.TimePeriod.TimePeriodStart;
+            result.push(entryJSON);
+        } else if (entry instanceof FluxHistologicGradeV01) {
+            const newHistologicGrade = new CancerHistologicGrade();
+
+            mapEntryInfo(entry.entryInfo, newHistologicGrade);
+            newHistologicGrade.findingStatus = new FindingStatus();
+            newHistologicGrade.findingStatus.value = mapPassThrough(entry._histologicGrade.findingStatus, CodeableConcept);
+            newHistologicGrade.relevantTime = mapRelevantTime(entry._histologicGrade.relevantTime);
+            newHistologicGrade.specificFocusOfFinding = mapPassThrough(entry._histologicGrade.specificFocusOfFinding, SpecificFocusOfFinding);
+            newHistologicGrade.findingResult = mapFindingResult(entry._histologicGrade.value);
+
+            result.push(newHistologicGrade.toJSON());
+        } else if (entry instanceof FluxObservationV01) {
+>>>>>>> Added entry mapping for HistologicGrade, ToxicReaction, ConditionPresentAssertion.
             const newObservation = new Observation();
 
             mapEntryInfo(entry.entryInfo, newObservation);
@@ -884,7 +937,11 @@ exports.mapEntries = (entries) => {
                 newQuestionAnswer.questionText.value = entry.observationCodeDisplayText;
                 newQuestionAnswer.findingResult = mapFindingResult(entry._questionAnswer.value);
             }
+<<<<<<< HEAD
             v05Json.push(newQuestionAnswer.toJSON());
+=======
+            result.push(newQuestionAnswer.toJSON());
+>>>>>>> Added entry mapping for HistologicGrade, ToxicReaction, ConditionPresentAssertion.
         } else if (entry instanceof FluxToxicReactionV01) {
             const newToxicReaction = new ToxicAdverseDrugReaction();
 
@@ -893,6 +950,7 @@ exports.mapEntries = (entries) => {
             newToxicReaction.seriousness.value = mapPassThrough(entry._adverseEvent.adverseEventGrade.value, CodeableConcept);
             newToxicReaction.type = new Type();
             newToxicReaction.type.value = mapPassThrough(entry._adverseEvent.codeableConcept, CodeableConcept);
+<<<<<<< HEAD
             if (entry._adverseEvent.causeCategory || entry._adverseEvent.adverseEventAttribution) newToxicReaction.causalAttribution = [new CausalAttribution()];
             newToxicReaction.causalAttribution[0].causeCategory = mapPassThrough(entry._adverseEvent.causeCategory, CauseCategory);
             if (entry._adverseEvent.adverseEventAttribution) newToxicReaction.causalAttribution[0].possibleCause = mapPossibleCause(entry._adverseEvent.adverseEventAttribution);
@@ -975,6 +1033,14 @@ exports.mapEntries = (entries) => {
 
             result.push(newMedicationRequested.toJSON());
 >>>>>>> Added entry mapping for GIST and MedicationRequested.
+=======
+            newToxicReaction.causalAttribution = [new CausalAttribution()];
+            newToxicReaction.causalAttribution[0].causeCategory = mapPassThrough(entry._adverseEvent.causeCategory, CauseCategory);
+            newToxicReaction.adverseEventCondition = [new AdverseEventCondition()];
+            newToxicReaction.adverseEventCondition[0].conditionPresentAssertion = mapReference(entry._adverseEvent.specificFocusOfFinding.value);
+
+            result.push(newToxicReaction.toJSON());
+>>>>>>> Added entry mapping for HistologicGrade, ToxicReaction, ConditionPresentAssertion.
         }
     });
 
