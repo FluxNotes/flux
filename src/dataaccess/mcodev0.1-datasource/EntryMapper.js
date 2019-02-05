@@ -50,6 +50,10 @@ import TimePeriodV01 from './model/shr/core/TimePeriod';
 import TimePeriod from '../../model/shr/core/TimePeriod';
 import BeginDateTime from '../../model/shr/core/BeginDateTime';
 import EndDateTime from '../../model/shr/core/EndDateTime';
+import FluxProcedureRequestedV01 from './model/procedure/FluxProcedureRequested';
+import ProcedureRequested from '../../model/shr/procedure/ProcedureRequested';
+import Annotation from '../../model/shr/core/Annotation';
+import ProcedureCode from '../../model/shr/procedure/ProcedureCode';
 
 // Maps mCODE v0.1 entries to Flux Object Model
 const mapEntryInfo = (entryInfo, entry) => {
@@ -189,18 +193,30 @@ exports.mapEntries = (entries) => {
             entryJSON.EntryType.Value = 'http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor';
             console.log(newCondition);
             result.push(entryJSON);
-        } else if (entry instanceof FluxMedicationRequestedV01) {
-            const newMedicationRequested = new MedicationRequested();
+        } else if (entry instanceof FluxProcedureRequestedV01) {
+            const newProcedure = new ProcedureRequested();
 
-            mapEntryInfo(entry.entryInfo, newMedicationRequested);
-            newMedicationRequested.dosage = mapDosage(entry._medicationRequested.dosage);
-            newMedicationRequested.medication = mapPassThrough(entry._medicationRequested.medication, Medication);
-            newMedicationRequested.status = mapPassThrough(entry._medicationRequested.status, Status);
-            newMedicationRequested.reason = entry._medicationRequested.reason.map(r => mapPassThrough(r, Reason));
-            newMedicationRequested.expectedPerformanceTime = mapExpectedPerformanceTime(entry._medicationRequested.expectedPerformanceTime);
-
-            result.push(newMedicationRequested.toJSON());
+            mapEntryInfo(entry.entryInfo, newProcedure);
+            newProcedure.expectedPerformanceTime = mapExpectedPerformanceTime(entry._procedureRequested.expectedPerformanceTime);
+            if (entry._procedureRequested.annotation) newProcedure.annotation = entry._procedureRequested.annotation.map(a => mapPassThrough(a, Annotation));
+            newProcedure.reason = entry._procedureRequested.reason.map(r => mapPassThrough(r, Reason));
+            newProcedure.status = mapPassThrough(entry._procedureRequested.status, Status);
+            newProcedure.procedureCode = new ProcedureCode();
+            newProcedure.procedureCode.value = mapPassThrough(entry._procedureRequested.topicCode.value, CodeableConcept);
+            result.push(newProcedure.toJSON());
         }
+        // } else if (entry instanceof FluxMedicationRequestedV01) {
+        //     const newMedicationRequested = new MedicationRequested();
+
+        //     mapEntryInfo(entry.entryInfo, newMedicationRequested);
+        //     newMedicationRequested.dosage = mapDosage(entry._medicationRequested.dosage);
+        //     newMedicationRequested.medication = mapPassThrough(entry._medicationRequested.medication, Medication);
+        //     newMedicationRequested.status = mapPassThrough(entry._medicationRequested.status, Status);
+        //     newMedicationRequested.reason = entry._medicationRequested.reason.map(r => mapPassThrough(r, Reason));
+        //     newMedicationRequested.expectedPerformanceTime = mapExpectedPerformanceTime(entry._medicationRequested.expectedPerformanceTime);
+
+        //     result.push(newMedicationRequested.toJSON());
+        // }
     });
 
     return result;

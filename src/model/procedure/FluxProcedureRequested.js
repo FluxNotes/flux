@@ -47,7 +47,7 @@ class FluxProcedureRequested {
      *  Returns procedure name string
      */
     get name() {
-        return this._displayTextOrCode(this._procedureRequested.topicCode.value.coding[0]);
+        return this._displayTextOrCode(this._procedureRequested.procedureCode.value.coding[0]);
     }
 
     /*
@@ -55,8 +55,8 @@ class FluxProcedureRequested {
      *  Returns procedure code string
      */
     get code() {
-        if (!this._procedureRequested.topicCode) return null;
-        return this._procedureRequested.topicCode.value.coding[0].code;
+        if (!this._procedureRequested.procedureCode) return null;
+        return this._procedureRequested.procedureCode.value.coding[0].code;
     }
 
     /*
