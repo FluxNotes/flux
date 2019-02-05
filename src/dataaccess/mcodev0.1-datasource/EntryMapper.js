@@ -68,6 +68,8 @@ import FindingTopicCode from '../../model/shr/base/FindingTopicCode';
 import QuantityV01 from './model/shr/core/Quantity';
 import Quantity from '../../model/shr/core/Quantity';
 import FluxHistologicGradeV01 from './model/oncology/FluxHistologicGrade';
+import FluxCancerProgressionV01 from './model/mcode/FluxCancerProgression';
+import CancerProgression from '../../model/oncocore/CancerProgression';
 
 // Maps mCODE v0.1 entries to Flux Object Model
 const mapEntryInfo = (entryInfo, entry) => {
@@ -166,9 +168,9 @@ const mapRelevantTime = (relevantTime) => {
     const newRelevantTime = new RelevantTime();
 
     if (relevantTime.value instanceof TimePeriodV01) {
-        relevantTime.value = mapTimePeriod(relevantTime.value);
+        newRelevantTime.value = mapTimePeriod(relevantTime.value);
     } else {
-        relevantTime.value = relevantTime.value;
+        newRelevantTime.value = relevantTime.value;
     }
 
     return newRelevantTime;
@@ -313,6 +315,16 @@ exports.mapEntries = (entries) => {
             newMedicationRequested.expectedPerformanceTime = mapExpectedPerformanceTime(entry._medicationRequested.expectedPerformanceTime);
 
             result.push(newMedicationRequested.toJSON());
+        } else if (entry instanceof FluxCancerProgressionV01) {
+            const newProgression = new CancerProgression();
+
+            mapEntryInfo(entry.entryInfo, newProgression);
+            newProgression.findingResult = mapFindingResult(entry._cancerProgression.value);
+            newProgression.specificFocusOfFinding = mapPassThrough(entry._cancerProgression.specificFocusOfFinding, SpecificFocusOfFinding);
+            newProgression.findingTopicCode = mapPassThrough(entry._cancerProgression.findingTopicCode, FindingTopicCode);
+            newProgression.relevantTime = mapRelevantTime(entry._cancerProgression.relevantTime); 
+
+            result.push(newProgression.toJSON());
         }
     });
 
