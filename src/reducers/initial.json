@@ -1,0 +1,115 @@
+{
+    "totalPatients": 0,
+    "similarPatients": [],
+    "similarPatientProps": {
+       "demographic": {
+          "selected": false,
+          "displayText": "demographic",
+          "options": {
+             "age": {
+                "selected": false,
+                "displayText": "age",
+                "minValue": 56,
+                "maxValue": 76
+             },
+             "diagnosedAge": {
+                "selected": false,
+                "displayText": "age at diagnosis",
+                "minValue": 50,
+                "maxValue": 70
+             },
+             "race": {
+                "selected": false,
+                "displayText": "race",
+                "value": ""
+             },
+             "gender": {
+                "selected": false,
+                "displayText": "gender",
+                "value": ""
+             }
+          }
+       },
+       "pathology": {
+          "selected": true,
+          "displayText": "pathology",
+          "options": {
+             "ER": {
+                "selected": true,
+                "displayText": "ER",
+                "value": "negative"
+             },
+             "PR": {
+                "selected": true,
+                "displayText": "PR",
+                "value": "positive"
+             },
+             "HER2": {
+                "selected": true,
+                "displayText": "HER2",
+                "value": "positive"
+             },
+             "grade": {
+                "selected": true,
+                "displayText": "grade",
+                "value": 3
+             },
+             "size": {
+                "selected": true,
+                "displayText": "size (mm)",
+                "minValue": 10,
+                "maxValue": 20
+             }
+          }
+       },
+       "treatmentHistory": {
+          "selected": true,
+          "displayText": "treatment history",
+          "options": {
+             "hadSurgery": {
+                "selected": true,
+                "displayText": "had surgery",
+                "value": "yes"
+             },
+             "receivedRadTherapy": {
+                "selected": true,
+                "displayText": "received radiation therapy",
+                "value": "yes"
+             },
+             "receivedChemo": {
+                "selected": true,
+                "displayText": "received chemotherapy",
+                "value": "yes"
+             }
+          }
+       },
+       "genetics": {
+          "selected": true,
+          "displayText": "genetics",
+          "options": {
+             "BRCA1": {
+                "selected": true,
+                "displayText": "BRCA1",
+                "value": "negative"
+             },
+             "BRCA2": {
+                "selected": true,
+                "displayText": "BRCA2",
+                "value": "negative"
+             }
+          }
+       },
+       "medicalHistory": {
+          "selected": true,
+          "displayText": "medical history",
+          "options": {
+             "ECOG": {
+                "selected": true,
+                "displayText": "ECOG score",
+                "minValue": 2,
+                "maxValue": 3
+             }
+          }
+       }
+    }
+ }

@@ -1,0 +1,314 @@
+{
+    "unselectOne": {
+    "totalPatients": 0,
+    "similarPatients": [],
+    "similarPatientProps": {
+       "testing": {
+          "selected": true,
+          "displayText": "test1",
+          "options": {
+             "test1": {
+                "selected": true,
+                "displayText": "age",
+                "minValue": 0,
+                "maxValue": 0
+             },
+             "test2": {
+                "selected": true,
+                "displayText": "age2",
+                "minValue": 0,
+                "maxValue": 0
+             }
+          }
+       }
+    }
+  },
+  "selectOne":{
+    "totalPatients": 0,
+    "similarPatients": [],
+    "similarPatientProps": {
+       "testing": {
+          "selected": false,
+          "displayText": "test1",
+          "options": {
+             "test1": {
+                "selected": false,
+                "displayText": "age",
+                "minValue": 0,
+                "maxValue": 0
+             },
+             "test2": {
+                "selected": true,
+                "displayText": "age2",
+                "minValue": 0,
+                "maxValue": 0
+             }
+          }
+       }
+    }
+ },
+ "selectAllInCategory":{
+    "totalPatients": 0,
+    "similarPatients": [],
+    "similarPatientProps": {
+       "testing": {
+          "selected": false,
+          "displayText": "test1",
+          "options": {
+             "test1": {
+                "selected": false,
+                "displayText": "age",
+                "minValue": 0,
+                "maxValue": 0
+             },
+             "test2": {
+                "selected": false,
+                "displayText": "age2",
+                "minValue": 0,
+                "maxValue": 0
+             },
+             "test3": {
+                "selected": false,
+                "displayText": "age3",
+                "minValue": 0,
+                "maxValue": 0
+             },
+             "test4": {
+                "selected": false,
+                "displayText": "age4",
+                "minValue": 0,
+                "maxValue": 0
+             }
+          }
+       },
+       "testing2": {
+        "selected": false,
+        "displayText": "test2",
+        "options": {
+           "test1": {
+              "selected": false,
+              "displayText": "age",
+              "minValue": 0,
+              "maxValue": 0
+           }
+        }
+     }
+    }
+ },
+ "unselectAllInCategory":{
+    "totalPatients": 0,
+    "similarPatients": [],
+    "similarPatientProps": {
+       "testing": {
+          "selected": true,
+          "displayText": "test1",
+          "options": {
+             "test1": {
+                "selected": true,
+                "displayText": "age",
+                "minValue": 0,
+                "maxValue": 0
+             },
+             "test2": {
+                "selected": true,
+                "displayText": "age2",
+                "minValue": 0,
+                "maxValue": 0
+             },
+             "test3": {
+                "selected": true,
+                "displayText": "age3",
+                "minValue": 0,
+                "maxValue": 0
+             },
+             "test4": {
+                "selected": true,
+                "displayText": "age4",
+                "minValue": 0,
+                "maxValue": 0
+             }
+          }
+       },
+       "testing2": {
+        "selected": true,
+        "displayText": "test2",
+        "options": {
+           "test1": {
+              "selected": true,
+              "displayText": "age",
+              "minValue": 0,
+              "maxValue": 0
+           }
+        }
+     }
+    }
+ },
+ "selectAllInCategoryFalse":{
+    "totalPatients": 0,
+    "similarPatients": [],
+    "similarPatientProps": {
+       "testing": {
+          "selected": false,
+          "displayText": "test1",
+          "options": {
+             "test1": {
+                "selected": false,
+                "displayText": "age",
+                "minValue": 0,
+                "maxValue": 0
+             },
+             "test2": {
+                "selected": true,
+                "displayText": "age2",
+                "minValue": 0,
+                "maxValue": 0
+             },
+             "test3": {
+                "selected": false,
+                "displayText": "age3",
+                "minValue": 0,
+                "maxValue": 0
+             },
+             "test4": {
+                "selected": false,
+                "displayText": "age4",
+                "minValue": 0,
+                "maxValue": 0
+             }
+          }
+       },
+       "testing2": {
+        "selected": false,
+        "displayText": "test2",
+        "options": {
+           "test1": {
+              "selected": false,
+              "displayText": "age",
+              "minValue": 0,
+              "maxValue": 0
+           }
+        }
+     }
+    }
+ },
+ "selectAllOptions":{
+    "totalPatients": 0,
+    "similarPatients": [],
+    "similarPatientProps": {
+       "testing": {
+          "selected": false,
+          "displayText": "test1",
+          "options": {
+             "test1": {
+                "selected": false,
+                "displayText": "age",
+                "minValue": 0,
+                "maxValue": 0
+             },
+             "test2": {
+                "selected": true,
+                "displayText": "age2",
+                "minValue": 0,
+                "maxValue": 0
+             }
+          }
+       },
+       "testing2": {
+        "selected": false,
+        "displayText": "test2",
+        "options": {
+           "test1": {
+              "selected": false,
+              "displayText": "age",
+              "minValue": 0,
+              "maxValue": 0
+           }
+        }
+     },
+     "testing3": {
+        "selected": false,
+        "displayText": "test3",
+        "options": {
+           "test1": {
+              "selected": false,
+              "displayText": "age",
+              "minValue": 0,
+              "maxValue": 0
+           },
+           "test2": {
+            "selected": false,
+            "displayText": "age",
+            "minValue": 0,
+            "maxValue": 0
+         },
+         "test3": {
+            "selected": false,
+            "displayText": "age",
+            "minValue": 0,
+            "maxValue": 0
+         }
+        }
+     }
+    }
+ },
+ "unselectAllOptions":{
+    "totalPatients": 0,
+    "similarPatients": [],
+    "similarPatientProps": {
+       "testing": {
+          "selected": true,
+          "displayText": "test1",
+          "options": {
+             "test1": {
+                "selected": true,
+                "displayText": "age",
+                "minValue": 0,
+                "maxValue": 0
+             },
+             "test2": {
+                "selected": true,
+                "displayText": "age2",
+                "minValue": 0,
+                "maxValue": 0
+             }
+          }
+       },
+       "testing2": {
+        "selected": false,
+        "displayText": "test2",
+        "options": {
+           "test1": {
+              "selected": false,
+              "displayText": "age",
+              "minValue": 0,
+              "maxValue": 0
+           }
+        }
+     },
+     "testing3": {
+        "selected": false,
+        "displayText": "test3",
+        "options": {
+           "test1": {
+              "selected": false,
+              "displayText": "age",
+              "minValue": 0,
+              "maxValue": 0
+           },
+           "test2": {
+            "selected": true,
+            "displayText": "age",
+            "minValue": 0,
+            "maxValue": 0
+         },
+         "test3": {
+            "selected": true,
+            "displayText": "age",
+            "minValue": 0,
+            "maxValue": 0
+         }
+        }
+     }
+    }
+ }
+}
