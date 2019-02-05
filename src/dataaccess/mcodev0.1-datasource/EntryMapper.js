@@ -74,6 +74,15 @@ import FluxQuestionAnswerV01 from './model/finding/FluxQuestionAnswer';
 import QuestionAnswer from '../../model/shr/base/QuestionAnswer';
 import PanelMembers from '../../model/shr/base/PanelMembers';
 import QuestionText from '../../model/shr/base/QuestionText';
+import CancerHistologicGrade from '../../model/oncocore/CancerHistologicGrade';
+import FluxConditionPresentAssertionV01 from './model/base/FluxConditionPresentAssertion';
+import FluxToxicReactionV01 from './model/adverse/FluxToxicReaction';
+import CauseCategory from '../../model/shr/adverse/CauseCategory';
+import ToxicAdverseDrugReaction from '../../model/shr/adverse/ToxicAdverseDrugReaction';
+import Seriousness from '../../model/shr/adverse/Seriousness';
+import Type from '../../model/shr/core/Type';
+import CausalAttribution from '../../model/shr/adverse/CausalAttribution';
+import AdverseEventCondition from '../../model/shr/adverse/AdverseEventCondition';
 
 // Maps mCODE v0.1 entries to Flux Object Model
 const mapEntryInfo = (entryInfo, entry) => {
@@ -251,15 +260,25 @@ exports.mapEntries = (entries) => {
             newCondition.anatomicalLocation = entry._condition.anatomicalLocation.map(a => mapAnatomicalLocation(a));
             newCondition.category = mapPassThrough(entry._condition.category, Category);
             newCondition.clinicalStatus = mapPassThrough(entry._condition.clinicalStatus, ClinicalStatus);
-            // console.log(CodeableConcept.fromJSON(entry._condition.value.toJSON()));
             newCondition.findingResult = new FindingResult();
             newCondition.findingResult.value = mapPassThrough(entry._condition.value, CodeableConcept);
-            // newCondition.codeableConcept = mapPassThrough(entry._condition.value, CodeableConcept);
             newCondition.onset = mapPassThrough(entry._condition.onset, Onset);
             const entryJSON = newCondition.toJSON();
             entryJSON.EntryType.Value = 'http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor';
             console.log(newCondition);
             result.push(entryJSON);
+        } else if (entry instanceof FluxConditionPresentAssertionV01) {
+            const newCondition = new ConditionPresentAssertion();
+
+            mapEntryInfo(entry.entryInfo, newCondition);
+            newCondition.anatomicalLocation = entry._condition.anatomicalLocation.map(a => mapAnatomicalLocation(a));
+            newCondition.category = mapPassThrough(entry._condition.category, Category);
+            newCondition.clinicalStatus = mapPassThrough(entry._condition.clinicalStatus, ClinicalStatus);
+            newCondition.findingResult = new FindingResult();
+            newCondition.findingResult.value = mapPassThrough(entry._condition.value, CodeableConcept);
+            newCondition.onset = mapPassThrough(entry._condition.onset, Onset);
+
+            result.push(newCondition.toJSON());
         } else if (entry instanceof FluxProcedureRequestedV01) {
             const newProcedure = new ProcedureRequested();
 
@@ -293,7 +312,16 @@ exports.mapEntries = (entries) => {
             delete entryJSON.Encounter.TimePeriod.TimePeriodStart;
             result.push(entryJSON);
         } else if (entry instanceof FluxHistologicGradeV01) {
+            const newHistologicGrade = new CancerHistologicGrade();
 
+            mapEntryInfo(entry.entryInfo, newHistologicGrade);
+            newHistologicGrade.findingStatus = new FindingStatus();
+            newHistologicGrade.findingStatus.value = mapPassThrough(entry._histologicGrade.findingStatus, CodeableConcept);
+            newHistologicGrade.relevantTime = mapRelevantTime(entry._histologicGrade.relevantTime);
+            newHistologicGrade.specificFocusOfFinding = mapPassThrough(entry._histologicGrade.specificFocusOfFinding, SpecificFocusOfFinding);
+            newHistologicGrade.findingResult = mapFindingResult(entry._histologicGrade.value);
+
+            result.push(newHistologicGrade.toJSON());
         } else if (entry instanceof FluxObservationV01) {
             const newObservation = new Observation();
 
@@ -345,6 +373,20 @@ exports.mapEntries = (entries) => {
                 newQuestionAnswer.findingResult = mapFindingResult(entry._questionAnswer.value);
             }
             result.push(newQuestionAnswer.toJSON());
+        } else if (entry instanceof FluxToxicReactionV01) {
+            const newToxicReaction = new ToxicAdverseDrugReaction();
+
+            mapEntryInfo(entry._adverseEvent.entryInfo, newToxicReaction);
+            newToxicReaction.seriousness = new Seriousness();
+            newToxicReaction.seriousness.value = mapPassThrough(entry._adverseEvent.adverseEventGrade.value, CodeableConcept);
+            newToxicReaction.type = new Type();
+            newToxicReaction.type.value = mapPassThrough(entry._adverseEvent.codeableConcept, CodeableConcept);
+            newToxicReaction.causalAttribution = [new CausalAttribution()];
+            newToxicReaction.causalAttribution[0].causeCategory = mapPassThrough(entry._adverseEvent.causeCategory, CauseCategory);
+            newToxicReaction.adverseEventCondition = [new AdverseEventCondition()];
+            newToxicReaction.adverseEventCondition[0].conditionPresentAssertion = mapReference(entry._adverseEvent.specificFocusOfFinding.value);
+
+            result.push(newToxicReaction.toJSON());
         }
     });
 
