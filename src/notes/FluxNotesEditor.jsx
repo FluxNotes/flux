@@ -810,11 +810,19 @@ class FluxNotesEditor extends React.Component {
         }
         // If the highlighted search result has changed, we want to highlight text that matches the highlighted text
         if (!Lang.isEqual(this.props.highlightedSearchSuggestion, nextProps.highlightedSearchSuggestion)) {
-            // Get a transform with any previously highglighted results removed
-            let transform = this.updateHighlightingOfPreviouslyHighlightedSearchSuggestion(this.props.highlightedSearchSuggestion, nextProps.searchSuggestions)
-            this.highlightCurrentHighlightedSearchSuggestion(nextProps.highlightedSearchSuggestion, transform);
+            const currentSection = this.props.highlightedSearchSuggestion ? this.props.highlightedSearchSuggestion.section : null;
+            const nextSection = nextProps.highlightedSearchSuggestion ? nextProps.highlightedSearchSuggestion.section : null;
+            if (currentSection === 'Open Note' || nextSection === 'Open Note') {
+                // Get a transform with any previously highlighted results removed
+                let transform = this.updateHighlightingOfPreviouslyHighlightedSearchSuggestion(this.props.highlightedSearchSuggestion, nextProps.searchSuggestions)
+                this.highlightCurrentHighlightedSearchSuggestion(nextProps.highlightedSearchSuggestion, transform);
+            }
         }
-        
+    }
+
+    getSearchResultInlines = (document) => {
+        return document.getInlinesByTypeAsArray('structured_field_search_result')
+            .concat(document.getInlinesByTypeAsArray('structured_field_selected_search_result'));
     }
 
     regularHighlightPlainText = (transform, range) => { 
@@ -858,9 +866,9 @@ class FluxNotesEditor extends React.Component {
         if (!(sf instanceof Placeholder)) return transform.setNodeByKey(sf.key, "structured_field");
     }
     
-    unhighlightAllStructuredFields = (transform) => { 
-        this.structuredFieldMapManager.keyToShortcutMap.forEach(sf => {
-            transform = this.unhighlightStructuredField(transform, sf);
+    unhighlightAllStructuredFields = (transform) => {
+        this.getSearchResultInlines(transform.state.document).forEach(inline => {
+            transform = this.unhighlightStructuredField(transform, inline.get('data').get('shortcut'));
         });
         return transform;
     }
@@ -910,7 +918,7 @@ class FluxNotesEditor extends React.Component {
             // an identifier -- the order its in; that is 'n' where this is the nth phrase we've 
             // seen that matches the current search text
             indexOfCurrentMatch = 0
-            this.structuredFieldMapManager.keyToShortcutMap.forEach(sf => {
+            this.state.state.document.getInlinesByTypeAsArray('structured_field').forEach(sf => {
                 // TODO: handle highlighting of placeholder text -- should happen in the highlight fn
                 if (sf.getText().toLowerCase().includes(newHighlightedSearchSuggestion.inputValue.toLowerCase()) && newHighlightedSearchSuggestion.indexOfMatch === indexOfCurrentMatch) {
                     transform = this.selectedHighlightStructuredField(transform, sf);
@@ -952,7 +960,7 @@ class FluxNotesEditor extends React.Component {
                 }
             });
             // regular highlighting of structured fields
-            this.structuredFieldMapManager.keyToShortcutMap.forEach(sf => {
+            this.state.state.document.getInlinesByTypeAsArray('structured_field').forEach(sf => {
                 if (sf.getText().toLowerCase().includes(prevHighlightedSuggestion.inputValue.toLowerCase())) {
                     transform = this.regularHighlightStructuredField(transform, sf);
                 } 
@@ -980,7 +988,7 @@ class FluxNotesEditor extends React.Component {
         suggestions.forEach(suggestion => {
 
             // Highlight matching shortcuts; reset highlights of unmatched shortcuts
-            this.structuredFieldMapManager.keyToShortcutMap.forEach(sf => {
+            this.state.state.document.getInlinesByTypeAsArray('structured_field').forEach(sf => {
                 // Handle highlighting of placeholder text should happen in the highlight fn
                 if (sf.getText().toLowerCase().includes(suggestion.inputValue.toLowerCase())) {
                     transform = this.regularHighlightStructuredField(transform, sf);
