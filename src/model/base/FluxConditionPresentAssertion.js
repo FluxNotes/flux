@@ -42,13 +42,13 @@ class FluxConditionPresentAssertion extends FluxEntry {
     }
 
     get code() {
-        if (!this._condition.value) return null;
-        return this._condition.value.coding[0].code;
+        if (!this._condition.findingResult || !this._condition.findingResult.value) return null;
+        return this._condition.findingResult.value.coding[0].code;
     }
 
     get codeSystem() {
-        if (!this._condition.value) return null;
-        return this._condition.value.coding[0].codeSystem.value;
+        if (!this._condition.findingResult || !this._condition.findingResult.value) return null;
+        return this._condition.findingResult.value.coding[0].codeSystem.value;
     }
 
     get codeURL() {
@@ -56,8 +56,8 @@ class FluxConditionPresentAssertion extends FluxEntry {
     }
 
     get type() {
-        if (!this._condition.value) return null;
-        return this._displayTextOrCode(this._condition.value.coding[0]);
+        if (!this._condition.findingResult || !this._condition.findingResult.value) return null;
+        return this._displayTextOrCode(this._condition.findingResult.value.coding[0]);
     }
 
     get observation() {

@@ -35,7 +35,7 @@ class FluxConsultRequested {
     }
 
     get expectedPerformanceTime() {
-        return this._consultRequested._encounter.timePeriod.timePeriodStart.value;
+        return this._consultRequested._encounter.timePeriod.beginDateTime.value;
     }
 
     get practitioner() {

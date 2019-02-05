@@ -10,6 +10,7 @@ import FluxPerson from '../../model/entity/FluxPerson';
 import Address from '../../model/shr/core/Address';
 import AdministrativeGender from '../../model/shr/entity/AdministrativeGender';
 import ContactPoint from '../../model/shr/core/ContactPoint';
+import CodeableConceptV01 from './model/shr/core/CodeableConcept';
 import CodeableConcept from '../../model/shr/core/CodeableConcept';
 import Coding from '../../model/shr/core/Coding';
 import DisplayText from '../../model/shr/core/DisplayText';
@@ -54,6 +55,19 @@ import FluxProcedureRequestedV01 from './model/procedure/FluxProcedureRequested'
 import ProcedureRequested from '../../model/shr/procedure/ProcedureRequested';
 import Annotation from '../../model/shr/core/Annotation';
 import ProcedureCode from '../../model/shr/procedure/ProcedureCode';
+import FluxNoKnownAllergyV01 from './model/allergy/FluxNoKnownAllergy';
+import FluxConsultRequestedV01 from './model/encounter/FluxConsultRequested';
+import NoKnownAllergy from '../../model/shr/allergy/NoKnownAllergy';
+import FindingResult from '../../model/shr/base/FindingResult';
+import FluxObservationV01 from './model/base/FluxObservation';
+import Observation from '../../model/shr/base/Observation';
+import FindingStatus from '../../model/shr/base/FindingStatus';
+import RelevantTime from '../../model/shr/base/RelevantTime';
+import SpecificFocusOfFinding from '../../model/shr/base/SpecificFocusOfFinding';
+import FindingTopicCode from '../../model/shr/base/FindingTopicCode';
+import QuantityV01 from './model/shr/core/Quantity';
+import Quantity from '../../model/shr/core/Quantity';
+import FluxHistologicGradeV01 from './model/oncology/FluxHistologicGrade';
 
 // Maps mCODE v0.1 entries to Flux Object Model
 const mapEntryInfo = (entryInfo, entry) => {
@@ -64,9 +78,9 @@ const mapEntryInfo = (entryInfo, entry) => {
     newEntry.entryType.uri = entryInfo.entryType.uri;
 
     entry.entryInfo = newEntry;
-    entry.metaData = new Metadata();
-    entry.metaData.lastUpdated = new LastUpdated();
-    entry.metaData.lastUpdated.instant = entryInfo.lastUpdated.instant;
+    entry.metadata = new Metadata();
+    entry.metadata.lastUpdated = new LastUpdated();
+    entry.metadata.lastUpdated.instant = entryInfo.lastUpdated.instant;
 };
 
 const mapReference = (reference) => {
@@ -148,6 +162,49 @@ const mapExpectedPerformanceTime = (expectedPerformanceTime) => {
     return newExpectedPerformanceTime;
 };
 
+const mapRelevantTime = (relevantTime) => {
+    const newRelevantTime = new RelevantTime();
+
+    if (relevantTime.value instanceof TimePeriodV01) {
+        relevantTime.value = mapTimePeriod(relevantTime.value);
+    } else {
+        relevantTime.value = relevantTime.value;
+    }
+
+    return newRelevantTime;
+};
+
+const mapUnits = (units) => {
+    const newUnits = new Units();
+
+    newUnits.value = new Coding();
+    newUnits.value.code = units.value.code;
+
+    return newUnits;
+}
+
+const mapQuantity = (quantity) => {
+    const newQuantity = new Quantity();
+
+    newQuantity.number = new Number();
+    newQuantity.number.value = quantity.decimalValue.value;
+    newQuantity.units = mapUnits(quantity.units);
+
+    return newQuantity;
+};
+
+const mapFindingResult = (value) => {
+    const newFindingResult = new FindingResult();
+
+    if (value instanceof QuantityV01) {
+        newFindingResult.value = mapQuantity(value);
+    } else if (value instanceof CodeableConceptV01) {
+        newFindingResult.value = mapPassThrough(value, CodeableConcept);
+    }
+
+    return newFindingResult;
+};
+
 exports.mapEntries = (entries) => {
     const result = [];
     entries.forEach(entry => {
@@ -187,6 +244,8 @@ exports.mapEntries = (entries) => {
             newCondition.category = mapPassThrough(entry._condition.category, Category);
             newCondition.clinicalStatus = mapPassThrough(entry._condition.clinicalStatus, ClinicalStatus);
             // console.log(CodeableConcept.fromJSON(entry._condition.value.toJSON()));
+            newCondition.findingResult = new FindingResult();
+            newCondition.findingResult.value = mapPassThrough(entry._condition.value, CodeableConcept);
             // newCondition.codeableConcept = mapPassThrough(entry._condition.value, CodeableConcept);
             newCondition.onset = mapPassThrough(entry._condition.onset, Onset);
             const entryJSON = newCondition.toJSON();
@@ -203,20 +262,58 @@ exports.mapEntries = (entries) => {
             newProcedure.status = mapPassThrough(entry._procedureRequested.status, Status);
             newProcedure.procedureCode = new ProcedureCode();
             newProcedure.procedureCode.value = mapPassThrough(entry._procedureRequested.topicCode.value, CodeableConcept);
+
             result.push(newProcedure.toJSON());
+        } else if (entry instanceof FluxNoKnownAllergyV01) {
+            const newNoKnownAllergy = new NoKnownAllergy();
+
+            mapEntryInfo(entry.entryInfo, newNoKnownAllergy);
+            newNoKnownAllergy.value = mapPassThrough(entry._noKnownAllergy.value, CodeableConcept);
+
+            result.push(newNoKnownAllergy.toJSON());
+        } else if (entry instanceof FluxConsultRequestedV01) {
+            const entryJSON = entry.toJSON();
+            entryJSON.Encounter.TimePeriod.EntryType.Value = 'http://standardhealthrecord.org/spec/shr/core/TimePeriod';
+            entryJSON.Encounter.TimePeriod.BeginDateTime = {
+                EntryType: {
+                    Value : 'http://standardhealthrecord.org/spec/shr/core/BeginDateTime'
+                },
+                Value: entryJSON.Encounter.TimePeriod.TimePeriodStart.Value
+            };
+            delete entryJSON.LastUpdated;
+            delete entryJSON.CreationTime;
+            delete entryJSON.Encounter.TimePeriod.TimePeriodStart;
+            result.push(entryJSON);
+        } else if (entry instanceof FluxHistologicGradeV01) {
+
+        } else if (entry instanceof FluxObservationV01) {
+            const newObservation = new Observation();
+
+            mapEntryInfo(entry.entryInfo, newObservation);
+            if (entry._observation.category) newObservation.category = mapPassThrough(entry._observation.category, Category);
+            if (entry._observation.findingStatus) {
+                newObservation.findingStatus = new FindingStatus();
+                newObservation.findingStatus.value = mapPassThrough(entry._observation.findingStatus, CodeableConcept);
+            }
+            newObservation.relevantTime = mapRelevantTime(entry._observation.relevantTime);
+            if (entry._observation.specificFocusOfFinding) newObservation.specificFocusOfFinding = mapPassThrough(entry._observation.specificFocusOfFinding, SpecificFocusOfFinding);
+            if (entry._observation.findingTopicCode) newObservation.findingTopicCode = mapPassThrough(entry._observation.findingTopicCode, FindingTopicCode);
+            if (entry._observation.value) newObservation.findingResult = mapFindingResult(entry._observation.value);
+            // newObservation.findingResult = new FindingResult();
+            // newObservation.findingResult.value = mapQuantity(entry._observation.value);
+            result.push(newObservation.toJSON());
+        } else if (entry instanceof FluxMedicationRequestedV01) {
+            const newMedicationRequested = new MedicationRequested();
+
+            mapEntryInfo(entry.entryInfo, newMedicationRequested);
+            newMedicationRequested.dosage = mapDosage(entry._medicationRequested.dosage);
+            newMedicationRequested.medication = mapPassThrough(entry._medicationRequested.medication, Medication);
+            newMedicationRequested.status = mapPassThrough(entry._medicationRequested.status, Status);
+            newMedicationRequested.reason = entry._medicationRequested.reason.map(r => mapPassThrough(r, Reason));
+            newMedicationRequested.expectedPerformanceTime = mapExpectedPerformanceTime(entry._medicationRequested.expectedPerformanceTime);
+
+            result.push(newMedicationRequested.toJSON());
         }
-        // } else if (entry instanceof FluxMedicationRequestedV01) {
-        //     const newMedicationRequested = new MedicationRequested();
-
-        //     mapEntryInfo(entry.entryInfo, newMedicationRequested);
-        //     newMedicationRequested.dosage = mapDosage(entry._medicationRequested.dosage);
-        //     newMedicationRequested.medication = mapPassThrough(entry._medicationRequested.medication, Medication);
-        //     newMedicationRequested.status = mapPassThrough(entry._medicationRequested.status, Status);
-        //     newMedicationRequested.reason = entry._medicationRequested.reason.map(r => mapPassThrough(r, Reason));
-        //     newMedicationRequested.expectedPerformanceTime = mapExpectedPerformanceTime(entry._medicationRequested.expectedPerformanceTime);
-
-        //     result.push(newMedicationRequested.toJSON());
-        // }
     });
 
     return result;
