@@ -98,17 +98,23 @@ class ProgressionLineChartVisualizer extends Visualizer {
 
     // Based on the processed data and the potentialDiagnosisDates, build a range of graphable xAxis values
     getXAxisDomain = (processedData, processedPotentialDiagnosisDates) => {
-        let [ min, max ] = this.getMinMax(processedData);
-        for (const obj of processedPotentialDiagnosisDates) {
-            if (obj.date < min) {
-                min = obj.date;
-            } else if (obj.date > max) {
-                max = obj.date;
+        if (processedData.length > 1) {
+            let [ min, max ] = this.getMinMax(processedData);
+            for (const obj of processedPotentialDiagnosisDates) {
+                if (obj.date < min) {
+                    min = obj.date;
+                } else if (obj.date > max) {
+                    max = obj.date;
+                }
             }
+            // Creates a small amount of padding, relative to the length of the domain
+            const buffer = ((max - min)/15);
+            return [min - buffer, max];
+        } else { // case where there is only a diagnosis date
+            let date = processedPotentialDiagnosisDates[0].date;
+            let buffer = 2600000000; // equivalent of about a month
+            return [date - buffer, date + buffer]; 
         }
-        // Creates a small amount of padding, relative to the length of the domain
-        const buffer = ((max - min)/15);
-        return [min - buffer, max];
     }
 
     // Gets the min/max values of the numeric representation of this.xVarField
