@@ -1,5 +1,4 @@
 import { getNamespaceAndName } from '../json-helper';
-import FluxQuestionAnswer from './FluxQuestionAnswer';
 import FluxPathologyReport from './FluxPathologyReport';
 
 export default class FluxFindingObjectFactory {
@@ -10,7 +9,6 @@ export default class FluxFindingObjectFactory {
         }
         // returns Flux wrapper class if found, otherwise use ShrFindingObjectFactory
         switch (elementName) {
-            case 'QuestionAnswer': return new FluxQuestionAnswer(json);
             case 'PathologyReport': return new FluxPathologyReport(json);
             default: console.error("Unsupport element type " + elementName);
         }

@@ -70,6 +70,10 @@ import Quantity from '../../model/shr/core/Quantity';
 import FluxHistologicGradeV01 from './model/oncology/FluxHistologicGrade';
 import FluxCancerProgressionV01 from './model/mcode/FluxCancerProgression';
 import CancerProgression from '../../model/oncocore/CancerProgression';
+import FluxQuestionAnswerV01 from './model/finding/FluxQuestionAnswer';
+import QuestionAnswer from '../../model/shr/base/QuestionAnswer';
+import PanelMembers from '../../model/shr/base/PanelMembers';
+import QuestionText from '../../model/shr/base/QuestionText';
 
 // Maps mCODE v0.1 entries to Flux Object Model
 const mapEntryInfo = (entryInfo, entry) => {
@@ -202,6 +206,8 @@ const mapFindingResult = (value) => {
         newFindingResult.value = mapQuantity(value);
     } else if (value instanceof CodeableConceptV01) {
         newFindingResult.value = mapPassThrough(value, CodeableConcept);
+    } else {
+        newFindingResult.value = value;
     }
 
     return newFindingResult;
@@ -325,6 +331,20 @@ exports.mapEntries = (entries) => {
             newProgression.relevantTime = mapRelevantTime(entry._cancerProgression.relevantTime); 
 
             result.push(newProgression.toJSON());
+        } else if (entry instanceof FluxQuestionAnswerV01) {
+            const newQuestionAnswer = new QuestionAnswer();
+
+            mapEntryInfo(entry.entryInfo, newQuestionAnswer);
+            if (entry._questionAnswer.relevantTime) newQuestionAnswer.relevantTime = mapRelevantTime(entry._questionAnswer.relevantTime);
+            if (entry.observationCodeDisplayText === 'Review of systems') {
+                newQuestionAnswer.findingTopicCode = mapPassThrough(entry._questionAnswer.findingTopicCode, FindingTopicCode);
+                newQuestionAnswer.panelMembers = mapPassThrough(entry._questionAnswer.panelMembers, PanelMembers);
+            } else {
+                newQuestionAnswer.questionText = new QuestionText();
+                newQuestionAnswer.questionText.value = entry.observationCodeDisplayText;
+                newQuestionAnswer.findingResult = mapFindingResult(entry._questionAnswer.value);
+            }
+            result.push(newQuestionAnswer.toJSON());
         }
     });
 

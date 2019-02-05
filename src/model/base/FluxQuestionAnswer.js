@@ -1,4 +1,4 @@
-import QuestionAnswer from '../shr/finding/QuestionAnswer';
+import QuestionAnswer from '../shr/base/QuestionAnswer';
 import Lang from 'lodash';
 
 class FluxQuestionAnswer {
