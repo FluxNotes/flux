@@ -112,7 +112,7 @@ export default class TreatmentOptionsOutcomes extends Component {
                 active={active}
             />
         );
-    }
+     }
 
     renderRow(row) {
         const { id, name, active, totalPatients, sideEffects } = row;

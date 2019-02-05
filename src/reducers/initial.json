@@ -54,6 +54,12 @@
                 "displayText": "grade",
                 "value": 3
              },
+             "stage": {
+                "selected": true,
+                "displayText": "stage",
+                "value": "IIA"
+             }
+             ,
              "size": {
                 "selected": true,
                 "displayText": "size (mm)",

@@ -52,6 +52,8 @@ function isSimilarPatient(treatmentDataPatient, similarPatientProps) {
                      return false
                 } else if (option === 'stage' && (diseaseStatus.stage && _.lowerCase(diseaseStatus.stage) !== _.lowerCase(value))) {
                      return false
+                } else if (option === 'grade' && (diseaseStatus.grade && diseaseStatus.grade !== value)) {
+                     return false
                 }  else if (option === 'receivedRadTherapy') {
                     let hadTreatmentOption = (value === 'yes')
                     let hadTreatment = treatments.includes('radiation')
