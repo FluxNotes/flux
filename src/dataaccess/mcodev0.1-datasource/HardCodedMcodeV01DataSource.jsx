@@ -9,6 +9,7 @@ import PatientRecord from '../../patient/PatientRecord.jsx';
 import EntryMapper from './EntryMapper.js';
 
 class HardCodedMcodeV01DataSource extends IDataSource {
+<<<<<<< HEAD
     constructor() { 
         super();
         this._gestalt = { 
@@ -34,6 +35,12 @@ class HardCodedMcodeV01DataSource extends IDataSource {
     getGestalt() { 
         return this._gestalt;
     }
+=======
+    getPatient() {
+        console.log(patientJson);
+        const mcodeV01Entries = patientJson.map(entry => MCODEV01ObjectFactory.createInstance(entry));
+        const fluxEntries = EntryMapper.mapEntries(mcodeV01Entries);
+>>>>>>> Added entry mapping for GIST and MedicationRequested.
 
     getPatient(id) {
         let patientJSON;

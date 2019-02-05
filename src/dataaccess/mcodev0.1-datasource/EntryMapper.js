@@ -33,12 +33,20 @@ import AnatomicalLocation from '../../model/shr/core/AnatomicalLocation';
 import ClinicalStatus from '../../model/shr/base/ClinicalStatus';
 import Onset from '../../model/shr/base/Onset';
 import CancerDisorderPresent from '../../model/oncocore/CancerDisorderPresent';
+<<<<<<< HEAD
+=======
+import AnatomicalLocationPrecoordinated from '../../model/shr/core/AnatomicalLocationPrecoordinated';
+>>>>>>> Added entry mapping for GIST and MedicationRequested.
 import FluxMedicationRequestedV01 from './model/medication/FluxMedicationRequested';
 import MedicationRequested from '../../model/shr/medication/MedicationRequested';
 import Dosage from '../../model/shr/medication/Dosage';
 import DoseAmount from '../../model/shr/medication/DoseAmount';
 import SimpleQuantity from '../../model/shr/core/SimpleQuantity';
+<<<<<<< HEAD
 import NumberV05 from '../../model/shr/core/Number';
+=======
+import Number from '../../model/shr/core/Number';
+>>>>>>> Added entry mapping for GIST and MedicationRequested.
 import Units from '../../model/shr/core/Units';
 import AsNeededIndicator from '../../model/shr/medication/AsNeededIndicator';
 import DosageInstructionsText from '../../model/shr/medication/DosageInstructionsText';
@@ -52,6 +60,7 @@ import TimePeriodV01 from './model/shr/core/TimePeriod';
 import TimePeriod from '../../model/shr/core/TimePeriod';
 import BeginDateTime from '../../model/shr/core/BeginDateTime';
 import EndDateTime from '../../model/shr/core/EndDateTime';
+<<<<<<< HEAD
 import FluxProcedureRequestedV01 from './model/procedure/FluxProcedureRequested';
 import ProcedureRequested from '../../model/shr/procedure/ProcedureRequested';
 import Annotation from '../../model/shr/core/Annotation';
@@ -170,6 +179,8 @@ import Patient from '../../model/shr/entity/Patient';
 import ParticipationPeriod from '../../model/shr/base/ParticipationPeriod';
 import Text from '../../model/shr/core/Text.js';
 import ConditionOrDiagnosisCode from '../../model/shr/base/ConditionOrDiagnosisCode.js';
+=======
+>>>>>>> Added entry mapping for GIST and MedicationRequested.
 
 const mapEntryInfo = (entryInfo, entry) => {
     const newEntry = new Entry();
@@ -221,21 +232,36 @@ const mapCodingToCodeableConcept = (coding) => {
 
 const mapGender = (gender) => {
     const newGender = new AdministrativeGender();
+<<<<<<< HEAD
 
     newGender.value = mapCodingToCodeableConcept(gender.value);
+=======
+    newGender.value = new CodeableConcept();
+    const newCoding = new Coding();
+    newCoding.code = gender.value;
+    newGender.value.coding = [newCoding];
+    newGender.value.displayText = new DisplayText();
+    newGender.value.displayText.value = gender.value;
+>>>>>>> Added entry mapping for GIST and MedicationRequested.
 
     return newGender; 
 }
 
 const mapAnatomicalLocation = (anatomicalLocation) => {
     const newAnatomicalLocation = new AnatomicalLocation();
+<<<<<<< HEAD
     newAnatomicalLocation.value = new AnatomicalLocationStructured();
     newAnatomicalLocation.value.anatomicalLocationOrLandmarkCode = mapPassThrough(anatomicalLocation.anatomicalLocationOrLandmarkCode, AnatomicalLocationOrLandmarkCode);
     if (anatomicalLocation.laterality) newAnatomicalLocation.value.laterality = mapPassThrough(anatomicalLocation.laterality, Laterality);
+=======
+    newAnatomicalLocation.value = new AnatomicalLocationPrecoordinated();
+    newAnatomicalLocation.value.value = CodeableConcept.fromJSON(anatomicalLocation.anatomicalLocationOrLandmarkCode.value.toJSON());
+>>>>>>> Added entry mapping for GIST and MedicationRequested.
 
     return newAnatomicalLocation;
 };
 
+<<<<<<< HEAD
 const mapUnits = (units) => {
     const newUnits = new Units();
 
@@ -286,19 +312,32 @@ const mapTimingOfDoses = (timingOfDoses) => {
     return newTimingOfDoses;
 }
 
+=======
+>>>>>>> Added entry mapping for GIST and MedicationRequested.
 const mapDosage = (dosage) => {
     const newDosage = new Dosage();
     newDosage.doseAmount = new DoseAmount();
     newDosage.doseAmount.value = new SimpleQuantity();
 
+<<<<<<< HEAD
     newDosage.doseAmount.value.number = new NumberV05();
     newDosage.doseAmount.value.number.value = dosage.doseAmount.value.decimalValue.value;
     newDosage.doseAmount.value.units = mapUnits(dosage.doseAmount.value.units);
+=======
+    newDosage.doseAmount.value.number = new Number();
+    newDosage.doseAmount.value.number.value = dosage.doseAmount.value.decimalValue.value;
+    newDosage.doseAmount.value.units = new Units();
+    newDosage.doseAmount.value.units.value = dosage.doseAmount.value.units.value;
+>>>>>>> Added entry mapping for GIST and MedicationRequested.
 
     newDosage.asNeededIndicator = mapPassThrough(dosage.asNeededIndicator, AsNeededIndicator);
     if (dosage.dosageInstructionsText) newDosage.dosageInstructionsText = mapPassThrough(dosage.dosageInstructionsText, DosageInstructionsText);
     newDosage.routeIntoBody = mapPassThrough(dosage.routeIntoBody, RouteIntoBody);
+<<<<<<< HEAD
     newDosage.timingOfDoses = mapTimingOfDoses(dosage.timingOfDoses);
+=======
+    newDosage.timingOfDoses = mapPassThrough(dosage.timingOfDoses, TimingOfDoses);
+>>>>>>> Added entry mapping for GIST and MedicationRequested.
 
     return newDosage;
 };
@@ -330,6 +369,7 @@ const mapExpectedPerformanceTime = (expectedPerformanceTime) => {
     return newExpectedPerformanceTime;
 };
 
+<<<<<<< HEAD
 const mapRelevantTime = (relevantTime) => {
     const newRelevantTime = new RelevantTime();
 
@@ -507,6 +547,10 @@ const mapAnnotation = (annotation) => {
 exports.mapEntries = (v01Json) => {
     const entries = v01Json.map(entry => MCODEV01ObjectFactory.createInstance(entry));
     const v05Json = [];
+=======
+exports.mapEntries = (entries) => {
+    const result = [];
+>>>>>>> Added entry mapping for GIST and MedicationRequested.
     entries.forEach(entry => {
         if (entry instanceof FluxPatientV01) {
             const newPatient = new FluxPatient();
@@ -528,6 +572,7 @@ exports.mapEntries = (v01Json) => {
             newPerson._person.languageUsed = entry._person.languageUsed.map(l => mapPassThrough(l, LanguageUsed));
             if (entry._person.maritalStatus) newPerson._person.maritalStatus = mapPassThrough(entry._person.maritalStatus, MaritalStatus);
             newPerson._person.race = mapPassThrough(entry._person.race, Race);
+<<<<<<< HEAD
             v05Json.push(newPerson._person.toJSON());
         } else if (entry instanceof FluxPatientIdentifierV01 || entry instanceof FluxClinicalNoteV01) {
             v05Json.push(entry.toJSON());
@@ -781,12 +826,34 @@ exports.mapEntries = (v01Json) => {
             if (entry._medicationChange.medicationAfterChange) newMedicationChange.medicationAfterChange = [mapMedicationAfterChange(entry._medicationChange.medicationAfterChange)];
 
             v05Json.push(newMedicationChange.toJSON());
+=======
+            console.log(newPerson);
+            // console.log(newPerson._person.toJSON());
+            result.push(newPerson._person.toJSON());
+        } else if (entry instanceof FluxPatientIdentifierV01 || entry instanceof FluxClinicalNoteV01) {
+            result.push(entry.toJSON());
+        } else if (entry instanceof FluxGastrointestinalStromalTumorV01) {
+            const newCondition = new CancerDisorderPresent();
+            mapEntryInfo(entry.entryInfo, newCondition);
+            newCondition.patient = mapReference(entry._condition.patient);
+            newCondition.anatomicalLocation = entry._condition.anatomicalLocation.map(a => mapAnatomicalLocation(a));
+            newCondition.category = mapPassThrough(entry._condition.category, Category);
+            newCondition.clinicalStatus = mapPassThrough(entry._condition.clinicalStatus, ClinicalStatus);
+            // console.log(CodeableConcept.fromJSON(entry._condition.value.toJSON()));
+            // newCondition.codeableConcept = mapPassThrough(entry._condition.value, CodeableConcept);
+            newCondition.onset = mapPassThrough(entry._condition.onset, Onset);
+            const entryJSON = newCondition.toJSON();
+            entryJSON.EntryType.Value = 'http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor';
+            console.log(newCondition);
+            result.push(entryJSON);
+>>>>>>> Added entry mapping for GIST and MedicationRequested.
         } else if (entry instanceof FluxMedicationRequestedV01) {
             const newMedicationRequested = new MedicationRequested();
 
             mapEntryInfo(entry.entryInfo, newMedicationRequested);
             newMedicationRequested.dosage = mapDosage(entry._medicationRequested.dosage);
             newMedicationRequested.medication = mapPassThrough(entry._medicationRequested.medication, Medication);
+<<<<<<< HEAD
             newMedicationRequested.status = mapStatus(entry._medicationRequested.status);
             newMedicationRequested.reason = entry._medicationRequested.reason.map(r => mapPassThrough(r, Reason));
             newMedicationRequested.expectedPerformanceTime = mapExpectedPerformanceTime(entry._medicationRequested.expectedPerformanceTime);
@@ -901,6 +968,13 @@ exports.mapEntries = (v01Json) => {
             if (entry._researchSubject.patient) newResearchSubject.patient = mapPassThrough(entry._researchSubject.patient, Patient);
 
             v05Json.push(newResearchSubject.toJSON());
+=======
+            newMedicationRequested.status = mapPassThrough(entry._medicationRequested.status, Status);
+            newMedicationRequested.reason = entry._medicationRequested.reason.map(r => mapPassThrough(r, Reason));
+            newMedicationRequested.expectedPerformanceTime = mapExpectedPerformanceTime(entry._medicationRequested.expectedPerformanceTime);
+
+            result.push(newMedicationRequested.toJSON());
+>>>>>>> Added entry mapping for GIST and MedicationRequested.
         }
     });
 

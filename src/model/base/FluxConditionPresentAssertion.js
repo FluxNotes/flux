@@ -75,7 +75,11 @@ class FluxConditionPresentAssertion extends FluxEntry {
         // } else if (this._condition.anatomicalLocation[0].anatomicalLocationOrLandmarkCode instanceof BodySite) {
         //     return this._displayTextOrCode(this._condition.anatomicalLocation[0].anatomicalLocationOrLandmarkCode.value.coding[0]);
         } else { // CodeableConcept
+<<<<<<< HEAD
             return this._displayTextOrCode(this._condition.anatomicalLocation[0].value.anatomicalLocationOrLandmarkCode.value.coding[0]);
+=======
+            return this._displayTextOrCode(this._condition.anatomicalLocation[0].value.value.coding[0]);
+>>>>>>> Added entry mapping for GIST and MedicationRequested.
         }
     }
     
