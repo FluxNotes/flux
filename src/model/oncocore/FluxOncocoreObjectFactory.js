@@ -20,7 +20,7 @@ export default class FluxOncocoreObjectFactory {
             case 'CancerHistologicGrade': return new FluxHistologicGrade(json, type, patientRecord);
             case 'CancerHistologicType': return new FluxCancerHistologicType(json, type, patientRecord);
             case 'CancerProgression': return new FluxCancerProgression(json, type, patientRecord);
-            case 'CancerStageInformation': return new FluxTNMStage(json, type, patientRecord);
+            case 'TNMClinicalStageGroup': return new FluxTNMStage(json, type, patientRecord);
             case 'Evidence': return new FluxEvidence(json, type, patientRecord);
             case 'KarnofskyPerformanceStatus': return new FluxKarnofskyPerformanceStatus(json, type, patientRecord);
             default: return OncocoreObjectFactory.createInstance(json, type, patientRecord);

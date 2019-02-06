@@ -61,6 +61,7 @@ import NoKnownAllergy from '../../model/shr/allergy/NoKnownAllergy';
 import FindingResult from '../../model/shr/base/FindingResult';
 import FluxObservationV01 from './model/base/FluxObservation';
 import Observation from '../../model/shr/base/Observation';
+import FindingStatusV01 from './model/shr/base/FindingStatus';
 import FindingStatus from '../../model/shr/base/FindingStatus';
 import RelevantTime from '../../model/shr/base/RelevantTime';
 import SpecificFocusOfFinding from '../../model/shr/base/SpecificFocusOfFinding';
@@ -87,6 +88,11 @@ import SystolicPressureV01 from './model/shr/vital/SystolicPressure';
 import SystolicPressure from '../../model/shr/vital/SystolicPressure';
 import DiastolicPressureV01 from './model/shr/vital/DiastolicPressure';
 import DiastolicPressure from '../../model/shr/vital/DiastolicPressure';
+import FluxTNMStageV01 from './model/oncology/FluxTNMStage';
+import TNMClinicalStageGroup from '../../model/oncocore/TNMClinicalStageGroup';
+import FindingMethod from '../../model/shr/base/FindingMethod';
+import FluxMitoticRateV01 from './model/oncology/FluxMitoticRate';
+import FluxMitoticRate from '../../model/oncology/FluxMitoticRate';
 
 // Maps mCODE v0.1 entries to Flux Object Model
 const mapEntryInfo = (entryInfo, entry) => {
@@ -226,6 +232,13 @@ const mapFindingResult = (value) => {
     return newFindingResult;
 };
 
+const mapFindingStatus = (findingStatus) => {
+    if (findingStatus instanceof FindingStatusV01) return mapPassThrough(findingStatus, FindingStatus);
+    const newFindingStatus = new FindingStatus();
+    newFindingStatus.value = mapPassThrough(findingStatus, CodeableConcept);
+    return newFindingStatus;
+}
+
 exports.mapEntries = (entries) => {
     const result = [];
     entries.forEach(entry => {
@@ -314,22 +327,38 @@ exports.mapEntries = (entries) => {
             const newHistologicGrade = new CancerHistologicGrade();
 
             mapEntryInfo(entry.entryInfo, newHistologicGrade);
-            newHistologicGrade.findingStatus = new FindingStatus();
-            newHistologicGrade.findingStatus.value = mapPassThrough(entry._histologicGrade.findingStatus, CodeableConcept);
+            newHistologicGrade.findingStatus = mapFindingStatus(entry._histologicGrade.findingStatus);
             newHistologicGrade.relevantTime = mapRelevantTime(entry._histologicGrade.relevantTime);
             newHistologicGrade.specificFocusOfFinding = mapPassThrough(entry._histologicGrade.specificFocusOfFinding, SpecificFocusOfFinding);
             newHistologicGrade.findingResult = mapFindingResult(entry._histologicGrade.value);
 
             result.push(newHistologicGrade.toJSON());
+        } else if (entry instanceof FluxTNMStageV01) {
+            const newTNMStage = new TNMClinicalStageGroup();
+
+            mapEntryInfo(entry._observation.entryInfo, newTNMStage);
+            newTNMStage.findingMethod = mapPassThrough(entry._observation.findingMethod, FindingMethod);
+            newTNMStage.findingStatus = mapFindingStatus(entry._observation.findingStatus);
+            newTNMStage.findingTopicCode = mapPassThrough(entry._observation.findingTopicCode, FindingTopicCode);
+            newTNMStage.panelMembers = mapPassThrough(entry._observation.panelMembers, PanelMembers);
+            newTNMStage.specificFocusOfFinding = mapPassThrough(entry._observation.specificFocusOfFinding, SpecificFocusOfFinding);
+            newTNMStage.relevantTime = mapRelevantTime(entry._observation.relevantTime);
+            newTNMStage.findingResult = mapFindingResult(entry._observation.value);
+
+            result.push(newTNMStage.toJSON());
+        } else if (entry instanceof FluxMitoticRateV01) {
+            const newMitoticRate = new FluxMitoticRate();
+
+            mapEntryInfo(entry._observation.entryInfo, newMitoticRate._observation);
+            newMitoticRate._observation.findingResult = mapFindingResult(entry._observation.value);
+
+            result.push(newMitoticRate.toJSON());
         } else if (entry instanceof FluxObservationV01) {
             const newObservation = new Observation();
 
             mapEntryInfo(entry.entryInfo, newObservation);
             if (entry._observation.category) newObservation.category = mapPassThrough(entry._observation.category, Category);
-            if (entry._observation.findingStatus) {
-                newObservation.findingStatus = new FindingStatus();
-                newObservation.findingStatus.value = mapPassThrough(entry._observation.findingStatus, CodeableConcept);
-            }
+            if (entry._observation.findingStatus) newObservation.findingStatus = mapFindingStatus(entry._observation.findingStatus);
             if (entry._observation.relevantTime) newObservation.relevantTime = mapRelevantTime(entry._observation.relevantTime);
             if (entry._observation.specificFocusOfFinding) newObservation.specificFocusOfFinding = mapPassThrough(entry._observation.specificFocusOfFinding, SpecificFocusOfFinding);
             if (entry._observation.findingTopicCode) newObservation.findingTopicCode = mapPassThrough(entry._observation.findingTopicCode, FindingTopicCode);

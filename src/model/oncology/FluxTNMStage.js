@@ -5,7 +5,7 @@ import TNMClinicalDistantMetastasesClassification from '../oncocore/TNMClinicalD
 // import TNMPathologicRegionalNodesClassification from '../oncocore/TNMPathologicRegionalNodesClassification';
 // import TNMPathologicDistantMetastasesClassification from '../oncocore/TNMPathologicDistantMetastasesClassification';
 import RelevantTime from '../shr/base/RelevantTime';
-import CancerStagePanel from '../oncocore/CancerStagePanel';
+import TNMClinicalStageGroup from '../oncocore/TNMClinicalStageGroup';
 import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
 import PanelMembers from '../shr/base/PanelMembers';
@@ -19,11 +19,11 @@ import Lang from 'lodash';
 class FluxTNMStage extends FluxObservation {
     constructor(json) {
         super();
-        this._entry = this._observation = CancerStagePanel.fromJSON(json);
+        this._entry = this._observation = TNMClinicalStageGroup.fromJSON(json);
         if (!this._observation.entryInfo) {
             let entry = new Entry();
             entry.entryType = new EntryType();
-            entry.entryType.uri = 'http://standardhealthrecord.org/spec/oncocore/CancerStageInformation';
+            entry.entryType.uri = 'http://standardhealthrecord.org/spec/oncocore/TNMClinicalStageGroup';
             this._observation.entryInfo = entry;
             this._observation.panelMembers = new PanelMembers();
             this._observation.panelMembers.observation = [];
