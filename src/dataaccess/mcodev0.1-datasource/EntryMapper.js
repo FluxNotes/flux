@@ -334,6 +334,7 @@ exports.mapEntries = (entries) => {
             if (entry._observation.specificFocusOfFinding) newObservation.specificFocusOfFinding = mapPassThrough(entry._observation.specificFocusOfFinding, SpecificFocusOfFinding);
             if (entry._observation.findingTopicCode) newObservation.findingTopicCode = mapPassThrough(entry._observation.findingTopicCode, FindingTopicCode);
             if (entry._observation.value) newObservation.findingResult = mapFindingResult(entry._observation.value);
+            if (entry._observation.panelMembers) newObservation.panelMembers = mapPassThrough(entry._observation.panelMembers, PanelMembers);
             // newObservation.findingResult = new FindingResult();
             // newObservation.findingResult.value = mapQuantity(entry._observation.value);
             result.push(newObservation.toJSON());
