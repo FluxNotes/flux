@@ -83,6 +83,10 @@ import Seriousness from '../../model/shr/adverse/Seriousness';
 import Type from '../../model/shr/core/Type';
 import CausalAttribution from '../../model/shr/adverse/CausalAttribution';
 import AdverseEventCondition from '../../model/shr/adverse/AdverseEventCondition';
+import SystolicPressureV01 from './model/shr/vital/SystolicPressure';
+import SystolicPressure from '../../model/shr/vital/SystolicPressure';
+import DiastolicPressureV01 from './model/shr/vital/DiastolicPressure';
+import DiastolicPressure from '../../model/shr/vital/DiastolicPressure';
 
 // Maps mCODE v0.1 entries to Flux Object Model
 const mapEntryInfo = (entryInfo, entry) => {
@@ -226,11 +230,9 @@ exports.mapEntries = (entries) => {
     const result = [];
     entries.forEach(entry => {
         if (entry instanceof FluxPatientV01) {
-            console.log('here');
             const newPatient = new FluxPatient();
             mapEntryInfo(entry.entryInfo, newPatient._patient);
             newPatient._patient.person = mapReference(entry._patient.person);
-            // console.log(newPatient._patient.toJSON());
             result.push(newPatient._patient.toJSON());
         } else if (entry instanceof FluxPersonV01) {
             const newPerson = new FluxPerson();
@@ -248,8 +250,6 @@ exports.mapEntries = (entries) => {
             newPerson._person.languageUsed = entry._person.languageUsed.map(l => mapPassThrough(l, LanguageUsed));
             newPerson._person.maritalStatus = mapPassThrough(entry._person.maritalStatus, MaritalStatus);
             newPerson._person.race = mapPassThrough(entry._person.race, Race);
-            console.log(newPerson);
-            // console.log(newPerson._person.toJSON());
             result.push(newPerson._person.toJSON());
         } else if (entry instanceof FluxPatientIdentifierV01 || entry instanceof FluxClinicalNoteV01) {
             result.push(entry.toJSON());
@@ -265,7 +265,6 @@ exports.mapEntries = (entries) => {
             newCondition.onset = mapPassThrough(entry._condition.onset, Onset);
             const entryJSON = newCondition.toJSON();
             entryJSON.EntryType.Value = 'http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor';
-            console.log(newCondition);
             result.push(entryJSON);
         } else if (entry instanceof FluxConditionPresentAssertionV01) {
             const newCondition = new ConditionPresentAssertion();
@@ -387,6 +386,22 @@ exports.mapEntries = (entries) => {
             newToxicReaction.adverseEventCondition[0].conditionPresentAssertion = mapReference(entry._adverseEvent.specificFocusOfFinding.value);
 
             result.push(newToxicReaction.toJSON());
+        } else if (entry instanceof SystolicPressureV01) {
+            const newSystolicPressure = new SystolicPressure();
+
+            mapEntryInfo(entry.entryInfo, newSystolicPressure);
+            newSystolicPressure.findingTopicCode = mapPassThrough(entry.findingTopicCode, FindingTopicCode);
+            newSystolicPressure.quantity = mapQuantity(entry.quantity);
+
+            result.push(newSystolicPressure.toJSON());
+        } else if (entry instanceof DiastolicPressureV01) {
+            const newDiastolicPressure = new DiastolicPressure();
+
+            mapEntryInfo(entry.entryInfo, newDiastolicPressure);
+            newDiastolicPressure.findingTopicCode = mapPassThrough(entry.findingTopicCode, FindingTopicCode);
+            newDiastolicPressure.quantity = mapQuantity(entry.quantity);
+
+            result.push(newDiastolicPressure.toJSON());
         }
     });
 

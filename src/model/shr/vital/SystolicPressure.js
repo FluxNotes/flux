@@ -106,9 +106,13 @@ class SystolicPressure extends Observation {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/vital/SystolicPressure' } };
+    const inst = this._entryInfo.toJSON();
+    // const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/vital/SystolicPressure' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
+    if (this.metadata != null) {
+      inst['Metadata'] = typeof this.metadata.toJSON === 'function' ? this.metadata.toJSON() : this.metadata;
     }
     if (this.valueAbsentReason != null) {
       inst['ValueAbsentReason'] = typeof this.valueAbsentReason.toJSON === 'function' ? this.valueAbsentReason.toJSON() : this.valueAbsentReason;
