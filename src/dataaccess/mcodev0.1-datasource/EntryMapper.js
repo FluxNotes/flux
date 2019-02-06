@@ -93,6 +93,12 @@ import TNMClinicalStageGroup from '../../model/oncocore/TNMClinicalStageGroup';
 import FindingMethod from '../../model/shr/base/FindingMethod';
 import FluxMitoticRateV01 from './model/oncology/FluxMitoticRate';
 import FluxMitoticRate from '../../model/oncology/FluxMitoticRate';
+import TNMClinicalPrimaryTumorClassificationV01 from './model/mcode/TNMClinicalPrimaryTumorClassification';
+import TNMClinicalRegionalNodesClassificationV01 from './model/mcode/TNMClinicalRegionalNodesClassification';
+import TNMClinicalDistantMetastasesClassificationV01 from './model/mcode/TNMClinicalDistantMetastasesClassification';
+import TNMClinicalPrimaryTumorClassification from '../../model/oncocore/TNMClinicalPrimaryTumorClassification';
+import TNMClinicalRegionalNodesClassification from '../../model/oncocore/TNMClinicalRegionalNodesClassification';
+import TNMClinicalDistantMetastasesClassification from '../../model/oncocore/TNMClinicalDistantMetastasesClassification';
 
 // Maps mCODE v0.1 entries to Flux Object Model
 const mapEntryInfo = (entryInfo, entry) => {
@@ -432,6 +438,27 @@ exports.mapEntries = (entries) => {
             newDiastolicPressure.quantity = mapQuantity(entry.quantity);
 
             result.push(newDiastolicPressure.toJSON());
+        } else if (entry instanceof TNMClinicalPrimaryTumorClassificationV01) {
+            const newT = new TNMClinicalPrimaryTumorClassification();
+
+            mapEntryInfo(entry.entryInfo, newT);
+            newT.findingResult = mapFindingResult(entry.value);
+
+            result.push(newT.toJSON());
+        } else if (entry instanceof TNMClinicalRegionalNodesClassificationV01) {
+            const newN = new TNMClinicalRegionalNodesClassification();
+
+            mapEntryInfo(entry.entryInfo, newN);
+            newN.findingResult = mapFindingResult(entry.value);
+
+            result.push(newN.toJSON());
+        } else if (entry instanceof TNMClinicalDistantMetastasesClassificationV01) {
+            const newM = new TNMClinicalDistantMetastasesClassification();
+
+            mapEntryInfo(entry.entryInfo, newM);
+            newM.findingResult = mapFindingResult(entry.value);
+
+            result.push(newM.toJSON());
         }
     });
 
