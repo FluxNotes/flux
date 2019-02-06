@@ -112,6 +112,14 @@ import FluxTumorDimensionsV01 from './model/oncology/FluxTumorDimensions';
 import TumorDimensions from '../../model/tumor/TumorDimensions';
 import FluxTumorMarginsV01 from './model/oncology/FluxTumorMargins';
 import TumorMargins from '../../model/tumor/TumorMargins';
+import FluxBloodPressureV01 from './model/vital/FluxBloodPressure';
+import FluxBloodPressure from '../../model/vital/FluxBloodPressure';
+import FluxBodyTemperatureV01 from './model/vital/FluxBodyTemperature';
+import FluxBodyTemperature from '../../model/vital/FluxBodyTemperature';
+import FluxBodyWeightV01 from './model/vital/FluxBodyWeight';
+import FluxBodyWeight from '../../model/vital/FluxBodyWeight';
+import FluxHeartRateV01 from './model/vital/FluxHeartRate';
+import FluxHeartRate from '../../model/vital/FluxHeartRate';
 
 // Maps mCODE v0.1 entries to Flux Object Model
 const mapEntryInfo = (entryInfo, entry) => {
@@ -418,6 +426,46 @@ exports.mapEntries = (entries) => {
             newTumorMargins.findingResult = mapFindingResult(entry._tumorMargins.value);
 
             result.push(newTumorMargins.toJSON());
+        } else if (entry instanceof FluxBloodPressureV01) {
+            const newBloodPressure = new FluxBloodPressure();
+
+            mapEntryInfo(entry._observation.entryInfo, newBloodPressure._observation);
+            newBloodPressure._observation.findingStatus = mapFindingStatus(entry._observation.findingStatus);
+            newBloodPressure._observation.findingTopicCode = mapPassThrough(entry._observation.findingTopicCode, FindingTopicCode);
+            newBloodPressure._observation.panelMembers = mapPassThrough(entry._observation.panelMembers, PanelMembers);
+            newBloodPressure._observation.relevantTime = mapRelevantTime(entry._observation.relevantTime);
+
+            result.push(newBloodPressure.toJSON());
+        } else if (entry instanceof FluxBodyTemperatureV01) {
+            const newBodyTemperature = new FluxBodyTemperature();
+
+            mapEntryInfo(entry._observation.entryInfo, newBodyTemperature._observation);
+            newBodyTemperature._observation.findingStatus = mapFindingStatus(entry._observation.findingStatus);
+            newBodyTemperature._observation.findingTopicCode = mapPassThrough(entry._observation.findingTopicCode, FindingTopicCode);
+            newBodyTemperature._observation.relevantTime = mapRelevantTime(entry._observation.relevantTime);
+            newBodyTemperature._observation.findingResult = mapFindingResult(entry._observation.value);
+
+            result.push(newBodyTemperature.toJSON());
+        } else if (entry instanceof FluxBodyWeightV01) {
+            const newBodyWeight = new FluxBodyWeight();
+
+            mapEntryInfo(entry._observation.entryInfo, newBodyWeight._observation);
+            newBodyWeight._observation.findingStatus = mapFindingStatus(entry._observation.findingStatus);
+            newBodyWeight._observation.findingTopicCode = mapPassThrough(entry._observation.findingTopicCode, FindingTopicCode);
+            newBodyWeight._observation.relevantTime = mapRelevantTime(entry._observation.relevantTime);
+            newBodyWeight._observation.findingResult = mapFindingResult(entry._observation.value);
+
+            result.push(newBodyWeight.toJSON());
+        } else if (entry instanceof FluxHeartRateV01) {
+            const newHeartRate = new FluxHeartRate();
+
+            mapEntryInfo(entry._observation.entryInfo, newHeartRate._observation);
+            newHeartRate._observation.findingStatus = mapFindingStatus(entry._observation.findingStatus);
+            newHeartRate._observation.findingTopicCode = mapPassThrough(entry._observation.findingTopicCode, FindingTopicCode);
+            newHeartRate._observation.relevantTime = mapRelevantTime(entry._observation.relevantTime);
+            newHeartRate._observation.findingResult = mapFindingResult(entry._observation.value);
+
+            result.push(newHeartRate.toJSON());
         } else if (entry instanceof FluxObservationV01) {
             const newObservation = new Observation();
 

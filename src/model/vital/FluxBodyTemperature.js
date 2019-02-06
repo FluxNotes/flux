@@ -1,10 +1,8 @@
-import BodyTemperature from '../shr/vital/BodyTemperature';
 import FluxObservation from '../base/FluxObservation';
 
-class FluxBodyTemperature extends FluxObservation{
+class FluxBodyTemperature extends FluxObservation {
     constructor(json) {
-        super();
-        this._observation = BodyTemperature.fromJSON(json);
+        super(json);
     }
 
     get value() {
@@ -16,7 +14,9 @@ class FluxBodyTemperature extends FluxObservation{
     }
 
     toJSON() {
-        return this._observation.toJSON();
+        const inst = super.toJSON();
+        inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/vital/BodyTemperature' };
+        return inst;
     }
 }
 

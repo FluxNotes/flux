@@ -1,10 +1,8 @@
-import BodyWeight from '../shr/vital/BodyWeight';
 import FluxObservation from '../base/FluxObservation';
 
-class FluxBodyWeight extends FluxObservation{
+class FluxBodyWeight extends FluxObservation {
     constructor(json) {
-        super();
-        this._observation = BodyWeight.fromJSON(json);
+        super(json);
     }
 
     get value() {
@@ -16,7 +14,9 @@ class FluxBodyWeight extends FluxObservation{
     }
 
     toJSON() {
-        return this._observation.toJSON();
+        const inst = super.toJSON();
+        inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/vital/BodyWeight' };
+        return inst;
     }
 }
 

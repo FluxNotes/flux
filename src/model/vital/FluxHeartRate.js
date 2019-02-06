@@ -1,10 +1,8 @@
-import HeartRate from '../shr/vital/HeartRate';
 import FluxObservation from '../base/FluxObservation';
 
-class FluxHeartRate extends FluxObservation{
+class FluxHeartRate extends FluxObservation {
     constructor(json) {
-        super();
-        this._observation = HeartRate.fromJSON(json);
+        super(json);
     }
 
     get value() {
@@ -16,7 +14,9 @@ class FluxHeartRate extends FluxObservation{
     }
 
     toJSON() {
-        return this._observation.toJSON();
+        const inst = super.toJSON();
+        inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/vital/HeartRate' };
+        return inst;
     }
 }
 

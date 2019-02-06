@@ -1,10 +1,8 @@
-import BloodPressure from '../shr/vital/BloodPressure';
 import FluxObservation from '../base/FluxObservation';
 
-class FluxBloodPressure extends FluxObservation{
+class FluxBloodPressure extends FluxObservation {
     constructor(json) {
-        super();
-        this._observation = BloodPressure.fromJSON(json);
+        super(json);
     }
 
     get value() {
@@ -14,7 +12,9 @@ class FluxBloodPressure extends FluxObservation{
     }
 
     toJSON() {
-        return this._observation.toJSON();
+        const inst = super.toJSON();
+        inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/vital/BloodPressure' };
+        return inst;
     }
 }
 
