@@ -12,23 +12,26 @@
     &, .FullApp-content {
         background-color: $background;
     }
+    .logo-title-column { 
+        display: flex;
+        align-items: center;
 
-    .logo-accompaniment {
-        display: inline-block;
-        margin-bottom: 15px;
-
-        .title {
-            display: block;
-            color: $shr-context-dark;
-            font-size: 1.1rem;
-            font-weight: 600;
-            padding-left: 5px;
-        }
-
-        .login {
-            display: block;
-            font-size: 0.8rem;
-            margin-left: 0.4rem;
+        .logo-accompaniment {
+            display: inline-block;
+    
+            .title {
+                display: block;
+                color: $shr-context-dark;
+                font-size: 1.1rem;
+                font-weight: 600;
+                padding-left: 5px;
+            }
+    
+            .login {
+                display: block;
+                font-size: 0.8rem;
+                margin-left: 0.4rem;
+            }
         }
     }
     .summary-header-column { 

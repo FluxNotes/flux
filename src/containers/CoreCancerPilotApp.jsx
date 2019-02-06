@@ -193,8 +193,11 @@ export class CoreCancerPilotApp extends Component {
                                     appTitle={this.props.display}
                                     clinicalEvent={this.state.clinicalEvent}
                                     highlightedSearchSuggestion={this.state.highlightedSearchSuggestion}
+                                    isAppBlurred={this.state.isAppBlurred}
                                     layout={this.state.layout}
                                     loginUsername={this.state.loginUser.getUserName()}
+                                    logoObject={this.props.logoObject}
+                                    moveTargetedDataPanelToSubsection={this.moveTargetedDataPanelToSubsection}
                                     patient={this.state.patient}
                                     possibleClinicalEvents={[]}
                                     setCondition={this.setCondition}
@@ -203,9 +206,7 @@ export class CoreCancerPilotApp extends Component {
                                     setSearchSelectedItem={this.setSearchSelectedItem}
                                     supportLogin={true}
                                     searchIndex={this.searchIndex}
-                                    moveTargetedDataPanelToSubsection={this.moveTargetedDataPanelToSubsection}
                                     setSearchSuggestions={this.setSearchSuggestions}
-                                    isAppBlurred={this.state.isAppBlurred}
                                 />
                             </Col>
                         </Row>
@@ -265,6 +266,7 @@ export class CoreCancerPilotApp extends Component {
 CoreCancerPilotApp.propTypes = {
     dataSource: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
+    logoObject: PropTypes.object
 };
 
 // these props are used for dispatching actions

@@ -9,25 +9,41 @@ import SummaryHeader from '../summary/SummaryHeader';
 import './PatientControlPanel.css';
 
 class PatientControlPanel extends Component {
+    constructor(props) { 
+        super(props);
+        this.defaultLogoObject = { 
+            path: 'fluxnotes_logo_color.png',
+            altText: 'Flux Notes logo',
+            width: '30px',
+            height: '40px'
+        };
+    }
+    
+    getLogoObject = () => {
+        const { logoObject } = this.props;
+        return Object.assign({}, this.defaultLogoObject, logoObject);
+    }
+
     render() {
         const { patient } = this.props;
         const login = (this.props.supportLogin) ? this.props.loginUsername : "";
         const patientConditions = this.props.patient ? this.props.patient.getConditions() : [];
         const disabledClassName = this.props.isAppBlurred ? 'content-disabled' : '';
+        const logoObject = this.getLogoObject(); 
         return (
             <div className={`patient-control-panel ${disabledClassName}`}>
                 <Paper className="panel-content">
                     <Grid fluid>
                         <Row middle="xs">
-                            <Col xs={3} md={2}>
-                                <img src="fluxnotes_logo_color.png" height="40px" width="30px" alt="Flux Notes logo" />
+                            <Col xs={3} lg={2} className="logo-title-column">
+                                <img src={logoObject.path} height={logoObject.height} width={logoObject.width} alt={logoObject.altText} />
                                 <div className="logo-accompaniment">
                                     <span className="title"> {this.props.appTitle}</span>
                                     <span className="login">{login}</span>
                                 </div>
                             </Col>
 
-                            <Col xs={5} md={4} className="summary-header-column">
+                            <Col xs={5} md={4} lg={4} className="summary-header-column">
                                 <SummaryHeader
                                     address={patient.getCurrentHomeAddress()}
                                     administrativeSex={patient.getGender()}
@@ -45,7 +61,7 @@ class PatientControlPanel extends Component {
                                 />
                             </Col>
 
-                            <Col xs={6} md={6}>
+                            <Col xs={4} md={5} lg={6}>
                                 <Row bottom="xs" className="vertical-divider">
                                     <Col xs={12} md={6}>
                                         <div id="condition-selection-container">
@@ -81,6 +97,7 @@ PatientControlPanel.propTypes = {
     clinicalEvent: PropTypes.string.isRequired,
     isAppBlurred: PropTypes.bool,
     layout: PropTypes.string,
+    logoObject: PropTypes.object,
     patient: PropTypes.object.isRequired,
     possibleClinicalEvents: PropTypes.array.isRequired,
     setCondition: PropTypes.func.isRequired,
