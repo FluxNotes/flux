@@ -97,7 +97,12 @@ PatientControlPanel.propTypes = {
     clinicalEvent: PropTypes.string.isRequired,
     isAppBlurred: PropTypes.bool,
     layout: PropTypes.string,
-    logoObject: PropTypes.object,
+    logoObject:  PropTypes.shape({
+        path: PropTypes.string.isRequired,
+        altText: PropTypes.string.isRequired,
+        width: PropTypes.string,
+        height: PropTypes.string
+    }),
     patient: PropTypes.object.isRequired,
     possibleClinicalEvents: PropTypes.array.isRequired,
     setCondition: PropTypes.func.isRequired,

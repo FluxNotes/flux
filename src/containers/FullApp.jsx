@@ -478,7 +478,12 @@ export class FullApp extends Component {
 FullApp.propTypes = {
     dataSource: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
-    logoObject: PropTypes.object,
+    logoObject: PropTypes.shape({
+        path: PropTypes.string.isRequired,
+        altText: PropTypes.string.isRequired,
+        width: PropTypes.string,
+        height: PropTypes.string
+    }),
     shortcuts: PropTypes.array.isRequired
 };
 

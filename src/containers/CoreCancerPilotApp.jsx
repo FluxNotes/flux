@@ -266,7 +266,12 @@ export class CoreCancerPilotApp extends Component {
 CoreCancerPilotApp.propTypes = {
     dataSource: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
-    logoObject: PropTypes.object
+    logoObject: PropTypes.shape({
+        path: PropTypes.string.isRequired,
+        altText: PropTypes.string.isRequired,
+        width: PropTypes.string,
+        height: PropTypes.string
+    })
 };
 
 // these props are used for dispatching actions
