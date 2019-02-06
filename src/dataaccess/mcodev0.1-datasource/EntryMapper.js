@@ -108,6 +108,10 @@ import FluxPDGFRAVariant from '../../model/oncology/FluxPDGFRAVariant';
 import FluxImagingProcedurePerformedV01 from './model/procedure/FluxImagingProcedurePerformed';
 import ImagingProcedurePerformed from '../../model/shr/procedure/ImagingProcedurePerformed';
 import OccurrenceTimeOrPeriod from '../../model/shr/core/OccurrenceTimeOrPeriod';
+import FluxTumorDimensionsV01 from './model/oncology/FluxTumorDimensions';
+import TumorDimensions from '../../model/tumor/TumorDimensions';
+import FluxTumorMarginsV01 from './model/oncology/FluxTumorMargins';
+import TumorMargins from '../../model/tumor/TumorMargins';
 
 // Maps mCODE v0.1 entries to Flux Object Model
 const mapEntryInfo = (entryInfo, entry) => {
@@ -392,6 +396,28 @@ exports.mapEntries = (entries) => {
             newPDGFRA._pdgfraVariant.findingResult = mapFindingResult(entry._pdgfraVariant.value);
 
             result.push(newPDGFRA.toJSON());
+        } else if (entry instanceof FluxTumorDimensionsV01) {
+            const newTumorDimensions = new TumorDimensions();
+
+            mapEntryInfo(entry._tumorDimensions.entryInfo, newTumorDimensions);
+            newTumorDimensions.findingStatus = mapFindingStatus(entry._tumorDimensions.findingStatus);
+            newTumorDimensions.findingTopicCode = mapPassThrough(entry._tumorDimensions.findingTopicCode, FindingTopicCode);
+            newTumorDimensions.relevantTime = mapRelevantTime(entry._tumorDimensions.relevantTime);
+            newTumorDimensions.specificFocusOfFinding = mapPassThrough(entry._tumorDimensions.specificFocusOfFinding, SpecificFocusOfFinding);
+            newTumorDimensions.findingResult = mapFindingResult(entry._tumorDimensions.value);
+
+            result.push(newTumorDimensions.toJSON());
+        } else if (entry instanceof FluxTumorMarginsV01) {
+            const newTumorMargins = new TumorMargins();
+
+            mapEntryInfo(entry._tumorMargins.entryInfo, newTumorMargins);
+            newTumorMargins.findingStatus = mapFindingStatus(entry._tumorMargins.findingStatus);
+            newTumorMargins.findingTopicCode = mapPassThrough(entry._tumorMargins.findingTopicCode, FindingTopicCode);
+            newTumorMargins.relevantTime = mapRelevantTime(entry._tumorMargins.relevantTime);
+            newTumorMargins.specificFocusOfFinding = mapPassThrough(entry._tumorMargins.specificFocusOfFinding, SpecificFocusOfFinding);
+            newTumorMargins.findingResult = mapFindingResult(entry._tumorMargins.value);
+
+            result.push(newTumorMargins.toJSON());
         } else if (entry instanceof FluxObservationV01) {
             const newObservation = new Observation();
 

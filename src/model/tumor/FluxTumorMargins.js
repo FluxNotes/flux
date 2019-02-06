@@ -1,4 +1,4 @@
-import TumorMargins from '../shr/oncology/TumorMargins';
+import TumorMargins from './TumorMargins';
 import FluxObservation from '../base/FluxObservation';
 
 class FluxTumorMargins extends FluxObservation {

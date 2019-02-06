@@ -1,4 +1,4 @@
-import TumorDimensions from '../shr/oncology/TumorDimensions';
+import TumorDimensions from './TumorDimensions';
 import FluxObservation from '../base/FluxObservation';
 
 class FluxTumorDimensions extends FluxObservation {

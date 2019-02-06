@@ -13,6 +13,7 @@ import FluxAllergyObjectFactory from './allergy/FluxAllergyObjectFactory';
 import FluxOncologyObjectFactory from './oncology/FluxOncologyObjectFactory';
 import FluxVitalObjectFactory from './vital/FluxVitalObjectFactory';
 import FluxOncocoreObjectFactory from './oncocore/FluxOncocoreObjectFactory';
+import FluxTumorObjectFactory from './tumor/FluxTumorObjectFactory';
 
 /*
  *  FluxObjectFactory class returns instances of Flux model classes
@@ -34,6 +35,7 @@ export default class FluxObjectFactory {
             case 'shr.oncology': return FluxOncologyObjectFactory.createInstance(json, type, patientRecord);
             case 'shr.procedure': return FluxProcedureObjectFactory.createInstance(json, type, patientRecord);
             case 'shr.research': return FluxResearchObjectFactory.createInstance(json, type, patientRecord);
+            case 'tumor': return FluxTumorObjectFactory.createInstance(json, type, patientRecord);
             case 'shr.vital': return FluxVitalObjectFactory.createInstance(json, type, patientRecord);
             default: return ObjectFactory.createInstance(json, type, patientRecord);
         }

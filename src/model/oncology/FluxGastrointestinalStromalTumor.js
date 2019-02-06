@@ -1,7 +1,7 @@
 import FluxSolidTumorCancer from './FluxSolidTumorCancer';
 import CancerDisorderPresent from '../oncocore/CancerDisorderPresent';
 import FluxHistologicGrade from './FluxHistologicGrade';
-import FluxTumorDimensions from '../oncology/FluxTumorDimensions';
+import FluxTumorDimensions from '../tumor/FluxTumorDimensions';
 import Lang from 'lodash';
 
 class FluxGastrointestinalStromalTumor extends FluxSolidTumorCancer {
