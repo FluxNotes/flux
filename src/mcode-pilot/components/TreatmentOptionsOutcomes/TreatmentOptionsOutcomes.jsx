@@ -4,7 +4,9 @@ import FontAwesome from 'react-fontawesome';
 import _ from 'lodash';
 
 import { isSame, getCombinations } from '../../utils/arrayCompare';
+
 import BarChart from '../../visualizations/BarChart/BarChart';
+import TreatmentsPopover from '../TreatmentsPopover/TreatmentsPopover';
 
 import './TreatmentOptionsOutcomes.css';
 
@@ -13,8 +15,9 @@ const TREATMENT_NAMES = {
     'chemo': 'chemotherapy',
     'hormonal': 'hormonal therapy',
     'surgery': 'surgery',
-    'radiation': 'radiation'
+    'radiation': 'radiation therapy'
 };
+
 const SIDE_EFFECT_NAMES = {
     'hotFlash': 'Hot Flashes',
     'decLibido': 'Decreased Libido',
@@ -33,8 +36,61 @@ export default class TreatmentOptionsOutcomes extends Component {
 
         this.state = {
             includedTreatments: [ 'surgery', 'radiation' ],
-            comparedTreatments: [ 'chemo', 'hormonal' ]
+            comparedTreatments: [ 'chemo', 'hormonal' ],
+            includedOpen: false,
+            comparedOpen: false
         };
+    }
+
+    componentDidMount() {
+        document.addEventListener('click', this.closePoppers);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('click', this.closePoppers);
+    }
+
+    closePoppers = ({ target }) => {
+        if (!this.state.includedOpen && !this.state.comparedOpen) {
+            return;
+        }
+
+        const popperTarget = this.state.includedOpen ? this.refs['included-popper-target'] : this.refs['compare-popper-target'];
+        let el = target;
+        while (el) {
+            if (el === popperTarget || (el.classList && el.classList.contains('popover'))) {
+                return;
+            }
+            el = el.parentNode;
+        }
+
+        this.setState({
+            [this.state.includedOpen ? 'includedOpen' : 'comparedOpen']: false
+        })
+    };
+
+    handleOpenIncluded = () => {
+        this.setState({ includedOpen: true });
+    }
+
+    handleOpenCompared = () => {
+        this.setState({ comparedOpen: true });
+    }
+
+    toggleTreatment = (treatmentType) => (event, selected) => {
+        const treatment = event.target.value;
+        const key = `${treatmentType}Treatments`
+
+        if (!selected) {
+            const index = this.state[key].indexOf(treatment);
+            if (index !== -1) {
+                const treatments = this.state[key].slice();
+                treatments.splice(index, 1);
+                this.setState({ [key]: treatments });
+            }
+        } else if (!this.state[key].includes(treatment)) {
+            this.setState({ [key]: [...this.state[key], treatment] });
+        }
     }
 
     initializeRow(name) {
@@ -55,8 +111,8 @@ export default class TreatmentOptionsOutcomes extends Component {
     generateRow(patients, treatments) {
         if (patients.length === 0) return [];
 
-        let row = this.initializeRow(treatments.join(' & '));
-
+        const treatmentName = _.isArray(treatments) ? treatments.map(name => TREATMENT_NAMES[name]).join(' & ') : TREATMENT_NAMES[treatments];
+        let row = this.initializeRow(treatmentName);
         patients.forEach(patient => {
             row.totalPatients += 1;
 
@@ -89,7 +145,7 @@ export default class TreatmentOptionsOutcomes extends Component {
                 active={false}
             />
         );
-     }
+    }
 
     renderRow(row, compareRow) {
         if (row.length === 0) return null;
@@ -164,11 +220,17 @@ export default class TreatmentOptionsOutcomes extends Component {
     }
 
     render() {
-        const { includedTreatments, comparedTreatments } = this.state;
+        const { includedTreatments, comparedTreatments, includedOpen, comparedOpen } = this.state;
         const { similarPatients } = this.props;
         const includedTreatmentPatients = similarPatients.filter(patient => isSame(patient.treatments, includedTreatments));
         const comparedTreatmentCombinations = getCombinations(comparedTreatments);
         const includedRow = this.generateRow(includedTreatmentPatients, includedTreatments);
+
+        // TODO: move this to componentWillReceiveProps
+        const treatments = Array.from(similarPatients.reduce((acc, { treatments }) => {
+            treatments.forEach((treatment) => acc.add(treatment));
+            return acc;
+        }, new Set())).sort();
 
         return (
             <div className="treatment-options-outcomes">
@@ -176,12 +238,46 @@ export default class TreatmentOptionsOutcomes extends Component {
 
                 <div className="treatment-options-outcomes__table">
                     <div className="included-treatments">
-                        <div>include only:</div>
-                        {this.renderRow(includedRow, includedRow)}
+                        <div>
+                            <span className="treatments-title">include only:</span>
+                            <span className="select-treatments" onClick={this.handleOpenIncluded} ref="included-popper-target">
+                                <span className="popover-text">add/remove</span>
+                                {includedOpen &&
+                                    <TreatmentsPopover
+                                        className="included-popover"
+                                        title="include these treatments"
+                                        treatments={treatments}
+                                        selectedTreatments={includedTreatments}
+                                        toggleTreatments={this.toggleTreatment('included')}
+                                        treatmentNames={TREATMENT_NAMES}
+                                    />
+                                }
+                            </span>
+                        </div>
+
+                        {includedRow.length !== 0 ? this.renderRow(includedRow, includedRow) :
+                            <div className="table-row flex helper-text">No data. Choose a different selection.</div>
+                        }
                     </div>
 
                     <div className="compared-treatments">
-                        <div>combine with:</div>
+                        <div>
+                            <span className="treatments-title">combine with:</span>
+                            <span className="select-treatments" onClick={this.handleOpenCompared} ref="compare-popper-target">
+                                <span className="popover-text">select treatments</span>
+                                {comparedOpen &&
+                                    <TreatmentsPopover
+                                        className="compared-popover"
+                                        title="compare across these treatments"
+                                        treatments={treatments}
+                                        selectedTreatments={comparedTreatments}
+                                        toggleTreatments={this.toggleTreatment('compared')}
+                                        treatmentNames={TREATMENT_NAMES}
+                                    />
+                                }
+                            </span>
+                        </div>
+
                         {comparedTreatmentCombinations.map((treatmentCombination, i) =>
                             this.renderComparedRow(treatmentCombination, i, includedRow)
                         )}

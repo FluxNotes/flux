@@ -29,7 +29,7 @@ export default class BarChart extends Component {
             <div className="bar-chart">
                 <div>
                     <p className="bar-chart-text">{Math.floor(survivedPercent)}%</p>
-                    {!active && roundedPercent !== 0 &&
+                    {!active && !isNaN(percentChange) && roundedPercent !== 0 &&
                         <p className="bar-chart-text right-text" style={textStyle}>
                             <FontAwesome className="tiny-arrow fas" name={roundedPercent > 0 ? "caret-up" : "caret-down"} />
                             {Math.abs(roundedPercent)}%

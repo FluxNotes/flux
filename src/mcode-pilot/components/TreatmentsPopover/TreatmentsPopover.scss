@@ -1,0 +1,40 @@
+$color-blue: #0084b8;;
+
+.treatments-popper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 250px;
+    z-index: 1;
+    margin-bottom: 1rem;
+
+    .form-control {
+        display: flex;
+    }
+
+    .popover {
+        padding: 10px 15px;
+        font-size: 0.9em;
+    }
+
+    .popover-title {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        color: inherit;
+        font-size: 0.9em;
+    }
+
+    .popover-checklist {
+        margin-left: 20px;
+
+        .form-control {
+            white-space: nowrap;
+
+            .checkbox {
+                height: 22px;
+                color: $color-blue;
+                margin-right: -5px;
+            }
+        }
+    }
+}
