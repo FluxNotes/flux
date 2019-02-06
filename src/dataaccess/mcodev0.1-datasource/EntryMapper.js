@@ -99,6 +99,15 @@ import TNMClinicalDistantMetastasesClassificationV01 from './model/mcode/TNMClin
 import TNMClinicalPrimaryTumorClassification from '../../model/oncocore/TNMClinicalPrimaryTumorClassification';
 import TNMClinicalRegionalNodesClassification from '../../model/oncocore/TNMClinicalRegionalNodesClassification';
 import TNMClinicalDistantMetastasesClassification from '../../model/oncocore/TNMClinicalDistantMetastasesClassification';
+import FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanelV01 from './model/oncology/FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel';
+import FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel from '../../model/oncology/FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel';
+import FluxKITVariantV01 from './model/oncology/FluxKITVariant';
+import FluxKITVariant from '../../model/oncology/FluxKITVariant';
+import FluxPDGFRAVariantV01 from './model/oncology/FluxPDGFRAVariant';
+import FluxPDGFRAVariant from '../../model/oncology/FluxPDGFRAVariant';
+import FluxImagingProcedurePerformedV01 from './model/procedure/FluxImagingProcedurePerformed';
+import ImagingProcedurePerformed from '../../model/shr/procedure/ImagingProcedurePerformed';
+import OccurrenceTimeOrPeriod from '../../model/shr/core/OccurrenceTimeOrPeriod';
 
 // Maps mCODE v0.1 entries to Flux Object Model
 const mapEntryInfo = (entryInfo, entry) => {
@@ -359,6 +368,30 @@ exports.mapEntries = (entries) => {
             newMitoticRate._observation.findingResult = mapFindingResult(entry._observation.value);
 
             result.push(newMitoticRate.toJSON());
+        } else if (entry instanceof FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanelV01) {
+            const newGISTPanel = new FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel();
+
+            mapEntryInfo(entry._gastrointestinalStromalTumorCancerGeneticAnalysisPanel.entryInfo, newGISTPanel._gastrointestinalStromalTumorCancerGeneticAnalysisPanel);
+            newGISTPanel._gastrointestinalStromalTumorCancerGeneticAnalysisPanel.relevantTime = mapRelevantTime(entry._gastrointestinalStromalTumorCancerGeneticAnalysisPanel.relevantTime);
+            newGISTPanel._gastrointestinalStromalTumorCancerGeneticAnalysisPanel.panelMembers = mapPassThrough(entry._gastrointestinalStromalTumorCancerGeneticAnalysisPanel.panelMembers, PanelMembers);
+
+            result.push(newGISTPanel.toJSON());
+        } else if (entry instanceof FluxKITVariantV01) {
+            const newKIT = new FluxKITVariant();
+
+            mapEntryInfo(entry._kitVariant.entryInfo, newKIT._kitVariant);
+            newKIT._kitVariant.specificFocusOfFinding = mapPassThrough(entry._kitVariant.specificFocusOfFinding, SpecificFocusOfFinding);
+            newKIT._kitVariant.findingResult = mapFindingResult(entry._kitVariant.value);
+
+            result.push(newKIT.toJSON());
+        } else if (entry instanceof FluxPDGFRAVariantV01) {
+            const newPDGFRA = new FluxPDGFRAVariant();
+
+            mapEntryInfo(entry._pdgfraVariant.entryInfo, newPDGFRA._pdgfraVariant);
+            newPDGFRA._pdgfraVariant.specificFocusOfFinding = mapPassThrough(entry._pdgfraVariant.specificFocusOfFinding, SpecificFocusOfFinding);
+            newPDGFRA._pdgfraVariant.findingResult = mapFindingResult(entry._pdgfraVariant.value);
+
+            result.push(newPDGFRA.toJSON());
         } else if (entry instanceof FluxObservationV01) {
             const newObservation = new Observation();
 
@@ -459,6 +492,17 @@ exports.mapEntries = (entries) => {
             newM.findingResult = mapFindingResult(entry.value);
 
             result.push(newM.toJSON());
+        } else if (entry instanceof FluxImagingProcedurePerformedV01) {
+            const newImaging = new ImagingProcedurePerformed();
+
+            mapEntryInfo(entry._imagingProcedurePerformed.entryInfo, newImaging);
+            if (entry._imagingProcedurePerformed.annotation) newImaging.annotation = entry._imagingProcedurePerformed.annotation.map(a => mapPassThrough(a, Annotation));
+            newImaging.reason = entry._imagingProcedurePerformed.reason.map(r => mapPassThrough(r, Reason));
+            newImaging.status = mapPassThrough(entry._imagingProcedurePerformed.status, Status);
+            newImaging.procedureCode = new ProcedureCode();
+            newImaging.procedureCode.value = mapPassThrough(entry._imagingProcedurePerformed.topicCode.value, CodeableConcept);
+            newImaging.occurrenceTimeOrPeriod = mapPassThrough(entry._imagingProcedurePerformed.occurrenceTimeOrPeriod, OccurrenceTimeOrPeriod);
+            result.push(newImaging.toJSON());
         }
     });
 

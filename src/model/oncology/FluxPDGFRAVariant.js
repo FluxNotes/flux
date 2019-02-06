@@ -4,6 +4,10 @@ class FluxPDGFRAVariant {
     constructor(json) {
         this._pdgfraVariant = Observation.fromJSON(json);
     }
+
+    get entryInfo() {
+        return this._pdgfraVariant.entryInfo;
+    }
     
     get abbreviatedName() {
         return 'PDGFRA';
@@ -14,7 +18,9 @@ class FluxPDGFRAVariant {
     }
 
     toJSON() {
-        return this._pdgfraVariant.toJSON();
+        const inst = this._pdgfraVariant.toJSON();
+        inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/oncology/PDGFRAVariant' };
+        return inst;
     }
 }
 

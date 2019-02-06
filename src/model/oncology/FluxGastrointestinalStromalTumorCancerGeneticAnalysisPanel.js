@@ -18,7 +18,9 @@ class FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel {
     }
 
     toJSON() {
-        return this._gastrointestinalStromalTumorCancerGeneticAnalysisPanel.toJSON();
+        const inst = this._gastrointestinalStromalTumorCancerGeneticAnalysisPanel.toJSON();
+        inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumorCancerGeneticAnalysisPanel' };
+        return inst;
     }
 }
 
