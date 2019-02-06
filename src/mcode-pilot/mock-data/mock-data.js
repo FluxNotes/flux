@@ -24351,7 +24351,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 71
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -24579,7 +24579,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 67
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -24681,7 +24681,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 20
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -24757,7 +24757,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 39
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [],
@@ -24780,7 +24780,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 61
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -24909,7 +24909,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 64
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -25493,7 +25493,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 67
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -25519,7 +25519,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 37
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -25620,7 +25620,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 54
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -25646,7 +25646,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 71
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -25671,7 +25671,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 71
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -25723,7 +25723,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 71
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -25748,7 +25748,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 71
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -25973,7 +25973,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 68
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -26052,7 +26052,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 61
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -26077,7 +26077,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 66
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -26254,7 +26254,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 61
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -26305,7 +26305,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 34
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -26456,7 +26456,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 69
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -26558,7 +26558,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 70
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -26737,7 +26737,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 48
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -27132,7 +27132,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 62
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -27308,7 +27308,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 66
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [],
@@ -27584,7 +27584,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 71
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -27762,7 +27762,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 35
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -27917,7 +27917,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 65
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -27942,7 +27942,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 68
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -28097,7 +28097,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 66
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -28201,7 +28201,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 63
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -28499,7 +28499,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 69
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -28576,7 +28576,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 68
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -28629,7 +28629,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 61
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -28710,7 +28710,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 66
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -28735,7 +28735,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 68
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -28858,7 +28858,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 63
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -29037,7 +29037,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 63
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -29396,7 +29396,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 65
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -29806,7 +29806,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 65
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -29905,7 +29905,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 61
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -29957,7 +29957,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 63
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -30109,7 +30109,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 50
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -30287,7 +30287,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 64
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -30595,7 +30595,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 60
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting"
@@ -30898,7 +30898,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 62
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -31207,7 +31207,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 67
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -31438,7 +31438,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 55
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -31589,7 +31589,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 69
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -31695,7 +31695,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 64
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -31721,7 +31721,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 68
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -31899,7 +31899,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 63
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -31949,7 +31949,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 61
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -32103,7 +32103,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 61
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -32178,7 +32178,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 63
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -32230,7 +32230,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 62
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -32432,7 +32432,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 60
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -32458,7 +32458,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 60
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -32689,7 +32689,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 70
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -32741,7 +32741,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 69
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "fatigue"
@@ -32790,7 +32790,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 67
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -33016,7 +33016,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 66
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -33067,7 +33067,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 66
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -33141,7 +33141,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 64
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -33398,7 +33398,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 61
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -33753,7 +33753,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 69
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "weightLoss",
@@ -33928,7 +33928,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 62
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -34033,7 +34033,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 67
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -34162,7 +34162,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 63
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -34188,7 +34188,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 67
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -34342,7 +34342,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 45
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -34367,7 +34367,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 65
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -34569,7 +34569,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 25
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -34717,7 +34717,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 66
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -34869,7 +34869,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 63
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -35129,7 +35129,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 70
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -35256,7 +35256,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 70
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -35385,7 +35385,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 70
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -35663,7 +35663,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 66
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -35715,7 +35715,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 61
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -36068,7 +36068,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 70
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -36217,7 +36217,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 70
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -36243,7 +36243,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 66
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -36577,7 +36577,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 67
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -36626,7 +36626,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 66
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -36703,7 +36703,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 66
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -36729,7 +36729,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 62
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "fatigue",
@@ -36879,7 +36879,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 61
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -36956,7 +36956,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 62
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -37009,7 +37009,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 28
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -37060,7 +37060,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 69
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -37138,7 +37138,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 23
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -37191,7 +37191,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 67
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -37269,7 +37269,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 62
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -37473,7 +37473,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 69
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -37549,7 +37549,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 68
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -37599,7 +37599,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 62
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -37855,7 +37855,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 65
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -37955,7 +37955,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 71
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -38234,7 +38234,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 61
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -38259,7 +38259,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 66
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -38387,7 +38387,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 68
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "weightLoss",
@@ -38538,7 +38538,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 67
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -38589,7 +38589,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 60
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting"
@@ -38736,7 +38736,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 60
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -38814,7 +38814,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 66
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -38892,7 +38892,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 12
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -38970,7 +38970,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 19
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -39023,7 +39023,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 67
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -39127,7 +39127,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 61
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -39379,7 +39379,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 62
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting"
@@ -39532,7 +39532,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 61
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -39657,7 +39657,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 68
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -39708,7 +39708,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 62
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -39785,7 +39785,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 63
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -39835,7 +39835,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 63
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -39911,7 +39911,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 63
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -40040,7 +40040,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 68
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "bowelDys",
@@ -40093,7 +40093,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 66
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -40197,7 +40197,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 68
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -40250,7 +40250,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 69
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -40377,7 +40377,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 60
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -40500,7 +40500,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 33
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -40525,7 +40525,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 37
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -40579,7 +40579,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 68
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -40706,7 +40706,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 71
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -40781,7 +40781,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 70
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -40886,7 +40886,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 71
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -41215,7 +41215,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 67
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -41344,7 +41344,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 67
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [],
@@ -41393,7 +41393,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 28
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -41443,7 +41443,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 70
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -41520,7 +41520,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 67
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -42459,7 +42459,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 7
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -42592,7 +42592,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 71
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -42667,7 +42667,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 70
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "hotFlash",
@@ -42742,7 +42742,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 71
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -42793,7 +42793,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 68
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -42842,7 +42842,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 70
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -42942,7 +42942,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 63
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -43071,7 +43071,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 20
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -43197,7 +43197,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 52
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -43405,7 +43405,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 65
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -43456,7 +43456,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 61
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -43679,7 +43679,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 62
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -43804,7 +43804,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 50
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -43881,7 +43881,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 61
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -43932,7 +43932,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 69
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -43958,7 +43958,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 61
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -44087,7 +44087,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 71
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -44215,7 +44215,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 65
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -44315,7 +44315,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 66
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -44392,7 +44392,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 60
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -44442,7 +44442,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 63
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -44698,7 +44698,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 67
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -44824,7 +44824,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 64
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -44951,7 +44951,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 62
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -45053,7 +45053,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 64
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -45256,7 +45256,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 61
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -45333,7 +45333,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 65
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [],
@@ -45687,7 +45687,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 66
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -45789,7 +45789,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 45
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -45864,7 +45864,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 61
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "fatigue",
@@ -45889,7 +45889,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 20
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -46065,7 +46065,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 71
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -46293,7 +46293,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 67
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -46371,7 +46371,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 62
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -46830,7 +46830,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 71
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -46981,7 +46981,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 65
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting"
@@ -47228,7 +47228,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 66
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -47280,7 +47280,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 60
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -47481,7 +47481,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 60
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -47531,7 +47531,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 60
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -47558,7 +47558,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 65
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -47739,7 +47739,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 62
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
@@ -47766,7 +47766,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 60
     },
     "treatments": [
-      "chemo",
+      "chemotherapy",
       "radiation"
     ],
     "sideEffects": [
@@ -47816,7 +47816,7 @@ export const transformedTreatmentData = [
       "survivalMonths": 61
     },
     "treatments": [
-      "chemo"
+      "chemotherapy"
     ],
     "sideEffects": [
       "nauseaVomiting",
