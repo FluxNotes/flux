@@ -864,6 +864,7 @@ exports.mapEntries = (entries) => {
             const newObservation = new Observation();
 
             mapEntryInfo(entry.entryInfo, newObservation);
+<<<<<<< HEAD
             mapObservation(entry, newObservation);
 
             v05Json.push(newObservation.toJSON());
@@ -900,6 +901,20 @@ exports.mapEntries = (entries) => {
             console.log(newCondition);
             result.push(entryJSON);
 >>>>>>> Added entry mapping for GIST and MedicationRequested.
+=======
+            if (entry._observation.category) newObservation.category = mapPassThrough(entry._observation.category, Category);
+            if (entry._observation.findingStatus) {
+                newObservation.findingStatus = new FindingStatus();
+                newObservation.findingStatus.value = mapPassThrough(entry._observation.findingStatus, CodeableConcept);
+            }
+            if (entry._observation.relevantTime) newObservation.relevantTime = mapRelevantTime(entry._observation.relevantTime);
+            if (entry._observation.specificFocusOfFinding) newObservation.specificFocusOfFinding = mapPassThrough(entry._observation.specificFocusOfFinding, SpecificFocusOfFinding);
+            if (entry._observation.findingTopicCode) newObservation.findingTopicCode = mapPassThrough(entry._observation.findingTopicCode, FindingTopicCode);
+            if (entry._observation.value) newObservation.findingResult = mapFindingResult(entry._observation.value);
+            // newObservation.findingResult = new FindingResult();
+            // newObservation.findingResult.value = mapQuantity(entry._observation.value);
+            result.push(newObservation.toJSON());
+>>>>>>> Fixed PanelMember References.
         } else if (entry instanceof FluxMedicationRequestedV01) {
             const newMedicationRequested = new MedicationRequested();
 

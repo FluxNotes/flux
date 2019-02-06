@@ -6106,7 +6106,11 @@
                     }
                 },
                 {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                     "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+=======
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                     "_EntryId": "182",
                     "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/oncology/PDGFRAVariant"
@@ -6136,6 +6140,7 @@
         "Value": {
             "Coding": [
                 {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                     "Code": {
                         "Value": "C1446409",
                         "EntryType": {
@@ -6145,6 +6150,12 @@
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
+=======
+                    "Code": "C1446409",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                     "CodeSystem": {
                         "Value": "http://ncimeta.nci.nih.gov",
                         "EntryType": {
@@ -6170,12 +6181,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                         "Code": {
                             "Value": "C104668",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "C104668",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -6220,12 +6235,16 @@
         "Value": {
             "Coding": [
                 {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                     "Code": {
                         "Value": "C0205160",
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                         }
                     },
+=======
+                    "Code": "C0205160",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -6254,12 +6273,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                         "Code": {
                             "Value": "C1335201",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "C1335201",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -6392,7 +6415,11 @@
                     }
                 },
                 {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                     "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+=======
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                     "_EntryId": "2212",
                     "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/mcode/TNMClinicalRegionalNodesClassification"
@@ -6406,7 +6433,11 @@
                     }
                 },
                 {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                     "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+=======
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                     "_EntryId": "2214",
                     "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/oncology/MitoticRate"
@@ -6513,12 +6544,16 @@
         "Value": {
             "Coding": [
                 {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                     "Code": {
                         "Value": "369918000",
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                         }
                     },
+=======
+                    "Code": "369918000",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -6562,12 +6597,16 @@
         "Value": {
             "Coding": [
                 {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                     "Code": {
                         "Value": "103802014",
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                         }
                     },
+=======
+                    "Code": "103802014",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -6611,12 +6650,16 @@
         "Value": {
             "Coding": [
                 {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                     "Code": {
                         "Value": "51703010",
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                         }
                     },
+=======
+                    "Code": "51703010",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -6660,12 +6703,16 @@
         "Value": {
             "Coding": [
                 {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                     "Code": {
                         "Value": "C35960",
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                         }
                     },
+=======
+                    "Code": "C35960",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -12372,7 +12419,11 @@
                     }
                 },
                 {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                     "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+=======
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                     "_EntryId": "6064",
                     "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
@@ -12387,12 +12438,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                         "Code": {
                             "Value": "55284-4",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "55284-4",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -12912,7 +12967,11 @@
                     }
                 },
                 {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                     "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+=======
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                     "_EntryId": "6066",
                     "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
@@ -13364,7 +13423,11 @@
                     }
                 },
                 {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                     "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+=======
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                     "_EntryId": "6068",
                     "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
@@ -13816,7 +13879,11 @@
                     }
                 },
                 {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                     "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+=======
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                     "_EntryId": "6070",
                     "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
@@ -14268,7 +14335,11 @@
                     }
                 },
                 {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                     "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+=======
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                     "_EntryId": "6072",
                     "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
@@ -14283,12 +14354,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                         "Code": {
                             "Value": "55284-4",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "55284-4",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -14720,7 +14795,11 @@
                     }
                 },
                 {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                     "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+=======
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                     "_EntryId": "6074",
                     "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
@@ -15172,7 +15251,11 @@
                     }
                 },
                 {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                     "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+=======
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                     "_EntryId": "6076",
                     "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
@@ -15187,12 +15270,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                         "Code": {
                             "Value": "55284-4",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "55284-4",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -15624,7 +15711,11 @@
                     }
                 },
                 {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                     "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+=======
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                     "_EntryId": "6078",
                     "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
@@ -16076,7 +16167,11 @@
                     }
                 },
                 {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                     "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+=======
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                     "_EntryId": "6080",
                     "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
@@ -16091,12 +16186,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                         "Code": {
                             "Value": "55284-4",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "55284-4",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -16528,7 +16627,11 @@
                     }
                 },
                 {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                     "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+=======
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                     "_EntryId": "6082",
                     "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
@@ -16980,7 +17083,11 @@
                     }
                 },
                 {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                     "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+=======
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                     "_EntryId": "6084",
                     "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
@@ -16995,12 +17102,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                         "Code": {
                             "Value": "55284-4",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "55284-4",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -17432,7 +17543,11 @@
                     }
                 },
                 {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                     "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+=======
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                     "_EntryId": "6086",
                     "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
@@ -17884,7 +17999,11 @@
                     }
                 },
                 {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                     "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+=======
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                     "_EntryId": "6088",
                     "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
@@ -17899,12 +18018,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                         "Code": {
                             "Value": "55284-4",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "55284-4",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -19803,12 +19926,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                         "Code": {
                             "Value": "8480-6",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "8480-6",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -19879,12 +20006,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                         "Code": {
                             "Value": "8462-4",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "8462-4",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -19955,12 +20086,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                         "Code": {
                             "Value": "8480-6",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "8480-6",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -20031,12 +20166,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                         "Code": {
                             "Value": "8462-4",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "8462-4",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -20107,12 +20246,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                         "Code": {
                             "Value": "8480-6",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "8480-6",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -20183,12 +20326,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                         "Code": {
                             "Value": "8462-4",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "8462-4",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -20259,12 +20406,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                         "Code": {
                             "Value": "8480-6",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "8480-6",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -20335,12 +20486,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                         "Code": {
                             "Value": "8462-4",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "8462-4",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -20411,12 +20566,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                         "Code": {
                             "Value": "8480-6",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "8480-6",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -20487,12 +20646,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                         "Code": {
                             "Value": "8462-4",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "8462-4",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -20563,12 +20726,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                         "Code": {
                             "Value": "8480-6",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "8480-6",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -20639,12 +20806,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                         "Code": {
                             "Value": "8462-4",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "8462-4",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -20715,12 +20886,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                         "Code": {
                             "Value": "8480-6",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "8480-6",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -20791,12 +20966,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                         "Code": {
                             "Value": "8462-4",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "8462-4",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -20867,12 +21046,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                         "Code": {
                             "Value": "8480-6",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "8480-6",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -20943,12 +21126,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                         "Code": {
                             "Value": "8462-4",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "8462-4",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -21019,12 +21206,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                         "Code": {
                             "Value": "8480-6",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "8480-6",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -21095,12 +21286,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                         "Code": {
                             "Value": "8462-4",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "8462-4",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -21171,12 +21366,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                         "Code": {
                             "Value": "8480-6",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "8480-6",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -21247,12 +21446,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                         "Code": {
                             "Value": "8462-4",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "8462-4",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -21323,12 +21526,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                         "Code": {
                             "Value": "8480-6",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "8480-6",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -21399,12 +21606,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                         "Code": {
                             "Value": "8462-4",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "8462-4",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -21475,12 +21686,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                         "Code": {
                             "Value": "8480-6",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "8480-6",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -21551,12 +21766,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                         "Code": {
                             "Value": "8462-4",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "8462-4",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -21627,12 +21846,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                         "Code": {
                             "Value": "8480-6",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "8480-6",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -21703,12 +21926,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                         "Code": {
                             "Value": "8462-4",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "8462-4",
+>>>>>>> Fixed PanelMember References.:src/dataaccess/HardCodedSarcomaPatient.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
