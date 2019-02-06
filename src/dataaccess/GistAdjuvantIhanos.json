@@ -5464,126 +5464,168 @@
             },
             "Observation": [
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                    "_EntryId": "181",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/oncology/KITVariant"
-                    },
-                    "Value": {
-                        "Coding": [
-                            {
-                                "Code": "C1446409",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                },
-                                "CodeSystem": {
-                                    "Value": "http://ncimeta.nci.nih.gov",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                    }
-                                },
-                                "DisplayText": {
-                                    "Value": "Positive",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                    }
-                                }
-                            }
-                        ],
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                        }
-                    },
-                    "SpecificFocusOfFinding": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/base/SpecificFocusOfFinding"
-                        },
-                        "Value": {
-                            "Coding": [
-                                {
-                                    "Code": "C104668",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                    },
-                                    "CodeSystem": {
-                                        "Value": "https://ncit.nci.nih.gov/",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                        }
-                                    },
-                                    "DisplayText": {
-                                        "Value": "KIT exon 11 mutation",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                        }
-                                    }
-                                }
-                            ],
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                            }
-                        }
                     }
                 },
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+                    "_EntryId": "182",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/oncology/PDGFRAVariant"
-                    },
-                    "Value": {
-                        "Coding": [
-                            {
-                                "Code": "C0205160",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                },
-                                "CodeSystem": {
-                                    "Value": "http://ncimeta.nci.nih.gov",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                    }
-                                },
-                                "DisplayText": {
-                                    "Value": "Negative",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                    }
-                                }
-                            }
-                        ],
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                        }
-                    },
-                    "SpecificFocusOfFinding": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/base/SpecificFocusOfFinding"
-                        },
-                        "Value": {
-                            "Coding": [
-                                {
-                                    "Code": "C1335201",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                    },
-                                    "CodeSystem": {
-                                        "Value": "https://ncimeta.nci.nih.gov/",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                        }
-                                    },
-                                    "DisplayText": {
-                                        "Value": "PDGFRA Gene",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                        }
-                                    }
-                                }
-                            ],
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                            }
-                        }
                     }
                 }
             ]
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "181",
+        "LastUpdated": {
+            "Value": "16 Dec 2016",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "16 Dec 2016",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/oncology/KITVariant"
+        },
+        "Value": {
+            "Coding": [
+                {
+                    "Code": "C1446409",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "CodeSystem": {
+                        "Value": "http://ncimeta.nci.nih.gov",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        }
+                    },
+                    "DisplayText": {
+                        "Value": "Positive",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    }
+                }
+            ],
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            }
+        },
+        "SpecificFocusOfFinding": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/SpecificFocusOfFinding"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": "C104668",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "https://ncit.nci.nih.gov/",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "KIT exon 11 mutation",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "182",
+        "LastUpdated": {
+            "Value": "16 Dec 2016",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "16 Dec 2016",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/oncology/PDGFRAVariant"
+        },
+        "Value": {
+            "Coding": [
+                {
+                    "Code": "C0205160",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "CodeSystem": {
+                        "Value": "http://ncimeta.nci.nih.gov",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        }
+                    },
+                    "DisplayText": {
+                        "Value": "Negative",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    }
+                }
+            ],
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            }
+        },
+        "SpecificFocusOfFinding": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/SpecificFocusOfFinding"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": "C1335201",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "https://ncimeta.nci.nih.gov/",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "PDGFRA Gene",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
         }
     },
     {
@@ -5678,123 +5720,31 @@
             },
             "Observation": [
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                    "_EntryId": "2211",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/mcode/TNMClinicalPrimaryTumorClassification"
-                    },
-                    "Value": {
-                        "Coding": [
-                            {
-                                "Code": "369918000",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                },
-                                "CodeSystem": {
-                                    "Value": "http://snomed.info/sct",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                    }
-                                },
-                                "DisplayText": {
-                                    "Value": "T3",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                    }
-                                }
-                            }
-                        ],
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                        }
                     }
                 },
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+                    "_EntryId": "2212",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/mcode/TNMClinicalRegionalNodesClassification"
-                    },
-                    "Value": {
-                        "Coding": [
-                            {
-                                "Code": "103802014",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                },
-                                "CodeSystem": {
-                                    "Value": "http://snomed.info/sct",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                    }
-                                },
-                                "DisplayText": {
-                                    "Value": "N0",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                    }
-                                }
-                            }
-                        ],
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                        }
                     }
                 },
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                    "_EntryId": "2213",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/mcode/TNMClinicalDistantMetastasesClassification"
-                    },
-                    "Value": {
-                        "Coding": [
-                            {
-                                "Code": "51703010",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                },
-                                "CodeSystem": {
-                                    "Value": "http://snomed.info/sct",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                    }
-                                },
-                                "DisplayText": {
-                                    "Value": "M0",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                    }
-                                }
-                            }
-                        ],
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                        }
                     }
                 },
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+                    "_EntryId": "2214",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/oncology/MitoticRate"
-                    },
-                    "Value": {
-                        "Coding": [
-                            {
-                                "Code": "C35960",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                },
-                                "CodeSystem": {
-                                    "Value": "http://ncimeta.nci.nih.gov",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                    }
-                                },
-                                "DisplayText": {
-                                    "Value": "high",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                    }
-                                }
-                            }
-                        ],
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                        }
                     }
                 }
             ]
@@ -5869,6 +5819,182 @@
             },
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/SpecificFocusOfFinding"
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "2211",
+        "LastUpdated": {
+            "Value": "02 Jul 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "02 Jul 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/mcode/TNMClinicalPrimaryTumorClassification"
+        },
+        "Value": {
+            "Coding": [
+                {
+                    "Code": "369918000",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "CodeSystem": {
+                        "Value": "http://snomed.info/sct",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        }
+                    },
+                    "DisplayText": {
+                        "Value": "T3",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    }
+                }
+            ],
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "2212",
+        "LastUpdated": {
+            "Value": "02 Jul 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "02 Jul 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/mcode/TNMClinicalRegionalNodesClassification"
+        },
+        "Value": {
+            "Coding": [
+                {
+                    "Code": "103802014",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "CodeSystem": {
+                        "Value": "http://snomed.info/sct",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        }
+                    },
+                    "DisplayText": {
+                        "Value": "N0",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    }
+                }
+            ],
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "2213",
+        "LastUpdated": {
+            "Value": "02 Jul 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "02 Jul 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/mcode/TNMClinicalDistantMetastasesClassification"
+        },
+        "Value": {
+            "Coding": [
+                {
+                    "Code": "51703010",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "CodeSystem": {
+                        "Value": "http://snomed.info/sct",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        }
+                    },
+                    "DisplayText": {
+                        "Value": "M0",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    }
+                }
+            ],
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "2214",
+        "LastUpdated": {
+            "Value": "02 Jul 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "02 Jul 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/oncology/MitoticRate"
+        },
+        "Value": {
+            "Coding": [
+                {
+                    "Code": "C35960",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "CodeSystem": {
+                        "Value": "http://ncimeta.nci.nih.gov",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        }
+                    },
+                    "DisplayText": {
+                        "Value": "high",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    }
+                }
+            ],
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
             }
         }
     },
@@ -11044,117 +11170,17 @@
             },
             "Observation": [
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                    "_EntryId": "6063",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
-                    },
-                    "Value": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
-                        },
-                        "Units": {
-                            "Value": {
-                                "Value": "mmHg",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                            }
-                        },
-                        "DecimalValue": {
-                            "Value": 143,
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                            }
-                        }
-                    },
-                    "FindingTopicCode": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
-                        },
-                        "Value": {
-                            "Coding": [
-                                {
-                                    "Code": "8480-6",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                    },
-                                    "CodeSystem": {
-                                        "Value": "https://fhir.loinc.org",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                        }
-                                    },
-                                    "DisplayText": {
-                                        "Value": "Systolic blood pressure",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                        }
-                                    }
-                                }
-                            ],
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                            }
-                        }
                     }
                 },
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+                    "_EntryId": "6064",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
-                    },
-                    "Value": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
-                        },
-                        "Units": {
-                            "Value": {
-                                "Value": "mmHg",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                            }
-                        },
-                        "DecimalValue": {
-                            "Value": 89,
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                            }
-                        }
-                    },
-                    "FindingTopicCode": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
-                        },
-                        "Value": {
-                            "Coding": [
-                                {
-                                    "Code": "8462-4",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                    },
-                                    "CodeSystem": {
-                                        "Value": "https://fhir.loinc.org",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                        }
-                                    },
-                                    "DisplayText": {
-                                        "Value": "Diastolic blood pressure",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                        }
-                                    }
-                                }
-                            ],
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                            }
-                        }
                     }
                 }
             ]
@@ -11634,117 +11660,17 @@
             },
             "Observation": [
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                    "_EntryId": "6065",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
-                    },
-                    "Value": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
-                        },
-                        "Units": {
-                            "Value": {
-                                "Value": "mmHg",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                            }
-                        },
-                        "DecimalValue": {
-                            "Value": 130,
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                            }
-                        }
-                    },
-                    "FindingTopicCode": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
-                        },
-                        "Value": {
-                            "Coding": [
-                                {
-                                    "Code": "8480-6",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                    },
-                                    "CodeSystem": {
-                                        "Value": "https://fhir.loinc.org",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                        }
-                                    },
-                                    "DisplayText": {
-                                        "Value": "Systolic blood pressure",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                        }
-                                    }
-                                }
-                            ],
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                            }
-                        }
                     }
                 },
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+                    "_EntryId": "6066",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
-                    },
-                    "Value": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
-                        },
-                        "Units": {
-                            "Value": {
-                                "Value": "mmHg",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                            }
-                        },
-                        "DecimalValue": {
-                            "Value": 80,
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                            }
-                        }
-                    },
-                    "FindingTopicCode": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
-                        },
-                        "Value": {
-                            "Coding": [
-                                {
-                                    "Code": "8462-4",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                    },
-                                    "CodeSystem": {
-                                        "Value": "https://fhir.loinc.org",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                        }
-                                    },
-                                    "DisplayText": {
-                                        "Value": "Diastolic blood pressure",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                        }
-                                    }
-                                }
-                            ],
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                            }
-                        }
                     }
                 }
             ]
@@ -12141,117 +12067,17 @@
             },
             "Observation": [
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                    "_EntryId": "6067",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
-                    },
-                    "Value": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
-                        },
-                        "Units": {
-                            "Value": {
-                                "Value": "mmHg",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                            }
-                        },
-                        "DecimalValue": {
-                            "Value": 150,
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                            }
-                        }
-                    },
-                    "FindingTopicCode": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
-                        },
-                        "Value": {
-                            "Coding": [
-                                {
-                                    "Code": "8480-6",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                    },
-                                    "CodeSystem": {
-                                        "Value": "https://fhir.loinc.org",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                        }
-                                    },
-                                    "DisplayText": {
-                                        "Value": "Systolic blood pressure",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                        }
-                                    }
-                                }
-                            ],
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                            }
-                        }
                     }
                 },
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+                    "_EntryId": "6068",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
-                    },
-                    "Value": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
-                        },
-                        "Units": {
-                            "Value": {
-                                "Value": "mmHg",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                            }
-                        },
-                        "DecimalValue": {
-                            "Value": 95,
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                            }
-                        }
-                    },
-                    "FindingTopicCode": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
-                        },
-                        "Value": {
-                            "Coding": [
-                                {
-                                    "Code": "8462-4",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                    },
-                                    "CodeSystem": {
-                                        "Value": "https://fhir.loinc.org",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                        }
-                                    },
-                                    "DisplayText": {
-                                        "Value": "Diastolic blood pressure",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                        }
-                                    }
-                                }
-                            ],
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                            }
-                        }
                     }
                 }
             ]
@@ -12648,117 +12474,17 @@
             },
             "Observation": [
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                    "_EntryId": "6069",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
-                    },
-                    "Value": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
-                        },
-                        "Units": {
-                            "Value": {
-                                "Value": "mmHg",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                            }
-                        },
-                        "DecimalValue": {
-                            "Value": 145,
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                            }
-                        }
-                    },
-                    "FindingTopicCode": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
-                        },
-                        "Value": {
-                            "Coding": [
-                                {
-                                    "Code": "8480-6",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                    },
-                                    "CodeSystem": {
-                                        "Value": "https://fhir.loinc.org",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                        }
-                                    },
-                                    "DisplayText": {
-                                        "Value": "Systolic blood pressure",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                        }
-                                    }
-                                }
-                            ],
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                            }
-                        }
                     }
                 },
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+                    "_EntryId": "6070",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
-                    },
-                    "Value": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
-                        },
-                        "Units": {
-                            "Value": {
-                                "Value": "mmHg",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                            }
-                        },
-                        "DecimalValue": {
-                            "Value": 80,
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                            }
-                        }
-                    },
-                    "FindingTopicCode": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
-                        },
-                        "Value": {
-                            "Coding": [
-                                {
-                                    "Code": "8462-4",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                    },
-                                    "CodeSystem": {
-                                        "Value": "https://fhir.loinc.org",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                        }
-                                    },
-                                    "DisplayText": {
-                                        "Value": "Diastolic blood pressure",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                        }
-                                    }
-                                }
-                            ],
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                            }
-                        }
                     }
                 }
             ]
@@ -13155,117 +12881,17 @@
             },
             "Observation": [
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                    "_EntryId": "6071",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
-                    },
-                    "Value": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
-                        },
-                        "Units": {
-                            "Value": {
-                                "Value": "mmHg",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                            }
-                        },
-                        "DecimalValue": {
-                            "Value": 120,
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                            }
-                        }
-                    },
-                    "FindingTopicCode": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
-                        },
-                        "Value": {
-                            "Coding": [
-                                {
-                                    "Code": "8480-6",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                    },
-                                    "CodeSystem": {
-                                        "Value": "https://fhir.loinc.org",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                        }
-                                    },
-                                    "DisplayText": {
-                                        "Value": "Systolic blood pressure",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                        }
-                                    }
-                                }
-                            ],
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                            }
-                        }
                     }
                 },
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+                    "_EntryId": "6072",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
-                    },
-                    "Value": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
-                        },
-                        "Units": {
-                            "Value": {
-                                "Value": "mmHg",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                            }
-                        },
-                        "DecimalValue": {
-                            "Value": 80,
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                            }
-                        }
-                    },
-                    "FindingTopicCode": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
-                        },
-                        "Value": {
-                            "Coding": [
-                                {
-                                    "Code": "8462-4",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                    },
-                                    "CodeSystem": {
-                                        "Value": "https://fhir.loinc.org",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                        }
-                                    },
-                                    "DisplayText": {
-                                        "Value": "Diastolic blood pressure",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                        }
-                                    }
-                                }
-                            ],
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                            }
-                        }
                     }
                 }
             ]
@@ -13662,117 +13288,17 @@
             },
             "Observation": [
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                    "_EntryId": "6073",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
-                    },
-                    "Value": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
-                        },
-                        "Units": {
-                            "Value": {
-                                "Value": "mmHg",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                            }
-                        },
-                        "DecimalValue": {
-                            "Value": 135,
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                            }
-                        }
-                    },
-                    "FindingTopicCode": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
-                        },
-                        "Value": {
-                            "Coding": [
-                                {
-                                    "Code": "8480-6",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                    },
-                                    "CodeSystem": {
-                                        "Value": "https://fhir.loinc.org",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                        }
-                                    },
-                                    "DisplayText": {
-                                        "Value": "Systolic blood pressure",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                        }
-                                    }
-                                }
-                            ],
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                            }
-                        }
                     }
                 },
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+                    "_EntryId": "6074",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
-                    },
-                    "Value": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
-                        },
-                        "Units": {
-                            "Value": {
-                                "Value": "mmHg",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                            }
-                        },
-                        "DecimalValue": {
-                            "Value": 82,
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                            }
-                        }
-                    },
-                    "FindingTopicCode": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
-                        },
-                        "Value": {
-                            "Coding": [
-                                {
-                                    "Code": "8462-4",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                    },
-                                    "CodeSystem": {
-                                        "Value": "https://fhir.loinc.org",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                        }
-                                    },
-                                    "DisplayText": {
-                                        "Value": "Diastolic blood pressure",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                        }
-                                    }
-                                }
-                            ],
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                            }
-                        }
                     }
                 }
             ]
@@ -14169,117 +13695,17 @@
             },
             "Observation": [
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                    "_EntryId": "6075",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
-                    },
-                    "Value": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
-                        },
-                        "Units": {
-                            "Value": {
-                                "Value": "mmHg",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                            }
-                        },
-                        "DecimalValue": {
-                            "Value": 140,
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                            }
-                        }
-                    },
-                    "FindingTopicCode": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
-                        },
-                        "Value": {
-                            "Coding": [
-                                {
-                                    "Code": "8480-6",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                    },
-                                    "CodeSystem": {
-                                        "Value": "https://fhir.loinc.org",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                        }
-                                    },
-                                    "DisplayText": {
-                                        "Value": "Systolic blood pressure",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                        }
-                                    }
-                                }
-                            ],
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                            }
-                        }
                     }
                 },
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+                    "_EntryId": "6076",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
-                    },
-                    "Value": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
-                        },
-                        "Units": {
-                            "Value": {
-                                "Value": "mmHg",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                            }
-                        },
-                        "DecimalValue": {
-                            "Value": 90,
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                            }
-                        }
-                    },
-                    "FindingTopicCode": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
-                        },
-                        "Value": {
-                            "Coding": [
-                                {
-                                    "Code": "8462-4",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                    },
-                                    "CodeSystem": {
-                                        "Value": "https://fhir.loinc.org",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                        }
-                                    },
-                                    "DisplayText": {
-                                        "Value": "Diastolic blood pressure",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                        }
-                                    }
-                                }
-                            ],
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                            }
-                        }
                     }
                 }
             ]
@@ -14676,117 +14102,17 @@
             },
             "Observation": [
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                    "_EntryId": "6077",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
-                    },
-                    "Value": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
-                        },
-                        "Units": {
-                            "Value": {
-                                "Value": "mmHg",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                            }
-                        },
-                        "DecimalValue": {
-                            "Value": 122,
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                            }
-                        }
-                    },
-                    "FindingTopicCode": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
-                        },
-                        "Value": {
-                            "Coding": [
-                                {
-                                    "Code": "8480-6",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                    },
-                                    "CodeSystem": {
-                                        "Value": "https://fhir.loinc.org",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                        }
-                                    },
-                                    "DisplayText": {
-                                        "Value": "Systolic blood pressure",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                        }
-                                    }
-                                }
-                            ],
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                            }
-                        }
                     }
                 },
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+                    "_EntryId": "6078",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
-                    },
-                    "Value": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
-                        },
-                        "Units": {
-                            "Value": {
-                                "Value": "mmHg",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                            }
-                        },
-                        "DecimalValue": {
-                            "Value": 78,
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                            }
-                        }
-                    },
-                    "FindingTopicCode": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
-                        },
-                        "Value": {
-                            "Coding": [
-                                {
-                                    "Code": "8462-4",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                    },
-                                    "CodeSystem": {
-                                        "Value": "https://fhir.loinc.org",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                        }
-                                    },
-                                    "DisplayText": {
-                                        "Value": "Diastolic blood pressure",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                        }
-                                    }
-                                }
-                            ],
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                            }
-                        }
                     }
                 }
             ]
@@ -15183,117 +14509,17 @@
             },
             "Observation": [
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                    "_EntryId": "6079",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
-                    },
-                    "Value": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
-                        },
-                        "Units": {
-                            "Value": {
-                                "Value": "mmHg",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                            }
-                        },
-                        "DecimalValue": {
-                            "Value": 130,
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                            }
-                        }
-                    },
-                    "FindingTopicCode": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
-                        },
-                        "Value": {
-                            "Coding": [
-                                {
-                                    "Code": "8480-6",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                    },
-                                    "CodeSystem": {
-                                        "Value": "https://fhir.loinc.org",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                        }
-                                    },
-                                    "DisplayText": {
-                                        "Value": "Systolic blood pressure",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                        }
-                                    }
-                                }
-                            ],
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                            }
-                        }
                     }
                 },
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+                    "_EntryId": "6080",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
-                    },
-                    "Value": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
-                        },
-                        "Units": {
-                            "Value": {
-                                "Value": "mmHg",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                            }
-                        },
-                        "DecimalValue": {
-                            "Value": 87,
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                            }
-                        }
-                    },
-                    "FindingTopicCode": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
-                        },
-                        "Value": {
-                            "Coding": [
-                                {
-                                    "Code": "8462-4",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                    },
-                                    "CodeSystem": {
-                                        "Value": "https://fhir.loinc.org",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                        }
-                                    },
-                                    "DisplayText": {
-                                        "Value": "Diastolic blood pressure",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                        }
-                                    }
-                                }
-                            ],
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                            }
-                        }
                     }
                 }
             ]
@@ -15690,117 +14916,17 @@
             },
             "Observation": [
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                    "_EntryId": "6081",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
-                    },
-                    "Value": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
-                        },
-                        "Units": {
-                            "Value": {
-                                "Value": "mmHg",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                            }
-                        },
-                        "DecimalValue": {
-                            "Value": 120,
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                            }
-                        }
-                    },
-                    "FindingTopicCode": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
-                        },
-                        "Value": {
-                            "Coding": [
-                                {
-                                    "Code": "8480-6",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                    },
-                                    "CodeSystem": {
-                                        "Value": "https://fhir.loinc.org",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                        }
-                                    },
-                                    "DisplayText": {
-                                        "Value": "Systolic blood pressure",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                        }
-                                    }
-                                }
-                            ],
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                            }
-                        }
                     }
                 },
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+                    "_EntryId": "6082",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
-                    },
-                    "Value": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
-                        },
-                        "Units": {
-                            "Value": {
-                                "Value": "mmHg",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                            }
-                        },
-                        "DecimalValue": {
-                            "Value": 82,
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                            }
-                        }
-                    },
-                    "FindingTopicCode": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
-                        },
-                        "Value": {
-                            "Coding": [
-                                {
-                                    "Code": "8462-4",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                    },
-                                    "CodeSystem": {
-                                        "Value": "https://fhir.loinc.org",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                        }
-                                    },
-                                    "DisplayText": {
-                                        "Value": "Diastolic blood pressure",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                        }
-                                    }
-                                }
-                            ],
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                            }
-                        }
                     }
                 }
             ]
@@ -16197,117 +15323,17 @@
             },
             "Observation": [
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                    "_EntryId": "6083",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
-                    },
-                    "Value": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
-                        },
-                        "Units": {
-                            "Value": {
-                                "Value": "mmHg",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                            }
-                        },
-                        "DecimalValue": {
-                            "Value": 130,
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                            }
-                        }
-                    },
-                    "FindingTopicCode": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
-                        },
-                        "Value": {
-                            "Coding": [
-                                {
-                                    "Code": "8480-6",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                    },
-                                    "CodeSystem": {
-                                        "Value": "https://fhir.loinc.org",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                        }
-                                    },
-                                    "DisplayText": {
-                                        "Value": "Systolic blood pressure",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                        }
-                                    }
-                                }
-                            ],
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                            }
-                        }
                     }
                 },
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+                    "_EntryId": "6084",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
-                    },
-                    "Value": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
-                        },
-                        "Units": {
-                            "Value": {
-                                "Value": "mmHg",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                            }
-                        },
-                        "DecimalValue": {
-                            "Value": 82,
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                            }
-                        }
-                    },
-                    "FindingTopicCode": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
-                        },
-                        "Value": {
-                            "Coding": [
-                                {
-                                    "Code": "8462-4",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                    },
-                                    "CodeSystem": {
-                                        "Value": "https://fhir.loinc.org",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                        }
-                                    },
-                                    "DisplayText": {
-                                        "Value": "Diastolic blood pressure",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                        }
-                                    }
-                                }
-                            ],
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                            }
-                        }
                     }
                 }
             ]
@@ -16704,117 +15730,17 @@
             },
             "Observation": [
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                    "_EntryId": "6085",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
-                    },
-                    "Value": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
-                        },
-                        "Units": {
-                            "Value": {
-                                "Value": "mmHg",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                            }
-                        },
-                        "DecimalValue": {
-                            "Value": 140,
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                            }
-                        }
-                    },
-                    "FindingTopicCode": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
-                        },
-                        "Value": {
-                            "Coding": [
-                                {
-                                    "Code": "8480-6",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                    },
-                                    "CodeSystem": {
-                                        "Value": "https://fhir.loinc.org",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                        }
-                                    },
-                                    "DisplayText": {
-                                        "Value": "Systolic blood pressure",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                        }
-                                    }
-                                }
-                            ],
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                            }
-                        }
                     }
                 },
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+                    "_EntryId": "6086",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
-                    },
-                    "Value": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
-                        },
-                        "Units": {
-                            "Value": {
-                                "Value": "mmHg",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                            }
-                        },
-                        "DecimalValue": {
-                            "Value": 90,
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                            }
-                        }
-                    },
-                    "FindingTopicCode": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
-                        },
-                        "Value": {
-                            "Coding": [
-                                {
-                                    "Code": "8462-4",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                    },
-                                    "CodeSystem": {
-                                        "Value": "https://fhir.loinc.org",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                        }
-                                    },
-                                    "DisplayText": {
-                                        "Value": "Diastolic blood pressure",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                        }
-                                    }
-                                }
-                            ],
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                            }
-                        }
                     }
                 }
             ]
@@ -17211,117 +16137,17 @@
             },
             "Observation": [
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                    "_EntryId": "6087",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
-                    },
-                    "Value": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
-                        },
-                        "Units": {
-                            "Value": {
-                                "Value": "mmHg",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                            }
-                        },
-                        "DecimalValue": {
-                            "Value": 117,
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                            }
-                        }
-                    },
-                    "FindingTopicCode": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
-                        },
-                        "Value": {
-                            "Coding": [
-                                {
-                                    "Code": "8480-6",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                    },
-                                    "CodeSystem": {
-                                        "Value": "https://fhir.loinc.org",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                        }
-                                    },
-                                    "DisplayText": {
-                                        "Value": "Systolic blood pressure",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                        }
-                                    }
-                                }
-                            ],
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                            }
-                        }
                     }
                 },
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+                    "_EntryId": "6088",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
-                    },
-                    "Value": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
-                        },
-                        "Units": {
-                            "Value": {
-                                "Value": "mmHg",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
-                            }
-                        },
-                        "DecimalValue": {
-                            "Value": 80,
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
-                            }
-                        }
-                    },
-                    "FindingTopicCode": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
-                        },
-                        "Value": {
-                            "Coding": [
-                                {
-                                    "Code": "8462-4",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                    },
-                                    "CodeSystem": {
-                                        "Value": "https://fhir.loinc.org",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                        }
-                                    },
-                                    "DisplayText": {
-                                        "Value": "Diastolic blood pressure",
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                        }
-                                    }
-                                }
-                            ],
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                            }
-                        }
                     }
                 }
             ]
@@ -19021,6 +17847,1852 @@
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
                     }
+                }
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6063",
+        "LastUpdated": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Units": {
+                "Value": {
+                    "Value": "mmHg",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    }
+                },
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                }
+            },
+            "DecimalValue": {
+                "Value": 143,
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
+                }
+            }
+        },
+        "FindingTopicCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": "8480-6",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "https://fhir.loinc.org",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Systolic blood pressure",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6064",
+        "LastUpdated": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Units": {
+                "Value": {
+                    "Value": "mmHg",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    }
+                },
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                }
+            },
+            "DecimalValue": {
+                "Value": 89,
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
+                }
+            }
+        },
+        "FindingTopicCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": "8462-4",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "https://fhir.loinc.org",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Diastolic blood pressure",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6065",
+        "LastUpdated": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Units": {
+                "Value": {
+                    "Value": "mmHg",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    }
+                },
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                }
+            },
+            "DecimalValue": {
+                "Value": 130,
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
+                }
+            }
+        },
+        "FindingTopicCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": "8480-6",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "https://fhir.loinc.org",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Systolic blood pressure",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6066",
+        "LastUpdated": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Units": {
+                "Value": {
+                    "Value": "mmHg",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    }
+                },
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                }
+            },
+            "DecimalValue": {
+                "Value": 80,
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
+                }
+            }
+        },
+        "FindingTopicCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": "8462-4",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "https://fhir.loinc.org",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Diastolic blood pressure",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6067",
+        "LastUpdated": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Units": {
+                "Value": {
+                    "Value": "mmHg",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    }
+                },
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                }
+            },
+            "DecimalValue": {
+                "Value": 150,
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
+                }
+            }
+        },
+        "FindingTopicCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": "8480-6",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "https://fhir.loinc.org",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Systolic blood pressure",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6068",
+        "LastUpdated": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Units": {
+                "Value": {
+                    "Value": "mmHg",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    }
+                },
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                }
+            },
+            "DecimalValue": {
+                "Value": 95,
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
+                }
+            }
+        },
+        "FindingTopicCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": "8462-4",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "https://fhir.loinc.org",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Diastolic blood pressure",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6069",
+        "LastUpdated": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Units": {
+                "Value": {
+                    "Value": "mmHg",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    }
+                },
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                }
+            },
+            "DecimalValue": {
+                "Value": 145,
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
+                }
+            }
+        },
+        "FindingTopicCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": "8480-6",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "https://fhir.loinc.org",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Systolic blood pressure",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6070",
+        "LastUpdated": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Units": {
+                "Value": {
+                    "Value": "mmHg",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    }
+                },
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                }
+            },
+            "DecimalValue": {
+                "Value": 80,
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
+                }
+            }
+        },
+        "FindingTopicCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": "8462-4",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "https://fhir.loinc.org",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Diastolic blood pressure",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6071",
+        "LastUpdated": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Units": {
+                "Value": {
+                    "Value": "mmHg",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    }
+                },
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                }
+            },
+            "DecimalValue": {
+                "Value": 120,
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
+                }
+            }
+        },
+        "FindingTopicCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": "8480-6",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "https://fhir.loinc.org",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Systolic blood pressure",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6072",
+        "LastUpdated": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Units": {
+                "Value": {
+                    "Value": "mmHg",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    }
+                },
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                }
+            },
+            "DecimalValue": {
+                "Value": 80,
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
+                }
+            }
+        },
+        "FindingTopicCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": "8462-4",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "https://fhir.loinc.org",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Diastolic blood pressure",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6073",
+        "LastUpdated": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Units": {
+                "Value": {
+                    "Value": "mmHg",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    }
+                },
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                }
+            },
+            "DecimalValue": {
+                "Value": 135,
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
+                }
+            }
+        },
+        "FindingTopicCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": "8480-6",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "https://fhir.loinc.org",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Systolic blood pressure",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6074",
+        "LastUpdated": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Units": {
+                "Value": {
+                    "Value": "mmHg",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    }
+                },
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                }
+            },
+            "DecimalValue": {
+                "Value": 82,
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
+                }
+            }
+        },
+        "FindingTopicCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": "8462-4",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "https://fhir.loinc.org",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Diastolic blood pressure",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6075",
+        "LastUpdated": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Units": {
+                "Value": {
+                    "Value": "mmHg",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    }
+                },
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                }
+            },
+            "DecimalValue": {
+                "Value": 140,
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
+                }
+            }
+        },
+        "FindingTopicCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": "8480-6",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "https://fhir.loinc.org",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Systolic blood pressure",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6076",
+        "LastUpdated": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Units": {
+                "Value": {
+                    "Value": "mmHg",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    }
+                },
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                }
+            },
+            "DecimalValue": {
+                "Value": 90,
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
+                }
+            }
+        },
+        "FindingTopicCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": "8462-4",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "https://fhir.loinc.org",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Diastolic blood pressure",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6077",
+        "LastUpdated": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Units": {
+                "Value": {
+                    "Value": "mmHg",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    }
+                },
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                }
+            },
+            "DecimalValue": {
+                "Value": 122,
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
+                }
+            }
+        },
+        "FindingTopicCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": "8480-6",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "https://fhir.loinc.org",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Systolic blood pressure",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6078",
+        "LastUpdated": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Units": {
+                "Value": {
+                    "Value": "mmHg",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    }
+                },
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                }
+            },
+            "DecimalValue": {
+                "Value": 78,
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
+                }
+            }
+        },
+        "FindingTopicCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": "8462-4",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "https://fhir.loinc.org",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Diastolic blood pressure",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6079",
+        "LastUpdated": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Units": {
+                "Value": {
+                    "Value": "mmHg",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    }
+                },
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                }
+            },
+            "DecimalValue": {
+                "Value": 130,
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
+                }
+            }
+        },
+        "FindingTopicCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": "8480-6",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "https://fhir.loinc.org",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Systolic blood pressure",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6080",
+        "LastUpdated": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Units": {
+                "Value": {
+                    "Value": "mmHg",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    }
+                },
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                }
+            },
+            "DecimalValue": {
+                "Value": 87,
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
+                }
+            }
+        },
+        "FindingTopicCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": "8462-4",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "https://fhir.loinc.org",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Diastolic blood pressure",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6081",
+        "LastUpdated": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Units": {
+                "Value": {
+                    "Value": "mmHg",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    }
+                },
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                }
+            },
+            "DecimalValue": {
+                "Value": 120,
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
+                }
+            }
+        },
+        "FindingTopicCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": "8480-6",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "https://fhir.loinc.org",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Systolic blood pressure",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6082",
+        "LastUpdated": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Units": {
+                "Value": {
+                    "Value": "mmHg",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    }
+                },
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                }
+            },
+            "DecimalValue": {
+                "Value": 82,
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
+                }
+            }
+        },
+        "FindingTopicCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": "8462-4",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "https://fhir.loinc.org",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Diastolic blood pressure",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6083",
+        "LastUpdated": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Units": {
+                "Value": {
+                    "Value": "mmHg",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    }
+                },
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                }
+            },
+            "DecimalValue": {
+                "Value": 130,
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
+                }
+            }
+        },
+        "FindingTopicCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": "8480-6",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "https://fhir.loinc.org",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Systolic blood pressure",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6084",
+        "LastUpdated": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Units": {
+                "Value": {
+                    "Value": "mmHg",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    }
+                },
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                }
+            },
+            "DecimalValue": {
+                "Value": 82,
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
+                }
+            }
+        },
+        "FindingTopicCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": "8462-4",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "https://fhir.loinc.org",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Diastolic blood pressure",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6085",
+        "LastUpdated": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Units": {
+                "Value": {
+                    "Value": "mmHg",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    }
+                },
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                }
+            },
+            "DecimalValue": {
+                "Value": 140,
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
+                }
+            }
+        },
+        "FindingTopicCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": "8480-6",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "https://fhir.loinc.org",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Systolic blood pressure",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6086",
+        "LastUpdated": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Units": {
+                "Value": {
+                    "Value": "mmHg",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    }
+                },
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                }
+            },
+            "DecimalValue": {
+                "Value": 90,
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
+                }
+            }
+        },
+        "FindingTopicCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": "8462-4",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "https://fhir.loinc.org",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Diastolic blood pressure",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6087",
+        "LastUpdated": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Units": {
+                "Value": {
+                    "Value": "mmHg",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    }
+                },
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                }
+            },
+            "DecimalValue": {
+                "Value": 117,
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
+                }
+            }
+        },
+        "FindingTopicCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": "8480-6",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "https://fhir.loinc.org",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Systolic blood pressure",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6088",
+        "LastUpdated": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "18 Jan 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
+        },
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity"
+            },
+            "Units": {
+                "Value": {
+                    "Value": "mmHg",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    }
+                },
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                }
+            },
+            "DecimalValue": {
+                "Value": 80,
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/DecimalValue"
+                }
+            }
+        },
+        "FindingTopicCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": "8462-4",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "https://fhir.loinc.org",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Diastolic blood pressure",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
                 }
             }
         }

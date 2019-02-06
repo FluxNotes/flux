@@ -331,7 +331,7 @@ exports.mapEntries = (entries) => {
                 newObservation.findingStatus = new FindingStatus();
                 newObservation.findingStatus.value = mapPassThrough(entry._observation.findingStatus, CodeableConcept);
             }
-            newObservation.relevantTime = mapRelevantTime(entry._observation.relevantTime);
+            if (entry._observation.relevantTime) newObservation.relevantTime = mapRelevantTime(entry._observation.relevantTime);
             if (entry._observation.specificFocusOfFinding) newObservation.specificFocusOfFinding = mapPassThrough(entry._observation.specificFocusOfFinding, SpecificFocusOfFinding);
             if (entry._observation.findingTopicCode) newObservation.findingTopicCode = mapPassThrough(entry._observation.findingTopicCode, FindingTopicCode);
             if (entry._observation.value) newObservation.findingResult = mapFindingResult(entry._observation.value);
