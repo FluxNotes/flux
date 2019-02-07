@@ -32,6 +32,14 @@ class FluxEstrogenReceptorStatus extends FluxObservation {
         this._observation.value = lookup.getReceptorCodeableConcept(statusVal);
     }
 
+    get statusSign() {
+        return this.status === 'Positive' ? '+' : '-';
+    }
+
+    get abbreviatedName() {
+        return 'ER';
+    }
+
     toJSON() {
         return this._observation.toJSON();
     }

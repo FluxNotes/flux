@@ -31,6 +31,14 @@ class FluxHER2ReceptorStatus extends FluxObservation {
         this._observation.value = lookup.getReceptorCodeableConcept(statusVal);
     }
 
+    get statusSign() {
+        return this.status === 'Positive' ? '+' : '-';
+    }
+
+    get abbreviatedName() {
+        return 'HER2';
+    }
+
     toJSON() {
         return this._observation.toJSON();
     }
