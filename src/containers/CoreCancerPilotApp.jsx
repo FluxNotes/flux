@@ -93,6 +93,13 @@ export class CoreCancerPilotApp extends Component {
 
     componentDidMount = () => {
         document.title = this.props.display;
+        // If we have a custom logoObject, we should update our favicons 
+        if (!Lang.isEmpty(this.props.logoObject)) { 
+            const icons = document.querySelectorAll('link[rel="icon"]');
+            icons.forEach((icon) => {
+                icon.href = this.props.logoObject.path;
+            });
+        }
     }
 
     componentWillMount() {
@@ -193,8 +200,11 @@ export class CoreCancerPilotApp extends Component {
                                     appTitle={this.props.display}
                                     clinicalEvent={this.state.clinicalEvent}
                                     highlightedSearchSuggestion={this.state.highlightedSearchSuggestion}
+                                    isAppBlurred={this.state.isAppBlurred}
                                     layout={this.state.layout}
                                     loginUsername={this.state.loginUser.getUserName()}
+                                    logoObject={this.props.logoObject}
+                                    moveTargetedDataPanelToSubsection={this.moveTargetedDataPanelToSubsection}
                                     patient={this.state.patient}
                                     possibleClinicalEvents={[]}
                                     setCondition={this.setCondition}
@@ -203,9 +213,7 @@ export class CoreCancerPilotApp extends Component {
                                     setSearchSelectedItem={this.setSearchSelectedItem}
                                     supportLogin={true}
                                     searchIndex={this.searchIndex}
-                                    moveTargetedDataPanelToSubsection={this.moveTargetedDataPanelToSubsection}
                                     setSearchSuggestions={this.setSearchSuggestions}
-                                    isAppBlurred={this.state.isAppBlurred}
                                 />
                             </Col>
                         </Row>
@@ -265,6 +273,12 @@ export class CoreCancerPilotApp extends Component {
 CoreCancerPilotApp.propTypes = {
     dataSource: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
+    logoObject: PropTypes.shape({
+        path: PropTypes.string.isRequired,
+        altText: PropTypes.string.isRequired,
+        width: PropTypes.string,
+        height: PropTypes.string
+    })
 };
 
 // these props are used for dispatching actions

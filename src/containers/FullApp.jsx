@@ -392,6 +392,7 @@ export class FullApp extends Component {
                                     isAppBlurred={this.state.isAppBlurred}
                                     layout={this.state.layout}
                                     loginUsername={this.state.loginUser.getUserName()}
+                                    logoObject={this.props.logoObject}
                                     moveTargetedDataPanelToSubsection={this.moveTargetedDataPanelToSubsection}
                                     patient={this.state.patient}
                                     possibleClinicalEvents={this.possibleClinicalEvents}
@@ -477,7 +478,13 @@ export class FullApp extends Component {
 FullApp.propTypes = {
     dataSource: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
-    shortcuts: PropTypes.array.isRequired,
+    logoObject: PropTypes.shape({
+        path: PropTypes.string.isRequired,
+        altText: PropTypes.string.isRequired,
+        width: PropTypes.string,
+        height: PropTypes.string
+    }),
+    shortcuts: PropTypes.array.isRequired
 };
 
 // these props are used for dispatching actions
