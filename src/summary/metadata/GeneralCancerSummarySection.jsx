@@ -1,4 +1,6 @@
 import MetadataSection from "./MetadataSection";
+import FluxBreastCancer from "../../model/oncology/FluxBreastCancer";
+import Lang from 'lodash';
 
 export default class GeneralCancerSummarySection extends MetadataSection {
     getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
@@ -137,19 +139,39 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                         {
                             name: "Tumor Markers",
                             value: (patient, currentConditionEntry) => {
-                                // for GIST, KIT and PDGFRA are mutually excusive. only show positive ones
-                                const panels = patient.getGastrointestinalStromalTumorCancerGeneticAnalysisPanelsChronologicalOrder();
-                                if (!panels || panels.length === 0) return null;
-                                const panel = panels.pop();
-                                return  {   value: panel.members.filter((item) => {
-                                                    return (item.value === 'Positive');
-                                                }).map((item) => {
-                                                    const v = item.value === 'Positive' ? '+' : '-';
-                                                    return item.abbreviatedName + v;
-                                                }).join(","), 
-                                            isUnsigned: patient.isUnsigned(panel), 
-                                            source: this.determineSource(patient, panel)
-                                        };
+                                // Display ER, PR, HER2 if Breast Cancer Condition
+                                if (currentConditionEntry instanceof FluxBreastCancer) {
+                                    const receptorStatuses = [];
+                                    const er = currentConditionEntry.getMostRecentERReceptorStatus();
+                                    const pr = currentConditionEntry.getMostRecentPRReceptorStatus();
+                                    const her2 = currentConditionEntry.getMostRecentHER2ReceptorStatus();
+
+                                    if (!Lang.isNull(er)) receptorStatuses.push(er);
+                                    if (!Lang.isNull(pr)) receptorStatuses.push(pr);
+                                    if (!Lang.isNull(her2)) receptorStatuses.push(her2);
+
+                                    if (receptorStatuses.length === 0) return null;
+                                    // TODO: We might want to look at how we check for the isUnsigned property since these are 3 different entries(same for determining source)
+                                    // for now using first receptor status in array
+                                    return {
+                                        value: receptorStatuses.map(receptor => `${receptor.abbreviatedName}${receptor.statusSign}`).join(', '),
+                                        isUnsigned: patient.isUnsigned(receptorStatuses[0]),
+                                        source: this.determineSource(patient, receptorStatuses[0]),
+                                    };
+                                } else {
+                                    // for GIST, KIT and PDGFRA are mutually excusive. only show positive ones
+                                    const panels = patient.getGastrointestinalStromalTumorCancerGeneticAnalysisPanelsChronologicalOrder();
+                                    if (!panels || panels.length === 0) return null;
+                                    const panel = panels.pop();
+                                    return  {   
+                                        value: panel.members.filter(item => item.value === 'Positive').map(item => {
+                                            const v = item.value === 'Positive' ? '+' : '-';
+                                            return item.abbreviatedName + v;
+                                        }).join(","), 
+                                        isUnsigned: patient.isUnsigned(panel), 
+                                        source: this.determineSource(patient, panel)
+                                    };
+                                }
                             }
                         }
                     ]
