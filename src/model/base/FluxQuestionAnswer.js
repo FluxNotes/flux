@@ -11,19 +11,10 @@ class FluxQuestionAnswer {
     }
 
     /*
-     *  Getter for FindingTopicCode coding
-     *  FindingTopicCode is a CodeableConcept and this function will return the coding value
+     *  Getter for QuestionText
      */
-    get observationCodeCoding() {
-        return this._questionAnswer.findingTopicCode.value.coding[0].code;
-    }
-
-    /*
-     *  Getter for FindingTopicCode DisplayText
-     *  FindingTopicCode is a CodeableConcept and this function will return the displayText value
-     */
-    get observationCodeDisplayText() {
-        return this._questionAnswer.findingTopicCode.value.coding[0].displayText.value;
+    get questionText() {
+        return this._questionAnswer.questionText.string;
     }
 
     /*
@@ -40,7 +31,7 @@ class FluxQuestionAnswer {
      *  Return value(currently just true/false for answer to questions)
      */
     get value() {
-        return this._questionAnswer.value;
+        return this._questionAnswer.findingResult.value;
     }
 
     /*
@@ -51,14 +42,18 @@ class FluxQuestionAnswer {
         if (this._questionAnswer.entryInfo.recordedBy) {
             return this._questionAnswer.entryInfo.recordedBy.value;
         } 
-        return null;       
+        return null;
     }
 
     get relevantTime() {
         if (this._questionAnswer.relevantTime) {
             return this._questionAnswer.relevantTime.value;
         } 
-        return null;      
+        return null;
+    }
+
+    isROS() {
+        return this._questionAnswer.findingTopicCode && this._questionAnswer.findingTopicCode.codeableConcept && this._questionAnswer.findingTopicCode.codeableConcept.coding[0].code === 'C95618';
     }
 
     toJSON() {

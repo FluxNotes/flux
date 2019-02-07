@@ -13,7 +13,7 @@ import FluxNoKnownAllergy from '../model/allergy/FluxNoKnownAllergy';
 import FluxPatient from '../model/entity/FluxPatient';
 import FluxPatientIdentifier from '../model/base/FluxPatientIdentifier';
 import FluxProcedureRequested from '../model/procedure/FluxProcedureRequested';
-import FluxQuestionAnswer from '../model/finding/FluxQuestionAnswer';
+import FluxQuestionAnswer from '../model/base/FluxQuestionAnswer';
 import FluxResearchSubject from '../model/research/FluxResearchSubject';
 import FluxBloodPressure from '../model/vital/FluxBloodPressure';
 import FluxBodyTemperature from '../model/vital/FluxBodyTemperature';
@@ -32,7 +32,6 @@ import { v4 } from 'uuid';
 import _ from 'lodash';
 
 class PatientRecord {
-
     constructor(shrJson = null) {
         this.enrolledClinicalTrials = [];
         this.missingEligibleTrialData = [];
@@ -317,7 +316,7 @@ class PatientRecord {
     getReviewOfSystems() {
         return this.entries.find((e) => {
             // C95618 is code for ROS
-            return e instanceof FluxQuestionAnswer && e.observationCodeCoding === 'C95618';
+            return e instanceof FluxQuestionAnswer && e.isROS();
         });
     }
 
@@ -337,7 +336,7 @@ class PatientRecord {
         const trueAnswers = members.filter((m) => {
             return m.value === true;
         }).map((m) => {
-            return m.observationCodeDisplayText;
+            return m.questionText;
         });
 
         result = `A complete ${members.length} point ROS was done and was unremarkable`;
