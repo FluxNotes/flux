@@ -5321,6 +5321,7 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/BreastMainTreatmentDebra.json
                         "Code": {
                             "Value": "foo",
                             "EntryType": {
@@ -5333,6 +5334,15 @@
                         "CodeSystem": {
                             "Value": "http://ncimeta.nci.nih.gov",
                             "EntryType": {
+=======
+                        "Value": "foo",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "http://ncimeta.nci.nih.gov",
+                            "EntryType": {
+>>>>>>> Better mapping of dosages.:src/dataaccess/HardCodedPatient.json
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
                             }
                         },

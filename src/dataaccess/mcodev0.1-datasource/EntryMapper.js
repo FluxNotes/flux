@@ -136,6 +136,7 @@ import Timing from '../../model/shr/core/Timing';
 import RecurrencePattern from '../../model/shr/core/RecurrencePattern';
 import RecurrenceInterval from '../../model/shr/core/RecurrenceInterval';
 import Duration from '../../model/shr/core/Duration';
+<<<<<<< HEAD
 import FluxAllergyIntoleranceV01 from './model/allergy/FluxAllergyIntolerance';
 import AllergyIntolerance from '../../model/shr/allergy/AllergyIntolerance';
 import SubstanceCategory from '../../model/shr/allergy/SubstanceCategory';
@@ -184,6 +185,9 @@ import ConditionOrDiagnosisCode from '../../model/shr/base/ConditionOrDiagnosisC
 >>>>>>> Added entry mapping for GIST and MedicationRequested.
 =======
 >>>>>>> Added entry mapping for HistologicGrade, ToxicReaction, ConditionPresentAssertion.
+=======
+import RecurrenceRange from '../../model/shr/core/RecurrenceRange';
+>>>>>>> Better mapping of dosages.
 
 const mapEntryInfo = (entryInfo, entry) => {
     const newEntry = new Entry();
@@ -265,6 +269,7 @@ const mapAnatomicalLocation = (anatomicalLocation) => {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 const mapUnits = (units) => {
     const newUnits = new Units();
 
@@ -279,11 +284,25 @@ const mapUnits = (units) => {
 
     return newUnits;
 };
+=======
+const mapUnits = (units) => {
+    const newUnits = new Units();
+
+    newUnits.value = new Coding();
+    newUnits.value.code = units.value.code;
+
+    return newUnits;
+}
+>>>>>>> Better mapping of dosages.
 
 const mapQuantity = (quantity) => {
     const newQuantity = new Quantity();
 
+<<<<<<< HEAD
     newQuantity.number = new NumberV05();
+=======
+    newQuantity.number = new Number();
+>>>>>>> Better mapping of dosages.
     newQuantity.number.value = quantity.decimalValue.value;
     newQuantity.units = mapUnits(quantity.units);
 
@@ -293,7 +312,11 @@ const mapQuantity = (quantity) => {
 const mapDuration = (duration) => {
     const newDuration = new Duration();
 
+<<<<<<< HEAD
     newDuration.number = new NumberV05();
+=======
+    newDuration.number = new Number();
+>>>>>>> Better mapping of dosages.
     newDuration.number.value = duration.decimalValue.value;
     newDuration.units = mapUnits(duration.units);
 
@@ -315,8 +338,11 @@ const mapTimingOfDoses = (timingOfDoses) => {
     return newTimingOfDoses;
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> Added entry mapping for GIST and MedicationRequested.
+=======
+>>>>>>> Better mapping of dosages.
 const mapDosage = (dosage) => {
     const newDosage = new Dosage();
     newDosage.doseAmount = new DoseAmount();
@@ -337,10 +363,14 @@ const mapDosage = (dosage) => {
     if (dosage.dosageInstructionsText) newDosage.dosageInstructionsText = mapPassThrough(dosage.dosageInstructionsText, DosageInstructionsText);
     newDosage.routeIntoBody = mapPassThrough(dosage.routeIntoBody, RouteIntoBody);
 <<<<<<< HEAD
+<<<<<<< HEAD
     newDosage.timingOfDoses = mapTimingOfDoses(dosage.timingOfDoses);
 =======
     newDosage.timingOfDoses = mapPassThrough(dosage.timingOfDoses, TimingOfDoses);
 >>>>>>> Added entry mapping for GIST and MedicationRequested.
+=======
+    newDosage.timingOfDoses = mapTimingOfDoses(dosage.timingOfDoses);
+>>>>>>> Better mapping of dosages.
 
     return newDosage;
 };
