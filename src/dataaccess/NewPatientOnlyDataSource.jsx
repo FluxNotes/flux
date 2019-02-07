@@ -5,14 +5,26 @@ class NewPatientOnlyDataSource extends IDataSource {
     constructor() { 
         super();
         this._gestalt = { 
-            requestTypes: {
+            create: { 
+                isSupported: true,
                 async: false,
                 sync: true
             },
-            create: true,
-            read: false,
-            update: false,
-            delete: false
+            read: { 
+                isSupported: false,
+                async: false,
+                sync: false
+            },
+            update: { 
+                isSupported: false,
+                async: false,
+                sync: false
+            },
+            delete: { 
+                isSupported: false,
+                async: false,
+                sync: false
+            }
         };
     }
     getGestalt() { 

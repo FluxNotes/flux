@@ -7,14 +7,26 @@ class FHIRApiDataSource extends IDataSource {
     constructor() { 
         super();
         this._gestalt = { 
-            requestTypes: {
+            create: { 
+                isSupported: false,
+                async: false,
+                sync: false
+            },
+            read: {
+                isSupported: true,
                 async: false,
                 sync: true
             },
-            create: false,
-            read: true,
-            update: false,
-            delete: false
+            update: { 
+                isSupported: false,
+                async: false,
+                sync: false
+            },
+            delete: { 
+                isSupported: false,
+                async: false,
+                sync: false
+            }
         };
     }
     getGestalt() { 

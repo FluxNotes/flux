@@ -7,14 +7,26 @@ class RestApiDataSource extends IDataSource {
         super();
         this.api = new PatientApi.DefaultApi();
         this._gestalt = { 
-            requestTypes: {
+            create: { 
+                isSupported: false,
                 async: false,
-                sync: true
+                sync: false
             },
-            create: false,
-            read: true,
-            update: true,
-            delete: false
+            read: { 
+                isSupported: true,
+                async: true,
+                sync: false
+            },
+            update: { 
+                isSupported: true,
+                async: true,
+                sync: false
+            },
+            delete: { 
+                isSupported: false,
+                async: false,
+                sync: false
+            }
         };
     }
 

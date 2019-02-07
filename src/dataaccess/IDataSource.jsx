@@ -18,14 +18,26 @@ class IDataSource {
     getGestalt() { 
         // 
         // Shape of the gestalt : { 
-        //      requestTypes: {
-        //          sync: bool
+        //      create: { 
+        //          isSupported: bool,
+        //          sync: bool,
         //          async: bool
         //      }
-        //      create: bool
-        //      read: bool
-        //      update: bool
-        //      delete: bool
+        //      read: { 
+        //          isSupported: bool,
+        //          sync: bool,
+        //          async: bool
+        //      }
+        //      update: { 
+        //          isSupported: bool,
+        //          sync: bool,
+        //          async: bool
+        //      }
+        //      delete: { 
+        //          isSupported: bool,
+        //          sync: bool,
+        //          async: bool
+        //      }
         // } 
         //
         throw new Error("getGestalt not implemented by " + this.constructor.name);

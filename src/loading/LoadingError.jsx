@@ -14,7 +14,8 @@ class LoadingError extends Component {
                         'left': '50%',
                         'transform': 'translate(-50%, -50%)',
                         'padding': '30px 0',
-                        'width': '300px',
+                        'minWidth': '300px',
+                        'maxWidth': '550px',
                         'textAlign': 'left'
                     }}
                 >

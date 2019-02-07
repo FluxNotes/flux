@@ -157,7 +157,8 @@ export class FullApp extends Component {
     }
 
     loadPatient(patientId) {
-        if (this.dataAccess.getGestalt().requestTypes.async) { 
+        const DAGestalt = this.dataAccess.getGestalt();
+        if (DAGestalt.read.isSupported && DAGestalt.read.async) { 
             this.dataAccess.getPatient(patientId, (patient, error) => { 
                 this.contextManager = new ContextManager(patient, this.onContextUpdate);
                 if (!Lang.isEmpty(error)) console.error(error)
@@ -175,7 +176,7 @@ export class FullApp extends Component {
                 //     loadingErrorObject: error
                 // });
             });
-        } else { 
+        } else if (DAGestalt.read.isSupported && DAGestalt.read.sync) { 
             // Else, assume sync
             try {
                 let patient = this.dataAccess.getPatient(patientId);
@@ -205,6 +206,20 @@ export class FullApp extends Component {
                 //     loadingErrorObject: error
                 // });
             }
+        } else if (!DAGestalt.read.isSupported) { 
+            const supportedError = Error("Current DataSource does not support reading patient data; current gestalt is " + JSON.stringify(DAGestalt))
+            console.error(supportedError)
+            this.setState({
+                loading: false, 
+                loadingErrorObject: supportedError
+            });
+        } else { 
+            const supportedError = Error("unexpected case -- current gestalt is " + JSON.stringify(DAGestalt))
+            console.error(supportedError)
+            this.setState({
+                loading: false, 
+                loadingErrorObject: supportedError
+            });
         }
     }
 
