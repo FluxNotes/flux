@@ -39,7 +39,7 @@ class FluxImagingProcedurePerformed {
      *  Returns procedure name string
      */
     get name() {
-        return this._imagingProcedurePerformed.topicCode.value.coding[0].displayText.value;
+        return this._imagingProcedurePerformed.procedureCode.value.coding[0].displayText.value;
     }
 
     /*

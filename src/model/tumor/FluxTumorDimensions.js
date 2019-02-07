@@ -17,8 +17,8 @@ class FluxTumorDimensions extends FluxObservation {
      */
     get quantity() {
         return {
-            number: this._tumorDimensions.value.decimalValue.value,
-            unit: this._tumorDimensions.value.units.value.code
+            number: this._tumorDimensions.findingResult.value.number.decimal,
+            unit: this._tumorDimensions.findingResult.value.units.coding.code,
         };
     }
 

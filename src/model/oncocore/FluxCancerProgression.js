@@ -11,6 +11,8 @@ import moment from 'moment';
 import LastUpdated from '../shr/base/LastUpdated';
 import SpecificFocusOfFinding from '../shr/base/SpecificFocusOfFinding.js';
 import Lang from 'lodash';
+import Metadata from '../shr/base/Metadata.js';
+import AuthoredDateTime from '../shr/base/AuthoredDateTime.js';
 
 export default class FluxCancerProgression extends FluxEntry {
     constructor(json) {
@@ -29,7 +31,7 @@ export default class FluxCancerProgression extends FluxEntry {
         if (!this._cancerProgression.entryInfo) {
             let entry = new Entry();
             entry.entryType = new EntryType();
-            entry.entryType.uri = 'http://standardhealthrecord.org/spec/mcode/CancerProgression';
+            entry.entryType.uri = 'http://standardhealthrecord.org/spec/oncocore/CancerProgression';
             let today = new moment().format("D MMM YYYY");
             entry.lastUpdated = new LastUpdated();
             entry.lastUpdated.instant = today;
@@ -46,8 +48,8 @@ export default class FluxCancerProgression extends FluxEntry {
      *  This will return the displayText string from CodeableConcept Value
      */
     get status() {
-        if (!this._cancerProgression.value) return null;
-        return this._cancerProgression.value.coding[0].displayText.value;
+        if (!this._cancerProgression.findingResult || !this._cancerProgression.findingResult.value) return null;
+        return this._cancerProgression.findingResult.value.coding[0].displayText.value;
     }
 
     /**
@@ -56,7 +58,7 @@ export default class FluxCancerProgression extends FluxEntry {
      *  The method will lookup the corresponding coding/codesystem and set the _codeableConcept property
      */
     set status(status) {
-        this._cancerProgression.value = lookup.getStatusCodeableConcept(status);
+        this._cancerProgression.findingResult.value = lookup.getStatusCodeableConcept(status);
     }
 
     /**
@@ -64,7 +66,7 @@ export default class FluxCancerProgression extends FluxEntry {
      *  This will return the code string from CodeableConcept, corresponding to the status' code
      */
     get statusAsCode() {
-        return this._cancerProgression.value.coding[0].code;
+        return this._cancerProgression.findingResult.value.coding[0].code;
     }
 
     /**
@@ -114,17 +116,18 @@ export default class FluxCancerProgression extends FluxEntry {
 
     // Flux added
     get asOfDate() {
-        if (!this._cancerProgression.entryInfo || !this._cancerProgression.entryInfo.creationTime) return null;
-        return this._cancerProgression.entryInfo.creationTime.value;
+        if (!this._cancerProgression.metadata || !this._cancerProgression.metadata.authoredDateTime) return null;
+        return this._cancerProgression.metadata.authoredDateTime.value;
     }
 
     set asOfDate(val) {
-        if (!this._cancerProgression.entryInfo.creationTime) {
-            let creationTime = new CreationTime();
-            creationTime.value = val;
-            this._cancerProgression.entryInfo.creationTime = creationTime;
+        if (!this._cancerProgression.metadata) this._cancerProgression.metadata = new Metadata();
+        if (!this._cancerProgression.metadata.authoredDateTime) {
+            const authoredDateTime = new AuthoredDateTime();
+            authoredDateTime.value = val;
+            this._cancerProgression.metadata.authoredDateTime = authoredDateTime;
         } else {
-            this._cancerProgression.entryInfo.creationTime.value = val;
+            this._cancerProgression.metadata.authoredDateTime.value = val;
         }
     }
 

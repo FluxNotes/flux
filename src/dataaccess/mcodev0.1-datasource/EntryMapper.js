@@ -120,6 +120,7 @@ import FluxBodyWeightV01 from './model/vital/FluxBodyWeight';
 import FluxBodyWeight from '../../model/vital/FluxBodyWeight';
 import FluxHeartRateV01 from './model/vital/FluxHeartRate';
 import FluxHeartRate from '../../model/vital/FluxHeartRate';
+import AuthoredDateTime from '../../model/shr/base/AuthoredDateTime';
 
 // Maps mCODE v0.1 entries to Flux Object Model
 const mapEntryInfo = (entryInfo, entry) => {
@@ -133,6 +134,8 @@ const mapEntryInfo = (entryInfo, entry) => {
     entry.metadata = new Metadata();
     entry.metadata.lastUpdated = new LastUpdated();
     entry.metadata.lastUpdated.instant = entryInfo.lastUpdated.instant;
+    entry.metadata.authoredDateTime = new AuthoredDateTime();
+    entry.metadata.authoredDateTime.value = entryInfo.creationTime.dateTime;
 };
 
 const mapReference = (reference) => {
