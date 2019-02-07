@@ -121,6 +121,11 @@ import FluxBodyWeight from '../../model/vital/FluxBodyWeight';
 import FluxHeartRateV01 from './model/vital/FluxHeartRate';
 import FluxHeartRate from '../../model/vital/FluxHeartRate';
 import AuthoredDateTime from '../../model/shr/base/AuthoredDateTime';
+import Timing from '../../model/shr/core/Timing';
+import RecurrencePattern from '../../model/shr/core/RecurrencePattern';
+import RecurrenceInterval from '../../model/shr/core/RecurrenceInterval';
+import Duration from '../../model/shr/core/Duration';
+import RecurrenceRange from '../../model/shr/core/RecurrenceRange';
 
 // Maps mCODE v0.1 entries to Flux Object Model
 const mapEntryInfo = (entryInfo, entry) => {
@@ -172,6 +177,50 @@ const mapAnatomicalLocation = (anatomicalLocation) => {
     return newAnatomicalLocation;
 };
 
+const mapUnits = (units) => {
+    const newUnits = new Units();
+
+    newUnits.value = new Coding();
+    newUnits.value.code = units.value.code;
+
+    return newUnits;
+}
+
+const mapQuantity = (quantity) => {
+    const newQuantity = new Quantity();
+
+    newQuantity.number = new Number();
+    newQuantity.number.value = quantity.decimalValue.value;
+    newQuantity.units = mapUnits(quantity.units);
+
+    return newQuantity;
+};
+
+const mapDuration = (duration) => {
+    const newDuration = new Duration();
+
+    newDuration.number = new Number();
+    newDuration.number.value = duration.decimalValue.value;
+    newDuration.units = mapUnits(duration.units);
+
+    return newDuration;
+}
+
+const mapTimingOfDoses = (timingOfDoses) => {
+    const newTimingOfDoses = new TimingOfDoses();
+
+    newTimingOfDoses.timing = new Timing();
+    if (timingOfDoses.timing.recurrencePattern) {
+        newTimingOfDoses.timing.recurrencePattern = new RecurrencePattern();
+        newTimingOfDoses.timing.recurrencePattern.recurrenceInterval = new RecurrenceInterval();
+        newTimingOfDoses.timing.recurrencePattern.recurrenceInterval.value = mapDuration(timingOfDoses.timing.recurrencePattern.recurrenceInterval.value);
+    } else {
+        newTimingOfDoses.timing = mapPassThrough(timingOfDoses.timing, Timing);
+    }
+
+    return newTimingOfDoses;
+}
+
 const mapDosage = (dosage) => {
     const newDosage = new Dosage();
     newDosage.doseAmount = new DoseAmount();
@@ -185,7 +234,7 @@ const mapDosage = (dosage) => {
     newDosage.asNeededIndicator = mapPassThrough(dosage.asNeededIndicator, AsNeededIndicator);
     if (dosage.dosageInstructionsText) newDosage.dosageInstructionsText = mapPassThrough(dosage.dosageInstructionsText, DosageInstructionsText);
     newDosage.routeIntoBody = mapPassThrough(dosage.routeIntoBody, RouteIntoBody);
-    newDosage.timingOfDoses = mapPassThrough(dosage.timingOfDoses, TimingOfDoses);
+    newDosage.timingOfDoses = mapTimingOfDoses(dosage.timingOfDoses);
 
     return newDosage;
 };
@@ -227,25 +276,6 @@ const mapRelevantTime = (relevantTime) => {
     }
 
     return newRelevantTime;
-};
-
-const mapUnits = (units) => {
-    const newUnits = new Units();
-
-    newUnits.value = new Coding();
-    newUnits.value.code = units.value.code;
-
-    return newUnits;
-}
-
-const mapQuantity = (quantity) => {
-    const newQuantity = new Quantity();
-
-    newQuantity.number = new Number();
-    newQuantity.number.value = quantity.decimalValue.value;
-    newQuantity.units = mapUnits(quantity.units);
-
-    return newQuantity;
 };
 
 const mapFindingResult = (value) => {

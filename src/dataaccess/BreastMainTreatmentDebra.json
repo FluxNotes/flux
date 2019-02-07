@@ -525,8 +525,11 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
             }
         },
-        "Category": [
-            {
+        "Category": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Category"
+            },
+            "Value": {
                 "Coding": [
                     {
                         "Value": "#disease",
@@ -539,7 +542,7 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
                 }
             }
-        ],
+        },
         "AnatomicalLocation": [
             {
                 "EntryType": {
@@ -3475,8 +3478,11 @@
                 }
             }
         },
-        "Category": [
-            {
+        "Category": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Category"
+            },
+            "Value": {
                 "Coding": [
                     {
                         "Value": "#structural_abnormality",
@@ -3489,7 +3495,7 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
                 }
             }
-        ],
+        },
         "AnatomicalLocation": [
             {
                 "EntryType": {
@@ -4798,33 +4804,28 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
             },
             "Value": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
-                },
-                "Value": {
-                    "Coding": [
-                        {
-                            "Value": "foo",
+                "Coding": [
+                    {
+                        "Value": "foo",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "http://ncimeta.nci.nih.gov",
                             "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                            },
-                            "CodeSystem": {
-                                "Value": "http://ncimeta.nci.nih.gov",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                }
-                            },
-                            "DisplayText": {
-                                "Value": "Question 9",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                }
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Question 9",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                             }
                         }
-                    ],
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
                     }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
                 }
             }
         }
