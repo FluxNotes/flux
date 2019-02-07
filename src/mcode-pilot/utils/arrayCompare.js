@@ -13,7 +13,6 @@ function isSame(arrayOne, arrayTwo) {
 // ex: // ['chemo','hormonal','radiation'] => [['chemo'], ['hormonal'], ['radiation'], ['chemo','hormonal'], ['chemo','radiation'], ['hormonal','radiation'], ['chemo','hormonal','radiation']]
 function getCombinations(array) {
     const combinations = new Array(1 << array.length).fill().map((e1, i) => array.filter((e2, j) => i & (1 << j)));
-    combinations.shift(); // remove empty array
     combinations.reverse(); // reverse order
     return combinations;
 }

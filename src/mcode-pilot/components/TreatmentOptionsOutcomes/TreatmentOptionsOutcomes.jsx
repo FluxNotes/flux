@@ -50,23 +50,42 @@ export default class TreatmentOptionsOutcomes extends Component {
         document.removeEventListener('click', this.closePoppers);
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (this.props.similarPatients !== nextProps.similarPatients) {
+            const similarPatientTreatments = Array.from(nextProps.similarPatients.reduce((acc, { treatments }) => {
+                treatments.forEach((treatment) => acc.add(treatment));
+                return acc;
+            }, new Set())).sort();
+            this.setState({ similarPatientTreatments });
+        }
+    }
+
     closePoppers = ({ target }) => {
-        if (!this.state.includedOpen && !this.state.comparedOpen) {
-            return;
-        }
-
-        const popperTarget = this.state.includedOpen ? this.refs['included-popper-target'] : this.refs['compare-popper-target'];
-        let el = target;
-        while (el) {
-            if (el === popperTarget || (el.classList && el.classList.contains('popover'))) {
-                return;
+        if (this.state.includedOpen) {
+            let el = target;
+            while (el) {
+                if (el === this.refs['included-popper-target']) {
+                    break;
+                }
+                el = el.parentNode;
             }
-            el = el.parentNode;
+            if (!el) {
+                this.setState({ includedOpen: false });
+            }
         }
 
-        this.setState({
-            [this.state.includedOpen ? 'includedOpen' : 'comparedOpen']: false
-        })
+        if (this.state.comparedOpen) {
+            let el = target;
+            while (el) {
+                if (el === this.refs['compare-popper-target']) {
+                    break;
+                }
+                el = el.parentNode;
+            }
+            if (!el) {
+                this.setState({ comparedOpen: false });
+            }
+        }
     };
 
     handleOpenIncluded = () => {
@@ -79,18 +98,30 @@ export default class TreatmentOptionsOutcomes extends Component {
 
     toggleTreatment = (treatmentType) => (event, selected) => {
         const treatment = event.target.value;
-        const key = `${treatmentType}Treatments`
+        const key = `${treatmentType}Treatments`;
+        const newState = {};
 
         if (!selected) {
             const index = this.state[key].indexOf(treatment);
             if (index !== -1) {
                 const treatments = this.state[key].slice();
                 treatments.splice(index, 1);
-                this.setState({ [key]: treatments });
+                newState[key] = treatments;
             }
         } else if (!this.state[key].includes(treatment)) {
-            this.setState({ [key]: [...this.state[key], treatment] });
+            newState[key] = [...this.state[key], treatment];
         }
+
+        if (selected && treatmentType === 'included') {
+            const comparedIndex = this.state.comparedTreatments.indexOf(treatment);
+            if (comparedIndex !== -1) {
+                const comparedTreatments = this.state.comparedTreatments.slice();
+                comparedTreatments.splice(comparedIndex, 1);
+                newState.comparedTreatments = comparedTreatments;
+            }
+        }
+
+        this.setState(newState);
     }
 
     initializeRow(name) {
@@ -220,17 +251,11 @@ export default class TreatmentOptionsOutcomes extends Component {
     }
 
     render() {
-        const { includedTreatments, comparedTreatments, includedOpen, comparedOpen } = this.state;
+        const { similarPatientTreatments, includedTreatments, comparedTreatments, includedOpen, comparedOpen } = this.state;
         const { similarPatients } = this.props;
         const includedTreatmentPatients = similarPatients.filter(patient => isSame(patient.treatments, includedTreatments));
         const comparedTreatmentCombinations = getCombinations(comparedTreatments);
         const includedRow = this.generateRow(includedTreatmentPatients, includedTreatments);
-
-        // TODO: move this to componentWillReceiveProps
-        const treatments = Array.from(similarPatients.reduce((acc, { treatments }) => {
-            treatments.forEach((treatment) => acc.add(treatment));
-            return acc;
-        }, new Set())).sort();
 
         return (
             <div className="treatment-options-outcomes">
@@ -246,7 +271,7 @@ export default class TreatmentOptionsOutcomes extends Component {
                                     <TreatmentsPopover
                                         className="included-popover"
                                         title="include these treatments"
-                                        treatments={treatments}
+                                        treatments={similarPatientTreatments}
                                         selectedTreatments={includedTreatments}
                                         toggleTreatments={this.toggleTreatment('included')}
                                         treatmentNames={TREATMENT_NAMES}
@@ -262,15 +287,16 @@ export default class TreatmentOptionsOutcomes extends Component {
 
                     <div className="compared-treatments">
                         <div>
-                            <span className="treatments-title">combine with:</span>
+                            <span className="treatments-title">compare with:</span>
                             <span className="select-treatments" onClick={this.handleOpenCompared} ref="compare-popper-target">
                                 <span className="popover-text">select treatments</span>
                                 {comparedOpen &&
                                     <TreatmentsPopover
                                         className="compared-popover"
                                         title="compare across these treatments"
-                                        treatments={treatments}
+                                        treatments={similarPatientTreatments}
                                         selectedTreatments={comparedTreatments}
+                                        unselectedTreatments={includedTreatments}
                                         toggleTreatments={this.toggleTreatment('compared')}
                                         treatmentNames={TREATMENT_NAMES}
                                     />
