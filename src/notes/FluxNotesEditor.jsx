@@ -193,7 +193,7 @@ class FluxNotesEditor extends React.Component {
             // "trigger": 'space',
             "before": this.autoReplaceBeforeRegExp,
             "transform": this.autoReplaceTransform.bind(this, null)
-        }));
+        })); 
 
         // let's see if we have any regular expression shortcuts
         let triggerRegExp;

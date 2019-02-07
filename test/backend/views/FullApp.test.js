@@ -1245,14 +1245,8 @@ describe('6 FluxNotesEditor', function() {
             expect(replaceZeroWidthSpace(structuredFieldInserter.at(index).text())).to.equal(arrayOfParsedShortcutTextInserter[index]);
         }
         const structuredFieldCreator = wrapper.find('.structured-field-creator');
-        console.log(wrapper.find('.editor-content').text())
-        console.log(structuredFieldCreator.at(0).text())
-        console.log(structuredFieldCreator.at(1).text())
-        console.log(structuredFieldCreator.at(2).text())
-        console.log(structuredFieldCreator.at(3).text())
-        console.log(structuredFieldCreator.at(4).text())
-        console.log(structuredFieldCreator.at(5).text())
-        //expect(structuredFieldCreator).to.have.lengthOf(arrayOfParsedShortcutTextCreator.length)
+    
+        expect(structuredFieldCreator).to.have.lengthOf(arrayOfParsedShortcutTextCreator.length)
         for (let index = 0; index < arrayOfParsedShortcutTextCreator.length; index++) {
             expect(structuredFieldCreator.at(index).text()).to.contain(arrayOfParsedShortcutTextCreator[index]);
         }

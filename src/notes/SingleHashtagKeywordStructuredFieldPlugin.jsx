@@ -37,6 +37,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
         if (relevantSingleHashtagKeywordMappings.length !== 0) {
             // Get all relevant keywordShortcuts, 
             const listOfKeywordShortcutClasses = findRelevantKeywordShortcutClasses(listOfSingleHashtagKeywordShortcutMappings).reduce((accumulator, listOfKeywordsForShortcut) => accumulator.concat(listOfKeywordsForShortcut));
+         
             for (const keywordClass of listOfKeywordShortcutClasses) {
                 // Scan text to find any necessary replacements 
                 let keywords = getKeywordsBasedOnShortcutClass(keywordClass);
@@ -51,18 +52,22 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 
                 // Sort keywords based on length -- we want to match longest options first
                 keywords.sort(_sortKeywordByNameLength);
-                const keywordInClosetBlock = scanTextForKeywordObject(curNode.text, keywords)
+                const keywordInClosetBlock = scanTextForKeywordObject(curNode, keywords)
+
                 if (!Lang.isUndefined(keywordInClosetBlock)) {
                     const keywordText = keywordInClosetBlock.name.toLowerCase();
                     const newKeywordShortcut = createShortcut(null, keywordText);
                     newKeywordShortcut.setSource("Keyword");
+             
 
                     // KeywordRange never be null -- we've already confirmed the existance of the keyword
                     let keywordRange;
                     if (curNode.nodes) {
                         for (const childNode of curNode.nodes) {
-                            keywordRange = getRangeForKeyword(childNode, keywordText);
-                            if (keywordRange) break;
+                           
+                                keywordRange = getRangeForKeyword(childNode, keywordText);
+                                if (keywordRange) break;
+                            
                         }
                     } else {
                         keywordRange = getRangeForKeyword(curNode, keywordText);
@@ -112,7 +117,15 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
     }
 
     // Given block-node's text & keywordObjects asso. w/ a SingleHashtagKeywordShortcut , return first keyword found in that text (if any)
-    function scanTextForKeywordObject(text, keywordObjects) {
+    function scanTextForKeywordObject(curNode, keywordObjects) {
+        let curNodeText = [];
+        if(curNode.nodes){
+            for(const childNode of curNode.nodes){
+                if(childNode.type != 'structured_field')
+                    curNodeText.push(childNode.text);
+            }
+        }
+        const text = curNodeText.join(" ");
         const trailingCharacterRegex = /[\s\r\n.!?;,)}\]]/;
         const textToMatch = text.toLowerCase();
         // We only want to match if there is a 'phrase finishing' character at the end of the text
