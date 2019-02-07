@@ -84,6 +84,7 @@ class FluxConditionPresentAssertion extends FluxEntry {
     }
     
     get laterality() {
+        console.log(this._condition);
         if (    !this._condition.anatomicalLocation || 
                 this._condition.anatomicalLocation.length < 1 ||
                 !this._condition.anatomicalLocation[0].laterality ||

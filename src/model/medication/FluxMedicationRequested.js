@@ -179,7 +179,7 @@ class FluxMedicationRequested {
                 units = 'per day';
             }
             return {
-                value: timingOfDoses.timing.recurrencePattern.recurrenceInterval.duration.decimalValue.value,
+                value: timingOfDoses.timing.recurrencePattern.recurrenceInterval.duration.number.value,
                 units: units
             };
         } else if (timingOfDoses.timing.recurrenceRange) {

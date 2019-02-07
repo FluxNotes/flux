@@ -1,5 +1,4 @@
 import { getNamespaceAndName } from '../json-helper';
-import FluxBreastCancer from './FluxBreastCancer';
 import FluxBreastCancerGeneticAnalysisPanel from './FluxBreastCancerGeneticAnalysisPanel';
 import FluxBRCA1Variant from './FluxBRCA1Variant';
 import FluxBRCA2Variant from './FluxBRCA2Variant';
@@ -24,7 +23,6 @@ export default class FluxOncologyObjectFactory {
         switch (elementName) {
             case 'BRCA1Variant': return new FluxBRCA1Variant(json);
             case 'BRCA2Variant': return new FluxBRCA2Variant(json);
-            case 'BreastCancer': return new FluxBreastCancer(json, patientRecord);
             case 'BreastCancerGeneticAnalysisPanel': return new FluxBreastCancerGeneticAnalysisPanel(json);
             case 'EstrogenReceptorStatus': return new FluxEstrogenReceptorStatus(json);
             case 'ProgesteroneReceptorStatus': return new FluxProgesteroneReceptorStatus(json);

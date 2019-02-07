@@ -125,7 +125,14 @@ import Timing from '../../model/shr/core/Timing';
 import RecurrencePattern from '../../model/shr/core/RecurrencePattern';
 import RecurrenceInterval from '../../model/shr/core/RecurrenceInterval';
 import Duration from '../../model/shr/core/Duration';
-import RecurrenceRange from '../../model/shr/core/RecurrenceRange';
+import FluxAllergyIntoleranceV01 from './model/allergy/FluxAllergyIntolerance';
+import AllergyIntolerance from '../../model/shr/allergy/AllergyIntolerance';
+import SubstanceCategory from '../../model/shr/allergy/SubstanceCategory';
+import AllergyIntoleranceReaction from '../../model/shr/allergy/AllergyIntoleranceReaction';
+import Severity from '../../model/shr/base/Severity';
+import Manifestation from '../../model/shr/allergy/Manifestation';
+import FluxBreastCancerV01 from './model/oncology/FluxBreastCancer';
+import BreastCancerDisorderPresent from '../../model/brca/BreastCancerDisorderPresent';
 
 // Maps mCODE v0.1 entries to Flux Object Model
 const mapEntryInfo = (entryInfo, entry) => {
@@ -297,7 +304,46 @@ const mapFindingStatus = (findingStatus) => {
     const newFindingStatus = new FindingStatus();
     newFindingStatus.value = mapPassThrough(findingStatus, CodeableConcept);
     return newFindingStatus;
-}
+};
+
+const mapSubstanceCategory = (substanceCategory) => {
+    const newSubstanceCategory = new SubstanceCategory();
+
+    newSubstanceCategory.value = new CodeableConcept();
+    const newCoding = new Coding();
+    newCoding.code = substanceCategory.value;
+    newSubstanceCategory.value.coding = [newCoding];
+    newSubstanceCategory.value.displayText = new DisplayText();
+    newSubstanceCategory.value.displayText.value = substanceCategory.value;
+
+    return newSubstanceCategory;
+};
+
+const mapAdverseReaction = (adverseReaction) => {
+    const newAllergyIntoleranceReaction = new AllergyIntoleranceReaction();
+
+    newAllergyIntoleranceReaction.beginDateTime = new BeginDateTime();
+    newAllergyIntoleranceReaction.beginDateTime.value = adverseReaction.occurrenceTime.value;
+    newAllergyIntoleranceReaction.severity = mapPassThrough(adverseReaction.severity, Severity);
+    newAllergyIntoleranceReaction.manifestation = [mapPassThrough(adverseReaction.manifestation, Manifestation)];
+
+    return newAllergyIntoleranceReaction;
+};
+
+const mapCancerDisorder = (entry, klass) => {
+    const newCondition = new klass();
+
+    mapEntryInfo(entry.entryInfo, newCondition);
+    newCondition.patient = mapReference(entry._condition.patient);
+    newCondition.anatomicalLocation = entry._condition.anatomicalLocation.map(a => mapAnatomicalLocation(a));
+    newCondition.category = mapPassThrough(entry._condition.category, Category);
+    newCondition.clinicalStatus = mapPassThrough(entry._condition.clinicalStatus, ClinicalStatus);
+    newCondition.findingResult = new FindingResult();
+    newCondition.findingResult.value = mapPassThrough(entry._condition.value, CodeableConcept);
+    newCondition.onset = mapPassThrough(entry._condition.onset, Onset);
+
+    return newCondition;
+};
 
 exports.mapEntries = (entries) => {
     const result = [];
@@ -327,17 +373,17 @@ exports.mapEntries = (entries) => {
         } else if (entry instanceof FluxPatientIdentifierV01 || entry instanceof FluxClinicalNoteV01) {
             result.push(entry.toJSON());
         } else if (entry instanceof FluxGastrointestinalStromalTumorV01) {
-            const newCondition = new CancerDisorderPresent();
-            mapEntryInfo(entry.entryInfo, newCondition);
-            newCondition.patient = mapReference(entry._condition.patient);
-            newCondition.anatomicalLocation = entry._condition.anatomicalLocation.map(a => mapAnatomicalLocation(a));
-            newCondition.category = mapPassThrough(entry._condition.category, Category);
-            newCondition.clinicalStatus = mapPassThrough(entry._condition.clinicalStatus, ClinicalStatus);
-            newCondition.findingResult = new FindingResult();
-            newCondition.findingResult.value = mapPassThrough(entry._condition.value, CodeableConcept);
-            newCondition.onset = mapPassThrough(entry._condition.onset, Onset);
+            const newCondition = mapCancerDisorder(entry, CancerDisorderPresent);
+
             const entryJSON = newCondition.toJSON();
             entryJSON.EntryType.Value = 'http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor';
+            result.push(entryJSON);
+        } else if (entry instanceof FluxBreastCancerV01) {
+            const newCondition = mapCancerDisorder(entry, BreastCancerDisorderPresent);
+            console.log('newCondition: ', newCondition);
+
+            const entryJSON = newCondition.toJSON();
+            // entryJSON.EntryType.Value = 'http://standardhealthrecord.org/spec/shr/oncology/BreastCancer';
             result.push(entryJSON);
         } else if (entry instanceof FluxConditionPresentAssertionV01) {
             const newCondition = new ConditionPresentAssertion();
@@ -370,6 +416,15 @@ exports.mapEntries = (entries) => {
             newNoKnownAllergy.value = mapPassThrough(entry._noKnownAllergy.value, CodeableConcept);
 
             result.push(newNoKnownAllergy.toJSON());
+        } else if (entry instanceof FluxAllergyIntoleranceV01) {
+            const newAllergyIntolerance = new AllergyIntolerance();
+
+            mapEntryInfo(entry.entryInfo, newAllergyIntolerance);
+            newAllergyIntolerance.findingResult = mapFindingResult(entry._allergyIntolerance.value);
+            newAllergyIntolerance.substanceCategory = mapSubstanceCategory(entry._allergyIntolerance.substanceCategory[0]);
+            newAllergyIntolerance.allergyIntoleranceReaction = entry._allergyIntolerance.adverseReaction.map(a => mapAdverseReaction(a));
+
+            result.push(newAllergyIntolerance.toJSON());
         } else if (entry instanceof FluxConsultRequestedV01) {
             const entryJSON = entry.toJSON();
             entryJSON.Encounter.TimePeriod.EntryType.Value = 'http://standardhealthrecord.org/spec/shr/core/TimePeriod';
