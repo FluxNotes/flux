@@ -32,10 +32,10 @@ export default class MetadataSection {
         const tox = currentConditionEntry.getToxicitiesByCodes(codes);
         let val, unsigned, source, when;
         if (tox.length > 0) {
-            val = tox[0].adverseEventGrade;
+            val = tox[0].seriousness;
             unsigned = patient.isUnsigned(tox[0]);
             source = this.determineSource(patient, tox[0]);
-            when = tox[0].entryInfo.lastUpdated.value;
+            when = tox[0].metadata.lastUpdated.value;
         } else {
             val = 'None';
             unsigned = false;

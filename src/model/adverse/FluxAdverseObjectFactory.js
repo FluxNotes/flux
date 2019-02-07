@@ -1,7 +1,6 @@
 import { getNamespaceAndName } from '../json-helper';
-import FluxAdverseEvent from './FluxAdverseEvent';
 import ShrAdverseObjectFactory from '../shr/adverse/ShrAdverseObjectFactory';
-import FluxToxicReaction from './FluxToxicReaction';
+import FluxToxicAdverseDrugReaction from './FluxToxicAdverseDrugReaction';
 
 export default class FluxAdverseObjectFactory {
     static createInstance(json, type, patientRecord) {
@@ -11,8 +10,7 @@ export default class FluxAdverseObjectFactory {
         }
         // returns Flux wrapper class if found, otherwise use ShrAdverseObjectFactory
         switch (elementName) {
-            case 'AdverseEvent': return new FluxAdverseEvent(json, patientRecord);
-            case 'ToxicReaction': return new FluxToxicReaction(json, patientRecord);
+            case 'ToxicAdverseDrugReaction': return new FluxToxicAdverseDrugReaction(json, patientRecord);
             default: return ShrAdverseObjectFactory.createInstance(json, type);
         }
     }

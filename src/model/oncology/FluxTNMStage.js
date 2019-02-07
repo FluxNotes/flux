@@ -35,10 +35,10 @@ class FluxTNMStage extends FluxObservation {
      *  This will return the displayText string from CodeableConcept value
      */
     get stage() {
-        if (Lang.isEmpty(this._observation.value))  { 
+        if (Lang.isEmpty(this._observation.findingResult.value)) { 
             return null;
         } else { 
-            return this._observation.value.coding[0].displayText.value;
+            return this._observation.findingResult.value.coding[0].displayText.value;
         }
     }
 

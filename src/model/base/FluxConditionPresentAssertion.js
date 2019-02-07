@@ -2,7 +2,7 @@
 import ConditionPresentAssertion from '../shr/base/ConditionPresentAssertion';
 import FluxCancerProgression from '../oncocore/FluxCancerProgression';
 import FluxMedicationRequested from '../medication/FluxMedicationRequested';
-import FluxToxicReaction from '../adverse/FluxToxicReaction';
+import FluxToxicAdverseDrugReaction from '../adverse/FluxToxicAdverseDrugReaction';
 import FluxObservation from '../base/FluxObservation';
 import FluxProcedureRequested from '../procedure/FluxProcedureRequested';
 import hpiConfig from '../hpi-configuration.json';
@@ -117,10 +117,9 @@ class FluxConditionPresentAssertion extends FluxEntry {
 
     // Given a toxicity adverse event, return the grade value
     getToxicitiesByCodes(codes) {
-
         // Get all the toxicities
-        let toxicities = this.getToxicities().filter((toxicity) => {
-            return toxicity._adverseEvent.value.coding.some((coding) => {
+        let toxicities = this.getToxicities().filter(toxicity => {
+            return toxicity._toxicAdverseDrugReaction.type.value.coding.some((coding) => {
                 return codes.includes(coding.code);
             });
         });
@@ -132,8 +131,8 @@ class FluxConditionPresentAssertion extends FluxEntry {
 
     // Returns sorted array of toxicities. Most recent toxicity is at index 0
     _toxicitiesTimeSorter(a, b) {
-        const a_time = new moment(a.entryInfo.lastUpdated.value, "D MMM YYYY");
-        const b_time = new moment(b.entryInfo.lastUpdated.value, "D MMM YYYY");
+        const a_time = new moment(a.metadata.lastUpdated.value, "D MMM YYYY");
+        const b_time = new moment(b.metadata.lastUpdated.value, "D MMM YYYY");
         if (a_time < b_time) {
             return 1;
         }
@@ -148,10 +147,10 @@ class FluxConditionPresentAssertion extends FluxEntry {
     }
 
     getToxicities() {
-        const entries = this._patientRecord.getEntriesOfType(FluxToxicReaction);
+        const entries = this._patientRecord.getEntriesOfType(FluxToxicAdverseDrugReaction);
         const conditionEntryId = this._condition.entryInfo.entryId.value || this._condition.entryInfo.entryId;
         return entries.filter((item) => {
-            return item instanceof FluxToxicReaction && item._adverseEvent && item._adverseEvent.specificFocusOfFinding && item._adverseEvent.specificFocusOfFinding.value._entryId === conditionEntryId;
+            return item instanceof FluxToxicAdverseDrugReaction && item.adverseEventCondition && item.adverseEventCondition._conditionPresentAssertion._entryId === conditionEntryId;
         });
     }
 
