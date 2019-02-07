@@ -6,11 +6,11 @@ class FluxHeartRate extends FluxObservation {
     }
 
     get value() {
-        return this._observation.quantity.decimalValue.decimal;
+        return this.quantity.number;
     }
 
     get units() {
-        return this._observation.quantity.units.value.code;
+        return this.quantity.unit;
     }
 
     toJSON() {

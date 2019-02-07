@@ -20,10 +20,10 @@ class FluxObservation extends FluxEntry {
      *  Otherwise return null;
      */
     get quantity() {
-        if (this._observation.value instanceof Quantity) {
+        if (this._observation.findingResult.value instanceof Quantity) {
             return {
-                number: this._observation.value.decimalValue.value,
-                unit: this._observation.value.units.value.code
+                number: this._observation.findingResult.value.number.decimal,
+                unit: this._observation.findingResult.value.units.coding.code,
             };
         } else {
             return null;
@@ -35,7 +35,7 @@ class FluxObservation extends FluxEntry {
             return this._observation.findingTopicCode.value.coding[0].displayText.value;
         } else { 
             return null;
-        }        
+        }
     }
 
     get codeableConceptCode() { 
