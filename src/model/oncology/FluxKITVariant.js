@@ -14,7 +14,7 @@ class FluxKITVariant {
     }
 
     get value() {
-        return this._kitVariant.value.coding[0].displayText.value;
+        return this._kitVariant.findingResult.value.coding[0].displayText.value;
     }
 
     toJSON() {

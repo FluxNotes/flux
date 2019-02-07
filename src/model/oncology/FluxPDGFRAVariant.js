@@ -14,7 +14,7 @@ class FluxPDGFRAVariant {
     }
 
     get value() {
-        return this._pdgfraVariant.value.coding[0].displayText.value;
+        return this._pdgfraVariant.findingResult.value.coding[0].displayText.value;
     }
 
     toJSON() {
