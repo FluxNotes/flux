@@ -1,7 +1,7 @@
-import CancerHistologicGrade from '../oncocore/CancerHistologicGrade';
+import CancerHistologicGrade from './CancerHistologicGrade';
 import FluxObservation from '../base/FluxObservation';
 
-class FluxHistologicGrade extends FluxObservation {
+class FluxCancerHistologicGrade extends FluxObservation {
     constructor(json) {
         super();
         this._histologicGrade = this._observation = this._entry = CancerHistologicGrade.fromJSON(json);
@@ -16,11 +16,11 @@ class FluxHistologicGrade extends FluxObservation {
      *  This will return the displayText string from CodeableConcept Value
      */
     get grade() {
-        return this._displayTextOrCode(this._histologicGrade.value.coding[0]);
+        return this._displayTextOrCode(this._histologicGrade.findingResult.value.coding[0]);
     }
 
     getGradeAsSimpleNumber() {
-        const code = this._histologicGrade.value.coding[0].code;
+        const code = this._histologicGrade.findingResult.value.coding[0].code;
         if (code === "369792005") {
             return 3;
         } else if (code === "369791003") {
@@ -52,4 +52,4 @@ class FluxHistologicGrade extends FluxObservation {
     }
 }
 
-export default FluxHistologicGrade;
+export default FluxCancerHistologicGrade;

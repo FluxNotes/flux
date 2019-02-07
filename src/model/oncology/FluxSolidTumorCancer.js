@@ -1,4 +1,4 @@
-import FluxHistologicGrade from './FluxHistologicGrade';
+import FluxCancerHistologicGrade from '../oncocore/FluxCancerHistologicGrade';
 import FluxTNMStage from '../oncology/FluxTNMStage';
 import Lang from 'lodash';
 import moment from 'moment';
@@ -9,11 +9,11 @@ import FluxECOGPerformanceStatus from '../oncocore/FluxECOGPerformanceStatus';
 
 class FluxSolidTumorCancer extends FluxCancerDisorder {
     getHistologicalGrades() {
-        return this.getObservationsOfType(FluxHistologicGrade);
+        return this.getObservationsOfType(FluxCancerHistologicGrade);
     }
     
     getMostRecentHistologicalGrade() {
-        let results = this.getObservationsOfTypeChronologicalOrder(FluxHistologicGrade);
+        let results = this.getObservationsOfTypeChronologicalOrder(FluxCancerHistologicGrade);
         if (!results || results.length === 0) return null;
         return results.pop();
     }

@@ -13,7 +13,7 @@ class FluxTumorMargins extends FluxObservation {
     }
 
     get value() {
-        return this._tumorMargins.value.coding[0].displayText.value;
+        return this._tumorMargins.findingResult.value.coding[0].displayText.value;
     }
 }
 

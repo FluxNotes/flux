@@ -6,7 +6,6 @@ import FluxBRCA2Variant from './FluxBRCA2Variant';
 import FluxEstrogenReceptorStatus from './FluxEstrogenReceptorStatus';
 import FluxHER2ReceptorStatus from './FluxHER2ReceptorStatus';
 import FluxProgesteroneReceptorStatus from './FluxProgesteroneReceptorStatus';
-import FluxHistologicGrade from './FluxHistologicGrade';
 import FluxTNMStage from './FluxTNMStage';
 import FluxMitoticRate from './FluxMitoticRate';
 import FluxGastrointestinalStromalTumor from './FluxGastrointestinalStromalTumor';
@@ -30,7 +29,6 @@ export default class FluxOncologyObjectFactory {
             case 'EstrogenReceptorStatus': return new FluxEstrogenReceptorStatus(json);
             case 'ProgesteroneReceptorStatus': return new FluxProgesteroneReceptorStatus(json);
             case 'HER2ReceptorStatus': return new FluxHER2ReceptorStatus(json);
-            case 'HistologicGrade': return new FluxHistologicGrade(json);
             case 'TNMStage': return new FluxTNMStage(json);
             case 'GastrointestinalStromalTumor': return new FluxGastrointestinalStromalTumor(json, patientRecord);
             case 'GastrointestinalStromalTumorCancerGeneticAnalysisPanel': return new FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel(json, patientRecord);

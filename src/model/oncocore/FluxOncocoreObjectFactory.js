@@ -2,7 +2,7 @@ import { getNamespaceAndName } from '../json-helper';
 import FluxCancerDisorder from './FluxCancerDisorder';
 import FluxCancerProgression from './FluxCancerProgression';
 import FluxEvidence from './FluxEvidence';
-import FluxHistologicGrade from '../oncology/FluxHistologicGrade';
+import FluxCancerHistologicGrade from './FluxCancerHistologicGrade';
 import FluxCancerHistologicType from './FluxCancerHistologicType';
 import FluxKarnofskyPerformanceStatus from './FluxKarnofskyPerformanceStatus';
 import FluxTNMStage from '../oncology/FluxTNMStage';
@@ -17,7 +17,7 @@ export default class FluxOncocoreObjectFactory {
         // returns Flux wrapper class if found, otherwise use OncocoreObjectFactory
         switch (elementName) {
             case 'CancerDisorder': return FluxCancerDisorder(json, type, patientRecord);
-            case 'CancerHistologicGrade': return new FluxHistologicGrade(json, type, patientRecord);
+            case 'CancerHistologicGrade': return new FluxCancerHistologicGrade(json, type, patientRecord);
             case 'CancerHistologicType': return new FluxCancerHistologicType(json, type, patientRecord);
             case 'CancerProgression': return new FluxCancerProgression(json, type, patientRecord);
             case 'TNMClinicalStageGroup': return new FluxTNMStage(json, type, patientRecord);

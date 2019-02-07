@@ -156,14 +156,14 @@ class FluxMedicationRequested {
     get amountPerDose() {
         if (!this._medicationRequested.dosage || !this._medicationRequested.dosage.doseAmount) return null;
         return {
-            value: this._medicationRequested.dosage.doseAmount.value.decimalValue.value,
-            units: this._medicationRequested.dosage.doseAmount.value.units.value.code
+            value: this._medicationRequested.dosage.doseAmount.value.number.decimal,
+            units: this._medicationRequested.dosage.doseAmount.value.units.coding.code
         };
     }
 
     set dose(amount) {
         if (!this._medicationRequested.dosage || !this._medicationRequested.dosage.doseAmount) return;
-        this._medicationRequested.dosage.doseAmount.value.decimalValue.value = amount;
+        this._medicationRequested.dosage.doseAmount.value.number.decimal = amount;
     }
 
     /*
@@ -221,7 +221,7 @@ class FluxMedicationRequested {
      * Returns date as a string
      */
     get whenPrescribed() {
-        return this._medicationRequested.entryInfo.creationTime.value;
+        return this._medicationRequested.metadata.authoredDateTime.dateTime;
     }
 
     /*

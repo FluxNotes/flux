@@ -1,6 +1,6 @@
 import FluxEstrogenReceptorStatus from './FluxEstrogenReceptorStatus';
 import FluxHER2ReceptorStatus from './FluxHER2ReceptorStatus';
-import FluxHistologicGrade from './FluxHistologicGrade';
+import FluxCancerHistologicGrade from '../oncocore/FluxCancerHistologicGrade';
 import FluxProgesteroneReceptorStatus from './FluxProgesteroneReceptorStatus';
 import FluxSolidTumorCancer from './FluxSolidTumorCancer';
 import FluxTumorDimensions from '../tumor/FluxTumorDimensions';
@@ -46,7 +46,7 @@ class FluxBreastCancer extends FluxSolidTumorCancer {
 
         // Tumor Size and HistologicGrade
         const tumorSize = this.getObservationsOfType(FluxTumorDimensions);
-        const histologicGrade = this.getObservationsOfType(FluxHistologicGrade);
+        const histologicGrade = this.getObservationsOfType(FluxCancerHistologicGrade);
         if (tumorSize.length > 0) {
             hpiText += ` Primary tumor size ${tumorSize[0].quantity.number} ${tumorSize[0].quantity.unit}.`;
         }
