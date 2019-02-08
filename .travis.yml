@@ -3,9 +3,6 @@ language: node_js
 node_js:
   - 10.14.1
 
-env: 
-  - CI=false
-
 script:
   - CI=false yarn build-css && yarn test-backend:darwin:linux
   - CI=false yarn build
