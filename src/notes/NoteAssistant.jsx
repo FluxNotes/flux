@@ -405,7 +405,7 @@ export default class NoteAssistant extends Component {
     renderDeleteNoteButton = () => {
         return (
             <div id="delete-note-container">
-                <Button raised id="delete-note-button" onClick={this.deleteSelectedNote}>
+                <Button variant="raised" id="delete-note-button" onClick={this.deleteSelectedNote}>
                     <FontAwesome name="trash" id="trash-icon" />
                     <span>Delete Note</span>
                 </Button>
@@ -509,7 +509,7 @@ export default class NoteAssistant extends Component {
 
         if (numberofMissingNotes > 0) {
             return (
-                <Button raised className="more-notes-btn">
+                <Button variant="raised" className="more-notes-btn">
                     View {numberofMissingNotes} more clinical note{numberofMissingNotes > 1 ? 's' : ''}
                 </Button>
             );
@@ -520,7 +520,7 @@ export default class NoteAssistant extends Component {
         return (
             <div className="toggle-buttons-container">
                 <MaterialButton
-                    raised
+                    variant="raised"
                     id="notes-btn"
                     className={"toggle-button " + this.notes_btn_classname}
                     disabled={this.notes_disabled}
@@ -542,7 +542,7 @@ export default class NoteAssistant extends Component {
                     </svg>
                 </MaterialButton>
                 <MaterialButton
-                    raised
+                    variant="raised"
                     id="context-btn"
                     className={"toggle-button " + this.context_btn_classname}
                     disabled={this.context_disabled}
@@ -560,7 +560,7 @@ export default class NoteAssistant extends Component {
                     </svg>
                 </MaterialButton>
                 <MaterialButton
-                    raised
+                    variant="raised"
                     id="poc-btn"
                     className={"toggle-button " + this.poc_btn_classname}
                     disabled={this.poc_disabled}

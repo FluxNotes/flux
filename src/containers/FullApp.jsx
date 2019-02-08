@@ -10,6 +10,7 @@ import red from 'material-ui/colors/red';
 import Snackbar from 'material-ui/Snackbar';
 import Modal from 'material-ui/Modal';
 import Typography from 'material-ui/Typography';
+import { Fade } from 'material-ui';
 import Lang from 'lodash';
 
 import SecurityManager from '../security/SecurityManager';
@@ -22,6 +23,8 @@ import SummaryMetadata from '../summary/SummaryMetadata';
 import PatientControlPanel from '../panels/PatientControlPanel';
 import PreferenceManager from '../preferences/PreferenceManager';
 import SearchIndex from '../patientControl/SearchIndex';
+import LoadingAnimation from '../loading/LoadingAnimation';
+import LoadingError from '../loading/LoadingError';
 
 import '../styles/FullApp.css';
 
@@ -58,6 +61,8 @@ export class FullApp extends Component {
             "encounter",
             "post-encounter"
         ];
+        // Determines how long the fade-in v. fade-out animation lasts
+        this.timeoutDuration = 1000;
 
         if (Lang.isUndefined(this.props.dataSource)) {
             this.dataAccess = new DataAccess("HardCodedReadOnlyDataSource");
@@ -84,6 +89,10 @@ export class FullApp extends Component {
             isNoteViewerEditable: false,
             isModalOpen: false,
             layout: "",
+            // Start the app loading information
+            loading: true,
+            // If there is an error produced when loading data, it will go here
+            loadingErrorObject: null,
             loginUser: {},
             modalTitle: '',
             modalContent: '',
@@ -148,13 +157,44 @@ export class FullApp extends Component {
     }
 
     loadPatient(patientId) {
-        let patient = this.dataAccess.getPatient(patientId);
-        this.contextManager = new ContextManager(patient, this.onContextUpdate);
-        this.setState({patient: patient})
+        const DAGestalt = this.dataAccess.getGestalt();
+        if (DAGestalt.read.async) { 
+            this.dataAccess.getPatient(patientId, (patient, error) => { 
+                this.contextManager = new ContextManager(patient, this.onContextUpdate);
+                if (!Lang.isEmpty(error)) console.error(error)
+                this.setState({ 
+                    patient, 
+                    loading: false,
+                    loadingErrorObject: error
+                });
+            });
+        } else if (DAGestalt.read.sync) { 
+            // Else, assume sync
+            try {
+                let patient = this.dataAccess.getPatient(patientId);
+                this.contextManager = new ContextManager(patient, this.onContextUpdate);
+                this.setState({
+                    patient, 
+                    loading: false
+                });
+            } catch (error) {
+                console.error(error)
+                this.setState({
+                    loading: false, 
+                    loadingErrorObject: error
+                });
+            }
+        } else { 
+            const supportedError = Error("Data Source does not support sync or async types read operations -- current gestalt is " + JSON.stringify(DAGestalt))
+            console.error(supportedError)
+            this.setState({
+                loading: false, 
+                loadingErrorObject: supportedError
+            });
+        }
     }
 
     componentWillMount() {
-        this.loadPatient(this.props.patientId);
         const userProfile = this.securityManager.getDemoUser(this.props.clinicianId);
         if (userProfile) {
             this.setState({loginUser: userProfile});
@@ -162,6 +202,11 @@ export class FullApp extends Component {
         } else {
             console.error("Login failed");
         }
+    }
+
+    componentDidMount() { 
+        // Once the component has mounted, we can try to load the patient data
+        this.loadPatient(this.props.patientId)
     }
 
     receive_command(commandType, data) {
@@ -375,16 +420,36 @@ export class FullApp extends Component {
         this.setState({ isAppBlurred });
     }
 
+    renderLoadingInformation = () => { 
+        // Note well: The renders below fade in or out based on state of the loading in the app
+        // We define a loading error as occuring when: 
+        // - The app has no patient 
+        // - The app is not loading
+        const isSomeError = Lang.isEmpty(this.state.patient) && !this.state.loading;
+        return (
+            <div>
+                <LoadingAnimation
+                    loading={this.state.loading}
+                    timeoutDuration={this.timeoutDuration}
+                />
+                <LoadingError
+                    isSomeError={isSomeError}
+                    loadingErrorObject={this.state.loadingErrorObject}
+                    timeoutDuration={this.timeoutDuration}
+                />
+            </div>
+        )
+    }
+
     render() {
         // Get the Current Dashboard based on superRole of user
         const CurrentDashboard = this.dashboardManager.getDashboardForSuperRole(this.state.loginUser.getSuperRole());
-
         return (
             <MuiThemeProvider theme={theme}>
-                <div className="FullApp">
-                    <Grid className="FullApp-content" fluid>
+                <div className={(this.state.loading || this.state.loadingErrorObject) ? "FullApp-content loading-background" : "FullApp-content"}>
+                    <Grid fluid>
                         <Row center="xs">
-                            <Col sm={12}>
+                            <Col sm={12}>    
                                 <PatientControlPanel
                                     appTitle={this.props.display}
                                     clinicalEvent={this.state.clinicalEvent}
@@ -406,51 +471,57 @@ export class FullApp extends Component {
                                 />
                             </Col>
                         </Row>
-
-                        <CurrentDashboard
-                            // App default settings
-                            actions={this.actions}
-                            appState={this.state}
-                            contextManager={this.contextManager}
-                            dataAccess={this.dataAccess}
-                            forceRefresh={this.state.forceRefresh}
-                            handleSummaryItemSelected={this.handleSummaryItemSelected}
-                            highlightedSearchSuggestion={this.state.highlightedSearchSuggestion}
-                            isAppBlurred={this.state.isAppBlurred}
-                            itemInserted={this.itemInserted}
-                            loginUser={this.state.loginUser}
-                            preferenceManager={this.preferenceManager}
-                            newCurrentShortcut={this.newCurrentShortcut}
-                            onContextUpdate={this.onContextUpdate}
-                            openSourceNoteEntryId={this.state.openSourceNoteEntryId}
-                            possibleClinicalEvents={this.possibleClinicalEvents}
-                            ref={(dashboard) => { this.dashboard = dashboard; }}
-                            searchIndex={this.searchIndex}
-                            searchSelectedItem={this.state.searchSelectedItem}
-                            searchSuggestions={this.state.searchSuggestions}
-                            setAppBlur={this.setAppBlur}
-                            setHighlightedSearchSuggestion={this.setHighlightedSearchSuggestion}
-                            setNoteClosed={this.setNoteClosed}
-                            setNoteViewerEditable={this.setNoteViewerEditable}
-                            setNoteViewerVisible={this.setNoteViewerVisible}
-                            setForceRefresh={this.setForceRefresh}
-                            setFullAppStateWithCallback={this.setFullAppStateWithCallback}
-                            setLayout={this.setLayout}
-                            setOpenClinicalNote={this.setOpenClinicalNote}
-                            setOpenSourceNoteEntryId={this.setOpenSourceNoteEntryId}
-                            setSearchSelectedItem={this.setSearchSelectedItem}
-                            shortcutManager={this.shortcutManager}
-                            structuredFieldMapManager={this.structuredFieldMapManager}
-                            summaryMetadata={this.summaryMetadata}
-                            updateErrors={this.updateErrors}
-                        />
+                        {this.renderLoadingInformation()}
+                        <Fade in={!this.state.loading} timeout={this.timeoutDuration}>
+                            <div>
+                                {!Lang.isNull(this.state.patient) && 
+                                    <CurrentDashboard
+                                        // App default settings
+                                        actions={this.actions}
+                                        appState={this.state}
+                                        contextManager={this.contextManager}
+                                        dataAccess={this.dataAccess}
+                                        forceRefresh={this.state.forceRefresh}
+                                        handleSummaryItemSelected={this.handleSummaryItemSelected}
+                                        highlightedSearchSuggestion={this.state.highlightedSearchSuggestion}
+                                        isAppBlurred={this.state.isAppBlurred}
+                                        itemInserted={this.itemInserted}
+                                        loginUser={this.state.loginUser}
+                                        preferenceManager={this.preferenceManager}
+                                        newCurrentShortcut={this.newCurrentShortcut}
+                                        onContextUpdate={this.onContextUpdate}
+                                        openSourceNoteEntryId={this.state.openSourceNoteEntryId}
+                                        possibleClinicalEvents={this.possibleClinicalEvents}
+                                        ref={(dashboard) => { this.dashboard = dashboard; }}
+                                        searchIndex={this.searchIndex}
+                                        searchSelectedItem={this.state.searchSelectedItem}
+                                        searchSuggestions={this.state.searchSuggestions}
+                                        setAppBlur={this.setAppBlur}
+                                        setHighlightedSearchSuggestion={this.setHighlightedSearchSuggestion}
+                                        setNoteClosed={this.setNoteClosed}
+                                        setNoteViewerEditable={this.setNoteViewerEditable}
+                                        setNoteViewerVisible={this.setNoteViewerVisible}
+                                        setForceRefresh={this.setForceRefresh}
+                                        setFullAppStateWithCallback={this.setFullAppStateWithCallback}
+                                        setLayout={this.setLayout}
+                                        setOpenClinicalNote={this.setOpenClinicalNote}
+                                        setOpenSourceNoteEntryId={this.setOpenSourceNoteEntryId}
+                                        setSearchSelectedItem={this.setSearchSelectedItem}
+                                        shortcutManager={this.shortcutManager}
+                                        structuredFieldMapManager={this.structuredFieldMapManager}
+                                        summaryMetadata={this.summaryMetadata}
+                                        updateErrors={this.updateErrors}
+                                    />
+                                }
+                            </div>
+                        </Fade>
                         <Modal 
                             aria-labelledby="simple-modal-title"
                             aria-describedby="simple-modal-description"
                             open={this.state.isModalOpen}
                             onClose={this.handleModalClose}
                             onClick={this.handleModalClose}
-                        >
+                            >
                             <div style={getModalStyle()} >
                                 <Typography id="modal-title">
                                     {this.state.modalTitle}
@@ -467,7 +538,7 @@ export class FullApp extends Component {
                             onClose={this.handleSnackbarClose}
                             open={this.state.snackbarOpen}
                             message={this.state.snackbarMessage}
-                        />
+                            />
                     </Grid>
                 </div>
             </MuiThemeProvider>

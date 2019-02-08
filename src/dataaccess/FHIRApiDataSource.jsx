@@ -4,6 +4,30 @@ import PatientRecord from '../patient/PatientRecord';
 import request from 'sync-request';
 
 class FHIRApiDataSource extends IDataSource {
+    constructor() { 
+        super();
+        this._gestalt = { 
+            create: {
+                async: false,
+                sync: false
+            },
+            read: {
+                async: false,
+                sync: true
+            },
+            update: {
+                async: false,
+                sync: false
+            },
+            delete: {
+                async: false,
+                sync: false
+            }
+        };
+    }
+    getGestalt() { 
+        return this._gestalt;
+    }
     getPatient(id) {
         // REST Call to get FHIR patient from SyntheticMASS
         const url = 'https://syntheticmass.mitre.org/fhir/Patient?_id=58b3663f3425def0f0f6bffd&_count=20&_format=json&_revinclude=*';

@@ -21,8 +21,8 @@ export default class DataAccess {
         }
     }
     
-    getPatient(id) {
-        return this.dataSource.getPatient(id);
+    getPatient(id, callback) {
+        return this.dataSource.getPatient(id, callback);
     }
     
     getListOfPatients() {
@@ -35,5 +35,9 @@ export default class DataAccess {
     
     savePatient(patient) {
         return this.dataSource.savePatient(patient);
+    }
+
+    getGestalt() { 
+        return this.dataSource.getGestalt();
     }
 }

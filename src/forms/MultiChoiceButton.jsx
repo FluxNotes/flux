@@ -11,11 +11,12 @@ class MultiChoiceButton extends Component {
         className += (this.props.isSelected) ? "selected " : "";
 
         return ( 
-            <ChoiceButton raised
-                    key={this.props.buttonKey}
-                    label={this.props.buttonText}
-                    onClick={this.props.onClick}
-                    className={className}
+            <ChoiceButton 
+                variant="raised"
+                key={this.props.buttonKey}
+                label={this.props.buttonText}
+                onClick={this.props.onClick}
+                className={className}
             >
                 {this.props.buttonText}
             </ChoiceButton>

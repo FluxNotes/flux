@@ -279,7 +279,7 @@ export default class NotesPanel extends Component {
         return (
             <div id="finish-sign-component">
                 <Button 
-                    raised 
+                    variant="raised" 
                     classes={{
                         root: `btn-finish ${signNoteDisabledClass}`
                     }} 

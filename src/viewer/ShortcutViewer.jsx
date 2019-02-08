@@ -30,7 +30,7 @@ class ShortcutViewer extends Component {
             <CopyToClipboard text={string}>
                 <div id="copy-component">
                     <Button
-                        raised
+                        variant="raised"
                         className="btn_copy"
                         ref="copyButton"
                         style={{

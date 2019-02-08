@@ -6,14 +6,40 @@ class RestApiDataSource extends IDataSource {
     constructor() { 
         super();
         this.api = new PatientApi.DefaultApi();
+        this._gestalt = { 
+            create: {
+                async: false,
+                sync: false
+            },
+            read: {
+                async: true,
+                sync: false
+            },
+            update: {
+                async: true,
+                sync: false
+            },
+            delete: {
+                async: false,
+                sync: false
+            }
+        };
     }
-    getPatient(id) {
-        // TODO: This should be used intead of the synchronous call below
-        // const callback = function(error, data, response) {
-        //     return new PatientRecord(response.text);
-        // }
-        // return this.api.getPatientById(id, callback);
-        
+
+    getGestalt() { 
+        return this._gestalt
+    }
+
+    getPatient(id, callback) {
+        // Asynchronous call
+        // return this.api.getPatientById(id, (error, data, response) => { 
+        //     if (error) { 
+        //         callback(null, error)
+        //     } else { 
+        //         callback(new PatientRecord(response.text));
+        //     }
+        // });
+        //
         // Synchronous call
         // TODO: javascript client generated code was changed to be synchronous. It should be changed back and
         // the above async code should be used instead.
