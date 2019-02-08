@@ -7,8 +7,8 @@ env:
   - CI=false
 
 script:
-  - yarn build-css && yarn test-backend:darwin:linux
-  - yarn build
+  - CI=false yarn build-css && yarn test-backend:darwin:linux
+  - CI=false yarn build
 
 notifications:
   email:
