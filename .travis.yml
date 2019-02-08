@@ -5,7 +5,7 @@ node_js:
 
 script:
   - yarn build-css && yarn test-backend:darwin:linux
-  - yarn build
+  - yarn build-ci
 
 warnings_are_errors: false
 
