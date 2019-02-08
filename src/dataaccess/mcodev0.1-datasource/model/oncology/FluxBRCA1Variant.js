@@ -6,6 +6,10 @@ class FluxBRCA1Variant extends FluxObservation {
         super();
         this._brca1Variant = Observation.fromJSON(json);
     }
+
+    get entryInfo() {
+        return this._brca1Variant.entryInfo;
+    }
     
     get abbreviatedName() {
         return 'BRCA1';

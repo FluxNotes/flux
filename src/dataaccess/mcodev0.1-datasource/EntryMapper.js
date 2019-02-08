@@ -370,7 +370,7 @@ exports.mapEntries = (entries) => {
             newPerson._person.photographicImage = [newPhotographicImage];
             newPerson._person.humanName = entry._person.humanName.map(h => mapPassThrough(h, HumanName));
             newPerson._person.languageUsed = entry._person.languageUsed.map(l => mapPassThrough(l, LanguageUsed));
-            newPerson._person.maritalStatus = mapPassThrough(entry._person.maritalStatus, MaritalStatus);
+            if (entry._person.maritalStatus) newPerson._person.maritalStatus = mapPassThrough(entry._person.maritalStatus, MaritalStatus);
             newPerson._person.race = mapPassThrough(entry._person.race, Race);
             result.push(newPerson._person.toJSON());
         } else if (entry instanceof FluxPatientIdentifierV01 || entry instanceof FluxClinicalNoteV01) {
@@ -383,10 +383,8 @@ exports.mapEntries = (entries) => {
             result.push(entryJSON);
         } else if (entry instanceof FluxBreastCancerV01) {
             const newCondition = mapCancerDisorder(entry, BreastCancerDisorderPresent);
-            console.log('newCondition: ', newCondition);
 
             const entryJSON = newCondition.toJSON();
-            // entryJSON.EntryType.Value = 'http://standardhealthrecord.org/spec/shr/oncology/BreastCancer';
             result.push(entryJSON);
         } else if (entry instanceof FluxConditionPresentAssertionV01) {
             const newCondition = new ConditionPresentAssertion();
@@ -406,7 +404,7 @@ exports.mapEntries = (entries) => {
             mapEntryInfo(entry.entryInfo, newProcedure);
             newProcedure.expectedPerformanceTime = mapExpectedPerformanceTime(entry._procedureRequested.expectedPerformanceTime);
             if (entry._procedureRequested.annotation) newProcedure.annotation = entry._procedureRequested.annotation.map(a => mapPassThrough(a, Annotation));
-            newProcedure.reason = entry._procedureRequested.reason.map(r => mapPassThrough(r, Reason));
+            if (entry._procedureRequested.reason) newProcedure.reason = entry._procedureRequested.reason.map(r => mapPassThrough(r, Reason));
             newProcedure.status = mapPassThrough(entry._procedureRequested.status, Status);
             newProcedure.procedureCode = new ProcedureCode();
             newProcedure.procedureCode.value = mapPassThrough(entry._procedureRequested.topicCode.value, CodeableConcept);
