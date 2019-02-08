@@ -31,7 +31,6 @@ import AnatomicalLocation from '../../model/shr/core/AnatomicalLocation';
 import ClinicalStatus from '../../model/shr/base/ClinicalStatus';
 import Onset from '../../model/shr/base/Onset';
 import CancerDisorderPresent from '../../model/oncocore/CancerDisorderPresent';
-import AnatomicalLocationPrecoordinated from '../../model/shr/core/AnatomicalLocationPrecoordinated';
 import FluxMedicationRequestedV01 from './model/medication/FluxMedicationRequested';
 import MedicationRequested from '../../model/shr/medication/MedicationRequested';
 import Dosage from '../../model/shr/medication/Dosage';
@@ -133,6 +132,9 @@ import Severity from '../../model/shr/base/Severity';
 import Manifestation from '../../model/shr/allergy/Manifestation';
 import FluxBreastCancerV01 from './model/oncology/FluxBreastCancer';
 import BreastCancerDisorderPresent from '../../model/brca/BreastCancerDisorderPresent';
+import AnatomicalLocationStructured from '../../model/shr/core/AnatomicalLocationStructured';
+import AnatomicalLocationOrLandmarkCode from '../../model/shr/core/AnatomicalLocationOrLandmarkCode';
+import Laterality from '../../model/shr/core/Laterality';
 
 // Maps mCODE v0.1 entries to Flux Object Model
 const mapEntryInfo = (entryInfo, entry) => {
@@ -178,8 +180,9 @@ const mapGender = (gender) => {
 
 const mapAnatomicalLocation = (anatomicalLocation) => {
     const newAnatomicalLocation = new AnatomicalLocation();
-    newAnatomicalLocation.value = new AnatomicalLocationPrecoordinated();
-    newAnatomicalLocation.value.value = CodeableConcept.fromJSON(anatomicalLocation.anatomicalLocationOrLandmarkCode.value.toJSON());
+    newAnatomicalLocation.value = new AnatomicalLocationStructured();
+    newAnatomicalLocation.value.anatomicalLocationOrLandmarkCode = mapPassThrough(anatomicalLocation.anatomicalLocationOrLandmarkCode, AnatomicalLocationOrLandmarkCode);
+    if (anatomicalLocation.laterality) newAnatomicalLocation.value.laterality = mapPassThrough(anatomicalLocation.laterality, Laterality);
 
     return newAnatomicalLocation;
 };

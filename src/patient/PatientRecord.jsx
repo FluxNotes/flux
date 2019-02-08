@@ -1,6 +1,6 @@
 import FluxObjectFactory from '../model/FluxObjectFactory';
 import FluxAllergyIntolerance from '../model/allergy/FluxAllergyIntolerance';
-import FluxBreastCancer from '../model/oncology/FluxBreastCancer';
+import FluxBreastCancerDisorderPresent from '../model/brca/FluxBreastCancerDisorderPresent';
 import FluxBreastCancerGeneticAnalysisPanel from '../model/oncology/FluxBreastCancerGeneticAnalysisPanel';
 import FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel from '../model/oncology/FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel';
 import FluxClinicalNote from '../model/core/FluxClinicalNote';
@@ -478,7 +478,7 @@ class PatientRecord {
     }
 
     getLastBreastCancerCondition() {
-        let result = this.getEntriesOfType(FluxBreastCancer);
+        let result = this.getEntriesOfType(FluxBreastCancerDisorderPresent);
         return result[result.length - 1];
     }
 

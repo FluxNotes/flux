@@ -75,7 +75,7 @@ class FluxConditionPresentAssertion extends FluxEntry {
         // } else if (this._condition.anatomicalLocation[0].anatomicalLocationOrLandmarkCode instanceof BodySite) {
         //     return this._displayTextOrCode(this._condition.anatomicalLocation[0].anatomicalLocationOrLandmarkCode.value.coding[0]);
         } else { // CodeableConcept
-            return this._displayTextOrCode(this._condition.anatomicalLocation[0].value.value.coding[0]);
+            return this._displayTextOrCode(this._condition.anatomicalLocation[0].value.anatomicalLocationOrLandmarkCode.value.coding[0]);
         }
     }
     
@@ -84,12 +84,14 @@ class FluxConditionPresentAssertion extends FluxEntry {
     }
     
     get laterality() {
-        console.log(this._condition);
-        if (    !this._condition.anatomicalLocation || 
-                this._condition.anatomicalLocation.length < 1 ||
-                !this._condition.anatomicalLocation[0].laterality ||
-                !this._condition.anatomicalLocation[0].laterality.value) return null;
-        return this._displayTextOrCode(this._condition.anatomicalLocation[0].laterality.value.coding[0]);
+        if (
+            !this._condition.anatomicalLocation
+            || this._condition.anatomicalLocation.length < 1 
+            || !this._condition.anatomicalLocation[0].value
+            || !this._condition.anatomicalLocation[0].value.laterality
+            || !this._condition.anatomicalLocation[0].value.laterality.value
+        ) return null;
+        return this._displayTextOrCode(this._condition.anatomicalLocation[0].value.laterality.value.coding[0]);
     }
 
     get author() {
