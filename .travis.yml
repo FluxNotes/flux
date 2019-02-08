@@ -8,7 +8,7 @@ env:
 
 script:
   - yarn build-css && yarn test-backend:darwin:linux
-  - yarn build-ci
+  - yarn build
 
 notifications:
   email:
