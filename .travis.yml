@@ -7,8 +7,6 @@ script:
   - yarn build-css && yarn test-backend:darwin:linux
   - yarn build-ci
 
-warnings_are_errors: false
-
 notifications:
   email:
     on_failure: change
