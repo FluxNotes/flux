@@ -22,8 +22,8 @@ describe("TreatmentOptionsOutcome", () => {
     });
 
     describe("outcomes table", () => {
-        it("renders the surgery treatment row in the included table", () => {
-            expect(outcome().find('.included-treatments .table-row').first().find('.treatment-name').text()).to.eql('surgery');
+        it("renders the surgery & radiation therapy treatment row in the included table", () => {
+            expect(outcome().find('.included-treatments .table-row').first().find('.treatment-name').text()).to.eql('surgery & radiation therapy');
         });
 
         it("renders the chemotherapy, hormonal, and radiation rows in the compare table", () => {
@@ -31,7 +31,7 @@ describe("TreatmentOptionsOutcome", () => {
 
             expect(rows).to.have.lengthOf(3);
 
-            const treatments = ['radiation therapy', 'hormonal therapy', 'chemotherapy'];
+            const treatments = ['chemotherapy & hormonal therapy', 'hormonal therapy', 'chemotherapy'];
             treatments.forEach((treatment, index) => {
                 expect(rows.at(index).find('.treatment-name').text()).to.eql(treatment);
             });
@@ -39,7 +39,7 @@ describe("TreatmentOptionsOutcome", () => {
     });
 
     describe("data calculations", () => {
-        it("rolls up the patients who had surgery into one row", () => {
+        it("rolls up the patients who had surgery & radiation therapy into one row", () => {
             const row = outcome().find('.included-treatments .table-row').first();
 
             expect(row.find('.total-patients').text()).to.eql('(3)');
@@ -52,7 +52,7 @@ describe("TreatmentOptionsOutcome", () => {
             expect(barChartTexts).to.have.lengthOf(3);
             expect(barChartTexts.at(0).text()).to.eql('100%');
             expect(barChartTexts.at(1).text()).to.eql('66%');
-            expect(barChartTexts.at(2).text()).to.eql('66%');
+            expect(barChartTexts.at(2).text()).to.eql('33%');
         });
     });
 });

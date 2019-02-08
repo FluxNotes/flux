@@ -37,7 +37,7 @@ export default class TreatmentOptionsOutcomes extends Component {
         this.state = {
             similarPatientTreatments: this.generateSimilarPatientTreatments(props.similarPatients),
             includedTreatments: [ 'surgery', 'radiation' ],
-            comparedTreatments: [ 'chemo', 'hormonal' ],
+            comparedTreatments: [ 'chemotherapy', 'hormonal' ],
             includedOpen: false,
             comparedOpen: false
         };
