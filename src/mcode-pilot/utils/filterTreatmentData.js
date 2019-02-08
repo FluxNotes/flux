@@ -44,6 +44,7 @@ function isSimilarPatient(treatmentDataPatient, similarPatientProps) {
                     return false;
                 } else if (option === 'gender' && value !== _.lowerCase(gender)) {
                     return false;
+                // pathology
                 } else if (option === 'ER' && (!tumorMarkers.er || _.lowerCase(tumorMarkers.er) !== _.lowerCase(value))) {
                     return false;
                 } else if (option === 'PR' && (!tumorMarkers.pr || _.lowerCase(tumorMarkers.pr) !== _.lowerCase(value))) {
@@ -54,7 +55,8 @@ function isSimilarPatient(treatmentDataPatient, similarPatientProps) {
                     return false;
                 } else if (option === 'grade' && (!diseaseStatus.grade || diseaseStatus.grade !== value)) {
                     return false;
-                }  else if (option === 'receivedRadTherapy') {
+                // treatment history
+                } else if (option === 'receivedRadTherapy') {
                     let hadTreatmentOption = value === 'yes';
                     let hadTreatment = treatments.includes('radiation');
                     if ((!hadTreatmentOption && hadTreatment) || (hadTreatmentOption && !hadTreatment)) {

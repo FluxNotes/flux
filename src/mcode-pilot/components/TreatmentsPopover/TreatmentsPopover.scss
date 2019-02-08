@@ -36,11 +36,6 @@ $color-gray: #ccc;
                 color: $color-blue;
                 margin-right: -5px;
             }
-
-            .checkbox[disabled] svg,
-            label[class*="disabled"] .checkbox-label {
-                color: $color-gray;
-            }
         }
     }
 }

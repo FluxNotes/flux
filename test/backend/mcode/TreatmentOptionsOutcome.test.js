@@ -1,110 +1,58 @@
 import React from 'react';
-import {expect} from 'chai';
-
+import { expect } from 'chai';
 import Enzyme, { shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
-import TreatmentOptionsOutcome from '../../../src/mcode-pilot/components/TreatmentOptionsOutcomes/TreatmentOptionsOutcomes.jsx'
+
+import TreatmentOptionsOutcome from '../../../src/mcode-pilot/components/TreatmentOptionsOutcomes/TreatmentOptionsOutcomes.jsx';
 import testPatients from './mock-data/testpatients.json';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe("TreatmentOptionsOutcome",()=>{
-    let props;
-    let optionsOutcome;
-    let rows;
+describe("TreatmentOptionsOutcome", () => {
+    let props, optionsOutcome;
+
     const outcome = () => {
-      if (!optionsOutcome) {
-        optionsOutcome = mount(
-          <TreatmentOptionsOutcome {...props} />
-        );
-      }
+      if (!optionsOutcome) optionsOutcome = mount(<TreatmentOptionsOutcome {...props} />);
       return optionsOutcome;
-    }
-  
+    };
+
     beforeEach(() => {
-      props = {
-        similarPatients: undefined
-      };
-      optionsOutcome = undefined;
-      rows = undefined;
+      props = { similarPatients: testPatients.testGroup1 };
+      optionsOutcome = null;
     });
-    describe("when there are some similar patients", ()=>{
-        beforeEach(() => {
-            props.similarPatients = testPatients.testGroup1;
-            optionsOutcome = outcome();
-            rows = optionsOutcome.instance().generateRows(props.similarPatients)
-          }); 
 
-        it("should make 4 rows",()=>{
-            expect(rows.length).to.eql(4);
+    describe("outcomes table", () => {
+        it("renders the surgery treatment row in the included table", () => {
+            expect(outcome().find('.included-treatments .table-row').first().find('.treatment-name').text()).to.eql('surgery');
         });
 
-        it("should name the rows appropriately",()=>{
-            const names = ['test1','test1 & test2','test2',"test1 & test2 & test3 & test4 & test5 & test6"]
-            rows.forEach(row=>{
-                const index = names.indexOf(row.name);
-                expect(names[index]).to.eql(row.name);
-                names.splice(index,1);
+        it("renders the chemotherapy, hormonal, and radiation rows in the compare table", () => {
+            const rows = outcome().find('.compared-treatments .table-row');
+
+            expect(rows).to.have.lengthOf(3);
+
+            const treatments = ['radiation therapy', 'hormonal therapy', 'chemotherapy'];
+            treatments.forEach((treatment, index) => {
+                expect(rows.at(index).find('.treatment-name').text()).to.eql(treatment);
             });
-        });
-
-        it("should default first row as active",()=>{
-            expect(rows[0].active).to.eql(true);
-        });
-
-        it("sets the correct active row and inactivates the old active row", ()=>{
-            const originalRow = optionsOutcome.instance().state.rows[1];
-            optionsOutcome.instance().setActiveRow(originalRow);
-            expect(optionsOutcome.instance().state.rows[1].active).to.eql(true);
-            expect(optionsOutcome.instance().state.rows[0].active).to.eql(false);
         });
     });
 
+    describe("data calculations", () => {
+        it("rolls up the patients who had surgery into one row", () => {
+            const row = outcome().find('.included-treatments .table-row').first();
 
-    describe("when there are a ton of patients", ()=>{
-        // break from normal convention so we only make the thing once
-        var newProps = { similarPatients: testPatients.testGroup2};
-        const optionsOutcomeLarge = shallow(
-            <TreatmentOptionsOutcome {...newProps} />)
-        let newGroup = []
-        for(var i = 0; i<240000; i++){
-            newGroup.push(
-                {
-                    "demographics": {
-                        "birthDate": "1954-00",
-                        "gender": "male",
-                        "race": "White"
-                    },
-                    "diseaseStatus": {
-                        "disease": "http://snomed.info/sct/420120006",
-                        "diagnosisDate": "2004-12",
-                        "isAlive": true,
-                        "survivalMonths": i%72
-                    },
-                    "treatments": [
-                        "test" + i%12
-                    ],
-                    "sideEffects": [
-                        ...(i%5===0?"b":[])
-                    ]
-                }
-            )
-        }
-        const rows = optionsOutcomeLarge.instance().generateRows(newGroup);
-        console.log(rows);
-        it("should count the correct number of 1yr, 3yr, and 5yr survivals",()=>{
-            rows.forEach((row)=>{
-                expect(row.totalPatients).to.eql(20000);
-                expect(row.oneYrSurvival).to.eql(16666);
-                expect(row.threeYrSurvival).to.eql(9999);
-                expect(row.fiveYrSurvival).to.eql(3333);
-                expect(row.sideEffects.totalReporting).to.eql(4000);
-                expect(row.sideEffects.effects.b).to.eql(4000);
-            });
+            expect(row.find('.total-patients').text()).to.eql('(3)');
         });
 
-        it("should make 12 rows", ()=>{
-            expect(rows.length).to.eql(12);
-        })
-    })
-})
+        it("calculates the correct one, three, and five survival rates for surgery", () => {
+            const row = outcome().find('.included-treatments .table-row').first();
+            const barChartTexts = row.find('.bar-chart-text');
+
+            expect(barChartTexts).to.have.lengthOf(3);
+            expect(barChartTexts.at(0).text()).to.eql('100%');
+            expect(barChartTexts.at(1).text()).to.eql('66%');
+            expect(barChartTexts.at(2).text()).to.eql('66%');
+        });
+    });
+});

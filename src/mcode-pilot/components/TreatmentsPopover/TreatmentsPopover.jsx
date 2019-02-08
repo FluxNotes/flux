@@ -6,14 +6,7 @@ import './TreatmentsPopover.css';
 
 export default class TreatmentsPopover extends Component {
     render() {
-        const {
-            title,
-            treatments,
-            selectedTreatments,
-            unselectedTreatments,
-            toggleTreatments,
-            treatmentNames
-        } = this.props;
+        const { title, treatments, selectedTreatments, toggleTreatments, treatmentNames } = this.props;
 
         return (
             <div className="treatments-popper">
@@ -28,7 +21,6 @@ export default class TreatmentsPopover extends Component {
                                             <Checkbox
                                                 checked={selectedTreatments.includes(treatment)}
                                                 onChange={toggleTreatments}
-                                                disabled={unselectedTreatments ? unselectedTreatments.includes(treatment) : false}
                                                 value={treatment}
                                                 className="checkbox" />
                                         }
@@ -52,7 +44,6 @@ TreatmentsPopover.propTypes = {
     title: PropTypes.string,
     treatments: PropTypes.array.isRequired,
     selectedTreatments: PropTypes.array.isRequired,
-    unselectedTreatments: PropTypes.array,
     toggleTreatments: PropTypes.func.isRequired,
     treatmentNames: PropTypes.object
 };

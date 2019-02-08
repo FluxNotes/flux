@@ -12,7 +12,7 @@ import './TreatmentOptionsOutcomes.css';
 
 const TREATMENT_NAMES = {
     'noTreatment': 'none (actively monitoring)',
-    'chemo': 'chemotherapy',
+    'chemotherapy': 'chemotherapy',
     'hormonal': 'hormonal therapy',
     'surgery': 'surgery',
     'radiation': 'radiation therapy'
@@ -35,6 +35,7 @@ export default class TreatmentOptionsOutcomes extends Component {
         super(props);
 
         this.state = {
+            similarPatientTreatments: this.generateSimilarPatientTreatments(props.similarPatients),
             includedTreatments: [ 'surgery', 'radiation' ],
             comparedTreatments: [ 'chemo', 'hormonal' ],
             includedOpen: false,
@@ -52,12 +53,15 @@ export default class TreatmentOptionsOutcomes extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (this.props.similarPatients !== nextProps.similarPatients) {
-            const similarPatientTreatments = Array.from(nextProps.similarPatients.reduce((acc, { treatments }) => {
-                treatments.forEach((treatment) => acc.add(treatment));
-                return acc;
-            }, new Set())).sort();
-            this.setState({ similarPatientTreatments });
+            this.setState({ similarPatientTreatments: this.generateSimilarPatientTreatments(nextProps.similarPatients) });
         }
+    }
+
+    generateSimilarPatientTreatments(similarPatients) {
+        return Array.from(similarPatients.reduce((acc, { treatments }) => {
+            treatments.forEach((treatment) => acc.add(treatment));
+            return acc;
+        }, new Set())).sort();
     }
 
     closePoppers = ({ target }) => {
@@ -99,29 +103,17 @@ export default class TreatmentOptionsOutcomes extends Component {
     toggleTreatment = (treatmentType) => (event, selected) => {
         const treatment = event.target.value;
         const key = `${treatmentType}Treatments`;
-        const newState = {};
 
         if (!selected) {
             const index = this.state[key].indexOf(treatment);
             if (index !== -1) {
                 const treatments = this.state[key].slice();
                 treatments.splice(index, 1);
-                newState[key] = treatments;
+                this.setState({ [key]: treatments });
             }
         } else if (!this.state[key].includes(treatment)) {
-            newState[key] = [...this.state[key], treatment];
+            this.setState({ [key]: [...this.state[key], treatment] });
         }
-
-        if (selected && treatmentType === 'included') {
-            const comparedIndex = this.state.comparedTreatments.indexOf(treatment);
-            if (comparedIndex !== -1) {
-                const comparedTreatments = this.state.comparedTreatments.slice();
-                comparedTreatments.splice(comparedIndex, 1);
-                newState.comparedTreatments = comparedTreatments;
-            }
-        }
-
-        this.setState(newState);
     }
 
     initializeRow(name) {
@@ -188,7 +180,7 @@ export default class TreatmentOptionsOutcomes extends Component {
 
         return (
             <div className="table-row flex">
-                <div className="flex-2 flex-padding">{name}</div>
+                <div className="flex-2 flex-padding treatment-name">{name}</div>
                 <div className="flex-1 flex-padding total-patients">({totalPatients})</div>
 
                 <div className="flex flex-6 flex-padding flex-center">
@@ -198,12 +190,10 @@ export default class TreatmentOptionsOutcomes extends Component {
                 </div>
 
                 <div className="flex flex-4 flex-padding flex-center">
-                    <div className="flex-1">{Math.floor(sideEffects.totalReporting / totalPatients * 100)}%</div>
-
-                    <div className="flex-3">
+                    <div>
                         {topSideEffects.map(({ sideEffect, occurrences }, i) =>
                             <div key={i}>
-                                {`${SIDE_EFFECT_NAMES[sideEffect]} `}
+                                {`${SIDE_EFFECT_NAMES[sideEffect] || sideEffect} `}
                                 ({Math.floor(occurrences / totalPatients * 100)}%)
                             </div>
                         )}
@@ -230,10 +220,7 @@ export default class TreatmentOptionsOutcomes extends Component {
 
                 <div className="flex-4 flex-padding">
                     <div className="header-title">Reporting severe side effects</div>
-                    <div className="flex">
-                        <div className="flex-1">all</div>
-                        <div className="flex-3">leading cause</div>
-                    </div>
+                    <div>leading cause</div>
                 </div>
             </div>
         );
@@ -254,7 +241,9 @@ export default class TreatmentOptionsOutcomes extends Component {
         const { similarPatientTreatments, includedTreatments, comparedTreatments, includedOpen, comparedOpen } = this.state;
         const { similarPatients } = this.props;
         const includedTreatmentPatients = similarPatients.filter(patient => isSame(patient.treatments, includedTreatments));
-        const comparedTreatmentCombinations = getCombinations(comparedTreatments);
+        const comparedTreatmentCombinations = getCombinations(comparedTreatments).filter(treatments =>
+            treatments.length !== includedTreatments.length || !includedTreatments.every(treatment => treatments.includes(treatment))
+        );
         const includedRow = this.generateRow(includedTreatmentPatients, includedTreatments);
 
         return (
@@ -281,7 +270,9 @@ export default class TreatmentOptionsOutcomes extends Component {
                         </div>
 
                         {includedRow.length !== 0 ? this.renderRow(includedRow, includedRow) :
-                            <div className="table-row flex helper-text">No data. Choose a different selection.</div>
+                            <div className="table-row flex helper-text">
+                                No data. Choose a different selection or similar patients criteria.
+                            </div>
                         }
                     </div>
 
@@ -296,7 +287,6 @@ export default class TreatmentOptionsOutcomes extends Component {
                                         title="compare across these treatments"
                                         treatments={similarPatientTreatments}
                                         selectedTreatments={comparedTreatments}
-                                        unselectedTreatments={includedTreatments}
                                         toggleTreatments={this.toggleTreatment('compared')}
                                         treatmentNames={TREATMENT_NAMES}
                                     />
