@@ -158,63 +158,34 @@ export class FullApp extends Component {
 
     loadPatient(patientId) {
         const DAGestalt = this.dataAccess.getGestalt();
-        if (DAGestalt.read.isSupported && DAGestalt.read.async) { 
+        if (DAGestalt.read.async) { 
             this.dataAccess.getPatient(patientId, (patient, error) => { 
                 this.contextManager = new ContextManager(patient, this.onContextUpdate);
                 if (!Lang.isEmpty(error)) console.error(error)
-                // TODO: REMOVE AFTER TESTING
-                setTimeout(()=>this.setState({ 
+                this.setState({ 
                     patient, 
                     loading: false,
                     loadingErrorObject: error
-                }), 5000);
-                //
-                // TODO: RESTORE AFTER TESTING
-                // this.setState({ 
-                //     patient, 
-                //     loading: false,
-                //     loadingErrorObject: error
-                // });
+                });
             });
-        } else if (DAGestalt.read.isSupported && DAGestalt.read.sync) { 
+        } else if (DAGestalt.read.sync) { 
             // Else, assume sync
             try {
                 let patient = this.dataAccess.getPatient(patientId);
                 this.contextManager = new ContextManager(patient, this.onContextUpdate);
-                // TODO: REMOVE AFTER TESTING
-                setTimeout(()=>this.setState({ 
+                this.setState({
                     patient, 
-                    loading: false,
-                }), 5000);
-                //
-                // TODO: RESTORE AFTER TESTING
-                // this.setState({
-                //     patient, 
-                //     loading: false
-                // });
+                    loading: false
+                });
             } catch (error) {
                 console.error(error)
-                // TODO: REMOVE AFTER TESTING
-                setTimeout(()=>this.setState({ 
-                    loading: false,
+                this.setState({
+                    loading: false, 
                     loadingErrorObject: error
-                }), 5000);
-                //
-                // TODO: RESTORE AFTER TESTING
-                // this.setState({
-                //     loading: false, 
-                //     loadingErrorObject: error
-                // });
+                });
             }
-        } else if (!DAGestalt.read.isSupported) { 
-            const supportedError = Error("Current DataSource does not support reading patient data; current gestalt is " + JSON.stringify(DAGestalt))
-            console.error(supportedError)
-            this.setState({
-                loading: false, 
-                loadingErrorObject: supportedError
-            });
         } else { 
-            const supportedError = Error("unexpected case -- current gestalt is " + JSON.stringify(DAGestalt))
+            const supportedError = Error("Data Source does not support sync or async types read operations -- current gestalt is " + JSON.stringify(DAGestalt))
             console.error(supportedError)
             this.setState({
                 loading: false, 

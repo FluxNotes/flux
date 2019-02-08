@@ -19,22 +19,18 @@ class IDataSource {
         // 
         // Shape of the gestalt : { 
         //      create: { 
-        //          isSupported: bool,
         //          sync: bool,
         //          async: bool
         //      }
         //      read: { 
-        //          isSupported: bool,
         //          sync: bool,
         //          async: bool
         //      }
         //      update: { 
-        //          isSupported: bool,
         //          sync: bool,
         //          async: bool
         //      }
         //      delete: { 
-        //          isSupported: bool,
         //          sync: bool,
         //          async: bool
         //      }

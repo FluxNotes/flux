@@ -7,23 +7,19 @@ class FHIRApiDataSource extends IDataSource {
     constructor() { 
         super();
         this._gestalt = { 
-            create: { 
-                isSupported: false,
+            create: {
                 async: false,
                 sync: false
             },
             read: {
-                isSupported: true,
                 async: false,
                 sync: true
             },
-            update: { 
-                isSupported: false,
+            update: {
                 async: false,
                 sync: false
             },
-            delete: { 
-                isSupported: false,
+            delete: {
                 async: false,
                 sync: false
             }
