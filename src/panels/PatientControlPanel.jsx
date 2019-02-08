@@ -27,6 +27,7 @@ class PatientControlPanel extends Component {
 
     renderFluxNotesLogo = () => { 
         const login = (this.props.supportLogin) ? this.props.loginUsername : "";
+        const logoObject = this.getLogoObject(); 
         return (
             <div>
                 <img src={logoObject.path} height={logoObject.height} width={logoObject.width} alt={logoObject.altText} />
@@ -101,7 +102,6 @@ class PatientControlPanel extends Component {
 
     render() {
         const disabledClassName = this.props.isAppBlurred ? 'content-disabled' : '';
-        const logoObject = this.getLogoObject(); 
         return (
             <div className={`patient-control-panel ${disabledClassName}`}>
                 <Paper className="panel-content">
