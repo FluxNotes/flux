@@ -608,12 +608,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/BreastMainTreatmentTry3Ella.json
                         "Code": {
                             "Value": "#disease",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "#disease",
+>>>>>>> Updated demo2 patient PanelMember and Category properties.:src/dataaccess/HardCodedPatientMidYearDemo18.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         }
@@ -2822,12 +2826,16 @@
         "Value": {
             "Coding": [
                 {
+<<<<<<< HEAD:src/dataaccess/BreastMainTreatmentTry3Ella.json
                     "Code": {
                         "Value": "C0205160",
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                         }
                     },
+=======
+                    "Value": "C0205160",
+>>>>>>> Updated demo2 patient PanelMember and Category properties.:src/dataaccess/HardCodedPatientMidYearDemo18.json
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -2856,12 +2864,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/BreastMainTreatmentTry3Ella.json
                         "Code": {
                             "Value": "405827002",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Value": "405827002",
+>>>>>>> Updated demo2 patient PanelMember and Category properties.:src/dataaccess/HardCodedPatientMidYearDemo18.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -2906,12 +2918,16 @@
         "Value": {
             "Coding": [
                 {
+<<<<<<< HEAD:src/dataaccess/BreastMainTreatmentTry3Ella.json
                     "Code": {
                         "Value": "C0205160",
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                         }
                     },
+=======
+                    "Value": "C0205160",
+>>>>>>> Updated demo2 patient PanelMember and Category properties.:src/dataaccess/HardCodedPatientMidYearDemo18.json
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -2940,12 +2956,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/BreastMainTreatmentTry3Ella.json
                         "Code": {
                             "Value": "405828007",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Value": "405828007",
+>>>>>>> Updated demo2 patient PanelMember and Category properties.:src/dataaccess/HardCodedPatientMidYearDemo18.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -6870,12 +6890,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/BreastMainTreatmentTry3Ella.json
                         "Code": {
                             "Value": "#structural_abnormality",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "#structural_abnormality",
+>>>>>>> Updated demo2 patient PanelMember and Category properties.:src/dataaccess/HardCodedPatientMidYearDemo18.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         }
@@ -9601,6 +9625,144 @@
     {
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
         "EntryId": "2211",
+<<<<<<< HEAD:src/dataaccess/BreastMainTreatmentTry3Ella.json
+=======
+        "LastUpdated": {
+            "Value": "02 Nov 2016",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "02 Nov 2016",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/mcode/TNMClinicalPrimaryTumorClassification"
+        },
+        "Value": {
+            "Coding": [
+                {
+                    "Value": "433391000124107",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "CodeSystem": {
+                        "Value": "urn:oid:2.16.840.1.113883.6.96",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        }
+                    },
+                    "DisplayText": {
+                        "Value": "T1c",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    }
+                }
+            ],
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+        "EntryId": "2212",
+        "LastUpdated": {
+            "Value": "02 Nov 2016",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "02 Nov 2016",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/mcode/TNMClinicalRegionalNodesClassification"
+        },
+        "Value": {
+            "Coding": [
+                {
+                    "Value": "436311000124105",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "CodeSystem": {
+                        "Value": "urn:oid:2.16.840.1.113883.6.96",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        }
+                    },
+                    "DisplayText": {
+                        "Value": "N0",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    }
+                }
+            ],
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+        "EntryId": "2213",
+        "LastUpdated": {
+            "Value": "02 Nov 2016",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "02 Nov 2016",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/mcode/TNMClinicalDistantMetastasesClassification"
+        },
+        "Value": {
+            "Coding": [
+                {
+                    "Value": "433581000124101",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "CodeSystem": {
+                        "Value": "urn:oid:2.16.840.1.113883.6.96",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        }
+                    },
+                    "DisplayText": {
+                        "Value": "M0",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    }
+                }
+            ],
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+        "EntryId": "2220",
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/oncology/EstrogenReceptorStatus"
+        },
+>>>>>>> Updated demo2 patient PanelMember and Category properties.:src/dataaccess/HardCodedPatientMidYearDemo18.json
         "LastUpdated": {
             "Value": "02 Nov 2016",
             "EntryType": {
@@ -9966,6 +10128,7 @@
         "Value": {
             "Coding": [
                 {
+<<<<<<< HEAD:src/dataaccess/BreastMainTreatmentTry3Ella.json
                     "Code": {
                         "Value": "C1446409",
                         "EntryType": {
@@ -9986,6 +10149,12 @@
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                         }
+=======
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+                    "_EntryId": "6006",
+                    "_EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
+>>>>>>> Updated demo2 patient PanelMember and Category properties.:src/dataaccess/HardCodedPatientMidYearDemo18.json
                     }
                 }
             ],
@@ -9996,6 +10165,7 @@
         "FindingStatus": {
             "Coding": [
                 {
+<<<<<<< HEAD:src/dataaccess/BreastMainTreatmentTry3Ella.json
                     "Code": {
                         "Value": "final",
                         "EntryType": {
@@ -10016,6 +10186,12 @@
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                         }
+=======
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+                    "_EntryId": "6007",
+                    "_EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
+>>>>>>> Updated demo2 patient PanelMember and Category properties.:src/dataaccess/HardCodedPatientMidYearDemo18.json
                     }
                 }
             ],
@@ -10711,12 +10887,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/BreastMainTreatmentTry3Ella.json
                         "Code": {
                             "Value": "8480-6",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Value": "8480-6",
+>>>>>>> Updated demo2 patient PanelMember and Category properties.:src/dataaccess/HardCodedPatientMidYearDemo18.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -10787,12 +10967,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/BreastMainTreatmentTry3Ella.json
                         "Code": {
                             "Value": "8462-4",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Value": "8462-4",
+>>>>>>> Updated demo2 patient PanelMember and Category properties.:src/dataaccess/HardCodedPatientMidYearDemo18.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
