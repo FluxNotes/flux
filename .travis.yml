@@ -5,7 +5,7 @@ node_js:
 
 script:
   - unset CI
-  - yarn build-css && yarn test-backend:darwin:linux --coverage
+  - yarn build-css && yarn test-ci
   - yarn build
 
 notifications:
