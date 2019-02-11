@@ -4,7 +4,8 @@ node_js:
   - 10.14.1
 
 script:
-  - yarn build-css && yarn test-backend:darwin:linux
+  - unset CI
+  - yarn build-css && yarn test-ci
   - yarn build
 
 notifications:
