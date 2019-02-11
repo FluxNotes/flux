@@ -54,6 +54,8 @@ export class CoreCancerPilotApp extends Component {
     constructor(props) {
         super(props);
         window.fluxnotes_app = this;
+        // Determines how long the fade-in v. fade-out animation lasts
+        this.timeoutDuration = 1000;
 
         if (Lang.isUndefined(this.props.dataSource)) {
             this.dataAccess = new DataAccess("HardCodedReadOnlyDataSource");
@@ -70,27 +72,32 @@ export class CoreCancerPilotApp extends Component {
             clinicalEvent: "pre-encounter",
             condition: null,
             errors: [],
+            forceRefresh: false,
             highlightedSearchSuggestion: null,
             layout: "right-collapsed",
+            loginUser: {},
+            // Start the app loading information
+            loading: true,
+            // If there is an error produced when loading data, it will go here
+            loadingErrorObject: null,
+            isAppBlurred: false,
             isModalOpen: false,
             modalTitle: '',
             modalContent: '',
-            loginUser: {},
             noteClosed: false,
             openClinicalNote: null,
             patient: null,
             searchSelectedItem: null,
+            searchSuggestions: [],
             snackbarOpen: false,
             snackbarMessage: "",
-            superRole: 'Clinician', // possibly add that to security manager too
-            forceRefresh: false,
-            searchSuggestions: [],
-            isAppBlurred: false
+            superRole: 'Clinician' // possibly add that to security manager too
         };
     }
 
     loadPatient(patientId) {
-        if (this.dataAccess.getGestalt().requestTypes.async) { 
+        const DAGestalt = this.dataAccess.getGestalt();
+        if (DAGestalt.read.async) { 
             this.dataAccess.getPatient(patientId, (patient, error) => { 
                 if (!Lang.isEmpty(error)) console.error(error)
                 this.setState({ 
@@ -99,11 +106,11 @@ export class CoreCancerPilotApp extends Component {
                     loadingError: error
                 });
             });
-        } else { 
-            // Assume sync
+        } else if (DAGestalt.read.sync) { 
+            // Else, assume sync
             try {
                 let patient = this.dataAccess.getPatient(patientId);
-                this.setState({ 
+                this.setState({
                     patient, 
                     loading: false
                 });
@@ -111,9 +118,16 @@ export class CoreCancerPilotApp extends Component {
                 console.error(error)
                 this.setState({
                     loading: false, 
-                    loadingError: error
+                    loadingErrorObject: error
                 });
             }
+        } else { 
+            const supportedError = Error("Data Source does not support sync or async types read operations -- current gestalt is " + JSON.stringify(DAGestalt))
+            console.error(supportedError)
+            this.setState({
+                loading: false, 
+                loadingErrorObject: supportedError
+            });
         }
     }
 

@@ -107,7 +107,7 @@ class PatientControlPanel extends Component {
                 <Paper className="panel-content">
                     <Grid fluid>
                         <Row middle="xs">
-                            <Col xs={3} lg={2}>
+                            <Col xs={3} lg={2} className='logo-title-column'>
                                 {this.renderFluxNotesLogo()}
                             </Col>
                             <Col xs={5} md={4} lg={4} className="summary-header-column">
