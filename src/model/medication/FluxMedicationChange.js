@@ -33,7 +33,8 @@ class FluxMedicationChange extends FluxEntry {
      * Returns medicationRequested object
      */
     get medicationBeforeChange() {
-      return this._medicationChange.medicationBeforeChange;
+        if (!this._medicationChange.medicationBeforeChange || this._medicationChange.medicationBeforeChange.length === 0) return null;
+        return this._medicationChange.medicationBeforeChange[0];
     }
 
     /**
@@ -62,7 +63,8 @@ class FluxMedicationChange extends FluxEntry {
      * Returns medicationRequested object
      */
     get medicationAfterChange() {
-      return this._medicationChange.medicationAfterChange;
+        if (!this._medicationChange.medicationAfterChange || this._medicationChange.medicationAfterChange.length === 0) return null;
+        return this._medicationChange.medicationAfterChange[0];
     }
     /** 
      * Get the type of medication change
@@ -70,7 +72,7 @@ class FluxMedicationChange extends FluxEntry {
      */
     get type() { 
         // Return code
-        return this._medicationChange.topicCode.value.coding[0].code;
+        return this._medicationChange.category.value.coding[0].code;
     }
 
     set type(code) {
@@ -86,7 +88,7 @@ class FluxMedicationChange extends FluxEntry {
      * Returns date as a string
      */
     get whenChanged() {
-        return this._medicationChange.entryInfo.creationTime.value;
+        return this._medicationChange.metadata.authoredDateTime.dateTime;
     }
 
     // Set dosage of medicationAfterChange

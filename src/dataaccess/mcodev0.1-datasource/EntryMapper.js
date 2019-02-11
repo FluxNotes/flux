@@ -135,6 +135,10 @@ import BreastCancerDisorderPresent from '../../model/brca/BreastCancerDisorderPr
 import AnatomicalLocationStructured from '../../model/shr/core/AnatomicalLocationStructured';
 import AnatomicalLocationOrLandmarkCode from '../../model/shr/core/AnatomicalLocationOrLandmarkCode';
 import Laterality from '../../model/shr/core/Laterality';
+import FluxMedicationChangeV01 from './model/medication/FluxMedicationChange';
+import MedicationChange from '../../model/shr/medication/MedicationChange';
+import MedicationBeforeChange from '../../model/shr/medication/MedicationBeforeChange';
+import MedicationAfterChange from '../../model/shr/medication/MedicationAfterChange';
 
 // Maps mCODE v0.1 entries to Flux Object Model
 const mapEntryInfo = (entryInfo, entry) => {
@@ -347,6 +351,32 @@ const mapCancerDisorder = (entry, klass) => {
 
     return newCondition;
 };
+
+const mapEntryInfoToReference = (entryInfo) => {
+    const newReference = new Reference();
+
+    newReference.entryId = entryInfo.entryId;
+    newReference.shrId = entryInfo.shrId;
+    newReference.entryType = entryInfo.entryType.uri;
+
+    return newReference;
+};
+
+const mapMedicationBeforeChange = (medicationBeforeChange) => {
+    const newMedicationBeforeChange = new MedicationBeforeChange();
+
+    newMedicationBeforeChange.value = mapEntryInfoToReference(medicationBeforeChange.value.entryInfo);
+
+    return newMedicationBeforeChange;
+};
+
+const mapMedicationAfterChange = (medicationAfterChange) => {
+    const newMedicationAfterChange = new MedicationAfterChange();
+
+    newMedicationAfterChange.value = mapEntryInfoToReference(medicationAfterChange.value.entryInfo);
+
+    return newMedicationAfterChange;
+}
 
 exports.mapEntries = (entries) => {
     const result = [];
@@ -569,6 +599,18 @@ exports.mapEntries = (entries) => {
             // newObservation.findingResult = new FindingResult();
             // newObservation.findingResult.value = mapQuantity(entry._observation.value);
             result.push(newObservation.toJSON());
+        } else if (entry instanceof FluxMedicationChangeV01) {
+            const newMedicationChange = new MedicationChange();
+
+            mapEntryInfo(entry._medicationChange.entryInfo, newMedicationChange);
+            newMedicationChange.reason = entry._medicationChange.reason.map(r => mapPassThrough(r, Reason));
+            newMedicationChange.category = new Category();
+            newMedicationChange.category.value = mapPassThrough(entry._medicationChange.topicCode.value, CodeableConcept);
+            newMedicationChange.status = mapPassThrough(entry._medicationChange.status, Status);
+            newMedicationChange.medicationBeforeChange = [mapMedicationBeforeChange(entry._medicationChange.medicationBeforeChange)];
+            newMedicationChange.medicationAfterChange = [mapMedicationAfterChange(entry._medicationChange.medicationAfterChange)];
+
+            result.push(newMedicationChange.toJSON());
         } else if (entry instanceof FluxMedicationRequestedV01) {
             const newMedicationRequested = new MedicationRequested();
 
