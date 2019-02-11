@@ -4,7 +4,6 @@ node_js:
   - 10.14.1
 
 script:
-  - unset CI
   - yarn build-css && yarn test-backend:darwin:linux --coverage
   - yarn build
 
