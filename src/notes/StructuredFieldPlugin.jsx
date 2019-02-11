@@ -680,7 +680,8 @@ function createPlaceholderStructuredField(opts, placeholder) {
     };
     const sf = Slate.Inline.create(properties);
     opts.structuredFieldMapManager.keyToShortcutMap.set(sf.key, placeholder);
-    opts.structuredFieldMapManager.idToShortcutMap.set(placeholder.metadata.id, placeholder);
+    opts.structuredFieldMapManager.idToShortcutMap.set(placeholder.uniqueId, placeholder);
+    opts.structuredFieldMapManager.idToKeysMap.set(placeholder.uniqueId, [sf.key]);
     opts.structuredFieldMapManager.addPlaceholder(placeholder);
     return sf;
 }
