@@ -36,8 +36,8 @@ class FluxMedicationRequested {
             return null;
         } else if (this._medicationRequested.expectedPerformanceTime.value instanceof TimePeriod) {
             return {
-                timePeriodStart: (this._medicationRequested.expectedPerformanceTime.value.timePeriodStart ? this._medicationRequested.expectedPerformanceTime.value.timePeriodStart.value : null),
-                timePeriodEnd: (this._medicationRequested.expectedPerformanceTime.value.timePeriodEnd ? this._medicationRequested.expectedPerformanceTime.value.timePeriodEnd.value : null)
+                timePeriodStart: (this._medicationRequested.expectedPerformanceTime.value.beginDateTime ? this._medicationRequested.expectedPerformanceTime.value.beginDateTime.value : null),
+                timePeriodEnd: (this._medicationRequested.expectedPerformanceTime.value.endDateTime ? this._medicationRequested.expectedPerformanceTime.value.endDateTime.value : null)
             };
         } else {
             const date = this._medicationRequested.expectedPerformanceTime.value;
