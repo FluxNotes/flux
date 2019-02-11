@@ -163,9 +163,8 @@ export default class TreatmentOptionsOutcomes extends Component {
             <BarChart
                 numerator={row[survivalRate]}
                 denominator={totalPatients}
-                compareToNumerator={compareRow[survivalRate]}
-                compareToDenominator={compareRow.totalPatients}
-                active={false}
+                compareToNumerator={compareRow ? compareRow[survivalRate] : null}
+                compareToDenominator={compareRow ? compareRow.totalPatients : null}
             />
         );
     }
@@ -245,6 +244,7 @@ export default class TreatmentOptionsOutcomes extends Component {
             treatments.length !== includedTreatments.length || !includedTreatments.every(treatment => treatments.includes(treatment))
         );
         const includedRow = this.generateRow(includedTreatmentPatients, includedTreatments);
+        const noIncludedRow = includedRow.length === 0;
 
         return (
             <div className="treatment-options-outcomes">
@@ -269,7 +269,7 @@ export default class TreatmentOptionsOutcomes extends Component {
                             </span>
                         </div>
 
-                        {includedRow.length !== 0 ? this.renderRow(includedRow, includedRow) :
+                        {!noIncludedRow ? this.renderRow(includedRow, includedRow) :
                             <div className="table-row flex helper-text">
                                 No data. Choose a different selection or similar patients criteria.
                             </div>
@@ -295,7 +295,7 @@ export default class TreatmentOptionsOutcomes extends Component {
                         </div>
 
                         {comparedTreatmentCombinations.map((treatmentCombination, i) =>
-                            this.renderComparedRow(treatmentCombination, i, includedRow)
+                            this.renderComparedRow(treatmentCombination, i, noIncludedRow ? null : includedRow)
                         )}
                     </div>
                 </div>
