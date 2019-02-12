@@ -1,7 +1,7 @@
 import * as types from '../actions/types';
 import _ from 'lodash';
 
-import filterSeerData from '../mcode-pilot/utils/filterSeerData';
+import filterTreatmentData from '../mcode-pilot/utils/filterTreatmentData';
 
 import defaultState from './initial.json';
 
@@ -72,7 +72,7 @@ export default function mcode(state = defaultState, action) {
 
         return { ...state };
     } else if (action.type === types.PROCESS_SIMILAR_PATIENT_OUTCOMES) {
-        const { totalPatients, similarPatients } = filterSeerData(state.similarPatientProps);
+        const { totalPatients, similarPatients } = filterTreatmentData(state.similarPatientProps);
 
         return {
             ...state,

@@ -1,14 +1,14 @@
-import { transformedSeerData } from '../mock-data/seer.js';
+import { transformedTreatmentData } from '../mock-data/treatmentData.js';
 import _ from 'lodash';
 
-export default function filterSeerData(similarPatientProps) {
-    const totalPatients = transformedSeerData.length;
-    const similarPatients = transformedSeerData.filter(seerPatient => isSimilarPatient(seerPatient, similarPatientProps));
+export default function filterTreatmentData(similarPatientProps) {
+    const totalPatients = transformedTreatmentData.length;
+    const similarPatients = transformedTreatmentData.filter(treatmentDataPatient => isSimilarPatient(treatmentDataPatient, similarPatientProps));
 
     return { totalPatients, similarPatients };
 }
 
-function isSimilarPatient(seerPatient, similarPatientProps) {
+function isSimilarPatient(treatmentDataPatient, similarPatientProps) {
     const categoryKeys = Object.keys(similarPatientProps);
     for (let i = 0; i < categoryKeys.length; i++) {
         const category = categoryKeys[i];
@@ -21,7 +21,7 @@ function isSimilarPatient(seerPatient, similarPatientProps) {
                 const value = _.lowerCase(options[option].value);
 
                 // demographics
-                const { demographics, diseaseStatus } = seerPatient;
+                const { demographics, diseaseStatus } = treatmentDataPatient;
                 const { race, gender, birthDate } = demographics;
 
                 if (option === 'age') {

@@ -1,4 +1,4 @@
-export const seerData =
+export const treatmentData =
 [
   {
     "Disease":"http://snomed.info/sct/420120006",
@@ -24286,7 +24286,7 @@ export const seerData =
   }
 ];
 
-export const transformedSeerData = [
+export const transformedTreatmentData = [
   {
     "demographics": {
       "birthDate": "1964-04",
