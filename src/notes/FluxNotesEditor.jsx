@@ -868,7 +868,7 @@ class FluxNotesEditor extends React.Component {
     
     unhighlightAllStructuredFields = (transform) => {
         this.getSearchResultInlines(transform.state.document).forEach(inline => {
-            transform = this.unhighlightStructuredField(transform, inline.get('data').get('shortcut'));
+            transform = this.unhighlightStructuredField(transform, inline);
         });
         return transform;
     }
@@ -918,12 +918,13 @@ class FluxNotesEditor extends React.Component {
             // an identifier -- the order its in; that is 'n' where this is the nth phrase we've 
             // seen that matches the current search text
             indexOfCurrentMatch = 0
-            this.state.state.document.getInlinesByTypeAsArray('structured_field').forEach(sf => {
+            this.getSearchResultInlines(this.state.state.document).forEach(inline => {
+                const shortcut = inline.get('data').get('shortcut');
                 // TODO: handle highlighting of placeholder text -- should happen in the highlight fn
-                if (sf.getText().toLowerCase().includes(newHighlightedSearchSuggestion.inputValue.toLowerCase()) && newHighlightedSearchSuggestion.indexOfMatch === indexOfCurrentMatch) {
-                    transform = this.selectedHighlightStructuredField(transform, sf);
+                if (shortcut.getText().toLowerCase().includes(newHighlightedSearchSuggestion.inputValue.toLowerCase()) && newHighlightedSearchSuggestion.indexOfMatch === indexOfCurrentMatch) {
+                    transform = this.selectedHighlightStructuredField(transform, inline);
                     indexOfCurrentMatch += 1;
-                } else if (sf.getText().toLowerCase().includes(newHighlightedSearchSuggestion.inputValue.toLowerCase())) { 
+                } else if (shortcut.getText().toLowerCase().includes(newHighlightedSearchSuggestion.inputValue.toLowerCase())) {
                     indexOfCurrentMatch += 1;
                 }
             });
@@ -960,9 +961,10 @@ class FluxNotesEditor extends React.Component {
                 }
             });
             // regular highlighting of structured fields
-            this.state.state.document.getInlinesByTypeAsArray('structured_field').forEach(sf => {
-                if (sf.getText().toLowerCase().includes(prevHighlightedSuggestion.inputValue.toLowerCase())) {
-                    transform = this.regularHighlightStructuredField(transform, sf);
+            this.getSearchResultInlines(this.state.state.document).forEach(inline => {
+                const shortcut = inline.get('data').get('shortcut');
+                if (shortcut.getText().toLowerCase().includes(prevHighlightedSuggestion.inputValue.toLowerCase())) {
+                    transform = this.regularHighlightStructuredField(transform, inline);
                 } 
             });
         }
@@ -988,12 +990,13 @@ class FluxNotesEditor extends React.Component {
         suggestions.forEach(suggestion => {
 
             // Highlight matching shortcuts; reset highlights of unmatched shortcuts
-            this.state.state.document.getInlinesByTypeAsArray('structured_field').forEach(sf => {
+            this.state.state.document.getInlinesByTypeAsArray('structured_field').forEach(inline => {
+                const shortcut = inline.get('data').get('shortcut');
                 // Handle highlighting of placeholder text should happen in the highlight fn
-                if (sf.getText().toLowerCase().includes(suggestion.inputValue.toLowerCase())) {
-                    transform = this.regularHighlightStructuredField(transform, sf);
+                if (shortcut.getText().toLowerCase().includes(suggestion.inputValue.toLowerCase())) {
+                    transform = this.regularHighlightStructuredField(transform, inline);
                 } else {
-                    transform = this.unhighlightStructuredField(transform, sf);
+                    transform = this.unhighlightStructuredField(transform, inline);
                 }
             });
 
