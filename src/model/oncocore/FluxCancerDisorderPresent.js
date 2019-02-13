@@ -1,7 +1,7 @@
 import FluxConditionPresentAssertion from '../base/FluxConditionPresentAssertion';
 import CancerDisorderPresent from './CancerDisorderPresent';
 
-class FluxCancerDisorder extends FluxConditionPresentAssertion {
+class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
     constructor(json, type, patientRecord) {
         super();
         this._patientRecord = patientRecord;
@@ -9,4 +9,4 @@ class FluxCancerDisorder extends FluxConditionPresentAssertion {
     }
 }
 
-export default FluxCancerDisorder;
+export default FluxCancerDisorderPresent;

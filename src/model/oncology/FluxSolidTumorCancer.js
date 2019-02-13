@@ -2,12 +2,12 @@ import FluxCancerHistologicGrade from '../oncocore/FluxCancerHistologicGrade';
 import FluxTNMStage from '../oncology/FluxTNMStage';
 import Lang from 'lodash';
 import moment from 'moment';
-import FluxCancerDisorder from '../oncocore/FluxCancerDisorder';
+import FluxCancerDisorderPresent from '../oncocore/FluxCancerDisorderPresent';
 import FluxCancerHistologicType from '../oncocore/FluxCancerHistologicType';
 import FluxKarnofskyPerformanceStatus from '../oncocore/FluxKarnofskyPerformanceStatus';
 import FluxECOGPerformanceStatus from '../oncocore/FluxECOGPerformanceStatus';
 
-class FluxSolidTumorCancer extends FluxCancerDisorder {
+class FluxSolidTumorCancer extends FluxCancerDisorderPresent {
     getHistologicalGrades() {
         return this.getObservationsOfType(FluxCancerHistologicGrade);
     }
