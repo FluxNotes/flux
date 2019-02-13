@@ -1,3 +1,4 @@
+import { v4 } from 'uuid';
 class Placeholder {
     constructor(placeholderText, shortcutName, data, metadata, shortcutManager, contextManager, patient, clinicalNote, setForceRefresh) {
         this._placeholderText = placeholderText;
@@ -8,6 +9,7 @@ class Placeholder {
         this._patient = patient;
         this._clinicalNote = clinicalNote;
         this._setForceRefresh = setForceRefresh;
+        this.uniqueId = v4();
         let shortcuts = [];
         if (data) {
             let parsedData = JSON.parse(data);

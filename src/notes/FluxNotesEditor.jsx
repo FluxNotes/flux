@@ -86,7 +86,8 @@ class FluxNotesEditor extends React.Component {
             contextManager: this.contextManager,
             structuredFieldMapManager: this.structuredFieldMapManager,
             updateErrors: this.updateErrors,
-            insertText: this.insertTextWithStructuredPhrases
+            insertText: this.insertTextWithStructuredPhrases,
+            createShortcut: this.props.newCurrentShortcut
         };
         structuredFieldTypes.forEach((type) => {
             const typeName = type.name;
@@ -461,7 +462,23 @@ class FluxNotesEditor extends React.Component {
         let documentText = this.getNoteText(state);
         this.props.updateLocalDocumentText(documentText);
 
-        this.setState({ state });
+        // Fix error where the anchor/focus do not update properly after deleting an expanded selection in a structured field
+        const {selection} = state;
+        const focusNode = state.document.getParent(selection.focusKey);
+        const anchorNode = state.document.getNode(selection.anchorKey);
+        let transform = state.transform();
+
+        // If the selections do not match, collapse selection to the anchor to properly update
+        if (
+            selection.anchorKey !== selection.focusKey
+            && selection.anchorOffset === 0
+            && focusNode.type === "structured_field"
+            && selection.focusOffset === focusNode.text.length
+        ) {
+            transform = transform.collapseToStartOf(anchorNode);
+        }
+
+        this.setState({ state: transform.apply() });
     }
 
     getNoteText = (state) => {
@@ -527,6 +544,9 @@ class FluxNotesEditor extends React.Component {
         if (key1 === key2) {
             return offset1 < offset2;
         } else {
+            const parentNode = state.document.getParent(state.selection.anchorKey);
+            const shortcut = this.props.structuredFieldMapManager.keyToShortcutMap.get(parentNode.key);
+            if (shortcut && shortcut.getKey() === key1) return false;
             return state.document.areDescendantsSorted(key1, key2);
         }
     }
@@ -577,6 +597,17 @@ class FluxNotesEditor extends React.Component {
         this.contextManager.contextUpdated();
     }
 
+    updateStructuredFieldResetSelection = (shortcut, transform) => {
+        // Save anchor block to reset selection after updating shortcut text
+        const { anchorBlock } = transform.state;
+
+        transform = this.structuredFieldPlugin.transforms.updateStructuredField(transform, shortcut);
+
+        // Move to previous anchor block to not lose the valid selection
+        transform = transform.moveToRangeOf(anchorBlock).collapseToEnd().focus();
+        return transform;
+    }
+
     resetShortcutData = (shortcut, transform) => {
         const key = shortcut.getKey();
         transform = transform.setNodeByKey(key, {
@@ -584,6 +615,17 @@ class FluxNotesEditor extends React.Component {
                 shortcut
             }
         });
+
+        // Save anchor block to reset selection after updating shortcut text
+        const {anchorBlock} = transform.state;
+
+        // Update text on the node
+        const shortcutNode = transform.state.document.getNode(shortcut.getKey());
+        transform = transform.moveToRangeOf(shortcutNode).insertText(shortcut.getText());
+
+        // Move to previous anchor block to not lose the valid selection
+        transform = transform.moveToRangeOf(anchorBlock).collapseToEnd().focus();
+
         return transform;
     }
 
@@ -643,10 +685,10 @@ class FluxNotesEditor extends React.Component {
                                 // Set the text, then change the data of the shortcut to trigger a re-render.
                                 const text = childShortcut.determineText(this.contextManager);
                                 childShortcut.setText(text);
-                                transform = this.resetShortcutData(childShortcut, transform);
+                                transform = this.updateStructuredFieldResetSelection(childShortcut, transform);
                             } else {
                                 childShortcut.setText(null);
-                                transform = this.resetShortcutData(childShortcut, transform);
+                                transform = this.updateStructuredFieldResetSelection(childShortcut, transform);
                             }
                         });
 
@@ -768,11 +810,19 @@ class FluxNotesEditor extends React.Component {
         }
         // If the highlighted search result has changed, we want to highlight text that matches the highlighted text
         if (!Lang.isEqual(this.props.highlightedSearchSuggestion, nextProps.highlightedSearchSuggestion)) {
-            // Get a transform with any previously highglighted results removed
-            let transform = this.updateHighlightingOfPreviouslyHighlightedSearchSuggestion(this.props.highlightedSearchSuggestion, nextProps.searchSuggestions)
-            this.highlightCurrentHighlightedSearchSuggestion(nextProps.highlightedSearchSuggestion, transform);
+            const currentSection = this.props.highlightedSearchSuggestion ? this.props.highlightedSearchSuggestion.section : null;
+            const nextSection = nextProps.highlightedSearchSuggestion ? nextProps.highlightedSearchSuggestion.section : null;
+            if (currentSection === 'Open Note' || nextSection === 'Open Note') {
+                // Get a transform with any previously highlighted results removed
+                let transform = this.updateHighlightingOfPreviouslyHighlightedSearchSuggestion(this.props.highlightedSearchSuggestion, nextProps.searchSuggestions)
+                this.highlightCurrentHighlightedSearchSuggestion(nextProps.highlightedSearchSuggestion, transform);
+            }
         }
-        
+    }
+
+    getSearchResultInlines = (document) => {
+        return document.getInlinesByTypeAsArray('structured_field_search_result')
+            .concat(document.getInlinesByTypeAsArray('structured_field_selected_search_result'));
     }
 
     regularHighlightPlainText = (transform, range) => { 
@@ -816,9 +866,9 @@ class FluxNotesEditor extends React.Component {
         if (!(sf instanceof Placeholder)) return transform.setNodeByKey(sf.key, "structured_field");
     }
     
-    unhighlightAllStructuredFields = (transform) => { 
-        this.structuredFieldMapManager.keyToShortcutMap.forEach(sf => {
-            transform = this.unhighlightStructuredField(transform, sf);
+    unhighlightAllStructuredFields = (transform) => {
+        this.getSearchResultInlines(transform.state.document).forEach(inline => {
+            transform = this.unhighlightStructuredField(transform, inline);
         });
         return transform;
     }
@@ -868,12 +918,13 @@ class FluxNotesEditor extends React.Component {
             // an identifier -- the order its in; that is 'n' where this is the nth phrase we've 
             // seen that matches the current search text
             indexOfCurrentMatch = 0
-            this.structuredFieldMapManager.keyToShortcutMap.forEach(sf => {
+            this.getSearchResultInlines(this.state.state.document).forEach(inline => {
+                const shortcut = inline.get('data').get('shortcut');
                 // TODO: handle highlighting of placeholder text -- should happen in the highlight fn
-                if (sf.getText().toLowerCase().includes(newHighlightedSearchSuggestion.inputValue.toLowerCase()) && newHighlightedSearchSuggestion.indexOfMatch === indexOfCurrentMatch) {
-                    transform = this.selectedHighlightStructuredField(transform, sf);
+                if (shortcut.getText().toLowerCase().includes(newHighlightedSearchSuggestion.inputValue.toLowerCase()) && newHighlightedSearchSuggestion.indexOfMatch === indexOfCurrentMatch) {
+                    transform = this.selectedHighlightStructuredField(transform, inline);
                     indexOfCurrentMatch += 1;
-                } else if (sf.getText().toLowerCase().includes(newHighlightedSearchSuggestion.inputValue.toLowerCase())) { 
+                } else if (shortcut.getText().toLowerCase().includes(newHighlightedSearchSuggestion.inputValue.toLowerCase())) {
                     indexOfCurrentMatch += 1;
                 }
             });
@@ -910,9 +961,10 @@ class FluxNotesEditor extends React.Component {
                 }
             });
             // regular highlighting of structured fields
-            this.structuredFieldMapManager.keyToShortcutMap.forEach(sf => {
-                if (sf.getText().toLowerCase().includes(prevHighlightedSuggestion.inputValue.toLowerCase())) {
-                    transform = this.regularHighlightStructuredField(transform, sf);
+            this.getSearchResultInlines(this.state.state.document).forEach(inline => {
+                const shortcut = inline.get('data').get('shortcut');
+                if (shortcut.getText().toLowerCase().includes(prevHighlightedSuggestion.inputValue.toLowerCase())) {
+                    transform = this.regularHighlightStructuredField(transform, inline);
                 } 
             });
         }
@@ -938,12 +990,13 @@ class FluxNotesEditor extends React.Component {
         suggestions.forEach(suggestion => {
 
             // Highlight matching shortcuts; reset highlights of unmatched shortcuts
-            this.structuredFieldMapManager.keyToShortcutMap.forEach(sf => {
+            this.state.state.document.getInlinesByTypeAsArray('structured_field').forEach(inline => {
+                const shortcut = inline.get('data').get('shortcut');
                 // Handle highlighting of placeholder text should happen in the highlight fn
-                if (sf.getText().toLowerCase().includes(suggestion.inputValue.toLowerCase())) {
-                    transform = this.regularHighlightStructuredField(transform, sf);
+                if (shortcut.getText().toLowerCase().includes(suggestion.inputValue.toLowerCase())) {
+                    transform = this.regularHighlightStructuredField(transform, inline);
                 } else {
-                    transform = this.unhighlightStructuredField(transform, sf);
+                    transform = this.unhighlightStructuredField(transform, inline);
                 }
             });
 
@@ -1006,8 +1059,7 @@ class FluxNotesEditor extends React.Component {
         } else if (node.characters) {
             length += node.characters.length;
         } else if (node.type === 'structured_field') {
-            let shortcut = node.data.shortcut;
-            length += shortcut.getText().length;
+            length += node.data.shortcut.getText().length;
         }
         return length;
     }
@@ -1316,10 +1368,10 @@ class FluxNotesEditor extends React.Component {
                 }
                 remainder = remainder.substring(start + trigger.trigger.length);
 
-                // FIXME: Temporary work around that adds spaces when needed to @-phrases inserted via mic
-                if (start !== 0 && trigger.trigger.startsWith('@') && !before.endsWith(' ')) {
-                    transform = this.insertPlainText(transform, ' ');
-                }
+                // // FIXME: Temporary work around that adds spaces when needed to @-phrases inserted via mic
+                // if (start !== 0 && trigger.trigger.startsWith('@') && !before.endsWith(' ')) {
+                //     transform = this.insertPlainText(transform, ' ');
+                // }
 
                 // Deals with @condition phrases inserted via data summary panel buttons. 
                 if (remainder.startsWith("[[")) {

@@ -2,6 +2,7 @@ import Context from '../context/Context';
 //import React from 'react';
 import Lang from 'lodash';
 import moment from 'moment';
+import { v4 } from 'uuid';
 
 class Shortcut extends Context {
     constructor() {
@@ -11,6 +12,7 @@ class Shortcut extends Context {
         }
         this.optionsToSelectFrom = null;
         this.valueChangeHandlers = {};
+        this.uniqueId = v4();
     }
     
     initialize(contextManager, trigger = undefined, updatePatient = true) {

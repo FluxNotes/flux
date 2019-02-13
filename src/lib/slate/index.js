@@ -43,6 +43,7 @@ import Transforms from './transforms'
 
 import findDOMNode from './utils/find-dom-node'
 import { resetKeyGenerator, setKeyGenerator } from './utils/generate-key'
+import { IS_CHROME, IS_FIREFOX, IS_IE, IS_SAFARI } from './constants/environment';
 
 /**
  * Export.
@@ -71,7 +72,11 @@ export {
   Transforms,
   findDOMNode,
   resetKeyGenerator,
-  setKeyGenerator
+  setKeyGenerator,
+  IS_CHROME,
+  IS_SAFARI,
+  IS_IE,
+  IS_FIREFOX
 }
 
 export default {
@@ -95,5 +100,9 @@ export default {
   Transforms,
   findDOMNode,
   resetKeyGenerator,
-  setKeyGenerator
+  setKeyGenerator,
+  IS_CHROME,
+  IS_SAFARI,
+  IS_IE,
+  IS_FIREFOX
 }

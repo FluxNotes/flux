@@ -8,7 +8,10 @@ export default class InsertValue extends Shortcut {
         super();
         this.metadata = metadata;
         this.text = null;
+        this.originalText = null;
         this.patient = patient;
+        this.wasRemovedFromContext = false;
+        this._shouldRemoveFromContext = false;
     }
 
     initialize(contextManager, trigger = undefined, updatePatient = true, shortcutData = "") {
@@ -31,8 +34,13 @@ export default class InsertValue extends Shortcut {
             // Parse shortcutData and find value object by entryId
             const shortcutDataObj = JSON.parse(shortcutData);
             this.text = shortcutDataObj.text;
+            if (shortcutDataObj.originalText) this.setOriginalText(shortcutDataObj.originalText);
             const valueObject = this.patient.getEntryById(shortcutDataObj.entryId);
             this.setValueObject(valueObject);
+            this.setWasRemovedFromContext(shortcutDataObj.wasRemovedFromContext);
+            if (shortcutDataObj.wasRemovedFromContext) {
+                this._shouldRemoveFromContext = true;
+            }
         }
     }
 
@@ -170,11 +178,11 @@ export default class InsertValue extends Shortcut {
     }
 
     isContext() {
-        return this.metadata.isContext;
+        return this.metadata.isContext && !this._shouldRemoveFromContext;
     }
 
     getLabel() {
-        return this.getText();
+        return this.getOriginalText() ? this.getOriginalText() : this.getText();
     }
 
     getId() {
@@ -185,8 +193,12 @@ export default class InsertValue extends Shortcut {
         return this.text ? this.text : this.initiatingTrigger;
     }
 
-    getResultText() {
-        let text = this.text;
+    getArrayOfText() {
+        return Lang.isArray(this.text) ? this.text : [];
+    }
+
+    getResultText(displayText = null) {
+        let text = displayText || this.text; // Use provided text to override shortcut text
         if (typeof text === "string" && text.startsWith(this.getPrefixCharacter())) {
             text = text.substring(1);
         }
@@ -195,6 +207,8 @@ export default class InsertValue extends Shortcut {
             const shortcutDataObj = {
                 text,
                 entryId: this.valueObject.entryInfo.entryId,
+                wasRemovedFromContext: this.wasRemovedFromContext,
+                originalText: this.originalText,
             };
             return `${this.initiatingTrigger}[[${JSON.stringify(shortcutDataObj)}]]`;
         }
@@ -209,8 +223,20 @@ export default class InsertValue extends Shortcut {
         return object;
     }
 
+    setWasRemovedFromContext(value) {
+        this.wasRemovedFromContext = value;
+    }
+
     setText(text) {
         this.text = text;
+    }
+
+    setOriginalText(text) {
+        this.originalText = text;
+    }
+
+    getOriginalText() {
+        return this.originalText;
     }
 
     setValueObject(valueObject) {

@@ -28,7 +28,7 @@ import Reference from '../model/Reference';
 import mapper from '../lib/FHIRMapper';
 import Lang from 'lodash';
 import moment from 'moment';
-import Guid from 'guid';
+import { v4 } from 'uuid';
 import _ from 'lodash';
 
 class PatientRecord {
@@ -49,7 +49,7 @@ class PatientRecord {
             this.entries = [];
             this.patient = null;
             this.person = null;
-            this.shrId = Guid.raw();
+            this.shrId = v4();
             this.nextEntryId = 1;
             //this.patientReference = null;
         }
