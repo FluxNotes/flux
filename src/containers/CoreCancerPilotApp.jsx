@@ -136,9 +136,9 @@ export class CoreCancerPilotApp extends Component {
         // If we have a custom logoObject, we should update our favicons 
         if (!Lang.isEmpty(this.props.logoObject)) { 
             const icons = document.querySelectorAll('link[rel="icon"]');
-            icons.forEach((icon) => {
+            for (const icon of icons) {
                 icon.href = this.props.logoObject.path;
-            });
+            };
         }
         this.loadPatient(this.props.patientId);
     }
