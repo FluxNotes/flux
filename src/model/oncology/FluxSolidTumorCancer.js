@@ -25,9 +25,17 @@ class FluxSolidTumorCancer extends FluxCancerDisorder {
     }
 
     _getMostRecentReceptorStatus(receptorType) {
-        const list = this.getObservationsOfType(receptorType);
+        const list = this.getReceptorsOfType(receptorType);
         const sortedList = list.sort(this._observationsTimeSorter);
         if (list.length === 0) return null; else return sortedList.pop();
+    }
+
+    getReceptorsOfType(receptorType) {
+        if (!this._condition.entryInfo) return [];
+        const conditionEntryId = this._condition.entryInfo.entryId;
+        return this._patientRecord.getEntriesOfType(receptorType).filter(item => {
+            return item.specificFocusOfFinding && item.specificFocusOfFinding._entryId === conditionEntryId;
+        });
     }
 
     getMostRecentClinicalStaging(sinceDate = null) {

@@ -1,0 +1,51 @@
+import Entry from '../shr/base/Entry';
+import EntryType from '../shr/base/EntryType';
+import lookup from '../../lib/receptor_lookup.jsx';
+import HER2ReceptorStatus from './HER2ReceptorStatus';
+
+class FluxHER2ReceptorStatus {
+    constructor(json) {
+        this._entry = this._her2ReceptorStatus = HER2ReceptorStatus.fromJSON(json);
+        if (!this._her2ReceptorStatus.entryInfo) {
+            let entry = new Entry();
+            entry.entryType = new EntryType();
+            entry.entryType.uri = 'http://standardhealthrecord.org/spec/brca/HER2ReceptorStatus';
+            this._her2ReceptorStatus.entryInfo = entry;
+        }
+    }
+
+    get entryInfo() {
+        return this._her2ReceptorStatus.entryInfo;
+    }
+    
+    /**
+     * Getter for shr.oncology.ReceptorType
+     */
+    get status() {
+        if (!this._her2ReceptorStatus.findingResult || !this._her2ReceptorStatus.findingResult.value) return null;
+        return this._her2ReceptorStatus.findingResult.value.coding[0].displayText.value;
+    }
+
+    /**
+     * Setter for shr.oncology.ReceptorType
+     */
+    set status(statusVal) {
+        this._her2ReceptorStatus.value = lookup.getReceptorCodeableConcept(statusVal);
+    }
+
+    get specificFocusOfFinding() {
+        if (!this._her2ReceptorStatus.specificFocusOfFinding) return null;
+        return this._her2ReceptorStatus.specificFocusOfFinding.value;
+    }
+
+    get relevantTime() {
+        if (!this._her2ReceptorStatus.relevantTime) return null;
+        return this._her2ReceptorStatus.relevantTime.value;
+    }
+
+    toJSON() {
+        return this._her2ReceptorStatus.toJSON();
+    }
+}
+
+export default FluxHER2ReceptorStatus;
