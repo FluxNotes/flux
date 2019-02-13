@@ -139,6 +139,12 @@ import FluxMedicationChangeV01 from './model/medication/FluxMedicationChange';
 import MedicationChange from '../../model/shr/medication/MedicationChange';
 import MedicationBeforeChange from '../../model/shr/medication/MedicationBeforeChange';
 import MedicationAfterChange from '../../model/shr/medication/MedicationAfterChange';
+import FluxBreastCancerGeneticAnalysisPanelV01 from './model/oncology/FluxBreastCancerGeneticAnalysisPanel';
+import BreastCancerGeneticAnalysisPanel from '../../model/shr/oncology/BreastCancerGeneticAnalysisPanel';
+import FluxBRCA1VariantV01 from './model/oncology/FluxBRCA1Variant';
+import FluxBRCA1Variant from '../../model/oncology/FluxBRCA1Variant';
+import FluxBRCA2VariantV01 from './model/oncology/FluxBRCA2Variant';
+import FluxBRCA2Variant from '../../model/oncology/FluxBRCA2Variant';
 
 // Maps mCODE v0.1 entries to Flux Object Model
 const mapEntryInfo = (entryInfo, entry) => {
@@ -585,6 +591,22 @@ exports.mapEntries = (entries) => {
             newHeartRate._observation.findingResult = mapFindingResult(entry._observation.value);
 
             result.push(newHeartRate.toJSON());
+        } else if (entry instanceof FluxBRCA1VariantV01) {
+            const newVariant = new FluxBRCA1Variant();
+
+            mapEntryInfo(entry._brca1Variant.entryInfo, newVariant._brca1Variant);
+            newVariant._brca1Variant.findingResult = mapFindingResult(entry._brca1Variant.value);
+            newVariant._brca1Variant.specificFocusOfFinding = mapPassThrough(entry._brca1Variant.specificFocusOfFinding, SpecificFocusOfFinding);
+
+            result.push(newVariant.toJSON());
+        } else if (entry instanceof FluxBRCA2VariantV01) {
+            const newVariant = new FluxBRCA2Variant();
+
+            mapEntryInfo(entry._brca2Variant.entryInfo, newVariant._brca2Variant);
+            newVariant._brca2Variant.findingResult = mapFindingResult(entry._brca2Variant.value);
+            newVariant._brca2Variant.specificFocusOfFinding = mapPassThrough(entry._brca2Variant.specificFocusOfFinding, SpecificFocusOfFinding);
+
+            result.push(newVariant.toJSON());
         } else if (entry instanceof FluxObservationV01) {
             const newObservation = new Observation();
 
@@ -707,7 +729,16 @@ exports.mapEntries = (entries) => {
             newImaging.procedureCode = new ProcedureCode();
             newImaging.procedureCode.value = mapPassThrough(entry._imagingProcedurePerformed.topicCode.value, CodeableConcept);
             newImaging.occurrenceTimeOrPeriod = mapPassThrough(entry._imagingProcedurePerformed.occurrenceTimeOrPeriod, OccurrenceTimeOrPeriod);
+
             result.push(newImaging.toJSON());
+        } else if (entry instanceof FluxBreastCancerGeneticAnalysisPanelV01) {
+            const newBreastCancerGeneticAnalysisPanel = new BreastCancerGeneticAnalysisPanel();
+
+            mapEntryInfo(entry._breastCancerGeneticAnalysisPanel.entryInfo, newBreastCancerGeneticAnalysisPanel);
+            newBreastCancerGeneticAnalysisPanel.panelMembers = mapPassThrough(entry._breastCancerGeneticAnalysisPanel.panelMembers, PanelMembers);
+            newBreastCancerGeneticAnalysisPanel.relevantTime = mapRelevantTime(entry._breastCancerGeneticAnalysisPanel.relevantTime);
+
+            result.push(newBreastCancerGeneticAnalysisPanel.toJSON());
         }
     });
 

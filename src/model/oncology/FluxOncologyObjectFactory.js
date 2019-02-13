@@ -23,7 +23,7 @@ export default class FluxOncologyObjectFactory {
         switch (elementName) {
             case 'BRCA1Variant': return new FluxBRCA1Variant(json);
             case 'BRCA2Variant': return new FluxBRCA2Variant(json);
-            case 'BreastCancerGeneticAnalysisPanel': return new FluxBreastCancerGeneticAnalysisPanel(json);
+            case 'BreastCancerGeneticAnalysisPanel': return new FluxBreastCancerGeneticAnalysisPanel(json, patientRecord);
             case 'EstrogenReceptorStatus': return new FluxEstrogenReceptorStatus(json);
             case 'ProgesteroneReceptorStatus': return new FluxProgesteroneReceptorStatus(json);
             case 'HER2ReceptorStatus': return new FluxHER2ReceptorStatus(json);
