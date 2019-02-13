@@ -8,11 +8,11 @@ class FluxBodyWeight extends FluxObservation{
     }
 
     get value() {
-        return this._observation._quantity.value;
+        return this._observation.quantity.decimalValue.decimal;
     }
 
     get units() {
-        return this._observation._quantity.units.value.value;
+        return this._observation.quantity.units.value.code;
     }
 
     toJSON() {
