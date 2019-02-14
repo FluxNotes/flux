@@ -22,7 +22,7 @@ import FluxHeartRate from '../model/vital/FluxHeartRate';
 import FluxImagingProcedurePerformed from '../model/procedure/FluxImagingProcedurePerformed';
 import FluxPathologyReport from '../model/finding/FluxPathologyReport';
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx'; // put jsx because yarn test-ui errors on this import otherwise
-import CreationTime from '../model/shr/core/CreationTime';
+import AuthoredDateTime from '../model/shr/base/AuthoredDateTime';
 import LastUpdated from '../model/shr/base/LastUpdated';
 import Reference from '../model/Reference';
 import mapper from '../lib/FHIRMapper';
@@ -30,6 +30,7 @@ import Lang from 'lodash';
 import moment from 'moment';
 import { v4 } from 'uuid';
 import _ from 'lodash';
+import Metadata from '../model/shr/base/Metadata';
 
 class PatientRecord {
     constructor(shrJson = null) {
@@ -142,14 +143,17 @@ class PatientRecord {
         entry.entryInfo.shrId = this.shrId;
         entry.entryInfo.entryId = this.nextEntryId;
         this.nextEntryId = this.nextEntryId + 1;
-        let today = new moment().format("D MMM YYYY");
-        entry.entryInfo.creationTime = new CreationTime();
-        entry.entryInfo.creationTime.dateTime = today;
         if (clinicalNote) {
             entry.entryInfo.sourceClinicalNote = this.createEntryReferenceTo(clinicalNote.entryInfo);
         }
-        entry.entryInfo.lastUpdated = new LastUpdated();
-        entry.entryInfo.lastUpdated.instant = today;
+        const today = new moment().format("D MMM YYYY");
+        const metadata = new Metadata();
+        metadata.lastUpdated = new LastUpdated();
+        metadata.lastUpdated.instant = today;
+        metadata.authoredDateTime = new AuthoredDateTime();
+        metadata.authoredDateTime.dateTime = today;
+        entry.metadata = metadata;
+
         this.entries.push(entry);
         this.refreshClinicalTrials = true;
         return entry; //entry.entryInfo.entryId;

@@ -1,46 +1,39 @@
 import lookup from '../../lib/progression_lookup.jsx';
 import CancerProgression from './CancerProgression';
-import CreationTime from '../shr/core/CreationTime';
 import FluxEntry from '../base/FluxEntry';
-import FluxEvidence from './FluxEvidence';
+import FluxCancerProgressionEvidence from './FluxCancerProgressionEvidence';
 import RelevantTime from '../shr/base/RelevantTime';
 import Entry from '../shr/base/Entry';
 import Reference from '../Reference';
 import EntryType from '../shr/base/EntryType';
-import moment from 'moment';
-import LastUpdated from '../shr/base/LastUpdated';
 import SpecificFocusOfFinding from '../shr/base/SpecificFocusOfFinding.js';
-import Lang from 'lodash';
 import Metadata from '../shr/base/Metadata.js';
 import AuthoredDateTime from '../shr/base/AuthoredDateTime.js';
+import FindingResult from '../shr/base/FindingResult.js';
 
 export default class FluxCancerProgression extends FluxEntry {
     constructor(json) {
         super();
-        const evidence = json["Evidence"];
-        if (evidence) {
-            this._evidence = evidence.map(e => {
-                return new FluxEvidence(e);
-            });
-        }
 
-        // Clone the json first otherwise the backend test fails
-        const clonedJSON = Lang.cloneDeep(json);
-        delete clonedJSON.Evidence;
-        this._entry = this._cancerProgression = CancerProgression.fromJSON(clonedJSON);
+        this._entry = this._cancerProgression = CancerProgression.fromJSON(json);
         if (!this._cancerProgression.entryInfo) {
             let entry = new Entry();
             entry.entryType = new EntryType();
             entry.entryType.uri = 'http://standardhealthrecord.org/spec/oncocore/CancerProgression';
-            let today = new moment().format("D MMM YYYY");
-            entry.lastUpdated = new LastUpdated();
-            entry.lastUpdated.instant = today;
             this._cancerProgression.entryInfo = entry;
         }
     }
 
     get entryInfo() {
         return this._cancerProgression.entryInfo;
+    }
+
+    get metadata() {
+        return this._cancerProgression.metadata;
+    }
+
+    set metadata(metadata) {
+        this._cancerProgression.metadata = metadata;
     }
 
     /**
@@ -58,6 +51,7 @@ export default class FluxCancerProgression extends FluxEntry {
      *  The method will lookup the corresponding coding/codesystem and set the _codeableConcept property
      */
     set status(status) {
+        if (!this._cancerProgression.findingResult) this._cancerProgression.findingResult = new FindingResult();
         this._cancerProgression.findingResult.value = lookup.getStatusCodeableConcept(status);
     }
 
@@ -74,8 +68,8 @@ export default class FluxCancerProgression extends FluxEntry {
      *  This will return an array of displayText strings from Evidence array
      */
     get evidence() {
-        if (!this._evidence) return [];
-        return this._evidence.map((e) => {
+        if (!this._cancerProgression.cancerProgressionEvidence) return [];
+        return this._cancerProgression.cancerProgressionEvidence.map((e) => {
             return e.value;
         });
     }
@@ -91,8 +85,8 @@ export default class FluxCancerProgression extends FluxEntry {
             return arr.indexOf(e) === index;
         });
 
-        this._evidence = filteredEvidence.map((e) => {
-            let ev = new FluxEvidence();
+        this._cancerProgression.cancerProgressionEvidence = filteredEvidence.map((e) => {
+            let ev = new FluxCancerProgressionEvidence();
             ev.value = lookup.getEvidenceCodeableConcept(e);
             return ev;
         });

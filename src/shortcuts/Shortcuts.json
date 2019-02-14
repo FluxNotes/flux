@@ -106,7 +106,7 @@
     "id": "ProgressionCreator",
     "name": "disease status",
     "getData": null,
-    "valueObject": "http://standardhealthrecord.org/spec/mcode/CancerProgression",
+    "valueObject": "http://standardhealthrecord.org/spec/oncocore/CancerProgression",
     "valueObjectAttributes": [  {"name":"status", "attribute":"status", "isSettable":"true", "setMethod": "status", "childShortcut": "ProgressionStatusCreator"},
                                 {"name":"reasons", "attribute":"evidence[]", "isSettable":"true", "setMethod": "evidence", "childShortcut": "ProgressionReasonsCreator"},
                                 {"name":"referenceDate", "childShortcut": "ProgressionReferenceDateCreator"},
@@ -127,7 +127,7 @@
                                   ]
                 },
     "structuredPhrase": "${*disease status}${% is ${status}}${% based on ${reasons}}${& relative to ${reference date} ${referenceDateDate}}${& ${as of} ${asOfDateDate}}",
-    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/shr/oncology/BreastCancer", "http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor"],
+    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/shr/brca/BreastCancerDisorderPresent", "http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor"],
     "knownParentContexts": "ConditionInserter",
     "description": "Determination of disease status is based on a number of complex variables which include objective measures like tumor growth, symptomatic criteria, patient reports information, and subjective evaluations.",
     "structuredPhraseDocumentation": "diseaseStatusSheet.pdf"
