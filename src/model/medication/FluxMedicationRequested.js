@@ -213,7 +213,7 @@ class FluxMedicationRequested {
      * Returns author string
      */
     get prescribedBy() {
-        return this._medicationRequested.entryInfo.recordedBy ? this._medicationRequested.entryInfo.recordedBy.value : null;
+        return this._medicationRequested.metadata.informationRecorder || null;
     }
 
     /*

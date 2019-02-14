@@ -151,6 +151,7 @@ import FluxProgesteroneReceptorStatusV01 from './model/oncology/FluxProgesterone
 import ProgesteroneReceptorStatus from '../../model/brca/ProgesteroneReceptorStatus';
 import FluxHER2ReceptorStatusV01 from './model/oncology/FluxHER2ReceptorStatus';
 import HER2ReceptorStatus from '../../model/brca/HER2ReceptorStatus';
+import NumberOfRefillsAllowed from '../../model/shr/medication/NumberOfRefillsAllowed';
 
 // Maps mCODE v0.1 entries to Flux Object Model
 const mapEntryInfo = (entryInfo, entry) => {
@@ -166,6 +167,7 @@ const mapEntryInfo = (entryInfo, entry) => {
     entry.metadata.lastUpdated.instant = entryInfo.lastUpdated.instant;
     entry.metadata.authoredDateTime = new AuthoredDateTime();
     entry.metadata.authoredDateTime.value = entryInfo.creationTime.dateTime;
+    if (entryInfo.recordedBy) entry.metadata.informationRecorder = entryInfo.recordedBy.value;
 };
 
 const mapReference = (reference) => {
@@ -678,6 +680,7 @@ exports.mapEntries = (entries) => {
             newMedicationRequested.status = mapPassThrough(entry._medicationRequested.status, Status);
             newMedicationRequested.reason = entry._medicationRequested.reason.map(r => mapPassThrough(r, Reason));
             newMedicationRequested.expectedPerformanceTime = mapExpectedPerformanceTime(entry._medicationRequested.expectedPerformanceTime);
+            if (entry._medicationRequested.numberOfRefillsAllowed) newMedicationRequested.numberOfRefillsAllowed = mapPassThrough(entry._medicationRequested.numberOfRefillsAllowed, NumberOfRefillsAllowed);
 
             result.push(newMedicationRequested.toJSON());
         } else if (entry instanceof FluxCancerProgressionV01) {
