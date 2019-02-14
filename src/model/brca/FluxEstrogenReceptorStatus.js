@@ -2,6 +2,9 @@ import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
 import lookup from '../../lib/receptor_lookup.jsx';
 import EstrogenReceptorStatus from './EstrogenReceptorStatus';
+import Reference from '../Reference';
+import SpecificFocusOfFinding from '../shr/base/SpecificFocusOfFinding';
+import FindingResult from '../shr/base/FindingResult';
 
 // FluxEstrogenReceptorStatus class to hide codeableconcepts
 class FluxEstrogenReceptorStatus {
@@ -18,6 +21,14 @@ class FluxEstrogenReceptorStatus {
     get entryInfo() {
         return this._estrogenReceptorStatus.entryInfo;
     }
+
+    get metadata() {
+        return this._estrogenReceptorStatus.metadata;
+    }
+
+    set metadata(metadata) {
+        this._estrogenReceptorStatus.metadata = metadata;
+    }
     
     /**
      * Getter for shr.oncology.ReceptorType
@@ -31,12 +42,28 @@ class FluxEstrogenReceptorStatus {
      * Setter for shr.oncology.ReceptorType
      */
     set status(statusVal) {
-        this._estrogenReceptorStatus.value = lookup.getReceptorCodeableConcept(statusVal);
+        this._estrogenReceptorStatus.findingResult = new FindingResult();
+        this._estrogenReceptorStatus.findingResult.value = lookup.getReceptorCodeableConcept(statusVal);
     }
 
     get specificFocusOfFinding() {
         if (!this._estrogenReceptorStatus.specificFocusOfFinding) return null;
         return this._estrogenReceptorStatus.specificFocusOfFinding.value;
+    }
+
+    set specificFocusOfFinding(val) {
+        this._estrogenReceptorStatus.specificFocusOfFinding = val;
+    }
+
+    setSpecificFocusOfFinding(obj) {
+        if (!obj) {
+            this.specificFocusOfFinding = null;
+        } else {
+            let ref = new Reference(obj.entryInfo.shrId, obj.entryInfo.entryId, obj.entryInfo.entryType);
+            let sff = new SpecificFocusOfFinding();
+            sff.value = ref;
+            this.specificFocusOfFinding = sff;
+        }
     }
 
     get relevantTime() {

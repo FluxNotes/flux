@@ -2,6 +2,9 @@ import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
 import lookup from '../../lib/receptor_lookup.jsx';
 import HER2ReceptorStatus from './HER2ReceptorStatus';
+import Reference from '../Reference';
+import SpecificFocusOfFinding from '../shr/base/SpecificFocusOfFinding';
+import FindingResult from '../shr/base/FindingResult';
 
 class FluxHER2ReceptorStatus {
     constructor(json) {
@@ -17,6 +20,14 @@ class FluxHER2ReceptorStatus {
     get entryInfo() {
         return this._her2ReceptorStatus.entryInfo;
     }
+
+    get metadata() {
+        return this._her2ReceptorStatus.metadata;
+    }
+
+    set metadata(metadata) {
+        this._her2ReceptorStatus.metadata = metadata;
+    }
     
     /**
      * Getter for shr.oncology.ReceptorType
@@ -30,12 +41,28 @@ class FluxHER2ReceptorStatus {
      * Setter for shr.oncology.ReceptorType
      */
     set status(statusVal) {
-        this._her2ReceptorStatus.value = lookup.getReceptorCodeableConcept(statusVal);
+        this._her2ReceptorStatus.findingResult = new FindingResult();
+        this._her2ReceptorStatus.findingResult.value = lookup.getReceptorCodeableConcept(statusVal);
     }
 
     get specificFocusOfFinding() {
         if (!this._her2ReceptorStatus.specificFocusOfFinding) return null;
         return this._her2ReceptorStatus.specificFocusOfFinding.value;
+    }
+
+    set specificFocusOfFinding(val) {
+        this._her2ReceptorStatus.specificFocusOfFinding = val;
+    }
+
+    setSpecificFocusOfFinding(obj) {
+        if (!obj) {
+            this.specificFocusOfFinding = null;
+        } else {
+            let ref = new Reference(obj.entryInfo.shrId, obj.entryInfo.entryId, obj.entryInfo.entryType);
+            let sff = new SpecificFocusOfFinding();
+            sff.value = ref;
+            this.specificFocusOfFinding = sff;
+        }
     }
 
     get relevantTime() {
