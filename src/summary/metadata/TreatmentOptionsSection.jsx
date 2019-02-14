@@ -1,7 +1,7 @@
 import MetadataSection from "./MetadataSection";
 //import FluxNotesTreatmentOptionsRestClient from 'flux_notes_treatment_options_rest_client';
 import Lang from 'lodash'
-import {seerdata} from '../Seerdata.js';
+import {treatmentData} from '../TreatmentData.js';
 //const ApiClient = new FluxNotesTreatmentOptionsRestClient.ApiClient();
 
 export default class TreatmentOptionsSection extends MetadataSection {
@@ -115,7 +115,7 @@ export default class TreatmentOptionsSection extends MetadataSection {
             let deceasedSeries = [];
             let aliveSeries = [];
 
-            seerdata.forEach((v) => {
+            treatmentData.forEach((v) => {
             if(v.Disease === condition.codeURL && v['Is-Alive'] === 'Dead'){
                 deceasedSeries.push([ v['Treat-option']  , v['Survival-months'] ]);
             }

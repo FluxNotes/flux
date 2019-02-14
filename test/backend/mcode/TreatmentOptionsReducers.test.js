@@ -200,7 +200,7 @@ describe('Reducer function', ()=>{
     })
 
     // skipped "process patient outcomes" because it's just 
-    // passing info to the seer data filter, which should just have
+    // passing info to the treatment-data filter, which should just have
     // it's own test instead of one being here.
 
 
