@@ -154,6 +154,7 @@ import HER2ReceptorStatus from '../../model/brca/HER2ReceptorStatus';
 import NumberOfRefillsAllowed from '../../model/shr/medication/NumberOfRefillsAllowed';
 import FluxPathologyReportV01 from './model/finding/FluxPathologyReport';
 import FluxPathologyReport from '../../model/finding/FluxPathologyReport';
+import MCODEV01ObjectFactory from './model/FluxObjectFactory';
 
 // Maps mCODE v0.1 entries to Flux Object Model
 const mapEntryInfo = (entryInfo, entry) => {
@@ -406,14 +407,15 @@ const mapObservation = (entry, newObservation) => {
     return newObservation;
 }
 
-exports.mapEntries = (entries) => {
-    const result = [];
+exports.mapEntries = (v01Json) => {
+    const entries = v01Json.map(entry => MCODEV01ObjectFactory.createInstance(entry));
+    const v05Json = [];
     entries.forEach(entry => {
         if (entry instanceof FluxPatientV01) {
             const newPatient = new FluxPatient();
             mapEntryInfo(entry.entryInfo, newPatient._patient);
             newPatient._patient.person = mapReference(entry._patient.person);
-            result.push(newPatient._patient.toJSON());
+            v05Json.push(newPatient._patient.toJSON());
         } else if (entry instanceof FluxPersonV01) {
             const newPerson = new FluxPerson();
             mapEntryInfo(entry.entryInfo, newPerson._person);
@@ -430,20 +432,20 @@ exports.mapEntries = (entries) => {
             newPerson._person.languageUsed = entry._person.languageUsed.map(l => mapPassThrough(l, LanguageUsed));
             if (entry._person.maritalStatus) newPerson._person.maritalStatus = mapPassThrough(entry._person.maritalStatus, MaritalStatus);
             newPerson._person.race = mapPassThrough(entry._person.race, Race);
-            result.push(newPerson._person.toJSON());
+            v05Json.push(newPerson._person.toJSON());
         } else if (entry instanceof FluxPatientIdentifierV01 || entry instanceof FluxClinicalNoteV01) {
-            result.push(entry.toJSON());
+            v05Json.push(entry.toJSON());
         } else if (entry instanceof FluxGastrointestinalStromalTumorV01) {
             const newCondition = mapCancerDisorder(entry, CancerDisorderPresent);
 
             const entryJSON = newCondition.toJSON();
             entryJSON.EntryType.Value = 'http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor';
-            result.push(entryJSON);
+            v05Json.push(entryJSON);
         } else if (entry instanceof FluxBreastCancerV01) {
             const newCondition = mapCancerDisorder(entry, BreastCancerDisorderPresent);
 
             const entryJSON = newCondition.toJSON();
-            result.push(entryJSON);
+            v05Json.push(entryJSON);
         } else if (entry instanceof FluxConditionPresentAssertionV01) {
             const newCondition = new ConditionPresentAssertion();
 
@@ -455,7 +457,7 @@ exports.mapEntries = (entries) => {
             newCondition.findingResult.value = mapPassThrough(entry._condition.value, CodeableConcept);
             newCondition.onset = mapPassThrough(entry._condition.onset, Onset);
 
-            result.push(newCondition.toJSON());
+            v05Json.push(newCondition.toJSON());
         } else if (entry instanceof FluxProcedureRequestedV01) {
             const newProcedure = new ProcedureRequested();
 
@@ -467,14 +469,14 @@ exports.mapEntries = (entries) => {
             newProcedure.procedureCode = new ProcedureCode();
             newProcedure.procedureCode.value = mapPassThrough(entry._procedureRequested.topicCode.value, CodeableConcept);
 
-            result.push(newProcedure.toJSON());
+            v05Json.push(newProcedure.toJSON());
         } else if (entry instanceof FluxNoKnownAllergyV01) {
             const newNoKnownAllergy = new NoKnownAllergy();
 
             mapEntryInfo(entry.entryInfo, newNoKnownAllergy);
             newNoKnownAllergy.value = mapPassThrough(entry._noKnownAllergy.value, CodeableConcept);
 
-            result.push(newNoKnownAllergy.toJSON());
+            v05Json.push(newNoKnownAllergy.toJSON());
         } else if (entry instanceof FluxAllergyIntoleranceV01) {
             const newAllergyIntolerance = new AllergyIntolerance();
 
@@ -483,7 +485,7 @@ exports.mapEntries = (entries) => {
             newAllergyIntolerance.substanceCategory = mapSubstanceCategory(entry._allergyIntolerance.substanceCategory[0]);
             newAllergyIntolerance.allergyIntoleranceReaction = entry._allergyIntolerance.adverseReaction.map(a => mapAdverseReaction(a));
 
-            result.push(newAllergyIntolerance.toJSON());
+            v05Json.push(newAllergyIntolerance.toJSON());
         } else if (entry instanceof FluxConsultRequestedV01) {
             const entryJSON = entry.toJSON();
             entryJSON.Encounter.TimePeriod.EntryType.Value = 'http://standardhealthrecord.org/spec/shr/core/TimePeriod';
@@ -496,7 +498,7 @@ exports.mapEntries = (entries) => {
             delete entryJSON.LastUpdated;
             delete entryJSON.CreationTime;
             delete entryJSON.Encounter.TimePeriod.TimePeriodStart;
-            result.push(entryJSON);
+            v05Json.push(entryJSON);
         } else if (entry instanceof FluxHistologicGradeV01) {
             const newHistologicGrade = new CancerHistologicGrade();
 
@@ -506,7 +508,7 @@ exports.mapEntries = (entries) => {
             newHistologicGrade.specificFocusOfFinding = mapPassThrough(entry._histologicGrade.specificFocusOfFinding, SpecificFocusOfFinding);
             newHistologicGrade.findingResult = mapFindingResult(entry._histologicGrade.value);
 
-            result.push(newHistologicGrade.toJSON());
+            v05Json.push(newHistologicGrade.toJSON());
         } else if (entry instanceof FluxTNMStageV01) {
             const newTNMStage = new TNMClinicalStageGroup();
 
@@ -519,14 +521,14 @@ exports.mapEntries = (entries) => {
             newTNMStage.relevantTime = mapRelevantTime(entry._observation.relevantTime);
             newTNMStage.findingResult = mapFindingResult(entry._observation.value);
 
-            result.push(newTNMStage.toJSON());
+            v05Json.push(newTNMStage.toJSON());
         } else if (entry instanceof FluxMitoticRateV01) {
             const newMitoticRate = new FluxMitoticRate();
 
             mapEntryInfo(entry._observation.entryInfo, newMitoticRate._observation);
             newMitoticRate._observation.findingResult = mapFindingResult(entry._observation.value);
 
-            result.push(newMitoticRate.toJSON());
+            v05Json.push(newMitoticRate.toJSON());
         } else if (entry instanceof FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanelV01) {
             const newGISTPanel = new FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel();
 
@@ -534,7 +536,7 @@ exports.mapEntries = (entries) => {
             newGISTPanel._gastrointestinalStromalTumorCancerGeneticAnalysisPanel.relevantTime = mapRelevantTime(entry._gastrointestinalStromalTumorCancerGeneticAnalysisPanel.relevantTime);
             newGISTPanel._gastrointestinalStromalTumorCancerGeneticAnalysisPanel.panelMembers = mapPassThrough(entry._gastrointestinalStromalTumorCancerGeneticAnalysisPanel.panelMembers, PanelMembers);
 
-            result.push(newGISTPanel.toJSON());
+            v05Json.push(newGISTPanel.toJSON());
         } else if (entry instanceof FluxKITVariantV01) {
             const newKIT = new FluxKITVariant();
 
@@ -542,7 +544,7 @@ exports.mapEntries = (entries) => {
             newKIT._kitVariant.specificFocusOfFinding = mapPassThrough(entry._kitVariant.specificFocusOfFinding, SpecificFocusOfFinding);
             newKIT._kitVariant.findingResult = mapFindingResult(entry._kitVariant.value);
 
-            result.push(newKIT.toJSON());
+            v05Json.push(newKIT.toJSON());
         } else if (entry instanceof FluxPDGFRAVariantV01) {
             const newPDGFRA = new FluxPDGFRAVariant();
 
@@ -550,7 +552,7 @@ exports.mapEntries = (entries) => {
             newPDGFRA._pdgfraVariant.specificFocusOfFinding = mapPassThrough(entry._pdgfraVariant.specificFocusOfFinding, SpecificFocusOfFinding);
             newPDGFRA._pdgfraVariant.findingResult = mapFindingResult(entry._pdgfraVariant.value);
 
-            result.push(newPDGFRA.toJSON());
+            v05Json.push(newPDGFRA.toJSON());
         } else if (entry instanceof FluxTumorDimensionsV01) {
             const newTumorDimensions = new TumorDimensions();
 
@@ -561,7 +563,7 @@ exports.mapEntries = (entries) => {
             newTumorDimensions.specificFocusOfFinding = mapPassThrough(entry._tumorDimensions.specificFocusOfFinding, SpecificFocusOfFinding);
             newTumorDimensions.findingResult = mapFindingResult(entry._tumorDimensions.value);
 
-            result.push(newTumorDimensions.toJSON());
+            v05Json.push(newTumorDimensions.toJSON());
         } else if (entry instanceof FluxTumorMarginsV01) {
             const newTumorMargins = new TumorMargins();
 
@@ -572,7 +574,7 @@ exports.mapEntries = (entries) => {
             newTumorMargins.specificFocusOfFinding = mapPassThrough(entry._tumorMargins.specificFocusOfFinding, SpecificFocusOfFinding);
             newTumorMargins.findingResult = mapFindingResult(entry._tumorMargins.value);
 
-            result.push(newTumorMargins.toJSON());
+            v05Json.push(newTumorMargins.toJSON());
         } else if (entry instanceof FluxBloodPressureV01) {
             const newBloodPressure = new FluxBloodPressure();
 
@@ -582,7 +584,7 @@ exports.mapEntries = (entries) => {
             newBloodPressure._observation.panelMembers = mapPassThrough(entry._observation.panelMembers, PanelMembers);
             newBloodPressure._observation.relevantTime = mapRelevantTime(entry._observation.relevantTime);
 
-            result.push(newBloodPressure.toJSON());
+            v05Json.push(newBloodPressure.toJSON());
         } else if (entry instanceof FluxBodyTemperatureV01) {
             const newBodyTemperature = new FluxBodyTemperature();
 
@@ -592,7 +594,7 @@ exports.mapEntries = (entries) => {
             newBodyTemperature._observation.relevantTime = mapRelevantTime(entry._observation.relevantTime);
             newBodyTemperature._observation.findingResult = mapFindingResult(entry._observation.value);
 
-            result.push(newBodyTemperature.toJSON());
+            v05Json.push(newBodyTemperature.toJSON());
         } else if (entry instanceof FluxBodyWeightV01) {
             const newBodyWeight = new FluxBodyWeight();
 
@@ -602,7 +604,7 @@ exports.mapEntries = (entries) => {
             newBodyWeight._observation.relevantTime = mapRelevantTime(entry._observation.relevantTime);
             newBodyWeight._observation.findingResult = mapFindingResult(entry._observation.value);
 
-            result.push(newBodyWeight.toJSON());
+            v05Json.push(newBodyWeight.toJSON());
         } else if (entry instanceof FluxHeartRateV01) {
             const newHeartRate = new FluxHeartRate();
 
@@ -612,7 +614,7 @@ exports.mapEntries = (entries) => {
             newHeartRate._observation.relevantTime = mapRelevantTime(entry._observation.relevantTime);
             newHeartRate._observation.findingResult = mapFindingResult(entry._observation.value);
 
-            result.push(newHeartRate.toJSON());
+            v05Json.push(newHeartRate.toJSON());
         } else if (entry instanceof FluxBRCA1VariantV01) {
             const newVariant = new FluxBRCA1Variant();
 
@@ -620,7 +622,7 @@ exports.mapEntries = (entries) => {
             newVariant._brca1Variant.findingResult = mapFindingResult(entry._brca1Variant.value);
             newVariant._brca1Variant.specificFocusOfFinding = mapPassThrough(entry._brca1Variant.specificFocusOfFinding, SpecificFocusOfFinding);
 
-            result.push(newVariant.toJSON());
+            v05Json.push(newVariant.toJSON());
         } else if (entry instanceof FluxBRCA2VariantV01) {
             const newVariant = new FluxBRCA2Variant();
 
@@ -628,7 +630,7 @@ exports.mapEntries = (entries) => {
             newVariant._brca2Variant.findingResult = mapFindingResult(entry._brca2Variant.value);
             newVariant._brca2Variant.specificFocusOfFinding = mapPassThrough(entry._brca2Variant.specificFocusOfFinding, SpecificFocusOfFinding);
 
-            result.push(newVariant.toJSON());
+            v05Json.push(newVariant.toJSON());
         } else if (entry instanceof FluxEstrogenReceptorStatusV01) {
             const newReceptorStatus = new EstrogenReceptorStatus();
 
@@ -638,7 +640,7 @@ exports.mapEntries = (entries) => {
             newReceptorStatus.findingResult = mapFindingResult(entry._observation.value);
             newReceptorStatus.specificFocusOfFinding = mapPassThrough(entry._observation.specificFocusOfFinding, SpecificFocusOfFinding);
 
-            result.push(newReceptorStatus.toJSON());
+            v05Json.push(newReceptorStatus.toJSON());
         } else if (entry instanceof FluxProgesteroneReceptorStatusV01) {
             const newReceptorStatus = new ProgesteroneReceptorStatus();
 
@@ -648,7 +650,7 @@ exports.mapEntries = (entries) => {
             newReceptorStatus.findingResult = mapFindingResult(entry._observation.value);
             newReceptorStatus.specificFocusOfFinding = mapPassThrough(entry._observation.specificFocusOfFinding, SpecificFocusOfFinding);
 
-            result.push(newReceptorStatus.toJSON());
+            v05Json.push(newReceptorStatus.toJSON());
         } else if (entry instanceof FluxHER2ReceptorStatusV01) {
             const newReceptorStatus = new HER2ReceptorStatus();
 
@@ -658,14 +660,14 @@ exports.mapEntries = (entries) => {
             newReceptorStatus.findingResult = mapFindingResult(entry._observation.value);
             newReceptorStatus.specificFocusOfFinding = mapPassThrough(entry._observation.specificFocusOfFinding, SpecificFocusOfFinding);
 
-            result.push(newReceptorStatus.toJSON());
+            v05Json.push(newReceptorStatus.toJSON());
         } else if (entry instanceof FluxPathologyReportV01) {
             const newPathologyReport = new FluxPathologyReport();
 
             mapEntryInfo(entry.entryInfo, newPathologyReport._observation);
             mapObservation(entry, newPathologyReport._observation);
 
-            result.push(newPathologyReport.toJSON());
+            v05Json.push(newPathologyReport.toJSON());
         }
         else if (entry instanceof FluxObservationV01) {
             const newObservation = new Observation();
@@ -673,7 +675,7 @@ exports.mapEntries = (entries) => {
             mapEntryInfo(entry.entryInfo, newObservation);
             mapObservation(entry, newObservation);
 
-            result.push(newObservation.toJSON());
+            v05Json.push(newObservation.toJSON());
         } else if (entry instanceof FluxMedicationChangeV01) {
             const newMedicationChange = new MedicationChange();
 
@@ -685,7 +687,7 @@ exports.mapEntries = (entries) => {
             newMedicationChange.medicationBeforeChange = [mapMedicationBeforeChange(entry._medicationChange.medicationBeforeChange)];
             newMedicationChange.medicationAfterChange = [mapMedicationAfterChange(entry._medicationChange.medicationAfterChange)];
 
-            result.push(newMedicationChange.toJSON());
+            v05Json.push(newMedicationChange.toJSON());
         } else if (entry instanceof FluxMedicationRequestedV01) {
             const newMedicationRequested = new MedicationRequested();
 
@@ -697,7 +699,7 @@ exports.mapEntries = (entries) => {
             newMedicationRequested.expectedPerformanceTime = mapExpectedPerformanceTime(entry._medicationRequested.expectedPerformanceTime);
             if (entry._medicationRequested.numberOfRefillsAllowed) newMedicationRequested.numberOfRefillsAllowed = mapPassThrough(entry._medicationRequested.numberOfRefillsAllowed, NumberOfRefillsAllowed);
 
-            result.push(newMedicationRequested.toJSON());
+            v05Json.push(newMedicationRequested.toJSON());
         } else if (entry instanceof FluxCancerProgressionV01) {
             const newProgression = new CancerProgression();
 
@@ -707,7 +709,7 @@ exports.mapEntries = (entries) => {
             newProgression.findingTopicCode = mapPassThrough(entry._cancerProgression.findingTopicCode, FindingTopicCode);
             newProgression.relevantTime = mapRelevantTime(entry._cancerProgression.relevantTime); 
 
-            result.push(newProgression.toJSON());
+            v05Json.push(newProgression.toJSON());
         } else if (entry instanceof FluxQuestionAnswerV01) {
             const newQuestionAnswer = new QuestionAnswer();
 
@@ -721,7 +723,7 @@ exports.mapEntries = (entries) => {
                 newQuestionAnswer.questionText.value = entry.observationCodeDisplayText;
                 newQuestionAnswer.findingResult = mapFindingResult(entry._questionAnswer.value);
             }
-            result.push(newQuestionAnswer.toJSON());
+            v05Json.push(newQuestionAnswer.toJSON());
         } else if (entry instanceof FluxToxicReactionV01) {
             const newToxicReaction = new ToxicAdverseDrugReaction();
 
@@ -735,7 +737,7 @@ exports.mapEntries = (entries) => {
             newToxicReaction.adverseEventCondition = [new AdverseEventCondition()];
             newToxicReaction.adverseEventCondition[0].conditionPresentAssertion = mapReference(entry._adverseEvent.specificFocusOfFinding.value);
 
-            result.push(newToxicReaction.toJSON());
+            v05Json.push(newToxicReaction.toJSON());
         } else if (entry instanceof SystolicPressureV01) {
             const newSystolicPressure = new SystolicPressure();
 
@@ -743,7 +745,7 @@ exports.mapEntries = (entries) => {
             newSystolicPressure.findingTopicCode = mapPassThrough(entry.findingTopicCode, FindingTopicCode);
             newSystolicPressure.quantity = mapQuantity(entry.quantity);
 
-            result.push(newSystolicPressure.toJSON());
+            v05Json.push(newSystolicPressure.toJSON());
         } else if (entry instanceof DiastolicPressureV01) {
             const newDiastolicPressure = new DiastolicPressure();
 
@@ -751,28 +753,28 @@ exports.mapEntries = (entries) => {
             newDiastolicPressure.findingTopicCode = mapPassThrough(entry.findingTopicCode, FindingTopicCode);
             newDiastolicPressure.quantity = mapQuantity(entry.quantity);
 
-            result.push(newDiastolicPressure.toJSON());
+            v05Json.push(newDiastolicPressure.toJSON());
         } else if (entry instanceof TNMClinicalPrimaryTumorClassificationV01) {
             const newT = new TNMClinicalPrimaryTumorClassification();
 
             mapEntryInfo(entry.entryInfo, newT);
             newT.findingResult = mapFindingResult(entry.value);
 
-            result.push(newT.toJSON());
+            v05Json.push(newT.toJSON());
         } else if (entry instanceof TNMClinicalRegionalNodesClassificationV01) {
             const newN = new TNMClinicalRegionalNodesClassification();
 
             mapEntryInfo(entry.entryInfo, newN);
             newN.findingResult = mapFindingResult(entry.value);
 
-            result.push(newN.toJSON());
+            v05Json.push(newN.toJSON());
         } else if (entry instanceof TNMClinicalDistantMetastasesClassificationV01) {
             const newM = new TNMClinicalDistantMetastasesClassification();
 
             mapEntryInfo(entry.entryInfo, newM);
             newM.findingResult = mapFindingResult(entry.value);
 
-            result.push(newM.toJSON());
+            v05Json.push(newM.toJSON());
         } else if (entry instanceof FluxImagingProcedurePerformedV01) {
             const newImaging = new ImagingProcedurePerformed();
 
@@ -784,7 +786,7 @@ exports.mapEntries = (entries) => {
             newImaging.procedureCode.value = mapPassThrough(entry._imagingProcedurePerformed.topicCode.value, CodeableConcept);
             newImaging.occurrenceTimeOrPeriod = mapPassThrough(entry._imagingProcedurePerformed.occurrenceTimeOrPeriod, OccurrenceTimeOrPeriod);
 
-            result.push(newImaging.toJSON());
+            v05Json.push(newImaging.toJSON());
         } else if (entry instanceof FluxBreastCancerGeneticAnalysisPanelV01) {
             const newBreastCancerGeneticAnalysisPanel = new BreastCancerGeneticAnalysisPanel();
 
@@ -792,9 +794,9 @@ exports.mapEntries = (entries) => {
             newBreastCancerGeneticAnalysisPanel.panelMembers = mapPassThrough(entry._breastCancerGeneticAnalysisPanel.panelMembers, PanelMembers);
             newBreastCancerGeneticAnalysisPanel.relevantTime = mapRelevantTime(entry._breastCancerGeneticAnalysisPanel.relevantTime);
 
-            result.push(newBreastCancerGeneticAnalysisPanel.toJSON());
+            v05Json.push(newBreastCancerGeneticAnalysisPanel.toJSON());
         }
     });
 
-    return result;
+    return v05Json;
 };
