@@ -14,6 +14,14 @@ class FluxObservation extends FluxEntry {
         return this._observation.entryInfo;
     }
 
+    get metadata() {
+        return this._observation.metadata;
+    }
+
+    set metadata(metadata) {
+        this._observation.metadata = metadata;
+    }
+
     /**
      *  Getter for quantity
      *  If _value is an instance of Quantity, will return object with properties number and unit

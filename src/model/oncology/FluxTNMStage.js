@@ -14,10 +14,14 @@ import FluxMitoticRate from './FluxMitoticRate';
 import lookup from '../../lib/tnmstage_lookup.jsx';
 import staging from '../../lib/staging.jsx';
 import Lang from 'lodash';
+import FindingResult from '../shr/base/FindingResult';
+import FluxTNMClinicalPrimaryTumorClassification from '../oncocore/FluxTNMClinicalPrimaryTumorClassification';
+import FluxTNMClinicalDistantMetastasesClassification from '../oncocore/FluxTNMClinicalDistantMetastasesClassification';
+import FluxTNMClinicalRegionalNodesClassification from '../oncocore/FluxTNMClinicalRegionalNodesClassification';
 
 // FluxTNMStage class to hide codeableconcepts
 class FluxTNMStage extends FluxObservation {
-    constructor(json) {
+    constructor(json, patientRecord) {
         super();
         this._entry = this._observation = TNMClinicalStageGroup.fromJSON(json);
         if (!this._observation.entryInfo) {
@@ -28,6 +32,7 @@ class FluxTNMStage extends FluxObservation {
             this._observation.panelMembers = new PanelMembers();
             this._observation.panelMembers.observation = [];
         }
+        this._patientRecord = patientRecord;
     }
 
     /**
@@ -35,7 +40,7 @@ class FluxTNMStage extends FluxObservation {
      *  This will return the displayText string from CodeableConcept value
      */
     get stage() {
-        if (Lang.isEmpty(this._observation.findingResult.value)) { 
+        if (!this._observation.findingResult || !this._observation.findingResult.value) { 
             return null;
         } else { 
             return this._observation.findingResult.value.coding[0].displayText.value;
@@ -48,7 +53,8 @@ class FluxTNMStage extends FluxObservation {
      *  The function will lookup the corresponding coding/codesystem and set the TNMStage entry value property
      */
     set stage(stage) {
-        this._observation.value = lookup.getStagingCodeableConcept(stage);
+        this._observation.findingResult = new FindingResult();
+        this._observation.findingResult.value = lookup.getStagingCodeableConcept(stage);
     }
 
     // isPathologic() {
@@ -63,11 +69,9 @@ class FluxTNMStage extends FluxObservation {
      *  This will return the displayText string from T_Stage
      */
     get t_Stage() {
-        const tStage = this._observation.panelMembers.observation.find(o => {
-            return o instanceof TNMClinicalPrimaryTumorClassification;
-        });
-        if (!tStage) return null;
-        return tStage.value.coding[0].displayText.value;
+        const tReference = this._observation.panelMembers.observation.find(o => this._patientRecord.getEntryFromReference(o) instanceof FluxTNMClinicalPrimaryTumorClassification);
+        if (!tReference) return null;
+        return this._patientRecord.getEntryFromReference(tReference).value;
     }
 
     /*
@@ -76,15 +80,14 @@ class FluxTNMStage extends FluxObservation {
      *  This function will lookup the corresponding coding/codesystem and set the T_Stage value on the observationComponent property
      */
     set t_Stage(tStage) {
-        let t = new TNMClinicalPrimaryTumorClassification();
-        t.value = lookup.getTStageCodeableConcept(tStage);
-        const tIndex = this._observation.panelMembers.observation.findIndex((o) => {
-            return o instanceof TNMClinicalPrimaryTumorClassification;
-        });
-        if (tIndex >= 0) {
-            this._observation.panelMembers.observation[tIndex] = t;
+        if (!tStage) {
+            const tReference = this._observation.panelMembers.observation.find(o => this._patientRecord.getEntryFromReference(o) instanceof FluxTNMClinicalPrimaryTumorClassification);
+            if (tReference) this._patientRecord.removeEntryFromPatient(this._patientRecord.getEntryFromReference(tReference));
         } else {
-            this._observation.panelMembers.observation.push(t);
+            const t = new FluxTNMClinicalPrimaryTumorClassification();
+            t.value = lookup.getTStageCodeableConcept(tStage);
+            this._patientRecord.addEntryToPatient(t);
+            this._observation.panelMembers.observation.push(this._patientRecord.createEntryReferenceTo(t));
         }
         this._calculateStage();
     }
@@ -94,11 +97,9 @@ class FluxTNMStage extends FluxObservation {
      *  This will return the displayText string from N_Stage
      */
     get n_Stage() {
-        const nStage = this._observation.panelMembers.observation.find(o => {
-            return o instanceof TNMClinicalRegionalNodesClassification
-        });
-        if (!nStage) return null;
-        return nStage.value.coding[0].displayText.value;
+        const nReference = this._observation.panelMembers.observation.find(o => this._patientRecord.getEntryFromReference(o) instanceof FluxTNMClinicalRegionalNodesClassification);
+        if (!nReference) return null;
+        return this._patientRecord.getEntryFromReference(nReference).value;
     }
 
     /*
@@ -107,15 +108,14 @@ class FluxTNMStage extends FluxObservation {
      *  This function will lookup the corresponding coding/codesystem and set the N_Stage value on the panelMembers property
      */
     set n_Stage(nStage) {
-        let n = new TNMClinicalRegionalNodesClassification();
-        n.value = lookup.getNStageCodeableConcept(nStage);
-        const nIndex = this._observation.panelMembers.observation.findIndex((o) => {
-            return o instanceof TNMClinicalRegionalNodesClassification;
-        });
-        if (nIndex >= 0) {
-            this._observation.panelMembers.observation[nIndex] = n;
+        if (!nStage) {
+            const nReference = this._observation.panelMembers.observation.find(o => this._patientRecord.getEntryFromReference(o) instanceof FluxTNMClinicalRegionalNodesClassification);
+            if (nReference) this._patientRecord.removeEntryFromPatient(this._patientRecord.getEntryFromReference(nReference));
         } else {
-            this._observation.panelMembers.observation.push(n);
+            const n = new FluxTNMClinicalRegionalNodesClassification();
+            n.value = lookup.getNStageCodeableConcept(nStage);
+            this._patientRecord.addEntryToPatient(n);
+            this._observation.panelMembers.observation.push(this._patientRecord.createEntryReferenceTo(n));
         }
         this._calculateStage();
     }
@@ -125,11 +125,9 @@ class FluxTNMStage extends FluxObservation {
      *  This will return the displayText string from M_Stage
      */
     get m_Stage() {
-        const mStage = this._observation._panelMembers.observation.find(o => {
-            return o instanceof TNMClinicalDistantMetastasesClassification;
-        });
-        if (!mStage) return null;
-        return mStage.value.coding[0].displayText.value;
+        const mReference = this._observation.panelMembers.observation.find(o => this._patientRecord.getEntryFromReference(o) instanceof FluxTNMClinicalDistantMetastasesClassification);
+        if (!mReference) return null;
+        return this._patientRecord.getEntryFromReference(mReference).value;
     }
 
     /*
@@ -138,23 +136,20 @@ class FluxTNMStage extends FluxObservation {
      *  This function will lookup the corresponding coding/codesystem and set the M_Stage value on the panelMembers property
      */
     set m_Stage(mStage) {
-        let m = new TNMClinicalDistantMetastasesClassification();
-        m.value = lookup.getMStageCodeableConcept(mStage);
-        const mIndex = this._observation.panelMembers.observation.findIndex((o) => {
-            return o instanceof TNMClinicalDistantMetastasesClassification;
-        });
-        if (mIndex >= 0) {
-            this._observation.panelMembers.observation[mIndex] = m;
+        if (!mStage) {
+            const mReference = this._observation.panelMembers.observation.find(o => this._patientRecord.getEntryFromReference(o) instanceof FluxTNMClinicalDistantMetastasesClassification);
+            if (mReference) this._patientRecord.removeEntryFromPatient(this._patientRecord.getEntryFromReference(mReference));
         } else {
-            this._observation.panelMembers.observation.push(m);
+            const m = new FluxTNMClinicalDistantMetastasesClassification();
+            m.value = lookup.getMStageCodeableConcept(mStage);
+            this._patientRecord.addEntryToPatient(m);
+            this._observation.panelMembers.observation.push(this._patientRecord.createEntryReferenceTo(m));
         }
         this._calculateStage();
     }
 
     get mitoticRate() {
-        const mitoticRate = this._observation.panelMembers.observation.find(o => {
-            return o instanceof FluxMitoticRate;
-        });
+        const mitoticRate = this._observation.panelMembers.observation.find(o => this._patientRecord.getEntryFromReference(o) instanceof FluxMitoticRate);
         if (!mitoticRate) return null;
         return mitoticRate.value;
     }
