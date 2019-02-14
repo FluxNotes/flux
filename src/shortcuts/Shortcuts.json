@@ -70,7 +70,7 @@
                       ]
     },
     "structuredPhrase": "${*staging} ${T} ${N}${% ${M}}",
-    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/shr/brca/BreastCancerDisorderPresent", "http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor"],
+    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/brca/BreastCancerDisorderPresent", "http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor"],
     "knownParentContexts": "ConditionInserter",
     "description": "The stage of a cancer, assessed according to the standard established by American Joint Committee on Cancer (AJCC). TNM Stage Grouping categorizes the progression of cancer using the Roman Numeral system.",
     "structuredPhraseDocumentation": "stagingSheet.pdf"
@@ -127,7 +127,7 @@
                                   ]
                 },
     "structuredPhrase": "${*disease status}${% is ${status}}${% based on ${reasons}}${& relative to ${reference date} ${referenceDateDate}}${& ${as of} ${asOfDateDate}}",
-    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/shr/brca/BreastCancerDisorderPresent", "http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor"],
+    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/brca/BreastCancerDisorderPresent", "http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor"],
     "knownParentContexts": "ConditionInserter",
     "description": "Determination of disease status is based on a number of complex variables which include objective measures like tumor growth, symptomatic criteria, patient reports information, and subjective evaluations.",
     "structuredPhraseDocumentation": "diseaseStatusSheet.pdf"
@@ -177,7 +177,7 @@
     "id": "ToxicityCreator",
     "name": "toxicity",
     "getData": null,
-    "valueObject": "http://standardhealthrecord.org/spec/shr/adverse/ToxicReaction",
+    "valueObject": "http://standardhealthrecord.org/spec/shr/adverse/ToxicAdverseDrugReaction",
     "valueObjectAttributes": [  {"name":"grade", "attribute":"adverseEventGrade", "isSettable":"true", "setMethod": "adverseEventGrade", "childShortcut": "ToxicityGradeCreator"},
                                 {"name":"adverseEvent", "attribute":"adverseEvent", "isSettable":"true", "setMethod": "adverseEvent", "childShortcut": "ToxicityAdverseEventCreator"},
                                 {"name":"attribution", "attribute":"causeCategory", "isSettable":"true", "setMethod": "causeCategory", "childShortcut": "ToxicityAttributionCreator"},
@@ -197,7 +197,7 @@
                       ]
     },
     "structuredPhrase": "${*toxicity} of ${grade} ${adverseEvent}${% related to ${attribution}}",
-    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/shr/brca/BreastCancerDisorderPresent", "http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor"],
+    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/brca/BreastCancerDisorderPresent", "http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor"],
     "knownParentContexts": "ConditionInserter",
     "description": "Side effects to treatment, important for effective evaluation of disease and treatment, based on Common Terminology Criteria for Adverse Events (CTCAE) version 4.03 (June 14, 2010).",
     "structuredPhraseDocumentation": "toxicitySheet.pdf"
@@ -359,7 +359,7 @@
     "isContext": true,
     "stringTriggers": [{ "name": "#ER", "description": "Estrogen receptors (ERs) are a group of proteins found inside cells. They are receptors that are activated by the hormone estrogen. Estrogen receptors may be found in breast cancer cells (ER positive). Cancer cells with these receptors depend on estrogen to grow."}],
     "regexpTrigger": null,
-    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/shr/brca/BreastCancerDisorderPresent"],
+    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/brca/BreastCancerDisorderPresent"],
     "knownParentContexts": "ConditionInserter",
     "description": "Estrogen receptors (ERs) are a group of proteins found inside cells. They are receptors that are activated by the hormone estrogen. Estrogen receptors may be found in breast cancer cells (ER positive). Cancer cells with these receptors depend on estrogen to grow."
   },
@@ -390,7 +390,7 @@
     "isContext": true,
     "stringTriggers": [{ "name": "#PR", "description": "The progesterone receptor (PR) is a protein found inside cells. It is activated by the steroid hormone progesterone. Progesterone receptors may be found in breast cancer cells (PR positive). Cancer cells with these receptors depend on progesterone to grow."}],
     "regexpTrigger": null,
-    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/shr/brca/BreastCancerDisorderPresent"],
+    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/brca/BreastCancerDisorderPresent"],
     "knownParentContexts": "ConditionInserter",
     "description": "The progesterone receptor (PR) is a protein found inside cells. It is activated by the steroid hormone progesterone. Progesterone receptors may be found in breast cancer cells (PR positive). Cancer cells with these receptors depend on progesterone to grow."
   },
@@ -405,7 +405,7 @@
     "isContext": true,
     "stringTriggers": [{ "name": "#HER2", "description": "Human epidermal growth factor receptor 2 (HER2) is a protein involved in normal cell growth. It is found on some types of cancer cells (HER2 positive), including breast and ovarian. Cancer cells removed from the body may be tested for the presence of human epidermal growth factor receptor 2 to help decide the best type of treatment."}],
     "regexpTrigger": null,
-    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/shr/brca/BreastCancerDisorderPresent"],
+    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/brca/BreastCancerDisorderPresent"],
     "knownParentContexts": "ConditionInserter",
     "description": "Human epidermal growth factor receptor 2 (HER2) is a protein involved in normal cell growth. It is found on some types of cancer cells (HER2 positive), including breast and ovarian. Cancer cells removed from the body may be tested for the presence of human epidermal growth factor receptor 2 to help decide the best type of treatment."
   },
@@ -435,7 +435,7 @@
     "getData": {"object": "$parentValueObject", "method": "buildHpiNarrative"},
     "isContext": false,
     "stringTriggers": [{"name": "@ONCOHIST", "description": "Insert patient's oncology history"}],
-    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/shr/brca/BreastCancerDisorderPresent", "http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor"],
+    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/brca/BreastCancerDisorderPresent", "http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor"],
     "knownParentContexts": "ConditionInserter"
   },
   {
@@ -574,7 +574,7 @@
     "regexpTrigger": null,
     "form": "ToxicityForm",
     "structuredPhrase": "{*nlptoxicity} of ${grade} ${adverseEvent}${% related to ${attribution}}",
-    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/shr/brca/BreastCancerDisorderPresent", "http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor"],
+    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/brca/BreastCancerDisorderPresent", "http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor"],
     "knownParentContexts": "ConditionInserter",
     "description": "Side effects to treatment, important for effective evaluation of disease and treatment, based on Common Terminology Criteria for Adverse Events (CTCAE) version 4.03 (June 14, 2010).",
     "structuredPhraseDocumentation": "nlptoxicitySheet.pdf"
@@ -591,7 +591,7 @@
     "getData": {"object": "$parentValueObject", "method": "getMostRecentLabResultsAsText"},
     "isContext": false,
     "stringTriggers": [{"name": "@recent labs", "description": "Insert patient's recent lab results"}],
-    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/shr/brca/BreastCancerDisorderPresent", "http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor", "http://standardhealthrecord.org/spec/shr/condition/Injury"],
+    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/brca/BreastCancerDisorderPresent", "http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor", "http://standardhealthrecord.org/spec/shr/condition/Injury"],
     "knownParentContexts": "ConditionInserter"
   },
   { "type": "InsertValue",
