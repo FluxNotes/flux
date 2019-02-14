@@ -46,15 +46,15 @@ class FluxAllergyIntolerance {
     get manifestation() {
         const adverseReactions = this.getAdverseReactionsBySeverityAndTime();
         if (adverseReactions.length === 0 || !adverseReactions[0].manifestation) return "";
-        return adverseReactions[0].manifestation.value.coding[0].displayText.value;
+        return adverseReactions[0].manifestation[0].value.coding[0].displayText.value;
     }
 
     /*
      *  Returns list of adverse reactions on allergy sorted by severity and time
      */
     getAdverseReactionsBySeverityAndTime() {
-        if (!this._allergyIntolerance.adverseReaction) return [];
-        return this._allergyIntolerance.adverseReaction.sort(this._adverseReactionsSorter);
+        if (!this._allergyIntolerance.allergyIntoleranceReaction) return [];
+        return this._allergyIntolerance.allergyIntoleranceReaction.sort(this._adverseReactionsSorter);
     }
 
     // Sort adverse reactions by severity and time
@@ -91,8 +91,8 @@ class FluxAllergyIntolerance {
         if (a_severity > b_severity) return -1;
         else if (a_severity < b_severity) return 1;
 
-        const a_time = new moment(a.occurrenceTime.dateTime, "D MMM YYYY");
-        const b_time = new moment(b.occurrenceTime.dateTime, "D MMM YYYY");
+        const a_time = new moment(a.beginDateTime.dateTime, "D MMM YYYY");
+        const b_time = new moment(b.beginDateTime.dateTime, "D MMM YYYY");
 
         if (a_time > b_time) return -1;
         else if (a_time < b_time) return 1;
