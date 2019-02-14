@@ -39,10 +39,7 @@ class FluxQuestionAnswer {
      *  Return author
      */
     get author() {
-        if (this._questionAnswer.entryInfo.recordedBy) {
-            return this._questionAnswer.entryInfo.recordedBy.value;
-        } 
-        return null;
+        return this._questionAnswer.metadata.informationRecorder || null;
     }
 
     get relevantTime() {
