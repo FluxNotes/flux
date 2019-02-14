@@ -152,6 +152,8 @@ import ProgesteroneReceptorStatus from '../../model/brca/ProgesteroneReceptorSta
 import FluxHER2ReceptorStatusV01 from './model/oncology/FluxHER2ReceptorStatus';
 import HER2ReceptorStatus from '../../model/brca/HER2ReceptorStatus';
 import NumberOfRefillsAllowed from '../../model/shr/medication/NumberOfRefillsAllowed';
+import FluxPathologyReportV01 from './model/finding/FluxPathologyReport';
+import FluxPathologyReport from '../../model/finding/FluxPathologyReport';
 
 // Maps mCODE v0.1 entries to Flux Object Model
 const mapEntryInfo = (entryInfo, entry) => {
@@ -390,6 +392,18 @@ const mapMedicationAfterChange = (medicationAfterChange) => {
     newMedicationAfterChange.value = mapEntryInfoToReference(medicationAfterChange.value.entryInfo);
 
     return newMedicationAfterChange;
+}
+
+const mapObservation = (entry, newObservation) => {
+    if (entry._observation.category) newObservation.category = mapPassThrough(entry._observation.category, Category);
+    if (entry._observation.findingStatus) newObservation.findingStatus = mapFindingStatus(entry._observation.findingStatus);
+    if (entry._observation.relevantTime) newObservation.relevantTime = mapRelevantTime(entry._observation.relevantTime);
+    if (entry._observation.specificFocusOfFinding) newObservation.specificFocusOfFinding = mapPassThrough(entry._observation.specificFocusOfFinding, SpecificFocusOfFinding);
+    if (entry._observation.findingTopicCode) newObservation.findingTopicCode = mapPassThrough(entry._observation.findingTopicCode, FindingTopicCode);
+    if (entry._observation.value) newObservation.findingResult = mapFindingResult(entry._observation.value);
+    if (entry._observation.panelMembers) newObservation.panelMembers = mapPassThrough(entry._observation.panelMembers, PanelMembers);
+
+    return newObservation;
 }
 
 exports.mapEntries = (entries) => {
@@ -645,19 +659,20 @@ exports.mapEntries = (entries) => {
             newReceptorStatus.specificFocusOfFinding = mapPassThrough(entry._observation.specificFocusOfFinding, SpecificFocusOfFinding);
 
             result.push(newReceptorStatus.toJSON());
-        } else if (entry instanceof FluxObservationV01) {
+        } else if (entry instanceof FluxPathologyReportV01) {
+            const newPathologyReport = new FluxPathologyReport();
+
+            mapEntryInfo(entry.entryInfo, newPathologyReport._observation);
+            mapObservation(entry, newPathologyReport._observation);
+
+            result.push(newPathologyReport.toJSON());
+        }
+        else if (entry instanceof FluxObservationV01) {
             const newObservation = new Observation();
 
             mapEntryInfo(entry.entryInfo, newObservation);
-            if (entry._observation.category) newObservation.category = mapPassThrough(entry._observation.category, Category);
-            if (entry._observation.findingStatus) newObservation.findingStatus = mapFindingStatus(entry._observation.findingStatus);
-            if (entry._observation.relevantTime) newObservation.relevantTime = mapRelevantTime(entry._observation.relevantTime);
-            if (entry._observation.specificFocusOfFinding) newObservation.specificFocusOfFinding = mapPassThrough(entry._observation.specificFocusOfFinding, SpecificFocusOfFinding);
-            if (entry._observation.findingTopicCode) newObservation.findingTopicCode = mapPassThrough(entry._observation.findingTopicCode, FindingTopicCode);
-            if (entry._observation.value) newObservation.findingResult = mapFindingResult(entry._observation.value);
-            if (entry._observation.panelMembers) newObservation.panelMembers = mapPassThrough(entry._observation.panelMembers, PanelMembers);
-            // newObservation.findingResult = new FindingResult();
-            // newObservation.findingResult.value = mapQuantity(entry._observation.value);
+            mapObservation(entry, newObservation);
+
             result.push(newObservation.toJSON());
         } else if (entry instanceof FluxMedicationChangeV01) {
             const newMedicationChange = new MedicationChange();
