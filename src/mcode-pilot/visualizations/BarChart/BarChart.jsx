@@ -5,13 +5,7 @@ import FontAwesome from 'react-fontawesome';
 import './BarChart.css';
 
 export default class BarChart extends Component {
-    render() {
-        const { numerator, denominator, compareToNumerator, compareToDenominator, active } = this.props;
-        const survivedPercent = numerator / denominator * 100;
-        const compareToPercent = compareToNumerator / compareToDenominator * 100;
-        const percentChange = survivedPercent - compareToPercent;
-        const roundedPercent = Math.floor(survivedPercent - compareToPercent);
-
+    getStyles = (survivedPercent, compareToPercent, percentChange) => {
         let mainStyle, changeStyle, textStyle;
         if (percentChange < 0) {
             // style for when survival decreases (red)
@@ -25,20 +19,43 @@ export default class BarChart extends Component {
             textStyle = { "color": "#5cb85c" };
         }
 
+        return { mainStyle, changeStyle, textStyle };
+    }
+
+    render() {
+        const { numerator, denominator, compareToNumerator, compareToDenominator } = this.props;
+        const hasCompare = compareToNumerator !== null && compareToNumerator !== null;
+        const survivedPercent = numerator / denominator * 100;
+
+        let mainStyle = {"width": `${survivedPercent}%`, "backgroundColor": "#9e9e9e" };
+        let changeStyle, textStyle, compareToPercent, roundedPercent, percentChange;
+        if (hasCompare) {
+            compareToPercent = compareToNumerator / compareToDenominator * 100;
+            roundedPercent = Math.floor(survivedPercent - compareToPercent);
+            percentChange = survivedPercent - compareToPercent;
+            const styles = this.getStyles(survivedPercent, compareToPercent, percentChange);
+            mainStyle = styles.mainStyle;
+            changeStyle = styles.changeStyle;
+            textStyle = styles.textStyle;
+        }
+
         return (
             <div className="bar-chart">
-                <div>
+                <div className="bar-chart__top">
                     <p className="bar-chart-text">{Math.floor(survivedPercent)}%</p>
-                    {!active && roundedPercent !== 0 &&
+                    {hasCompare && !isNaN(percentChange) && roundedPercent !== 0 &&
                         <p className="bar-chart-text right-text" style={textStyle}>
                             <FontAwesome className="tiny-arrow fas" name={roundedPercent > 0 ? "caret-up" : "caret-down"} />
                             {Math.abs(roundedPercent)}%
                         </p>
                     }
                 </div>
-                <div className="progress-bar">
-                    <div className="prog-fill" style={mainStyle}></div>
-                    <div className="prog-fill" style={changeStyle}></div>
+
+                <div className="bar-chart__bottom">
+                    <div className="progress-bar">
+                        <div className="prog-fill" style={mainStyle}></div>
+                        {hasCompare && <div className="prog-fill" style={changeStyle}></div>}
+                    </div>
                 </div>
             </div>
         );
@@ -46,9 +63,8 @@ export default class BarChart extends Component {
 }
 
 BarChart.propTypes = {
-    numerator: PropTypes.number.isRequired,
-    denominator: PropTypes.number.isRequired,
-    compareToNumerator: PropTypes.number.isRequired,
-    compareToDenominator: PropTypes.number.isRequired,
-    active: PropTypes.bool
+    numerator: PropTypes.number,
+    denominator: PropTypes.number,
+    compareToNumerator: PropTypes.number,
+    compareToDenominator: PropTypes.number
 };

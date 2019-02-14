@@ -1,4 +1,4 @@
-import { transformedTreatmentData } from '../mock-data/treatmentData.js';
+import { transformedTreatmentData } from '../mock-data/mock-data.js';
 import _ from 'lodash';
 
 export default function filterTreatmentData(similarPatientProps) {
@@ -10,8 +10,9 @@ export default function filterTreatmentData(similarPatientProps) {
 
 function isSimilarPatient(treatmentDataPatient, similarPatientProps) {
     const categoryKeys = Object.keys(similarPatientProps);
+
     for (let i = 0; i < categoryKeys.length; i++) {
-        const category = categoryKeys[i];
+        let category = categoryKeys[i];
         const { options } = similarPatientProps[category];
         const optionKeys = Object.keys(options);
         for (let j = 0; j < optionKeys.length; j++) {
@@ -21,7 +22,7 @@ function isSimilarPatient(treatmentDataPatient, similarPatientProps) {
                 const value = _.lowerCase(options[option].value);
 
                 // demographics
-                const { demographics, diseaseStatus } = treatmentDataPatient;
+                const { demographics, diseaseStatus, tumorMarkers, treatments} = treatmentDataPatient;
                 const { race, gender, birthDate } = demographics;
 
                 if (option === 'age') {
@@ -43,6 +44,36 @@ function isSimilarPatient(treatmentDataPatient, similarPatientProps) {
                     return false;
                 } else if (option === 'gender' && value !== _.lowerCase(gender)) {
                     return false;
+                // pathology
+                } else if (option === 'ER' && (!tumorMarkers.er || _.lowerCase(tumorMarkers.er) !== _.lowerCase(value))) {
+                    return false;
+                } else if (option === 'PR' && (!tumorMarkers.pr || _.lowerCase(tumorMarkers.pr) !== _.lowerCase(value))) {
+                    return false;
+                } else if (option === 'HER2' && (!tumorMarkers.her2 || _.lowerCase(tumorMarkers.her2) !== _.lowerCase(value))) {
+                    return false;
+                } else if (option === 'stage' && (!diseaseStatus.stage || _.lowerCase(diseaseStatus.stage) !== _.lowerCase(value))) {
+                    return false;
+                } else if (option === 'grade' && (!diseaseStatus.grade || diseaseStatus.grade !== value)) {
+                    return false;
+                // treatment history
+                } else if (option === 'receivedRadTherapy') {
+                    let hadTreatmentOption = value === 'yes';
+                    let hadTreatment = treatments.includes('radiation');
+                    if ((!hadTreatmentOption && hadTreatment) || (hadTreatmentOption && !hadTreatment)) {
+                        return false;
+                    }
+                } else if (option === 'receivedChemo') {
+                    let hadTreatmentOption = value === 'yes';
+                    let hadTreatment = treatments.includes('chemo') || treatments.includes('chemotherapy');
+                    if ((!hadTreatmentOption && hadTreatment) || (hadTreatmentOption && !hadTreatment)) {
+                        return false;
+                    }
+                } else if (option === 'hadSurgery') {
+                    let hadTreatmentOption = value === 'yes';
+                    let hadTreatment = treatments.includes('surgery');
+                    if ((!hadTreatmentOption && hadTreatment) || (hadTreatmentOption && !hadTreatment)) {
+                        return false;
+                    }
                 }
             }
         }

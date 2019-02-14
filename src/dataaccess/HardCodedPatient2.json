@@ -4753,7 +4753,7 @@
                         }
                     },
                     "DisplayText": {
-                        "Value": "IA",
+                        "Value": "IIA",
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                         }

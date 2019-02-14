@@ -1,9 +1,12 @@
 $color-gray-light: #bbb;
 $color-gray-lighter: #eee;
+$color-blue: #0084b8;
+$color-blue-light: #ecf3f5;
 
 .treatment-options-outcomes {
     margin: 20px;
     font-size: 0.9em;
+    margin-bottom: 200px;
 
     &__header {
         display: flex;
@@ -27,17 +30,43 @@ $color-gray-lighter: #eee;
         .table-row {
             height: 50px;
             align-items: center;
-            cursor: pointer;
-
-            &.selected,
-            &:hover {
-                background-color: $color-gray-lighter;
-            }
-
-            .total-patients {
-                text-align: center;
-            }
         }
+    }
+
+    .total-patients {
+        text-align: center;
+    }
+
+    .select-treatments {
+        display: inline-block;
+        position: relative;
+        cursor: pointer;
+        margin-left: 20px;
+
+        .popover-text {
+            color: $color-blue;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+    }
+
+    .included-treatments {
+        background-color: $color-blue-light;
+        border: 1px solid $color-gray-lighter;
+    }
+
+    .included-treatments,
+    .compared-treatments {
+        padding: 5px 10px;
+        margin-bottom: 20px;
+    }
+
+    .treatments-title {
+        font-weight: bold;
+    }
+
+    .helper-text {
+        font-style: italic;
     }
 
     .flex { display: flex; }

@@ -10,35 +10,33 @@ describe("BarChart", () => {
     let props;
     let barChart;
     const makeBarChart = () => {
-      if (!barChart) {
-        barChart = mount(
-          <BarChart {...props} />
-        );
-      }
-      return barChart;
+        if (!barChart) {
+            barChart = mount(
+                <BarChart {...props} />
+            );
+        }
+        return barChart;
     }
-  
+
     beforeEach(() => {
-      props = {
-        active: undefined,
-        compareToDenominator: undefined,
-        compareToNumerator: undefined,
-        denominator: undefined,
-        numerator: undefined,
-      };
-      barChart = undefined;
+        props = {
+            compareToDenominator: undefined,
+            compareToNumerator: undefined,
+            denominator: undefined,
+            numerator: undefined,
+        };
+        barChart = undefined;
     });
-    
+
     describe("when survival decreases", () => {
         beforeEach(() => {
-          props.active = false;
           props.compareToDenominator = 5;
           props.compareToNumerator = 3;
           props.denominator = 5;
           props.numerator = 2;
           barChart = makeBarChart();
         });
-      
+
         it("renders a progress bar", () => {
             const divs = barChart.find(".progress-bar");
             expect(divs.length).to.equal(1);
@@ -60,67 +58,39 @@ describe("BarChart", () => {
             // check if its downward facing
             expect(tinyArrow.get(0).props.className.split(' ').indexOf('fa-caret-down')).to.be.greaterThan(-1);
             // TODO: check color?
-        })
-      });
+        });
+    });
+
     describe("when survival increases", ()=>{
         beforeEach(() => {
-            props.active = false;
             props.compareToDenominator = 10;
             props.compareToNumerator = 5;
             props.denominator = 10;
             props.numerator = 8;
             barChart = makeBarChart();
-          });
-        
-          it("renders a progress bar", () => {
-              const divs = barChart.find(".progress-bar");
-              expect(divs.length).to.equal(1);
-          });
-  
-          it("renders the percent survival", ()=>{
-              const divs = barChart.find(".prog-fill");
-              // the % survival is 7/10, but we show 5/10 first
-              expect(divs.get(0).props.style.width).to.eql('50%');
-              // the extra 2/10 should come next
-              expect(divs.get(1).props.style.width).to.eql('30%');
-              // the total is 70%
-          });
-  
-          it("renders the tiny arrow percent increase indicator", ()=>{
-              const divs = barChart.find(".bar-chart-text.right-text");
-              expect(divs.text()).to.eql('30%');
-              const tinyArrow = barChart.find("span.tiny-arrow");
-              // check if its upward facing
-              expect(tinyArrow.get(0).props.className.split(' ').indexOf('fa-caret-up')).to.be.greaterThan(-1);
-              // TODO: check color?
-          });
+        });
+
+        it("renders a progress bar", () => {
+            const divs = barChart.find(".progress-bar");
+            expect(divs.length).to.equal(1);
+        });
+
+        it("renders the percent survival", ()=>{
+            const divs = barChart.find(".prog-fill");
+            // the % survival is 7/10, but we show 5/10 first
+            expect(divs.get(0).props.style.width).to.eql('50%');
+            // the extra 2/10 should come next
+            expect(divs.get(1).props.style.width).to.eql('30%');
+            // the total is 70%
+        });
+
+        it("renders the tiny arrow percent increase indicator", ()=>{
+            const divs = barChart.find(".bar-chart-text.right-text");
+            expect(divs.text()).to.eql('30%');
+            const tinyArrow = barChart.find("span.tiny-arrow");
+            // check if its upward facing
+            expect(tinyArrow.get(0).props.className.split(' ').indexOf('fa-caret-up')).to.be.greaterThan(-1);
+            // TODO: check color?
+        });
     });
-
-    describe("when the bar is active", ()=>{
-        beforeEach(() => {
-            props.active = true;
-            props.compareToDenominator = 10;
-            props.compareToNumerator = 6;
-            props.denominator = 10;
-            props.numerator = 6;
-            barChart = makeBarChart();
-          });
-        
-          it("renders a progress bar", () => {
-              const divs = barChart.find(".progress-bar");
-              expect(divs.length).to.equal(1);
-          });
-  
-          it("renders only the percent survival", ()=>{
-              const divs = barChart.find(".prog-fill");
-              expect(divs.get(0).props.style.width).to.eql('60%');
-              expect(divs.get(1).props.style.width).to.eql('0%');
-          });
-  
-          it("does not render a tiny arrow", ()=>{
-              const tinyArrow = barChart.find("span.tiny-arrow");
-              expect(tinyArrow.length).to.eql(0);
-          });
-    })
-
   });

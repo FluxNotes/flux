@@ -6,7 +6,7 @@ import LaunchPage from '../components/LaunchPage';
 import LandingPage from '../components/LandingPage';
 
 export default class AppManager {
-    constructor() {  
+    constructor() {
 
         this.apps = [{
                 path: '/',
@@ -95,13 +95,13 @@ export default class AppManager {
             },
             {
                 path: '/ccp',
-                display: 'MCODE Pilot',
+                display: 'Compass',
                 app: CoreCancerPilotApp,
                 isExact: true,
                 dataSource: 'HardCodedReadOnlyDataSource',
                 patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7g',
-                logoObject: { 
-                    path: './compass-logo.png', 
+                logoObject: {
+                    path: './compass-logo.png',
                     altText: 'Compass logo',
                     width: '45px',
                     height: '45px'
@@ -109,13 +109,13 @@ export default class AppManager {
             },
             {
                 path: '/ccp2',
-                display: 'MCODE Pilot',
+                display: 'Compass',
                 app: CoreCancerPilotApp,
                 isExact: true,
                 dataSource: 'HardCodedReadOnlyDataSource',
                 patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7f',
-                logoObject: { 
-                    path: './compass-logo.png', 
+                logoObject: {
+                    path: './compass-logo.png',
                     altText: 'Compass logo',
                     width: '45px',
                     height: '45px'
@@ -175,7 +175,7 @@ export default class AppManager {
                 isExact: true,
                 dataSource: 'HardCodedReadOnlyDataSource',
                 shortcuts: []
-            },         
+            },
             {
                 path: '/p2',
                 display: 'Flux Notes™',
