@@ -1,4 +1,4 @@
-import { getNamespaceAndName } from './json-helper';
+import { getNamespaceAndName, uuid } from './json-helper';
 import ObjectFactory from './ObjectFactory';
 import FluxBaseObjectFactory from './base/FluxBaseObjectFactory';
 import FluxResearchObjectFactory from './research/FluxResearchObjectFactory';
@@ -41,5 +41,9 @@ export default class FluxObjectFactory {
             case 'shr.vital': return FluxVitalObjectFactory.createInstance(json, type, patientRecord);
             default: return ObjectFactory.createInstance(json, type, patientRecord);
         }
+    }
+
+    static createInstanceFromFHIR(fhir, type, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+        return ObjectFactory.createInstanceFromFHIR(fhir, type, shrId, allEntries, mappedResources, referencesOut, asExtension);
     }
 }
