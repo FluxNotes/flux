@@ -19,6 +19,13 @@ function stopEventPropagation(e) {
     e.stopPropagation();
 }
 
+function applyMarks(marks, transform) {
+    marks.forEach(mark => {
+        transform = transform.toggleMark(mark.type);
+    });
+    return transform;
+}
+
 function updateShortcut(shortcut, transform, key, label, text) {
     shortcut.setOriginalText(label);
     shortcut.setText(text);
@@ -78,7 +85,9 @@ function StructuredFieldPlugin(opts) {
                 newTextNode = transform.state.document.getPreviousText(key);
             }
 
-            transform = transform.collapseToEndOf(newTextNode).insertText(e.key);
+            transform = transform.collapseToEndOf(newTextNode);
+            transform = applyMarks(state.marks, transform);
+            transform = transform.insertText(e.key);
 
             // Create a new shortcut with the trailing shortcut text after split
             const newShortcutNode = transform.state.document.getNextSibling(newTextNode.key);
@@ -127,6 +136,7 @@ function StructuredFieldPlugin(opts) {
             const key = transform.state.selection.anchorKey;
             const newTextNode = transform.state.document.getPreviousText(key);
             transform = transform.collapseToEndOf(newTextNode);
+            transform = applyMarks(state.marks, transform);
 
             // Create a new shortcut with the trailing shortcut text after split
             const newShortcutNode = transform.state.document.getNextSibling(newTextNode.key);

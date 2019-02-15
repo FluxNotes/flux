@@ -35,8 +35,8 @@ const schema = {
         heading: props => <h1 {...props.attributes}>{props.children}</h1>,
         'bulleted-list-item': props => <li {...props.attributes}>{props.children}</li>,
         'numbered-list-item': props => <li {...props.attributes}>{props.children}</li>,
-        'bulleted-list': props => <ul {...props.attributes}>{props.children}</ul>,
-        'numbered-list': props => <ol {...props.attributes}>{props.children}</ol>,
+        'bulleted-list': props => <ul style={{ position: 'relative' }} {...props.attributes}>{props.children}</ul>,
+        'numbered-list': props => <ol style={{ position: 'relative' }}{...props.attributes}>{props.children}</ol>,
     },
     marks: {
         "bold": (props) => <strong>{props.children}</strong>,
