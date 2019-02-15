@@ -44,9 +44,9 @@ class RangeChart extends Component {
             lowerValueXPixels = 0;
             upperValueXPixels = 0;
         } else if (this.props.lowerValue === this.props.upperValue) {
-            let sarah = ((this.props.lowerValue - lowerBound) * numberOfPixelsPerUnit) + lineStartXPixels;
-            lowerValueXPixels = sarah - 5;
-            upperValueXPixels = sarah - 5
+            let singularDosageRangeXPixels = ((this.props.lowerValue - lowerBound) * numberOfPixelsPerUnit) + lineStartXPixels;
+            lowerValueXPixels = singularDosageRangeXPixels - 5;
+            upperValueXPixels = singularDosageRangeXPixels - 5
         } else {
             lowerValueXPixels = ((this.props.lowerValue - lowerBound) * numberOfPixelsPerUnit) + lineStartXPixels;
             upperValueXPixels = ((this.props.upperValue - lowerBound) * numberOfPixelsPerUnit) + lineStartXPixels;
@@ -103,10 +103,10 @@ class RangeChart extends Component {
         let svgForRangeLowerText = null;
         let svgForRangeUpperText = null;
         if (lowerValueXPixels !== 0 && upperValueXPixels !== 0) {
-            svgForRangeBar = <line x1={lowerValueXPixels} y1="50" x2={upperValueXPixels} y2="50" stroke="#DDD" strokeWidth="5" />;
+            svgForRangeBar = <line x1={lowerValueXPixels} y1="50" x2={upperValueXPixels} y2="50" stroke="#DDD" strokeWidth="4" />;
             if (upperValueXPixels - lowerValueXPixels > 50) {
-                svgForRangeLowerText = <text x={lowerValueXPixels - 3} y="75" fontFamily="sans-serif" fontSize="12px" fill="#333">{this.props.lowerValue}</text>;
-                svgForRangeUpperText = <text x={upperValueXPixels - 3} y="75" fontFamily="sans-serif" fontSize="12px" fill="#333">{this.props.upperValue}</text>;
+                svgForRangeLowerText = <text x={lowerValueXPixels - 3} y="70" fontFamily="sans-serif" fontSize="10px" fill="#3F3F3F">{this.props.lowerValue}</text>;
+                svgForRangeUpperText = <text x={upperValueXPixels - 3} y="70" fontFamily="sans-serif" fontSize="10px" fill="#3F3F3F">{this.props.upperValue}</text>;
             }
         }
         
@@ -115,7 +115,7 @@ class RangeChart extends Component {
         if (typicalValueXPixels !== 0) {
             svgForTypicalTick = <line x1={typicalValueXPixels} y1="45" x2={typicalValueXPixels} y2="55" stroke="#979797" strokeWidth="1" />;
             if (this.props.typicalValue !== this.props.lowerValue && this.props.typicalValue !== this.props.upperValue) {
-                svgForTypicalText = <text x={typicalValueXPixels - 3} y="75" fontFamily="sans-serif" fontSize="12px" fill="#333">{this.props.typicalValue}</text>;      
+                svgForTypicalText = <text x={typicalValueXPixels - 3} y="70" fontFamily="sans-serif" fontSize="10px" fill="#3F3F3F">{this.props.typicalValue}</text>;      
             }
         }
         return (
