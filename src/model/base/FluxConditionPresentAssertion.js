@@ -122,6 +122,7 @@ class FluxConditionPresentAssertion extends FluxEntry {
     getToxicitiesByCodes(codes) {
         // Get all the toxicities
         let toxicities = this.getToxicities().filter(toxicity => {
+            if (!toxicity._toxicAdverseDrugReaction.type) return false;
             return toxicity._toxicAdverseDrugReaction.type.value.coding.some((coding) => {
                 return codes.includes(coding.code);
             });
