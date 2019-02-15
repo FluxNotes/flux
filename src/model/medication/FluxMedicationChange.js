@@ -8,6 +8,7 @@ import EntryType from '../shr/base/EntryType';
 import codeableConceptUtils from '../CodeableConceptUtils.jsx';
 import Lang from 'lodash';
 import moment from 'moment';
+import Category from '../shr/core/Category';
 
 class FluxMedicationChange extends FluxEntry {
     constructor(json, patientRecord) {
@@ -28,6 +29,15 @@ class FluxMedicationChange extends FluxEntry {
     get entryInfo() {
         return this._medicationChange.entryInfo;
     }
+
+    get metadata() {
+        return this._medicationChange.metadata;
+    }
+
+    set metadata(metadata) {
+        this._medicationChange.metadata = metadata;
+    }
+
     /**
      * Get the MedicationBeforeChange object.
      * Returns medicationRequested object
@@ -43,8 +53,9 @@ class FluxMedicationChange extends FluxEntry {
     set medicationBeforeChange(medication) {
         if (medication) {
             // Create a new Flux Medication Before Change object to add the medication value to
-            this._medicationChange.medicationBeforeChange = new FluxMedicationBeforeChange();
-            this._medicationChange.medicationBeforeChange.value = this._patientRecord.createEntryReferenceTo(medication);
+            const medBeforeChange = new FluxMedicationBeforeChange();
+            medBeforeChange.value = this._patientRecord.createEntryReferenceTo(medication);
+            this._medicationChange.medicationBeforeChange = [medBeforeChange];
 
             if (this.medAfterDoseAmount && !this.medicationAfterChange) {
                 const medAfter = this.createMedicationAfterFromMedicationBefore();
@@ -54,7 +65,7 @@ class FluxMedicationChange extends FluxEntry {
             if (this.medicationAfterChange) {
                 this.removeMedicationAfterAndMedicationBefore();
             }
-            this._medicationChange.medicationBeforeChange = null;
+            this._medicationChange.medicationBeforeChange = [];
         }
     }
 
@@ -76,11 +87,11 @@ class FluxMedicationChange extends FluxEntry {
     }
 
     set type(code) {
-        if (!this._medicationChange.topicCode) {
-            this._medicationChange.topicCode = new FindingTopicCode();
+        if (!this._medicationChange.category) {
+            this._medicationChange.category = new Category();
         }
 
-        this._medicationChange.topicCode.value = codeableConceptUtils.getCodeableConceptFromTuple({value: code, codeSystem: "http://standardhealthrecord.org/spec/shr/medication/cs/#MedicationChangeTypeCS", displayText: code} );
+        this._medicationChange.category.value = codeableConceptUtils.getCodeableConceptFromTuple({value: code, codeSystem: "http://standardhealthrecord.org/spec/shr/medication/cs/#MedicationChangeTypeCS", displayText: code} );
     }
 
     /**
@@ -128,8 +139,9 @@ class FluxMedicationChange extends FluxEntry {
         // set start date for medicationAfter
         medAfter.startDate = today;
         this._patientRecord.addEntryToPatient(medAfter);
-        this._medicationChange.medicationAfterChange = new FluxMedicationAfterChange();
-        this._medicationChange.medicationAfterChange.value = this._patientRecord.createEntryReferenceTo(medAfter);
+        const medAfterChange = new FluxMedicationAfterChange();
+        medAfterChange.value = this._patientRecord.createEntryReferenceTo(medAfter);
+        this._medicationChange.medicationAfterChange = [medAfterChange];
 
         return medAfter;
     }
@@ -139,7 +151,7 @@ class FluxMedicationChange extends FluxEntry {
         // Delete medicationAfterChange entry if no amount and reset end date for medicationBefore
         const medAfter = this._patientRecord.getEntryFromReference(this.medicationAfterChange.value);
         this._patientRecord.removeEntryFromPatient(medAfter);
-        this._medicationChange.medicationAfterChange = null;
+        this._medicationChange.medicationAfterChange = [];
         if (this.medicationBeforeChange) {
             const medBefore = this._patientRecord.getEntryFromReference(this.medicationBeforeChange.value);
             medBefore.endDate = medAfter.endDate;

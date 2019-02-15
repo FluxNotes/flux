@@ -892,8 +892,8 @@ class PatientRecord {
     }
 
     _medChangesTimeSorter(a, b) {
-        const a_time = a.entryInfo.creationTime.dateTime;
-        const b_time = b.entryInfo.creationTime.dateTime;
+        const a_time = a.metadata.authoredDateTime.dateTime;
+        const b_time = b.metadata.authoredDateTime.dateTime;
         const a_startTime = new moment(a_time.timePeriodStart, "D MMM YYYY");
         const b_startTime = new moment(b_time.timePeriodStart, "D MMM YYYY");
         if (a_startTime < b_startTime) {
@@ -904,6 +904,7 @@ class PatientRecord {
         }
         return 0;
     }
+
     _reverseMedsTimeSorter(a, b) {
         const a_startTime = new moment(a.expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
         const b_startTime = new moment(b.expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
