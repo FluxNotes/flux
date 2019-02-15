@@ -90,10 +90,11 @@ class RangeChart extends Component {
         let svgForRangeUpperText = null;
         if (lowerValueXPixels !== 0 && upperValueXPixels !== 0) {
             svgForRangeBar = <line x1={lowerValueXPixels} y1="50" x2={upperValueXPixels} y2="50" stroke="#DDD" strokeWidth="4" />;
-            if (upperValueXPixels - lowerValueXPixels > 50) {
-                svgForRangeLowerText = <text x={lowerValueXPixels - 3} y="70" fontFamily="sans-serif" fontSize="10px" fill="#3F3F3F">{this.props.lowerValue}</text>;
-                svgForRangeUpperText = <text x={upperValueXPixels - 3} y="70" fontFamily="sans-serif" fontSize="10px" fill="#3F3F3F">{this.props.upperValue}</text>;
-            }
+            // TO-DO: fix this with specs
+            // if (upperValueXPixels - lowerValueXPixels > 10) {
+            svgForRangeLowerText = <text x={lowerValueXPixels - 3} y="70" fontFamily="sans-serif" fontSize="10px" fill="#3F3F3F">{this.props.lowerValue}</text>;
+            svgForRangeUpperText = <text x={upperValueXPixels - 3} y="70" fontFamily="sans-serif" fontSize="10px" fill="#3F3F3F">{this.props.upperValue}</text>;
+            // }
         }
         
         let svgForTypicalTick = null;
@@ -110,14 +111,14 @@ class RangeChart extends Component {
                     {/*Main line*/}
                     <line x1={lineStartXPixels} y1="50" x2={lineStartXPixels + lineLengthPixels} y2="50" stroke="#C2C2C2" strokeWidth="0.5" />
 
+                    {/*Typical value tick*/}
+                    {svgForTypicalTick}
+                    {svgForTypicalText}
+
                     {/*Value range bar*/}
                     {svgForRangeBar}
                     {svgForRangeLowerText}
                     {svgForRangeUpperText}
-
-                    {/*Typical value tick*/}
-                    {svgForTypicalTick}
-                    {svgForTypicalText}
 
                     {/*Data point for the value*/}
                     {svgForDataPointBorder}
