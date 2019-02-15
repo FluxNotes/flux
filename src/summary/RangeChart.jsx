@@ -17,6 +17,8 @@ class RangeChart extends Component {
         const lineLengthPixels = 240;
         // x position in pixels for where the line begins
         const lineStartXPixels = 10;
+        // x position in pixels for the center of the svg
+        const middle = lineLengthPixels / 2 + lineStartXPixels;
 
         // calculate the lowest and highest values 
         let valueArray = [];
@@ -53,6 +55,14 @@ class RangeChart extends Component {
             } else {
                 valueXPixels = middle;
             }
+        }
+
+        // center the typical value if different from value and range is missing
+        else if (Lang.isNull(this.props.upperValue) && Lang.isNull(this.props.lowerValue)) {
+            typicalValueXPixels = middle;
+            lowerValueXPixels = 0;
+            upperValueXPixels = 0;
+            valueXPixels = lineStartXPixels + lineLengthPixels - 10;  
         }
 
         // otherwise scale the chart with the given values 
