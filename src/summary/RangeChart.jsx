@@ -8,11 +8,6 @@ import './RangeChart.css';
 class RangeChart extends Component {
 
     render() {
-        console.log('lower value: ' + this.props.lowerValue);
-        console.log('upper value: ' + this.props.upperValue);
-        console.log('typical value: ' + this.props.typicalValue);
-        console.log('value: ' + this.props.value);
-
         // Calculate typical value tick mark placement
         const lineLengthPixels = 240;
         // x position in pixels for where the line begins
@@ -31,6 +26,9 @@ class RangeChart extends Component {
 
         let typicalValueXPixels, lowerValueXPixels, upperValueXPixels, valueXPixels, radius, strokeWidth;
         let dotColor = '#AAA';
+        let showTypicalValueText = true;
+        let showLowerValueText = true; 
+        let showUpperValueText = true;
 
         // if all values are the same or some are null, just draw the dot with no scaled formatting
         if (maxValue === minValue) {
@@ -55,6 +53,9 @@ class RangeChart extends Component {
             } else {
                 valueXPixels = middle;
             }
+
+            showLowerValueText = false;
+            showUpperValueText = false;
         }
 
         // center the typical value if different from value and range is missing
@@ -62,7 +63,9 @@ class RangeChart extends Component {
             typicalValueXPixels = middle;
             lowerValueXPixels = 0;
             upperValueXPixels = 0;
-            valueXPixels = lineStartXPixels + lineLengthPixels - 10;  
+            valueXPixels = lineStartXPixels + lineLengthPixels - 10;                
+            showLowerValueText = false;
+            showUpperValueText = false;
         }
 
         // otherwise scale the chart with the given values 
@@ -86,6 +89,8 @@ class RangeChart extends Component {
                 let singularDosageRangeXPixels = ((this.props.lowerValue - lowerBound) * numberOfPixelsPerUnit) + lineStartXPixels;
                 lowerValueXPixels = singularDosageRangeXPixels - 3;
                 upperValueXPixels = singularDosageRangeXPixels + 3;
+                showLowerValueText = false;
+                showUpperValueText = false;
             } else {
                 lowerValueXPixels = ((this.props.lowerValue - lowerBound) * numberOfPixelsPerUnit) + lineStartXPixels;
                 upperValueXPixels = ((this.props.upperValue - lowerBound) * numberOfPixelsPerUnit) + lineStartXPixels;
@@ -115,9 +120,9 @@ class RangeChart extends Component {
         let svgForTypicalText = null;
         if (typicalValueXPixels !== 0) {
             svgForTypicalTick = <line x1={typicalValueXPixels} y1="45" x2={typicalValueXPixels} y2="55" stroke="#979797" strokeWidth="1" />;
-            // if (this.props.typicalValue !== this.props.lowerValue && this.props.typicalValue !== this.props.upperValue) {
-            //     svgForTypicalText = <text x={typicalValueXPixels - 3} y="70" fontFamily="sans-serif" fontSize="10px" fill="#3F3F3F">{this.props.typicalValue}</text>;      
-            // }
+            if (showTypicalValueText) {
+                svgForTypicalText = <text x={typicalValueXPixels - 3} y="70" fontFamily="sans-serif" fontSize="10px" fill="#3F3F3F">{this.props.typicalValue}</text>;      
+            }
         }
 
         let svgForRangeBar = null;
@@ -127,11 +132,12 @@ class RangeChart extends Component {
             svgForRangeBar = <text x={lineStartXPixels} y="38" fontFamily="sans-serif" fontSize="10px" fill="#3F3F3F">dosage range unknown</text>;
         } else {
             svgForRangeBar = <line x1={lowerValueXPixels} y1="50" x2={upperValueXPixels} y2="50" stroke="#DDD" strokeWidth="4" />;
-            // TO-DO: fix this with specs
-            // if (upperValueXPixels - lowerValueXPixels > 10) {
-            // svgForRangeLowerText = <text x={lowerValueXPixels - 3} y="70" fontFamily="sans-serif" fontSize="10px" fill="#3F3F3F">{this.props.lowerValue}</text>;
-            // svgForRangeUpperText = <text x={upperValueXPixels - 3} y="70" fontFamily="sans-serif" fontSize="10px" fill="#3F3F3F">{this.props.upperValue}</text>;
-            // }
+            if (showLowerValueText) {
+                svgForRangeLowerText = <text x={lowerValueXPixels - 3} y="70" fontFamily="sans-serif" fontSize="10px" fill="#3F3F3F">{this.props.lowerValue}</text>;
+            }
+            if (showUpperValueText) {
+                svgForRangeUpperText = <text x={upperValueXPixels - 3} y="70" fontFamily="sans-serif" fontSize="10px" fill="#3F3F3F">{this.props.upperValue}</text>;
+            }
         }
 
         let svgForDataPoint = null;
