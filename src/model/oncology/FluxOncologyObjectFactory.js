@@ -2,7 +2,6 @@ import { getNamespaceAndName } from '../json-helper';
 import FluxBreastCancerGeneticAnalysisPanel from './FluxBreastCancerGeneticAnalysisPanel';
 import FluxBRCA1Variant from './FluxBRCA1Variant';
 import FluxBRCA2Variant from './FluxBRCA2Variant';
-import FluxTNMStage from './FluxTNMStage';
 import FluxMitoticRate from './FluxMitoticRate';
 import FluxGastrointestinalStromalTumor from './FluxGastrointestinalStromalTumor';
 import FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel from './FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel';
@@ -21,7 +20,6 @@ export default class FluxOncologyObjectFactory {
             case 'BRCA1Variant': return new FluxBRCA1Variant(json);
             case 'BRCA2Variant': return new FluxBRCA2Variant(json);
             case 'BreastCancerGeneticAnalysisPanel': return new FluxBreastCancerGeneticAnalysisPanel(json, patientRecord);
-            case 'TNMStage': return new FluxTNMStage(json);
             case 'GastrointestinalStromalTumor': return new FluxGastrointestinalStromalTumor(json, patientRecord);
             case 'GastrointestinalStromalTumorCancerGeneticAnalysisPanel': return new FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel(json, patientRecord);
             case 'KITVariant': return new FluxKITVariant(json, patientRecord);

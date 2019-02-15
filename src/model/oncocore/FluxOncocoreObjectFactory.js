@@ -5,11 +5,12 @@ import FluxCancerProgressionEvidence from './FluxCancerProgressionEvidence';
 import FluxCancerHistologicGrade from './FluxCancerHistologicGrade';
 import FluxCancerHistologicType from './FluxCancerHistologicType';
 import FluxKarnofskyPerformanceStatus from './FluxKarnofskyPerformanceStatus';
-import FluxTNMStage from '../oncology/FluxTNMStage';
 import OncocoreObjectFactory from './OncocoreObjectFactory';
 import FluxTNMClinicalPrimaryTumorClassification from './FluxTNMClinicalPrimaryTumorClassification';
 import FluxTNMClinicalDistantMetastasesClassification from './FluxTNMClinicalDistantMetastasesClassification';
 import FluxTNMClinicalRegionalNodesClassification from './FluxTNMClinicalRegionalNodesClassification';
+import FluxTNMClinicalStageGroup from './FluxTNMClinicalStageGroup';
+import FluxTNMPathologicStageGroup from './FluxTNMPathologicStageGroup';
 
 export default class FluxOncocoreObjectFactory {
     static createInstance(json, type, patientRecord) {
@@ -23,7 +24,8 @@ export default class FluxOncocoreObjectFactory {
             case 'CancerHistologicGrade': return new FluxCancerHistologicGrade(json, type, patientRecord);
             case 'CancerHistologicType': return new FluxCancerHistologicType(json, type, patientRecord);
             case 'CancerProgression': return new FluxCancerProgression(json, type, patientRecord);
-            case 'TNMClinicalStageGroup': return new FluxTNMStage(json, patientRecord);
+            case 'TNMClinicalStageGroup': return new FluxTNMClinicalStageGroup(json, patientRecord);
+            case 'TNMPathologicStageGroup': return new FluxTNMPathologicStageGroup(json, patientRecord);
             case 'TNMClinicalPrimaryTumorClassification': return new FluxTNMClinicalPrimaryTumorClassification(json);
             case 'TNMClinicalDistantMetastasesClassification': return new FluxTNMClinicalDistantMetastasesClassification(json);
             case 'TNMClinicalRegionalNodesClassification': return new FluxTNMClinicalRegionalNodesClassification(json);

@@ -509,8 +509,8 @@ class FluxConditionPresentAssertion extends FluxEntry {
     }
 
     _stageTimeSorter(a, b) {
-        const a_startTime = new moment(a.occurrenceTime, "D MMM YYYY");
-        const b_startTime = new moment(b.occurrenceTime, "D MMM YYYY");
+        const a_startTime = new moment(a.relevantTime, "D MMM YYYY");
+        const b_startTime = new moment(b.relevantTime, "D MMM YYYY");
         if (a_startTime < b_startTime) {
             return -1;
         }
