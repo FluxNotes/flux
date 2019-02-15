@@ -9,6 +9,7 @@ import GistAdjuvantIhanos from '../GistAdjuvantIhanos.json';
 import MCODEV01ObjectFactory from './model/FluxObjectFactory';
 import DataAccess from '../DataAccess';
 import hardCodedPatient from '../HardCodedPatient.json';
+import hardCodedPatient2 from '../HardCodedPatient2.json';
 import hardCodedPatientMidYearDemo18 from '../HardCodedPatientMidYearDemo18.json';
 import hardCodedSarcomaPatient from '../HardCodedSarcomaPatient.json';
 >>>>>>> Better mapping of dosages.
@@ -19,6 +20,9 @@ import EntryMapper from './EntryMapper.js';
 class HardCodedMcodeV01DataSource extends IDataSource {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Fixed rebase issues.
     constructor() { 
         super();
         this._gestalt = { 
@@ -44,15 +48,21 @@ class HardCodedMcodeV01DataSource extends IDataSource {
     getGestalt() { 
         return this._gestalt;
     }
+<<<<<<< HEAD
 =======
     getPatient() {
         console.log(patientJson);
         const mcodeV01Entries = patientJson.map(entry => MCODEV01ObjectFactory.createInstance(entry));
 =======
+=======
+
+>>>>>>> Fixed rebase issues.
     getPatient(id) {
         let patientJSON;
         if (id === DataAccess.DEMO_PATIENT_ID) {
             patientJSON = hardCodedPatient;
+        } else if (hardCodedPatient2[0]["ShrId"] === id) {
+            patientJSON = hardCodedPatient2;
         } else if (hardCodedPatientMidYearDemo18[0]["ShrId"] === id) {
             patientJSON = hardCodedPatientMidYearDemo18;
         } else if (curationPatient[0]["ShrId"].Value === id) {
@@ -89,11 +99,14 @@ class HardCodedMcodeV01DataSource extends IDataSource {
         return new PatientRecord(EntryMapper.mapEntries(patientJSON));
     }
 
+<<<<<<< HEAD
     getListOfPatients() {
         const patients = [ BreastMainTreatmentDebra, BreastMainTreatmentDiabetesHypertensionJane, BreastMainTreatmentTry3Ella, GistAdjuvantIhanos ].map(p => EntryMapper.mapEntries(p));
         return patients.map(p => new PatientRecord(p));
     }
 
+=======
+>>>>>>> Fixed rebase issues.
     newPatient() {
         console.log("creating new patients is not implemented in hard-coded read only patient data source.");
     }

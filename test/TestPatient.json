@@ -540,12 +540,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD
                         "Code": {
                             "Value": "#disease",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "#disease",
+>>>>>>> Fixed rebase issues.
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         }

@@ -493,12 +493,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/BreastMainTreatmentDiabetesHypertensionJane.json
                         "Code": {
                             "Value": "#disease",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "#disease",
+>>>>>>> Fixed rebase issues.:src/dataaccess/HardCodedPatient2.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         }
@@ -1143,12 +1147,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/BreastMainTreatmentDiabetesHypertensionJane.json
                         "Code": {
                             "Value": "#disease",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "#disease",
+>>>>>>> Fixed rebase issues.:src/dataaccess/HardCodedPatient2.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         }
@@ -1281,12 +1289,16 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/BreastMainTreatmentDiabetesHypertensionJane.json
                         "Code": {
                             "Value": "#disease",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
                         },
+=======
+                        "Code": "#disease",
+>>>>>>> Fixed rebase issues.:src/dataaccess/HardCodedPatient2.json
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         }
@@ -2811,6 +2823,7 @@
             "Value": {
                 "Coding": [
                     {
+<<<<<<< HEAD:src/dataaccess/BreastMainTreatmentDiabetesHypertensionJane.json
                         "Code": {
                             "Value": "foo",
                             "EntryType": {
@@ -2823,6 +2836,15 @@
                         "CodeSystem": {
                             "Value": "http://ncimeta.nci.nih.gov",
                             "EntryType": {
+=======
+                        "Value": "foo",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "http://ncimeta.nci.nih.gov",
+                            "EntryType": {
+>>>>>>> Fixed rebase issues.:src/dataaccess/HardCodedPatient2.json
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
                             }
                         },
@@ -5753,12 +5775,16 @@
         "Value": {
             "Coding": [
                 {
+<<<<<<< HEAD:src/dataaccess/BreastMainTreatmentDiabetesHypertensionJane.json
                     "Code": {
                         "Value": "369918000",
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                         }
                     },
+=======
+                    "Code": "369918000",
+>>>>>>> Fixed rebase issues.:src/dataaccess/HardCodedPatient2.json
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -5802,12 +5828,16 @@
         "Value": {
             "Coding": [
                 {
+<<<<<<< HEAD:src/dataaccess/BreastMainTreatmentDiabetesHypertensionJane.json
                     "Code": {
                         "Value": "103802014",
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                         }
                     },
+=======
+                    "Code": "103802014",
+>>>>>>> Fixed rebase issues.:src/dataaccess/HardCodedPatient2.json
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -5851,12 +5881,16 @@
         "Value": {
             "Coding": [
                 {
+<<<<<<< HEAD:src/dataaccess/BreastMainTreatmentDiabetesHypertensionJane.json
                     "Code": {
                         "Value": "51703010",
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                         }
                     },
+=======
+                    "Code": "51703010",
+>>>>>>> Fixed rebase issues.:src/dataaccess/HardCodedPatient2.json
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -5900,12 +5934,16 @@
         "Value": {
             "Coding": [
                 {
+<<<<<<< HEAD:src/dataaccess/BreastMainTreatmentDiabetesHypertensionJane.json
                     "Code": {
                         "Value": "C35960",
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                         }
                     },
+=======
+                    "Code": "C35960",
+>>>>>>> Fixed rebase issues.:src/dataaccess/HardCodedPatient2.json
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
