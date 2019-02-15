@@ -12,6 +12,8 @@ class RangeChart extends Component {
         const lineLengthPixels = 240;
         // x position in pixels for where the line begins
         const lineStartXPixels = 10;
+        // padding value for the two ends of the line
+        const mainLinePaddingPixels = 10;
         // x position in pixels for the center of the svg
         const middle = lineLengthPixels / 2 + lineStartXPixels;
 
@@ -21,17 +23,17 @@ class RangeChart extends Component {
         if (!Lang.isNull(this.props.upperValue)) valueArray.push(this.props.upperValue);
         if (!Lang.isNull(this.props.typicalValue)) valueArray.push(this.props.typicalValue);
         if (!Lang.isNull(this.props.value)) valueArray.push(this.props.value);
-        const maxValue = Math.max.apply(null, valueArray);
-        const minValue = Math.min.apply(null, valueArray);
+        const upperBound = Math.max.apply(null, valueArray);
+        const lowerBound = Math.min.apply(null, valueArray);
 
         let typicalValueXPixels, lowerValueXPixels, upperValueXPixels, valueXPixels, radius, strokeWidth;
+        let typicalValueTextXPixels = null;
+        let lowerValueTextXPixels = null; 
+        let upperValueTextXPixels = null;
         let dotColor = '#AAA';
-        let showTypicalValueText = true;
-        let showLowerValueText = true; 
-        let showUpperValueText = true;
 
         // if all values are the same or some are null, just draw the dot with no scaled formatting
-        if (maxValue === minValue) {
+        if (upperBound === lowerBound) {
             const middle = lineLengthPixels / 2 + lineStartXPixels;
 
             if (Lang.isNull(this.props.typicalValue)) {
@@ -53,9 +55,6 @@ class RangeChart extends Component {
             } else {
                 valueXPixels = middle;
             }
-
-            showLowerValueText = false;
-            showUpperValueText = false;
         }
 
         // center the typical value if different from value and range is missing
@@ -64,15 +63,10 @@ class RangeChart extends Component {
             lowerValueXPixels = 0;
             upperValueXPixels = 0;
             valueXPixels = lineStartXPixels + lineLengthPixels - 10;                
-            showLowerValueText = false;
-            showUpperValueText = false;
         }
 
         // otherwise scale the chart with the given values 
         else { 
-            const lowerBound = (minValue === 0) ? ((maxValue - minValue) / - 20): (minValue - (minValue / 20));
-            const upperBound = maxValue + (maxValue / 20);
-
             // calculate padding around lower and upper values and use as the bounds of the graph
             const numberOfPixelsPerUnit = lineLengthPixels / (upperBound - lowerBound);
 
@@ -89,8 +83,6 @@ class RangeChart extends Component {
                 let singularDosageRangeXPixels = ((this.props.lowerValue - lowerBound) * numberOfPixelsPerUnit) + lineStartXPixels;
                 lowerValueXPixels = singularDosageRangeXPixels - 3;
                 upperValueXPixels = singularDosageRangeXPixels + 3;
-                showLowerValueText = false;
-                showUpperValueText = false;
             } else {
                 lowerValueXPixels = ((this.props.lowerValue - lowerBound) * numberOfPixelsPerUnit) + lineStartXPixels;
                 upperValueXPixels = ((this.props.upperValue - lowerBound) * numberOfPixelsPerUnit) + lineStartXPixels;
@@ -114,14 +106,51 @@ class RangeChart extends Component {
                     }
                 } 
             }
+
+            // adjust value label text location
+            if (!Lang.isNull(this.props.typicalValue)) {
+                let typicalValueCharLength = this.props.typicalValue.toString().length;
+                typicalValueTextXPixels = typicalValueXPixels - typicalValueCharLength * 3;
+            }
+
+            if (!Lang.isNull(this.props.lowerValue) && !Lang.isNull(this.props.upperValue) 
+                && this.props.lowerValue !== this.props.upperValue) {
+
+                let lowerValueCharLength = this.props.lowerValue.toString().length;
+                let upperValueCharLength = this.props.upperValue.toString().length;
+
+                lowerValueTextXPixels = lowerValueXPixels - lowerValueCharLength * 3; 
+                upperValueTextXPixels = upperValueXPixels - upperValueCharLength * 3;
+
+                if (!Lang.isNull(this.props.typicalValue)) {
+                    let typicalValueCharLength = this.props.typicalValue.toString().length;
+                    typicalValueTextXPixels = typicalValueXPixels - typicalValueCharLength * 3;
+
+                    // if the lower value and typical value overlap, omit the typical value
+                    if (lowerValueTextXPixels + lowerValueCharLength * 3 + 2 >= typicalValueTextXPixels) {
+                        typicalValueTextXPixels = null;
+                    }
+
+                    // if the lower value and typical value overlap, omit the typical value
+                    if (typicalValueTextXPixels + typicalValueCharLength * 3 + 2 >= upperValueTextXPixels) {
+                        typicalValueTextXPixels = null;
+                    }
+                }
+
+                // if the upper value and lower value overlap, omit the value furthest from the actual value
+                if (lowerValueTextXPixels + lowerValueCharLength * 3 + 5 >= upperValueTextXPixels) {
+                    if (this.props.value < this.props.lowerValue) upperValueTextXPixels = null;
+                    if (this.props.value > this.props.upperValue) lowerValueTextXPixels = null;
+                }
+            }
         }
 
         let svgForTypicalTick = null;
         let svgForTypicalText = null;
         if (typicalValueXPixels !== 0) {
             svgForTypicalTick = <line x1={typicalValueXPixels} y1="45" x2={typicalValueXPixels} y2="55" stroke="#979797" strokeWidth="1" />;
-            if (showTypicalValueText) {
-                svgForTypicalText = <text x={typicalValueXPixels - 3} y="70" fontFamily="sans-serif" fontSize="10px" fill="#3F3F3F">{this.props.typicalValue}</text>;      
+            if (!Lang.isNull(typicalValueTextXPixels)) {
+                svgForTypicalText = <text x={typicalValueTextXPixels} y="70" fontFamily="sans-serif" fontSize="10px" fill="#3F3F3F">{this.props.typicalValue}</text>;      
             }
         }
 
@@ -132,11 +161,11 @@ class RangeChart extends Component {
             svgForRangeBar = <text x={lineStartXPixels} y="38" fontFamily="sans-serif" fontSize="10px" fill="#3F3F3F">dosage range unknown</text>;
         } else {
             svgForRangeBar = <line x1={lowerValueXPixels} y1="50" x2={upperValueXPixels} y2="50" stroke="#DDD" strokeWidth="4" />;
-            if (showLowerValueText) {
-                svgForRangeLowerText = <text x={lowerValueXPixels - 3} y="70" fontFamily="sans-serif" fontSize="10px" fill="#3F3F3F">{this.props.lowerValue}</text>;
+            if (!Lang.isNull(lowerValueTextXPixels)) {
+                svgForRangeLowerText = <text x={lowerValueTextXPixels} y="70" fontFamily="sans-serif" fontSize="10px" fill="#3F3F3F">{this.props.lowerValue}</text>;
             }
-            if (showUpperValueText) {
-                svgForRangeUpperText = <text x={upperValueXPixels - 3} y="70" fontFamily="sans-serif" fontSize="10px" fill="#3F3F3F">{this.props.upperValue}</text>;
+            if (!Lang.isNull(upperValueTextXPixels)) {
+                svgForRangeUpperText = <text x={upperValueTextXPixels} y="70" fontFamily="sans-serif" fontSize="10px" fill="#3F3F3F">{this.props.upperValue}</text>;
             }
         }
 
@@ -151,16 +180,16 @@ class RangeChart extends Component {
 
         let viewBoxDimensions  = '';
         if (this.props.isWide) {
-            viewBoxDimensions = '10 30 250 110';
+            viewBoxDimensions = '10 30 260 110';
         } else {
-            viewBoxDimensions = '10 10 250 100';
+            viewBoxDimensions = '10 10 260 100';
         }
 
         return (
             <div>
                 <svg width="100%" height="6em" viewBox={viewBoxDimensions}>
                     {/*Main line*/}
-                    <line x1={lineStartXPixels} y1="50" x2={lineStartXPixels + lineLengthPixels} y2="50" stroke="#C2C2C2" strokeWidth="0.5" />
+                    <line x1={lineStartXPixels - mainLinePaddingPixels} y1="50" x2={lineStartXPixels + lineLengthPixels + mainLinePaddingPixels} y2="50" stroke="#C2C2C2" strokeWidth="0.5" />
 
                     {/*Typical value tick*/}
                     {svgForTypicalTick}
