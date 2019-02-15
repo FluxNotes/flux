@@ -52,45 +52,31 @@ class RangeChart extends Component {
             upperValueXPixels = ((this.props.upperValue - lowerBound) * numberOfPixelsPerUnit) + lineStartXPixels;
         }
 
-        // TO DO: add dot SVG
-        // let dotColor = 'black';
+        let dotColor = '#AAA';
+        let svgForDataPoint = null;
+        let svgForDataPointBorder = null;
+        if (!Lang.isNull(this.props.value)) { // only plot a dot if value is not null
 
-        // let valueXPixels = null;
-        // const distanceFromLineInPixels = 12;
+            let valueXPixels =  ((this.props.value - lowerBound) * numberOfPixelsPerUnit) + lineStartXPixels;
 
-        // let svgForDataPoint;
-        // // if value is null, don't plot a dot for it
-        // if (Lang.isNull(this.props.value)) {
-        //     svgForDataPoint = null;
-        // } else {
-        //     // If value is out of range, set the dot and value color to red and place it outside of the lower or upper mark
-        //     if (this.props.value < this.props.lowerValue || this.props.value > this.props.upperValue) {
+            // If value is out of range, set the dot and value color to red and place it outside of the lower or upper mark
+            if (this.props.value < this.props.lowerValue  || this.props.value > this.props.upperValue) {
+                dotColor = '#C80B0B'
 
-        //         // set the dot color
-        //         dotColor = 'red';
+                // If value is more than 4x the max value of the range, add a border to the dot
+                if (this.props.value > this.props.upperValue * 4) {
+                    let strokeWidth = 1;
+                    let radius = 6;
+                    if (this.props.value > this.props.upperValue * 10) {
+                        strokeWidth = 2;
+                        radius = 7;
+                    }
+                    svgForDataPointBorder = <circle cx={valueXPixels} cy="50" r={radius} strokeWidth={strokeWidth} stroke={dotColor} fill="#FFF" />
+                }
+            } 
 
-        //         // If the value is below the lower bound, set the x position to the left of the line
-        //         if (this.props.value < this.props.lowerValue) {
-        //             valueXPixels = lineStartXPixels - distanceFromLineInPixels;
-        //         }
-
-        //         // Else the value is above the upper bound so set the x position to the right of the line
-        //         else {
-        //             valueXPixels = lineLengthPixels + distanceFromLineInPixels + lineStartXPixels;
-        //         }
-
-        //     }
-        //     // Set the value and dot color to black and calculate where to place it on the line
-        //     else {
-
-        //         // set the dot color
-        //         dotColor = 'black'
-
-        //         // Calculate the x position of the dot
-        //         valueXPixels =  ((this.props.value - this.props.lowerValue) * numberOfPixelsPerUnit)+ lineStartXPixels;
-        //     }
-        //     svgForDataPoint = <circle cx={valueXPixels} cy="50" r="5" strokeWidth="3" fill={dotColor} />;
-        // }
+            svgForDataPoint = <circle cx={valueXPixels} cy="50" r="4" strokeWidth="3" fill={dotColor} />
+        }
         
         let viewBoxDimensions  = '';
         if (this.props.isWide) {
@@ -134,7 +120,8 @@ class RangeChart extends Component {
                     {svgForTypicalText}
 
                     {/*Data point for the value*/}
-                    {/* {svgForDataPoint} */}
+                    {svgForDataPointBorder}
+                    {svgForDataPoint}
                 </svg>
             </div>
         );
