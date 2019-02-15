@@ -518,21 +518,24 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
             }
         },
-        "Category": [
-            {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                },
+        "Category": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Category"
+            },
+            "Value": {
                 "Coding": [
                     {
+                        "Code": "#disease",
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                        },
-                        "Value": "#disease"
+                        }
                     }
-                ]
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
             }
-        ],
+        },
         "ClinicalStatus": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/ClinicalStatus"

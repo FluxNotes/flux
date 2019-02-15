@@ -71,6 +71,14 @@ class FluxEstrogenReceptorStatus {
         return this._estrogenReceptorStatus.relevantTime.value;
     }
 
+    get statusSign() {
+        return this.status === 'Positive' ? '+' : '-';
+    }
+
+    get abbreviatedName() {
+        return 'ER';
+    }
+
     toJSON() {
         return this._estrogenReceptorStatus.toJSON();
     }

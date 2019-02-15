@@ -1,5 +1,5 @@
 import MetadataSection from "./MetadataSection";
-import FluxBreastCancer from "../../model/oncology/FluxBreastCancer";
+import FluxBreastCancerDisorderPresent from "../../model/brca/FluxBreastCancerDisorderPresent";
 import Lang from 'lodash';
 
 export default class GeneralCancerSummarySection extends MetadataSection {
@@ -140,7 +140,7 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                             name: "Tumor Markers",
                             value: (patient, currentConditionEntry) => {
                                 // Display ER, PR, HER2 if Breast Cancer Condition
-                                if (currentConditionEntry instanceof FluxBreastCancer) {
+                                if (currentConditionEntry instanceof FluxBreastCancerDisorderPresent) {
                                     const receptorStatuses = [];
                                     const er = currentConditionEntry.getMostRecentERReceptorStatus();
                                     const pr = currentConditionEntry.getMostRecentPRReceptorStatus();

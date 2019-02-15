@@ -70,6 +70,14 @@ class FluxHER2ReceptorStatus {
         return this._her2ReceptorStatus.relevantTime.value;
     }
 
+    get statusSign() {
+        return this.status === 'Positive' ? '+' : '-';
+    }
+
+    get abbreviatedName() {
+        return 'HER2';
+    }
+
     toJSON() {
         return this._her2ReceptorStatus.toJSON();
     }

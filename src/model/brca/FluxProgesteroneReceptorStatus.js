@@ -70,6 +70,14 @@ class FluxProgesteroneReceptorStatus {
         return this._progesteroneReceptorStatus.relevantTime.value;
     }
 
+    get statusSign() {
+        return this.status === 'Positive' ? '+' : '-';
+    }
+
+    get abbreviatedName() {
+        return 'PR';
+    }
+
     toJSON() {
         return this._progesteroneReceptorStatus.toJSON();
     }
