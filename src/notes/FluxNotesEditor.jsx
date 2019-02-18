@@ -609,6 +609,7 @@ class FluxNotesEditor extends React.Component {
     }
 
     resetShortcutData = (shortcut, transform) => {
+        if(shortcut.text){
         const key = shortcut.getKey();     
         const shortcutNodeBeforeInsertion = transform.state.document.getDescendant(key);
         const charsToDelete = shortcutNodeBeforeInsertion.text.length

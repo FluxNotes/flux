@@ -231,11 +231,6 @@ function StructuredFieldPlugin(opts) {
         return result;
     }
 
-<<<<<<< HEAD
-    // Added a zero-width-space at the end of the structured field so Safari doesn't think we are still typing in a
-    // structured field once one has been inserted
-=======
->>>>>>> Filter out structured field for keyword replacement
     const safariSpacing = Slate.IS_SAFARI ? '\u200B' : '';
 
     const schema = {
@@ -243,11 +238,7 @@ function StructuredFieldPlugin(opts) {
             structured_field: props => {
                 const shortcut = props.node.get('data').get('shortcut');
                 if (shortcut instanceof InsertValue) {
-<<<<<<< HEAD
                     return <span className='structured-field-inserter' {...props.attributes}>{props.children}{safariSpacing}</span>;
-=======
-                    return <span contentEditable={false} className='structured-field-inserter' {...props.attributes}>{props.children}{safariSpacing}</span>;
->>>>>>> Filter out structured field for keyword replacement
                 } else {
                     return <span contentEditable={false} className='structured-field-creator' {...props.attributes}>{props.children}{safariSpacing}</span>;
                 }
