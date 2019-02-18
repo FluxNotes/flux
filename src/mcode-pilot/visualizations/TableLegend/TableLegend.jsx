@@ -19,7 +19,7 @@ export default class TableLegend extends Component {
         }
         const mainStyle = {"width": `45px`};
         const treatmentStyle = {"width":"10px", "backgroundColor":"#91bd7b"};
-        const redTreatmentStyle = {"width": "13px", "background": `repeating-linear-gradient(
+        const redTreatmentStyle = {"width": "14px", "background": `repeating-linear-gradient(
             45deg,
             transparent,
             transparent 2px,
@@ -30,7 +30,7 @@ export default class TableLegend extends Component {
             to bottom,
             #FFFFFF,
             #FFFFFF
-          )`  };
+          )`};
         const cancerStyle = {"width":"20px"};
         return (
             <div className="table-legend">
