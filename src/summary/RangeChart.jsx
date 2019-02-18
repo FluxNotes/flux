@@ -17,7 +17,7 @@ class RangeChart extends Component {
         // x position in pixels for the center of the svg
         const middle = lineLengthPixels / 2 + lineStartXPixels;
 
-        // calculate the lowest and highest values 
+        // calculate the upper and lower bounds of the chart
         let valueArray = [];
         if (!Lang.isNull(this.props.lowerValue)) valueArray.push(this.props.lowerValue);
         if (!Lang.isNull(this.props.upperValue)) valueArray.push(this.props.upperValue);
@@ -26,79 +26,85 @@ class RangeChart extends Component {
         const upperBound = Math.max.apply(null, valueArray);
         const lowerBound = Math.min.apply(null, valueArray);
 
-        let typicalValueXPixels, lowerValueXPixels, upperValueXPixels, valueXPixels, radius, strokeWidth;
+        // initialize pixel values as null
+        let typicalValueXPixels = null;
+        let lowerValueXPixels = null;
+        let upperValueXPixels = null;
+        let valueXPixels = null;
         let typicalValueTextXPixels = null;
         let lowerValueTextXPixels = null; 
         let upperValueTextXPixels = null;
         let dotColor = '#AAA';
+        let radius, strokeWidth;
 
-        // if all values are the same or some are null, just draw the dot with no scaled formatting
-        if (upperBound === lowerBound) {
-            const middle = lineLengthPixels / 2 + lineStartXPixels;
+        // if the range is null, center the typical value in the middle
+        if (Lang.isNull(this.props.lowerValue) || Lang.isNull(this.props.upperValue)) {
 
-            if (Lang.isNull(this.props.typicalValue)) {
-                typicalValueXPixels = 0;
-            } else {
+            if (!Lang.isNull(this.props.typicalValue)) {
                 typicalValueXPixels = middle;
             }
 
-            if (Lang.isNull(this.props.lowerValue) || Lang.isNull(this.props.upperValue)) {
-                lowerValueXPixels = 0;
-                upperValueXPixels = 0;
-            } else {
-                lowerValueXPixels = middle - 7;
-                upperValueXPixels = middle + 7;
-            }
-
-            if (Lang.isNull(this.props.value)) {
-                valueXPixels = 0;
-            } else {
-                valueXPixels = middle;
+            if (!Lang.isNull(this.props.value)) {
+                if (Lang.isNull(this.props.typicalValue) || (this.props.value === this.props.typicalValue)) valueXPixels = middle;
+                else valueXPixels = lineStartXPixels + lineLengthPixels;
             }
         }
 
-        // center the typical value if different from value and range is missing
-        else if (Lang.isNull(this.props.upperValue) && Lang.isNull(this.props.lowerValue)) {
-            typicalValueXPixels = middle;
-            lowerValueXPixels = 0;
-            upperValueXPixels = 0;
-            valueXPixels = lineStartXPixels + lineLengthPixels - 10;                
-        }
+        // range is defined
+        else {
 
-        // otherwise scale the chart with the given values 
-        else { 
-            // calculate padding around lower and upper values and use as the bounds of the graph
-            const numberOfPixelsPerUnit = lineLengthPixels / (upperBound - lowerBound);
+            // if the range is singular, center the range/typical value in the middle
+            if (this.props.lowerValue === this.props.upperValue) {
+                let singularRangePadding = 3;
 
-            if (Lang.isNull(this.props.typicalValue)) {
-                typicalValueXPixels = 0;
-            } else {
-                typicalValueXPixels = ((this.props.typicalValue - lowerBound) * numberOfPixelsPerUnit) + lineStartXPixels;
+                if (!Lang.isNull(this.props.typicalValue)) {
+                    typicalValueXPixels = middle;
+                }
+    
+                if (!Lang.isNull(this.props.value)) {
+                    if (this.props.value === this.props.lowerValue) {
+                        valueXPixels = middle;
+                        singularRangePadding = 7;
+                    } else {
+                        valueXPixels = lineStartXPixels + lineLengthPixels;
+                    }
+                }
+
+                lowerValueXPixels = middle - singularRangePadding;
+                upperValueXPixels = middle + singularRangePadding;
             }
 
-            if (Lang.isNull(this.props.lowerValue) || Lang.isNull(this.props.upperValue)) {
-                lowerValueXPixels = 0;
-                upperValueXPixels = 0;
-            } else if (this.props.lowerValue === this.props.upperValue) {
-                let singularDosageRangeXPixels = ((this.props.lowerValue - lowerBound) * numberOfPixelsPerUnit) + lineStartXPixels;
-                lowerValueXPixels = singularDosageRangeXPixels - 3;
-                upperValueXPixels = singularDosageRangeXPixels + 3;
-            } else {
+            // otherwise scale the chart with using the upper & lower bounds
+            else {
+
+                // calculate padding around lower and upper values and use as the bounds of the graph
+                const numberOfPixelsPerUnit = lineLengthPixels / (upperBound - lowerBound);
+
+                if (!Lang.isNull(this.props.typicalValue)) {
+                    typicalValueXPixels = ((this.props.typicalValue - lowerBound) * numberOfPixelsPerUnit) + lineStartXPixels;
+                }
+
+                if (!Lang.isNull(this.props.value)) {
+                    valueXPixels = ((this.props.value - lowerBound) * numberOfPixelsPerUnit) + lineStartXPixels;
+                }
+
                 lowerValueXPixels = ((this.props.lowerValue - lowerBound) * numberOfPixelsPerUnit) + lineStartXPixels;
                 upperValueXPixels = ((this.props.upperValue - lowerBound) * numberOfPixelsPerUnit) + lineStartXPixels;
             }
 
-            if (Lang.isNull(this.props.value)) {
-                valueXPixels = 0;
-            } else {
-                valueXPixels = ((this.props.value - lowerBound) * numberOfPixelsPerUnit) + lineStartXPixels;
+            // add additional styling if the value is out of range
+            if (!Lang.isNull(this.props.value)) {
+
+                // if the dot is out of range, color it red
                 if (this.props.value < this.props.lowerValue  || this.props.value > this.props.upperValue) {
                     dotColor = '#C80B0B'
 
-                    // If value is more than 4x the max value of the range, add a border to the dot
+                    // if value is more than 4x the max value of the range, add a border to the dot
                     if (this.props.value > this.props.upperValue * 4) {
                         strokeWidth = 1;
                         radius = 6;
+
+                        // if value is more than 10x the max value of the range, add a larger border to the dot
                         if (this.props.value > this.props.upperValue * 10) {
                             strokeWidth = 2;
                             radius = 7;
@@ -106,48 +112,48 @@ class RangeChart extends Component {
                     }
                 } 
             }
+        }
 
-            // adjust value label text location
+        // adjust value label text location
+        if (!Lang.isNull(this.props.typicalValue)) {
+            let typicalValueCharLength = this.props.typicalValue.toString().length;
+            typicalValueTextXPixels = typicalValueXPixels - typicalValueCharLength * 3;
+        }
+
+        if (!Lang.isNull(this.props.lowerValue) && !Lang.isNull(this.props.upperValue) 
+            && this.props.lowerValue !== this.props.upperValue) {
+
+            let lowerValueCharLength = this.props.lowerValue.toString().length;
+            let upperValueCharLength = this.props.upperValue.toString().length;
+
+            lowerValueTextXPixels = lowerValueXPixels - lowerValueCharLength * 3; 
+            upperValueTextXPixels = upperValueXPixels - upperValueCharLength * 3;
+
             if (!Lang.isNull(this.props.typicalValue)) {
                 let typicalValueCharLength = this.props.typicalValue.toString().length;
                 typicalValueTextXPixels = typicalValueXPixels - typicalValueCharLength * 3;
+
+                // if the lower value and typical value overlap, omit the typical value
+                if (lowerValueTextXPixels + lowerValueCharLength * 3 + 2 >= typicalValueTextXPixels) {
+                    typicalValueTextXPixels = null;
+                }
+
+                // if the lower value and typical value overlap, omit the typical value
+                if (typicalValueTextXPixels + typicalValueCharLength * 3 + 2 >= upperValueTextXPixels) {
+                    typicalValueTextXPixels = null;
+                }
             }
 
-            if (!Lang.isNull(this.props.lowerValue) && !Lang.isNull(this.props.upperValue) 
-                && this.props.lowerValue !== this.props.upperValue) {
-
-                let lowerValueCharLength = this.props.lowerValue.toString().length;
-                let upperValueCharLength = this.props.upperValue.toString().length;
-
-                lowerValueTextXPixels = lowerValueXPixels - lowerValueCharLength * 3; 
-                upperValueTextXPixels = upperValueXPixels - upperValueCharLength * 3;
-
-                if (!Lang.isNull(this.props.typicalValue)) {
-                    let typicalValueCharLength = this.props.typicalValue.toString().length;
-                    typicalValueTextXPixels = typicalValueXPixels - typicalValueCharLength * 3;
-
-                    // if the lower value and typical value overlap, omit the typical value
-                    if (lowerValueTextXPixels + lowerValueCharLength * 3 + 2 >= typicalValueTextXPixels) {
-                        typicalValueTextXPixels = null;
-                    }
-
-                    // if the lower value and typical value overlap, omit the typical value
-                    if (typicalValueTextXPixels + typicalValueCharLength * 3 + 2 >= upperValueTextXPixels) {
-                        typicalValueTextXPixels = null;
-                    }
-                }
-
-                // if the upper value and lower value overlap, omit the value furthest from the actual value
-                if (lowerValueTextXPixels + lowerValueCharLength * 3 + 5 >= upperValueTextXPixels) {
-                    if (this.props.value < this.props.lowerValue) upperValueTextXPixels = null;
-                    if (this.props.value > this.props.upperValue) lowerValueTextXPixels = null;
-                }
+            // if the upper value and lower value overlap, omit the value furthest from the actual value
+            if (lowerValueTextXPixels + lowerValueCharLength * 3 + 5 >= upperValueTextXPixels) {
+                if (this.props.value < this.props.lowerValue) upperValueTextXPixels = null;
+                if (this.props.value > this.props.upperValue) lowerValueTextXPixels = null;
             }
         }
 
         let svgForTypicalTick = null;
         let svgForTypicalText = null;
-        if (typicalValueXPixels !== 0) {
+        if (!Lang.isNull(typicalValueXPixels)) {
             svgForTypicalTick = <line x1={typicalValueXPixels} y1="45" x2={typicalValueXPixels} y2="55" stroke="#979797" strokeWidth="1" />;
             if (!Lang.isNull(typicalValueTextXPixels)) {
                 svgForTypicalText = <text x={typicalValueTextXPixels} y="70" fontFamily="sans-serif" fontSize="10px" fill="#3F3F3F">{this.props.typicalValue}</text>;      
@@ -157,7 +163,7 @@ class RangeChart extends Component {
         let svgForRangeBar = null;
         let svgForRangeLowerText = null;
         let svgForRangeUpperText = null;
-        if (lowerValueXPixels === 0 || upperValueXPixels === 0) {
+        if (Lang.isNull(lowerValueXPixels) || Lang.isNull(upperValueXPixels)) {
             svgForRangeBar = <text x={lineStartXPixels} y="38" fontFamily="sans-serif" fontSize="10px" fill="#3F3F3F">dosage range unknown</text>;
         } else {
             svgForRangeBar = <line x1={lowerValueXPixels} y1="50" x2={upperValueXPixels} y2="50" stroke="#DDD" strokeWidth="4" />;
@@ -171,7 +177,7 @@ class RangeChart extends Component {
 
         let svgForDataPoint = null;
         let svgForDataPointBorder = null;
-        if (valueXPixels !== 0) {
+        if (!Lang.isNull(valueXPixels)) {
             if (!Lang.isNull(radius) && !Lang.isNull(strokeWidth)) {
                 svgForDataPointBorder = <circle cx={valueXPixels} cy="50" r={radius} strokeWidth={strokeWidth} stroke={dotColor} fill="#FFF" />
             }
