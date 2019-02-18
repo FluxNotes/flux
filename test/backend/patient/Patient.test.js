@@ -1,6 +1,6 @@
 import '../../../src/model/init';
 import PatientRecord from '../../../src/patient/PatientRecord';
-import hardCodedPatient from '../../../src/dataaccess/HardCodedPatient.json';
+import BreastMainTreatmentDebra from '../../../src/dataaccess/BreastMainTreatmentDebra.json';
 import FakeDataElement from './FakeDataElement';
 import Patient from '../../../src/model/shr/entity/Patient';
 import Moment from 'moment';
@@ -15,7 +15,7 @@ const emptyPatient = emptyPatientObj.entries;
 const emptyPatientRecord = emptyPatientObj.getPatient();
 
 // The hardcoded PatientRecord.jsx obj
-const hardCodedPatientObj = new PatientRecord(hardCodedPatient);
+const hardCodedPatientObj = new PatientRecord(BreastMainTreatmentDebra);
 // The patient shr object -- an array of entries
 const hardCodedPatientEntries = hardCodedPatientObj.entries;
 // The patient record entry -- should be an shr object
