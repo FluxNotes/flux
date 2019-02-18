@@ -57,6 +57,7 @@ class RangeChart extends Component {
                 else {
                     valueXPixels = lineStartXPixels;
                     if (this.props.typicalValue < this.props.value) valueXPixels += lineLengthPixels;
+                    dotColor = '#C80B0B';
                 }
             }
         }
@@ -120,7 +121,7 @@ class RangeChart extends Component {
 
                 // if the dot is out of range, color it red
                 if (this.props.value < this.props.lowerValue  || this.props.value > this.props.upperValue) {
-                    dotColor = '#C80B0B'
+                    dotColor = '#C80B0B';
 
                     // if value is more than 4x the max value of the range, add a border to the dot
                     if (this.props.value > this.props.upperValue * 4) {
