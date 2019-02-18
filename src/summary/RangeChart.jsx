@@ -37,43 +37,64 @@ class RangeChart extends Component {
         let dotColor = '#AAA';
         let radius, strokeWidth;
 
-        // if the range is null, center the typical value in the middle
+        // range is null
         if (Lang.isNull(this.props.lowerValue) || Lang.isNull(this.props.upperValue)) {
 
+            // if typical value is defined, center it in the middle
             if (!Lang.isNull(this.props.typicalValue)) {
                 typicalValueXPixels = middle;
             }
 
+            // calculate location of value dot
             if (!Lang.isNull(this.props.value)) {
-                if (Lang.isNull(this.props.typicalValue) || (this.props.value === this.props.typicalValue)) valueXPixels = middle;
-                else valueXPixels = lineStartXPixels + lineLengthPixels;
+
+                // if typical value is not defined or typical value = value, center value in the middle
+                if (Lang.isNull(this.props.typicalValue) || (this.props.value === this.props.typicalValue)) {
+                    valueXPixels = middle;
+                }
+
+                // else place the value on the far right (if greater than typical value) or left (if less than typical value)
+                else {
+                    valueXPixels = lineStartXPixels;
+                    if (this.props.typicalValue < this.props.value) valueXPixels += lineLengthPixels;
+                }
             }
         }
 
         // range is defined
         else {
 
-            // if the range is singular, center the range/typical value in the middle
+            // range is singular (same upper and lower values)
             if (this.props.lowerValue === this.props.upperValue) {
                 let singularRangePadding = 3;
 
+                // if typical value is defined, center it in the middle
                 if (!Lang.isNull(this.props.typicalValue)) {
                     typicalValueXPixels = middle;
                 }
     
+                // calculate location of value dot
                 if (!Lang.isNull(this.props.value)) {
+
+                    // lower (or upper) value = value, center value in the middle
                     if (this.props.value === this.props.lowerValue) {
                         valueXPixels = middle;
                         singularRangePadding = 7;
-                    } else {
-                        valueXPixels = lineStartXPixels + lineLengthPixels;
+                    }
+
+                    // else place the value on the far right (if greater than lower value) or left (if less than lower value)
+                    else {
+                        valueXPixels = lineStartXPixels;
+                        if (this.props.lowerValue < this.props.value) valueXPixels += lineLengthPixels;
                     }
                 }
 
+                // center the singular range in the middle with some padding on either side
                 lowerValueXPixels = middle - singularRangePadding;
                 upperValueXPixels = middle + singularRangePadding;
             }
 
+            // range has different upper and lower values
             // otherwise scale the chart with using the upper & lower bounds
             else {
 
