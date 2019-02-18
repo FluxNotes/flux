@@ -167,18 +167,18 @@ class RangeChart extends Component {
                     typicalValueTextXPixels = typicalValueXPixels - typicalValueCharLength * 3;
 
                     // if the lower value and typical value overlap, omit the typical value
-                    if (lowerValueTextXPixels + lowerValueCharLength * 3 + 2 >= typicalValueTextXPixels) {
+                    if (lowerValueTextXPixels + lowerValueCharLength * 3 + 5 >= typicalValueTextXPixels) {
                         typicalValueTextXPixels = null;
                     }
 
                     // if the lower value and typical value overlap, omit the typical value
-                    if (typicalValueTextXPixels + typicalValueCharLength * 3 + 2 >= upperValueTextXPixels) {
+                    if (typicalValueTextXPixels + typicalValueCharLength * 3 + 5 >= upperValueTextXPixels) {
                         typicalValueTextXPixels = null;
                     }
                 }
 
                 // if the upper value and lower value overlap, omit the value furthest from the actual value
-                if (lowerValueTextXPixels + lowerValueCharLength * 3 + 5 >= upperValueTextXPixels) {
+                if (lowerValueTextXPixels + lowerValueCharLength * 3 + 8 >= upperValueTextXPixels) {
                     if (this.props.value < this.props.lowerValue) upperValueTextXPixels = null;
                     if (this.props.value > this.props.upperValue) lowerValueTextXPixels = null;
                 }
