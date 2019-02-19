@@ -1,10 +1,10 @@
 import IDataSource from './IDataSource';
 import DataAccess from './DataAccess';
 import PatientRecord from '../patient/PatientRecord';
-import hardCodedPatient from './HardCodedPatient.json';
-import hardCodedPatient2 from './HardCodedPatient2.json';
-import hardCodedPatientMidYearDemo18 from './HardCodedPatientMidYearDemo18.json';
-import hardCodedSarcomaPatient from './HardCodedSarcomaPatient.json';
+import BreastMainTreatmentDebra from './BreastMainTreatmentDebra.json';
+import BreastMainTreatmentDiabetesHypertensionJane from './BreastMainTreatmentDiabetesHypertensionJane.json';
+import BreastMainTreatmentTry3Ella from './BreastMainTreatmentTry3Ella.json';
+import GistAdjuvantIhanos from './GistAdjuvantIhanos.json';
 import curationPatient from './sample_curation_output.json';
 
 class HardCodedReadOnlyDataSource extends IDataSource {
@@ -34,22 +34,22 @@ class HardCodedReadOnlyDataSource extends IDataSource {
     } 
     getPatient(id) {  
         if (id === DataAccess.DEMO_PATIENT_ID) {
-            return new PatientRecord(hardCodedPatient);
-        } else if (hardCodedPatient2[0]["ShrId"] === id) {
-            return new PatientRecord(hardCodedPatient2);
-        } else if (hardCodedPatientMidYearDemo18[0]["ShrId"] === id) {
-            return new PatientRecord(hardCodedPatientMidYearDemo18);
+            return new PatientRecord(BreastMainTreatmentDebra);
+        } else if (BreastMainTreatmentDiabetesHypertensionJane[0]["ShrId"] === id) {
+            return new PatientRecord(BreastMainTreatmentDiabetesHypertensionJane);
+        } else if (BreastMainTreatmentTry3Ella[0]["ShrId"] === id) {
+            return new PatientRecord(BreastMainTreatmentTry3Ella);
         } else if (curationPatient[0]["ShrId"].Value === id) {
             return new PatientRecord(curationPatient); 
-        } else if (hardCodedSarcomaPatient[0]['ShrId'] === id) {
-            return new PatientRecord(hardCodedSarcomaPatient)
+        } else if (GistAdjuvantIhanos[0]['ShrId'] === id) {
+            return new PatientRecord(GistAdjuvantIhanos)
         }
         else {
             console.error("loading of patients other than the hard-coded demo patient is not implemented in hard-coded read only data source.");
         }
     }
     getListOfPatients() {
-        return [ new PatientRecord(hardCodedPatient), new PatientRecord(hardCodedPatientMidYearDemo18), new PatientRecord(hardCodedSarcomaPatient) ];
+        return [ new PatientRecord(BreastMainTreatmentDebra), new PatientRecord(BreastMainTreatmentTry3Ella), new PatientRecord(GistAdjuvantIhanos) ];
     }
     
     newPatient() {

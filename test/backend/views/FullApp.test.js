@@ -20,7 +20,7 @@ import FluxNotesEditor from '../../../src/notes/FluxNotesEditor';
 
 import NotesPanel from '../../../src/panels/NotesPanel';
 import NoteAssistant from '../../../src/notes/NoteAssistant';
-import hardCodedPatient from '../../../src/dataaccess/HardCodedPatient.json';
+import BreastMainTreatmentDebra from '../../../src/dataaccess/BreastMainTreatmentDebra.json';
 import PatientRecord from '../../../src/patient/PatientRecord.jsx';
 import FluxConditionPresentAssertion from '../../../src/model/base/FluxConditionPresentAssertion';
 
@@ -76,7 +76,7 @@ describe('2 setFullAppState', function() {
 
 describe('3 TargetedDataControl', function() {
     it('3.1 noteDisplayMode buttons update state', function() {
-        let patient = new PatientRecord(hardCodedPatient);
+        let patient = new PatientRecord(BreastMainTreatmentDebra);
         const summaryMetadata = new SummaryMetadata();
         const condition = new FluxBreastCancer({
             "Value": {
@@ -141,7 +141,7 @@ describe('3 TargetedDataControl', function() {
 });
 describe('4 TargetedDataControl - correct default visualizer Medications', function() {
     it('4.1 correct default visualizer', function() {
-        let patient = new PatientRecord(hardCodedPatient);
+        let patient = new PatientRecord(BreastMainTreatmentDebra);
         const summaryMetadata = new SummaryMetadata(null);
         const condition = new FluxGastrointestinalStromalTumor({
             "Value": {
@@ -369,7 +369,7 @@ describe('6 FluxNotesEditor', function() {
 
     it('6.1 inserts supplied text for inserter shortcuts', () => {
         // Set up Managers that are needed by FluxNotesEditor
-        let patient = new PatientRecord(hardCodedPatient);
+        let patient = new PatientRecord(BreastMainTreatmentDebra);
         const contextManager = new ContextManager(patient, () => {});
         const shortcutManager = new ShortcutManager();
         const structuredFieldMapManager = new StructuredFieldMapManager();
@@ -434,7 +434,7 @@ describe('6 FluxNotesEditor', function() {
     });
 
     // it.only('In pre-encounter mode, clicking the "New Note" button clears the editor content', () => {
-    //     let patient = new PatientRecord(hardCodedPatient);
+    //     let patient = new PatientRecord(BreastMainTreatmentDebra);
     //     const contextManager = new ContextManager(patient, () => {});
     //     const structuredFieldMapManager = new StructuredFieldMapManager();
     //     const shortcutManager = new ShortcutManager();
@@ -515,7 +515,7 @@ describe('6 FluxNotesEditor', function() {
     // });    
 
     it('6.2 renders notes panel and typing an inserterShortcut in the editor results in a structured data insertion', () => {
-        let patient = new PatientRecord(hardCodedPatient);
+        let patient = new PatientRecord(BreastMainTreatmentDebra);
         const contextManager = new ContextManager(patient, () => {});
         const structuredFieldMapManager = new StructuredFieldMapManager();
         const shortcutManager = new ShortcutManager();
@@ -571,7 +571,7 @@ describe('6 FluxNotesEditor', function() {
     });
 
     it('6.3 renders notes panel, clicking "@condition" and choosing "Invasive ductal carcinoma of breast" creates a new condition section in the context tray and adds structured data.', () => {
-        let patient = new PatientRecord(hardCodedPatient);
+        let patient = new PatientRecord(BreastMainTreatmentDebra);
         const contextManager = new ContextManager(patient, () => {});
         const structuredFieldMapManager = new StructuredFieldMapManager();
         const shortcutManager = new ShortcutManager();
@@ -637,7 +637,7 @@ describe('6 FluxNotesEditor', function() {
 
     it('6.4 Typing an inserterShortcut that is not currently valid in the editor does not result in a structured data insertion ', () => {
         // Set up Managers that are needed by FluxNotesEditor
-        let patient = new PatientRecord(hardCodedPatient);
+        let patient = new PatientRecord(BreastMainTreatmentDebra);
         const contextManager = new ContextManager(patient, () => {});
         const shortcutManager = new ShortcutManager();
         const structuredFieldMapManager = new StructuredFieldMapManager();
@@ -705,7 +705,7 @@ describe('6 FluxNotesEditor', function() {
     
     it('6.5 captures staging data using singleKeywordHashtag method', () => {
         // Set up Managers that are needed by FluxNotesEditor
-        let patient = new PatientRecord(hardCodedPatient);
+        let patient = new PatientRecord(BreastMainTreatmentDebra);
         const contextManager = new ContextManager(patient, () => {});
         const shortcutManager = new ShortcutManager();
         const structuredFieldMapManager = new StructuredFieldMapManager();
@@ -799,7 +799,7 @@ describe('6 FluxNotesEditor', function() {
 
     it('6.6 Typing a date in the editor results in a structured data insertion ', () => {
         // Set up Managers that are needed by FluxNotesEditor
-        let patient = new PatientRecord(hardCodedPatient);
+        let patient = new PatientRecord(BreastMainTreatmentDebra);
         const contextManager = new ContextManager(patient, () => {});
         const shortcutManager = new ShortcutManager();
         const structuredFieldMapManager = new StructuredFieldMapManager();
@@ -870,7 +870,7 @@ describe('6 FluxNotesEditor', function() {
     });
 
     it("6.7 Typing '#deceased' in the editor results in a structured data insertion and the context panel updates", () => {
-        let patient = new PatientRecord(hardCodedPatient);
+        let patient = new PatientRecord(BreastMainTreatmentDebra);
         const contextManager = new ContextManager(patient, () => {});
         const structuredFieldMapManager = new StructuredFieldMapManager();
         const shortcutManager = new ShortcutManager();
@@ -936,7 +936,7 @@ describe('6 FluxNotesEditor', function() {
     });
 
     it("6.8 Typing #PR into the editor followed by #Positive results in structured data insertion and context panel updates", () => {
-        let patient = new PatientRecord(hardCodedPatient);
+        let patient = new PatientRecord(BreastMainTreatmentDebra);
         const contextManager = new ContextManager(patient, () => {});
         const structuredFieldMapManager = new StructuredFieldMapManager();
         const shortcutManager = new ShortcutManager();
@@ -1019,7 +1019,7 @@ describe('6 FluxNotesEditor', function() {
 
     // NOTE: Skipping this test for now since it is functionally the same as the #PR tests
     it.skip("6.9 Typing #ER into the editor followed by #Positive results in structured data insertion and context panel updates", () => {
-        let patient = new PatientRecord(hardCodedPatient);
+        let patient = new PatientRecord(BreastMainTreatmentDebra);
         const contextManager = new ContextManager(patient, () => {});
         const structuredFieldMapManager = new StructuredFieldMapManager();
         const shortcutManager = new ShortcutManager();
@@ -1087,7 +1087,7 @@ describe('6 FluxNotesEditor', function() {
 
     // NOTE: Skipping this test for now since it is functionally the same as the #PR tests
     it.skip("6.10 Typing #HER2 into the editor followed by #Positive results in structured data insertion and context panel updates", () => {
-        let patient = new PatientRecord(hardCodedPatient);
+        let patient = new PatientRecord(BreastMainTreatmentDebra);
         const contextManager = new ContextManager(patient, () => {});
         const structuredFieldMapManager = new StructuredFieldMapManager();
         const shortcutManager = new ShortcutManager();
@@ -1155,7 +1155,7 @@ describe('6 FluxNotesEditor', function() {
 
     it('6.11 Switches contexts without closing a context chooses the correct parent context and successfully enters information in editor', () => {
         // Set up Managers that are needed by FluxNotesEditor
-        let patient = new PatientRecord(hardCodedPatient);
+        let patient = new PatientRecord(BreastMainTreatmentDebra);
         const contextManager = new ContextManager(patient, () => {});
         const shortcutManager = new ShortcutManager();
         const structuredFieldMapManager = new StructuredFieldMapManager();
@@ -1232,7 +1232,7 @@ describe('6 FluxNotesEditor', function() {
     });
 
     it('6.12 Clicking New Note button adds a new in progress note to the list', () => {
-        let patient = new PatientRecord(hardCodedPatient);
+        let patient = new PatientRecord(BreastMainTreatmentDebra);
         const contextManager = new ContextManager(patient, () => {});
         const structuredFieldMapManager = new StructuredFieldMapManager();
         const shortcutManager = new ShortcutManager();
@@ -1298,7 +1298,7 @@ describe('6 FluxNotesEditor', function() {
     });
 
     // it.only('6.?? Clicking on an existing note in post encounter mode loads the note in the editor', () => {
-    //     let patient = new PatientRecord(hardCodedPatient);
+    //     let patient = new PatientRecord(BreastMainTreatmentDebra);
     //     const contextManager = new ContextManager(patient, () => {});
     //     const structuredFieldMapManager = new StructuredFieldMapManager();
     //     const shortcutManager = new ShortcutManager();

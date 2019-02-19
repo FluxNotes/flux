@@ -1,5 +1,5 @@
 import DataAccess from '../../../src/dataaccess/DataAccess';
-import hardCodedPatient from '../../../src/dataaccess/HardCodedPatient.json';
+import BreastMainTreatmentDebra from '../../../src/dataaccess/BreastMainTreatmentDebra.json';
 import hardCodedFHIRPatient from '../../../src/dataaccess/HardCodedFHIRPatient.json';
 import PatientRecord from '../../../src/patient/PatientRecord';
 //import referenceHardCodedPatient from '../../../src/dataaccess/HardCodedPatient.json';
@@ -7,7 +7,7 @@ import Moment from 'moment';
 import {expect} from 'chai';
 
 // reference hard coded Patient
-const referenceHardCodedPatient = new PatientRecord(hardCodedPatient);
+const referenceHardCodedPatient = new PatientRecord(BreastMainTreatmentDebra);
 
 // Data Access with hard coded read only data source
 const hardCodedReadOnlyDataAccess = new DataAccess("HardCodedReadOnlyDataSource");
