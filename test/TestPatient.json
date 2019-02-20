@@ -303,7 +303,12 @@
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                             },
                             "Value": "2186-5",
-                            "DisplayText": "Non Hispanic or Latino"
+                            "DisplayText": {
+                                "Value": "Non Hispanic or Latino",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                }
+                            }
                         }
                     ]
                 }
@@ -3672,7 +3677,12 @@
                         },
                         "Value": "http://snomed.info/sct"
                     },
-                    "DisplayText": "Wheat Bran"
+                    "DisplayText": {
+                        "Value": "Wheat Bran",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    }
                 }
             ]
         },
@@ -3863,7 +3873,12 @@
                         },
                         "Value": "http://snomed.info/sct"
                     },
-                    "DisplayText": "Milk - dietary"
+                    "DisplayText": {
+                        "Value": "Milk - dietary",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    }
                 }
             ]
         },
@@ -4054,7 +4069,12 @@
                         },
                         "Value": "http://snomed.info/sct"
                     },
-                    "DisplayText": "No known drug allergy"
+                    "DisplayText": {
+                        "Value": "No known drug allergy",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    }
                 }
             ]
         }
@@ -6019,7 +6039,12 @@
                         },
                         "Value": "http://hl7.org/fhir/observation-status"
                     },
-                    "DisplayText": "Final"
+                    "DisplayText": {
+                        "Value": "Final",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    }
                 }
             ]
         },

@@ -103,7 +103,12 @@
                     "Coding": [
                         {
                             "Value": "2186-5",
-                            "DisplayText": "Non Hispanic or Latino",
+                            "DisplayText": {
+                                "Value": "Non Hispanic or Latino",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                }
+                            },
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                             }
@@ -3647,7 +3652,12 @@
             "Coding": [
                 {
                     "Value": "412533000",
-                    "DisplayText": "Wheat Bran",
+                    "DisplayText": {
+                        "Value": "Wheat Bran",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -3838,7 +3848,12 @@
             "Coding": [
                 {
                     "Value": "410942007",
-                    "DisplayText": "Milk - dietary",
+                    "DisplayText": {
+                        "Value": "Milk - dietary",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -4029,7 +4044,12 @@
             "Coding": [
                 {
                     "Value": "409137002",
-                    "DisplayText": "No known drug allergy",
+                    "DisplayText": {
+                        "Value": "No known drug allergy",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -5984,7 +6004,12 @@
             "Coding": [
                 {
                     "Value": "final",
-                    "DisplayText": "Final",
+                    "DisplayText": {
+                        "Value": "Final",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },

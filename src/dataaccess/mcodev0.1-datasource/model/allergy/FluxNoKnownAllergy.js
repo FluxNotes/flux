@@ -14,7 +14,7 @@ class FluxNoKnownAllergy {
      *  Returns displayText string for no known allergy
      */
     get noKnownAllergy() {
-        return this._noKnownAllergy.value.coding[0].displayText;
+        return this._noKnownAllergy.value.coding[0].displayText.value;
     }
 
     /*

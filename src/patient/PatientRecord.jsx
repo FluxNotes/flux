@@ -474,7 +474,7 @@ class PatientRecord {
             } else if (allergy instanceof FluxAllergyIntolerance) {
                 result += allergy.name;
             } else {
-                result += allergy.value.coding[0].displayText;
+                result += allergy.value.coding[0].displayText.value;
             }
             first = false;
         });

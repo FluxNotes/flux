@@ -164,7 +164,12 @@
                     "Coding": [
                         {
                             "Code": "2135-2",
-                            "DisplayText": "Hispanic or Latino",
+                            "DisplayText": {
+                                "Value": "Hispanic or Latino",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                }
+                            },
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                             }
@@ -5183,7 +5188,12 @@
             "Coding": [
                 {
                     "Value": "409137002",
-                    "DisplayText": "No known drug allergy",
+                    "DisplayText": {
+                        "Value": "No known drug allergy",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -7279,7 +7289,12 @@
             "Coding": [
                 {
                     "Value": "final",
-                    "DisplayText": "Final",
+                    "DisplayText": {
+                        "Value": "Final",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },

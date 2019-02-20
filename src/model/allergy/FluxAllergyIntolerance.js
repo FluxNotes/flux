@@ -15,7 +15,7 @@ class FluxAllergyIntolerance {
      *  Returns displayText string for allergy
      */
     get name() {
-        return this._allergyIntolerance.findingResult.value.coding[0].displayText;
+        return this._allergyIntolerance.findingResult.value.coding[0].displayText.value;
     }
 
     /*
