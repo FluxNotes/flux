@@ -167,6 +167,7 @@ const mapEntryInfo = (entryInfo, entry) => {
     newEntry.shrId = entryInfo.shrId;
     newEntry.entryType = new EntryType();
     newEntry.entryType.uri = entryInfo.entryType.uri;
+    if (entryInfo.sourceClinicalNote) newEntry.sourceClinicalNote = entryInfo.sourceClinicalNote;
 
     entry.entryInfo = newEntry;
     entry.metadata = new Metadata();
@@ -453,7 +454,6 @@ const mapEncounter = (encounter) => {
 
 exports.mapEntries = (v01Json) => {
     const entries = v01Json.map(entry => MCODEV01ObjectFactory.createInstance(entry));
-
     const v05Json = [];
     entries.forEach(entry => {
         if (entry instanceof FluxPatientV01) {

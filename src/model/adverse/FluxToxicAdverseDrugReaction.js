@@ -8,9 +8,11 @@ import lookup from '../../lib/toxicreaction_lookup.jsx';
 import Type from '../shr/core/Type';
 import CausalAttribution from '../shr/adverse/CausalAttribution';
 import CauseCategory from '../shr/adverse/CauseCategory';
+import FluxEntry from '../base/FluxEntry';
 
-class FluxToxicAdverseDrugReaction {
+class FluxToxicAdverseDrugReaction extends FluxEntry {
     constructor(json, patientRecord) {
+        super();
         this._entry = this._toxicAdverseDrugReaction = ToxicAdverseDrugReaction.fromJSON(json);
         if (!this._toxicAdverseDrugReaction.entryInfo) {
             let entry = new Entry();
