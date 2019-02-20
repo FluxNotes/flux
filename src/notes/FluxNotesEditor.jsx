@@ -609,7 +609,7 @@ class FluxNotesEditor extends React.Component {
     }
 
     resetShortcutData = (shortcut, transform) => {
-        if(shortcut.text){
+        console.log(shortcut)
         const key = shortcut.getKey();     
         const shortcutNodeBeforeInsertion = transform.state.document.getDescendant(key);
         const charsToDelete = shortcutNodeBeforeInsertion.text.length
@@ -622,20 +622,6 @@ class FluxNotesEditor extends React.Component {
            //const shortcutNode = transform.state.document.getDescendant(key);
             transform = transform.removeTextByKey(key, shortcut.initiatingTrigger.length, charsToDelete);
        }
-        
-        //transform = transform.insertTextByKey(key, 0, String(shortcut.getText()));
-       /* let nodes = [Slate.Text.createFromString(String(shortcut.getText()))];
-       console.log(nodes)
-       const properties = {
-            data: {
-                shortcut,
-                test: '4'
-            },
-            nodes: nodes
-       }
-       console.log(properties)
-        transform = transform.setNodeByKey(key, properties); */ 
-       
         return transform;
     }
 
@@ -691,12 +677,15 @@ class FluxNotesEditor extends React.Component {
                         // Update the children of the shortcut whose values just got selected.
                         const childShortcuts = shortcut.getChildren();
                         childShortcuts.forEach(childShortcut => {
+                            console.log(childShortcut)
+                            console.log(transform)
                             if (this.shortcutTriggerCheck(childShortcut, childShortcut.initiatingTrigger)) {
                                 // Set the text, then change the data of the shortcut to trigger a re-render.
                                 const text = childShortcut.determineText(this.contextManager);
                                 childShortcut.setText(text);
                                 transform = this.updateStructuredFieldResetSelection(childShortcut, transform);
                             } else {
+                        
                                 childShortcut.setText(null);
                                 transform = this.updateStructuredFieldResetSelection(childShortcut, transform);
                             }

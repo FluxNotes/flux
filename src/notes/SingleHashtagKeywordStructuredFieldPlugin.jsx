@@ -121,7 +121,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
         let curNodeText = [];
         if(curNode.nodes){
             for(const childNode of curNode.nodes){
-                if(childNode.type != 'structured_field')
+                if(childNode.type !== 'structured_field')
                     curNodeText.push(childNode.text);
             }
         }
