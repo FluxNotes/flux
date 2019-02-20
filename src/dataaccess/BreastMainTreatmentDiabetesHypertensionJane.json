@@ -39,7 +39,12 @@
         },
         "HumanName": [
             {
-                "NameAsText": "Jane Bradshaw146",
+                "NameAsText": {
+                    "Value": "Jane Bradshaw146",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/NameAsText"
+                    }
+                },
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
                 }

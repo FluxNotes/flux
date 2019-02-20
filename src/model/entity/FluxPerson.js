@@ -10,8 +10,10 @@ class FluxPerson {
     }
 
     get name() {
-        if (!this._person.humanName || this._person.humanName.length < 1) return null;
-        return this._person.humanName[0].nameAsText;
+        if (!this._person.humanName
+            || this._person.humanName.length < 1
+            || !this._person.humanName[0].nameAsText) return null;
+        return this._person.humanName[0].nameAsText.value;
     }
 
     get dateOfBirth() {

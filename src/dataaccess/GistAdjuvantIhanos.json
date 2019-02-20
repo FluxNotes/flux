@@ -131,7 +131,12 @@
         },
         "HumanName": [
             {
-                "NameAsText": "Ihanos Tnfinity6",
+                "NameAsText": {
+                    "Value": "Ihanos Tnfinity6",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/NameAsText"
+                    }
+                },
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
                 }
@@ -1273,7 +1278,12 @@
                     },
                     "HumanName": [
                         {
-                            "NameAsText": "Dr. Mona341 Brown483",
+                            "NameAsText": {
+                                "Value": "Dr. Mona341 Brown483",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/NameAsText"
+                                }
+                            },
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
                             }
@@ -6416,7 +6426,12 @@
                     },
                     "HumanName": [
                         {
-                            "NameAsText": "Dr. Smith952",
+                            "NameAsText": {
+                                "Value": "Dr. Smith952",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/NameAsText"
+                                }
+                            },
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
                             }
@@ -6540,7 +6555,12 @@
                     },
                     "HumanName": [
                         {
-                            "NameAsText": "Dr. Mona341 Brown483",
+                            "NameAsText": {
+                                "Value": "Dr. Mona341 Brown483",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/NameAsText"
+                                }
+                            },
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
                             }
@@ -6820,7 +6840,12 @@
                     },
                     "HumanName": [
                         {
-                            "NameAsText": "Dr. Mona341 Brown483",
+                            "NameAsText": {
+                                "Value": "Dr. Mona341 Brown483",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/NameAsText"
+                                }
+                            },
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
                             }
@@ -6970,7 +6995,12 @@
                     },
                     "HumanName": [
                         {
-                            "NameAsText": "Dr. Mona341 Brown483",
+                            "NameAsText": {
+                                "Value": "Dr. Mona341 Brown483",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/NameAsText"
+                                }
+                            },
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
                             }
@@ -7172,7 +7202,12 @@
                     },
                     "HumanName": [
                         {
-                            "NameAsText": "Dr. Mona341 Brown483",
+                            "NameAsText": {
+                                "Value": "Dr. Mona341 Brown483",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/NameAsText"
+                                }
+                            },
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
                             }
@@ -7786,7 +7821,12 @@
                     },
                     "HumanName": [
                         {
-                            "NameAsText": "Dr. Mona341 Brown483",
+                            "NameAsText": {
+                                "Value": "Dr. Mona341 Brown483",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/NameAsText"
+                                }
+                            },
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
                             }
@@ -8523,7 +8563,12 @@
                     },
                     "HumanName": [
                         {
-                            "NameAsText": "Dr. Mona341 Brown483",
+                            "NameAsText": {
+                                "Value": "Dr. Mona341 Brown483",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/NameAsText"
+                                }
+                            },
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
                             }
@@ -9056,7 +9101,12 @@
                     },
                     "HumanName": [
                         {
-                            "NameAsText": "Dr. Mona341 Brown483",
+                            "NameAsText": {
+                                "Value": "Dr. Mona341 Brown483",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/NameAsText"
+                                }
+                            },
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
                             }
@@ -9589,7 +9639,12 @@
                     },
                     "HumanName": [
                         {
-                            "NameAsText": "Dr. Mona341 Brown483",
+                            "NameAsText": {
+                                "Value": "Dr. Mona341 Brown483",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/NameAsText"
+                                }
+                            },
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
                             }
@@ -10122,7 +10177,12 @@
                     },
                     "HumanName": [
                         {
-                            "NameAsText": "Dr. Mona341 Brown483",
+                            "NameAsText": {
+                                "Value": "Dr. Mona341 Brown483",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/NameAsText"
+                                }
+                            },
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
                             }
@@ -10655,7 +10715,12 @@
                     },
                     "HumanName": [
                         {
-                            "NameAsText": "Dr. Mona341 Brown483",
+                            "NameAsText": {
+                                "Value": "Dr. Mona341 Brown483",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/NameAsText"
+                                }
+                            },
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
                             }

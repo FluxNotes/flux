@@ -125,7 +125,12 @@
         ],
         "HumanName": [
             {
-                "NameAsText": "Ella Ortiz111",
+                "NameAsText": {
+                    "Value": "Ella Ortiz111",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/NameAsText"
+                    }
+                },
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
                 }

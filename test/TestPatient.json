@@ -48,7 +48,12 @@
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
                 },
-                "NameAsText": "Debra Hernandez672"
+                "NameAsText": {
+                    "Value": "Debra Hernandez672",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/NameAsText"
+                    }
+                }
             }
         ],
         "DateOfBirth": {
