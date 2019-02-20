@@ -7,7 +7,11 @@ import Moment from 'moment';
 import {expect} from 'chai';
 import EntryMapper from '../../../src/dataaccess/mcodev0.1-datasource/EntryMapper';
 
+<<<<<<< HEAD
 const mcodePatientJson = EntryMapper.mapEntries(BreastMainTreatmentDebra);
+=======
+const mcodePatientJson = EntryMapper.mapEntries(hardCodedPatient);
+>>>>>>> Fix backend tests by using entry mapper/updating relevant json/requiring proper modules. TODO: NoteParser is still broken
 // reference hard coded Patient
 const referenceHardCodedPatient = new PatientRecord(mcodePatientJson);
 

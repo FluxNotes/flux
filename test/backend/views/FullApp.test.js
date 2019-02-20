@@ -20,7 +20,11 @@ import FluxNotesEditor from '../../../src/notes/FluxNotesEditor';
 
 import NotesPanel from '../../../src/panels/NotesPanel';
 import NoteAssistant from '../../../src/notes/NoteAssistant';
+<<<<<<< HEAD
 import BreastMainTreatmentDebra from '../../../src/dataaccess/BreastMainTreatmentDebra.json';
+=======
+import hardcodedPatient from '../../../src/dataaccess/HardcodedPatient.json';
+>>>>>>> Fix backend tests by using entry mapper/updating relevant json/requiring proper modules. TODO: NoteParser is still broken
 import PatientRecord from '../../../src/patient/PatientRecord.jsx';
 import FluxConditionPresentAssertion from '../../../src/model/base/FluxConditionPresentAssertion';
 
@@ -31,7 +35,11 @@ import FluxGastrointestinalStromalTumor from '../../../src/model/oncology/FluxGa
 import FluxBreastCancer from '../../../src/model/brca/FluxBreastCancerDisorderPresent';
 import EntryMapper from '../../../src/dataaccess/mcodev0.1-datasource/EntryMapper';
 
+<<<<<<< HEAD
 const mcodePatientJson = EntryMapper.mapEntries(BreastMainTreatmentDebra);
+=======
+const mcodePatientJson = EntryMapper.mapEntries(hardcodedPatient);
+>>>>>>> Fix backend tests by using entry mapper/updating relevant json/requiring proper modules. TODO: NoteParser is still broken
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -86,12 +94,16 @@ describe('3 TargetedDataControl', function() {
                 "Value": {
                     "Coding": [
                         {
+<<<<<<< HEAD
                             "Code": {
                                 "Value": "408643008",
                                 "EntryType": {
                                     "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                                 }
                             },
+=======
+                            "Code": "408643008",
+>>>>>>> Fix backend tests by using entry mapper/updating relevant json/requiring proper modules. TODO: NoteParser is still broken
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                             },
@@ -157,7 +169,11 @@ describe('4 TargetedDataControl - correct default visualizer Medications', funct
         let patient = new PatientRecord(mcodePatientJson);
         const summaryMetadata = new SummaryMetadata(null);
         const condition = new FluxGastrointestinalStromalTumor({
+<<<<<<< HEAD
             "FindingTopicCode": {
+=======
+            "FindingResult": {
+>>>>>>> Fix backend tests by using entry mapper/updating relevant json/requiring proper modules. TODO: NoteParser is still broken
                 "Value": {
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
@@ -167,12 +183,16 @@ describe('4 TargetedDataControl - correct default visualizer Medications', funct
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                             },
+<<<<<<< HEAD
                             "Code": {
                                 "Value": "420120006",
                                 "EntryType": {
                                     "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                                 }
                             },
+=======
+                            "Code": "420120006",
+>>>>>>> Fix backend tests by using entry mapper/updating relevant json/requiring proper modules. TODO: NoteParser is still broken
                             "CodeSystem": {
                                 "EntryType": {
                                     "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
@@ -189,7 +209,11 @@ describe('4 TargetedDataControl - correct default visualizer Medications', funct
                     ]
                 },
                 "EntryType": {
+<<<<<<< HEAD
                     "Value": "http://standardhealthrecord.org/spec/shr/base/ConditionOrDiagnosisCode"
+=======
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/FindingResult"
+>>>>>>> Fix backend tests by using entry mapper/updating relevant json/requiring proper modules. TODO: NoteParser is still broken
                 }
             }
         }, patient);

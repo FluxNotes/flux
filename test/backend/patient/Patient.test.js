@@ -14,7 +14,11 @@ const emptyPatientObj = new PatientRecord(null);
 const emptyPatient = emptyPatientObj.entries;
 // The empty patient record entry -- should be null
 const emptyPatientRecord = emptyPatientObj.getPatient();
+<<<<<<< HEAD
 const mcodePatientJson = EntryMapper.mapEntries(BreastMainTreatmentDebra);
+=======
+const mcodePatientJson = EntryMapper.mapEntries(hardCodedPatient);
+>>>>>>> Fix backend tests by using entry mapper/updating relevant json/requiring proper modules. TODO: NoteParser is still broken
 // The hardcoded PatientRecord.jsx obj
 const hardCodedPatientObj = new PatientRecord(mcodePatientJson);
 // The patient shr object -- an array of entries

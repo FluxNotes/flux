@@ -100,6 +100,7 @@ class HardCodedMcodeV01DataSource extends IDataSource {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     getListOfPatients() {
         const patients = [ BreastMainTreatmentDebra, BreastMainTreatmentDiabetesHypertensionJane, BreastMainTreatmentTry3Ella, GistAdjuvantIhanos ].map(p => EntryMapper.mapEntries(p));
         return patients.map(p => new PatientRecord(p));
@@ -107,6 +108,13 @@ class HardCodedMcodeV01DataSource extends IDataSource {
 
 =======
 >>>>>>> Fixed rebase issues.
+=======
+    getListOfPatients() {
+        const patients = [ hardCodedPatient, hardCodedPatient2, hardCodedPatientMidYearDemo18, hardCodedSarcomaPatient ].map(p => EntryMapper.mapEntries(p));
+        return patients.map(p => new PatientRecord(p));
+    }
+
+>>>>>>> Fix backend tests by using entry mapper/updating relevant json/requiring proper modules. TODO: NoteParser is still broken
     newPatient() {
         console.log("creating new patients is not implemented in hard-coded read only patient data source.");
     }

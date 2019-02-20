@@ -963,11 +963,18 @@ exports.mapEntries = (entries) => {
 
             mapEntryInfo(entry.entryInfo, newProgression);
             newProgression.findingResult = mapFindingResult(entry._cancerProgression.value);
+<<<<<<< HEAD
             if (entry._cancerProgression.findingStatus) newProgression.findingStatus = mapFindingStatus(entry._cancerProgression.findingStatus);
             if (entry._cancerProgression.specificFocusOfFinding) newProgression.specificFocusOfFinding = mapPassThrough(entry._cancerProgression.specificFocusOfFinding, SpecificFocusOfFinding);
             if (entry._cancerProgression.findingTopicCode) newProgression.findingTopicCode = mapPassThrough(entry._cancerProgression.findingTopicCode, FindingTopicCode);
             if (entry._cancerProgression.relevantTime) newProgression.relevantTime = mapRelevantTime(entry._cancerProgression.relevantTime);
             if (entry._evidence) newProgression.cancerProgressionEvidence = mapEvidence(entry._evidence);
+=======
+            if (entry._cancerProgression.specificFocusOfFinding) newProgression.specificFocusOfFinding = mapPassThrough(entry._cancerProgression.specificFocusOfFinding, SpecificFocusOfFinding);
+            if (entry._cancerProgression.findingTopicCode) newProgression.findingTopicCode = mapPassThrough(entry._cancerProgression.findingTopicCode, FindingTopicCode);
+            if (entry._cancerProgression.relevantTime) newProgression.relevantTime = mapRelevantTime(entry._cancerProgression.relevantTime);
+
+>>>>>>> Fix backend tests by using entry mapper/updating relevant json/requiring proper modules. TODO: NoteParser is still broken
             v05Json.push(newProgression.toJSON());
         } else if (entry instanceof FluxQuestionAnswerV01) {
             const newQuestionAnswer = new QuestionAnswer();
