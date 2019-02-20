@@ -15,6 +15,7 @@ class FluxPerson {
     }
 
     get dateOfBirth() {
+        if (!this._person.dateOfBirth) return null;
         return this._person.dateOfBirth.value;
     }
 

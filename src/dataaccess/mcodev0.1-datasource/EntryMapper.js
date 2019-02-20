@@ -428,8 +428,7 @@ exports.mapEntries = (v01Json) => {
             newPerson._person.address = entry._person.address.map(a => mapPassThrough(a, Address));
             newPerson._person.administrativeGender = mapGender(entry._person.administrativeGender);
             newPerson._person.contactPoint = entry._person.contactPoint.map(c => mapPassThrough(c, ContactPoint));
-            newPerson._person.dateOfBirth = new DateOfBirth();
-            newPerson._person.dateOfBirth.value = entry._person.dateOfBirth;
+            newPerson._person.dateOfBirth = mapPassThrough(entry._person.dateOfBirth, DateOfBirth);
             newPerson._person.ethnicity = mapPassThrough(entry._person.ethnicity, Ethnicity);
             const newPhotographicImage = new PhotographicImage();
             newPhotographicImage.resourceLocation = mapPassThrough(entry._person.headshot.media.resourceLocation, ResourceLocation);

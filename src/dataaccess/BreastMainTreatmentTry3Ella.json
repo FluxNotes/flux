@@ -28,7 +28,12 @@
     {
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
         "EntryId": "2",
-        "DateOfBirth": "19 Nov 1975",
+        "DateOfBirth": {
+            "Value": "19 Nov 1975",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/DateOfBirth"
+            }
+        },
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
         },

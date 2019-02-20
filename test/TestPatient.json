@@ -51,7 +51,12 @@
                 "NameAsText": "Debra Hernandez672"
             }
         ],
-        "DateOfBirth": "5 APR 1966",
+        "DateOfBirth": {
+            "Value": "5 APR 1966",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/DateOfBirth"
+            }
+        },
         "AdministrativeGender": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/AdministrativeGender"
