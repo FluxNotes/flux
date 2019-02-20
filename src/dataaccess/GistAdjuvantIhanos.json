@@ -185,12 +185,16 @@
                 "Value": {
                     "Coding": [
                         {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                             "Code": {
                                 "Value": "2135-2",
                                 "EntryType": {
                                     "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                                 }
                             },
+=======
+                            "Code": "2135-2",
+>>>>>>> update Coding.displayText from string to DisplayText object:src/dataaccess/HardCodedSarcomaPatient.json
                             "DisplayText": {
                                 "Value": "Hispanic or Latino",
                                 "EntryType": {
@@ -1322,12 +1326,16 @@
         "Value": {
             "Coding": [
                 {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                     "Code": {
                         "Value": "409137002",
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                         }
                     },
+=======
+                    "Code": "409137002",
+>>>>>>> update Coding.displayText from string to DisplayText object:src/dataaccess/HardCodedSarcomaPatient.json
                     "DisplayText": {
                         "Value": "No known drug allergy",
                         "EntryType": {
@@ -4197,12 +4205,16 @@
         "FindingStatus": {
             "Coding": [
                 {
+<<<<<<< HEAD:src/dataaccess/GistAdjuvantIhanos.json
                     "Code": {
                         "Value": "final",
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                         }
                     },
+=======
+                    "Code": "final",
+>>>>>>> update Coding.displayText from string to DisplayText object:src/dataaccess/HardCodedSarcomaPatient.json
                     "DisplayText": {
                         "Value": "Final",
                         "EntryType": {

@@ -107,12 +107,16 @@
                 "Value": {
                     "Coding": [
                         {
+<<<<<<< HEAD:src/dataaccess/BreastMainTreatmentDiabetesHypertensionJane.json
                             "Code": {
                                 "Value": "2186-5",
                                 "EntryType": {
                                     "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                                 }
                             },
+=======
+                            "Value": "2186-5",
+>>>>>>> update Coding.displayText from string to DisplayText object:src/dataaccess/HardCodedPatient2.json
                             "DisplayText": {
                                 "Value": "Non Hispanic or Latino",
                                 "EntryType": {
@@ -1538,12 +1542,16 @@
         "Value": {
             "Coding": [
                 {
+<<<<<<< HEAD:src/dataaccess/BreastMainTreatmentDiabetesHypertensionJane.json
                     "Code": {
                         "Value": "412533000",
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                         }
                     },
+=======
+                    "Value": "412533000",
+>>>>>>> update Coding.displayText from string to DisplayText object:src/dataaccess/HardCodedPatient2.json
                     "DisplayText": {
                         "Value": "Wheat Bran",
                         "EntryType": {
@@ -1759,12 +1767,16 @@
         "Value": {
             "Coding": [
                 {
+<<<<<<< HEAD:src/dataaccess/BreastMainTreatmentDiabetesHypertensionJane.json
                     "Code": {
                         "Value": "410942007",
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                         }
                     },
+=======
+                    "Value": "410942007",
+>>>>>>> update Coding.displayText from string to DisplayText object:src/dataaccess/HardCodedPatient2.json
                     "DisplayText": {
                         "Value": "Milk - dietary",
                         "EntryType": {
@@ -1980,12 +1992,16 @@
         "Value": {
             "Coding": [
                 {
+<<<<<<< HEAD:src/dataaccess/BreastMainTreatmentDiabetesHypertensionJane.json
                     "Code": {
                         "Value": "409137002",
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                         }
                     },
+=======
+                    "Value": "409137002",
+>>>>>>> update Coding.displayText from string to DisplayText object:src/dataaccess/HardCodedPatient2.json
                     "DisplayText": {
                         "Value": "No known drug allergy",
                         "EntryType": {
@@ -4120,12 +4136,16 @@
         "FindingStatus": {
             "Coding": [
                 {
+<<<<<<< HEAD:src/dataaccess/BreastMainTreatmentDiabetesHypertensionJane.json
                     "Code": {
                         "Value": "final",
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                         }
                     },
+=======
+                    "Value": "final",
+>>>>>>> update Coding.displayText from string to DisplayText object:src/dataaccess/HardCodedPatient2.json
                     "DisplayText": {
                         "Value": "Final",
                         "EntryType": {
