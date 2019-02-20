@@ -3485,8 +3485,11 @@
                 }
             }
         },
-        "Category": [
-            {
+        "Category": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Category"
+            },
+            "Value": {
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
                 },
@@ -3499,7 +3502,7 @@
                     }
                 ]
             }
-        ],
+        },
         "ClinicalStatus": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/ClinicalStatus"
@@ -6857,6 +6860,16 @@
             },
             "Value": "13 JAN 2012"
         },
+        "SpecificFocusOfFinding": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/SpecificFocusOfFinding"
+            },
+            "Value": {
+                "_ShrId": "123456",
+                "_EntryId": "8",
+                "_EntryType": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"
+            }
+        },
         "LastUpdated": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
@@ -6931,6 +6944,16 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             },
             "Value": "13 JAN 2012"
+        },
+        "SpecificFocusOfFinding": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/SpecificFocusOfFinding"
+            },
+            "Value": {
+                "_ShrId": "123456",
+                "_EntryId": "8",
+                "_EntryType": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"
+            }
         },
         "LastUpdated": {
             "EntryType": {

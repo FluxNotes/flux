@@ -1,3 +1,4 @@
+import './model/init.js';
 import FluxPatientV01 from './model/entity/FluxPatient';
 import FluxPatient from '../../model/entity/FluxPatient';
 import Entry from '../../model/shr/base/Entry';
@@ -166,10 +167,15 @@ const mapEntryInfo = (entryInfo, entry) => {
 
     entry.entryInfo = newEntry;
     entry.metadata = new Metadata();
-    entry.metadata.lastUpdated = new LastUpdated();
-    entry.metadata.lastUpdated.instant = entryInfo.lastUpdated.instant;
-    entry.metadata.authoredDateTime = new AuthoredDateTime();
-    entry.metadata.authoredDateTime.value = entryInfo.creationTime.dateTime;
+    if (entryInfo.lastUpdated) {
+        entry.metadata.lastUpdated = new LastUpdated();
+        entry.metadata.lastUpdated.instant = entryInfo.lastUpdated.instant;
+    }
+
+    if (entryInfo.creationTime) {
+        entry.metadata.authoredDateTime = new AuthoredDateTime();
+        entry.metadata.authoredDateTime.value = entryInfo.creationTime.dateTime;
+    }
     if (entryInfo.recordedBy) entry.metadata.informationRecorder = entryInfo.recordedBy.value;
 };
 
@@ -705,9 +711,9 @@ exports.mapEntries = (v01Json) => {
 
             mapEntryInfo(entry.entryInfo, newProgression);
             newProgression.findingResult = mapFindingResult(entry._cancerProgression.value);
-            newProgression.specificFocusOfFinding = mapPassThrough(entry._cancerProgression.specificFocusOfFinding, SpecificFocusOfFinding);
-            newProgression.findingTopicCode = mapPassThrough(entry._cancerProgression.findingTopicCode, FindingTopicCode);
-            newProgression.relevantTime = mapRelevantTime(entry._cancerProgression.relevantTime); 
+            if (entry._cancerProgression.specificFocusOfFinding) newProgression.specificFocusOfFinding = mapPassThrough(entry._cancerProgression.specificFocusOfFinding, SpecificFocusOfFinding);
+            if (entry._cancerProgression.findingTopicCode) newProgression.findingTopicCode = mapPassThrough(entry._cancerProgression.findingTopicCode, FindingTopicCode);
+            if (entry._cancerProgression.relevantTime) newProgression.relevantTime = mapRelevantTime(entry._cancerProgression.relevantTime);
 
             v05Json.push(newProgression.toJSON());
         } else if (entry instanceof FluxQuestionAnswerV01) {

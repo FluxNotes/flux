@@ -1113,12 +1113,12 @@ class PatientRecord {
     static getMostRecentEntryFromList(list) {
         if (list.length === 0) return null;
         if (list.length === 1) return list[0];
-
+        list = list.filter(e => e.metadata)
         let maxDate = Math.max.apply(null, list.map(function (o) {
-            return new Date(o.entryInfo.lastUpdated.instant);
+            return new Date(o.metadata.lastUpdated.instant);
         }));
         let result = list.filter((item) => {
-            return new Date(item.entryInfo.lastUpdated.instant).getTime() === new Date(maxDate).getTime()
+            return new Date(item.metadata.lastUpdated.instant).getTime() === new Date(maxDate).getTime()
         });
         if (Lang.isUndefined(result) || Lang.isNull(result) || result.length === 0) {
             return null;

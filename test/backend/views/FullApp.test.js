@@ -28,7 +28,10 @@ import SearchIndex from '../../../src/patientControl/SearchIndex';
 import FluxClinicalNote from '../../../src/model/core/FluxClinicalNote';
 import PreferenceManager from '../../../src/preferences/PreferenceManager';
 import FluxGastrointestinalStromalTumor from '../../../src/model/oncology/FluxGastrointestinalStromalTumor';
-import FluxBreastCancer from '../../../src/model/oncology/FluxBreastCancer';
+import FluxBreastCancer from '../../../src/model/brca/FluxBreastCancerDisorderPresent';
+import EntryMapper from '../../../src/dataaccess/mcodev0.1-datasource/EntryMapper';
+
+const mcodePatientJson = EntryMapper.mapEntries(BreastMainTreatmentDebra);
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -76,32 +79,37 @@ describe('2 setFullAppState', function() {
 
 describe('3 TargetedDataControl', function() {
     it('3.1 noteDisplayMode buttons update state', function() {
-        let patient = new PatientRecord(BreastMainTreatmentDebra);
+        let patient = new PatientRecord(mcodePatientJson);
         const summaryMetadata = new SummaryMetadata();
         const condition = new FluxBreastCancer({
-            "Value": {
-                "Coding": [
-                    {
-                        "Value": "408643008",
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                        },
-                        "CodeSystem": {
-                            "Value": "http://snomed.info/sct",
+            "FindingResult": {
+                "Value": {
+                    "Coding": [
+                        {
+                            "Code": "408643008",
                             "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                            }
-                        },
-                        "DisplayText": {
-                            "Value": "Invasive ductal carcinoma of breast",
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "CodeSystem": {
+                                "Value": "http://snomed.info/sct",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                }
+                            },
+                            "DisplayText": {
+                                "Value": "Invasive ductal carcinoma of breast",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                }
                             }
                         }
+                    ],
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
                     }
-                ],
+                },
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/FindingResult"
                 }
             }
         }, patient);
@@ -141,33 +149,38 @@ describe('3 TargetedDataControl', function() {
 });
 describe('4 TargetedDataControl - correct default visualizer Medications', function() {
     it('4.1 correct default visualizer', function() {
-        let patient = new PatientRecord(BreastMainTreatmentDebra);
+        let patient = new PatientRecord(mcodePatientJson);
         const summaryMetadata = new SummaryMetadata(null);
         const condition = new FluxGastrointestinalStromalTumor({
-            "Value": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                },
-                "Coding": [
-                    {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                        },
-                        "Value": "420120006",
-                        "CodeSystem": {
+            "FindingResult": {
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    },
+                    "Coding": [
+                        {
                             "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                             },
-                            "Value": "http://snomed.info/sct"
-                        },
-                        "DisplayText": {
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            "Code": "420120006",
+                            "CodeSystem": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                },
+                                "Value": "http://snomed.info/sct"
                             },
-                            "Value": "Gastrointestinal stromal tumor"
+                            "DisplayText": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                },
+                                "Value": "Gastrointestinal stromal tumor"
+                            }
                         }
-                    }
-                ]
+                    ]
+                },
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/FindingResult"
+                }
             }
         }, patient);
         const metadata = summaryMetadata.getMetadata(null, null, condition, null, null, null);
@@ -205,9 +218,9 @@ describe('5 FullApp', function() {
         }
     });
     it('5.1 Selecting a condition changes the active condition', () => {
-        const wrapper = mount(<FullApp 
-                display='Flux Notes' 
-                dataSource='HardCodedReadOnlyDataSource' 
+        const wrapper = mount(<FullApp
+                display='Flux Notes'
+                dataSource='HardCodedMcodeV01DataSource'
                 patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
         const conditionSelector = wrapper.find('SelectInput');
         expect(conditionSelector.exists()).to.equal(true);
@@ -223,8 +236,8 @@ describe('5 FullApp', function() {
     });
     it('5.2 Clicking "New Note" button in pre-encounter mode changes layout and displays the note editor', () => {
         const wrapper = mount(<FullApp 
-            display='Flux Notes' 
-            dataSource='HardCodedReadOnlyDataSource' 
+            display='Flux Notes'
+            dataSource='HardCodedMcodeV01DataSource'
             patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
         const e1 = wrapper.find('div.editor-content');
         expect(e1.exists()).to.equal(false);
@@ -240,8 +253,8 @@ describe('5 FullApp', function() {
     });
     it('5.3 Clicking clinical notes toggle button in Note Assistant switches view to clinical notes', () => {
         const wrapper = mount(<FullApp 
-            display='Flux Notes' 
-            dataSource='HardCodedReadOnlyDataSource' 
+            display='Flux Notes'
+            dataSource='HardCodedMcodeV01DataSource'
             patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
 
         // Click on new note button to open the editor
@@ -265,8 +278,8 @@ describe('5 FullApp', function() {
     });
     it('5.4 Clicking context toggle button in Note Assistant switches view to context tray', () => {
         const wrapper = mount(<FullApp 
-            display='Flux Notes' 
-            dataSource='HardCodedReadOnlyDataSource' 
+            display='Flux Notes'
+            dataSource='HardCodedMcodeV01DataSource'
             patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />,
             { attachTo: document.body });
 
@@ -292,7 +305,7 @@ describe('5 FullApp', function() {
     // it.only('In pre-encounter mode, clicking the "New Note" button clears the editor content', () => {
     //     const wrapper = mount(<FullApp 
     //         display='Flux Notes' 
-    //         dataSource='HardCodedReadOnlyDataSource' 
+    //         dataSource='HardCodedMcodeV01DataSource'
     //         patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
 
     //     // click new note button
@@ -369,7 +382,7 @@ describe('6 FluxNotesEditor', function() {
 
     it('6.1 inserts supplied text for inserter shortcuts', () => {
         // Set up Managers that are needed by FluxNotesEditor
-        let patient = new PatientRecord(BreastMainTreatmentDebra);
+        let patient = new PatientRecord(mcodePatientJson);
         const contextManager = new ContextManager(patient, () => {});
         const shortcutManager = new ShortcutManager();
         const structuredFieldMapManager = new StructuredFieldMapManager();
@@ -434,7 +447,7 @@ describe('6 FluxNotesEditor', function() {
     });
 
     // it.only('In pre-encounter mode, clicking the "New Note" button clears the editor content', () => {
-    //     let patient = new PatientRecord(BreastMainTreatmentDebra);
+    //     let patient = new PatientRecord(mcodePatientJson);
     //     const contextManager = new ContextManager(patient, () => {});
     //     const structuredFieldMapManager = new StructuredFieldMapManager();
     //     const shortcutManager = new ShortcutManager();
@@ -515,7 +528,7 @@ describe('6 FluxNotesEditor', function() {
     // });    
 
     it('6.2 renders notes panel and typing an inserterShortcut in the editor results in a structured data insertion', () => {
-        let patient = new PatientRecord(BreastMainTreatmentDebra);
+        let patient = new PatientRecord(mcodePatientJson);
         const contextManager = new ContextManager(patient, () => {});
         const structuredFieldMapManager = new StructuredFieldMapManager();
         const shortcutManager = new ShortcutManager();
@@ -571,7 +584,7 @@ describe('6 FluxNotesEditor', function() {
     });
 
     it('6.3 renders notes panel, clicking "@condition" and choosing "Invasive ductal carcinoma of breast" creates a new condition section in the context tray and adds structured data.', () => {
-        let patient = new PatientRecord(BreastMainTreatmentDebra);
+        let patient = new PatientRecord(mcodePatientJson);
         const contextManager = new ContextManager(patient, () => {});
         const structuredFieldMapManager = new StructuredFieldMapManager();
         const shortcutManager = new ShortcutManager();
@@ -637,7 +650,7 @@ describe('6 FluxNotesEditor', function() {
 
     it('6.4 Typing an inserterShortcut that is not currently valid in the editor does not result in a structured data insertion ', () => {
         // Set up Managers that are needed by FluxNotesEditor
-        let patient = new PatientRecord(BreastMainTreatmentDebra);
+        let patient = new PatientRecord(mcodePatientJson);
         const contextManager = new ContextManager(patient, () => {});
         const shortcutManager = new ShortcutManager();
         const structuredFieldMapManager = new StructuredFieldMapManager();
@@ -705,7 +718,7 @@ describe('6 FluxNotesEditor', function() {
     
     it('6.5 captures staging data using singleKeywordHashtag method', () => {
         // Set up Managers that are needed by FluxNotesEditor
-        let patient = new PatientRecord(BreastMainTreatmentDebra);
+        let patient = new PatientRecord(mcodePatientJson);
         const contextManager = new ContextManager(patient, () => {});
         const shortcutManager = new ShortcutManager();
         const structuredFieldMapManager = new StructuredFieldMapManager();
@@ -799,7 +812,7 @@ describe('6 FluxNotesEditor', function() {
 
     it('6.6 Typing a date in the editor results in a structured data insertion ', () => {
         // Set up Managers that are needed by FluxNotesEditor
-        let patient = new PatientRecord(BreastMainTreatmentDebra);
+        let patient = new PatientRecord(mcodePatientJson);
         const contextManager = new ContextManager(patient, () => {});
         const shortcutManager = new ShortcutManager();
         const structuredFieldMapManager = new StructuredFieldMapManager();
@@ -870,7 +883,7 @@ describe('6 FluxNotesEditor', function() {
     });
 
     it("6.7 Typing '#deceased' in the editor results in a structured data insertion and the context panel updates", () => {
-        let patient = new PatientRecord(BreastMainTreatmentDebra);
+        let patient = new PatientRecord(mcodePatientJson);
         const contextManager = new ContextManager(patient, () => {});
         const structuredFieldMapManager = new StructuredFieldMapManager();
         const shortcutManager = new ShortcutManager();
@@ -936,7 +949,7 @@ describe('6 FluxNotesEditor', function() {
     });
 
     it("6.8 Typing #PR into the editor followed by #Positive results in structured data insertion and context panel updates", () => {
-        let patient = new PatientRecord(BreastMainTreatmentDebra);
+        let patient = new PatientRecord(mcodePatientJson);
         const contextManager = new ContextManager(patient, () => {});
         const structuredFieldMapManager = new StructuredFieldMapManager();
         const shortcutManager = new ShortcutManager();
@@ -1019,7 +1032,7 @@ describe('6 FluxNotesEditor', function() {
 
     // NOTE: Skipping this test for now since it is functionally the same as the #PR tests
     it.skip("6.9 Typing #ER into the editor followed by #Positive results in structured data insertion and context panel updates", () => {
-        let patient = new PatientRecord(BreastMainTreatmentDebra);
+        let patient = new PatientRecord(mcodePatientJson);
         const contextManager = new ContextManager(patient, () => {});
         const structuredFieldMapManager = new StructuredFieldMapManager();
         const shortcutManager = new ShortcutManager();
@@ -1087,7 +1100,7 @@ describe('6 FluxNotesEditor', function() {
 
     // NOTE: Skipping this test for now since it is functionally the same as the #PR tests
     it.skip("6.10 Typing #HER2 into the editor followed by #Positive results in structured data insertion and context panel updates", () => {
-        let patient = new PatientRecord(BreastMainTreatmentDebra);
+        let patient = new PatientRecord(mcodePatientJson);
         const contextManager = new ContextManager(patient, () => {});
         const structuredFieldMapManager = new StructuredFieldMapManager();
         const shortcutManager = new ShortcutManager();
@@ -1155,7 +1168,7 @@ describe('6 FluxNotesEditor', function() {
 
     it('6.11 Switches contexts without closing a context chooses the correct parent context and successfully enters information in editor', () => {
         // Set up Managers that are needed by FluxNotesEditor
-        let patient = new PatientRecord(BreastMainTreatmentDebra);
+        let patient = new PatientRecord(mcodePatientJson);
         const contextManager = new ContextManager(patient, () => {});
         const shortcutManager = new ShortcutManager();
         const structuredFieldMapManager = new StructuredFieldMapManager();
@@ -1232,7 +1245,7 @@ describe('6 FluxNotesEditor', function() {
     });
 
     it('6.12 Clicking New Note button adds a new in progress note to the list', () => {
-        let patient = new PatientRecord(BreastMainTreatmentDebra);
+        let patient = new PatientRecord(mcodePatientJson);
         const contextManager = new ContextManager(patient, () => {});
         const structuredFieldMapManager = new StructuredFieldMapManager();
         const shortcutManager = new ShortcutManager();
@@ -1298,7 +1311,7 @@ describe('6 FluxNotesEditor', function() {
     });
 
     // it.only('6.?? Clicking on an existing note in post encounter mode loads the note in the editor', () => {
-    //     let patient = new PatientRecord(BreastMainTreatmentDebra);
+    //     let patient = new PatientRecord(mcodePatientJson);
     //     const contextManager = new ContextManager(patient, () => {});
     //     const structuredFieldMapManager = new StructuredFieldMapManager();
     //     const shortcutManager = new ShortcutManager();

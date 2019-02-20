@@ -1,4 +1,3 @@
-import './model/init.js';
 import IDataSource from '../IDataSource';
 import DataAccess from '../DataAccess';
 import hardCodedPatient from '../HardCodedPatient.json';
@@ -54,6 +53,11 @@ class HardCodedMcodeV01DataSource extends IDataSource {
         }
 
         return new PatientRecord(EntryMapper.mapEntries(patientJSON));
+    }
+
+    getListOfPatients() {
+        const patients = [ hardCodedPatient, hardCodedPatient2, hardCodedPatientMidYearDemo18, hardCodedSarcomaPatient ].map(p => EntryMapper.mapEntries(p));
+        return patients.map(p => new PatientRecord(p));
     }
 
     newPatient() {

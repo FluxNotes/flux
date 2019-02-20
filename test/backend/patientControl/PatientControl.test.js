@@ -11,6 +11,7 @@ const testPatientShrId = '123456'
 import PatientSearch from '../../../src/patientControl/PatientSearch'
 import SearchIndex from '../../../src/patientControl/SearchIndex';
 import NotesIndexer from '../../../src/patientControl/NotesIndexer';
+import EntryMapper from '../../../src/dataaccess/mcodev0.1-datasource/EntryMapper';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -21,8 +22,9 @@ const emptyPatient = emptyPatientObj.entries;
 // The empty patient record entry -- should be null
 const emptyPatientRecord = emptyPatientObj.getPatient();
 
+const mcodePatientJson = EntryMapper.mapEntries(TestPatient);
 // The hardcoded PatientRecord.jsx obj
-const testPatientObj = new PatientRecord(TestPatient);
+const testPatientObj = new PatientRecord(mcodePatientJson);
 // The patient shr object -- an array of entries
 const testPatientEntries = testPatientObj.entries;
 // The patient record entry -- should be an shr object
