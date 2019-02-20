@@ -156,6 +156,9 @@ import NumberOfRefillsAllowed from '../../model/shr/medication/NumberOfRefillsAl
 import FluxPathologyReportV01 from './model/finding/FluxPathologyReport';
 import FluxPathologyReport from '../../model/finding/FluxPathologyReport';
 import MCODEV01ObjectFactory from './model/FluxObjectFactory';
+import ConsultRequested from '../../model/shr/encounter/ConsultRequested';
+import Encounter from '../../model/shr/encounter/Encounter';
+import RequestIntent from '../../model/shr/base/RequestIntent';
 
 // Maps mCODE v0.1 entries to Flux Object Model
 const mapEntryInfo = (entryInfo, entry) => {
@@ -193,14 +196,21 @@ const mapPassThrough = (element, klass) => {
     return klass.fromJSON(element.toJSON());
 };
 
+const mapCodingToCodeableConcept = (coding) => {
+    const codeableConcept = new CodeableConcept();
+    const newCoding = new Coding();
+    newCoding.code = coding;
+    codeableConcept.coding = [newCoding];
+    codeableConcept.displayText = new DisplayText();
+    codeableConcept.displayText.value = coding;
+
+    return codeableConcept;
+}
+
 const mapGender = (gender) => {
     const newGender = new AdministrativeGender();
-    newGender.value = new CodeableConcept();
-    const newCoding = new Coding();
-    newCoding.code = gender.value;
-    newGender.value.coding = [newCoding];
-    newGender.value.displayText = new DisplayText();
-    newGender.value.displayText.value = gender.value;
+
+    newGender.value = mapCodingToCodeableConcept(gender.value);
 
     return newGender; 
 }
@@ -339,15 +349,34 @@ const mapFindingStatus = (findingStatus) => {
 const mapSubstanceCategory = (substanceCategory) => {
     const newSubstanceCategory = new SubstanceCategory();
 
-    newSubstanceCategory.value = new CodeableConcept();
-    const newCoding = new Coding();
-    newCoding.code = substanceCategory.value;
-    newSubstanceCategory.value.coding = [newCoding];
-    newSubstanceCategory.value.displayText = new DisplayText();
-    newSubstanceCategory.value.displayText.value = substanceCategory.value;
+    newSubstanceCategory.value = mapCodingToCodeableConcept(substanceCategory.value);
 
     return newSubstanceCategory;
 };
+
+const mapClinicalStatus = (clinicalStatus) => {
+    const newClinicalStatus = new ClinicalStatus();
+
+    newClinicalStatus.value = mapCodingToCodeableConcept(clinicalStatus.value);
+
+    return newClinicalStatus;
+};
+
+const mapStatus = (status) => {
+    const newStatus = new Status();
+
+    newStatus.value = mapCodingToCodeableConcept(status.value);
+
+    return newStatus;
+};
+
+const mapRequestIntent = (requestIntent) => {
+    const newRequestIntent = new RequestIntent();
+
+    newRequestIntent.value = mapCodingToCodeableConcept(requestIntent.value);
+
+    return newRequestIntent;
+}
 
 const mapAdverseReaction = (adverseReaction) => {
     const newAllergyIntoleranceReaction = new AllergyIntoleranceReaction();
@@ -367,7 +396,7 @@ const mapCancerDisorder = (entry, klass) => {
     newCondition.patient = mapReference(entry._condition.patient);
     newCondition.anatomicalLocation = entry._condition.anatomicalLocation.map(a => mapAnatomicalLocation(a));
     newCondition.category = mapPassThrough(entry._condition.category, Category);
-    newCondition.clinicalStatus = mapPassThrough(entry._condition.clinicalStatus, ClinicalStatus);
+    newCondition.clinicalStatus = mapClinicalStatus(entry._condition.clinicalStatus);
     newCondition.findingResult = new FindingResult();
     newCondition.findingResult.value = mapPassThrough(entry._condition.value, CodeableConcept);
     newCondition.onset = mapPassThrough(entry._condition.onset, Onset);
@@ -413,8 +442,18 @@ const mapObservation = (entry, newObservation) => {
     return newObservation;
 }
 
+const mapEncounter = (encounter) => {
+    const newEncounter = new Encounter();
+
+    newEncounter.status = mapStatus(encounter._encounter.status);
+    newEncounter.timePeriod = mapTimePeriod(encounter._encounter.timePeriod);
+
+    return newEncounter;
+}
+
 exports.mapEntries = (v01Json) => {
     const entries = v01Json.map(entry => MCODEV01ObjectFactory.createInstance(entry));
+
     const v05Json = [];
     entries.forEach(entry => {
         if (entry instanceof FluxPatientV01) {
@@ -457,7 +496,7 @@ exports.mapEntries = (v01Json) => {
             mapEntryInfo(entry.entryInfo, newCondition);
             newCondition.anatomicalLocation = entry._condition.anatomicalLocation.map(a => mapAnatomicalLocation(a));
             newCondition.category = mapPassThrough(entry._condition.category, Category);
-            newCondition.clinicalStatus = mapPassThrough(entry._condition.clinicalStatus, ClinicalStatus);
+            newCondition.clinicalStatus = mapClinicalStatus(entry._condition.clinicalStatus);
             newCondition.findingResult = new FindingResult();
             newCondition.findingResult.value = mapPassThrough(entry._condition.value, CodeableConcept);
             newCondition.onset = mapPassThrough(entry._condition.onset, Onset);
@@ -470,7 +509,7 @@ exports.mapEntries = (v01Json) => {
             newProcedure.expectedPerformanceTime = mapExpectedPerformanceTime(entry._procedureRequested.expectedPerformanceTime);
             if (entry._procedureRequested.annotation) newProcedure.annotation = entry._procedureRequested.annotation.map(a => mapPassThrough(a, Annotation));
             if (entry._procedureRequested.reason) newProcedure.reason = entry._procedureRequested.reason.map(r => mapPassThrough(r, Reason));
-            newProcedure.status = mapPassThrough(entry._procedureRequested.status, Status);
+            newProcedure.status = mapStatus(entry._procedureRequested.status);
             newProcedure.procedureCode = new ProcedureCode();
             newProcedure.procedureCode.value = mapPassThrough(entry._procedureRequested.topicCode.value, CodeableConcept);
 
@@ -492,18 +531,14 @@ exports.mapEntries = (v01Json) => {
 
             v05Json.push(newAllergyIntolerance.toJSON());
         } else if (entry instanceof FluxConsultRequestedV01) {
-            const entryJSON = entry.toJSON();
-            entryJSON.Encounter.TimePeriod.EntryType.Value = 'http://standardhealthrecord.org/spec/shr/core/TimePeriod';
-            entryJSON.Encounter.TimePeriod.BeginDateTime = {
-                EntryType: {
-                    Value : 'http://standardhealthrecord.org/spec/shr/core/BeginDateTime'
-                },
-                Value: entryJSON.Encounter.TimePeriod.TimePeriodStart.Value
-            };
-            delete entryJSON.LastUpdated;
-            delete entryJSON.CreationTime;
-            delete entryJSON.Encounter.TimePeriod.TimePeriodStart;
-            v05Json.push(entryJSON);
+            const newConsultRequested = new ConsultRequested();
+
+            mapEntryInfo(entry.entryInfo, newConsultRequested);
+            newConsultRequested.encounter = mapEncounter(entry._consultRequested.encounter);
+            newConsultRequested.reason = entry._consultRequested.reason.map(r => mapPassThrough(r, Reason));
+            newConsultRequested.requestIntent = mapRequestIntent(entry._consultRequested.requestIntent);
+
+            v05Json.push(newConsultRequested.toJSON());
         } else if (entry instanceof FluxHistologicGradeV01) {
             const newHistologicGrade = new CancerHistologicGrade();
 
@@ -688,7 +723,7 @@ exports.mapEntries = (v01Json) => {
             newMedicationChange.reason = entry._medicationChange.reason.map(r => mapPassThrough(r, Reason));
             newMedicationChange.category = new Category();
             newMedicationChange.category.value = mapPassThrough(entry._medicationChange.topicCode.value, CodeableConcept);
-            newMedicationChange.status = mapPassThrough(entry._medicationChange.status, Status);
+            newMedicationChange.status = mapStatus(entry._medicationChange.status);
             newMedicationChange.medicationBeforeChange = [mapMedicationBeforeChange(entry._medicationChange.medicationBeforeChange)];
             newMedicationChange.medicationAfterChange = [mapMedicationAfterChange(entry._medicationChange.medicationAfterChange)];
 
@@ -699,7 +734,7 @@ exports.mapEntries = (v01Json) => {
             mapEntryInfo(entry.entryInfo, newMedicationRequested);
             newMedicationRequested.dosage = mapDosage(entry._medicationRequested.dosage);
             newMedicationRequested.medication = mapPassThrough(entry._medicationRequested.medication, Medication);
-            newMedicationRequested.status = mapPassThrough(entry._medicationRequested.status, Status);
+            newMedicationRequested.status = mapStatus(entry._medicationRequested.status);
             newMedicationRequested.reason = entry._medicationRequested.reason.map(r => mapPassThrough(r, Reason));
             newMedicationRequested.expectedPerformanceTime = mapExpectedPerformanceTime(entry._medicationRequested.expectedPerformanceTime);
             if (entry._medicationRequested.numberOfRefillsAllowed) newMedicationRequested.numberOfRefillsAllowed = mapPassThrough(entry._medicationRequested.numberOfRefillsAllowed, NumberOfRefillsAllowed);
@@ -710,6 +745,7 @@ exports.mapEntries = (v01Json) => {
 
             mapEntryInfo(entry.entryInfo, newProgression);
             newProgression.findingResult = mapFindingResult(entry._cancerProgression.value);
+            newProgression.findingStatus = mapFindingStatus(entry._cancerProgression.findingStatus);
             if (entry._cancerProgression.specificFocusOfFinding) newProgression.specificFocusOfFinding = mapPassThrough(entry._cancerProgression.specificFocusOfFinding, SpecificFocusOfFinding);
             if (entry._cancerProgression.findingTopicCode) newProgression.findingTopicCode = mapPassThrough(entry._cancerProgression.findingTopicCode, FindingTopicCode);
             if (entry._cancerProgression.relevantTime) newProgression.relevantTime = mapRelevantTime(entry._cancerProgression.relevantTime);
@@ -786,7 +822,7 @@ exports.mapEntries = (v01Json) => {
             mapEntryInfo(entry._imagingProcedurePerformed.entryInfo, newImaging);
             if (entry._imagingProcedurePerformed.annotation) newImaging.annotation = entry._imagingProcedurePerformed.annotation.map(a => mapPassThrough(a, Annotation));
             newImaging.reason = entry._imagingProcedurePerformed.reason.map(r => mapPassThrough(r, Reason));
-            newImaging.status = mapPassThrough(entry._imagingProcedurePerformed.status, Status);
+            newImaging.status = mapStatus(entry._imagingProcedurePerformed.status);
             newImaging.procedureCode = new ProcedureCode();
             newImaging.procedureCode.value = mapPassThrough(entry._imagingProcedurePerformed.topicCode.value, CodeableConcept);
             newImaging.occurrenceTimeOrPeriod = mapPassThrough(entry._imagingProcedurePerformed.occurrenceTimeOrPeriod, OccurrenceTimeOrPeriod);

@@ -240,6 +240,9 @@ class ConsultRequested extends ActionRequested {
   toJSON() {
     const inst = this._entryInfo.toJSON();
     inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested' };
+    if (this.metadata != null) {
+      inst['Metadata'] = typeof this.metadata.toJSON === 'function' ? this.metadata.toJSON() : this.metadata;
+    }
     if (this.topicCode != null) {
       inst['TopicCode'] = typeof this.topicCode.toJSON === 'function' ? this.topicCode.toJSON() : this.topicCode;
     }

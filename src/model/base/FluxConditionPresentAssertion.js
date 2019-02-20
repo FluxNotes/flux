@@ -80,7 +80,7 @@ class FluxConditionPresentAssertion extends FluxEntry {
     }
     
     get clinicalStatus() {
-        return this._condition.clinicalStatus ? this._condition.clinicalStatus.value : null;
+        return this._condition.clinicalStatus && this._condition.clinicalStatus.value ? this._displayTextOrCode(this._condition.clinicalStatus.value.coding[0]) : null;
     }
     
     get laterality() {
@@ -542,7 +542,7 @@ class FluxConditionPresentAssertion extends FluxEntry {
      * @private
      */
     _displayTextOrCode(coding) {
-        return coding.displayText ? coding.displayText.value : coding.value;
+        return coding.displayText ? coding.displayText.value : coding.code;
     }
 
     toJSON() {

@@ -253,7 +253,7 @@ class Encounter extends InformationItem {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = this._entryInfo.toJSON();
+    const inst = this._entryInfo ? this._entryInfo.toJSON() : {};
     inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/encounter/Encounter' };
     if (this.narrative != null) {
       inst['Narrative'] = typeof this.narrative.toJSON === 'function' ? this.narrative.toJSON() : this.narrative;
