@@ -39,7 +39,7 @@ class FluxPerson {
 
     get gender() {
         if (this._person.administrativeGender) {
-            return this._person.administrativeGender.value.coding[0].code;
+            return this._person.administrativeGender.value.coding[0].code.value;
         }
         return null;
     }

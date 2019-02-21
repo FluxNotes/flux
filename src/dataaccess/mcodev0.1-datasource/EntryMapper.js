@@ -14,6 +14,7 @@ import ContactPoint from '../../model/shr/core/ContactPoint';
 import CodeableConceptV01 from './model/shr/core/CodeableConcept';
 import CodeableConcept from '../../model/shr/core/CodeableConcept';
 import Coding from '../../model/shr/core/Coding';
+import Code from '../../model/shr/core/Code';
 import DisplayText from '../../model/shr/core/DisplayText';
 import DateOfBirth from '../../model/shr/entity/DateOfBirth';
 import Ethnicity from '../../model/shr/entity/Ethnicity';
@@ -37,7 +38,7 @@ import MedicationRequested from '../../model/shr/medication/MedicationRequested'
 import Dosage from '../../model/shr/medication/Dosage';
 import DoseAmount from '../../model/shr/medication/DoseAmount';
 import SimpleQuantity from '../../model/shr/core/SimpleQuantity';
-import Number from '../../model/shr/core/Number';
+import NumberV05 from '../../model/shr/core/Number';
 import Units from '../../model/shr/core/Units';
 import AsNeededIndicator from '../../model/shr/medication/AsNeededIndicator';
 import DosageInstructionsText from '../../model/shr/medication/DosageInstructionsText';
@@ -200,7 +201,8 @@ const mapPassThrough = (element, klass) => {
 const mapCodingToCodeableConcept = (coding) => {
     const codeableConcept = new CodeableConcept();
     const newCoding = new Coding();
-    newCoding.code = coding;
+    newCoding.code = new Code();
+    newCoding.code.value = coding;
     codeableConcept.coding = [newCoding];
     codeableConcept.displayText = new DisplayText();
     codeableConcept.displayText.value = coding;
@@ -229,7 +231,8 @@ const mapUnits = (units) => {
     const newUnits = new Units();
 
     newUnits.value = new Coding();
-    newUnits.value.code = units.value.code;
+    newUnits.value.code = new Code();
+    newUnits.value.code.value = units.value.code;
 
     return newUnits;
 }
@@ -237,7 +240,7 @@ const mapUnits = (units) => {
 const mapQuantity = (quantity) => {
     const newQuantity = new Quantity();
 
-    newQuantity.number = new Number();
+    newQuantity.number = new NumberV05();
     newQuantity.number.value = quantity.decimalValue.value;
     newQuantity.units = mapUnits(quantity.units);
 
@@ -247,7 +250,7 @@ const mapQuantity = (quantity) => {
 const mapDuration = (duration) => {
     const newDuration = new Duration();
 
-    newDuration.number = new Number();
+    newDuration.number = new NumberV05();
     newDuration.number.value = duration.decimalValue.value;
     newDuration.units = mapUnits(duration.units);
 
@@ -274,7 +277,7 @@ const mapDosage = (dosage) => {
     newDosage.doseAmount = new DoseAmount();
     newDosage.doseAmount.value = new SimpleQuantity();
 
-    newDosage.doseAmount.value.number = new Number();
+    newDosage.doseAmount.value.number = new NumberV05();
     newDosage.doseAmount.value.number.value = dosage.doseAmount.value.decimalValue.value;
     newDosage.doseAmount.value.units = new Units();
     newDosage.doseAmount.value.units.value = dosage.doseAmount.value.units.value;

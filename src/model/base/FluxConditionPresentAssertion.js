@@ -542,7 +542,7 @@ class FluxConditionPresentAssertion extends FluxEntry {
      * @private
      */
     _displayTextOrCode(coding) {
-        return coding.displayText ? coding.displayText.value : coding.code;
+        return coding.displayText ? coding.displayText.value : coding.code.value;
     }
 
     toJSON() {
