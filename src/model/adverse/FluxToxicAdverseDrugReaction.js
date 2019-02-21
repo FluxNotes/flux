@@ -9,6 +9,7 @@ import Type from '../shr/core/Type';
 import CausalAttribution from '../shr/adverse/CausalAttribution';
 import CauseCategory from '../shr/adverse/CauseCategory';
 import FluxEntry from '../base/FluxEntry';
+import PossibleCause from '../shr/adverse/PossibleCause';
 
 class FluxToxicAdverseDrugReaction extends FluxEntry {
     constructor(json, patientRecord) {
@@ -20,6 +21,7 @@ class FluxToxicAdverseDrugReaction extends FluxEntry {
             entry.entryType.uri = 'http://standardhealthrecord.org/spec/shr/adverse/ToxicAdverseDrugReaction';
             this._toxicAdverseDrugReaction.entryInfo = entry;
         }
+        this._patientRecord = patientRecord;
     }
 
     get entryInfo() {
@@ -75,15 +77,35 @@ class FluxToxicAdverseDrugReaction extends FluxEntry {
         this._toxicAdverseDrugReaction.type = type;
     }
 
-    get causalAttribution() {
-        return !this._toxicAdverseDrugReaction.causalAttribution ? null : this._toxicAdverseDrugReaction.causalAttribution[0].causeCategory.value.coding[0].displayText.value;
+    get causeCategory() {
+        return this._toxicAdverseDrugReaction.causalAttribution && this._toxicAdverseDrugReaction.causalAttribution.length > 0 && this._toxicAdverseDrugReaction.causalAttribution[0].causeCategory ? this._toxicAdverseDrugReaction.causalAttribution[0].causeCategory.value.coding[0].displayText.value : null;
     }
 
-    set causalAttribution(attribution) {
-        const causalAttribution = new CausalAttribution();
-        causalAttribution.causeCategory = new CauseCategory();
-        causalAttribution.causeCategory.value = lookup.getAttributionCodeableConcept(attribution);
-        this._toxicAdverseDrugReaction.causalAttribution = [causalAttribution];
+    set causeCategory(attribution) {
+        if (!this._toxicAdverseDrugReaction.causalAttribution || this._toxicAdverseDrugReaction.causalAttribution.length === 0) {
+            this._toxicAdverseDrugReaction.causalAttribution = [new CausalAttribution()];
+        }
+        const newCauseCategory = new CauseCategory();
+        newCauseCategory.value = lookup.getAttributionCodeableConcept(attribution);
+        this._toxicAdverseDrugReaction.causalAttribution[0].causeCategory = newCauseCategory;
+    }
+
+    get medicationAttribution() {
+        return this._toxicAdverseDrugReaction.causalAttribution && this._toxicAdverseDrugReaction.causalAttribution.length > 0 && this._toxicAdverseDrugReaction.causalAttribution[0].possibleCause ? this._toxicAdverseDrugReaction.causalAttribution[0].possibleCause.value : null;
+    }
+
+    set medicationAttribution(medication) {
+        if (medication) {
+            const medicationReference = this._patientRecord.createEntryReferenceTo(medication);
+            if (!this._toxicAdverseDrugReaction.causalAttribution || this._toxicAdverseDrugReaction.causalAttribution.length === 0) {
+                this._toxicAdverseDrugReaction.causalAttribution = [new CausalAttribution()];
+            }
+            const newPossibleCause = new PossibleCause();
+            newPossibleCause.value = medicationReference;
+            this._toxicAdverseDrugReaction.causalAttribution[0].possibleCause = newPossibleCause;
+        } else {
+            if (this._toxicAdverseDrugReaction.causalAttribution && this._toxicAdverseDrugReaction.causalAttribution.length > 0 && this._toxicAdverseDrugReaction.causalAttribution[0].possibleCause) this._toxicAdverseDrugReaction.causalAttribution[0].possibleCause.value = null;
+        }
     }
 
     toJSON() {

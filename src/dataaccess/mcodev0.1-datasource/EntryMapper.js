@@ -160,6 +160,7 @@ import MCODEV01ObjectFactory from './model/FluxObjectFactory';
 import ConsultRequested from '../../model/shr/encounter/ConsultRequested';
 import Encounter from '../../model/shr/encounter/Encounter';
 import RequestIntent from '../../model/shr/base/RequestIntent';
+import PossibleCause from '../../model/shr/adverse/PossibleCause.js';
 
 // Maps mCODE v0.1 entries to Flux Object Model
 const mapEntryInfo = (entryInfo, entry) => {
@@ -432,7 +433,7 @@ const mapMedicationAfterChange = (medicationAfterChange) => {
     newMedicationAfterChange.value = mapEntryInfoToReference(medicationAfterChange.value.entryInfo);
 
     return newMedicationAfterChange;
-}
+};
 
 const mapObservation = (entry, newObservation) => {
     if (entry._observation.category) newObservation.category = mapPassThrough(entry._observation.category, Category);
@@ -444,7 +445,7 @@ const mapObservation = (entry, newObservation) => {
     if (entry._observation.panelMembers) newObservation.panelMembers = mapPassThrough(entry._observation.panelMembers, PanelMembers);
 
     return newObservation;
-}
+};
 
 const mapEncounter = (encounter) => {
     const newEncounter = new Encounter();
@@ -453,6 +454,14 @@ const mapEncounter = (encounter) => {
     newEncounter.timePeriod = mapTimePeriod(encounter._encounter.timePeriod);
 
     return newEncounter;
+};
+
+const mapPossibleCause = (possibleCause) => {
+    const newPossibleCause = new PossibleCause();
+
+    newPossibleCause.value = mapReference(possibleCause);
+
+    return newPossibleCause;
 }
 
 exports.mapEntries = (v01Json) => {
@@ -776,8 +785,9 @@ exports.mapEntries = (v01Json) => {
             newToxicReaction.seriousness.value = mapPassThrough(entry._adverseEvent.adverseEventGrade.value, CodeableConcept);
             newToxicReaction.type = new Type();
             newToxicReaction.type.value = mapPassThrough(entry._adverseEvent.codeableConcept, CodeableConcept);
-            newToxicReaction.causalAttribution = [new CausalAttribution()];
+            if (entry._adverseEvent.causeCategory || entry._adverseEvent.adverseEventAttribution) newToxicReaction.causalAttribution = [new CausalAttribution()];
             newToxicReaction.causalAttribution[0].causeCategory = mapPassThrough(entry._adverseEvent.causeCategory, CauseCategory);
+            if (entry._adverseEvent.adverseEventAttribution) newToxicReaction.causalAttribution[0].possibleCause = mapPossibleCause(entry._adverseEvent.adverseEventAttribution);
             newToxicReaction.adverseEventCondition = [new AdverseEventCondition()];
             newToxicReaction.adverseEventCondition[0].conditionPresentAssertion = mapReference(entry._adverseEvent.specificFocusOfFinding.value);
 
