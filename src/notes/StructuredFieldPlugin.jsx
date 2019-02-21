@@ -51,7 +51,7 @@ function StructuredFieldPlugin(opts) {
 
     function onKeyDown(e, key, state, editor) {
         const {selection} = state;
-
+        const previousNode = state.document.getPreviousSibling(state.selection.anchorKey);
         // We want to consider where the cursor is focused if an expanded selection
         const useFocusKey = selection.isExpanded && selection.isBackward;
         const selectionKey = useFocusKey ? selection.focusKey : selection.anchorKey;
@@ -163,7 +163,14 @@ function StructuredFieldPlugin(opts) {
             contextManager.contextUpdated();
 
             editor.onChange(transform);
-        }
+        } else if (e.key === 'Backspace' && previousNode){
+            if (previousNode.type === 'structured_field' && state.selection.anchorOffset === 0 && state.selection.isCollapsed) {
+                let transform = state.transform();
+                transform = transform.removeNodeByKey(previousNode.key);
+                let newstate = transform.apply();
+                return newstate;
+            }
+        } 
     }
 
     function getAllStructuredFields(nodes) {
@@ -178,7 +185,7 @@ function StructuredFieldPlugin(opts) {
         });
         return allStructuredFields;
     }
-
+/* 
     function onKeyDown(e, key, state, editor) {   
         const previousNode = state.document.getPreviousSibling(state.selection.anchorKey);
         if(e.key === 'Backspace' && previousNode){
@@ -189,7 +196,7 @@ function StructuredFieldPlugin(opts) {
                 return newstate;
             }
         }
-    }
+    } */
 
     function onChange(state, editor) {
         var deletedKeys = [];
@@ -229,6 +236,9 @@ function StructuredFieldPlugin(opts) {
         return result;
     }
 
+    // Added a zero-width-space at the end of the structured field so Safari doesn't think we are still typing in a
+    // structured field once one has been inserted
+    const safariSpacing = Slate.IS_SAFARI ? '\u200B' : '';
 
     const schema = {
         nodes: {
@@ -605,7 +615,7 @@ function insertStructuredFieldAtRange(opts, transform, shortcut, range) {
 function createStructuredField(opts, shortcut) {
     let nodes = [Slate.Text.createFromString(String(shortcut.getText()))];
     const isInserter = shortcut instanceof InsertValue;
-    const isVoid = !isInserter;
+    //const isVoid = !isInserter;
     if (isInserter) {
         const lines = String(shortcut.getText()).split(/\n\r|\r\n|\r|\n/g);
         let textNodes = [];
@@ -618,7 +628,7 @@ function createStructuredField(opts, shortcut) {
             const properties = {
                 type: opts.typeStructuredField,
                 nodes: textNodes,
-                isVoid,
+                //isVoid,
                 data: {
                     shortcut: shortcut
                 }
@@ -632,7 +642,7 @@ function createStructuredField(opts, shortcut) {
                 sf = Slate.Block.create({
                     type: 'line',
                     nodes: [inlineNode],
-                    isVoid,
+                    //isVoid,
                 });
             }
             opts.structuredFieldMapManager.keyToShortcutMap.set(inlineNode.key, shortcut);
@@ -650,7 +660,7 @@ function createStructuredField(opts, shortcut) {
     const properties = {
         type: opts.typeStructuredField,
         nodes: nodes,
-        isVoid,
+        //isVoid,
         data: {
             shortcut: shortcut
         }
