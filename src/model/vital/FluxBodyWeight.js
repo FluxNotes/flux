@@ -1,10 +1,6 @@
 import FluxObservation from '../base/FluxObservation';
 
 class FluxBodyWeight extends FluxObservation {
-    constructor(json) {
-        super(json);
-    }
-
     get value() {
         return this.quantity.number;
     }
