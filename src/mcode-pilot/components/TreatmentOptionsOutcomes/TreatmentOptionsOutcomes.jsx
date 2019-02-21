@@ -300,7 +300,7 @@ export default class TreatmentOptionsOutcomes extends Component {
                         )}
                     </div>
                 </div>
-                <TableLegend includedRow={includedRow} treatmentNames ={TREATMENT_NAMES}/>
+                <TableLegend includedRow={includedRow} treatmentNames={TREATMENT_NAMES}/>
             </div>
         );
     }
