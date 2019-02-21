@@ -46,7 +46,7 @@ export default class TableLegend extends Component {
                         <div className="prog-fill-container">
                             <div className="prog-fill" style={treatmentStyle}/>
                         </div>
-                        <span className="legend-text">additional survivors due to treatment</span>
+                        <span className="legend-text">increase in survival due to treatment</span>
                     </div>
 
                     <div className="legend-entry">
