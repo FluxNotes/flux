@@ -482,6 +482,10 @@
       {
         "name": "@ROS",
         "description": "Insert review of systems for patient."
+      },
+      {
+        "name": "@reviewofsystems",
+        "description": "Insert review of systems for patient."
       }
     ],
     "knownParentContexts": "Patient"
