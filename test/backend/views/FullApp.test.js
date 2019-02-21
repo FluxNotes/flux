@@ -873,7 +873,7 @@ describe('6 FluxNotesEditor', function() {
 
         // let noteContent = ' #staging t2 n2 m1';
         const arrayOfStructuredDataToEnter = ["#12/20/2015 "];
-        const arrayOfExpectedStructuredData = ["12/20/2015 "];
+        const arrayOfExpectedStructuredData = ["12/20/2015"];
         const entryId = patient.addClinicalNote('', '', '', '', '', arrayOfStructuredDataToEnter.join(' '), false);
         const updatedEditorNote = patient.getEntryById(entryId);
         // Set updatedEditorNote props because this triggers that a change is coming in to the editor and inserts text with structured phrases.
@@ -1010,7 +1010,11 @@ describe('6 FluxNotesEditor', function() {
 
         const arrayOfStructuredDataToEnter = ["@condition[[{\"text\":\"Invasive ductal carcinoma of breast\",\"entryId\":\"8\"}]] ", "#PR ", "#Positive "];
         const arrayOfExpectedStructuredDataInserter = ["Invasive ductal carcinoma of breast"]
+<<<<<<< HEAD
         const arrayOfExpectedStructuredDataCreator = ["PR ", "Positive "]
+=======
+        const arrayOfExpectedStructuredDataCreator = ["PR", "Positive"]
+>>>>>>> Removed white space at end of insertors and creators and update test
         const entryId = patient.addClinicalNote('', '', '', '', '', arrayOfStructuredDataToEnter.join(' '), false);
         const updatedEditorNote = patient.getEntryById(entryId);
         // Set updatedEditorNote props because this triggers that a change is coming in to the editor and inserts text with structured phrases.
@@ -1231,7 +1235,11 @@ describe('6 FluxNotesEditor', function() {
         // let noteContent = ' #staging t2 n2 m1';
         const arrayOfShortcutText = ["@condition[[{\"text\":\"Invasive ductal carcinoma of breast\",\"entryId\":\"8\"}]] ", "#toxicity ", "#nausea ", "#disease status ", "#imaging "];
         const arrayOfParsedShortcutTextInserter = ["Invasive ductal carcinoma of breast"]
+<<<<<<< HEAD
         const arrayOfParsedShortcutTextCreator = ["toxicity ", "nausea ", "disease status ", "imaging "]
+=======
+        const arrayOfParsedShortcutTextCreator = ["toxicity", "nausea", "disease status", "imaging"]
+>>>>>>> Removed white space at end of insertors and creators and update test
         const entryId = patient.addClinicalNote('', '', '', '', '', arrayOfShortcutText.join(' '), false);
         const updatedEditorNote = patient.getEntryById(entryId);
         
