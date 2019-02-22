@@ -568,7 +568,7 @@ exports.mapEntries = (v01Json) => {
             newConsultRequested.encounter = mapEncounter(entry._consultRequested.encounter);
             newConsultRequested.reason = entry._consultRequested.reason.map(r => mapPassThrough(r, Reason));
             newConsultRequested.requestIntent = mapRequestIntent(entry._consultRequested.requestIntent);
-            newConsultRequested.expectedPerformer = mapPassThrough(entry._consultRequested.expectedPerformer, ExpectedPerformer);
+            if (entry._consultRequested.expectedPerformer) newConsultRequested.expectedPerformer = mapPassThrough(entry._consultRequested.expectedPerformer, ExpectedPerformer);
 
             v05Json.push(newConsultRequested.toJSON());
         } else if (entry instanceof FluxHistologicGradeV01) {
@@ -777,7 +777,7 @@ exports.mapEntries = (v01Json) => {
 
             mapEntryInfo(entry.entryInfo, newProgression);
             newProgression.findingResult = mapFindingResult(entry._cancerProgression.value);
-            newProgression.findingStatus = mapFindingStatus(entry._cancerProgression.findingStatus);
+            if (entry._cancerProgression.findingStatus) newProgression.findingStatus = mapFindingStatus(entry._cancerProgression.findingStatus);
             if (entry._cancerProgression.specificFocusOfFinding) newProgression.specificFocusOfFinding = mapPassThrough(entry._cancerProgression.specificFocusOfFinding, SpecificFocusOfFinding);
             if (entry._cancerProgression.findingTopicCode) newProgression.findingTopicCode = mapPassThrough(entry._cancerProgression.findingTopicCode, FindingTopicCode);
             if (entry._cancerProgression.relevantTime) newProgression.relevantTime = mapRelevantTime(entry._cancerProgression.relevantTime);

@@ -14,7 +14,12 @@ export const stagingJSON = {
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                 },
-                "Value": "52774001",
+                "Code": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                    },
+                    "Value": "52774001"
+                },
                 "CodeSystem": {
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
@@ -51,7 +56,12 @@ export const diseaseStatusJSON = {
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                 },
-                "Value": "C0205360",
+                "Code": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                    },
+                    "Value": "C0205360"
+                },
                 "CodeSystem": {
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
@@ -88,7 +98,12 @@ export const diseaseStatusJSON = {
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
-                        "Value": "C0011923",
+                        "Code": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            },
+                            "Value": "C0011923"
+                        },
                         "CodeSystem": {
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
@@ -124,7 +139,12 @@ export const diseaseStatusJSON = {
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
-                        "Value": "C0031809",
+                        "Code": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            },
+                            "Value": "C0031809"
+                        },
                         "CodeSystem": {
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
@@ -163,7 +183,12 @@ export const diseaseStatus2JSON = {
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                 },
-                "Value": "C0205360",
+                "Code": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                    },
+                    "Value": "C0205360"
+                },
                 "CodeSystem": {
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
@@ -200,7 +225,12 @@ export const diseaseStatus2JSON = {
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
-                        "Value": "C0011923",
+                        "Code": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            },
+                            "Value": "C0011923"
+                        },
                         "CodeSystem": {
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
@@ -236,7 +266,12 @@ export const diseaseStatus2JSON = {
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
-                        "Value": "C0031809",
+                        "Code": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            },
+                            "Value": "C0031809"
+                        },
                         "CodeSystem": {
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
@@ -287,7 +322,12 @@ export const toxicityJSON = {
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                 },
-                "Value": "10028813",
+                "Code": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                    },
+                    "Value": "10028813"
+                },
                 "CodeSystem": {
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
@@ -323,7 +363,12 @@ export const toxicityJSON = {
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
-                    "Value": "C1513374",
+                    "Code": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        },
+                        "Value": "C1513374"
+                    },
                     "CodeSystem": {
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
@@ -359,7 +404,12 @@ export const toxicityJSON = {
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
-                    "Value": "#Treatment",
+                    "Code": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        },
+                        "Value": "#Treatment"
+                    },
                     "CodeSystem": {
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
@@ -440,7 +490,12 @@ export const clinicalTrialEnrollmentJSON = {
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
-                    "Value": "enrolled",
+                    "Code": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        },
+                        "Value": "enrolled"
+                    },
                     "CodeSystem": {
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
@@ -509,7 +564,12 @@ export const clinicalTrialEnrollmentMinimalJSON = {
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
-                    "Value": "enrolled",
+                    "Code": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        },
+                        "Value": "enrolled"
+                    },
                     "CodeSystem": {
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
@@ -578,7 +638,12 @@ export const clinicalTrialUnenrolledJSON = {
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
-                    "Value": "completed",
+                    "Code": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        },
+                        "Value": "completed"
+                    },
                     "CodeSystem": {
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
@@ -643,7 +708,12 @@ export const stopMedicationJSON = {
                         },
                         "Value": "http://standardhealthrecord.org/spec/shr/medication/cs/#MedicationChangeTypeCS"
                     },
-                    "Value": "stop",
+                    "Code": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        },
+                        "Value": "stop"
+                    },
                     "DisplayText": {
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
@@ -674,7 +744,12 @@ export const stopMedicationJSON = {
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
-                        "Value": "side_effect",
+                        "Code": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            },
+                            "Value": "side_effect"
+                        },
                         "DisplayText": {
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
@@ -725,7 +800,12 @@ export const reduceMedicationJSON = {
                         },
                         "Value": "http://standardhealthrecord.org/spec/shr/medication/cs/#MedicationChangeTypeCS"
                     },
-                    "Value": "reduced",
+                    "Code": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        },
+                        "Value": "reduced"
+                    },
                     "DisplayText": {
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
@@ -750,7 +830,12 @@ export const reduceMedicationJSON = {
             "Value": {
                 "Coding": [
                     {
-                        "Value": "side_effect",
+                        "Code": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            },
+                            "Value": "side_effect"
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
