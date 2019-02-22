@@ -161,6 +161,7 @@ import ConsultRequested from '../../model/shr/encounter/ConsultRequested';
 import Encounter from '../../model/shr/encounter/Encounter';
 import RequestIntent from '../../model/shr/base/RequestIntent';
 import PossibleCause from '../../model/shr/adverse/PossibleCause.js';
+import ExpectedPerformer from '../../model/shr/base/ExpectedPerformer.js';
 
 // Maps mCODE v0.1 entries to Flux Object Model
 const mapEntryInfo = (entryInfo, entry) => {
@@ -553,6 +554,7 @@ exports.mapEntries = (v01Json) => {
             newConsultRequested.encounter = mapEncounter(entry._consultRequested.encounter);
             newConsultRequested.reason = entry._consultRequested.reason.map(r => mapPassThrough(r, Reason));
             newConsultRequested.requestIntent = mapRequestIntent(entry._consultRequested.requestIntent);
+            newConsultRequested.expectedPerformer = mapPassThrough(entry._consultRequested.expectedPerformer, ExpectedPerformer);
 
             v05Json.push(newConsultRequested.toJSON());
         } else if (entry instanceof FluxHistologicGradeV01) {
