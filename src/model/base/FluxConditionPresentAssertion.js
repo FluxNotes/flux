@@ -52,7 +52,7 @@ class FluxConditionPresentAssertion extends FluxEntry {
     }
 
     get codeURL() {
-        return this.codeSystem + "/" + this.code; 
+        return this.codeSystem + "/" + this.code;
     }
 
     get type() {
@@ -78,15 +78,15 @@ class FluxConditionPresentAssertion extends FluxEntry {
             return this._displayTextOrCode(this._condition.anatomicalLocation[0].value.anatomicalLocationOrLandmarkCode.value.coding[0]);
         }
     }
-    
+
     get clinicalStatus() {
         return this._condition.clinicalStatus && this._condition.clinicalStatus.value ? this._displayTextOrCode(this._condition.clinicalStatus.value.coding[0]) : null;
     }
-    
+
     get laterality() {
         if (
             !this._condition.anatomicalLocation
-            || this._condition.anatomicalLocation.length < 1 
+            || this._condition.anatomicalLocation.length < 1
             || !this._condition.anatomicalLocation[0].value
             || !this._condition.anatomicalLocation[0].value.laterality
             || !this._condition.anatomicalLocation[0].value.laterality.value
@@ -230,12 +230,12 @@ class FluxConditionPresentAssertion extends FluxEntry {
             return item.codeableConceptCode === code;
         });
     }
-    
+
     getObservationsOfType(type) {
         if (!this._condition.entryInfo) return [];
         const conditionEntryId = this._condition.entryInfo.entryId;
         return this._patientRecord.getEntriesOfType(type).filter((item) => {
-            return  item._observation && item._observation.specificFocusOfFinding && 
+            return  item._observation && item._observation.specificFocusOfFinding &&
                     item._observation.specificFocusOfFinding.value._entryId === conditionEntryId;
         });
     }
@@ -307,7 +307,7 @@ class FluxConditionPresentAssertion extends FluxEntry {
 
         const mostRecentLabResults = this.getLabResultsChronologicalOrder(moment().subtract(numberOfMonths, 'months'));
         if (mostRecentLabResults.length === 0) return 'No lab results.';
-        
+
         return mostRecentLabResults.map(l => `${l.name} ${l.quantity.number} ${l.quantity.unit} (${l.relevantTime})`).join('\r\n');
     }
 
@@ -412,11 +412,11 @@ class FluxConditionPresentAssertion extends FluxEntry {
 
         // Check hpiConfig for procedures and medications to exclude for condition
         const exclusions = hpiConfig[conditionCode] ? hpiConfig[conditionCode].exclusions : hpiConfig["default"].exclusions;
-        
+
         events = events.filter((event) => {
             return !exclusions.procedures.some(p => p.code === event.code) && !exclusions.medications.some(m => m.code === event.code);
         });
-        
+
         const procedureTemplates = {
             range: 'Patient underwent {0} from {1} to {2}',
             single: 'Patient underwent {0} on {1}'
