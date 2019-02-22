@@ -113,8 +113,8 @@ class FluxResearchSubject extends FluxEntry {
     }
 
     get enrollmentDate() {
-        if (!this._researchSubject.participationPeriod || !this._researchSubject.participationPeriod.timePeriod || !this._researchSubject.participationPeriod.timePeriod.timePeriodStart) return null;
-        return this._researchSubject.participationPeriod.timePeriod.timePeriodStart.value;
+        if (!this._researchSubject.participationPeriod || !this._researchSubject.participationPeriod.timePeriod || !this._researchSubject.participationPeriod.timePeriod.beginDateTime) return null;
+        return this._researchSubject.participationPeriod.timePeriod.beginDateTime.value;
     }
   
     set enrollmentDate(val) {
@@ -130,15 +130,15 @@ class FluxResearchSubject extends FluxEntry {
         if (!this._researchSubject.participationPeriod.timePeriod) {
             this._researchSubject.participationPeriod.timePeriod = new TimePeriod();
         }
-        if (!this._researchSubject.participationPeriod.timePeriod.timePeriodStart) {
-            this._researchSubject.participationPeriod.timePeriod.timePeriodStart = new BeginDateTime();
+        if (!this._researchSubject.participationPeriod.timePeriod.beginDateTime) {
+            this._researchSubject.participationPeriod.timePeriod.beginDateTime = new BeginDateTime();
         }
-        this._researchSubject.participationPeriod.timePeriod.timePeriodStart.value = val;
+        this._researchSubject.participationPeriod.timePeriod.beginDateTime.value = val;
     }
   
     get endDate() {
-        if (!this._researchSubject.participationPeriod || !this._researchSubject.participationPeriod.timePeriod || !this._researchSubject.participationPeriod.timePeriod.timePeriodEnd) return null;
-        return this._researchSubject.participationPeriod.timePeriod.timePeriodEnd.value;
+        if (!this._researchSubject.participationPeriod || !this._researchSubject.participationPeriod.timePeriod || !this._researchSubject.participationPeriod.timePeriod.endDateTime) return null;
+        return this._researchSubject.participationPeriod.timePeriod.endDateTime.value;
     }
   
     set endDate(val) {
@@ -154,10 +154,10 @@ class FluxResearchSubject extends FluxEntry {
         if (!this._researchSubject.participationPeriod.timePeriod) {
             this._researchSubject.participationPeriod.timePeriod = new TimePeriod();
         }
-        if (!this._researchSubject.participationPeriod.timePeriod.timePeriodEnd) {
-            this._researchSubject.participationPeriod.timePeriod.timePeriodEnd = new EndDateTime();
+        if (!this._researchSubject.participationPeriod.timePeriod.endDateTime) {
+            this._researchSubject.participationPeriod.timePeriod.endDateTime = new EndDateTime();
         }
-        this._researchSubject.participationPeriod.timePeriod.timePeriodEnd.value = val;
+        this._researchSubject.participationPeriod.timePeriod.endDateTime.value = val;
     }
 
     get status() {

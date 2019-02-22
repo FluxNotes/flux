@@ -14,9 +14,6 @@ class FluxDeathInformation {
             let entry = new Entry();
             entry.entryType = new EntryType();
             entry.entryType.uri = 'http://standardhealthrecord.org/spec/shr/entity/DeathInformation';
-            let today = new moment().format("D MMM YYYY");
-            entry.lastUpdated = new LastUpdated();
-            entry.lastUpdated.instant = today;
             this._deathInformation.entryInfo = entry;
         }
     }
