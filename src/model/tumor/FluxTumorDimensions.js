@@ -11,17 +11,6 @@ class FluxTumorDimensions extends FluxObservation {
         return this._tumorDimensions.entryInfo;
     }
 
-    /**
-     *  Getter for quantity
-     *  will return object with properties value and unit
-     */
-    get quantity() {
-        return {
-            number: this._tumorDimensions.findingResult.value.number.decimal,
-            unit: this._tumorDimensions.findingResult.value.units.coding.code,
-        };
-    }
-
     toJSON() {
         return this._tumorDimensions.toJSON();
     }

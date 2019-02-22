@@ -228,12 +228,27 @@ const mapAnatomicalLocation = (anatomicalLocation) => {
     return newAnatomicalLocation;
 };
 
+const mapUnits = (units) => {
+    const newUnits = new Units();
+
+    if (!units.value.code.value) {
+        const newCoding = new Coding();
+        newCoding.code = new Code();
+        newCoding.code.value = units.value.code;
+        newUnits.value = newCoding;
+    } else {
+        newUnits.value = mapPassThrough(units.value, Coding);
+    }
+
+    return newUnits;
+};
+
 const mapQuantity = (quantity) => {
     const newQuantity = new Quantity();
 
     newQuantity.number = new NumberV05();
     newQuantity.number.value = quantity.decimalValue.value;
-    newQuantity.units = mapPassThrough(quantity.units, Units);
+    newQuantity.units = mapUnits(quantity.units);
 
     return newQuantity;
 };
@@ -243,7 +258,7 @@ const mapDuration = (duration) => {
 
     newDuration.number = new NumberV05();
     newDuration.number.value = duration.decimalValue.value;
-    newDuration.units = mapPassThrough(duration.units, Units);
+    newDuration.units = mapUnits(duration.units);
 
     return newDuration;
 }
@@ -270,8 +285,7 @@ const mapDosage = (dosage) => {
 
     newDosage.doseAmount.value.number = new NumberV05();
     newDosage.doseAmount.value.number.value = dosage.doseAmount.value.decimalValue.value;
-    newDosage.doseAmount.value.units = new Units();
-    newDosage.doseAmount.value.units.value = dosage.doseAmount.value.units.value;
+    newDosage.doseAmount.value.units = mapUnits(dosage.doseAmount.value.units);
 
     newDosage.asNeededIndicator = mapPassThrough(dosage.asNeededIndicator, AsNeededIndicator);
     if (dosage.dosageInstructionsText) newDosage.dosageInstructionsText = mapPassThrough(dosage.dosageInstructionsText, DosageInstructionsText);
