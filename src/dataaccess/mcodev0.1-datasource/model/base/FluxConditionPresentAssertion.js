@@ -43,7 +43,7 @@ class FluxConditionPresentAssertion extends FluxEntry {
 
     get code() {
         if (!this._condition.value) return null;
-        return this._condition.value.coding[0].code;
+        return this._condition.value.coding[0].code.value;
     }
 
     get codeSystem() {
@@ -539,7 +539,7 @@ class FluxConditionPresentAssertion extends FluxEntry {
      * @private
      */
     _displayTextOrCode(coding) {
-        return coding.displayText ? coding.displayText.value : coding.value;
+        return coding.displayText ? coding.displayText.value : coding.code.value;
     }
 
     toJSON() {

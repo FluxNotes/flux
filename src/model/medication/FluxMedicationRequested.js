@@ -157,7 +157,7 @@ class FluxMedicationRequested {
         if (!this._medicationRequested.dosage || !this._medicationRequested.dosage.doseAmount) return null;
         return {
             value: this._medicationRequested.dosage.doseAmount.value.number.decimal,
-            units: this._medicationRequested.dosage.doseAmount.value.units.coding.code
+            units: this._medicationRequested.dosage.doseAmount.value.units.coding.code.value
         };
     }
 
@@ -233,7 +233,7 @@ class FluxMedicationRequested {
     }
 
     get code() {
-        return this._medicationRequested.medication.type.value.coding[0].code;
+        return this._medicationRequested.medication.type.value.coding[0].code.value;
     }
 
     get routeIntoBody() {
@@ -262,7 +262,7 @@ class FluxMedicationRequested {
      * @private
      */
     _displayTextOrCode(coding) {
-        return coding.displayText ? coding.displayText.value : coding.value;
+        return coding.displayText ? coding.displayText.value : coding.code.value;
     }
     /**
      * Return a JSON representation of medicationRequested

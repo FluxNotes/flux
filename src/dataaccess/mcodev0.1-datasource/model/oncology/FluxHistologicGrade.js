@@ -20,7 +20,7 @@ class FluxHistologicGrade extends FluxObservation {
     }
 
     getGradeAsSimpleNumber() {
-        const code = this._histologicGrade.value.coding[0].code;
+        const code = this._histologicGrade.value.coding[0].code.value;
         if (code === "369792005") {
             return 3;
         } else if (code === "369791003") {
@@ -44,7 +44,7 @@ class FluxHistologicGrade extends FluxObservation {
      * @private
      */
     _displayTextOrCode(coding) {
-        return coding.displayText ? coding.displayText.value : coding.value;
+        return coding.displayText ? coding.displayText.value : coding.code.value;
     }
 
     toJSON() {

@@ -50,7 +50,7 @@ class FluxQuestionAnswer {
     }
 
     isROS() {
-        return this._questionAnswer.findingTopicCode && this._questionAnswer.findingTopicCode.codeableConcept && this._questionAnswer.findingTopicCode.codeableConcept.coding[0].code === 'C95618';
+        return this._questionAnswer.findingTopicCode && this._questionAnswer.findingTopicCode.codeableConcept && this._questionAnswer.findingTopicCode.codeableConcept.coding[0].code.value === 'C95618';
     }
 
     toJSON() {

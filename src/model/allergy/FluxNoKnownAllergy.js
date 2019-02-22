@@ -21,7 +21,7 @@ class FluxNoKnownAllergy {
      *  Getter for code
      */
     get code() {
-        return this._noKnownAllergy.value.coding[0].code;
+        return this._noKnownAllergy.value.coding[0].code.value;
     }
 
     toJSON() {

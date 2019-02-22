@@ -43,7 +43,7 @@ class FluxConditionPresentAssertion extends FluxEntry {
 
     get code() {
         if (!this._condition.findingResult || !this._condition.findingResult.value) return null;
-        return this._condition.findingResult.value.coding[0].code;
+        return this._condition.findingResult.value.coding[0].code.value;
     }
 
     get codeSystem() {

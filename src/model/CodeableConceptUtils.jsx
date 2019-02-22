@@ -1,5 +1,6 @@
 import Lang from 'lodash/lang';
 import CodeableConcept from '../model/shr/core/CodeableConcept';
+import Code from '../model/shr/core/Code';
 import Coding from '../model/shr/core/Coding';
 import CodeSystem from '../model/shr/core/CodeSystem';
 import DisplayText from '../model/shr/core/DisplayText';
@@ -11,7 +12,10 @@ exports.getCodeableConceptFromTuple = (tuple) => {
     let codeableConcept = new CodeableConcept();
 
     let coding = new Coding();
-    coding.code = tuple.value;
+    let code = new Code();
+    code.value = tuple.value;
+    coding.code = code;
+
     let codeSystem = new CodeSystem();
     codeSystem.value = tuple.codeSystem;
     coding.codeSystem = codeSystem;

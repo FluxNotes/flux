@@ -39,8 +39,11 @@ class FluxObservation extends FluxEntry {
     }
 
     get codeableConceptCode() { 
-        if (this._observation.findingTopicCode && this._observation.findingTopicCode.value.coding && this._observation.findingTopicCode.value.coding.length > 0) { 
-            return this._observation.findingTopicCode.value.coding[0].code;
+        if (this._observation.findingTopicCode 
+            && this._observation.findingTopicCode.value.coding 
+            && this._observation.findingTopicCode.value.coding.length > 0
+            && this._observation.findingTopicCode.value.coding[0].code) { 
+            return this._observation.findingTopicCode.value.coding[0].code.value;
         } else { 
             return null;
         } 

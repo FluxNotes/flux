@@ -540,7 +540,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Code": "#disease",
+                        "Code": {
+                            "Value": "#disease",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         }
@@ -752,7 +757,12 @@
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                             },
-                            "Value": "10^9/L"
+                            "Code": {
+                                "Value": "10^9/L",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                }
+                            }
                         }
                     }
                 }
@@ -943,7 +953,12 @@
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                             },
-                            "Value": "mg/kg"
+                            "Code": {
+                                "Value": "mg/kg",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                }
+                            }
                         }
                     }
                 }
@@ -1134,7 +1149,12 @@
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                             },
-                            "Value": "mg"
+                            "Code": {
+                                "Value": "42512",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                }
+                            }
                         }
                     }
                 }
@@ -1346,7 +1366,12 @@
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                             },
-                            "Value": "mg"
+                            "Code": {
+                                "Value": "mg",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                }
+                            }
                         }
                     }
                 }
@@ -1558,7 +1583,12 @@
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                             },
-                            "Value": "mg"
+                            "Code": {
+                                "Value": "mg",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                }
+                            }
                         }
                     }
                 }
@@ -1770,7 +1800,12 @@
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                             },
-                            "Value": "mg"
+                            "Code": {
+                                "Value": "mg",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                }
+                            }
                         }
                     }
                 }

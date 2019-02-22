@@ -70,7 +70,7 @@ class FluxMedicationChange extends FluxEntry {
      */
     get type() { 
         // Return code
-        return this._medicationChange.topicCode.value.coding[0].code;
+        return this._medicationChange.topicCode.value.coding[0].code.value;
     }
 
     set type(code) {

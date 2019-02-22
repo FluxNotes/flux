@@ -86,7 +86,12 @@ describe('3 TargetedDataControl', function() {
                 "Value": {
                     "Coding": [
                         {
-                            "Code": "408643008",
+                            "Code": {
+                                "Value": "408643008",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                }
+                            },
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                             },
@@ -162,7 +167,12 @@ describe('4 TargetedDataControl - correct default visualizer Medications', funct
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                             },
-                            "Code": "420120006",
+                            "Code": {
+                                "Value": "420120006",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                }
+                            },
                             "CodeSystem": {
                                 "EntryType": {
                                     "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"

@@ -60,7 +60,7 @@ class FluxAllergyIntolerance {
     // Sort adverse reactions by severity and time
     _adverseReactionsSorter(a, b) {
         let a_severity, b_severity;
-        switch (a.severity.value.coding[0].code) {
+        switch (a.severity.value.coding[0].code.value) {
             case "severe": {
                 a_severity = 1;
                 break;
@@ -74,7 +74,7 @@ class FluxAllergyIntolerance {
             }
         }
 
-        switch (b.severity.value.coding[0].code) {
+        switch (b.severity.value.coding[0].code.value) {
             case "severe": {
                 b_severity = 1;
                 break;

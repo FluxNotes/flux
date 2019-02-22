@@ -228,22 +228,12 @@ const mapAnatomicalLocation = (anatomicalLocation) => {
     return newAnatomicalLocation;
 };
 
-const mapUnits = (units) => {
-    const newUnits = new Units();
-
-    newUnits.value = new Coding();
-    newUnits.value.code = new Code();
-    newUnits.value.code.value = units.value.code;
-
-    return newUnits;
-}
-
 const mapQuantity = (quantity) => {
     const newQuantity = new Quantity();
 
     newQuantity.number = new NumberV05();
     newQuantity.number.value = quantity.decimalValue.value;
-    newQuantity.units = mapUnits(quantity.units);
+    newQuantity.units = mapPassThrough(quantity.units, Units);
 
     return newQuantity;
 };
@@ -253,7 +243,7 @@ const mapDuration = (duration) => {
 
     newDuration.number = new NumberV05();
     newDuration.number.value = duration.decimalValue.value;
-    newDuration.units = mapUnits(duration.units);
+    newDuration.units = mapPassThrough(duration.units, Units);
 
     return newDuration;
 }

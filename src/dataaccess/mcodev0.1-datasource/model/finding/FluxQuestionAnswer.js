@@ -15,7 +15,7 @@ class FluxQuestionAnswer {
      *  FindingTopicCode is a CodeableConcept and this function will return the coding value
      */
     get observationCodeCoding() {
-        return this._questionAnswer.findingTopicCode.value.coding[0].code;
+        return this._questionAnswer.findingTopicCode.value.coding[0].code.value;
     }
 
     /*

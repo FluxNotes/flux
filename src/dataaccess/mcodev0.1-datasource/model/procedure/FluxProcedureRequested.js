@@ -56,7 +56,7 @@ class FluxProcedureRequested {
      */
     get code() {
         if (!this._procedureRequested.topicCode) return null;
-        return this._procedureRequested.topicCode.value.coding[0].code;
+        return this._procedureRequested.topicCode.value.coding[0].code.value;
     }
 
     /*
@@ -83,7 +83,7 @@ class FluxProcedureRequested {
      * @private
      */
     _displayTextOrCode(coding) {
-        return coding.displayText ? coding.displayText.value : coding.value;
+        return coding.displayText ? coding.displayText.value : coding.code.value;
     }
 
     toJSON() {
