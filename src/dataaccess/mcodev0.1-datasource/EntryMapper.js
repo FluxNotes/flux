@@ -169,7 +169,6 @@ import Study from '../../model/shr/research/Study';
 import Patient from '../../model/shr/entity/Patient';
 import ParticipationPeriod from '../../model/shr/base/ParticipationPeriod';
 
-// Maps mCODE v0.1 entries to Flux Object Model
 const mapEntryInfo = (entryInfo, entry) => {
     const newEntry = new Entry();
     newEntry.entryId = entryInfo.entryId;
@@ -483,6 +482,10 @@ const mapEvidence = (evidence) => {
     });
 }
 
+/**
+ *  Instantiates mCODE v0.1 entry objects
+ *  Loops through all mCODE v0.1 entries and maps to Flux Notes Object Model classes
+ */
 exports.mapEntries = (v01Json) => {
     const entries = v01Json.map(entry => MCODEV01ObjectFactory.createInstance(entry));
     const v05Json = [];
