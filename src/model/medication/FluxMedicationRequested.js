@@ -175,7 +175,7 @@ class FluxMedicationRequested {
         let timingOfDoses = this._medicationRequested.dosage.timingOfDoses;
         if (timingOfDoses.timing.recurrencePattern && timingOfDoses.timing.recurrencePattern instanceof RecurrencePattern) {
             let units;
-            if (timingOfDoses.timing.recurrencePattern.recurrenceInterval.duration.units.value.code === 'd') {
+            if (timingOfDoses.timing.recurrencePattern.recurrenceInterval.duration.units.value.code.value === 'd') {
                 units = 'per day';
             }
             return {
