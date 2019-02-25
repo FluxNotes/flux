@@ -60,6 +60,9 @@ class SMARTonFHIRDataSource extends IDataSource {
         // further, the library only supports async querying
         const queries = [];
         for (const resourceType of this._options['supportedResourceTypes']) {
+            // note that we use a configurable list of resource types here because it's faster and easier than getting the conformance statement
+            // if we want to do that, get the list like this:
+            // this._client..patient.api.conformance({}).then(metadata => metadata.data.rest[0].resource.map(res => res.type));
             const result = this._client.patient.api.search({ type: resourceType, query: {} });
             queries.push(result);
         }
@@ -85,15 +88,11 @@ class SMARTonFHIRDataSource extends IDataSource {
             const referencesOut = [];
             const allObjects = entries.map(entry => {
                 try {
-                    if (this._options.addProfiles) {
-                        // unless a shim is in place or the resources are otherwise profiled, we need to manually apply certain profiles so that fromFHIR knows what to turn these resources into
-                        this.applyMinimalProfiles(entry);
-                    }
                     const result = ObjectFactory.createInstanceFromFHIR(entry.resource, null, this._client.patient.id, entries, mappedResources, referencesOut);
                     mappedResources[entry.fullUrl] = result;
                     return result;
                 } catch (e) {
-                    // TODO: just log the error for the moment, don't stop processing
+                    // just log the error, don't stop processing other potentially good objects
                     console.error(e);
                     return null;
                 }
@@ -102,9 +101,9 @@ class SMARTonFHIRDataSource extends IDataSource {
             allObjects.push(...referencesOut);
             const json = allObjects.filter(o => o).map(o => o.toJSON());
             return new PatientRecord(json);
-        }).catch(error => callback(null, error))
-        .then(record => callback(record))
-        ;
+        })
+        .catch(error => callback(null, error))
+        .then(record => callback(record));
     }
 
     getListOfPatients() {
@@ -116,29 +115,17 @@ class SMARTonFHIRDataSource extends IDataSource {
     }
 
     savePatient(patient) {
+        console.error("saving a patient is not implemented in SMARTonFHIRDataSource.");
         // TODO. presumably we want to use
         // this._client.patient.api.update, or some combination of update/create. update uses PUT, create uses POST. for now assume PUT works everywhere
         // TODO: is there the possibility of deletes?
-        // note that this also depends on toFHIR
-        const successCallback = (entry) => {};
-        const errorCallback = (error) => {};
-        const fhirResources = patient.entries.map(e => e.toFHIR());
-        for (const resource of fhirResources) {
-            this._client.patient.api.update({ resource }, successCallback, errorCallback);
-        }
-    }
-
-    applyProfile(e, p) {
-        e.resource.meta = e.resource.meta || {};
-        e.resource.meta.profile = e.resource.meta.profile || [];
-        e.resource.meta.profile.unshift(p); // ensure this profile is first in the list
-    }
-
-    applyMinimalProfiles(e) {
-        const profile = this._options['defaultSHRProfiles'][e.resource.resourceType];
-        if (profile) {
-            this.applyProfile(e, profile);
-        }
+        // note that this also depends on toFHIR, which is not currently available
+        // const successCallback = (entry) => {};
+        // const errorCallback = (error) => {};
+        // const fhirResources = patient.entries.map(e => e.toFHIR());
+        // for (const resource of fhirResources) {
+        //     this._client.patient.api.update({ resource }, successCallback, errorCallback);
+        // }
     }
 }
 

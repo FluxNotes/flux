@@ -31,7 +31,6 @@ describe('SMART on FHIR data source', function() {
 
     it('should connect out to original FHIR server when no shim override is configured', function (done) {
         delete options.shimServerOverrides; // don't apply any overrides here
-        options.addProfiles = false; // don't apply any new profiles
         options.supportedResourceTypes = ['Patient'];
 
         const scope = nock('http://localhost/')
@@ -53,7 +52,6 @@ describe('SMART on FHIR data source', function() {
 
     it('should connect out to shim server instead of original FHIR server when configured to do so', function (done) {
         options.shimServerOverrides = { 'http://localhost/fhir': 'http://localhost/shim' };
-        options.addProfiles = false; // don't apply any new profiles
         options.supportedResourceTypes = ['Patient'];
 
         const scope = nock('http://localhost/')
@@ -74,9 +72,8 @@ describe('SMART on FHIR data source', function() {
 
     });
 
-    it('should not apply profiles to FHIR resources if configured', function(done) {
+    it('should fail if provided with non-profiled FHIR resources', function(done) {
         delete options.shimServerOverrides; // don't apply any server overrides here
-        options.addProfiles = false; // apply any new profiles
         options.supportedResourceTypes = ['Patient'];
 
         const patientSearchBundle = {
@@ -99,38 +96,6 @@ describe('SMART on FHIR data source', function() {
             if (error) {
                 scope.done(); // assert that all specified calls on the scope were performed
                 done();
-            }
-        });
-    });
-
-    it('should apply profiles to FHIR resources if configured', function(done) {
-        delete options.shimServerOverrides; // don't apply any server overrides here
-        options.addProfiles = true; // apply any new profiles
-        options.supportedResourceTypes = ['Patient'];
-        options.defaultSHRProfiles = { "Patient": "http://example.com/fakeFluxProfile/shr-entity-Patient" };
-
-        const patientSearchBundle = {
-            resourceType: 'Bundle',
-            type: 'searchset',
-            entry: hardCodedFHIRPatient.entry.filter(e => e['resource']['resourceType'] === 'Patient')
-        };
-
-        patientSearchBundle.entry.forEach(e => delete e.resource.meta ); // ensure there is no profile there already
-
-        const scope = nock('http://localhost/')
-          .get('/fhir/Patient?_id=1078857')
-          .reply(200, patientSearchBundle);
-
-        const dataSource = new SMARTonFHIRDataSource(options);
-
-        // we expect this to succeed because adding the profiles enables it to convert the FHIR to SHR classes
-        dataSource.getPatient('1078857', (record, error) => {
-            if (record) {
-                scope.done(); // assert that all specified calls on the scope were performed
-                done();
-            }
-            if (error) {
-                 fail(JSON.stringify(error));
             }
         });
     });

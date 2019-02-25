@@ -1,15 +1,9 @@
 {
-  "baseURL": "http://localhost:3001/api",
-  "fhir" : {
-    "shimServerOverrides": {
-      "http://example.com/fhir": "http://localhost:3001/3_0_1"
-    },
-    "supportedResourceTypes": ["Patient", "Condition", "Observation", "Procedure"],
-    "addProfiles": false,
-    "defaultSHRProfiles" : {
-      "Patient": "http://example.com/fakeFluxProfile/shr-entity-Patient",
-      "Condition": "http://example.com/fakeFluxProfile/shr-base-ConditionPresentAssertion",
-      "Observation": "http://example.com/fakeFluxProfile/shr-base-Observation"
+    "baseURL": "http://localhost:3001/api",
+    "fhir" : {
+        "shimServerOverrides": {
+            "http://example.com/fhir": "http://localhost:3001/3_0_1"
+        },
+        "supportedResourceTypes": ["Patient", "Condition", "Observation", "Procedure"]
     }
-  }
 }

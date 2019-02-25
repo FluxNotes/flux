@@ -48,7 +48,7 @@ class SmartApp extends FullApp {
         if (this.state.authorizationFail) {
             return (<div> Authorization Failed </div>)
         }
-        return (this.state.loginUser) ? (<div>{super.render()}</div>) : (<div>Loading...</div>)
+        return super.render();
     }
 
 }
