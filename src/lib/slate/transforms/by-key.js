@@ -255,7 +255,6 @@ Transforms.setMarkByKey = (transform, key, offset, length, mark, properties, opt
 
 Transforms.setNodeByKey = (transform, key, properties, options = {}) => {
   properties = Normalize.nodeProperties(properties)
-  
   const { normalize = true } = options
   const { state } = transform
   const { document } = state

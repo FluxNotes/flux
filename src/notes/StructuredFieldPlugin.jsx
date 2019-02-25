@@ -185,18 +185,6 @@ function StructuredFieldPlugin(opts) {
         });
         return allStructuredFields;
     }
-/* 
-    function onKeyDown(e, key, state, editor) {   
-        const previousNode = state.document.getPreviousSibling(state.selection.anchorKey);
-        if(e.key === 'Backspace' && previousNode){
-            if (previousNode.type === 'structured_field' && state.selection.anchorOffset === 0 && state.selection.isCollapsed) {
-                let transform = state.transform();
-                transform = transform.removeNodeByKey(previousNode.key);
-                let newstate = transform.apply();
-                return newstate;
-            }
-        }
-    } */
 
     function onChange(state, editor) {
         var deletedKeys = [];
@@ -255,7 +243,7 @@ function StructuredFieldPlugin(opts) {
                 if (shortcut instanceof InsertValue) {
                     return <span className='structured-field-inserter structured-field-bolded' {...props.attributes}>{props.children}{safariSpacing}</span>;
                 } else {
-                    return <span contentEditable={false} className='structured-field-creator structured-field-bolded' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
+                    return <span contentEditable={false} className='structured-field-creator structured-field-bolded' {...props.attributes}>{props.children}</span>;
                 }
             },
             structured_field_selected_search_result: props => {
@@ -374,6 +362,8 @@ function StructuredFieldPlugin(opts) {
     }
 
     function onCopy(event, data, state, editor) {
+        console.log("here")
+        console.log('data', data)
         const window = getWindow(event.target);
         const native = window.getSelection();
         const { endBlock, endInline, document, selection } = state;
@@ -488,11 +478,15 @@ function StructuredFieldPlugin(opts) {
     const FRAGMENT_MATCHER = / flux-string="([^\s]+)"/;
 
     function onPaste(event, data, state, editor) {
+        console.log("paste")
         const html = data.html || null; //event.clipboardData.getData('text/html') || null;)
+        console.log(html)
+        console.log(data)
         if (
             html &&
             ~html.indexOf(' flux-string="')
         ) {
+            console.log("fluxstring")
             const matches = FRAGMENT_MATCHER.exec(html);
             const [ full, encoded ] = matches; // eslint-disable-line no-unused-vars
             const decoded = window.decodeURIComponent(window.atob(encoded));
@@ -504,10 +498,12 @@ function StructuredFieldPlugin(opts) {
             const saveIsBlock1BeforeBlock2 = contextManager.getIsBlock1BeforeBlock2();
             contextManager.setIsBlock1BeforeBlock2(() => { return false; });
             insertText(decoded, undefined, true, 'paste');
+            console.log('decoded', decoded)
             contextManager.setIsBlock1BeforeBlock2(saveIsBlock1BeforeBlock2);
             event.preventDefault();
             return state;
         } else if (data.text) {
+            console.log("plain text")
             event.preventDefault();
             insertText(data.text, undefined, true, 'paste');
             return state;
@@ -615,7 +611,6 @@ function insertStructuredFieldAtRange(opts, transform, shortcut, range) {
 function createStructuredField(opts, shortcut) {
     let nodes = [Slate.Text.createFromString(String(shortcut.getText()))];
     const isInserter = shortcut instanceof InsertValue;
-    //const isVoid = !isInserter;
     if (isInserter) {
         const lines = String(shortcut.getText()).split(/\n\r|\r\n|\r|\n/g);
         let textNodes = [];
@@ -628,7 +623,6 @@ function createStructuredField(opts, shortcut) {
             const properties = {
                 type: opts.typeStructuredField,
                 nodes: textNodes,
-                //isVoid,
                 data: {
                     shortcut: shortcut
                 }
@@ -642,7 +636,6 @@ function createStructuredField(opts, shortcut) {
                 sf = Slate.Block.create({
                     type: 'line',
                     nodes: [inlineNode],
-                    //isVoid,
                 });
             }
             opts.structuredFieldMapManager.keyToShortcutMap.set(inlineNode.key, shortcut);
@@ -660,7 +653,6 @@ function createStructuredField(opts, shortcut) {
     const properties = {
         type: opts.typeStructuredField,
         nodes: nodes,
-        //isVoid,
         data: {
             shortcut: shortcut
         }

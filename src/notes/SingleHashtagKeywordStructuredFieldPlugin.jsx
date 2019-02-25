@@ -53,21 +53,17 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
                 // Sort keywords based on length -- we want to match longest options first
                 keywords.sort(_sortKeywordByNameLength);
                 const keywordInClosetBlock = scanTextForKeywordObject(curNode, keywords)
-
                 if (!Lang.isUndefined(keywordInClosetBlock)) {
                     const keywordText = keywordInClosetBlock.name.toLowerCase();
                     const newKeywordShortcut = createShortcut(null, keywordText);
                     newKeywordShortcut.setSource("Keyword");
-             
 
                     // KeywordRange never be null -- we've already confirmed the existance of the keyword
                     let keywordRange;
                     if (curNode.nodes) {
                         for (const childNode of curNode.nodes) {
-                           
                                 keywordRange = getRangeForKeyword(childNode, keywordText);
                                 if (keywordRange) break;
-                            
                         }
                     } else {
                         keywordRange = getRangeForKeyword(curNode, keywordText);
