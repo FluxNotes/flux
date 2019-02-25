@@ -51,12 +51,25 @@ function StructuredFieldPlugin(opts) {
 
     function onKeyDown(e, key, state, editor) {
         const {selection} = state;
-        const previousNode = state.document.getPreviousSibling(state.selection.anchorKey);
         // We want to consider where the cursor is focused if an expanded selection
         const useFocusKey = selection.isExpanded && selection.isBackward;
         const selectionKey = useFocusKey ? selection.focusKey : selection.anchorKey;
         const parentNode = state.document.getParent(selectionKey);
         const shortcut = parentNode.data.get('shortcut');
+
+        // If the previous node is not an inserter,
+        // delete the full node when hitting backspace right before it, as it is not editable.
+        const previousNode = state.document.getPreviousSibling(state.selection.anchorKey);
+        if (e.key === 'Backspace' && previousNode) {
+            if (previousNode.type === 'structured_field'
+                && !(previousNode.data.get('shortcut') instanceof InsertValue)
+                && state.selection.anchorOffset === 0 && state.selection.isCollapsed) {
+                let transform = state.transform();
+                transform = transform.removeNodeByKey(previousNode.key);
+                let newState = transform.apply();
+                return newState;
+            }
+        }
 
         if (!(shortcut instanceof InsertValue)) return;
 
@@ -163,14 +176,7 @@ function StructuredFieldPlugin(opts) {
             contextManager.contextUpdated();
 
             editor.onChange(transform);
-        } else if (e.key === 'Backspace' && previousNode){
-            if (previousNode.type === 'structured_field' && state.selection.anchorOffset === 0 && state.selection.isCollapsed) {
-                let transform = state.transform();
-                transform = transform.removeNodeByKey(previousNode.key);
-                let newstate = transform.apply();
-                return newstate;
-            }
-        } 
+        }
     }
 
     function getAllStructuredFields(nodes) {
