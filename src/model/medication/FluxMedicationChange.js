@@ -64,7 +64,7 @@ class FluxMedicationChange extends FluxEntry {
             if (this.medicationAfterChange) {
                 this.removeMedicationAfterAndMedicationBefore();
             }
-            this._medicationChange.medicationBeforeChange = [];
+            this._medicationChange.medicationBeforeChange = null;
         }
     }
 
@@ -150,7 +150,7 @@ class FluxMedicationChange extends FluxEntry {
         // Delete medicationAfterChange entry if no amount and reset end date for medicationBefore
         const medAfter = this._patientRecord.getEntryFromReference(this.medicationAfterChange.value);
         this._patientRecord.removeEntryFromPatient(medAfter);
-        this._medicationChange.medicationAfterChange = [];
+        this._medicationChange.medicationAfterChange = null;
         if (this.medicationBeforeChange) {
             const medBefore = this._patientRecord.getEntryFromReference(this.medicationBeforeChange.value);
             medBefore.endDate = medAfter.endDate;
