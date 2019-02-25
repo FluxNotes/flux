@@ -3,8 +3,6 @@ import DateOfDeath from '../shr/entity/DateOfDeath';
 import IsDeceased from '../shr/entity/IsDeceased';
 import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
-import moment from 'moment';
-import LastUpdated from '../shr/base/LastUpdated';
 import Lang from 'lodash';
 
 class FluxDeathInformation {
