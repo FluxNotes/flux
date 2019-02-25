@@ -25,6 +25,9 @@ class UserProfile {
     }
 
     setUserName(name) {
+        if (Array.isArray(name)) {
+            name = name[0];
+        }
         return (name.suffix) ? (`${name.suffix[0]} ${name.given[0]} ${name.family[0]}`) : (`${name.given[0]} ${name.family[0]}`);
     }
 

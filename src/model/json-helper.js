@@ -58,8 +58,12 @@ export function getNamespaceAndName(json={}, type) {
  */
 export function getNamespaceAndNameFromFHIR(fhir, type) {
   // Special case for primitives
-  if (typeof fhir !== 'object' && type != null && type.indexOf('.') === -1) {
-    return { namespace: 'primitive', elementName: type };
+  if (typeof fhir !== 'object') {
+    if (type == null) {
+      return { namespace: 'primitive', elementName: typeof fhir };
+    } else if (type.indexOf('.') === -1) {
+      return { namespace: 'primitive', elementName: type };
+    }
   }
   // Get the type from the JSON if we can
   if (fhir['meta'] && fhir['meta']['profile']) {

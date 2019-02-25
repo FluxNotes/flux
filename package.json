@@ -28,6 +28,7 @@
     "mime": "1.4.1",
     "mkdirp": "0.5.1",
     "moment": "2.22.0",
+    "nock": "^10.0.6",
     "positions": "1.6.1",
     "prop-types": "15.5.10",
     "rc-calendar": "^9.7.11",

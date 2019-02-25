@@ -93,7 +93,7 @@ export class FullApp extends Component {
             loading: true,
             // If there is an error produced when loading data, it will go here
             loadingErrorObject: null,
-            loginUser: {},
+            loginUser: null,
             modalTitle: '',
             modalContent: '',
             noteClosed: false,
