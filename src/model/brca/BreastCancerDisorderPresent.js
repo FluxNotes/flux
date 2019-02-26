@@ -311,29 +311,8 @@ class BreastCancerDisorderPresent extends CancerDisorderPresent {
     if (fhir['identifier'] != null && fhir['identifier'][0] != null) {
       inst.objectIdentifier = FHIRHelper.createInstanceFromFHIR('shr.base.ObjectIdentifier', fhir['identifier'][0], shrId, allEntries, mappedResources, referencesOut, false);
     }
-    if (fhir['clinicalStatus'] != null) {
-      inst.clinicalStatus = FHIRHelper.createInstanceFromFHIR('shr.base.ClinicalStatus', fhir['clinicalStatus'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['verificationStatus'] != null) {
-      inst.findingStatus = FHIRHelper.createInstanceFromFHIR('shr.base.FindingStatus', fhir['verificationStatus'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['category'] != null && fhir['category'][0] != null) {
-      inst.category = FHIRHelper.createInstanceFromFHIR('shr.core.Category', fhir['category'][0], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['severity'] != null) {
-      inst.severity = FHIRHelper.createInstanceFromFHIR('shr.base.Severity', fhir['severity'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['code'] != null) {
-      inst.conditionOrDiagnosisCode = FHIRHelper.createInstanceFromFHIR('shr.base.ConditionOrDiagnosisCode', fhir['code'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    for (const fhir_bodySite of fhir['bodySite'] || []) {
-      inst.anatomicalLocation = inst.anatomicalLocation || [];
-      const inst_anatomicalLocation = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocation', {}, shrId);
-      inst.anatomicalLocation.push(inst_anatomicalLocation);
-      inst_anatomicalLocation.value = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocationPrecoordinated', fhir_bodySite, shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['subject'] != null) {
-      const entryId = fhir['subject']['reference'];
+    if (fhir['patient'] != null) {
+      const entryId = fhir['patient']['reference'];
       if (!mappedResources[entryId]) {
         const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
         if (referencedEntry) {
@@ -342,8 +321,8 @@ class BreastCancerDisorderPresent extends CancerDisorderPresent {
       }
       inst.patient = mappedResources[entryId];
     }
-    if (fhir['context'] != null) {
-      const entryId = fhir['context']['reference'];
+    if (fhir['encounter'] != null) {
+      const entryId = fhir['encounter']['reference'];
       if (!mappedResources[entryId]) {
         const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
         if (referencedEntry) {
@@ -351,43 +330,6 @@ class BreastCancerDisorderPresent extends CancerDisorderPresent {
         }
       }
       inst.encounter = mappedResources[entryId];
-    }
-    if (fhir['onsetDateTime'] != null) {
-      inst.onset = FHIRHelper.createInstanceFromFHIR('shr.base.Onset', fhir['onsetDateTime'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['onsetAge'] != null) {
-      inst.onset = FHIRHelper.createInstanceFromFHIR('shr.base.Onset', fhir['onsetAge'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['onsetPeriod'] != null) {
-      inst.onset = FHIRHelper.createInstanceFromFHIR('shr.base.Onset', fhir['onsetPeriod'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['onsetRange'] != null) {
-      inst.onset = FHIRHelper.createInstanceFromFHIR('shr.base.Onset', fhir['onsetRange'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['onsetString'] != null) {
-      inst.onset = FHIRHelper.createInstanceFromFHIR('shr.base.Onset', fhir['onsetString'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['abatementDateTime'] != null) {
-      inst.abatement = FHIRHelper.createInstanceFromFHIR('shr.base.Abatement', fhir['abatementDateTime'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['abatementAge'] != null) {
-      inst.abatement = FHIRHelper.createInstanceFromFHIR('shr.base.Abatement', fhir['abatementAge'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['abatementBoolean'] != null) {
-      inst.abatement = FHIRHelper.createInstanceFromFHIR('shr.base.Abatement', fhir['abatementBoolean'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['abatementPeriod'] != null) {
-      inst.abatement = FHIRHelper.createInstanceFromFHIR('shr.base.Abatement', fhir['abatementPeriod'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['abatementRange'] != null) {
-      inst.abatement = FHIRHelper.createInstanceFromFHIR('shr.base.Abatement', fhir['abatementRange'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['abatementString'] != null) {
-      inst.abatement = FHIRHelper.createInstanceFromFHIR('shr.base.Abatement', fhir['abatementString'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['assertedDate'] != null) {
-      inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
-      inst.metadata.authoredDateTime = FHIRHelper.createInstanceFromFHIR('shr.base.AuthoredDateTime', fhir['assertedDate'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['asserter'] != null) {
       inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
@@ -399,6 +341,46 @@ class BreastCancerDisorderPresent extends CancerDisorderPresent {
         }
       }
       inst.metadata.informationSource = mappedResources[entryId];
+    }
+    if (fhir['dateRecorded'] != null) {
+      inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+      inst.metadata.authoredDateTime = FHIRHelper.createInstanceFromFHIR('shr.base.AuthoredDateTime', fhir['dateRecorded'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['code'] != null) {
+      inst.conditionOrDiagnosisCode = FHIRHelper.createInstanceFromFHIR('shr.base.ConditionOrDiagnosisCode', fhir['code'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['category'] != null) {
+      inst.category = FHIRHelper.createInstanceFromFHIR('shr.core.Category', fhir['category'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['clinicalStatus'] != null) {
+      inst.clinicalStatus = FHIRHelper.createInstanceFromFHIR('shr.base.ClinicalStatus', fhir['clinicalStatus'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['verificationStatus'] != null) {
+      inst.findingStatus = FHIRHelper.createInstanceFromFHIR('shr.base.FindingStatus', fhir['verificationStatus'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['severity'] != null) {
+      inst.severity = FHIRHelper.createInstanceFromFHIR('shr.base.Severity', fhir['severity'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['onsetDateTime'] != null) {
+      inst.onset = FHIRHelper.createInstanceFromFHIR('shr.base.Onset', fhir['onsetDateTime'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['onsetRange'] != null) {
+      inst.onset = FHIRHelper.createInstanceFromFHIR('shr.base.Onset', fhir['onsetRange'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['onsetString'] != null) {
+      inst.onset = FHIRHelper.createInstanceFromFHIR('shr.base.Onset', fhir['onsetString'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['abatementDateTime'] != null) {
+      inst.abatement = FHIRHelper.createInstanceFromFHIR('shr.base.Abatement', fhir['abatementDateTime'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['abatementBoolean'] != null) {
+      inst.abatement = FHIRHelper.createInstanceFromFHIR('shr.base.Abatement', fhir['abatementBoolean'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['abatementRange'] != null) {
+      inst.abatement = FHIRHelper.createInstanceFromFHIR('shr.base.Abatement', fhir['abatementRange'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['abatementString'] != null) {
+      inst.abatement = FHIRHelper.createInstanceFromFHIR('shr.base.Abatement', fhir['abatementString'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['stage'] != null) {
       inst.stageInformation = FHIRHelper.createInstanceFromFHIR('shr.base.StageInformation', fhir['stage'], shrId, allEntries, mappedResources, referencesOut, false);
@@ -415,6 +397,12 @@ class BreastCancerDisorderPresent extends CancerDisorderPresent {
         }
         inst.stageInformation.stageDetail = mappedResources[entryId];
       }
+    }
+    for (const fhir_bodySite of fhir['bodySite'] || []) {
+      inst.anatomicalLocation = inst.anatomicalLocation || [];
+      const inst_anatomicalLocation = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocation', {}, shrId);
+      inst.anatomicalLocation.push(inst_anatomicalLocation);
+      inst_anatomicalLocation.value = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocationPrecoordinated', fhir_bodySite, shrId, allEntries, mappedResources, referencesOut, false);
     }
     return inst;
   }

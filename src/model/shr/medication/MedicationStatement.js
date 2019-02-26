@@ -331,6 +331,9 @@ class MedicationStatement extends ActionPerformed {
       inst.narrative = FHIRHelper.createInstanceFromFHIR('shr.base.Narrative', fhir['text'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     for (const fhir_extension of fhir['extension'] || []) {
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-Category-extension') {
+        inst.category = FHIRHelper.createInstanceFromFHIR('shr.core.Category', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
       if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-encounter-Encounter-extension') {
         inst.encounter = FHIRHelper.createInstanceFromFHIR('shr.encounter.Encounter', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
       }
@@ -349,31 +352,15 @@ class MedicationStatement extends ActionPerformed {
         inst.outcome = FHIRHelper.createInstanceFromFHIR('shr.base.Outcome', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
       }
     }
-    if (fhir['status'] != null) {
-      inst.status = FHIRHelper.createInstanceFromFHIR('shr.core.Status', fhir['status'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['category'] != null) {
-      inst.category = FHIRHelper.createInstanceFromFHIR('shr.core.Category', fhir['category'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['medicationReference'] != null) {
-      const entryId = fhir['medicationReference']['reference'];
+    if (fhir['patient'] != null) {
+      const entryId = fhir['patient']['reference'];
       if (!mappedResources[entryId]) {
         const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
         if (referencedEntry) {
-          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Medication', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
+          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Patient', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
         }
       }
-      inst.medication = mappedResources[entryId];
-    }
-    if (fhir['effectiveDateTime'] != null) {
-      inst.occurrenceTimeOrPeriod = FHIRHelper.createInstanceFromFHIR('shr.core.OccurrenceTimeOrPeriod', fhir['effectiveDateTime'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['effectivePeriod'] != null) {
-      inst.occurrenceTimeOrPeriod = FHIRHelper.createInstanceFromFHIR('shr.core.OccurrenceTimeOrPeriod', fhir['effectivePeriod'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['dateAsserted'] != null) {
-      inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
-      inst.metadata.authoredDateTime = FHIRHelper.createInstanceFromFHIR('shr.base.AuthoredDateTime', fhir['dateAsserted'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.patient = mappedResources[entryId];
     }
     if (fhir['informationSource'] != null) {
       inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
@@ -386,23 +373,64 @@ class MedicationStatement extends ActionPerformed {
       }
       inst.metadata.informationSource = mappedResources[entryId];
     }
-    if (fhir['subject'] != null) {
-      const entryId = fhir['subject']['reference'];
+    if (fhir['dateAsserted'] != null) {
+      inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+      inst.metadata.authoredDateTime = FHIRHelper.createInstanceFromFHIR('shr.base.AuthoredDateTime', fhir['dateAsserted'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['status'] != null) {
+      inst.status = FHIRHelper.createInstanceFromFHIR('shr.core.Status', fhir['status'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['reasonForUseCodeableConcept'] != null) {
+      inst.reason = inst.reason || [];
+      const inst_reason = FHIRHelper.createInstanceFromFHIR('shr.base.Reason', fhir['reasonForUseCodeableConcept'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.reason.push(inst_reason);
+    }
+    if (fhir['effectiveDateTime'] != null) {
+      inst.occurrenceTimeOrPeriod = FHIRHelper.createInstanceFromFHIR('shr.core.OccurrenceTimeOrPeriod', fhir['effectiveDateTime'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['medicationReference'] != null) {
+      const entryId = fhir['medicationReference']['reference'];
       if (!mappedResources[entryId]) {
         const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
         if (referencedEntry) {
-          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Patient', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
+          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Medication', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
         }
       }
-      inst.patient = mappedResources[entryId];
-    }
-    for (const fhir_reasonCode of fhir['reasonCode'] || []) {
-      inst.reason = inst.reason || [];
-      const inst_reason = FHIRHelper.createInstanceFromFHIR('shr.base.Reason', fhir_reasonCode, shrId, allEntries, mappedResources, referencesOut, false);
-      inst.reason.push(inst_reason);
+      inst.medication = mappedResources[entryId];
     }
     if (fhir['dosage'] != null && fhir['dosage'][0] != null) {
-      inst.dosage = FHIRHelper.createInstanceFromFHIR('shr.medication.Dosage', fhir['dosage'][0], shrId, allEntries, mappedResources, referencesOut, false);
+      if (fhir['dosage'][0]['text'] != null) {
+        inst.dosage = inst.dosage || FHIRHelper.createInstanceFromFHIR('shr.medication.Dosage', {}, shrId);
+        inst.dosage.dosageInstructionsText = FHIRHelper.createInstanceFromFHIR('shr.medication.DosageInstructionsText', fhir['dosage'][0]['text'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      if (fhir['dosage'][0]['timing'] != null) {
+        inst.dosage = inst.dosage || FHIRHelper.createInstanceFromFHIR('shr.medication.Dosage', {}, shrId);
+        inst.dosage.timingOfDoses = FHIRHelper.createInstanceFromFHIR('shr.medication.TimingOfDoses', fhir['dosage'][0]['timing'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      if (fhir['dosage'][0]['asNeededBoolean'] != null) {
+        inst.dosage = inst.dosage || FHIRHelper.createInstanceFromFHIR('shr.medication.Dosage', {}, shrId);
+        inst.dosage.asNeededIndicator = FHIRHelper.createInstanceFromFHIR('shr.medication.AsNeededIndicator', fhir['dosage'][0]['asNeededBoolean'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      if (fhir['dosage'][0]['asNeededCodeableConcept'] != null) {
+        inst.dosage = inst.dosage || FHIRHelper.createInstanceFromFHIR('shr.medication.Dosage', {}, shrId);
+        inst.dosage.asNeededIndicator = FHIRHelper.createInstanceFromFHIR('shr.medication.AsNeededIndicator', fhir['dosage'][0]['asNeededCodeableConcept'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      if (fhir['dosage'][0]['route'] != null) {
+        inst.dosage = inst.dosage || FHIRHelper.createInstanceFromFHIR('shr.medication.Dosage', {}, shrId);
+        inst.dosage.routeIntoBody = FHIRHelper.createInstanceFromFHIR('shr.core.RouteIntoBody', fhir['dosage'][0]['route'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      if (fhir['dosage'][0]['method'] != null) {
+        inst.dosage = inst.dosage || FHIRHelper.createInstanceFromFHIR('shr.medication.Dosage', {}, shrId);
+        inst.dosage.dosageMethod = FHIRHelper.createInstanceFromFHIR('shr.medication.DosageMethod', fhir['dosage'][0]['method'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      if (fhir['dosage'][0]['quantityRange'] != null) {
+        inst.dosage = inst.dosage || FHIRHelper.createInstanceFromFHIR('shr.medication.Dosage', {}, shrId);
+        inst.dosage.doseAmount = FHIRHelper.createInstanceFromFHIR('shr.medication.DoseAmount', fhir['dosage'][0]['quantityRange'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      if (fhir['dosage'][0]['maxDosePerPeriod'] != null) {
+        inst.dosage = inst.dosage || FHIRHelper.createInstanceFromFHIR('shr.medication.Dosage', {}, shrId);
+        inst.dosage.maximumDosePerTimePeriod = FHIRHelper.createInstanceFromFHIR('shr.medication.MaximumDosePerTimePeriod', fhir['dosage'][0]['maxDosePerPeriod'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
     }
     return inst;
   }

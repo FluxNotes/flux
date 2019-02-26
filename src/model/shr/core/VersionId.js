@@ -97,9 +97,6 @@ class VersionId {
    */
   static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new VersionId();
-    if (asExtension) {
-      inst.value = fhir['valueId'];
-    }
     if (!asExtension && fhir != null) {
       inst.value = fhir;
     }

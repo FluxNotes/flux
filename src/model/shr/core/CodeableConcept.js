@@ -96,17 +96,26 @@ class CodeableConcept {
    */
   static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new CodeableConcept();
-    for (const fhir_coding of fhir['coding'] || []) {
+    if (typeof fhir === 'string') {
       inst.coding = inst.coding || [];
-      const inst_coding = FHIRHelper.createInstanceFromFHIR('shr.core.Coding', fhir_coding, shrId, allEntries, mappedResources, referencesOut, false);
+      const inst_coding = FHIRHelper.createInstanceFromFHIR('shr.core.Coding', fhir, shrId, allEntries, mappedResources, referencesOut, false);
       inst.coding.push(inst_coding);
+
+      inst.displayText = FHIRHelper.createInstanceFromFHIR('shr.core.DisplayText', fhir, shrId, allEntries, mappedResources, referencesOut, false);
+    } else {
+      for (const fhir_coding of fhir['coding'] || []) {
+        inst.coding = inst.coding || [];
+        const inst_coding = FHIRHelper.createInstanceFromFHIR('shr.core.Coding', fhir_coding, shrId, allEntries, mappedResources, referencesOut, false);
+        inst.coding.push(inst_coding);
+      }
+      if (fhir['text'] != null) {
+        inst.displayText = FHIRHelper.createInstanceFromFHIR('shr.core.DisplayText', fhir['text'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      if (asExtension) {
+        inst.value = fhir['valueCodeableConcept'];
+      }
     }
-    if (fhir['text'] != null) {
-      inst.displayText = FHIRHelper.createInstanceFromFHIR('shr.core.DisplayText', fhir['text'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (asExtension) {
-      inst.value = fhir['valueCodeableConcept'];
-    }
+
     return inst;
   }
 

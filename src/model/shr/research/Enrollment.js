@@ -97,6 +97,9 @@ class Enrollment {
    */
   static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new Enrollment();
+    if (asExtension) {
+      inst.value = fhir['valueReference'];
+    }
     if (!asExtension && fhir != null) {
       inst.value = FHIRHelper.createInstanceFromFHIR('shr.entity.Group', fhir, shrId, allEntries, mappedResources, referencesOut);
     }

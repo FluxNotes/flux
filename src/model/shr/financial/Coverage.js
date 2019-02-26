@@ -252,27 +252,19 @@ class Coverage extends InformationItem {
     if (fhir['text'] != null) {
       inst.narrative = FHIRHelper.createInstanceFromFHIR('shr.base.Narrative', fhir['text'], shrId, allEntries, mappedResources, referencesOut, false);
     }
-    if (fhir['status'] != null) {
-      inst.status = FHIRHelper.createInstanceFromFHIR('shr.core.Status', fhir['status'], shrId, allEntries, mappedResources, referencesOut, false);
+    for (const fhir_extension of fhir['extension'] || []) {
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-Status-extension') {
+        inst.status = FHIRHelper.createInstanceFromFHIR('shr.core.Status', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+    }
+    if (fhir['period'] != null) {
+      inst.effectiveTimePeriod = FHIRHelper.createInstanceFromFHIR('shr.core.EffectiveTimePeriod', fhir['period'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['type'] != null) {
       inst.type = FHIRHelper.createInstanceFromFHIR('shr.core.Type', fhir['type'], shrId, allEntries, mappedResources, referencesOut, false);
     }
-    if (fhir['policyHolder'] != null) {
-      const entryId = fhir['policyHolder']['reference'];
-      if (!mappedResources[entryId]) {
-        const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
-        if (referencedEntry) {
-          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Patient', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
-        }
-      }
-      inst.policyHolder = mappedResources[entryId];
-    }
     if (fhir['subscriberId'] != null) {
       inst.insuranceMemberId = FHIRHelper.createInstanceFromFHIR('shr.financial.InsuranceMemberId', fhir['subscriberId'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['period'] != null) {
-      inst.effectiveTimePeriod = FHIRHelper.createInstanceFromFHIR('shr.core.EffectiveTimePeriod', fhir['period'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     return inst;
   }

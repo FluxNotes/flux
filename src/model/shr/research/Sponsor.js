@@ -97,6 +97,9 @@ class Sponsor {
    */
   static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new Sponsor();
+    if (asExtension) {
+      inst.value = fhir['valueReference'];
+    }
     if (!asExtension && fhir != null) {
       inst.value = FHIRHelper.createInstanceFromFHIR('shr.entity.Organization', fhir, shrId, allEntries, mappedResources, referencesOut);
     }

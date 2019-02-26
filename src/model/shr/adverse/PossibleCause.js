@@ -70,6 +70,9 @@ class PossibleCause {
    */
   static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new PossibleCause();
+    if (asExtension) {
+      inst.value = fhir['valueCodeableConcept'];
+    }
     if (!asExtension && fhir != null) {
       inst.value = FHIRHelper.createInstanceFromFHIR(null, fhir, shrId, allEntries, mappedResources, referencesOut);
     }

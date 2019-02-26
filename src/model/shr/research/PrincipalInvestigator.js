@@ -97,6 +97,9 @@ class PrincipalInvestigator {
    */
   static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new PrincipalInvestigator();
+    if (asExtension) {
+      inst.value = fhir['valueReference'];
+    }
     if (!asExtension && fhir != null) {
       inst.value = FHIRHelper.createInstanceFromFHIR('shr.entity.Practitioner', fhir, shrId, allEntries, mappedResources, referencesOut);
     }

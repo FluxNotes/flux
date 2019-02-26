@@ -242,7 +242,7 @@ class QuestionAnswer extends SimpleNonLaboratoryObservation {
       inst.narrative = FHIRHelper.createInstanceFromFHIR('shr.base.Narrative', fhir['text'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     for (const fhir_extension of fhir['extension'] || []) {
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://hl7.org/fhir/StructureDefinition/condition-targetBodySite') {
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://hl7.org/fhir/StructureDefinition/body-site-instance') {
         inst.anatomicalLocation = inst.anatomicalLocation || FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocation', {}, shrId);
         inst.anatomicalLocation.value = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocationStructured', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
       }
@@ -256,8 +256,8 @@ class QuestionAnswer extends SimpleNonLaboratoryObservation {
     if (fhir['status'] != null) {
       inst.findingStatus = FHIRHelper.createInstanceFromFHIR('shr.base.FindingStatus', fhir['status'], shrId, allEntries, mappedResources, referencesOut, false);
     }
-    if (fhir['category'] != null && fhir['category'][0] != null) {
-      inst.category = FHIRHelper.createInstanceFromFHIR('shr.core.Category', fhir['category'][0], shrId, allEntries, mappedResources, referencesOut, false);
+    if (fhir['category'] != null) {
+      inst.category = FHIRHelper.createInstanceFromFHIR('shr.core.Category', fhir['category'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['code'] != null) {
       inst.findingTopicCode = FHIRHelper.createInstanceFromFHIR('shr.base.FindingTopicCode', fhir['code'], shrId, allEntries, mappedResources, referencesOut, false);
@@ -272,8 +272,8 @@ class QuestionAnswer extends SimpleNonLaboratoryObservation {
       }
       inst.patient = mappedResources[entryId];
     }
-    if (fhir['context'] != null) {
-      const entryId = fhir['context']['reference'];
+    if (fhir['encounter'] != null) {
+      const entryId = fhir['encounter']['reference'];
       if (!mappedResources[entryId]) {
         const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
         if (referencedEntry) {
@@ -284,9 +284,6 @@ class QuestionAnswer extends SimpleNonLaboratoryObservation {
     }
     if (fhir['effectiveDateTime'] != null) {
       inst.relevantTime = FHIRHelper.createInstanceFromFHIR('shr.base.RelevantTime', fhir['effectiveDateTime'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['effectivePeriod'] != null) {
-      inst.relevantTime = FHIRHelper.createInstanceFromFHIR('shr.base.RelevantTime', fhir['effectivePeriod'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['valueCodeableConcept'] != null) {
       inst.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir['valueCodeableConcept'], shrId, allEntries, mappedResources, referencesOut, false);
@@ -309,17 +306,14 @@ class QuestionAnswer extends SimpleNonLaboratoryObservation {
     if (fhir['valueDateTime'] != null) {
       inst.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir['valueDateTime'], shrId, allEntries, mappedResources, referencesOut, false);
     }
-    if (fhir['valuePeriod'] != null) {
-      inst.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir['valuePeriod'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
     if (fhir['dataAbsentReason'] != null) {
       inst.exceptionValue = FHIRHelper.createInstanceFromFHIR('shr.base.ExceptionValue', fhir['dataAbsentReason'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['interpretation'] != null) {
       inst.interpretation = FHIRHelper.createInstanceFromFHIR('shr.base.Interpretation', fhir['interpretation'], shrId, allEntries, mappedResources, referencesOut, false);
     }
-    if (fhir['comment'] != null) {
-      inst.commentOrDescription = FHIRHelper.createInstanceFromFHIR('shr.core.CommentOrDescription', fhir['comment'], shrId, allEntries, mappedResources, referencesOut, false);
+    if (fhir['comments'] != null) {
+      inst.commentOrDescription = FHIRHelper.createInstanceFromFHIR('shr.core.CommentOrDescription', fhir['comments'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['bodySite'] != null) {
       inst.anatomicalLocation = inst.anatomicalLocation || FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocation', {}, shrId);
@@ -337,8 +331,6 @@ class QuestionAnswer extends SimpleNonLaboratoryObservation {
         }
       }
       inst.device = mappedResources[entryId];
-    }
-    for (const fhir_related of fhir['related'] || []) {
     }
     return inst;
   }

@@ -125,9 +125,9 @@ class HumanName extends PersonName {
     if (fhir['text'] != null) {
       inst.nameAsText = FHIRHelper.createInstanceFromFHIR('shr.core.NameAsText', fhir['text'], shrId, allEntries, mappedResources, referencesOut, false);
     }
-    if (fhir['family'] != null) {
+    for (const fhir_family of fhir['family'] || []) {
       inst.familyName = inst.familyName || [];
-      const inst_familyName = FHIRHelper.createInstanceFromFHIR('shr.core.FamilyName', fhir['family'], shrId, allEntries, mappedResources, referencesOut, false);
+      const inst_familyName = FHIRHelper.createInstanceFromFHIR('shr.core.FamilyName', fhir_family, shrId, allEntries, mappedResources, referencesOut, false);
       inst.familyName.push(inst_familyName);
     }
     for (const fhir_given of fhir['given'] || []) {

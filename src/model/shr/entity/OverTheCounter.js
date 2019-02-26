@@ -97,6 +97,9 @@ class OverTheCounter {
    */
   static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new OverTheCounter();
+    if (asExtension) {
+      inst.value = fhir['valueBoolean'];
+    }
     if (!asExtension && fhir != null) {
       inst.value = fhir;
     }

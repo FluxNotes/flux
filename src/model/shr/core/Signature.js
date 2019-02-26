@@ -218,6 +218,11 @@ class Signature {
    */
   static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new Signature();
+    for (const fhir_extension of fhir['extension'] || []) {
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-OnBehalfOf-extension') {
+        inst.onBehalfOf = FHIRHelper.createInstanceFromFHIR('shr.core.OnBehalfOf', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+    }
     for (const fhir_type of fhir['type'] || []) {
       inst.signatureType = inst.signatureType || [];
       const inst_signatureType = FHIRHelper.createInstanceFromFHIR('shr.core.SignatureType', fhir_type, shrId, allEntries, mappedResources, referencesOut, false);
@@ -228,9 +233,6 @@ class Signature {
     }
     if (fhir['whoUri'] != null) {
       inst.signatory = FHIRHelper.createInstanceFromFHIR('shr.core.Signatory', fhir['whoUri'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['onBehalfOfUri'] != null) {
-      inst.onBehalfOf = FHIRHelper.createInstanceFromFHIR('shr.core.OnBehalfOf', fhir['onBehalfOfUri'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['contentType'] != null) {
       inst.contentType = FHIRHelper.createInstanceFromFHIR('shr.core.ContentType', fhir['contentType'], shrId, allEntries, mappedResources, referencesOut, false);

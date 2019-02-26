@@ -209,6 +209,9 @@ class MedicationNotAdministered extends ActionNotPerformed {
       inst.narrative = FHIRHelper.createInstanceFromFHIR('shr.base.Narrative', fhir['text'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     for (const fhir_extension of fhir['extension'] || []) {
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-Category-extension') {
+        inst.category = FHIRHelper.createInstanceFromFHIR('shr.core.Category', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
       if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-Patient-extension') {
         inst.patient = FHIRHelper.createInstanceFromFHIR('shr.entity.Patient', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
       }
@@ -219,8 +222,10 @@ class MedicationNotAdministered extends ActionNotPerformed {
         inst.relatedRequest = FHIRHelper.createInstanceFromFHIR('shr.base.RelatedRequest', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
       }
     }
-    if (fhir['category'] != null) {
-      inst.category = FHIRHelper.createInstanceFromFHIR('shr.core.Category', fhir['category'], shrId, allEntries, mappedResources, referencesOut, false);
+    for (const fhir_reasonNotGiven of fhir['reasonNotGiven'] || []) {
+      inst.reason = inst.reason || [];
+      const inst_reason = FHIRHelper.createInstanceFromFHIR('shr.base.Reason', fhir_reasonNotGiven, shrId, allEntries, mappedResources, referencesOut, false);
+      inst.reason.push(inst_reason);
     }
     if (fhir['medicationReference'] != null) {
       const entryId = fhir['medicationReference']['reference'];
@@ -231,17 +236,6 @@ class MedicationNotAdministered extends ActionNotPerformed {
         }
       }
       inst.medication = mappedResources[entryId];
-    }
-    if (fhir['effectiveDateTime'] != null) {
-      inst.nonOccurrenceTimeOrPeriod = FHIRHelper.createInstanceFromFHIR('shr.core.NonOccurrenceTimeOrPeriod', fhir['effectiveDateTime'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['effectivePeriod'] != null) {
-      inst.nonOccurrenceTimeOrPeriod = FHIRHelper.createInstanceFromFHIR('shr.core.NonOccurrenceTimeOrPeriod', fhir['effectivePeriod'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    for (const fhir_reasonNotGiven of fhir['reasonNotGiven'] || []) {
-      inst.reason = inst.reason || [];
-      const inst_reason = FHIRHelper.createInstanceFromFHIR('shr.base.Reason', fhir_reasonNotGiven, shrId, allEntries, mappedResources, referencesOut, false);
-      inst.reason.push(inst_reason);
     }
     return inst;
   }

@@ -374,8 +374,8 @@ class HER2byIHC extends CodedLaboratoryObservation {
     if (fhir['status'] != null) {
       inst.findingStatus = FHIRHelper.createInstanceFromFHIR('shr.base.FindingStatus', fhir['status'], shrId, allEntries, mappedResources, referencesOut, false);
     }
-    if (fhir['category'] != null && fhir['category'][0] != null) {
-      inst.category = FHIRHelper.createInstanceFromFHIR('shr.core.Category', fhir['category'][0], shrId, allEntries, mappedResources, referencesOut, false);
+    if (fhir['category'] != null) {
+      inst.category = FHIRHelper.createInstanceFromFHIR('shr.core.Category', fhir['category'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['code'] != null) {
       inst.findingTopicCode = FHIRHelper.createInstanceFromFHIR('shr.base.FindingTopicCode', fhir['code'], shrId, allEntries, mappedResources, referencesOut, false);
@@ -390,8 +390,8 @@ class HER2byIHC extends CodedLaboratoryObservation {
       }
       inst.patient = mappedResources[entryId];
     }
-    if (fhir['context'] != null) {
-      const entryId = fhir['context']['reference'];
+    if (fhir['encounter'] != null) {
+      const entryId = fhir['encounter']['reference'];
       if (!mappedResources[entryId]) {
         const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
         if (referencedEntry) {
@@ -403,17 +403,14 @@ class HER2byIHC extends CodedLaboratoryObservation {
     if (fhir['effectiveDateTime'] != null) {
       inst.relevantTime = FHIRHelper.createInstanceFromFHIR('shr.base.RelevantTime', fhir['effectiveDateTime'], shrId, allEntries, mappedResources, referencesOut, false);
     }
-    if (fhir['effectivePeriod'] != null) {
-      inst.relevantTime = FHIRHelper.createInstanceFromFHIR('shr.base.RelevantTime', fhir['effectivePeriod'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
     if (fhir['dataAbsentReason'] != null) {
       inst.exceptionValue = FHIRHelper.createInstanceFromFHIR('shr.base.ExceptionValue', fhir['dataAbsentReason'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['interpretation'] != null) {
       inst.interpretation = FHIRHelper.createInstanceFromFHIR('shr.base.Interpretation', fhir['interpretation'], shrId, allEntries, mappedResources, referencesOut, false);
     }
-    if (fhir['comment'] != null) {
-      inst.commentOrDescription = FHIRHelper.createInstanceFromFHIR('shr.core.CommentOrDescription', fhir['comment'], shrId, allEntries, mappedResources, referencesOut, false);
+    if (fhir['comments'] != null) {
+      inst.commentOrDescription = FHIRHelper.createInstanceFromFHIR('shr.core.CommentOrDescription', fhir['comments'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['specimen'] != null) {
       const entryId = fhir['specimen']['reference'];
@@ -434,8 +431,6 @@ class HER2byIHC extends CodedLaboratoryObservation {
         }
       }
       inst.device = mappedResources[entryId];
-    }
-    for (const fhir_related of fhir['related'] || []) {
     }
     for (const fhir_component of fhir['component'] || []) {
       inst.nonIndependentFinding = inst.nonIndependentFinding || [];

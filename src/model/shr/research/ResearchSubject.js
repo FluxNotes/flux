@@ -265,46 +265,20 @@ class ResearchSubject extends Entity {
       if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension') {
         inst.partOf = FHIRHelper.createInstanceFromFHIR('shr.entity.PartOf', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
       }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-Patient-extension') {
+        inst.patient = FHIRHelper.createReference( FHIRHelper.createInstanceFromFHIR('shr.entity.Patient', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true), referencesOut);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-research-Study-extension') {
+        inst.study = FHIRHelper.createReference( FHIRHelper.createInstanceFromFHIR('shr.research.Study', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true), referencesOut);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-Status-extension') {
+        inst.status = FHIRHelper.createInstanceFromFHIR('shr.core.Status', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-base-ParticipationPeriod-extension') {
+        inst.participationPeriod = FHIRHelper.createInstanceFromFHIR('shr.base.ParticipationPeriod', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
       if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-research-TerminationReason-extension') {
         inst.terminationReason = FHIRHelper.createInstanceFromFHIR('shr.research.TerminationReason', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
-      }
-    }
-    if (fhir['status'] != null) {
-      inst.status = FHIRHelper.createInstanceFromFHIR('shr.core.Status', fhir['status'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['period'] != null) {
-      inst.participationPeriod = FHIRHelper.createInstanceFromFHIR('shr.base.ParticipationPeriod', fhir['period'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['study'] != null) {
-      const entryId = fhir['study']['reference'];
-      if (!mappedResources[entryId]) {
-        const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
-        if (referencedEntry) {
-          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.research.Study', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
-        }
-      }
-      if (mappedResources[entryId]) {
-        inst.study = FHIRHelper.createReference(mappedResources[entryId], referencesOut);
-      }
-      else {
-        const entryType = 'http://standardhealthrecord.org/spec/shr/research/Study';
-        inst.study = FHIRHelper.createReferenceWithoutObject(shrId, entryId, entryType);
-      }
-    }
-    if (fhir['individual'] != null) {
-      const entryId = fhir['individual']['reference'];
-      if (!mappedResources[entryId]) {
-        const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
-        if (referencedEntry) {
-          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Patient', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
-        }
-      }
-      if (mappedResources[entryId]) {
-        inst.patient = FHIRHelper.createReference(mappedResources[entryId], referencesOut);
-      }
-      else {
-        const entryType = 'http://standardhealthrecord.org/spec/shr/entity/Patient';
-        inst.patient = FHIRHelper.createReferenceWithoutObject(shrId, entryId, entryType);
       }
     }
     return inst;

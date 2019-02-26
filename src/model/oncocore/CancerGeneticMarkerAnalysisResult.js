@@ -206,74 +206,151 @@ class CancerGeneticMarkerAnalysisResult extends GeneticMarkerAnalysisResult {
     inst.entryInfo.shrId = FHIRHelper.createInstanceFromFHIR('shr.base.ShrId', shrId);
     inst.entryInfo.entryId = FHIRHelper.createInstanceFromFHIR('shr.base.EntryId', fhir['id'] || uuid());
     inst.entryInfo.entryType = FHIRHelper.createInstanceFromFHIR('shr.base.EntryType', 'http://standardhealthrecord.org/spec/oncocore/CancerGeneticMarkerAnalysisResult');
+    if (fhir['meta'] != null) {
+      if (fhir['meta']['versionId'] != null) {
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata.versionId = FHIRHelper.createInstanceFromFHIR('shr.core.VersionId', fhir['meta']['versionId'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      if (fhir['meta']['lastUpdated'] != null) {
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata.lastUpdated = FHIRHelper.createInstanceFromFHIR('shr.base.LastUpdated', fhir['meta']['lastUpdated'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      for (const fhir_meta_security of fhir['meta']['security'] || []) {
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata.securityLabel = inst.metadata.securityLabel || [];
+        const inst_metadata_securityLabel = FHIRHelper.createInstanceFromFHIR('shr.base.SecurityLabel', fhir_meta_security, shrId, allEntries, mappedResources, referencesOut, false);
+        inst.metadata.securityLabel.push(inst_metadata_securityLabel);
+      }
+      for (const fhir_meta_tag of fhir['meta']['tag'] || []) {
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata.tag = inst.metadata.tag || [];
+        const inst_metadata_tag = FHIRHelper.createInstanceFromFHIR('shr.base.Tag', fhir_meta_tag, shrId, allEntries, mappedResources, referencesOut, false);
+        inst.metadata.tag.push(inst_metadata_tag);
+      }
+    }
+    if (fhir['language'] != null) {
+      inst.language = FHIRHelper.createInstanceFromFHIR('shr.core.Language', fhir['language'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['text'] != null) {
+      inst.narrative = FHIRHelper.createInstanceFromFHIR('shr.base.Narrative', fhir['text'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
     for (const fhir_extension of fhir['extension'] || []) {
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://hl7.org/fhir/StructureDefinition/observation-geneticsDNASequenceVariantName') {
-        inst.dNASequenceVariantName = FHIRHelper.createInstanceFromFHIR('oncocore.DNASequenceVariantName', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
-      }
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://hl7.org/fhir/StructureDefinition/observation-geneticsDNAVariantId') {
-        inst.dNASequenceVariantId = FHIRHelper.createInstanceFromFHIR('oncocore.DNASequenceVariantId', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
-      }
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://hl7.org/fhir/StructureDefinition/observation-geneticsDNASequenceVariantType') {
-        inst.dNASequenceVariantType = FHIRHelper.createInstanceFromFHIR('oncocore.DNASequenceVariantType', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
-      }
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://hl7.org/fhir/StructureDefinition/observation-geneticsGene') {
-        inst.geneName = FHIRHelper.createInstanceFromFHIR('oncocore.GeneName', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
-      }
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://hl7.org/fhir/StructureDefinition/observation-geneticsDNARegionName') {
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://hl7.org/fhir/StructureDefinition/geneticsDNARegionName') {
         inst.dNARegionName = FHIRHelper.createInstanceFromFHIR('oncocore.DNARegionName', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
       }
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://hl7.org/fhir/StructureDefinition/observation-geneticsGenomicSourceClass') {
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://hl7.org/fhir/StructureDefinition/geneticsDNASequenceVariation') {
+        inst.dNASequenceVariantName = FHIRHelper.createInstanceFromFHIR('oncocore.DNASequenceVariantName', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://hl7.org/fhir/StructureDefinition/geneticsDNASequenceVariationType') {
+        inst.dNASequenceVariantType = FHIRHelper.createInstanceFromFHIR('oncocore.DNASequenceVariantType', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://hl7.org/fhir/StructureDefinition/geneticsGene') {
+        inst.geneName = FHIRHelper.createInstanceFromFHIR('oncocore.GeneName', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://hl7.org/fhir/StructureDefinition/geneticsGenomicSourceClass') {
         inst.genomicSourceClass = FHIRHelper.createInstanceFromFHIR('oncocore.GenomicSourceClass', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
       }
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-base-Interpretation-extension') {
-        inst.interpretation = FHIRHelper.createInstanceFromFHIR('shr.base.Interpretation', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://hl7.org/fhir/StructureDefinition/geneticsVariationId') {
+        inst.dNASequenceVariantId = FHIRHelper.createInstanceFromFHIR('oncocore.DNASequenceVariantId', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
       }
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-base-Narrative-extension') {
-        inst.narrative = FHIRHelper.createInstanceFromFHIR('shr.base.Narrative', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+    }
+    if (fhir['status'] != null) {
+      inst.findingStatus = FHIRHelper.createInstanceFromFHIR('shr.base.FindingStatus', fhir['status'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['category'] != null) {
+      inst.category = FHIRHelper.createInstanceFromFHIR('shr.core.Category', fhir['category'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['code'] != null) {
+      inst.findingTopicCode = FHIRHelper.createInstanceFromFHIR('shr.base.FindingTopicCode', fhir['code'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['subject'] != null) {
+      const entryId = fhir['subject']['reference'];
+      if (!mappedResources[entryId]) {
+        const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
+        if (referencedEntry) {
+          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Patient', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
+        }
       }
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-Language-extension') {
-        inst.language = FHIRHelper.createInstanceFromFHIR('shr.core.Language', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      inst.patient = mappedResources[entryId];
+    }
+    if (fhir['encounter'] != null) {
+      const entryId = fhir['encounter']['reference'];
+      if (!mappedResources[entryId]) {
+        const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
+        if (referencedEntry) {
+          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.encounter.Encounter', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
+        }
       }
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-base-Metadata-extension') {
-        inst.metadata = FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      inst.encounter = mappedResources[entryId];
+    }
+    if (fhir['effectiveDateTime'] != null) {
+      inst.relevantTime = FHIRHelper.createInstanceFromFHIR('shr.base.RelevantTime', fhir['effectiveDateTime'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['dataAbsentReason'] != null) {
+      inst.exceptionValue = FHIRHelper.createInstanceFromFHIR('shr.base.ExceptionValue', fhir['dataAbsentReason'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['interpretation'] != null) {
+      inst.interpretation = FHIRHelper.createInstanceFromFHIR('shr.base.Interpretation', fhir['interpretation'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['comments'] != null) {
+      inst.commentOrDescription = FHIRHelper.createInstanceFromFHIR('shr.core.CommentOrDescription', fhir['comments'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['method'] != null) {
+      inst.findingMethod = FHIRHelper.createInstanceFromFHIR('shr.base.FindingMethod', fhir['method'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['specimen'] != null) {
+      const entryId = fhir['specimen']['reference'];
+      if (!mappedResources[entryId]) {
+        const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
+        if (referencedEntry) {
+          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Specimen', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
+        }
       }
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-base-FindingTopicCode-extension') {
-        inst.findingTopicCode = FHIRHelper.createInstanceFromFHIR('shr.base.FindingTopicCode', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      inst.specimen = mappedResources[entryId];
+    }
+    if (fhir['device'] != null) {
+      const entryId = fhir['device']['reference'];
+      if (!mappedResources[entryId]) {
+        const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
+        if (referencedEntry) {
+          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Device', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
+        }
       }
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-base-ExceptionValue-extension') {
-        inst.exceptionValue = FHIRHelper.createInstanceFromFHIR('shr.base.ExceptionValue', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      inst.device = mappedResources[entryId];
+    }
+    for (const fhir_component of fhir['component'] || []) {
+      inst.nonIndependentFinding = inst.nonIndependentFinding || [];
+      const inst_nonIndependentFinding = FHIRHelper.createInstanceFromFHIR('shr.base.NonIndependentFinding', fhir_component, shrId, allEntries, mappedResources, referencesOut, false);
+      inst.nonIndependentFinding.push(inst_nonIndependentFinding);
+      if (fhir_component['code'] != null) {
+        inst_nonIndependentFinding.findingTopicCode = FHIRHelper.createInstanceFromFHIR('shr.base.FindingTopicCode', fhir_component['code'], shrId, allEntries, mappedResources, referencesOut, false);
       }
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-Patient-extension') {
-        inst.patient = FHIRHelper.createInstanceFromFHIR('shr.entity.Patient', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      if (fhir_component['valueCodeableConcept'] != null) {
+        inst_nonIndependentFinding.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir_component['valueCodeableConcept'], shrId, allEntries, mappedResources, referencesOut, false);
       }
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-encounter-Encounter-extension') {
-        inst.encounter = FHIRHelper.createInstanceFromFHIR('shr.encounter.Encounter', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      if (fhir_component['valueQuantity'] != null) {
+        inst_nonIndependentFinding.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir_component['valueQuantity'], shrId, allEntries, mappedResources, referencesOut, false);
       }
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-base-FindingStatus-extension') {
-        inst.findingStatus = FHIRHelper.createInstanceFromFHIR('shr.base.FindingStatus', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      if (fhir_component['valueString'] != null) {
+        inst_nonIndependentFinding.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir_component['valueString'], shrId, allEntries, mappedResources, referencesOut, false);
       }
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-base-FindingMethod-extension') {
-        inst.findingMethod = FHIRHelper.createInstanceFromFHIR('shr.base.FindingMethod', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      if (fhir_component['valueRange'] != null) {
+        inst_nonIndependentFinding.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir_component['valueRange'], shrId, allEntries, mappedResources, referencesOut, false);
       }
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-base-RelevantTime-extension') {
-        inst.relevantTime = FHIRHelper.createInstanceFromFHIR('shr.base.RelevantTime', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      if (fhir_component['valueRatio'] != null) {
+        inst_nonIndependentFinding.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir_component['valueRatio'], shrId, allEntries, mappedResources, referencesOut, false);
       }
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-base-NonIndependentFinding-extension') {
-        inst.nonIndependentFinding = inst.nonIndependentFinding || [];
-        const inst_nonIndependentFinding = FHIRHelper.createInstanceFromFHIR('shr.base.NonIndependentFinding', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
-        inst.nonIndependentFinding.push(inst_nonIndependentFinding);
+      if (fhir_component['valueTime'] != null) {
+        inst_nonIndependentFinding.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir_component['valueTime'], shrId, allEntries, mappedResources, referencesOut, false);
       }
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-Category-extension') {
-        inst.category = FHIRHelper.createInstanceFromFHIR('shr.core.Category', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      if (fhir_component['valueDateTime'] != null) {
+        inst_nonIndependentFinding.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir_component['valueDateTime'], shrId, allEntries, mappedResources, referencesOut, false);
       }
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-CommentOrDescription-extension') {
-        inst.commentOrDescription = FHIRHelper.createInstanceFromFHIR('shr.core.CommentOrDescription', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      if (fhir_component['dataAbsentReason'] != null) {
+        inst_nonIndependentFinding.exceptionValue = FHIRHelper.createInstanceFromFHIR('shr.base.ExceptionValue', fhir_component['dataAbsentReason'], shrId, allEntries, mappedResources, referencesOut, false);
       }
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-Device-extension') {
-        inst.device = FHIRHelper.createInstanceFromFHIR('shr.entity.Device', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
-      }
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-Specimen-extension') {
-        inst.specimen = FHIRHelper.createInstanceFromFHIR('shr.entity.Specimen', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      for (const fhir_component_referenceRange of fhir_component['referenceRange'] || []) {
+        inst_nonIndependentFinding.referenceRange = FHIRHelper.createInstanceFromFHIR('shr.base.ReferenceRange', fhir_component_referenceRange, shrId, allEntries, mappedResources, referencesOut, false);
       }
     }
     return inst;

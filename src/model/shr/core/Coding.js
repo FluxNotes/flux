@@ -152,17 +152,22 @@ class Coding {
    */
   static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new Coding();
-    if (fhir['system'] != null) {
-      inst.codeSystem = FHIRHelper.createInstanceFromFHIR('shr.core.CodeSystem', fhir['system'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['version'] != null) {
-      inst.codeSystemVersion = FHIRHelper.createInstanceFromFHIR('shr.core.CodeSystemVersion', fhir['version'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['code'] != null) {
-      inst.code = FHIRHelper.createInstanceFromFHIR('shr.core.Code', fhir['code'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['display'] != null) {
-      inst.displayText = FHIRHelper.createInstanceFromFHIR('shr.core.DisplayText', fhir['display'], shrId, allEntries, mappedResources, referencesOut, false);
+    if (typeof fhir === 'string') {
+        inst.code = FHIRHelper.createInstanceFromFHIR('shr.core.Code', fhir, shrId, allEntries, mappedResources, referencesOut, false);
+        inst.displayText = FHIRHelper.createInstanceFromFHIR('shr.core.DisplayText', fhir, shrId, allEntries, mappedResources, referencesOut, false);
+    } else {
+      if (fhir['system'] != null) {
+        inst.codeSystem = FHIRHelper.createInstanceFromFHIR('shr.core.CodeSystem', fhir['system'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      if (fhir['version'] != null) {
+        inst.codeSystemVersion = FHIRHelper.createInstanceFromFHIR('shr.core.CodeSystemVersion', fhir['version'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      if (fhir['code'] != null) {
+        inst.code = FHIRHelper.createInstanceFromFHIR('shr.core.Code', fhir['code'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      if (fhir['display'] != null) {
+        inst.displayText = FHIRHelper.createInstanceFromFHIR('shr.core.DisplayText', fhir['display'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
     }
     return inst;
   }

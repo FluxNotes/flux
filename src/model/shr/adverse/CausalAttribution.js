@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, uuid } from '../../json-helper';
+import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 /**
  * Generated class for shr.adverse.CausalAttribution.
@@ -158,6 +158,24 @@ class CausalAttribution {
    */
   static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new CausalAttribution();
+    if (asExtension) {
+      const match_1 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-adverse-PossibleCause-extension');
+      if (match_1 != null) {
+        inst.possibleCause = FHIRHelper.createInstanceFromFHIR('shr.adverse.PossibleCause', match_1, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      const match_2 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-adverse-CauseCategory-extension');
+      if (match_2 != null) {
+        inst.causeCategory = FHIRHelper.createInstanceFromFHIR('shr.adverse.CauseCategory', match_2, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      const match_3 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-Certainty-extension');
+      if (match_3 != null) {
+        inst.certainty = FHIRHelper.createInstanceFromFHIR('shr.base.Certainty', match_3, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      const match_4 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-RouteIntoBody-extension');
+      if (match_4 != null) {
+        inst.routeIntoBody = FHIRHelper.createInstanceFromFHIR('shr.core.RouteIntoBody', match_4, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+    }
     return inst;
   }
 

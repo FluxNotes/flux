@@ -208,9 +208,6 @@ class NonIndependentFinding extends InformationItem {
         inst.referenceRange = FHIRHelper.createInstanceFromFHIR('shr.base.ReferenceRange', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
       }
     }
-    if (asExtension) {
-      inst.value = fhir['valueReference'];
-    }
     return inst;
   }
 

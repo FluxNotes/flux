@@ -106,9 +106,6 @@ class Narrative {
     if (fhir['div'] != null) {
       inst.narrativeText = FHIRHelper.createInstanceFromFHIR('shr.base.NarrativeText', fhir['div'], shrId, allEntries, mappedResources, referencesOut, false);
     }
-    if (asExtension) {
-      inst.value = fhir['valueReference'];
-    }
     return inst;
   }
 

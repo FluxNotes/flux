@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
+import { setPropertiesFromJSON, uuid } from '../../json-helper';
 
 /**
  * Generated class for shr.base.PanelMembers.
@@ -68,12 +68,6 @@ class PanelMembers {
    */
   static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new PanelMembers();
-    if (asExtension) {
-      const match_1 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-Observation-extension');
-      if (match_1 != null) {
-        inst.observation = FHIRHelper.createInstanceFromFHIR('shr.base.Observation', match_1, shrId, allEntries, mappedResources, referencesOut, true);
-      }
-    }
     return inst;
   }
 

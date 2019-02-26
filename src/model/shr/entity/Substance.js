@@ -281,8 +281,22 @@ class Substance extends Entity {
       if (fhir_ingredient['quantity'] != null) {
         inst_ingredient.ingredientAmount = FHIRHelper.createInstanceFromFHIR('shr.entity.IngredientAmount', fhir_ingredient['quantity'], shrId, allEntries, mappedResources, referencesOut, false);
       }
-      if (fhir_ingredient['substanceCodeableConcept'] != null) {
-        inst_ingredient.substanceOrCode = FHIRHelper.createInstanceFromFHIR('shr.entity.SubstanceOrCode', fhir_ingredient['substanceCodeableConcept'], shrId, allEntries, mappedResources, referencesOut, false);
+      if (fhir_ingredient['substance'] != null) {
+        inst_ingredient.substanceOrCode = inst_ingredient.substanceOrCode || FHIRHelper.createInstanceFromFHIR('shr.entity.SubstanceOrCode', {}, shrId);
+        const entryId = fhir_ingredient['substance']['reference'];
+        if (!mappedResources[entryId]) {
+          const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
+          if (referencedEntry) {
+            mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Substance', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
+          }
+        }
+        if (mappedResources[entryId]) {
+          inst_ingredient.substanceOrCode.value = FHIRHelper.createReference(mappedResources[entryId], referencesOut);
+        }
+        else {
+          const entryType = 'http://standardhealthrecord.org/spec/shr/entity/Substance';
+          inst_ingredient.substanceOrCode.value = FHIRHelper.createReferenceWithoutObject(shrId, entryId, entryType);
+        }
       }
     }
     return inst;

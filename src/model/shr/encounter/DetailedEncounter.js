@@ -128,8 +128,8 @@ class DetailedEncounter extends Encounter {
       const inst_encounterType = FHIRHelper.createInstanceFromFHIR('shr.encounter.EncounterType', fhir_type, shrId, allEntries, mappedResources, referencesOut, false);
       inst.encounterType.push(inst_encounterType);
     }
-    if (fhir['subject'] != null) {
-      const entryId = fhir['subject']['reference'];
+    if (fhir['patient'] != null) {
+      const entryId = fhir['patient']['reference'];
       if (!mappedResources[entryId]) {
         const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
         if (referencedEntry) {

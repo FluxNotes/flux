@@ -209,9 +209,9 @@ class BreastSite extends AnatomicalLocationStructured {
     if (fhir['code'] != null) {
       inst.anatomicalLocationOrLandmarkCode = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocationOrLandmarkCode', fhir['code'], shrId, allEntries, mappedResources, referencesOut, false);
     }
-    for (const fhir_qualifier of fhir['qualifier'] || []) {
-      if (fhir_qualifier['coding'] != null && fhir_qualifier['coding'].some(g => g['code'] != null && FHIRHelper.valueSet('http://hl7.org/fhir/ValueSet/bodysite-laterality').includes(g['code']))) {
-        inst.laterality = FHIRHelper.createInstanceFromFHIR('shr.core.Laterality', fhir_qualifier, shrId, allEntries, mappedResources, referencesOut, false);
+    for (const fhir_modifier of fhir['modifier'] || []) {
+      if (fhir_modifier['coding'] != null && fhir_modifier['coding'].some(g => g['code'] != null && FHIRHelper.valueSet('http://hl7.org/fhir/ValueSet/bodysite-laterality').includes(g['code']))) {
+        inst.laterality = FHIRHelper.createInstanceFromFHIR('shr.core.Laterality', fhir_modifier, shrId, allEntries, mappedResources, referencesOut, false);
       }
     }
     if (fhir['description'] != null) {

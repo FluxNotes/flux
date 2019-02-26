@@ -346,28 +346,26 @@ class Device extends Entity {
         inst.partOf = FHIRHelper.createInstanceFromFHIR('shr.entity.PartOf', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
       }
     }
-    if (fhir['udi'] != null) {
-      if (fhir['udi']['carrierHRF'] != null) {
-        inst.deviceUdi = FHIRHelper.createInstanceFromFHIR('shr.entity.DeviceUdi', fhir['udi']['carrierHRF'], shrId, allEntries, mappedResources, referencesOut, false);
-      }
-    }
     if (fhir['type'] != null) {
       inst.type = FHIRHelper.createInstanceFromFHIR('shr.core.Type', fhir['type'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['manufacturer'] != null) {
       inst.manufacturerName = FHIRHelper.createInstanceFromFHIR('shr.entity.ManufacturerName', fhir['manufacturer'], shrId, allEntries, mappedResources, referencesOut, false);
     }
-    if (fhir['manufactureDate'] != null) {
-      inst.manufactureDate = FHIRHelper.createInstanceFromFHIR('shr.entity.ManufactureDate', fhir['manufactureDate'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['expirationDate'] != null) {
-      inst.expirationDate = FHIRHelper.createInstanceFromFHIR('shr.entity.ExpirationDate', fhir['expirationDate'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
     if (fhir['model'] != null) {
       inst.vendorModelNumber = FHIRHelper.createInstanceFromFHIR('shr.entity.VendorModelNumber', fhir['model'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['version'] != null) {
       inst.versionString = FHIRHelper.createInstanceFromFHIR('shr.core.VersionString', fhir['version'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['manufactureDate'] != null) {
+      inst.manufactureDate = FHIRHelper.createInstanceFromFHIR('shr.entity.ManufactureDate', fhir['manufactureDate'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['expiry'] != null) {
+      inst.expirationDate = FHIRHelper.createInstanceFromFHIR('shr.entity.ExpirationDate', fhir['expiry'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['udi'] != null) {
+      inst.deviceUdi = FHIRHelper.createInstanceFromFHIR('shr.entity.DeviceUdi', fhir['udi'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['url'] != null) {
       inst.url = FHIRHelper.createInstanceFromFHIR('shr.entity.Url', fhir['url'], shrId, allEntries, mappedResources, referencesOut, false);

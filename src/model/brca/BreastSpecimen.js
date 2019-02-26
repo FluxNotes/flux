@@ -314,14 +314,21 @@ class BreastSpecimen extends Specimen {
         inst.coldIschemiaTime = FHIRHelper.createInstanceFromFHIR('brca.ColdIschemiaTime', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
       }
     }
-    if (fhir['accessionIdentifier'] != null) {
-      inst.accessionIdentifier = FHIRHelper.createInstanceFromFHIR('shr.entity.AccessionIdentifier', fhir['accessionIdentifier'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
     if (fhir['status'] != null) {
       inst.specimenStatus = FHIRHelper.createInstanceFromFHIR('shr.entity.SpecimenStatus', fhir['status'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['type'] != null) {
       inst.type = FHIRHelper.createInstanceFromFHIR('shr.core.Type', fhir['type'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['parent'] != null && fhir['parent'][0] != null) {
+      const entryId = fhir['parent'][0]['reference'];
+      if (!mappedResources[entryId]) {
+        const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
+        if (referencedEntry) {
+          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('brca.BreastSpecimen', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
+        }
+      }
+      inst.sourceSpecimen = mappedResources[entryId];
     }
     if (fhir['subject'] != null) {
       const entryId = fhir['subject']['reference'];
@@ -333,18 +340,11 @@ class BreastSpecimen extends Specimen {
       }
       inst.collectionSource = mappedResources[entryId];
     }
+    if (fhir['accessionIdentifier'] != null) {
+      inst.accessionIdentifier = FHIRHelper.createInstanceFromFHIR('shr.entity.AccessionIdentifier', fhir['accessionIdentifier'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
     if (fhir['receivedTime'] != null) {
       inst.receivedTime = FHIRHelper.createInstanceFromFHIR('shr.core.ReceivedTime', fhir['receivedTime'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['parent'] != null && fhir['parent'][0] != null) {
-      const entryId = fhir['parent'][0]['reference'];
-      if (!mappedResources[entryId]) {
-        const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
-        if (referencedEntry) {
-          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('brca.BreastSpecimen', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
-        }
-      }
-      inst.sourceSpecimen = mappedResources[entryId];
     }
     if (fhir['container'] != null && fhir['container'][0] != null) {
       for (const fhir_container_0_identifier of fhir['container'][0]['identifier'] || []) {

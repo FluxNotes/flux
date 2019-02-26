@@ -97,6 +97,9 @@ class Jurisdiction {
    */
   static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new Jurisdiction();
+    if (asExtension) {
+      inst.value = fhir['valueCodeableConcept'];
+    }
     if (!asExtension && fhir != null) {
       inst.value = FHIRHelper.createInstanceFromFHIR('shr.core.CodeableConcept', fhir, shrId, allEntries, mappedResources, referencesOut);
     }

@@ -55,6 +55,9 @@ class EffectiveTimePeriod extends TimePeriod {
     if (fhir['end'] != null) {
       inst.endDateTime = FHIRHelper.createInstanceFromFHIR('shr.core.EndDateTime', fhir['end'], shrId, allEntries, mappedResources, referencesOut, false);
     }
+    if (asExtension) {
+      inst.value = fhir['valuePeriod'];
+    }
     return inst;
   }
 

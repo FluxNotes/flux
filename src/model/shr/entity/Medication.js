@@ -371,6 +371,9 @@ class Medication extends Entity {
       if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension') {
         inst.partOf = FHIRHelper.createInstanceFromFHIR('shr.entity.PartOf', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
       }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-OverTheCounter-extension') {
+        inst.overTheCounter = FHIRHelper.createInstanceFromFHIR('shr.entity.OverTheCounter', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
     }
     if (fhir['code'] != null) {
       inst.type = FHIRHelper.createInstanceFromFHIR('shr.core.Type', fhir['code'], shrId, allEntries, mappedResources, referencesOut, false);
@@ -378,9 +381,6 @@ class Medication extends Entity {
     if (fhir['isBrand'] != null) {
       inst.brand = inst.brand || FHIRHelper.createInstanceFromFHIR('shr.entity.Brand', {}, shrId);
       inst.brand.isBrand = FHIRHelper.createInstanceFromFHIR('shr.entity.IsBrand', fhir['isBrand'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['isOverTheCounter'] != null) {
-      inst.overTheCounter = FHIRHelper.createInstanceFromFHIR('shr.entity.OverTheCounter', fhir['isOverTheCounter'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['manufacturer'] != null) {
       const entryId = fhir['manufacturer']['reference'];
@@ -392,40 +392,43 @@ class Medication extends Entity {
       }
       inst.manufacturer = mappedResources[entryId];
     }
-    if (fhir['form'] != null) {
-      inst.doseForm = FHIRHelper.createInstanceFromFHIR('shr.entity.DoseForm', fhir['form'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['ingredient'] != null && fhir['ingredient'][0] != null) {
-      if (fhir['ingredient'][0]['itemCodeableConcept'] != null) {
-        inst.ingredient = inst.ingredient || [];
-        const inst_ingredient = FHIRHelper.createInstanceFromFHIR('shr.entity.Ingredient', {}, shrId);
-        inst.ingredient.push(inst_ingredient);
-        inst_ingredient.substanceOrCode = FHIRHelper.createInstanceFromFHIR('shr.entity.SubstanceOrCode', fhir['ingredient'][0]['itemCodeableConcept'], shrId, allEntries, mappedResources, referencesOut, false);
+    if (fhir['product'] != null) {
+      if (fhir['product']['form'] != null) {
+        inst.doseForm = FHIRHelper.createInstanceFromFHIR('shr.entity.DoseForm', fhir['product']['form'], shrId, allEntries, mappedResources, referencesOut, false);
       }
-      if (fhir['ingredient'][0]['isActive'] != null) {
-        inst.ingredient = inst.ingredient || [];
-        const inst_ingredient = FHIRHelper.createInstanceFromFHIR('shr.entity.Ingredient', {}, shrId);
-        inst.ingredient.push(inst_ingredient);
-        inst_ingredient.isActiveIngredient = FHIRHelper.createInstanceFromFHIR('shr.entity.IsActiveIngredient', fhir['ingredient'][0]['isActive'], shrId, allEntries, mappedResources, referencesOut, false);
+      if (fhir['product']['ingredient'] != null && fhir['product']['ingredient'][0] != null) {
+        if (fhir['product']['ingredient'][0]['item'] != null) {
+          inst.ingredient = inst.ingredient || [];
+          const inst_ingredient = FHIRHelper.createInstanceFromFHIR('shr.entity.Ingredient', {}, shrId);
+          inst.ingredient.push(inst_ingredient);
+          const entryId = fhir['product']['ingredient'][0]['item']['reference'];
+          if (!mappedResources[entryId]) {
+            const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
+            if (referencedEntry) {
+              mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Substance', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
+            }
+          }
+          inst_ingredient.substanceOrCode = mappedResources[entryId];
+        }
+        if (fhir['product']['ingredient'][0]['amount'] != null) {
+          inst.ingredient = inst.ingredient || [];
+          const inst_ingredient = FHIRHelper.createInstanceFromFHIR('shr.entity.Ingredient', {}, shrId);
+          inst.ingredient.push(inst_ingredient);
+          inst_ingredient.ingredientAmount = FHIRHelper.createInstanceFromFHIR('shr.entity.IngredientAmount', fhir['product']['ingredient'][0]['amount'], shrId, allEntries, mappedResources, referencesOut, false);
+        }
       }
-      if (fhir['ingredient'][0]['amount'] != null) {
-        inst.ingredient = inst.ingredient || [];
-        const inst_ingredient = FHIRHelper.createInstanceFromFHIR('shr.entity.Ingredient', {}, shrId);
-        inst.ingredient.push(inst_ingredient);
-        inst_ingredient.ingredientAmount = FHIRHelper.createInstanceFromFHIR('shr.entity.IngredientAmount', fhir['ingredient'][0]['amount'], shrId, allEntries, mappedResources, referencesOut, false);
+      if (fhir['product']['batch'] != null && fhir['product']['batch'][0] != null) {
+        if (fhir['product']['batch'][0]['lotNumber'] != null) {
+          inst.lotNumber = FHIRHelper.createInstanceFromFHIR('shr.entity.LotNumber', fhir['product']['batch'][0]['lotNumber'], shrId, allEntries, mappedResources, referencesOut, false);
+        }
+        if (fhir['product']['batch'][0]['expirationDate'] != null) {
+          inst.expirationDate = FHIRHelper.createInstanceFromFHIR('shr.entity.ExpirationDate', fhir['product']['batch'][0]['expirationDate'], shrId, allEntries, mappedResources, referencesOut, false);
+        }
       }
     }
     if (fhir['package'] != null) {
       if (fhir['package']['container'] != null) {
         inst.package = FHIRHelper.createInstanceFromFHIR('shr.entity.Package', fhir['package']['container'], shrId, allEntries, mappedResources, referencesOut, false);
-      }
-      if (fhir['package']['batch'] != null && fhir['package']['batch'][0] != null) {
-        if (fhir['package']['batch'][0]['lotNumber'] != null) {
-          inst.lotNumber = FHIRHelper.createInstanceFromFHIR('shr.entity.LotNumber', fhir['package']['batch'][0]['lotNumber'], shrId, allEntries, mappedResources, referencesOut, false);
-        }
-        if (fhir['package']['batch'][0]['expirationDate'] != null) {
-          inst.expirationDate = FHIRHelper.createInstanceFromFHIR('shr.entity.ExpirationDate', fhir['package']['batch'][0]['expirationDate'], shrId, allEntries, mappedResources, referencesOut, false);
-        }
       }
     }
     if (asExtension) {

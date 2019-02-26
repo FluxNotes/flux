@@ -141,15 +141,15 @@ class Patient extends Role {
       inst.narrative = FHIRHelper.createInstanceFromFHIR('shr.base.Narrative', fhir['text'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     for (const fhir_extension of fhir['extension'] || []) {
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-race') {
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://fhir.org/guides/argonaut/StructureDefinition/argo-race') {
         inst.person = inst.person || FHIRHelper.createReference( FHIRHelper.createInstanceFromFHIR('shr.entity.Person', {}, shrId), referencesOut);
         inst.person.reference.race = FHIRHelper.createInstanceFromFHIR('shr.entity.Race', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
       }
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity') {
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://fhir.org/guides/argonaut/StructureDefinition/argo-ethnicity') {
         inst.person = inst.person || FHIRHelper.createReference( FHIRHelper.createInstanceFromFHIR('shr.entity.Person', {}, shrId), referencesOut);
         inst.person.reference.ethnicity = FHIRHelper.createInstanceFromFHIR('shr.entity.Ethnicity', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
       }
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex') {
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://fhir.org/guides/argonaut/StructureDefinition/argo-birthsex') {
         inst.person = inst.person || FHIRHelper.createReference( FHIRHelper.createInstanceFromFHIR('shr.entity.Person', {}, shrId), referencesOut);
         inst.person.reference.birthSex = FHIRHelper.createInstanceFromFHIR('shr.entity.BirthSex', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
       }

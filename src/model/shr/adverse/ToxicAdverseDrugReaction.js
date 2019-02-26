@@ -168,83 +168,42 @@ class ToxicAdverseDrugReaction extends AdverseDrugReaction {
       inst.narrative = FHIRHelper.createInstanceFromFHIR('shr.base.Narrative', fhir['text'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     for (const fhir_extension of fhir['extension'] || []) {
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-Patient-extension') {
+        inst.patient = FHIRHelper.createInstanceFromFHIR('shr.entity.Patient', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-Type-extension') {
+        inst.type = FHIRHelper.createInstanceFromFHIR('shr.core.Type', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-OccurrenceTime-extension') {
+        inst.occurrenceTime = FHIRHelper.createInstanceFromFHIR('shr.core.OccurrenceTime', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-adverse-Seriousness-extension') {
+        inst.seriousness = FHIRHelper.createInstanceFromFHIR('shr.adverse.Seriousness', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-base-Outcome-extension') {
+        inst.outcome = FHIRHelper.createInstanceFromFHIR('shr.base.Outcome', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-CommentOrDescription-extension') {
+        inst.commentOrDescription = FHIRHelper.createInstanceFromFHIR('shr.core.CommentOrDescription', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
       if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-adverse-AdverseEventCondition-extension') {
         inst.adverseEventCondition = inst.adverseEventCondition || [];
         const inst_adverseEventCondition = FHIRHelper.createInstanceFromFHIR('shr.adverse.AdverseEventCondition', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
         inst.adverseEventCondition.push(inst_adverseEventCondition);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-adverse-CausalAttribution-extension' && fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-adverse-CausalAttribution-extension') {
+        inst.causalAttribution = inst.causalAttribution || [];
+        const inst_causalAttribution = FHIRHelper.createInstanceFromFHIR('shr.adverse.CausalAttribution', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+        inst.causalAttribution.push(inst_causalAttribution);
       }
       if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-adverse-ActionTaken-extension') {
         inst.actionTaken = inst.actionTaken || [];
         const inst_actionTaken = FHIRHelper.createInstanceFromFHIR('shr.adverse.ActionTaken', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
         inst.actionTaken.push(inst_actionTaken);
       }
-    }
-    if (fhir['type'] != null) {
-      inst.type = FHIRHelper.createInstanceFromFHIR('shr.core.Type', fhir['type'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['subject'] != null) {
-      const entryId = fhir['subject']['reference'];
-      if (!mappedResources[entryId]) {
-        const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
-        if (referencedEntry) {
-          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Patient', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
-        }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-adverse-AssociatedStudy-extension') {
+        inst.associatedStudy = FHIRHelper.createInstanceFromFHIR('shr.adverse.AssociatedStudy', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
       }
-      inst.patient = mappedResources[entryId];
-    }
-    if (fhir['date'] != null) {
-      inst.occurrenceTime = FHIRHelper.createInstanceFromFHIR('shr.core.OccurrenceTime', fhir['date'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['seriousness'] != null) {
-      inst.seriousness = FHIRHelper.createInstanceFromFHIR('shr.adverse.Seriousness', fhir['seriousness'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['outcome'] != null) {
-      inst.outcome = FHIRHelper.createInstanceFromFHIR('shr.base.Outcome', fhir['outcome'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['recorder'] != null) {
-      inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
-      const entryId = fhir['recorder']['reference'];
-      if (!mappedResources[entryId]) {
-        const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
-        if (referencedEntry) {
-          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Patient', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
-        }
-      }
-      inst.metadata.informationRecorder = mappedResources[entryId];
-    }
-    if (fhir['description'] != null) {
-      inst.commentOrDescription = FHIRHelper.createInstanceFromFHIR('shr.core.CommentOrDescription', fhir['description'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['suspectEntity'] != null && fhir['suspectEntity'][0] != null) {
-      if (fhir['suspectEntity'][0]['instance'] != null) {
-        inst.causalAttribution = inst.causalAttribution || [];
-        const inst_causalAttribution = FHIRHelper.createInstanceFromFHIR('shr.adverse.CausalAttribution', {}, shrId);
-        inst.causalAttribution.push(inst_causalAttribution);
-        const entryId = fhir['suspectEntity'][0]['instance']['reference'];
-        if (!mappedResources[entryId]) {
-          const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
-          if (referencedEntry) {
-            mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Medication', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
-          }
-        }
-        inst_causalAttribution.possibleCause = mappedResources[entryId];
-      }
-      if (fhir['suspectEntity'][0]['causalityAssessment'] != null) {
-        inst.causalAttribution = inst.causalAttribution || [];
-        const inst_causalAttribution = FHIRHelper.createInstanceFromFHIR('shr.adverse.CausalAttribution', {}, shrId);
-        inst.causalAttribution.push(inst_causalAttribution);
-        inst_causalAttribution.certainty = FHIRHelper.createInstanceFromFHIR('shr.base.Certainty', fhir['suspectEntity'][0]['causalityAssessment'], shrId, allEntries, mappedResources, referencesOut, false);
-      }
-    }
-    if (fhir['study'] != null && fhir['study'][0] != null) {
-      const entryId = fhir['study'][0]['reference'];
-      if (!mappedResources[entryId]) {
-        const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
-        if (referencedEntry) {
-          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.research.Study', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
-        }
-      }
-      inst.associatedStudy = mappedResources[entryId];
     }
     return inst;
   }

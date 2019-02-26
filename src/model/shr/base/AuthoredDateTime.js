@@ -97,9 +97,6 @@ class AuthoredDateTime {
    */
   static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new AuthoredDateTime();
-    if (asExtension) {
-      inst.value = fhir['valueDateTime'];
-    }
     if (!asExtension && fhir != null) {
       inst.value = fhir;
     }

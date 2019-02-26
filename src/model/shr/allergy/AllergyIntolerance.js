@@ -501,53 +501,15 @@ class AllergyIntolerance extends Finding {
       if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-encounter-Encounter-extension') {
         inst.encounter = FHIRHelper.createInstanceFromFHIR('shr.encounter.Encounter', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
       }
-    }
-    if (fhir['clinicalStatus'] != null) {
-      inst.clinicalStatus = FHIRHelper.createInstanceFromFHIR('shr.base.ClinicalStatus', fhir['clinicalStatus'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['verificationStatus'] != null) {
-      inst.findingStatus = FHIRHelper.createInstanceFromFHIR('shr.base.FindingStatus', fhir['verificationStatus'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['type'] != null) {
-      inst.allergyIntoleranceType = FHIRHelper.createInstanceFromFHIR('shr.allergy.AllergyIntoleranceType', fhir['type'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['category'] != null && fhir['category'][0] != null) {
-      inst.substanceCategory = FHIRHelper.createInstanceFromFHIR('shr.allergy.SubstanceCategory', fhir['category'][0], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['criticality'] != null) {
-      inst.criticality = FHIRHelper.createInstanceFromFHIR('shr.base.Criticality', fhir['criticality'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['code'] != null) {
-      inst.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir['code'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['patient'] != null) {
-      const entryId = fhir['patient']['reference'];
-      if (!mappedResources[entryId]) {
-        const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
-        if (referencedEntry) {
-          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Patient', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
-        }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-base-FindingStatus-extension') {
+        inst.findingStatus = FHIRHelper.createInstanceFromFHIR('shr.base.FindingStatus', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
       }
-      inst.patient = mappedResources[entryId];
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-base-ClinicalStatus-extension') {
+        inst.clinicalStatus = FHIRHelper.createInstanceFromFHIR('shr.base.ClinicalStatus', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
     }
-    if (fhir['onsetDateTime'] != null) {
-      inst.onset = FHIRHelper.createInstanceFromFHIR('shr.base.Onset', fhir['onsetDateTime'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['onsetAge'] != null) {
-      inst.onset = FHIRHelper.createInstanceFromFHIR('shr.base.Onset', fhir['onsetAge'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['onsetPeriod'] != null) {
-      inst.onset = FHIRHelper.createInstanceFromFHIR('shr.base.Onset', fhir['onsetPeriod'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['onsetRange'] != null) {
-      inst.onset = FHIRHelper.createInstanceFromFHIR('shr.base.Onset', fhir['onsetRange'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['onsetString'] != null) {
-      inst.onset = FHIRHelper.createInstanceFromFHIR('shr.base.Onset', fhir['onsetString'], shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['assertedDate'] != null) {
-      inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
-      inst.metadata.authoredDateTime = FHIRHelper.createInstanceFromFHIR('shr.base.AuthoredDateTime', fhir['assertedDate'], shrId, allEntries, mappedResources, referencesOut, false);
+    if (fhir['onset'] != null) {
+      inst.onset = FHIRHelper.createInstanceFromFHIR('shr.base.Onset', fhir['onset'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['recorder'] != null) {
       inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
@@ -560,19 +522,30 @@ class AllergyIntolerance extends Finding {
       }
       inst.metadata.informationRecorder = mappedResources[entryId];
     }
-    if (fhir['asserter'] != null) {
-      inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
-      const entryId = fhir['asserter']['reference'];
+    if (fhir['patient'] != null) {
+      const entryId = fhir['patient']['reference'];
       if (!mappedResources[entryId]) {
         const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
         if (referencedEntry) {
           mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Patient', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
         }
       }
-      inst.metadata.informationSource = mappedResources[entryId];
+      inst.patient = mappedResources[entryId];
     }
-    if (fhir['lastOccurrence'] != null) {
-      inst.mostRecentOccurrenceTime = FHIRHelper.createInstanceFromFHIR('shr.allergy.MostRecentOccurrenceTime', fhir['lastOccurrence'], shrId, allEntries, mappedResources, referencesOut, false);
+    if (fhir['substance'] != null) {
+      inst.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir['substance'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['criticality'] != null) {
+      inst.criticality = FHIRHelper.createInstanceFromFHIR('shr.base.Criticality', fhir['criticality'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['type'] != null) {
+      inst.allergyIntoleranceType = FHIRHelper.createInstanceFromFHIR('shr.allergy.AllergyIntoleranceType', fhir['type'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['category'] != null) {
+      inst.substanceCategory = FHIRHelper.createInstanceFromFHIR('shr.allergy.SubstanceCategory', fhir['category'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['lastOccurence'] != null) {
+      inst.mostRecentOccurrenceTime = FHIRHelper.createInstanceFromFHIR('shr.allergy.MostRecentOccurrenceTime', fhir['lastOccurence'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['reaction'] != null && fhir['reaction'][0] != null) {
       if (fhir['reaction'][0]['substance'] != null) {

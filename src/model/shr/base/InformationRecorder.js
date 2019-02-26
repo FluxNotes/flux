@@ -97,12 +97,6 @@ class InformationRecorder {
    */
   static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new InformationRecorder();
-    if (asExtension) {
-      const match_1 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-Participant-extension');
-      if (match_1 != null) {
-        inst.participant = FHIRHelper.createInstanceFromFHIR('shr.base.Participant', match_1, shrId, allEntries, mappedResources, referencesOut, true);
-      }
-    }
     if (!asExtension && fhir != null) {
       inst.value = FHIRHelper.createInstanceFromFHIR('shr.base.Participant', fhir, shrId, allEntries, mappedResources, referencesOut);
     }

@@ -226,6 +226,16 @@ class TumorPresent extends BodyStructurePresent {
         inst.isPrimaryTumor = FHIRHelper.createInstanceFromFHIR('tumor.IsPrimaryTumor', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
       }
     }
+    if (fhir['patient'] != null) {
+      const entryId = fhir['patient']['reference'];
+      if (!mappedResources[entryId]) {
+        const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
+        if (referencedEntry) {
+          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Patient', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
+        }
+      }
+      inst.patient = mappedResources[entryId];
+    }
     if (fhir['identifier'] != null && fhir['identifier'][0] != null) {
       inst.objectIdentifier = FHIRHelper.createInstanceFromFHIR('shr.base.ObjectIdentifier', fhir['identifier'][0], shrId, allEntries, mappedResources, referencesOut, false);
     }
@@ -233,14 +243,14 @@ class TumorPresent extends BodyStructurePresent {
       inst.anatomicalLocationStructured = inst.anatomicalLocationStructured || FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocationStructured', {}, shrId);
       inst.anatomicalLocationStructured.anatomicalLocationOrLandmarkCode = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocationOrLandmarkCode', fhir['code'], shrId, allEntries, mappedResources, referencesOut, false);
     }
-    for (const fhir_qualifier of fhir['qualifier'] || []) {
-      if (fhir_qualifier['coding'] != null && fhir_qualifier['coding'].some(g => g['code'] != null && FHIRHelper.valueSet('http://hl7.org/fhir/ValueSet/bodysite-laterality').includes(g['code']))) {
+    for (const fhir_modifier of fhir['modifier'] || []) {
+      if (fhir_modifier['coding'] != null && fhir_modifier['coding'].some(g => g['code'] != null && FHIRHelper.valueSet('http://hl7.org/fhir/ValueSet/bodysite-laterality').includes(g['code']))) {
         inst.anatomicalLocationStructured = inst.anatomicalLocationStructured || FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocationStructured', {}, shrId);
-        inst.anatomicalLocationStructured.laterality = FHIRHelper.createInstanceFromFHIR('shr.core.Laterality', fhir_qualifier, shrId, allEntries, mappedResources, referencesOut, false);
+        inst.anatomicalLocationStructured.laterality = FHIRHelper.createInstanceFromFHIR('shr.core.Laterality', fhir_modifier, shrId, allEntries, mappedResources, referencesOut, false);
       }
-      if (fhir_qualifier['coding'] != null && fhir_qualifier['coding'].some(g => g['code'] != null && FHIRHelper.valueSet('http://example.com/shr/core/vs/AnatomicalDirectionVS').includes(g['code']))) {
+      if (fhir_modifier['coding'] != null && fhir_modifier['coding'].some(g => g['code'] != null && FHIRHelper.valueSet('http://example.com/shr/core/vs/AnatomicalDirectionVS').includes(g['code']))) {
         inst.anatomicalLocationStructured = inst.anatomicalLocationStructured || FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocationStructured', {}, shrId);
-        inst.anatomicalLocationStructured.anatomicalDirection = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalDirection', fhir_qualifier, shrId, allEntries, mappedResources, referencesOut, false);
+        inst.anatomicalLocationStructured.anatomicalDirection = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalDirection', fhir_modifier, shrId, allEntries, mappedResources, referencesOut, false);
       }
     }
     if (fhir['description'] != null) {
@@ -252,16 +262,6 @@ class TumorPresent extends BodyStructurePresent {
       inst.anatomicalLocationStructured.media = inst.anatomicalLocationStructured.media || [];
       const inst_anatomicalLocationStructured_media = FHIRHelper.createInstanceFromFHIR('shr.core.Media', fhir_image, shrId, allEntries, mappedResources, referencesOut, false);
       inst.anatomicalLocationStructured.media.push(inst_anatomicalLocationStructured_media);
-    }
-    if (fhir['patient'] != null) {
-      const entryId = fhir['patient']['reference'];
-      if (!mappedResources[entryId]) {
-        const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
-        if (referencedEntry) {
-          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Patient', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
-        }
-      }
-      inst.patient = mappedResources[entryId];
     }
     return inst;
   }

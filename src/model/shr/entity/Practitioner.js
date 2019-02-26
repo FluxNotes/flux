@@ -205,10 +205,10 @@ class Practitioner extends Role {
       inst.person = inst.person || FHIRHelper.createReference( FHIRHelper.createInstanceFromFHIR('shr.entity.Person', {}, shrId), referencesOut);
       inst.person.reference.activeFlag = FHIRHelper.createInstanceFromFHIR('shr.entity.ActiveFlag', fhir['active'], shrId, allEntries, mappedResources, referencesOut, false);
     }
-    for (const fhir_name of fhir['name'] || []) {
+    if (fhir['name'] != null) {
       inst.person = inst.person || FHIRHelper.createReference( FHIRHelper.createInstanceFromFHIR('shr.entity.Person', {}, shrId), referencesOut);
       inst.person.reference.humanName = inst.person.reference.humanName || [];
-      const inst_person_reference_humanName = FHIRHelper.createInstanceFromFHIR('shr.core.HumanName', fhir_name, shrId, allEntries, mappedResources, referencesOut, false);
+      const inst_person_reference_humanName = FHIRHelper.createInstanceFromFHIR('shr.core.HumanName', fhir['name'], shrId, allEntries, mappedResources, referencesOut, false);
       inst.person.reference.humanName.push(inst_person_reference_humanName);
     }
     for (const fhir_telecom of fhir['telecom'] || []) {

@@ -97,9 +97,6 @@ class LastUpdated {
    */
   static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new LastUpdated();
-    if (asExtension) {
-      inst.value = fhir['valueInstant'];
-    }
     if (!asExtension && fhir != null) {
       inst.value = fhir;
     }

@@ -97,6 +97,9 @@ class Title {
    */
   static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new Title();
+    if (asExtension) {
+      inst.value = fhir['valueString'];
+    }
     if (!asExtension && fhir != null) {
       inst.value = fhir;
     }

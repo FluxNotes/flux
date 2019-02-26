@@ -324,8 +324,8 @@ class Organization extends Entity {
     if (fhir['active'] != null) {
       inst.activeFlag = FHIRHelper.createInstanceFromFHIR('shr.entity.ActiveFlag', fhir['active'], shrId, allEntries, mappedResources, referencesOut, false);
     }
-    if (fhir['type'] != null && fhir['type'][0] != null) {
-      inst.type = FHIRHelper.createInstanceFromFHIR('shr.core.Type', fhir['type'][0], shrId, allEntries, mappedResources, referencesOut, false);
+    if (fhir['type'] != null) {
+      inst.type = FHIRHelper.createInstanceFromFHIR('shr.core.Type', fhir['type'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['name'] != null) {
       inst.organizationName = FHIRHelper.createInstanceFromFHIR('shr.entity.OrganizationName', fhir['name'], shrId, allEntries, mappedResources, referencesOut, false);
