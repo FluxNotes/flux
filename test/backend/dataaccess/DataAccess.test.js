@@ -6,12 +6,10 @@ import PatientRecord from '../../../src/patient/PatientRecord';
 //import referenceHardCodedPatient from '../../../src/dataaccess/HardCodedPatient.json';
 import Moment from 'moment';
 import {expect} from 'chai';
-
 import EntryMapper from '../../../src/dataaccess/mcodev0.1-datasource/EntryMapper';
 import serverConfig from '../../../public/ServerConfig.json';
 
 const mcodePatientJson = EntryMapper.mapEntries(BreastMainTreatmentDebra);
-
 // reference hard coded Patient
 const referenceHardCodedPatient = new PatientRecord(mcodePatientJson);
 
@@ -155,7 +153,6 @@ describe('use smart on fhir as data source with simple mock', function() {
     options.smartClient = mockSmartClient;
 
     delete options.shimServerOverrides; // don't apply any overrides here
-    options.addProfiles = false; // don't apply any new profiles
     options.supportedResourceTypes = ['Patient', 'Condition', 'Observation', 'Procedure'];
 
     const smartOnFhirDataAccess = new DataAccess("SMARTonFHIRDataSource", options);
@@ -170,7 +167,6 @@ describe('use smart on fhir as data source with simple mock', function() {
             const personEntryID = smartPatientResultJSON[0].Person._EntryId.value;
             const regex = new RegExp(personEntryID, 'g');
             const tweakedJSON = JSON.parse(JSON.stringify(smartPatientResultJSON).replace(regex, '2835f59d-cf36-4598-9982-0c539ba052e9'));
-            debugger;
             expect(tweakedJSON).to.deep.equal(hardCodedConvertedFHIRPatient);
             done();
         });
