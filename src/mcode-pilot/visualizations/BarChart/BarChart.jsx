@@ -5,12 +5,23 @@ import FontAwesome from 'react-fontawesome';
 import './BarChart.css';
 
 export default class BarChart extends Component {
-    getStyles = (survivedPercent, compareToPercent, percentChange) => {
+    getStyles = (survivedPercent, compareToPercent, percentChange, roundedPercent) => {
         let mainStyle, changeStyle, textStyle;
         if (percentChange < 0) {
             // style for when survival decreases (red)
             mainStyle = {"width": `${survivedPercent}%`, "backgroundColor": "#9e9e9e" };
-            changeStyle = {"width": `${Math.abs(percentChange)}%`, "backgroundColor": "#e13949" };
+            changeStyle = {"width": `${Math.abs(roundedPercent)}%`, "background": `repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 2px,
+                #EC9696 2px,
+                #EC9696 4px
+              ),
+              linear-gradient(
+                to bottom,
+                #9e9e9e,
+                #9e9e9e
+              )`  };
             textStyle = { "color": "#d9534f" };
         } else {
             // styles for when survival increases (green)
@@ -33,7 +44,7 @@ export default class BarChart extends Component {
             compareToPercent = compareToNumerator / compareToDenominator * 100;
             roundedPercent = Math.floor(survivedPercent - compareToPercent);
             percentChange = survivedPercent - compareToPercent;
-            const styles = this.getStyles(survivedPercent, compareToPercent, percentChange);
+            const styles = this.getStyles(survivedPercent, compareToPercent, percentChange, roundedPercent);
             mainStyle = styles.mainStyle;
             changeStyle = styles.changeStyle;
             textStyle = styles.textStyle;
@@ -55,6 +66,7 @@ export default class BarChart extends Component {
                     <div className="progress-bar">
                         <div className="prog-fill" style={mainStyle}></div>
                         {hasCompare && <div className="prog-fill" style={changeStyle}></div>}
+                        <div className="prog-fill-empty"></div>
                     </div>
                 </div>
             </div>

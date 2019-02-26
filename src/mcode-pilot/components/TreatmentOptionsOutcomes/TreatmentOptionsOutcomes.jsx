@@ -6,6 +6,7 @@ import _ from 'lodash';
 import { isSame, getCombinations } from '../../utils/arrayCompare';
 
 import BarChart from '../../visualizations/BarChart/BarChart';
+import TableLegend from '../../visualizations/TableLegend/TableLegend';
 import TreatmentsPopover from '../TreatmentsPopover/TreatmentsPopover';
 
 import './TreatmentOptionsOutcomes.css';
@@ -299,6 +300,7 @@ export default class TreatmentOptionsOutcomes extends Component {
                         )}
                     </div>
                 </div>
+                <TableLegend includedRow={includedRow} treatmentNames={TREATMENT_NAMES}/>
             </div>
         );
     }

@@ -1,0 +1,45 @@
+$color-white: #fff;
+$color-border: #d1d1d1;
+$color-background: #9e9e9e;
+
+.table-legend {
+    text-align: center;
+    .wrapper {
+        display:inline-block;
+    }
+    .prog-fill {
+        background-size:6px !important;
+        display: inline-block;
+        padding: 0;
+        height: 10px;
+        width: 40px;
+        background-color: $color-background;
+    }
+
+    .legend-entry {
+        display:block;
+        text-align: left;
+    }
+
+    .prog-fill-container {
+
+        display:inline-block;
+        width: 50px;
+    }
+
+    .legend-text {
+
+        font-size: 10px;
+        padding-left:10px;
+        line-height:10px;
+
+    }
+
+    .progress-bar {
+        display: flex;
+        height: 8px;
+        // position: relative;
+        border: 1px solid $color-border;
+        background-color: $color-white;
+    }
+}
