@@ -6,6 +6,10 @@ class FluxProcedurePerformed {
         this._procedurePerformed = ProcedurePerformed.fromJSON(json);
     }
 
+    get entryInfo() {
+        return this._procedurePerformed.entryInfo;
+    }
+
     /*
      *  Getter for occurrenceTime
      *  Can return object containing timePeriodStart and timePeriodEnd value if a range
