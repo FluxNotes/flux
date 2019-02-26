@@ -1,3 +1,5 @@
+@import '../styles/variables';
+
 .medication-visualizer-wrapper {
     padding-top: 10px;
 }
@@ -61,5 +63,14 @@
 
 .medication-heading {
     padding: 10px;
-}
 
+    &-title {
+        .highlighted {
+            background-color: $highlight-yellow !important;
+        }
+
+        .selected {
+            background-color: $highlight-selected-yellow !important;
+        }
+    }
+}

@@ -76,42 +76,57 @@ class MedicationRangeChartVisualizer extends Visualizer {
         return rows;
     }
 
-    renderMedicationTitle = (lowerValue, upperValue, name, dosageValue, dosageUnit, timingValue, timingUnit, asNeededIndicator, doseInstructionsText) => {
-        // Determining if timingUnit has a value. Set if empty string if null.
-        if (timingUnit == null) timingUnit = '';
-        //Determining if asNeededIndicator is true. Set empty string if false, set string as needed if true.
-        const asNeededString = asNeededIndicator ? 'as needed' : '';
-
+    renderMedicationTitle = (name) => {
         let titleClass = '';
         const foundMed = this.props.tdpSearchSuggestions.find(s => {
-            return s.section === "Medications" && (
-                s.contentSnapshot === name ||
-                s.contentSnapshot === dosageValue ||
-                s.contentSnapshot === dosageUnit ||
-                s.contentSnapshot === timingValue ||
-                s.contentSnapshot === timingUnit ||
-                s.contentSnapshot === doseInstructionsText ||
-                s.contentSnapshot === asNeededString
-            );
+            return (s.section === "Medications" && s.contentSnapshot === name);
         });
-        if (foundMed) titleClass += ' highlighted';
+        if (foundMed) titleClass += 'highlighted';
         if (Lang.isEqual(foundMed, this.props.highlightedSearchSuggestion)) titleClass += ' selected';
 
-        // Determining if medication value is out of range.
-        if (dosageValue < lowerValue || dosageValue > upperValue) {
-            return (
-                <div className="medicationTitle">
-                    {`${name} `}
-                    <span className="out-of-range-medication">
-                        {`${dosageValue} `}
-                    </span>
-                    <span className={titleClass}>{`${dosageUnit} ${timingValue || doseInstructionsText} ${timingUnit} ${asNeededString}`}</span>
-                </div>);
-        }
         return (
-            <div className="medicationTitle">
-                <span className={titleClass}>{`${name} ${dosageValue} ${dosageUnit} ${timingValue || doseInstructionsText} ${timingUnit} ${asNeededString}`}</span>
+            <div className="medication-heading-title">
+                <span className={titleClass}>{name}</span>
             </div>);
+    }
+
+    renderMedicationDosage = (lowerValue, upperValue, name, dosageValue, dosageUnit, timingValue, timingUnit, asNeededIndicator, doseInstructionsText) => {
+        // // Determining if timingUnit has a value. Set if empty string if null.
+        // if (timingUnit == null) timingUnit = '';
+        // //Determining if asNeededIndicator is true. Set empty string if false, set string as needed if true.
+        // const asNeededString = asNeededIndicator ? 'as needed' : '';
+
+        // let titleClass = '';
+        // const foundMed = this.props.tdpSearchSuggestions.find(s => {
+        //     return s.section === "Medications" && (
+        //         s.contentSnapshot === name ||
+        //         s.contentSnapshot === dosageValue ||
+        //         s.contentSnapshot === dosageUnit ||
+        //         s.contentSnapshot === timingValue ||
+        //         s.contentSnapshot === timingUnit ||
+        //         s.contentSnapshot === doseInstructionsText ||
+        //         s.contentSnapshot === asNeededString
+        //     );
+        // });
+        // if (foundMed) titleClass += ' highlighted';
+        // if (Lang.isEqual(foundMed, this.props.highlightedSearchSuggestion)) titleClass += ' selected';
+
+        // // Determining if medication value is out of range.
+        // // if (dosageValue < lowerValue || dosageValue > upperValue) {
+        // //     return (
+        // //         <div className="medicationTitle">
+        // //             {`${name} `}
+        // //             <span className="out-of-range-medication">
+        // //                 {`${dosageValue} `}
+        // //             </span>
+        // //             <span className={titleClass}>{`${dosageUnit} ${timingValue || doseInstructionsText} ${timingUnit} ${asNeededString}`}</span>
+        // //         </div>);
+        // // }
+        // return (
+        //     <div className="medicationTitle">
+        //         <span className={titleClass}>{name}</span>
+        //          {/* ${dosageValue} ${dosageUnit} ${timingValue || doseInstructionsText} ${timingUnit} ${asNeededString}`}</span> */}
+        //     </div>);
     }
 
     renderMedicationChange = (medChange, medBefore) => {
@@ -236,7 +251,7 @@ class MedicationRangeChartVisualizer extends Visualizer {
                     <div className="medication-heading">
                         <Row bottom="xs">
                             <Col md={6} xs={12}>
-                                {this.renderMedicationTitle(lowerValue, upperValue, name, dosageValue, dosageUnit, timingValue, timingUnit, asNeededIndicator, doseInstructionsText)}
+                                {this.renderMedicationTitle(name)}
                             </Col>
                             <Col xs={6} className="medication-change-padding">
                                 <div className="medication-change-container">
@@ -295,7 +310,7 @@ renderMedicationNarrowView = (med, i) => {
                 <div className="medication-heading">
                 <Row top="xs">
                     <Col md={8} xs={12}>
-                        {this.renderMedicationTitle(lowerValue, upperValue, name, dosageValue, dosageUnit, timingValue, timingUnit, asNeededIndicator, doseInstructionsText)}
+                        {this.renderMedicationTitle(name)}
                     </Col>
                 </Row>
                 </div>
