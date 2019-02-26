@@ -102,8 +102,7 @@ class SMARTonFHIRDataSource extends IDataSource {
             const json = allObjects.filter(o => o).map(o => o.toJSON());
             return new PatientRecord(json);
         })
-        .catch(error => callback(null, error))
-        .then(record => callback(record));
+        .then(record => callback(record), error => callback(null, error));
     }
 
     getListOfPatients() {
