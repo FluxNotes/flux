@@ -975,6 +975,75 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
             }
+        },
+        "ExpectedPerformer": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformer"
+            },
+            "Value": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Practitioner"
+                },
+                "Person": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
+                    },
+                    "HumanName": [
+                        {
+                            "NameAsText": "Dr. Cheung564",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
+                            }
+                        }
+                    ],
+                    "PartOf": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/entity/PartOf"
+                        },
+                        "Value": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
+                            },
+                            "Type": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
+                                },
+                                "Value": {
+                                    "Coding": [
+                                        {
+                                            "Code": "prov",
+                                            "EntryType": {
+                                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                                            },
+                                            "CodeSystem": {
+                                                "Value": "http://hl7.org/fhir/organization-type",
+                                                "EntryType": {
+                                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                                }
+                                            },
+                                            "DisplayText": {
+                                                "Value": "Healthcare Provider",
+                                                "EntryType": {
+                                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                                    }
+                                }
+                            },
+                            "OrganizationName": {
+                                "Value": "MCI",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     {
