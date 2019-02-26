@@ -90,16 +90,17 @@ class MedicationRangeChartVisualizer extends Visualizer {
             </div>);
     }
 
-    renderMedicationDosage = (lowerValue, upperValue, name, dosageValue, dosageUnit, timingValue, timingUnit, asNeededIndicator, doseInstructionsText) => {
-        // // Determining if timingUnit has a value. Set if empty string if null.
-        // if (timingUnit == null) timingUnit = '';
-        // //Determining if asNeededIndicator is true. Set empty string if false, set string as needed if true.
-        // const asNeededString = asNeededIndicator ? 'as needed' : '';
+    renderMedicationDosage = (lowerValue, upperValue, dosageValue, dosageUnit, timingValue, timingUnit, asNeededIndicator, doseInstructionsText) => {
+        // Determining if timingUnit has a value. Set if empty string if null.
+        if (timingUnit == null) timingUnit = '';
+        //Determining if asNeededIndicator is true. Set empty string if false, set string as needed if true.
+        const asNeededString = asNeededIndicator ? 'as needed' : '';
 
-        // let titleClass = '';
+        let titleClass = '';
         // const foundMed = this.props.tdpSearchSuggestions.find(s => {
+        //     console.log(s.contentSnapshot)
         //     return s.section === "Medications" && (
-        //         s.contentSnapshot === name ||
+        //         // s.contentSnapshot === name ||
         //         s.contentSnapshot === dosageValue ||
         //         s.contentSnapshot === dosageUnit ||
         //         s.contentSnapshot === timingValue ||
@@ -110,23 +111,23 @@ class MedicationRangeChartVisualizer extends Visualizer {
         // });
         // if (foundMed) titleClass += ' highlighted';
         // if (Lang.isEqual(foundMed, this.props.highlightedSearchSuggestion)) titleClass += ' selected';
+        // console.log(titleClass)
 
-        // // Determining if medication value is out of range.
-        // // if (dosageValue < lowerValue || dosageValue > upperValue) {
-        // //     return (
-        // //         <div className="medicationTitle">
-        // //             {`${name} `}
-        // //             <span className="out-of-range-medication">
-        // //                 {`${dosageValue} `}
-        // //             </span>
-        // //             <span className={titleClass}>{`${dosageUnit} ${timingValue || doseInstructionsText} ${timingUnit} ${asNeededString}`}</span>
-        // //         </div>);
-        // // }
-        // return (
-        //     <div className="medicationTitle">
-        //         <span className={titleClass}>{name}</span>
-        //          {/* ${dosageValue} ${dosageUnit} ${timingValue || doseInstructionsText} ${timingUnit} ${asNeededString}`}</span> */}
-        //     </div>);
+        // Determining if medication value is out of range.
+        let rangeClass = 'medication-dosage-value';
+        if (dosageValue < lowerValue || dosageValue > upperValue) rangeClass = 'out-of-range';
+        else rangeClass += 'normal';
+
+        return (
+            <div className="medication-dosage">
+                {/* <span className={titleClass}> */}
+                <span className={rangeClass}>
+                    {`${dosageValue} `}
+                </span>
+                <span className="medication-dosage-info">
+                    {`${dosageUnit} ${timingValue || doseInstructionsText} ${timingUnit} ${asNeededString}`}
+                </span>
+            </div>);
     }
 
     renderMedicationChange = (medChange, medBefore) => {
@@ -261,8 +262,12 @@ class MedicationRangeChartVisualizer extends Visualizer {
                         </Row>
                     </div>
                     {(med.medicationChange && med.medicationChange.type === 'stop') ? <div /> :
+                    <div className="medication-content">
                         <Row around='xs'>
-                            <Col md={6}>
+                            <Col md={2}>
+                                {this.renderMedicationDosage(lowerValue, upperValue, dosageValue, dosageUnit, timingValue, timingUnit, asNeededIndicator, doseInstructionsText)}
+                            </Col>
+                            <Col md={4}>
                                 <div className="range-chart-container">
                                     <RangeChart
                                         lowerValue={lowerValue}
@@ -276,12 +281,11 @@ class MedicationRangeChartVisualizer extends Visualizer {
                                 </div>
                             </Col>
                             <Col md={6}>
-                                <div>
-                                    {this.renderMedicationInfo(med)}
-                                </div>
+                                {this.renderMedicationInfo(med)}
                             </Col>
-                        </Row>}
-            </Grid>
+                        </Row>
+                    </div>}
+                </Grid>
             </div>)
 }
 
@@ -324,8 +328,11 @@ renderMedicationNarrowView = (med, i) => {
                 {/* Additional information for current medication */}
                 {(med.medicationChange && med.medicationChange.type === 'stop') ? <div /> :
                 <div>
-                    <Row around="xs" top="xs">
-                        <Col sm={11}>
+                    <Row around="xs">
+                        <Col sm={3}>
+                            {this.renderMedicationDosage(lowerValue, upperValue, dosageValue, dosageUnit, timingValue, timingUnit, asNeededIndicator, doseInstructionsText)}
+                        </Col>
+                        <Col sm={9}>
                             <div className="range-chart-container">
                                 <RangeChart
                                     lowerValue={lowerValue}
@@ -343,9 +350,7 @@ renderMedicationNarrowView = (med, i) => {
                     </Row>
                     <Row around="xs" top="xs">
                         <Col sm={11}>
-                            <div>
-                                {this.renderMedicationInfo(med)}
-                            </div>
+                            {this.renderMedicationInfo(med)}
                         </Col>
                     </Row>
                 </div>}

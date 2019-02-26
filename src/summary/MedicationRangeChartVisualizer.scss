@@ -47,10 +47,6 @@
     margin: auto;
 }
 
-.out-of-range-medication {
-    color: red;
-}
-
 .medication-title {
     font-size: 13px;
     font-weight: 550;
@@ -61,16 +57,26 @@
     text-decoration: none;
 }
 
-.medication-heading {
+.medication-heading, .medication-content {
     padding: 10px;
 
-    &-title {
-        .highlighted {
-            background-color: $highlight-yellow !important;
-        }
-
-        .selected {
-            background-color: $highlight-selected-yellow !important;
-        }
+    .highlighted {
+        background-color: $highlight-yellow !important;
     }
+
+    .selected {
+        background-color: $highlight-selected-yellow !important;
+    }
+
+    .normal {
+        color: $body-gray;
+    }
+
+    .out-of-range {
+        color: $warning-red;
+    }
+}
+
+.medication-dosage-info {
+    font-size: 12px;
 }
