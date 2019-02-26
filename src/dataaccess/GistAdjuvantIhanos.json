@@ -1465,7 +1465,7 @@
     },
     {
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-        "Value": true,
+        "Value": false,
         "EntryId": "238",
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"
@@ -1665,7 +1665,7 @@
     },
     {
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-        "Value": false,
+        "Value": true,
         "EntryId": "242",
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"
@@ -1689,7 +1689,7 @@
             "Value": {
                 "Coding": [
                     {
-                        "Code": "10047340",
+                        "Code": "10016256",
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -1700,7 +1700,7 @@
                             }
                         },
                         "DisplayText": {
-                            "Value": "vertigo",
+                            "Value": "fatigue",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                             }
@@ -2015,7 +2015,7 @@
     },
     {
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-        "Value": true,
+        "Value": false,
         "EntryId": "249",
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"
