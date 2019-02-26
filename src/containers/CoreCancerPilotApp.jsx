@@ -235,19 +235,23 @@ export class CoreCancerPilotApp extends Component {
         // - The app has no patient
         // - The app is not loading
         const isSomeError = Lang.isEmpty(this.state.patient) && !this.state.loading;
-        return (
-            <div>
-                <LoadingAnimation
-                    loading={this.state.loading}
-                    timeoutDuration={this.timeoutDuration}
-                />
-                <LoadingError
-                    isSomeError={isSomeError}
-                    loadingError={this.state.loadingError}
-                    timeoutDuration={this.timeoutDuration}
-                />
-            </div>
-        )
+        if (this.state.loading || isSomeError) { // don't render div if we aren't loading and we don't have an error
+            return (
+                <div>
+                    <LoadingAnimation
+                        loading={this.state.loading}
+                        timeoutDuration={this.timeoutDuration}
+                    />
+                    <LoadingError
+                        isSomeError={isSomeError}
+                        loadingError={this.state.loadingError}
+                        timeoutDuration={this.timeoutDuration}
+                    />
+                </div>
+            )
+        } else {
+            return "";
+        }
     }
 
     render() {
