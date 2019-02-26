@@ -52,7 +52,7 @@ class FluxImagingProcedurePerformed {
 
     get annotation() {
         if (this._imagingProcedurePerformed.annotation && this._imagingProcedurePerformed.annotation.length > 0) {
-            return this._imagingProcedurePerformed.annotation[0].value;
+            return this._imagingProcedurePerformed.annotation[0].text.value;
         } else {
             return null;
         }

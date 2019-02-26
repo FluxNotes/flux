@@ -168,6 +168,7 @@ import ResearchSubject from '../../model/shr/research/ResearchSubject';
 import Study from '../../model/shr/research/Study';
 import Patient from '../../model/shr/entity/Patient';
 import ParticipationPeriod from '../../model/shr/base/ParticipationPeriod';
+import Text from '../../model/shr/core/Text.js';
 
 const mapEntryInfo = (entryInfo, entry) => {
     const newEntry = new Entry();
@@ -472,7 +473,7 @@ const mapPossibleCause = (possibleCause) => {
     newPossibleCause.value = mapReference(possibleCause);
 
     return newPossibleCause;
-}
+};
 
 const mapEvidence = (evidence) => {
     return evidence.map(e => {
@@ -480,7 +481,16 @@ const mapEvidence = (evidence) => {
         newEvidence.value = mapPassThrough(e._value, CodeableConcept);
         return newEvidence
     });
-}
+};
+
+const mapAnnotation = (annotation) => {
+    const newAnnotation = new Annotation();
+
+    newAnnotation.text = new Text();
+    newAnnotation.text.value = annotation.text;
+
+    return newAnnotation;
+};
 
 /**
  *  Instantiates mCODE v0.1 entry objects
@@ -541,7 +551,7 @@ exports.mapEntries = (v01Json) => {
 
             mapEntryInfo(entry.entryInfo, newProcedure);
             newProcedure.expectedPerformanceTime = mapExpectedPerformanceTime(entry._procedureRequested.expectedPerformanceTime);
-            if (entry._procedureRequested.annotation) newProcedure.annotation = entry._procedureRequested.annotation.map(a => mapPassThrough(a, Annotation));
+            if (entry._procedureRequested.annotation) newProcedure.annotation = entry._procedureRequested.annotation.map(a => mapAnnotation(a));
             if (entry._procedureRequested.reason) newProcedure.reason = entry._procedureRequested.reason.map(r => mapPassThrough(r, Reason));
             newProcedure.status = mapStatus(entry._procedureRequested.status);
             newProcedure.procedureCode = new ProcedureCode();
@@ -856,7 +866,7 @@ exports.mapEntries = (v01Json) => {
             const newImaging = new ImagingProcedurePerformed();
 
             mapEntryInfo(entry._imagingProcedurePerformed.entryInfo, newImaging);
-            if (entry._imagingProcedurePerformed.annotation) newImaging.annotation = entry._imagingProcedurePerformed.annotation.map(a => mapPassThrough(a, Annotation));
+            if (entry._imagingProcedurePerformed.annotation) newImaging.annotation = entry._imagingProcedurePerformed.annotation.map(a => mapAnnotation(a));
             newImaging.reason = entry._imagingProcedurePerformed.reason.map(r => mapPassThrough(r, Reason));
             newImaging.status = mapStatus(entry._imagingProcedurePerformed.status);
             newImaging.procedureCode = new ProcedureCode();
