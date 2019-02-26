@@ -355,7 +355,7 @@
     "valueObject": "http://standardhealthrecord.org/spec/brca/EstrogenReceptorStatus",
     "valueObjectAttributes": [  {"name":"status", "attribute":"status", "isSettable":"true", "setMethod": "status", "childShortcut": "ReceptorStatusCreator"}],
     "updatePatient": [ {"object":"patient", "method": "addEntryToPatientWithPatientFocalSubject", "args": [ "$valueObject", "$clinicalNote" ]}, 
-                       {"object":"$valueObject", "method": "setAdverseEventCondition", "args": [ "$parentValueObject"]}],
+                       {"object":"$valueObject", "method": "setSpecificFocusOfFinding", "args": [ "$parentValueObject"]}],
     "isContext": true,
     "stringTriggers": [{ "name": "#ER", "description": "Estrogen receptors (ERs) are a group of proteins found inside cells. They are receptors that are activated by the hormone estrogen. Estrogen receptors may be found in breast cancer cells (ER positive). Cancer cells with these receptors depend on estrogen to grow."}],
     "regexpTrigger": null,
