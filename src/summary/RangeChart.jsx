@@ -232,7 +232,7 @@ class RangeChart extends Component {
 
         return (
             <div>
-                <svg width="100%" height="6em" viewBox={viewBoxDimensions}>
+                <svg width="250px" height="6em" viewBox={viewBoxDimensions}>
                     {/*Main line*/}
                     <line x1={lineStartXPixels - mainLinePaddingPixels} y1="50" x2={lineStartXPixels + lineLengthPixels + mainLinePaddingPixels} y2="50" stroke="#C2C2C2" strokeWidth="0.5" />
 

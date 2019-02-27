@@ -15,19 +15,19 @@
                 font-size: 13px;
                 font-weight: 550;
             }
-    
+
             .highlighted {
                 background-color: $highlight-yellow !important;
             }
-    
+
             .selected {
                 background-color: $highlight-selected-yellow !important;
             }
-    
+
             .normal {
                 color: $body-gray;
             }
-    
+
             .out-of-range {
                 color: $warning-red;
             }

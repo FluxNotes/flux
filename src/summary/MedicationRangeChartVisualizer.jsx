@@ -40,7 +40,7 @@ class MedicationRangeChartVisualizer extends Visualizer {
 
     checkMedicationWidth = () => {
         if (!this.parent) return;
-        if (this.parent.offsetWidth > 600) {
+        if (this.parent.offsetWidth > 725) {
             this.setState({ medicationVisWide: true });
         } else {
             this.setState({ medicationVisWide: false });
@@ -183,7 +183,7 @@ class MedicationRangeChartVisualizer extends Visualizer {
             }
         });
         return (
-            <div>
+            <div className="medication-info">
                 <Row top="xs">
                     <Col sm={3}>
                         <div className="medication-info-heading">
@@ -223,7 +223,7 @@ class MedicationRangeChartVisualizer extends Visualizer {
     }
 
     renderMedication = (med, i) => {
-        if (!this.props.isWide) {
+        if (!this.props.isWide || !this.state.medicationVisWide) {
             return this.renderMedicationNarrowView(med, i);
         }
         // Grab range values based on medication
@@ -261,10 +261,10 @@ class MedicationRangeChartVisualizer extends Visualizer {
                     {(med.medicationChange && med.medicationChange.type === 'stop') ? <div /> :
                     <div className="medication-item-content">
                         <Row around='xs'>
-                            <Col md={1}>
+                            <Col md={2}>
                                 {this.renderMedicationDosage(lowerValue, upperValue, dosageValue, dosageUnit, timingValue, timingUnit, asNeededIndicator, doseInstructionsText)}
                             </Col>
-                            <Col md={5}>
+                            <Col md={4}>
                                 <div className="medication-range-chart-container">
                                     <RangeChart
                                         lowerValue={lowerValue}
@@ -325,11 +325,11 @@ renderMedicationNarrowView = (med, i) => {
                 {/* Additional information for current medication */}
                 {(med.medicationChange && med.medicationChange.type === 'stop') ? <div /> :
                 <div className="medication-item-content">
-                    <Row around="xs" middle="xs">
-                        <Col sm={3}>
+                    <Row between="xs">
+                        <Col sm={4}>
                             {this.renderMedicationDosage(lowerValue, upperValue, dosageValue, dosageUnit, timingValue, timingUnit, asNeededIndicator, doseInstructionsText)}
                         </Col>
-                        <Col sm={9}>
+                        <Col sm={7}>
                             <div className="medication-range-chart-container">
                                 <RangeChart
                                     lowerValue={lowerValue}
@@ -345,7 +345,7 @@ renderMedicationNarrowView = (med, i) => {
                             </div>
                         </Col>
                     </Row>
-                    <Row around="xs" top="xs">
+                    <Row between="xs" top="xs">
                         <Col sm={11}>
                             {this.renderMedicationInfo(med)}
                         </Col>
