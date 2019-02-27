@@ -76,7 +76,7 @@ class FluxProcedureRequested {
     }
 
     get expectedPerformer() {
-        if (this._procedureRequested.expectedPerformer && this._procedureRequested.expectedPerformer.value && this._procedureRequested.expectedPerformer.value.person && this._procedureRequested.expectedPerformer.value.person) {
+        if (this._procedureRequested.expectedPerformer && this._procedureRequested.expectedPerformer.value && this._procedureRequested.expectedPerformer.value.person) {
             return this._procedureRequested.expectedPerformer.value.person.name;
         } else {
             return null;
