@@ -169,6 +169,7 @@ import Study from '../../model/shr/research/Study';
 import Patient from '../../model/shr/entity/Patient';
 import ParticipationPeriod from '../../model/shr/base/ParticipationPeriod';
 import Text from '../../model/shr/core/Text.js';
+import ConditionOrDiagnosisCode from '../../model/shr/base/ConditionOrDiagnosisCode.js';
 
 const mapEntryInfo = (entryInfo, entry) => {
     const newEntry = new Entry();
@@ -405,6 +406,14 @@ const mapAdverseReaction = (adverseReaction) => {
     return newAllergyIntoleranceReaction;
 };
 
+const mapConditionValue = (conditionValue) => {
+    const newConditionOrDiagnosisCode = new ConditionOrDiagnosisCode();
+
+    newConditionOrDiagnosisCode.value = mapPassThrough(conditionValue, CodeableConcept);
+
+    return newConditionOrDiagnosisCode;
+};
+
 const mapCancerDisorder = (entry, klass) => {
     const newCondition = new klass();
 
@@ -413,8 +422,7 @@ const mapCancerDisorder = (entry, klass) => {
     newCondition.anatomicalLocation = entry._condition.anatomicalLocation.map(a => mapAnatomicalLocation(a));
     newCondition.category = mapPassThrough(entry._condition.category, Category);
     newCondition.clinicalStatus = mapClinicalStatus(entry._condition.clinicalStatus);
-    newCondition.findingResult = new FindingResult();
-    newCondition.findingResult.value = mapPassThrough(entry._condition.value, CodeableConcept);
+    newCondition.findingTopicCode = mapConditionValue(entry._condition.value);
     newCondition.onset = mapPassThrough(entry._condition.onset, Onset);
 
     return newCondition;
@@ -541,8 +549,7 @@ exports.mapEntries = (v01Json) => {
             newCondition.anatomicalLocation = entry._condition.anatomicalLocation.map(a => mapAnatomicalLocation(a));
             newCondition.category = mapPassThrough(entry._condition.category, Category);
             newCondition.clinicalStatus = mapClinicalStatus(entry._condition.clinicalStatus);
-            newCondition.findingResult = new FindingResult();
-            newCondition.findingResult.value = mapPassThrough(entry._condition.value, CodeableConcept);
+            newCondition.findingTopicCode = mapConditionValue(entry._condition.value);
             newCondition.onset = mapPassThrough(entry._condition.onset, Onset);
 
             v05Json.push(newCondition.toJSON());

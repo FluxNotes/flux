@@ -157,7 +157,7 @@ describe('4 TargetedDataControl - correct default visualizer Medications', funct
         let patient = new PatientRecord(mcodePatientJson);
         const summaryMetadata = new SummaryMetadata(null);
         const condition = new FluxGastrointestinalStromalTumor({
-            "FindingResult": {
+            "FindingTopicCode": {
                 "Value": {
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
@@ -189,7 +189,7 @@ describe('4 TargetedDataControl - correct default visualizer Medications', funct
                     ]
                 },
                 "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/base/FindingResult"
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/ConditionOrDiagnosisCode"
                 }
             }
         }, patient);
