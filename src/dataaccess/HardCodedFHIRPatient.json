@@ -13,38 +13,30 @@
         },
         "extension": [
           {
-            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
-            "extension": [
-              {
-                "url": "ombCategory",
-                "valueCoding": {
-                  "system": "urn:oid:2.16.840.1.113883.6.238",
+            "url": "http://hl7.org/fhir/StructureDefinition/us-core-race",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/v3/Race",
                   "code": "2106-3",
                   "display": "White"
                 }
-              },
-              {
-                "url": "text",
-                "valueString": "White"
-              }
-            ]
+              ],
+              "text": "White"
+            }
           },
           {
-            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
-            "extension": [
-              {
-                "url": "ombCategory",
-                "valueCoding": {
-                  "system": "urn:oid:2.16.840.1.113883.6.238",
+            "url": "http://hl7.org/fhir/StructureDefinition/us-core-ethnicity",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/v3/Ethnicity",
                   "code": "2186-5",
                   "display": "Not Hispanic or Latino"
                 }
-              },
-              {
-                "url": "text",
-                "valueString": "Not Hispanic or Latino"
-              }
-            ]
+              ],
+              "text": "Not Hispanic or Latino"
+            }
           },
           {
             "url": "http://hl7.org/fhir/StructureDefinition/patient-mothersMaidenName",
@@ -86,7 +78,9 @@
         "name": [
           {
             "use": "official",
-            "family": "Mosciski958",
+            "family": [
+              "Mosciski958"
+            ],
             "given": [
               "Sharri659"
             ],
@@ -136,14 +130,14 @@
           ],
           "text": "Prediabetes"
         },
-        "subject": {
+        "patient": {
           "reference": "urn:uuid:eb3cdde1-0f08-4ec3-b926-e071979ec7e1"
         },
-        "context": {
+        "encounter": {
           "reference": "urn:uuid:6a8bc97e-3ba1-4fb5-a478-4b5bd888c793"
         },
         "onsetDateTime": "2011-07-12T11:19:32-04:00",
-        "assertedDate": "2011-07-12T11:19:32-04:00",
+        "dateRecorded": "2011-07-12T11:19:32-04:00",
         "meta": {
           "profile": [
             "http://example.com/shr-base-ConditionPresentAssertion"
@@ -155,23 +149,21 @@
         "url": "Condition"
       }
     },
-        {
+    {
       "fullUrl": "urn:uuid:d2af7a7b-225a-4260-a908-7ffa039e26ff",
       "resource": {
         "resourceType": "Observation",
         "id": "d2af7a7b-225a-4260-a908-7ffa039e26ff",
         "status": "final",
-        "category": [
-          {
-            "coding": [
-              {
-                "system": "http://hl7.org/fhir/observation-category",
-                "code": "vital-signs",
-                "display": "vital-signs"
-              }
-            ]
-          }
-        ],
+        "category": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/observation-category",
+              "code": "vital-signs",
+              "display": "vital-signs"
+            }
+          ]
+        },
         "code": {
           "coding": [
             {
@@ -185,7 +177,7 @@
         "subject": {
           "reference": "urn:uuid:eb3cdde1-0f08-4ec3-b926-e071979ec7e1"
         },
-        "context": {
+        "encounter": {
           "reference": "urn:uuid:6a8bc97e-3ba1-4fb5-a478-4b5bd888c793"
         },
         "effectiveDateTime": "2011-07-12T11:19:32-04:00",

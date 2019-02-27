@@ -646,21 +646,6 @@
           "Value": "US"
         }
       }
-    ],
-    "BirthSex": {
-      "EntryType": {
-        "Value": "http://standardhealthrecord.org/spec/shr/entity/BirthSex"
-      }
-    },
-    "Race": {
-      "EntryType": {
-        "Value": "http://standardhealthrecord.org/spec/shr/entity/Race"
-      }
-    },
-    "Ethnicity": {
-      "EntryType": {
-        "Value": "http://standardhealthrecord.org/spec/shr/entity/Ethnicity"
-      }
-    }
+    ]
   }
 ]
