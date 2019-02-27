@@ -1,14 +1,15 @@
-.FullApp {
+/* Restricts app to max fixed width for very wide screens. */
+.FullApp-content {
     min-height: 100vh;
     background-color: #FFFFFF;
     overflow: hidden;
-}
-
-/* Restricts app to max fixed width for very wide screens. */
-.FullApp-content {
     /* Reduce padding that is set using fluid-container from react flex box */
     padding-right: 0rem !important;
     padding-left: 0rem !important;
+}
+
+.FullApp-content.loading-background { 
+    background: grey;
 }
 
 .FullApp-content .container-fluid {
