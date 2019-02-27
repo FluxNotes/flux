@@ -24,10 +24,8 @@ import './TreatmentOptionsVisualizer.css';
 export class TreatmentOptionsVisualizer extends Component {
     componentDidMount() {
         const { patient, condition, initializeSimilarPatientProps, processSimilarPatientOutcomes } = this.props;
-        const patientAge = patient.getAge();
-        const patientAgeAtDiagnosis = patient.getAgeAsOf(new Date(condition.diagnosisDate));
-
-        initializeSimilarPatientProps(patientAge, patientAgeAtDiagnosis, patient.patient.race, patient.patient.gender);
+    
+        initializeSimilarPatientProps(patient, condition);
         processSimilarPatientOutcomes();
     }
 
@@ -58,7 +56,6 @@ export class TreatmentOptionsVisualizer extends Component {
             selectAllCategorySimilarPatientOptions,
             selectTreatments
         } = this.props;
-
         return (
             <div className="treatment-options-visualizer">
                 <div className="treatment-options-visualizer__info">

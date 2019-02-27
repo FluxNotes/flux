@@ -8,23 +8,23 @@
     "comparedTreatmentData": [],
     "similarPatientProps": {
        "demographic": {
-          "selected": false,
+          "selected": true,
           "displayText": "demographic",
           "options": {
              "age": {
-                "selected": false,
+                "selected": true,
                 "displayText": "age",
                 "minValue": 56,
                 "maxValue": 76
              },
              "diagnosedAge": {
-                "selected": false,
+                "selected": true,
                 "displayText": "age at diagnosis",
                 "minValue": 50,
                 "maxValue": 70
              },
              "race": {
-                "selected": false,
+                "selected": true,
                 "displayText": "race",
                 "value": ""
              },
@@ -36,37 +36,37 @@
           }
        },
        "pathology": {
-          "selected": true,
+          "selected": false,
           "displayText": "pathology",
           "options": {
              "ER": {
-                "selected": true,
+                "selected": false,
                 "displayText": "ER",
                 "value": "negative"
              },
              "PR": {
-                "selected": true,
+                "selected": false,
                 "displayText": "PR",
                 "value": "positive"
              },
              "HER2": {
-                "selected": true,
+                "selected": false,
                 "displayText": "HER2",
                 "value": "positive"
              },
              "grade": {
-                "selected": true,
+                "selected": false,
                 "displayText": "grade",
                 "value": 3
              },
              "stage": {
-                "selected": true,
+                "selected": false,
                 "displayText": "stage",
                 "value": "IIA"
              }
              ,
              "size": {
-                "selected": true,
+                "selected": false,
                 "displayText": "size (mm)",
                 "minValue": 10,
                 "maxValue": 20
@@ -74,48 +74,48 @@
           }
        },
        "treatmentHistory": {
-          "selected": true,
+          "selected": false,
           "displayText": "treatment history",
           "options": {
              "hadSurgery": {
-                "selected": true,
+                "selected": false,
                 "displayText": "had surgery",
                 "value": "yes"
              },
              "receivedRadTherapy": {
-                "selected": true,
+                "selected": false,
                 "displayText": "received radiation therapy",
                 "value": "yes"
              },
              "receivedChemo": {
-                "selected": true,
+                "selected": false,
                 "displayText": "received chemotherapy",
                 "value": "yes"
              }
           }
        },
        "genetics": {
-          "selected": true,
+          "selected": false,
           "displayText": "genetics",
           "options": {
              "BRCA1": {
-                "selected": true,
+                "selected": false,
                 "displayText": "BRCA1",
                 "value": "negative"
              },
              "BRCA2": {
-                "selected": true,
+                "selected": false,
                 "displayText": "BRCA2",
                 "value": "negative"
              }
           }
        },
        "medicalHistory": {
-          "selected": true,
+          "selected": false,
           "displayText": "medical history",
           "options": {
              "ECOG": {
-                "selected": true,
+                "selected": false,
                 "displayText": "ECOG score",
                 "minValue": 2,
                 "maxValue": 3
