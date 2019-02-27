@@ -261,10 +261,10 @@ class MedicationRangeChartVisualizer extends Visualizer {
                     {(med.medicationChange && med.medicationChange.type === 'stop') ? <div /> :
                     <div className="medication-item-content">
                         <Row around='xs'>
-                            <Col md={2}>
+                            <Col md={1}>
                                 {this.renderMedicationDosage(lowerValue, upperValue, dosageValue, dosageUnit, timingValue, timingUnit, asNeededIndicator, doseInstructionsText)}
                             </Col>
-                            <Col md={4}>
+                            <Col md={5}>
                                 <div className="medication-range-chart-container">
                                     <RangeChart
                                         lowerValue={lowerValue}
