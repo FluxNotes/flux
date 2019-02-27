@@ -361,6 +361,7 @@ export default class NoteAssistant extends Component {
                 <div className="in-progress-text">In progress note</div>
                 <div className="existing-note-date">{note.entryInfo.creationTime.value}</div>
                 <div className="existing-note-subject">{note.subject}</div>
+                <div className="existing-note-author">{note.createdBy}</div>
                 {this.renderMetaDataText(note, 30)}
             </div>
         );
@@ -416,6 +417,7 @@ export default class NoteAssistant extends Component {
 
     // For each clinical note, render the note image with the text
     renderClinicalNote(item, i) {
+
         // If the note is selected and open, we want to use the selected className
         const selectedClassName = (Lang.isEqual(this.props.selectedNote, item) && Lang.isEqual(this.props.noteClosed, false)) ? "selected" : "";
         // If the note is in our array of search suggestions, we want to use the search-result className
@@ -427,8 +429,9 @@ export default class NoteAssistant extends Component {
             && this.props.highlightedSearchSuggestion.valueTitle !== "Subsection"
             && Lang.isEqual(this.props.highlightedSearchSuggestion.note.entryInfo.entryId, item.entryInfo.entryId)
             && Lang.includes(this.state.highlightedNoteIds, item.entryInfo.entryId)) ? "highlighted-result" : "";
-
+         
         return (
+         
             <div 
                 ref={item.entryInfo.entryId} 
                 className={`note existing-note ${selectedClassName} ${searchedForClassName} ${highlighedSearchSuggestionClassName}`} 
@@ -439,6 +442,7 @@ export default class NoteAssistant extends Component {
             >
                 <div className="existing-note-date">{item.signedOn}</div>
                 <div className="existing-note-subject">{item.subject}</div>
+                <div className="existing-note-author">{item.createdBy}</div>
 
                 {this.renderMetaDataText(item)}
                
