@@ -4,32 +4,11 @@ import _ from 'lodash';
 import filterTreatmentData from '../mcode-pilot/utils/filterTreatmentData';
 
 import defaultState from './initial.json';
-
+import getProps from '../mcode-pilot/utils/recordToProps'
 export default function mcode(state = defaultState, action) {
     if (action.type === types.INITIALIZE_SIMILAR_PATIENT_PROPS) {
-        const { patientAge, patientAgeAtDiagnosis, patientRace, patientGender } = action;
-        const demographicOptions = state.similarPatientProps.demographic.options;
-
-        // demographics - age
-        const maxAge = patientAge + 10;
-        let minAge = patientAge - 10;
-        if (minAge < 0) minAge = 0;
-        demographicOptions.age.minValue = minAge;
-        demographicOptions.age.maxValue = maxAge;
-
-        // demographics - age at diagnosis
-        const maxAgeAtDiagnosis = patientAgeAtDiagnosis + 10;
-        let minAgeAtDiagnosis = patientAgeAtDiagnosis - 10;
-        if (minAgeAtDiagnosis < 0) minAgeAtDiagnosis = 0;
-        demographicOptions.diagnosedAge.minValue = minAgeAtDiagnosis;
-        demographicOptions.diagnosedAge.maxValue = maxAgeAtDiagnosis;
-
-        // demographics - race
-        demographicOptions.race.value = _.lowerCase(patientRace);
-
-        // demographics - gender
-        demographicOptions.gender.value = _.lowerCase(patientGender);
-
+        const { patient, condition } = action;
+        state.similarPatientProps={ ...getProps(patient,condition)};
         return { ...state };
     } else if (action.type === types.SELECT_SIMILAR_PATIENT_OPTION) {
         const { category, key, selected } = action;

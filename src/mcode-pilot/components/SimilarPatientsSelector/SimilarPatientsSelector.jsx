@@ -31,12 +31,17 @@ export default class SimilarPatientsSelector extends Component {
                 </div>
 
                 <div className="similar-patients-selector__options">
-                    <OptionsCheckboxList
-                        options={similarPatientProps.demographic}
-                        setSelected={(key, selected) => selectSimilarPatientOption('demographic', key, selected)}
-                        setAllSelected={(selected) => selectAllCategorySimilarPatientOptions('demographic', selected)}
-                    />
+                    { Object.keys(similarPatientProps).map((option)=>{
+                        return (
+                            <OptionsCheckboxList
+                            options={similarPatientProps[option]}
+                            setSelected={(key, selected) => selectSimilarPatientOption(option, key, selected)}
+                            setAllSelected={(selected) => selectAllCategorySimilarPatientOptions(option, selected)}
+                            />
+                        )
+                    })}
 
+{/* 
                     <OptionsCheckboxList
                         options={similarPatientProps.pathology}
                         setSelected={(key, selected) => selectSimilarPatientOption('pathology', key, selected)}
@@ -59,7 +64,7 @@ export default class SimilarPatientsSelector extends Component {
                         options={similarPatientProps.medicalHistory}
                         setSelected={(key, selected) => selectSimilarPatientOption('medicalHistory', key, selected)}
                         setAllSelected={(selected) => selectAllCategorySimilarPatientOptions('medicalHistory', selected)}
-                    />
+                    /> */}
                 </div>
             </div>
         );

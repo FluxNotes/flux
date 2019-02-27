@@ -2,13 +2,11 @@ import * as types from './types';
 
 // ------------------------- SIMILAR PATIENT OPTIONS ----------------------- //
 
-function initializeSimilarPatientProps(patientAge, patientAgeAtDiagnosis, patientRace, patientGender) {
+function initializeSimilarPatientProps(patient, condition) {
     return {
         type: types.INITIALIZE_SIMILAR_PATIENT_PROPS,
-        patientAge,
-        patientAgeAtDiagnosis,
-        patientRace,
-        patientGender
+        patient,
+        condition
     };
 }
 
