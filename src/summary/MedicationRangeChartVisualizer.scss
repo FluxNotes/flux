@@ -1,0 +1,86 @@
+@import '../styles/variables';
+
+.medication {
+    &-visualizer-wrapper {
+        padding-top: 10px;
+    }
+
+    &-item {
+        padding: 0px 0;
+
+        &-heading, &-content {
+            padding: 10px;
+
+            &-title {
+                font-size: 13px;
+                font-weight: 550;
+            }
+
+            .highlighted {
+                background-color: $highlight-yellow !important;
+            }
+
+            .selected {
+                background-color: $highlight-selected-yellow !important;
+            }
+
+            .normal {
+                color: $body-gray;
+            }
+
+            .out-of-range {
+                color: $warning-red;
+            }
+        }
+    }
+
+    &-range-chart-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+    }
+
+    &-info {
+        font-size: 0.8em;
+        padding-bottom: 7px;
+
+        &-heading {
+            font-size: 0.7em;
+            color: #999;
+        }
+    }
+
+    &-change { 
+        font-size: 12px;
+
+        &-container {
+            display: flex;
+            padding-left: 0rem;
+        }
+
+        &-padding {
+            padding-left: 0rem;
+        }
+
+        &-type { 
+            font-weight: 700;
+
+            &-unsigned {
+                cursor: pointer;
+                border-bottom: 1.5px dashed rgba(1, 130, 215, 0.8);
+                text-decoration: none;
+            }
+        }
+
+        &-wide { 
+            font-size: 12px;
+            align-self: center;
+            margin: auto;
+        }
+    }
+
+
+    &-dosage-info {
+        font-size: 12px;
+    }
+}
