@@ -1,6 +1,7 @@
 import MetadataSection from "./MetadataSection";
 import FluxBreastCancerDisorderPresent from "../../model/brca/FluxBreastCancerDisorderPresent";
 import Lang from 'lodash';
+import moment from 'moment';
 
 export default class GeneralCancerSummarySection extends MetadataSection {
     getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
@@ -11,20 +12,30 @@ export default class GeneralCancerSummarySection extends MetadataSection {
             /*eslint no-template-curly-in-string: "off"*/
             narrative: [
                 {
-                    defaultTemplate: "Patient has ${Cancer.Name} in ${Cancer.Site} pathologic stage ${Cancer.Pathologic Stage} since age ${Cancer.Age at Diagnosis}.",
-                    dataMissingTemplate: "Patient has ${Cancer.Name} in ${Cancer.Site} clinical stage ${Cancer.Clinical Stage} since age ${Cancer.Age at Diagnosis}.",
-                    useDataMissingTemplateCriteria: [
-                        "Cancer.Pathologic Stage"
-                    ]
+                    defaultTemplate: "Patient has ${Cancer.Name} in ${Cancer.Site} since age ${Cancer.Age at Diagnosis}.",
                 },
                 {
                     defaultTemplate: "Laterality is ${Cancer.Laterality}."
                 },
                 {
-                    defaultTemplate: "Tumor histology is ${Cancer.Tumor Histology}. Histological grade is ${Cancer.Histological Grade}."
+                    defaultTemplate: "Tumor histology is ${Cancer.Histological Type}. Histological grade is ${Cancer.Histological Grade}."
                 },
                 {
                     defaultTemplate: "Tumor markers include ${Cancer.Tumor Markers}."
+                },
+                {
+                    defaultTemplate: "Clinical stage is ${Staging.Clinical Stage} based on ${Staging.Clinical Staging Panel}",
+                    dataMissingTemplate: "Clinical stage is ${Staging.Clinical Stage}",
+                    useDataMissingTemplateCriteria: [
+                        "Staging.Clinical Staging Panel",
+                    ]
+                },
+                {
+                    defaultTemplate: "Pathologic stage is ${Staging.Pathologic Stage} based on ${Staging.Pathologic Staging Panel}",
+                    dataMissingTemplate: "Pathologic stage is ${Staging.Pathologic Stage}.",
+                    useDataMissingTemplateCriteria: [
+                        "Staging.Pathologic Staging Panel"
+                    ]
                 },
                 {
                     defaultTemplate: "Genetic Tests are ${Genomics.Genetic Tests}. Genes are ${Genomics.Genes}",
@@ -69,6 +80,15 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                             }
                         },
                         {
+                            name: "Clinical Status",
+                            value: (patient, currentConditionEntry) => {
+                                return  {   value: currentConditionEntry.clinicalStatus, 
+                                            isUnsigned: patient.isUnsigned(currentConditionEntry), 
+                                            source: this.determineSource(patient, currentConditionEntry)
+                                        };
+                            }
+                        },
+                        {
                             name: "Site",
                             value: (patient, currentConditionEntry) => {
                                 return  {   value: currentConditionEntry.bodySite,
@@ -87,7 +107,7 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                             }
                         },
                         {
-                            name: "Tumor Histology",
+                            name: "Histological Type",
                             value: (patient, currentConditionEntry) => {
                                 let histologicalType = currentConditionEntry.getMostRecentHistologicType();
                                 if (!histologicalType) return null;
@@ -107,34 +127,6 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                                             source: this.determineSource(patient, histologicalGrade)
                                         };
                             }
-                        },
-                        {
-                            name: "Clinical Stage",
-                            value: (patient, currentConditionEntry) => {
-                                let s = currentConditionEntry.getMostRecentClinicalStaging();
-                                if (s && s.stage && s.stage.length > 0) {
-                                    return  {   value: s.stage, 
-                                                isUnsigned: patient.isUnsigned(s), 
-                                                source: this.determineSource(patient, s)
-                                            };
-                                } else {
-                                    return null;
-                                }
-                            },
-                        },
-                        {
-                            name: "Pathologic Stage",
-                            value: (patient, currentConditionEntry) => {
-                                let s = currentConditionEntry.getMostRecentPathologicStaging();
-                                if (s && s.stage && s.stage.length > 0) {
-                                    return  {   value: s.stage, 
-                                                isUnsigned: patient.isUnsigned(s), 
-                                                source: this.determineSource(patient, s)
-                                            };
-                                } else {
-                                    return null;
-                                }
-                            },
                         },
                         {
                             name: "Tumor Markers",
@@ -173,6 +165,92 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                                     };
                                 }
                             }
+                        },
+                        {
+                            name: "Disease Status",
+                            value: (patient, currentConditionEntry) => {
+                                let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
+                                if (Lang.isNull(p) || !p.status) {
+                                    return null;
+                                } else {
+                                    return  {   value: p.status, 
+                                                isUnsigned: patient.isUnsigned(p), 
+                                                source: this.determineSource(patient, p)
+                                            };
+                                }
+                            }
+                        },
+                        {
+                            name: "As Of Date",
+                            value: (patient, currentConditionEntry) => {
+                                let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
+                                if (Lang.isNull(p) || !p.status) {
+                                    return null;
+                                } else {
+                                    return  {   value: p.asOfDate, 
+                                                isUnsigned: patient.isUnsigned(p), 
+                                                source: this.determineSource(patient, p)
+                                            };
+                                }
+                            }
+                        },
+                        {
+                            name: "Rationale",
+                            value: (patient, currentConditionEntry) => {
+                                let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
+                                if (Lang.isNull(p) || !p.status) {
+                                    return null;
+                                } else {
+                                    return  {   value: p.evidence.map(function (ev) {
+                                                        return ev;
+                                                    }).join(', '), 
+                                                isUnsigned: patient.isUnsigned(p), 
+                                                source: this.determineSource(patient, p)
+                                            };
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    name: "Staging",
+                    items: [
+                        {
+                            name: "Clinical Stage",
+                            value: (patient, currentConditionEntry) => {
+                                console.log('currentConditionEntry: ', currentConditionEntry);
+                                let s = currentConditionEntry.getMostRecentClinicalStaging();
+                                if (s && s.stage && s.stage.length > 0) {
+                                    return  {   value: s.stage, 
+                                                isUnsigned: patient.isUnsigned(s), 
+                                                source: this.determineSource(patient, s)
+                                            };
+                                } else {
+                                    return null;
+                                }
+                            },
+                        },
+                        {
+                            name: "Clinical Staging Panel",
+                            value: null
+                        },
+                        {
+                            name: "Pathologic Stage",
+                            value: (patient, currentConditionEntry) => {
+                                let s = currentConditionEntry.getMostRecentPathologicStaging();
+                                if (s && s.stage && s.stage.length > 0) {
+                                    return  {   value: s.stage, 
+                                                isUnsigned: patient.isUnsigned(s), 
+                                                source: this.determineSource(patient, s)
+                                            };
+                                } else {
+                                    return null;
+                                }
+                            },
+                        },
+                        {
+                            name: "Pathologic Staging Panel",
+                            value: null
                         }
                     ]
                 },

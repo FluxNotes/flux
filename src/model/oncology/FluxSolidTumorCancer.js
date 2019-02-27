@@ -44,6 +44,7 @@ class FluxSolidTumorCancer extends FluxCancerDisorderPresent {
         let stagingList = this._patientRecord.getEntriesOfType(FluxTNMClinicalStageGroup);
         if (stagingList.length === 0) return null; 
         const sortedStagingList = stagingList.sort(this._stageTimeSorter);
+        console.log('sortedStagingList: ', sortedStagingList);
         const length = sortedStagingList.length;
         let s = (sortedStagingList[length - 1]);
         if (Lang.isNull(sinceDate)) return s; 
