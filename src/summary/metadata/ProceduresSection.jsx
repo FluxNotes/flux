@@ -9,7 +9,7 @@ export default class ProceduresSection extends MetadataSection {
             data: [
                 {
                     name: "",
-                    headings: ["Procedure", "When"],
+                    headings: ["Procedure", "When", "Clinician"],
                     itemsFunction: this.getItemListForProcedures
                 }
             ]
@@ -39,6 +39,10 @@ export default class ProceduresSection extends MetadataSection {
                     {   value: p.occurrenceTime }
                 );
             }
+            result.push({   value: p.expectedPerformer,
+                            isUnsigned: patient.isUnsigned(p),
+                            source:  this.determineSource(patient, p) });
+
             return result;
         });
     }

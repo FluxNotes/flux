@@ -75,6 +75,14 @@ class FluxProcedureRequested {
         }
     }
 
+    get expectedPerformer() {
+        if (this._procedureRequested.expectedPerformer && this._procedureRequested.expectedPerformer.value && this._procedureRequested.expectedPerformer.value.person) {
+            return this._procedureRequested.expectedPerformer.value.person.name;
+        } else {
+            return null;
+        }
+    }
+
     /**
      * Extract a human-readable string from a code.
      *
