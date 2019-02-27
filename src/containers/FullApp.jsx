@@ -161,7 +161,7 @@ export class FullApp extends Component {
         if (DAGestalt.read.async) { 
             this.dataAccess.getPatient(patientId, (patient, error) => { 
                 this.contextManager = new ContextManager(patient, this.onContextUpdate);
-                if (!Lang.isEmpty(error)) console.error(error)
+                if (error) console.error(error)
                 this.setState({ 
                     patient, 
                     loading: false,
