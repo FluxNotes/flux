@@ -190,7 +190,7 @@ class RangeChart extends Component {
         let svgForTypicalTick = null;
         let svgForTypicalText = null;
         if (!Lang.isNull(typicalValueXPixels)) {
-            svgForTypicalTick = <line x1={typicalValueXPixels} y1="45" x2={typicalValueXPixels} y2="55" stroke="#979797" strokeWidth="1" />;
+            svgForTypicalTick = <line x1={typicalValueXPixels} y1="43" x2={typicalValueXPixels} y2="57" stroke="#979797" strokeWidth="1" />;
             if (!Lang.isNull(typicalValueTextXPixels)) {
                 svgForTypicalText = <text x={typicalValueTextXPixels} y="70" fontFamily="sans-serif" fontSize="10px" fill="#3F3F3F">{this.props.typicalValue}</text>;      
             }
@@ -203,7 +203,7 @@ class RangeChart extends Component {
         if (Lang.isNull(lowerValueXPixels) || Lang.isNull(upperValueXPixels)) {
             svgForRangeBar = <text x={lineStartXPixels} y="38" fontFamily="sans-serif" fontSize="10px" fill="#3F3F3F">dosage range unknown</text>;
         } else {
-            svgForRangeBar = <line x1={lowerValueXPixels} y1="50" x2={upperValueXPixels} y2="50" stroke="#DDD" strokeWidth="4" />;
+            svgForRangeBar = <line x1={lowerValueXPixels} y1="50" x2={upperValueXPixels} y2="50" stroke="#DDD" strokeWidth="5" />;
             if (!Lang.isNull(lowerValueTextXPixels)) {
                 svgForRangeLowerText = <text x={lowerValueTextXPixels} y="70" fontFamily="sans-serif" fontSize="10px" fill="#3F3F3F">{this.props.lowerValue}</text>;
             }
@@ -233,9 +233,6 @@ class RangeChart extends Component {
         return (
             <div>
                 <svg width="250px" height="6em" viewBox={viewBoxDimensions}>
-                    {/*Main line*/}
-                    <line x1={lineStartXPixels - mainLinePaddingPixels} y1="50" x2={lineStartXPixels + lineLengthPixels + mainLinePaddingPixels} y2="50" stroke="#C2C2C2" strokeWidth="0.5" />
-
                     {/*Typical value tick*/}
                     {svgForTypicalTick}
                     {svgForTypicalText}
@@ -244,6 +241,9 @@ class RangeChart extends Component {
                     {svgForRangeBar}
                     {svgForRangeLowerText}
                     {svgForRangeUpperText}
+
+                    {/*Main line*/}
+                    <line x1={lineStartXPixels - mainLinePaddingPixels} y1="50" x2={lineStartXPixels + lineLengthPixels + mainLinePaddingPixels} y2="50" stroke="#C2C2C2" strokeWidth="0.5" />
 
                     {/* Data point for the value */}
                     {svgForDataPointBorder}
