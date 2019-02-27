@@ -257,8 +257,8 @@ export class CoreCancerPilotApp extends Component {
     render() {
         return (
             <MuiThemeProvider theme={theme}>
-                <div className="FullApp">
-                    <Grid className="FullApp-content" fluid>
+                <div className={(this.state.loading || this.state.loadingErrorObject) ? "FullApp-content loading-background" : "FullApp-content"}>
+                    <Grid fluid>
                         <Row center="xs">
                             <Col sm={12}>
                                 <PatientControlPanel
