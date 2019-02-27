@@ -560,6 +560,7 @@ exports.mapEntries = (v01Json) => {
             newProcedure.expectedPerformanceTime = mapExpectedPerformanceTime(entry._procedureRequested.expectedPerformanceTime);
             if (entry._procedureRequested.annotation) newProcedure.annotation = entry._procedureRequested.annotation.map(a => mapAnnotation(a));
             if (entry._procedureRequested.reason) newProcedure.reason = entry._procedureRequested.reason.map(r => mapPassThrough(r, Reason));
+            if (entry._procedureRequested.expectedPerformer) newProcedure.expectedPerformer = mapPassThrough(entry._procedureRequested.expectedPerformer, ExpectedPerformer);
             newProcedure.status = mapStatus(entry._procedureRequested.status);
             newProcedure.procedureCode = new ProcedureCode();
             newProcedure.procedureCode.value = mapPassThrough(entry._procedureRequested.topicCode.value, CodeableConcept);

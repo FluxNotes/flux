@@ -686,7 +686,12 @@
                     },
                     "HumanName": [
                         {
-                            "NameAsText": "Dr. Strauss179",
+                            "NameAsText": {
+                                "Value": "Dr. Strauss179",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/NameAsText"
+                                }
+                            },
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
                             }
@@ -707,7 +712,12 @@
                                 "Value": {
                                     "Coding": [
                                         {
-                                            "Code": "prov",
+                                            "Code": {
+                                                "Value": "prov",
+                                                "EntryType": {
+                                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                                }
+                                            },
                                             "EntryType": {
                                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                             },
@@ -835,7 +845,12 @@
                     },
                     "HumanName": [
                         {
-                            "NameAsText": "Dr. Landry8",
+                            "NameAsText": {
+                                "Value": "Dr. Landry8",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/NameAsText"
+                                }
+                            },
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
                             }
@@ -856,7 +871,12 @@
                                 "Value": {
                                     "Coding": [
                                         {
-                                            "Code": "prov",
+                                            "Code": {
+                                                "Value": "prov",
+                                                "EntryType": {
+                                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                                }
+                                            },
                                             "EntryType": {
                                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                             },
@@ -984,7 +1004,12 @@
                     },
                     "HumanName": [
                         {
-                            "NameAsText": "Dr. Met55",
+                            "NameAsText": {
+                                "Value": "Dr. Met55",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/NameAsText"
+                                }
+                            },
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
                             }
@@ -1005,7 +1030,12 @@
                                 "Value": {
                                     "Coding": [
                                         {
-                                            "Code": "prov",
+                                            "Code": {
+                                                "Value": "prov",
+                                                "EntryType": {
+                                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                                }
+                                            },
                                             "EntryType": {
                                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                             },
@@ -1409,7 +1439,12 @@
                     },
                     "HumanName": [
                         {
-                            "NameAsText": "Dr. Sanborn110",
+                            "NameAsText": {
+                                "Value": "Dr. Sanborn110",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/NameAsText"
+                                }
+                            },
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
                             }
@@ -1430,7 +1465,12 @@
                                 "Value": {
                                     "Coding": [
                                         {
-                                            "Code": "prov",
+                                            "Code": {
+                                                "Value": "prov",
+                                                "EntryType": {
+                                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                                }
+                                            },
                                             "EntryType": {
                                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                             },
