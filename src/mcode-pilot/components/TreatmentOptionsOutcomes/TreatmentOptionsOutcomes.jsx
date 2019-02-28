@@ -114,7 +114,7 @@ export default class TreatmentOptionsOutcomes extends Component {
                 <div className="flex flex-4 flex-padding flex-center top-side-effects">
                     <div>
                         {topSideEffects.map(({ sideEffect, occurrences }, i) =>
-                            <div key={i} className="side-effect">
+                            <div key={i}>
                                 {`${sideEffect} `}
                                 ({Math.floor(occurrences / totalPatients * 100)}%)
                             </div>
