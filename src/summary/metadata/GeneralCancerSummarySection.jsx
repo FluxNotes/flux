@@ -271,7 +271,7 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                     name: "Performance",
                     items: [
                         {
-                            name: "Karnofsky Panel",
+                            name: "Karnofsky Status",
                             value: (patient, currentConditionEntry) => {
                                 const k = currentConditionEntry.getMostRecentKarnofskyPerformanceStatus();
                                 if (!k) return null;
@@ -282,7 +282,7 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                             }
                         },
                         {
-                            name: "ECOG Panel",
+                            name: "ECOG Status",
                             value: (patient, currentConditionEntry) => {
                                 const e = currentConditionEntry.getMostRecentECOGPerformanceStatus();
                                 if (!e) return null;
