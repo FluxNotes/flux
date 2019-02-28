@@ -10,6 +10,16 @@ const TREATMENT_NAMES = {
     'radiation': 'radiation therapy'
 };
 
+import { isSame, getCombinations } from './arrayCompare';
+
+const TREATMENT_NAMES = {
+    'noTreatment': 'none (actively monitoring)',
+    'chemotherapy': 'chemotherapy',
+    'hormonal': 'hormonal therapy',
+    'surgery': 'surgery',
+    'radiation': 'radiation therapy'
+};
+
 const SIDE_EFFECT_NAMES = {
     'hotFlash': 'Hot Flashes',
     'decLibido': 'Decreased Libido',
@@ -28,11 +38,11 @@ export default function filterTreatmentData(similarPatientProps, includedTreatme
     const similarPatients = transformedTreatmentData.filter(treatmentDataPatient => isSimilarPatient(treatmentDataPatient, similarPatientProps));
     const totalSimilarPatients = similarPatients.length;
     const similarPatientTreatments = generateSimilarPatientTreatments(similarPatients);
-    const includedTreatmentData = generateTreatmentData(similarPatients, [includedTreatments], includedTreatments);
-    const comparedTreatmentCombinations = getCombinations(comparedTreatments, includedTreatments).filter(treatments =>
+    const includedTreatmentData = generateTreatmentData(similarPatients, [includedTreatments]);
+    const comparedTreatmentCombinations = getCombinations(comparedTreatments).filter(treatments =>
         treatments.length !== includedTreatments.length || !includedTreatments.every(treatment => treatments.includes(treatment))
     );
-    const comparedTreatmentData = generateTreatmentData(similarPatients, comparedTreatmentCombinations, includedTreatments);
+    const comparedTreatmentData = generateTreatmentData(similarPatients, comparedTreatmentCombinations);
 
     return {
         totalPatients,
@@ -43,10 +53,10 @@ export default function filterTreatmentData(similarPatientProps, includedTreatme
     };
 }
 
-function initializeTreatmentData(displayName) {
+function initializeTreatmentData(name) {
     return {
         id: _.uniqueId('row_'),
-        displayName,
+        name,
         totalPatients: 0,
         oneYrSurvival: 0,
         threeYrSurvival: 0,
@@ -58,7 +68,7 @@ function initializeTreatmentData(displayName) {
     };
 }
 
-function generateTreatmentData(similarPatients, treatments, includedTreatments) {
+function generateTreatmentData(similarPatients, treatments) {
     if (similarPatients.length === 0) return [];
 
     let treatmentData = [];
