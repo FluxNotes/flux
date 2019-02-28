@@ -221,7 +221,8 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                                 console.log('currentConditionEntry: ', currentConditionEntry);
                                 let s = currentConditionEntry.getMostRecentClinicalStaging();
                                 if (s && s.stage && s.stage.length > 0) {
-                                    return  {   value: s.stage, 
+                                    let s_string = currentConditionEntry.getMostRecentClinicalStagingAsString();
+                                    return  {   value: s_string, 
                                                 isUnsigned: patient.isUnsigned(s), 
                                                 source: this.determineSource(patient, s)
                                             };
@@ -229,10 +230,6 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                                     return null;
                                 }
                             },
-                        },
-                        {
-                            name: "Clinical Staging Panel",
-                            value: null
                         },
                         {
                             name: "Pathologic Stage",
@@ -247,10 +244,6 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                                     return null;
                                 }
                             },
-                        },
-                        {
-                            name: "Pathologic Staging Panel",
-                            value: null
                         }
                     ]
                 },
