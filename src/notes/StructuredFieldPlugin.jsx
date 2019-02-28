@@ -361,20 +361,33 @@ function StructuredFieldPlugin(opts) {
         const isVoidBlock = Boolean(endBlock && endBlock.isVoid);
         const isVoidInline = Boolean(endInline && endInline.isVoid);
         const isVoid = isVoidBlock || isVoidInline;
-        const { focusKey, focusOffset } = selection;
-        const focusNode = document.getParent(focusKey); // Parent of the text of selection
+        const { focusKey, anchorKey, focusOffset, anchorOffset } = selection;
 
         // If the selection is collapsed, and it isn't inside a void node, abort.
         if (native.isCollapsed && !isVoid) return;
 
-        // If the selection is focused at the beginning of a structured field,
+        // If the selection is backward, we care about where the selection is focused.
+        // Otherwise, we care about the anchor of the selection
+        let selectionKey, selectionOffset, moveMethod;
+        if (selection.isBackward) {
+            selectionKey = focusKey;
+            selectionOffset = focusOffset;
+            moveMethod = 'moveFocusToEndOf';
+        } else {
+            selectionKey = anchorKey;
+            selectionOffset = anchorOffset;
+            moveMethod = 'moveAnchorToEndOf';
+        }
+
+        // Get the parent of the Text where the selection is focused or anchored
+        const selectionNode = document.getParent(selectionKey);
+
+        // If the selection is focused or anchored at the beginning of a structured field,
         // we want to extend the selection to the text node before the SF
         let fluxString = '';
-        if (focusNode.type === 'structured_field' && focusOffset === 0) {
-            const previousText = document.getPreviousText(focusKey);
-            const newState = state.transform()
-                .moveFocusToEndOf(previousText)
-                .apply();
+        if (selectionNode.type === 'structured_field' && selectionOffset === 0) {
+            const previousText = document.getPreviousText(selectionKey);
+            const newState = state.transform()[moveMethod](previousText).apply();
             fluxString = convertToText(newState.fragment);
         } else {
             fluxString = convertToText(data.fragment);
