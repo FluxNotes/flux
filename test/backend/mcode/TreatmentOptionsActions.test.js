@@ -15,6 +15,9 @@ import FluxCancerDisorderPresent from '../../../src/model/oncocore/FluxCancerDis
 const mockStore = configureMockStore([thunk]);
 
 
+const mockStore = configureMockStore([thunk])
+
+
 describe('actions', () => {
 
     const mcodePatientJson = EntryMapper.mapEntries(TestPatient2);

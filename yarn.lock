@@ -4013,7 +4013,7 @@ ieee754@^1.1.4:
 ignore-walk@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/ignore-walk/-/ignore-walk-3.0.1.tgz#a83e62e7d272ac0e3b551aaa82831a19b69f82f8"
-  dependencies:
+  dependencies:d
     minimatch "^3.0.4"
 
 ignore@^3.2.0:

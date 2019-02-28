@@ -54,6 +54,7 @@
     "redux-logger": "^3.0.6",
     "redux-promise-middleware": "^5.1.1",
     "redux-thunk": "^2.3.0",
+    "redux-mock-store": "",
     "run-script-os": "1.0.3",
     "shr_rest_client": "^0.0.6",
     "slate": "0.20.2",

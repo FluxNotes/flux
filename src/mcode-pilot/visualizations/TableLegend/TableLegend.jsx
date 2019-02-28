@@ -12,7 +12,7 @@ export default class TableLegend extends Component {
             // the row is empty
             message = "survived with treatment";
         } else {
-            const name = includedRow.name;
+            const name = includedRow.displayName;
             const noTreatment = name === 'none (actively monitoring)';
             const hasAnd = name.indexOf('&') > -1;
             message = `survived with ${noTreatment ? 'no treatment' : name} ${hasAnd || noTreatment ? "" : " alone"}`;
