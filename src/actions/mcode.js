@@ -1,4 +1,5 @@
 import * as types from './types';
+import {default as config} from '../config'
 
 // ------------------------- SIMILAR PATIENT OPTIONS ----------------------- //
 
@@ -34,10 +35,26 @@ function selectAllSimilarPatientOptions(selected) {
     };
 }
 
-function processSimilarPatientOutcomes() {
+function updatePatientOutcomes(data) {
     return {
-        type: types.PROCESS_SIMILAR_PATIENT_OUTCOMES
+        type: types.UPDATE_PATIENT_OUTCOMES,
+        data
     };
+}
+
+function processSimilarPatientOutcomes() {
+  return (dispatch, getState) => {
+    const {similarPatientProps, includedTreatments, comparedTreatments} = getState().mcode
+    return config.OutcomesService.processSimilarPatientOutcomes(similarPatientProps, includedTreatments, comparedTreatments).then((results) =>{
+      dispatch(updatePatientOutcomes({
+         totalPatients: results.totalPatients,
+         totalSimilarPatients: results.totalSimilarPatients,
+         similarPatientTreatments:  results.similarPatientTreatments,
+         includedTreatmentData: results.includedTreatmentData,
+         comparedTreatmentData: results.comparedTreatmentData
+       }))
+   })
+  }
 }
 
 function selectTreatments(treatmentType, treatments) {

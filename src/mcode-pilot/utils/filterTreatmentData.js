@@ -28,11 +28,11 @@ export default function filterTreatmentData(similarPatientProps, includedTreatme
     const similarPatients = transformedTreatmentData.filter(treatmentDataPatient => isSimilarPatient(treatmentDataPatient, similarPatientProps));
     const totalSimilarPatients = similarPatients.length;
     const similarPatientTreatments = generateSimilarPatientTreatments(similarPatients);
-    const includedTreatmentData = generateTreatmentData(similarPatients, [includedTreatments]);
-    const comparedTreatmentCombinations = getCombinations(comparedTreatments).filter(treatments =>
+    const includedTreatmentData = generateTreatmentData(similarPatients, [includedTreatments], includedTreatments);
+    const comparedTreatmentCombinations = getCombinations(comparedTreatments, includedTreatments).filter(treatments =>
         treatments.length !== includedTreatments.length || !includedTreatments.every(treatment => treatments.includes(treatment))
     );
-    const comparedTreatmentData = generateTreatmentData(similarPatients, comparedTreatmentCombinations);
+    const comparedTreatmentData = generateTreatmentData(similarPatients, comparedTreatmentCombinations, includedTreatments);
 
     return {
         totalPatients,
@@ -43,10 +43,10 @@ export default function filterTreatmentData(similarPatientProps, includedTreatme
     };
 }
 
-function initializeTreatmentData(name) {
+function initializeTreatmentData(displayName) {
     return {
         id: _.uniqueId('row_'),
-        name,
+        displayName,
         totalPatients: 0,
         oneYrSurvival: 0,
         threeYrSurvival: 0,
@@ -58,8 +58,11 @@ function initializeTreatmentData(name) {
     };
 }
 
-function generateTreatmentData(similarPatients, treatments) {
+function generateTreatmentData(similarPatients, treatments, includedTreatments) {
     if (similarPatients.length === 0) return [];
+    console.debug('similarPatients:', similarPatients);
+    console.debug('treatments:', treatments);
+    console.debug('includedTreatments:', includedTreatments);
 
     let treatmentData = [];
     treatments.forEach(treatment => {
@@ -97,6 +100,7 @@ function generateTreatmentData(similarPatients, treatments) {
         }
     });
 
+    console.debug('treatmentData:', treatmentData);
     return treatmentData;
 }
 
