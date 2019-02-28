@@ -357,14 +357,29 @@ function StructuredFieldPlugin(opts) {
     function onCopy(event, data, state, editor) {
         const window = getWindow(event.target);
         const native = window.getSelection();
-        const { endBlock, endInline } = state;
+        const { endBlock, endInline, document, selection } = state;
         const isVoidBlock = Boolean(endBlock && endBlock.isVoid);
         const isVoidInline = Boolean(endInline && endInline.isVoid);
         const isVoid = isVoidBlock || isVoidInline;
+        const { focusKey, focusOffset } = selection;
+        const focusNode = document.getParent(focusKey); // Parent of the text of selection
 
         // If the selection is collapsed, and it isn't inside a void node, abort.
         if (native.isCollapsed && !isVoid) return;
-        let fluxString = convertToText(data.fragment);
+
+        // If the selection is focused at the beginning of a structured field,
+        // we want to extend the selection to the text node before the SF
+        let fluxString = '';
+        if (focusNode.type === 'structured_field' && focusOffset === 0) {
+            const previousText = document.getPreviousText(focusKey);
+            const newState = state.transform()
+                .moveFocusToEndOf(previousText)
+                .apply();
+            fluxString = convertToText(newState.fragment);
+        } else {
+            fluxString = convertToText(data.fragment);
+        }
+
         const encoded = window.btoa(window.encodeURIComponent(fluxString));
         const range = native.getRangeAt(0);
         let contents = range.cloneContents();
