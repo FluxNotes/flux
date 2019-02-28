@@ -359,9 +359,9 @@ export default class NoteAssistant extends Component {
                 this.openNote(true, note)
             }}>
                 <div className="in-progress-text">In progress note</div>
-                <div className="existing-note-date">{note.entryInfo.creationTime.value}</div>
-                <div className="existing-note-subject">{note.subject}</div>
-                <div className="existing-note-author">{note.createdBy}</div>
+                <div className="in-progress-note-date">{note.entryInfo.creationTime.value}</div>
+                <div className="in-progress-note-subject">{note.subject}</div>
+                <div className="in-progress-note-author">{note.createdBy}</div>
                 {this.renderMetaDataText(note, 30)}
             </div>
         );
