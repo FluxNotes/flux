@@ -71,13 +71,30 @@ export default function mcode(state = defaultState, action) {
         });
 
         return { ...state };
-    } else if (action.type === types.PROCESS_SIMILAR_PATIENT_OUTCOMES) {
-        const { totalPatients, similarPatients } = filterTreatmentData(state.similarPatientProps);
+    } else if (action.type === types.PROCESS_SIMILAR_PATIENT_OUTCOMES || action.type === types.SELECT_TREATMENTS) {
+        const newState = {
+            ...state
+        };
+
+        if (action.type === types.SELECT_TREATMENTS) {
+            newState[action.treatmentType] = action.treatments;
+        }
+
+        const {
+            totalPatients,
+            totalSimilarPatients,
+            similarPatientTreatments,
+            includedTreatmentData,
+            comparedTreatmentData
+        } = filterTreatmentData(newState.similarPatientProps, newState.includedTreatments, newState.comparedTreatments);
 
         return {
-            ...state,
+            ...newState,
             totalPatients,
-            similarPatients
+            totalSimilarPatients,
+            similarPatientTreatments,
+            includedTreatmentData,
+            comparedTreatmentData
         };
     }
 
