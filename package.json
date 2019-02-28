@@ -56,6 +56,7 @@
     "shr_rest_client": "^0.0.6",
     "slate": "0.20.2",
     "slate-auto-replace": "0.5.0",
+    "superagent": "3.7.0",
     "sync-request": "^4.1.0",
     "uuid": "^3.3.2"
   },
@@ -75,7 +76,8 @@
     "npm-run-all": "^4.1.2",
     "react-scripts": "0.9.5",
     "react-test-renderer": "15.6.2",
-    "testcafe": "0.17.1"
+    "testcafe": "0.17.1",
+    "webpack-dev-server": "3.1.11"
   },
   "resolutions": {
     "moment": "2.22.0",
