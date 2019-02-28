@@ -22,6 +22,7 @@
     "history": "^4.7.2",
     "immutable": "3.8.1",
     "interact.js": "1.2.8",
+    "lodash": "4.17.5",
     "material-ui": "1.0.0-beta.32",
     "material-ui-icons": "1.0.0-beta.15",
     "mkdirp": "0.5.1",
