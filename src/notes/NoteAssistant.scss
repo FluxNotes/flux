@@ -114,6 +114,23 @@ $note-assitant-width-3: 160px;
             &.highlighted-result {
                 background-color: $highlight-selected-yellow;
             }
+            &.in-progress-note {
+                .in-progress-note-date {
+                    padding-bottom: 5px;
+                    font-weight: bold;
+                }
+                .in-progress-note-subject {
+                    padding-bottom: 5px;
+                }
+                
+                .in-progress-note-author {
+                    padding-bottom: 5px;
+                }
+
+                .existing-note-metadata {
+                    margin-bottom: 5px;
+                }               
+            }
             &.existing-note {         
                 .existing-note-date {
                     padding-bottom: 5px;
@@ -125,6 +142,10 @@ $note-assitant-width-3: 160px;
                     border-bottom: 1px solid $line-gray;
                 }
                 
+                .existing-note-author {
+                    padding-top: 5px;
+                }
+
                 .existing-note-metadata {
                     margin-bottom: 5px;
                 }
