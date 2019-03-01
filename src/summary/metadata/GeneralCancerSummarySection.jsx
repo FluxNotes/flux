@@ -24,17 +24,13 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                     defaultTemplate: "Tumor markers include ${Cancer.Tumor Markers}."
                 },
                 {
-                    defaultTemplate: "Clinical stage is ${Staging.Clinical Stage} based on ${Staging.Clinical Staging Panel}",
-                    dataMissingTemplate: "Clinical stage is ${Staging.Clinical Stage}",
-                    useDataMissingTemplateCriteria: [
-                        "Staging.Clinical Staging Panel",
-                    ]
+                    defaultTemplate: "Clinical stage is ${Staging.Clinical Stage}.",
                 },
                 {
-                    defaultTemplate: "Pathologic stage is ${Staging.Pathologic Stage} based on ${Staging.Pathologic Staging Panel}",
-                    dataMissingTemplate: "Pathologic stage is ${Staging.Pathologic Stage}.",
+                    defaultTemplate: "Pathologic stage is ${Staging.Pathologic Stage}.",
+                    dataMissingTemplate: "",
                     useDataMissingTemplateCriteria: [
-                        "Staging.Pathologic Staging Panel"
+                        "Staging.Pathologic Stage"
                     ]
                 },
                 {
@@ -45,11 +41,11 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                     ]
                 },
                 {
-                    defaultTemplate: "Patient has a Karnofsky performance status of ${Performance.Karnofsky Panel} and ECOG performance status of ${Performance.ECOG Panel}.",
-                    dataMissingTemplate: "Patient has no performance status (Karnofsky is ${Performance.Karnofsky Panel} and ECOG is ${Performance.ECOG Panel}).",
+                    defaultTemplate: "Patient has a Karnofsky performance status of ${Performance.Karnofsky Status} and ECOG performance status of ${Performance.ECOG Status}.",
+                    dataMissingTemplate: "Patient has no performance status (Karnofsky is ${Performance.Karnofsky Status} and ECOG is ${Performance.ECOG Status}).",
                     useDataMissingTemplateCriteria: [
-                        "Performance.Karnofsky Panel",
-                        "Performance.ECOG Panel"
+                        "Performance.Karnofsky Status",
+                        "Performance.ECOG Status"
                     ]
                 }
             ],
