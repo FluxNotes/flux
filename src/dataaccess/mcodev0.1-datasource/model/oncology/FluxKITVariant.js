@@ -9,8 +9,16 @@ class FluxKITVariant {
         return this._kitVariant.specificFocusOfFinding.value.coding[0].displayText.value || 'KIT';
     }
 
+    get statusSign() {
+        return (this.value === 'Positive'?'+':'-');
+    }
+
     get value() {
         return this._kitVariant.value.coding[0].displayText.value;
+    }
+
+    get status() {
+        return this.value;
     }
 
     toJSON() {

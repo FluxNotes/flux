@@ -1,5 +1,7 @@
 import FluxTumorDimensions from '../../dataaccess/mcodev0.1-datasource/model/oncology/FluxTumorDimensions';
 import FluxBreastCancerDisorderPresent from '../../model/brca/FluxBreastCancerDisorderPresent';
+import FluxEstrogenReceptorStatus from '../../model/brca/FluxEstrogenReceptorStatus';
+
 import _ from 'lodash';
 
 export default function getProps(patient, condition){
@@ -8,6 +10,8 @@ export default function getProps(patient, condition){
     if (condition instanceof FluxBreastCancerDisorderPresent) {
         cancerType=1;
     }
+    const tumorMarkers = patient.getMostRecentTumorMarkers(condition);
+
     const propDict = {
         // demographics
         "demographic":
@@ -43,24 +47,6 @@ export default function getProps(patient, condition){
         // pathology
         "pathology":
             {
-                "ER":
-                        {
-                            "display":"ER",
-                            "valueType":"string",
-                            "value": _.lowerCase(safeGet(condition.getMostRecentERReceptorStatus(),"status"))
-                        },
-                "PR":
-                        {
-                            "display":"PR",
-                            "valueType":"string",
-                            "value": _.lowerCase(safeGet(condition.getMostRecentPRReceptorStatus(),"status"))
-                        },
-                "HER2":
-                        {
-                            "display":"HER2",
-                            "valueType":"string",
-                            "value": _.lowerCase(safeGet(condition.getMostRecentHER2ReceptorStatus(),"status"))
-                        },
                 "grade":
                         {
                             "display":"grade",
@@ -82,10 +68,29 @@ export default function getProps(patient, condition){
                                 return safeGet(quantity,"number");
                         })()
                 }   
-            }
+            },
+        "medical history":{
+            "ECOG":
+                {
+                    "display":"ECOG Score",
+                    "valueType":"range",
+                    "range":1,
+                    "value":safeGet(condition.getMostRecentECOGPerformanceStatus(),"value")
+
+                }
+        }
      
         
     }
+
+    tumorMarkers.forEach((e)=>{
+        propDict.pathology[e.abbreviatedName.split(' ').join('')] = {
+            "display": e.abbreviatedName,
+            "valueType":"string",
+            "value": _.lowerCase(e.status)
+        }
+    });
+    console.log(propDict);
     return mapProp(propDict);
 }
 
@@ -99,7 +104,7 @@ function safeGet(object, property) {
 
 // a map of similar patient props to the patient record
 function mapProp(propDict){
-    console.log(propDict);
+
     const similarPatientProps = {}
     // categories
     for (const key of Object.keys(propDict)) {
@@ -113,6 +118,14 @@ function mapProp(propDict){
             const option = propDict[key][prop];
             // drops option boxes that don't have 
             // a value from the patient record
+            if(!option.value){
+                let propEntry = {
+                    selected: false,
+                    displayText: option.display,
+                    value:"-"
+                };
+                similarPatientProps[key].options[prop] = propEntry;
+            }
             if(option.value){
                 let propEntry = {
                     selected: false,
