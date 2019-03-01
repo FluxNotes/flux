@@ -221,8 +221,7 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                                 console.log('currentConditionEntry: ', currentConditionEntry);
                                 let s = currentConditionEntry.getMostRecentClinicalStaging();
                                 if (s && s.stage && s.stage.length > 0) {
-                                    let s_string = currentConditionEntry.getMostRecentClinicalStagingAsString();
-                                    return  {   value: s_string, 
+                                    return  {   value: `${s.stage} ${s.stageComponents}`,
                                                 isUnsigned: patient.isUnsigned(s), 
                                                 source: this.determineSource(patient, s)
                                             };

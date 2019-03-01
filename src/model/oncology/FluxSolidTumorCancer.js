@@ -73,6 +73,8 @@ class FluxSolidTumorCancer extends FluxCancerDisorderPresent {
         const sortedStagingList = stagingList.sort(this._stageTimeSorter);
         const length = sortedStagingList.length;
         let s = (sortedStagingList[length - 1]);
+        console.log('sc: ', s.stageComponents);
+
         if (Lang.isNull(sinceDate)) return s; 
         const startTime = new moment(s.occurrenceTime, "D MMM YYYY");
         if (startTime < sinceDate) {
@@ -82,16 +84,13 @@ class FluxSolidTumorCancer extends FluxCancerDisorderPresent {
         }
     }
 
-    getMostRecentClinicalStagingAsString(sinceDate = null) {
-        return this._stageAggregatedAsString(this.getMostRecentClinicalStaging(sinceDate));
-    }
-
     getMostRecentPathologicStaging(sinceDate = null) {
         let stagingList = this._patientRecord.getEntriesOfType(FluxTNMPathologicStageGroup);
         if (stagingList.length === 0) return null; 
         const sortedStagingList = stagingList.sort(this._stageTimeSorter);
         const length = sortedStagingList.length;
         let s = (sortedStagingList[length - 1]);
+        console.log('sp: ', s.stageComponents);
         if (Lang.isNull(sinceDate)) return s; 
         const startTime = new moment(s.relevantTime, "D MMM YYYY");
         if (startTime < sinceDate) {
@@ -99,10 +98,6 @@ class FluxSolidTumorCancer extends FluxCancerDisorderPresent {
         } else {
             return s;
         }
-    }
-
-    getMostRecentPathologicStagingAsString(sinceDate = null) {
-        return this._stageAggregatedAsString(this.getMostRecentPathologicStaging(sinceDate));
     }
 
     getMostRecentStaging(sinceDate = null) {
@@ -111,6 +106,7 @@ class FluxSolidTumorCancer extends FluxCancerDisorderPresent {
         const sortedStagingList = stagingList.sort(this._stageTimeSorter);
         const length = sortedStagingList.length;
         let s = (sortedStagingList[length - 1]);
+        console.log('s: ', s.stageComponents);
         if (Lang.isNull(sinceDate)) return s; 
         const startTime = new moment(s.relevantTime, "D MMM YYYY");
         if (startTime < sinceDate) {
@@ -118,17 +114,6 @@ class FluxSolidTumorCancer extends FluxCancerDisorderPresent {
         } else {
             return s;
         }
-    }
-
-    _stageAggregatedAsString(stageObject) { 
-        if (Lang.isEmpty(stageObject)) return null
-        const stage = stageObject.stage;
-        const t = stageObject.t_Stage;
-        const n = stageObject.n_Stage;
-        const m = stageObject.m_Stage;
-        const aggregateString = `${stage} - ${t}${n}${m} `;
-        console.log('aggregateString: ', aggregateString);
-        return  aggregateString;
     }
 }
 
