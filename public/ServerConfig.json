@@ -4,6 +4,12 @@
         "shimServerOverrides": {
             "http://example.com/fhir": "http://localhost:3001/3_0_1"
         },
-        "supportedResourceTypes": ["Patient", "Condition", "Observation", "Procedure"]
+        "supportedResourceTypes": [
+          "Patient",
+          "Condition",
+          "Observation",
+          "Procedure",
+          "MedicationOrder"
+        ]
     }
 }

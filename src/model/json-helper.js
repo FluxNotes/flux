@@ -64,7 +64,11 @@ export function getNamespaceAndNameFromFHIR(fhir, type) {
     } else if (type.indexOf('.') === -1) {
       return { namespace: 'primitive', elementName: type };
     }
+  } else if (!fhir['resourceType'] && !type) {
+    // it's not a FHIR resource, so it's likely a general purpose FHIR data type
+    return getGeneralPurposeFHIRType(fhir);
   }
+
   // Get the type from the JSON if we can
   if (fhir['meta'] && fhir['meta']['profile']) {
     type = fhir['meta']['profile'][0];
@@ -84,6 +88,46 @@ export function getNamespaceAndNameFromFHIR(fhir, type) {
   const elementName = mappingStringArray.pop();
   const namespace = mappingStringArray.join('.');
   return { namespace, elementName };
+}
+
+// https://www.hl7.org/fhir/DSTU2/datatypes.html
+const FHIR_GENERAL_PURPOSE_TYPES = {
+  'Attachment': ['contentType', 'language', 'data', 'url', 'size', 'hash', 'title', 'creation'],
+  'Coding': ['system', 'version', 'code', 'display', 'userSelected'],
+  'CodeableConcept': ['coding', 'text'],
+  'Quantity': ['value', 'comparator', 'unit', 'system', 'code'],
+  'Range': ['low', 'high'],
+  'Ratio': ['numerator', 'denominator'],
+  'Period': ['start', 'end'],
+  'SampledData': ['origin', 'period', 'factor', 'lowerLimit', 'upperLimit', 'dimensions', 'data'],
+  'Identifier': ['use', 'type', 'system', 'value', 'period', 'assigner'],
+  'HumanName': ['use', 'text', 'family', 'given', 'prefix', 'suffix', 'period'],
+  'Address': ['use', 'type', 'text', 'line', 'city', 'district', 'state', 'postalCode', 'country', 'period'],
+  'ContactPoint': ['system', 'value', 'use', 'rank', 'period'],
+  'Timing': ['event', 'repeat', 'code'],
+  'Signature': ['type', 'when', 'whoUri', 'whoReference', 'contentType', 'blob'],
+  'Annotation': ['authorReference', 'authorString', 'time', 'text']
+};
+
+function getGeneralPurposeFHIRType(fhir) {
+  // the good news is that these do not have much overlap in their field names
+
+  for (const typeName in FHIR_GENERAL_PURPOSE_TYPES) {
+    // if all fields in the given fhir object are fields from a general purpose type, then this object is an instance of that type
+    // ignore extension and modifierExtension
+    const fieldsInDefinition = FHIR_GENERAL_PURPOSE_TYPES[typeName];
+    const fieldsInInstance = Object.keys(fhir).filter(f => f !== 'extension' && f !== 'modifierExtension');
+
+    const isMatch = fieldsInInstance.every(f => fieldsInDefinition.includes(f));
+
+    if (isMatch) {
+      // luckily all these types map to shr.core
+      return { namespace: 'shr.core', elementName: typeName };
+    }
+  }
+
+  // didn't find a match, so we have no idea what this object is
+  throw new Error(`Couldn't find type for FHIR: ${JSON.stringify(fhir)}`); 
 }
 
 

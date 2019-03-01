@@ -106,6 +106,47 @@
         "Value": "2011-07-12T11:19:32-04:00"
       }
     },
+    "FindingTopicCode": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/ConditionOrDiagnosisCode"
+      },
+      "Value": {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+        },
+        "Coding": [
+          {
+            "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+            },
+            "Code": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+              },
+              "Value": "15777000"
+            },
+            "CodeSystem": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+              },
+              "Value": "http://snomed.info/sct"
+            },
+            "DisplayText": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+              },
+              "Value": "Prediabetes"
+            }
+          }
+        ],
+        "DisplayText": {
+          "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+          },
+          "Value": "Prediabetes"
+        }
+      }
+    },
     "Patient": {
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
