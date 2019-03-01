@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 /**
  * Generated class for shr.base.EntryType.
@@ -65,7 +65,7 @@ class EntryType {
    * @param {object} json - the JSON data to deserialize
    * @returns {EntryType} An instance of EntryType populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new EntryType();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -85,29 +85,17 @@ class EntryType {
   }
 
   /**
-   * Serializes an instance of the EntryType class to a FHIR object.
-   * The FHIR is expected to be valid against the EntryType FHIR profile, but no validation checks are performed.
-   * @param {boolean} asExtension - Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
-    if (!asExtension && this.value != null) {
-      if (this.value != null) {
-        inst = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
-      }
-    }
-    return inst;
-  }
-
-  /**
    * Deserializes FHIR JSON data to an instance of the EntryType class.
    * The FHIR must be valid against the EntryType FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {EntryType} An instance of EntryType populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension = false) {
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new EntryType();
     if (!asExtension && fhir != null) {
       inst.value = fhir;

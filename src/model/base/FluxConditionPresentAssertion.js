@@ -1,8 +1,8 @@
 //import BodySite from '../shr/entity/BodySite';
 import ConditionPresentAssertion from '../shr/base/ConditionPresentAssertion';
-import FluxCancerProgression from '../mcode/FluxCancerProgression';
+import FluxCancerProgression from '../oncocore/FluxCancerProgression';
 import FluxMedicationRequested from '../medication/FluxMedicationRequested';
-import FluxToxicReaction from '../adverse/FluxToxicReaction';
+import FluxToxicAdverseDrugReaction from '../adverse/FluxToxicAdverseDrugReaction';
 import FluxObservation from '../base/FluxObservation';
 import FluxProcedureRequested from '../procedure/FluxProcedureRequested';
 import hpiConfig from '../hpi-configuration.json';
@@ -42,13 +42,13 @@ class FluxConditionPresentAssertion extends FluxEntry {
     }
 
     get code() {
-        if (!this._condition.value) return null;
-        return this._condition.value.coding[0].code;
+        if (!this._condition.findingTopicCode || !this._condition.findingTopicCode.value) return null;
+        return this._condition.findingTopicCode.value.coding[0].code.value;
     }
 
     get codeSystem() {
-        if (!this._condition.value) return null;
-        return this._condition.value.coding[0].codeSystem.value;
+        if (!this._condition.findingTopicCode || !this._condition.findingTopicCode.value) return null;
+        return this._condition.findingTopicCode.value.coding[0].codeSystem.value;
     }
 
     get codeURL() {
@@ -56,8 +56,8 @@ class FluxConditionPresentAssertion extends FluxEntry {
     }
 
     get type() {
-        if (!this._condition.value) return null;
-        return this._displayTextOrCode(this._condition.value.coding[0]);
+        if (!this._condition.findingTopicCode || !this._condition.findingTopicCode.value) return null;
+        return this._displayTextOrCode(this._condition.findingTopicCode.value.coding[0]);
     }
 
     get observation() {
@@ -75,20 +75,23 @@ class FluxConditionPresentAssertion extends FluxEntry {
         // } else if (this._condition.anatomicalLocation[0].anatomicalLocationOrLandmarkCode instanceof BodySite) {
         //     return this._displayTextOrCode(this._condition.anatomicalLocation[0].anatomicalLocationOrLandmarkCode.value.coding[0]);
         } else { // CodeableConcept
-            return this._displayTextOrCode(this._condition.anatomicalLocation[0].anatomicalLocationOrLandmarkCode.value.coding[0]);
+            return this._displayTextOrCode(this._condition.anatomicalLocation[0].value.anatomicalLocationOrLandmarkCode.value.coding[0]);
         }
     }
     
     get clinicalStatus() {
-        return this._condition.clinicalStatus ? this._condition.clinicalStatus.value : null;
+        return this._condition.clinicalStatus && this._condition.clinicalStatus.value ? this._displayTextOrCode(this._condition.clinicalStatus.value.coding[0]) : null;
     }
     
     get laterality() {
-        if (    !this._condition.anatomicalLocation || 
-                this._condition.anatomicalLocation.length < 1 ||
-                !this._condition.anatomicalLocation[0].laterality ||
-                !this._condition.anatomicalLocation[0].laterality.value) return null;
-        return this._displayTextOrCode(this._condition.anatomicalLocation[0].laterality.value.coding[0]);
+        if (
+            !this._condition.anatomicalLocation
+            || this._condition.anatomicalLocation.length < 1 
+            || !this._condition.anatomicalLocation[0].value
+            || !this._condition.anatomicalLocation[0].value.laterality
+            || !this._condition.anatomicalLocation[0].value.laterality.value
+        ) return null;
+        return this._displayTextOrCode(this._condition.anatomicalLocation[0].value.laterality.value.coding[0]);
     }
 
     get author() {
@@ -117,11 +120,11 @@ class FluxConditionPresentAssertion extends FluxEntry {
 
     // Given a toxicity adverse event, return the grade value
     getToxicitiesByCodes(codes) {
-
         // Get all the toxicities
-        let toxicities = this.getToxicities().filter((toxicity) => {
-            return toxicity._adverseEvent.value.coding.some((coding) => {
-                return codes.includes(coding.code);
+        let toxicities = this.getToxicities().filter(toxicity => {
+            if (!toxicity._toxicAdverseDrugReaction.type) return false;
+            return toxicity._toxicAdverseDrugReaction.type.value.coding.some((coding) => {
+                return codes.includes(coding.code.value);
             });
         });
 
@@ -132,8 +135,8 @@ class FluxConditionPresentAssertion extends FluxEntry {
 
     // Returns sorted array of toxicities. Most recent toxicity is at index 0
     _toxicitiesTimeSorter(a, b) {
-        const a_time = new moment(a.entryInfo.lastUpdated.value, "D MMM YYYY");
-        const b_time = new moment(b.entryInfo.lastUpdated.value, "D MMM YYYY");
+        const a_time = new moment(a.metadata.lastUpdated.value, "D MMM YYYY");
+        const b_time = new moment(b.metadata.lastUpdated.value, "D MMM YYYY");
         if (a_time < b_time) {
             return 1;
         }
@@ -148,10 +151,10 @@ class FluxConditionPresentAssertion extends FluxEntry {
     }
 
     getToxicities() {
-        const entries = this._patientRecord.getEntriesOfType(FluxToxicReaction);
+        const entries = this._patientRecord.getEntriesOfType(FluxToxicAdverseDrugReaction);
         const conditionEntryId = this._condition.entryInfo.entryId.value || this._condition.entryInfo.entryId;
         return entries.filter((item) => {
-            return item instanceof FluxToxicReaction && item._adverseEvent && item._adverseEvent.specificFocusOfFinding && item._adverseEvent.specificFocusOfFinding.value._entryId === conditionEntryId;
+            return item instanceof FluxToxicAdverseDrugReaction && item.adverseEventCondition && item.adverseEventCondition._conditionPresentAssertion._entryId === conditionEntryId;
         });
     }
 
@@ -507,8 +510,8 @@ class FluxConditionPresentAssertion extends FluxEntry {
     }
 
     _stageTimeSorter(a, b) {
-        const a_startTime = new moment(a.occurrenceTime, "D MMM YYYY");
-        const b_startTime = new moment(b.occurrenceTime, "D MMM YYYY");
+        const a_startTime = new moment(a.relevantTime, "D MMM YYYY");
+        const b_startTime = new moment(b.relevantTime, "D MMM YYYY");
         if (a_startTime < b_startTime) {
             return -1;
         }
@@ -539,7 +542,7 @@ class FluxConditionPresentAssertion extends FluxEntry {
      * @private
      */
     _displayTextOrCode(coding) {
-        return coding.displayText ? coding.displayText.value : coding.value;
+        return coding.displayText ? coding.displayText.value : coding.code.value;
     }
 
     toJSON() {

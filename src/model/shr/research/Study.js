@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 import Entity from '../entity/Entity';
 
@@ -420,7 +420,7 @@ class Study extends Entity {
    * @param {object} json - the JSON data to deserialize
    * @returns {Study} An instance of Study populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new Study();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -433,7 +433,16 @@ class Study extends Entity {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/research/Study' };
+    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/research/Study' };
+    if (this.narrative != null) {
+      inst['Narrative'] = typeof this.narrative.toJSON === 'function' ? this.narrative.toJSON() : this.narrative;
+    }
+    if (this.language != null) {
+      inst['Language'] = typeof this.language.toJSON === 'function' ? this.language.toJSON() : this.language;
+    }
+    if (this.metadata != null) {
+      inst['Metadata'] = typeof this.metadata.toJSON === 'function' ? this.metadata.toJSON() : this.metadata;
+    }
     if (this.partOf != null) {
       inst['PartOf'] = typeof this.partOf.toJSON === 'function' ? this.partOf.toJSON() : this.partOf;
     }
@@ -483,160 +492,109 @@ class Study extends Entity {
   }
 
   /**
-   * Serializes an instance of the Study class to a FHIR object.
-   * The FHIR is expected to be valid against the Study FHIR profile, but no validation checks are performed.
-   * @param {boolean} asExtension - Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
-    inst['resourceType'] = 'ResearchStudy';
-    if (this.commentOrDescription != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.commentOrDescription.toFHIR === 'function' ? this.commentOrDescription.toFHIR(true) : this.commentOrDescription);
-    }
-    if (this.identifier != null) {
-      inst['identifier'] = typeof this.identifier.toFHIR === 'function' ? this.identifier.toFHIR() : this.identifier;
-    }
-    if (this.title != null) {
-      inst['title'] = typeof this.title.toFHIR === 'function' ? this.title.toFHIR() : this.title;
-    }
-    if (this.partOf != null) {
-      inst['partOf'] = typeof this.partOf.toFHIR === 'function' ? this.partOf.toFHIR() : this.partOf;
-    }
-    if (this.status != null) {
-      inst['status'] = typeof this.status.toFHIR === 'function' ? this.status.toFHIR() : this.status;
-    }
-    if (this.contactDetail != null) {
-      inst['contact'] = inst['contact'] || [];
-      inst['contact'] = inst['contact'].concat(this.contactDetail.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    if (this.jurisdiction != null) {
-      inst['jurisdiction'] = typeof this.jurisdiction.toFHIR === 'function' ? this.jurisdiction.toFHIR() : this.jurisdiction;
-    }
-    if (this.enrollment != null) {
-      inst['enrollment'] = inst['enrollment'] || [];
-      inst['enrollment'] = inst['enrollment'].concat(this.enrollment.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    if (this.effectiveTimePeriod != null) {
-      inst['period'] = typeof this.effectiveTimePeriod.toFHIR === 'function' ? this.effectiveTimePeriod.toFHIR() : this.effectiveTimePeriod;
-    }
-    if (this.sponsor != null) {
-      inst['sponsor'] = typeof this.sponsor.toFHIR === 'function' ? this.sponsor.toFHIR() : this.sponsor;
-    }
-    if (this.principalInvestigator != null) {
-      inst['principalInvestigator'] = typeof this.principalInvestigator.toFHIR === 'function' ? this.principalInvestigator.toFHIR() : this.principalInvestigator;
-    }
-    if (this.facility != null) {
-      inst['site'] = inst['site'] || [];
-      inst['site'] = inst['site'].concat(this.facility.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    if (this.terminationReason != null) {
-      inst['reasonStopped'] = typeof this.terminationReason.toFHIR === 'function' ? this.terminationReason.toFHIR() : this.terminationReason;
-    }
-    if (this.annotation != null) {
-      inst['note'] = inst['note'] || [];
-      inst['note'] = inst['note'].concat(this.annotation.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    if (this.studyArm != null && this.studyArm.title != null) {
-      if (inst['arm'] === undefined) {
-        inst['arm'] = {};
-      }
-      inst['arm']['name'] = inst['arm']['name'] || [];
-      inst['arm']['name'] = inst['arm']['name'].concat(this.studyArm.title.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    if (this.studyArm != null && this.studyArm.type != null) {
-      if (inst['arm'] === undefined) {
-        inst['arm'] = {};
-      }
-      inst['arm']['code'] = inst['arm']['code'] || [];
-      inst['arm']['code'] = inst['arm']['code'].concat(this.studyArm.type.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    if (this.studyArm != null && this.studyArm.commentOrDescription != null) {
-      if (inst['arm'] === undefined) {
-        inst['arm'] = {};
-      }
-      inst['arm']['description'] = inst['arm']['description'] || [];
-      inst['arm']['description'] = inst['arm']['description'].concat(this.studyArm.commentOrDescription.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    return inst;
-  }
-
-  /**
    * Deserializes FHIR JSON data to an instance of the Study class.
    * The FHIR must be valid against the Study FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Study} An instance of Study populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension = false) {
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new Study();
-    if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-core-CommentOrDescription-extension');
-      if (match != null) {
-        inst.commentOrDescription = createInstanceFromFHIR('shr.core.CommentOrDescription', match, true);
+    inst.entryInfo = FHIRHelper.createInstanceFromFHIR('shr.base.Entry', {});
+    inst.entryInfo.shrId = FHIRHelper.createInstanceFromFHIR('shr.base.ShrId', shrId);
+    inst.entryInfo.entryId = FHIRHelper.createInstanceFromFHIR('shr.base.EntryId', fhir['id'] || uuid());
+    inst.entryInfo.entryType = FHIRHelper.createInstanceFromFHIR('shr.base.EntryType', 'http://standardhealthrecord.org/spec/shr/research/Study');
+    if (fhir['meta'] != null) {
+      if (fhir['meta']['versionId'] != null) {
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata.versionId = FHIRHelper.createInstanceFromFHIR('shr.core.VersionId', fhir['meta']['versionId'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      if (fhir['meta']['lastUpdated'] != null) {
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata.lastUpdated = FHIRHelper.createInstanceFromFHIR('shr.base.LastUpdated', fhir['meta']['lastUpdated'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      for (const fhir_meta_security of fhir['meta']['security'] || []) {
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata.securityLabel = inst.metadata.securityLabel || [];
+        const inst_metadata_securityLabel = FHIRHelper.createInstanceFromFHIR('shr.base.SecurityLabel', fhir_meta_security, shrId, allEntries, mappedResources, referencesOut, false);
+        inst.metadata.securityLabel.push(inst_metadata_securityLabel);
+      }
+      for (const fhir_meta_tag of fhir['meta']['tag'] || []) {
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata.tag = inst.metadata.tag || [];
+        const inst_metadata_tag = FHIRHelper.createInstanceFromFHIR('shr.base.Tag', fhir_meta_tag, shrId, allEntries, mappedResources, referencesOut, false);
+        inst.metadata.tag.push(inst_metadata_tag);
       }
     }
-    if (fhir['identifier'] != null) {
-      inst.identifier = createInstanceFromFHIR('shr.core.Identifier', fhir['identifier']);
+    if (fhir['language'] != null) {
+      inst.language = FHIRHelper.createInstanceFromFHIR('shr.core.Language', fhir['language'], shrId, allEntries, mappedResources, referencesOut, false);
     }
-    if (fhir['title'] != null) {
-      inst.title = createInstanceFromFHIR('shr.core.Title', fhir['title']);
+    if (fhir['text'] != null) {
+      inst.narrative = FHIRHelper.createInstanceFromFHIR('shr.base.Narrative', fhir['text'], shrId, allEntries, mappedResources, referencesOut, false);
     }
-    if (fhir['partOf'] != null) {
-      inst.partOf = createInstanceFromFHIR('shr.entity.PartOf', fhir['partOf']);
-    }
-    if (fhir['status'] != null) {
-      inst.status = createInstanceFromFHIR('shr.core.Status', fhir['status']);
-    }
-    if (fhir['contact'] != null) {
-      inst.contactDetail = inst.contactDetail || [];
-      inst.contactDetail = inst.contactDetail.concat(fhir['contact'].map(f => createInstanceFromFHIR('shr.core.ContactDetail', f)));
-    }
-    if (fhir['jurisdiction'] != null) {
-      inst.jurisdiction = createInstanceFromFHIR('shr.research.Jurisdiction', fhir['jurisdiction']);
-    }
-    if (fhir['enrollment'] != null) {
-      inst.enrollment = inst.enrollment || [];
-      inst.enrollment = inst.enrollment.concat(fhir['enrollment'].map(f => createInstanceFromFHIR('shr.research.Enrollment', f)));
-    }
-    if (fhir['period'] != null) {
-      inst.effectiveTimePeriod = createInstanceFromFHIR('shr.core.EffectiveTimePeriod', fhir['period']);
-    }
-    if (fhir['sponsor'] != null) {
-      inst.sponsor = createInstanceFromFHIR('shr.research.Sponsor', fhir['sponsor']);
-    }
-    if (fhir['principalInvestigator'] != null) {
-      inst.principalInvestigator = createInstanceFromFHIR('shr.research.PrincipalInvestigator', fhir['principalInvestigator']);
-    }
-    if (fhir['site'] != null) {
-      inst.facility = inst.facility || [];
-      inst.facility = inst.facility.concat(fhir['site'].map(f => createInstanceFromFHIR('shr.entity.Facility', f)));
-    }
-    if (fhir['reasonStopped'] != null) {
-      inst.terminationReason = createInstanceFromFHIR('shr.research.TerminationReason', fhir['reasonStopped']);
-    }
-    if (fhir['note'] != null) {
-      inst.annotation = inst.annotation || [];
-      inst.annotation = inst.annotation.concat(fhir['note'].map(f => createInstanceFromFHIR('shr.core.Annotation', f)));
-    }
-    if (fhir['arm'] != null && fhir['arm']['name'] != null) {
-      if (inst.studyArm === null) {
-        inst.studyArm = createInstanceFromFHIR('shr.research.StudyArm', {});
+    for (const fhir_extension of fhir['extension'] || []) {
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension') {
+        inst.partOf = FHIRHelper.createInstanceFromFHIR('shr.entity.PartOf', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
       }
-      inst.studyArm.title = createInstanceFromFHIR('shr.core.Title', fhir['arm']['name']);
-    }
-    if (fhir['arm'] != null && fhir['arm']['code'] != null) {
-      if (inst.studyArm === null) {
-        inst.studyArm = createInstanceFromFHIR('shr.research.StudyArm', {});
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-Title-extension') {
+        inst.title = FHIRHelper.createInstanceFromFHIR('shr.core.Title', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
       }
-      inst.studyArm.type = createInstanceFromFHIR('shr.core.Type', fhir['arm']['code']);
-    }
-    if (fhir['arm'] != null && fhir['arm']['description'] != null) {
-      if (inst.studyArm === null) {
-        inst.studyArm = createInstanceFromFHIR('shr.research.StudyArm', {});
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-Identifier-extension') {
+        inst.identifier = FHIRHelper.createInstanceFromFHIR('shr.core.Identifier', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
       }
-      inst.studyArm.commentOrDescription = createInstanceFromFHIR('shr.core.CommentOrDescription', fhir['arm']['description']);
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-CommentOrDescription-extension') {
+        inst.commentOrDescription = FHIRHelper.createInstanceFromFHIR('shr.core.CommentOrDescription', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-Status-extension') {
+        inst.status = FHIRHelper.createInstanceFromFHIR('shr.core.Status', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-research-Enrollment-extension') {
+        inst.enrollment = inst.enrollment || [];
+        const inst_enrollment = FHIRHelper.createInstanceFromFHIR('shr.research.Enrollment', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+        inst.enrollment.push(inst_enrollment);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-EffectiveTimePeriod-extension') {
+        inst.effectiveTimePeriod = FHIRHelper.createInstanceFromFHIR('shr.core.EffectiveTimePeriod', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-research-Sponsor-extension') {
+        inst.sponsor = FHIRHelper.createInstanceFromFHIR('shr.research.Sponsor', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-research-Jurisdiction-extension') {
+        inst.jurisdiction = FHIRHelper.createInstanceFromFHIR('shr.research.Jurisdiction', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-ContactDetail-extension') {
+        inst.contactDetail = inst.contactDetail || [];
+        const inst_contactDetail = FHIRHelper.createInstanceFromFHIR('shr.core.ContactDetail', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+        inst.contactDetail.push(inst_contactDetail);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-research-PrincipalInvestigator-extension') {
+        inst.principalInvestigator = FHIRHelper.createInstanceFromFHIR('shr.research.PrincipalInvestigator', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-Facility-extension') {
+        inst.facility = inst.facility || [];
+        const inst_facility = FHIRHelper.createInstanceFromFHIR('shr.entity.Facility', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+        inst.facility.push(inst_facility);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-research-TerminationReason-extension') {
+        inst.terminationReason = FHIRHelper.createInstanceFromFHIR('shr.research.TerminationReason', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-Annotation-extension') {
+        inst.annotation = inst.annotation || [];
+        const inst_annotation = FHIRHelper.createInstanceFromFHIR('shr.core.Annotation', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+        inst.annotation.push(inst_annotation);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-research-StudyArm-extension') {
+        inst.studyArm = inst.studyArm || [];
+        const inst_studyArm = FHIRHelper.createInstanceFromFHIR('shr.research.StudyArm', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+        inst.studyArm.push(inst_studyArm);
+      }
+    }
+    if (asExtension) {
+      inst.value = fhir['valueReference'];
     }
     return inst;
   }

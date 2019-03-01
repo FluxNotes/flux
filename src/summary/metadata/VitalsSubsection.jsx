@@ -7,11 +7,12 @@ export default class VitalsSubsection extends MetadataSection {
         return patient.getVitalByCode(subsection.code)
             .map(v => {
                 let processedVital = {};
+
                 processedVital["start_time"] = v.relevantTime;
                 processedVital[subsection.name] = v.quantity.number;
                 processedVital["unit"] = v.quantity.unit;
 
-                return processedVital
+                return processedVital;
             });
     }
 }

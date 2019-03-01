@@ -17,15 +17,17 @@ class FluxPathologyReport extends FluxObservation {
      *  Return value (a media or link to pathology report)
      */
     get value() {
-        return this._observation.value;
+        return this._observation._findingResult.value;
     }
 
     get author() {
-        return this._observation.entryInfo.recordedBy.value;
+        return this._observation.metadata.informationRecorder || null;
     }
 
     toJSON() {
-        return this._observation.toJSON();
+        const inst = super.toJSON();
+        inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/finding/PathologyReport' };
+        return inst;
     }
 
 }

@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 /**
  * Generated class for shr.core.CodeableConcept.
@@ -61,7 +61,7 @@ class CodeableConcept {
    * @param {object} json - the JSON data to deserialize
    * @returns {CodeableConcept} An instance of CodeableConcept populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new CodeableConcept();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -73,7 +73,7 @@ class CodeableConcept {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/CodeableConcept' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/CodeableConcept' } };
     if (this.coding != null) {
       inst['Coding'] = this.coding.map(f => f.toJSON());
     }
@@ -84,46 +84,38 @@ class CodeableConcept {
   }
 
   /**
-   * Serializes an instance of the CodeableConcept class to a FHIR object.
-   * The FHIR is expected to be valid against the CodeableConcept FHIR profile, but no validation checks are performed.
-   * @param {boolean} asExtension - Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
-    if (this.coding != null) {
-      inst['coding'] = inst['coding'] || [];
-      inst['coding'] = inst['coding'].concat(this.coding.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    if (this.displayText != null) {
-      inst['text'] = typeof this.displayText.toFHIR === 'function' ? this.displayText.toFHIR() : this.displayText;
-    }
-    if (asExtension) {
-      inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-core-CodeableConcept-extension';
-      inst['valueCodeableConcept'] = this.value;
-    }
-    return inst;
-  }
-
-  /**
    * Deserializes FHIR JSON data to an instance of the CodeableConcept class.
    * The FHIR must be valid against the CodeableConcept FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {CodeableConcept} An instance of CodeableConcept populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension = false) {
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new CodeableConcept();
-    if (fhir['coding'] != null) {
+    if (typeof fhir === 'string') {
       inst.coding = inst.coding || [];
-      inst.coding = inst.coding.concat(fhir['coding'].map(f => createInstanceFromFHIR('shr.core.Coding', f)));
+      const inst_coding = FHIRHelper.createInstanceFromFHIR('shr.core.Coding', fhir, shrId, allEntries, mappedResources, referencesOut, false);
+      inst.coding.push(inst_coding);
+
+      inst.displayText = FHIRHelper.createInstanceFromFHIR('shr.core.DisplayText', fhir, shrId, allEntries, mappedResources, referencesOut, false);
+    } else {
+      for (const fhir_coding of fhir['coding'] || []) {
+        inst.coding = inst.coding || [];
+        const inst_coding = FHIRHelper.createInstanceFromFHIR('shr.core.Coding', fhir_coding, shrId, allEntries, mappedResources, referencesOut, false);
+        inst.coding.push(inst_coding);
+      }
+      if (fhir['text'] != null) {
+        inst.displayText = FHIRHelper.createInstanceFromFHIR('shr.core.DisplayText', fhir['text'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      if (asExtension) {
+        inst.value = fhir['valueCodeableConcept'];
+      }
     }
-    if (fhir['text'] != null) {
-      inst.displayText = createInstanceFromFHIR('shr.core.DisplayText', fhir['text']);
-    }
-    if (asExtension) {
-      inst.value = fhir['valueCodeableConcept'];
-    }
+
     return inst;
   }
 

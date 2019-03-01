@@ -25,7 +25,7 @@ describe('getAttributionCodeableConcept', function() {
         expect(codeableConcept.coding)
             .to.be.an('array')
             .that.is.not.empty;
-        expect(codeableConcept.coding[0].code)
+        expect(codeableConcept.coding[0].code.value)
             .to.be.a('string')
             .that.is.empty;
         expect(codeableConcept.coding[0].codeSystem.value)
@@ -46,7 +46,7 @@ describe('getAttributionCodeableConcept', function() {
         expect(codeableConcept.coding)
             .to.be.an('array')
             .that.is.not.empty;
-        expect(codeableConcept.coding[0].code)
+        expect(codeableConcept.coding[0].code.value)
             .to.be.a('string')
             .eql(`#${goodValue}`);
         expect(codeableConcept.coding[0].codeSystem.value)
@@ -68,7 +68,7 @@ describe('getAdverseEventGradeCodeableConcept', function() {
         expect(codeableConcept.coding)
             .to.be.an('array')
             .that.is.not.empty;
-        expect(codeableConcept.coding[0].code)
+        expect(codeableConcept.coding[0].code.value)
             .to.be.a('string')
             .that.is.empty;
         expect(codeableConcept.coding[0].codeSystem.value)
@@ -89,7 +89,7 @@ describe('getAdverseEventGradeCodeableConcept', function() {
         expect(codeableConcept.coding)
             .to.be.an('array')
             .that.is.not.empty;
-        expect(codeableConcept.coding[0].code)
+        expect(codeableConcept.coding[0].code.value)
             .to.be.a('string')
             .eql('C1513302');
         expect(codeableConcept.coding[0].codeSystem.value)
@@ -111,7 +111,7 @@ describe('getAdverseEventCodeableConcept', function() {
         expect(codeableConcept.coding)
             .to.be.an('array')
             .that.is.not.empty;
-        expect(codeableConcept.coding[0].code)
+        expect(codeableConcept.coding[0].code.value)
             .to.be.a('string')
             .that.is.empty;
         expect(codeableConcept.coding[0].codeSystem.value)
@@ -132,7 +132,7 @@ describe('getAdverseEventCodeableConcept', function() {
         expect(codeableConcept.coding)
             .to.be.an('array')
             .that.is.not.empty;
-        expect(codeableConcept.coding[0].code)
+        expect(codeableConcept.coding[0].code.value)
             .to.be.a('string')
             .eql('10002272');
         expect(codeableConcept.coding[0].codeSystem.value)

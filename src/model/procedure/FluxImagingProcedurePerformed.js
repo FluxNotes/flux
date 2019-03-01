@@ -39,7 +39,7 @@ class FluxImagingProcedurePerformed {
      *  Returns procedure name string
      */
     get name() {
-        return this._imagingProcedurePerformed.topicCode.value.coding[0].displayText.value;
+        return this._imagingProcedurePerformed.procedureCode.value.coding[0].displayText.value;
     }
 
     /*
@@ -52,7 +52,7 @@ class FluxImagingProcedurePerformed {
 
     get annotation() {
         if (this._imagingProcedurePerformed.annotation && this._imagingProcedurePerformed.annotation.length > 0) {
-            return this._imagingProcedurePerformed.annotation[0].value;
+            return this._imagingProcedurePerformed.annotation[0].text.value;
         } else {
             return null;
         }

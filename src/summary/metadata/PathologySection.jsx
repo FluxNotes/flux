@@ -1,7 +1,7 @@
 import MetadataSection from "./MetadataSection";
-import FluxTumorDimensions from '../../model/oncology/FluxTumorDimensions';
-import FluxTumorMargins from '../../model/oncology/FluxTumorMargins';
-import FluxBreastCancer from '../../model/oncology/FluxBreastCancer';
+import FluxTumorDimensions from '../../model/tumor/FluxTumorDimensions';
+import FluxTumorMargins from '../../model/tumor/FluxTumorMargins';
+import FluxBreastCancerDisorderPresent from '../../model/brca/FluxBreastCancerDisorderPresent';
 import Lang from 'lodash'
 
 export default class PathologySection extends MetadataSection {
@@ -103,7 +103,7 @@ export default class PathologySection extends MetadataSection {
         };
 
         // Include receptor statuses for Breast Cancer metadata
-        if (condition instanceof FluxBreastCancer) {
+        if (condition instanceof FluxBreastCancerDisorderPresent) {
             metadata.narrative.push({
                     defaultTemplate: "ER-${.Receptor Status ER} PR-${.Receptor Status PR} HER2-${.Receptor Status HER2}."
             });

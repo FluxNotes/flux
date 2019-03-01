@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 /**
  * Generated class for shr.research.StudyArm.
@@ -88,7 +88,7 @@ class StudyArm {
    * @param {object} json - the JSON data to deserialize
    * @returns {StudyArm} An instance of StudyArm populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new StudyArm();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -100,7 +100,7 @@ class StudyArm {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/research/StudyArm' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/research/StudyArm' } };
     if (this.title != null) {
       inst['Title'] = typeof this.title.toJSON === 'function' ? this.title.toJSON() : this.title;
     }
@@ -114,25 +114,32 @@ class StudyArm {
   }
 
   /**
-   * Serializes an instance of the StudyArm class to a FHIR object.
-   * The FHIR is expected to be valid against the StudyArm FHIR profile, but no validation checks are performed.
-   * @param {boolean} asExtension - Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
-    return inst;
-  }
-
-  /**
    * Deserializes FHIR JSON data to an instance of the StudyArm class.
    * The FHIR must be valid against the StudyArm FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {StudyArm} An instance of StudyArm populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension = false) {
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new StudyArm();
+    if (asExtension) {
+      const match_1 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-Title-extension');
+      if (match_1 != null) {
+        inst.title = FHIRHelper.createInstanceFromFHIR('shr.core.Title', match_1, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      const match_2 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-Type-extension');
+      if (match_2 != null) {
+        inst.type = FHIRHelper.createInstanceFromFHIR('shr.core.Type', match_2, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      const match_4 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-CommentOrDescription-extension');
+      if (match_4 != null) {
+        inst.commentOrDescription = FHIRHelper.createInstanceFromFHIR('shr.core.CommentOrDescription', match_4, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+    }
     return inst;
   }
 

@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 import Entity from './Entity';
 
@@ -7,6 +7,31 @@ import Entity from './Entity';
  * @extends Entity
  */
 class Specimen extends Entity {
+
+  /**
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
+   */
+  get entryInfo() {
+    return this._entryInfo;
+  }
+
+  /**
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
+   */
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
+  }
+
+  /**
+   * Set the entry information and return 'this' for chaining.
+   * @param {Entry} entryInfo - The shr.base.Entry
+   * @returns {Specimen} this.
+   */
+  withEntryInfo(entryInfo) {
+    this.entryInfo = entryInfo; return this;
+  }
 
   /**
    * Get the AccessionIdentifier.
@@ -341,7 +366,7 @@ class Specimen extends Entity {
    * @param {object} json - the JSON data to deserialize
    * @returns {Specimen} An instance of Specimen populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new Specimen();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -353,7 +378,17 @@ class Specimen extends Entity {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/Specimen' } };
+    const inst = this._entryInfo.toJSON();
+    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Specimen' };
+    if (this.narrative != null) {
+      inst['Narrative'] = typeof this.narrative.toJSON === 'function' ? this.narrative.toJSON() : this.narrative;
+    }
+    if (this.language != null) {
+      inst['Language'] = typeof this.language.toJSON === 'function' ? this.language.toJSON() : this.language;
+    }
+    if (this.metadata != null) {
+      inst['Metadata'] = typeof this.metadata.toJSON === 'function' ? this.metadata.toJSON() : this.metadata;
+    }
     if (this.partOf != null) {
       inst['PartOf'] = typeof this.partOf.toJSON === 'function' ? this.partOf.toJSON() : this.partOf;
     }
@@ -400,177 +435,150 @@ class Specimen extends Entity {
   }
 
   /**
-   * Serializes an instance of the Specimen class to a FHIR object.
-   * The FHIR is expected to be valid against the Specimen FHIR profile, but no validation checks are performed.
-   * @param {boolean} asExtension - Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
-    if (this.partOf != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.partOf.toFHIR === 'function' ? this.partOf.toFHIR(true) : this.partOf);
-    }
-    if (this.collectionTime != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.collectionTime.toFHIR === 'function' ? this.collectionTime.toFHIR(true) : this.collectionTime);
-    }
-    if (this.collectionMethod != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.collectionMethod.toFHIR === 'function' ? this.collectionMethod.toFHIR(true) : this.collectionMethod);
-    }
-    if (this.collectionSite != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.collectionSite.toFHIR === 'function' ? this.collectionSite.toFHIR(true) : this.collectionSite);
-    }
-    if (this.specimenTreatment != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.specimenTreatment.toFHIR === 'function' ? this.specimenTreatment.toFHIR(true) : this.specimenTreatment);
-    }
-    if (this.handlingRisk != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.handlingRisk.toFHIR === 'function' ? this.handlingRisk.toFHIR(true) : this.handlingRisk);
-    }
-    if (this.specialHandling != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.specialHandling.toFHIR === 'function' ? this.specialHandling.toFHIR(true) : this.specialHandling);
-    }
-    if (this.accessionIdentifier != null) {
-      inst['accessionIdentifier'] = typeof this.accessionIdentifier.toFHIR === 'function' ? this.accessionIdentifier.toFHIR() : this.accessionIdentifier;
-    }
-    if (this.specimenStatus != null) {
-      inst['status'] = typeof this.specimenStatus.toFHIR === 'function' ? this.specimenStatus.toFHIR() : this.specimenStatus;
-    }
-    if (this.type != null) {
-      inst['type'] = typeof this.type.toFHIR === 'function' ? this.type.toFHIR() : this.type;
-    }
-    if (this.collectionSource != null) {
-      inst['subject'] = typeof this.collectionSource.toFHIR === 'function' ? this.collectionSource.toFHIR() : this.collectionSource;
-    }
-    if (this.receivedTime != null) {
-      inst['receivedTime'] = typeof this.receivedTime.toFHIR === 'function' ? this.receivedTime.toFHIR() : this.receivedTime;
-    }
-    if (this.sourceSpecimen != null) {
-      inst['parent'] = typeof this.sourceSpecimen.toFHIR === 'function' ? this.sourceSpecimen.toFHIR() : this.sourceSpecimen;
-    }
-    if (this.specimenContainer != null && this.specimenContainer.identifier != null) {
-      if (inst['container'] === undefined) {
-        inst['container'] = {};
-      }
-      inst['container']['identifier'] = inst['container']['identifier'] || [];
-      inst['container']['identifier'] = inst['container']['identifier'].concat(this.specimenContainer.identifier.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    if (this.specimenContainer != null && this.specimenContainer.commentOrDescription != null) {
-      if (inst['container'] === undefined) {
-        inst['container'] = {};
-      }
-      inst['container']['description'] = inst['container']['description'] || [];
-      inst['container']['description'] = inst['container']['description'].concat(this.specimenContainer.commentOrDescription.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    if (this.specimenContainer != null && this.specimenContainer.type != null) {
-      if (inst['container'] === undefined) {
-        inst['container'] = {};
-      }
-      inst['container']['type'] = inst['container']['type'] || [];
-      inst['container']['type'] = inst['container']['type'].concat(this.specimenContainer.type.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    if (this.specimenContainer != null && this.specimenContainer.capacity != null) {
-      if (inst['container'] === undefined) {
-        inst['container'] = {};
-      }
-      inst['container']['capacity'] = inst['container']['capacity'] || [];
-      inst['container']['capacity'] = inst['container']['capacity'].concat(this.specimenContainer.capacity.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    if (this.specimenContainer != null && this.specimenContainer.specimenQuantity != null) {
-      if (inst['container'] === undefined) {
-        inst['container'] = {};
-      }
-      inst['container']['specimenQuantity'] = inst['container']['specimenQuantity'] || [];
-      inst['container']['specimenQuantity'] = inst['container']['specimenQuantity'].concat(this.specimenContainer.specimenQuantity.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    if (this.specimenContainer != null && this.specimenContainer.additive != null) {
-      if (inst['container'] === undefined) {
-        inst['container'] = {};
-      }
-      inst['container']['additive[x]'] = inst['container']['additive[x]'] || [];
-      inst['container']['additive[x]'] = inst['container']['additive[x]'].concat(this.specimenContainer.additive.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    if (asExtension) {
-      inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-entity-Specimen-extension';
-      inst['valueReference'] = this.value;
-    }
-    return inst;
-  }
-
-  /**
    * Deserializes FHIR JSON data to an instance of the Specimen class.
    * The FHIR must be valid against the Specimen FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Specimen} An instance of Specimen populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension = false) {
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new Specimen();
-    if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension');
-      if (match != null) {
-        inst.partOf = createInstanceFromFHIR('shr.entity.PartOf', match, true);
+    inst.entryInfo = FHIRHelper.createInstanceFromFHIR('shr.base.Entry', {});
+    inst.entryInfo.shrId = FHIRHelper.createInstanceFromFHIR('shr.base.ShrId', shrId);
+    inst.entryInfo.entryId = FHIRHelper.createInstanceFromFHIR('shr.base.EntryId', fhir['id'] || uuid());
+    inst.entryInfo.entryType = FHIRHelper.createInstanceFromFHIR('shr.base.EntryType', 'http://standardhealthrecord.org/spec/shr/entity/Specimen');
+    if (fhir['meta'] != null) {
+      if (fhir['meta']['versionId'] != null) {
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata.versionId = FHIRHelper.createInstanceFromFHIR('shr.core.VersionId', fhir['meta']['versionId'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      if (fhir['meta']['lastUpdated'] != null) {
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata.lastUpdated = FHIRHelper.createInstanceFromFHIR('shr.base.LastUpdated', fhir['meta']['lastUpdated'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      for (const fhir_meta_security of fhir['meta']['security'] || []) {
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata.securityLabel = inst.metadata.securityLabel || [];
+        const inst_metadata_securityLabel = FHIRHelper.createInstanceFromFHIR('shr.base.SecurityLabel', fhir_meta_security, shrId, allEntries, mappedResources, referencesOut, false);
+        inst.metadata.securityLabel.push(inst_metadata_securityLabel);
+      }
+      for (const fhir_meta_tag of fhir['meta']['tag'] || []) {
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata.tag = inst.metadata.tag || [];
+        const inst_metadata_tag = FHIRHelper.createInstanceFromFHIR('shr.base.Tag', fhir_meta_tag, shrId, allEntries, mappedResources, referencesOut, false);
+        inst.metadata.tag.push(inst_metadata_tag);
       }
     }
-    if (fhir['accessionIdentifier'] != null) {
-      inst.accessionIdentifier = createInstanceFromFHIR('shr.entity.AccessionIdentifier', fhir['accessionIdentifier']);
+    if (fhir['language'] != null) {
+      inst.language = FHIRHelper.createInstanceFromFHIR('shr.core.Language', fhir['language'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['text'] != null) {
+      inst.narrative = FHIRHelper.createInstanceFromFHIR('shr.base.Narrative', fhir['text'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    for (const fhir_extension of fhir['extension'] || []) {
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension') {
+        inst.partOf = FHIRHelper.createInstanceFromFHIR('shr.entity.PartOf', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-CollectionTime-extension') {
+        inst.collectionTime = FHIRHelper.createInstanceFromFHIR('shr.entity.CollectionTime', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-CollectionMethod-extension') {
+        inst.collectionMethod = FHIRHelper.createInstanceFromFHIR('shr.entity.CollectionMethod', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-CollectionSite-extension') {
+        inst.collectionSite = FHIRHelper.createInstanceFromFHIR('shr.entity.CollectionSite', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-SpecimenTreatment-extension') {
+        inst.specimenTreatment = inst.specimenTreatment || [];
+        const inst_specimenTreatment = FHIRHelper.createInstanceFromFHIR('shr.entity.SpecimenTreatment', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+        inst.specimenTreatment.push(inst_specimenTreatment);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-HandlingRisk-extension') {
+        inst.handlingRisk = inst.handlingRisk || [];
+        const inst_handlingRisk = FHIRHelper.createInstanceFromFHIR('shr.entity.HandlingRisk', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+        inst.handlingRisk.push(inst_handlingRisk);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-SpecialHandling-extension') {
+        inst.specialHandling = inst.specialHandling || [];
+        const inst_specialHandling = FHIRHelper.createInstanceFromFHIR('shr.entity.SpecialHandling', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+        inst.specialHandling.push(inst_specialHandling);
+      }
     }
     if (fhir['status'] != null) {
-      inst.specimenStatus = createInstanceFromFHIR('shr.entity.SpecimenStatus', fhir['status']);
+      inst.specimenStatus = FHIRHelper.createInstanceFromFHIR('shr.entity.SpecimenStatus', fhir['status'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['type'] != null) {
-      inst.type = createInstanceFromFHIR('shr.core.Type', fhir['type']);
+      inst.type = FHIRHelper.createInstanceFromFHIR('shr.core.Type', fhir['type'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['parent'] != null && fhir['parent'][0] != null) {
+      const entryId = fhir['parent'][0]['reference'];
+      if (!mappedResources[entryId]) {
+        const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
+        if (referencedEntry) {
+          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Specimen', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
+        }
+      }
+      inst.sourceSpecimen = mappedResources[entryId];
     }
     if (fhir['subject'] != null) {
-      inst.collectionSource = createInstanceFromFHIR('shr.entity.CollectionSource', fhir['subject']);
+      const entryId = fhir['subject']['reference'];
+      if (!mappedResources[entryId]) {
+        const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
+        if (referencedEntry) {
+          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Patient', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
+        }
+      }
+      inst.collectionSource = mappedResources[entryId];
+    }
+    if (fhir['accessionIdentifier'] != null) {
+      inst.accessionIdentifier = FHIRHelper.createInstanceFromFHIR('shr.entity.AccessionIdentifier', fhir['accessionIdentifier'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['receivedTime'] != null) {
-      inst.receivedTime = createInstanceFromFHIR('shr.core.ReceivedTime', fhir['receivedTime']);
+      inst.receivedTime = FHIRHelper.createInstanceFromFHIR('shr.core.ReceivedTime', fhir['receivedTime'], shrId, allEntries, mappedResources, referencesOut, false);
     }
-    if (fhir['parent'] != null) {
-      inst.sourceSpecimen = createInstanceFromFHIR('shr.entity.SourceSpecimen', fhir['parent']);
-    }
-    if (fhir['container'] != null && fhir['container']['identifier'] != null) {
-      if (inst.specimenContainer === null) {
-        inst.specimenContainer = createInstanceFromFHIR('shr.entity.SpecimenContainer', {});
+    if (fhir['container'] != null && fhir['container'][0] != null) {
+      for (const fhir_container_0_identifier of fhir['container'][0]['identifier'] || []) {
+        inst.specimenContainer = inst.specimenContainer || [];
+        const inst_specimenContainer = FHIRHelper.createReference( FHIRHelper.createInstanceFromFHIR('shr.entity.SpecimenContainer', {}, shrId), referencesOut);
+        inst.specimenContainer.push(inst_specimenContainer);
+        inst_specimenContainer.reference.identifier = FHIRHelper.createInstanceFromFHIR('shr.core.Identifier', fhir_container_0_identifier, shrId, allEntries, mappedResources, referencesOut, false);
       }
-      inst.specimenContainer.identifier = createInstanceFromFHIR('shr.core.Identifier', fhir['container']['identifier']);
-    }
-    if (fhir['container'] != null && fhir['container']['description'] != null) {
-      if (inst.specimenContainer === null) {
-        inst.specimenContainer = createInstanceFromFHIR('shr.entity.SpecimenContainer', {});
+      if (fhir['container'][0]['description'] != null) {
+        inst.specimenContainer = inst.specimenContainer || [];
+        const inst_specimenContainer = FHIRHelper.createReference( FHIRHelper.createInstanceFromFHIR('shr.entity.SpecimenContainer', {}, shrId), referencesOut);
+        inst.specimenContainer.push(inst_specimenContainer);
+        inst_specimenContainer.reference.commentOrDescription = FHIRHelper.createInstanceFromFHIR('shr.core.CommentOrDescription', fhir['container'][0]['description'], shrId, allEntries, mappedResources, referencesOut, false);
       }
-      inst.specimenContainer.commentOrDescription = createInstanceFromFHIR('shr.core.CommentOrDescription', fhir['container']['description']);
-    }
-    if (fhir['container'] != null && fhir['container']['type'] != null) {
-      if (inst.specimenContainer === null) {
-        inst.specimenContainer = createInstanceFromFHIR('shr.entity.SpecimenContainer', {});
+      if (fhir['container'][0]['type'] != null) {
+        inst.specimenContainer = inst.specimenContainer || [];
+        const inst_specimenContainer = FHIRHelper.createReference( FHIRHelper.createInstanceFromFHIR('shr.entity.SpecimenContainer', {}, shrId), referencesOut);
+        inst.specimenContainer.push(inst_specimenContainer);
+        inst_specimenContainer.reference.type = FHIRHelper.createInstanceFromFHIR('shr.core.Type', fhir['container'][0]['type'], shrId, allEntries, mappedResources, referencesOut, false);
       }
-      inst.specimenContainer.type = createInstanceFromFHIR('shr.core.Type', fhir['container']['type']);
-    }
-    if (fhir['container'] != null && fhir['container']['capacity'] != null) {
-      if (inst.specimenContainer === null) {
-        inst.specimenContainer = createInstanceFromFHIR('shr.entity.SpecimenContainer', {});
+      if (fhir['container'][0]['capacity'] != null) {
+        inst.specimenContainer = inst.specimenContainer || [];
+        const inst_specimenContainer = FHIRHelper.createReference( FHIRHelper.createInstanceFromFHIR('shr.entity.SpecimenContainer', {}, shrId), referencesOut);
+        inst.specimenContainer.push(inst_specimenContainer);
+        inst_specimenContainer.reference.capacity = FHIRHelper.createInstanceFromFHIR('shr.entity.Capacity', fhir['container'][0]['capacity'], shrId, allEntries, mappedResources, referencesOut, false);
       }
-      inst.specimenContainer.capacity = createInstanceFromFHIR('shr.entity.Capacity', fhir['container']['capacity']);
-    }
-    if (fhir['container'] != null && fhir['container']['specimenQuantity'] != null) {
-      if (inst.specimenContainer === null) {
-        inst.specimenContainer = createInstanceFromFHIR('shr.entity.SpecimenContainer', {});
+      if (fhir['container'][0]['specimenQuantity'] != null) {
+        inst.specimenContainer = inst.specimenContainer || [];
+        const inst_specimenContainer = FHIRHelper.createReference( FHIRHelper.createInstanceFromFHIR('shr.entity.SpecimenContainer', {}, shrId), referencesOut);
+        inst.specimenContainer.push(inst_specimenContainer);
+        inst_specimenContainer.reference.specimenQuantity = FHIRHelper.createInstanceFromFHIR('shr.entity.SpecimenQuantity', fhir['container'][0]['specimenQuantity'], shrId, allEntries, mappedResources, referencesOut, false);
       }
-      inst.specimenContainer.specimenQuantity = createInstanceFromFHIR('shr.entity.SpecimenQuantity', fhir['container']['specimenQuantity']);
-    }
-    if (fhir['container'] != null && fhir['container']['additiveCodeableConcept'] != null) {
-      if (inst.specimenContainer === null) {
-        inst.specimenContainer = createInstanceFromFHIR('shr.entity.SpecimenContainer', {});
+      if (fhir['container'][0]['additiveCodeableConcept'] != null) {
+        inst.specimenContainer = inst.specimenContainer || [];
+        const inst_specimenContainer = FHIRHelper.createReference( FHIRHelper.createInstanceFromFHIR('shr.entity.SpecimenContainer', {}, shrId), referencesOut);
+        inst.specimenContainer.push(inst_specimenContainer);
+        inst_specimenContainer.reference.additive = inst_specimenContainer.reference.additive || [];
+        const inst_specimenContainer_reference_additive = FHIRHelper.createInstanceFromFHIR('shr.entity.Additive', fhir['container'][0]['additiveCodeableConcept'], shrId, allEntries, mappedResources, referencesOut, false);
+        inst_specimenContainer.reference.additive.push(inst_specimenContainer_reference_additive);
       }
-      inst.specimenContainer.additive = inst.specimenContainer.additive || [];
-      inst.specimenContainer.additive = inst.specimenContainer.additive.concat(fhir['container']['additiveCodeableConcept'].map(f => createInstanceFromFHIR('shr.entity.Additive', f)));
     }
     if (asExtension) {
       inst.value = fhir['valueReference'];

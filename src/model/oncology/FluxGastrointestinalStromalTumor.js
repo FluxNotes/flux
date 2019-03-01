@@ -1,14 +1,14 @@
 import FluxSolidTumorCancer from './FluxSolidTumorCancer';
-import CancerDisorder from '../mcode/CancerDisorder';
-import FluxHistologicGrade from './FluxHistologicGrade';
-import FluxTumorDimensions from '../oncology/FluxTumorDimensions';
+import CancerDisorderPresent from '../oncocore/CancerDisorderPresent';
+import FluxCancerHistologicGrade from '../oncocore/FluxCancerHistologicGrade';
+import FluxTumorDimensions from '../tumor/FluxTumorDimensions';
 import Lang from 'lodash';
 
 class FluxGastrointestinalStromalTumor extends FluxSolidTumorCancer {
     constructor(json, patientRecord) {
         super();
         this._patientRecord = patientRecord;
-        this._condition = this._entry = CancerDisorder.fromJSON(json);
+        this._condition = this._entry = CancerDisorderPresent.fromJSON(json);
     }
 
     getMostRecentMitosis() {
@@ -48,7 +48,7 @@ class FluxGastrointestinalStromalTumor extends FluxSolidTumorCancer {
 
         // Tumor Size and HistologicGrade
         const tumorSize = this.getObservationsOfType(FluxTumorDimensions);
-        const histologicGrade = this.getObservationsOfType(FluxHistologicGrade);
+        const histologicGrade = this.getObservationsOfType(FluxCancerHistologicGrade);
         if (tumorSize.length > 0) {
             hpiText += ` Primary tumor size ${tumorSize[tumorSize.length - 1].quantity.number} ${tumorSize[tumorSize.length - 1].quantity.unit}.`;
         }

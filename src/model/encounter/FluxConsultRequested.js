@@ -35,7 +35,7 @@ class FluxConsultRequested {
     }
 
     get expectedPerformanceTime() {
-        return this._consultRequested._encounter.timePeriod.timePeriodStart.value;
+        return this._consultRequested._encounter.timePeriod.beginDateTime.value;
     }
 
     get practitioner() {
@@ -47,7 +47,7 @@ class FluxConsultRequested {
     get department() {
         if (this._consultRequested.expectedPerformer) {
             let org = this._consultRequested.expectedPerformer.value.person.partOf;
-            while (org && org.type.value.coding[0].code !== 'dept') {
+            while (org && org.type.value.coding[0].code.value !== 'dept') {
                 org = org.partOf;
             }
             if (org) {
@@ -61,7 +61,7 @@ class FluxConsultRequested {
     get provider() {
         if (this._consultRequested.expectedPerformer) {
             let org = this._consultRequested.expectedPerformer.value.person.partOf;
-            while (org && org.type.value.coding[0].code !== 'prov') {
+            while (org && org.type.value.coding[0].code.value !== 'prov') {
                 org = org.partOf;
             }
             if (org) {

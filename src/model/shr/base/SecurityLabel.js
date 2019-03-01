@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 /**
  * Generated class for shr.base.SecurityLabel.
@@ -6,26 +6,26 @@ import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper
 class SecurityLabel {
 
   /**
-   * Get the value (aliases coding).
-   * @returns {Coding} The shr.core.Coding
+   * Get the value (aliases codeableConcept).
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
   get value() {
-    return this._coding;
+    return this._codeableConcept;
   }
 
   /**
-   * Set the value (aliases coding).
+   * Set the value (aliases codeableConcept).
    * This field/value is required.
-   * @param {Coding} value - The shr.core.Coding
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
    */
   set value(value) {
-    this._coding = value;
+    this._codeableConcept = value;
   }
 
   /**
-   * Set the value (aliases coding) and return 'this' for chaining.
+   * Set the value (aliases codeableConcept) and return 'this' for chaining.
    * This field/value is required.
-   * @param {Coding} value - The shr.core.Coding
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
    * @returns {SecurityLabel} this.
    */
   withValue(value) {
@@ -33,30 +33,30 @@ class SecurityLabel {
   }
 
   /**
-   * Get the Coding.
-   * @returns {Coding} The shr.core.Coding
+   * Get the CodeableConcept.
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
-  get coding() {
-    return this._coding;
+  get codeableConcept() {
+    return this._codeableConcept;
   }
 
   /**
-   * Set the Coding.
+   * Set the CodeableConcept.
    * This field/value is required.
-   * @param {Coding} coding - The shr.core.Coding
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
    */
-  set coding(coding) {
-    this._coding = coding;
+  set codeableConcept(codeableConcept) {
+    this._codeableConcept = codeableConcept;
   }
 
   /**
-   * Set the Coding and return 'this' for chaining.
+   * Set the CodeableConcept and return 'this' for chaining.
    * This field/value is required.
-   * @param {Coding} coding - The shr.core.Coding
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
    * @returns {SecurityLabel} this.
    */
-  withCoding(coding) {
-    this.coding = coding; return this;
+  withCodeableConcept(codeableConcept) {
+    this.codeableConcept = codeableConcept; return this;
   }
 
   /**
@@ -65,7 +65,7 @@ class SecurityLabel {
    * @param {object} json - the JSON data to deserialize
    * @returns {SecurityLabel} An instance of SecurityLabel populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new SecurityLabel();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -77,25 +77,9 @@ class SecurityLabel {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/base/SecurityLabel' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/base/SecurityLabel' } };
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
-    }
-    return inst;
-  }
-
-  /**
-   * Serializes an instance of the SecurityLabel class to a FHIR object.
-   * The FHIR is expected to be valid against the SecurityLabel FHIR profile, but no validation checks are performed.
-   * @param {boolean} asExtension - Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
-    if (!asExtension && this.value != null) {
-      if (this.value != null) {
-        inst = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
-      }
     }
     return inst;
   }
@@ -104,13 +88,17 @@ class SecurityLabel {
    * Deserializes FHIR JSON data to an instance of the SecurityLabel class.
    * The FHIR must be valid against the SecurityLabel FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {SecurityLabel} An instance of SecurityLabel populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension = false) {
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new SecurityLabel();
     if (!asExtension && fhir != null) {
-      inst.value = createInstanceFromFHIR('shr.core.Coding', fhir);
+      inst.value = FHIRHelper.createInstanceFromFHIR('shr.core.CodeableConcept', fhir, shrId, allEntries, mappedResources, referencesOut);
     }
     return inst;
   }

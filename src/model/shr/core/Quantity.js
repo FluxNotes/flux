@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 /**
  * Generated class for shr.core.Quantity.
@@ -6,28 +6,28 @@ import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper
 class Quantity {
 
   /**
-   * Get the DecimalValue.
-   * @returns {DecimalValue} The shr.core.DecimalValue
+   * Get the Number.
+   * @returns {Number} The shr.core.Number
    */
-  get decimalValue() {
-    return this._decimalValue;
+  get number() {
+    return this._number;
   }
 
   /**
-   * Set the DecimalValue.
-   * @param {DecimalValue} decimalValue - The shr.core.DecimalValue
+   * Set the Number.
+   * @param {Number} number - The shr.core.Number
    */
-  set decimalValue(decimalValue) {
-    this._decimalValue = decimalValue;
+  set number(number) {
+    this._number = number;
   }
 
   /**
-   * Set the DecimalValue and return 'this' for chaining.
-   * @param {DecimalValue} decimalValue - The shr.core.DecimalValue
+   * Set the Number and return 'this' for chaining.
+   * @param {Number} number - The shr.core.Number
    * @returns {Quantity} this.
    */
-  withDecimalValue(decimalValue) {
-    this.decimalValue = decimalValue; return this;
+  withNumber(number) {
+    this.number = number; return this;
   }
 
   /**
@@ -86,7 +86,7 @@ class Quantity {
    * @param {object} json - the JSON data to deserialize
    * @returns {Quantity} An instance of Quantity populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new Quantity();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -98,9 +98,9 @@ class Quantity {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/Quantity' } };
-    if (this.decimalValue != null) {
-      inst['DecimalValue'] = typeof this.decimalValue.toJSON === 'function' ? this.decimalValue.toJSON() : this.decimalValue;
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Quantity' } };
+    if (this.number != null) {
+      inst['Number'] = typeof this.number.toJSON === 'function' ? this.number.toJSON() : this.number;
     }
     if (this.comparator != null) {
       inst['Comparator'] = typeof this.comparator.toJSON === 'function' ? this.comparator.toJSON() : this.comparator;
@@ -112,79 +112,38 @@ class Quantity {
   }
 
   /**
-   * Serializes an instance of the Quantity class to a FHIR object.
-   * The FHIR is expected to be valid against the Quantity FHIR profile, but no validation checks are performed.
-   * @param {boolean} asExtension - Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
-    if (this.decimalValue != null) {
-      inst['value'] = typeof this.decimalValue.toFHIR === 'function' ? this.decimalValue.toFHIR() : this.decimalValue;
-    }
-    if (this.comparator != null) {
-      inst['comparator'] = typeof this.comparator.toFHIR === 'function' ? this.comparator.toFHIR() : this.comparator;
-    }
-    if (this.units != null && this.units.coding != null && this.units.coding.displayText != null) {
-      inst['unit'] = typeof this.units.coding.displayText.toFHIR === 'function' ? this.units.coding.displayText.toFHIR() : this.units.coding.displayText;
-    }
-    if (this.units != null && this.units.coding != null && this.units.coding.codeSystem != null) {
-      inst['system'] = typeof this.units.coding.codeSystem.toFHIR === 'function' ? this.units.coding.codeSystem.toFHIR() : this.units.coding.codeSystem;
-    }
-    if (this.units != null && this.units.coding != null && this.units.coding.code != null) {
-      inst['code'] = typeof this.units.coding.code.toFHIR === 'function' ? this.units.coding.code.toFHIR() : this.units.coding.code;
-    }
-    if (asExtension) {
-      inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-core-Quantity-extension';
-      inst['valueQuantity'] = this.value;
-    }
-    return inst;
-  }
-
-  /**
    * Deserializes FHIR JSON data to an instance of the Quantity class.
    * The FHIR must be valid against the Quantity FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Quantity} An instance of Quantity populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension = false) {
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new Quantity();
     if (fhir['value'] != null) {
-      inst.decimalValue = createInstanceFromFHIR('shr.core.DecimalValue', fhir['value']);
+      inst.number = FHIRHelper.createInstanceFromFHIR('shr.core.Number', fhir['value'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['comparator'] != null) {
-      inst.comparator = createInstanceFromFHIR('shr.core.Comparator', fhir['comparator']);
+      inst.comparator = FHIRHelper.createInstanceFromFHIR('shr.core.Comparator', fhir['comparator'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['unit'] != null) {
-      if (inst.units === null) {
-        inst.units = createInstanceFromFHIR('shr.core.Units', {});
-      }
-      if (inst.units.value === null) {
-        inst.units.value = createInstanceFromFHIR('shr.core.Coding', {});
-      }
-      inst.units.value.displayText = createInstanceFromFHIR('shr.core.DisplayText', fhir['unit']);
+      inst.units = inst.units || FHIRHelper.createInstanceFromFHIR('shr.core.Units', {}, shrId);
+      inst.units.value = inst.units.value || FHIRHelper.createInstanceFromFHIR('shr.core.Coding', {}, shrId);
+      inst.units.value.displayText = FHIRHelper.createInstanceFromFHIR('shr.core.DisplayText', fhir['unit'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['system'] != null) {
-      if (inst.units === null) {
-        inst.units = createInstanceFromFHIR('shr.core.Units', {});
-      }
-      if (inst.units.value === null) {
-        inst.units.value = createInstanceFromFHIR('shr.core.Coding', {});
-      }
-      inst.units.value.codeSystem = createInstanceFromFHIR('shr.core.CodeSystem', fhir['system']);
+      inst.units = inst.units || FHIRHelper.createInstanceFromFHIR('shr.core.Units', {}, shrId);
+      inst.units.value = inst.units.value || FHIRHelper.createInstanceFromFHIR('shr.core.Coding', {}, shrId);
+      inst.units.value.codeSystem = FHIRHelper.createInstanceFromFHIR('shr.core.CodeSystem', fhir['system'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['code'] != null) {
-      if (inst.units === null) {
-        inst.units = createInstanceFromFHIR('shr.core.Units', {});
-      }
-      if (inst.units.value === null) {
-        inst.units.value = createInstanceFromFHIR('shr.core.Coding', {});
-      }
-      inst.units.value.code = createInstanceFromFHIR('shr.core.Code', fhir['code']);
-    }
-    if (asExtension) {
-      inst.value = fhir['valueQuantity'];
+      inst.units = inst.units || FHIRHelper.createInstanceFromFHIR('shr.core.Units', {}, shrId);
+      inst.units.value = inst.units.value || FHIRHelper.createInstanceFromFHIR('shr.core.Coding', {}, shrId);
+      inst.units.value.code = FHIRHelper.createInstanceFromFHIR('shr.core.Code', fhir['code'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     return inst;
   }

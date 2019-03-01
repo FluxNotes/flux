@@ -5,7 +5,7 @@ import Autosuggest from 'react-autosuggest';
 import {Row, Col} from 'react-flexbox-grid';
 import Divider from 'material-ui/Divider';
 import toxicityLookup from '../lib/toxicreaction_lookup';
-import FluxToxicReaction from '../model/adverse/FluxToxicReaction';
+import FluxToxicAdverseDrugReaction from '../model/adverse/FluxToxicAdverseDrugReaction';
 import Lang from 'lodash'
 import Collection from 'lodash'
 import './ToxicityForm.css';
@@ -104,7 +104,7 @@ class ToxicityForm extends Component {
         }
 
         // Make sure grade is possible with given new tox
-        if (!toxicityLookup.isValidGradeForAdverseEvent(this.props.object.adverseEventGrade, newAdverseEvent)) {
+        if (!toxicityLookup.isValidGradeForAdverseEvent(this.props.object.seriousness, newAdverseEvent)) {
             this.props.updateValue("grade", null);
         }
     }
@@ -190,7 +190,7 @@ class ToxicityForm extends Component {
         const currentGradeLevel = grade.name;
         const isDisabled = !toxicityLookup.isValidGradeForAdverseEvent(grade.name, adverseEventName);
 
-        const isSelected = !Lang.isEmpty(this.props.object) && !Lang.isEmpty(this.props.object.adverseEvent) && this.props.object.adverseEventGrade === grade.name
+        const isSelected = !Lang.isEmpty(this.props.object) && !Lang.isEmpty(this.props.object.adverseEvent) && this.props.object.seriousness === grade.name
         let gradeMenuClass = "grade-menu-item";
 
         if (isDisabled) {
@@ -259,7 +259,7 @@ class ToxicityForm extends Component {
     }
 
     render() {
-        let potentialToxicity = Lang.isNull(this.props.object) ? new FluxToxicReaction() : this.props.object;
+        let potentialToxicity = Lang.isNull(this.props.object) ? new FluxToxicAdverseDrugReaction() : this.props.object;
         let topAdverseEventSection = null;
         const marginSize = "10px";
         const inputProps = {

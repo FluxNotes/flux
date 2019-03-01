@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, uuid } from '../../json-helper';
 
 /**
  * Generated class for shr.entity.MedicalInterpreter.
@@ -65,7 +65,7 @@ class MedicalInterpreter {
    * @param {object} json - the JSON data to deserialize
    * @returns {MedicalInterpreter} An instance of MedicalInterpreter populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new MedicalInterpreter();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -77,7 +77,7 @@ class MedicalInterpreter {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/MedicalInterpreter' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/MedicalInterpreter' } };
     if (this.medicalInterpreterNeeded != null) {
       inst['MedicalInterpreterNeeded'] = typeof this.medicalInterpreterNeeded.toJSON === 'function' ? this.medicalInterpreterNeeded.toJSON() : this.medicalInterpreterNeeded;
     }
@@ -88,24 +88,17 @@ class MedicalInterpreter {
   }
 
   /**
-   * Serializes an instance of the MedicalInterpreter class to a FHIR object.
-   * The FHIR is expected to be valid against the MedicalInterpreter FHIR profile, but no validation checks are performed.
-   * @param {boolean} asExtension - Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
-    return inst;
-  }
-
-  /**
    * Deserializes FHIR JSON data to an instance of the MedicalInterpreter class.
    * The FHIR must be valid against the MedicalInterpreter FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {MedicalInterpreter} An instance of MedicalInterpreter populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension = false) {
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new MedicalInterpreter();
     return inst;
   }

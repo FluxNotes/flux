@@ -1,2 +1,7 @@
 src/lib/slate/*
 src/lib/slate-suggestions-dist/*
+src/model/shr/*
+src/model/oncocore/*
+src/model/brca/*
+src/model/tumor/*
+src/model/json-helper.js

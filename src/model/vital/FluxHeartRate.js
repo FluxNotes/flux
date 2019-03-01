@@ -1,22 +1,18 @@
-import HeartRate from '../shr/vital/HeartRate';
 import FluxObservation from '../base/FluxObservation';
 
-class FluxHeartRate extends FluxObservation{
-    constructor(json) {
-        super();
-        this._observation = HeartRate.fromJSON(json);
-    }
-
+class FluxHeartRate extends FluxObservation {
     get value() {
-        return this._observation.quantity.decimalValue.decimal;
+        return this.quantity.number;
     }
 
     get units() {
-        return this._observation.quantity.units.value.code;
+        return this.quantity.unit;
     }
 
     toJSON() {
-        return this._observation.toJSON();
+        const inst = super.toJSON();
+        inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/vital/HeartRate' };
+        return inst;
     }
 }
 

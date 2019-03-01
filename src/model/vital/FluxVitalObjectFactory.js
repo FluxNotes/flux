@@ -7,14 +7,14 @@ import FluxHeartRate from './FluxHeartRate';
 
 
 export default class FluxVitalObjectFactory {
-    static createInstance(json, type) {
+    static createInstance(json, type, patientRecord) {
         const { namespace, elementName } = getNamespaceAndName(json, type);
         if (namespace !== 'shr.vital') {
             throw new Error(`Unsupported type in ShrVitalObjectFactory: ${type}`);
         }
         // returns Flux wrapper class if found, otherwise use ShrVitalObjectFactory
         switch (elementName) {
-            case 'BloodPressure': return new FluxBloodPressure(json);
+            case 'BloodPressure': return new FluxBloodPressure(json, patientRecord);
             case 'BodyTemperature': return new FluxBodyTemperature(json);
             case 'BodyWeight': return new FluxBodyWeight(json);
             case 'HeartRate': return new FluxHeartRate(json);

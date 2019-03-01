@@ -28,13 +28,23 @@
     {
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
         "EntryId": "2",
-        "DateOfBirth": "5 Apr 1966",
+        "DateOfBirth": {
+            "Value": "5 Apr 1966",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/DateOfBirth"
+            }
+        },
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
         },
         "HumanName": [
             {
-                "NameAsText": "Jane Bradshaw146",
+                "NameAsText": {
+                    "Value": "Jane Bradshaw146",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/NameAsText"
+                    }
+                },
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
                 }
@@ -60,7 +70,12 @@
                     },
                     "Coding": [
                         {
-                            "Value": "white",
+                            "Code": {
+                                "Value": "white",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                }
+                            },
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                             }
@@ -92,8 +107,18 @@
                 "Value": {
                     "Coding": [
                         {
-                            "Value": "2186-5",
-                            "DisplayText": "Non Hispanic or Latino",
+                            "Code": {
+                                "Value": "2186-5",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                }
+                            },
+                            "DisplayText": {
+                                "Value": "Non Hispanic or Latino",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                }
+                            },
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                             }
@@ -112,7 +137,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "M",
+                        "Code": {
+                            "Value": "M",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -185,7 +215,12 @@
                     "Value": {
                         "Coding": [
                             {
-                                "Value": "primary_residence",
+                                "Code": {
+                                    "Value": "primary_residence",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                    }
+                                },
                                 "EntryType": {
                                     "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                 }
@@ -226,7 +261,12 @@
                     "Value": {
                         "Coding": [
                             {
-                                "Value": "phone",
+                                "Code": {
+                                    "Value": "phone",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                    }
+                                },
                                 "EntryType": {
                                     "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                 }
@@ -244,7 +284,12 @@
                     "Value": {
                         "Coding": [
                             {
-                                "Value": "home",
+                                "Code": {
+                                    "Value": "home",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                    }
+                                },
                                 "EntryType": {
                                     "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                 }
@@ -273,7 +318,12 @@
                     "Value": {
                         "Coding": [
                             {
-                                "Value": "phone",
+                                "Code": {
+                                    "Value": "phone",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                    }
+                                },
                                 "EntryType": {
                                     "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                 }
@@ -291,7 +341,12 @@
                     "Value": {
                         "Coding": [
                             {
-                                "Value": "mobile",
+                                "Code": {
+                                    "Value": "mobile",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                    }
+                                },
                                 "EntryType": {
                                     "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                 }
@@ -322,7 +377,12 @@
                     "Value": {
                         "Coding": [
                             {
-                                "Value": "en-US",
+                                "Code": {
+                                    "Value": "en-US",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                    }
+                                },
                                 "EntryType": {
                                     "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                 },
@@ -392,7 +452,12 @@
         "Value": {
             "Coding": [
                 {
-                    "Value": "408643008",
+                    "Code": {
+                        "Value": "408643008",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -421,11 +486,19 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
             }
         },
-        "Category": [
-            {
+        "Category": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Category"
+            },
+            "Value": {
                 "Coding": [
                     {
-                        "Value": "#disease",
+                        "Code": {
+                            "Value": "#disease",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         }
@@ -435,7 +508,7 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
                 }
             }
-        ],
+        },
         "AnatomicalLocation": [
             {
                 "EntryType": {
@@ -448,7 +521,12 @@
                     "Value": {
                         "Coding": [
                             {
-                                "Value": "73056007",
+                                "Code": {
+                                    "Value": "73056007",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                    }
+                                },
                                 "EntryType": {
                                     "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                 },
@@ -478,7 +556,12 @@
                     "Value": {
                         "Coding": [
                             {
-                                "Value": "C25228",
+                                "Code": {
+                                    "Value": "C25228",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                    }
+                                },
                                 "EntryType": {
                                     "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                 },
@@ -535,7 +618,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "C0024671",
+                        "Code": {
+                            "Value": "C0024671",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -598,7 +686,12 @@
                     },
                     "HumanName": [
                         {
-                            "NameAsText": "Dr. Strauss179",
+                            "NameAsText": {
+                                "Value": "Dr. Strauss179",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/NameAsText"
+                                }
+                            },
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
                             }
@@ -619,7 +712,12 @@
                                 "Value": {
                                     "Coding": [
                                         {
-                                            "Code": "prov",
+                                            "Code": {
+                                                "Value": "prov",
+                                                "EntryType": {
+                                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                                }
+                                            },
                                             "EntryType": {
                                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                             },
@@ -679,7 +777,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "C1699633",
+                        "Code": {
+                            "Value": "C1699633",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -742,7 +845,12 @@
                     },
                     "HumanName": [
                         {
-                            "NameAsText": "Dr. Landry8",
+                            "NameAsText": {
+                                "Value": "Dr. Landry8",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/NameAsText"
+                                }
+                            },
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
                             }
@@ -763,7 +871,12 @@
                                 "Value": {
                                     "Coding": [
                                         {
-                                            "Code": "prov",
+                                            "Code": {
+                                                "Value": "prov",
+                                                "EntryType": {
+                                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                                }
+                                            },
                                             "EntryType": {
                                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                             },
@@ -823,7 +936,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "C2368280",
+                        "Code": {
+                            "Value": "C2368280",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -886,7 +1004,12 @@
                     },
                     "HumanName": [
                         {
-                            "NameAsText": "Dr. Met55",
+                            "NameAsText": {
+                                "Value": "Dr. Met55",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/NameAsText"
+                                }
+                            },
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
                             }
@@ -907,7 +1030,12 @@
                                 "Value": {
                                     "Coding": [
                                         {
-                                            "Code": "prov",
+                                            "Code": {
+                                                "Value": "prov",
+                                                "EntryType": {
+                                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                                }
+                                            },
                                             "EntryType": {
                                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                             },
@@ -969,7 +1097,12 @@
         "Value": {
             "Coding": [
                 {
-                    "Value": "C1282951",
+                    "Code": {
+                        "Value": "C1282951",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -1003,11 +1136,19 @@
                 }
             }
         },
-        "Category": [
-            {
+        "Category": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Category"
+            },
+            "Value": {
                 "Coding": [
                     {
-                        "Value": "#disease",
+                        "Code": {
+                            "Value": "#disease",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         }
@@ -1017,7 +1158,7 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
                 }
             }
-        ],
+        },
         "AnatomicalLocation": [
             {
                 "EntryType": {
@@ -1030,7 +1171,12 @@
                     "Value": {
                         "Coding": [
                             {
-                                "Value": "C1272460",
+                                "Code": {
+                                    "Value": "C1272460",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                    }
+                                },
                                 "EntryType": {
                                     "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                 },
@@ -1089,7 +1235,12 @@
         "Value": {
             "Coding": [
                 {
-                    "Value": "C0221155",
+                    "Code": {
+                        "Value": "C0221155",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -1123,11 +1274,19 @@
                 }
             }
         },
-        "Category": [
-            {
+        "Category": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Category"
+            },
+            "Value": {
                 "Coding": [
                     {
-                        "Value": "#disease",
+                        "Code": {
+                            "Value": "#disease",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         }
@@ -1137,7 +1296,7 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
                 }
             }
-        ],
+        },
         "AnatomicalLocation": [
             {
                 "EntryType": {
@@ -1150,7 +1309,12 @@
                     "Value": {
                         "Coding": [
                             {
-                                "Value": "C1272460",
+                                "Code": {
+                                    "Value": "C1272460",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                    }
+                                },
                                 "EntryType": {
                                     "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                 },
@@ -1207,7 +1371,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "433341001",
+                        "Code": {
+                            "Value": "433341001",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -1270,7 +1439,12 @@
                     },
                     "HumanName": [
                         {
-                            "NameAsText": "Dr. Sanborn110",
+                            "NameAsText": {
+                                "Value": "Dr. Sanborn110",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/NameAsText"
+                                }
+                            },
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
                             }
@@ -1291,7 +1465,12 @@
                                 "Value": {
                                     "Coding": [
                                         {
-                                            "Code": "prov",
+                                            "Code": {
+                                                "Value": "prov",
+                                                "EntryType": {
+                                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                                }
+                                            },
                                             "EntryType": {
                                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                             },
@@ -1347,8 +1526,18 @@
         "Value": {
             "Coding": [
                 {
-                    "Value": "412533000",
-                    "DisplayText": "Wheat Bran",
+                    "Code": {
+                        "Value": "412533000",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
+                    "DisplayText": {
+                        "Value": "Wheat Bran",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -1390,7 +1579,12 @@
                     "Value": {
                         "Coding": [
                             {
-                                "Value": "mild",
+                                "Code": {
+                                    "Value": "mild",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                    }
+                                },
                                 "EntryType": {
                                     "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                 },
@@ -1420,7 +1614,12 @@
                     "Value": {
                         "Coding": [
                             {
-                                "Value": "272027003",
+                                "Code": {
+                                    "Value": "272027003",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                    }
+                                },
                                 "EntryType": {
                                     "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                 },
@@ -1461,7 +1660,12 @@
                     "Value": {
                         "Coding": [
                             {
-                                "Value": "severe",
+                                "Code": {
+                                    "Value": "severe",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                    }
+                                },
                                 "EntryType": {
                                     "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                 },
@@ -1491,7 +1695,12 @@
                     "Value": {
                         "Coding": [
                             {
-                                "Value": "249497008",
+                                "Code": {
+                                    "Value": "249497008",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                    }
+                                },
                                 "EntryType": {
                                     "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                 },
@@ -1538,8 +1747,18 @@
         "Value": {
             "Coding": [
                 {
-                    "Value": "410942007",
-                    "DisplayText": "Milk - dietary",
+                    "Code": {
+                        "Value": "410942007",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
+                    "DisplayText": {
+                        "Value": "Milk - dietary",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -1581,7 +1800,12 @@
                     "Value": {
                         "Coding": [
                             {
-                                "Value": "moderate",
+                                "Code": {
+                                    "Value": "moderate",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                    }
+                                },
                                 "EntryType": {
                                     "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                 },
@@ -1611,7 +1835,12 @@
                     "Value": {
                         "Coding": [
                             {
-                                "Value": "267060006",
+                                "Code": {
+                                    "Value": "267060006",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                    }
+                                },
                                 "EntryType": {
                                     "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                 },
@@ -1652,7 +1881,12 @@
                     "Value": {
                         "Coding": [
                             {
-                                "Value": "mild",
+                                "Code": {
+                                    "Value": "mild",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                    }
+                                },
                                 "EntryType": {
                                     "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                 },
@@ -1682,7 +1916,12 @@
                     "Value": {
                         "Coding": [
                             {
-                                "Value": "267105001",
+                                "Code": {
+                                    "Value": "267105001",
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                    }
+                                },
                                 "EntryType": {
                                     "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                                 },
@@ -1729,8 +1968,18 @@
         "Value": {
             "Coding": [
                 {
-                    "Value": "409137002",
-                    "DisplayText": "No known drug allergy",
+                    "Code": {
+                        "Value": "409137002",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
+                    "DisplayText": {
+                        "Value": "No known drug allergy",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -2067,7 +2316,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "C95618",
+                        "Code": {
+                            "Value": "C95618",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -2117,7 +2371,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "C50575",
+                        "Code": {
+                            "Value": "C50575",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -2167,7 +2426,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "C61443",
+                        "Code": {
+                            "Value": "C61443",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -2217,7 +2481,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "C118263",
+                        "Code": {
+                            "Value": "C118263",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -2267,7 +2536,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "foo",
+                        "Code": {
+                            "Value": "foo",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -2317,7 +2591,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "foo",
+                        "Code": {
+                            "Value": "foo",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -2367,7 +2646,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "foo",
+                        "Code": {
+                            "Value": "foo",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -2417,7 +2701,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "foo",
+                        "Code": {
+                            "Value": "foo",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -2467,7 +2756,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "foo",
+                        "Code": {
+                            "Value": "foo",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -2515,33 +2809,33 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
             },
             "Value": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
-                },
-                "Value": {
-                    "Coding": [
-                        {
+                "Coding": [
+                    {
+                        "Code": {
                             "Value": "foo",
                             "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                            },
-                            "CodeSystem": {
-                                "Value": "http://ncimeta.nci.nih.gov",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                }
-                            },
-                            "DisplayText": {
-                                "Value": "Question 9",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                }
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "http://ncimeta.nci.nih.gov",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Question 9",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                             }
                         }
-                    ],
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
                     }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
                 }
             }
         }
@@ -2572,7 +2866,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "foo",
+                        "Code": {
+                            "Value": "foo",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -2622,7 +2921,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "foo",
+                        "Code": {
+                            "Value": "foo",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -2672,7 +2976,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "foo",
+                        "Code": {
+                            "Value": "foo",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -2722,7 +3031,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "foo",
+                        "Code": {
+                            "Value": "foo",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -2772,7 +3086,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "foo",
+                        "Code": {
+                            "Value": "foo",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -2822,7 +3141,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "foo",
+                        "Code": {
+                            "Value": "foo",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -2861,7 +3185,12 @@
             },
             "Units": {
                 "Value": {
-                    "Value": "%",
+                    "Code": {
+                        "Value": "%",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     }
@@ -2905,7 +3234,12 @@
         "FindingStatus": {
             "Coding": [
                 {
-                    "Value": "final",
+                    "Code": {
+                        "Value": "final",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -2934,7 +3268,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "C0019046",
+                        "Code": {
+                            "Value": "C0019046",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -2973,7 +3312,12 @@
             },
             "Units": {
                 "Value": {
-                    "Value": "%",
+                    "Code": {
+                        "Value": "%",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     }
@@ -3017,7 +3361,12 @@
         "FindingStatus": {
             "Coding": [
                 {
-                    "Value": "final",
+                    "Code": {
+                        "Value": "final",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -3046,7 +3395,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "C0019046",
+                        "Code": {
+                            "Value": "C0019046",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -3085,7 +3439,12 @@
             },
             "Units": {
                 "Value": {
-                    "Value": "%",
+                    "Code": {
+                        "Value": "%",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     }
@@ -3129,7 +3488,12 @@
         "FindingStatus": {
             "Coding": [
                 {
-                    "Value": "final",
+                    "Code": {
+                        "Value": "final",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -3158,7 +3522,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "C0019046",
+                        "Code": {
+                            "Value": "C0019046",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -3241,7 +3610,12 @@
         "FindingStatus": {
             "Coding": [
                 {
-                    "Value": "final",
+                    "Code": {
+                        "Value": "final",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -3270,7 +3644,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "C0023508",
+                        "Code": {
+                            "Value": "C0023508",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -3353,7 +3732,12 @@
         "FindingStatus": {
             "Coding": [
                 {
-                    "Value": "final",
+                    "Code": {
+                        "Value": "final",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -3382,7 +3766,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "C0023508",
+                        "Code": {
+                            "Value": "C0023508",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -3465,7 +3854,12 @@
         "FindingStatus": {
             "Coding": [
                 {
-                    "Value": "final",
+                    "Code": {
+                        "Value": "final",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -3494,7 +3888,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "C0023508",
+                        "Code": {
+                            "Value": "C0023508",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -3577,7 +3976,12 @@
         "FindingStatus": {
             "Coding": [
                 {
-                    "Value": "final",
+                    "Code": {
+                        "Value": "final",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -3606,7 +4010,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "C0023508",
+                        "Code": {
+                            "Value": "C0023508",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -3689,8 +4098,18 @@
         "FindingStatus": {
             "Coding": [
                 {
-                    "Value": "final",
-                    "DisplayText": "Final",
+                    "Code": {
+                        "Value": "final",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
+                    "DisplayText": {
+                        "Value": "Final",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -3713,7 +4132,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "C0023508",
+                        "Code": {
+                            "Value": "C0023508",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -3796,7 +4220,12 @@
         "FindingStatus": {
             "Coding": [
                 {
-                    "Value": "final",
+                    "Code": {
+                        "Value": "final",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -3825,7 +4254,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "C0023508",
+                        "Code": {
+                            "Value": "C0023508",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -3908,7 +4342,12 @@
         "FindingStatus": {
             "Coding": [
                 {
-                    "Value": "final",
+                    "Code": {
+                        "Value": "final",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -3937,7 +4376,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "C0027950",
+                        "Code": {
+                            "Value": "C0027950",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -4020,7 +4464,12 @@
         "FindingStatus": {
             "Coding": [
                 {
-                    "Value": "final",
+                    "Code": {
+                        "Value": "final",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -4049,7 +4498,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "C0027950",
+                        "Code": {
+                            "Value": "C0027950",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -4132,7 +4586,12 @@
         "FindingStatus": {
             "Coding": [
                 {
-                    "Value": "final",
+                    "Code": {
+                        "Value": "final",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -4161,7 +4620,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "C0027950",
+                        "Code": {
+                            "Value": "C0027950",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -4244,7 +4708,12 @@
         "FindingStatus": {
             "Coding": [
                 {
-                    "Value": "final",
+                    "Code": {
+                        "Value": "final",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -4273,7 +4742,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "C0027950",
+                        "Code": {
+                            "Value": "C0027950",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -4356,7 +4830,12 @@
         "FindingStatus": {
             "Coding": [
                 {
-                    "Value": "final",
+                    "Code": {
+                        "Value": "final",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -4385,7 +4864,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "C0027950",
+                        "Code": {
+                            "Value": "C0027950",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -4468,7 +4952,12 @@
         "FindingStatus": {
             "Coding": [
                 {
-                    "Value": "final",
+                    "Code": {
+                        "Value": "final",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -4497,7 +4986,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "C0027950",
+                        "Code": {
+                            "Value": "C0027950",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -4552,7 +5046,12 @@
         "Value": {
             "Coding": [
                 {
-                    "Value": "369792005",
+                    "Code": {
+                        "Value": "369792005",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -4583,7 +5082,12 @@
         "FindingStatus": {
             "Coding": [
                 {
-                    "Value": "final",
+                    "Code": {
+                        "Value": "final",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -4665,7 +5169,12 @@
         "FindingStatus": {
             "Coding": [
                 {
-                    "Value": "final",
+                    "Code": {
+                        "Value": "final",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -4694,7 +5203,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Value": "C0475440",
+                        "Code": {
+                            "Value": "C0475440",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -4745,7 +5259,12 @@
         "Value": {
             "Coding": [
                 {
-                    "Value": "C0205160",
+                    "Code": {
+                        "Value": "C0205160",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -4770,7 +5289,12 @@
         "FindingStatus": {
             "Coding": [
                 {
-                    "Value": "final",
+                    "Code": {
+                        "Value": "final",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -4832,7 +5356,12 @@
         "Value": {
             "Coding": [
                 {
-                    "Value": "C1446409",
+                    "Code": {
+                        "Value": "C1446409",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -4857,7 +5386,12 @@
         "FindingStatus": {
             "Coding": [
                 {
-                    "Value": "final",
+                    "Code": {
+                        "Value": "final",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -4919,7 +5453,12 @@
         "Value": {
             "Coding": [
                 {
-                    "Value": "C1446409",
+                    "Code": {
+                        "Value": "C1446409",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -4944,7 +5483,12 @@
         "FindingStatus": {
             "Coding": [
                 {
-                    "Value": "final",
+                    "Code": {
+                        "Value": "final",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -5018,7 +5562,12 @@
         "Value": {
             "Coding": [
                 {
-                    "Code": "C0456595",
+                    "Code": {
+                        "Value": "C0456595",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -5043,7 +5592,12 @@
         "FindingStatus": {
             "Coding": [
                 {
-                    "Code": "final",
+                    "Code": {
+                        "Value": "final",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                     },
@@ -5071,123 +5625,31 @@
             },
             "Observation": [
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
+                    "_EntryId": "2211",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/mcode/TNMClinicalPrimaryTumorClassification"
-                    },
-                    "Value": {
-                        "Coding": [
-                            {
-                                "Code": "369918000",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                },
-                                "CodeSystem": {
-                                    "Value": "http://snomed.info/sct",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                    }
-                                },
-                                "DisplayText": {
-                                    "Value": "T3",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                    }
-                                }
-                            }
-                        ],
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                        }
                     }
                 },
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
+                    "_EntryId": "2212",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/mcode/TNMClinicalRegionalNodesClassification"
-                    },
-                    "Value": {
-                        "Coding": [
-                            {
-                                "Code": "103802018",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                },
-                                "CodeSystem": {
-                                    "Value": "http://snomed.info/sct",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                    }
-                                },
-                                "DisplayText": {
-                                    "Value": "N0",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                    }
-                                }
-                            }
-                        ],
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                        }
                     }
                 },
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
+                    "_EntryId": "2213",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/mcode/TNMClinicalDistantMetastasesClassification"
-                    },
-                    "Value": {
-                        "Coding": [
-                            {
-                                "Code": "51703010",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                },
-                                "CodeSystem": {
-                                    "Value": "http://snomed.info/sct",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                    }
-                                },
-                                "DisplayText": {
-                                    "Value": "M0",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                    }
-                                }
-                            }
-                        ],
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                        }
                     }
                 },
                 {
-                    "EntryType": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
+                    "_EntryId": "2214",
+                    "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/oncology/MitoticRate"
-                    },
-                    "Value": {
-                        "Coding": [
-                            {
-                                "Code": "C35960",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                },
-                                "CodeSystem": {
-                                    "Value": "http://ncimeta.nci.nih.gov",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                    }
-                                },
-                                "DisplayText": {
-                                    "Value": "high",
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                    }
-                                }
-                            }
-                        ],
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                        }
                     }
                 }
             ]
@@ -5199,7 +5661,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Code": "ajcc_v7",
+                        "Code": {
+                            "Value": "ajcc_v7",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -5262,6 +5729,202 @@
             },
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/SpecificFocusOfFinding"
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
+        "EntryId": "2211",
+        "LastUpdated": {
+            "Value": "02 Jul 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "02 Jul 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/mcode/TNMClinicalPrimaryTumorClassification"
+        },
+        "Value": {
+            "Coding": [
+                {
+                    "Code": {
+                        "Value": "369918000",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "CodeSystem": {
+                        "Value": "http://snomed.info/sct",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        }
+                    },
+                    "DisplayText": {
+                        "Value": "T3",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    }
+                }
+            ],
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
+        "EntryId": "2212",
+        "LastUpdated": {
+            "Value": "02 Jul 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "02 Jul 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/mcode/TNMClinicalRegionalNodesClassification"
+        },
+        "Value": {
+            "Coding": [
+                {
+                    "Code": {
+                        "Value": "103802014",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "CodeSystem": {
+                        "Value": "http://snomed.info/sct",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        }
+                    },
+                    "DisplayText": {
+                        "Value": "N0",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    }
+                }
+            ],
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
+        "EntryId": "2213",
+        "LastUpdated": {
+            "Value": "02 Jul 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "02 Jul 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/mcode/TNMClinicalDistantMetastasesClassification"
+        },
+        "Value": {
+            "Coding": [
+                {
+                    "Code": {
+                        "Value": "51703010",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "CodeSystem": {
+                        "Value": "http://snomed.info/sct",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        }
+                    },
+                    "DisplayText": {
+                        "Value": "M0",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    }
+                }
+            ],
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
+        "EntryId": "2214",
+        "LastUpdated": {
+            "Value": "02 Jul 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "02 Jul 2018",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/oncology/MitoticRate"
+        },
+        "Value": {
+            "Coding": [
+                {
+                    "Code": {
+                        "Value": "C35960",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                        }
+                    },
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                    },
+                    "CodeSystem": {
+                        "Value": "http://ncimeta.nci.nih.gov",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                        }
+                    },
+                    "DisplayText": {
+                        "Value": "high",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                        }
+                    }
+                }
+            ],
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
             }
         }
     }

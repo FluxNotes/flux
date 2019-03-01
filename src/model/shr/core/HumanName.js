@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 import PersonName from './PersonName';
 
@@ -64,7 +64,7 @@ class HumanName extends PersonName {
    * @param {object} json - the JSON data to deserialize
    * @returns {HumanName} An instance of HumanName populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new HumanName();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -76,7 +76,7 @@ class HumanName extends PersonName {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/HumanName' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/HumanName' } };
     if (this.nameAsText != null) {
       inst['NameAsText'] = typeof this.nameAsText.toJSON === 'function' ? this.nameAsText.toJSON() : this.nameAsText;
     }
@@ -105,85 +105,48 @@ class HumanName extends PersonName {
   }
 
   /**
-   * Serializes an instance of the HumanName class to a FHIR object.
-   * The FHIR is expected to be valid against the HumanName FHIR profile, but no validation checks are performed.
-   * @param {boolean} asExtension - Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
-    if (this.purpose != null && this.purpose.coding != null && this.purpose.coding.code != null) {
-      inst['use'] = inst['use'] || [];
-      inst['use'] = inst['use'].concat(this.purpose.coding.code.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    if (this.nameAsText != null) {
-      inst['text'] = typeof this.nameAsText.toFHIR === 'function' ? this.nameAsText.toFHIR() : this.nameAsText;
-    }
-    if (this.familyName != null) {
-      inst['family'] = inst['family'] || [];
-      inst['family'] = inst['family'].concat(this.familyName.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    if (this.givenName != null) {
-      inst['given'] = inst['given'] || [];
-      inst['given'] = inst['given'].concat(this.givenName.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    if (this.prefix != null) {
-      inst['prefix'] = inst['prefix'] || [];
-      inst['prefix'] = inst['prefix'].concat(this.prefix.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    if (this.suffix != null) {
-      inst['suffix'] = inst['suffix'] || [];
-      inst['suffix'] = inst['suffix'].concat(this.suffix.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    if (this.effectiveTimePeriod != null) {
-      inst['period'] = typeof this.effectiveTimePeriod.toFHIR === 'function' ? this.effectiveTimePeriod.toFHIR() : this.effectiveTimePeriod;
-    }
-    if (asExtension) {
-      inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-core-HumanName-extension';
-      inst['valueHumanName'] = this.value;
-    }
-    return inst;
-  }
-
-  /**
    * Deserializes FHIR JSON data to an instance of the HumanName class.
    * The FHIR must be valid against the HumanName FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {HumanName} An instance of HumanName populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension = false) {
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new HumanName();
     if (fhir['use'] != null) {
-      if (inst.purpose === null) {
-        inst.purpose = createInstanceFromFHIR('shr.core.Purpose', {});
-      }
-      if (inst.purpose.value === null) {
-        inst.purpose.value = createInstanceFromFHIR('shr.core.Coding', {});
-      }
-      inst.purpose.value.code = createInstanceFromFHIR('shr.core.Code', fhir['use']);
+      inst.purpose = inst.purpose || [];
+      const inst_purpose = FHIRHelper.createInstanceFromFHIR('shr.core.Purpose', fhir['use'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.purpose.push(inst_purpose);
     }
     if (fhir['text'] != null) {
-      inst.nameAsText = createInstanceFromFHIR('shr.core.NameAsText', fhir['text']);
+      inst.nameAsText = FHIRHelper.createInstanceFromFHIR('shr.core.NameAsText', fhir['text'], shrId, allEntries, mappedResources, referencesOut, false);
     }
-    if (fhir['family'] != null) {
+    for (const fhir_family of fhir['family'] || []) {
       inst.familyName = inst.familyName || [];
-      inst.familyName = inst.familyName.concat(fhir['family'].map(f => createInstanceFromFHIR('shr.core.FamilyName', f)));
+      const inst_familyName = FHIRHelper.createInstanceFromFHIR('shr.core.FamilyName', fhir_family, shrId, allEntries, mappedResources, referencesOut, false);
+      inst.familyName.push(inst_familyName);
     }
-    if (fhir['given'] != null) {
+    for (const fhir_given of fhir['given'] || []) {
       inst.givenName = inst.givenName || [];
-      inst.givenName = inst.givenName.concat(fhir['given'].map(f => createInstanceFromFHIR('shr.core.GivenName', f)));
+      const inst_givenName = FHIRHelper.createInstanceFromFHIR('shr.core.GivenName', fhir_given, shrId, allEntries, mappedResources, referencesOut, false);
+      inst.givenName.push(inst_givenName);
     }
-    if (fhir['prefix'] != null) {
+    for (const fhir_prefix of fhir['prefix'] || []) {
       inst.prefix = inst.prefix || [];
-      inst.prefix = inst.prefix.concat(fhir['prefix'].map(f => createInstanceFromFHIR('shr.core.Prefix', f)));
+      const inst_prefix = FHIRHelper.createInstanceFromFHIR('shr.core.Prefix', fhir_prefix, shrId, allEntries, mappedResources, referencesOut, false);
+      inst.prefix.push(inst_prefix);
     }
-    if (fhir['suffix'] != null) {
+    for (const fhir_suffix of fhir['suffix'] || []) {
       inst.suffix = inst.suffix || [];
-      inst.suffix = inst.suffix.concat(fhir['suffix'].map(f => createInstanceFromFHIR('shr.core.Suffix', f)));
+      const inst_suffix = FHIRHelper.createInstanceFromFHIR('shr.core.Suffix', fhir_suffix, shrId, allEntries, mappedResources, referencesOut, false);
+      inst.suffix.push(inst_suffix);
     }
     if (fhir['period'] != null) {
-      inst.effectiveTimePeriod = createInstanceFromFHIR('shr.core.EffectiveTimePeriod', fhir['period']);
+      inst.effectiveTimePeriod = FHIRHelper.createInstanceFromFHIR('shr.core.EffectiveTimePeriod', fhir['period'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (asExtension) {
       inst.value = fhir['valueHumanName'];

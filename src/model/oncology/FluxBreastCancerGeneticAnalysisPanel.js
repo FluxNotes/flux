@@ -1,8 +1,9 @@
 import BreastCancerGeneticAnalysisPanel from '../shr/oncology/BreastCancerGeneticAnalysisPanel';
 
 class FluxBreastCancerGeneticAnalysisPanel {
-    constructor(json) {
+    constructor(json, patientRecord) {
         this._breastCancerGeneticAnalysisPanel = BreastCancerGeneticAnalysisPanel.fromJSON(json);
+        this._patientRecord = patientRecord;
     }
     
     get entryInfo() {
@@ -14,7 +15,7 @@ class FluxBreastCancerGeneticAnalysisPanel {
     }
     
     get members() {
-        return this._breastCancerGeneticAnalysisPanel.panelMembers.observation;
+        return this._breastCancerGeneticAnalysisPanel.panelMembers.observation.map(m => this._patientRecord.getEntryFromReference(m));
     }
 
     toJSON() {

@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 /**
  * Generated class for shr.core.Coding.
@@ -18,10 +18,6 @@ class Coding {
    * @param {Code} code - The shr.core.Code
    */
   set code(code) {
-    this._code = code;
-  }
-
-  set value(code) {
     this._code = code;
   }
 
@@ -115,7 +111,7 @@ class Coding {
    * @param {object} json - the JSON data to deserialize
    * @returns {Coding} An instance of Coding populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new Coding();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -127,7 +123,7 @@ class Coding {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/Coding' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Coding' } };
     if (this.code != null) {
       inst['Code'] = typeof this.code.toJSON === 'function' ? this.code.toJSON() : this.code;
     }
@@ -144,48 +140,34 @@ class Coding {
   }
 
   /**
-   * Serializes an instance of the Coding class to a FHIR object.
-   * The FHIR is expected to be valid against the Coding FHIR profile, but no validation checks are performed.
-   * @param {boolean} asExtension - Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
-    if (this.codeSystem != null) {
-      inst['system'] = typeof this.codeSystem.toFHIR === 'function' ? this.codeSystem.toFHIR() : this.codeSystem;
-    }
-    if (this.codeSystemVersion != null) {
-      inst['version'] = typeof this.codeSystemVersion.toFHIR === 'function' ? this.codeSystemVersion.toFHIR() : this.codeSystemVersion;
-    }
-    if (this.code != null) {
-      inst['code'] = typeof this.code.toFHIR === 'function' ? this.code.toFHIR() : this.code;
-    }
-    if (this.displayText != null) {
-      inst['display'] = typeof this.displayText.toFHIR === 'function' ? this.displayText.toFHIR() : this.displayText;
-    }
-    return inst;
-  }
-
-  /**
    * Deserializes FHIR JSON data to an instance of the Coding class.
    * The FHIR must be valid against the Coding FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Coding} An instance of Coding populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension = false) {
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new Coding();
-    if (fhir['system'] != null) {
-      inst.codeSystem = createInstanceFromFHIR('shr.core.CodeSystem', fhir['system']);
-    }
-    if (fhir['version'] != null) {
-      inst.codeSystemVersion = createInstanceFromFHIR('shr.core.CodeSystemVersion', fhir['version']);
-    }
-    if (fhir['code'] != null) {
-      inst.code = createInstanceFromFHIR('shr.core.Code', fhir['code']);
-    }
-    if (fhir['display'] != null) {
-      inst.displayText = createInstanceFromFHIR('shr.core.DisplayText', fhir['display']);
+    if (typeof fhir === 'string') {
+        inst.code = FHIRHelper.createInstanceFromFHIR('shr.core.Code', fhir, shrId, allEntries, mappedResources, referencesOut, false);
+        inst.displayText = FHIRHelper.createInstanceFromFHIR('shr.core.DisplayText', fhir, shrId, allEntries, mappedResources, referencesOut, false);
+    } else {
+      if (fhir['system'] != null) {
+        inst.codeSystem = FHIRHelper.createInstanceFromFHIR('shr.core.CodeSystem', fhir['system'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      if (fhir['version'] != null) {
+        inst.codeSystemVersion = FHIRHelper.createInstanceFromFHIR('shr.core.CodeSystemVersion', fhir['version'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      if (fhir['code'] != null) {
+        inst.code = FHIRHelper.createInstanceFromFHIR('shr.core.Code', fhir['code'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      if (fhir['display'] != null) {
+        inst.displayText = FHIRHelper.createInstanceFromFHIR('shr.core.DisplayText', fhir['display'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
     }
     return inst;
   }

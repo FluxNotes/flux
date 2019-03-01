@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 /**
  * Generated class for shr.core.ContactPoint.
@@ -136,7 +136,7 @@ class ContactPoint {
    * @param {object} json - the JSON data to deserialize
    * @returns {ContactPoint} An instance of ContactPoint populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new ContactPoint();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -148,7 +148,7 @@ class ContactPoint {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/ContactPoint' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/ContactPoint' } };
     if (this.telecomNumberOrAddress != null) {
       inst['TelecomNumberOrAddress'] = typeof this.telecomNumberOrAddress.toJSON === 'function' ? this.telecomNumberOrAddress.toJSON() : this.telecomNumberOrAddress;
     }
@@ -168,64 +168,32 @@ class ContactPoint {
   }
 
   /**
-   * Serializes an instance of the ContactPoint class to a FHIR object.
-   * The FHIR is expected to be valid against the ContactPoint FHIR profile, but no validation checks are performed.
-   * @param {boolean} asExtension - Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
-    if (this.type != null) {
-      inst['system'] = typeof this.type.toFHIR === 'function' ? this.type.toFHIR() : this.type;
-    }
-    if (this.telecomNumberOrAddress != null) {
-      inst['value'] = typeof this.telecomNumberOrAddress.toFHIR === 'function' ? this.telecomNumberOrAddress.toFHIR() : this.telecomNumberOrAddress;
-    }
-    if (this.purpose != null && this.purpose.coding != null && this.purpose.coding.code != null) {
-      inst['use'] = typeof this.purpose.coding.code.toFHIR === 'function' ? this.purpose.coding.code.toFHIR() : this.purpose.coding.code;
-    }
-    if (this.priorityRank != null) {
-      inst['rank'] = typeof this.priorityRank.toFHIR === 'function' ? this.priorityRank.toFHIR() : this.priorityRank;
-    }
-    if (this.effectiveTimePeriod != null) {
-      inst['period'] = typeof this.effectiveTimePeriod.toFHIR === 'function' ? this.effectiveTimePeriod.toFHIR() : this.effectiveTimePeriod;
-    }
-    if (asExtension) {
-      inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-core-ContactPoint-extension';
-      inst['valueContactPoint'] = this.value;
-    }
-    return inst;
-  }
-
-  /**
    * Deserializes FHIR JSON data to an instance of the ContactPoint class.
    * The FHIR must be valid against the ContactPoint FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {ContactPoint} An instance of ContactPoint populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension = false) {
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new ContactPoint();
     if (fhir['system'] != null) {
-      inst.type = createInstanceFromFHIR('shr.core.Type', fhir['system']);
+      inst.type = FHIRHelper.createInstanceFromFHIR('shr.core.Type', fhir['system'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['value'] != null) {
-      inst.telecomNumberOrAddress = createInstanceFromFHIR('shr.core.TelecomNumberOrAddress', fhir['value']);
+      inst.telecomNumberOrAddress = FHIRHelper.createInstanceFromFHIR('shr.core.TelecomNumberOrAddress', fhir['value'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['use'] != null) {
-      if (inst.purpose === null) {
-        inst.purpose = createInstanceFromFHIR('shr.core.Purpose', {});
-      }
-      if (inst.purpose.value === null) {
-        inst.purpose.value = createInstanceFromFHIR('shr.core.Coding', {});
-      }
-      inst.purpose.value.code = createInstanceFromFHIR('shr.core.Code', fhir['use']);
+      inst.purpose = FHIRHelper.createInstanceFromFHIR('shr.core.Purpose', fhir['use'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['rank'] != null) {
-      inst.priorityRank = createInstanceFromFHIR('shr.core.PriorityRank', fhir['rank']);
+      inst.priorityRank = FHIRHelper.createInstanceFromFHIR('shr.core.PriorityRank', fhir['rank'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['period'] != null) {
-      inst.effectiveTimePeriod = createInstanceFromFHIR('shr.core.EffectiveTimePeriod', fhir['period']);
+      inst.effectiveTimePeriod = FHIRHelper.createInstanceFromFHIR('shr.core.EffectiveTimePeriod', fhir['period'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (asExtension) {
       inst.value = fhir['valueContactPoint'];

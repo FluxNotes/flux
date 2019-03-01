@@ -1,11 +1,11 @@
 import FluxObjectFactory from '../model/FluxObjectFactory';
 import FluxAllergyIntolerance from '../model/allergy/FluxAllergyIntolerance';
-import FluxBreastCancer from '../model/oncology/FluxBreastCancer';
+import FluxBreastCancerDisorderPresent from '../model/brca/FluxBreastCancerDisorderPresent';
 import FluxBreastCancerGeneticAnalysisPanel from '../model/oncology/FluxBreastCancerGeneticAnalysisPanel';
 import FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel from '../model/oncology/FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel';
 import FluxClinicalNote from '../model/core/FluxClinicalNote';
 import FluxConditionPresentAssertion from '../model/base/FluxConditionPresentAssertion';
-import FluxCancerProgression from '../model/mcode/FluxCancerProgression';
+import FluxCancerProgression from '../model/oncocore/FluxCancerProgression';
 import FluxConsultRequested from '../model/encounter/FluxConsultRequested';
 import FluxMedicationRequested from '../model/medication/FluxMedicationRequested';
 import FluxMedicationChange from '../model/medication/FluxMedicationChange';
@@ -13,7 +13,7 @@ import FluxNoKnownAllergy from '../model/allergy/FluxNoKnownAllergy';
 import FluxPatient from '../model/entity/FluxPatient';
 import FluxPatientIdentifier from '../model/base/FluxPatientIdentifier';
 import FluxProcedureRequested from '../model/procedure/FluxProcedureRequested';
-import FluxQuestionAnswer from '../model/finding/FluxQuestionAnswer';
+import FluxQuestionAnswer from '../model/base/FluxQuestionAnswer';
 import FluxResearchSubject from '../model/research/FluxResearchSubject';
 import FluxBloodPressure from '../model/vital/FluxBloodPressure';
 import FluxBodyTemperature from '../model/vital/FluxBodyTemperature';
@@ -22,7 +22,7 @@ import FluxHeartRate from '../model/vital/FluxHeartRate';
 import FluxImagingProcedurePerformed from '../model/procedure/FluxImagingProcedurePerformed';
 import FluxPathologyReport from '../model/finding/FluxPathologyReport';
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx'; // put jsx because yarn test-ui errors on this import otherwise
-import CreationTime from '../model/shr/core/CreationTime';
+import AuthoredDateTime from '../model/shr/base/AuthoredDateTime';
 import LastUpdated from '../model/shr/base/LastUpdated';
 import Reference from '../model/Reference';
 import mapper from '../lib/FHIRMapper';
@@ -30,9 +30,9 @@ import Lang from 'lodash';
 import moment from 'moment';
 import { v4 } from 'uuid';
 import _ from 'lodash';
+import Metadata from '../model/shr/base/Metadata';
 
 class PatientRecord {
-
     constructor(shrJson = null) {
         this.enrolledClinicalTrials = [];
         this.missingEligibleTrialData = [];
@@ -143,14 +143,17 @@ class PatientRecord {
         entry.entryInfo.shrId = this.shrId;
         entry.entryInfo.entryId = this.nextEntryId;
         this.nextEntryId = this.nextEntryId + 1;
-        let today = new moment().format("D MMM YYYY");
-        entry.entryInfo.creationTime = new CreationTime();
-        entry.entryInfo.creationTime.dateTime = today;
         if (clinicalNote) {
             entry.entryInfo.sourceClinicalNote = this.createEntryReferenceTo(clinicalNote.entryInfo);
         }
-        entry.entryInfo.lastUpdated = new LastUpdated();
-        entry.entryInfo.lastUpdated.instant = today;
+        const today = new moment().format("D MMM YYYY");
+        const metadata = new Metadata();
+        metadata.lastUpdated = new LastUpdated();
+        metadata.lastUpdated.instant = today;
+        metadata.authoredDateTime = new AuthoredDateTime();
+        metadata.authoredDateTime.dateTime = today;
+        entry.metadata = metadata;
+
         this.entries.push(entry);
         this.refreshClinicalTrials = true;
         return entry; //entry.entryInfo.entryId;
@@ -240,7 +243,7 @@ class PatientRecord {
     }
 
     getMostRecentPhoto() {
-        return this.person.headshot;
+        return this.person.photographicImage;
     }
 
     getCurrentHomeAddress() {
@@ -317,7 +320,7 @@ class PatientRecord {
     getReviewOfSystems() {
         return this.entries.find((e) => {
             // C95618 is code for ROS
-            return e instanceof FluxQuestionAnswer && e.observationCodeCoding === 'C95618';
+            return e instanceof FluxQuestionAnswer && e.isROS();
         });
     }
 
@@ -337,7 +340,7 @@ class PatientRecord {
         const trueAnswers = members.filter((m) => {
             return m.value === true;
         }).map((m) => {
-            return m.observationCodeDisplayText;
+            return m.questionText;
         });
 
         result = `A complete ${members.length} point ROS was done and was unremarkable`;
@@ -471,7 +474,7 @@ class PatientRecord {
             } else if (allergy instanceof FluxAllergyIntolerance) {
                 result += allergy.name;
             } else {
-                result += allergy.value.coding[0].displayText;
+                result += allergy.value.coding[0].displayText.value;
             }
             first = false;
         });
@@ -479,7 +482,7 @@ class PatientRecord {
     }
 
     getLastBreastCancerCondition() {
-        let result = this.getEntriesOfType(FluxBreastCancer);
+        let result = this.getEntriesOfType(FluxBreastCancerDisorderPresent);
         return result[result.length - 1];
     }
 
@@ -889,8 +892,8 @@ class PatientRecord {
     }
 
     _medChangesTimeSorter(a, b) {
-        const a_time = a.entryInfo.creationTime.dateTime;
-        const b_time = b.entryInfo.creationTime.dateTime;
+        const a_time = a.metadata.authoredDateTime.dateTime;
+        const b_time = b.metadata.authoredDateTime.dateTime;
         const a_startTime = new moment(a_time.timePeriodStart, "D MMM YYYY");
         const b_startTime = new moment(b_time.timePeriodStart, "D MMM YYYY");
         if (a_startTime < b_startTime) {
@@ -901,6 +904,7 @@ class PatientRecord {
         }
         return 0;
     }
+
     _reverseMedsTimeSorter(a, b) {
         const a_startTime = new moment(a.expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
         const b_startTime = new moment(b.expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
@@ -1109,12 +1113,12 @@ class PatientRecord {
     static getMostRecentEntryFromList(list) {
         if (list.length === 0) return null;
         if (list.length === 1) return list[0];
-
+        list = list.filter(e => e.metadata)
         let maxDate = Math.max.apply(null, list.map(function (o) {
-            return new Date(o.entryInfo.lastUpdated.instant);
+            return new Date(o.metadata.lastUpdated.instant);
         }));
         let result = list.filter((item) => {
-            return new Date(item.entryInfo.lastUpdated.instant).getTime() === new Date(maxDate).getTime()
+            return new Date(item.metadata.lastUpdated.instant).getTime() === new Date(maxDate).getTime()
         });
         if (Lang.isUndefined(result) || Lang.isNull(result) || result.length === 0) {
             return null;

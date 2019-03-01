@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 /**
  * Generated class for shr.base.Participation.
@@ -111,7 +111,7 @@ class Participation {
    * @param {object} json - the JSON data to deserialize
    * @returns {Participation} An instance of Participation populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new Participation();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -123,7 +123,7 @@ class Participation {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/base/Participation' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/base/Participation' } };
     if (this.participant != null) {
       inst['Participant'] = typeof this.participant.toJSON === 'function' ? this.participant.toJSON() : this.participant;
     }
@@ -140,60 +140,34 @@ class Participation {
   }
 
   /**
-   * Serializes an instance of the Participation class to a FHIR object.
-   * The FHIR is expected to be valid against the Participation FHIR profile, but no validation checks are performed.
-   * @param {boolean} asExtension - Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
-    if (asExtension) {
-      if (this.participant != null) {
-        inst['extension'] = inst['extension'] || [];
-        inst['extension'].push(this.participant.toFHIR(true));
-      }
-      if (this.participationType != null) {
-        inst['extension'] = inst['extension'] || [];
-        inst['extension'].push(this.participationType.toFHIR(true));
-      }
-      if (this.participationPeriod != null) {
-        inst['extension'] = inst['extension'] || [];
-        inst['extension'].push(this.participationPeriod.toFHIR(true));
-      }
-      if (this.onBehalfOf != null) {
-        inst['extension'] = inst['extension'] || [];
-        inst['extension'].push(this.onBehalfOf.toFHIR(true));
-      }
-      inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-base-Participation-extension';
-    }
-    return inst;
-  }
-
-  /**
    * Deserializes FHIR JSON data to an instance of the Participation class.
    * The FHIR must be valid against the Participation FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Participation} An instance of Participation populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension = false) {
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new Participation();
     if (asExtension) {
-      const match_1 = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-base-Participant-extension');
+      const match_1 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-Participant-extension');
       if (match_1 != null) {
-        inst.participant = createInstanceFromFHIR('shr.base.Participant', match_1, true);
+        inst.participant = FHIRHelper.createInstanceFromFHIR('shr.base.Participant', match_1, shrId, allEntries, mappedResources, referencesOut, true);
       }
-      const match_2 = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-base-ParticipationType-extension');
+      const match_2 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-ParticipationType-extension');
       if (match_2 != null) {
-        inst.participationType = createInstanceFromFHIR('shr.base.ParticipationType', match_2, true);
+        inst.participationType = FHIRHelper.createInstanceFromFHIR('shr.base.ParticipationType', match_2, shrId, allEntries, mappedResources, referencesOut, true);
       }
-      const match_3 = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-base-ParticipationPeriod-extension');
+      const match_3 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-ParticipationPeriod-extension');
       if (match_3 != null) {
-        inst.participationPeriod = createInstanceFromFHIR('shr.base.ParticipationPeriod', match_3, true);
+        inst.participationPeriod = FHIRHelper.createInstanceFromFHIR('shr.base.ParticipationPeriod', match_3, shrId, allEntries, mappedResources, referencesOut, true);
       }
-      const match_4 = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-core-OnBehalfOf-extension');
+      const match_4 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-OnBehalfOf-extension');
       if (match_4 != null) {
-        inst.onBehalfOf = createInstanceFromFHIR('shr.core.OnBehalfOf', match_4, true);
+        inst.onBehalfOf = FHIRHelper.createInstanceFromFHIR('shr.core.OnBehalfOf', match_4, shrId, allEntries, mappedResources, referencesOut, true);
       }
     }
     return inst;

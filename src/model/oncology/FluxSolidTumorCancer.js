@@ -1,19 +1,21 @@
-import FluxHistologicGrade from './FluxHistologicGrade';
-import FluxTNMStage from '../oncology/FluxTNMStage';
+import FluxCancerHistologicGrade from '../oncocore/FluxCancerHistologicGrade';
+import FluxTNMClinicalStageGroup from '../oncocore/FluxTNMClinicalStageGroup';
 import Lang from 'lodash';
 import moment from 'moment';
-import FluxCancerDisorder from '../mcode/FluxCancerDisorder';
-import FluxCancerHistologicType from '../mcode/FluxCancerHistologicType';
-import FluxKarnofskyPerformanceStatus from '../mcode/FluxKarnofskyPerformanceStatus';
-import FluxECOGPerformanceStatus from '../mcode/FluxECOGPerformanceStatus';
+import FluxCancerDisorderPresent from '../oncocore/FluxCancerDisorderPresent';
+import FluxCancerHistologicType from '../oncocore/FluxCancerHistologicType';
+import FluxKarnofskyPerformanceStatus from '../oncocore/FluxKarnofskyPerformanceStatus';
+import FluxECOGPerformanceStatus from '../oncocore/FluxECOGPerformanceStatus';
+import FluxTNMStageGroup from '../oncocore/FluxTNMStageGroup';
+import FluxTNMPathologicStageGroup from '../oncocore/FluxTNMPathologicStageGroup';
 
-class FluxSolidTumorCancer extends FluxCancerDisorder {
+class FluxSolidTumorCancer extends FluxCancerDisorderPresent {
     getHistologicalGrades() {
-        return this.getObservationsOfType(FluxHistologicGrade);
+        return this.getObservationsOfType(FluxCancerHistologicGrade);
     }
-    
+
     getMostRecentHistologicalGrade() {
-        let results = this.getObservationsOfTypeChronologicalOrder(FluxHistologicGrade);
+        let results = this.getObservationsOfTypeChronologicalOrder(FluxCancerHistologicGrade);
         if (!results || results.length === 0) return null;
         return results.pop();
     }
@@ -25,19 +27,27 @@ class FluxSolidTumorCancer extends FluxCancerDisorder {
     }
 
     _getMostRecentReceptorStatus(receptorType) {
-        const list = this.getObservationsOfType(receptorType);
+        const list = this.getReceptorsOfType(receptorType);
         const sortedList = list.sort(this._observationsTimeSorter);
         if (list.length === 0) return null; else return sortedList.pop();
     }
 
+    getReceptorsOfType(receptorType) {
+        if (!this._condition.entryInfo) return [];
+        const conditionEntryId = this._condition.entryInfo.entryId;
+        return this._patientRecord.getEntriesOfType(receptorType).filter(item => {
+            return item.specificFocusOfFinding && item.specificFocusOfFinding._entryId === conditionEntryId;
+        });
+    }
+
     getMostRecentClinicalStaging(sinceDate = null) {
-        let stagingList = this.getObservationsOfType(FluxTNMStage).filter((s) => !s.isPathologic());
+        let stagingList = this._patientRecord.getEntriesOfType(FluxTNMClinicalStageGroup);
         if (stagingList.length === 0) return null; 
         const sortedStagingList = stagingList.sort(this._stageTimeSorter);
         const length = sortedStagingList.length;
         let s = (sortedStagingList[length - 1]);
         if (Lang.isNull(sinceDate)) return s; 
-        const startTime = new moment(s.occurrenceTime, "D MMM YYYY");
+        const startTime = new moment(s.relevantTime, "D MMM YYYY");
         if (startTime < sinceDate) {
             return null;
         } else {
@@ -72,13 +82,13 @@ class FluxSolidTumorCancer extends FluxCancerDisorder {
     }
 
     getMostRecentPathologicStaging(sinceDate = null) {
-        let stagingList = this.getObservationsOfType(FluxTNMStage).filter((s) => s.isPathologic());
+        let stagingList = this._patientRecord.getEntriesOfType(FluxTNMPathologicStageGroup);
         if (stagingList.length === 0) return null; 
         const sortedStagingList = stagingList.sort(this._stageTimeSorter);
         const length = sortedStagingList.length;
         let s = (sortedStagingList[length - 1]);
         if (Lang.isNull(sinceDate)) return s; 
-        const startTime = new moment(s.occurrenceTime, "D MMM YYYY");
+        const startTime = new moment(s.relevantTime, "D MMM YYYY");
         if (startTime < sinceDate) {
             return null;
         } else {
@@ -87,13 +97,13 @@ class FluxSolidTumorCancer extends FluxCancerDisorder {
     }
 
     getMostRecentStaging(sinceDate = null) {
-        let stagingList = this.getObservationsOfType(FluxTNMStage);
+        let stagingList = this._patientRecord.getEntriesOfType(FluxTNMStageGroup);
         if (stagingList.length === 0) return null; 
         const sortedStagingList = stagingList.sort(this._stageTimeSorter);
         const length = sortedStagingList.length;
         let s = (sortedStagingList[length - 1]);
         if (Lang.isNull(sinceDate)) return s; 
-        const startTime = new moment(s.occurrenceTime, "D MMM YYYY");
+        const startTime = new moment(s.relevantTime, "D MMM YYYY");
         if (startTime < sinceDate) {
             return null;
         } else {

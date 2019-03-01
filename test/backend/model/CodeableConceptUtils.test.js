@@ -18,7 +18,7 @@ describe('getCodeableConceptFromTuple', function() {
         expect(concept.coding)
             .to.be.an('array')
             .that.is.not.empty;
-        expect(concept.coding[0].code)
+        expect(concept.coding[0].code.value)
             .to.be.a('string')
             .eql(tuple.value);
         expect(concept.coding[0].codeSystem.value)

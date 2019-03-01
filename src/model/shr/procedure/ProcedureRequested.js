@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 import ActionRequested from '../base/ActionRequested';
 
@@ -34,33 +34,6 @@ class ProcedureRequested extends ActionRequested {
   }
 
   /**
-   * Get the TopicCode.
-   * @returns {TopicCode} The shr.base.TopicCode
-   */
-  get topicCode() {
-    return this._topicCode;
-  }
-
-  /**
-   * Set the TopicCode.
-   * This field/value is required.
-   * @param {TopicCode} topicCode - The shr.base.TopicCode
-   */
-  set topicCode(topicCode) {
-    this._topicCode = topicCode;
-  }
-
-  /**
-   * Set the TopicCode and return 'this' for chaining.
-   * This field/value is required.
-   * @param {TopicCode} topicCode - The shr.base.TopicCode
-   * @returns {ProcedureRequested} this.
-   */
-  withTopicCode(topicCode) {
-    this.topicCode = topicCode; return this;
-  }
-
-  /**
    * Get the Reason array.
    * @returns {Array<Reason>} The shr.base.Reason array
    */
@@ -86,55 +59,55 @@ class ProcedureRequested extends ActionRequested {
   }
 
   /**
-   * Get the Status.
-   * @returns {Status} The shr.core.Status
+   * Get the PractitionerOrDevice.
+   * @returns {PractitionerOrDevice} The shr.base.PractitionerOrDevice
    */
-  get status() {
-    return this._status;
+  get requester() {
+    return this._requester;
   }
 
   /**
-   * Set the Status.
-   * This field/value is required.
-   * @param {Status} status - The shr.core.Status
+   * Set the PractitionerOrDevice.
+   * @param {PractitionerOrDevice} requester - The shr.base.PractitionerOrDevice
    */
-  set status(status) {
-    this._status = status;
+  set requester(requester) {
+    this._requester = requester;
   }
 
   /**
-   * Set the Status and return 'this' for chaining.
-   * This field/value is required.
-   * @param {Status} status - The shr.core.Status
+   * Set the PractitionerOrDevice and return 'this' for chaining.
+   * @param {PractitionerOrDevice} requester - The shr.base.PractitionerOrDevice
    * @returns {ProcedureRequested} this.
    */
-  withStatus(status) {
-    this.status = status; return this;
+  withRequester(requester) {
+    this.requester = requester; return this;
   }
 
   /**
-   * Get the PriorityRank.
-   * @returns {PriorityRank} The shr.core.PriorityRank
+   * Get the ProcedureCode.
+   * @returns {ProcedureCode} The shr.procedure.ProcedureCode
    */
-  get priorityRank() {
-    return this._priorityRank;
+  get procedureCode() {
+    return this._procedureCode;
   }
 
   /**
-   * Set the PriorityRank.
-   * @param {PriorityRank} priorityRank - The shr.core.PriorityRank
+   * Set the ProcedureCode.
+   * This field/value is required.
+   * @param {ProcedureCode} procedureCode - The shr.procedure.ProcedureCode
    */
-  set priorityRank(priorityRank) {
-    this._priorityRank = priorityRank;
+  set procedureCode(procedureCode) {
+    this._procedureCode = procedureCode;
   }
 
   /**
-   * Set the PriorityRank and return 'this' for chaining.
-   * @param {PriorityRank} priorityRank - The shr.core.PriorityRank
+   * Set the ProcedureCode and return 'this' for chaining.
+   * This field/value is required.
+   * @param {ProcedureCode} procedureCode - The shr.procedure.ProcedureCode
    * @returns {ProcedureRequested} this.
    */
-  withPriorityRank(priorityRank) {
-    this.priorityRank = priorityRank; return this;
+  withProcedureCode(procedureCode) {
+    this.procedureCode = procedureCode; return this;
   }
 
   /**
@@ -238,81 +211,6 @@ class ProcedureRequested extends ActionRequested {
   }
 
   /**
-   * Get the Precondition array.
-   * @returns {Array<Precondition>} The shr.base.Precondition array
-   */
-  get precondition() {
-    return this._precondition;
-  }
-
-  /**
-   * Set the Precondition array.
-   * @param {Array<Precondition>} precondition - The shr.base.Precondition array
-   */
-  set precondition(precondition) {
-    this._precondition = precondition;
-  }
-
-  /**
-   * Set the Precondition array and return 'this' for chaining.
-   * @param {Array<Precondition>} precondition - The shr.base.Precondition array
-   * @returns {ProcedureRequested} this.
-   */
-  withPrecondition(precondition) {
-    this.precondition = precondition; return this;
-  }
-
-  /**
-   * Get the InputFinding array.
-   * @returns {Array<InputFinding>} The shr.procedure.InputFinding array
-   */
-  get inputFinding() {
-    return this._inputFinding;
-  }
-
-  /**
-   * Set the InputFinding array.
-   * @param {Array<InputFinding>} inputFinding - The shr.procedure.InputFinding array
-   */
-  set inputFinding(inputFinding) {
-    this._inputFinding = inputFinding;
-  }
-
-  /**
-   * Set the InputFinding array and return 'this' for chaining.
-   * @param {Array<InputFinding>} inputFinding - The shr.procedure.InputFinding array
-   * @returns {ProcedureRequested} this.
-   */
-  withInputFinding(inputFinding) {
-    this.inputFinding = inputFinding; return this;
-  }
-
-  /**
-   * Get the Indication array.
-   * @returns {Array<Indication>} The shr.procedure.Indication array
-   */
-  get indication() {
-    return this._indication;
-  }
-
-  /**
-   * Set the Indication array.
-   * @param {Array<Indication>} indication - The shr.procedure.Indication array
-   */
-  set indication(indication) {
-    this._indication = indication;
-  }
-
-  /**
-   * Set the Indication array and return 'this' for chaining.
-   * @param {Array<Indication>} indication - The shr.procedure.Indication array
-   * @returns {ProcedureRequested} this.
-   */
-  withIndication(indication) {
-    this.indication = indication; return this;
-  }
-
-  /**
    * Get the shr.entity.Device reference array.
    * @returns {Array<Reference>} The shr.entity.Device reference array
    */
@@ -368,7 +266,7 @@ class ProcedureRequested extends ActionRequested {
    * @param {object} json - the JSON data to deserialize
    * @returns {ProcedureRequested} An instance of ProcedureRequested populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new ProcedureRequested();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -381,9 +279,15 @@ class ProcedureRequested extends ActionRequested {
    */
   toJSON() {
     const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value': 'http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested' };
-    if (this.topicCode != null) {
-      inst['TopicCode'] = typeof this.topicCode.toJSON === 'function' ? this.topicCode.toJSON() : this.topicCode;
+    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested' };
+    if (this.narrative != null) {
+      inst['Narrative'] = typeof this.narrative.toJSON === 'function' ? this.narrative.toJSON() : this.narrative;
+    }
+    if (this.language != null) {
+      inst['Language'] = typeof this.language.toJSON === 'function' ? this.language.toJSON() : this.language;
+    }
+    if (this.metadata != null) {
+      inst['Metadata'] = typeof this.metadata.toJSON === 'function' ? this.metadata.toJSON() : this.metadata;
     }
     if (this.category != null) {
       inst['Category'] = typeof this.category.toJSON === 'function' ? this.category.toJSON() : this.category;
@@ -399,6 +303,9 @@ class ProcedureRequested extends ActionRequested {
     }
     if (this.status != null) {
       inst['Status'] = typeof this.status.toJSON === 'function' ? this.status.toJSON() : this.status;
+    }
+    if (this.requester != null) {
+      inst['Requester'] = typeof this.requester.toJSON === 'function' ? this.requester.toJSON() : this.requester;
     }
     if (this.requestIntent != null) {
       inst['RequestIntent'] = typeof this.requestIntent.toJSON === 'function' ? this.requestIntent.toJSON() : this.requestIntent;
@@ -427,6 +334,9 @@ class ProcedureRequested extends ActionRequested {
     if (this.communicationMethod != null) {
       inst['CommunicationMethod'] = typeof this.communicationMethod.toJSON === 'function' ? this.communicationMethod.toJSON() : this.communicationMethod;
     }
+    if (this.procedureCode != null) {
+      inst['ProcedureCode'] = typeof this.procedureCode.toJSON === 'function' ? this.procedureCode.toJSON() : this.procedureCode;
+    }
     if (this.anatomicalLocation != null) {
       inst['AnatomicalLocation'] = this.anatomicalLocation.map(f => f.toJSON());
     }
@@ -439,15 +349,6 @@ class ProcedureRequested extends ActionRequested {
     if (this.method != null) {
       inst['Method'] = typeof this.method.toJSON === 'function' ? this.method.toJSON() : this.method;
     }
-    if (this.precondition != null) {
-      inst['Precondition'] = this.precondition.map(f => f.toJSON());
-    }
-    if (this.inputFinding != null) {
-      inst['InputFinding'] = this.inputFinding.map(f => f.toJSON());
-    }
-    if (this.indication != null) {
-      inst['Indication'] = this.indication.map(f => f.toJSON());
-    }
     if (this.device != null) {
       inst['Device'] = this.device.map(f => f.toJSON());
     }
@@ -458,163 +359,167 @@ class ProcedureRequested extends ActionRequested {
   }
 
   /**
-   * Serializes an instance of the ProcedureRequested class to a FHIR object.
-   * The FHIR is expected to be valid against the ProcedureRequested FHIR profile, but no validation checks are performed.
-   * @param {boolean} asExtension - Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
-    inst['resourceType'] = 'ProcedureRequest';
-    if (this.expectedMethod != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.expectedMethod.toFHIR === 'function' ? this.expectedMethod.toFHIR(true) : this.expectedMethod);
-    }
-    if (this.performerInstructions != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.performerInstructions.toFHIR === 'function' ? this.performerInstructions.toFHIR(true) : this.performerInstructions);
-    }
-    if (this.patientInstructions != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.patientInstructions.toFHIR === 'function' ? this.patientInstructions.toFHIR(true) : this.patientInstructions);
-    }
-    if (this.communicationMethod != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.communicationMethod.toFHIR === 'function' ? this.communicationMethod.toFHIR(true) : this.communicationMethod);
-    }
-    if (this.partOf != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.partOf.toFHIR === 'function' ? this.partOf.toFHIR(true) : this.partOf);
-    }
-    if (this.annotation != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.annotation.toFHIR === 'function' ? this.annotation.toFHIR(true) : this.annotation);
-    }
-    if (this.method != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.method.toFHIR === 'function' ? this.method.toFHIR(true) : this.method);
-    }
-    if (this.precondition != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.precondition.toFHIR === 'function' ? this.precondition.toFHIR(true) : this.precondition);
-    }
-    if (this.inputFinding != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.inputFinding.toFHIR === 'function' ? this.inputFinding.toFHIR(true) : this.inputFinding);
-    }
-    if (this.indication != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.indication.toFHIR === 'function' ? this.indication.toFHIR(true) : this.indication);
-    }
-    if (this.device != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.device.toFHIR === 'function' ? this.device.toFHIR(true) : this.device);
-    }
-    if (this.location != null) {
-      inst['extension'] = inst['extension'] || [];
-      inst['extension'].push(typeof this.location.toFHIR === 'function' ? this.location.toFHIR(true) : this.location);
-    }
-    if (this.status != null) {
-      inst['status'] = typeof this.status.toFHIR === 'function' ? this.status.toFHIR() : this.status;
-    }
-    if (this.requestIntent != null) {
-      inst['intent'] = typeof this.requestIntent.toFHIR === 'function' ? this.requestIntent.toFHIR() : this.requestIntent;
-    }
-    if (this.priorityRank != null) {
-      inst['priority'] = typeof this.priorityRank.toFHIR === 'function' ? this.priorityRank.toFHIR() : this.priorityRank;
-    }
-    if (this.category != null) {
-      inst['category'] = typeof this.category.toFHIR === 'function' ? this.category.toFHIR() : this.category;
-    }
-    if (this.topicCode != null) {
-      inst['code'] = typeof this.topicCode.toFHIR === 'function' ? this.topicCode.toFHIR() : this.topicCode;
-    }
-    if (this.patient != null) {
-      inst['subject'] = typeof this.patient.toFHIR === 'function' ? this.patient.toFHIR() : this.patient;
-    }
-    if (this.encounter != null) {
-      inst['context'] = typeof this.encounter.toFHIR === 'function' ? this.encounter.toFHIR() : this.encounter;
-    }
-    if (this.expectedPerformanceTime != null) {
-      inst['occurrence[x]'] = typeof this.expectedPerformanceTime.toFHIR === 'function' ? this.expectedPerformanceTime.toFHIR() : this.expectedPerformanceTime;
-    }
-    if (this.expectedPerformerType != null) {
-      inst['performerType'] = typeof this.expectedPerformerType.toFHIR === 'function' ? this.expectedPerformerType.toFHIR() : this.expectedPerformerType;
-    }
-    if (this.expectedPerformer != null) {
-      inst['performer'] = typeof this.expectedPerformer.toFHIR === 'function' ? this.expectedPerformer.toFHIR() : this.expectedPerformer;
-    }
-    if (this.reason != null) {
-      inst['reasonCode'] = inst['reasonCode'] || [];
-      inst['reasonCode'] = inst['reasonCode'].concat(this.reason.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    if (this.anatomicalLocation != null && this.anatomicalLocation.anatomicalLocationOrLandmarkCode != null) {
-      inst['bodySite'] = inst['bodySite'] || [];
-      inst['bodySite'] = inst['bodySite'].concat(this.anatomicalLocation.anatomicalLocationOrLandmarkCode.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    return inst;
-  }
-
-  /**
    * Deserializes FHIR JSON data to an instance of the ProcedureRequested class.
    * The FHIR must be valid against the ProcedureRequested FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {ProcedureRequested} An instance of ProcedureRequested populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension = false) {
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new ProcedureRequested();
-    if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-base-ExpectedMethod-extension');
-      if (match != null) {
-        inst.expectedMethod = createInstanceFromFHIR('shr.base.ExpectedMethod', match, true);
+    inst.entryInfo = FHIRHelper.createInstanceFromFHIR('shr.base.Entry', {});
+    inst.entryInfo.shrId = FHIRHelper.createInstanceFromFHIR('shr.base.ShrId', shrId);
+    inst.entryInfo.entryId = FHIRHelper.createInstanceFromFHIR('shr.base.EntryId', fhir['id'] || uuid());
+    inst.entryInfo.entryType = FHIRHelper.createInstanceFromFHIR('shr.base.EntryType', 'http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested');
+    if (fhir['meta'] != null) {
+      if (fhir['meta']['versionId'] != null) {
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata.versionId = FHIRHelper.createInstanceFromFHIR('shr.core.VersionId', fhir['meta']['versionId'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      if (fhir['meta']['lastUpdated'] != null) {
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata.lastUpdated = FHIRHelper.createInstanceFromFHIR('shr.base.LastUpdated', fhir['meta']['lastUpdated'], shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      for (const fhir_meta_security of fhir['meta']['security'] || []) {
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata.securityLabel = inst.metadata.securityLabel || [];
+        const inst_metadata_securityLabel = FHIRHelper.createInstanceFromFHIR('shr.base.SecurityLabel', fhir_meta_security, shrId, allEntries, mappedResources, referencesOut, false);
+        inst.metadata.securityLabel.push(inst_metadata_securityLabel);
+      }
+      for (const fhir_meta_tag of fhir['meta']['tag'] || []) {
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata.tag = inst.metadata.tag || [];
+        const inst_metadata_tag = FHIRHelper.createInstanceFromFHIR('shr.base.Tag', fhir_meta_tag, shrId, allEntries, mappedResources, referencesOut, false);
+        inst.metadata.tag.push(inst_metadata_tag);
       }
     }
-    if (fhir['status'] != null) {
-      inst.status = createInstanceFromFHIR('shr.core.Status', fhir['status']);
+    if (fhir['language'] != null) {
+      inst.language = FHIRHelper.createInstanceFromFHIR('shr.core.Language', fhir['language'], shrId, allEntries, mappedResources, referencesOut, false);
     }
-    if (fhir['intent'] != null) {
-      inst.requestIntent = createInstanceFromFHIR('shr.base.RequestIntent', fhir['intent']);
+    if (fhir['text'] != null) {
+      inst.narrative = FHIRHelper.createInstanceFromFHIR('shr.base.Narrative', fhir['text'], shrId, allEntries, mappedResources, referencesOut, false);
     }
-    if (fhir['priority'] != null) {
-      inst.priorityRank = createInstanceFromFHIR('shr.core.PriorityRank', fhir['priority']);
-    }
-    if (fhir['category'] != null) {
-      inst.category = createInstanceFromFHIR('shr.core.Category', fhir['category']);
-    }
-    if (fhir['code'] != null) {
-      inst.topicCode = createInstanceFromFHIR('shr.base.TopicCode', fhir['code']);
+    for (const fhir_extension of fhir['extension'] || []) {
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://hl7.org/fhir/StructureDefinition/procedure-targetBodySite') {
+        inst.anatomicalLocation = inst.anatomicalLocation || [];
+        const inst_anatomicalLocation = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocation', {}, shrId);
+        inst.anatomicalLocation.push(inst_anatomicalLocation);
+        inst_anatomicalLocation.value = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocationStructured', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-Category-extension') {
+        inst.category = FHIRHelper.createInstanceFromFHIR('shr.core.Category', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-base-RequestIntent-extension') {
+        inst.requestIntent = FHIRHelper.createInstanceFromFHIR('shr.base.RequestIntent', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-base-ExpectedPerformerType-extension') {
+        inst.expectedPerformerType = FHIRHelper.createInstanceFromFHIR('shr.base.ExpectedPerformerType', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-base-ExpectedMethod-extension') {
+        inst.expectedMethod = FHIRHelper.createInstanceFromFHIR('shr.base.ExpectedMethod', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-base-PerformerInstructions-extension') {
+        inst.performerInstructions = FHIRHelper.createInstanceFromFHIR('shr.base.PerformerInstructions', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-base-PatientInstructions-extension') {
+        inst.patientInstructions = FHIRHelper.createInstanceFromFHIR('shr.base.PatientInstructions', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-base-CommunicationMethod-extension') {
+        inst.communicationMethod = FHIRHelper.createInstanceFromFHIR('shr.base.CommunicationMethod', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-PartOf-extension') {
+        inst.partOf = FHIRHelper.createInstanceFromFHIR('shr.entity.PartOf', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-Annotation-extension') {
+        inst.annotation = inst.annotation || [];
+        const inst_annotation = FHIRHelper.createInstanceFromFHIR('shr.core.Annotation', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+        inst.annotation.push(inst_annotation);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-base-Method-extension') {
+        inst.method = FHIRHelper.createInstanceFromFHIR('shr.base.Method', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-Device-extension') {
+        inst.device = inst.device || [];
+        const inst_device = FHIRHelper.createReference( FHIRHelper.createInstanceFromFHIR('shr.entity.Device', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true), referencesOut);
+        inst.device.push(inst_device);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-Location-extension') {
+        inst.location = FHIRHelper.createInstanceFromFHIR('shr.entity.Location', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      }
     }
     if (fhir['subject'] != null) {
-      inst.patient = createInstanceFromFHIR('shr.entity.Patient', fhir['subject']);
+      const entryId = fhir['subject']['reference'];
+      if (!mappedResources[entryId]) {
+        const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
+        if (referencedEntry) {
+          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Patient', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
+        }
+      }
+      inst.patient = mappedResources[entryId];
     }
-    if (fhir['context'] != null) {
-      inst.encounter = createInstanceFromFHIR('shr.encounter.Encounter', fhir['context']);
+    if (fhir['code'] != null) {
+      inst.procedureCode = FHIRHelper.createInstanceFromFHIR('shr.procedure.ProcedureCode', fhir['code'], shrId, allEntries, mappedResources, referencesOut, false);
     }
-    if (fhir['occurrenceDateTime'] != null) {
-      inst.expectedPerformanceTime = createInstanceFromFHIR('shr.base.ExpectedPerformanceTime', fhir['occurrenceDateTime']);
+    for (const fhir_bodySite of fhir['bodySite'] || []) {
+      inst.anatomicalLocation = inst.anatomicalLocation || [];
+      const inst_anatomicalLocation = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocation', {}, shrId);
+      inst.anatomicalLocation.push(inst_anatomicalLocation);
+      inst_anatomicalLocation.value = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocationPrecoordinated', fhir_bodySite, shrId, allEntries, mappedResources, referencesOut, false);
     }
-    if (fhir['occurrencePeriod'] != null) {
-      inst.expectedPerformanceTime = createInstanceFromFHIR('shr.base.ExpectedPerformanceTime', fhir['occurrencePeriod']);
+    if (fhir['reasonCodeableConcept'] != null) {
+      inst.reason = inst.reason || [];
+      const inst_reason = FHIRHelper.createInstanceFromFHIR('shr.base.Reason', fhir['reasonCodeableConcept'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.reason.push(inst_reason);
     }
-    if (fhir['occurrenceTiming'] != null) {
-      inst.expectedPerformanceTime = createInstanceFromFHIR('shr.base.ExpectedPerformanceTime', fhir['occurrenceTiming']);
+    if (fhir['scheduledDateTime'] != null) {
+      inst.expectedPerformanceTime = FHIRHelper.createInstanceFromFHIR('shr.base.ExpectedPerformanceTime', fhir['scheduledDateTime'], shrId, allEntries, mappedResources, referencesOut, false);
     }
-    if (fhir['performerType'] != null) {
-      inst.expectedPerformerType = createInstanceFromFHIR('shr.base.ExpectedPerformerType', fhir['performerType']);
+    if (fhir['scheduledTiming'] != null) {
+      inst.expectedPerformanceTime = FHIRHelper.createInstanceFromFHIR('shr.base.ExpectedPerformanceTime', fhir['scheduledTiming'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['encounter'] != null) {
+      const entryId = fhir['encounter']['reference'];
+      if (!mappedResources[entryId]) {
+        const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
+        if (referencedEntry) {
+          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.encounter.Encounter', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
+        }
+      }
+      inst.encounter = mappedResources[entryId];
     }
     if (fhir['performer'] != null) {
-      inst.expectedPerformer = createInstanceFromFHIR('shr.base.ExpectedPerformer', fhir['performer']);
-    }
-    if (fhir['reasonCode'] != null) {
-      inst.reason = inst.reason || [];
-      inst.reason = inst.reason.concat(fhir['reasonCode'].map(f => createInstanceFromFHIR('shr.base.Reason', f)));
-    }
-    if (fhir['bodySite'] != null) {
-      if (inst.anatomicalLocation === null) {
-        inst.anatomicalLocation = createInstanceFromFHIR('shr.core.AnatomicalLocation', {});
+      const entryId = fhir['performer']['reference'];
+      if (!mappedResources[entryId]) {
+        const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
+        if (referencedEntry) {
+          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Organization', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
+        }
       }
-      inst.anatomicalLocation.anatomicalLocationOrLandmarkCode = createInstanceFromFHIR('shr.core.AnatomicalLocationOrLandmarkCode', fhir['bodySite']);
+      inst.expectedPerformer = mappedResources[entryId];
+    }
+    if (fhir['status'] != null) {
+      inst.status = FHIRHelper.createInstanceFromFHIR('shr.core.Status', fhir['status'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['orderedOn'] != null) {
+      inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+      inst.metadata.authoredDateTime = FHIRHelper.createInstanceFromFHIR('shr.base.AuthoredDateTime', fhir['orderedOn'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['orderer'] != null) {
+      const entryId = fhir['orderer']['reference'];
+      if (!mappedResources[entryId]) {
+        const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
+        if (referencedEntry) {
+          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Practitioner', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
+        }
+      }
+      inst.practitionerOrDevice = mappedResources[entryId];
+    }
+    if (fhir['priority'] != null) {
+      inst.priorityRank = FHIRHelper.createInstanceFromFHIR('shr.core.PriorityRank', fhir['priority'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     return inst;
   }

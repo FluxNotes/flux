@@ -6,6 +6,7 @@ import Patient from '../../../src/model/shr/entity/Patient';
 import Moment from 'moment';
 import {expect} from 'chai';
 import FluxPatient from '../../../src/model/entity/FluxPatient';
+import EntryMapper from '../../../src/dataaccess/mcodev0.1-datasource/EntryMapper';
 
 // The empty PatientRecord.jsx obj
 const emptyPatientObj = new PatientRecord(null);
@@ -13,9 +14,9 @@ const emptyPatientObj = new PatientRecord(null);
 const emptyPatient = emptyPatientObj.entries;
 // The empty patient record entry -- should be null
 const emptyPatientRecord = emptyPatientObj.getPatient();
-
+const mcodePatientJson = EntryMapper.mapEntries(BreastMainTreatmentDebra);
 // The hardcoded PatientRecord.jsx obj
-const hardCodedPatientObj = new PatientRecord(BreastMainTreatmentDebra);
+const hardCodedPatientObj = new PatientRecord(mcodePatientJson);
 // The patient shr object -- an array of entries
 const hardCodedPatientEntries = hardCodedPatientObj.entries;
 // The patient record entry -- should be an shr object
@@ -42,9 +43,9 @@ describe('getMostRecentEntryFromList', function () {
 
     it('should return an element (could be multiple) with the most recent last updated date from non-empty, sorted list of entries that have the attribute lastUpdateDate', function () { 
         //slice to clone obj
-        const sortedList = hardCodedPatientEntries.slice().sort(function (a,b) { 
-            const a_lastUpdateDate = new Moment(a.entryInfo.lastUpdated.instant, "D MMM YYYY");
-            const b_lastUpdateDate = new Moment(b.entryInfo.lastUpdated.instant, "D MMM YYYY");
+        const sortedList = hardCodedPatientEntries.filter(e => e.metadata).slice().sort(function (a,b) {
+            const a_lastUpdateDate = new Moment(a.metadata.lastUpdated.instant, "D MMM YYYY");
+            const b_lastUpdateDate = new Moment(b.metadata.lastUpdated.instant, "D MMM YYYY");
             if (a_lastUpdateDate < b_lastUpdateDate) { return 1; }
             if (a_lastUpdateDate > b_lastUpdateDate) { return -1; }
             return 0;

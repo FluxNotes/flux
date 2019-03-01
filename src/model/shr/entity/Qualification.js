@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, uuid } from '../../json-helper';
 
 /**
  * Generated class for shr.entity.Qualification.
@@ -58,24 +58,24 @@ class Qualification {
   }
 
   /**
-   * Get the Issuer.
-   * @returns {Issuer} The shr.core.Issuer
+   * Get the shr.core.Issuer reference.
+   * @returns {Reference} The shr.core.Issuer reference
    */
   get issuer() {
     return this._issuer;
   }
 
   /**
-   * Set the Issuer.
-   * @param {Issuer} issuer - The shr.core.Issuer
+   * Set the shr.core.Issuer reference.
+   * @param {Reference} issuer - The shr.core.Issuer reference
    */
   set issuer(issuer) {
     this._issuer = issuer;
   }
 
   /**
-   * Set the Issuer and return 'this' for chaining.
-   * @param {Issuer} issuer - The shr.core.Issuer
+   * Set the shr.core.Issuer reference and return 'this' for chaining.
+   * @param {Reference} issuer - The shr.core.Issuer reference
    * @returns {Qualification} this.
    */
   withIssuer(issuer) {
@@ -88,7 +88,7 @@ class Qualification {
    * @param {object} json - the JSON data to deserialize
    * @returns {Qualification} An instance of Qualification populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new Qualification();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -100,7 +100,7 @@ class Qualification {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/Qualification' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Qualification' } };
     if (this.type != null) {
       inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
     }
@@ -114,24 +114,17 @@ class Qualification {
   }
 
   /**
-   * Serializes an instance of the Qualification class to a FHIR object.
-   * The FHIR is expected to be valid against the Qualification FHIR profile, but no validation checks are performed.
-   * @param {boolean} asExtension - Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
-    return inst;
-  }
-
-  /**
    * Deserializes FHIR JSON data to an instance of the Qualification class.
    * The FHIR must be valid against the Qualification FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Qualification} An instance of Qualification populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension = false) {
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new Qualification();
     return inst;
   }

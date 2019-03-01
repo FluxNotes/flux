@@ -52,7 +52,7 @@ export default class ReviewOfSystemsSection extends MetadataSection {
 
         return ros.map((r) => {
 
-            let name = r.observationCodeDisplayText;
+            let name = r.questionText;
             let upperCaseName = name.charAt(0).toUpperCase() + name.slice(1);
 
             const newValue = r.value ? "Yes" : "No";
@@ -64,11 +64,12 @@ export default class ReviewOfSystemsSection extends MetadataSection {
                 };    
         
             return result;
-        });             
+        });
     }
 
     getROSmetadata = (patient) => {
         const ros = patient.getReviewOfSystems();
+
         let result = [
             {   name: "Author",
                 value: {value: ros.author},

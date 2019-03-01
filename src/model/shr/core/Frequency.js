@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 import Ratio from './Ratio';
 
@@ -64,7 +64,7 @@ class Frequency extends Ratio {
    * @param {object} json - the JSON data to deserialize
    * @returns {Frequency} An instance of Frequency populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new Frequency();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -76,7 +76,7 @@ class Frequency extends Ratio {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/Frequency' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Frequency' } };
     if (this.numerator != null) {
       inst['Numerator'] = typeof this.numerator.toJSON === 'function' ? this.numerator.toJSON() : this.numerator;
     }
@@ -87,36 +87,23 @@ class Frequency extends Ratio {
   }
 
   /**
-   * Serializes an instance of the Frequency class to a FHIR object.
-   * The FHIR is expected to be valid against the Frequency FHIR profile, but no validation checks are performed.
-   * @param {boolean} asExtension - Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
-    if (this.numerator != null) {
-      inst['numerator'] = typeof this.numerator.toFHIR === 'function' ? this.numerator.toFHIR() : this.numerator;
-    }
-    if (this.denominator != null) {
-      inst['denominator'] = typeof this.denominator.toFHIR === 'function' ? this.denominator.toFHIR() : this.denominator;
-    }
-    return inst;
-  }
-
-  /**
    * Deserializes FHIR JSON data to an instance of the Frequency class.
    * The FHIR must be valid against the Frequency FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Frequency} An instance of Frequency populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension = false) {
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new Frequency();
     if (fhir['numerator'] != null) {
-      inst.numerator = createInstanceFromFHIR('shr.core.Numerator', fhir['numerator']);
+      inst.numerator = FHIRHelper.createInstanceFromFHIR('shr.core.Numerator', fhir['numerator'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['denominator'] != null) {
-      inst.denominator = createInstanceFromFHIR('shr.core.Denominator', fhir['denominator']);
+      inst.denominator = FHIRHelper.createInstanceFromFHIR('shr.core.Denominator', fhir['denominator'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     return inst;
   }

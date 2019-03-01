@@ -14,16 +14,24 @@ class FluxObservation extends FluxEntry {
         return this._observation.entryInfo;
     }
 
+    get metadata() {
+        return this._observation.metadata;
+    }
+
+    set metadata(metadata) {
+        this._observation.metadata = metadata;
+    }
+
     /**
      *  Getter for quantity
      *  If _value is an instance of Quantity, will return object with properties number and unit
      *  Otherwise return null;
      */
     get quantity() {
-        if (this._observation.value instanceof Quantity) {
+        if (this._observation.findingResult.value instanceof Quantity) {
             return {
-                number: this._observation.value.decimalValue.value,
-                unit: this._observation.value.units.value.code
+                number: this._observation.findingResult.value.number.decimal,
+                unit: this._observation.findingResult.value.units.coding.code.value,
             };
         } else {
             return null;
@@ -35,12 +43,15 @@ class FluxObservation extends FluxEntry {
             return this._observation.findingTopicCode.value.coding[0].displayText.value;
         } else { 
             return null;
-        }        
+        }
     }
 
     get codeableConceptCode() { 
-        if (this._observation.findingTopicCode && this._observation.findingTopicCode.value.coding && this._observation.findingTopicCode.value.coding.length > 0) { 
-            return this._observation.findingTopicCode.value.coding[0].code;
+        if (this._observation.findingTopicCode 
+            && this._observation.findingTopicCode.value.coding 
+            && this._observation.findingTopicCode.value.coding.length > 0
+            && this._observation.findingTopicCode.value.coding[0].code) { 
+            return this._observation.findingTopicCode.value.coding[0].code.value;
         } else { 
             return null;
         } 

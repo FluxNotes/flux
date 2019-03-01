@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 /**
  * Generated class for shr.core.SampledData.
@@ -6,30 +6,30 @@ import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper
 class SampledData {
 
   /**
-   * Get the Text.
-   * @returns {Text} The shr.core.Text
+   * Get the DataAsString.
+   * @returns {DataAsString} The shr.core.DataAsString
    */
-  get text() {
-    return this._text;
+  get dataAsString() {
+    return this._dataAsString;
   }
 
   /**
-   * Set the Text.
+   * Set the DataAsString.
    * This field/value is required.
-   * @param {Text} text - The shr.core.Text
+   * @param {DataAsString} dataAsString - The shr.core.DataAsString
    */
-  set text(text) {
-    this._text = text;
+  set dataAsString(dataAsString) {
+    this._dataAsString = dataAsString;
   }
 
   /**
-   * Set the Text and return 'this' for chaining.
+   * Set the DataAsString and return 'this' for chaining.
    * This field/value is required.
-   * @param {Text} text - The shr.core.Text
+   * @param {DataAsString} dataAsString - The shr.core.DataAsString
    * @returns {SampledData} this.
    */
-  withText(text) {
-    this.text = text; return this;
+  withDataAsString(dataAsString) {
+    this.dataAsString = dataAsString; return this;
   }
 
   /**
@@ -194,7 +194,7 @@ class SampledData {
    * @param {object} json - the JSON data to deserialize
    * @returns {SampledData} An instance of SampledData populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new SampledData();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -206,9 +206,9 @@ class SampledData {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/SampledData' } };
-    if (this.text != null) {
-      inst['Text'] = typeof this.text.toJSON === 'function' ? this.text.toJSON() : this.text;
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/SampledData' } };
+    if (this.dataAsString != null) {
+      inst['DataAsString'] = typeof this.dataAsString.toJSON === 'function' ? this.dataAsString.toJSON() : this.dataAsString;
     }
     if (this.origin != null) {
       inst['Origin'] = typeof this.origin.toJSON === 'function' ? this.origin.toJSON() : this.origin;
@@ -232,66 +232,38 @@ class SampledData {
   }
 
   /**
-   * Serializes an instance of the SampledData class to a FHIR object.
-   * The FHIR is expected to be valid against the SampledData FHIR profile, but no validation checks are performed.
-   * @param {boolean} asExtension - Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
-    if (this.origin != null) {
-      inst['origin'] = typeof this.origin.toFHIR === 'function' ? this.origin.toFHIR() : this.origin;
-    }
-    if (this.millisecondsBetweenSamples != null) {
-      inst['period'] = typeof this.millisecondsBetweenSamples.toFHIR === 'function' ? this.millisecondsBetweenSamples.toFHIR() : this.millisecondsBetweenSamples;
-    }
-    if (this.correctionFactor != null) {
-      inst['factor'] = typeof this.correctionFactor.toFHIR === 'function' ? this.correctionFactor.toFHIR() : this.correctionFactor;
-    }
-    if (this.lowerLimit != null) {
-      inst['lowerLimit'] = typeof this.lowerLimit.toFHIR === 'function' ? this.lowerLimit.toFHIR() : this.lowerLimit;
-    }
-    if (this.upperLimit != null) {
-      inst['upperLimit'] = typeof this.upperLimit.toFHIR === 'function' ? this.upperLimit.toFHIR() : this.upperLimit;
-    }
-    if (this.dimensions != null) {
-      inst['dimensions'] = typeof this.dimensions.toFHIR === 'function' ? this.dimensions.toFHIR() : this.dimensions;
-    }
-    if (this.text != null) {
-      inst['data'] = typeof this.text.toFHIR === 'function' ? this.text.toFHIR() : this.text;
-    }
-    return inst;
-  }
-
-  /**
    * Deserializes FHIR JSON data to an instance of the SampledData class.
    * The FHIR must be valid against the SampledData FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {SampledData} An instance of SampledData populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension = false) {
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new SampledData();
     if (fhir['origin'] != null) {
-      inst.origin = createInstanceFromFHIR('shr.core.Origin', fhir['origin']);
+      inst.origin = FHIRHelper.createInstanceFromFHIR('shr.core.Origin', fhir['origin'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['period'] != null) {
-      inst.millisecondsBetweenSamples = createInstanceFromFHIR('shr.core.MillisecondsBetweenSamples', fhir['period']);
+      inst.millisecondsBetweenSamples = FHIRHelper.createInstanceFromFHIR('shr.core.MillisecondsBetweenSamples', fhir['period'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['factor'] != null) {
-      inst.correctionFactor = createInstanceFromFHIR('shr.core.CorrectionFactor', fhir['factor']);
+      inst.correctionFactor = FHIRHelper.createInstanceFromFHIR('shr.core.CorrectionFactor', fhir['factor'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['lowerLimit'] != null) {
-      inst.lowerLimit = createInstanceFromFHIR('shr.core.LowerLimit', fhir['lowerLimit']);
+      inst.lowerLimit = FHIRHelper.createInstanceFromFHIR('shr.core.LowerLimit', fhir['lowerLimit'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['upperLimit'] != null) {
-      inst.upperLimit = createInstanceFromFHIR('shr.core.UpperLimit', fhir['upperLimit']);
+      inst.upperLimit = FHIRHelper.createInstanceFromFHIR('shr.core.UpperLimit', fhir['upperLimit'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['dimensions'] != null) {
-      inst.dimensions = createInstanceFromFHIR('shr.core.Dimensions', fhir['dimensions']);
+      inst.dimensions = FHIRHelper.createInstanceFromFHIR('shr.core.Dimensions', fhir['dimensions'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['data'] != null) {
-      inst.text = createInstanceFromFHIR('shr.core.Text', fhir['data']);
+      inst.dataAsString = FHIRHelper.createInstanceFromFHIR('shr.core.DataAsString', fhir['data'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     return inst;
   }

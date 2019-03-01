@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 /**
  * Generated class for shr.entity.FacilityName.
@@ -65,7 +65,7 @@ class FacilityName {
    * @param {object} json - the JSON data to deserialize
    * @returns {FacilityName} An instance of FacilityName populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new FacilityName();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -77,25 +77,9 @@ class FacilityName {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/entity/FacilityName' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/FacilityName' } };
     if (this.value != null) {
       inst['Value'] = this.value;
-    }
-    return inst;
-  }
-
-  /**
-   * Serializes an instance of the FacilityName class to a FHIR object.
-   * The FHIR is expected to be valid against the FacilityName FHIR profile, but no validation checks are performed.
-   * @param {boolean} asExtension - Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
-    if (!asExtension && this.value != null) {
-      if (this.value != null) {
-        inst = typeof this.value.toFHIR === 'function' ? this.value.toFHIR() : this.value;
-      }
     }
     return inst;
   }
@@ -104,10 +88,14 @@ class FacilityName {
    * Deserializes FHIR JSON data to an instance of the FacilityName class.
    * The FHIR must be valid against the FacilityName FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {FacilityName} An instance of FacilityName populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension = false) {
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new FacilityName();
     if (!asExtension && fhir != null) {
       inst.value = fhir;

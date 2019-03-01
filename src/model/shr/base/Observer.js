@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON } from '../../json-helper';
+import { setPropertiesFromJSON, uuid } from '../../json-helper';
 
 /**
  * Generated class for shr.base.Observer.
@@ -34,7 +34,7 @@ class Observer {
 
   /**
    * Get the RelationshipToPersonOfRecord.
-   * @returns {RelationshipToPersonOfRecord} The shr.base.RelationshipToPersonOfRecord
+   * @returns {RelationshipToPersonOfRecord} The shr.entity.RelationshipToPersonOfRecord
    */
   get relationshipToPersonOfRecord() {
     return this._relationshipToPersonOfRecord;
@@ -42,7 +42,7 @@ class Observer {
 
   /**
    * Set the RelationshipToPersonOfRecord.
-   * @param {RelationshipToPersonOfRecord} relationshipToPersonOfRecord - The shr.base.RelationshipToPersonOfRecord
+   * @param {RelationshipToPersonOfRecord} relationshipToPersonOfRecord - The shr.entity.RelationshipToPersonOfRecord
    */
   set relationshipToPersonOfRecord(relationshipToPersonOfRecord) {
     this._relationshipToPersonOfRecord = relationshipToPersonOfRecord;
@@ -50,7 +50,7 @@ class Observer {
 
   /**
    * Set the RelationshipToPersonOfRecord and return 'this' for chaining.
-   * @param {RelationshipToPersonOfRecord} relationshipToPersonOfRecord - The shr.base.RelationshipToPersonOfRecord
+   * @param {RelationshipToPersonOfRecord} relationshipToPersonOfRecord - The shr.entity.RelationshipToPersonOfRecord
    * @returns {Observer} this.
    */
   withRelationshipToPersonOfRecord(relationshipToPersonOfRecord) {
@@ -63,7 +63,7 @@ class Observer {
    * @param {object} json - the JSON data to deserialize
    * @returns {Observer} An instance of Observer populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new Observer();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -75,7 +75,7 @@ class Observer {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/base/Observer' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/base/Observer' } };
     if (this.entityOrRole != null) {
       inst['EntityOrRole'] = typeof this.entityOrRole.toJSON === 'function' ? this.entityOrRole.toJSON() : this.entityOrRole;
     }
@@ -86,24 +86,17 @@ class Observer {
   }
 
   /**
-   * Serializes an instance of the Observer class to a FHIR object.
-   * The FHIR is expected to be valid against the Observer FHIR profile, but no validation checks are performed.
-   * @param {boolean} asExtension - Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
-    return inst;
-  }
-
-  /**
    * Deserializes FHIR JSON data to an instance of the Observer class.
    * The FHIR must be valid against the Observer FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Observer} An instance of Observer populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension = false) {
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new Observer();
     return inst;
   }

@@ -2,12 +2,12 @@ import FluxEntry from '../base/FluxEntry';
 import MedicationChange from '../shr/medication/MedicationChange';
 import FluxMedicationBeforeChange from './FluxMedicationBeforeChange';
 import FluxMedicationAfterChange from './FluxMedicationAfterChange';
-import TopicCode from '../shr/base/TopicCode';
 import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
 import codeableConceptUtils from '../CodeableConceptUtils.jsx';
 import Lang from 'lodash';
 import moment from 'moment';
+import Category from '../shr/core/Category';
 
 class FluxMedicationChange extends FluxEntry {
     constructor(json, patientRecord) {
@@ -28,12 +28,22 @@ class FluxMedicationChange extends FluxEntry {
     get entryInfo() {
         return this._medicationChange.entryInfo;
     }
+
+    get metadata() {
+        return this._medicationChange.metadata;
+    }
+
+    set metadata(metadata) {
+        this._medicationChange.metadata = metadata;
+    }
+
     /**
      * Get the MedicationBeforeChange object.
      * Returns medicationRequested object
      */
     get medicationBeforeChange() {
-      return this._medicationChange.medicationBeforeChange;
+        if (!this._medicationChange.medicationBeforeChange || this._medicationChange.medicationBeforeChange.length === 0) return null;
+        return this._medicationChange.medicationBeforeChange[0];
     }
 
     /**
@@ -42,8 +52,9 @@ class FluxMedicationChange extends FluxEntry {
     set medicationBeforeChange(medication) {
         if (medication) {
             // Create a new Flux Medication Before Change object to add the medication value to
-            this._medicationChange.medicationBeforeChange = new FluxMedicationBeforeChange();
-            this._medicationChange.medicationBeforeChange.value = this._patientRecord.createEntryReferenceTo(medication);
+            const medBeforeChange = new FluxMedicationBeforeChange();
+            medBeforeChange.value = this._patientRecord.createEntryReferenceTo(medication);
+            this._medicationChange.medicationBeforeChange = [medBeforeChange];
 
             if (this.medAfterDoseAmount && !this.medicationAfterChange) {
                 const medAfter = this.createMedicationAfterFromMedicationBefore();
@@ -62,7 +73,8 @@ class FluxMedicationChange extends FluxEntry {
      * Returns medicationRequested object
      */
     get medicationAfterChange() {
-      return this._medicationChange.medicationAfterChange;
+        if (!this._medicationChange.medicationAfterChange || this._medicationChange.medicationAfterChange.length === 0) return null;
+        return this._medicationChange.medicationAfterChange[0];
     }
     /** 
      * Get the type of medication change
@@ -70,15 +82,15 @@ class FluxMedicationChange extends FluxEntry {
      */
     get type() { 
         // Return code
-        return this._medicationChange.topicCode.value.coding[0].code;
+        return this._medicationChange.category.value.coding[0].code.value;
     }
 
     set type(code) {
-        if (!this._medicationChange.topicCode) {
-            this._medicationChange.topicCode = new TopicCode();
+        if (!this._medicationChange.category) {
+            this._medicationChange.category = new Category();
         }
 
-        this._medicationChange.topicCode.value = codeableConceptUtils.getCodeableConceptFromTuple({value: code, codeSystem: "http://standardhealthrecord.org/spec/shr/medication/cs/#MedicationChangeTypeCS", displayText: code} );
+        this._medicationChange.category.value = codeableConceptUtils.getCodeableConceptFromTuple({value: code, codeSystem: "http://standardhealthrecord.org/spec/shr/medication/cs/#MedicationChangeTypeCS", displayText: code} );
     }
 
     /**
@@ -86,7 +98,7 @@ class FluxMedicationChange extends FluxEntry {
      * Returns date as a string
      */
     get whenChanged() {
-        return this._medicationChange.entryInfo.creationTime.value;
+        return this._medicationChange.metadata.authoredDateTime.dateTime;
     }
 
     // Set dosage of medicationAfterChange
@@ -126,8 +138,9 @@ class FluxMedicationChange extends FluxEntry {
         // set start date for medicationAfter
         medAfter.startDate = today;
         this._patientRecord.addEntryToPatient(medAfter);
-        this._medicationChange.medicationAfterChange = new FluxMedicationAfterChange();
-        this._medicationChange.medicationAfterChange.value = this._patientRecord.createEntryReferenceTo(medAfter);
+        const medAfterChange = new FluxMedicationAfterChange();
+        medAfterChange.value = this._patientRecord.createEntryReferenceTo(medAfter);
+        this._medicationChange.medicationAfterChange = [medAfterChange];
 
         return medAfter;
     }

@@ -3,6 +3,7 @@ import FluxPatientIdentifier from './FluxPatientIdentifier';
 import ShrBaseObjectFactory from '../shr/base/ShrBaseObjectFactory';
 import FluxConditionPresentAssertion from './FluxConditionPresentAssertion';
 import FluxObservation from './FluxObservation';
+import FluxQuestionAnswer from './FluxQuestionAnswer';
 
 export default class FluxBaseObjectFactory {
     static createInstance(json, type, patientRecord) {
@@ -14,6 +15,7 @@ export default class FluxBaseObjectFactory {
         switch (elementName) {
             case 'Observation': return new FluxObservation(json, type, patientRecord);
             case 'ConditionPresentAssertion': return new FluxConditionPresentAssertion(json, type, patientRecord);
+            case 'QuestionAnswer': return new FluxQuestionAnswer(json, type, patientRecord);
             case 'PatientIdentifier': return new FluxPatientIdentifier(json, type, patientRecord);
             default: return ShrBaseObjectFactory.createInstance(json, type, patientRecord);
         }

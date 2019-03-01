@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 /**
  * Generated class for shr.base.Narrative.
@@ -65,7 +65,7 @@ class Narrative {
    * @param {object} json - the JSON data to deserialize
    * @returns {Narrative} An instance of Narrative populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new Narrative();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -77,7 +77,7 @@ class Narrative {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/base/Narrative' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/base/Narrative' } };
     if (this.narrativeText != null) {
       inst['NarrativeText'] = typeof this.narrativeText.toJSON === 'function' ? this.narrativeText.toJSON() : this.narrativeText;
     }
@@ -88,36 +88,23 @@ class Narrative {
   }
 
   /**
-   * Serializes an instance of the Narrative class to a FHIR object.
-   * The FHIR is expected to be valid against the Narrative FHIR profile, but no validation checks are performed.
-   * @param {boolean} asExtension - Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
-    if (this.narrativeQualifier != null) {
-      inst['status'] = typeof this.narrativeQualifier.toFHIR === 'function' ? this.narrativeQualifier.toFHIR() : this.narrativeQualifier;
-    }
-    if (this.narrativeText != null) {
-      inst['div'] = typeof this.narrativeText.toFHIR === 'function' ? this.narrativeText.toFHIR() : this.narrativeText;
-    }
-    return inst;
-  }
-
-  /**
    * Deserializes FHIR JSON data to an instance of the Narrative class.
    * The FHIR must be valid against the Narrative FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Narrative} An instance of Narrative populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension = false) {
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new Narrative();
     if (fhir['status'] != null) {
-      inst.narrativeQualifier = createInstanceFromFHIR('shr.base.NarrativeQualifier', fhir['status']);
+      inst.narrativeQualifier = FHIRHelper.createInstanceFromFHIR('shr.base.NarrativeQualifier', fhir['status'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['div'] != null) {
-      inst.narrativeText = createInstanceFromFHIR('shr.base.NarrativeText', fhir['div']);
+      inst.narrativeText = FHIRHelper.createInstanceFromFHIR('shr.base.NarrativeText', fhir['div'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     return inst;
   }

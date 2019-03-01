@@ -109,6 +109,9 @@ class BreastCancerGeneticAnalysisPanel extends Observation {
     if (this.value != null) {
       inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
+    if (this.metadata != null) {
+      inst['Metadata'] = typeof this.metadata.toJSON === 'function' ? this.metadata.toJSON() : this.metadata;
+    }
     if (this.relatedEncounter != null) {
       inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
     }
@@ -177,6 +180,9 @@ class BreastCancerGeneticAnalysisPanel extends Observation {
     }
     if (this.members != null) {
       inst['Members'] = typeof this.members.toJSON === 'function' ? this.members.toJSON() : this.members;
+    }
+    if (this.panelMembers != null) {
+      inst['PanelMembers'] = typeof this.panelMembers.toJSON === 'function' ? this.panelMembers.toJSON() : this.panelMembers;
     }
     return inst;
   }

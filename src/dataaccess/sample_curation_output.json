@@ -1715,7 +1715,12 @@
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                             },
-                            "Value": "g",
+                            "Code": {
+                                "Value": "g",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                }
+                            },
                             "CodeSystem": {
                                 "EntryType": {
                                     "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
@@ -3599,7 +3604,12 @@
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                             },
-                            "Value": "patch",
+                            "Code": {
+                                "Value": "patch",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                }
+                            },
                             "CodeSystem": {
                                 "EntryType": {
                                     "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"

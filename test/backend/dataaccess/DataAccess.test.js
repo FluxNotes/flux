@@ -5,12 +5,14 @@ import PatientRecord from '../../../src/patient/PatientRecord';
 //import referenceHardCodedPatient from '../../../src/dataaccess/HardCodedPatient.json';
 import Moment from 'moment';
 import {expect} from 'chai';
+import EntryMapper from '../../../src/dataaccess/mcodev0.1-datasource/EntryMapper';
 
+const mcodePatientJson = EntryMapper.mapEntries(BreastMainTreatmentDebra);
 // reference hard coded Patient
-const referenceHardCodedPatient = new PatientRecord(BreastMainTreatmentDebra);
+const referenceHardCodedPatient = new PatientRecord(mcodePatientJson);
 
 // Data Access with hard coded read only data source
-const hardCodedReadOnlyDataAccess = new DataAccess("HardCodedReadOnlyDataSource");
+const hardCodedReadOnlyDataAccess = new DataAccess("HardCodedMcodeV01DataSource");
 // The patient shr object
 const hardCodedPatientObj = hardCodedReadOnlyDataAccess.getPatient(DataAccess.DEMO_PATIENT_ID);
 // The patient record entry -- should be an shr object

@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 import Media from './Media';
 
@@ -14,7 +14,7 @@ class PhotographicImage extends Media {
    * @param {object} json - the JSON data to deserialize
    * @returns {PhotographicImage} An instance of PhotographicImage populated with the JSON data
    */
-  static fromJSON(json = {}) {
+  static fromJSON(json={}) {
     const inst = new PhotographicImage();
     setPropertiesFromJSON(inst, json);
     return inst;
@@ -26,7 +26,7 @@ class PhotographicImage extends Media {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = { 'EntryType': { 'Value': 'http://standardhealthrecord.org/spec/shr/core/PhotographicImage' } };
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/PhotographicImage' } };
     if (this.binaryData != null) {
       inst['BinaryData'] = typeof this.binaryData.toJSON === 'function' ? this.binaryData.toJSON() : this.binaryData;
     }
@@ -55,76 +55,41 @@ class PhotographicImage extends Media {
   }
 
   /**
-   * Serializes an instance of the PhotographicImage class to a FHIR object.
-   * The FHIR is expected to be valid against the PhotographicImage FHIR profile, but no validation checks are performed.
-   * @param {boolean} asExtension - Render this instance as an extension
-   * @returns {object} a FHIR object populated with the data from the element
-   */
-  toFHIR(asExtension = false) {
-    let inst = {};
-    if (this.contentType != null) {
-      inst['contentType'] = typeof this.contentType.toFHIR === 'function' ? this.contentType.toFHIR() : this.contentType;
-    }
-    if (this.language != null) {
-      inst['language'] = typeof this.language.toFHIR === 'function' ? this.language.toFHIR() : this.language;
-    }
-    if (this.binaryData != null) {
-      inst['data'] = typeof this.binaryData.toFHIR === 'function' ? this.binaryData.toFHIR() : this.binaryData;
-    }
-    if (this.resourceLocation != null) {
-      inst['url'] = typeof this.resourceLocation.toFHIR === 'function' ? this.resourceLocation.toFHIR() : this.resourceLocation;
-    }
-    if (this.resourceSize != null) {
-      inst['size'] = typeof this.resourceSize.toFHIR === 'function' ? this.resourceSize.toFHIR() : this.resourceSize;
-    }
-    if (this.hash != null) {
-      inst['hash'] = typeof this.hash.toFHIR === 'function' ? this.hash.toFHIR() : this.hash;
-    }
-    if (this.title != null) {
-      inst['title'] = typeof this.title.toFHIR === 'function' ? this.title.toFHIR() : this.title;
-    }
-    if (this.creationTime != null) {
-      inst['creation'] = typeof this.creationTime.toFHIR === 'function' ? this.creationTime.toFHIR() : this.creationTime;
-    }
-    if (asExtension) {
-      inst['url'] = 'http://example.com/fhir/StructureDefinition/shr-core-PhotographicImage-extension';
-      inst['valueAttachment'] = this.value;
-    }
-    return inst;
-  }
-
-  /**
    * Deserializes FHIR JSON data to an instance of the PhotographicImage class.
    * The FHIR must be valid against the PhotographicImage FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
+   * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
+   * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
+   * @param {Array} referencesOut - list of all SHR ref() targets that were instantiated during this function call
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {PhotographicImage} An instance of PhotographicImage populated with the FHIR data
    */
-  static fromFHIR(fhir, asExtension = false) {
+  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new PhotographicImage();
     if (fhir['contentType'] != null) {
-      inst.contentType = createInstanceFromFHIR('shr.core.ContentType', fhir['contentType']);
+      inst.contentType = FHIRHelper.createInstanceFromFHIR('shr.core.ContentType', fhir['contentType'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['language'] != null) {
-      inst.language = createInstanceFromFHIR('shr.core.Language', fhir['language']);
+      inst.language = FHIRHelper.createInstanceFromFHIR('shr.core.Language', fhir['language'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['data'] != null) {
-      inst.binaryData = createInstanceFromFHIR('shr.core.BinaryData', fhir['data']);
+      inst.binaryData = FHIRHelper.createInstanceFromFHIR('shr.core.BinaryData', fhir['data'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['url'] != null) {
-      inst.resourceLocation = createInstanceFromFHIR('shr.core.ResourceLocation', fhir['url']);
+      inst.resourceLocation = FHIRHelper.createInstanceFromFHIR('shr.core.ResourceLocation', fhir['url'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['size'] != null) {
-      inst.resourceSize = createInstanceFromFHIR('shr.core.ResourceSize', fhir['size']);
+      inst.resourceSize = FHIRHelper.createInstanceFromFHIR('shr.core.ResourceSize', fhir['size'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['hash'] != null) {
-      inst.hash = createInstanceFromFHIR('shr.core.Hash', fhir['hash']);
+      inst.hash = FHIRHelper.createInstanceFromFHIR('shr.core.Hash', fhir['hash'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['title'] != null) {
-      inst.title = createInstanceFromFHIR('shr.core.Title', fhir['title']);
+      inst.title = FHIRHelper.createInstanceFromFHIR('shr.core.Title', fhir['title'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['creation'] != null) {
-      inst.creationTime = createInstanceFromFHIR('shr.core.CreationTime', fhir['creation']);
+      inst.creationTime = FHIRHelper.createInstanceFromFHIR('shr.core.CreationTime', fhir['creation'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (asExtension) {
       inst.value = fhir['valueAttachment'];

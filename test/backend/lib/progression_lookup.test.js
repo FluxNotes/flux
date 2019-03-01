@@ -25,7 +25,7 @@ describe('getStatusCodeableConcept', function() {
         expect(codeableConcept.coding)
             .to.be.an('array')
             .that.is.not.empty;
-        expect(codeableConcept.coding[0].code)
+        expect(codeableConcept.coding[0].code.value)
             .to.be.a('string')
             .that.is.empty;
         expect(codeableConcept.coding[0].codeSystem.value)
@@ -46,7 +46,7 @@ describe('getStatusCodeableConcept', function() {
         expect(codeableConcept.coding)
             .to.be.an('array')
             .that.is.not.empty;
-        expect(codeableConcept.coding[0].code)
+        expect(codeableConcept.coding[0].code.value)
             .to.be.a('string')
             .eql('C0677874');
         expect(codeableConcept.coding[0].codeSystem.value)
@@ -68,7 +68,7 @@ describe('getEvidenceCodeableConcept', function() {
         expect(codeableConcept.coding)
             .to.be.an('array')
             .that.is.not.empty;
-        expect(codeableConcept.coding[0].code)
+        expect(codeableConcept.coding[0].code.value)
             .to.be.a('string')
             .that.is.empty;
         expect(codeableConcept.coding[0].codeSystem.value)
@@ -89,7 +89,7 @@ describe('getEvidenceCodeableConcept', function() {
         expect(codeableConcept.coding)
             .to.be.an('array')
             .that.is.not.empty;
-        expect(codeableConcept.coding[0].code)
+        expect(codeableConcept.coding[0].code.value)
             .to.be.a('string')
             .eql('C0031809');
         expect(codeableConcept.coding[0].codeSystem.value)

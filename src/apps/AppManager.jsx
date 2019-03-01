@@ -98,7 +98,7 @@ export default class AppManager {
                 display: 'Compass',
                 app: CoreCancerPilotApp,
                 isExact: true,
-                dataSource: 'HardCodedReadOnlyDataSource',
+                dataSource: 'HardCodedMcodeV01DataSource',
                 patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7g',
                 logoObject: {
                     path: './compass-logo.png',
@@ -112,7 +112,7 @@ export default class AppManager {
                 display: 'Compass',
                 app: CoreCancerPilotApp,
                 isExact: true,
-                dataSource: 'HardCodedReadOnlyDataSource',
+                dataSource: 'HardCodedMcodeV01DataSource',
                 patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7f',
                 logoObject: {
                     path: './compass-logo.png',
@@ -126,7 +126,7 @@ export default class AppManager {
                 display: 'Flux Notes™',
                 app: FullApp,
                 isExact: true,
-                dataSource: 'HardCodedReadOnlyDataSource',
+                dataSource: 'HardCodedMcodeV01DataSource',
                 patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7d',
                 shortcuts: []
             },
@@ -135,7 +135,7 @@ export default class AppManager {
                 display: 'Flux Notes™',
                 app: FullApp,
                 isExact: true,
-                dataSource: 'HardCodedReadOnlyDataSource',
+                dataSource: 'HardCodedMcodeV01DataSource',
                 patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7e',
                 shortcuts: []
             },
@@ -144,7 +144,7 @@ export default class AppManager {
                 display: 'Flux Notes™',
                 app: FullApp,
                 isExact: true,
-                dataSource: 'HardCodedReadOnlyDataSource',
+                dataSource: 'HardCodedMcodeV01DataSource',
                 patientId: 'urn:x-person:123456',
                 shortcuts: []
             },
@@ -153,7 +153,7 @@ export default class AppManager {
                 display: 'Flux Notes™',
                 app: FullApp,
                 isExact: true,
-                dataSource: 'HardCodedReadOnlyDataSource',
+                dataSource: 'HardCodedMcodeV01DataSource',
                 patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7f',
                 clinicianId: '1234567890',
                 shortcuts: []
@@ -163,7 +163,7 @@ export default class AppManager {
                 display: 'Flux Notes™',
                 app: FullApp,
                 isExact: true,
-                dataSource: 'HardCodedReadOnlyDataSource',
+                dataSource: 'HardCodedMcodeV01DataSource',
                 patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7f',
                 clinicianId: '1234567891',
                 shortcuts: []
@@ -173,7 +173,7 @@ export default class AppManager {
                 display: 'Flux Notes™',
                 app: SmartApp,
                 isExact: true,
-                dataSource: 'HardCodedReadOnlyDataSource',
+                dataSource: 'HardCodedMcodeV01DataSource',
                 shortcuts: []
             },
             {
