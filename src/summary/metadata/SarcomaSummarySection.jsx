@@ -94,10 +94,17 @@ export default class SarcomaSummarySection extends MetadataSection {
                     ]
                 },
                 {
-                    defaultTemplate: "${Key Toxicities.Muscle Pains} muscle pains (as of ${Key Toxicities.Muscle Pains.when}).",
-                    dataMissingTemplate: "no muscle pains.",
+                    defaultTemplate: "${Key Toxicities.Muscle Pains} muscle pains (as of ${Key Toxicities.Muscle Pains.when}),",
+                    dataMissingTemplate: "no muscle pains,",
                     useDataMissingTemplateCriteria: [
                         "Key Toxicities.Muscle Pains"
+                    ]
+                },
+                {
+                    defaultTemplate: "${Key Toxicities.Fatigue} fatigue (as of ${Key Toxicities.Fatigue.when}).",
+                    dataMissingTemplate: "no fatigue.",
+                    useDataMissingTemplateCriteria: [
+                        "Key Toxicities.Fatigue"
                     ]
                 }
             ],
@@ -258,6 +265,12 @@ export default class SarcomaSummarySection extends MetadataSection {
                             name: "Abdominal Pain",
                             value: (patient, currentConditionEntry) => {
                                 return this.getKeyToxicityAndUnsignedFromCodes(patient, currentConditionEntry, ["10000081"]);
+                            }
+                        },
+                        {
+                            name: "Fatigue",
+                            value: (patient, currentConditionEntry) => {
+                                return this.getKeyToxicityAndUnsignedFromCodes(patient, currentConditionEntry, ["10016256"]);
                             }
                         }
                     ]
