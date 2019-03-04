@@ -111,10 +111,10 @@ export default class TreatmentOptionsOutcomes extends Component {
                     <div className="flex-1">{this.renderBarChart(row, compareRow, 'fiveYrSurvival')}</div>
                 </div>
 
-                <div className="flex flex-4 flex-padding flex-center">
+                <div className="flex flex-4 flex-padding flex-center top-side-effects">
                     <div>
                         {topSideEffects.map(({ sideEffect, occurrences }, i) =>
-                            <div key={i}>
+                            <div key={i} className="side-effect">
                                 {`${sideEffect} `}
                                 ({Math.floor(occurrences / totalPatients * 100)}%)
                             </div>
