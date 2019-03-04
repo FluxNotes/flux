@@ -137,7 +137,6 @@ export default class SarcomaSummarySection extends MetadataSection {
                         {
                             name: "Status",
                             value: (patient, currentConditionEntry) => {
-                                console.log('currentConditionEntry: ', currentConditionEntry);
                                 let status = currentConditionEntry.clinicalStatus;
                                 if (status) {
                                     return  {   value: this.toFirstLetterCapital(status), 
