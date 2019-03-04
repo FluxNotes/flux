@@ -1,15 +1,3 @@
 {
-    "baseURL": "http://localhost:3001/api",
-    "fhir" : {
-        "shimServerOverrides": {
-            "http://example.com/fhir": "http://localhost:3001/3_0_1"
-        },
-        "supportedResourceTypes": [
-          "Patient",
-          "Condition",
-          "Observation",
-          "Procedure",
-          "MedicationOrder"
-        ]
-    }
+    "baseURL": "http://localhost:3001/api"
 }
