@@ -60,12 +60,35 @@ function StructuredFieldPlugin(opts) {
         // If the previous node is not an inserter,
         // delete the full node when hitting backspace right before it, as it is not editable.
         const previousNode = state.document.getPreviousSibling(state.selection.anchorKey);
+        console.log(previousNode)
+        console.log(e.keyCode)
+        console.log('parentnode', parentNode)
+        
+        
         if (e.key === 'Backspace' && previousNode) {
             if (previousNode.type === 'structured_field'
                 && !(previousNode.data.get('shortcut') instanceof InsertValue)
                 && state.selection.anchorOffset === 0 && state.selection.isCollapsed) {
                 let transform = state.transform();
                 transform = transform.removeNodeByKey(previousNode.key);
+                let newState = transform.apply();
+                return newState;
+            }
+        } 
+        if (e.keyCode === '37' && previousNode){
+          
+                console.log("left arrow")
+                let transform = state.transform();
+                transform = transform.collapseToStart(previousNode);
+                let newState = transform.apply();
+                return newState;
+           
+        } 
+        if (e.keyCode === '39' && parentNode){
+            if (parentNode.type === 'structured_field') {
+                console.log("right")
+                let transform = state.transform();
+                transform = transform.collapseToStartOfNextText();
                 let newState = transform.apply();
                 return newState;
             }
