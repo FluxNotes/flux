@@ -75,7 +75,7 @@ function StructuredFieldPlugin(opts) {
                 return newState;
             }
         } 
-        if (e.keyCode === '37' && previousNode){
+        if (e.keyCode === 37 && previousNode){
           
                 console.log("left arrow")
                 let transform = state.transform();
@@ -84,7 +84,7 @@ function StructuredFieldPlugin(opts) {
                 return newState;
            
         } 
-        if (e.keyCode === '39' && parentNode){
+        if (e.keyCode === 39 && parentNode){
             if (parentNode.type === 'structured_field') {
                 console.log("right")
                 let transform = state.transform();
