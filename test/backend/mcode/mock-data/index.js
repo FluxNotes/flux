@@ -24,7 +24,7 @@ export const similarPatientTreatments = [
 export const includedTreatmentData = [
     {
         "id": "row_1",
-        "displayName": "surgery & radiation therapy",
+        "name": "surgery & radiation therapy",
         "totalPatients": 10,
         "oneYrSurvival": 6,
         "threeYrSurvival": 4,
@@ -46,7 +46,7 @@ export const includedTreatmentData = [
 export const comparedTreatmentData = [
     {
         "id": "row_2",
-        "displayName": "hormonal therapy",
+        "name": "hormonal therapy",
         "totalPatients": 12,
         "oneYrSurvival": 10,
         "threeYrSurvival": 8,
@@ -67,7 +67,7 @@ export const comparedTreatmentData = [
     },
     {
         "id": "row_3",
-        "displayName": "chemotherapy",
+        "name": "chemotherapy",
         "totalPatients": 20,
         "oneYrSurvival": 20,
         "threeYrSurvival": 20,
