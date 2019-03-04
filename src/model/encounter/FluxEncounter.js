@@ -5,6 +5,10 @@ class FluxEncounter {
         this._encounter = Encounter.fromJSON(json);
     }
 
+    get entryInfo() {
+        return this._encounter.entryInfo;
+    }
+
     get timePeriod() {
         return this._encounter.timePeriod;
     }
