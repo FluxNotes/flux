@@ -223,12 +223,7 @@ class RangeChart extends Component {
         }
 
         // set svg viewbox dimensions
-        let viewBoxDimensions  = '';
-        if (this.props.isWide) {
-            viewBoxDimensions = '10 30 260 110';
-        } else {
-            viewBoxDimensions = '10 10 260 100';
-        }
+        let viewBoxDimensions = '10 30 260 110';
 
         return (
             <div>

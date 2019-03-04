@@ -264,7 +264,7 @@ class MedicationRangeChartVisualizer extends Visualizer {
                                         value={dosageValue}
                                         unit={dosageUnit}
                                         name={name}
-                                        isWide={this.props.isWide}
+                                        isWide={true}
                                     />
                                 </div>
                             </Col>
@@ -331,7 +331,7 @@ renderMedicationNarrowView = (med, i) => {
                                     name={name}
                                     chartXCoordinate={20}
                                     chartYCoordinate={18}
-                                    isWide={this.props.isWide}
+                                    isWide={false}
                                 />
                             </div>
                         </Col>
