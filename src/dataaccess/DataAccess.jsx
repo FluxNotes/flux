@@ -9,7 +9,7 @@ import HardCodedMcodeV01DataSource from './mcodev0.1-datasource/HardCodedMcodeV0
 export default class DataAccess {
     static DEMO_PATIENT_ID = "788dcbc3-ed18-470c-89ef-35ff91854c7d";
 
-    constructor(dataSourceName, options = {}) {
+    constructor(dataSourceName) {
         if (dataSourceName === 'NewPatientOnlyDataSource') {
             this.dataSource = new NewPatientOnlyDataSource();
         } else if (dataSourceName === 'RestApiDataSource') {
@@ -21,7 +21,7 @@ export default class DataAccess {
         } else if (dataSourceName === 'HardCodedMcodeV05DataSource') {
             this.dataSource = new HardCodedMcodeV05DataSource();
         } else if (dataSourceName === 'SMARTonFHIRDataSource') {
-            this.dataSource = new SMARTonFHIRDataSource(options);
+            this.dataSource = new SMARTonFHIRDataSource();
         } else {
             throw new Error("Unrecognized data source class name: " + dataSourceName);
         }

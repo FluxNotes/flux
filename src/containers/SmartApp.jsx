@@ -21,15 +21,20 @@ class SmartApp extends FullApp {
                 if (userProfile) {
                     this.setState({loginUser: userProfile});
                     this.preferenceManager = new PreferenceManager(userProfile);
-                    fetch('/ServerConfig.json')
-                        .then(res => res.json())
-                        .then(config => {
-                            const dataSourceOptions = config.fhir;
-                            dataSourceOptions.smartClient = smart;
 
-                            this.dataAccess = new DataAccess('SMARTonFHIRDataSource', dataSourceOptions);
+                    // default to the smart data source if none is provided in props
+                    if (!this.props.dataSource) {
+                        this.dataAccess = new DataAccess("SMARTonFHIRDataSource");
+                        this.loadPatient(smart.patient.id);
+                    } else {
+                        this.dataAccess = new DataAccess(this.props.dataSource);
+
+                        if (this.props.patientId) {
+                            this.loadPatient(this.props.patientId);
+                        } else {
                             this.loadPatient(smart.patient.id);
-                        });
+                        }
+                    }
                 } else {
                     console.error("Login failed");
                     this.setState({authorizationFail: true});

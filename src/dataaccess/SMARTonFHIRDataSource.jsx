@@ -5,10 +5,8 @@ import ObjectFactory from '../model/ObjectFactory';
 import 'fhirclient';
 
 class SMARTonFHIRDataSource extends IDataSource {
-    constructor(options) {
+    constructor() {
         super();
-        this._client = this._buildClient(options);
-        this._options = options;
         this._gestalt = {
             create: {
                 async: false,
@@ -32,42 +30,67 @@ class SMARTonFHIRDataSource extends IDataSource {
         return this._gestalt;
     }
 
-    _buildClient(options) {
-        let client = options.smartClient;
-        const shimServerOverrides = options['shimServerOverrides'];
+    _getClientAsync() {
+        // if the client is already loaded, just use it
+        // wrap it in a promise for consistency
+        if (this._client) return Promise.resolve(this._client);
 
-        if (!shimServerOverrides){
-            return client;
-        }
+        const getConfig = fetch('/ServerConfig.json')
+            .then(res => res.json())
+            .then(config => config.fhir);
 
-        for (const baseURL in shimServerOverrides) {
-            if (client.server.serviceUrl.startsWith(baseURL)) { // TODO: smart URL recognition/replacement? http vs https?
-                // just rewriting the URL isn't enough to get all actions pointing at the shim, so we have to create a whole new client object
-                const newServiceUrl = client.server.serviceUrl.replace(baseURL, shimServerOverrides[baseURL]);
-                client = window.FHIR.client({
-                  serviceUrl: newServiceUrl,
-                  patientId: client.patient.id,
-                  auth: client.server.auth
-                });
+
+        const getRawClient = new Promise((resolve, _reject) => {
+            // this is admittedly clunky, but the FHIR client function uses callbacks
+            // so this converts it to a Promise
+            window.FHIR.oauth2.ready((smart) => {
+                resolve(smart);
+            });
+        });
+
+        return Promise.all([getConfig, getRawClient]).then((responses) => {
+            this._options = responses[0];
+            let client = responses[1];
+
+            const shimServerOverrides = this._options['shimServerOverrides'];
+
+            if (!shimServerOverrides){
+                this._client = client;
+                return this._client;
             }
-        }
 
-        return client;
+            for (const baseURL in shimServerOverrides) {
+                if (client.server.serviceUrl.startsWith(baseURL)) { // TODO: smart URL recognition/replacement? http vs https?
+                    // just rewriting the URL isn't enough to get all actions pointing at the shim, so we have to create a whole new client object
+                    const newServiceUrl = client.server.serviceUrl.replace(baseURL, shimServerOverrides[baseURL]);
+                    client = window.FHIR.client({
+                      serviceUrl: newServiceUrl,
+                      patientId: client.patient.id,
+                      auth: client.server.auth
+                    });
+                }
+            }
+
+            this._client = client;
+            return this._client;
+        });
     }
 
     getPatient(id, callback) {
-        // the FHIR client library does not seem to support calling Patient$everything, so we fake it by manually fetching all the resource types we care about.
-        // further, the library only supports async querying
-        const queries = [];
-        for (const resourceType of this._options['supportedResourceTypes']) {
-            // note that we use a configurable list of resource types here because it's faster and easier than getting the conformance statement
-            // if we want to do that, get the list like this:
-            // this._client..patient.api.conformance({}).then(metadata => metadata.data.rest[0].resource.map(res => res.type));
-            const result = this._client.patient.api.search({ type: resourceType, query: {} });
-            queries.push(result);
-        }
+        this._getClientAsync().then(() => {
+            // the FHIR client library does not seem to support calling Patient$everything, so we fake it by manually fetching all the resource types we care about.
+            // further, the library only supports async querying
+            const queries = [];
+            for (const resourceType of this._options['supportedResourceTypes']) {
+                // note that we use a configurable list of resource types here because it's faster and easier than getting the conformance statement
+                // if we want to do that, get the list like this:
+                // this._client..patient.api.conformance({}).then(metadata => metadata.data.rest[0].resource.map(res => res.type));
+                const result = this._client.patient.api.search({ type: resourceType, query: {} });
+                queries.push(result);
+            }
 
-        return Promise.all(queries).then(responses => {
+            return Promise.all(queries);
+        }).then(responses => {
             const entries = [];
             responses.forEach(response => {
                 // response.data is a Bundle of type searchset
