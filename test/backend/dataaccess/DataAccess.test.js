@@ -7,7 +7,6 @@ import PatientRecord from '../../../src/patient/PatientRecord';
 import Moment from 'moment';
 import {expect} from 'chai';
 import EntryMapper from '../../../src/dataaccess/mcodev0.1-datasource/EntryMapper';
-import serverConfig from '../../../public/ServerConfig.json';
 
 const mcodePatientJson = EntryMapper.mapEntries(BreastMainTreatmentDebra);
 // reference hard coded Patient
@@ -142,20 +141,42 @@ const mockSmartClient = {
                     entry: hardCodedFHIRPatient.entry.filter(e => e['resource']['resourceType'] === options.type)
                 };
                 return Promise.resolve({ data });
+            },
+            conformance: function(_options) {
+                const data = {
+                    rest: [{
+                        resource: [
+                            { type: 'Patient' },
+                            { type: 'Condition' },
+                            { type: 'Observation' },
+                        ]
+                    }]
+                };
+                return Promise.resolve({ data });
             }
         }
     }
 };
 
+// usage is:  window.FHIR.oauth2.ready(smart => { .. });
+const mockWindowFhir =
+{
+    oauth2: {
+        ready: function(callback) {
+            callback(mockSmartClient);
+        }
+    }
+};
+
+const oldWindowFhir = window.FHIR;
 
 describe('use smart on fhir as data source with simple mock', function() {
-    const options = JSON.parse(JSON.stringify(serverConfig.fhir)); // use the serverConfig object as the base structure and only modify fields we care about
-    options.smartClient = mockSmartClient;
 
-    delete options.shimServerOverrides; // don't apply any overrides here
-    options.supportedResourceTypes = ['Patient', 'Condition', 'Observation', 'Procedure'];
+    beforeEach(() => {
+        window.FHIR = mockWindowFhir;
+    });
 
-    const smartOnFhirDataAccess = new DataAccess("SMARTonFHIRDataSource", options);
+    const smartOnFhirDataAccess = new DataAccess("SMARTonFHIRDataSource");
 
     it('getPatient should return the hard coded fhir patient', function(done) {
         let i = 1;
@@ -183,5 +204,9 @@ describe('use smart on fhir as data source with simple mock', function() {
     //     expect(fhirApiDataAccess.savePatient(newPatientFHIR))
     //         .to.be.undefined;
     // });
+
+    afterEach(() => {
+        window.FHIR = oldWindowFhir;
+    });
 });
 
