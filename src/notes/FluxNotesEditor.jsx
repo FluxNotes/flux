@@ -609,17 +609,14 @@ class FluxNotesEditor extends React.Component {
     }
 
     resetShortcutData = (shortcut, transform) => {
-        console.log(shortcut)
         const key = shortcut.getKey();     
         const shortcutNodeBeforeInsertion = transform.state.document.getDescendant(key);
         const charsToDelete = shortcutNodeBeforeInsertion.text.length
         if(shortcut.text){
             transform = transform.insertTextByKey(key, 0, String(shortcut.getText()));
-            //const shortcutNode = transform.state.document.getDescendant(key);
             transform = transform.removeTextByKey(key, shortcut.text.length, charsToDelete);
        } else {
             transform = transform.insertTextByKey(key, 0, String(shortcut.initiatingTrigger));
-           //const shortcutNode = transform.state.document.getDescendant(key);
             transform = transform.removeTextByKey(key, shortcut.initiatingTrigger.length, charsToDelete);
        }
         return transform;
@@ -677,8 +674,6 @@ class FluxNotesEditor extends React.Component {
                         // Update the children of the shortcut whose values just got selected.
                         const childShortcuts = shortcut.getChildren();
                         childShortcuts.forEach(childShortcut => {
-                            console.log(childShortcut)
-                            console.log(transform)
                             if (this.shortcutTriggerCheck(childShortcut, childShortcut.initiatingTrigger)) {
                                 // Set the text, then change the data of the shortcut to trigger a re-render.
                                 const text = childShortcut.determineText(this.contextManager);

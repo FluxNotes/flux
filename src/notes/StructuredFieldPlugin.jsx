@@ -385,8 +385,6 @@ function StructuredFieldPlugin(opts) {
     }
 
     function onCopy(event, data, state, editor) {
-        console.log("here")
-        console.log('data', data)
         const window = getWindow(event.target);
         const native = window.getSelection();
         const { endBlock, endInline, document, selection } = state;
@@ -501,15 +499,11 @@ function StructuredFieldPlugin(opts) {
     const FRAGMENT_MATCHER = / flux-string="([^\s]+)"/;
 
     function onPaste(event, data, state, editor) {
-        console.log("paste")
         const html = data.html || null; //event.clipboardData.getData('text/html') || null;)
-        console.log(html)
-        console.log(data)
         if (
             html &&
             ~html.indexOf(' flux-string="')
         ) {
-            console.log("fluxstring")
             const matches = FRAGMENT_MATCHER.exec(html);
             const [ full, encoded ] = matches; // eslint-disable-line no-unused-vars
             const decoded = window.decodeURIComponent(window.atob(encoded));
@@ -521,12 +515,10 @@ function StructuredFieldPlugin(opts) {
             const saveIsBlock1BeforeBlock2 = contextManager.getIsBlock1BeforeBlock2();
             contextManager.setIsBlock1BeforeBlock2(() => { return false; });
             insertText(decoded, undefined, true, 'paste');
-            console.log('decoded', decoded)
             contextManager.setIsBlock1BeforeBlock2(saveIsBlock1BeforeBlock2);
             event.preventDefault();
             return state;
         } else if (data.text) {
-            console.log("plain text")
             event.preventDefault();
             insertText(data.text, undefined, true, 'paste');
             return state;
