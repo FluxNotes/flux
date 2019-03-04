@@ -357,14 +357,42 @@ function StructuredFieldPlugin(opts) {
     function onCopy(event, data, state, editor) {
         const window = getWindow(event.target);
         const native = window.getSelection();
-        const { endBlock, endInline } = state;
+        const { endBlock, endInline, document, selection } = state;
         const isVoidBlock = Boolean(endBlock && endBlock.isVoid);
         const isVoidInline = Boolean(endInline && endInline.isVoid);
         const isVoid = isVoidBlock || isVoidInline;
+        const { focusKey, anchorKey, focusOffset, anchorOffset } = selection;
 
         // If the selection is collapsed, and it isn't inside a void node, abort.
         if (native.isCollapsed && !isVoid) return;
-        let fluxString = convertToText(data.fragment);
+
+        // If the selection is backward, we care about where the selection is focused.
+        // Otherwise, we care about the anchor of the selection
+        let selectionKey, selectionOffset, moveMethod;
+        if (selection.isBackward) {
+            selectionKey = focusKey;
+            selectionOffset = focusOffset;
+            moveMethod = 'moveFocusToEndOf';
+        } else {
+            selectionKey = anchorKey;
+            selectionOffset = anchorOffset;
+            moveMethod = 'moveAnchorToEndOf';
+        }
+
+        // Get the parent of the Text where the selection is focused or anchored
+        const selectionNode = document.getParent(selectionKey);
+
+        // If the selection is focused or anchored at the beginning of a structured field,
+        // we want to extend the selection to the text node before the SF
+        let fluxString = '';
+        if (selectionNode.type === 'structured_field' && selectionOffset === 0) {
+            const previousText = document.getPreviousText(selectionKey);
+            const newState = state.transform()[moveMethod](previousText).apply();
+            fluxString = convertToText(newState.fragment);
+        } else {
+            fluxString = convertToText(data.fragment);
+        }
+
         const encoded = window.btoa(window.encodeURIComponent(fluxString));
         const range = native.getRangeAt(0);
         let contents = range.cloneContents();
