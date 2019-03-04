@@ -23,7 +23,7 @@ describe("TreatmentOptionsOutcome", () => {
 
     describe("outcomes table", () => {
         it("renders the surgery & radiation therapy treatment row in the included table", () => {
-            expect(outcome().find('.included-treatments .table-row').first().find('.treatment-name').text()).to.eql('surgery & radiation therapy');
+            expect(outcome().find('.included-treatments .table-row').first().find('.treatment-name').text()).to.eql('surgery');
         });
 
         it("renders the chemotherapy, hormonal, and radiation rows in the compare table", () => {
@@ -31,7 +31,7 @@ describe("TreatmentOptionsOutcome", () => {
 
             expect(rows).to.have.lengthOf(3);
 
-            const treatments = ['chemotherapy & hormonal therapy', 'hormonal therapy', 'chemotherapy'];
+            const treatments = ['radiation therapy', 'chemotherapy & hormonal therapy'];
             treatments.forEach((treatment, index) => {
                 expect(rows.at(index).find('.treatment-name').text()).to.eql(treatment);
             });
