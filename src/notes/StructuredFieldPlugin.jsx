@@ -84,6 +84,19 @@ function StructuredFieldPlugin(opts) {
                 transform = transform.collapseToStartOfNextText();
                 let newState = transform.apply();
                 return newState;
+        if(!(shortcut) && e.key === 'Enter') {
+
+            const beforeAnchorKey = state.document.getPreviousSibling(selection.anchorKey);
+            const afterAnchorKey = state.document.getNextSibling(selection.anchorKey);
+            if ((beforeAnchorKey && afterAnchorKey) && beforeAnchorKey.type === "structured_field" && afterAnchorKey.type === "structured_field"){
+                stopEventPropagation(e);
+
+                let transform = state.transform()
+                    .splitBlock()
+                    .collapseToStartOfNextBlock()
+                    .apply();
+                editor.onChange(transform);
+
             }
         }
 
