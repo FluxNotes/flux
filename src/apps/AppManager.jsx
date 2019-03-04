@@ -18,7 +18,16 @@ export default class AppManager {
                 path: '/launch',
                 display: 'Flux',
                 app: LaunchPage,
-                isExact: true
+                isExact: true,
+                launchContext: {
+                    client: {
+                        client_id: '6c12dff4-24e7-4475-a742-b08972c4ea27',
+                        scope:  'patient/*.read user/*.* openid profile',
+                        redirect_uri: 'http://localhost:3000/smart'
+                    },
+                    // uncomment for shim
+                    // server: "http://localhost:3001/1_0_2"
+                }
             },
             {
                 path: '/smart',
