@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import _ from 'lodash';
 
-import { isSame, getCombinations } from '../../utils/arrayCompare';
+import { isSame, getCombinations } from '../../utils/arrayOperations';
 
 import BarChart from '../../visualizations/BarChart/BarChart';
 import TableLegend from '../../visualizations/TableLegend/TableLegend';
@@ -37,8 +37,8 @@ export default class TreatmentOptionsOutcomes extends Component {
 
         this.state = {
             similarPatientTreatments: this.generateSimilarPatientTreatments(props.similarPatients),
-            includedTreatments: [ 'surgery', 'radiation' ],
-            comparedTreatments: [ 'chemotherapy', 'hormonal' ],
+            includedTreatments: [ 'surgery' ],
+            comparedTreatments: [ 'chemotherapy', 'hormonal','radiation' ],
             includedOpen: false,
             comparedOpen: false
         };
@@ -117,10 +117,11 @@ export default class TreatmentOptionsOutcomes extends Component {
         }
     }
 
-    initializeRow(name) {
+    initializeRow(name, displayName) {
         return {
             id: _.uniqueId('row_'),
             name,
+            displayName,
             totalPatients: 0,
             oneYrSurvival: 0,
             threeYrSurvival: 0,
@@ -134,9 +135,14 @@ export default class TreatmentOptionsOutcomes extends Component {
 
     generateRow(patients, treatments) {
         if (patients.length === 0) return [];
-
+        let displayName = _.isArray(treatments) ? treatments.filter((treatment)=>{
+            return !this.state.includedTreatments.includes(treatment);
+        }).map(name => TREATMENT_NAMES[name]).join(' & ') : TREATMENT_NAMES[treatments];
         const treatmentName = _.isArray(treatments) ? treatments.map(name => TREATMENT_NAMES[name]).join(' & ') : TREATMENT_NAMES[treatments];
-        let row = this.initializeRow(treatmentName);
+        if(treatments === this.state.includedTreatments) {
+            displayName = treatmentName;
+        }
+        let row = this.initializeRow(treatmentName, displayName);
         patients.forEach(patient => {
             row.totalPatients += 1;
 
@@ -173,14 +179,14 @@ export default class TreatmentOptionsOutcomes extends Component {
     renderRow(row, compareRow) {
         if (row.length === 0) return null;
 
-        const { name, totalPatients, sideEffects } = row;
+        const { name, displayName, totalPatients, sideEffects } = row;
         const topSideEffects = Object.keys(sideEffects.effects).map((sideEffect) => ({
             sideEffect, occurrences: sideEffects.effects[sideEffect]
         })).sort((a, b) => b.occurrences - a.occurrences).slice(0, 2);
 
         return (
             <div className="table-row flex">
-                <div className="flex-2 flex-padding treatment-name">{name}</div>
+                <div className="flex-2 flex-padding treatment-name">{displayName}</div>
                 <div className="flex-1 flex-padding total-patients">({totalPatients})</div>
 
                 <div className="flex flex-6 flex-padding flex-center">
@@ -229,7 +235,6 @@ export default class TreatmentOptionsOutcomes extends Component {
     renderComparedRow = (treatmentCombination, i, includedRow) => {
         const { similarPatients } = this.props;
         const comparedPatients = similarPatients.filter(patient => isSame(patient.treatments, treatmentCombination));
-
         return (
             <div key={i}>
                 {this.renderRow(this.generateRow(comparedPatients, treatmentCombination), includedRow)}
@@ -241,7 +246,7 @@ export default class TreatmentOptionsOutcomes extends Component {
         const { similarPatientTreatments, includedTreatments, comparedTreatments, includedOpen, comparedOpen } = this.state;
         const { similarPatients } = this.props;
         const includedTreatmentPatients = similarPatients.filter(patient => isSame(patient.treatments, includedTreatments));
-        const comparedTreatmentCombinations = getCombinations(comparedTreatments).filter(treatments =>
+        const comparedTreatmentCombinations = getCombinations(comparedTreatments,includedTreatments).filter(treatments =>
             treatments.length !== includedTreatments.length || !includedTreatments.every(treatment => treatments.includes(treatment))
         );
         const includedRow = this.generateRow(includedTreatmentPatients, includedTreatments);
@@ -279,7 +284,7 @@ export default class TreatmentOptionsOutcomes extends Component {
 
                     <div className="compared-treatments">
                         <div>
-                            <span className="treatments-title">compare with:</span>
+                            <span className="treatments-title">combine with:</span>
                             <span className="select-treatments" onClick={this.handleOpenCompared} ref="compare-popper-target">
                                 <span className="popover-text">select treatments</span>
                                 {comparedOpen &&
