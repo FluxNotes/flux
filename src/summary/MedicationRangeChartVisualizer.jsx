@@ -184,7 +184,7 @@ class MedicationRangeChartVisualizer extends Visualizer {
         return (
             <div className="medication-info">
                 <Row top="xs">
-                    <Col sm={4}>
+                    <Col xs={4}>
                         <div className="medication-info-heading">
                             Route
                         </div>
@@ -192,7 +192,7 @@ class MedicationRangeChartVisualizer extends Visualizer {
                             {routeIntoBody}
                         </div>
                     </Col>
-                    <Col sm={4}>
+                    <Col xs={4}>
                         <div className="medication-info-heading">
                             Prescribed
                         </div>
@@ -200,7 +200,7 @@ class MedicationRangeChartVisualizer extends Visualizer {
                             {whenPrescribed}
                         </div>
                     </Col>
-                    <Col sm={4}>
+                    <Col xs={4}>
                         <div className="medication-info-heading">
                             Prescribed By
                         </div>
@@ -320,7 +320,7 @@ renderMedicationNarrowView = (med, i) => {
                         <Col sm={4}>
                             {this.renderMedicationDosage(lowerValue, upperValue, dosageValue, dosageUnit, timingValue, timingUnit, asNeededIndicator, doseInstructionsText)}
                         </Col>
-                        <Col sm={7}>
+                        <Col sm={8}>
                             <div className="medication-range-chart-container">
                                 <RangeChart
                                     lowerValue={lowerValue}
@@ -337,7 +337,7 @@ renderMedicationNarrowView = (med, i) => {
                         </Col>
                     </Row>
                     <Row between="xs" top="xs">
-                        <Col sm={11}>
+                        <Col sm={12}>
                             {this.renderMedicationInfo(med)}
                         </Col>
                     </Row>
