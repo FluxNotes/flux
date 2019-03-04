@@ -127,39 +127,15 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                         {
                             name: "Tumor Markers",
                             value: (patient, currentConditionEntry) => {
-                                // Display ER, PR, HER2 if Breast Cancer Condition
-                                if (currentConditionEntry instanceof FluxBreastCancerDisorderPresent) {
-                                    const receptorStatuses = [];
-                                    const er = currentConditionEntry.getMostRecentERReceptorStatus();
-                                    const pr = currentConditionEntry.getMostRecentPRReceptorStatus();
-                                    const her2 = currentConditionEntry.getMostRecentHER2ReceptorStatus();
-
-                                    if (!Lang.isNull(er)) receptorStatuses.push(er);
-                                    if (!Lang.isNull(pr)) receptorStatuses.push(pr);
-                                    if (!Lang.isNull(her2)) receptorStatuses.push(her2);
-
-                                    if (receptorStatuses.length === 0) return null;
-                                    // TODO: We might want to look at how we check for the isUnsigned property since these are 3 different entries(same for determining source)
-                                    // for now using first receptor status in array
-                                    return {
-                                        value: receptorStatuses.map(receptor => `${receptor.abbreviatedName}${receptor.statusSign}`).join(', '),
-                                        isUnsigned: patient.isUnsigned(receptorStatuses[0]),
-                                        source: this.determineSource(patient, receptorStatuses[0]),
-                                    };
-                                } else {
-                                    // for GIST, KIT and PDGFRA are mutually excusive. only show positive ones
-                                    const panels = patient.getGastrointestinalStromalTumorCancerGeneticAnalysisPanelsChronologicalOrder();
-                                    if (!panels || panels.length === 0) return null;
-                                    const panel = panels.pop();
-                                    return  {   
-                                        value: panel.members.filter(item => item.value === 'Positive').map(item => {
-                                            const v = item.value === 'Positive' ? '+' : '-';
-                                            return item.abbreviatedName + v;
-                                        }).join(","), 
-                                        isUnsigned: patient.isUnsigned(panel), 
-                                        source: this.determineSource(patient, panel)
-                                    };
-                                }
+                                const receptorStatuses = currentConditionEntry.getMostRecentTumorMarkers()
+                                console.log('receptorStatuses: ', receptorStatuses);
+                                // TODO: Since we're showing multiple values heree, we should probably support multiple signed and source values 
+                                //       we don't have that capability right now
+                                return {
+                                    value: receptorStatuses.map(receptor => `${receptor.abbreviatedName}${receptor.statusSign}`).join(', '),
+                                    isUnsigned: patient.isUnsigned(receptorStatuses[0]),
+                                    source: this.determineSource(patient, receptorStatuses[0]),
+                                };
                             }
                         },
                         {
@@ -217,10 +193,11 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                                 console.log('currentConditionEntry: ', currentConditionEntry);
                                 let s = currentConditionEntry.getMostRecentClinicalStaging();
                                 if (s && s.stage && s.stage.length > 0) {
-                                    return  {   value: `${s.stage} ${s.stageComponents}`,
-                                                isUnsigned: patient.isUnsigned(s), 
-                                                source: this.determineSource(patient, s)
-                                            };
+                                    return { 
+                                        value: `${s.stage} ${s.stageComponents}`,
+                                        isUnsigned: patient.isUnsigned(s), 
+                                        source: this.determineSource(patient, s)
+                                    };
                                 } else {
                                     return null;
                                 }
@@ -231,10 +208,11 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                             value: (patient, currentConditionEntry) => {
                                 let s = currentConditionEntry.getMostRecentPathologicStaging();
                                 if (s && s.stage && s.stage.length > 0) {
-                                    return  {   value: s.stage, 
-                                                isUnsigned: patient.isUnsigned(s), 
-                                                source: this.determineSource(patient, s)
-                                            };
+                                    return  {
+                                        value: `${s.stage} ${s.stageComponents}`,
+                                        isUnsigned: patient.isUnsigned(s), 
+                                        source: this.determineSource(patient, s)
+                                    };
                                 } else {
                                     return null;
                                 }

@@ -7,6 +7,7 @@ import FluxCancerHistologicType from '../oncocore/FluxCancerHistologicType';
 import FluxKarnofskyPerformanceStatus from '../oncocore/FluxKarnofskyPerformanceStatus';
 import FluxECOGPerformanceStatus from '../oncocore/FluxECOGPerformanceStatus';
 import FluxTNMStageGroup from '../oncocore/FluxTNMStageGroup';
+import FluxTumorMarker from '../oncocore/FluxTumorMarker';
 import FluxTNMPathologicStageGroup from '../oncocore/FluxTNMPathologicStageGroup';
 
 class FluxSolidTumorCancer extends FluxCancerDisorderPresent {
@@ -73,8 +74,6 @@ class FluxSolidTumorCancer extends FluxCancerDisorderPresent {
         const sortedStagingList = stagingList.sort(this._stageTimeSorter);
         const length = sortedStagingList.length;
         let s = (sortedStagingList[length - 1]);
-        console.log('sc: ', s.stageComponents);
-
         if (Lang.isNull(sinceDate)) return s; 
         const startTime = new moment(s.occurrenceTime, "D MMM YYYY");
         if (startTime < sinceDate) {
@@ -90,7 +89,6 @@ class FluxSolidTumorCancer extends FluxCancerDisorderPresent {
         const sortedStagingList = stagingList.sort(this._stageTimeSorter);
         const length = sortedStagingList.length;
         let s = (sortedStagingList[length - 1]);
-        console.log('sp: ', s.stageComponents);
         if (Lang.isNull(sinceDate)) return s; 
         const startTime = new moment(s.relevantTime, "D MMM YYYY");
         if (startTime < sinceDate) {
@@ -106,7 +104,6 @@ class FluxSolidTumorCancer extends FluxCancerDisorderPresent {
         const sortedStagingList = stagingList.sort(this._stageTimeSorter);
         const length = sortedStagingList.length;
         let s = (sortedStagingList[length - 1]);
-        console.log('s: ', s.stageComponents);
         if (Lang.isNull(sinceDate)) return s; 
         const startTime = new moment(s.relevantTime, "D MMM YYYY");
         if (startTime < sinceDate) {
@@ -114,6 +111,19 @@ class FluxSolidTumorCancer extends FluxCancerDisorderPresent {
         } else {
             return s;
         }
+    }
+
+    getMostRecentTumorMarkers(sinceDate = null) { 
+        let tumorMarkersList = this._patientRecord.getEntriesOfType(FluxTumorMarker);
+        // If we have none, return null
+        if (tumorMarkersList.length === 0) return null; 
+        const sortedTumorMarkersList = tumorMarkersList
+        .sort(this._stageTimeSorter);
+        // If we have no sinceDate, return them all sorted
+        if (Lang.isNull(sinceDate)) return sortedTumorMarkersList; 
+        const filteredSortedTumorMarkerList = sortedTumorMarkersList.filter(tm => new moment(tm.relevantTime, "D MMM YYYY") < sinceDate);
+        if (filteredSortedTumorMarkerList.length === 0) return null;
+        return filteredSortedTumorMarkerList;
     }
 }
 

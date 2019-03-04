@@ -32,7 +32,6 @@ export default class FluxTNMStageGroup extends FluxEntry {
             }
             return accumulatedString
         }, '');
-        console.log(stageComponentsAsString);
         return stageComponentsAsString;
     }
 
