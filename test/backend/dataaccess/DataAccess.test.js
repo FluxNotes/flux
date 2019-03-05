@@ -128,7 +128,7 @@ describe('use fhir api as data source', function() {
 
 
 // Data Access with SMART on FHIR
-// the SMART client uses jQuery AJAX, and the underlying FHIR library uses Request, one option 1 is to mock out the actual HTTP calls it makes (see separate SMARTonFHIRDataSource.test file)
+// the SMART client uses jQuery AJAX, and the underlying FHIR library uses Request, one option 1 is to mock out the actual HTTP calls it makes (see separate MCODE05SMARTonFHIRDataSource.test file)
 // option 2 is to mock out the client with a simple object representing the expected API
 const mockSmartClient = {
     patient: {
@@ -176,7 +176,7 @@ describe('use smart on fhir as data source with simple mock', function() {
         window.FHIR = mockWindowFhir;
     });
 
-    const smartOnFhirDataAccess = new DataAccess("SMARTonFHIRDataSource");
+    const smartOnFhirDataAccess = new DataAccess("MCODE05SMARTonFHIRDataSource");
 
     it('getPatient should return the hard coded fhir patient', function(done) {
         let i = 1;

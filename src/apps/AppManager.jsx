@@ -34,7 +34,7 @@ export default class AppManager {
                 display: 'Flux Notes™',
                 app: SmartApp,
                 isExact: true,
-                dataSource: 'SMARTonFHIRDataSource',
+                dataSource: 'MCODE05SMARTonFHIRDataSource',
                 shortcuts: []
             },
             {
