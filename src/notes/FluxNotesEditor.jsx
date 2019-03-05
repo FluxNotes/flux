@@ -609,16 +609,23 @@ class FluxNotesEditor extends React.Component {
     }
 
     resetShortcutData = (shortcut, transform) => {
-        const key = shortcut.getKey();     
-        const shortcutNodeBeforeInsertion = transform.state.document.getDescendant(key);
-        const charsToDelete = shortcutNodeBeforeInsertion.text.length
-        if(shortcut.text){
-            transform = transform.insertTextByKey(key, 0, String(shortcut.getText()));
-            transform = transform.removeTextByKey(key, shortcut.text.length, charsToDelete);
-       } else {
-            transform = transform.insertTextByKey(key, 0, String(shortcut.initiatingTrigger));
-            transform = transform.removeTextByKey(key, shortcut.initiatingTrigger.length, charsToDelete);
-       }
+        const key = shortcut.getKey();
+        transform = transform.setNodeByKey(key, {
+            data: {
+                shortcut
+            }
+        });
+
+        // Save anchor block to reset selection after updating shortcut text
+        const {anchorBlock} = transform.state;
+
+        // Update text on the node
+        const shortcutNode = transform.state.document.getNode(shortcut.getKey());
+        transform = transform.moveToRangeOf(shortcutNode).insertText(shortcut.getText());
+
+        // Move to previous anchor block to not lose the valid selection
+        transform = transform.moveToRangeOf(anchorBlock).collapseToEnd().focus();
+
         return transform;
     }
 
