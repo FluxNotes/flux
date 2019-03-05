@@ -129,7 +129,7 @@ class FluxConditionPresentAssertion extends FluxEntry {
         });
 
         toxicities.sort(this._toxicitiesTimeSorter);
-
+        
         return toxicities;
     }
 
@@ -148,6 +148,25 @@ class FluxConditionPresentAssertion extends FluxEntry {
 
     getGeneticMutationValue(geneticMutationAbbreviatedName, patient) {
         return undefined;
+    }
+
+    getMostRecentToxicities() {
+        // Set the max number of months prior to today that a toxicity can be
+        const numberOfMonths = 6; 
+        const sinceDate = moment().subtract(numberOfMonths, 'months');
+        let sinceDateMoment = new moment(sinceDate, "D MMM YYYY");
+
+        let tox = this.getToxicities();
+        let sortedTox = tox.sort(this._toxicitiesTimeSorter);
+        let mostRecentTox = [];
+
+        for (var i in sortedTox) {
+            let tox_time = new moment(sortedTox[i].metadata.lastUpdated.value, "D MMM YYYY");
+            if (tox_time > sinceDateMoment) {
+                mostRecentTox.push(sortedTox[i]);
+            }
+        }
+        return mostRecentTox;
     }
 
     getToxicities() {
