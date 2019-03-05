@@ -190,7 +190,6 @@ export default class InsertValue extends Shortcut {
     }
 
     getText() {
-  
         return this.text ? this.text : this.initiatingTrigger;
     }
 

@@ -62,8 +62,8 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
                     let keywordRange;
                     if (curNode.nodes) {
                         for (const childNode of curNode.nodes) {
-                                keywordRange = getRangeForKeyword(childNode, keywordText);
-                                if (keywordRange) break;
+                            keywordRange = getRangeForKeyword(childNode, keywordText);
+                            if (keywordRange) break;
                         }
                     } else {
                         keywordRange = getRangeForKeyword(curNode, keywordText);

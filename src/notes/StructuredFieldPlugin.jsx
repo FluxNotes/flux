@@ -70,16 +70,14 @@ function StructuredFieldPlugin(opts) {
                 let newState = transform.apply();
                 return newState;
             }
-        } 
-        else if (e.keyCode === 37 && previousNode){
+        } else if (e.keyCode === 37 && previousNode){
             if(previousNode.type === 'structured_field') {
                 let transform = state.transform();
                 transform = transform.collapseToStart(previousNode);
                 let newState = transform.apply();
                 return newState;
             }
-        } 
-        else if (e.keyCode === 39 && parentNode){
+        } else if (e.keyCode === 39 && parentNode){
             if ((parentNode.type === 'structured_field') && !(shortcut instanceof InsertValue)) {
                 let transform = state.transform();
                 transform = transform.collapseToStartOfNextText();
@@ -274,7 +272,7 @@ function StructuredFieldPlugin(opts) {
                 if (shortcut instanceof InsertValue) {
                     return <span className='structured-field-inserter structured-field-selected-search-result' {...props.attributes}>{props.children}{safariSpacing}</span>;
                 } else {
-                    return <span contentEditable={false} className='structured-field-creator structured-field-selected-search-result' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
+                    return <span contentEditable={false} className='structured-field-creator structured-field-selected-search-result' {...props.attributes}>{props.children}</span>;
                 }
             },
             structured_field_search_result: props => {
@@ -282,7 +280,7 @@ function StructuredFieldPlugin(opts) {
                 if (shortcut instanceof InsertValue) {
                     return <span className='structured-field-inserter structured-field-search-result' {...props.attributes}>{props.children}{safariSpacing}</span>;
                 } else {
-                    return <span contentEditable={false} className='structured-field-creator structured-field-search-result' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
+                    return <span contentEditable={false} className='structured-field-creator structured-field-search-result' {...props.attributes}>{props.children}</span>;
                 }
             },
             placeholder: props => {
@@ -561,6 +559,7 @@ function StructuredFieldPlugin(opts) {
             //isSelectionInStructuredField
             convertSlateNodesToText: convertSlateNodesToText,
             createStructuredField: createStructuredField.bind(null, opts)
+
         },
 
         transforms: {
