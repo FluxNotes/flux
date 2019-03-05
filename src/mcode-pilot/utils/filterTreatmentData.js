@@ -29,11 +29,11 @@ export default function filterTreatmentData(similarPatientProps, includedTreatme
     const similarPatients = transformedTreatmentData.filter(treatmentDataPatient => isSimilarPatient(treatmentDataPatient, similarPatientProps));
     const totalSimilarPatients = similarPatients.length;
     const similarPatientTreatments = generateSimilarPatientTreatments(similarPatients);
-    const includedTreatmentData = generateTreatmentData(similarPatients, [includedTreatments]);
-    const comparedTreatmentCombinations = getCombinations(comparedTreatments).filter(treatments =>
+    const includedTreatmentData = generateTreatmentData(similarPatients, [includedTreatments], includedTreatments);
+    const comparedTreatmentCombinations = getCombinations(comparedTreatments, includedTreatments).filter(treatments =>
         treatments.length !== includedTreatments.length || !includedTreatments.every(treatment => treatments.includes(treatment))
     );
-    const comparedTreatmentData = generateTreatmentData(similarPatients, comparedTreatmentCombinations);
+    const comparedTreatmentData = generateTreatmentData(similarPatients, comparedTreatmentCombinations, includedTreatments);
 
     return {
         totalPatients,
@@ -44,10 +44,11 @@ export default function filterTreatmentData(similarPatientProps, includedTreatme
     };
 }
 
-function initializeTreatmentData(name) {
+function initializeTreatmentData(name, displayName) {
     return {
         id: _.uniqueId('row_'),
         name,
+        displayName,
         totalPatients: 0,
         oneYrSurvival: 0,
         threeYrSurvival: 0,
@@ -59,14 +60,20 @@ function initializeTreatmentData(name) {
     };
 }
 
-function generateTreatmentData(similarPatients, treatments) {
+function generateTreatmentData(similarPatients, treatments, includedTreatments) {
     if (similarPatients.length === 0) return [];
 
     let treatmentData = [];
     treatments.forEach(treatment => {
         const filteredPatients = similarPatients.filter(patient => isSame(patient.treatments, treatment));
         const treatmentName = _.isArray(treatment) ? treatment.map(name => TREATMENT_NAMES[name]).join(' & ') : TREATMENT_NAMES[treatment];
-        let row = initializeTreatmentData(treatmentName);
+        let displayName = _.isArray(treatment) ? treatment.filter((treat)=>{
+            return !(includedTreatments.includes(treat));
+        }).map(name => TREATMENT_NAMES[name]).join(' & ') : TREATMENT_NAMES[treatment];
+        if(treatment === includedTreatments) {
+            displayName = treatmentName;
+        }
+        let row = initializeTreatmentData(treatmentName, displayName);
         filteredPatients.forEach(patient => {
             row.totalPatients += 1;
 
