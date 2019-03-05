@@ -200,10 +200,10 @@ describe('use smart on fhir as data source with simple mock', function() {
         expect(smartOnFhirDataAccess.newPatient())
             .to.be.undefined;
     });
-    // it('savePatient should return undefined', function() {
-    //     expect(fhirApiDataAccess.savePatient(newPatientFHIR))
-    //         .to.be.undefined;
-    // });
+    it('savePatient should return undefined', function() {
+        expect(smartOnFhirDataAccess.savePatient(hardCodedConvertedFHIRPatient))
+            .to.be.undefined;
+    });
 
     afterEach(() => {
         window.FHIR = oldWindowFhir;

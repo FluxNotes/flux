@@ -2350,6 +2350,11 @@ core-js@2.5.1:
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.1.tgz#ae6874dc66937789b80754ff5428df66819ca50b"
   integrity sha1-rmh03GaTd4m4B1T/VCjfZoGcpQs=
 
+core-js@^0.8.3:
+  version "0.8.4"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-0.8.4.tgz#c22665f1e0d1b9c3c5e1b08dabd1f108695e4fcf"
+  integrity sha1-wiZl8eDRucPF4bCNq9HxCGleT88=
+
 core-js@^1.0.0:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-1.2.7.tgz#652294c14651db28fa93bd2d5ff2983a4f08c636"
@@ -4145,7 +4150,7 @@ glob@^7.0.0, glob@^7.0.3, glob@^7.1.2, glob@^7.1.3, glob@~7.1.1:
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
-global@~4.3.0:
+global@^4.3.2, global@~4.3.0:
   version "4.3.2"
   resolved "https://registry.yarnpkg.com/global/-/global-4.3.2.tgz#e76989268a6c74c38908b1305b10fc0e394e9d0f"
   integrity sha1-52mJJopsdMOJCLEwWxD8DjlOnQ8=
@@ -6342,6 +6347,14 @@ mkdirp@0.5.1, mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdi
   integrity sha1-MAV0OOrGz3+MR2fzhkjWaX11yQM=
   dependencies:
     minimist "0.0.8"
+
+mock-local-storage@^1.1.8:
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/mock-local-storage/-/mock-local-storage-1.1.8.tgz#82a3f7c666bf955d64b286cb71207478f1a29bf7"
+  integrity sha512-x/LPtSBqSROQGjJn60Fp0+rgOHZuuQZysgeSYfhG2l/moD0LLW60bKi4KpmCnNs9S3l0cbS5cmzQFzeKDL7RaQ==
+  dependencies:
+    core-js "^0.8.3"
+    global "^4.3.2"
 
 moment-duration-format@^1.3.0:
   version "1.3.0"
