@@ -42,9 +42,9 @@ function updateMaps(shortcut, opts) {
 }
 
 /**
- * Splits structured field into two and enters plain text in between
+ * Splits inserter shortcut into two and enters plain text in between
  */
-function splitStructuredField(opts, contextManager, createShortcut, event, state, editor, useFocusKey, selection, shortcut, text) {
+function splitInserterShortcut(opts, contextManager, createShortcut, event, state, editor, useFocusKey, selection, shortcut, text) {
     stopEventPropagation(event);
 
     // Split the inline and insert typed text into new text node
@@ -160,7 +160,7 @@ function StructuredFieldPlugin(opts) {
 
         // Override native typing when typing inside a structured field
         if (shortcut && !Lang.includes(ignoredKeys, e.keyCode) && !isModifier && e.key !== 'Enter') {
-            splitStructuredField(opts, contextManager, createShortcut, e, state, editor, useFocusKey, selection, shortcut, e.key);
+            splitInserterShortcut(opts, contextManager, createShortcut, e, state, editor, useFocusKey, selection, shortcut, e.key);
         } else if (shortcut && e.key === 'Enter') {
             stopEventPropagation(e);
 
@@ -505,13 +505,18 @@ function StructuredFieldPlugin(opts) {
     const FRAGMENT_MATCHER = / flux-string="([^\s]+)"/;
 
     function onPaste(event, data, state, editor) {
+        const { selection } = state;
+
+        // We want to consider where the cursor is focused if an expanded selection
+        const useFocusKey = selection.isExpanded && selection.isBackward;
+        const selectionKey = useFocusKey ? selection.focusKey : selection.anchorKey;
+        const parentNode = state.document.getParent(selectionKey);
+        const shortcut = parentNode.data.get('shortcut');
         const html = data.html || null; //event.clipboardData.getData('text/html') || null;)
-        if (
-            html &&
-            ~html.indexOf(' flux-string="')
-        ) {
+
+        if (html && ~html.indexOf(' flux-string="')) {
             const matches = FRAGMENT_MATCHER.exec(html);
-            const [ full, encoded ] = matches; // eslint-disable-line no-unused-vars
+            const [full, encoded] = matches; // eslint-disable-line no-unused-vars
             const decoded = window.decodeURIComponent(window.atob(encoded));
             // because insertion of shortcuts into the context relies on the current selection, during a paste
             // we override the routine that checks the location of a structured field relative to the selection
@@ -520,21 +525,16 @@ function StructuredFieldPlugin(opts) {
             // NoteParser also overrides this function since there is no slate
             const saveIsBlock1BeforeBlock2 = contextManager.getIsBlock1BeforeBlock2();
             contextManager.setIsBlock1BeforeBlock2(() => { return false; });
-            insertText(decoded, undefined, true, 'paste');
+
+            // Split inserter shortcut if pasting into inserter shortcut
+            shortcut instanceof InsertValue ? splitInserterShortcut(opts, contextManager, createShortcut, event, state, editor, useFocusKey, selection, shortcut, data.text) : insertText(decoded, undefined, true, 'paste');
             contextManager.setIsBlock1BeforeBlock2(saveIsBlock1BeforeBlock2);
             event.preventDefault();
+
             return state;
         } else if (data.text) {
-            const { selection } = state;
-
-            // We want to consider where the cursor is focused if an expanded selection
-            const useFocusKey = selection.isExpanded && selection.isBackward;
-            const selectionKey = useFocusKey ? selection.focusKey : selection.anchorKey;
-            const parentNode = state.document.getParent(selectionKey);
-            const shortcut = parentNode.data.get('shortcut');
-
             if (shortcut instanceof InsertValue) {
-                splitStructuredField(opts, contextManager, createShortcut, event, state, editor, useFocusKey, selection, shortcut, data.text);
+                splitInserterShortcut(opts, contextManager, createShortcut, event, state, editor, useFocusKey, selection, shortcut, data.text);
             } else {
                 event.preventDefault();
                 insertText(data.text, undefined, true, 'paste');
