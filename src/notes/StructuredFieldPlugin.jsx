@@ -80,7 +80,7 @@ function StructuredFieldPlugin(opts) {
             }
         } 
         else if (e.keyCode === 39 && parentNode){
-            if (parentNode.type === 'structured_field') {
+            if ((parentNode.type === 'structured_field') && !(shortcut instanceof InsertValue)) {
                 let transform = state.transform();
                 transform = transform.collapseToStartOfNextText();
                 let newState = transform.apply();
