@@ -171,21 +171,20 @@ class MedicationRangeChartVisualizer extends Visualizer {
     }
 
     renderMedicationInfo = (med) => {
-        const {routeIntoBody, whenPrescribed, prescribedBy, numberOfRefillsAllowed, medication} = med.medication;
+        const {routeIntoBody, whenPrescribed, prescribedBy, medication} = med.medication;
         const medId = `medications_${medication.toLowerCase().replace(/[.,#!$%&;:{}=\-_`~()]/g,"").replace(/ /g, '_')}`;
-        let routeClass = '', prescribedClass = '', prescribedByClass = '', numberOfRefillsAllowedClass = '';
+        let routeClass = '', prescribedClass = '', prescribedByClass = '';
         this.props.tdpSearchSuggestions.forEach(s => {
             if (s.section === 'Medications' && s.id.includes(medId)) {
                 if (s.contentSnapshot === routeIntoBody) routeClass = Lang.isEqual(s, this.props.highlightedSearchSuggestion) ? ' highlighted selected' : ' highlighted';
                 if (s.contentSnapshot === whenPrescribed) prescribedClass = Lang.isEqual(s, this.props.highlightedSearchSuggestion) ? ' highlighted selected' : ' highlighted';
                 if (s.contentSnapshot === prescribedBy) prescribedByClass = Lang.isEqual(s, this.props.highlightedSearchSuggestion) ? ' highlighted selected' : ' highlighted';
-                if (s.contentSnapshot === numberOfRefillsAllowed) numberOfRefillsAllowedClass = Lang.isEqual(s, this.props.highlightedSearchSuggestion) ? ' highlighted selected' : ' highlighted';
             }
         });
         return (
             <div className="medication-info">
                 <Row top="xs">
-                    <Col sm={3}>
+                    <Col xs={4}>
                         <div className="medication-info-heading">
                             Route
                         </div>
@@ -193,7 +192,7 @@ class MedicationRangeChartVisualizer extends Visualizer {
                             {routeIntoBody}
                         </div>
                     </Col>
-                    <Col sm={3}>
+                    <Col xs={4}>
                         <div className="medication-info-heading">
                             Prescribed
                         </div>
@@ -201,20 +200,12 @@ class MedicationRangeChartVisualizer extends Visualizer {
                             {whenPrescribed}
                         </div>
                     </Col>
-                    <Col sm={3}>
+                    <Col xs={4}>
                         <div className="medication-info-heading">
                             Prescribed By
                         </div>
                         <div className={"medication-info" + prescribedByClass}>
                             {prescribedBy}
-                        </div>
-                    </Col>
-                    <Col sm={3}>
-                         <div className="medication-info-heading">
-                            Number of Refills
-                        </div>
-                        <div className={"medication-info" + numberOfRefillsAllowedClass}>
-                            {numberOfRefillsAllowed}
                         </div>
                     </Col>
                 </Row>
@@ -248,10 +239,10 @@ class MedicationRangeChartVisualizer extends Visualizer {
                 <Grid fluid>
                     <div className="medication-item-heading">
                         <Row bottom="xs">
-                            <Col md={6} xs={12}>
+                            <Col md={7} xs={12}>
                                 {this.renderMedicationTitle(name)}
                             </Col>
-                            <Col xs={6} className="medication-change-padding">
+                            <Col xs={5} className="medication-change-padding">
                                 <div className="medication-change-container">
                                     {medicationIsChange ? this.renderMedicationChange(med.medicationChange, med.medicationChange.medBeforeChange) : <Col xs={13} />}
                                 </div>
@@ -261,7 +252,7 @@ class MedicationRangeChartVisualizer extends Visualizer {
                     {(med.medicationChange && med.medicationChange.type === 'stop') ? <div /> :
                     <div className="medication-item-content">
                         <Row around='xs'>
-                            <Col md={2}>
+                            <Col md={3}>
                                 {this.renderMedicationDosage(lowerValue, upperValue, dosageValue, dosageUnit, timingValue, timingUnit, asNeededIndicator, doseInstructionsText)}
                             </Col>
                             <Col md={4}>
@@ -273,11 +264,11 @@ class MedicationRangeChartVisualizer extends Visualizer {
                                         value={dosageValue}
                                         unit={dosageUnit}
                                         name={name}
-                                        isWide={this.props.isWide}
+                                        isWide={true}
                                     />
                                 </div>
                             </Col>
-                            <Col md={6}>
+                            <Col md={5}>
                                 {this.renderMedicationInfo(med)}
                             </Col>
                         </Row>
@@ -309,19 +300,19 @@ renderMedicationNarrowView = (med, i) => {
         <div key={i} className="medication-item" ref={(parent) => { this.parent = parent }}>
             <Grid fluid>
                 <div className="medication-item-heading">
-                <Row top="xs">
-                    <Col md={8} xs={12}>
-                        {this.renderMedicationTitle(name)}
-                    </Col>
-                </Row>
+                    <Row top="xs">
+                        <Col md={8} xs={12}>
+                            {this.renderMedicationTitle(name)}
+                        </Col>
+                    </Row>
+                    <Row top="xs">
+                        <Col sm={10} className="medication-change-padding">
+                            <div className="medication-change-container">
+                                {medicationIsChange ? this.renderMedicationChange(med.medicationChange, med.medicationChange.medBeforeChange) : null}
+                            </div>
+                        </Col>
+                    </Row>
                 </div>
-                <Row around="xs" top="xs">
-                    <Col sm={10}>
-                        <div className="medication-change-container">
-                            {medicationIsChange ? this.renderMedicationChange(med.medicationChange, med.medicationChange.medBeforeChange) : null}
-                        </div>
-                    </Col>
-                </Row>
                 {/* Additional information for current medication */}
                 {(med.medicationChange && med.medicationChange.type === 'stop') ? <div /> :
                 <div className="medication-item-content">
@@ -329,7 +320,7 @@ renderMedicationNarrowView = (med, i) => {
                         <Col sm={4}>
                             {this.renderMedicationDosage(lowerValue, upperValue, dosageValue, dosageUnit, timingValue, timingUnit, asNeededIndicator, doseInstructionsText)}
                         </Col>
-                        <Col sm={7}>
+                        <Col sm={8}>
                             <div className="medication-range-chart-container">
                                 <RangeChart
                                     lowerValue={lowerValue}
@@ -340,13 +331,13 @@ renderMedicationNarrowView = (med, i) => {
                                     name={name}
                                     chartXCoordinate={20}
                                     chartYCoordinate={18}
-                                    isWide={this.props.isWide}
+                                    isWide={false}
                                 />
                             </div>
                         </Col>
                     </Row>
                     <Row between="xs" top="xs">
-                        <Col sm={11}>
+                        <Col sm={12}>
                             {this.renderMedicationInfo(med)}
                         </Col>
                     </Row>
