@@ -95,14 +95,14 @@ export default class TreatmentOptionsOutcomes extends Component {
     renderRow(row, compareRow) {
         if (row == null || row.length === 0) return null;
 
-        const { name, totalPatients, sideEffects } = row;
+        const { name, displayName, totalPatients, sideEffects } = row;
         const topSideEffects = Object.keys(sideEffects.effects).map((sideEffect) => ({
             sideEffect, occurrences: sideEffects.effects[sideEffect]
         })).sort((a, b) => b.occurrences - a.occurrences).slice(0, 2);
 
         return (
             <div className="table-row flex">
-                <div className="flex-2 flex-padding treatment-name">{name}</div>
+                <div className="flex-2 flex-padding treatment-name">{displayName}</div>
                 <div className="flex-1 flex-padding total-patients">({totalPatients})</div>
 
                 <div className="flex flex-6 flex-padding flex-center">
@@ -198,7 +198,7 @@ export default class TreatmentOptionsOutcomes extends Component {
 
                     <div className="compared-treatments">
                         <div>
-                            <span className="treatments-title">compare with:</span>
+                            <span className="treatments-title">combine with:</span>
                             <span className="select-treatments" onClick={this.handleOpenCompared} ref="compare-popper-target">
                                 <span className="popover-text">select treatments</span>
                                 {comparedOpen &&
