@@ -222,7 +222,7 @@ const mapGender = (gender) => {
 
     newGender.value = mapCodingToCodeableConcept(gender.value);
 
-    return newGender;
+    return newGender; 
 }
 
 const mapAnatomicalLocation = (anatomicalLocation) => {
@@ -254,7 +254,7 @@ const mapQuantity = (quantity) => {
 
     newQuantity.number = new NumberV05();
     newQuantity.number.value = quantity.decimalValue.value;
-    newQuantity.units = mapPassThrough(quantity.units, Units);
+    newQuantity.units = mapUnits(quantity.units);
 
     return newQuantity;
 };
@@ -264,7 +264,7 @@ const mapDuration = (duration) => {
 
     newDuration.number = new NumberV05();
     newDuration.number.value = duration.decimalValue.value;
-    newDuration.units = mapPassThrough(duration.units, Units);
+    newDuration.units = mapUnits(duration.units);
 
     return newDuration;
 }
