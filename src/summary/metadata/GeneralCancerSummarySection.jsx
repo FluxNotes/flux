@@ -136,7 +136,6 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                             name: "Tumor Markers",
                             value: (patient, currentConditionEntry) => {
                                 const receptorStatuses = currentConditionEntry.getMostRecentTumorMarkers()
-                                console.log('receptorStatuses: ', receptorStatuses);
                                 // TODO: Since we're showing multiple values heree, we should probably support multiple signed and source values 
                                 //       we don't have that capability right now
                                 return {
@@ -203,7 +202,6 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                         {
                             name: "Clinical Stage",
                             value: (patient, currentConditionEntry) => {
-                                console.log('currentConditionEntry: ', currentConditionEntry);
                                 let s = currentConditionEntry.getMostRecentClinicalStaging();
                                 if (s && s.stage && s.stage.length > 0) {
                                     return { 
