@@ -1,5 +1,4 @@
 import MetadataSection from "./MetadataSection";
-import FluxBreastCancerDisorderPresent from "../../model/brca/FluxBreastCancerDisorderPresent";
 import Lang from 'lodash';
 import moment from 'moment';
 
@@ -13,6 +12,15 @@ export default class GeneralCancerSummarySection extends MetadataSection {
             narrative: [
                 {
                     defaultTemplate: "Patient has ${Cancer.Name} in ${Cancer.Site} since age ${Cancer.Age at Diagnosis}.",
+                },
+                {
+                    defaultTemplate: "As of ${Disease Status.As Of Date}, disease is ${Disease Status.Most Recent Status} based on ${Disease Status.Rationale}.",
+                    dataMissingTemplate: "No recent ${disease status}.",
+                    useDataMissingTemplateCriteria: [
+                        "Disease Status.As Of Date",
+                        "Disease Status.Most Recent Status",
+                        "Disease Status.Rationale"
+                    ]
                 },
                 {
                     defaultTemplate: "Laterality is ${Cancer.Laterality}."
@@ -138,8 +146,13 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                                 };
                             }
                         },
+                    ]
+                },
+                {
+                    name: "Disease Status",
+                    items: [ 
                         {
-                            name: "Disease Status",
+                            name: "Most Recent Status",
                             value: (patient, currentConditionEntry) => {
                                 let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
                                 if (Lang.isNull(p) || !p.status) {
@@ -153,7 +166,7 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                             }
                         },
                         {
-                            name: "As Of Date",
+                            name: "As Of",
                             value: (patient, currentConditionEntry) => {
                                 let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
                                 if (Lang.isNull(p) || !p.status) {
