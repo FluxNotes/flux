@@ -43,8 +43,9 @@ function updateMaps(shortcut, opts) {
 
 /**
  * Splits inserter shortcut into two and enters plain text in between
+ * Use insertText function that is passed as a parameter if defined.  An insertText function is passed for handling inserting structured phrases
  */
-function splitInserterShortcut(opts, contextManager, createShortcut, event, state, editor, useFocusKey, selection, shortcut, text) {
+function splitInserterAndInsertText(opts, contextManager, createShortcut, event, state, editor, useFocusKey, selection, shortcut, text, insertText = undefined) {
     stopEventPropagation(event);
 
     // Split the inline and insert typed text into new text node
@@ -63,7 +64,11 @@ function splitInserterShortcut(opts, contextManager, createShortcut, event, stat
 
     transform = transform.collapseToEndOf(newTextNode);
     transform = applyMarks(state.marks, transform);
-    transform = transform.insertText(text);
+    if (insertText) {
+        insertText(text, transform);
+    } else {
+        transform = transform.insertText(text);
+    }
 
     // Create a new shortcut with the trailing shortcut text after split
     const newShortcutNode = transform.state.document.getNextSibling(newTextNode.key);
@@ -160,7 +165,7 @@ function StructuredFieldPlugin(opts) {
 
         // Override native typing when typing inside a structured field
         if (shortcut && !Lang.includes(ignoredKeys, e.keyCode) && !isModifier && e.key !== 'Enter') {
-            splitInserterShortcut(opts, contextManager, createShortcut, e, state, editor, useFocusKey, selection, shortcut, e.key);
+            splitInserterAndInsertText(opts, contextManager, createShortcut, e, state, editor, useFocusKey, selection, shortcut, e.key);
         } else if (shortcut && e.key === 'Enter') {
             stopEventPropagation(e);
 
@@ -527,14 +532,14 @@ function StructuredFieldPlugin(opts) {
             contextManager.setIsBlock1BeforeBlock2(() => { return false; });
 
             // Split inserter shortcut if pasting into inserter shortcut
-            shortcut instanceof InsertValue ? splitInserterShortcut(opts, contextManager, createShortcut, event, state, editor, useFocusKey, selection, shortcut, data.text) : insertText(decoded, undefined, true, 'paste');
+            shortcut instanceof InsertValue ? splitInserterAndInsertText(opts, contextManager, createShortcut, event, state, editor, useFocusKey, selection, shortcut, decoded, (text, transform) => insertText(text, transform, true, 'paste')) : insertText(decoded, undefined, true, 'paste');
             contextManager.setIsBlock1BeforeBlock2(saveIsBlock1BeforeBlock2);
             event.preventDefault();
 
             return state;
         } else if (data.text) {
             if (shortcut instanceof InsertValue) {
-                splitInserterShortcut(opts, contextManager, createShortcut, event, state, editor, useFocusKey, selection, shortcut, data.text);
+                splitInserterAndInsertText(opts, contextManager, createShortcut, event, state, editor, useFocusKey, selection, shortcut, data.text);
             } else {
                 event.preventDefault();
                 insertText(data.text, undefined, true, 'paste');
