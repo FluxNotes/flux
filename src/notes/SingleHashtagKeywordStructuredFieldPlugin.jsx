@@ -11,7 +11,6 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
     const createShortcut = opts.createShortcut;
     const insertStructuredFieldTransform = opts.insertStructuredFieldTransform;
     const structuredFieldMapManager = opts.structuredFieldMapManager;
-
     function onBeforeInput(e, data, editorState) {
         // Insert text and replace relevant keywords in results
         const curTransform = editorState.transform().insertText(e.data);
@@ -33,22 +32,22 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
         const startingNumberOfOperations = curTransform.operations.length;
 
         // get all shortcuts relevant for this block key 
-        const relevantSingleHashtagKeywordMappings = getRelevantSingleHashtagKeywordMappings(listOfSingleHashtagKeywordShortcutMappings, state, curKey)
+        const relevantSingleHashtagKeywordMappings = getRelevantSingleHashtagKeywordMappings(listOfSingleHashtagKeywordShortcutMappings, state, curKey);
         if (relevantSingleHashtagKeywordMappings.length !== 0) {
             // Get all relevant keywordShortcuts, 
             const listOfKeywordShortcutClasses = findRelevantKeywordShortcutClasses(listOfSingleHashtagKeywordShortcutMappings).reduce((accumulator, listOfKeywordsForShortcut) => accumulator.concat(listOfKeywordsForShortcut));
-         
             for (const keywordClass of listOfKeywordShortcutClasses) {
                 // Scan text to find any necessary replacements 
                 let keywords = getKeywordsBasedOnShortcutClass(keywordClass);
                 const prefix = shortcutManager.getShortcutPrefix(keywordClass);
-
+                
                 // Copy keywords and add prefix to so that instances of keywords with prefixes are also replaced
                 const keywordsWithPrefix = Lang.cloneDeep(keywords);
                 keywordsWithPrefix.forEach(keywordWithPrefix => {
                     if (prefix) keywordWithPrefix.name = `${prefix}${keywordWithPrefix.name}`;
                 });
                 keywords = keywords.concat(keywordsWithPrefix);
+              
 
                 // Sort keywords based on length -- we want to match longest options first
                 keywords.sort(_sortKeywordByNameLength);
@@ -57,21 +56,21 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
                     const keywordText = keywordInClosetBlock.name.toLowerCase();
                     const newKeywordShortcut = createShortcut(null, keywordText);
                     newKeywordShortcut.setSource("Keyword");
-
                     // KeywordRange never be null -- we've already confirmed the existance of the keyword
                     let keywordRange;
                     if (curNode.nodes) {
                         for (const childNode of curNode.nodes) {
-                            keywordRange = getRangeForKeyword(childNode, keywordText);
+                            if(childNode.type !== 'structured_field'){
+                                keywordRange = getRangeForKeyword(childNode, keywordText);
+                            }
                             if (keywordRange) break;
                         }
                     } else {
                         keywordRange = getRangeForKeyword(curNode, keywordText);
                     }
-
                     // Remove keyword from block, using first character as the prefix
                     curTransform = curTransform.select(keywordRange).delete();
-
+                    
                     // Add shortcut to text; update curNode and curText
                     curTransform = insertStructuredFieldTransform(curTransform, newKeywordShortcut)
                     curNode = curTransform.state.endBlock
@@ -121,6 +120,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
                     curNodeText.push(childNode.text);
             }
         }
+
         const text = curNodeText.join(" ");
         const trailingCharacterRegex = /[\s\r\n.!?;,)}\]]/;
         const textToMatch = text.toLowerCase();
