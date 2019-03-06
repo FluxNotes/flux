@@ -117,10 +117,9 @@ export default class TreatmentOptionsOutcomes extends Component {
         }
     }
 
-    initializeRow(name, displayName) {
+    initializeRow(displayName) {
         return {
             id: _.uniqueId('row_'),
-            name,
             displayName,
             totalPatients: 0,
             oneYrSurvival: 0,
@@ -135,14 +134,14 @@ export default class TreatmentOptionsOutcomes extends Component {
 
     generateRow(patients, treatments) {
         if (patients.length === 0) return [];
-        let displayName = _.isArray(treatments) ? treatments.filter((treatment)=>{
-            return !this.state.includedTreatments.includes(treatment);
-        }).map(name => TREATMENT_NAMES[name]).join(' & ') : TREATMENT_NAMES[treatments];
-        const treatmentName = _.isArray(treatments) ? treatments.map(name => TREATMENT_NAMES[name]).join(' & ') : TREATMENT_NAMES[treatments];
-        if(treatments === this.state.includedTreatments) {
-            displayName = treatmentName;
-        }
-        let row = this.initializeRow(treatmentName, displayName);
+        let displayName = _.isArray(treatments) ? 
+            treatments === this.state.includedTreatments ?
+            treatments.map(name => TREATMENT_NAMES[name]).join(' & ') :
+                treatments.filter((treatment)=>{
+                    return !this.state.includedTreatments.includes(treatment);
+                }).map(name => TREATMENT_NAMES[name]).join(' & ') : TREATMENT_NAMES[treatments];
+
+        let row = this.initializeRow(displayName);
         patients.forEach(patient => {
             row.totalPatients += 1;
 
@@ -179,7 +178,7 @@ export default class TreatmentOptionsOutcomes extends Component {
     renderRow(row, compareRow) {
         if (row.length === 0) return null;
 
-        const { name, displayName, totalPatients, sideEffects } = row;
+        const { displayName, totalPatients, sideEffects } = row;
         const topSideEffects = Object.keys(sideEffects.effects).map((sideEffect) => ({
             sideEffect, occurrences: sideEffects.effects[sideEffect]
         })).sort((a, b) => b.occurrences - a.occurrences).slice(0, 2);
