@@ -13,6 +13,7 @@
         "survivalMonths": 66
       },
       "treatments": [
+        "surgery",
         "radiation"
       ],
       "sideEffects": [
@@ -116,6 +117,7 @@
         "survivalMonths": 69
       },
       "treatments": [
+        "surgery",
         "hormonal"
       ],
       "sideEffects": [
@@ -218,7 +220,7 @@
         "disease": "http://snomed.info/sct/420120006",
         "diagnosisDate": "2004-02",
         "isAlive": true,
-        "survivalMonths": 60
+        "survivalMonths": 59
       },
       "treatments": [
         "surgery"
@@ -248,6 +250,7 @@
         "survivalMonths": 32
       },
       "treatments": [
+        "surgery",
         "chemotherapy",
         "hormonal"
       ],

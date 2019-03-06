@@ -11,7 +11,7 @@ export default class TableLegend extends Component {
             // the row is empty
             message = "survived with treatment"
         }else{
-            const name = this.props.includedRow.name;
+            const name = this.props.includedRow.displayName;
             const noTreatment = this.props.treatmentNames.noTreatment===name;
             const hasAnd = name.indexOf('&') > -1
             message = "survived with " + (noTreatment?'no treatment':name) + (hasAnd||noTreatment?"":" alone")
