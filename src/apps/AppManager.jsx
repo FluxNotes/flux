@@ -23,9 +23,13 @@ export default class AppManager {
                     client: {
                         client_id: '6c12dff4-24e7-4475-a742-b08972c4ea27',
                         scope:  'patient/*.read user/*.* openid profile',
+                        // note: the redirect_uri below may need to change in different environments.
+                        // a relative URL (ex. /smart or ../smart) won't work in IE
                         redirect_uri: 'http://localhost:3000/smart'
                     },
-                    // uncomment for shim
+                    // uncomment the 'server' field below
+                    // to override the iss parameter from the SMART launch process
+                    // (aka, the server listed here can be used as a 'shim')
                     // server: "http://localhost:3001/1_0_2"
                 }
             },

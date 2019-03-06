@@ -10,7 +10,8 @@ import 'fhirclient';
     Upon successful authorization of EHR user, app will handle reading of patient and loads it.
     If user authorization fails or if selected patient is not in the usermap, app will load a fail screen.
 
-    NOTE: see SmartOnFhirLaunchContext.json : redirect_url will need to be changed in different environments
+    NOTE: the redirect_url property used in the launchContext for the /launch endpoint
+          will need to be changed in different environments
 */
 
 class SmartApp extends FullApp {
