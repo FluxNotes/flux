@@ -14,11 +14,11 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                     defaultTemplate: "Patient has ${Cancer.Name} in ${Cancer.Site} since age ${Cancer.Age at Diagnosis}.",
                 },
                 {
-                    defaultTemplate: "As of ${Disease Status.As Of Date}, disease is ${Disease Status.Most Recent Status} based on ${Disease Status.Rationale}.",
+                    defaultTemplate: "As of ${Disease Status.As Of Date}, disease is ${Disease Status.Most Recent Disease Status} based on ${Disease Status.Rationale}.",
                     dataMissingTemplate: "No recent ${disease status}.",
                     useDataMissingTemplateCriteria: [
                         "Disease Status.As Of Date",
-                        "Disease Status.Most Recent Status",
+                        "Disease Status.Most Recent Disease Status",
                         "Disease Status.Rationale"
                     ]
                 },
@@ -151,7 +151,7 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                     name: "Disease Status",
                     items: [ 
                         {
-                            name: "Most Recent Status",
+                            name: "Most Recent Disease Status",
                             value: (patient, currentConditionEntry) => {
                                 let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
                                 if (Lang.isNull(p) || !p.status) {
@@ -165,7 +165,7 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                             }
                         },
                         {
-                            name: "As Of",
+                            name: "As Of Date",
                             value: (patient, currentConditionEntry) => {
                                 let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
                                 if (Lang.isNull(p) || !p.status) {
