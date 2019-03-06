@@ -23,12 +23,10 @@ const dummyConformanceStatement = {
 
 describe('LaunchPage', function () {
 
-    const originalJasmineTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     beforeEach(() => {
         // ensure that any destinations not mocked will not reach out to the net
         nock.disableNetConnect();
 
-        jasmine.DEFAULT_TIMEOUT_INTERVAL = 6000;
         // the launch page should always be hit via a SMART launcher
         // which will produce a URL like this:
         // http://localhost:3000/launch?launch=eyJhIjoiMSJ9&iss=http%3A%2F%2Flocalhost%3A4001%2Fv%2Fr2%2Ffhir
@@ -53,14 +51,12 @@ describe('LaunchPage', function () {
         const wrapper = mount(<LaunchPage launchContext={launchContext} />);
 
         // this is not ideal but the actual call to get conformance
-        //  is done with promises and async deep within the fhir client
+        //  is done with promises and async deep within the fhir client,
+        //  and there are no callbacks we can leverage here
         setTimeout(function () {
-            scope.done();
+            scope.done(); // ensure that all mocked URLs were hit
             done();
-        }, 5000);
-
-        // expect(wrapper.state('errors'))
-        //     .to.equal(newErrors);
+        }, 1000);
     });
 
     it('should connect to the override url if a server override is given', function (done) {
@@ -80,17 +76,16 @@ describe('LaunchPage', function () {
         const wrapper = mount(<LaunchPage launchContext={launchContext} />);
 
         // this is not ideal but the actual call to get conformance
-        //  is done with promises and async deep within the fhir client
+        //  is done with promises and async deep within the fhir client,
+        //  and there are no callbacks we can leverage here
         setTimeout(function () {
-            scope.done();
+            scope.done(); // ensure that all mocked URLs were hit
             done();
-        }, 5000);
+        }, 1000);
     });
 
     afterEach(() => {
         nock.cleanAll();
         nock.enableNetConnect(); // just to be sure this doesn't break any other tests anywhere else
-
-        jasmine.DEFAULT_TIMEOUT_INTERVAL = originalJasmineTimeout;
     });
 });
