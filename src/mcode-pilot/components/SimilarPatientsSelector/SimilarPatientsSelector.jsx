@@ -34,37 +34,13 @@ export default class SimilarPatientsSelector extends Component {
                     { Object.keys(similarPatientProps).map((option)=>{
                         return (
                             <OptionsCheckboxList
-                            options={similarPatientProps[option]}
-                            setSelected={(key, selected) => selectSimilarPatientOption(option, key, selected)}
-                            setAllSelected={(selected) => selectAllCategorySimilarPatientOptions(option, selected)}
+                                key={option}
+                                options={similarPatientProps[option]}
+                                setSelected={(key, selected) => selectSimilarPatientOption(option, key, selected)}
+                                setAllSelected={(selected) => selectAllCategorySimilarPatientOptions(option, selected)}
                             />
                         )
                     })}
-
-{/* 
-                    <OptionsCheckboxList
-                        options={similarPatientProps.pathology}
-                        setSelected={(key, selected) => selectSimilarPatientOption('pathology', key, selected)}
-                        setAllSelected={(selected) => selectAllCategorySimilarPatientOptions('pathology', selected)}
-                    />
-
-                    <OptionsCheckboxList
-                        options={similarPatientProps.treatmentHistory}
-                        setSelected={(key, selected) => selectSimilarPatientOption('treatmentHistory', key, selected)}
-                        setAllSelected={(selected) => selectAllCategorySimilarPatientOptions('treatmentHistory', selected)}
-                    />
-
-                    <OptionsCheckboxList
-                        options={similarPatientProps.genetics}
-                        setSelected={(key, selected) => selectSimilarPatientOption('genetics', key, selected)}
-                        setAllSelected={(selected) => selectAllCategorySimilarPatientOptions('genetics', selected)}
-                    />
-
-                    <OptionsCheckboxList
-                        options={similarPatientProps.medicalHistory}
-                        setSelected={(key, selected) => selectSimilarPatientOption('medicalHistory', key, selected)}
-                        setAllSelected={(selected) => selectAllCategorySimilarPatientOptions('medicalHistory', selected)}
-                    /> */}
                 </div>
             </div>
         );

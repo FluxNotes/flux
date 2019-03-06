@@ -1,15 +1,9 @@
 import FluxTumorDimensions from '../../dataaccess/mcodev0.1-datasource/model/oncology/FluxTumorDimensions';
-import FluxBreastCancerDisorderPresent from '../../model/brca/FluxBreastCancerDisorderPresent';
-import FluxEstrogenReceptorStatus from '../../model/brca/FluxEstrogenReceptorStatus';
 
 import _ from 'lodash';
 
 export default function getProps(patient, condition){
-    // basic info on the condition
-    let cancerType = 0
-    if (condition instanceof FluxBreastCancerDisorderPresent) {
-        cancerType=1;
-    }
+
     const tumorMarkers = patient.getMostRecentTumorMarkers(condition);
 
     const propDict = {
@@ -83,19 +77,21 @@ export default function getProps(patient, condition){
         
     }
 
-    tumorMarkers.forEach((e)=>{
-        propDict.pathology[e.abbreviatedName.split(' ').join('')] = {
-            "display": e.abbreviatedName,
-            "valueType":"string",
-            "value": _.lowerCase(e.status)
-        }
-    });
-    console.log(propDict);
+    if(tumorMarkers){
+        tumorMarkers.forEach((e)=>{
+            propDict.pathology[e.abbreviatedName.split(' ').join('')] = {
+                "display": e.abbreviatedName,
+                "valueType":"string",
+                "value": _.lowerCase(e.status)
+            }
+        });
+    }
+
     return mapProp(propDict);
 }
 
 function safeGet(object, property) {
-    if(object !== null && property in object){
+    if(object !== null & object!==undefined && property in object){
         return object[property]
     }else{
         return object
@@ -142,6 +138,5 @@ function mapProp(propDict){
             
         }
     }
-    console.log(similarPatientProps);
     return similarPatientProps
 }
