@@ -4,7 +4,7 @@ import ObjectFactory from '../model/ObjectFactory';
 
 import 'fhirclient';
 
-class MCODE05SMARTonFHIRDataSource extends IDataSource {
+class McodeV05SmartOnFhirDataSource extends IDataSource {
     constructor() {
         super();
         this._gestalt = {
@@ -99,15 +99,15 @@ class MCODE05SMARTonFHIRDataSource extends IDataSource {
     }
 
     getListOfPatients() {
-        console.error("listing of patients is not implemented in MCODE05SMARTonFHIRDataSource.");
+        console.error("listing of patients is not implemented in McodeV05SmartOnFhirDataSource.");
     }
 
     newPatient() {
-        console.error("creating a new patient is not implemented in MCODE05SMARTonFHIRDataSource.");
+        console.error("creating a new patient is not implemented in McodeV05SmartOnFhirDataSource.");
     }
 
     savePatient(patient) {
-        console.error("saving a patient is not implemented in MCODE05SMARTonFHIRDataSource.");
+        console.error("saving a patient is not implemented in McodeV05SmartOnFhirDataSource.");
         // TODO. presumably we want to use
         // this._client.patient.api.update, or some combination of update/create. update uses PUT, create uses POST. for now assume PUT works everywhere
         // TODO: is there the possibility of deletes?
@@ -121,4 +121,4 @@ class MCODE05SMARTonFHIRDataSource extends IDataSource {
     }
 }
 
-export default MCODE05SMARTonFHIRDataSource;
+export default McodeV05SmartOnFhirDataSource;

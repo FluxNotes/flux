@@ -3,7 +3,7 @@ import NewPatientOnlyDataSource from './NewPatientOnlyDataSource';
 import RestApiDataSource from './RestApiDataSource';
 import FHIRApiDataSource from './FHIRApiDataSource';
 import HardCodedMcodeV05DataSource from './HardCodedMcodeV05DataSource';
-import MCODE05SMARTonFHIRDataSource from './MCODE05SMARTonFHIRDataSource'
+import McodeV05SmartOnFhirDataSource from './McodeV05SmartOnFhirDataSource'
 import HardCodedMcodeV01DataSource from './mcodev0.1-datasource/HardCodedMcodeV01DataSource';
 
 export default class DataAccess {
@@ -20,8 +20,8 @@ export default class DataAccess {
             this.dataSource = new HardCodedMcodeV01DataSource();
         } else if (dataSourceName === 'HardCodedMcodeV05DataSource') {
             this.dataSource = new HardCodedMcodeV05DataSource();
-        } else if (dataSourceName === 'MCODE05SMARTonFHIRDataSource') {
-            this.dataSource = new MCODE05SMARTonFHIRDataSource();
+        } else if (dataSourceName === 'McodeV05SmartOnFhirDataSource') {
+            this.dataSource = new McodeV05SmartOnFhirDataSource();
         } else {
             throw new Error("Unrecognized data source class name: " + dataSourceName);
         }

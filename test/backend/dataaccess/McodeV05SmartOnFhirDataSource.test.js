@@ -1,6 +1,6 @@
 import '../../../src/model/init';
 
-import MCODE05SMARTonFHIRDataSource from '../../../src/dataaccess/MCODE05SMARTonFHIRDataSource';
+import McodeV05SmartOnFhirDataSource from '../../../src/dataaccess/McodeV05SmartOnFhirDataSource';
 import {expect, assert} from 'chai';
 import hardCodedFHIRPatient from '../../../src/dataaccess/HardCodedFHIRPatient.json';
 import 'fhirclient';
@@ -58,7 +58,7 @@ describe('SMART on FHIR data source', function() {
           .get('/fhir/Patient?_id=1078857')
           .reply(200, samplePatientSearchData);
 
-        const dataSource = new MCODE05SMARTonFHIRDataSource();
+        const dataSource = new McodeV05SmartOnFhirDataSource();
 
         dataSource.getPatient('1078857', (record, error) => {
             debugger;
@@ -87,10 +87,10 @@ describe('SMART on FHIR data source', function() {
           .get('/fhir/Patient?_id=1078857')
           .reply(200, patientSearchBundle);
 
-        const dataSource = new MCODE05SMARTonFHIRDataSource();
+        const dataSource = new McodeV05SmartOnFhirDataSource();
         dataSource.getPatient('1078857', (record, error) => {
             if (record) {
-                fail('expected MCODE05SMARTonFHIRDataSource to error out since there were no profiles on the provided FHIR');
+                fail('expected McodeV05SmartOnFhirDataSource to error out since there were no profiles on the provided FHIR');
             }
             if (error) {
                 scope.done(); // assert that all specified calls on the scope were performed
