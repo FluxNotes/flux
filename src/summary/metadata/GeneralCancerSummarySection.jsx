@@ -132,20 +132,11 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                                         };
                             }
                         },
-                        {
-                            name: "Tumor Markers",
-                            value: (patient, currentConditionEntry) => {
-                                const receptorStatuses = currentConditionEntry.getMostRecentTumorMarkers()
-                                // TODO: Since we're showing multiple values heree, we should probably support multiple signed and source values 
-                                //       we don't have that capability right now
-                                return {
-                                    value: receptorStatuses.map(receptor => `${receptor.abbreviatedName}${receptor.statusSign}`).join(', '),
-                                    isUnsigned: patient.isUnsigned(receptorStatuses[0]),
-                                    source: this.determineSource(patient, receptorStatuses[0]),
-                                };
-                            }
-                        },
                     ]
+                },
+                {
+                    name: "Tumor Markers",
+                    itemsFunction: this.getTumorMarkers
                 },
                 {
                     name: "Most Recent Disease Status",
@@ -273,5 +264,22 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                 }
             ]
         };
+    }
+
+    getTumorMarkers = (patient, currentConditionEntry, section, subsection) => {
+        const receptorStatuses = currentConditionEntry.getMostRecentTumorMarkers()
+        // TODO: Since we're showing multiple values heree, we should probably support multiple signed and source values 
+        //       we don't have that capability right now
+
+        return receptorStatuses.map(receptor => { 
+            return { 
+                name: receptor.abbreviatedName, 
+                value: {
+                    value: `${receptor.abbreviatedName}${receptor.statusSign}`,
+                    isUnsigned: patient.isUnsigned(receptor),
+                    source: this.determineSource(patient, receptor),
+                }
+            }
+        });
     }
 }
