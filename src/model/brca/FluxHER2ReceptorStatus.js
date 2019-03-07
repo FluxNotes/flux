@@ -1,13 +1,9 @@
 import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
-import lookup from '../../lib/receptor_lookup.jsx';
 import HER2ReceptorStatus from './HER2ReceptorStatus';
-import Reference from '../Reference';
-import SpecificFocusOfFinding from '../shr/base/SpecificFocusOfFinding';
-import FindingResult from '../shr/base/FindingResult';
 import FluxTumorMarker from '../oncocore/FluxTumorMarker';
 
-class FluxHER2ReceptorStatus extends FluxTumorMarker{
+class FluxHER2ReceptorStatus extends FluxTumorMarker {
     constructor(json) {
         super(json)
         this._entry = this._tumorMarker = HER2ReceptorStatus.fromJSON(json);

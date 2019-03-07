@@ -270,12 +270,11 @@ export default class GeneralCancerSummarySection extends MetadataSection {
         const receptorStatuses = currentConditionEntry.getMostRecentTumorMarkers()
         // TODO: Since we're showing multiple values heree, we should probably support multiple signed and source values 
         //       we don't have that capability right now
-
         return receptorStatuses.map(receptor => { 
             return { 
                 name: receptor.abbreviatedName, 
                 value: {
-                    value: `${receptor.abbreviatedName}${receptor.statusSign}`,
+                    value: `${receptor.status}`,
                     isUnsigned: patient.isUnsigned(receptor),
                     source: this.determineSource(patient, receptor),
                 }
