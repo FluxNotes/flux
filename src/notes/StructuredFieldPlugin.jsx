@@ -191,6 +191,9 @@ function StructuredFieldPlugin(opts) {
             }
             const newShortcut = createShortcut(shortcut.metadata, shortcut.initiatingTrigger, shortcutText, true, shortcut.getSource());
             newShortcut.setKey(newShortcutNode.key);
+            newShortcut.setPrevAssociatedShortcut(shortcut.uniqueId);
+            newShortcut.setNextAssociatedShortcut(shortcut.getNextAssociatedShortcut());
+            const newShortcutId = newShortcut.uniqueId;
             transform = updateShortcut(newShortcut, transform, newShortcutNode.key, shortcut.getLabel(), newShortcutNode.text);
             if (shortcut.wasRemovedFromContext) {
                 contextManager.removeShortcutFromContext(newShortcut);
@@ -198,9 +201,22 @@ function StructuredFieldPlugin(opts) {
             }
 
             // Update the existing shortcut to reflect the leading text after split
+            const oldShortcutsNextAssociatedShortcut = shortcut.getNextAssociatedShortcut();
+            shortcut.setNextAssociatedShortcut(newShortcutId);
             transform = updateShortcut(shortcut, transform, parentNode.key, shortcut.getLabel(), oldShortcutNode.text);
             contextManager.removeShortcutFromContext(shortcut);
             shortcut.setWasRemovedFromContext(true);
+
+            if (oldShortcutsNextAssociatedShortcut) {
+                const trailingThirdShortcut = opts.structuredFieldMapManager.idToShortcutMap.get(oldShortcutsNextAssociatedShortcut);
+                trailingThirdShortcut.setPrevAssociatedShortcut(newShortcutId);
+                const thirdShortcutKey = trailingThirdShortcut.getKey();
+                transform = transform.setNodeByKey(thirdShortcutKey, {
+                    data: {
+                        shortcut: trailingThirdShortcut
+                    }
+                });
+            }
 
             transform = transform.apply();
 
