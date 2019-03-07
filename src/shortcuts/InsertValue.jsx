@@ -12,6 +12,8 @@ export default class InsertValue extends Shortcut {
         this.patient = patient;
         this.wasRemovedFromContext = false;
         this._shouldRemoveFromContext = false;
+        this.prevAssociatedShortcut = null;
+        this.nextAssociatedShortcut = null;
     }
 
     initialize(contextManager, trigger = undefined, updatePatient = true, shortcutData = "") {
@@ -37,6 +39,9 @@ export default class InsertValue extends Shortcut {
             if (shortcutDataObj.originalText) this.setOriginalText(shortcutDataObj.originalText);
             const valueObject = this.patient.getEntryById(shortcutDataObj.entryId);
             this.setValueObject(valueObject);
+            if (shortcutDataObj.uniqueId) this.uniqueId = shortcutDataObj.uniqueId;
+            this.setPrevAssociatedShortcut(shortcutDataObj.prevAssociatedShortcut);
+            this.setNextAssociatedShortcut(shortcutDataObj.nextAssociatedShortcut);
             this.setWasRemovedFromContext(shortcutDataObj.wasRemovedFromContext);
             if (shortcutDataObj.wasRemovedFromContext) {
                 this._shouldRemoveFromContext = true;
@@ -209,6 +214,9 @@ export default class InsertValue extends Shortcut {
                 entryId: this.valueObject.entryInfo.entryId,
                 wasRemovedFromContext: this.wasRemovedFromContext,
                 originalText: this.originalText,
+                prevAssociatedShortcut: this.prevAssociatedShortcut,
+                nextAssociatedShortcut: this.nextAssociatedShortcut,
+                uniqueId: this.uniqueId,
             };
             return `${this.initiatingTrigger}[[${JSON.stringify(shortcutDataObj)}]]`;
         }
@@ -237,6 +245,22 @@ export default class InsertValue extends Shortcut {
 
     getOriginalText() {
         return this.originalText;
+    }
+
+    setPrevAssociatedShortcut(id) {
+        this.prevAssociatedShortcut = id;
+    }
+
+    getPrevAssociatedShortcut() {
+        return this.prevAssociatedShortcut;
+    }
+
+    setNextAssociatedShortcut(id) {
+        this.nextAssociatedShortcut = id;
+    }
+
+    getNextAssociatedShortcut() {
+        return this.nextAssociatedShortcut;
     }
 
     setValueObject(valueObject) {
