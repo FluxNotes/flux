@@ -30,9 +30,11 @@ export default class SarcomaMetadata extends MetadataSection {
                 VisitReasonPreEncounterSection,
                 VisitReasonPostEncounterSection,
                 SarcomaSummarySection,
+                ActiveConditionsSection,
+                MedicationsSection,
+                AllergiesSection,
                 ProceduresSection,
                 ImagingSection,               
-                ActiveConditionsSection,
                 DiseaseStatusSection,
                 {
                     name: "Vitals",
@@ -58,7 +60,6 @@ export default class SarcomaMetadata extends MetadataSection {
                         PlateletSubsection
                     ]
                 },
-                MedicationsSection,
                 PathologySection,
                 {
                     name: "Genetics",
@@ -96,7 +97,6 @@ export default class SarcomaMetadata extends MetadataSection {
                         }
                     ]
                 },
-                AllergiesSection,
                 ReviewOfSystemsSection,
                 TimelineSection,
                 TreatmentOptionsSection
