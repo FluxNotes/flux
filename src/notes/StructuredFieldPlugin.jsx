@@ -51,12 +51,40 @@ function StructuredFieldPlugin(opts) {
 
     function onKeyDown(e, key, state, editor) {
         const {selection} = state;
-
         // We want to consider where the cursor is focused if an expanded selection
         const useFocusKey = selection.isExpanded && selection.isBackward;
         const selectionKey = useFocusKey ? selection.focusKey : selection.anchorKey;
         const parentNode = state.document.getParent(selectionKey);
         const shortcut = parentNode.data.get('shortcut');
+
+        // If the previous node is not an inserter,
+        // delete the full node when hitting backspace right before it, as it is not editable.
+        const previousNode = state.document.getPreviousSibling(state.selection.anchorKey);
+        
+        if (e.key === 'Backspace' && previousNode) {
+            if (previousNode.type === 'structured_field'
+                && !(previousNode.data.get('shortcut') instanceof InsertValue)
+                && state.selection.anchorOffset === 0 && state.selection.isCollapsed) {
+                let transform = state.transform();
+                transform = transform.removeNodeByKey(previousNode.key);
+                let newState = transform.apply();
+                return newState;
+            }
+        } else if (e.keyCode === 37 && previousNode){
+            if(previousNode.type === 'structured_field') {
+                let transform = state.transform();
+                transform = transform.collapseToStart(previousNode);
+                let newState = transform.apply();
+                return newState;
+            }
+        } else if (e.keyCode === 39 && parentNode){
+            if ((parentNode.type === 'structured_field') && !(shortcut instanceof InsertValue)) {
+                let transform = state.transform();
+                transform = transform.collapseToStartOfNextText();
+                let newState = transform.apply();
+                return newState;
+            }
+        }
 
         if (!(shortcut instanceof InsertValue)) return;
 
@@ -228,7 +256,7 @@ function StructuredFieldPlugin(opts) {
                 if (shortcut instanceof InsertValue) {
                     return <span className='structured-field-inserter' {...props.attributes}>{props.children}{safariSpacing}</span>;
                 } else {
-                    return <span contentEditable={false} className='structured-field-creator' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
+                    return <span contentEditable={false} className='structured-field-creator' {...props.attributes}>{props.children}{safariSpacing}</span>;
                 }
             },
             bolded_structured_field: props => {
@@ -236,7 +264,7 @@ function StructuredFieldPlugin(opts) {
                 if (shortcut instanceof InsertValue) {
                     return <span className='structured-field-inserter structured-field-bolded' {...props.attributes}>{props.children}{safariSpacing}</span>;
                 } else {
-                    return <span contentEditable={false} className='structured-field-creator structured-field-bolded' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
+                    return <span contentEditable={false} className='structured-field-creator structured-field-bolded' {...props.attributes}>{props.children}</span>;
                 }
             },
             structured_field_selected_search_result: props => {
@@ -244,7 +272,7 @@ function StructuredFieldPlugin(opts) {
                 if (shortcut instanceof InsertValue) {
                     return <span className='structured-field-inserter structured-field-selected-search-result' {...props.attributes}>{props.children}{safariSpacing}</span>;
                 } else {
-                    return <span contentEditable={false} className='structured-field-creator structured-field-selected-search-result' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
+                    return <span contentEditable={false} className='structured-field-creator structured-field-selected-search-result' {...props.attributes}>{props.children}</span>;
                 }
             },
             structured_field_search_result: props => {
@@ -252,7 +280,7 @@ function StructuredFieldPlugin(opts) {
                 if (shortcut instanceof InsertValue) {
                     return <span className='structured-field-inserter structured-field-search-result' {...props.attributes}>{props.children}{safariSpacing}</span>;
                 } else {
-                    return <span contentEditable={false} className='structured-field-creator structured-field-search-result' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
+                    return <span contentEditable={false} className='structured-field-creator structured-field-search-result' {...props.attributes}>{props.children}</span>;
                 }
             },
             placeholder: props => {
@@ -529,7 +557,8 @@ function StructuredFieldPlugin(opts) {
 
         utils: {
             //isSelectionInStructuredField
-            convertSlateNodesToText: convertSlateNodesToText,
+            convertSlateNodesToText: convertSlateNodesToText
+
         },
 
         transforms: {
@@ -593,9 +622,8 @@ function insertStructuredFieldAtRange(opts, transform, shortcut, range) {
  * @return {State.Block}
  */
 function createStructuredField(opts, shortcut) {
-    let nodes = [];
+    let nodes = [Slate.Text.createFromString(String(shortcut.getText()))];
     const isInserter = shortcut instanceof InsertValue;
-    const isVoid = !isInserter;
     if (isInserter) {
         const lines = String(shortcut.getText()).split(/\n\r|\r\n|\r|\n/g);
         let textNodes = [];
@@ -608,7 +636,6 @@ function createStructuredField(opts, shortcut) {
             const properties = {
                 type: opts.typeStructuredField,
                 nodes: textNodes,
-                isVoid,
                 data: {
                     shortcut: shortcut
                 }
@@ -622,7 +649,6 @@ function createStructuredField(opts, shortcut) {
                 sf = Slate.Block.create({
                     type: 'line',
                     nodes: [inlineNode],
-                    isVoid,
                 });
             }
             opts.structuredFieldMapManager.keyToShortcutMap.set(inlineNode.key, shortcut);
@@ -640,7 +666,6 @@ function createStructuredField(opts, shortcut) {
     const properties = {
         type: opts.typeStructuredField,
         nodes: nodes,
-        isVoid,
         data: {
             shortcut: shortcut
         }

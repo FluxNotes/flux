@@ -873,7 +873,7 @@ describe('6 FluxNotesEditor', function() {
 
         // let noteContent = ' #staging t2 n2 m1';
         const arrayOfStructuredDataToEnter = ["#12/20/2015 "];
-        const arrayOfExpectedStructuredData = ["12/20/2015 "];
+        const arrayOfExpectedStructuredData = ["12/20/2015"];
         const entryId = patient.addClinicalNote('', '', '', '', '', arrayOfStructuredDataToEnter.join(' '), false);
         const updatedEditorNote = patient.getEntryById(entryId);
         // Set updatedEditorNote props because this triggers that a change is coming in to the editor and inserts text with structured phrases.
@@ -1010,7 +1010,7 @@ describe('6 FluxNotesEditor', function() {
 
         const arrayOfStructuredDataToEnter = ["@condition[[{\"text\":\"Invasive ductal carcinoma of breast\",\"entryId\":\"8\"}]] ", "#PR ", "#Positive "];
         const arrayOfExpectedStructuredDataInserter = ["Invasive ductal carcinoma of breast"]
-        const arrayOfExpectedStructuredDataCreator = ["PR ", "Positive "]
+        const arrayOfExpectedStructuredDataCreator = ["PR", "Positive"]
         const entryId = patient.addClinicalNote('', '', '', '', '', arrayOfStructuredDataToEnter.join(' '), false);
         const updatedEditorNote = patient.getEntryById(entryId);
         // Set updatedEditorNote props because this triggers that a change is coming in to the editor and inserts text with structured phrases.
@@ -1225,14 +1225,16 @@ describe('6 FluxNotesEditor', function() {
             searchSuggestions={[]}
         />);
         expect(wrapper).to.exist;
+        
         // wrapper.find('.editor-content').simulate('click'); //goes into on change
 
         // let noteContent = ' #staging t2 n2 m1';
         const arrayOfShortcutText = ["@condition[[{\"text\":\"Invasive ductal carcinoma of breast\",\"entryId\":\"8\"}]] ", "#toxicity ", "#nausea ", "#disease status ", "#imaging "];
         const arrayOfParsedShortcutTextInserter = ["Invasive ductal carcinoma of breast"]
-        const arrayOfParsedShortcutTextCreator = ["toxicity ", "nausea ", "disease status ", "imaging "]
+        const arrayOfParsedShortcutTextCreator = ["toxicity", "nausea", "disease status", "imaging"]
         const entryId = patient.addClinicalNote('', '', '', '', '', arrayOfShortcutText.join(' '), false);
         const updatedEditorNote = patient.getEntryById(entryId);
+        
         // Set updatedEditorNote props because this triggers that a change is coming in to the editor and inserts text with structured phrases.
         wrapper.setProps({ updatedEditorNote });
 
@@ -1243,6 +1245,7 @@ describe('6 FluxNotesEditor', function() {
             expect(replaceZeroWidthSpace(structuredFieldInserter.at(index).text())).to.equal(arrayOfParsedShortcutTextInserter[index]);
         }
         const structuredFieldCreator = wrapper.find('.structured-field-creator');
+    
         expect(structuredFieldCreator).to.have.lengthOf(arrayOfParsedShortcutTextCreator.length)
         for (let index = 0; index < arrayOfParsedShortcutTextCreator.length; index++) {
             expect(structuredFieldCreator.at(index).text()).to.contain(arrayOfParsedShortcutTextCreator[index]);
