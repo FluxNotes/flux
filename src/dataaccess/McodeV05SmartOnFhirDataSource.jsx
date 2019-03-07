@@ -85,7 +85,7 @@ class McodeV05SmartOnFhirDataSource extends IDataSource {
         }
     }
 
-    getPatient(id, callback) {
+    getPatient(id, callback, mapper=null) {
         this._getClientAsync().then(client => client.patient.api.conformance({}))
         .then(metadata => metadata.data.rest[0].resource.map(res => res.type))
         .then(resourceTypes => {
@@ -105,6 +105,13 @@ class McodeV05SmartOnFhirDataSource extends IDataSource {
                 // response is a Bundle of type searchset
                 // TODO: error handling?
                 if (response && response.entry) {
+                    // If we need to use a mapper to add profiles to the fhir, update the resources accordingly
+                    if (mapper) {
+                        const resources = response.entry.map(e => e.resource);
+                        const results = mapper.execute(resources);
+                        const wrappedResults = results.map(resource => ({ fullUrl: `urn:uuid:${resource.id}`, resource, request: { method: 'POST', url: resource.resourceType } }));
+                        response.entry = wrappedResults;
+                    }
                     entries.push(...response.entry);
                 }
             });
