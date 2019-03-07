@@ -14,12 +14,12 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                     defaultTemplate: "Patient has ${Cancer.Name} in ${Cancer.Site} since age ${Cancer.Age at Diagnosis}.",
                 },
                 {
-                    defaultTemplate: "As of ${Disease Status.As Of Date}, disease is ${Disease Status.Most Recent Disease Status} based on ${Disease Status.Rationale}.",
+                    defaultTemplate: "As of ${Most Recent Disease Status.As Of Date}, disease is ${Most Recent Disease Status.Status} based on ${Most Recent Disease Status.Rationale}.",
                     dataMissingTemplate: "No recent ${disease status}.",
                     useDataMissingTemplateCriteria: [
-                        "Disease Status.As Of Date",
-                        "Disease Status.Most Recent Disease Status",
-                        "Disease Status.Rationale"
+                        "Most Recent Disease Status.As Of Date",
+                        "Most Recent Disease Status.Status",
+                        "Most Recent Disease Status.Rationale"
                     ]
                 },
                 {
@@ -148,10 +148,10 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                     ]
                 },
                 {
-                    name: "Disease Status",
+                    name: "Most Recent Disease Status",
                     items: [ 
                         {
-                            name: "Most Recent Disease Status",
+                            name: "Status",
                             value: (patient, currentConditionEntry) => {
                                 let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
                                 if (Lang.isNull(p) || !p.status) {
