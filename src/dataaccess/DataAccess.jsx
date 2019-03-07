@@ -2,6 +2,7 @@ import '../model/init';
 import NewPatientOnlyDataSource from './NewPatientOnlyDataSource';
 import RestApiDataSource from './RestApiDataSource';
 import FHIRApiDataSource from './FHIRApiDataSource';
+import HardCodedMcodeV05DataSource from './HardCodedMcodeV05DataSource';
 import HardCodedMcodeV01DataSource from './mcodev0.1-datasource/HardCodedMcodeV01DataSource';
 
 export default class DataAccess {
@@ -16,6 +17,8 @@ export default class DataAccess {
             this.dataSource = new FHIRApiDataSource();
         } else if (dataSourceName === 'HardCodedMcodeV01DataSource') {
             this.dataSource = new HardCodedMcodeV01DataSource();
+        } else if (dataSourceName === 'HardCodedMcodeV05DataSource') {
+            this.dataSource = new HardCodedMcodeV05DataSource();
         } else { 
             throw new Error("Unrecognized data source class name: " + dataSourceName);
         }
