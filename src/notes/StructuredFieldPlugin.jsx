@@ -557,8 +557,7 @@ function StructuredFieldPlugin(opts) {
 
         utils: {
             //isSelectionInStructuredField
-            convertSlateNodesToText: convertSlateNodesToText,
-            createStructuredField: createStructuredField.bind(null, opts)
+            convertSlateNodesToText: convertSlateNodesToText
 
         },
 
