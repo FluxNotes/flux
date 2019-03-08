@@ -30,29 +30,29 @@ class ProgressionLineChartVisualizer extends Visualizer {
         this.yVarField = "disease_status_code";
         this.codeToValueMap =  {
             // 'Complete Response'
-            "C0677874": 3,
+            "C0677874": -1,
             // 'Complete Resection'
-            "C0015250": 2,
+            "C0015250": 0,
             // 'Responding'
             "C1272745": 1,
             // 'Stable'
-            "C0205360": 0,
+            "C0205360": 2,
             // 'Progressing'
-            "C1546960": -1,
+            "C1546960": 3,
             // 'Inevaluable'
             "C3858734": null,
         };
          this.valueToProgressionMap = {
             // 'Complete Response'
-            "3" : 'Complete Response',
+            "-1" : 'Complete Response',
             // 'Complete Resection'
-            "2" : 'Complete Resection',
+            "0" : 'Complete Resection',
             // 'Responding'
             "1" : 'Responding',
             // 'Stable'
-            "0" : 'Stable',
+            "2" : 'Stable',
             // 'Progressing'
-            "-1" : 'Progressing',
+            "3" : 'Progressing',
             // 'Inevaluable'
             "null" : 'Inevaluable',
         };
@@ -207,6 +207,7 @@ class ProgressionLineChartVisualizer extends Visualizer {
             });
         });
         // Get yAxisInfo
+        const yAxisDomain = [ -1.25, 3 ];
         const yTicks = [ -1, 0, 1, 2, 3 ];
         // Get xAxisInfo
         const xAxisDomain = this.getXAxisDomain(processedData, processedPotentialDiagnosisDates);
@@ -229,6 +230,7 @@ class ProgressionLineChartVisualizer extends Visualizer {
                     />
                     <YAxis
                         dataKey={this.yVarField}
+                        domain={yAxisDomain}
                         ticks={yTicks}
                         tickFormatter={(val) => { return this.valueToProgressionMap[val.toString()]}}
                     />
