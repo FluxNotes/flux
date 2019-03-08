@@ -81,7 +81,6 @@ describe("TreatmentOptionsOutcome", () => {
             const treatmentRows = outcome().find('.compared-treatments .table-row');
 
             const barChartTexts = treatmentRows.at(0).find('.bar-chart-text');
-            console.log(barChartTexts.at(0).text());
             expect(barChartTexts).to.have.lengthOf(6);
 
             // 1 year and 1 year difference (83% / +23%)
