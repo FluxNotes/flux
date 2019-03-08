@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import _ from 'lodash';
 
-import { isSame, getCombinations } from '../../utils/arrayOperations';
-
 import BarChart from '../../visualizations/BarChart/BarChart';
 import TableLegend from '../../visualizations/TableLegend/TableLegend';
 import TreatmentsPopover from '../TreatmentsPopover/TreatmentsPopover';

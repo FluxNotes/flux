@@ -1,6 +1,5 @@
-import { transformedTreatmentData } from '../mock-data/mock-data.js';
 import _ from 'lodash';
-
+import { transformedTreatmentData } from '../mock-data/mock-data.js';
 import { isSame, getCombinations } from './arrayOperations';
 
 const TREATMENT_NAMES = {
@@ -61,17 +60,13 @@ function initializeTreatmentData(displayName) {
 
 function generateTreatmentData(similarPatients, treatments, includedTreatments) {
     if (similarPatients.length === 0) return [];
+    console.debug('similarPatients:', similarPatients);
+    console.debug('treatments:', treatments);
+    console.debug('includedTreatments:', includedTreatments);
 
     let treatmentData = [];
     treatments.forEach(treatment => {
         const filteredPatients = similarPatients.filter(patient => isSame(patient.treatments, treatment));
-        const treatmentName = _.isArray(treatment) ? treatment.map(name => TREATMENT_NAMES[name]).join(' & ') : TREATMENT_NAMES[treatment];
-        // let displayName = _.isArray(treatment) ? treatment.filter((treat)=>{
-        //     return !(includedTreatments.includes(treat));
-        // }).map(name => TREATMENT_NAMES[name]).join(' & ') : TREATMENT_NAMES[treatment];
-        // if(treatment === includedTreatments) {
-        //     displayName = treatmentName;
-        // }
         let displayName = _.isArray(treatment) ?
             treatment === includedTreatments ?
                 treatment.map(name => TREATMENT_NAMES[name]).join(' & ') :
@@ -104,6 +99,7 @@ function generateTreatmentData(similarPatients, treatments, includedTreatments) 
         }
     });
 
+    console.debug('treatmentData:', treatmentData);
     return treatmentData;
 }
 
