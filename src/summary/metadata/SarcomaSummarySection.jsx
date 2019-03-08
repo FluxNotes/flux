@@ -69,49 +69,7 @@ export default class SarcomaSummarySection extends MetadataSection {
                     useDataMissingTemplateCriteria: [
                         "Recent Toxicities"
                     ]
-                },
-                // {
-                //     defaultTemplate: "${Key Toxicities.Headaches} headaches (as of ${Key Toxicities.Headaches.when}),",
-                //     dataMissingTemplate: "no headaches,",
-                //     useDataMissingTemplateCriteria: [
-                //         "Key Toxicities.Headaches"
-                //     ]
-                // },
-                // {
-                //     defaultTemplate: "${Key Toxicities.Skin Rashes} skin rashes (as of ${Key Toxicities.Skin Rashes.when}),",
-                //     dataMissingTemplate: "no skin rashes,",
-                //     useDataMissingTemplateCriteria: [
-                //         "Key Toxicities.Skin Rashes"
-                //     ]
-                // },
-                // {
-                //     defaultTemplate: "${Key Toxicities.Vomiting} vomiting (as of ${Key Toxicities.Vomiting.when}),",
-                //     dataMissingTemplate: "no vomiting,",
-                //     useDataMissingTemplateCriteria: [
-                //         "Key Toxicities.Vomiting"
-                //     ]
-                // },
-                // {
-                //     defaultTemplate: "${Key Toxicities.Diarrhea} diarrhea (as of ${Key Toxicities.Diarrhea.when}),",
-                //     dataMissingTemplate: "no diarrhea,",
-                //     useDataMissingTemplateCriteria: [
-                //         "Key Toxicities.Diarrhea"
-                //     ]
-                // },
-                // {
-                //     defaultTemplate: "${Key Toxicities.Muscle Pains} muscle pains (as of ${Key Toxicities.Muscle Pains.when}),",
-                //     dataMissingTemplate: "no muscle pains,",
-                //     useDataMissingTemplateCriteria: [
-                //         "Key Toxicities.Muscle Pains"
-                //     ]
-                // },
-                // {
-                //     defaultTemplate: "${Key Toxicities.Fatigue} fatigue (as of ${Key Toxicities.Fatigue.when}).",
-                //     dataMissingTemplate: "no fatigue.",
-                //     useDataMissingTemplateCriteria: [
-                //         "Key Toxicities.Fatigue"
-                //     ]
-                // }
+                },                
             ],
             data: [
                 {
@@ -231,55 +189,7 @@ export default class SarcomaSummarySection extends MetadataSection {
                             }
                         }
                     ]
-                },
-                // {
-                //     name: "Key Toxicities",
-                //     items: [
-                //         {
-                //             name: "Headaches",
-                //             value: (patient, currentConditionEntry) => {
-                //                 return this.getKeyToxicityAndUnsignedFromCodes(patient, currentConditionEntry, ["10019211", "10019231"]);
-                //             }
-
-                //         },
-                //         {
-                //             name: "Skin Rashes",
-                //             value: (patient, currentConditionEntry) => {
-                //                 return this.getKeyToxicityAndUnsignedFromCodes(patient, currentConditionEntry, ["10037868"]);
-                //             }
-                //         },
-                //         {
-                //             name: "Vomiting",
-                //             value: (patient, currentConditionEntry) => {
-                //                 return this.getKeyToxicityAndUnsignedFromCodes(patient, currentConditionEntry, ["10047700"]);
-                //             }
-                //         },
-                //         {
-                //             name: "Diarrhea",
-                //             value: (patient, currentConditionEntry) => {
-                //                 return this.getKeyToxicityAndUnsignedFromCodes(patient, currentConditionEntry, ["10012735", "10012727"]);
-                //             }
-                //         },
-                //         {
-                //             name: "Muscle Pains",
-                //             value: (patient, currentConditionEntry) => {
-                //                 return this.getKeyToxicityAndUnsignedFromCodes(patient, currentConditionEntry, ["10028323", "10028411"]);
-                //             }
-                //         },
-                //         {
-                //             name: "Abdominal Pain",
-                //             value: (patient, currentConditionEntry) => {
-                //                 return this.getKeyToxicityAndUnsignedFromCodes(patient, currentConditionEntry, ["10000081"]);
-                //             }
-                //         },
-                //         {
-                //             name: "Fatigue",
-                //             value: (patient, currentConditionEntry) => {
-                //                 return this.getKeyToxicityAndUnsignedFromCodes(patient, currentConditionEntry, ["10016256"]);
-                //             }
-                //         }
-                //     ]
-                // },
+                },               
                 RecentToxicitiesSubsection,
                 RecentLabResultsSubsection,
                 KeyDatesSubsection,

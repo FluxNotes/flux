@@ -150,6 +150,7 @@ class FluxConditionPresentAssertion extends FluxEntry {
         return undefined;
     }
 
+    // Returns the most recent toxicities within a specified time period
     getMostRecentToxicities() {
         // Set the max number of months prior to today that a toxicity can be
         const numberOfMonths = 6; 
@@ -161,8 +162,8 @@ class FluxConditionPresentAssertion extends FluxEntry {
         let mostRecentTox = [];
 
         for (var i in sortedTox) {
-            let tox_time = new moment(sortedTox[i].metadata.lastUpdated.value, "D MMM YYYY");
-            if (tox_time > sinceDateMoment) {
+            let tox_date = new moment(sortedTox[i].metadata.lastUpdated.value, "D MMM YYYY");
+            if (tox_date > sinceDateMoment) {
                 mostRecentTox.push(sortedTox[i]);
             }
         }
