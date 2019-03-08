@@ -1,7 +1,7 @@
 import { transformedTreatmentData } from '../mock-data/mock-data.js';
 import _ from 'lodash';
 
-import { isSame, getCombinations } from './arrayCompare';
+import { isSame, getCombinations } from './arrayOperations';
 
 const TREATMENT_NAMES = {
     'noTreatment': 'none (actively monitoring)',
@@ -72,12 +72,12 @@ function generateTreatmentData(similarPatients, treatments, includedTreatments) 
         // if(treatment === includedTreatments) {
         //     displayName = treatmentName;
         // }
-        let displayName = _.isArray(treatment) ? 
+        let displayName = _.isArray(treatment) ?
             treatment === includedTreatments ?
                 treatment.map(name => TREATMENT_NAMES[name]).join(' & ') :
                 treatment.filter((treat)=>{
                     return !includedTreatments.includes(treat);
-                }).map(name => TREATMENT_NAMES[name]).join(' & ') : 
+                }).map(name => TREATMENT_NAMES[name]).join(' & ') :
             TREATMENT_NAMES[treatment];
 
         let row = initializeTreatmentData(displayName);

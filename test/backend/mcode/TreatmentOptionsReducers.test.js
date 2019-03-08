@@ -1,5 +1,5 @@
 import React from 'react';
-import {expect} from 'chai';
+import { expect } from 'chai';
 
 import * as types from '../../../src/actions/types'
 import reducer from '../../../src/reducers/mcode';
@@ -180,7 +180,7 @@ describe('Reducer function', ()=>{
             expect(allOptions).to.eql(true);
         })
     })
-    
+
     describe("unselect all options", ()=>{
         const selectState = stateObjects.unselectAllOptions;
         const type = types.SELECT_ALL_SIMILAR_PATIENT_OPTIONS
@@ -198,11 +198,6 @@ describe('Reducer function', ()=>{
             expect(allOptions).to.eql(true);
         })
     })
-
-    // skipped "process patient outcomes" because it's just 
-    // passing info to the treatment-data filter, which should just have
-    // it's own test instead of one being here.
-
 
     /**
      * Small helper function that cleans up some clutter when checking
@@ -223,8 +218,5 @@ describe('Reducer function', ()=>{
             },true);
             return all
         }
-
     }
-
-
 })
