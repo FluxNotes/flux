@@ -44,10 +44,9 @@ export default function filterTreatmentData(similarPatientProps, includedTreatme
     };
 }
 
-function initializeTreatmentData(name, displayName) {
+function initializeTreatmentData(displayName) {
     return {
         id: _.uniqueId('row_'),
-        name,
         displayName,
         totalPatients: 0,
         oneYrSurvival: 0,
@@ -67,13 +66,21 @@ function generateTreatmentData(similarPatients, treatments, includedTreatments) 
     treatments.forEach(treatment => {
         const filteredPatients = similarPatients.filter(patient => isSame(patient.treatments, treatment));
         const treatmentName = _.isArray(treatment) ? treatment.map(name => TREATMENT_NAMES[name]).join(' & ') : TREATMENT_NAMES[treatment];
-        let displayName = _.isArray(treatment) ? treatment.filter((treat)=>{
-            return !(includedTreatments.includes(treat));
-        }).map(name => TREATMENT_NAMES[name]).join(' & ') : TREATMENT_NAMES[treatment];
-        if(treatment === includedTreatments) {
-            displayName = treatmentName;
-        }
-        let row = initializeTreatmentData(treatmentName, displayName);
+        // let displayName = _.isArray(treatment) ? treatment.filter((treat)=>{
+        //     return !(includedTreatments.includes(treat));
+        // }).map(name => TREATMENT_NAMES[name]).join(' & ') : TREATMENT_NAMES[treatment];
+        // if(treatment === includedTreatments) {
+        //     displayName = treatmentName;
+        // }
+        let displayName = _.isArray(treatment) ? 
+            treatment === includedTreatments ?
+                treatment.map(name => TREATMENT_NAMES[name]).join(' & ') :
+                treatment.filter((treat)=>{
+                    return !includedTreatments.includes(treat);
+                }).map(name => TREATMENT_NAMES[name]).join(' & ') : 
+            TREATMENT_NAMES[treatment];
+
+        let row = initializeTreatmentData(displayName);
         filteredPatients.forEach(patient => {
             row.totalPatients += 1;
 
