@@ -270,9 +270,11 @@ export default class BreastCancerMetadata extends MetadataSection {
                         MostRecentVisitSubsection
                     ]
                 },
+                ActiveConditionsSection,
+                MedicationsSection,
+                AllergiesSection,
                 ProceduresSection,
                 ImagingSection,
-                ActiveConditionsSection,
                 DiseaseStatusSection,
                 {
                     name: "Labs",
@@ -285,7 +287,6 @@ export default class BreastCancerMetadata extends MetadataSection {
                         HemoglobinSubsection
                     ]
                 },
-                MedicationsSection,
                 PathologySection,
                 {
                     name: "Genetics",
@@ -328,7 +329,6 @@ export default class BreastCancerMetadata extends MetadataSection {
                     ]
                 },
                 ClinicalTrialsSection,
-                AllergiesSection,
                 TimelineSection,
                 TreatmentOptionsSection
             )

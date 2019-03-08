@@ -12,8 +12,8 @@ export default class McodeMetadata extends MetadataSection {
             sections: this.buildMetadataSections(preferencesManager, patient, condition, roleType, role, specialty,
                 GeneralCancerSummarySection,
                 ActiveConditionsSection,
-                ProceduresSection,
                 MedicationsSection,
+                ProceduresSection,
                 DiseaseStatusSection,
                 DetailedTreatmentOptionsSection
             )

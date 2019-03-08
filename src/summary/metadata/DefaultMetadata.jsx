@@ -68,6 +68,9 @@ export default class DefaultMetadata extends MetadataSection {
                         }
                     ]
                 },
+                ActiveConditionsSection,
+                MedicationsColumnsSection,
+                AllergiesSection,
                 ProceduresSection,
                 {
                     name: "Labs",
@@ -77,9 +80,6 @@ export default class DefaultMetadata extends MetadataSection {
                         WhiteBloodCellCountSubsection
                     ]
                 },
-                MedicationsColumnsSection,
-                ActiveConditionsSection,
-                AllergiesSection,
                 TimelineSection
             )
         };
