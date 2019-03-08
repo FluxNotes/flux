@@ -61,11 +61,6 @@ class FluxTumorMarker {
         this._tumorMarker.findingStatus = findingStatus;
     }
 
-    // Returns a unique code
-    get receptorCode() { 
-        if (!this._tumorMarker.findingTopicCode || !this._tumorMarker.findingTopicCode.value) return null;
-        return this._tumorMarker.findingTopicCode.value.coding[0].code.value;
-    }
 
     // Returns a human-readable display text string
     get receptorType() { 
@@ -75,7 +70,7 @@ class FluxTumorMarker {
 
     set receptorType(typeVal) {
         this._tumorMarker.findingTopicCode = new FindingTopicCode();
-        this._tumorMarker.findingTopicCode.value = lookup.getReceptorTypeConcept(typeVal);
+        this._tumorMarker.findingTopicCode.value = lookup.getReceptorTypeCodeableConcept(typeVal);
     }
 
     setReceptorType(receptorType) {
@@ -99,7 +94,7 @@ class FluxTumorMarker {
      */
     set status(statusVal) {
         this._tumorMarker.findingResult = new FindingResult();
-        this._tumorMarker.findingResult.value = lookup.getReceptorValueConcept(statusVal);
+        this._tumorMarker.findingResult.value = lookup.getReceptorValueCodeableConcept(statusVal);
     }
 
     get specificFocusOfFinding() {

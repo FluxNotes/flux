@@ -28,7 +28,7 @@ class FluxProgesteroneReceptorStatus extends FluxObservation {
      * Setter for shr.oncology.ReceptorType
      */
     set status(statusVal) {
-        this._observation.value = lookup.getReceptorValueConcept(statusVal);
+        this._observation.value = lookup.getReceptorValueCodeableConcept(statusVal);
     }
 
     toJSON() {

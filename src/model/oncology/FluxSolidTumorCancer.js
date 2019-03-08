@@ -27,8 +27,8 @@ class FluxSolidTumorCancer extends FluxCancerDisorderPresent {
         return results.pop();
     }
 
-    _getMostRecentReceptorStatus(receptorCode) {
-        const list = this.getReceptorsOfType(receptorCode);
+    _getMostRecentReceptorStatus(receptorType) {
+        const list = this.getReceptorsOfType(receptorType);
         const sortedList = list.sort(this._observationsTimeSorter);
         if (list.length === 0) return null; else return sortedList.pop();
     }
@@ -37,7 +37,7 @@ class FluxSolidTumorCancer extends FluxCancerDisorderPresent {
         if (!this._condition.entryInfo) return [];
         const conditionEntryId = this._condition.entryInfo.entryId;
         return this._patientRecord.getEntriesOfType(FluxTumorMarker).filter(item => {
-            // Filter our TumorMarkers to those with the correct type
+            // Filter our TumorMarkers to those with the specified type
             return item.receptorType === receptorType && item.specificFocusOfFinding && item.specificFocusOfFinding._entryId === conditionEntryId;
         });
     }
@@ -116,11 +116,10 @@ class FluxSolidTumorCancer extends FluxCancerDisorderPresent {
 
     getMostRecentTumorMarkers(sinceDate = null) { 
         let tumorMarkersList = this._patientRecord.getEntriesOfType(FluxTumorMarker);
-        console.log('this._patientRecord: ', this._patientRecord);
         // If we have none, return null
         if (tumorMarkersList.length === 0) return null; 
         const sortedTumorMarkersList = tumorMarkersList
-        .sort(this._stageTimeSorter);
+            .sort(this._stageTimeSorter);
         // If we have no sinceDate, return them all sorted
         if (Lang.isNull(sinceDate)) return sortedTumorMarkersList; 
         const filteredSortedTumorMarkerList = sortedTumorMarkersList.filter(tm => new moment(tm.relevantTime, "D MMM YYYY") < sinceDate);

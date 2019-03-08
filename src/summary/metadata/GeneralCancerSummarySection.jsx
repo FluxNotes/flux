@@ -271,9 +271,8 @@ export default class GeneralCancerSummarySection extends MetadataSection {
         // TODO: Since we're showing multiple values heree, we should probably support multiple signed and source values 
         //       we don't have that capability right now
         return receptorStatuses.map(receptor => { 
-            console.log('receptor: ', receptor);
             return { 
-                name: receptor.abbreviatedName ?  receptor.abbreviatedName : receptor.receptorType, 
+                name: receptor.receptorType,
                 value: {
                     value: `${receptor.status}`,
                     isUnsigned: patient.isUnsigned(receptor),
