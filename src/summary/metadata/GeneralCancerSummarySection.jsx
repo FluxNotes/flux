@@ -29,9 +29,6 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                     defaultTemplate: "Tumor histology is ${Cancer.Histological Type}. Histological grade is ${Cancer.Histological Grade}."
                 },
                 {
-                    defaultTemplate: "Tumor markers include ${Cancer.Tumor Markers}."
-                },
-                {
                     defaultTemplate: "Clinical stage is ${Staging.Clinical Stage}.",
                 },
                 {
