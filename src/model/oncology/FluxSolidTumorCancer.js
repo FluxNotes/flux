@@ -1,9 +1,9 @@
-import FluxCancerHistologicGrade from '../oncocore/FluxCancerHistologicGrade';
-import FluxTNMClinicalStageGroup from '../oncocore/FluxTNMClinicalStageGroup';
 import Lang from 'lodash';
 import moment from 'moment';
 import FluxCancerDisorderPresent from '../oncocore/FluxCancerDisorderPresent';
 import FluxCancerHistologicType from '../oncocore/FluxCancerHistologicType';
+import FluxCancerHistologicGrade from '../oncocore/FluxCancerHistologicGrade';
+import FluxTNMClinicalStageGroup from '../oncocore/FluxTNMClinicalStageGroup';
 import FluxKarnofskyPerformanceStatus from '../oncocore/FluxKarnofskyPerformanceStatus';
 import FluxECOGPerformanceStatus from '../oncocore/FluxECOGPerformanceStatus';
 import FluxTNMStageGroup from '../oncocore/FluxTNMStageGroup';
@@ -27,8 +27,8 @@ class FluxSolidTumorCancer extends FluxCancerDisorderPresent {
         return results.pop();
     }
 
-    _getMostRecentReceptorStatus(receptorType) {
-        const list = this.getReceptorsOfType(receptorType);
+    _getMostRecentReceptorStatus(receptorCode) {
+        const list = this.getReceptorsOfType(receptorCode);
         const sortedList = list.sort(this._observationsTimeSorter);
         if (list.length === 0) return null; else return sortedList.pop();
     }
@@ -36,8 +36,9 @@ class FluxSolidTumorCancer extends FluxCancerDisorderPresent {
     getReceptorsOfType(receptorType) {
         if (!this._condition.entryInfo) return [];
         const conditionEntryId = this._condition.entryInfo.entryId;
-        return this._patientRecord.getEntriesOfType(receptorType).filter(item => {
-            return item.specificFocusOfFinding && item.specificFocusOfFinding._entryId === conditionEntryId;
+        return this._patientRecord.getEntriesOfType(FluxTumorMarker).filter(item => {
+            // Filter our TumorMarkers to those with the correct type
+            return item.receptorType === receptorType && item.specificFocusOfFinding && item.specificFocusOfFinding._entryId === conditionEntryId;
         });
     }
 
@@ -115,6 +116,7 @@ class FluxSolidTumorCancer extends FluxCancerDisorderPresent {
 
     getMostRecentTumorMarkers(sinceDate = null) { 
         let tumorMarkersList = this._patientRecord.getEntriesOfType(FluxTumorMarker);
+        console.log('this._patientRecord: ', this._patientRecord);
         // If we have none, return null
         if (tumorMarkersList.length === 0) return null; 
         const sortedTumorMarkersList = tumorMarkersList

@@ -5687,7 +5687,7 @@
     },
     {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/brca/EstrogenReceptorStatus"
+            "Value": "http://standardhealthrecord.org/spec/oncocore/TumorMarker"
         },
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
         "EntryId": "2220",
@@ -5706,6 +5706,41 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/base/AuthoredDateTime"
                 },
                 "Value": "25 Aug 2018"
+            }
+        },
+        "FindingTopicCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            },
+                            "Value": "16112-5"
+                        },
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "http://fhir.loinc.org",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Estrogen Receptor",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
             }
         },
         "FindingResult": {
@@ -5799,7 +5834,7 @@
     },
     {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/brca/ProgesteroneReceptorStatus"
+            "Value": "http://standardhealthrecord.org/spec/oncocore/TumorMarker"
         },
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
         "EntryId": "2230",
@@ -5818,6 +5853,41 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/base/AuthoredDateTime"
                 },
                 "Value": "25 Aug 2018"
+            }
+        },
+        "FindingTopicCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            },
+                            "Value": "16113-3"
+                        },
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "http://fhir.loinc.org",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Progesterone Receptor",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
             }
         },
         "FindingResult": {
@@ -5911,7 +5981,7 @@
     },
     {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/brca/HER2ReceptorStatus"
+            "Value": "http://standardhealthrecord.org/spec/oncocore/TumorMarker"
         },
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
         "EntryId": "2240",
@@ -5930,6 +6000,41 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/base/AuthoredDateTime"
                 },
                 "Value": "25 Aug 2018"
+            }
+        },
+        "FindingTopicCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            },
+                            "Value": "48676-1"
+                        },
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "http://fhir.loinc.org",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "HER2 Receptor",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
             }
         },
         "FindingResult": {

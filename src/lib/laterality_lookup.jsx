@@ -21,6 +21,6 @@ const lateralityOptions = [
  * Will return CodeableConcept object with empty strings if not found
  * If value found in list, function will return CodeableConcept with value, codeSystem, and displayText
  */
-exports.getReceptorCodeableConcept = (possibleReceptorValue) => {
+exports.getReceptorValueConcept = (possibleReceptorValue) => {
     return codeableConceptUtils.getCodeableConceptFromOptions(possibleReceptorValue, receptorOptions);
 }

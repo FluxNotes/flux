@@ -148,11 +148,9 @@ import FluxBRCA1Variant from '../../model/oncology/FluxBRCA1Variant';
 import FluxBRCA2VariantV01 from './model/oncology/FluxBRCA2Variant';
 import FluxBRCA2Variant from '../../model/oncology/FluxBRCA2Variant';
 import FluxEstrogenReceptorStatusV01 from './model/oncology/FluxEstrogenReceptorStatus';
-import EstrogenReceptorStatus from '../../model/brca/EstrogenReceptorStatus';
 import FluxProgesteroneReceptorStatusV01 from './model/oncology/FluxProgesteroneReceptorStatus';
-import ProgesteroneReceptorStatus from '../../model/brca/ProgesteroneReceptorStatus';
 import FluxHER2ReceptorStatusV01 from './model/oncology/FluxHER2ReceptorStatus';
-import HER2ReceptorStatus from '../../model/brca/HER2ReceptorStatus';
+import FluxTumorMarker from '../../model/oncocore/FluxTumorMarker';
 import NumberOfRefillsAllowed from '../../model/shr/medication/NumberOfRefillsAllowed';
 import FluxPathologyReportV01 from './model/finding/FluxPathologyReport';
 import FluxPathologyReport from '../../model/finding/FluxPathologyReport';
@@ -725,32 +723,35 @@ exports.mapEntries = (v01Json) => {
 
             v05Json.push(newVariant.toJSON());
         } else if (entry instanceof FluxEstrogenReceptorStatusV01) {
-            const newReceptorStatus = new EstrogenReceptorStatus();
+            const newReceptorStatus = new FluxTumorMarker();
 
             mapEntryInfo(entry._observation.entryInfo, newReceptorStatus);
             newReceptorStatus.findingStatus = mapFindingStatus(entry._observation.findingStatus);
             newReceptorStatus.relevantTime = mapRelevantTime(entry._observation.relevantTime);
             newReceptorStatus.findingResult = mapFindingResult(entry._observation.value);
+            newReceptorStatus.receptorType = "Estrogen Receptor";
             newReceptorStatus.specificFocusOfFinding = mapPassThrough(entry._observation.specificFocusOfFinding, SpecificFocusOfFinding);
 
             v05Json.push(newReceptorStatus.toJSON());
         } else if (entry instanceof FluxProgesteroneReceptorStatusV01) {
-            const newReceptorStatus = new ProgesteroneReceptorStatus();
+            const newReceptorStatus = new FluxTumorMarker();
 
             mapEntryInfo(entry._observation.entryInfo, newReceptorStatus);
             newReceptorStatus.findingStatus = mapFindingStatus(entry._observation.findingStatus);
             newReceptorStatus.relevantTime = mapRelevantTime(entry._observation.relevantTime);
             newReceptorStatus.findingResult = mapFindingResult(entry._observation.value);
+            newReceptorStatus.receptorType = "Progesterone Receptor";
             newReceptorStatus.specificFocusOfFinding = mapPassThrough(entry._observation.specificFocusOfFinding, SpecificFocusOfFinding);
 
             v05Json.push(newReceptorStatus.toJSON());
         } else if (entry instanceof FluxHER2ReceptorStatusV01) {
-            const newReceptorStatus = new HER2ReceptorStatus();
+            const newReceptorStatus = new FluxTumorMarker();
 
             mapEntryInfo(entry._observation.entryInfo, newReceptorStatus);
             newReceptorStatus.findingStatus = mapFindingStatus(entry._observation.findingStatus);
             newReceptorStatus.relevantTime = mapRelevantTime(entry._observation.relevantTime);
             newReceptorStatus.findingResult = mapFindingResult(entry._observation.value);
+            newReceptorStatus.receptorType = "HER2 Receptor";
             newReceptorStatus.specificFocusOfFinding = mapPassThrough(entry._observation.specificFocusOfFinding, SpecificFocusOfFinding);
 
             v05Json.push(newReceptorStatus.toJSON());

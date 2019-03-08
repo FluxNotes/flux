@@ -5236,7 +5236,7 @@
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
         "EntryId": "2220",
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/oncology/EstrogenReceptorStatus"
+            "Value": "http://standardhealthrecord.org/spec/shr/oncology/TumorMarker"
         },
         "LastUpdated": {
             "Value": "25 Aug 2018",
@@ -5256,7 +5256,37 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
         },
-        "Value": {
+        "FindingTopicCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/FindingTopicCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": "16112-5",
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "http://fhir.loinc.org",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "Estrogen Receptor",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        },
+        "FindingResult": {
             "Coding": [
                 {
                     "Code": {
