@@ -95,7 +95,7 @@ export default class TreatmentOptionsOutcomes extends Component {
     renderRow(row, compareRow) {
         if (row == null || row.length === 0) return null;
 
-        const { name, displayName, totalPatients, sideEffects } = row;
+        const { displayName, totalPatients, sideEffects } = row;
         const topSideEffects = Object.keys(sideEffects.effects).map((sideEffect) => ({
             sideEffect, occurrences: sideEffects.effects[sideEffect]
         })).sort((a, b) => b.occurrences - a.occurrences).slice(0, 2);
