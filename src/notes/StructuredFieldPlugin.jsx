@@ -84,6 +84,9 @@ function StructuredFieldPlugin(opts) {
                 transform = transform.collapseToStartOfNextText();
                 let newState = transform.apply();
                 return newState;
+            }
+        }
+
         if(!(shortcut) && e.key === 'Enter') {
 
             const beforeAnchorKey = state.document.getPreviousSibling(selection.anchorKey);
