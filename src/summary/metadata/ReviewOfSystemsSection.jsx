@@ -71,26 +71,13 @@ export default class ReviewOfSystemsSection extends MetadataSection {
         const ros = patient.getReviewOfSystems();
 
         let result = [
-            {   name: "Author",
-                value: {value: ros.author},
-                shortcut: null               
-            },
             {   name: "Date",
                 value: {value: ros.relevantTime},
-                shortcut: null               
-            },
-        ]                    
-        return result;              
+                shortcut: null
+            }
+        ]
+        return result;
     }
-
-    getAuthorForROS = (patient) => {
-        if(patient) {           
-            const ros = patient.getReviewOfSystems();
-            return ros.author;
-        }
-
-        return "";      
-    }    
 
     // This methods takes in the ROS array and sorts alphabetically by name
     sortAlphabetically = (resultArray) => {
