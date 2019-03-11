@@ -9,6 +9,7 @@ class StructuredFieldMapManager {
     clearStructuredFieldMap() { 
         this.clearKeyToShortcutMap();
         this.clearIdToShortcutMap();
+        this.clearIdToKeysMap();
         this._placeholders = [];
     }
 
@@ -18,6 +19,10 @@ class StructuredFieldMapManager {
 
     clearIdToShortcutMap() {
         this._idToShortcutMap = new Map()
+    }
+
+    clearIdToKeysMap() {
+        this._idToKeysMap = new Map();
     }
 
     get keyToShortcutMap() { 
