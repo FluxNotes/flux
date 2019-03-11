@@ -88,7 +88,9 @@ function StructuredFieldPlugin(opts) {
 
             const beforeAnchorKey = state.document.getPreviousSibling(selection.anchorKey);
             const afterAnchorKey = state.document.getNextSibling(selection.anchorKey);
-            if ((beforeAnchorKey && afterAnchorKey) && beforeAnchorKey.type === "structured_field" && afterAnchorKey.type === "structured_field"){
+            const currentNode = state.document.getNode(selection.anchorKey);
+            
+            if ((beforeAnchorKey && afterAnchorKey) && beforeAnchorKey.type === "structured_field" && afterAnchorKey.type === "structured_field" && currentNode.text.length === selection.anchorOffset){
                 stopEventPropagation(e);
 
                 let transform = state.transform()
@@ -96,7 +98,6 @@ function StructuredFieldPlugin(opts) {
                     .collapseToStartOfNextBlock()
                     .apply();
                 editor.onChange(transform);
-
             }
         }
 
