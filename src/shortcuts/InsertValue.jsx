@@ -12,8 +12,8 @@ export default class InsertValue extends Shortcut {
         this.patient = patient;
         this.wasRemovedFromContext = false;
         this._shouldRemoveFromContext = false;
-        this.prevAssociatedShortcut = null;
-        this.nextAssociatedShortcut = null;
+        this.prevAssociatedShortcutId = null;
+        this.nextAssociatedShortcutId = null;
     }
 
     initialize(contextManager, trigger = undefined, updatePatient = true, shortcutData = "") {
@@ -39,9 +39,10 @@ export default class InsertValue extends Shortcut {
             if (shortcutDataObj.originalText) this.setOriginalText(shortcutDataObj.originalText);
             const valueObject = this.patient.getEntryById(shortcutDataObj.entryId);
             this.setValueObject(valueObject);
+            // NOTE: When reloading a shortcut, reset the uniqueId to the same id that the originally created shortcut had.
             if (shortcutDataObj.uniqueId) this.uniqueId = shortcutDataObj.uniqueId;
-            this.setPrevAssociatedShortcut(shortcutDataObj.prevAssociatedShortcut);
-            this.setNextAssociatedShortcut(shortcutDataObj.nextAssociatedShortcut);
+            this.setPrevAssociatedShortcutId(shortcutDataObj.prevAssociatedShortcutId);
+            this.setNextAssociatedShortcutId(shortcutDataObj.nextAssociatedShortcutId);
             this.setWasRemovedFromContext(shortcutDataObj.wasRemovedFromContext);
             if (shortcutDataObj.wasRemovedFromContext) {
                 this._shouldRemoveFromContext = true;
@@ -209,13 +210,14 @@ export default class InsertValue extends Shortcut {
         }
         // If this.valueObject exists, put the entryId of the valueObject in the result text
         if (this.valueObject) {
+            // NOTE: This object is growing fairly large. Is there a way to store note content as something other than a plain text string?
             const shortcutDataObj = {
                 text,
                 entryId: this.valueObject.entryInfo.entryId,
                 wasRemovedFromContext: this.wasRemovedFromContext,
                 originalText: this.originalText,
-                prevAssociatedShortcut: this.prevAssociatedShortcut,
-                nextAssociatedShortcut: this.nextAssociatedShortcut,
+                prevAssociatedShortcutId: this.prevAssociatedShortcutId,
+                nextAssociatedShortcutId: this.nextAssociatedShortcutId,
                 uniqueId: this.uniqueId,
             };
             return `${this.initiatingTrigger}[[${JSON.stringify(shortcutDataObj)}]]`;
@@ -247,20 +249,20 @@ export default class InsertValue extends Shortcut {
         return this.originalText;
     }
 
-    setPrevAssociatedShortcut(id) {
-        this.prevAssociatedShortcut = id;
+    setPrevAssociatedShortcutId(id) {
+        this.prevAssociatedShortcutId = id;
     }
 
-    getPrevAssociatedShortcut() {
-        return this.prevAssociatedShortcut;
+    getPrevAssociatedShortcutId() {
+        return this.prevAssociatedShortcutId;
     }
 
-    setNextAssociatedShortcut(id) {
-        this.nextAssociatedShortcut = id;
+    setNextAssociatedShortcutId(id) {
+        this.nextAssociatedShortcutId = id;
     }
 
-    getNextAssociatedShortcut() {
-        return this.nextAssociatedShortcut;
+    getNextAssociatedShortcutId() {
+        return this.nextAssociatedShortcutId;
     }
 
     setValueObject(valueObject) {

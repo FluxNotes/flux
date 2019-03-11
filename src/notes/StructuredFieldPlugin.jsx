@@ -129,8 +129,8 @@ function StructuredFieldPlugin(opts) {
                 }
                 const newShortcut = createShortcut(shortcut.metadata, shortcut.initiatingTrigger, shortcutText, true, shortcut.getSource());
                 newShortcut.setKey(newShortcutNode.key);
-                newShortcut.setPrevAssociatedShortcut(shortcut.uniqueId);
-                newShortcut.setNextAssociatedShortcut(shortcut.getNextAssociatedShortcut());
+                newShortcut.setPrevAssociatedShortcutId(shortcut.uniqueId);
+                newShortcut.setNextAssociatedShortcutId(shortcut.getNextAssociatedShortcutId());
                 newShortcutId = newShortcut.uniqueId;
                 transform = updateShortcut(newShortcut, transform, newShortcutNode.key, shortcut.getLabel(), newShortcutNode.text);
                 if (shortcut.wasRemovedFromContext) {
@@ -142,12 +142,12 @@ function StructuredFieldPlugin(opts) {
 
             // Update the existing shortcut to reflect the leading text after split
             const oldShortcutNode = transform.state.document.getPreviousSibling(newTextNode.key);
-            const oldShortcutsNextAssociatedShortcut = shortcut.getNextAssociatedShortcut();
+            const oldShortcutsNextAssociatedShortcutId = shortcut.getNextAssociatedShortcutId();
 
             // In the case where there is no prior shortcut node in this block
             // nothing needs to be updated
             if (oldShortcutNode) {
-                shortcut.setNextAssociatedShortcut(newShortcutId);
+                shortcut.setNextAssociatedShortcutId(newShortcutId);
                 transform = updateShortcut(shortcut, transform, oldShortcutNode.key, shortcut.getLabel(), oldShortcutNode.text);
                 if (newShortcutNode) {
                     contextManager.removeShortcutFromContext(shortcut);
@@ -155,9 +155,9 @@ function StructuredFieldPlugin(opts) {
                 }
             }
 
-            if (oldShortcutsNextAssociatedShortcut) {
-                const trailingThirdShortcut = opts.structuredFieldMapManager.idToShortcutMap.get(oldShortcutsNextAssociatedShortcut);
-                trailingThirdShortcut.setPrevAssociatedShortcut(newShortcutId);
+            if (oldShortcutsNextAssociatedShortcutId) {
+                const trailingThirdShortcut = opts.structuredFieldMapManager.idToShortcutMap.get(oldShortcutsNextAssociatedShortcutId);
+                trailingThirdShortcut.setPrevAssociatedShortcutId(newShortcutId);
                 const thirdShortcutKey = trailingThirdShortcut.getKey();
                 transform = transform.setNodeByKey(thirdShortcutKey, {
                     data: {
@@ -191,8 +191,8 @@ function StructuredFieldPlugin(opts) {
             }
             const newShortcut = createShortcut(shortcut.metadata, shortcut.initiatingTrigger, shortcutText, true, shortcut.getSource());
             newShortcut.setKey(newShortcutNode.key);
-            newShortcut.setPrevAssociatedShortcut(shortcut.uniqueId);
-            newShortcut.setNextAssociatedShortcut(shortcut.getNextAssociatedShortcut());
+            newShortcut.setPrevAssociatedShortcutId(shortcut.uniqueId);
+            newShortcut.setNextAssociatedShortcutId(shortcut.getNextAssociatedShortcutId());
             const newShortcutId = newShortcut.uniqueId;
             transform = updateShortcut(newShortcut, transform, newShortcutNode.key, shortcut.getLabel(), newShortcutNode.text);
             if (shortcut.wasRemovedFromContext) {
@@ -201,15 +201,15 @@ function StructuredFieldPlugin(opts) {
             }
 
             // Update the existing shortcut to reflect the leading text after split
-            const oldShortcutsNextAssociatedShortcut = shortcut.getNextAssociatedShortcut();
-            shortcut.setNextAssociatedShortcut(newShortcutId);
+            const oldShortcutsNextAssociatedShortcutId = shortcut.getNextAssociatedShortcutId();
+            shortcut.setNextAssociatedShortcutId(newShortcutId);
             transform = updateShortcut(shortcut, transform, parentNode.key, shortcut.getLabel(), oldShortcutNode.text);
             contextManager.removeShortcutFromContext(shortcut);
             shortcut.setWasRemovedFromContext(true);
 
-            if (oldShortcutsNextAssociatedShortcut) {
-                const trailingThirdShortcut = opts.structuredFieldMapManager.idToShortcutMap.get(oldShortcutsNextAssociatedShortcut);
-                trailingThirdShortcut.setPrevAssociatedShortcut(newShortcutId);
+            if (oldShortcutsNextAssociatedShortcutId) {
+                const trailingThirdShortcut = opts.structuredFieldMapManager.idToShortcutMap.get(oldShortcutsNextAssociatedShortcutId);
+                trailingThirdShortcut.setPrevAssociatedShortcutId(newShortcutId);
                 const thirdShortcutKey = trailingThirdShortcut.getKey();
                 transform = transform.setNodeByKey(thirdShortcutKey, {
                     data: {
@@ -273,21 +273,21 @@ function StructuredFieldPlugin(opts) {
                 // Reset context on previous shortcut when deleting the piece of a shortcut that set the context
                 // and another piece is before it.
                 // Otherwise, update the previous and next associated shortcuts of neighboring shortcuts to reflect deletion.
-                if (!shortcut.wasRemovedFromContext && shortcut.getPrevAssociatedShortcut()) {
-                    const shortcutToSetContext = idToShortcutMap.get(shortcut.getPrevAssociatedShortcut());
-                    shortcutToSetContext.setNextAssociatedShortcut(null);
+                if (!shortcut.wasRemovedFromContext && shortcut.getPrevAssociatedShortcutId()) {
+                    const shortcutToSetContext = idToShortcutMap.get(shortcut.getPrevAssociatedShortcutId());
+                    shortcutToSetContext.setNextAssociatedShortcutId(null);
                     shortcutToSetContext.setWasRemovedFromContext(false);
                     contextManager.addShortcutToContext(shortcutToSetContext);
                 } else {
-                    const previousShortcutId = shortcut.getPrevAssociatedShortcut();
-                    const nextShortcutId = shortcut.getNextAssociatedShortcut();
+                    const previousShortcutId = shortcut.getPrevAssociatedShortcutId();
+                    const nextShortcutId = shortcut.getNextAssociatedShortcutId();
                     if (previousShortcutId) {
                         const previousShortcut = idToShortcutMap.get(previousShortcutId);
-                        previousShortcut.setNextAssociatedShortcut(nextShortcutId);
+                        previousShortcut.setNextAssociatedShortcutId(nextShortcutId);
                     }
                     if (nextShortcutId) {
                         const nextShortcut = idToShortcutMap.get(nextShortcutId);
-                        nextShortcut.setPrevAssociatedShortcut(previousShortcutId);
+                        nextShortcut.setPrevAssociatedShortcutId(previousShortcutId);
                     }
                 }
 
