@@ -1605,13 +1605,6 @@
                 },
                 {
                     "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-                    "_EntryId": "247",
-                    "_EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"
-                    }
-                },
-                {
-                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
                     "_EntryId": "248",
                     "_EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"

@@ -23,11 +23,11 @@ export default class ReviewOfSystemsSection extends MetadataSection {
 
     getSortedListForROS = (patient, currentConditionEntry) => {
         let resultArray = this.getItemListForROS(patient, currentConditionEntry);
-       
+
         // Separate yes and no answers into 2 arrays
         let yesArray  =[];
         let noArray =[];
-        
+
         for (let i = 0; i < resultArray.length; i++) {
             if (resultArray[i].value.value === "No") {
                 noArray.push(resultArray[i]);
@@ -43,7 +43,7 @@ export default class ReviewOfSystemsSection extends MetadataSection {
 
         // Combine yes and no arrays with the yes answers displayed first
         let sortedResultArray = yesArraySorted.concat(noArraySorted);
-       
+
         return sortedResultArray;
     }
 
@@ -60,9 +60,9 @@ export default class ReviewOfSystemsSection extends MetadataSection {
             let result = 
                 {   name: upperCaseName,
                     value: {value: `${newValue}`},
-                    shortcut: null               
-                };    
-        
+                    shortcut: null
+                };
+
             return result;
         });
     }
