@@ -47,15 +47,54 @@ class McodeV05SmartOnFhirDataSource extends IDataSource {
         });
     }
 
+    _fetchAll(resourceType) {
+        // the FHIR server can return as many or as few results as it would like
+        // so we have to follow links to get the "next" set of results.
+        // the FHIR client library includes a fetchAll function, but it has 2 limitations:
+        // 1. there is a bug where it can hit (current URL)(bundle contents)
+        //    for instance http://localhost/smart?{"resourceType":"Bundle",...}
+        // 2. it returns a list of resources, not a bundle, so we don't get access to entry.fullUrl
+
+        return this._client.patient.api.search({ type: resourceType, query: {} })
+            .then(response => this._handleResponseBundle(response.data));
+    }
+
+    _getNext(prevBundle, nextURL) {
+        // getNext fetches the next bundle given a URL and merges it into the current one
+        // prevBundle may be a synthetic bundle containing all the results fetched so far
+
+        return this._client.patient.api.getBundleByUrl({ url: nextURL })
+            .then(response => this._handleResponseBundle(response.data, prevBundle));
+    }
+
+    _handleResponseBundle(newBundle, prevBundle=null) {
+        if (prevBundle) {
+            // merge the entries from the previous bundle into the new one
+            newBundle.entry.unshift(...prevBundle.entry);
+            newBundle.total = newBundle.entry.length;
+        }
+
+        const nextURL = newBundle.link && newBundle.link.find(l => l.relation === 'next');
+        if (nextURL) {
+            // if the bundle includes a link to the next one,
+            //  keep going, hold on to the current one and fetch the next one
+            return this._getNext(newBundle, nextURL.url);
+        } else {
+            // otherwise we're done
+            return newBundle;
+        }
+    }
+
     getPatient(id, callback) {
         this._getClientAsync().then(client => client.patient.api.conformance({}))
         .then(metadata => metadata.data.rest[0].resource.map(res => res.type))
         .then(resourceTypes => {
-            // the FHIR client library does not seem to support calling Patient$everything, so we fake it by manually fetching all the resource types
+            // the FHIR client library does not seem to support calling Patient$everything,
+            // so we fake it by manually fetching all the resource types.
             // further, the library only supports async querying
             const queries = [];
             for (const resourceType of resourceTypes) {
-                const result = this._client.patient.api.search({ type: resourceType, query: {} });
+                const result = this._fetchAll(resourceType);
                 queries.push(result);
             }
 
@@ -63,10 +102,10 @@ class McodeV05SmartOnFhirDataSource extends IDataSource {
         }).then(responses => {
             const entries = [];
             responses.forEach(response => {
-                // response.data is a Bundle of type searchset
+                // response is a Bundle of type searchset
                 // TODO: error handling?
-                if (response && response.data && response.data.entry) {
-                    entries.push(...response.data.entry);
+                if (response && response.entry) {
+                    entries.push(...response.entry);
                 }
             });
 
