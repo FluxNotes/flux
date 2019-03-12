@@ -39,7 +39,7 @@ export default class ExpandedTableVisualizer extends Visualizer {
     renderedQuestion(question, date, index) {
         let nameClass, valueClass;
         
-        // TO DO ADD structured data logic???
+        // TO DO ADD structured data logic
 
         // search highlighting logic
         this.props.tdpSearchSuggestions.find(s => {
@@ -129,8 +129,18 @@ export default class ExpandedTableVisualizer extends Visualizer {
     }
 
     renderedTableHeader(date, questionCount, positiveQuestionCount) {
+        let dateClass;
+
         // TO DO: date highlighting
-        return <div className="expanded-table-header">table header goes here</div>;
+        // TO DO: expansion
+        return (
+            <div className="expanded-table-header">
+                <Row start="xs">
+                    <Col sm={6}><span className={dateClass}>{date}</span></Col>
+                    <Col sm={6}>{positiveQuestionCount} of {questionCount} positive</Col>
+                </Row>
+            </div>
+        );
     }
     
     renderedTable(ros, tableIndex) {

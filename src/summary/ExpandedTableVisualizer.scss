@@ -6,21 +6,32 @@ $font-size: 0.8rem;
     margin: 10px 20px 30px 0px;
     font-size: $font-size;
 
-    &-header {
-        font-weight: 600;
-        height: inherit; // why is this not working
-
-        &:nth-child(odd) {
+    &:nth-child(odd) {
+        .expanded-table-header {
             background-color: $contrast-gray;
         }
+    }
 
-        &:nth-child(even) {
+    &:nth-child(even) {
+        .expanded-table-header {
             background-color: $background;
+        }
+    }
+
+    &-header {
+        font-weight: 600;
+        height: inherit;
+        padding: 8px 10px;
+        margin-bottom: 1px;
+
+        .row div:last-child {
+            text-align: right;
         }
     }
 
     &-body {
         margin-left: 20px;
+        background-color: $background;
 
         table {
             border-collapse: collapse;
