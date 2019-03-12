@@ -3,42 +3,17 @@ import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import _ from 'lodash';
 
-import { isSame, getCombinations } from '../../utils/arrayOperations';
-
 import BarChart from '../../visualizations/BarChart/BarChart';
 import TableLegend from '../../visualizations/TableLegend/TableLegend';
 import TreatmentsPopover from '../TreatmentsPopover/TreatmentsPopover';
 
 import './TreatmentOptionsOutcomes.css';
 
-const TREATMENT_NAMES = {
-    'noTreatment': 'none (actively monitoring)',
-    'chemotherapy': 'chemotherapy',
-    'hormonal': 'hormonal therapy',
-    'surgery': 'surgery',
-    'radiation': 'radiation therapy'
-};
-
-const SIDE_EFFECT_NAMES = {
-    'hotFlash': 'Hot Flashes',
-    'decLibido': 'Decreased Libido',
-    'fatigue': 'Fatigue',
-    'nauseaVomiting': 'Nausea/Vomiting',
-    'anemia': 'Anemia',
-    'bowelDys': 'Bowel Dysfunction',
-    'erectileDys': 'Erectile Dysfunction',
-    'weightLoss': 'Weight Loss',
-    'urinaryDys': 'Urinary Dysfunction'
-};
-
 export default class TreatmentOptionsOutcomes extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            similarPatientTreatments: this.generateSimilarPatientTreatments(props.similarPatients),
-            includedTreatments: [ 'surgery' ],
-            comparedTreatments: [ 'chemotherapy', 'hormonal','radiation' ],
             includedOpen: false,
             comparedOpen: false
         };
@@ -50,19 +25,6 @@ export default class TreatmentOptionsOutcomes extends Component {
 
     componentWillUnmount() {
         document.removeEventListener('click', this.closePoppers);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (this.props.similarPatients !== nextProps.similarPatients) {
-            this.setState({ similarPatientTreatments: this.generateSimilarPatientTreatments(nextProps.similarPatients) });
-        }
-    }
-
-    generateSimilarPatientTreatments(similarPatients) {
-        return Array.from(similarPatients.reduce((acc, { treatments }) => {
-            treatments.forEach((treatment) => acc.add(treatment));
-            return acc;
-        }, new Set())).sort();
     }
 
     closePoppers = ({ target }) => {
@@ -106,60 +68,15 @@ export default class TreatmentOptionsOutcomes extends Component {
         const key = `${treatmentType}Treatments`;
 
         if (!selected) {
-            const index = this.state[key].indexOf(treatment);
+            const index = this.props[key].indexOf(treatment);
             if (index !== -1) {
-                const treatments = this.state[key].slice();
+                const treatments = this.props[key].slice();
                 treatments.splice(index, 1);
-                this.setState({ [key]: treatments });
+                this.props.selectTreatments(key, treatments);
             }
-        } else if (!this.state[key].includes(treatment)) {
-            this.setState({ [key]: [...this.state[key], treatment] });
+        } else if (!this.props[key].includes(treatment)) {
+            this.props.selectTreatments(key, [...this.props[key], treatment]);
         }
-    }
-
-    initializeRow(displayName) {
-        return {
-            id: _.uniqueId('row_'),
-            displayName,
-            totalPatients: 0,
-            oneYrSurvival: 0,
-            threeYrSurvival: 0,
-            fiveYrSurvival: 0,
-            sideEffects: {
-                totalReporting: 0,
-                effects: {}
-            }
-        };
-    }
-
-    generateRow(patients, treatments) {
-        if (patients.length === 0) return [];
-        let displayName = _.isArray(treatments) ? 
-            treatments === this.state.includedTreatments ?
-            treatments.map(name => TREATMENT_NAMES[name]).join(' & ') :
-                treatments.filter((treatment)=>{
-                    return !this.state.includedTreatments.includes(treatment);
-                }).map(name => TREATMENT_NAMES[name]).join(' & ') : TREATMENT_NAMES[treatments];
-
-        let row = this.initializeRow(displayName);
-        patients.forEach(patient => {
-            row.totalPatients += 1;
-
-            const survivalYears = Math.floor(patient.diseaseStatus.survivalMonths / 12);
-            if (survivalYears >= 1) row.oneYrSurvival += 1;
-            if (survivalYears >= 3) row.threeYrSurvival += 1;
-            if (survivalYears >= 5) row.fiveYrSurvival += 1;
-
-            if (patient.sideEffects.length > 0) {
-                row.sideEffects.totalReporting += 1;
-                patient.sideEffects.forEach(sideEffect => {
-                    if (!row.sideEffects.effects[sideEffect]) row.sideEffects.effects[sideEffect] = 0;
-                    row.sideEffects.effects[sideEffect] += 1;
-                })
-            }
-        });
-
-        return row;
     }
 
     renderBarChart = (row, compareRow, survivalRate) => {
@@ -176,7 +93,7 @@ export default class TreatmentOptionsOutcomes extends Component {
     }
 
     renderRow(row, compareRow) {
-        if (row.length === 0) return null;
+        if (row == null || row.length === 0) return null;
 
         const { displayName, totalPatients, sideEffects } = row;
         const topSideEffects = Object.keys(sideEffects.effects).map((sideEffect) => ({
@@ -194,16 +111,24 @@ export default class TreatmentOptionsOutcomes extends Component {
                     <div className="flex-1">{this.renderBarChart(row, compareRow, 'fiveYrSurvival')}</div>
                 </div>
 
-                <div className="flex flex-4 flex-padding flex-center">
+                <div className="flex flex-4 flex-padding flex-center top-side-effects">
                     <div>
                         {topSideEffects.map(({ sideEffect, occurrences }, i) =>
-                            <div key={i}>
-                                {`${SIDE_EFFECT_NAMES[sideEffect] || sideEffect} `}
+                            <div key={i} className="side-effect">
+                                {`${sideEffect} `}
                                 ({Math.floor(occurrences / totalPatients * 100)}%)
                             </div>
                         )}
                     </div>
                 </div>
+            </div>
+        );
+    }
+
+    renderComparedRow = (treatmentData, i, includedRow) => {
+        return (
+            <div key={i}>
+                {this.renderRow(treatmentData, includedRow)}
             </div>
         );
     }
@@ -231,25 +156,16 @@ export default class TreatmentOptionsOutcomes extends Component {
         );
     }
 
-    renderComparedRow = (treatmentCombination, i, includedRow) => {
-        const { similarPatients } = this.props;
-        const comparedPatients = similarPatients.filter(patient => isSame(patient.treatments, treatmentCombination));
-        return (
-            <div key={i}>
-                {this.renderRow(this.generateRow(comparedPatients, treatmentCombination), includedRow)}
-            </div>
-        );
-    }
-
     render() {
-        const { similarPatientTreatments, includedTreatments, comparedTreatments, includedOpen, comparedOpen } = this.state;
-        const { similarPatients } = this.props;
-        const includedTreatmentPatients = similarPatients.filter(patient => isSame(patient.treatments, includedTreatments));
-        const comparedTreatmentCombinations = getCombinations(comparedTreatments,includedTreatments).filter(treatments =>
-            treatments.length !== includedTreatments.length || !includedTreatments.every(treatment => treatments.includes(treatment))
-        );
-        const includedRow = this.generateRow(includedTreatmentPatients, includedTreatments);
-        const noIncludedRow = includedRow.length === 0;
+        const { includedOpen, comparedOpen } = this.state;
+        const {
+            similarPatientTreatments,
+            includedTreatments,
+            includedTreatmentData,
+            comparedTreatments,
+            comparedTreatmentData
+        } = this.props;
+        const noIncludedRow = includedTreatmentData.length === 0;
 
         return (
             <div className="treatment-options-outcomes">
@@ -268,13 +184,12 @@ export default class TreatmentOptionsOutcomes extends Component {
                                         treatments={similarPatientTreatments}
                                         selectedTreatments={includedTreatments}
                                         toggleTreatments={this.toggleTreatment('included')}
-                                        treatmentNames={TREATMENT_NAMES}
                                     />
                                 }
                             </span>
                         </div>
 
-                        {!noIncludedRow ? this.renderRow(includedRow, includedRow) :
+                        {!noIncludedRow ? this.renderRow(includedTreatmentData[0], includedTreatmentData[0]) :
                             <div className="table-row flex helper-text">
                                 No data. Choose a different selection or similar patients criteria.
                             </div>
@@ -293,23 +208,30 @@ export default class TreatmentOptionsOutcomes extends Component {
                                         treatments={similarPatientTreatments}
                                         selectedTreatments={comparedTreatments}
                                         toggleTreatments={this.toggleTreatment('compared')}
-                                        treatmentNames={TREATMENT_NAMES}
                                     />
                                 }
                             </span>
                         </div>
 
-                        {comparedTreatmentCombinations.map((treatmentCombination, i) =>
-                            this.renderComparedRow(treatmentCombination, i, noIncludedRow ? null : includedRow)
+                        {comparedTreatmentData.map((treatmentData, i) =>
+                            this.renderComparedRow(treatmentData, i, noIncludedRow ? null : includedTreatmentData[0])
                         )}
                     </div>
                 </div>
-                <TableLegend includedRow={includedRow} treatmentNames={TREATMENT_NAMES}/>
+
+                {!noIncludedRow &&
+                    <TableLegend includedRow={includedTreatmentData[0]} />
+                }
             </div>
         );
     }
 }
 
 TreatmentOptionsOutcomes.propTypes = {
-    similarPatients: PropTypes.array.isRequired
+    similarPatientTreatments: PropTypes.array.isRequired,
+    includedTreatments: PropTypes.array.isRequired,
+    includedTreatmentData: PropTypes.array.isRequired,
+    comparedTreatments: PropTypes.array.isRequired,
+    comparedTreatmentData: PropTypes.array.isRequired,
+    selectTreatments: PropTypes.func.isRequired
 };

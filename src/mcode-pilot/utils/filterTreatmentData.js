@@ -1,11 +1,118 @@
-import { transformedTreatmentData } from '../mock-data/mock-data.js';
 import _ from 'lodash';
+import { transformedTreatmentData } from '../mock-data/mock-data.js';
+import { isSame, getCombinations } from './arrayOperations';
 
-export default function filterTreatmentData(similarPatientProps) {
+const TREATMENT_NAMES = {
+    'noTreatment': 'none (actively monitoring)',
+    'chemotherapy': 'chemotherapy',
+    'hormonal': 'hormonal therapy',
+    'surgery': 'surgery',
+    'radiation': 'radiation therapy'
+};
+
+const SIDE_EFFECT_NAMES = {
+    'hotFlash': 'Hot Flashes',
+    'decLibido': 'Decreased Libido',
+    'fatigue': 'Fatigue',
+    'nauseaVomiting': 'Nausea/Vomiting',
+    'anemia': 'Anemia',
+    'bowelDys': 'Bowel Dysfunction',
+    'erectileDys': 'Erectile Dysfunction',
+    'weightLoss': 'Weight Loss',
+    'urinaryDys': 'Urinary Dysfunction'
+};
+
+// This function will eventually be replaced with an API that returns the same data in the same format
+export default function filterTreatmentData(similarPatientProps, includedTreatments, comparedTreatments) {
     const totalPatients = transformedTreatmentData.length;
     const similarPatients = transformedTreatmentData.filter(treatmentDataPatient => isSimilarPatient(treatmentDataPatient, similarPatientProps));
+    const totalSimilarPatients = similarPatients.length;
+    const similarPatientTreatments = generateSimilarPatientTreatments(similarPatients);
+    const includedTreatmentData = generateTreatmentData(similarPatients, [includedTreatments], includedTreatments);
+    const comparedTreatmentCombinations = getCombinations(comparedTreatments, includedTreatments).filter(treatments =>
+        treatments.length !== includedTreatments.length || !includedTreatments.every(treatment => treatments.includes(treatment))
+    );
+    const comparedTreatmentData = generateTreatmentData(similarPatients, comparedTreatmentCombinations, includedTreatments);
 
-    return { totalPatients, similarPatients };
+    return {
+        totalPatients,
+        totalSimilarPatients,
+        similarPatientTreatments,
+        includedTreatmentData,
+        comparedTreatmentData
+    };
+}
+
+function initializeTreatmentData(displayName) {
+    return {
+        id: _.uniqueId('row_'),
+        displayName,
+        totalPatients: 0,
+        oneYrSurvival: 0,
+        threeYrSurvival: 0,
+        fiveYrSurvival: 0,
+        sideEffects: {
+            totalReporting: 0,
+            effects: {}
+        }
+    };
+}
+
+function generateTreatmentData(similarPatients, treatments, includedTreatments) {
+    if (similarPatients.length === 0) return [];
+    console.debug('similarPatients:', similarPatients);
+    console.debug('treatments:', treatments);
+    console.debug('includedTreatments:', includedTreatments);
+
+    let treatmentData = [];
+    treatments.forEach(treatment => {
+        const filteredPatients = similarPatients.filter(patient => isSame(patient.treatments, treatment));
+        let displayName = _.isArray(treatment) ?
+            treatment === includedTreatments ?
+                treatment.map(name => TREATMENT_NAMES[name]).join(' & ') :
+                treatment.filter((treat)=>{
+                    return !includedTreatments.includes(treat);
+                }).map(name => TREATMENT_NAMES[name]).join(' & ') :
+            TREATMENT_NAMES[treatment];
+
+        let row = initializeTreatmentData(displayName);
+        filteredPatients.forEach(patient => {
+            row.totalPatients += 1;
+
+            const survivalYears = Math.floor(patient.diseaseStatus.survivalMonths / 12);
+            if (survivalYears >= 1) row.oneYrSurvival += 1;
+            if (survivalYears >= 3) row.threeYrSurvival += 1;
+            if (survivalYears >= 5) row.fiveYrSurvival += 1;
+
+            if (patient.sideEffects.length > 0) {
+                row.sideEffects.totalReporting += 1;
+                patient.sideEffects.forEach(sideEffectKey => {
+                    const sideEffect = SIDE_EFFECT_NAMES[sideEffectKey];
+                    if (!row.sideEffects.effects[sideEffect]) row.sideEffects.effects[sideEffect] = 0;
+                    row.sideEffects.effects[sideEffect] += 1;
+                });
+            }
+        });
+
+        if (row.totalPatients > 0) {
+            treatmentData.push(row);
+        }
+    });
+
+    console.debug('treatmentData:', treatmentData);
+    return treatmentData;
+}
+
+function generateSimilarPatientTreatments(similarPatients) {
+    let similarPatientTreatments = {};
+
+    similarPatients.forEach(({ treatments }) => {
+        treatments.forEach(treatment => {
+            similarPatientTreatments[treatment] = { key: treatment, name: TREATMENT_NAMES[treatment] };
+        });
+    });
+
+    return Object.values(similarPatientTreatments).sort((a, b) => a.name.localeCompare(b.name));
 }
 
 function isSimilarPatient(treatmentDataPatient, similarPatientProps) {

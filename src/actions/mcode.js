@@ -42,10 +42,19 @@ function processSimilarPatientOutcomes() {
     };
 }
 
+function selectTreatments(treatmentType, treatments) {
+    return {
+        type: types.SELECT_TREATMENTS,
+        treatmentType,
+        treatments
+    };
+}
+
 export {
     selectSimilarPatientOption,
     initializeSimilarPatientProps,
     selectAllSimilarPatientOptions,
     selectAllCategorySimilarPatientOptions,
-    processSimilarPatientOutcomes
+    processSimilarPatientOutcomes,
+    selectTreatments
 };

@@ -14,7 +14,8 @@ import {
     selectSimilarPatientOption,
     selectAllCategorySimilarPatientOptions,
     selectAllSimilarPatientOptions,
-    processSimilarPatientOutcomes
+    processSimilarPatientOutcomes,
+    selectTreatments
 } from '../../../actions/mcode';
 
 import './TreatmentOptionsVisualizer.css';
@@ -46,10 +47,16 @@ export class TreatmentOptionsVisualizer extends Component {
             patient,
             similarPatientProps,
             totalPatients,
-            similarPatients,
+            totalSimilarPatients,
+            similarPatientTreatments,
+            includedTreatments,
+            includedTreatmentData,
+            comparedTreatments,
+            comparedTreatmentData,
             selectSimilarPatientOption,
             selectAllSimilarPatientOptions,
-            selectAllCategorySimilarPatientOptions
+            selectAllCategorySimilarPatientOptions,
+            selectTreatments
         } = this.props;
 
         return (
@@ -61,7 +68,7 @@ export class TreatmentOptionsVisualizer extends Component {
 
                 <TreatmentOptionsSelector
                     title="Similar patients"
-                    subTitle={this.renderedSimilarPatientsSubtitle(numberWithCommas(similarPatients.length))}>
+                    subTitle={this.renderedSimilarPatientsSubtitle(numberWithCommas(totalSimilarPatients))}>
                     <SimilarPatientsSelector
                         patient={patient}
                         condition={condition}
@@ -72,7 +79,14 @@ export class TreatmentOptionsVisualizer extends Component {
                     />
                 </TreatmentOptionsSelector>
 
-                <TreatmentOptionsOutcomes similarPatients={similarPatients} />
+                <TreatmentOptionsOutcomes
+                    similarPatientTreatments={similarPatientTreatments}
+                    includedTreatments={includedTreatments}
+                    includedTreatmentData={includedTreatmentData}
+                    comparedTreatments={comparedTreatments}
+                    comparedTreatmentData={comparedTreatmentData}
+                    selectTreatments={selectTreatments}
+                />
             </div>
         );
     }
@@ -83,12 +97,18 @@ TreatmentOptionsVisualizer.propTypes = {
     patient: PropTypes.object.isRequired,
     similarPatientProps: PropTypes.object.isRequired,
     totalPatients: PropTypes.number.isRequired,
-    similarPatients: PropTypes.array.isRequired,
+    totalSimilarPatients: PropTypes.number.isRequired,
+    similarPatientTreatments: PropTypes.array.isRequired,
+    includedTreatments: PropTypes.array.isRequired,
+    includedTreatmentData: PropTypes.array.isRequired,
+    comparedTreatments: PropTypes.array.isRequired,
+    comparedTreatmentData: PropTypes.array.isRequired,
     initializeSimilarPatientProps: PropTypes.func.isRequired,
     selectSimilarPatientOption: PropTypes.func.isRequired,
     selectAllCategorySimilarPatientOptions: PropTypes.func.isRequired,
     selectAllSimilarPatientOptions: PropTypes.func.isRequired,
-    processSimilarPatientOutcomes: PropTypes.func.isRequired
+    processSimilarPatientOutcomes: PropTypes.func.isRequired,
+    selectTreatments: PropTypes.func.isRequired
 }
 
 function mapDispatchToProps(dispatch) {
@@ -97,7 +117,8 @@ function mapDispatchToProps(dispatch) {
     selectSimilarPatientOption,
     selectAllCategorySimilarPatientOptions,
     selectAllSimilarPatientOptions,
-    processSimilarPatientOutcomes
+    processSimilarPatientOutcomes,
+    selectTreatments
   }, dispatch);
 }
 
@@ -105,7 +126,12 @@ function mapStateToProps(state) {
   return {
     similarPatientProps: state.mcode.similarPatientProps,
     totalPatients: state.mcode.totalPatients,
-    similarPatients: state.mcode.similarPatients
+    totalSimilarPatients: state.mcode.totalSimilarPatients,
+    similarPatientTreatments: state.mcode.similarPatientTreatments,
+    includedTreatments: state.mcode.includedTreatments,
+    includedTreatmentData: state.mcode.includedTreatmentData,
+    comparedTreatments: state.mcode.comparedTreatments,
+    comparedTreatmentData: state.mcode.comparedTreatmentData
   };
 }
 

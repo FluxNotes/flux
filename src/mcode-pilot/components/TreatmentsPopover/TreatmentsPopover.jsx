@@ -6,27 +6,27 @@ import './TreatmentsPopover.css';
 
 export default class TreatmentsPopover extends Component {
     render() {
-        const { title, treatments, selectedTreatments, toggleTreatments, treatmentNames } = this.props;
+        const { title, treatments, selectedTreatments, toggleTreatments } = this.props;
 
         return (
             <div className="treatments-popper">
                 <Paper className="popover">
                     <div className="popover-title">{title}</div>
                     <div className="popover-checklist">
-                        {treatments.map((treatment, key) =>
-                            <FormControl className="form-control" key={key}>
+                        {treatments.map(({ name, key }, i) =>
+                            <FormControl className="form-control" key={i}>
                                 <FormLabel>
                                     <FormControlLabel
                                         control={
                                             <Checkbox
-                                                checked={selectedTreatments.includes(treatment)}
+                                                checked={selectedTreatments.includes(key)}
                                                 onChange={toggleTreatments}
-                                                value={treatment}
+                                                value={key}
                                                 className="checkbox" />
                                         }
                                         label={
                                             <div className="checkbox-label">
-                                                {treatmentNames ? treatmentNames[treatment] : treatment}
+                                                {name}
                                             </div>
                                         }
                                     />
@@ -44,6 +44,5 @@ TreatmentsPopover.propTypes = {
     title: PropTypes.string,
     treatments: PropTypes.array.isRequired,
     selectedTreatments: PropTypes.array.isRequired,
-    toggleTreatments: PropTypes.func.isRequired,
-    treatmentNames: PropTypes.object
+    toggleTreatments: PropTypes.func.isRequired
 };
