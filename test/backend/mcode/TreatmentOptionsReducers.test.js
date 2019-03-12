@@ -4,51 +4,48 @@ import { expect } from 'chai';
 import * as types from '../../../src/actions/types'
 import reducer from '../../../src/reducers/mcode';
 import defaultState from '../../../src/reducers/initial';
-import PatientRecord from '../../../src/patient/PatientRecord';
-import TestPatient2 from '../../TestPatient2.json';
-import EntryMapper from '../../../src/dataaccess/mcodev0.1-datasource/EntryMapper';
-import FluxBreastCancerDisorderPresent from '../../../src/model/brca/FluxBreastCancerDisorderPresent';
-import _ from 'lodash';
 
 import stateObjects from './mock-data/testoptions.json';
 
-
 describe('Reducer function', ()=>{
-
     it('should return initial state on empty args', ()=>{
         expect(reducer(undefined,{})).to.eql(defaultState);
     })
     describe('initialization of patient props', ()=>{
         const type = types.INITIALIZE_SIMILAR_PATIENT_PROPS
-        const mcodePatientJson = EntryMapper.mapEntries(TestPatient2);
-        const testPatientObj = new PatientRecord(mcodePatientJson);
-    
-        const fluxCondition = testPatientObj.getEntriesOfType(FluxBreastCancerDisorderPresent)[0];
-        const testPatientRecord = testPatientObj.getPatient();
         it('should return populated new state when given normal values', ()=>{
             const action = {
                 type:type,
-                patient:testPatientObj,
-                condition: fluxCondition
+                patientAge:700,
+                patientAgeAtDiagnosis:600,
+                patientRace:"marathon",
+                patientGender:"female",
             };
-            const newState = reducer(undefined,action).similarPatientProps;
-            const demographics = newState.demographic.options;
-            const pathology = newState.pathology.options;
-
-
-            expect(demographics.race.value).to.eql(testPatientRecord.race);
-            expect(demographics.gender.value).to.eql(_.lowerCase(testPatientRecord.gender))
-            expect(demographics.age.minValue).to.eql(testPatientObj.getAge()-10);
-            expect(demographics.age.maxValue).to.eql(testPatientObj.getAge()+10);
-            expect(demographics.diagnosedAge.minValue).to.equal(testPatientObj.getAgeAsOf(new Date(fluxCondition.diagnosisDate))-10);
-            expect(demographics.diagnosedAge.maxValue).to.equal(testPatientObj.getAgeAsOf(new Date(fluxCondition.diagnosisDate))+10);
-            expect(pathology.grade.value).to.equal(3);
-            expect(pathology.stage.value).to.equal("IIA");
-            expect(pathology.ER.value).to.equal("positive");
-            expect(pathology.PR.value).to.equal("negative");
-
+            const newState = reducer(undefined,action).similarPatientProps.demographic.options;
+            expect(newState.race.value).to.eql(action.patientRace);
+            expect(newState.gender.value).to.eql(action.patientGender)
+            expect(newState.age.minValue).to.eql(action.patientAge-10);
+            expect(newState.age.maxValue).to.eql(action.patientAge+10);
+            expect(newState.diagnosedAge.minValue).to.equal(action.patientAgeAtDiagnosis-10);
+            expect(newState.diagnosedAge.maxValue).to.equal(action.patientAgeAtDiagnosis+10);
         });
 
+        it('should output new state without invalid values', ()=>{
+            const action = {
+                type:type,
+                patientAge:3,
+                patientAgeAtDiagnosis:1,
+                patientRace:"Sprint",
+                patientGender:"MALE?",
+            }
+            const newState = reducer(undefined,action).similarPatientProps.demographic.options;
+            expect(newState.race.value).to.eql("sprint");
+            expect(newState.gender.value).to.eql("male")
+            expect(newState.age.minValue).to.eql(0);
+            expect(newState.age.maxValue).to.eql(action.patientAge+10);
+            expect(newState.diagnosedAge.minValue).to.equal(0);
+            expect(newState.diagnosedAge.maxValue).to.equal(action.patientAgeAtDiagnosis+10);
+        });
     });
 
     describe("deselection of one patient option", ()=>{
