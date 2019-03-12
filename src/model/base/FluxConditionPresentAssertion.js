@@ -159,13 +159,13 @@ class FluxConditionPresentAssertion extends FluxEntry {
         let tox = this.getToxicities();
         let sortedTox = tox.sort(this._toxicitiesTimeSorter);
         let mostRecentTox = [];
-
-        for (var i in sortedTox) {
-            let tox_date = new moment(sortedTox[i].metadata.lastUpdated.value, "D MMM YYYY");
+    
+        sortedTox.forEach((t) => {
+            let tox_date = new moment(t.metadata.lastUpdated.value, "D MMM YYYY");
             if (tox_date > sinceDateMoment) {
-                mostRecentTox.push(sortedTox[i]);
+                mostRecentTox.push(t);
             }
-        }
+        });                      
         return mostRecentTox;
     }
 
