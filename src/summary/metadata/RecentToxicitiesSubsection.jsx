@@ -18,10 +18,11 @@ export default class RecentToxicitiesSubsection extends MetadataSection {
         return toxicities.map((l, i) => {
             const value = this.getValue(l, patient);
             const name = `${l.type}`;
-            return {    name: name,
-                        value: value,
-                        shortcut: null
-                };
+            return {    
+                name: name,
+                value: value,
+                shortcut: null
+            };
         });    
     }
 
@@ -32,12 +33,12 @@ export default class RecentToxicitiesSubsection extends MetadataSection {
         val = tox.seriousness;
         unsigned = patient.isUnsigned(tox);
         source = this.determineSource(patient, tox);
-        when = tox.metadata.lastUpdated.value;
-            
-            return  {   value: val, 
-                        isUnsigned: unsigned, 
-                        source: source,
-                        when: when
-                    };
+        when = tox.metadata.lastUpdated.value;            
+            return  {   
+                value: val, 
+                isUnsigned: unsigned, 
+                source: source,
+                when: when
+            };
     }
 }
