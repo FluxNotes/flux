@@ -28,6 +28,13 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                 {
                     defaultTemplate: "Tumor histology is ${Cancer.Histological Type}. Histological grade is ${Cancer.Histological Grade}."
                 },
+                { 
+                    defaultTemplate: "Tumor markers are ${Tumor Markers}.",
+                    dataMissingTemplate: "No available ${tumor markers}.",
+                    useDataMissingTemplateCriteria: [
+                        "Tumor Markers"
+                    ]
+                },
                 {
                     defaultTemplate: "Clinical stage is ${Staging.Clinical Stage}.",
                 },
