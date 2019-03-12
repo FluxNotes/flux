@@ -521,12 +521,12 @@ function StructuredFieldPlugin(opts) {
             newTextNode = transform.state.document.getPreviousText(key);
         }
 
+        // Create a new shortcut with the trailing shortcut text after split
+        const newShortcutNode = transform.state.document.getNextSibling(newTextNode.key);
+
         transform = transform.collapseToEndOf(newTextNode);
         transform = applyMarks(state.marks, transform);
         insertText ? insertText(text, transform) : transform = transform.insertText(text);
-
-        // Create a new shortcut with the trailing shortcut text after split
-        const newShortcutNode = transform.state.document.getNextSibling(newTextNode.key);
 
         // Ignore updating the latter split shortcut if it is deleted by typing a character
         if (newShortcutNode) {
