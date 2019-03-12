@@ -1,5 +1,6 @@
 import React from 'react';
 import { expect } from 'chai';
+import '../../../src/model/init';
 
 import * as types from '../../../src/actions/types'
 import reducer from '../../../src/reducers/mcode';
