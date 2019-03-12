@@ -123,12 +123,12 @@ class FluxConditionPresentAssertion extends FluxEntry {
         // Get all the toxicities
         let toxicities = this.getToxicities().filter(toxicity => {
             if (!toxicity._toxicAdverseDrugReaction.type) return false;
-            return toxicity._toxicAdverseDrugReaction.type.value.coding.some((coding) => {
+            return toxicity._toxicAdverseDrugReaction.type.value.coding.some(coding => {
                 return codes.includes(coding.code.value);
             });
         });
 
-        toxicities.sort(this._toxicitiesTimeSorter);        
+        toxicities.sort(this._toxicitiesTimeSorter);
         return toxicities;
     }
 
@@ -152,20 +152,21 @@ class FluxConditionPresentAssertion extends FluxEntry {
     // Returns the most recent toxicities within a specified time period
     getMostRecentToxicities() {
         // Set the max number of months prior to today that a toxicity can be
-        const numberOfMonths = 6; 
+        const numberOfMonths = 6;
         const sinceDate = moment().subtract(numberOfMonths, 'months');
-        let sinceDateMoment = new moment(sinceDate, "D MMM YYYY");
+        const sinceDateMoment = new moment(sinceDate, "D MMM YYYY");
 
-        let tox = this.getToxicities();
-        let sortedTox = tox.sort(this._toxicitiesTimeSorter);
-        let mostRecentTox = [];
-    
+        const tox = this.getToxicities();
+        const sortedTox = tox.sort(this._toxicitiesTimeSorter);
+        const mostRecentTox = [];
+
         sortedTox.forEach((t) => {
-            let tox_date = new moment(t.metadata.lastUpdated.value, "D MMM YYYY");
+            const tox_date = new moment(t.metadata.lastUpdated.value, "D MMM YYYY");
             if (tox_date > sinceDateMoment) {
                 mostRecentTox.push(t);
             }
-        });                      
+        });
+
         return mostRecentTox;
     }
 

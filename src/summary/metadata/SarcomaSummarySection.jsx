@@ -69,7 +69,7 @@ export default class SarcomaSummarySection extends MetadataSection {
                     useDataMissingTemplateCriteria: [
                         "Recent Toxicities"
                     ]
-                },                
+                },
             ],
             data: [
                 {
@@ -189,7 +189,7 @@ export default class SarcomaSummarySection extends MetadataSection {
                             }
                         }
                     ]
-                },               
+                },
                 RecentToxicitiesSubsection,
                 RecentLabResultsSubsection,
                 KeyDatesSubsection,

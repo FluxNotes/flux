@@ -14,31 +14,31 @@ export default class RecentToxicitiesSubsection extends MetadataSection {
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
 
         const toxicities = currentConditionEntry.getMostRecentToxicities();
-       
-        return toxicities.map((l, i) => {
+
+        return toxicities.map(l => {
             const value = this.getValue(l, patient);
             const name = `${l.type}`;
-            return {    
-                name: name,
-                value: value,
+            return {
+                name,
+                value,
                 shortcut: null
             };
-        });    
+        });
     }
 
     // Returns the value for the toxicity which includes grade, unsigned, source, and date
     getValue = (tox, patient) => {
         let val, unsigned, source, when;
-            
+
         val = tox.seriousness;
         unsigned = patient.isUnsigned(tox);
         source = this.determineSource(patient, tox);
-        when = tox.metadata.lastUpdated.value;            
-            return  {   
-                value: val, 
-                isUnsigned: unsigned, 
-                source: source,
-                when: when
-            };
+        when = tox.metadata.lastUpdated.value;
+        return {
+            source,
+            when,
+            value: val,
+            isUnsigned: unsigned,
+        };
     }
 }
