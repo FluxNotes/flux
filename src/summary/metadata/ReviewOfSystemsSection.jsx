@@ -5,17 +5,13 @@ export default class ReviewOfSystemsSection extends MetadataSection {
         return {
             name: "Review of Systems",
             shortName: "ROS",
-            type: "NameValuePairsOnly",
+            type: "ReviewOfSystemsValues",
             isWide: false,
             notFiltered: true,
             data: [
                 {
-                    name: "",                   
+                    name: "",
                     itemsFunction: this.getROSmetadata,
-                },
-                {
-                    name: "Questions",
-                    itemsFunction: this.getSortedListForROS,  
                 }
             ]
         };
@@ -55,11 +51,11 @@ export default class ReviewOfSystemsSection extends MetadataSection {
             let name = r.questionText;
             let upperCaseName = name.charAt(0).toUpperCase() + name.slice(1);
 
-            const newValue = r.value ? "Yes" : "No";
+            const newValue = r.value ? 'positive' : 'negative';
 
             let result = 
                 {   name: upperCaseName,
-                    value: {value: `${newValue}`},
+                    value: newValue,
                     shortcut: null
                 };
 
@@ -67,13 +63,12 @@ export default class ReviewOfSystemsSection extends MetadataSection {
         });
     }
 
-    getROSmetadata = (patient) => {
+    getROSmetadata = (patient, currentConditionEntry) => {
         const ros = patient.getReviewOfSystems();
-
         let result = [
-            {   name: "Date",
-                value: {value: ros.relevantTime},
-                shortcut: null
+            {
+                date: ros.relevantTime,
+                questions: this.getSortedListForROS(patient, currentConditionEntry)
             }
         ]
         return result;

@@ -6,6 +6,7 @@ import TabularListVisualizer from './TabularListVisualizer';
 import NarrativeNameValuePairsVisualizer from './NarrativeNameValuePairsVisualizer';
 import BandedLineChartVisualizer from './BandedLineChartVisualizer';
 import ProgressionLineChartVisualizer from './ProgressionLineChartVisualizer';
+import ExpandedTableVisualizer from './ExpandedTableVisualizer';
 import TimelineEventsVisualizer from '../timeline/TimelineEventsVisualizer';
 import MedicationRangeChartVisualizer from './MedicationRangeChartVisualizer';
 import TreatmentOptionsVisualizer from '../mcode-pilot/containers/TreatmentOptionsVisualizer/TreatmentOptionsVisualizer';
@@ -222,6 +223,7 @@ export default class VisualizerManager {
         { "dataType": "ValueOverTime", "visualizerType": "tabular", "visualizer": TabularListVisualizer, "transform": this.transformValuesOverTimeToColumns, renderedFormat: "Columns" },
         { "dataType": "NarrativeOnly", "visualizerType": "narrative", "visualizer": NarrativeNameValuePairsVisualizer },
         { "dataType": "DiseaseStatusValues", "visualizerType": "chart", "visualizer": ProgressionLineChartVisualizer },
+        { "dataType": "ReviewOfSystemsValues", "visualizerType": "chart", "visualizer": ExpandedTableVisualizer },
         { "dataType": "ClusterPoints", "visualizerType": "scatter", "visualizer": ScatterPlotVisualizer},
         { "dataType": "TreatmentOptions", "visualizerType": "custom", "visualizer": TreatmentOptionsVisualizer }
     ];
