@@ -25,7 +25,7 @@ export default class RecentToxicitiesSubsection extends MetadataSection {
         });    
     }
 
-    // Returns the value for the toxicity which includes the grade, unsigned, source, and date
+    // Returns the value for the toxicity which includes grade, unsigned, source, and date
     getValue = (tox, patient) => {
         let val, unsigned, source, when;
             
