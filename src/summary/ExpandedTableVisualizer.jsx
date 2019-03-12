@@ -42,7 +42,7 @@ export default class ExpandedTableVisualizer extends Visualizer {
         // TO DO ADD structured data logic
 
         // search highlighting logic
-        this.props.tdpSearchSuggestions.find(s => {
+        this.props.tdpSearchSuggestions.forEach(s => {
             if (s.field === 'valueTitle' && s.valueTitle === question.name) {
                 nameClass = 'highlighted '
             } else if (s.field === 'value' && s.inputValue === question.value) {
@@ -54,18 +54,12 @@ export default class ExpandedTableVisualizer extends Visualizer {
         if (!Lang.isNull(this.props.highlightedSearchSuggestion)) {
             const highlightedSearchField = this.props.highlightedSearchSuggestion.field;
             const highlightedSearchId = this.props.highlightedSearchSuggestion.id;
-            const firstIndex = 'review_of_systems_'.length;
-            const secondIndex = highlightedSearchId.indexOf('_' + this.getStringForId(question.name));
-
-            if (firstIndex < secondIndex) {
-                const highlightedSearchDate = highlightedSearchId.substring(firstIndex, secondIndex);
-                const rosDate = this.getStringForId(date)
-                if (highlightedSearchDate === rosDate) {
-                    if (highlightedSearchField === 'valueTitle') {
-                        nameClass += 'selected '
-                    } else if (highlightedSearchField === 'value') {
-                        valueClass += 'selected '
-                    }    
+            if (highlightedSearchId.indexOf(this.getStringForId(date)) > -1 
+                && highlightedSearchId.indexOf(this.getStringForId(question.name)) > -1) {
+                if (highlightedSearchField === 'valueTitle') {
+                    nameClass += 'selected '
+                } else if (highlightedSearchField === 'value') {
+                    valueClass += 'selected '
                 }
             }
         }
@@ -131,8 +125,24 @@ export default class ExpandedTableVisualizer extends Visualizer {
     renderedTableHeader(date, questionCount, positiveQuestionCount) {
         let dateClass;
 
-        // TO DO: date highlighting
         // TO DO: expansion
+
+        // search date highlighting logic
+        this.props.tdpSearchSuggestions.forEach(s => {
+            if (s.contentSnapshot === date) {
+                dateClass = 'highlighted ';
+            }
+        });
+
+        // search highlight select logic
+        if (!Lang.isNull(this.props.highlightedSearchSuggestion)) {
+            const highlightedSearchField = this.props.highlightedSearchSuggestion.field;
+            const highlightedSearchId = this.props.highlightedSearchSuggestion.id;
+            if (highlightedSearchId.indexOf(this.getStringForId(date)) > -1 ) {
+                dateClass += 'selected ';
+            }
+        }
+
         return (
             <div className="expanded-table-header">
                 <Row start="xs">
