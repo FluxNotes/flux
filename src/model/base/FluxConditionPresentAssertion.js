@@ -128,8 +128,7 @@ class FluxConditionPresentAssertion extends FluxEntry {
             });
         });
 
-        toxicities.sort(this._toxicitiesTimeSorter);
-        
+        toxicities.sort(this._toxicitiesTimeSorter);        
         return toxicities;
     }
 
