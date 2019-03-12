@@ -35,6 +35,16 @@ $font-size: 0.8rem;
             border: 0;
             color: $body-gray;
             font-family: "Open Sans", Arial, sans-serif;
+
+            span {
+                &.highlighted {
+                    background-color: $highlight-yellow !important;
+                }
+
+                &.selected {
+                    background-color: $highlight-selected-yellow !important;
+                }
+            }
         }
 
         tbody tr {
@@ -108,12 +118,5 @@ $font-size: 0.8rem;
     //     min-height: 22px;
     //     text-align: center;
     //     border-radius: 6px;
-    // }
-    // .highlighted {
-    //     background-color: $highlight-yellow !important;
-    // }
-
-    // .selected {
-    //     background-color: $highlight-selected-yellow !important;
     // }
 }

@@ -18,6 +18,7 @@ import EventsIndexer from '../patientControl/EventsIndexer';
 import MedicationsIndexer from '../patientControl/MedicationsIndexer';
 import ValueOverTimeIndexer from '../patientControl/ValueOverTimeIndexer';
 import DiseaseStatusValuesIndexer from '../patientControl/DiseaseStatusValuesIndexer';
+import ReviewOfSystemsValuesIndexer from '../patientControl/ReviewOfSystemsValuesIndexer';
 import ClusterPointsIndexer from '../patientControl/ClusterPointsIndexer';
 import BaseIndexer from '../patientControl/BaseIndexer';
 
@@ -259,6 +260,8 @@ export default class VisualizerManager {
                 return new ValueOverTimeIndexer();
             case "DiseaseStatusValues":
                 return new DiseaseStatusValuesIndexer();
+            case "ReviewOfSystemsValues":
+                return new ReviewOfSystemsValuesIndexer();
             case "ClusterPoints":
                 return new ClusterPointsIndexer();
             case "TreatmentOptions":
