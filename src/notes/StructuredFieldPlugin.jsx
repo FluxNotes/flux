@@ -522,7 +522,7 @@ function StructuredFieldPlugin(opts) {
         }
 
         // Create a new shortcut with the trailing shortcut text after split
-        const newShortcutNode = transform.state.document.getNextSibling(newTextNode.key);
+        let newShortcutNode = transform.state.document.getNextSibling(newTextNode.key);
 
         transform = transform.collapseToEndOf(newTextNode);
         transform = applyMarks(state.marks, transform);
@@ -530,7 +530,12 @@ function StructuredFieldPlugin(opts) {
 
         // Ignore updating the latter split shortcut if it is deleted by typing a character
         if (newShortcutNode) {
+            const doc = transform.state.document;
+
+            // Search for new node with trailing shortcut text in case the node key has changed
+            newShortcutNode = getAllStructuredFields(doc.toJSON().nodes).map(n => doc.getNode(n.key)).find(n => n.key > key && n.text === newShortcutNode.text);
             let shortcutText = newShortcutNode.text;
+
             if (shortcut.valueObject) {
                 shortcutText = `{"text": "${newShortcutNode.text}", "entryId": "${shortcut.valueObject.entryInfo.entryId}"}`;
             }
