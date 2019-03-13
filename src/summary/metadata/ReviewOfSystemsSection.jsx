@@ -1,4 +1,5 @@
-import MetadataSection from "./MetadataSection";
+import MetadataSection from './MetadataSection';
+import moment from 'moment';
 
 export default class ReviewOfSystemsSection extends MetadataSection {
     getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
@@ -66,9 +67,8 @@ export default class ReviewOfSystemsSection extends MetadataSection {
     getROSmetadata = (patient, currentConditionEntry) => {
         const ros = patient.getReviewOfSystems();
 
-        // TO DO SORT BY DATE
         // TO DO REMOVE THESE LATER
-        let result = [
+        const result = [
             {
                 date: ros.relevantTime,
                 questions: this.getSortedListForROS(patient, currentConditionEntry)
@@ -84,9 +84,38 @@ export default class ReviewOfSystemsSection extends MetadataSection {
             {
                 date: '1 Oct 2001',
                 questions: this.getSortedListForROS(patient, currentConditionEntry)
+            },
+            {
+                date: '15 Nov 1999',
+                questions: this.getSortedListForROS(patient, currentConditionEntry)
+            },
+            {
+                date: '30 Mar 2009',
+                questions: this.getSortedListForROS(patient, currentConditionEntry)
+            },
+            {
+                date: '31 Mar 2009',
+                questions: this.getSortedListForROS(patient, currentConditionEntry)
+            },
+            {
+                date: '1 Apr 2009',
+                questions: this.getSortedListForROS(patient, currentConditionEntry)
             }
         ]
-        return result;
+
+        return this.sortByDate(result);
+    }
+
+    // This methods takes in the ROS metadata array and sorts alphabetically by name
+    sortByDate = (rosArray) => {
+        return rosArray.sort(function(a, b) {
+            const a_time = new moment(a.date, "D MMM YYYY");
+            const b_time = new moment(b.date, "D MMM YYYY");
+    
+            if (a_time > b_time) return -1;
+            else if (a_time < b_time) return 1;
+            return 0;
+        });
     }
 
     // This methods takes in the ROS array and sorts alphabetically by name
@@ -99,6 +128,6 @@ export default class ReviewOfSystemsSection extends MetadataSection {
                 return 1; 
             }
             return 0;
-        }) 
+        });
     }
 }
