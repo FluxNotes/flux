@@ -79,8 +79,8 @@ export default function getProps(patient, condition){
 
     if(tumorMarkers){
         tumorMarkers.forEach((e)=>{
-            propDict.pathology[e.abbreviatedName.split(' ').join('')] = {
-                "display": e.abbreviatedName,
+            propDict.pathology[e.receptorType.split(' ').join('')] = {
+                "display": e.receptorType,
                 "valueType":"string",
                 "value": _.lowerCase(e.status)
             }
