@@ -13,9 +13,16 @@ export default class ExpandedTableVisualizer extends Visualizer {
     // Initialize values for insertion popups
     constructor(props) {
         super(props);
+        const { conditionSection } = this.props;
+        const rosArray = conditionSection.data[0].data_cache;
+
+        // initialize expandedTables so that first table is expanded
+        const expandedTables = rosArray.map((_, i) => i === 0);
+
         this.state = {
-            expandedTables: [ 0 ] // indices of the tables that are expanded
-        }
+            // indices of the tables that are expanded
+            expandedTables,
+        };
     }
 
     getPositiveQuestions = (questions) => {
@@ -28,17 +35,12 @@ export default class ExpandedTableVisualizer extends Visualizer {
         return negativeQuestions;
     }
 
-    toggleExpandedTable = (tableIndex, expanded) => {
-        // DOESNT ALWAYS WORK
-        let tempArray = this.state.expandedTables;
-        if (expanded) {
-            tempArray = tempArray.filter(indx => indx !== tableIndex);
-        } else {
-            console.log('here')
-            tempArray.push(tableIndex);
-        }
-        console.log(tempArray)
-        this.setState({ expandedTables: tempArray });
+    toggleExpandedTable = (tableIndex) => {
+        const expandedTables = [...this.state.expandedTables];
+
+        expandedTables[tableIndex] = !expandedTables[tableIndex];
+
+        this.setState({ expandedTables });
     }
 
     getStringForId(s) {
@@ -160,7 +162,7 @@ export default class ExpandedTableVisualizer extends Visualizer {
                 <Row start="xs">
                     <Col sm={6}>
                         <span aria-hidden="true" className={iconClass} 
-                            onClick={() => this.toggleExpandedTable(tableIndex, expanded)}></span>
+                            onClick={() => this.toggleExpandedTable(tableIndex)}></span>
                         <span className={dateClass}>{date}</span>
                     </Col>
                     <Col sm={6}>{positiveQuestionCount} of {questionCount} positive</Col>
@@ -183,9 +185,7 @@ export default class ExpandedTableVisualizer extends Visualizer {
     renderedTable(ros, tableIndex) {
         const positiveQuestions = this.getPositiveQuestions(ros.questions);
         const negativeQuestions = this.getNegativeQuestions(ros.questions);
-        const expanded = this.state.expandedTables.includes(tableIndex);
-        console.log('expanded tables: ' + this.state.expandedTables)
-        console.log('table ' + tableIndex + ' is expanded: ' + expanded)
+        const expanded = this.state.expandedTables[tableIndex] || false;
 
         return (
             <div className="expanded-table" key={tableIndex}>
@@ -196,11 +196,9 @@ export default class ExpandedTableVisualizer extends Visualizer {
     }
 
     renderedTables(rosArray) {
-        let indx = 0;
-        const renderedTables = rosArray.map((ros) => {
-            return this.renderedTable(ros, indx++);
+        return rosArray.map((ros, i) => {
+            return this.renderedTable(ros, i);
         });
-        return renderedTables;
     }
 
     render() {
