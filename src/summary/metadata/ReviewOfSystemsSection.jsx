@@ -100,6 +100,10 @@ export default class ReviewOfSystemsSection extends MetadataSection {
             {
                 date: '1 Apr 2009',
                 questions: this.getSortedListForROS(patient, currentConditionEntry)
+            },
+            {
+                date: '2 Apr 2009',
+                questions: this.getSortedListForROS(patient, currentConditionEntry)
             }
         ]
 

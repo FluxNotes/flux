@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col } from 'react-flexbox-grid';
 import PropTypes from 'prop-types';
-import Table, { TableBody, TableRow, TableCell } from 'material-ui/Table';
+import Table, { TableBody, TableRow, TableCell, TablePagination, TableFooter } from 'material-ui/Table';
 import Lang from 'lodash';
 import Visualizer from './Visualizer';
 import './ExpandedTableVisualizer.css';
@@ -22,6 +22,7 @@ export default class ExpandedTableVisualizer extends Visualizer {
         this.state = {
             // indices of the tables that are expanded
             expandedTables,
+            page: 0
         };
     }
 
@@ -195,19 +196,46 @@ export default class ExpandedTableVisualizer extends Visualizer {
         );
     }
 
-    renderedTables(rosArray) {
-        return rosArray.map((ros, i) => {
+    renderedTables(rosArray, page) {
+        const sliceStart = page * 4;
+        const displayedRosArray = rosArray.length > 4 ? rosArray.slice(sliceStart, sliceStart + 4) : rosArray;
+
+        // don't expand automatically if not page 0??
+        return displayedRosArray.map((ros, i) => {
             return this.renderedTable(ros, i);
         });
+    }
+
+    renderedPaginationFooter(rosArray, page) {
+        if (rosArray.length <= 4) return null;
+
+        return (
+            <Table>
+                <TableFooter>
+                    <TableRow>
+                        <TablePagination
+                            colSpan={3}
+                            count={rosArray.length}
+                            rowsPerPage={4}
+                            page={page}
+                            onChangePage={(event, page) => this.setState({ page })}
+                            rowsPerPageOptions={[]}
+                            onChangeRowsPerPage={() => null} />
+                    </TableRow>
+                </TableFooter>
+            </Table>
+        );
     }
 
     render() {
         const { patient, condition, conditionSection } = this.props;
         const rosArray = conditionSection.data[0].data_cache;
-
+        const page = this.state.page;
+        
         return (
             <div className="expanded-tables-visualizer">
-                {this.renderedTables(rosArray)}
+                {this.renderedTables(rosArray, page)}
+                {this.renderedPaginationFooter(rosArray, page)}
             </div>
         );
     }
