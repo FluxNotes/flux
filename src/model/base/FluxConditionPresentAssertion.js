@@ -156,17 +156,16 @@ class FluxConditionPresentAssertion extends FluxEntry {
         const sinceDate = moment().subtract(numberOfMonths, 'months');
         const sinceDateMoment = new moment(sinceDate, "D MMM YYYY");
         const tox = this.getToxicities();
-        const sortedTox = tox.sort(this._toxicitiesTimeSorter);this.relatedEncounterReferencer
+        const sortedTox = tox.sort(this._toxicitiesTimeSorter);
         const mostRecentTox = {};
-        
-        sortedTox.forEach((t) => {
+
+        sortedTox.forEach(t => {
             const id = t.type;
 
-            if (!id) return; 
-            
+            if (!id) return;
+
             // Check that the toxicity doesn't already exist in the lookup table
             if (!mostRecentTox[id]) {
-               
                 // If the toxicity doesn't already exist and if the date is within the specified number of months,
                 // add it to the table
                 const tox_date = new moment(t.metadata.lastUpdated.value, "D MMM YYYY");
@@ -175,12 +174,12 @@ class FluxConditionPresentAssertion extends FluxEntry {
                         toxicity: t,
                         lastUpdated: t.metadata.lastUpdated.value
                     };
-                }                 
+                }
             } else {
                 // Check if the current toxicity is the most recent compared to what is in the lookup table
                 const time1 = new moment(mostRecentTox[id].lastUpdated, "D MMM YYYY");
                 const time2 = new moment(t.metadata.lastUpdated.value, "D MMM YYYY");
-        
+
                 // If the current toxicity is more recent than what is stored in the lookup table, update the data
                 // Lookup will only contain the most recent toxicity for that type
                 if (time2 > time1) {
