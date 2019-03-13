@@ -87,13 +87,13 @@ function StructuredFieldPlugin(opts) {
             }
         }
 
-        if(!(shortcut) && e.key === 'Enter') {
+        if (!(shortcut) && e.key === 'Enter') {
 
             const beforeAnchorKey = state.document.getPreviousSibling(selection.anchorKey);
             const afterAnchorKey = state.document.getNextSibling(selection.anchorKey);
             const currentNode = state.document.getNode(selection.anchorKey);
-            
-            if ((beforeAnchorKey && afterAnchorKey) && beforeAnchorKey.type === "structured_field" && afterAnchorKey.type === "structured_field" && currentNode.text.length === selection.anchorOffset){
+
+            if ((beforeAnchorKey && afterAnchorKey) && beforeAnchorKey.type === "structured_field" && afterAnchorKey.type === "structured_field" && currentNode.text.length === selection.anchorOffset) {
                 stopEventPropagation(e);
 
                 let transform = state.transform()
