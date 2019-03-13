@@ -9,6 +9,10 @@ $font-size: 0.8rem;
         margin-right: 20px;
         font-size: $font-size;
 
+        &:first-child {
+            margin-top: 10px;
+        }
+
         &:nth-child(odd) {
             .expanded-table-header {
                 background-color: $contrast-gray;
