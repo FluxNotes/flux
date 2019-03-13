@@ -65,9 +65,24 @@ export default class ReviewOfSystemsSection extends MetadataSection {
 
     getROSmetadata = (patient, currentConditionEntry) => {
         const ros = patient.getReviewOfSystems();
+
+        // TO DO SORT BY DATE
+        // TO DO REMOVE THESE LATER
         let result = [
             {
                 date: ros.relevantTime,
+                questions: this.getSortedListForROS(patient, currentConditionEntry)
+            },
+            {
+                date: '18 Apr 1993',
+                questions: this.getSortedListForROS(patient, currentConditionEntry)
+            },
+            {
+                date: '15 Jul 1924',
+                questions: this.getSortedListForROS(patient, currentConditionEntry)
+            },
+            {
+                date: '1 Oct 2001',
                 questions: this.getSortedListForROS(patient, currentConditionEntry)
             }
         ]

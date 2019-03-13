@@ -10,15 +10,11 @@ import './ExpandedTableVisualizer.css';
  ADD DESCRIPTION
  */
 export default class ExpandedTableVisualizer extends Visualizer {
-    // TO DO: DO I NEED THIS
     // Initialize values for insertion popups
     constructor(props) {
         super(props);
         this.state = {
-            count: 0,
-            elementToDisplayMenu: null,
-            positionTop: 0,  // Just so the menu can be spotted more easily
-            positionLeft: 0, // Same as above
+            expandedTables: [ 0 ] // indices of the tables that are expanded
         }
     }
 
@@ -30,6 +26,19 @@ export default class ExpandedTableVisualizer extends Visualizer {
     getNegativeQuestions = (questions) => {
         let negativeQuestions = questions.filter(q => q.value === 'negative');
         return negativeQuestions;
+    }
+
+    toggleExpandedTable = (tableIndex, expanded) => {
+        // DOESNT ALWAYS WORK
+        let tempArray = this.state.expandedTables;
+        if (expanded) {
+            tempArray = tempArray.filter(indx => indx !== tableIndex);
+        } else {
+            console.log('here')
+            tempArray.push(tableIndex);
+        }
+        console.log(tempArray)
+        this.setState({ expandedTables: tempArray });
     }
 
     getStringForId(s) {
@@ -122,10 +131,14 @@ export default class ExpandedTableVisualizer extends Visualizer {
         );
     }
 
-    renderedTableHeader(date, questionCount, positiveQuestionCount) {
-        let dateClass;
+    renderedTableHeader(date, questionCount, positiveQuestionCount, tableIndex, expanded) {
+        let dateClass, iconClass;
 
-        // TO DO: expansion
+        if (expanded) {
+            iconClass = 'fa fa-angle-down';
+        } else {
+            iconClass = 'fa fa-angle-right';
+        }
 
         // search date highlighting logic
         this.props.tdpSearchSuggestions.forEach(s => {
@@ -136,7 +149,6 @@ export default class ExpandedTableVisualizer extends Visualizer {
 
         // search highlight select logic
         if (!Lang.isNull(this.props.highlightedSearchSuggestion)) {
-            const highlightedSearchField = this.props.highlightedSearchSuggestion.field;
             const highlightedSearchId = this.props.highlightedSearchSuggestion.id;
             if (highlightedSearchId.indexOf(this.getStringForId(date)) > -1 ) {
                 dateClass += 'selected ';
@@ -146,24 +158,39 @@ export default class ExpandedTableVisualizer extends Visualizer {
         return (
             <div className="expanded-table-header">
                 <Row start="xs">
-                    <Col sm={6}><span className={dateClass}>{date}</span></Col>
+                    <Col sm={6}>
+                        <span aria-hidden="true" className={iconClass} 
+                            onClick={() => this.toggleExpandedTable(tableIndex, expanded)}></span>
+                        <span className={dateClass}>{date}</span>
+                    </Col>
                     <Col sm={6}>{positiveQuestionCount} of {questionCount} positive</Col>
                 </Row>
             </div>
         );
     }
+
+    renderedTableBody(date, negativeQuestions, positiveQuestions, expanded) {
+        if (!expanded) return null;
+        return (
+            <div className="expanded-table-body">
+                {this.renderedPositiveQuestions(positiveQuestions, date)}
+                {this.renderedNegativeQuestions(negativeQuestions, date)}
+            </div>
+        );
+    }
+
     
     renderedTable(ros, tableIndex) {
         const positiveQuestions = this.getPositiveQuestions(ros.questions);
         const negativeQuestions = this.getNegativeQuestions(ros.questions);
+        const expanded = this.state.expandedTables.includes(tableIndex);
+        console.log('expanded tables: ' + this.state.expandedTables)
+        console.log('table ' + tableIndex + ' is expanded: ' + expanded)
 
         return (
             <div className="expanded-table" key={tableIndex}>
-                {this.renderedTableHeader(ros.date, ros.questions.length, positiveQuestions.length)}
-                <div className="expanded-table-body">
-                    {this.renderedPositiveQuestions(positiveQuestions, ros.date)}
-                    {this.renderedNegativeQuestions(negativeQuestions, ros.date)}
-                </div>
+                {this.renderedTableHeader(ros.date, ros.questions.length, positiveQuestions.length, tableIndex, expanded)}
+                {this.renderedTableBody(ros.date, negativeQuestions, positiveQuestions, expanded)}
             </div>
         );
     }
