@@ -1,7 +1,4 @@
-import FluxEstrogenReceptorStatus from './FluxEstrogenReceptorStatus';
-import FluxHER2ReceptorStatus from './FluxHER2ReceptorStatus';
 import FluxCancerHistologicGrade from '../oncocore/FluxCancerHistologicGrade';
-import FluxProgesteroneReceptorStatus from './FluxProgesteroneReceptorStatus';
 import FluxSolidTumorCancer from '../oncology/FluxSolidTumorCancer';
 import FluxTumorDimensions from '../tumor/FluxTumorDimensions';
 import BreastCancerDisorderPresent from './BreastCancerDisorderPresent';
@@ -14,15 +11,16 @@ class FluxBreastCancerDisorderPresent extends FluxSolidTumorCancer {
     }
 
     getMostRecentERReceptorStatus() {
-        return this._getMostRecentReceptorStatus(FluxEstrogenReceptorStatus);
+        // TODO: Address whether or not a hardcoded code here is the best solution
+        return this._getMostRecentReceptorStatus('Estrogen Receptor');
     }
 
     getMostRecentPRReceptorStatus() {
-        return this._getMostRecentReceptorStatus(FluxProgesteroneReceptorStatus);
+        return this._getMostRecentReceptorStatus('Progesterone Receptor');
     }
 
     getMostRecentHER2ReceptorStatus() {
-        return this._getMostRecentReceptorStatus(FluxHER2ReceptorStatus);
+        return this._getMostRecentReceptorStatus('HER2 Receptor');
     }
 
     /**

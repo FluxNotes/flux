@@ -88,11 +88,9 @@ export default class TimelineSection extends MetadataSection {
         if (subsection.filters) {
             subsection.filters.forEach(filter => {
                 switch (filter.name) {
-                    
                     case 'Over The Counter Medications':
-                    // If Show Over The Counter meds is not selected, need to filter them out.
-                    if (getFilterValue(filter, subsection.name) === false) {
-//                    if (filter.value(subsection) === false) {
+                        // If Show Over The Counter meds is not selected, need to filter them out.
+                        if (getFilterValue(filter, subsection.name) === false) {
                             meds = meds.filter(med => {
                                 // Don't filter out medications if we don't know if they are OTC or not.
                                 if (med.overTheCounter === undefined) {

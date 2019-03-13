@@ -1,12 +1,13 @@
-import FluxCancerHistologicGrade from '../oncocore/FluxCancerHistologicGrade';
-import FluxTNMClinicalStageGroup from '../oncocore/FluxTNMClinicalStageGroup';
 import Lang from 'lodash';
 import moment from 'moment';
 import FluxCancerDisorderPresent from '../oncocore/FluxCancerDisorderPresent';
 import FluxCancerHistologicType from '../oncocore/FluxCancerHistologicType';
+import FluxCancerHistologicGrade from '../oncocore/FluxCancerHistologicGrade';
+import FluxTNMClinicalStageGroup from '../oncocore/FluxTNMClinicalStageGroup';
 import FluxKarnofskyPerformanceStatus from '../oncocore/FluxKarnofskyPerformanceStatus';
 import FluxECOGPerformanceStatus from '../oncocore/FluxECOGPerformanceStatus';
 import FluxTNMStageGroup from '../oncocore/FluxTNMStageGroup';
+import FluxTumorMarker from '../oncocore/FluxTumorMarker';
 import FluxTNMPathologicStageGroup from '../oncocore/FluxTNMPathologicStageGroup';
 
 class FluxSolidTumorCancer extends FluxCancerDisorderPresent {
@@ -35,24 +36,10 @@ class FluxSolidTumorCancer extends FluxCancerDisorderPresent {
     getReceptorsOfType(receptorType) {
         if (!this._condition.entryInfo) return [];
         const conditionEntryId = this._condition.entryInfo.entryId;
-        return this._patientRecord.getEntriesOfType(receptorType).filter(item => {
-            return item.specificFocusOfFinding && item.specificFocusOfFinding._entryId === conditionEntryId;
+        return this._patientRecord.getEntriesOfType(FluxTumorMarker).filter(item => {
+            // Filter our TumorMarkers to those with the specified type
+            return item.receptorType === receptorType && item.specificFocusOfFinding && item.specificFocusOfFinding._entryId === conditionEntryId;
         });
-    }
-
-    getMostRecentClinicalStaging(sinceDate = null) {
-        let stagingList = this._patientRecord.getEntriesOfType(FluxTNMClinicalStageGroup);
-        if (stagingList.length === 0) return null; 
-        const sortedStagingList = stagingList.sort(this._stageTimeSorter);
-        const length = sortedStagingList.length;
-        let s = (sortedStagingList[length - 1]);
-        if (Lang.isNull(sinceDate)) return s; 
-        const startTime = new moment(s.relevantTime, "D MMM YYYY");
-        if (startTime < sinceDate) {
-            return null;
-        } else {
-            return s;
-        }
     }
 
     getMostRecentECOGPerformanceStatus() {
@@ -79,6 +66,22 @@ class FluxSolidTumorCancer extends FluxCancerDisorderPresent {
             return 1;
         }
         return 0;
+    }
+
+    getMostRecentClinicalStaging(sinceDate = null) {
+        let stagingList = this._patientRecord.getEntriesOfType(FluxTNMClinicalStageGroup);
+        if (stagingList.length === 0) return null; 
+        // Sort to get the most recent
+        const sortedStagingList = stagingList.sort(this._stageTimeSorter);
+        const length = sortedStagingList.length;
+        let s = (sortedStagingList[length - 1]);
+        if (Lang.isNull(sinceDate)) return s; 
+        const startTime = new moment(s.occurrenceTime, "D MMM YYYY");
+        if (startTime < sinceDate) {
+            return null;
+        } else {
+            return s;
+        }
     }
 
     getMostRecentPathologicStaging(sinceDate = null) {
@@ -109,6 +112,19 @@ class FluxSolidTumorCancer extends FluxCancerDisorderPresent {
         } else {
             return s;
         }
+    }
+
+    getMostRecentTumorMarkers(sinceDate = null) { 
+        let tumorMarkersList = this._patientRecord.getEntriesOfType(FluxTumorMarker);
+        // If we have none, return null
+        if (tumorMarkersList.length === 0) return null; 
+        const sortedTumorMarkersList = tumorMarkersList
+            .sort(this._stageTimeSorter);
+        // If we have no sinceDate, return them all sorted
+        if (Lang.isNull(sinceDate)) return sortedTumorMarkersList; 
+        const filteredSortedTumorMarkerList = sortedTumorMarkersList.filter(tm => new moment(tm.relevantTime, "D MMM YYYY") < sinceDate);
+        if (filteredSortedTumorMarkerList.length === 0) return null;
+        return filteredSortedTumorMarkerList;
     }
 }
 
