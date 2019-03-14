@@ -50,7 +50,8 @@ function StructuredFieldPlugin(opts) {
     const createShortcut = opts.createShortcut;
 
     function onKeyDown(e, key, state, editor) {
-        const {selection} = state;
+        const { selection } = state;
+
         // We want to consider where the cursor is focused if an expanded selection
         const useFocusKey = selection.isExpanded && selection.isBackward;
         const selectionKey = useFocusKey ? selection.focusKey : selection.anchorKey;
@@ -97,62 +98,7 @@ function StructuredFieldPlugin(opts) {
 
         // Override native typing when typing inside a structured field
         if (shortcut && !Lang.includes(ignoredKeys, e.keyCode) && !isModifier && e.key !== 'Enter') {
-            stopEventPropagation(e);
-
-            // Split the inline and insert typed text into new text node
-            let transform = state.transform();
-            transform = transform.splitInline();
-            let newTextNode;
-            const key = useFocusKey ? transform.state.selection.focusKey : transform.state.selection.anchorKey;
-
-            // If we expand selection into a different node, text will be deleted
-            // We want the cursor to go to the next text in this case instead of the empty zero-width node
-            if (selection.isExpanded && selection.focusKey !== selection.anchorKey) {
-                newTextNode = transform.state.document.getNextText(key);
-            } else {
-                newTextNode = transform.state.document.getPreviousText(key);
-            }
-
-            transform = transform.collapseToEndOf(newTextNode);
-            transform = applyMarks(state.marks, transform);
-            transform = transform.insertText(e.key);
-
-            // Create a new shortcut with the trailing shortcut text after split
-            const newShortcutNode = transform.state.document.getNextSibling(newTextNode.key);
-
-            // Ignore updating the latter split shortcut if it is deleted by typing a character
-            if (newShortcutNode) {
-                let shortcutText = newShortcutNode.text;
-                if (shortcut.valueObject) {
-                    shortcutText = `{"text": "${newShortcutNode.text}", "entryId": "${shortcut.valueObject.entryInfo.entryId}"}`;
-                }
-                const newShortcut = createShortcut(shortcut.metadata, shortcut.initiatingTrigger, shortcutText, true, shortcut.getSource());
-                newShortcut.setKey(newShortcutNode.key);
-                transform = updateShortcut(newShortcut, transform, newShortcutNode.key, shortcut.getLabel(), newShortcutNode.text);
-                if (shortcut.wasRemovedFromContext) {
-                    contextManager.removeShortcutFromContext(newShortcut);
-                    newShortcut.setWasRemovedFromContext(true);
-                }
-                updateMaps(newShortcut, opts);
-            }
-
-            // Update the existing shortcut to reflect the leading text after split
-            const oldShortcutNode = transform.state.document.getPreviousSibling(newTextNode.key);
-
-            // In the case where there is no prior shortcut node in this block
-            // nothing needs to be updated
-            if (oldShortcutNode) {
-                transform = updateShortcut(shortcut, transform, oldShortcutNode.key, shortcut.getLabel(), oldShortcutNode.text);
-                if (newShortcutNode) {
-                    contextManager.removeShortcutFromContext(shortcut);
-                    shortcut.setWasRemovedFromContext(true);
-                }
-            }
-
-            contextManager.contextUpdated();
-
-            transform = transform.apply();
-            editor.onChange(transform);
+            splitInserterAndInsertText(e, state, editor, useFocusKey, selection, shortcut, e.key);
         } else if (shortcut && e.key === 'Enter') {
             stopEventPropagation(e);
 
@@ -497,13 +443,18 @@ function StructuredFieldPlugin(opts) {
     const FRAGMENT_MATCHER = / flux-string="([^\s]+)"/;
 
     function onPaste(event, data, state, editor) {
+        const { selection } = state;
+
+        // We want to consider where the cursor is focused if an expanded selection
+        const useFocusKey = selection.isExpanded && selection.isBackward;
+        const selectionKey = useFocusKey ? selection.focusKey : selection.anchorKey;
+        const parentNode = state.document.getParent(selectionKey);
+        const shortcut = parentNode.data.get('shortcut');
         const html = data.html || null; //event.clipboardData.getData('text/html') || null;)
-        if (
-            html &&
-            ~html.indexOf(' flux-string="')
-        ) {
+
+        if (html && ~html.indexOf(' flux-string="')) {
             const matches = FRAGMENT_MATCHER.exec(html);
-            const [ full, encoded ] = matches; // eslint-disable-line no-unused-vars
+            const [full, encoded] = matches; // eslint-disable-line no-unused-vars
             const decoded = window.decodeURIComponent(window.atob(encoded));
             // because insertion of shortcuts into the context relies on the current selection, during a paste
             // we override the routine that checks the location of a structured field relative to the selection
@@ -512,13 +463,20 @@ function StructuredFieldPlugin(opts) {
             // NoteParser also overrides this function since there is no slate
             const saveIsBlock1BeforeBlock2 = contextManager.getIsBlock1BeforeBlock2();
             contextManager.setIsBlock1BeforeBlock2(() => { return false; });
-            insertText(decoded, undefined, true, 'paste');
+
+            // Split inserter shortcut if pasting into inserter shortcut
+            shortcut instanceof InsertValue ? splitInserterAndInsertText(event, state, editor, useFocusKey, selection, shortcut, decoded, (text, transform) => insertText(text, transform, true, 'paste')) : insertText(decoded, undefined, true, 'paste');
             contextManager.setIsBlock1BeforeBlock2(saveIsBlock1BeforeBlock2);
             event.preventDefault();
+
             return state;
         } else if (data.text) {
-            event.preventDefault();
-            insertText(data.text, undefined, true, 'paste');
+            if (shortcut instanceof InsertValue) {
+                splitInserterAndInsertText(event, state, editor, useFocusKey, selection, shortcut, data.text);
+            } else {
+                event.preventDefault();
+                insertText(data.text, undefined, true, 'paste');
+            }
             return state;
         }
     }
@@ -540,6 +498,74 @@ function StructuredFieldPlugin(opts) {
             editor.onChange(next);
         });
         return state;
+    }
+
+    /**
+     * Splits inserter shortcut into two and enters plain text in between
+     * Use insertText function that is passed as a parameter if defined.  An insertText function is passed for handling inserting structured phrases
+     */
+    function splitInserterAndInsertText(event, state, editor, useFocusKey, selection, shortcut, text, insertText = undefined) {
+        stopEventPropagation(event);
+
+        // Split the inline and insert typed text into new text node
+        let transform = state.transform();
+        transform = transform.splitInline();
+        let newTextNode;
+        const key = useFocusKey ? transform.state.selection.focusKey : transform.state.selection.anchorKey;
+
+        // If we expand selection into a different node, text will be deleted
+        // We want the cursor to go to the next text in this case instead of the empty zero-width node
+        if (selection.isExpanded && selection.focusKey !== selection.anchorKey) {
+            newTextNode = transform.state.document.getNextText(key);
+        } else {
+            newTextNode = transform.state.document.getPreviousText(key);
+        }
+
+        // Create a new shortcut with the trailing shortcut text after split
+        let newShortcutNode = transform.state.document.getNextSibling(newTextNode.key);
+
+        transform = transform.collapseToEndOf(newTextNode);
+        transform = applyMarks(state.marks, transform);
+        insertText ? insertText(text, transform) : transform = transform.insertText(text);
+
+        // Ignore updating the latter split shortcut if it is deleted by typing a character
+        if (newShortcutNode) {
+            const doc = transform.state.document;
+
+            // Search for new node with trailing shortcut text in case the node key has changed
+            newShortcutNode = getAllStructuredFields(doc.toJSON().nodes).map(n => doc.getNode(n.key)).find(n => n.key > key && n.text === newShortcutNode.text);
+            let shortcutText = newShortcutNode.text;
+
+            if (shortcut.valueObject) {
+                shortcutText = `{"text": "${newShortcutNode.text}", "entryId": "${shortcut.valueObject.entryInfo.entryId}"}`;
+            }
+            const newShortcut = createShortcut(shortcut.metadata, shortcut.initiatingTrigger, shortcutText, true, shortcut.getSource());
+            newShortcut.setKey(newShortcutNode.key);
+            transform = updateShortcut(newShortcut, transform, newShortcutNode.key, shortcut.getLabel(), newShortcutNode.text);
+            if (shortcut.wasRemovedFromContext) {
+                contextManager.removeShortcutFromContext(newShortcut);
+                newShortcut.setWasRemovedFromContext(true);
+            }
+            updateMaps(newShortcut, opts);
+        }
+
+        // Update the existing shortcut to reflect the leading text after split
+        const oldShortcutNode = transform.state.document.getPreviousSibling(newTextNode.key);
+
+        // In the case where there is no prior shortcut node in this block
+        // nothing needs to be updated
+        if (oldShortcutNode) {
+            transform = updateShortcut(shortcut, transform, oldShortcutNode.key, shortcut.getLabel(), oldShortcutNode.text);
+            if (newShortcutNode) {
+                contextManager.removeShortcutFromContext(shortcut);
+                shortcut.setWasRemovedFromContext(true);
+            }
+        }
+
+        contextManager.contextUpdated();
+
+        transform = transform.apply();
+        editor.onChange(transform);
     }
 
 	/*  style for placeholder assumes an 18pt font due to the rendering of a <BR> for an empty text node. Placeholder
