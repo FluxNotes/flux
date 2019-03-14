@@ -11,7 +11,7 @@ import './ExpandedTableVisualizer.css';
  can be expanded to show the ROS questions for that date.
  */
 export default class ExpandedTableVisualizer extends Visualizer {
-    // Initialize values for insertion popups
+    // Initialize values for ROS cleanup
     constructor(props) {
         super(props);
         const { conditionSection } = this.props;
@@ -21,9 +21,8 @@ export default class ExpandedTableVisualizer extends Visualizer {
         const expandedTables = rosArray.map((_, i) => i === 0);
 
         this.state = {
-            // indices of the tables that are expanded
-            expandedTables,
-            page: 0
+            expandedTables, // indices of the tables that are expanded
+            page: 0 // page that is being displayed, each page displays 4 ROS
         };
     }
 
@@ -39,9 +38,7 @@ export default class ExpandedTableVisualizer extends Visualizer {
 
     toggleExpandedTable = (tableIndex) => {
         const expandedTables = [...this.state.expandedTables];
-
         expandedTables[tableIndex] = !expandedTables[tableIndex];
-
         this.setState({ expandedTables });
     }
 
