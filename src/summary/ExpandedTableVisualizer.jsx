@@ -191,9 +191,8 @@ export default class ExpandedTableVisualizer extends Visualizer {
         const sliceStart = page * 4;
         const displayedRosArray = rosArray.length > 4 ? rosArray.slice(sliceStart, sliceStart + 4) : rosArray;
 
-        // don't expand automatically if not page 0??
         return displayedRosArray.map((ros, i) => {
-            return this.renderedTable(ros, i);
+            return this.renderedTable(ros, page * 4 + i);
         });
     }
 
