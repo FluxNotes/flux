@@ -13,6 +13,7 @@ class ReviewOfSystemsValuesIndexer extends BaseIndexer {
                 subsection: "",
                 valueTitle: 'Date',
                 value: item.date,
+                date: item.date,
                 onHighlight
             });
 

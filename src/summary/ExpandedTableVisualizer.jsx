@@ -45,13 +45,9 @@ export default class ExpandedTableVisualizer extends Visualizer {
         this.setState({ expandedTables });
     }
 
-    getStringForId(s) {
-        return s.toLowerCase().replace(/[.,#!$%&;:{}=\-_`~()]/g,"").replace(/ /g, '_');
-    }
-
     renderedQuestion(question, date, index) {
         let nameClass, valueClass;
-        
+
         // TO DO ADD structured data logic
 
         // search highlighting logic
@@ -65,13 +61,10 @@ export default class ExpandedTableVisualizer extends Visualizer {
 
         // search highlight select logic
         if (!Lang.isNull(this.props.highlightedSearchSuggestion)) {
-            const highlightedSearchField = this.props.highlightedSearchSuggestion.field;
-            const highlightedSearchId = this.props.highlightedSearchSuggestion.id;
-            if (highlightedSearchId.indexOf(this.getStringForId(date)) > -1 
-                && highlightedSearchId.indexOf(this.getStringForId(question.name)) > -1) {
-                if (highlightedSearchField === 'valueTitle') {
+            if (this.props.highlightedSearchSuggestion.date === date && this.props.highlightedSearchSuggestion.valueTitle === question.name) {
+                if (this.props.highlightedSearchSuggestion.field === 'valueTitle') {
                     nameClass += 'selected '
-                } else if (highlightedSearchField === 'value') {
+                } else if (this.props.highlightedSearchSuggestion.field === 'value') {
                     valueClass += 'selected '
                 }
             }
@@ -138,23 +131,20 @@ export default class ExpandedTableVisualizer extends Visualizer {
     renderedTableHeader(date, questionCount, positiveQuestionCount, tableIndex, expanded) {
         let dateClass, iconClass;
 
-        if (expanded) {
-            iconClass = 'fa fa-angle-down';
-        } else {
-            iconClass = 'fa fa-angle-right';
-        }
+        // determine expanded icon
+        if (expanded) iconClass = 'fa fa-angle-down';
+        else iconClass = 'fa fa-angle-right';
 
         // search date highlighting logic
         this.props.tdpSearchSuggestions.forEach(s => {
-            if (s.contentSnapshot === date) {
+            if (s.valueTitle === 'Date' && s.date === date) {
                 dateClass = 'highlighted ';
             }
         });
 
         // search highlight select logic
         if (!Lang.isNull(this.props.highlightedSearchSuggestion)) {
-            const highlightedSearchId = this.props.highlightedSearchSuggestion.id;
-            if (highlightedSearchId.indexOf(this.getStringForId(date)) > -1 ) {
+            if (this.props.highlightedSearchSuggestion.valueTitle === 'Date' && this.props.highlightedSearchSuggestion.date === date) {
                 dateClass += 'selected ';
             }
         }
