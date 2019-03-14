@@ -1089,8 +1089,9 @@ class PatientRecord {
 
     getEntryFromReference(ref) {
         return this.entries.find((item) => {
-            if (!Lang.isUndefined(item.entryInfo.entryId.id)) return item.entryInfo.entryId.id === ref.entryId;
-            return item.entryInfo.entryId === ref.entryId;
+            const lhs = item.entryInfo.entryId.id || item.entryInfo.entryId;
+            const rhs = ref.entryId.id || ref.entryId;
+            return lhs === rhs;
         });
     }
 

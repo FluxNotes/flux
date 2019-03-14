@@ -260,7 +260,7 @@ class CancerDisorderPresent extends ConditionPresentAssertion {
       inst.metadata.authoredDateTime = FHIRHelper.createInstanceFromFHIR('shr.base.AuthoredDateTime', fhir['dateRecorded'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['code'] != null) {
-      inst.conditionOrDiagnosisCode = FHIRHelper.createInstanceFromFHIR('shr.base.ConditionOrDiagnosisCode', fhir['code'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.findingTopicCode = FHIRHelper.createInstanceFromFHIR('shr.base.ConditionOrDiagnosisCode', fhir['code'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['category'] != null) {
       inst.category = FHIRHelper.createInstanceFromFHIR('shr.core.Category', fhir['category'], shrId, allEntries, mappedResources, referencesOut, false);

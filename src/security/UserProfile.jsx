@@ -15,7 +15,7 @@ class UserProfile {
         if (org) {
             this.organizationFromSHRJSON(org.partOf);
             const name = org.organizationName.value;
-            const typeCode = org.type.value.coding[0].code;
+            const typeCode = org.type.value.coding[0].code.value;
             if (typeCode === 'prov') {
                 this._provider = name;
             } else if (typeCode === 'dept') {
@@ -25,6 +25,9 @@ class UserProfile {
     }
 
     setUserName(name) {
+        if (Array.isArray(name)) {
+            name = name[0];
+        }
         return (name.suffix) ? (`${name.suffix[0]} ${name.given[0]} ${name.family[0]}`) : (`${name.given[0]} ${name.family[0]}`);
     }
 
