@@ -14,6 +14,7 @@ class SearchIndex {
             this.addField('subsection');
             this.addField('valueTitle');
             this.addField('value');
+            this.addField('date');
             this.setRef('id');
             this.saveDocument(true);
         });

@@ -98,7 +98,8 @@ class PatientSearch extends React.Component {
                     source: 'structuredData',
                     onHighlight: result.onHighlight,
                     score: result.score,
-                    field: result.field
+                    field: result.field,
+                    date: result.date
                 }
             }
             suggestions.push(suggestion);

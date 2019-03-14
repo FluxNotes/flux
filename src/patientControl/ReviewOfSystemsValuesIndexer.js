@@ -24,6 +24,7 @@ class ReviewOfSystemsValuesIndexer extends BaseIndexer {
                     subsection: "",
                     valueTitle: question.name,
                     value: question.value,
+                    date: item.date,
                     onHighlight
                 });
             });
