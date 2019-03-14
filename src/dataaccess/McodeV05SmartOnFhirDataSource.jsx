@@ -121,7 +121,14 @@ class McodeV05SmartOnFhirDataSource extends IDataSource {
             const allObjects = entries.map(entry => {
                 try {
                     const result = ObjectFactory.createInstanceFromFHIR(entry.resource, null, this._client.patient.id, entries, mappedResources, referencesOut);
-                    mappedResources[entry.fullUrl] = result;
+
+                    // shortId here is the standard "resourceType/resourceID" ID format
+                    const shortId = `${entry.resource.resourceType}/${entry.resource.id}`;
+
+                    // this format and the entry fullURL are 2 formats that are used for references
+                    // so add this object to the map with both keys, so either one could be used for lookups
+                    // TODO: are there other formats?
+                    mappedResources[entry.fullUrl] = mappedResources[shortId] = result;
                     return result;
                 } catch (e) {
                     // just log the error, don't stop processing other potentially good objects
