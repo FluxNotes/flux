@@ -4,7 +4,7 @@ import _ from 'lodash';
 import filterTreatmentData from '../mcode-pilot/utils/filterTreatmentData';
 
 import defaultState from './initial.json';
-import getProps from '../mcode-pilot/utils/recordToProps'
+import getProps from '../mcode-pilot/utils/recordToProps';
 export default function mcode(state = defaultState, action) {
     if (action.type === types.INITIALIZE_SIMILAR_PATIENT_PROPS) {
         const { patient, condition } = action;

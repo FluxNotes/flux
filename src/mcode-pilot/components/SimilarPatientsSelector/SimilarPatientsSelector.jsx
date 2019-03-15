@@ -31,7 +31,7 @@ export default class SimilarPatientsSelector extends Component {
                 </div>
 
                 <div className="similar-patients-selector__options">
-                    { Object.keys(similarPatientProps).map((option)=>{
+                    {Object.keys(similarPatientProps).map((option) => {
                         return (
                             <OptionsCheckboxList
                                 key={option}

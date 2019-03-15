@@ -2,7 +2,7 @@ import FluxTumorDimensions from '../../dataaccess/mcodev0.1-datasource/model/onc
 
 import _ from 'lodash';
 
-export default function getProps(patient, condition){
+export default function getProps(patient, condition) {
 
     const tumorMarkers = patient.getMostRecentTumorMarkers(condition);
 
@@ -77,8 +77,8 @@ export default function getProps(patient, condition){
         
     }
 
-    if(tumorMarkers){
-        tumorMarkers.forEach((e)=>{
+    if (tumorMarkers) {
+        tumorMarkers.forEach((e) => {
             propDict.pathology[e.receptorType.split(' ').join('')] = {
                 "display": e.receptorType,
                 "valueType":"string",
@@ -91,15 +91,15 @@ export default function getProps(patient, condition){
 }
 
 function safeGet(object, property) {
-    if(object !== null & object!==undefined && property in object){
+    if (object!==null & object!==undefined && property in object) {
         return object[property]
-    }else{
+    } else {
         return object
     }
 }
 
 // a map of similar patient props to the patient record
-function mapProp(propDict){
+function mapProp(propDict) {
 
     const similarPatientProps = {}
     // categories
@@ -110,25 +110,25 @@ function mapProp(propDict){
             displayText: key
         }
         // values
-        for (const prop of Object.keys(propDict[key])){
+        for (const prop of Object.keys(propDict[key])) {
             const option = propDict[key][prop];
             // drops option boxes that don't have 
             // a value from the patient record
-            if(option.value){
+            if (option.value) {
                 let propEntry = {
                     selected: false,
                     displayText: option.display
                 };
-                if(option.valueType==="range") {
+                if (option.valueType==="range") {
                     propEntry.minValue = (option.value >= option.range)?option.value-option.range:0;
                     propEntry.maxValue = option.value + option.range
-                }else{
+                } else {
                     propEntry.value = option.value;
                 }
                 potentialCategory.options[prop] = propEntry;
             }
         }
-        if(Object.keys(potentialCategory.options).length>0) {
+        if (Object.keys(potentialCategory.options).length>0) {
             similarPatientProps[key] = potentialCategory;
         }
     }
