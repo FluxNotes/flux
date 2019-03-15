@@ -71,19 +71,38 @@ function StructuredFieldPlugin(opts) {
                 let newState = transform.apply();
                 return newState;
             }
-        } else if (e.keyCode === 37 && previousNode){
+        } else if (e.keyCode === 37 && previousNode) {
             if(previousNode.type === 'structured_field') {
                 let transform = state.transform();
                 transform = transform.collapseToStart(previousNode);
                 let newState = transform.apply();
                 return newState;
             }
-        } else if (e.keyCode === 39 && parentNode){
+        } else if (e.keyCode === 39 && parentNode) {
             if ((parentNode.type === 'structured_field') && !(shortcut instanceof InsertValue)) {
                 let transform = state.transform();
                 transform = transform.collapseToStartOfNextText();
                 let newState = transform.apply();
                 return newState;
+            }
+        }
+
+        if (!(shortcut) && e.key === 'Enter') {
+            const beforeAnchorKey = state.document.getPreviousSibling(selection.anchorKey);
+            const afterAnchorKey = state.document.getNextSibling(selection.anchorKey);
+            const currentNode = state.document.getNode(selection.anchorKey);
+            if (((beforeAnchorKey && beforeAnchorKey.type === "structured_field") || (afterAnchorKey && afterAnchorKey.type === "structured_field")) && currentNode.text.length === selection.anchorOffset) {
+                stopEventPropagation(e);
+
+                let transform = state.transform().splitBlock();
+                const previousBlock = state.document.getParent(selection.anchorKey);
+                const nextBlock = transform.state.document.getParent(transform.state.selection.anchorKey);
+
+                if (nextBlock.key === previousBlock.key) {
+                    transform = transform.collapseToStartOfNextBlock()
+                }
+
+                editor.onChange(transform.apply());
             }
         }
 
