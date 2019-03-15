@@ -104,7 +104,7 @@ function mapProp(propDict){
     const similarPatientProps = {}
     // categories
     for (const key of Object.keys(propDict)) {
-        similarPatientProps[key] = {
+        const potentialCategory = {
             options:{},
             selected:false,
             displayText: key
@@ -114,14 +114,6 @@ function mapProp(propDict){
             const option = propDict[key][prop];
             // drops option boxes that don't have 
             // a value from the patient record
-            if(!option.value){
-                let propEntry = {
-                    selected: false,
-                    displayText: option.display,
-                    value:"-"
-                };
-                similarPatientProps[key].options[prop] = propEntry;
-            }
             if(option.value){
                 let propEntry = {
                     selected: false,
@@ -133,9 +125,11 @@ function mapProp(propDict){
                 }else{
                     propEntry.value = option.value;
                 }
-                similarPatientProps[key].options[prop] = propEntry;
+                potentialCategory.options[prop] = propEntry;
             }
-            
+        }
+        if(Object.keys(potentialCategory.options).length>0) {
+            similarPatientProps[key] = potentialCategory;
         }
     }
     return similarPatientProps
