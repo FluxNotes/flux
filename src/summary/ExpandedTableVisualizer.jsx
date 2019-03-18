@@ -3,6 +3,7 @@ import { Row, Col } from 'react-flexbox-grid';
 import PropTypes from 'prop-types';
 import Table, { TableBody, TableRow, TableCell, TablePagination, TableFooter } from 'material-ui/Table';
 import Lang from 'lodash';
+import VisualizerMenu from './VisualizerMenu';
 import Visualizer from './Visualizer';
 import './ExpandedTableVisualizer.css';
 
@@ -22,7 +23,10 @@ export default class ExpandedTableVisualizer extends Visualizer {
 
         this.state = {
             expandedTables, // indices of the tables that are expanded
-            page: 0 // page that is being displayed, each page displays 4 ROS
+            page: 0, // page that is being displayed, each page displays 4 ROS
+            elementDisplayingMenu: null,
+            positionTop: 0,
+            positionLeft: 0,
         };
     }
 
@@ -43,9 +47,8 @@ export default class ExpandedTableVisualizer extends Visualizer {
     }
 
     renderedQuestion(question, date, index) {
-        let nameClass, valueClass;
-
-        // TO DO ADD structured data logic
+        let nameClass;
+        let valueClass = '';
 
         // search highlighting logic
         this.props.tdpSearchSuggestions.forEach(s => {
@@ -67,10 +70,20 @@ export default class ExpandedTableVisualizer extends Visualizer {
             }
         }
 
-        return(
+        const elementId = `${question.value}-${date}-${index}`;
+
+        return (
             <TableRow key={index}>
                 <TableCell><span className={nameClass}>{question.name}</span></TableCell>
-                <TableCell><span className={valueClass}>{question.value}</span></TableCell>
+                <TableCell>
+                    <span
+                        className={`${valueClass} list-captured has-action-menu`}
+                        onClick={(event) => this.openInsertionMenu(event, elementId)}
+                    >
+                        {question.value}
+                    </span>
+                    {this.renderedMenu(elementId, question.value, index)}
+                </TableCell>
             </TableRow>
         );
     }
@@ -150,7 +163,7 @@ export default class ExpandedTableVisualizer extends Visualizer {
             <div className="expanded-table-header">
                 <Row start="xs">
                     <Col sm={6}>
-                        <span aria-hidden="true" className={iconClass} 
+                        <span aria-hidden="true" className={iconClass}
                             onClick={() => this.toggleExpandedTable(tableIndex)}></span>
                         <span className={dateClass}>{date}</span>
                     </Col>
@@ -170,7 +183,7 @@ export default class ExpandedTableVisualizer extends Visualizer {
         );
     }
 
-    
+
     renderedTable(ros, tableIndex) {
         const positiveQuestions = this.getPositiveQuestions(ros.questions);
         const negativeQuestions = this.getNegativeQuestions(ros.questions);
@@ -214,11 +227,69 @@ export default class ExpandedTableVisualizer extends Visualizer {
         );
     }
 
+    // renders Menu for element and associated actions as Menu items
+    renderedMenu = (elementId, elementText, arrayIndex) => {
+        const { elementToDisplayMenu, positionLeft, positionTop } = this.state;
+
+        // Item represents the name of the row/section of the current element.
+        const onMenuItemClicked = (fn, element, item) => {
+            const callback = () => {
+                fn(element, item);
+            }
+            this.closeInsertionMenu(callback);
+        };
+        const element = {
+            value: elementText,
+        };
+
+        return (
+            <VisualizerMenu
+                allowItemClick={this.props.allowItemClick}
+                arrayIndex={arrayIndex}
+                closeInsertionMenu={this.closeInsertionMenu}
+                element={element}
+                elementDisplayingMenu={elementToDisplayMenu}
+                elementId={elementId}
+                elementText={elementText}
+                isSigned={true}
+                onMenuItemClicked={onMenuItemClicked}
+                positionLeft={positionLeft}
+                positionTop={positionTop}
+                rowId={elementText}
+                unfilteredActions={this.props.actions}
+            />
+        );
+    }
+
+    // Opens the insertion menu for the given element id, based on cursor location
+    openInsertionMenu = (event, elementId) => {
+        // Get menu coordinates
+        let x = event.clientX;  // Get the horizontal coordinate of mouse
+        x += 4;                // push menu a little to the right
+        let y = event.clientY;  // Get the vertical coordinate of mouse
+        y += 7;                // push a little to the bottom of cursor
+
+        this.setState({
+            elementToDisplayMenu: elementId,
+            positionLeft: x,
+            positionTop: y,
+        });
+    }
+
+    // Closes the insertion menu
+    closeInsertionMenu = (callback) => {
+        if (callback) {
+            this.setState({ elementToDisplayMenu: null }, callback);
+        } else {
+            this.setState({ elementToDisplayMenu: null });
+        }
+    }
+
     render() {
-        const { patient, condition, conditionSection } = this.props;
+        const { conditionSection } = this.props;
         const rosArray = conditionSection.data[0].data_cache;
         const page = this.state.page;
-        
+
         return (
             <div className="expanded-tables-visualizer">
                 {this.renderedTables(rosArray, page)}
@@ -232,9 +303,7 @@ ExpandedTableVisualizer.propTypes = {
     patient: PropTypes.object,
     condition: PropTypes.object,
     conditionSection: PropTypes.object,
-    // isWide: PropTypes.bool,
-    // allowItemClick: PropTypes.bool,
-    // actions: PropTypes.array,
+    allowItemClick: PropTypes.bool,
+    actions: PropTypes.array,
     tdpSearchSuggestions: PropTypes.array
 };
-
