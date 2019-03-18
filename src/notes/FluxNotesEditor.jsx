@@ -87,6 +87,7 @@ class FluxNotesEditor extends React.Component {
             structuredFieldMapManager: this.structuredFieldMapManager,
             updateErrors: this.updateErrors,
             insertText: this.insertTextWithStructuredPhrases,
+            suppressKeysIntoEditor: this.getOpenedPortal,
             createShortcut: this.props.newCurrentShortcut
         };
         structuredFieldTypes.forEach((type) => {
@@ -1619,6 +1620,10 @@ class FluxNotesEditor extends React.Component {
 
     setOpenedPortal = (openedPortal) => {
         this.setState({ openedPortal });
+    }
+
+    getOpenedPortal = () => {
+        return this.state.openedPortal;
     }
 
     /**

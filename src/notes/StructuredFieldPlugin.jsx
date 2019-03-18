@@ -50,6 +50,8 @@ function StructuredFieldPlugin(opts) {
     const createShortcut = opts.createShortcut;
 
     function onKeyDown(e, key, state, editor) {
+        if (opts.suppressKeysIntoEditor()) return;
+
         const { selection } = state;
 
         // We want to consider where the cursor is focused if an expanded selection
@@ -99,7 +101,7 @@ function StructuredFieldPlugin(opts) {
                 const nextBlock = transform.state.document.getParent(transform.state.selection.anchorKey);
 
                 if (nextBlock.key === previousBlock.key) {
-                    transform = transform.collapseToStartOfNextBlock()
+                    transform = transform.collapseToStartOfNextBlock();
                 }
 
                 editor.onChange(transform.apply());
