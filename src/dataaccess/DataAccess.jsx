@@ -5,7 +5,7 @@ import FHIRApiDataSource from './FHIRApiDataSource';
 import HardCodedMcodeV05DataSource from './HardCodedMcodeV05DataSource';
 import McodeV05SmartOnFhirDataSource from './McodeV05SmartOnFhirDataSource'
 import HardCodedMcodeV01DataSource from './mcodev0.1-datasource/HardCodedMcodeV01DataSource';
-import GenericMcodeV05SmartOnFhirDataSource from './GenericMcodeV05SmartOnFhirDataSource';
+import GenericSmartOnFhirDstu2DataSource from './GenericSmartOnFhirDstu2DataSource';
 
 export default class DataAccess {
     static DEMO_PATIENT_ID = "788dcbc3-ed18-470c-89ef-35ff91854c7d";
@@ -23,8 +23,8 @@ export default class DataAccess {
             this.dataSource = new HardCodedMcodeV05DataSource();
         } else if (dataSourceName === 'McodeV05SmartOnFhirDataSource') {
             this.dataSource = new McodeV05SmartOnFhirDataSource();
-        } else if (dataSourceName === 'GenericMcodeV05SmartOnFhirDataSource') {
-            this.dataSource = new GenericMcodeV05SmartOnFhirDataSource();
+        } else if (dataSourceName === 'GenericSmartOnFhirDstu2DataSource') {
+            this.dataSource = new GenericSmartOnFhirDstu2DataSource();
         } else {
             throw new Error("Unrecognized data source class name: " + dataSourceName);
         }

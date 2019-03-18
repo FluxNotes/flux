@@ -1,7 +1,7 @@
 import McodeV05SmartOnFhirDataSource from "./McodeV05SmartOnFhirDataSource";
 import { syntheaToV05 } from 'fhir-mapper';
 
-class GenericMcodeV05SmartOnFhirDataSource extends McodeV05SmartOnFhirDataSource {
+class GenericSmartOnFhirDstu2DataSource extends McodeV05SmartOnFhirDataSource {
     constructor() {
         super();
         this.mapper = syntheaToV05;
@@ -12,4 +12,4 @@ class GenericMcodeV05SmartOnFhirDataSource extends McodeV05SmartOnFhirDataSource
     }
 }
 
-export default GenericMcodeV05SmartOnFhirDataSource;
+export default GenericSmartOnFhirDstu2DataSource;
