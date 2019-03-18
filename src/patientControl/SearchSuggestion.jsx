@@ -39,8 +39,8 @@ class SearchSuggestion extends React.Component {
             postText = fullText;
         }
 
-        // Append relevant date to the search suggestion if it exists
-        if (suggestion.date) {
+        // Append relevant date to the search suggestion if it exists d
+        if (suggestion.date && suggestion.valueTitle !== 'Date') {
             postText += ` (${suggestion.date})`;
         }
 
