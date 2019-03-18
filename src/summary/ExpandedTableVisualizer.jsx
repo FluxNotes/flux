@@ -46,6 +46,64 @@ export default class ExpandedTableVisualizer extends Visualizer {
         this.setState({ expandedTables });
     }
 
+    // Opens the insertion menu for the given element id, based on cursor location
+    openInsertionMenu = (event, elementId) => {
+        // Get menu coordinates
+        let x = event.clientX;  // Get the horizontal coordinate of mouse
+        x += 4;                // push menu a little to the right
+        let y = event.clientY;  // Get the vertical coordinate of mouse
+        y += 7;                // push a little to the bottom of cursor
+
+        this.setState({
+            elementToDisplayMenu: elementId,
+            positionLeft: x,
+            positionTop: y,
+        });
+    }
+
+    // Closes the insertion menu
+    closeInsertionMenu = (callback) => {
+        if (callback) {
+            this.setState({ elementToDisplayMenu: null }, callback);
+        } else {
+            this.setState({ elementToDisplayMenu: null });
+        }
+    }
+
+    // renders Menu for element and associated actions as Menu items
+    renderedMenu = (elementId, elementText, arrayIndex) => {
+        const { elementToDisplayMenu, positionLeft, positionTop } = this.state;
+
+        // Item represents the name of the row/section of the current element.
+        const onMenuItemClicked = (fn, element, item) => {
+            const callback = () => {
+                fn(element, item);
+            }
+            this.closeInsertionMenu(callback);
+        };
+        const element = {
+            value: elementText,
+        };
+
+        return (
+            <VisualizerMenu
+                allowItemClick={this.props.allowItemClick}
+                arrayIndex={arrayIndex}
+                closeInsertionMenu={this.closeInsertionMenu}
+                element={element}
+                elementDisplayingMenu={elementToDisplayMenu}
+                elementId={elementId}
+                elementText={elementText}
+                isSigned={true}
+                onMenuItemClicked={onMenuItemClicked}
+                positionLeft={positionLeft}
+                positionTop={positionTop}
+                rowId={elementText}
+                unfilteredActions={this.props.actions}
+            />
+        );
+    }
+
     renderedQuestion(question, date, index) {
         let nameClass;
         let valueClass = '';
@@ -183,7 +241,6 @@ export default class ExpandedTableVisualizer extends Visualizer {
         );
     }
 
-
     renderedTable(ros, tableIndex) {
         const positiveQuestions = this.getPositiveQuestions(ros.questions);
         const negativeQuestions = this.getNegativeQuestions(ros.questions);
@@ -225,64 +282,6 @@ export default class ExpandedTableVisualizer extends Visualizer {
                 </TableFooter>
             </Table>
         );
-    }
-
-    // renders Menu for element and associated actions as Menu items
-    renderedMenu = (elementId, elementText, arrayIndex) => {
-        const { elementToDisplayMenu, positionLeft, positionTop } = this.state;
-
-        // Item represents the name of the row/section of the current element.
-        const onMenuItemClicked = (fn, element, item) => {
-            const callback = () => {
-                fn(element, item);
-            }
-            this.closeInsertionMenu(callback);
-        };
-        const element = {
-            value: elementText,
-        };
-
-        return (
-            <VisualizerMenu
-                allowItemClick={this.props.allowItemClick}
-                arrayIndex={arrayIndex}
-                closeInsertionMenu={this.closeInsertionMenu}
-                element={element}
-                elementDisplayingMenu={elementToDisplayMenu}
-                elementId={elementId}
-                elementText={elementText}
-                isSigned={true}
-                onMenuItemClicked={onMenuItemClicked}
-                positionLeft={positionLeft}
-                positionTop={positionTop}
-                rowId={elementText}
-                unfilteredActions={this.props.actions}
-            />
-        );
-    }
-
-    // Opens the insertion menu for the given element id, based on cursor location
-    openInsertionMenu = (event, elementId) => {
-        // Get menu coordinates
-        let x = event.clientX;  // Get the horizontal coordinate of mouse
-        x += 4;                // push menu a little to the right
-        let y = event.clientY;  // Get the vertical coordinate of mouse
-        y += 7;                // push a little to the bottom of cursor
-
-        this.setState({
-            elementToDisplayMenu: elementId,
-            positionLeft: x,
-            positionTop: y,
-        });
-    }
-
-    // Closes the insertion menu
-    closeInsertionMenu = (callback) => {
-        if (callback) {
-            this.setState({ elementToDisplayMenu: null }, callback);
-        } else {
-            this.setState({ elementToDisplayMenu: null });
-        }
     }
 
     render() {

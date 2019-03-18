@@ -4,14 +4,14 @@ import moment from 'moment';
 export default class ReviewOfSystemsSection extends MetadataSection {
     getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
         return {
-            name: "Review of Systems",
-            shortName: "ROS",
-            type: "ReviewOfSystemsValues",
+            name: 'Review of Systems',
+            shortName: 'ROS',
+            type: 'ReviewOfSystemsValues',
             isWide: false,
             notFiltered: true,
             data: [
                 {
-                    name: "",
+                    name: '',
                     itemsFunction: this.getROSmetadata,
                 }
             ]
@@ -26,7 +26,7 @@ export default class ReviewOfSystemsSection extends MetadataSection {
         const noArray = [];
 
         resultArray.forEach(result => {
-            if (result.value.value === 'No') {
+            if (result.value === 'negative') {
                 noArray.push(result);
             }
             else {
@@ -59,47 +59,14 @@ export default class ReviewOfSystemsSection extends MetadataSection {
     }
 
     getROSmetadata = (patient, currentConditionEntry) => {
+        // TO-DO: this might need to change when we actually have more than one ROS to pull in from the patient
         const ros = patient.getReviewOfSystems();
-
-        // TO DO REMOVE THESE LATER
         const result = [
             {
                 date: ros.relevantTime,
                 questions: this.getSortedListForROS(patient, currentConditionEntry)
-            },
-            {
-                date: '18 Apr 1993',
-                questions: this.getSortedListForROS(patient, currentConditionEntry)
-            },
-            {
-                date: '15 Jul 1924',
-                questions: this.getSortedListForROS(patient, currentConditionEntry)
-            },
-            {
-                date: '1 Oct 2001',
-                questions: this.getSortedListForROS(patient, currentConditionEntry)
-            },
-            {
-                date: '15 Nov 1999',
-                questions: this.getSortedListForROS(patient, currentConditionEntry)
-            },
-            {
-                date: '30 Mar 2009',
-                questions: this.getSortedListForROS(patient, currentConditionEntry)
-            },
-            {
-                date: '31 Mar 2009',
-                questions: this.getSortedListForROS(patient, currentConditionEntry)
-            },
-            {
-                date: '1 Apr 2009',
-                questions: this.getSortedListForROS(patient, currentConditionEntry)
-            },
-            {
-                date: '2 Apr 2009',
-                questions: this.getSortedListForROS(patient, currentConditionEntry)
             }
-        ]
+        ];
 
         return this.sortByDate(result);
     }
@@ -107,8 +74,8 @@ export default class ReviewOfSystemsSection extends MetadataSection {
     // This methods takes in the ROS metadata array and sorts alphabetically by name
     sortByDate = (rosArray) => {
         return rosArray.sort((a, b) => {
-            const a_time = new moment(a.date, "D MMM YYYY");
-            const b_time = new moment(b.date, "D MMM YYYY");
+            const a_time = new moment(a.date, 'D MMM YYYY');
+            const b_time = new moment(b.date, 'D MMM YYYY');
 
             if (a_time > b_time) return -1;
             else if (a_time < b_time) return 1;
