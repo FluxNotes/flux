@@ -1,0 +1,125 @@
+@import '../styles/variables';
+
+$font-size: 0.8rem;
+
+.expanded-tables-visualizer {
+    margin-bottom: 30px;
+
+    .expanded-table {
+        margin-right: 20px;
+        font-size: $font-size;
+
+        &:first-child {
+            margin-top: 10px;
+        }
+
+        &:nth-child(odd) {
+            .expanded-table-header {
+                background-color: $contrast-gray;
+            }
+        }
+
+        &:nth-child(even) {
+            .expanded-table-header {
+                background-color: $background;
+            }
+        }
+
+        &-header {
+            font-weight: 600;
+            height: inherit;
+            padding: 8px 10px;
+            margin-bottom: 1px;
+
+            .row {
+                div:first-child {
+                    span:first-child {
+                        color: $shr-context-line;
+                        width: 25px;
+                        cursor: pointer;
+                    }
+                }
+                div:last-child {
+                    text-align: right;
+                }
+            }
+        }
+
+        &-body {
+            margin-left: 25px;
+            background-color: $background;
+
+            table {
+                border-collapse: collapse;
+            }
+
+            tr {
+                height: inherit;
+            }
+
+            td {
+                padding: 8px 10px;
+                border: 0;
+                color: $body-gray;
+                font-family: "Open Sans", Arial, sans-serif;
+            }
+
+            tbody tr {
+                &:nth-child(odd) {
+                    background-color: $contrast-gray;
+                }
+
+                &:nth-child(even) {
+                    background-color: $background;
+                }
+            }
+
+            .positive-questions-table {
+                margin-bottom: 5px;
+
+                td {
+                    width: 25%;
+                    &:last-child {
+                        width: 75%;
+                    }
+                }
+            }
+
+            .negative-questions-table {
+                td {
+                    width: 50%;
+                    &:last-child {
+                        text-align: right;
+                    }
+                }
+            }
+        }
+
+        span {
+            &.highlighted {
+                background-color: $highlight-yellow !important;
+            }
+
+            &.selected {
+                background-color: $highlight-selected-yellow !important;
+            }
+
+            &.list-missing {
+                border-bottom: 1px solid $missing-data-red;
+            }
+
+            &.list-unsigned {
+                border-bottom: 1.5px dashed $shr-context-line;
+                text-decoration: none;
+            }
+
+            &.list-captured {
+                border-bottom: 1px solid $shr-context-line;
+            }
+
+            &.has-action-menu {
+                cursor: pointer;
+            }
+        }
+    }
+}

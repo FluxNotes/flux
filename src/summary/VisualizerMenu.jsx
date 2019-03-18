@@ -42,7 +42,7 @@ export default class VisualizerMenu extends Component {
                 open={this.props.elementDisplayingMenu === this.props.elementId}
                 anchorReference="anchorPosition"
                 anchorPosition={{ top: this.props.positionTop, left: this.props.positionLeft }}
-                onClose={(event) => this.props.closeInsertionMenu()}
+                onClose={() => this.props.closeInsertionMenu()}
                 className="narrative-inserter-tooltip"
             >
                 {
