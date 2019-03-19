@@ -133,7 +133,7 @@ export default class AppManager {
                 display: 'Compass',
                 app: CoreCancerPilotApp,
                 isExact: true,
-                dataSource: 'HardCodedMcodeV05DataSource',
+                dataSource: 'HardCodedMcodeV01DataSource',
                 patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7f',
                 logoObject: {
                     path: './compass-logo.png',
