@@ -1,6 +1,7 @@
 import '../../../src/model/init';
 
 import McodeV05SmartOnFhirDataSource from '../../../src/dataaccess/McodeV05SmartOnFhirDataSource';
+import GenericSmartOnFhirDstu2DataSource from '../../../src/dataaccess/GenericSmartOnFhirDstu2DataSource';
 import {expect, assert} from 'chai';
 import hardCodedFHIRPatient from '../../../src/dataaccess/HardCodedFHIRPatient.json';
 import 'fhirclient';
@@ -72,7 +73,7 @@ describe('SMART on FHIR data source', function() {
         });
     });
 
-    it('should fail if provided with non-profiled FHIR resources', function(done) {
+    it('should correctly map non-profiled FHIR resources to MCODE V05', function(done) {
         const patientSearchBundle = {
             resourceType: 'Bundle',
             type: 'searchset',
@@ -87,14 +88,14 @@ describe('SMART on FHIR data source', function() {
           .get('/fhir/Patient?_id=1078857')
           .reply(200, patientSearchBundle);
 
-        const dataSource = new McodeV05SmartOnFhirDataSource();
+        const dataSource = new GenericSmartOnFhirDstu2DataSource({ mapper: "syntheaToV05" });
         dataSource.getPatient('1078857', (record, error) => {
             if (record) {
-                fail('expected McodeV05SmartOnFhirDataSource to error out since there were no profiles on the provided FHIR');
+                scope.done();
+                done();
             }
             if (error) {
-                scope.done(); // assert that all specified calls on the scope were performed
-                done();
+                fail(JSON.stringify(error));
             }
         });
     });
