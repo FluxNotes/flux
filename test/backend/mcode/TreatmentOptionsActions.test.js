@@ -2,22 +2,29 @@ import React from 'react';
 import {expect} from 'chai';
 import * as actions from '../../../src/actions/mcode'
 import * as types from '../../../src/actions/types'
+import '../../../src/model/init';
+
+import PatientRecord from '../../../src/patient/PatientRecord';
+import TestPatient2 from '../../TestPatient2.json';
+import EntryMapper from '../../../src/dataaccess/mcodev0.1-datasource/EntryMapper';
+import FluxBreastCancerDisorderPresent from '../../../src/model/brca/FluxBreastCancerDisorderPresent';
 
 describe('actions', () => {
 
+    const mcodePatientJson = EntryMapper.mapEntries(TestPatient2);
+    const testPatientObj = new PatientRecord(mcodePatientJson);
+    const fluxCondition = testPatientObj.getEntriesOfType(FluxBreastCancerDisorderPresent)[0];
+
     it('should create an action to initialize options', () => {
-        const patientAge=54;
-        const patientAgeAtDiagnosis=45;
-        const patientRace="marathon";
-        const patientGender="female";
+        const patient=testPatientObj;
+        const condition = fluxCondition;
+
         const expectedAction = {
             type: types.INITIALIZE_SIMILAR_PATIENT_PROPS,
-            patientAge,
-            patientAgeAtDiagnosis,
-            patientRace,
-            patientGender
+            patient,
+            condition
         }
-        expect(actions.initializeSimilarPatientProps(patientAge,patientAgeAtDiagnosis,patientRace,patientGender)).to.eql(expectedAction)
+        expect(actions.initializeSimilarPatientProps(patient,condition)).to.eql(expectedAction)
       });
     it('should create an action to select option', () => {
         const category = "demographics";
