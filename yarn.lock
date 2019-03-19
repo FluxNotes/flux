@@ -3242,9 +3242,9 @@ fbjs@^0.8.1, fbjs@^0.8.16, fbjs@^0.8.6, fbjs@^0.8.9:
     setimmediate "^1.0.5"
     ua-parser-js "^0.7.18"
 
-fhir-mapper@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/fhir-mapper/-/fhir-mapper-1.0.3.tgz#bf2c429eb367107c0984eab7e5932710a839abbd"
+fhir-mapper@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/fhir-mapper/-/fhir-mapper-1.0.4.tgz#2e44f90312e5ff3eaaa777488065f0ff709b7a55"
   dependencies:
     fhirpath "^0.10.3"
     lodash "^4.17.11"

@@ -7,14 +7,12 @@ export default function(responses, patientId, resourceMapper = null) {
         // response is a Bundle of type searchset
         // TODO: error handling?
         if (response && response.entry) {
+            let bundle = response;
             // If we need to use a mapper to add profiles to the fhir, update the resources accordingly
             if (resourceMapper) {
-                const resources = response.entry.map(e => e.resource);
-                const results = resourceMapper.execute(resources);
-                const wrappedResults = results.map(resource => ({ fullUrl: `urn:uuid:${resource.id}`, resource, request: { method: 'POST', url: resource.resourceType } }));
-                response.entry = wrappedResults;
+                bundle = resourceMapper.execute(response);
             }
-            entries.push(...response.entry);
+            entries.push(...bundle.entry);
         }
     });
 
@@ -41,7 +39,7 @@ export default function(responses, patientId, resourceMapper = null) {
             return result;
         } catch (e) {
             // just log the error, don't stop processing other potentially good objects
-            // console.error(e);
+            console.error(e);
             return null;
         }
     });
