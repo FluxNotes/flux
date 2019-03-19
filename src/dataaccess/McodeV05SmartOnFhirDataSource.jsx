@@ -1,5 +1,5 @@
 import IDataSource from './IDataSource';
-import processResources from './utils/fhir-entry-processor';
+import processFHIRResources from './utils/fhir-entry-processor';
 
 import 'fhirclient';
 
@@ -103,7 +103,7 @@ class McodeV05SmartOnFhirDataSource extends IDataSource {
 
     getPatient(id, callback) {
         this.fetchResources()
-            .then(resources => callback(processResources(resources, this._client.patient.id)));
+            .then(resources => callback(processFHIRResources(resources, this._client.patient.id)));
     }
 
     getListOfPatients() {
