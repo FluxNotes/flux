@@ -28,7 +28,7 @@ class SmartApp extends FullApp {
                         this.dataAccess = new DataAccess("McodeV05SmartOnFhirDataSource");
                         this.loadPatient(smart.patient.id);
                     } else {
-                        this.dataAccess = new DataAccess(this.props.dataSource);
+                        this.dataAccess = new DataAccess(this.props.dataSource, this.props.dataSourceProps);
 
                         if (this.props.patientId) {
                             this.loadPatient(this.props.patientId);

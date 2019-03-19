@@ -1,14 +1,16 @@
 import McodeV05SmartOnFhirDataSource from "./McodeV05SmartOnFhirDataSource";
-import { syntheaToV05 } from 'fhir-mapper';
+import processResources from './utils/fhir-entry-processor';
+import mappers from 'fhir-mapper';
 
 class GenericSmartOnFhirDstu2DataSource extends McodeV05SmartOnFhirDataSource {
-    constructor() {
+    constructor(props) {
         super();
-        this.mapper = syntheaToV05;
+        this.mapper = props && props.mapper ? mappers[props.mapper] : null;
     }
 
     getPatient(id, callback) {
-        return super.getPatient(id, callback, this.mapper);
+        super.fetchResources()
+            .then(resources => callback(processResources(resources, this._client.patient.id, this.mapper)));
     }
 }
 

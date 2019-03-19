@@ -10,7 +10,7 @@ import GenericSmartOnFhirDstu2DataSource from './GenericSmartOnFhirDstu2DataSour
 export default class DataAccess {
     static DEMO_PATIENT_ID = "788dcbc3-ed18-470c-89ef-35ff91854c7d";
 
-    constructor(dataSourceName) {
+    constructor(dataSourceName, dataSourceProps) {
         if (dataSourceName === 'NewPatientOnlyDataSource') {
             this.dataSource = new NewPatientOnlyDataSource();
         } else if (dataSourceName === 'RestApiDataSource') {
@@ -24,7 +24,7 @@ export default class DataAccess {
         } else if (dataSourceName === 'McodeV05SmartOnFhirDataSource') {
             this.dataSource = new McodeV05SmartOnFhirDataSource();
         } else if (dataSourceName === 'GenericSmartOnFhirDstu2DataSource') {
-            this.dataSource = new GenericSmartOnFhirDstu2DataSource();
+            this.dataSource = new GenericSmartOnFhirDstu2DataSource(dataSourceProps);
         } else {
             throw new Error("Unrecognized data source class name: " + dataSourceName);
         }
