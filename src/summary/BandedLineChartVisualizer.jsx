@@ -1,10 +1,10 @@
 import React from 'react';
 import {LineChart, Line, XAxis, YAxis, Tooltip, ReferenceArea, ResponsiveContainer, Dot} from 'recharts';
+import Button from '../elements/Button';
 import moment from 'moment';
 import {scaleLinear} from "d3-scale";
 import Collection from 'lodash';
 import Lang from 'lodash';
-import _ from 'lodash';
 import PropTypes from 'prop-types';
 import Visualizer from './Visualizer';
 
@@ -33,10 +33,12 @@ class BandedLineChartVisualizer extends Visualizer {
     }
 
     // toggles the line on the chart from being hidden and shown
-    toggleLine = (chartIndex) => {
-        let hiddenLineCharts = [...this.state.hiddenLineCharts];
-        hiddenLineCharts[chartIndex] = !hiddenLineCharts[chartIndex];
-        this.setState({ hiddenLineCharts });
+    toggleLine = (chartIndex, toggle) => {
+        if (toggle) {
+            let hiddenLineCharts = [...this.state.hiddenLineCharts];
+            hiddenLineCharts[chartIndex] = !hiddenLineCharts[chartIndex];
+            this.setState({ hiddenLineCharts });
+        }
     }
 
     // Turns dates into numeric representations for graphing
@@ -94,7 +96,23 @@ class BandedLineChartVisualizer extends Visualizer {
         return (value) => {
             return `${value} ${unit}`;
         }
-    }  
+    }
+
+    renderIcons = (chartIndex, hiddenLine) => {
+        const chartIcon = this.props.visualizerManager.renderIcon('chart', !hiddenLine);
+        const chartDotIcon = this.props.visualizerManager.renderIcon('tabular', hiddenLine);
+
+        return(
+             <span className="subsection-icons">
+                <Button className="small-btn" onClick={() => this.toggleLine(chartIndex, !hiddenLine)}>
+                    {chartDotIcon}
+                </Button>
+                <Button className="small-btn" onClick={() => this.toggleLine(chartIndex, hiddenLine)}>
+                    {chartIcon}
+                </Button>
+            </span>
+        );
+    }
 
     renderSubsectionChart = (subsection, patient, condition, chartIndex) => {
         // if the subsection is in the hiddenLineCharts array, add 'hide-line' class to remove the line from the chart
@@ -170,10 +188,13 @@ class BandedLineChartVisualizer extends Visualizer {
                 key={yVar}
             >
                 <div className="subsection-heading">
-                    <h2 className="subsection-name list-subsection-header">
-                        <span>{`${yVar}`}</span><span>{` (${yUnit})`}</span>
+                    <h2>
+                        <span className="subsection-name"> 
+                            <span>{`${yVar}`}</span><span>{` (${yUnit})`}</span>
+                        </span>
+                        {this.renderIcons(chartIndex, hideLine)}
                     </h2>
-                    <button onClick={() => this.toggleLine(chartIndex)}>toggle line</button>
+                    {/* <button onClick={() => this.toggleLine(chartIndex)}>toggle line</button> */}
                 </div>
                 <ResponsiveContainer
                     height={this.state.chartHeight}

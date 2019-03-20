@@ -1,7 +1,20 @@
 .line-chart-subsection {
-    .subsection-heading h2.subsection-name { 
-        margin: 10px 0;
-        font-weight: bold;  
+    .subsection-heading {
+        h2 {
+            margin: 10px 0;
+
+            .subsection-name {
+                font-weight: bold; 
+            }
+            .subsection-icons {
+                margin-left: 5px;
+
+                .small-btn {
+                    min-width: 0 !important;
+                    min-height: 0 !important;
+                }
+            }
+        }
     }
 
     .recharts-responsive-container {
