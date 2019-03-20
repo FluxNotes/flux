@@ -29,6 +29,10 @@
         .hide-line {
             .recharts-curve {
                 stroke: none;
+
+                &.recharts-tooltip-cursor {
+                    stroke: #295677;
+                }
             }
         }
     }
