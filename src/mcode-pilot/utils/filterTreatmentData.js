@@ -60,9 +60,6 @@ function initializeTreatmentData(displayName) {
 
 function generateTreatmentData(similarPatients, treatments, includedTreatments) {
     if (similarPatients.length === 0) return [];
-    console.debug('similarPatients:', similarPatients);
-    console.debug('treatments:', treatments);
-    console.debug('includedTreatments:', includedTreatments);
 
     let treatmentData = [];
     treatments.forEach(treatment => {
