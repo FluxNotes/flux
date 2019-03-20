@@ -265,27 +265,32 @@ function StructuredFieldPlugin(opts) {
                 if (shortcut instanceof Placeholder) {
                     opts.structuredFieldMapManager.removePlaceholder(shortcut);
                 }
-                keyToShortcutMap.delete(key);
-                idToShortcutMap.delete(shortcut.uniqueId);
                 const updatedShortcutKeys = idToKeysMap.get(shortcut.uniqueId).filter(k => k !== key);
-                idToKeysMap.set(shortcut.uniqueId, updatedShortcutKeys);
+                const shouldBeDeleted = updatedShortcutKeys.length === 0;
+                if (shouldBeDeleted) {
+                    keyToShortcutMap.delete(key);
+                    idToShortcutMap.delete(shortcut.uniqueId);
+                    idToKeysMap.set(shortcut.uniqueId, updatedShortcutKeys);
+                }
 
                 // Reset context on previous shortcut when deleting the piece of a shortcut that set the context
                 // and another piece is before it.
                 // Otherwise, update the previous and next associated shortcuts of neighboring shortcuts to reflect deletion.
-                if (!shortcut.wasRemovedFromContext && shortcut.getPrevAssociatedShortcutId()) {
+                if (shouldBeDeleted && !shortcut.wasRemovedFromContext && shortcut.getPrevAssociatedShortcutId()) {
                     const shortcutToSetContext = idToShortcutMap.get(shortcut.getPrevAssociatedShortcutId());
                     shortcutToSetContext.setNextAssociatedShortcutId(null);
-                    shortcutToSetContext.setWasRemovedFromContext(false);
-                    contextManager.addShortcutToContext(shortcutToSetContext);
+                    if (shortcutToSetContext.metadata.isContext) {
+                        shortcutToSetContext.setWasRemovedFromContext(false);
+                        contextManager.addShortcutToContext(shortcutToSetContext);
+                    }
                 } else {
                     const previousShortcutId = shortcut.getPrevAssociatedShortcutId();
                     const nextShortcutId = shortcut.getNextAssociatedShortcutId();
-                    if (previousShortcutId) {
+                    if (shouldBeDeleted && previousShortcutId) {
                         const previousShortcut = idToShortcutMap.get(previousShortcutId);
                         previousShortcut.setNextAssociatedShortcutId(nextShortcutId);
                     }
-                    if (nextShortcutId) {
+                    if (shouldBeDeleted && nextShortcutId) {
                         const nextShortcut = idToShortcutMap.get(nextShortcutId);
                         nextShortcut.setPrevAssociatedShortcutId(previousShortcutId);
                     }
