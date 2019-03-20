@@ -24,7 +24,7 @@ import SearchIndex from '../patientControl/SearchIndex';
 import LoadingAnimation from '../loading/LoadingAnimation';
 import LoadingError from '../loading/LoadingError';
 
-import '../styles/CoreCancerPilotApp.css';
+import '../styles/CompassApp.css';
 
 const theme = createMuiTheme({
     palette: {
@@ -50,7 +50,7 @@ function getModalStyle() {
     };
   }
 
-export class CoreCancerPilotApp extends Component {
+export class CompassApp extends Component {
     constructor(props) {
         super(props);
         window.fluxnotes_app = this;
@@ -341,7 +341,7 @@ export class CoreCancerPilotApp extends Component {
     }
 }
 
-CoreCancerPilotApp.propTypes = {
+CompassApp.propTypes = {
     dataSource: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
     logoObject: PropTypes.shape({
@@ -366,4 +366,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CoreCancerPilotApp);
+export default connect(mapStateToProps, mapDispatchToProps)(CompassApp);
