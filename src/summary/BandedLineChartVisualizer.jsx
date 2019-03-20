@@ -100,12 +100,12 @@ class BandedLineChartVisualizer extends Visualizer {
 
     renderIcons = (chartIndex, hiddenLine) => {
         const chartIcon = this.props.visualizerManager.renderIcon('chart', !hiddenLine);
-        const chartDotIcon = this.props.visualizerManager.renderIcon('blank', hiddenLine);
+        const scatterplotIcon = this.props.visualizerManager.renderIcon('scatterplot', hiddenLine);
 
         return(
              <span className="subsection-icons">
                 <Button className="small-btn" onClick={() => this.toggleLine(chartIndex, !hiddenLine)}>
-                    {chartDotIcon}
+                    {scatterplotIcon}
                 </Button>
                 <Button className="small-btn" onClick={() => this.toggleLine(chartIndex, hiddenLine)}>
                     {chartIcon}
