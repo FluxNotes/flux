@@ -82,6 +82,9 @@ class BandedLineChartVisualizer extends Visualizer {
     }  
 
     renderSubsectionChart = (subsection, patient, condition) => {
+        let containerClass = '';
+        // if state is no line, set class as 'no-line'
+
         // FIXME: Should start_time be a magic string?
         const xVar = "start_time";
         const xVarNumber = `${xVar}Number`;
@@ -150,8 +153,8 @@ class BandedLineChartVisualizer extends Visualizer {
             <div          
                 key={yVar}
             >
-                <div className="sub-section-heading">
-                    <h2 className="sub-section-name list-subsection-header">
+                <div className="subsection-heading">
+                    <h2 className="subsection-name list-subsection-header">
                         <span>{`${yVar}`}</span><span>{` (${yUnit})`}</span>
                     </h2>
                 </div>
@@ -160,6 +163,7 @@ class BandedLineChartVisualizer extends Visualizer {
                 >                 
                     <LineChart
                         data={processedData}
+                        className={containerClass}
                         margin={{top: 5, right: 20, left: 10, bottom: 5}}
                     >
                         <XAxis

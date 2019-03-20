@@ -1,0 +1,22 @@
+.line-chart-subsection {
+    .subsection-heading h2.subsection-name { 
+        margin: 10px 0;
+        font-weight: bold;  
+    }
+
+    .recharts-responsive-container {
+        .recharts-tooltip-wrapper { 
+            font-size: 13px;
+        }
+        
+        .recharts-text { 
+            font-size: 14px;
+        }
+        
+        .no-line {
+            .recharts-curve {
+                stroke: none;
+            }
+        }
+    }
+}
