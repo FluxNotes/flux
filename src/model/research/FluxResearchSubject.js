@@ -12,7 +12,7 @@ import ParticipationPeriod from '../shr/base/ParticipationPeriod';
 import BeginDateTime from '../shr/core/BeginDateTime';
 import EndDateTime from '../shr/core/EndDateTime';
 import Lang from 'lodash';
-import lookup from '../../lib/clinicaltrial_lookup.jsx';
+import { getStatusCodeableConcept } from '../../lib/clinicaltrial_lookup.jsx';
 
 class FluxResearchSubject extends FluxEntry {
     constructor(json) {
@@ -169,7 +169,7 @@ class FluxResearchSubject extends FluxEntry {
         if (!this._researchSubject.status) {
             this._researchSubject.status = new Status();
         }
-        this._researchSubject.status.value = lookup.getStatusCodeableConcept(val);
+        this._researchSubject.status.value = getStatusCodeableConcept(val);
     }
 
     toJSON() {

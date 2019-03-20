@@ -125,7 +125,7 @@ class ClinicalTrialUnenrolledForm extends Component {
     }
 }
 
-ClinicalTrialUnenrolledForm.proptypes = {
+ClinicalTrialUnenrolledForm.propTypes = {
     updateValue: PropTypes.func.isRequired,
     object: PropTypes.object.isRequired
 }

@@ -24,7 +24,7 @@ class MultiChoiceButton extends Component {
     }
 }
 
-MultiChoiceButton.proptypes = { 
+MultiChoiceButton.propTypes = { 
     buttonKey: PropTypes.isRequired,
     buttonText: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,

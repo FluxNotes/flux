@@ -2,7 +2,7 @@ import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
 import FluxObservation from '../base/FluxObservation';
 import Observation from '../shr/base/Observation';
-import lookup from '../../../../lib/receptor_lookup.jsx';
+import { getReceptorCodeableConcept } from '../../../../lib/receptor_lookup.jsx';
 
 // FluxEstrogenReceptorStatus class to hide codeableconcepts
 class FluxEstrogenReceptorStatus extends FluxObservation {
@@ -29,7 +29,7 @@ class FluxEstrogenReceptorStatus extends FluxObservation {
      * Setter for shr.oncology.ReceptorType
      */
     set status(statusVal) {
-        this._observation.value = lookup.getReceptorCodeableConcept(statusVal);
+        this._observation.value = getReceptorCodeableConcept(statusVal);
     }
 
     toJSON() {

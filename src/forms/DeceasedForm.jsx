@@ -59,7 +59,7 @@ class DeceasedForm extends Component {
     }
 }
 
-DeceasedForm.proptypes = { 
+DeceasedForm.propTypes = { 
     updateValue: PropTypes.func.isRequired,
     object: PropTypes.object.isRequired
 }

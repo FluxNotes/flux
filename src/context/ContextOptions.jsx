@@ -183,7 +183,7 @@ function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-ContextOptions.proptypes = {
+ContextOptions.propTypes = {
     context: PropTypes.object,
     contextManager: PropTypes.object.isRequired,
     handleClick: PropTypes.func.isRequired,

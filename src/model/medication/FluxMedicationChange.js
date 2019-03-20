@@ -4,7 +4,7 @@ import FluxMedicationBeforeChange from './FluxMedicationBeforeChange';
 import FluxMedicationAfterChange from './FluxMedicationAfterChange';
 import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
-import codeableConceptUtils from '../CodeableConceptUtils.jsx';
+import { getCodeableConceptFromTuple } from '../CodeableConceptUtils.jsx';
 import Lang from 'lodash';
 import moment from 'moment';
 import Category from '../shr/core/Category';
@@ -90,7 +90,7 @@ class FluxMedicationChange extends FluxEntry {
             this._medicationChange.category = new Category();
         }
 
-        this._medicationChange.category.value = codeableConceptUtils.getCodeableConceptFromTuple({value: code, codeSystem: "http://standardhealthrecord.org/spec/shr/medication/cs/#MedicationChangeTypeCS", displayText: code} );
+        this._medicationChange.category.value = getCodeableConceptFromTuple({value: code, codeSystem: "http://standardhealthrecord.org/spec/shr/medication/cs/#MedicationChangeTypeCS", displayText: code} );
     }
 
     /**

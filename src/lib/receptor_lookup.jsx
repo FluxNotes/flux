@@ -1,4 +1,4 @@
-import codeableConceptUtils from '../model/CodeableConceptUtils.jsx';
+import { getCodeableConceptFromOptions } from '../model/CodeableConceptUtils.jsx';
 
 const receptorOptions = [
     {
@@ -21,10 +21,10 @@ const receptorOptions = [
  * Will return CodeableConcept object with empty strings if not found
  * If value found in list, function will return CodeableConcept with value, codeSystem, and displayText
  */
-exports.getReceptorCodeableConcept = (possibleReceptorValue) => {
-    return codeableConceptUtils.getCodeableConceptFromOptions(possibleReceptorValue, receptorOptions);
+export const getReceptorCodeableConcept = (possibleReceptorValue) => {
+    return getCodeableConceptFromOptions(possibleReceptorValue, receptorOptions);
 }
 
-exports.getReceptorOptions = () => {
+export const getReceptorOptions = () => {
     return receptorOptions;
 }

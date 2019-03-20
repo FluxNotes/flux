@@ -1,4 +1,4 @@
-import codeableConceptUtils from '../model/CodeableConceptUtils.jsx';
+import { getCodeableConceptFromOptions } from '../model/CodeableConceptUtils.jsx';
 
 // List of medications 
 // (Note: this is currently used only by the note parser to look up active medications when parsing a #stop medication note)
@@ -12,11 +12,11 @@ const medications = [
     }
 ];    
 
-exports.getCodeableConceptFromName = (name) => {
-    return codeableConceptUtils.getCodeableConceptFromOptions(name, medications);
+export const getCodeableConceptFromName = (name) => {
+    return getCodeableConceptFromOptions(name, medications);
 }
 
-exports.getRangeValues = (medication, units) => {
+export const getRangeValues = (medication, units) => {
     if (typeof(medication) !== 'string') {return null;}
 
     if (!units) return null;

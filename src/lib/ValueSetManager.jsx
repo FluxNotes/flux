@@ -1,6 +1,6 @@
 import stagingLookup from "../lib/tnmstage_lookup";
 import toxicityLookup from "../lib/toxicreaction_lookup";
-import progressionLookup from "../lib/progression_lookup";
+import { getStatusOptions, getReasonOptions } from "../lib/progression_lookup";
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList';
 import { getReceptorOptions } from '../lib/receptor_lookup';
 
@@ -16,9 +16,9 @@ export default class ValueSetManager {
             }
         } else if (category === "progression") {
             if (valueSetName === "status") {
-                return progressionLookup.getStatusOptions();
+                return getStatusOptions();
             } else if (valueSetName === "reason") {
-                return progressionLookup.getReasonOptions();
+                return getReasonOptions();
             }
         } else if (category === "toxicity") {
             if (valueSetName === "grade") {

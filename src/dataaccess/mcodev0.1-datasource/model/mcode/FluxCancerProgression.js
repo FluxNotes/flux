@@ -1,4 +1,4 @@
-import lookup from '../../../../lib/progression_lookup.jsx';
+import { getStatusCodeableConcept, getEvidenceCodeableConcept } from '../../../../lib/progression_lookup.jsx';
 import CancerProgression from './CancerProgression';
 import CreationTime from '../shr/core/CreationTime';
 import FluxEntry from '../base/FluxEntry';
@@ -56,7 +56,7 @@ export default class FluxCancerProgression extends FluxEntry {
      *  The method will lookup the corresponding coding/codesystem and set the _codeableConcept property
      */
     set status(status) {
-        this._cancerProgression.value = lookup.getStatusCodeableConcept(status);
+        this._cancerProgression.value = getStatusCodeableConcept(status);
     }
 
     /**
@@ -91,7 +91,7 @@ export default class FluxCancerProgression extends FluxEntry {
 
         this._evidence = filteredEvidence.map((e) => {
             let ev = new FluxEvidence();
-            ev.value = lookup.getEvidenceCodeableConcept(e);
+            ev.value = getEvidenceCodeableConcept(e);
             return ev;
         });
     }

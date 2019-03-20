@@ -171,7 +171,7 @@ export default class TargetedDataPanel extends Component {
     }
 }
 
-TargetedDataPanel.proptypes = {
+TargetedDataPanel.propTypes = {
     actions: PropTypes.array.isRequired,
     appState: PropTypes.shape({
         patient: PropTypes.object.isRequired,

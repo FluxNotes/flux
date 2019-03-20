@@ -5,7 +5,7 @@ import SingleChoiceButton from './SingleChoiceButton';
 import MultiChoiceButton from './MultiChoiceButton';
 import Lang from 'lodash';
 import moment from 'moment';
-import progressionLookup from '../lib/progression_lookup';
+import { getStatusOptions, getReasonOptions, getDescription } from '../lib/progression_lookup';
 import DatePicker from '../forms/DatePicker';
 import './ProgressionForm.css';
 
@@ -14,8 +14,8 @@ class ProgressionForm extends Component {
         super(props);
 
         this.state = {
-            statusOptions: progressionLookup.getStatusOptions(),
-            reasonOptions: progressionLookup.getReasonOptions(),
+            statusOptions: getStatusOptions(),
+            reasonOptions: getReasonOptions(),
             reasonButtonsActiveState: [],
             selectedReferenceDate: null
         };
@@ -142,7 +142,7 @@ class ProgressionForm extends Component {
                 <div>
                     <h4 className="header-spacing">Reference Date</h4>
                     <p className="data-element-description">
-                        {progressionLookup.getDescription("referenceDate")}
+                        {getDescription("referenceDate")}
                         <span className="helper-text"> mm/dd/yyyy</span>
                     </p>
                 </div>
@@ -181,7 +181,7 @@ class ProgressionForm extends Component {
                 
                 <h4 className="header-spacing">Disease Status</h4>
                 <p className="data-element-description">
-                    {progressionLookup.getDescription("progression")}
+                    {getDescription("progression")}
                 </p>
                 <p className="data-element-description">
                     Based on your selections below, the copy button at the bottom will copy a <a
@@ -190,12 +190,12 @@ class ProgressionForm extends Component {
 
                 <h4 className="header-spacing">Status</h4>
                 <p className="data-element-description">
-                    {progressionLookup.getDescription("status")}
+                    {getDescription("status")}
                 </p>
 
                 <h4 className="header-spacing">Rationale for status</h4>
                 <p className="data-element-description">
-                    {progressionLookup.getDescription("reason")}
+                    {getDescription("reason")}
                 </p>
 
                 {referenceDateDescription}
@@ -204,7 +204,7 @@ class ProgressionForm extends Component {
     }
 }
 
-ProgressionForm.proptypes = {
+ProgressionForm.propTypes = {
     updateValue: PropTypes.func.isRequired,
     object: PropTypes.object.isRequired,
     referenceDateEnabled: PropTypes.bool.isRequired

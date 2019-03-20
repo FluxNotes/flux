@@ -10,7 +10,7 @@ import Timing from '../shr/core/Timing';
 import ExpectedPerformanceTime from '../shr/base/ExpectedPerformanceTime';
 import Type from '../shr/core/Type';
 import moment from 'moment';
-import lookup from '../../../../lib/MedicationInformationService.jsx';
+import { getCodeableConceptFromName } from '../../../../lib/MedicationInformationService.jsx';
 
 class FluxMedicationRequested {
     constructor(json) {
@@ -135,7 +135,7 @@ class FluxMedicationRequested {
     set medication(medicationName) {
         const medication = new Medication();
         const type = new Type();
-        type.value = lookup.getCodeableConceptFromName(medicationName);
+        type.value = getCodeableConceptFromName(medicationName);
         medication.type = type;
         this._medicationRequested.medication = medication;
     }

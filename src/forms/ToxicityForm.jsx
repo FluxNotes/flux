@@ -383,7 +383,7 @@ class ToxicityForm extends Component {
     }
 }
 
-ToxicityForm.proptypes = {
+ToxicityForm.propTypes = {
     updateValue: PropTypes.func.isRequired,
     object: PropTypes.object.isRequired,
     gradesToDisplay: PropTypes.array,

@@ -61,6 +61,7 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.3.4",
     "babel-cli": "6.26.0",
     "babel-plugin-transform-class-properties": "6.24.1",
     "babel-plugin-transform-es2015-destructuring": "6.23.0",
@@ -74,10 +75,10 @@
     "node-sass": "^4.10.0",
     "node-sass-chokidar": "0.0.3",
     "npm-run-all": "^4.1.2",
-    "react-scripts": "0.9.5",
+    "react-scripts": "2.1.8",
     "react-test-renderer": "15.6.2",
     "testcafe": "0.17.1",
-    "webpack-dev-server": "3.1.11"
+    "webpack-dev-server": "3.1.14"
   },
   "resolutions": {
     "moment": "2.22.0",
@@ -116,5 +117,11 @@
     "test-all-with-ui": "run-script-os",
     "test-all-with-ui:win32": "set CI=true&&yarn test-backend:win32&&yarn test-ui:win32",
     "test-all-with-ui::darwin:linux": "CI=true yarn test-backend:darwin:linux && yarn test-ui:darwin:linux"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

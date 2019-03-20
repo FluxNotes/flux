@@ -31,7 +31,7 @@ export default class TemplateViewModeContent extends Component {
     }
 }
 
-TemplateViewModeContent.proptypes = {
+TemplateViewModeContent.propTypes = {
     onShortcutClicked: PropTypes.func.isRequired,
     patient: PropTypes.object.isRequired,
     setInsertingTemplate: PropTypes.func.isRequired,

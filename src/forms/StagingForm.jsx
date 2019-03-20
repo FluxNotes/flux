@@ -146,7 +146,7 @@ class StagingForm extends Component {
 }
 
 
-StagingForm.proptypes = { 
+StagingForm.propTypes = { 
     updateValue: PropTypes.func.isRequired,
     object: PropTypes.object.isRequired
 }

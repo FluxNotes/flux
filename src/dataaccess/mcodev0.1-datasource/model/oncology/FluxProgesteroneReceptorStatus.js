@@ -1,7 +1,7 @@
 import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
 import FluxObservation from '../base/FluxObservation';
-import lookup from '../../../../lib/receptor_lookup.jsx';
+import { getReceptorCodeableConcept } from '../../../../lib/receptor_lookup.jsx';
 import Observation from '../shr/base/Observation';
 
 class FluxProgesteroneReceptorStatus extends FluxObservation {
@@ -28,7 +28,7 @@ class FluxProgesteroneReceptorStatus extends FluxObservation {
      * Setter for shr.oncology.ReceptorType
      */
     set status(statusVal) {
-        this._observation.value = lookup.getReceptorCodeableConcept(statusVal);
+        this._observation.value = getReceptorCodeableConcept(statusVal);
     }
 
     toJSON() {

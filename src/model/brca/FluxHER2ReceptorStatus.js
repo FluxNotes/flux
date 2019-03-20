@@ -1,6 +1,6 @@
 import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
-import lookup from '../../lib/receptor_lookup.jsx';
+import { getReceptorCodeableConcept } from '../../lib/receptor_lookup.jsx';
 import HER2ReceptorStatus from './HER2ReceptorStatus';
 import Reference from '../Reference';
 import SpecificFocusOfFinding from '../shr/base/SpecificFocusOfFinding';
@@ -42,7 +42,7 @@ class FluxHER2ReceptorStatus {
      */
     set status(statusVal) {
         this._her2ReceptorStatus.findingResult = new FindingResult();
-        this._her2ReceptorStatus.findingResult.value = lookup.getReceptorCodeableConcept(statusVal);
+        this._her2ReceptorStatus.findingResult.value = getReceptorCodeableConcept(statusVal);
     }
 
     get specificFocusOfFinding() {

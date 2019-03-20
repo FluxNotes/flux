@@ -1,4 +1,4 @@
-import codeableConceptUtils from '../model/CodeableConceptUtils.jsx';
+import { getCodeableConceptFromOptions } from '../model/CodeableConceptUtils.jsx';
 
 const statusOptions = [
     {
@@ -72,7 +72,7 @@ const reasonOptions = [
     }
 ]
 
-exports.getDescription = (dataElement) => {
+export const getDescription = (dataElement) => {
    switch(dataElement) {
    case "progression": 
       return "Determination of disease status is based on a number of complex variables which include objective measures like tumor growth, symptomatic criteria, patient reports information, and subjective evaluations.";
@@ -87,27 +87,27 @@ exports.getDescription = (dataElement) => {
    }
 }
 
-exports.getStatusOptions = () => {
+export const getStatusOptions = () => {
     return statusOptions;
 }
 
-exports.getReasonOptions = () => {
+export const getReasonOptions = () => {
     return reasonOptions;
 }
 
-exports.isValidStatus = (possibleStatus) => {
+export const isValidStatus = (possibleStatus) => {
     return statusOptions.some((status) => { return status.name.toLowerCase() === possibleStatus.toLowerCase()})
 }
 
-exports.isValidReason = (possibleReason) => {
+export const isValidReason = (possibleReason) => {
     return reasonOptions.some((reason) => { return reason.name.toLowerCase() === possibleReason.toLowerCase()})
 }
 
-exports.findStatusIndex = (possibleStatus) => { 
+export const findStatusIndex = (possibleStatus) => { 
     return statusOptions.findIndex((status) => { return status.name.toLowerCase() === possibleStatus.toLowerCase()})
 }
 
-exports.findStatus = (possibleStatus) => {
+export const findStatus = (possibleStatus) => {
     const index = exports.findStatusIndex(possibleStatus);
     if (index === -1) return null;
     return statusOptions[index];  
@@ -118,15 +118,15 @@ exports.findStatus = (possibleStatus) => {
  * Will return CodeableConcept object with empty strings if not found
  * If value found in list, function will return CodeableConcept with value, codeSystem, and displayText
  */
-exports.getStatusCodeableConcept = (possibleStatus) => {
-    return codeableConceptUtils.getCodeableConceptFromOptions(possibleStatus, statusOptions);
+export const getStatusCodeableConcept = (possibleStatus) => {
+    return getCodeableConceptFromOptions(possibleStatus, statusOptions);
 }
 
-exports.findReasonIndex = (possibleReason) => { 
+export const findReasonIndex = (possibleReason) => { 
     return reasonOptions.findIndex((reason) => { return reason.name.toLowerCase() === possibleReason.toLowerCase()})
 }
 
-exports.findReason = (possibleReason) => {
+export const findReason = (possibleReason) => {
     const index = exports.findReasonIndex(possibleReason);
     if (index === -1) return null;
     return reasonOptions[index];
@@ -137,6 +137,6 @@ exports.findReason = (possibleReason) => {
  * Will return CodeableConcept object with empty strings if not found
  * If evidence found in list, function will return CodeableConcept with value, codeSystem, and displayText
  */
-exports.getEvidenceCodeableConcept = (possibleReason) => {    
-    return codeableConceptUtils.getCodeableConceptFromOptions(possibleReason, reasonOptions);
+export const getEvidenceCodeableConcept = (possibleReason) => {    
+    return getCodeableConceptFromOptions(possibleReason, reasonOptions);
 }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 import Lang from 'lodash';
 import RangeChart from './RangeChart';
-import MedicationInformationService from '../lib/MedicationInformationService';
+import {getRangeValues, getRangeValues} from '../lib/MedicationInformationService';
 import './MedicationRangeChartVisualizer.css';
 import FormatMedicationChange from './FormatMedicationChange';
 import Visualizer from './Visualizer';
@@ -218,7 +218,7 @@ class MedicationRangeChartVisualizer extends Visualizer {
             return this.renderMedicationNarrowView(med, i);
         }
         // Grab range values based on medication
-        let rangeValues = MedicationInformationService.getRangeValues(med.medication.code, (med.medication.amountPerDose ? med.medication.amountPerDose.units : null));
+        let rangeValues = getRangeValues(med.medication.code, (med.medication.amountPerDose ? med.medication.amountPerDose.units : null));
 
         // Set the values needed to render the range chart
         const lowerValue = rangeValues ? rangeValues.lowerValue : null;
@@ -279,7 +279,7 @@ class MedicationRangeChartVisualizer extends Visualizer {
 
 renderMedicationNarrowView = (med, i) => {
     // Grab range values based on medication
-    let rangeValues = MedicationInformationService.getRangeValues(med.medication.code, (med.medication.amountPerDose ? med.medication.amountPerDose.units : null));
+    let rangeValues = getRangeValues(med.medication.code, (med.medication.amountPerDose ? med.medication.amountPerDose.units : null));
 
     // Set the values needed to render the range chart
     const lowerValue = rangeValues ? rangeValues.lowerValue : null;

@@ -1,4 +1,4 @@
-import codeableConceptUtils from '../model/CodeableConceptUtils.jsx';
+import { getCodeableConceptFromOptions } from '../model/CodeableConceptUtils.jsx';
 
 const clinicalTrialStatusOptions = [
     {
@@ -44,6 +44,6 @@ const clinicalTrialStatusOptions = [
  * Will return CodeableConcept object with empty strings if not found
  * If value found in list, function will return CodeableConcept with value, codeSystem, and displayText
  */
-exports.getStatusCodeableConcept = (possibleStatus) => {
-    return codeableConceptUtils.getCodeableConceptFromOptions(possibleStatus, clinicalTrialStatusOptions);
+export const getStatusCodeableConcept = (possibleStatus) => {
+    return getCodeableConceptFromOptions(possibleStatus, clinicalTrialStatusOptions);
 }

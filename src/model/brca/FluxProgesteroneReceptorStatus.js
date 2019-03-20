@@ -1,6 +1,6 @@
 import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
-import lookup from '../../lib/receptor_lookup.jsx';
+import { getReceptorCodeableConcept } from '../../lib/receptor_lookup.jsx';
 import ProgesteroneReceptorStatus from './ProgesteroneReceptorStatus';
 import Reference from '../Reference';
 import SpecificFocusOfFinding from '../shr/base/SpecificFocusOfFinding';
@@ -42,7 +42,7 @@ class FluxProgesteroneReceptorStatus {
      */
     set status(statusVal) {
         this._progesteroneReceptorStatus.findingResult = new FindingResult();
-        this._progesteroneReceptorStatus.findingResult.value = lookup.getReceptorCodeableConcept(statusVal);
+        this._progesteroneReceptorStatus.findingResult.value = getReceptorCodeableConcept(statusVal);
     }
 
     get specificFocusOfFinding() {

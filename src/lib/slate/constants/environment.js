@@ -78,3 +78,4 @@ export const IS_IE = BROWSER === 'ie'
 
 export const IS_MAC = OS === 'macos'
 export const IS_WINDOWS = OS === 'windows'
+export const IS_IOS = OS === 'ios'

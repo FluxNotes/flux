@@ -145,7 +145,7 @@ SummaryHeader.propTypes = {
             value: PropTypes.string
         }),
         state: PropTypes.shape({
-            value: PropTypes.state
+            value: PropTypes.string
         })
     }),
     layout: PropTypes.string,

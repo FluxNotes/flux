@@ -1,4 +1,5 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { FHIRHelper } from '../../json-helper';
+//import { FHIRHelper.setPropertiesFromJSON, FHIRHelper.createInstanceFromFHIR } from '../../json-helper';
 
 import ActionRequested from '../base/ActionRequested';
 
@@ -228,7 +229,7 @@ class ConsultRequested extends ActionRequested {
    */
   static fromJSON(json = {}) {
     const inst = new ConsultRequested();
-    setPropertiesFromJSON(inst, json);
+    FHIRHelper.setPropertiesFromJSON(inst, json);
     return inst;
   }
 
@@ -386,48 +387,48 @@ class ConsultRequested extends ActionRequested {
     if (fhir['extension'] != null) {
       const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-base-ExpectedMethod-extension');
       if (match != null) {
-        inst.expectedMethod = createInstanceFromFHIR('shr.base.ExpectedMethod', match, true);
+        inst.expectedMethod = FHIRHelper.createInstanceFromFHIR('shr.base.ExpectedMethod', match, true);
       }
     }
     if (fhir['status'] != null) {
-      inst.status = createInstanceFromFHIR('shr.core.Status', fhir['status']);
+      inst.status = FHIRHelper.createInstanceFromFHIR('shr.core.Status', fhir['status']);
     }
     if (fhir['intent'] != null) {
-      inst.requestIntent = createInstanceFromFHIR('shr.base.RequestIntent', fhir['intent']);
+      inst.requestIntent = FHIRHelper.createInstanceFromFHIR('shr.base.RequestIntent', fhir['intent']);
     }
     if (fhir['priority'] != null) {
-      inst.priorityRank = createInstanceFromFHIR('shr.core.PriorityRank', fhir['priority']);
+      inst.priorityRank = FHIRHelper.createInstanceFromFHIR('shr.core.PriorityRank', fhir['priority']);
     }
     if (fhir['category'] != null) {
-      inst.category = createInstanceFromFHIR('shr.core.Category', fhir['category']);
+      inst.category = FHIRHelper.createInstanceFromFHIR('shr.core.Category', fhir['category']);
     }
     if (fhir['code'] != null) {
-      inst.topicCode = createInstanceFromFHIR('shr.base.TopicCode', fhir['code']);
+      inst.topicCode = FHIRHelper.createInstanceFromFHIR('shr.base.TopicCode', fhir['code']);
     }
     if (fhir['subject'] != null) {
-      inst.patient = createInstanceFromFHIR('shr.entity.Patient', fhir['subject']);
+      inst.patient = FHIRHelper.createInstanceFromFHIR('shr.entity.Patient', fhir['subject']);
     }
     if (fhir['context'] != null) {
-      inst.encounter = createInstanceFromFHIR('shr.encounter.Encounter', fhir['context']);
+      inst.encounter = FHIRHelper.createInstanceFromFHIR('shr.encounter.Encounter', fhir['context']);
     }
     if (fhir['occurrenceDateTime'] != null) {
-      inst.expectedPerformanceTime = createInstanceFromFHIR('shr.base.ExpectedPerformanceTime', fhir['occurrenceDateTime']);
+      inst.expectedPerformanceTime = FHIRHelper.createInstanceFromFHIR('shr.base.ExpectedPerformanceTime', fhir['occurrenceDateTime']);
     }
     if (fhir['occurrencePeriod'] != null) {
-      inst.expectedPerformanceTime = createInstanceFromFHIR('shr.base.ExpectedPerformanceTime', fhir['occurrencePeriod']);
+      inst.expectedPerformanceTime = FHIRHelper.createInstanceFromFHIR('shr.base.ExpectedPerformanceTime', fhir['occurrencePeriod']);
     }
     if (fhir['occurrenceTiming'] != null) {
-      inst.expectedPerformanceTime = createInstanceFromFHIR('shr.base.ExpectedPerformanceTime', fhir['occurrenceTiming']);
+      inst.expectedPerformanceTime = FHIRHelper.createInstanceFromFHIR('shr.base.ExpectedPerformanceTime', fhir['occurrenceTiming']);
     }
     if (fhir['performerType'] != null) {
-      inst.expectedPerformerType = createInstanceFromFHIR('shr.base.ExpectedPerformerType', fhir['performerType']);
+      inst.expectedPerformerType = FHIRHelper.createInstanceFromFHIR('shr.base.ExpectedPerformerType', fhir['performerType']);
     }
     if (fhir['performer'] != null) {
-      inst.expectedPerformer = createInstanceFromFHIR('shr.base.ExpectedPerformer', fhir['performer']);
+      inst.expectedPerformer = FHIRHelper.createInstanceFromFHIR('shr.base.ExpectedPerformer', fhir['performer']);
     }
     if (fhir['reasonCode'] != null) {
       inst.reason = inst.reason || [];
-      inst.reason = inst.reason.concat(fhir['reasonCode'].map(f => createInstanceFromFHIR('shr.base.Reason', f)));
+      inst.reason = inst.reason.concat(fhir['reasonCode'].map(f => FHIRHelper.createInstanceFromFHIR('shr.base.Reason', f)));
     }
     return inst;
   }

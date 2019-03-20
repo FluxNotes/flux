@@ -68,7 +68,7 @@ class FormList extends Component {
     }
 }
 
-FormList.proptypes = {
+FormList.propTypes = {
     shortcuts: PropTypes.array.isRequired,
     currentShortcut: PropTypes.object,
     changeShortcut: PropTypes.func.isRequired

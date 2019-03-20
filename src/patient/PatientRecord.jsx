@@ -25,7 +25,7 @@ import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx'; // pu
 import AuthoredDateTime from '../model/shr/base/AuthoredDateTime';
 import LastUpdated from '../model/shr/base/LastUpdated';
 import Reference from '../model/Reference';
-import mapper from '../lib/FHIRMapper';
+import { mapToEntryTypes } from '../lib/FHIRMapper';
 import Lang from 'lodash';
 import moment from 'moment';
 import { v4 } from 'uuid';
@@ -94,7 +94,7 @@ class PatientRecord {
         // call fromFHIR method on entry from Object
         let nextEntryId = 0;
 		fhirJson.entry.forEach((entry) => {
-			const entryTypes =  mapper.mapToEntryTypes(entry);
+			const entryTypes =  mapToEntryTypes(entry);
 			entryTypes.forEach((entryType) => {
 				if (!Lang.isNull(entryType)) {
                     const shrObj = FluxObjectFactory.createInstance({}, entryType);

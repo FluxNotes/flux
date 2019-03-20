@@ -21,7 +21,7 @@ export default class ShortcutSearch extends Component {
     }
 }
 
-ShortcutSearch.proptypes = {
+ShortcutSearch.propTypes = {
     context: PropTypes.object,
     contextManager: PropTypes.object.isRequired,
     handleClick: PropTypes.func.isRequired,

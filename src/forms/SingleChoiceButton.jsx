@@ -28,7 +28,7 @@ class SingleChoiceButton extends Component {
     }
 }
 
-SingleChoiceButton.proptypes = {
+SingleChoiceButton.propTypes = {
     buttonKey: PropTypes.isRequired,
     buttonText: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,

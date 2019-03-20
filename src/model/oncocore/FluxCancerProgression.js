@@ -1,4 +1,4 @@
-import lookup from '../../lib/progression_lookup.jsx';
+import { getStatusCodeableConcept, getEvidenceCodeableConcept } from '../../lib/progression_lookup.jsx';
 import CancerProgression from './CancerProgression';
 import FluxEntry from '../base/FluxEntry';
 import FluxCancerProgressionEvidence from './FluxCancerProgressionEvidence';
@@ -52,7 +52,7 @@ export default class FluxCancerProgression extends FluxEntry {
      */
     set status(status) {
         if (!this._cancerProgression.findingResult) this._cancerProgression.findingResult = new FindingResult();
-        this._cancerProgression.findingResult.value = lookup.getStatusCodeableConcept(status);
+        this._cancerProgression.findingResult.value = getStatusCodeableConcept(status);
     }
 
     /**
@@ -87,7 +87,7 @@ export default class FluxCancerProgression extends FluxEntry {
 
         this._cancerProgression.cancerProgressionEvidence = filteredEvidence.map((e) => {
             let ev = new FluxCancerProgressionEvidence();
-            ev.value = lookup.getEvidenceCodeableConcept(e);
+            ev.value = getEvidenceCodeableConcept(e);
             return ev;
         });
     }

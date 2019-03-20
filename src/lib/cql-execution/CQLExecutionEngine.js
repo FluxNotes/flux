@@ -9,7 +9,7 @@ import valueset_db from './codeservice/vsac_cache/valueset-db.json';
  *  cqlLogic is a JSON ELM file, which was converted from a CQL file defining logic
  *  psource is an array of patients each represented as a FHIR bundle
  */ 
-exports.getCQLResults = (cqlLogic, psource) => {
+const getCQLResults = (cqlLogic, psource) => {
     // Set up library
     const lib = new cql.Library(cqlLogic);
 
@@ -25,3 +25,5 @@ exports.getCQLResults = (cqlLogic, psource) => {
     const executor = new cql.Executor(lib, codeService);
     return executor.exec(patientSource);
 }
+
+export default getCQLResults;
