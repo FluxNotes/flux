@@ -4,6 +4,7 @@ import moment from 'moment';
 import {scaleLinear} from "d3-scale";
 import Collection from 'lodash';
 import Lang from 'lodash';
+import _ from 'lodash';
 import PropTypes from 'prop-types';
 import Visualizer from './Visualizer';
 
@@ -16,12 +17,26 @@ class BandedLineChartVisualizer extends Visualizer {
     constructor(props) {
         super(props);
 
+        const { conditionSection } = this.props;
+        const subsections = conditionSection.data;
+
+        // initialize noLineCharts so that all charts default to no lines
+        const hiddenLineCharts = subsections.map((_, i) => true);
+
         // this.updateState = true;
         // This var will be used 
         this.state = {
             chartWidth: 600,
             chartHeight: 250,
+            hiddenLineCharts // charts that have the no line property set
         }
+    }
+
+    // toggles the line on the chart from being hidden and shown
+    toggleLine = (chartIndex) => {
+        let hiddenLineCharts = [...this.state.hiddenLineCharts];
+        hiddenLineCharts[chartIndex] = !hiddenLineCharts[chartIndex];
+        this.setState({ hiddenLineCharts });
     }
 
     // Turns dates into numeric representations for graphing
@@ -81,9 +96,10 @@ class BandedLineChartVisualizer extends Visualizer {
         }
     }  
 
-    renderSubsectionChart = (subsection, patient, condition) => {
-        let containerClass = '';
-        // if state is no line, set class as 'no-line'
+    renderSubsectionChart = (subsection, patient, condition, chartIndex) => {
+        // if the subsection is in the hiddenLineCharts array, add 'hide-line' class to remove the line from the chart
+        const hideLine = this.state.hiddenLineCharts[chartIndex];
+        const graphClass = hideLine ?  'hide-line' : '';
 
         // FIXME: Should start_time be a magic string?
         const xVar = "start_time";
@@ -150,20 +166,21 @@ class BandedLineChartVisualizer extends Visualizer {
         }
 
         return (
-            <div          
+            <div
                 key={yVar}
             >
                 <div className="subsection-heading">
                     <h2 className="subsection-name list-subsection-header">
                         <span>{`${yVar}`}</span><span>{` (${yUnit})`}</span>
                     </h2>
+                    <button onClick={() => this.toggleLine(chartIndex)}>toggle line</button>
                 </div>
                 <ResponsiveContainer
                     height={this.state.chartHeight}
-                >                 
+                >
                     <LineChart
                         data={processedData}
-                        className={containerClass}
+                        className={graphClass}
                         margin={{top: 5, right: 20, left: 10, bottom: 5}}
                     >
                         <XAxis
@@ -234,7 +251,7 @@ class BandedLineChartVisualizer extends Visualizer {
             <div className="line-chart-subsection">
                 {
                     conditionSection.data.map((subsection, i) => {
-                        return this.renderSubsectionChart(subsection, patient, condition);
+                        return this.renderSubsectionChart(subsection, patient, condition, i);
                     })
                 }
             </div>
