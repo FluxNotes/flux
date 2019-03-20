@@ -13,6 +13,7 @@
     "downshift": "^1.31.16",
     "elasticlunr": "https://github.com/mgramigna/elasticlunr.js",
     "es6-shim": "0.35.3",
+    "fhir-mapper": "^1.0.4",
     "fhirclient": "^0.1.12",
     "flat": "^4.1.0",
     "flux_notes_treatment_options_rest_client": "^1.1.2",

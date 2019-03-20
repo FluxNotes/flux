@@ -42,6 +42,36 @@ export default class AppManager {
                 shortcuts: []
             },
             {
+                path: '/launchsynthea',
+                display: 'Flux',
+                app: LaunchPage,
+                isExact: true,
+                launchContext: {
+                    client: {
+                        client_id: '6c12dff4-24e7-4475-a742-b08972c4ea27',
+                        scope:  'patient/*.read user/*.* openid profile',
+                        // note: the redirect_uri below may need to change in different environments.
+                        // a relative URL (ex. /smart or ../smart) won't work in IE
+                        redirect_uri: 'http://localhost:3000/synthea'
+                    },
+                    // uncomment the 'server' field below
+                    // to override the iss parameter from the SMART launch process
+                    // (aka, the server listed here can be used as a 'shim')
+                    // server: "http://localhost:3001/1_0_2"
+                }
+            },
+            {
+                path: '/synthea',
+                display: 'Flux Notes™',
+                app: SmartApp,
+                isExact: true,
+                dataSource: 'GenericSmartOnFhirDstu2DataSource',
+                shortcuts: [],
+                dataSourceProps: {
+                    mapper: 'syntheaToV05'
+                }
+            },
+            {
                 path: '/patina',
                 shortcuts: ['Disease Status', 'Toxicity', 'Enrollment', 'Unenrolled', 'Deceased'],
                 display: 'Flux Notes™ Lite (for PATINA endpoints)',
