@@ -100,7 +100,7 @@ class BandedLineChartVisualizer extends Visualizer {
 
     renderIcons = (chartIndex, hiddenLine) => {
         const chartIcon = this.props.visualizerManager.renderIcon('chart', !hiddenLine);
-        const chartDotIcon = this.props.visualizerManager.renderIcon('tabular', hiddenLine);
+        const chartDotIcon = this.props.visualizerManager.renderIcon('blank', hiddenLine);
 
         return(
              <span className="subsection-icons">

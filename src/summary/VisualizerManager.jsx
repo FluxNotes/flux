@@ -281,6 +281,8 @@ export default class VisualizerManager {
             return this._timelineIcon(isSelected);
         } else if (visualizerType === 'chart') {
             return this._chartIcon(isSelected);
+        } else if (visualizerType === 'blank') {
+            return this._blankIcon(isSelected);
         }
         return null;
     }
@@ -342,6 +344,19 @@ export default class VisualizerManager {
                     <g id="Group-39" stroke={strokeColor} strokeWidth="1.62">
                         <path d="M0.936953125,0.9428125 L0.936953125,15.8228125 L15.8169531,15.8228125 L15.8169531,0.9428125 L0.936953125,0.9428125 Z" id="Rectangle-3"></path>
                         <polyline id="Path-3" strokeLinejoin="round" points="0.71875 11.0977783 5.125 6.69152832 9.5 11.2852783 12.34375 7.97277832 15.625 11.3477783"></polyline>
+                    </g>
+                </g>
+            </svg>
+        );
+    }
+
+    _blankIcon = (isSelected) => {
+        const strokeColor = isSelected ? "#3F3F3F" : "#CCCCCC";
+        return (
+            <svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                    <g id="Group-39" stroke={strokeColor} strokeWidth="1.62">
+                        <path d="M0.936953125,0.9428125 L0.936953125,15.8228125 L15.8169531,15.8228125 L15.8169531,0.9428125 L0.936953125,0.9428125 Z" id="Rectangle-3"></path>
                     </g>
                 </g>
             </svg>
