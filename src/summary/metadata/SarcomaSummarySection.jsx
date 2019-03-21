@@ -4,6 +4,7 @@ import KeyDatesSubsection from './KeyDatesSubsection';
 import MostRecentVisitsSubsection from './MostRecentVisitsSubsection';
 import RecentLabResultsSubsection from './RecentLabResultsSubsection';
 import RecentToxicitiesSubsection from './RecentToxicitiesSubsection';
+import ActiveTreatmentSummaryObjectFactory from '../activeTreatmentSummary/ActiveTreatmentSummaryObjectFactory';
 import Lang from 'lodash'
 import moment from 'moment';
 
@@ -186,6 +187,20 @@ export default class SarcomaSummarySection extends MetadataSection {
                                             isUnsigned: patient.isUnsigned(panel), 
                                             source: this.determineSource(patient, panel)
                                         };
+                            }
+                        },
+                        { 
+                            name: "Treatment Summary",
+                            value: (patient, currentConditionEntry) => {
+                                const activeTreatmentSummaryObject = ActiveTreatmentSummaryObjectFactory.createInstance(patient, currentConditionEntry);
+                                const activeTreatmentSummaryJson = activeTreatmentSummaryObject.getActiveTreatmentSummary();
+                                console.log(activeTreatmentSummaryJson)
+                                return null;
+                                // return {
+                                //     value: null,
+                                //     isUnsigned: false,
+                                //     source: null
+                                // }
                             }
                         }
                     ]
