@@ -18,10 +18,6 @@ export default class TableLegend extends Component {
             message = `survived with ${noTreatment ? 'no treatment' : name} ${hasAnd || noTreatment ? "" : " alone"}`;
         }
 
-        const mainStyle = { "width": "45px" };
-        const cancerStyle = { "width": "20px" };
-        const redTreatmentStyle = { "width": "14px"};
-
         return (
             <div className="table-legend">
                 <div className="wrapper">

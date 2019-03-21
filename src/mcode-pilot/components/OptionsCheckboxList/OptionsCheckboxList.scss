@@ -1,3 +1,5 @@
+@import '../../../styles/variables';
+
 .options-checkbox-list {
     margin: 10px 0;
 
@@ -8,18 +10,18 @@
             margin-right: 10px;
             cursor: pointer;
             font-size: 1.2em;
-            color: #aaa;
+            color: $state;
         }
 
         .header-title {
             font-weight: 600;
-            color: #555;
+            color: $body-gray;
         }
 
         .selected-count {
             margin-left: 10px;
             font-size: 0.9em;
-            color: #888;
+            color:$state;
         }
     }
 
@@ -30,7 +32,7 @@
             margin-left: 60px;
 
             &__title {
-               color: #555;
+               color: $body-gray;
             }
         }
     }
@@ -39,6 +41,6 @@
         height: 22px;
         width: 22px;
         margin-right: 5px;
-        color: #0084B8;
+        color: $shr-context-dark;
     }
 }

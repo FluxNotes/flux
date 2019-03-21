@@ -1,7 +1,4 @@
-$color-gray-light: #bbb;
-$color-gray-lighter: #eee;
-$color-blue: #0084b8;
-$color-blue-light: #ecf3f5;
+@import '../../../styles/variables';
 
 .treatment-options-outcomes {
     margin: 20px;
@@ -16,7 +13,7 @@ $color-blue-light: #ecf3f5;
         .user-icon {
             text-align: center;
             font-size: 1.5em;
-            color: $color-gray-light;
+            color: $state;
         }
 
         .header-title {
@@ -44,15 +41,15 @@ $color-blue-light: #ecf3f5;
         margin-left: 20px;
 
         .popover-text {
-            color: $color-blue;
+            color: $shr-context-dark;
             font-weight: bold;
             font-size: 0.9em;
         }
     }
 
     .included-treatments {
-        background-color: $color-blue-light;
-        border: 1px solid $color-gray-lighter;
+        background-color: $shr-context-light;
+        border: 1px solid $feature-gray;
     }
 
     .included-treatments,
