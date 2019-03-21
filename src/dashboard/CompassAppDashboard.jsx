@@ -21,7 +21,7 @@ export default class CompassAppDashboard extends Component {
         };
 
         return (
-            <div id="core-cancer-pilot-dashboard-content" style={{display: "flex"}}>
+            <div id="compass-app-dashboard-content" style={{display: "flex"}}>
                 <div className="right-border-box" style={targetedDataPanelStyles}>
                     <TargetedDataPanel
                         actions={this.props.actions}
