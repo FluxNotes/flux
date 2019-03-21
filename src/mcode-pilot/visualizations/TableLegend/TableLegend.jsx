@@ -23,7 +23,7 @@ export default class TableLegend extends Component {
                 <div className="wrapper">
                     <div className="legend-entry">
                         <div className="prog-fill-container">
-                            <div className="prog-fill main"/>
+                            <div className="prog-fill main" />
                         </div>
                         <span className="legend-text">{message}</span>
                     </div>
@@ -37,7 +37,7 @@ export default class TableLegend extends Component {
 
                     <div className="legend-entry">
                         <div className="prog-fill-container">
-                            <div className="prog-fill treatment-decrease"/>
+                            <div className="prog-fill treatment-decrease" />
                         </div>
                         <span className="legend-text">decrease in survival due to treatment</span>
                     </div>

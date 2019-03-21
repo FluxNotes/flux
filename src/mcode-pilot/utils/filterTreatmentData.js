@@ -67,7 +67,7 @@ function generateTreatmentData(similarPatients, treatments, includedTreatments) 
         let displayName = _.isArray(treatment) ?
             treatment === includedTreatments ?
                 treatment.map(name => TREATMENT_NAMES[name]).join(' & ') :
-                treatment.filter((treat)=>{
+                treatment.filter((treat) => {
                     return !includedTreatments.includes(treat);
                 }).map(name => TREATMENT_NAMES[name]).join(' & ') :
             TREATMENT_NAMES[treatment];
@@ -126,7 +126,7 @@ function isSimilarPatient(treatmentDataPatient, similarPatientProps) {
                 const value = _.lowerCase(options[option].value);
 
                 // demographics
-                const { demographics, diseaseStatus, tumorMarkers, treatments} = treatmentDataPatient;
+                const { demographics, diseaseStatus, tumorMarkers, treatments } = treatmentDataPatient;
                 const { race, gender, birthDate } = demographics;
 
                 if (option === 'age') {
