@@ -15,9 +15,9 @@ import Lang from 'lodash';
 import Reference from '../model/Reference';
 
 import SecurityManager from '../security/SecurityManager';
-import CoreCancerPilotDashboard from '../dashboard/CoreCancerPilotDashboard';
+import CompassAppDashboard from '../dashboard/CompassAppDashboard';
 import DataAccess from '../dataaccess/DataAccess';
-import CoreCancerPilotSummaryMetadata from '../summary/CoreCancerPilotSummaryMetadata';
+import CompassAppSummaryMetadata from '../summary/CompassAppSummaryMetadata';
 import PatientControlPanel from '../panels/PatientControlPanel';
 import PreferenceManager from '../preferences/PreferenceManager';
 import SearchIndex from '../patientControl/SearchIndex';
@@ -64,7 +64,7 @@ export class CompassApp extends Component {
         }
 
 //        this.summaryMetadata = new SummaryMetadata(this.setForceRefresh);
-        this.summaryMetadata = new CoreCancerPilotSummaryMetadata(this.setForceRefresh);
+        this.summaryMetadata = new CompassAppSummaryMetadata(this.setForceRefresh);
         this.securityManager = new SecurityManager();
         this.searchIndex = new SearchIndex();
 
@@ -286,7 +286,7 @@ export class CompassApp extends Component {
                         <Fade in={!this.state.loading} timeout={this.timeoutDuration}>
                             <div>
                                 {!Lang.isNull(this.state.patient) &&
-                                    <CoreCancerPilotDashboard
+                                    <CompassAppDashboard
                                         // App default settings
                                         actions={[]}
                                         forceRefresh={this.state.forceRefresh}

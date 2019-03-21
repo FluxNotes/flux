@@ -1,6 +1,6 @@
 import MetadataSection from "./MetadataSection";
 
-export default class DefaultCoreCancerPilotMetadata extends MetadataSection {
+export default class DefaultCompassAppMetadata extends MetadataSection {
     getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
         return {
             sections: this.buildMetadataSections(preferencesManager, patient, condition, roleType, role, specialty,
