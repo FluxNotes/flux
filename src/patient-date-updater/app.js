@@ -34,7 +34,9 @@ if (encounter === undefined) {
 fs.writeFileSync(`${input}.backup`, JSON.stringify(patientEntries, null, 4), 'utf8');
 console.log(`Saved backup JSON file to ${input}.backup`);
 
-const encounterDate = moment(encounter.Encounter.TimePeriod.TimePeriodStart.Value, 'D MMM YYYY HH:mm ZZ').startOf('day');
+// encounterDateValue grabs the correct date value based on whether the patient JSON is in mCODE v0.1 or v0.5
+const encounterDateValue = encounter.Encounter.TimePeriod.TimePeriodStart ? encounter.Encounter.TimePeriod.TimePeriodStart.Value : encounter.Encounter.TimePeriod.BeginDateTime.Value;
+const encounterDate = moment(encounterDateValue, 'D MMM YYYY HH:mm ZZ').startOf('day');
 const today = moment().startOf('day');
 const deltaDuration = moment.duration(today.diff(encounterDate));
 
