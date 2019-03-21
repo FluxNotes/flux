@@ -6,31 +6,20 @@ import './BarChart.css';
 
 export default class BarChart extends Component {
     getStyles = (survivedPercent, compareToPercent, percentChange, roundedPercent) => {
-        let mainStyle, changeStyle, textStyle;
+        let mainStyle, changeStyle, textStyle, changeType;
         if (percentChange < 0) {
             // style for when survival decreases (red)
-            mainStyle = {"width": `${survivedPercent}%`, "backgroundColor": "#9e9e9e" };
-            changeStyle = {"width": `${Math.abs(roundedPercent)}%`, "background": `repeating-linear-gradient(
-                45deg,
-                transparent,
-                transparent 2px,
-                #EC9696 2px,
-                #EC9696 4px
-              ),
-              linear-gradient(
-                to bottom,
-                #9e9e9e,
-                #9e9e9e
-              )`  };
-            textStyle = { "color": "#d9534f" };
+            mainStyle = {"width": `${survivedPercent}%`};
+            changeStyle = {"width": `${Math.abs(roundedPercent)}%`};
+            changeType=false;
         } else {
             // styles for when survival increases (green)
-            mainStyle = { "width": `${compareToPercent}%`, "backgroundColor": "#9e9e9e" };
-            changeStyle = { "width": `${percentChange}%`, "backgroundColor": "#91bd7b" };
-            textStyle = { "color": "#5cb85c" };
+            mainStyle = { "width": `${compareToPercent}%`};
+            changeStyle = { "width": `${percentChange}%`};
+            changeType=true;
         }
 
-        return { mainStyle, changeStyle, textStyle };
+        return { mainStyle, changeStyle, textStyle, changeType};
     }
 
     render() {
@@ -38,8 +27,8 @@ export default class BarChart extends Component {
         const hasCompare = compareToNumerator !== null && compareToNumerator !== null;
         const survivedPercent = numerator / denominator * 100;
 
-        let mainStyle = {"width": `${survivedPercent}%`, "backgroundColor": "#9e9e9e" };
-        let changeStyle, textStyle, compareToPercent, roundedPercent, percentChange;
+        let mainStyle = {"width": `${survivedPercent}%`};
+        let changeStyle, textStyle, changeType, compareToPercent, roundedPercent, percentChange;
         if (hasCompare) {
             compareToPercent = compareToNumerator / compareToDenominator * 100;
             roundedPercent = Math.floor(survivedPercent - compareToPercent);
@@ -48,14 +37,14 @@ export default class BarChart extends Component {
             mainStyle = styles.mainStyle;
             changeStyle = styles.changeStyle;
             textStyle = styles.textStyle;
+            changeType = styles.changeType;
         }
-
         return (
             <div className="bar-chart">
                 <div className="bar-chart__top">
                     <p className="bar-chart-text">{Math.floor(survivedPercent)}%</p>
                     {hasCompare && !isNaN(percentChange) && roundedPercent !== 0 &&
-                        <p className="bar-chart-text right-text" style={textStyle}>
+                        <p className={"bar-chart-text right-text " + (changeType?"increase":"decrease")}>
                             <FontAwesome className="tiny-arrow fas" name={roundedPercent > 0 ? "caret-up" : "caret-down"} />
                             {Math.abs(roundedPercent)}%
                         </p>
@@ -65,7 +54,7 @@ export default class BarChart extends Component {
                 <div className="bar-chart__bottom">
                     <div className="progress-bar">
                         <div className="prog-fill" style={mainStyle}></div>
-                        {hasCompare && <div className="prog-fill" style={changeStyle}></div>}
+                        {hasCompare && <div className={"prog-fill " + (changeType?"increase":"decrease")} style={changeStyle}></div>}
                         <div className="prog-fill-empty"></div>
                     </div>
                 </div>
