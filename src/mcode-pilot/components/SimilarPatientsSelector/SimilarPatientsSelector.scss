@@ -1,20 +1,22 @@
+@import '../../../styles/variables';
+
 .similar-patients-selector {
     &__select-buttons {
         button {
-            background-color: #fff;
+            background-color: $background;
             border: 0;
             cursor: pointer;
-            color: #0079CA;
+            color: $interface-blue;
             font-size: 0.9em;
             font-weight: 600;
 
             &:hover {
-                color: darken(#0079CA, 10%);
+                color: darken($interface-blue, 10%);
             }
 
             &:focus {
                 outline: none;
-                background-color: #0079CA;
+                background-color: $interface-blue;
                 color: #fff;
                 border-radius: 5px;
             }

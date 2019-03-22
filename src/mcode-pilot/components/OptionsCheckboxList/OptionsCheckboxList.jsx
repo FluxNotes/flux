@@ -19,7 +19,7 @@ export default class OptionsCheckboxList extends Component {
         this.setState({ expanded: !this.state.expanded });
     };
 
-    toggleOption(option) {
+    toggleOption = (option) => {
         this.props.setSelected(option, !this.props.options.options[option].selected);
     }
 
