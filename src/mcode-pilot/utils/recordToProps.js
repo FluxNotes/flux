@@ -1,5 +1,4 @@
 import _ from 'lodash';
-
 import FluxTumorDimensions from '../../dataaccess/mcodev0.1-datasource/model/oncology/FluxTumorDimensions';
 
 export default function getProps(patient, condition) {
@@ -8,53 +7,43 @@ export default function getProps(patient, condition) {
 
     const propDict = {
         // demographics
-        "demographic":
-        {
-            "age":
-            {
+        "demographic": {
+            "age": {
                 "display": "age",
                 "valueType": "range",
                 "range": 10,
                 "value": patient.getAge()
             },
-            "diagnosedAge":
-            {
+            "diagnosedAge": {
                 "display": "age at diagnosis",
                 "valueType": "range",
                 "range": 10,
                 "value": patient.getAgeAsOf(new Date(condition.diagnosisDate))
             },
-            "race":
-            {
+            "race": {
                 "display": "race",
                 "valueType": "string",
                 "value": patient.patient.race
             },
-            "gender":
-            {
+            "gender": {
                 "display": "gender",
                 "valueType": "string",
                 "value": _.lowerCase(patient.patient.gender)
             }
         },
-
         // pathology
-        "pathology":
-        {
-            "grade":
-            {
+        "pathology": {
+            "grade": {
                 "display": "grade",
                 "valueType": "int",
                 "value": condition.getMostRecentHistologicalGrade().getGradeAsSimpleNumber()
             },
-            "stage":
-            {
+            "stage": {
                 "display": "stage",
                 "valueType": "string",
                 "value": _safeGet(condition.getMostRecentClinicalStaging(), "stage")
             },
-            "size":
-            {
+            "size": {
                 "display": "size (mm)",
                 "valueType": "int",
                 "value": (() => {
@@ -64,17 +53,13 @@ export default function getProps(patient, condition) {
             }
         },
         "medical history": {
-            "ECOG":
-            {
+            "ECOG": {
                 "display": "ECOG Score",
                 "valueType": "range",
                 "range": 1,
                 "value": _safeGet(condition.getMostRecentECOGPerformanceStatus(), "value")
-
             }
         }
-
-
     }
 
     if (tumorMarkers) {
@@ -101,7 +86,6 @@ function _safeGet(object, property) {
 
 // a map of similar patient props to the patient record
 function _mapProp(propDict) {
-
     const similarPatientProps = {}
     // categories
     for (const key of Object.keys(propDict)) {

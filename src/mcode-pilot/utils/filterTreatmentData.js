@@ -64,13 +64,14 @@ function generateTreatmentData(similarPatients, treatments, includedTreatments) 
     let treatmentData = [];
     treatments.forEach(treatment => {
         const filteredPatients = similarPatients.filter(patient => isSame(patient.treatments, treatment));
-        let displayName = _.isArray(treatment) ?
-            treatment === includedTreatments ?
-                treatment.map(name => TREATMENT_NAMES[name]).join(' & ') :
-                treatment.filter((treat) => {
-                    return !includedTreatments.includes(treat);
-                }).map(name => TREATMENT_NAMES[name]).join(' & ') :
-            TREATMENT_NAMES[treatment];
+        let displayName = 
+            _.isArray(treatment)
+                ? (treatment === includedTreatments)
+                    ? treatment.map(name => TREATMENT_NAMES[name]).join(' & ') 
+                    : treatment.filter((treat) => {
+                        return !includedTreatments.includes(treat);
+                    }).map(name => TREATMENT_NAMES[name]).join(' & ') 
+                : TREATMENT_NAMES[treatment];
 
         let row = initializeTreatmentData(displayName);
         filteredPatients.forEach(patient => {
