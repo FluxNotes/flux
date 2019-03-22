@@ -1,6 +1,6 @@
 import FluxObjectFactory from '../model/FluxObjectFactory';
 import FluxAllergyIntolerance from '../model/allergy/FluxAllergyIntolerance';
-import FluxBreastCancerDisorderPresent from '../model/brca/FluxBreastCancerDisorderPresent';
+import FluxCancerDisorderPresent from '../model/oncocore/FluxCancerDisorderPresent';
 import FluxBreastCancerGeneticAnalysisPanel from '../model/oncology/FluxBreastCancerGeneticAnalysisPanel';
 import FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel from '../model/oncology/FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel';
 import FluxClinicalNote from '../model/core/FluxClinicalNote';
@@ -482,8 +482,14 @@ class PatientRecord {
     }
 
     getLastBreastCancerCondition() {
-        let result = this.getEntriesOfType(FluxBreastCancerDisorderPresent);
-        return result[result.length - 1];
+        // let result = this.getEntriesOfType(FluxBreastCancerDisorderPresent);
+        // return result[result.length - 1];
+
+        
+        // TODO (nng): Get entries of type FluxCancerDisorderPresent then need to filter for just the breast cancer code
+        let result = this.getEntriesOfType(FluxCancerDisorderPresent);
+        console.log(result);
+        return null;
     }
 
     // Add initial unsigned note to patient record
@@ -827,7 +833,15 @@ class PatientRecord {
 
     getMostRecentTumorMarkers(condition) {
         // Display ER, PR, HER2 if Breast Cancer Condition
-        if (condition instanceof FluxBreastCancerDisorderPresent) {
+
+        // TODO (nng): need to check if it's breast cancer after checkign if its an instance of FluxCancerDisorderPresent
+        // if (condition instanceof FluxBreastCancerDisorderPresent) {
+            if (condition instanceof FluxCancerDisorderPresent) {
+
+               console.log('code:');
+               console.log(condition.code);
+
+            // TODO (nng): at this point should check if it's breast cancer
             const receptorStatuses = [];
             const er = condition.getMostRecentERReceptorStatus();
             const pr = condition.getMostRecentPRReceptorStatus();

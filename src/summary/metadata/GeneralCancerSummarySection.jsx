@@ -117,6 +117,7 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                         {
                             name: "Histological Type",
                             value: (patient, currentConditionEntry) => {
+                                console.log(currentConditionEntry);
                                 let histologicalType = currentConditionEntry.getMostRecentHistologicType();
                                 if (!histologicalType) return null;
                                 return  {   value: histologicalType.type,
@@ -128,6 +129,7 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                         {
                             name: "Histological Grade",
                             value: (patient, currentConditionEntry) => {
+                                console.log(currentConditionEntry);                 
                                 let histologicalGrade = currentConditionEntry.getMostRecentHistologicalGrade();
                                 if (!histologicalGrade) return null;
                                 return  {   value: histologicalGrade.grade,

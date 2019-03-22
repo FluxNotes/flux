@@ -1,8 +1,9 @@
 import MetadataSection from "./MetadataSection";
 import FluxTumorDimensions from '../../model/tumor/FluxTumorDimensions';
 import FluxTumorMargins from '../../model/tumor/FluxTumorMargins';
-import FluxBreastCancerDisorderPresent from '../../model/brca/FluxBreastCancerDisorderPresent';
+// import FluxBreastCancerDisorderPresent from '../../model/brca/FluxBreastCancerDisorderPresent';
 import Lang from 'lodash'
+import FluxCancerDisorderPresent from "../../model/oncocore/FluxCancerDisorderPresent";
 
 export default class PathologySection extends MetadataSection {
     getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
@@ -28,7 +29,7 @@ export default class PathologySection extends MetadataSection {
                     name: "",
                     items: [
 
-                        // TODO: When return value for items that are currently null, need to also return patient.isUnsigned(currentConditionEntry)
+                        // TODO (nng): When return value for items that are currently null, need to also return patient.isUnsigned(currentConditionEntry)
                         {
                             name: "Report Date",
                             value: (patient, currentConditionEntry) => {
@@ -103,7 +104,9 @@ export default class PathologySection extends MetadataSection {
         };
 
         // Include receptor statuses for Breast Cancer metadata
-        if (condition instanceof FluxBreastCancerDisorderPresent) {
+        // if (condition instanceof FluxBreastCancerDisorderPresent) {
+        if (condition instanceof FluxCancerDisorderPresent) {
+            // TODO: Check if it's a breast cancer, check for code
             metadata.narrative.push({
                     defaultTemplate: "ER-${.Receptor Status ER} PR-${.Receptor Status PR} HER2-${.Receptor Status HER2}."
             });

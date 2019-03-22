@@ -3,7 +3,6 @@ import FluxBreastCancerGeneticAnalysisPanel from './FluxBreastCancerGeneticAnaly
 import FluxBRCA1Variant from './FluxBRCA1Variant';
 import FluxBRCA2Variant from './FluxBRCA2Variant';
 import FluxMitoticRate from './FluxMitoticRate';
-import FluxGastrointestinalStromalTumor from './FluxGastrointestinalStromalTumor';
 import FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel from './FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel';
 import FluxKITVariant from './FluxKITVariant';
 import FluxPDGFRAVariant from './FluxPDGFRAVariant';
@@ -20,7 +19,6 @@ export default class FluxOncologyObjectFactory {
             case 'BRCA1Variant': return new FluxBRCA1Variant(json);
             case 'BRCA2Variant': return new FluxBRCA2Variant(json);
             case 'BreastCancerGeneticAnalysisPanel': return new FluxBreastCancerGeneticAnalysisPanel(json, patientRecord);
-            case 'GastrointestinalStromalTumor': return new FluxGastrointestinalStromalTumor(json, patientRecord);
             case 'GastrointestinalStromalTumorCancerGeneticAnalysisPanel': return new FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel(json, patientRecord);
             case 'KITVariant': return new FluxKITVariant(json, patientRecord);
             case 'PDGFRAVariant': return new FluxPDGFRAVariant(json, patientRecord);
