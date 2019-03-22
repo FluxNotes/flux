@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import TargetedDataPanel from '../panels/TargetedDataPanel';
-import './CoreCancerPilotDashboard.css';
+import './CompassAppDashboard.css';
 
-export default class CoreCancerPilotDashboard extends Component {
+export default class CompassAppDashboard extends Component {
     moveTargetedDataPanelToSection = (sectionName) => {
         return this.targetedDataPanel.moveToSection(sectionName);
     }
@@ -21,7 +21,7 @@ export default class CoreCancerPilotDashboard extends Component {
         };
 
         return (
-            <div id="core-cancer-pilot-dashboard-content" style={{display: "flex"}}>
+            <div id="compass-app-dashboard-content" style={{display: "flex"}}>
                 <div className="right-border-box" style={targetedDataPanelStyles}>
                     <TargetedDataPanel
                         actions={this.props.actions}
@@ -49,7 +49,7 @@ export default class CoreCancerPilotDashboard extends Component {
     }
 }
 
-CoreCancerPilotDashboard.propTypes = {
+CompassAppDashboard.propTypes = {
     actions: PropTypes.array.isRequired,
     appState: PropTypes.object.isRequired,
     dataAccess: PropTypes.object.isRequired,
