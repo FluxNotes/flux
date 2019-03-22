@@ -16,7 +16,8 @@ export default class TimelineSection extends MetadataSection {
                     name: "Medications",
 
                     filters: [
-                        { name: 'Over The Counter Medications', 
+                        {
+                            name: 'Over The Counter Medications',
                             id: overTheCounter,
                         }
                     ],
@@ -40,7 +41,6 @@ export default class TimelineSection extends MetadataSection {
 
     nextGroupNumber = 1;
 
-
     resetTimelineData = () => {
         this.nextGroupNumber = 1;
     }
@@ -49,33 +49,33 @@ export default class TimelineSection extends MetadataSection {
     getProgressionItems = (patient, condition) => {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         const progressions = patient.getProgressionsForConditionChronologicalOrder(condition);
-        let items = [];
+        const items = [];
 
         progressions.forEach((prog) => {
-            const assignedGroup = this.assignItemToGroup(items, prog.relevantTime);
-
+            const group = this.assignItemToGroup(items, prog.relevantTime);
             let classes = 'progression-item';
+
             // Do not include progression on timeline if status not set
             if (!prog.status) return;
 
-            let startDate = new moment(prog.asOfDate, "D MMM YYYY");
-            let hoverText = `${startDate.format('MM/DD/YYYY')}`;
-            let endDate = startDate.clone().add(1, 'day');
+            const startDate = new moment(prog.asOfDate, 'D MMM YYYY');
+            const hoverText = `${startDate.format('MM/DD/YYYY')}`;
+            const endDate = startDate.clone().add(1, 'day');
             classes += ' point-in-time';
-
-            let focalCondition = patient.getFocalConditionForProgression(prog);
-            let focalConditionName = focalCondition.type;
-
-            let hoverTitle = focalConditionName + " is " + prog.status + " based on " + prog.evidence.join(", ");
+            const focalCondition = patient.getFocalConditionForProgression(prog);
+            const focalConditionName = focalCondition.type;
+            const hoverTitle = `${focalConditionName} is ${prog.status} based on ${prog.evidence.join(', ')}`;
+            const source = this.determineSource(patient, prog);
 
             items.push({
-                group: assignedGroup,
+                group,
+                hoverTitle,
+                hoverText,
+                source,
                 icon: 'heartbeat',
                 className: classes,
-                hoverTitle: hoverTitle,
-                hoverText: hoverText,
                 start_time: startDate,
-                end_time: endDate
+                end_time: endDate,
             });
         });
 
@@ -267,7 +267,7 @@ export default class TimelineSection extends MetadataSection {
                 subset.push(item);
             }
         });
-        
+
         return subset;
     }
 }
