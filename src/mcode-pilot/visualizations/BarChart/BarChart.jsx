@@ -17,7 +17,7 @@ export default class BarChart extends Component {
             changeStyle = { "width": `${percentChange}%` };
         }
         
-        changeType = percentChange < 0;
+        changeType = percentChange > 0;
         return { mainStyle, changeStyle, changeType };
     }
 
