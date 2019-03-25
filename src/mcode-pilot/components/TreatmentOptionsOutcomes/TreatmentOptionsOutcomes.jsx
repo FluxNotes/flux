@@ -15,7 +15,8 @@ export default class TreatmentOptionsOutcomes extends Component {
 
         this.state = {
             includedOpen: false,
-            comparedOpen: false
+            comparedOpen: false,
+            outcomesToggle: "table"
         };
     }
 
@@ -61,6 +62,10 @@ export default class TreatmentOptionsOutcomes extends Component {
 
     handleOpenCompared = () => {
         this.setState({ comparedOpen: true });
+    }
+
+    handleToggleOutcomes = () => {
+        this.setState({ outcomesToggle: this.state.outcomesToggle === "table" ? "icons" : "table" });
     }
 
     toggleTreatment = (treatmentType) => (event, selected) => {
@@ -156,7 +161,31 @@ export default class TreatmentOptionsOutcomes extends Component {
         );
     }
 
-    render() {
+    renderToggleButtons = () => {
+        const { outcomesToggle } = this.state;
+
+        return (
+            <div className="treatment-options-outcomes__toggle">
+                <div
+                    className={`toggle-icon table-toggle ${outcomesToggle === "table" ? "active" : ""}`}
+                    onClick={() => this.handleToggleOutcomes()}
+                >
+                    <FontAwesome name="table" />
+                    <div className="toggle-text">Table</div>
+                </div>
+
+                <div
+                    className={`toggle-icon icons-toggle ${outcomesToggle === "icons" ? "active" : ""}`}
+                    onClick={() => this.handleToggleOutcomes()}
+                >
+                    <FontAwesome name="th" />
+                    <div className="toggle-text">Icons</div>
+                </div>
+            </div>
+        );
+    }
+
+    renderOutcomesTable = () => {
         const { includedOpen, comparedOpen } = this.state;
         const {
             similarPatientTreatments,
@@ -168,7 +197,7 @@ export default class TreatmentOptionsOutcomes extends Component {
         const noIncludedRow = includedTreatmentData.length === 0;
 
         return (
-            <div className="treatment-options-outcomes">
+            <div>
                 {this.renderHeader()}
 
                 <div className="treatment-options-outcomes__table">
@@ -222,6 +251,25 @@ export default class TreatmentOptionsOutcomes extends Component {
                 {!noIncludedRow &&
                     <TableLegend includedRow={includedTreatmentData[0]} />
                 }
+            </div>
+        );
+    }
+
+    renderOutcomesIcons = () => {
+        return (
+            <div className="treatment-options-outcomes__icons">
+                ICONS
+            </div>
+        );
+    }
+
+    render() {
+        const { outcomesToggle } = this.state;
+
+        return (
+            <div className="treatment-options-outcomes">
+                {this.renderToggleButtons()}
+                {outcomesToggle === "table" ? this.renderOutcomesTable() : this.renderOutcomesIcons()}
             </div>
         );
     }

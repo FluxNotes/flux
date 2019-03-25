@@ -97,7 +97,6 @@ function generateTreatmentData(similarPatients, treatments, includedTreatments) 
         }
     });
 
-    console.debug('treatmentData:', treatmentData);
     return treatmentData;
 }
 

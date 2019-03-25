@@ -5,6 +5,31 @@
     font-size: 0.9em;
     margin-bottom: 200px;
 
+    &__toggle {
+        display: flex;
+        justify-content: flex-end;
+        font-size: 1.6em;
+
+        .toggle-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-right: 15px;
+            cursor: pointer;
+            color: $state;
+
+            &.active,
+            &.active .toggle-text {
+                color: $color-blue;
+            }
+
+            .toggle-text {
+                font-size: 0.6em;
+                color: $color-gray;
+            }
+        }
+    }
+
     &__header {
         display: flex;
         align-items: flex-end;
