@@ -2385,7 +2385,7 @@
             "Value": "http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested"
         },
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
-        "EntryId": "33",
+        "EntryId": "50",
         "Metadata": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/Metadata"
@@ -2500,13 +2500,13 @@
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
                 },
-                "Value": "21 May 2018"
+                "Value": "25 Dec 2018"
             },
             "AuthoredDateTime": {
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/base/AuthoredDateTime"
                 },
-                "Value": "21 May 2018"
+                "Value": "25 Dec 2018"
             }
         },
         "Encounter": {
@@ -2521,7 +2521,7 @@
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/BeginDateTime"
                     },
-                    "Value": "19 Jul 2018 18:00 -0400"
+                    "Value": "31 Dec 2018 18:00 -0400"
                 }
             },
             "Status": {
