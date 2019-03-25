@@ -21,23 +21,23 @@ class BandedLineChartVisualizer extends Visualizer {
         const subsections = conditionSection.data;
 
         // initialize noLineCharts so that all charts default to no lines
-        const hiddenLineCharts = subsections.map((_, i) => true);
+        const shownLineCharts = subsections.map((subsection, i) => subsection.displayChartLine);
 
         // this.updateState = true;
         // This var will be used 
         this.state = {
             chartWidth: 600,
             chartHeight: 250,
-            hiddenLineCharts // charts that have the no line property set
+            shownLineCharts // charts that have the no line property set
         }
     }
 
     // toggles the line on the chart from being hidden and shown
     toggleLine = (chartIndex, toggle) => {
         if (toggle) {
-            let hiddenLineCharts = [...this.state.hiddenLineCharts];
-            hiddenLineCharts[chartIndex] = !hiddenLineCharts[chartIndex];
-            this.setState({ hiddenLineCharts });
+            let shownLineCharts = [...this.state.shownLineCharts];
+            shownLineCharts[chartIndex] = !shownLineCharts[chartIndex];
+            this.setState({ shownLineCharts });
         }
     }
 
@@ -98,16 +98,16 @@ class BandedLineChartVisualizer extends Visualizer {
         }
     }
 
-    renderIcons = (chartIndex, hiddenLine) => {
-        const chartIcon = this.props.visualizerManager.renderIcon('chart', !hiddenLine);
-        const scatterplotIcon = this.props.visualizerManager.renderIcon('scatterplot', hiddenLine);
+    renderIcons = (chartIndex, showLine) => {
+        const chartIcon = this.props.visualizerManager.renderIcon('chart', showLine);
+        const scatterplotIcon = this.props.visualizerManager.renderIcon('scatterplot', !showLine);
 
         return(
              <span className="subsection-icons">
-                <Button className="small-btn" onClick={() => this.toggleLine(chartIndex, !hiddenLine)}>
+                <Button className="small-btn" onClick={() => this.toggleLine(chartIndex, showLine)}>
                     {scatterplotIcon}
                 </Button>
-                <Button className="small-btn" onClick={() => this.toggleLine(chartIndex, hiddenLine)}>
+                <Button className="small-btn" onClick={() => this.toggleLine(chartIndex, !showLine)}>
                     {chartIcon}
                 </Button>
             </span>
@@ -116,8 +116,8 @@ class BandedLineChartVisualizer extends Visualizer {
 
     renderSubsectionChart = (subsection, patient, condition, chartIndex) => {
         // if the subsection is in the hiddenLineCharts array, add 'hide-line' class to remove the line from the chart
-        const hideLine = this.state.hiddenLineCharts[chartIndex];
-        const graphClass = hideLine ?  'hide-line' : '';
+        const showLine = this.state.shownLineCharts[chartIndex];
+        const graphClass = showLine ?  '' : 'hide-line';
 
         // FIXME: Should start_time be a magic string?
         const xVar = "start_time";
@@ -127,14 +127,18 @@ class BandedLineChartVisualizer extends Visualizer {
         // process dates into numbers for graphing
         const processedData = this.processForGraphing(data, xVar, xVarNumber);
         if (Lang.isUndefined(processedData) || processedData.length === 0) {
-            return <div key={yVar}>
-                        <div className="sub-section-heading">
-                            <h2 className="sub-section-name list-subsection-header">
+            return(
+                <div key={yVar}>
+                    <div className="subsection-heading">
+                        <h2>
+                            <span className="subsection-name">
                                 <span>{yVar}</span>
-                            </h2>
-                        </div>
-                        <h2 style={{paddingTop: '10px'}}>None</h2>
-                    </div>;
+                            </span>
+                        </h2>
+                    </div>
+                    <h2 style={{paddingTop: '10px'}}>None</h2>
+                </div>
+            );
         }
         const yUnit = processedData[0].unit;
         const series = processedData[0].series || [subsection.name];
@@ -192,9 +196,9 @@ class BandedLineChartVisualizer extends Visualizer {
                         <span className="subsection-name"> 
                             <span>{`${yVar}`}</span><span>{` (${yUnit})`}</span>
                         </span>
-                        {this.renderIcons(chartIndex, hideLine)}
+                        {/* COMMENT THIS BACK IN FOR ABILITY TO TOGGLE THE LINE */}
+                        {/* {this.renderIcons(chartIndex, showLine)} */}
                     </h2>
-                    {/* <button onClick={() => this.toggleLine(chartIndex)}>toggle line</button> */}
                 </div>
                 <ResponsiveContainer
                     height={this.state.chartHeight}

@@ -6,6 +6,7 @@ export default class WeightSubsection extends VitalsSubsection {
             name: "Weight",
             code: "29463-7",
             itemsFunction: this.getVitalsForSubsection,
+            displayChartLine: false,
 
             // Source: https://www.healthline.com/health/mens-health/average-weight-for-men
             bands: [

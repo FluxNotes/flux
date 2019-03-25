@@ -6,6 +6,7 @@ export default class PlateletSubsection extends LabTestSubsection {
             name: "Platelet count",
             code: "C0005821",
             itemsFunction: this.getTestsForSubSection,
+            displayChartLine: false,
 
             bands: [
                 {
