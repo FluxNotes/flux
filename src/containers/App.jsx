@@ -5,7 +5,7 @@ import 'fhirclient';
 import AppManager from '../apps/AppManager';
 import WithTracker from '../components/WithTracker';
 
-const apps = new AppManager().getSupportedApps();
+const apps = AppManager.getSupportedApps();
 
 const App = () => (
     <div className="App">
