@@ -1,5 +1,4 @@
-$color-blue: #0084b8;
-$color-gray: #ccc;
+@import '../../../styles/variables';
 
 .treatments-popper {
     position: absolute;
@@ -33,7 +32,7 @@ $color-gray: #ccc;
 
             .checkbox {
                 height: 22px;
-                color: $color-blue;
+                color: $shr-context-dark;
                 margin-right: -5px;
             }
         }

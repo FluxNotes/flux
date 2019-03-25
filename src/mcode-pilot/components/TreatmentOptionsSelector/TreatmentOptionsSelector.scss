@@ -1,3 +1,5 @@
+@import '../../../styles/variables';
+
 div.treatment-options-selector {
     box-shadow: none;
     margin: 10px 0;
@@ -17,7 +19,7 @@ div.treatment-options-selector {
 
         &-icon {
             font-size: 1.2em;
-            color: #aaa;
+            color: $state;
         }
 
         &-title {
