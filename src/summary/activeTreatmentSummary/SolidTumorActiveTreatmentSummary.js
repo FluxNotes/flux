@@ -28,28 +28,33 @@ class SolidTumorActiveTreatmentSummary extends IActiveTreatmentSummary {
     }
 
     getActiveTreatmentSummary() { 
-        console.log("SolidTumorActiveTreatmentSummary")
         // If the condition isn't a cancer, return null - this algorithm cannot provide information about 
         if (!this._currentConditionEntry instanceof FluxSolidTumorCancer) return null;
         let activeTreatment = "";
-        const _patientHasActiveNonOTCMedications = this._patientHasActiveNonOTCMedications();
-        const _patientHasSurgeryPlanned = this._patientHasSurgeryPlanned();
-        const _patientHasSurgicalHistory = this._patientHasSurgicalHistory();
-        if (_patientHasActiveNonOTCMedications) { 
+        // Get all relevant medications
+        const activeNonOTCMeds = this._getActiveNonOTCMeds();
+        const patientHasActiveNonOTCMeds = activeNonOTCMeds && activeNonOTCMeds.length > 0;
+        //
+        const allPlannedSurgeries = this._getAllSurgeriesPlanned();
+        const patientHasSurgeryPlanned = allPlannedSurgeries && allPlannedSurgeries.length > 0;
+        //
+        const allSurgeriesPreviouslyPerformed = this._getAllSurgeriesPreviouslyPerformed()
+        const patientHasSurgicalHistory = allSurgeriesPreviouslyPerformed && allSurgeriesPreviouslyPerformed.length > 0;
+        if (patientHasActiveNonOTCMeds) { 
             // If the patient has nonOTC medications (i.e. they're related to their current condition),
             // Then the description of their treatment depends on their surgical history/planned surgeries
-            if (_patientHasSurgeryPlanned) { 
+            if (patientHasSurgeryPlanned) { 
                 // If they are on a medication related to their cancer 
                 // And if they have a surgery planned 
                 // Then we can describe their treatment as neo-adjuvant
                 activeTreatment = "neo-adjuvant";
             } else { 
-                if (_patientHasSurgicalHistory) { 
+                if (patientHasSurgicalHistory) { 
                     // If they are on a medication related to their cancer 
                     // And if they have a previous 
                     // Then we can describe their treatment as neo-adjuvant
                     activeTreatment = "adjuvant";
-                } else { 
+                } else {    
                     // TODO: Determine some description of the medication
                     activeTreatment = "medication";
                 }
@@ -57,7 +62,7 @@ class SolidTumorActiveTreatmentSummary extends IActiveTreatmentSummary {
         } else { 
             // If there are no related medications
             // Then the description of their treatment depends on their surgical history/planned surgeries
-            if (_patientHasSurgicalHistory) {
+            if (patientHasSurgicalHistory) {
                 // If the patient has no medications related to their cancer 
                 // And if they have a surgical history 
                 // Then they have no active treatment
@@ -71,24 +76,28 @@ class SolidTumorActiveTreatmentSummary extends IActiveTreatmentSummary {
             }
         }
         console.log('activeTreatment: ', activeTreatment);
-        console.log('this._possibleActiveTreatmentOptions[activeTreatment];: ', this._possibleActiveTreatmentOptions[activeTreatment]);
+        console.log('activeNonOTCMeds: ', activeNonOTCMeds);
+        console.log('this._possibleActiveTreatmentOptions[activeTreatment]: ', this._possibleActiveTreatmentOptions[activeTreatment]);
         return this._possibleActiveTreatmentOptions[activeTreatment];
     }
 
-    _patientHasActiveNonOTCMedications() {
-        const allMedsForCondition = this._patient.getMedicationsForConditionReverseChronologicalOrder(this._currentConditionEntry);
-        return _.some(allMedsForCondition, (med) => {
-            return !med.overTheCounter
+    _getActiveNonOTCMeds() {
+        const allMedsForCondition = this._patient.getActiveMedicationsForCondition(this._currentConditionEntry);
+        return _.filter(allMedsForCondition, (med) => {
+            return !med.overTheCounter;
         });
     }
 
-    _patientHasSurgicalHistory() {
-        
-        return false;
+    _getAllSurgeriesPlanned() { 
+        const allSurgeriesPlanned = this._patient.getSurgeriesPlannedForCondition(this._currentConditionEntry);
+        console.log('allSurgeriesPlanned: ', allSurgeriesPlanned);
+        return allSurgeriesPlanned;
     }
 
-    _patientHasSurgeryPlanned () {
-        return false;
+    _getAllSurgeriesPreviouslyPerformed() {
+        const allSurgeriesPreviouslyPerformed = this._patient.getSurgeriesPreviouslyPerformedForCondition(this._currentConditionEntry);
+        console.log('allSurgeriesPreviouslyPerformed: ', allSurgeriesPreviouslyPerformed);
+        return allSurgeriesPreviouslyPerformed
     }
 }
 

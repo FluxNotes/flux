@@ -26,6 +26,7 @@ import AuthoredDateTime from '../model/shr/base/AuthoredDateTime';
 import LastUpdated from '../model/shr/base/LastUpdated';
 import Reference from '../model/Reference';
 import mapper from '../lib/FHIRMapper';
+import { getProcedureValueCodeableConcept, getProcedureStatusCodeableConcept } from '../lib/procedure_lookup';
 import Lang from 'lodash';
 import moment from 'moment';
 import { v4 } from 'uuid';
@@ -653,6 +654,17 @@ class PatientRecord {
             return med.isActiveBetween(sixMonthsAgo, today);
         });
     }
+    
+    getActiveMedicationsForCondition(condition) {
+        let medications = this.getActiveMedications();
+        const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
+        medications = medications.filter((med) => {
+            return med instanceof FluxMedicationRequested && med.reasons.some((r) => {
+                return r.value.entryId && r.value.entryId === conditionEntryId;
+            });
+        });
+        return medications;
+    }
 
     getActiveMedicationsChronologicalOrder() {
         return this.getActiveMedicationsReverseChronologicalOrder().reverse();
@@ -805,6 +817,35 @@ class PatientRecord {
 
         return imagingProcedures.filter(p => {
             return p.reasons && p.reasons.some(r => r.value.entryId && r.value.entryId === conditionEntryId);
+        });
+    }
+    
+
+    getSurgeriesForCondition(condition) { 
+        // Get all procedures relevant to this condition
+        const allProceduresForCondition = this.getProceduresForCondition(condition);
+        const surgeryValue = getProcedureValueCodeableConcept("surgery");
+        console.log('surgeryValue: ', surgeryValue);
+        // Filter to those that are surgeries - code C0851238
+        return allProceduresForCondition.filter((cond) => {
+            return cond.code === surgeryValue.coding[0].code.value;
+        });
+    }
+
+    getSurgeriesPlannedForCondition(condition) { 
+        const surgeriesForCondition = this.getSurgeriesForCondition(condition);
+        const activeStatus = getProcedureStatusCodeableConcept("active");
+        return surgeriesForCondition.filter((cond) => {
+            return cond.status === activeStatus.coding[0].code.value;
+        })
+    }
+
+    getSurgeriesPreviouslyPerformedForCondition(condition) { 
+        const surgeriesForCondition = this.getSurgeriesForCondition(condition);
+        // Filter to those with status.value = completed 
+        const completedStatus = getProcedureStatusCodeableConcept("completed");
+        return surgeriesForCondition.filter((cond) => {
+            return cond.status === completedStatus.coding[0].code.value;
         });
     }
 

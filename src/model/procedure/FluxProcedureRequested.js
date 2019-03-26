@@ -41,7 +41,7 @@ class FluxProcedureRequested extends FluxEntry {
      *  Returns status string
      */
     get status() {
-        return this._procedureRequested.status.value;
+        return this._displayTextOrCode(this._procedureRequested.status.value.coding[0]);
     }
 
     /*
