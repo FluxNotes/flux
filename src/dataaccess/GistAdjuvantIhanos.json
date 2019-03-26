@@ -798,6 +798,13 @@
                     }
                 }
             }
+        },
+        "SourceClinicalNote": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "5250",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
+            }
         }
     },
     {
@@ -813,7 +820,7 @@
             "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"
         },
         "LastUpdated": {
-            "Value": "13 Jul 2016",
+            "Value": "18 Jul 2016",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
@@ -827,7 +834,7 @@
             }
         ],
         "CreationTime": {
-            "Value": "13 Jul 2016",
+            "Value": "18 Jul 2016",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -882,7 +889,7 @@
             }
         },
         "ExpectedPerformanceTime": {
-            "Value": "13 Jul 2016",
+            "Value": "18 Jul 2016",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
             }
@@ -965,6 +972,13 @@
                     }
                 }
             }
+        },
+        "SourceClinicalNote": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "5110",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
+            }
         }
     },
     {
@@ -980,7 +994,7 @@
             "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"
         },
         "LastUpdated": {
-            "Value": "30 Jul 2016",
+            "Value": "03 Aug 2016",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
@@ -994,7 +1008,7 @@
             }
         ],
         "CreationTime": {
-            "Value": "30 Jul 2016",
+            "Value": "03 Aug 2016",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -1049,7 +1063,7 @@
             }
         },
         "ExpectedPerformanceTime": {
-            "Value": "30 Jul 2016",
+            "Value": "03 Aug 2016",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
             }
@@ -1131,6 +1145,13 @@
                         }
                     }
                 }
+            }
+        },
+        "SourceClinicalNote": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "5160",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
             }
         }
     },
@@ -1298,6 +1319,13 @@
                         }
                     }
                 }
+            }
+        },
+        "SourceClinicalNote": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "5200",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
             }
         }
     },

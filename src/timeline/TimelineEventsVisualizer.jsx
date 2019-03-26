@@ -152,6 +152,7 @@ class TimelineEventsVisualizer extends Visualizer {
     renderedMenu = () => {
         const { elementToDisplayMenu, elementId, elementText, elementSource, arrayIndex, positionLeft, positionTop } = this.state;
         const { allowItemClick, actions } = this.props;
+
         // Item represents the name of the row/section of the current element.
         const onMenuItemClicked = (fn, element, item) => {
             const callback = () => {

@@ -1,9 +1,11 @@
 import TimePeriod from '../shr/core/TimePeriod';
 import ProcedureRequested from '../shr/procedure/ProcedureRequested';
+import FluxEntry from '../base/FluxEntry';
 
-class FluxProcedureRequested {
+class FluxProcedureRequested extends FluxEntry {
     constructor(json) {
-        this._procedureRequested= ProcedureRequested.fromJSON(json);
+        super();
+        this._entry = this._procedureRequested = ProcedureRequested.fromJSON(json);
     }
 
     get entryInfo() {
@@ -81,17 +83,6 @@ class FluxProcedureRequested {
         } else {
             return null;
         }
-    }
-
-    /**
-     * Extract a human-readable string from a code.
-     *
-     * @param {Coding} coding
-     * @returns {string} the display text if available, otherwise the code.
-     * @private
-     */
-    _displayTextOrCode(coding) {
-        return coding.displayText ? coding.displayText.value : coding.code.value;
     }
 
     toJSON() {

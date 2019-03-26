@@ -3,7 +3,7 @@ import Lang from 'lodash'
 import moment from 'moment';
 
 export default class TimelineSection extends MetadataSection {
-    getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
+    getMetadata() {
         const overTheCounter = 'OverTheCounterMedications';
 
         return {
@@ -91,7 +91,7 @@ export default class TimelineSection extends MetadataSection {
                     case 'Over The Counter Medications':
                         // If Show Over The Counter meds is not selected, need to filter them out.
                         if (getFilterValue(filter, subsection.name) === false) {
-                            meds = meds.filter(med => {
+                            meds = meds.filter((med) => {
                                 // Don't filter out medications if we don't know if they are OTC or not.
                                 if (med.overTheCounter === undefined) {
                                     return true;
@@ -105,8 +105,8 @@ export default class TimelineSection extends MetadataSection {
                 }
             });
         }
-        let items = [];
 
+        const items = [];
         meds.forEach((med) => {
             const ept = med.expectedPerformanceTime;
             if (Lang.isNull(ept)) return;
@@ -115,7 +115,8 @@ export default class TimelineSection extends MetadataSection {
             if (!endTime.isValid()) {
                 endTime = new moment();
             }
-            const assignedGroup = this.assignItemToGroup(items, startTime, endTime);
+
+            const group = this.assignItemToGroup(items, startTime, endTime);
             const name = med.medication;
             let dosage;
             if (!med.amountPerDose) {
@@ -124,30 +125,33 @@ export default class TimelineSection extends MetadataSection {
                 dosage = med.amountPerDose.value + " " + med.amountPerDose.units + " " + (med.timingOfDoses.value || med.doseInstructionsText) + " " + (med.timingOfDoses.units ? med.timingOfDoses.units : "");
             }
 
+            const source = this.determineSource(patient, med);
             items.push({
-                group: assignedGroup,
+                group,
+                source,
                 title: name,
                 details: dosage,
                 hoverTitle: name,
                 hoverText: dosage,
                 className: 'medication-item',
                 start_time: startTime,
-                end_time: endTime
+                end_time: endTime,
             });
         });
+
         return items;
     }
 
     getProcedureItems = (patient, condition) => {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         const procedures = patient.getProceduresForConditionChronologicalOrder(condition);
-        let items = [];
+        const items = [];
 
         if (procedures.length > 0) this.incrementGroupNumber();
         procedures.forEach((proc) => {
-            let startTime = new moment(typeof proc.occurrenceTime === 'string' ? proc.occurrenceTime : proc.occurrenceTime.timePeriodStart, "D MMM YYYY");
+            const startTime = new moment(typeof proc.occurrenceTime === 'string' ? proc.occurrenceTime : proc.occurrenceTime.timePeriodStart, "D MMM YYYY");
             let endTime = proc.occurrenceTime.timePeriodStart ? (!Lang.isNull(proc.occurrenceTime.timePeriodEnd) ? new moment(proc.occurrenceTime.timePeriodEnd, "D MMM YYYY") : null) : null;
-            const assignedGroup = this.assignItemToGroup(items, startTime, endTime);
+            const group = this.assignItemToGroup(items, startTime, endTime);
 
             let classes = 'event-item';
             //let endDate = proc.endDate;
@@ -164,15 +168,17 @@ export default class TimelineSection extends MetadataSection {
             if (proc.name) {
                 hoverText += ` : ${proc.name}`;
             }
+            const source = this.determineSource(patient, proc);
 
             items.push({
-                group: assignedGroup,
+                group,
+                hoverText,
+                source,
                 icon: 'hospital-o',
                 className: classes,
                 hoverTitle: proc.name,
-                hoverText: hoverText,
                 start_time: startTime,
-                end_time: endTime
+                end_time: endTime,
             });
         });
 
@@ -182,14 +188,14 @@ export default class TimelineSection extends MetadataSection {
     getEventItems = (patient, condition) => {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         const events = patient.getKeyEventsForConditionChronologicalOrder(condition);
-        let items = [];
+        const items = [];
 
         if (events.length > 0) this.incrementGroupNumber();
         events.forEach((evt) => {
-            const assignedGroup = this.assignItemToGroup(items, evt.start_time, evt.end_time);
+            const group = this.assignItemToGroup(items, evt.start_time, evt.end_time);
 
             let classes = 'progression-item';
-            let startDate = new moment(evt.start_time, "D MMM YYYY");
+            const startDate = new moment(evt.start_time, "D MMM YYYY");
             let endDate = null;
             let hoverText = '';
             let hoverTitle = '';
@@ -206,13 +212,13 @@ export default class TimelineSection extends MetadataSection {
             hoverTitle = evt.name;
 
             items.push({
-                group: assignedGroup,
+                group,
+                hoverTitle,
+                hoverText,
                 icon: 'heartbeat',
                 className: classes,
-                hoverTitle: hoverTitle,
-                hoverText: hoverText,
                 start_time: startDate,
-                end_time: endDate
+                end_time: endDate,
             });
         });
 

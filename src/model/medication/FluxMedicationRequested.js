@@ -9,18 +9,20 @@ import EndDateTime from '../shr/core/EndDateTime';
 import Timing from '../shr/core/Timing';
 import ExpectedPerformanceTime from '../shr/base/ExpectedPerformanceTime';
 import Type from '../shr/core/Type';
+import FluxEntry from '../base/FluxEntry';
 import moment from 'moment';
 import lookup from '../../lib/MedicationInformationService.jsx';
 
-class FluxMedicationRequested {
+class FluxMedicationRequested extends FluxEntry {
     constructor(json) {
-        this._medicationRequested = MedicationRequested.fromJSON(json);
+        super();
+        this._entry = this._medicationRequested = MedicationRequested.fromJSON(json);
         if (!this._medicationRequested.entryInfo) {
             let entry = new Entry();
             entry.entryType = new EntryType();
             entry.entryType.uri = 'http://standardhealthrecord.org/spec/shr/medication/MedicationRequested';
             this._medicationRequested.entryInfo = entry;
-          }
+        }
     }
 
     /*
@@ -254,16 +256,6 @@ class FluxMedicationRequested {
         return this._medicationRequested.dosage.dosageInstructionsText ? this._medicationRequested.dosage.dosageInstructionsText.value : null;
     }
 
-    /**
-     * Extract a human-readable string from a code.
-     *
-     * @param {Coding} coding
-     * @returns {string} the display text if available, otherwise the code.
-     * @private
-     */
-    _displayTextOrCode(coding) {
-        return coding.displayText ? coding.displayText.value : coding.code.value;
-    }
     /**
      * Return a JSON representation of medicationRequested
      */
