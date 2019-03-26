@@ -15,10 +15,10 @@ import './index.css';
 injectTapEventPlugin();
 
 const target = document.querySelector('#root');
-
+const base = (global.CONFIG && global.CONFIG.basename) ? global.CONFIG.basename :  '/'
 render(
   <Provider store={store}>
-    <ConnectedRouter history={history}>
+    <ConnectedRouter basename={base} history={history}>
       <div>
         <App />
       </div>
