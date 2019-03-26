@@ -8,6 +8,7 @@ program
     .usage('<path-to-patient-json> [encounter-entryid]')
     .arguments('<path-to-patient-json> [encounter-entryid]')
     .option('-o, --output', 'Output all dates in the record')
+    .option('-O, --ordered-output', 'Output all dates in chronological order')
     .action((pathToPatientJson, encounterEntryid) => {
         input = pathToPatientJson;
         entryid = encounterEntryid;
@@ -21,6 +22,7 @@ if (typeof input === 'undefined') {
     program.help();
 }
 const output = program.output;
+const orderedOutput = program.orderedOutput;
 const patientEntries = JSON.parse(fs.readFileSync(input, 'utf8'));
 let encounter;
 if(entryid) {
@@ -46,16 +48,20 @@ if(encounter) {
 }
 
 
+const entries = [];
 patientEntries.forEach((entry, i) => {
     // flatten each entry to have only one level of properties to make it easier to traverse
     const flattenedEntry = flatten(entry);
     let change = false;
     let isDate;
-    if(output) {
-        console.log("\u001b[37m " + flattenedEntry.EntryId +'\t' + flattenedEntry["EntryType.Value"].split('/').slice(-1)[0]);
+    const entryId = flattenedEntry.EntryId
+    const entryType = flattenedEntry["EntryType.Value"].split('/').slice(-1)[0];
+    if(output && !orderedOutput) {
+        console.log("\u001b[37m " + entryId +'\t' + entryType);
     }
 
     for (const key in flattenedEntry) {
+        const entry = {entryId:entryId,entryType:entryType}
         const value = flattenedEntry[key];
         isDate = false;
         /*
@@ -70,7 +76,7 @@ patientEntries.forEach((entry, i) => {
                 flattenedEntry[key] = date.format('DD MMM YYYY');
                 change = true;
             }
-
+            entry.date = date;
         } else if (moment(value, 'D MMM YYYY', true).isValid()) {
             const date = moment(value, 'D MMM YYYY');
             isDate=true;
@@ -79,6 +85,7 @@ patientEntries.forEach((entry, i) => {
                 flattenedEntry[key] = date.format('DD MMM YYYY');
                 change = true;
             }
+            entry.date = date;
 
         } else if (moment(value, 'D MMM YYYY HH:mm ZZ', true).isValid()) {
             const date = moment(value, 'D MMM YYYY HH:mm ZZ');
@@ -89,10 +96,13 @@ patientEntries.forEach((entry, i) => {
                 flattenedEntry[key] = date.format('D MMM YYYY HH:mm ZZ');
                 change = true;
             }
-            
-
+            entry.date = date;
         }
-        if(output && isDate) {
+        if(orderedOutput && isDate) {
+            entry.key = key;
+            entry.value = value;
+            entries.push(entry);
+        }else if(output && isDate) {
             log(key,value);
         }
     }
@@ -102,6 +112,12 @@ patientEntries.forEach((entry, i) => {
         patientEntries[i] = flatten.unflatten(flattenedEntry);
     }
 });
+if(orderedOutput) {
+    entries.sort(sortByDate);
+    entries.forEach((e)=>{
+        logInOrder(e.entryId, e.entryType, e.key,e.value);
+    })
+}
 
 const resultJSON = JSON.stringify(patientEntries, null, 4);
 fs.writeFile(input, resultJSON, 'utf8', (err) => {
@@ -111,4 +127,17 @@ fs.writeFile(input, resultJSON, 'utf8', (err) => {
 
 function log(key,value) {
     console.log(`\u001b[37m \t\t${key}: \u001b[34m ${value}`);
+}
+
+function logInOrder(id, type, key, value) {
+    key = type + '.' + key;
+    key = key.padStart(key.length+10-id.length);
+    value = value.padStart(80 - key.length - id.length);
+    console.log(`\u001b[37m [${id}] ${key}: \u001b[34m ${value}`);
+}
+
+function sortByDate(a,b) {
+    if(a.date < b.date) return -1;
+    if(a.date > b.date) return 1;
+    return 0;
 }
