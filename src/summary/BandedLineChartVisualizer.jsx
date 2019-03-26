@@ -224,7 +224,7 @@ class BandedLineChartVisualizer extends Visualizer {
                             formatter={this.createYVarFormatFunctionWithUnit(yUnit)}
                         />
                         {series.map(s => {
-                            return <Line type="monotone" key={s} dataKey={s} stroke="#295677" yAxisId={0} dot={this.renderDot}/>
+                            return <Line type="monotone" key={s} dataKey={s} stroke="#295677" isAnimationActive={showLine} yAxisId={0} dot={this.renderDot}/>
                         })}
                         {renderedBands}
                     </LineChart>
