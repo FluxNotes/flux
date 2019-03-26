@@ -97,7 +97,11 @@ class TimelineEventsVisualizer extends Visualizer {
 
                 // hold 2 view 
                 onTouchStart: (e) => this.enterItemHover(e, id),
-                onTouchEnd: (e) => this.leaveItemHover(e),
+                onTouchEnd: (e) => {
+                    // Opens action menu after hover item disappears
+                    this.leaveItemHover(e);
+                    this.openInsertionMenu(e, item, i);
+                },
 
                 onClick: (e) => this.openInsertionMenu(e, item, i),
             };
@@ -125,10 +129,11 @@ class TimelineEventsVisualizer extends Visualizer {
     openInsertionMenu = (event, item, arrayIndex) => {
         // Get menu coordinates
         // Get the horizontal coordinate of mouse and push menu a little to the right
-        const x = event.clientX + 4;
+        const x = (event.clientX || event.changedTouches[0].clientX) + 4;
 
         // Get the vertical coordinate of mouse and push a little to the bottom of cursor
-        const y = event.clientY + 7;
+        const y = (event.clientY || event.changedTouches[0].clientY) + 7;
+
         const elementId = `${item.group}-${item.id}-${arrayIndex}`;
         this.setState({
             elementId,
