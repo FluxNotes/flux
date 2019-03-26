@@ -8517,6 +8517,13 @@
                     }
                 }
             }
+        },
+        "SourceClinicalNote": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "5310",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
+            }
         }
     },
     {
@@ -9328,6 +9335,13 @@
                         "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
                     }
                 }
+            }
+        },
+        "SourceClinicalNote": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "5410",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
             }
         }
     },

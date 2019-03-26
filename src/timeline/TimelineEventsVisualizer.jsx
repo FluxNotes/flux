@@ -48,7 +48,9 @@ class TimelineEventsVisualizer extends Visualizer {
                 details: '',
                 style: { top: 0, left: 0, display: 'none' }
             },
-            elementDisplayingMenu: null,
+
+            // state variables for displaying VisualizerMenu
+            elementToDisplayMenu: null,
             positionTop: 0,
             positionLeft: 0,
             arrayIndex: 0,
@@ -151,7 +153,7 @@ class TimelineEventsVisualizer extends Visualizer {
     // renders Menu for element and associated actions as Menu items
     renderedMenu = () => {
         const { elementToDisplayMenu, elementId, elementText, elementSource, arrayIndex, positionLeft, positionTop } = this.state;
-        const { allowItemClick, actions } = this.props;
+        const { actions } = this.props;
 
         // Item represents the name of the row/section of the current element.
         const onMenuItemClicked = (fn, element, item) => {
@@ -167,7 +169,8 @@ class TimelineEventsVisualizer extends Visualizer {
 
         return (
             <VisualizerMenu
-                allowItemClick={allowItemClick}
+                // allowItemClick is false so that `Insert Text` action is disabled
+                allowItemClick={false}
                 arrayIndex={arrayIndex}
                 closeInsertionMenu={this.closeInsertionMenu}
                 element={element}
