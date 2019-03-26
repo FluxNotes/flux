@@ -241,6 +241,7 @@ class ProgressionLineChartVisualizer extends Visualizer {
                         type="monotone"
                         dataKey={this.yVarField}
                         stroke="#295677"
+                        isAnimationActive={false}
                         yAxisId={0}
                         dot={this.renderDot}
                     />
