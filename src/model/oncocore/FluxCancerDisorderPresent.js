@@ -20,7 +20,12 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
         this._condition = this._entry = CancerDisorderPresent.fromJSON(json);
     }
 
-    // Used for FluxGastrointestinalStromalTumor
+    toJSON() {
+        return this._condition.toJSON();
+    }
+
+    // migrated from FluxGastrointestinalStromalTumor
+    // assumed to be "safe" for other cancer types so no type checking is performed
     getMostRecentMitosis() {
         let results = this.getObservationsWithObservationCodeChronologicalOrder('7041004'); // code for mitosis observations
         if (!results || results.length === 0) return null;
@@ -188,11 +193,9 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
         return hpiText;
     }
 
-    // ---- From FluxGastrointestinalStromalTumor
+    // migrated from FluxGastrointestinalStromalTumor
+    // assumed to be undefined for other cancer types so only returns a value if this is a GIST cancer
     getGeneticMutationValue(geneticMutationAbbreviatedName, patient) {
-
-        console.log(this._condition);
-
         if (this.isCancerType("Gastrointestinal stromal tumor")) {
             const geneticpanels = patient.getGastrointestinalStromalTumorCancerGeneticAnalysisPanelsChronologicalOrder();
             const panel = geneticpanels.pop();
@@ -202,61 +205,62 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
             if (Lang.isEmpty(mutation)) return undefined;
             return mutation.value;
         }
-        else {
-            return null;
-        }
         
+        return null;
     }
 
-    // ---- From FluxBreastCancerDisorderPresent
+    ///// Breast Cancer-specific functions
+    // the following functions were migrated from FluxBreastCancerDisorderPresent
+    // assumed to be undefined for other cancer types so only returns a value if this is a GIST cancer
     getMostRecentERReceptorStatus() {
         // TODO: Address whether or not a hardcoded code here is the best solution
-        return this._getMostRecentReceptorStatus('Estrogen Receptor');
+        if (this.isCancerType("Invasive ductal carcinoma of breast")) {
+            return this._getMostRecentReceptorStatus('Estrogen Receptor');
+        }
+
+        return null;
     }
 
-    // ---- From FluxBreastCancerDisorderPresent
     getMostRecentPRReceptorStatus() {
-        return this._getMostRecentReceptorStatus('Progesterone Receptor');
+        if (this.isCancerType("Invasive ductal carcinoma of breast")) {
+            return this._getMostRecentReceptorStatus('Progesterone Receptor');
+        }
+        
+        return null;
     }
-    
-    // ---- From FluxBreastCancerDisorderPresent
     getMostRecentHER2ReceptorStatus() {
-        return this._getMostRecentReceptorStatus('HER2 Receptor');
+        if (this.isCancerType("Invasive ductal carcinoma of breast")) {
+            return this._getMostRecentReceptorStatus('HER2 Receptor');
+        }
+        
+        return null;
     }
 
-    // ---- From FluxBreastCancerDisorderPresent
-    toJSON() {
-        return this._condition.toJSON();
-    }
-
-    // ---- From FluxSolidTumorCancer
+    ///// Solid Tumor related functions
+    // the following functions were migrated from FluxSolidTumorCancer,
+    // assumed to be relevant for all cancer types so no type checking is performed
     getHistologicalGrades() {
         return this.getObservationsOfType(FluxCancerHistologicGrade);
     }
 
-    // ---- From FluxSolidTumorCancer
     getMostRecentHistologicalGrade() {
-        
         let results = this.getObservationsOfTypeChronologicalOrder(FluxCancerHistologicGrade);
         if (!results || results.length === 0) return null;
         return results.pop();
     }
 
-    // ---- From FluxSolidTumorCancer
     getMostRecentHistologicType() {
         let results = this.getObservationsOfTypeChronologicalOrder(FluxCancerHistologicType);
         if (!results || results.length === 0) return null;
         return results.pop();
     }
 
-    // ---- From FluxSolidTumorCancer
     _getMostRecentReceptorStatus(receptorType) {
         const list = this.getReceptorsOfType(receptorType);
         const sortedList = list.sort(this._observationsTimeSorter);
         if (list.length === 0) return null; else return sortedList.pop();
     }
 
-    // ---- From FluxSolidTumorCancer
     getReceptorsOfType(receptorType) {
         if (!this._condition.entryInfo) return [];
         const conditionEntryId = this._condition.entryInfo.entryId;
@@ -266,7 +270,6 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
         });
     }
 
-    // ---- From FluxSolidTumorCancer
     getMostRecentECOGPerformanceStatus() {
         const ecogPerformanceStatuses = this._patientRecord.getEntriesOfType(FluxECOGPerformanceStatus);
         if (ecogPerformanceStatuses.length === 0) return null;
@@ -274,7 +277,6 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
         return sortedEcogPerformanceStatuses[0];
     }
 
-    // ---- From FluxSolidTumorCancer
     getMostRecentKarnofskyPerformanceStatus() {
         const karnofskyPerformanceStatuses = this._patientRecord.getEntriesOfType(FluxKarnofskyPerformanceStatus);
         if (karnofskyPerformanceStatuses.length === 0) return null;
@@ -282,7 +284,6 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
         return sortedKarnofskyPerformanceStatuses[0];
     }
 
-    // ---- From FluxSolidTumorCancer
     _lastUpdatedStatusSorter(a, b) {
         const a_startTime = new moment(a.entryInfo.lastUpdated.value, "D MMM YYYY");
         const b_startTime = new moment(b.entryInfo.lastUpdated.value, "D MMM YYYY");
@@ -295,7 +296,6 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
         return 0;
     }
 
-    // ---- From FluxSolidTumorCancer
     getMostRecentClinicalStaging(sinceDate = null) {
         let stagingList = this._patientRecord.getEntriesOfType(FluxTNMClinicalStageGroup);
         if (stagingList.length === 0) return null; 
@@ -312,7 +312,6 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
         }
     }
 
-    // ---- From FluxSolidTumorCancer
     getMostRecentPathologicStaging(sinceDate = null) {
         let stagingList = this._patientRecord.getEntriesOfType(FluxTNMPathologicStageGroup);
         if (stagingList.length === 0) return null; 
@@ -328,7 +327,6 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
         }
     }
 
-    // ---- From FluxSolidTumorCancer
     getMostRecentStaging(sinceDate = null) {
         let stagingList = this._patientRecord.getEntriesOfType(FluxTNMStageGroup);
         if (stagingList.length === 0) return null; 
@@ -344,7 +342,6 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
         }
     }
 
-    // ---- From FluxSolidTumorCancer
     getMostRecentTumorMarkers(sinceDate = null) { 
         let tumorMarkersList = this._patientRecord.getEntriesOfType(FluxTumorMarker);
         // If we have none, return null
