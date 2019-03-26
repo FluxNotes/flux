@@ -11,6 +11,7 @@ import FluxECOGPerformanceStatus from '../oncocore/FluxECOGPerformanceStatus';
 import FluxTNMStageGroup from '../oncocore/FluxTNMStageGroup';
 import FluxTumorMarker from '../oncocore/FluxTumorMarker';
 import FluxTNMPathologicStageGroup from '../oncocore/FluxTNMPathologicStageGroup';
+import lookup from '../../lib/cancer_lookup';
 
 class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
     constructor(json, type, patientRecord) {
@@ -19,80 +20,134 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
         this._condition = this._entry = CancerDisorderPresent.fromJSON(json);
     }
 
-    // ---- From FluxGastrointestinalStromalTumor
+    // Used for FluxGastrointestinalStromalTumor
     getMostRecentMitosis() {
         let results = this.getObservationsWithObservationCodeChronologicalOrder('7041004'); // code for mitosis observations
         if (!results || results.length === 0) return null;
         return results.pop();
     }
 
-    // ---- From FluxGastrointestinalStromalTumor
-    // TODO: Combine this with the other build HPINarrative function
     /**
      *  function to build HPI Narrative
      *  Starts with initial summary of patient information
      *  Then details chronological history of patient's procedures, medications, and most recent progression
      */
+
+     // TODO (nng): @oncohist no longer displays text
     buildHpiNarrative(patient) {
+
         let hpiText = this.buildInitialPatientDiagnosisPreamble(patient);
-        
+
+        // Laterality
+        if (this.laterality) {
+            hpiText += ` Breast cancer diagnosed in ${this.laterality} breast.`;
+        }
+
         // Staging
         const staging = this.getMostRecentStaging();
-        if (staging) {
-            if (staging.stage) {
-                hpiText += ` Stage ${staging.stage}`;
-            }
-            if (!Lang.isUndefined(staging.t_Stage) && !Lang.isNull(staging.t_Stage)) {
-                hpiText += ` ${staging.t_Stage}`;
-            }
-            if (!Lang.isUndefined(staging.n_Stage) && !Lang.isNull(staging.n_Stage)) {
-                hpiText += ` ${staging.n_Stage}`;
-            }
-            if (!Lang.isUndefined(staging.m_Stage) && !Lang.isNull(staging.m_Stage) && staging.m_Stage !== 'M0') { // don't show m if it is 0
-                hpiText += ` ${staging.m_Stage}`;
-            }
-            if (staging.mitoticRate) {
-                hpiText += `. Mitotic rate ${staging.mitoticRate}`;
-            }
-            hpiText += '.';
+        if (staging && staging.stage) {
+            hpiText += ` Stage ${staging.stage} ${staging.t_Stage} ${staging.n_Stage} ${staging.m_Stage} disease.`;
         }
 
         // Tumor Size and HistologicGrade
         const tumorSize = this.getObservationsOfType(FluxTumorDimensions);
         const histologicGrade = this.getObservationsOfType(FluxCancerHistologicGrade);
         if (tumorSize.length > 0) {
-            hpiText += ` Primary tumor size ${tumorSize[tumorSize.length - 1].quantity.number} ${tumorSize[tumorSize.length - 1].quantity.unit}.`;
+            hpiText += ` Primary tumor size ${tumorSize[0].quantity.number} ${tumorSize[0].quantity.unit}.`;
         }
         if (histologicGrade.length > 0) {
-            hpiText += ` ${histologicGrade[0].grade}.`;
+            hpiText += ` Histological grade ${histologicGrade[0].grade}.`;
         }
 
-        // genetics
-        const geneticpanels = patient.getGastrointestinalStromalTumorCancerGeneticAnalysisPanelsChronologicalOrder();
-        //const geneticspanelMostRecent = geneticpanels[geneticpanels.length - 1];
-        if (geneticpanels && geneticpanels.length > 0) {
-            const panel = geneticpanels.pop();
-            hpiText += " " + panel.members.map((item) => {
-                const v = item.value === 'Positive' ? '+' : '-';
-                return item.abbreviatedName + v;
-            }).join(",");
+        // ER, PR, HER2
+        const erStatus = this.getMostRecentERReceptorStatus();
+        const prStatus = this.getMostRecentPRReceptorStatus();
+        const her2Status = this.getMostRecentHER2ReceptorStatus();
+        if (erStatus) {
+            hpiText += ` Estrogen receptor was ${erStatus.status}.`;
+        }
+        if (prStatus) {
+            hpiText += ` Progesteron receptor was ${prStatus.status}.`;
+        }
+        if (her2Status) {
+            hpiText += ` HER2 was ${her2Status.status}.`;
         }
 
         hpiText = this.buildEventNarrative(hpiText, patient, this.code);
         
         return hpiText;
-    }
 
-     // ---- From FluxBreastCancerDisorderPresent
-     // TODO: Combine this with the other build HPINarrative function
-    /**
-     *  function to build HPI Narrative
-     *  Starts with initial summary of patient information
-     *  Then details chronological history of patient's procedures, medications, and most recent progression
-     */
-    buildHpiNarrativeBreastCancer(patient) {
-        let hpiText = this.buildInitialPatientDiagnosisPreamble(patient);
-        
+
+
+
+
+
+
+  
+        // let hpiText = this.buildInitialPatientDiagnosisPreamble(patient);
+
+        // if (this.isCancerType("Gastrointestinal stromal tumor")) {
+        //     hpiText += this.buildHpiNarrativeForFluxGastrointestinalStromalTumor(patient);
+        // }
+        // else if (this.isCancerType("Invasive ductal carcinoma of breast")) {
+        //     hpiText += this.buildHpiNarrativeForBreastCancer(patient);
+        // } 
+        // return hpiText;             
+    }
+    
+    buildHpiNarrativeForFluxGastrointestinalStromalTumor(patient) {
+        let hpiText = "";
+
+         // Staging
+         const staging = this.getMostRecentStaging();
+         if (staging) {
+             if (staging.stage) {
+                 hpiText += ` Stage ${staging.stage}`;
+             }
+             if (!Lang.isUndefined(staging.t_Stage) && !Lang.isNull(staging.t_Stage)) {
+                 hpiText += ` ${staging.t_Stage}`;
+             }
+             if (!Lang.isUndefined(staging.n_Stage) && !Lang.isNull(staging.n_Stage)) {
+                 hpiText += ` ${staging.n_Stage}`;
+             }
+             if (!Lang.isUndefined(staging.m_Stage) && !Lang.isNull(staging.m_Stage) && staging.m_Stage !== 'M0') { // don't show m if it is 0
+                 hpiText += ` ${staging.m_Stage}`;
+             }
+             if (staging.mitoticRate) {
+                 hpiText += `. Mitotic rate ${staging.mitoticRate}`;
+             }
+             hpiText += '.';
+         }
+ 
+         // Tumor Size and HistologicGrade
+         const tumorSize = this.getObservationsOfType(FluxTumorDimensions);
+         const histologicGrade = this.getObservationsOfType(FluxCancerHistologicGrade);
+         if (tumorSize.length > 0) {
+             hpiText += ` Primary tumor size ${tumorSize[tumorSize.length - 1].quantity.number} ${tumorSize[tumorSize.length - 1].quantity.unit}.`;
+         }
+         if (histologicGrade.length > 0) {
+             hpiText += ` ${histologicGrade[0].grade}.`;
+         }
+ 
+         // genetics
+         const geneticpanels = patient.getGastrointestinalStromalTumorCancerGeneticAnalysisPanelsChronologicalOrder();
+         //const geneticspanelMostRecent = geneticpanels[geneticpanels.length - 1];
+         if (geneticpanels && geneticpanels.length > 0) {
+             const panel = geneticpanels.pop();
+             hpiText += " " + panel.members.map((item) => {
+                 const v = item.value === 'Positive' ? '+' : '-';
+                 return item.abbreviatedName + v;
+             }).join(",");
+         }
+ 
+         hpiText = this.buildEventNarrative(hpiText, patient, this.code);
+         
+         return hpiText;
+    }
+ 
+    buildHpiNarrativeForBreastCancer(patient) {
+        let hpiText = "";
+
         // Laterality
         if (this.laterality) {
             hpiText += ` Breast cancer diagnosed in ${this.laterality} breast.`;
@@ -135,13 +190,22 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
 
     // ---- From FluxGastrointestinalStromalTumor
     getGeneticMutationValue(geneticMutationAbbreviatedName, patient) {
-        const geneticpanels = patient.getGastrointestinalStromalTumorCancerGeneticAnalysisPanelsChronologicalOrder();
-        const panel = geneticpanels.pop();
-        const mutation = panel.members.find((item) => {
-            return (item.abbreviatedName.startsWith(geneticMutationAbbreviatedName));
-        });
-        if (Lang.isEmpty(mutation)) return undefined;
-        return mutation.value;
+
+        console.log(this._condition);
+
+        if (this.isCancerType("Gastrointestinal stromal tumor")) {
+            const geneticpanels = patient.getGastrointestinalStromalTumorCancerGeneticAnalysisPanelsChronologicalOrder();
+            const panel = geneticpanels.pop();
+            const mutation = panel.members.find((item) => {
+                return (item.abbreviatedName.startsWith(geneticMutationAbbreviatedName));
+            });
+            if (Lang.isEmpty(mutation)) return undefined;
+            return mutation.value;
+        }
+        else {
+            return null;
+        }
+        
     }
 
     // ---- From FluxBreastCancerDisorderPresent
@@ -172,6 +236,7 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
 
     // ---- From FluxSolidTumorCancer
     getMostRecentHistologicalGrade() {
+        
         let results = this.getObservationsOfTypeChronologicalOrder(FluxCancerHistologicGrade);
         if (!results || results.length === 0) return null;
         return results.pop();
@@ -293,6 +358,17 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
         return filteredSortedTumorMarkerList;
     }
 
+    // Pass in cancer name and return true/false
+    isCancerType(cancerName) {
+        const code = lookup.getCancerCodeableConcept(cancerName);      
+
+        if (this.code === code.coding[0].code.code) { // TODO (nng): ask Dan how to get the code
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }
 
 export default FluxCancerDisorderPresent;

@@ -36,7 +36,7 @@ export default class AppManager {
             {
                 path: '/smartcompass',
                 display: 'Compass™',
-                app: CoreCancerPilotApp,
+                app: CompassApp,
                 isExact: true,
                 dataSource: 'McodeV05SmartOnFhirDataSource',
                 logoObject: {
