@@ -50,68 +50,50 @@ patientEntries.forEach((entry, i) => {
     // flatten each entry to have only one level of properties to make it easier to traverse
     const flattenedEntry = flatten(entry);
     let change = false;
+    let isDate;
     if(output) {
-        console.log("\u001b[1;37m "+flattenedEntry.EntryId +'\t' + flattenedEntry["EntryType.Value"].split('/').slice(-1)[0]);
+        console.log("\u001b[37m " + flattenedEntry.EntryId +'\t' + flattenedEntry["EntryType.Value"].split('/').slice(-1)[0]);
     }
 
     for (const key in flattenedEntry) {
         const value = flattenedEntry[key];
-
+        isDate = false;
         /*
          *  Check for three different formats that dates in patient entries can have
          *  If a date is found, a delta is added and date on the entry is changed to the new date
          */
         if (moment(value, 'DD MMM YYYY', true).isValid()) {
             const date = moment(value, 'DD MMM YYYY');
-
-
+            isDate=true;
             if(encounter) {
                 date.add(deltaDuration);
                 flattenedEntry[key] = date.format('DD MMM YYYY');
-
-                if(date > today && output) {
-                    console.log(`\u001b[1;31m \t${key}: ${value}`);
-                }else if(output){
-                    console.log(`\u001b[1;37m \t${key}: ${value}`);
-                }
                 change = true;
-            }else if(output){
-                console.log(`\u001b[1;37m \t${key}: ${value}`);
             }
 
         } else if (moment(value, 'D MMM YYYY', true).isValid()) {
             const date = moment(value, 'D MMM YYYY');
-            flattenedEntry[key] = date.format('DD MMM YYYY');
-
+            isDate=true;
             if(encounter) {
                 date.add(deltaDuration);
-                if(date > today && output) {
-                    console.log(`\u001b[1;31m \t${key}: ${value}`);
-                }else if(output){
-                    console.log(`\u001b[1;37m \t${key}: ${value}`);
-                }
+                flattenedEntry[key] = date.format('DD MMM YYYY');
                 change = true;
-            }else if(output){
-                console.log(`\u001b[1;37m \t${key}: ${value}`);
             }
 
         } else if (moment(value, 'D MMM YYYY HH:mm ZZ', true).isValid()) {
             const date = moment(value, 'D MMM YYYY HH:mm ZZ');
-
+            isDate=true;
             if(encounter) {
                 // Keep encounter time
                 date.add(deltaDuration.asDays(), 'd');
                 flattenedEntry[key] = date.format('D MMM YYYY HH:mm ZZ');
-
-                if(date > today && output) {
-                    console.log(`\u001b[1;31m \t${key}: ${value}`);
-                }else if(output){
-                    console.log(`\u001b[1;37m \t${key}: ${value}`);
-                }
                 change = true;
-            }else if(output) {
-                console.log(`\u001b[1;37m \t${key}: ${value}`);
             }
+            
+
+        }
+        if(output && isDate) {
+            log(key,value);
         }
     }
 
@@ -126,3 +108,7 @@ fs.writeFile(input, resultJSON, 'utf8', (err) => {
     if (err) throw err;
     console.log('DONE');
 });
+
+function log(key,value) {
+    console.log(`\u001b[37m \t\t${key}: \u001b[34m ${value}`);
+}
