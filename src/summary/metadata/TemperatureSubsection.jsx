@@ -6,6 +6,7 @@ export default class TemperatureSubsection extends VitalsSubsection {
             name: "Temperature",
             code: "8310-5",
             itemsFunction: this.getVitalsForSubsection,
+            displayChartLine: false,
 
             // Source: https://medlineplus.gov/ency/article/001982.htm#start
             bands: [

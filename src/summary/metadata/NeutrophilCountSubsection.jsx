@@ -6,6 +6,7 @@ export default class NeutrophilCountSubsection extends LabTestSubsection {
             name: "Neutrophil count",
             code: "C0027950",
             itemsFunction: this.getTestsForSubSection,
+            displayChartLine: false,
 
             // Source: https://www.healthline.com/health/neutrophils#anc
             // Source: https://evs.nci.nih.gov/ftp1/CTCAE/CTCAE_4.03_2010-06-14_QuickReference_8.5x11.pdf page 42

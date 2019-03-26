@@ -6,6 +6,7 @@ export default class HemoglobinSubsection extends LabTestSubsection {
             name: "Hemoglobin",
             code: "C0019046",
             itemsFunction: this.getTestsForSubSection,
+            displayChartLine: false,
 
             // Source: https://www.emedicinehealth.com/hemoglobin_levels/page2_em.htm
             // Source: https://www.quora.com/What-is-the-percentage-of-haemoglobin-in-blood

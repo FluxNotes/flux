@@ -272,6 +272,8 @@ class ProgressionLineChartVisualizer extends Visualizer {
             props.stroke = _.isEqual(highlightedData, this.props.highlightedSearchSuggestion) ? 'rgb(255, 150, 50)' : 'rgb(255, 210, 5)';
             props.fill = 'rgb(255, 255, 70)';
             props.strokeWidth = 5;
+        } else {
+            props.strokeWidth = 1.5;
         }
         return <Dot {...props} />;
     }

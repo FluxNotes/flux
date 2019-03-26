@@ -6,6 +6,7 @@ export default class WhiteBloodCellCountSubsection extends LabTestSubsection {
             name: "White blood cell count",
             code: "C0023508",
             itemsFunction: this.getTestsForSubSection,
+            displayChartLine: false,
 
             // Source: https://www.cancer.org/treatment/understanding-your-diagnosis/tests/understanding-your-lab-test-results.html
             // Source: https://www.mayoclinic.org/symptoms/low-white-blood-cell-count/basics/definition/sym-20050615
