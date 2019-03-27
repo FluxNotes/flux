@@ -65,9 +65,10 @@ class FluxMedicationRequested extends FluxEntry {
         if (!this._medicationRequested.expectedPerformanceTime.value) {
             this._medicationRequested.expectedPerformanceTime.value = new TimePeriod();
         }
-        const timePeriodStart = new BeginDateTime();
-        timePeriodStart.value = date;
-        this._medicationRequested.expectedPerformanceTime.value.timePeriodStart = timePeriodStart;
+
+        const beginDateTime = new BeginDateTime();
+        beginDateTime.value = date;
+        this._medicationRequested.expectedPerformanceTime.value.beginDateTime = beginDateTime;
     }
 
     get endDate() {
@@ -81,9 +82,10 @@ class FluxMedicationRequested extends FluxEntry {
         if (!this._medicationRequested.expectedPerformanceTime.value) {
             this._medicationRequested.expectedPerformanceTime.value = new TimePeriod();
         }
-        const timePeriodEnd = new EndDateTime();
-        timePeriodEnd.value = date;
-        this._medicationRequested.expectedPerformanceTime.value.timePeriodEnd = timePeriodEnd;
+
+        const endDateTime = new EndDateTime();
+        endDateTime.value = date;
+        this._medicationRequested.expectedPerformanceTime.value.endDateTime = endDateTime;
     }
 
     isActiveAsOf(date) {
