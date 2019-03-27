@@ -25,7 +25,7 @@ const output = program.output;
 const orderedOutput = program.orderedOutput;
 const patientEntries = JSON.parse(fs.readFileSync(input, 'utf8'));
 let encounter;
-if(entryid) {
+if (entryid) {
     encounter = patientEntries.find(entry => entry.EntryType.Value === 'http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested' && entry.EntryId === entryid);
     // Encounter not found in patient entries so exit the program
     if (encounter === undefined) {
@@ -39,7 +39,7 @@ fs.writeFileSync(`${input}.backup`, JSON.stringify(patientEntries, null, 4), 'ut
 console.log(`Saved backup JSON file to ${input}.backup`);
 
 let today, deltaDuration;
-if(encounter) {
+if (encounter) {
     // encounterDateValue grabs the correct date value based on whether the patient JSON is in mCODE v0.1 or v0.5
     const encounterDateValue = encounter.Encounter.TimePeriod.TimePeriodStart ? encounter.Encounter.TimePeriod.TimePeriodStart.Value : encounter.Encounter.TimePeriod.BeginDateTime.Value;
     const encounterDate = moment(encounterDateValue, 'D MMM YYYY HH:mm ZZ').startOf('day');
@@ -56,12 +56,12 @@ patientEntries.forEach((entry, i) => {
     let isDate;
     const entryId = flattenedEntry.EntryId
     const entryType = flattenedEntry["EntryType.Value"].split('/').slice(-1)[0];
-    if(output && !orderedOutput) {
-        console.log("\u001b[37m " + entryId +'\t' + entryType);
+    if (output && !orderedOutput) {
+        console.log("\u001b[37m " + entryId + '\t' + entryType);
     }
 
     for (const key in flattenedEntry) {
-        const entry = {entryId:entryId,entryType:entryType}
+        const entry = { entryId: entryId, entryType: entryType }
         const value = flattenedEntry[key];
         isDate = false;
         /*
@@ -70,8 +70,8 @@ patientEntries.forEach((entry, i) => {
          */
         if (moment(value, 'DD MMM YYYY', true).isValid()) {
             const date = moment(value, 'DD MMM YYYY');
-            isDate=true;
-            if(encounter) {
+            isDate = true;
+            if (encounter) {
                 date.add(deltaDuration);
                 flattenedEntry[key] = date.format('DD MMM YYYY');
                 change = true;
@@ -79,8 +79,8 @@ patientEntries.forEach((entry, i) => {
             entry.date = date;
         } else if (moment(value, 'D MMM YYYY', true).isValid()) {
             const date = moment(value, 'D MMM YYYY');
-            isDate=true;
-            if(encounter) {
+            isDate = true;
+            if (encounter) {
                 date.add(deltaDuration);
                 flattenedEntry[key] = date.format('DD MMM YYYY');
                 change = true;
@@ -89,8 +89,8 @@ patientEntries.forEach((entry, i) => {
 
         } else if (moment(value, 'D MMM YYYY HH:mm ZZ', true).isValid()) {
             const date = moment(value, 'D MMM YYYY HH:mm ZZ');
-            isDate=true;
-            if(encounter) {
+            isDate = true;
+            if (encounter) {
                 // Keep encounter time
                 date.add(deltaDuration.asDays(), 'd');
                 flattenedEntry[key] = date.format('D MMM YYYY HH:mm ZZ');
@@ -98,12 +98,12 @@ patientEntries.forEach((entry, i) => {
             }
             entry.date = date;
         }
-        if(orderedOutput && isDate) {
+        if (orderedOutput && isDate) {
             entry.key = key;
             entry.value = value;
             entries.push(entry);
-        }else if(output && isDate) {
-            log(key,value);
+        } else if (output && isDate) {
+            log(key, value);
         }
     }
 
@@ -112,10 +112,10 @@ patientEntries.forEach((entry, i) => {
         patientEntries[i] = flatten.unflatten(flattenedEntry);
     }
 });
-if(orderedOutput) {
+if (orderedOutput) {
     entries.sort(sortByDate);
-    entries.forEach((e)=>{
-        logInOrder(e.entryId, e.entryType, e.key,e.value);
+    entries.forEach((e) => {
+        logInOrder(e.entryId, e.entryType, e.key, e.value);
     })
 }
 
@@ -125,19 +125,19 @@ fs.writeFile(input, resultJSON, 'utf8', (err) => {
     console.log('DONE');
 });
 
-function log(key,value) {
+function log(key, value) {
     console.log(`\u001b[37m \t\t${key}: \u001b[34m ${value}`);
 }
 
 function logInOrder(id, type, key, value) {
     key = type + '.' + key;
-    key = key.padStart(key.length+10-id.length);
+    key = key.padStart(key.length + 10 - id.length);
     value = value.padStart(80 - key.length - id.length);
     console.log(`\u001b[37m [${id}] ${key}: \u001b[34m ${value}`);
 }
 
-function sortByDate(a,b) {
-    if(a.date < b.date) return -1;
-    if(a.date > b.date) return 1;
+function sortByDate(a, b) {
+    if (a.date < b.date) return -1;
+    if (a.date > b.date) return 1;
     return 0;
 }
