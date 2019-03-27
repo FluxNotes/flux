@@ -37,67 +37,16 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
      *  Starts with initial summary of patient information
      *  Then details chronological history of patient's procedures, medications, and most recent progression
      */
-
-     // TODO (nng): @oncohist no longer displays text
     buildHpiNarrative(patient) {
-
         let hpiText = this.buildInitialPatientDiagnosisPreamble(patient);
 
-        // Laterality
-        if (this.laterality) {
-            hpiText += ` Breast cancer diagnosed in ${this.laterality} breast.`;
+        if (this.isCancerType("Gastrointestinal stromal tumor")) {
+            hpiText += this.buildHpiNarrativeForFluxGastrointestinalStromalTumor(patient);
         }
-
-        // Staging
-        const staging = this.getMostRecentStaging();
-        if (staging && staging.stage) {
-            hpiText += ` Stage ${staging.stage} ${staging.t_Stage} ${staging.n_Stage} ${staging.m_Stage} disease.`;
-        }
-
-        // Tumor Size and HistologicGrade
-        const tumorSize = this.getObservationsOfType(FluxTumorDimensions);
-        const histologicGrade = this.getObservationsOfType(FluxCancerHistologicGrade);
-        if (tumorSize.length > 0) {
-            hpiText += ` Primary tumor size ${tumorSize[0].quantity.number} ${tumorSize[0].quantity.unit}.`;
-        }
-        if (histologicGrade.length > 0) {
-            hpiText += ` Histological grade ${histologicGrade[0].grade}.`;
-        }
-
-        // ER, PR, HER2
-        const erStatus = this.getMostRecentERReceptorStatus();
-        const prStatus = this.getMostRecentPRReceptorStatus();
-        const her2Status = this.getMostRecentHER2ReceptorStatus();
-        if (erStatus) {
-            hpiText += ` Estrogen receptor was ${erStatus.status}.`;
-        }
-        if (prStatus) {
-            hpiText += ` Progesteron receptor was ${prStatus.status}.`;
-        }
-        if (her2Status) {
-            hpiText += ` HER2 was ${her2Status.status}.`;
-        }
-
-        hpiText = this.buildEventNarrative(hpiText, patient, this.code);
-        
-        return hpiText;
-
-
-
-
-
-
-
-  
-        // let hpiText = this.buildInitialPatientDiagnosisPreamble(patient);
-
-        // if (this.isCancerType("Gastrointestinal stromal tumor")) {
-        //     hpiText += this.buildHpiNarrativeForFluxGastrointestinalStromalTumor(patient);
-        // }
-        // else if (this.isCancerType("Invasive ductal carcinoma of breast")) {
-        //     hpiText += this.buildHpiNarrativeForBreastCancer(patient);
-        // } 
-        // return hpiText;             
+        else if (this.isCancerType("Invasive ductal carcinoma of breast")) {
+            hpiText += this.buildHpiNarrativeForBreastCancer(patient);
+        } 
+        return hpiText;             
     }
     
     buildHpiNarrativeForFluxGastrointestinalStromalTumor(patient) {
@@ -359,12 +308,7 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
     isCancerType(cancerName) {
         const code = lookup.getCancerCodeableConcept(cancerName);      
 
-        if (this.code === code.coding[0].code.code) { // TODO (nng): ask Dan how to get the code
-            return true;
-        }
-        else {
-            return false;
-        }
+        return (this.code === code.coding[0].code.code);
     }
 }
 

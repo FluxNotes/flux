@@ -39,7 +39,7 @@ export default function(responses, patientId, resourceMapper = null) {
             return result;
         } catch (e) {
             // just log the error, don't stop processing other potentially good objects
-            // console.error(e);
+            console.error(e);
             return null;
         }
     });
