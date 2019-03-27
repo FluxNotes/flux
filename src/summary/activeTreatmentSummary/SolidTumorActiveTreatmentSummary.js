@@ -10,19 +10,22 @@ class SolidTumorActiveTreatmentSummary extends IActiveTreatmentSummary {
 
         this._possibleActiveTreatmentOptions = { 
             "adjuvant": {
-
+                type: "adjuvant",
+                medications: []
             },
             "neo-adjuvant": {
-
+                type: "neo-adjuvant",
+                medications: []
             },
             "early-stage": {
-
+                type: "early-stage"
             },
             "no-active-treatment": { 
-
+                type: "no-active-treatment"
             },
             "medication": { 
-                "expected": true
+                type: "medication",
+                medications: []
             }
         }
     }
@@ -30,33 +33,34 @@ class SolidTumorActiveTreatmentSummary extends IActiveTreatmentSummary {
     getActiveTreatmentSummary() { 
         // If the condition isn't a cancer, return null - this algorithm cannot provide information about 
         if (!this._currentConditionEntry instanceof FluxSolidTumorCancer) return null;
-        let activeTreatment = "";
+        let activeTreatment = {};
         // Get all relevant medications
         const activeNonOTCMeds = this._getActiveNonOTCMeds();
         const patientHasActiveNonOTCMeds = activeNonOTCMeds && activeNonOTCMeds.length > 0;
-        //
+        // 
         const allPlannedSurgeries = this._getAllSurgeriesPlanned();
         const patientHasSurgeryPlanned = allPlannedSurgeries && allPlannedSurgeries.length > 0;
-        //
-        const allSurgeriesPreviouslyPerformed = this._getAllSurgeriesPreviouslyPerformed()
+        // 
+        const allSurgeriesPreviouslyPerformed = this._getAllSurgeriesPreviouslyPerformed();
         const patientHasSurgicalHistory = allSurgeriesPreviouslyPerformed && allSurgeriesPreviouslyPerformed.length > 0;
         if (patientHasActiveNonOTCMeds) { 
+            activeTreatment.medications = activeNonOTCMeds;
             // If the patient has nonOTC medications (i.e. they're related to their current condition),
             // Then the description of their treatment depends on their surgical history/planned surgeries
             if (patientHasSurgeryPlanned) { 
                 // If they are on a medication related to their cancer 
                 // And if they have a surgery planned 
                 // Then we can describe their treatment as neo-adjuvant
-                activeTreatment = "neo-adjuvant";
+                activeTreatment = { ...this._possibleActiveTreatmentOptions["neo-adjuvant"], ...activeTreatment};
             } else { 
                 if (patientHasSurgicalHistory) { 
                     // If they are on a medication related to their cancer 
                     // And if they have a previous 
                     // Then we can describe their treatment as neo-adjuvant
-                    activeTreatment = "adjuvant";
+                    activeTreatment = { ...this._possibleActiveTreatmentOptions["adjuvant"], ...activeTreatment};
                 } else {    
-                    // TODO: Determine some description of the medication
-                    activeTreatment = "medication";
+                    // TODO: Define treatment summary based on a description of the current medications 
+                    activeTreatment = this._possibleActiveTreatmentOptions["medication"];
                 }
             }
         } else { 
@@ -66,19 +70,18 @@ class SolidTumorActiveTreatmentSummary extends IActiveTreatmentSummary {
                 // If the patient has no medications related to their cancer 
                 // And if they have a surgical history 
                 // Then they have no active treatment
-                activeTreatment = "no-active-treatment";
+                activeTreatment = this._possibleActiveTreatmentOptions["no-active-treatment"];
             } else {
                 // If the patient has no medications related to their cancer 
                 // And if they have no surgical history 
                 // Then we will consider them in the early stages of treatment 
                 // Regardless of the planned surgeries
-                activeTreatment = "early-stage";
+                activeTreatment = this._possibleActiveTreatmentOptions["early-stage"];
             }
         }
         console.log('activeTreatment: ', activeTreatment);
-        console.log('activeNonOTCMeds: ', activeNonOTCMeds);
         console.log('this._possibleActiveTreatmentOptions[activeTreatment]: ', this._possibleActiveTreatmentOptions[activeTreatment]);
-        return this._possibleActiveTreatmentOptions[activeTreatment];
+        return activeTreatment;
     }
 
     _getActiveNonOTCMeds() {
@@ -90,13 +93,11 @@ class SolidTumorActiveTreatmentSummary extends IActiveTreatmentSummary {
 
     _getAllSurgeriesPlanned() { 
         const allSurgeriesPlanned = this._patient.getSurgeriesPlannedForCondition(this._currentConditionEntry);
-        console.log('allSurgeriesPlanned: ', allSurgeriesPlanned);
         return allSurgeriesPlanned;
     }
 
     _getAllSurgeriesPreviouslyPerformed() {
         const allSurgeriesPreviouslyPerformed = this._patient.getSurgeriesPreviouslyPerformedForCondition(this._currentConditionEntry);
-        console.log('allSurgeriesPreviouslyPerformed: ', allSurgeriesPreviouslyPerformed);
         return allSurgeriesPreviouslyPerformed
     }
 }

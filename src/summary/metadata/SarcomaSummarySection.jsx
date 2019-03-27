@@ -195,12 +195,33 @@ export default class SarcomaSummarySection extends MetadataSection {
                                 const activeTreatmentSummaryObject = ActiveTreatmentSummaryObjectFactory.createInstance(patient, currentConditionEntry);
                                 const activeTreatmentSummaryJson = activeTreatmentSummaryObject.getActiveTreatmentSummary();
                                 console.log(activeTreatmentSummaryJson)
-                                return null;
-                                // return {
-                                //     value: null,
-                                //     isUnsigned: false,
-                                //     source: null
-                                // }
+                                if (Lang.isNull(activeTreatmentSummaryJson)) return null;
+                                let treatmentSummaryValue= ""
+                                switch (activeTreatmentSummaryJson.type) { 
+                                    case "adjuvant":
+                                        const medsAsStrings = activeTreatmentSummaryJson.medications.map(m => m.medication);
+                                        const numMeds = medsAsStrings.length;
+                                        // If there's more than one element, make sure the last element includes an &
+                                        if (numMeds > 1) medsAsStrings.splice(numMeds - 1, 1, `& ${medsAsStrings[numMeds - 1]}`);
+                                        // Join all but the final medication by commas, and then append the last one (the & is included if needed above) 
+                                        const formattedMedsString = medsAsStrings.slice(0,numMeds - 1).join(', ') + medsAsStrings[numMeds - 1];
+                                        treatmentSummaryValue = `Adjuvant therapy of ${formattedMedsString}`;
+                                        break;
+                                    case "neo-adjuvant":
+                                        break;
+                                    case "early-stage":
+                                        break;
+                                    case "no-active-treatment":
+                                        break;
+                                    default: 
+                                        console.error("In SarcomaSummarySection's Treatment Summary Switch: No defined sentence structure for " + activeTreatmentSummaryJson.type);
+                                        return null;
+                                }
+                                return {
+                                    value: treatmentSummaryValue,
+                                    isUnsigned: false,
+                                    source: null
+                                }
                             }
                         }
                     ]
