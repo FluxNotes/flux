@@ -957,7 +957,9 @@ describe('6 FluxNotesEditor', function() {
         expect(deceasedChild).to.have.lengthOf(1);
     });
 
-    it("6.8 Typing #PR into the editor followed by #Positive results in structured data insertion and context panel updates", () => {
+    // Skipping this test because disabled this shortcut since we currently do not support filtering shortcuts by cancer type
+    // TODO: This should be reenabled with jira 1899
+    it.skip("6.8 Typing #PR into the editor followed by #Positive results in structured data insertion and context panel updates", () => {
         let patient = new PatientRecord(mcodePatientJson);
         const contextManager = new ContextManager(patient, () => {});
         const structuredFieldMapManager = new StructuredFieldMapManager();

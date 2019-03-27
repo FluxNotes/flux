@@ -363,6 +363,7 @@
     "regexpTrigger": null,
     "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/oncocore/CancerDisorderPresent"],
     "knownParentContexts": "ConditionInserter",
+    "disabled": true,
     "description": "Estrogen receptors (ERs) are a group of proteins found inside cells. They are receptors that are activated by the hormone estrogen. Estrogen receptors may be found in breast cancer cells (ER positive). Cancer cells with these receptors depend on estrogen to grow."
   },
    { "type": "CreatorChild",
@@ -396,11 +397,12 @@
     "regexpTrigger": null,
     "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/oncocore/CancerDisorderPresent"],
     "knownParentContexts": "ConditionInserter",
+    "disabled": true,
     "description": "The progesterone receptor (PR) is a protein found inside cells. It is activated by the steroid hormone progesterone. Progesterone receptors may be found in breast cancer cells (PR positive). Cancer cells with these receptors depend on progesterone to grow."
   },
   { "type": "SingleHashtagKeyword",
     "id": "HumanEpiduralGrowthFactorReceptor2Creator",
-    "name": "HER2",
+    "name": "HER2",  
     "getData": null,
     "valueObject": "http://standardhealthrecord.org/spec/oncocore/TumorMarker",
     "valueObjectAttributes": [  {"name":"status", "attribute":"status", "isSettable":"true", "setMethod": "status", "childShortcut": "ReceptorStatusCreator"}],
@@ -413,6 +415,7 @@
     "regexpTrigger": null,
     "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/oncocore/CancerDisorderPresent"],
     "knownParentContexts": "ConditionInserter",
+    "disabled": true,
     "description": "Human epidermal growth factor receptor 2 (HER2) is a protein involved in normal cell growth. It is found on some types of cancer cells (HER2 positive), including breast and ovarian. Cancer cells removed from the body may be tested for the presence of human epidermal growth factor receptor 2 to help decide the best type of treatment."
   },
   { "type": "InsertValue",
