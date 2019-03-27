@@ -24,7 +24,7 @@ import './TreatmentOptionsVisualizer.css';
 export class TreatmentOptionsVisualizer extends Component {
     componentDidMount() {
         const { patient, condition, initializeSimilarPatientProps, processSimilarPatientOutcomes } = this.props;
-    
+
         initializeSimilarPatientProps(patient, condition);
         processSimilarPatientOutcomes();
     }
@@ -35,8 +35,12 @@ export class TreatmentOptionsVisualizer extends Component {
         }
     }
 
-    renderedSimilarPatientsSubtitle(numPatients) {
-        return <div><span className="bold">{numPatients}</span> patients</div>;
+    _renderedSimilarPatientsSubtitle(numPatients) {
+        return ( 
+            <div>
+                <span className="bold">{numPatients}</span> patients
+            </div>
+        );
     }
 
     render() {
@@ -65,7 +69,7 @@ export class TreatmentOptionsVisualizer extends Component {
 
                 <TreatmentOptionsSelector
                     title="Similar patients"
-                    subTitle={this.renderedSimilarPatientsSubtitle(numberWithCommas(totalSimilarPatients))}>
+                    subTitle={this._renderedSimilarPatientsSubtitle(numberWithCommas(totalSimilarPatients))}>
                     <SimilarPatientsSelector
                         patient={patient}
                         condition={condition}
@@ -109,27 +113,27 @@ TreatmentOptionsVisualizer.propTypes = {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    initializeSimilarPatientProps,
-    selectSimilarPatientOption,
-    selectAllCategorySimilarPatientOptions,
-    selectAllSimilarPatientOptions,
-    processSimilarPatientOutcomes,
-    selectTreatments
-  }, dispatch);
+    return bindActionCreators({
+        initializeSimilarPatientProps,
+        selectSimilarPatientOption,
+        selectAllCategorySimilarPatientOptions,
+        selectAllSimilarPatientOptions,
+        processSimilarPatientOutcomes,
+        selectTreatments
+    }, dispatch);
 }
 
 function mapStateToProps(state) {
-  return {
-    similarPatientProps: state.mcode.similarPatientProps,
-    totalPatients: state.mcode.totalPatients,
-    totalSimilarPatients: state.mcode.totalSimilarPatients,
-    similarPatientTreatments: state.mcode.similarPatientTreatments,
-    includedTreatments: state.mcode.includedTreatments,
-    includedTreatmentData: state.mcode.includedTreatmentData,
-    comparedTreatments: state.mcode.comparedTreatments,
-    comparedTreatmentData: state.mcode.comparedTreatmentData
-  };
+    return {
+        similarPatientProps: state.mcode.similarPatientProps,
+        totalPatients: state.mcode.totalPatients,
+        totalSimilarPatients: state.mcode.totalSimilarPatients,
+        similarPatientTreatments: state.mcode.similarPatientTreatments,
+        includedTreatments: state.mcode.includedTreatments,
+        includedTreatmentData: state.mcode.includedTreatmentData,
+        comparedTreatments: state.mcode.comparedTreatments,
+        comparedTreatmentData: state.mcode.comparedTreatmentData
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TreatmentOptionsVisualizer);

@@ -18,49 +18,33 @@ export default class TableLegend extends Component {
             message = `survived with ${noTreatment ? 'no treatment' : name} ${hasAnd || noTreatment ? "" : " alone"}`;
         }
 
-        const mainStyle = { "width": "45px" };
-        const treatmentStyle = { "width": "10px", "backgroundColor": "#91bd7b" };
-        const cancerStyle = { "width": "20px" };
-        const redTreatmentStyle = { "width": "14px", "background": `repeating-linear-gradient(
-            45deg,
-            transparent,
-            transparent 2px,
-            #EC9696 2px,
-            #EC9696 4px
-          ),
-          linear-gradient(
-            to bottom,
-            #FFFFFF,
-            #FFFFFF
-          )`};
-
         return (
             <div className="table-legend">
                 <div className="wrapper">
                     <div className="legend-entry">
                         <div className="prog-fill-container">
-                            <div className="prog-fill" style={mainStyle}/>
+                            <div className="prog-fill main" />
                         </div>
                         <span className="legend-text">{message}</span>
                     </div>
 
                     <div className="legend-entry">
                         <div className="prog-fill-container">
-                            <div className="prog-fill" style={treatmentStyle}/>
+                            <div className="prog-fill treatment-increase" />
                         </div>
                         <span className="legend-text">increase in survival due to treatment</span>
                     </div>
 
                     <div className="legend-entry">
                         <div className="prog-fill-container">
-                            <div className="prog-fill" style={redTreatmentStyle}/>
+                            <div className="prog-fill treatment-decrease" />
                         </div>
                         <span className="legend-text">decrease in survival due to treatment</span>
                     </div>
 
                     <div className="legend-entry">
                         <div className="prog-fill-container">
-                            <div className="progress-bar" style={cancerStyle}/>
+                            <div className="progress-bar cancer" />
                         </div>
                         <span className="legend-text">cancer related deaths</span>
                     </div>

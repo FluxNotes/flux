@@ -6,6 +6,7 @@ export default class HeartRateSubsection extends VitalsSubsection {
             name: "Heart Rate",
             code: "8867-4",
             itemsFunction: this.getVitalsForSubsection,
+            displayChartLine: false,
 
             // Source: https://www.medicalnewstoday.com/articles/235710.php
             bands: [

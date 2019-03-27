@@ -1,6 +1,5 @@
-import FluxTumorDimensions from '../../dataaccess/mcodev0.1-datasource/model/oncology/FluxTumorDimensions';
-
 import _ from 'lodash';
+import FluxTumorDimensions from '../../dataaccess/mcodev0.1-datasource/model/oncology/FluxTumorDimensions';
 
 export default function getProps(patient, condition) {
 
@@ -8,73 +7,59 @@ export default function getProps(patient, condition) {
 
     const propDict = {
         // demographics
-        "demographic":
-            {
-                "age":
-                        {
-                            "display": "age",
-                            "valueType": "range",
-                            "range":10,
-                            "value":patient.getAge()
-                        },
-                "diagnosedAge":
-                        {
-                            "display": "age at diagnosis",
-                            "valueType":"range",
-                            "range":10,
-                            "value":patient.getAgeAsOf(new Date(condition.diagnosisDate))
-                        },
-                "race":
-                        {
-                            "display": "race",
-                            "valueType":"string",
-                            "value": patient.patient.race
-                        },
-                "gender":
-                        {
-                            "display":"gender",
-                            "valueType":"string",
-                            "value": _.lowerCase(patient.patient.gender)
-                        }
+        "demographic": {
+            "age": {
+                "display": "age",
+                "valueType": "range",
+                "range": 10,
+                "value": patient.getAge()
             },
-
+            "diagnosedAge": {
+                "display": "age at diagnosis",
+                "valueType": "range",
+                "range": 10,
+                "value": patient.getAgeAsOf(new Date(condition.diagnosisDate))
+            },
+            "race": {
+                "display": "race",
+                "valueType": "string",
+                "value": patient.patient.race
+            },
+            "gender": {
+                "display": "gender",
+                "valueType": "string",
+                "value": _.lowerCase(patient.patient.gender)
+            }
+        },
         // pathology
-        "pathology":
-            {
-                "grade":
-                        {
-                            "display":"grade",
-                            "valueType":"int",
-                            "value": condition.getMostRecentHistologicalGrade().getGradeAsSimpleNumber()
-                        },
-                "stage":
-                        {
-                            "display":"stage",
-                            "valueType":"string",
-                            "value": safeGet(condition.getMostRecentClinicalStaging(),"stage")
-                        },
-                "size":
-                        {
-                            "display":"size (mm)",
-                            "valueType":"int",
-                            "value":(()=>{
-                                const quantity = safeGet(condition.getMostRecentLabResultOfEachType().find(e=>{return e.constructor.name === FluxTumorDimensions.name}),"quantity")
-                                return safeGet(quantity,"number");
-                        })()
-                }   
+        "pathology": {
+            "grade": {
+                "display": "grade",
+                "valueType": "int",
+                "value": condition.getMostRecentHistologicalGrade().getGradeAsSimpleNumber()
             },
-        "medical history":{
-            "ECOG":
-                {
-                    "display":"ECOG Score",
-                    "valueType":"range",
-                    "range":1,
-                    "value":safeGet(condition.getMostRecentECOGPerformanceStatus(),"value")
-
-                }
+            "stage": {
+                "display": "stage",
+                "valueType": "string",
+                "value": _safeGet(condition.getMostRecentClinicalStaging(), "stage")
+            },
+            "size": {
+                "display": "size (mm)",
+                "valueType": "int",
+                "value": (() => {
+                    const quantity = _safeGet(condition.getMostRecentLabResultOfEachType().find(e => { return e.constructor.name === FluxTumorDimensions.name }), "quantity")
+                    return _safeGet(quantity, "number");
+                })()
+            }
+        },
+        "medical history": {
+            "ECOG": {
+                "display": "ECOG Score",
+                "valueType": "range",
+                "range": 1,
+                "value": _safeGet(condition.getMostRecentECOGPerformanceStatus(), "value")
+            }
         }
-     
-        
     }
 
     if (tumorMarkers) {
@@ -82,17 +67,17 @@ export default function getProps(patient, condition) {
             if (!e.receptorType) return;
             propDict.pathology[e.receptorType.split(' ').join('')] = {
                 "display": e.receptorType,
-                "valueType":"string",
+                "valueType": "string",
                 "value": _.lowerCase(e.status)
             }
         });
     }
 
-    return mapProp(propDict);
+    return _mapProp(propDict);
 }
 
-function safeGet(object, property) {
-    if (object!==null & object!==undefined && property in object) {
+function _safeGet(object, property) {
+    if (object !== null & object !== undefined && property in object) {
         return object[property]
     } else {
         return object
@@ -100,14 +85,13 @@ function safeGet(object, property) {
 }
 
 // a map of similar patient props to the patient record
-function mapProp(propDict) {
-
+function _mapProp(propDict) {
     const similarPatientProps = {}
     // categories
     for (const key of Object.keys(propDict)) {
         const potentialCategory = {
-            options:{},
-            selected:false,
+            options: {},
+            selected: false,
             displayText: key
         }
         // values
@@ -120,8 +104,8 @@ function mapProp(propDict) {
                     selected: false,
                     displayText: option.display
                 };
-                if (option.valueType==="range") {
-                    propEntry.minValue = (option.value >= option.range)?option.value-option.range:0;
+                if (option.valueType === "range") {
+                    propEntry.minValue = (option.value >= option.range) ? option.value - option.range : 0;
                     propEntry.maxValue = option.value + option.range
                 } else {
                     propEntry.value = option.value;
@@ -129,7 +113,7 @@ function mapProp(propDict) {
                 potentialCategory.options[prop] = propEntry;
             }
         }
-        if (Object.keys(potentialCategory.options).length>0) {
+        if (Object.keys(potentialCategory.options).length > 0) {
             similarPatientProps[key] = potentialCategory;
         }
     }

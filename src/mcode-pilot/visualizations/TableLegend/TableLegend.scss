@@ -1,6 +1,5 @@
-$color-white: #fff;
-$color-border: #d1d1d1;
-$color-background: #9e9e9e;
+@import '../../../styles/variables';
+
 
 .table-legend {
     text-align: center;
@@ -13,7 +12,7 @@ $color-background: #9e9e9e;
         padding: 0;
         height: 10px;
         width: 40px;
-        background-color: $color-background;
+        background-color: $state;
     }
 
     .legend-entry {
@@ -25,6 +24,35 @@ $color-background: #9e9e9e;
 
         display:inline-block;
         width: 50px;
+
+        .main {
+            width: 45px;
+        }
+        
+        .treatment-increase {
+            width:10px;
+            background-color: $table-light-green;
+        }
+
+        .treatment-decrease {
+            width: 14px;
+            background: repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 2px,
+            $table-light-red 2px,
+            $table-light-red 4px
+          ),
+          linear-gradient(
+            to bottom,
+            $background,
+            $background
+          )
+        }
+
+        .cancer {
+            width: 20px;
+        }
     }
 
     .legend-text {
@@ -39,7 +67,8 @@ $color-background: #9e9e9e;
         display: flex;
         height: 8px;
         // position: relative;
-        border: 1px solid $color-border;
-        background-color: $color-white;
+        border: 1px solid $line-gray;
+        background-color: $background;
+
     }
 }
