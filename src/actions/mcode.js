@@ -44,7 +44,7 @@ function updatePatientOutcomes(data) {
 
 function processSimilarPatientOutcomes() {
   return (dispatch, getState) => {
-    const {similarPatientProps, includedTreatments, comparedTreatments} = getState().mcode
+    const {similarPatientProps, includedTreatments, comparedTreatments} = getState().mcode;
     return config.OutcomesService.processSimilarPatientOutcomes(similarPatientProps, includedTreatments, comparedTreatments).then((results) =>{
       dispatch(updatePatientOutcomes({
          totalPatients: results.totalPatients,

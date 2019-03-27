@@ -71,7 +71,7 @@ describe('actions', () => {
           type: types.UPDATE_PATIENT_OUTCOMES
 
         }
-        const store = mockStore({mcode: defaultState})
+        const store = mockStore({mcode: defaultState});
 
         store.dispatch(actions.processSimilarPatientOutcomes()).then(() => {
           expect(store.getActions()).to.eql(expectedAction)
