@@ -8,7 +8,7 @@ import defaultState from '../../../src/reducers/initial';
 import PatientRecord from '../../../src/patient/PatientRecord';
 import TestPatient2 from '../../TestPatient2.json';
 import EntryMapper from '../../../src/dataaccess/mcodev0.1-datasource/EntryMapper';
-import FluxBreastCancerDisorderPresent from '../../../src/model/brca/FluxBreastCancerDisorderPresent';
+import FluxCancerDisorderPresent from '../../../src/model/oncocore/FluxCancerDisorderPresent';
 import _ from 'lodash';
 
 import stateObjects from './mock-data/testoptions.json';
@@ -24,7 +24,7 @@ describe('Reducer function', ()=>{
         const mcodePatientJson = EntryMapper.mapEntries(TestPatient2);
         const testPatientObj = new PatientRecord(mcodePatientJson);
     
-        const fluxCondition = testPatientObj.getEntriesOfType(FluxBreastCancerDisorderPresent)[0];
+        const fluxCondition = testPatientObj.getEntriesOfType(FluxCancerDisorderPresent)[0];
         const testPatientRecord = testPatientObj.getPatient();
         it('should return populated new state when given normal values', ()=>{
             const action = {

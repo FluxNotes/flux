@@ -27,8 +27,7 @@ import FluxConditionPresentAssertion from '../../../src/model/base/FluxCondition
 import SearchIndex from '../../../src/patientControl/SearchIndex';
 import FluxClinicalNote from '../../../src/model/core/FluxClinicalNote';
 import PreferenceManager from '../../../src/preferences/PreferenceManager';
-import FluxGastrointestinalStromalTumor from '../../../src/model/oncology/FluxGastrointestinalStromalTumor';
-import FluxBreastCancer from '../../../src/model/brca/FluxBreastCancerDisorderPresent';
+import FluxCancerDisorderPresent from '../../../src/model/oncocore/FluxCancerDisorderPresent';
 import EntryMapper from '../../../src/dataaccess/mcodev0.1-datasource/EntryMapper';
 
 const mcodePatientJson = EntryMapper.mapEntries(BreastMainTreatmentDebra);
@@ -81,7 +80,7 @@ describe('3 TargetedDataControl', function() {
     it('3.1 noteDisplayMode buttons update state', function() {
         let patient = new PatientRecord(mcodePatientJson);
         const summaryMetadata = new SummaryMetadata();
-        const condition = new FluxBreastCancer({
+        const condition = new FluxCancerDisorderPresent({
             "FindingResult": {
                 "Value": {
                     "Coding": [
@@ -117,7 +116,7 @@ describe('3 TargetedDataControl', function() {
                     "Value": "http://standardhealthrecord.org/spec/shr/base/FindingResult"
                 }
             }
-        }, patient);
+        }, null, patient);
         const metadata = summaryMetadata.getMetadata(null, null, condition, null, null, null);
         // Look for the first NameValuePair section which should be Summary. Assumes it does not have a defaultVisualizer property
         const section = metadata.sections.find((section) => {
@@ -156,7 +155,7 @@ describe('4 TargetedDataControl - correct default visualizer Medications', funct
     it('4.1 correct default visualizer', function() {
         let patient = new PatientRecord(mcodePatientJson);
         const summaryMetadata = new SummaryMetadata(null);
-        const condition = new FluxGastrointestinalStromalTumor({
+        const condition = new FluxCancerDisorderPresent({
             "FindingTopicCode": {
                 "Value": {
                     "EntryType": {
@@ -192,7 +191,7 @@ describe('4 TargetedDataControl - correct default visualizer Medications', funct
                     "Value": "http://standardhealthrecord.org/spec/shr/base/ConditionOrDiagnosisCode"
                 }
             }
-        }, patient);
+        }, null, patient);
         const metadata = summaryMetadata.getMetadata(null, null, condition, null, null, null);
         // Look for the first NameValuePair section which should be Summary. Assumes it does not have a defaultVisualizer property
         const section = metadata.sections.find((section) => {
