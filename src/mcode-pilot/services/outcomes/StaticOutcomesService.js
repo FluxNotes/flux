@@ -1,5 +1,5 @@
 import filterTreatmentData from '../../utils/filterTreatmentData';
-import IOutcomesService from './IOutcomesService'
+import IOutcomesService from './IOutcomesService';
 export default class StaticOutcomesService  extends IOutcomesService {
 
    async getSupportedTreatments(){
