@@ -11,20 +11,25 @@ class SolidTumorActiveTreatmentSummary extends IActiveTreatmentSummary {
         this._possibleActiveTreatmentOptions = { 
             "adjuvant": {
                 type: "adjuvant",
+                displayText: "Adjuvant",
                 medications: []
             },
             "neo-adjuvant": {
                 type: "neo-adjuvant",
+                displayText: "Neo-adjuvant",
                 medications: []
             },
             "early-stage": {
-                type: "early-stage"
+                type: "early-stage",
+                displayText: "Early stages of diagnosis"
             },
             "no-active-treatment": { 
-                type: "no-active-treatment"
+                type: "no-active-treatment",
+                displayText: "No active treatment",
             },
             "medication": { 
                 type: "medication",
+                displayText: "Medication",
                 medications: []
             }
         }
@@ -60,7 +65,7 @@ class SolidTumorActiveTreatmentSummary extends IActiveTreatmentSummary {
                     activeTreatment = { ...this._possibleActiveTreatmentOptions["adjuvant"], ...activeTreatment};
                 } else {    
                     // TODO: Define treatment summary based on a description of the current medications 
-                    activeTreatment = this._possibleActiveTreatmentOptions["medication"];
+                    activeTreatment = { ...this._possibleActiveTreatmentOptions["medication"], ...activeTreatment};;
                 }
             }
         } else { 
@@ -79,8 +84,6 @@ class SolidTumorActiveTreatmentSummary extends IActiveTreatmentSummary {
                 activeTreatment = this._possibleActiveTreatmentOptions["early-stage"];
             }
         }
-        console.log('activeTreatment: ', activeTreatment);
-        console.log('this._possibleActiveTreatmentOptions[activeTreatment]: ', this._possibleActiveTreatmentOptions[activeTreatment]);
         return activeTreatment;
     }
 

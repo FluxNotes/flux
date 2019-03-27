@@ -821,18 +821,15 @@ class PatientRecord {
     }
     
 
-    getSurgeriesForCondition(condition) { 
-        // Get all procedures relevant to this condition
+    getSurgeriesForCondition(condition) {
         const allProceduresForCondition = this.getProceduresForCondition(condition);
         const surgeryValue = getProcedureValueCodeableConcept("surgery");
-        console.log('surgeryValue: ', surgeryValue);
-        // Filter to those that are surgeries - code C0851238
         return allProceduresForCondition.filter((cond) => {
             return cond.code === surgeryValue.coding[0].code.value;
         });
     }
 
-    getSurgeriesPlannedForCondition(condition) { 
+    getSurgeriesPlannedForCondition(condition) {
         const surgeriesForCondition = this.getSurgeriesForCondition(condition);
         const activeStatus = getProcedureStatusCodeableConcept("active");
         return surgeriesForCondition.filter((cond) => {
@@ -840,9 +837,8 @@ class PatientRecord {
         })
     }
 
-    getSurgeriesPreviouslyPerformedForCondition(condition) { 
+    getSurgeriesPreviouslyPerformedForCondition(condition) {
         const surgeriesForCondition = this.getSurgeriesForCondition(condition);
-        // Filter to those with status.value = completed 
         const completedStatus = getProcedureStatusCodeableConcept("completed");
         return surgeriesForCondition.filter((cond) => {
             return cond.status === completedStatus.coding[0].code.value;

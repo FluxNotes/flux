@@ -20,6 +20,9 @@ export default class SarcomaSummarySection extends MetadataSection {
                     defaultTemplate: "Patient has ${.Name} in ${.Location} stage ${.Stage} diagnosed on ${Key Dates.Diagnosis}."
                 },
                 {
+                    defaultTemplate: "Summary of current treatment is: ${.Active Treatment Summary}."
+                },
+                {
                     defaultTemplate: "Current status is ${.Status}.",
                     dataMissingTemplate: "No current ${.Status}.",
                     useDataMissingTemplateCriteria: [
@@ -190,33 +193,26 @@ export default class SarcomaSummarySection extends MetadataSection {
                             }
                         },
                         { 
-                            name: "Treatment Summary",
+                            name: "Active Treatment Summary",
                             value: (patient, currentConditionEntry) => {
                                 const activeTreatmentSummaryObject = ActiveTreatmentSummaryObjectFactory.createInstance(patient, currentConditionEntry);
                                 const activeTreatmentSummaryJson = activeTreatmentSummaryObject.getActiveTreatmentSummary();
-                                console.log(activeTreatmentSummaryJson)
-                                if (Lang.isNull(activeTreatmentSummaryJson)) return null;
-                                let treatmentSummaryValue= ""
-                                switch (activeTreatmentSummaryJson.type) { 
-                                    case "adjuvant":
-                                        const medsAsStrings = activeTreatmentSummaryJson.medications.map(m => m.medication);
-                                        const numMeds = medsAsStrings.length;
-                                        // If there's more than one element, make sure the last element includes an &
-                                        if (numMeds > 1) medsAsStrings.splice(numMeds - 1, 1, `& ${medsAsStrings[numMeds - 1]}`);
-                                        // Join all but the final medication by commas, and then append the last one (the & is included if needed above) 
-                                        const formattedMedsString = medsAsStrings.slice(0,numMeds - 1).join(', ') + medsAsStrings[numMeds - 1];
-                                        treatmentSummaryValue = `Adjuvant therapy of ${formattedMedsString}`;
-                                        break;
-                                    case "neo-adjuvant":
-                                        break;
-                                    case "early-stage":
-                                        break;
-                                    case "no-active-treatment":
-                                        break;
-                                    default: 
-                                        console.error("In SarcomaSummarySection's Treatment Summary Switch: No defined sentence structure for " + activeTreatmentSummaryJson.type);
-                                        return null;
+                                // If there is no activeTreatmentSummaryJSON, or if the JSON has an undefineddisplayText
+                                // Then return null 
+                                if (Lang.isNull(activeTreatmentSummaryJson) || Lang.isUndefined(activeTreatmentSummaryJson.displayText)) return null;
+                                // Always use the displayText provided back from the summaryObject
+                                let treatmentSummaryValue = activeTreatmentSummaryJson.displayText;
+                                // If there are medications, gather them into a single string 
+                                if (activeTreatmentSummaryJson.medications) { 
+                                    const numMeds = activeTreatmentSummaryJson.medications.length;
+                                    const medsAsStrings = activeTreatmentSummaryJson.medications.map(m => m.medication);
+                                    // If there's more than one element, make sure the last element includes an &
+                                    if (numMeds > 1) medsAsStrings.splice(numMeds - 1, 1, `& ${medsAsStrings[numMeds - 1]}`);
+                                    // Join all but the final medication by commas, and then append the last one (the & is included if needed above)
+                                    const formattedMedsString = medsAsStrings.slice(0, numMeds - 1).join(', ') + medsAsStrings[numMeds - 1];
+                                    treatmentSummaryValue += ` ${formattedMedsString}`
                                 }
+                                // TODO: Support chaining relevant procedures into treatment summary value
                                 return {
                                     value: treatmentSummaryValue,
                                     isUnsigned: false,
