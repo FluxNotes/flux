@@ -12,7 +12,7 @@ import TestPatient2 from '../../TestPatient2.json';
 import EntryMapper from '../../../src/dataaccess/mcodev0.1-datasource/EntryMapper';
 import FluxBreastCancerDisorderPresent from '../../../src/model/brca/FluxBreastCancerDisorderPresent';
 
-const mockStore = configureMockStore([thunk])
+const mockStore = configureMockStore([thunk]);
 
 
 describe('actions', () => {

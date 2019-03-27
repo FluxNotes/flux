@@ -54,7 +54,6 @@
     "redux-logger": "^3.0.6",
     "redux-promise-middleware": "^5.1.1",
     "redux-thunk": "^2.3.0",
-    "redux-mock-store": "",
     "run-script-os": "1.0.3",
     "shr_rest_client": "^0.0.6",
     "slate": "0.20.2",
@@ -80,6 +79,7 @@
     "npm-run-all": "^4.1.2",
     "react-scripts": "0.9.5",
     "react-test-renderer": "15.6.2",
+    "redux-mock-store": "1.5.3",
     "testcafe": "0.17.1",
     "webpack-dev-server": "3.1.11"
   },

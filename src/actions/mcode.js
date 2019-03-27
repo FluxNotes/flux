@@ -52,9 +52,9 @@ function processSimilarPatientOutcomes() {
          similarPatientTreatments:  results.similarPatientTreatments,
          includedTreatmentData: results.includedTreatmentData,
          comparedTreatmentData: results.comparedTreatmentData
-       }))
-   })
-  }
+       }));
+   });
+ };
 }
 
 function selectTreatments(treatmentType, treatments) {
