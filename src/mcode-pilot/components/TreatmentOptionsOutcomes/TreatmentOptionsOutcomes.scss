@@ -20,12 +20,12 @@
 
             &.active,
             &.active .toggle-text {
-                color: $color-blue;
+                color: $interface-blue;
             }
 
             .toggle-text {
                 font-size: 0.6em;
-                color: $color-gray;
+                color: $contrast-gray;
             }
         }
     }
