@@ -13,7 +13,6 @@ class FluxEntry {
     _displayTextOrCode(coding) {
         return coding.displayText ? coding.displayText.value : coding.code.value;
     }
-
 }
 
 export default FluxEntry;

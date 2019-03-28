@@ -9,18 +9,20 @@ import EndDateTime from '../shr/core/EndDateTime';
 import Timing from '../shr/core/Timing';
 import ExpectedPerformanceTime from '../shr/base/ExpectedPerformanceTime';
 import Type from '../shr/core/Type';
+import FluxEntry from '../base/FluxEntry';
 import moment from 'moment';
 import lookup from '../../lib/MedicationInformationService.jsx';
 
-class FluxMedicationRequested {
+class FluxMedicationRequested extends FluxEntry {
     constructor(json) {
-        this._medicationRequested = MedicationRequested.fromJSON(json);
+        super();
+        this._entry = this._medicationRequested = MedicationRequested.fromJSON(json);
         if (!this._medicationRequested.entryInfo) {
             let entry = new Entry();
             entry.entryType = new EntryType();
             entry.entryType.uri = 'http://standardhealthrecord.org/spec/shr/medication/MedicationRequested';
             this._medicationRequested.entryInfo = entry;
-          }
+        }
     }
 
     /*
@@ -63,9 +65,10 @@ class FluxMedicationRequested {
         if (!this._medicationRequested.expectedPerformanceTime.value) {
             this._medicationRequested.expectedPerformanceTime.value = new TimePeriod();
         }
-        const timePeriodStart = new BeginDateTime();
-        timePeriodStart.value = date;
-        this._medicationRequested.expectedPerformanceTime.value.timePeriodStart = timePeriodStart;
+
+        const beginDateTime = new BeginDateTime();
+        beginDateTime.value = date;
+        this._medicationRequested.expectedPerformanceTime.value.beginDateTime = beginDateTime;
     }
 
     get endDate() {
@@ -79,9 +82,10 @@ class FluxMedicationRequested {
         if (!this._medicationRequested.expectedPerformanceTime.value) {
             this._medicationRequested.expectedPerformanceTime.value = new TimePeriod();
         }
-        const timePeriodEnd = new EndDateTime();
-        timePeriodEnd.value = date;
-        this._medicationRequested.expectedPerformanceTime.value.timePeriodEnd = timePeriodEnd;
+
+        const endDateTime = new EndDateTime();
+        endDateTime.value = date;
+        this._medicationRequested.expectedPerformanceTime.value.endDateTime = endDateTime;
     }
 
     isActiveAsOf(date) {
@@ -254,16 +258,6 @@ class FluxMedicationRequested {
         return this._medicationRequested.dosage.dosageInstructionsText ? this._medicationRequested.dosage.dosageInstructionsText.value : null;
     }
 
-    /**
-     * Extract a human-readable string from a code.
-     *
-     * @param {Coding} coding
-     * @returns {string} the display text if available, otherwise the code.
-     * @private
-     */
-    _displayTextOrCode(coding) {
-        return coding.displayText ? coding.displayText.value : coding.code.value;
-    }
     /**
      * Return a JSON representation of medicationRequested
      */

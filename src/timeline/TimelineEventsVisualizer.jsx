@@ -11,21 +11,18 @@ import './Timeline.css';
 import './TimelineEventsVisualizer.css';
 import FontAwesome from 'react-fontawesome';
 import Lang from 'lodash';
+import VisualizerMenu from '../summary/VisualizerMenu';
 import Visualizer from '../summary/Visualizer';
 
 class TimelineEventsVisualizer extends Visualizer {
     constructor(props) {
         super(props);
-        const items = this.createItems(this.props.patient, this.props.condition, this.props.conditionSection, this.props.tdpSearchSuggestions, this.props.highlightedSearchSuggestion);
+        const { conditionSection, tdpSearchSuggestions, highlightedSearchSuggestion, isWide } = this.props;
+        const items = this.createItems(conditionSection, tdpSearchSuggestions, highlightedSearchSuggestion);
         const groups = this.createGroupsForItems(this.getMaxGroup(items));
 
         // Define the bounds of the timeline
-        let defaultTimeStart;
-        if (this.props.isWide) { 
-            defaultTimeStart = moment().clone().add(-3, 'years').add(3, 'months');  // wideview - 3 years ago
-        } else {
-            defaultTimeStart = moment().clone().add(-1, 'years').add(3, 'months');
-        }
+        const defaultTimeStart = isWide ? moment().clone().add(-3, 'years').add(3, 'months') : moment().clone().add(-1, 'years').add(3, 'months'); // wide view - 3 years ago
         const defaultTimeEnd = moment().clone().add(3, 'months'); // end - 3 months from now
         const visibleTimeStart = defaultTimeStart.valueOf();
         const visibleTimeEnd = defaultTimeEnd.valueOf();
@@ -43,45 +40,50 @@ class TimelineEventsVisualizer extends Visualizer {
                 year: 1
             },
             legendItems: [
-                {icon: 'hospital-o', description: 'Medical procedures'},
-                {icon: 'heartbeat', description: 'Key events and disease status'}
+                { icon: 'hospital-o', description: 'Medical procedures' },
+                { icon: 'heartbeat', description: 'Key events and disease status' }
             ],
             hoverItem: {
                 title: '',
                 details: '',
-                style: {top: 0, left: 0, display: 'none'}
+                style: { top: 0, left: 0, display: 'none' }
             },
+
+            // state variables for displaying VisualizerMenu
+            elementToDisplayMenu: null,
+            positionTop: 0,
+            positionLeft: 0,
+            arrayIndex: 0,
+            elementId: '',
+            elementText: '',
+            elementSource: null,
         };
     };
 
     componentWillReceiveProps = (nextProps) => {
-        const items = this.createItems(nextProps.patient, nextProps.condition, nextProps.conditionSection, nextProps.tdpSearchSuggestions, nextProps.highlightedSearchSuggestion);
+        const { conditionSection, tdpSearchSuggestions, highlightedSearchSuggestion } = nextProps;
+        const items = this.createItems(conditionSection, tdpSearchSuggestions, highlightedSearchSuggestion);
         const groups = this.createGroupsForItems(this.getMaxGroup(items));
         this.setState({
             items,
-            groups
+            groups,
         });
 
         if (this.props.isWide !== nextProps.isWide) {
-            let visibleTimeStart;
-            if (nextProps.isWide) {
-                visibleTimeStart = moment().clone().add(-3, 'years').add(3, 'months').valueOf();  // wideview - 3 years ago
-            } else {
-                visibleTimeStart = moment().clone().add(-1, 'years').add(3, 'months').valueOf();
-            }
+            const visibleTimeStart = nextProps.isWide ? moment().clone().add(-3, 'years').add(3, 'months').valueOf() : moment().clone().add(-1, 'years').add(3, 'months').valueOf(); // wideview - 3 years ago
             const visibleTimeEnd = moment().clone().add(3, 'months').valueOf();
             this.setState({
                 visibleTimeStart,
-                visibleTimeEnd
+                visibleTimeEnd,
             });
         }
     }
 
-    createItems = (patient, condition, section, tdpSearchSuggestions, highlightedSearchSuggestion) => {
+    createItems = (section, tdpSearchSuggestions, highlightedSearchSuggestion) => {
         // Create groups and items to display on the timeline
         let items = [];
         if (section.resetData) section.resetData();
-        section.data.forEach((item, i) => {
+        section.data.forEach((item) => {
             items = items.concat(item.data_cache || []);
         });
 
@@ -95,16 +97,23 @@ class TimelineEventsVisualizer extends Visualizer {
 
                 // hold 2 view 
                 onTouchStart: (e) => this.enterItemHover(e, id),
-                onTouchEnd: (e) => this.leaveItemHover(e)
+                onTouchEnd: (e) => {
+                    // Opens action menu after hover item disappears
+                    this.leaveItemHover(e);
+                    this.openInsertionMenu(e, item, i);
+                },
+
+                onClick: (e) => this.openInsertionMenu(e, item, i),
             };
 
-            const highlightedItem = tdpSearchSuggestions.find(s => {
-                if (s.section === "Timeline") {
-                    const value = s.subsection === "Procedures" ? item.hoverText : `${item.hoverTitle}: ${item.hoverText}`;
+            const highlightedItem = tdpSearchSuggestions.find((s) => {
+                if (s.section === 'Timeline') {
+                    const value = s.subsection === 'Procedures' ? item.hoverText : `${item.hoverTitle}: ${item.hoverText}`;
                     return s.contentSnapshot === value;
                 }
                 return false;
             });
+
             let highlightedClass = highlightedItem ? ' timeline-highlighted' : '';
             if (Lang.isEqual(highlightedItem, highlightedSearchSuggestion)) {
                 highlightedClass += ' selected';
@@ -112,7 +121,75 @@ class TimelineEventsVisualizer extends Visualizer {
 
             item.className += highlightedClass;
         });
+
         return items;
+    }
+
+    // Opens the insertion menu for the given element id, based on cursor location
+    openInsertionMenu = (event, item, arrayIndex) => {
+        // Get menu coordinates
+        // Get the horizontal coordinate of mouse and push menu a little to the right
+        const x = (event.clientX || event.changedTouches[0].clientX) + 4;
+
+        // Get the vertical coordinate of mouse and push a little to the bottom of cursor
+        const y = (event.clientY || event.changedTouches[0].clientY) + 7;
+
+        const elementId = `${item.group}-${item.id}-${arrayIndex}`;
+        this.setState({
+            elementId,
+            arrayIndex,
+            elementText: item.hoverText,
+            elementSource: item.source,
+            elementToDisplayMenu: elementId,
+            positionLeft: x,
+            positionTop: y,
+        });
+    }
+
+    // Closes the insertion menu
+    closeInsertionMenu = (callback) => {
+        if (callback) {
+            this.setState({ elementToDisplayMenu: null }, callback);
+        } else {
+            this.setState({ elementToDisplayMenu: null });
+        }
+    }
+
+    // renders Menu for element and associated actions as Menu items
+    renderedMenu = () => {
+        const { elementToDisplayMenu, elementId, elementText, elementSource, arrayIndex, positionLeft, positionTop } = this.state;
+        const { actions } = this.props;
+
+        // Item represents the name of the row/section of the current element.
+        const onMenuItemClicked = (fn, element, item) => {
+            const callback = () => {
+                fn(element, item);
+            }
+            this.closeInsertionMenu(callback);
+        };
+        const element = {
+            value: elementText,
+            source: elementSource,
+        };
+
+        return (
+            <VisualizerMenu
+                // allowItemClick is false so that `Insert Text` action is disabled
+                allowItemClick={false}
+                arrayIndex={arrayIndex}
+                closeInsertionMenu={this.closeInsertionMenu}
+                element={element}
+                elementDisplayingMenu={elementToDisplayMenu}
+                elementId={elementId}
+                elementText={elementText}
+                isSigned={true}
+                onMenuItemClicked={onMenuItemClicked}
+                positionLeft={positionLeft}
+                positionTop={positionTop}
+                rowId={elementText}
+                unfilteredActions={actions}
+            />
+        );
     }
 
     enterItemHover = (e, id) => {
@@ -123,36 +200,36 @@ class TimelineEventsVisualizer extends Visualizer {
         const style = {
             top: `${rect.top - 65}px`,
             left: `${rect.left}px`,
-            display: null
-        }
-        const item = this.state.items[id-1];
-        const hoverItemState = {
+            display: null,
+        };
+        const item = this.state.items[id - 1];
+        const hoverItem = {
+            style,
             title: item.hoverTitle,
             text: item.hoverText,
-            style: style
         };
 
-        this.setState({'hoverItem': hoverItemState});
+        this.setState({ hoverItem });
     }
 
     leaveItemHover = (e) => {
         e.preventDefault();
-        const defaultHoverItemState = {
+        const hoverItem = {
             style: {
-                display: 'none'
-            }
+                display: 'none',
+            },
         };
 
-        this.setState({'hoverItem': defaultHoverItemState});
+        this.setState({ hoverItem });
     }
 
     // Create a set of groups that match those used by the items.
     createGroupsForItems = (numGroups) => {
         // extract the group IDs
-        let groups = [];
-        
+        const groups = [];
+
         for (let i = 0; i < numGroups; i++) {
-            groups.push({id: i+1});
+            groups.push({ id: i + 1 });
         }
 
         return groups;
@@ -179,10 +256,10 @@ class TimelineEventsVisualizer extends Visualizer {
     onTimelineZoomClick = (timeAmount, timeUnit) => {
         const currentTimeStart = this.state.visibleTimeStart;
         const currentTimeEnd = this.state.visibleTimeEnd;
-        const centerPoint = currentTimeStart + (currentTimeEnd - currentTimeStart)/2;
+        const centerPoint = currentTimeStart + (currentTimeEnd - currentTimeStart) / 2;
         this.setState({
-            visibleTimeStart: moment(centerPoint).subtract(timeAmount/2, timeUnit).valueOf(),
-            visibleTimeEnd: moment(centerPoint).add(timeAmount/2, timeUnit).valueOf()
+            visibleTimeStart: moment(centerPoint).subtract(timeAmount / 2, timeUnit).valueOf(),
+            visibleTimeEnd: moment(centerPoint).add(timeAmount / 2, timeUnit).valueOf()
         });
     }
 
@@ -190,7 +267,7 @@ class TimelineEventsVisualizer extends Visualizer {
         const newEndDateValue = newEndDate.valueOf();
         const currentTimeLengthVisible = this.state.visibleTimeEnd - this.state.visibleTimeStart;
         const multiple = jumpForward ? 1 : -1;
-        const amountToPutEndDateInView = currentTimeLengthVisible * (1/12) * multiple;
+        const amountToPutEndDateInView = currentTimeLengthVisible * (1 / 12) * multiple;
         this.setState({
             visibleTimeStart: moment(newEndDateValue).subtract(currentTimeLengthVisible - amountToPutEndDateInView, 'ms').valueOf(),
             visibleTimeEnd: moment(newEndDateValue).add(amountToPutEndDateInView).valueOf()
@@ -265,37 +342,40 @@ class TimelineEventsVisualizer extends Visualizer {
     }
 
     render() {
+        const { hoverItem, groups, items, defaultTimeStart, defaultTimeEnd, visibleTimeStart, visibleTimeEnd, timeSteps, legendItems } = this.state;
+        const { className, condition } = this.props;
+
         return (
-            <div 
-                id="timeline" 
-                className={this.props.className}
+            <div
+                id="timeline"
+                className={className}
             >
                 <div>
                     {this.renderScrollButtons()}
                     {this.renderZoomButtons()}
                 </div>
                 <HoverItem
-                    title={this.state.hoverItem.title}
-                    text={this.state.hoverItem.text}
-                    style={this.state.hoverItem.style}
+                    title={hoverItem.title}
+                    text={hoverItem.text}
+                    style={hoverItem.style}
                 />
-
+                {this.renderedMenu()}
                 {/* Null check to ensure timeline is rendered  */}
-                {this.props.condition ?
+                {condition ?
                     <Timeline
                         resizeDetector={containerResizeDetector}
-                        groups={this.state.groups}
-                        items={this.state.items}
-                        defaultTimeStart={this.state.defaultTimeStart}
-                        defaultTimeEnd={this.state.defaultTimeEnd}
-                        visibleTimeStart={this.state.visibleTimeStart}
-                        visibleTimeEnd={this.state.visibleTimeEnd}
+                        groups={groups}
+                        items={items}
+                        defaultTimeStart={defaultTimeStart}
+                        defaultTimeEnd={defaultTimeEnd}
+                        visibleTimeStart={visibleTimeStart}
+                        visibleTimeEnd={visibleTimeEnd}
                         onTimeChange={this.onTimeChange}
                         rightSidebarWidth={0}
                         rightSidebarContent={null}
                         sidebarWidth={0}
                         sidebarContent={null}
-                        timeSteps={this.state.timeSteps}
+                        timeSteps={timeSteps}
                         lineHeight={40}
                         itemHeightRatio={0.7}
                         itemRenderer={Item}
@@ -315,17 +395,17 @@ class TimelineEventsVisualizer extends Visualizer {
                             itemGroupKey: 'group',
                             itemTimeStartKey: 'start_time',
                             itemTimeEndKey: 'end_time'
-                          }}
+                        }}
                     /> : null}
                 <Legend
-                  items={this.state.legendItems}
+                    items={legendItems}
                 />
             </div>
         )
     }
 }
 
-TimelineEventsVisualizer.propTypes = { 
+TimelineEventsVisualizer.propTypes = {
     isWide: PropTypes.bool.isRequired,
     className: PropTypes.string,
     patient: PropTypes.object.isRequired,
