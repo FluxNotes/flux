@@ -64,7 +64,7 @@ describe("TreatmentOptionsOutcome", () => {
     describe("outcomes table: compared treatments", () => {
         it("renders the `hormonal therapy` and `chemotherapy` treatment rows", () => {
             const treatmentRows = outcome().find('.compared-treatments .table-row');
-            
+
             expect(treatmentRows).to.have.lengthOf(2);
             expect(treatmentRows.at(0).find('.treatment-name').text()).to.eql('hormonal therapy');
             expect(treatmentRows.at(1).find('.treatment-name').text()).to.eql('chemotherapy');
@@ -81,6 +81,7 @@ describe("TreatmentOptionsOutcome", () => {
             const treatmentRows = outcome().find('.compared-treatments .table-row');
 
             const barChartTexts = treatmentRows.at(0).find('.bar-chart-text');
+
             expect(barChartTexts).to.have.lengthOf(6);
 
             // 1 year and 1 year difference (83% / +23%)

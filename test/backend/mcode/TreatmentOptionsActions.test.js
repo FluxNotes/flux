@@ -3,11 +3,17 @@ import {expect} from 'chai';
 import * as actions from '../../../src/actions/mcode'
 import * as types from '../../../src/actions/types'
 import '../../../src/model/init';
+import configureMockStore from 'redux-mock-store'
+import defaultState from '../../../src/reducers/initial.json';
+import thunk from 'redux-thunk'
 
 import PatientRecord from '../../../src/patient/PatientRecord';
 import TestPatient2 from '../../TestPatient2.json';
 import EntryMapper from '../../../src/dataaccess/mcodev0.1-datasource/EntryMapper';
 import FluxBreastCancerDisorderPresent from '../../../src/model/brca/FluxBreastCancerDisorderPresent';
+
+const mockStore = configureMockStore([thunk]);
+
 
 describe('actions', () => {
 
@@ -38,7 +44,7 @@ describe('actions', () => {
         }
         expect(actions.selectSimilarPatientOption(category, key, selected)).to.eql(expectedAction)
       });
-      
+
       it('should create an action to select all category options', () => {
         const category = "demographics";
         const selected = true;
@@ -62,9 +68,16 @@ describe('actions', () => {
 
       it('should create an action to process outcomes', () => {
         const expectedAction = {
-          type: types.PROCESS_SIMILAR_PATIENT_OUTCOMES
+          type: types.UPDATE_PATIENT_OUTCOMES
 
         }
-        expect(actions.processSimilarPatientOutcomes()).to.eql(expectedAction)
+        const store = mockStore({mcode: defaultState});
+
+        store.dispatch(actions.processSimilarPatientOutcomes()).then(() => {
+          expect(store.getActions()).to.eql(expectedAction)
+        }).catch((e) => {
+          return false
+        })
+
       });
   })
