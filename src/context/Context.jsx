@@ -2,7 +2,8 @@ import Lang from 'lodash';
 
 export default class Context {
 	constructor() {
-		this.children = [];
+        this.children = [];
+        this._initialContextPosition = -1; // Where to insert the context relative to the others on creation
 	}
 
 	initialize(contextManager, trigger = undefined, updatePatient = true) {
@@ -117,5 +118,13 @@ export default class Context {
 
     isGlobalContext() {
         return false;
+    }
+
+    get initialContextPosition() {
+        return this._initialContextPosition;
+    }
+
+    set initialContextPosition(initialContextPosition) {
+        this._initialContextPosition = initialContextPosition;
     }
 }
