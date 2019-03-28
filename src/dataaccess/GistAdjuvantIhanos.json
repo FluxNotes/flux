@@ -820,7 +820,7 @@
             "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"
         },
         "LastUpdated": {
-            "Value": "18 Jul 2016",
+            "Value": "13 Jul 2016",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
@@ -834,7 +834,7 @@
             }
         ],
         "CreationTime": {
-            "Value": "18 Jul 2016",
+            "Value": "01 Jul 2016",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -889,7 +889,181 @@
             }
         },
         "ExpectedPerformanceTime": {
+            "Value": "13 Jul 2016",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
+            }
+        },
+        "ExpectedPerformer": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformer"
+            },
+            "Value": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Practitioner"
+                },
+                "Person": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
+                    },
+                    "HumanName": [
+                        {
+                            "NameAsText": {
+                                "Value": "Dr. Cheung564",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/NameAsText"
+                                }
+                            },
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
+                            }
+                        }
+                    ],
+                    "PartOf": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/entity/PartOf"
+                        },
+                        "Value": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
+                            },
+                            "Type": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
+                                },
+                                "Value": {
+                                    "Coding": [
+                                        {
+                                            "Code": {
+                                                "Value": "prov",
+                                                "EntryType": {
+                                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                                }
+                                            },
+                                            "EntryType": {
+                                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                                            },
+                                            "CodeSystem": {
+                                                "Value": "http://hl7.org/fhir/organization-type",
+                                                "EntryType": {
+                                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                                }
+                                            },
+                                            "DisplayText": {
+                                                "Value": "Healthcare Provider",
+                                                "EntryType": {
+                                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                                    }
+                                }
+                            },
+                            "OrganizationName": {
+                                "Value": "MCI",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "SourceClinicalNote": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "5000",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
+            }
+        }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "49",
+        "Status": {
+            "Value": "completed",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Status"
+            }
+        },
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"
+        },
+        "LastUpdated": {
+            "Value": "03 Aug 2016",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "Annotation": [
+            {
+                "Text": "confirmed GIST with 15 mitoses/50 HPF",
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"
+                }
+            }
+        ],
+        "CreationTime": {
             "Value": "18 Jul 2016",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "Reason": [
+            {
+                "Value": {
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+                    "_EntryId": "8",
+                    "_EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/base/ConditionPresentAssertion"
+                    }
+                },
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/Reason"
+                }
+            }
+        ],
+        "TopicCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/TopicCode"
+            },
+            "Value": {
+                "Coding": [
+                    {
+                        "Code": {
+                            "Value": "277591006",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "CodeSystem": {
+                            "Value": "http://snomed.info/sct",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            }
+                        },
+                        "DisplayText": {
+                            "Value": "CT-guided biopsy",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        }
+                    }
+                ],
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                }
+            }
+        },
+        "ExpectedPerformanceTime": {
+            "Value": "30 Jul 2016",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
             }
@@ -983,180 +1157,6 @@
     },
     {
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-        "EntryId": "49",
-        "Status": {
-            "Value": "completed",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/Status"
-            }
-        },
-        "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"
-        },
-        "LastUpdated": {
-            "Value": "03 Aug 2016",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
-            }
-        },
-        "Annotation": [
-            {
-                "Text": "confirmed GIST with 15 mitoses/50 HPF",
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"
-                }
-            }
-        ],
-        "CreationTime": {
-            "Value": "03 Aug 2016",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
-            }
-        },
-        "Reason": [
-            {
-                "Value": {
-                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-                    "_EntryId": "8",
-                    "_EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/base/ConditionPresentAssertion"
-                    }
-                },
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/base/Reason"
-                }
-            }
-        ],
-        "TopicCode": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/TopicCode"
-            },
-            "Value": {
-                "Coding": [
-                    {
-                        "Code": {
-                            "Value": "277591006",
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
-                            }
-                        },
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                        },
-                        "CodeSystem": {
-                            "Value": "http://snomed.info/sct",
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                            }
-                        },
-                        "DisplayText": {
-                            "Value": "CT-guided biopsy",
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                            }
-                        }
-                    }
-                ],
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                }
-            }
-        },
-        "ExpectedPerformanceTime": {
-            "Value": "03 Aug 2016",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
-            }
-        },
-        "ExpectedPerformer": {
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformer"
-            },
-            "Value": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Practitioner"
-                },
-                "Person": {
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
-                    },
-                    "HumanName": [
-                        {
-                            "NameAsText": {
-                                "Value": "Dr. Cheung564",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/NameAsText"
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
-                            }
-                        }
-                    ],
-                    "PartOf": {
-                        "EntryType": {
-                            "Value": "http://standardhealthrecord.org/spec/shr/entity/PartOf"
-                        },
-                        "Value": {
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
-                            },
-                            "Type": {
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
-                                },
-                                "Value": {
-                                    "Coding": [
-                                        {
-                                            "Code": {
-                                                "Value": "prov",
-                                                "EntryType": {
-                                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
-                                                }
-                                            },
-                                            "EntryType": {
-                                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                            },
-                                            "CodeSystem": {
-                                                "Value": "http://hl7.org/fhir/organization-type",
-                                                "EntryType": {
-                                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                                }
-                                            },
-                                            "DisplayText": {
-                                                "Value": "Healthcare Provider",
-                                                "EntryType": {
-                                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                                }
-                                            }
-                                        }
-                                    ],
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                                    }
-                                }
-                            },
-                            "OrganizationName": {
-                                "Value": "MCI",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "SourceClinicalNote": {
-            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-            "_EntryId": "5160",
-            "_EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
-            }
-        }
-    },
-    {
-        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
         "EntryId": "65",
         "Status": {
             "Value": "completed",
@@ -1182,7 +1182,7 @@
             }
         ],
         "CreationTime": {
-            "Value": "22 Aug 2016",
+            "Value": "03 Aug 2016",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -1323,7 +1323,7 @@
         },
         "SourceClinicalNote": {
             "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-            "_EntryId": "5200",
+            "_EntryId": "5160",
             "_EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
             }
