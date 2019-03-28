@@ -289,16 +289,11 @@ export default class TreatmentOptionsOutcomes extends Component {
         );
     }
 
-    renderIconsCircle = (i) => {
-        return (
-            <div className="icons-chart__circle" key={i}></div>
-        );
-    }
-
     renderOutcomesIcons = () => {
         const { includedTreatmentData, comparedTreatmentData } = this.props;
         const { timescaleToggle } = this.state;
-        if (includedTreatmentData.length === 0) { return <div className="note">No included treatment chosen.</div>; }
+        if (includedTreatmentData.length === 0) return <div className="note">No included treatment chosen.</div>;
+
         const survivalMap = { 1: 'oneYrSurvival', 3: 'threeYrSurvival', 5: 'fiveYrSurvival' };
         const numSurvive = Math.floor(includedTreatmentData[0][survivalMap[timescaleToggle]] / includedTreatmentData[0].totalPatients * 100);
         const numDie = 100 - numSurvive;
