@@ -55,14 +55,20 @@ If a directory is specified, every file in that directory will be treated as a n
 
 ## Patient Date Update
 
-This patient date updater is designed to change all of the dates in each of the entries in a patient JSON.  One of the parameters passed to the app is the entryid of an encounter.  The tool will calculate the difference of the current date and the date of the encounter and will add that difference to all of the dates.
+This patient date updater is designed to change all of the dates in each of the entries in a patient JSON.  One of the parameters passed to the app is the entryid of an encounter.  The tool will calculate the difference of the current date and the date of the encounter and will add that difference to all of the dates.  The tool can also output a list of all the dates in the record.
 
 The patient date updater can be executed (local command line) by running the following command:
 
 ```bash
-yarn patient-date-update <path-to-patient-json> <encounter-entryid>
+yarn patient-date-update <path-to-patient-json> [encounter-entryid] [options]
 ```
 
+Where the the available options are:
+
+`-o` -- Output a list of all the dates in the record
+`-O` -- Output a list of all the dates in the record in chronological order
+
+* If no `encounter-entryid` is provided, the program can still run and output dates, but will not update any of the dates in the record.
 * The program expects the JSON file provided to be an array of SHR entries.
 * The program will overwrite the file that was passed in and will create a backup using the same path but adding `'.backup'` to the end.
   * For example, the backup file that will be created for `HardCodedPatientMidYearDemo18.json` will named `HardCodedPatientMidYearDemo18.json.backup`.
@@ -70,10 +76,22 @@ yarn patient-date-update <path-to-patient-json> <encounter-entryid>
 For example:
 
 ```bash
-yarn patient-date-update ./src/dataaccess/HardCodedPatientMidYearDemo18.json 100
+yarn patient-date-update ./src/dataaccess/BreastMainTreatmentDiabetesHypertensionJaneV05.json 33 -o
 ```
 
-will search the patient entries for an `EncounterRequested` with an `entryid` of 100.  It will then use the `ActionContext.ExpectedPerformanceTime.Value` to calculate the difference to add to the dates.
+will search the patient entries for an `EncounterRequested` with an `entryid` of 33.  It will then use the `ActionContext.ExpectedPerformanceTime.Value` to calculate the difference to add to the dates.  It will also output a list of every date found in the record.
+
+```bash
+yarn patient-date-update ./src/dataaccess/BreastMainTreatmentDiabetesHypertensionJaneV05.json -o
+```
+
+This command will only output a list of dates found in the record, it will not update the patient record.
+
+When using `npm`, passing in flags like `-o` requires the usage of `--` to separate them from the commands, like so:
+
+```bash
+npm patient-date-update ./src/dataaccess/BreastMainTreatmentDiabetesHypertensionJaneV05.json 33 -- -o
+```
 
 ## Testing
 

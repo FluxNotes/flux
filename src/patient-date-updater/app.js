@@ -48,7 +48,7 @@ if (encounter) {
 }
 
 
-const entries = [];
+const entries = {};
 patientEntries.forEach((entry, i) => {
     // flatten each entry to have only one level of properties to make it easier to traverse
     const flattenedEntry = flatten(entry);
@@ -57,7 +57,7 @@ patientEntries.forEach((entry, i) => {
     const entryId = flattenedEntry.EntryId
     const entryType = flattenedEntry["EntryType.Value"].split('/').slice(-1)[0];
     if (output && !orderedOutput) {
-        console.log("\u001b[37m " + entryId + '\t' + entryType);
+        console.log(entryId + '\t' + entryType);
     }
 
     for (const key in flattenedEntry) {
@@ -101,7 +101,11 @@ patientEntries.forEach((entry, i) => {
         if (orderedOutput && isDate) {
             entry.key = key;
             entry.value = value;
-            entries.push(entry);
+            if(entries[entry.entryId]){
+                entries[entry.entryId].push(entry);
+            }else{
+                entries[entry.entryId]=[entry];
+            }
         } else if (output && isDate) {
             log(key, value);
         }
@@ -113,8 +117,9 @@ patientEntries.forEach((entry, i) => {
     }
 });
 if (orderedOutput) {
-    entries.sort(sortByDate);
-    entries.forEach((e) => {
+    const newEntries = flattenOrderedOutput(entries);
+    newEntries.sort(sortByDate);
+    newEntries.forEach((e) => {
         logInOrder(e.entryId, e.entryType, e.key, e.value);
     })
 }
@@ -126,14 +131,36 @@ fs.writeFile(input, resultJSON, 'utf8', (err) => {
 });
 
 function log(key, value) {
-    console.log(`\u001b[37m \t\t${key}: \u001b[34m ${value}`);
+    console.log(`\t\t${key}: ${value}`);
+}
+
+function flattenOrderedOutput(entries) {
+    let returnEntries = [];
+    Object.keys(entries).forEach((entryListIndex)=>{
+        let total = [];
+        let metadata = [];
+        entries[entryListIndex].forEach((entry)=>{
+            if(entry.key.toLowerCase().split(".").indexOf("metadata")>-1){
+                metadata.push(entry);
+            }else{
+                console.log(entry);
+                total.push(entry);
+            }
+        })
+        if(total.length>0) {
+            returnEntries = returnEntries.concat(total);
+        }else if(metadata.length>0){
+            returnEntries.push(metadata[0])
+        }
+    })
+    return returnEntries;
 }
 
 function logInOrder(id, type, key, value) {
     key = type + '.' + key;
     key = key.padStart(key.length + 10 - id.length);
     value = value.padStart(80 - key.length - id.length);
-    console.log(`\u001b[37m [${id}] ${key}: \u001b[34m ${value}`);
+    console.log(`[${id}] ${key}: ${value}`);
 }
 
 function sortByDate(a, b) {
