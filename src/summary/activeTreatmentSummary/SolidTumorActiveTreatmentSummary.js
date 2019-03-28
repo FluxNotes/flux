@@ -3,11 +3,8 @@ import IActiveTreatmentSummary from './IActiveTreatmentSummary';
 import FluxSolidTumorCancer from '../../model/oncology/FluxSolidTumorCancer';
 
 class SolidTumorActiveTreatmentSummary extends IActiveTreatmentSummary {
-    constructor(patient, currentConditionEntry) { 
-        super(patient, currentConditionEntry)
-        this._patient = patient;
-        this._currentConditionEntry = currentConditionEntry;
-
+    constructor() { 
+        super()
         this._possibleActiveTreatmentOptions = { 
             "adjuvant": {
                 type: "adjuvant",
@@ -35,18 +32,18 @@ class SolidTumorActiveTreatmentSummary extends IActiveTreatmentSummary {
         }
     }
 
-    getActiveTreatmentSummary() { 
+    getActiveTreatmentSummary(patient, currentConditionEntry) { 
         // If the condition isn't a cancer, return null - this algorithm cannot provide information about 
-        if (!this._currentConditionEntry instanceof FluxSolidTumorCancer) return null;
+        if (!currentConditionEntry instanceof FluxSolidTumorCancer) return null;
         let activeTreatment = {};
         // Get all relevant medications
-        const activeNonOTCMeds = this._getActiveNonOTCMeds();
+        const activeNonOTCMeds = this._getActiveNonOTCMeds(patient, currentConditionEntry);
         const patientHasActiveNonOTCMeds = activeNonOTCMeds && activeNonOTCMeds.length > 0;
         // 
-        const allPlannedSurgeries = this._getAllSurgeriesPlanned();
+        const allPlannedSurgeries = this._getAllSurgeriesPlanned(patient, currentConditionEntry);
         const patientHasSurgeryPlanned = allPlannedSurgeries && allPlannedSurgeries.length > 0;
         // 
-        const allSurgeriesPreviouslyPerformed = this._getAllSurgeriesPreviouslyPerformed();
+        const allSurgeriesPreviouslyPerformed = this._getAllSurgeriesPreviouslyPerformed(patient, currentConditionEntry);
         const patientHasSurgicalHistory = allSurgeriesPreviouslyPerformed && allSurgeriesPreviouslyPerformed.length > 0;
         if (patientHasActiveNonOTCMeds) { 
             activeTreatment.medications = activeNonOTCMeds;
@@ -87,20 +84,20 @@ class SolidTumorActiveTreatmentSummary extends IActiveTreatmentSummary {
         return activeTreatment;
     }
 
-    _getActiveNonOTCMeds() {
-        const allMedsForCondition = this._patient.getActiveMedicationsForCondition(this._currentConditionEntry);
+    _getActiveNonOTCMeds(patient, currentConditionEntry) {
+        const allMedsForCondition = patient.getActiveMedicationsForCondition(currentConditionEntry);
         return _.filter(allMedsForCondition, (med) => {
             return !med.overTheCounter;
         });
     }
 
-    _getAllSurgeriesPlanned() { 
-        const allSurgeriesPlanned = this._patient.getSurgeriesPlannedForCondition(this._currentConditionEntry);
+    _getAllSurgeriesPlanned(patient, currentConditionEntry) { 
+        const allSurgeriesPlanned = patient.getSurgeriesPlannedForCondition(currentConditionEntry);
         return allSurgeriesPlanned;
     }
 
-    _getAllSurgeriesPreviouslyPerformed() {
-        const allSurgeriesPreviouslyPerformed = this._patient.getSurgeriesPreviouslyPerformedForCondition(this._currentConditionEntry);
+    _getAllSurgeriesPreviouslyPerformed(patient, currentConditionEntry) {
+        const allSurgeriesPreviouslyPerformed = patient.getSurgeriesPreviouslyPerformedForCondition(currentConditionEntry);
         return allSurgeriesPreviouslyPerformed
     }
 }

@@ -8,7 +8,7 @@ import FluxSolidTumorCancer from '../../model/oncology/FluxSolidTumorCancer'
 export default class ActiveTreatmentSummaryObjectFactory {
     static createInstance(patient, currentConditionEntry) {
         // Can't do an instance of with a switch
-        if (currentConditionEntry instanceof FluxSolidTumorCancer) return new SolidTumorActiveTreatmentSummary(patient, currentConditionEntry);
+        if (currentConditionEntry instanceof FluxSolidTumorCancer) return new SolidTumorActiveTreatmentSummary();
         else return null;
     }
 }

@@ -554,7 +554,6 @@ exports.mapEntries = (v01Json) => {
             if (entry._procedureRequested.reason) newProcedure.reason = entry._procedureRequested.reason.map(r => mapPassThrough(r, Reason));
             if (entry._procedureRequested.expectedPerformer) newProcedure.expectedPerformer = mapPassThrough(entry._procedureRequested.expectedPerformer, ExpectedPerformer);
             newProcedure.status = mapStatus(entry._procedureRequested.status);
-            // Change the newProcedure object here to include a reference to the valueset-procedure-status codesystem
             newProcedure.procedureCode = new ProcedureCode();
             newProcedure.procedureCode.value = mapPassThrough(entry._procedureRequested.topicCode.value, CodeableConcept);
 

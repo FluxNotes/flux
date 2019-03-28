@@ -196,7 +196,7 @@ export default class SarcomaSummarySection extends MetadataSection {
                             name: "Active Treatment Summary",
                             value: (patient, currentConditionEntry) => {
                                 const activeTreatmentSummaryObject = ActiveTreatmentSummaryObjectFactory.createInstance(patient, currentConditionEntry);
-                                const activeTreatmentSummaryJson = activeTreatmentSummaryObject.getActiveTreatmentSummary();
+                                const activeTreatmentSummaryJson = activeTreatmentSummaryObject.getActiveTreatmentSummary(patient, currentConditionEntry);
                                 // If there is no activeTreatmentSummaryJSON, or if the JSON has an undefineddisplayText
                                 // Then return null 
                                 if (Lang.isNull(activeTreatmentSummaryJson) || Lang.isUndefined(activeTreatmentSummaryJson.displayText)) return null;

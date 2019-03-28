@@ -26,7 +26,6 @@ import AuthoredDateTime from '../model/shr/base/AuthoredDateTime';
 import LastUpdated from '../model/shr/base/LastUpdated';
 import Reference from '../model/Reference';
 import mapper from '../lib/FHIRMapper';
-import { getProcedureValueCodeableConcept, getProcedureStatusCodeableConcept } from '../lib/procedure_lookup';
 import Lang from 'lodash';
 import moment from 'moment';
 import { v4 } from 'uuid';
@@ -823,25 +822,25 @@ class PatientRecord {
 
     getSurgeriesForCondition(condition) {
         const allProceduresForCondition = this.getProceduresForCondition(condition);
-        const surgeryValue = getProcedureValueCodeableConcept("surgery");
         return allProceduresForCondition.filter((cond) => {
-            return cond.code === surgeryValue.coding[0].code.value;
+            // Looking for Surgery code - should be based on http://ncimeta.nci.nih.govs
+            return cond.code === "C0851238";
         });
     }
 
     getSurgeriesPlannedForCondition(condition) {
         const surgeriesForCondition = this.getSurgeriesForCondition(condition);
-        const activeStatus = getProcedureStatusCodeableConcept("active");
         return surgeriesForCondition.filter((cond) => {
-            return cond.status === activeStatus.coding[0].code.value;
+            // Looking for active request status code - should be based on http://hl7.org/fhir/STU3/valueset-request-status.html
+            return cond.status === "active";
         })
     }
 
     getSurgeriesPreviouslyPerformedForCondition(condition) {
         const surgeriesForCondition = this.getSurgeriesForCondition(condition);
-        const completedStatus = getProcedureStatusCodeableConcept("completed");
         return surgeriesForCondition.filter((cond) => {
-            return cond.status === completedStatus.coding[0].code.value;
+            // Looking for completed request status code - should be based on http://hl7.org/fhir/STU3/valueset-request-status.html
+            return cond.status === "completed";
         });
     }
 
