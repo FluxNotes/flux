@@ -109,7 +109,15 @@ function StructuredFieldPlugin(opts) {
             }
         }
 
-        if (!((shortcut instanceof InsertValue) && shortcut.metadata.isEditable)) return;
+        if (shortcut) {
+            // If there is a shortcut that is not an editable inserter shortcut, return state to cause zero changes
+            // to editor when typing inside.
+            if (!((shortcut instanceof InsertValue) && shortcut.metadata.isEditable)) return state;
+            // If it is an editable inserter shortcut, continue through onKeyDown to allow splitting and editing shortcuts.
+        } else {
+            // If no shortcut, continue return to continue through slate's calls to update state.
+            return;
+        }
 
         // Arrow keys, shift, escape, tab, numlock, page up/down, etc
         let ignoredKeys = [8, 9, 12, 16, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 93, 144, 145];
