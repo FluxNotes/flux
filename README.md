@@ -76,22 +76,18 @@ Where the the available options are:
 For example:
 
 ```bash
-yarn patient-date-update ./src/dataaccess/BreastMainTreatmentDiabetesHypertensionJaneV05.json 33 -o
+yarn patient-date-update ./src/dataaccess/BreastMainTreatmentDiabetesHypertensionJaneV05.json 33
 ```
 
-will search the patient entries for an `EncounterRequested` with an `entryid` of 33.  It will then use the `ActionContext.ExpectedPerformanceTime.Value` to calculate the difference to add to the dates.  It will also output a list of every date found in the record.
+will search the patient entries for an `EncounterRequested` with an `entryid` of 33.  It will then use the `ActionContext.ExpectedPerformanceTime.Value` to calculate the difference to add to the dates.
+
+The dates in the file can be easily listed out using the `patient-date-list` script.  To run the script:
 
 ```bash
-yarn patient-date-update ./src/dataaccess/BreastMainTreatmentDiabetesHypertensionJaneV05.json -o
+yarn patient-date-list ./src/dataaccess/BreastMainTreatmentDiabetesHypertensionJaneV05.json
 ```
 
-This command will only output a list of dates found in the record, it will not update the patient record.
-
-When using `npm`, passing in flags like `-o` requires the usage of `--` to separate them from the commands, like so:
-
-```bash
-npm patient-date-update ./src/dataaccess/BreastMainTreatmentDiabetesHypertensionJaneV05.json 33 -- -o
-```
+This command will only output a list of dates found in the record, it will not update the patient record.  It will list the dates in chronological order.  
 
 ## Testing
 

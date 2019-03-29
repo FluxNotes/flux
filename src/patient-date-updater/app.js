@@ -35,19 +35,19 @@ if (entryid) {
     }
 }
 
-// Save backup
-fs.writeFileSync(`${input}.backup`, JSON.stringify(patientEntries, null, 4), 'utf8');
-console.log(`Saved backup JSON file to ${input}.backup`);
 
 let today, deltaDuration;
 if (encounter) {
+    // Save backup
+    fs.writeFileSync(`${input}.backup`, JSON.stringify(patientEntries, null, 4), 'utf8');
+    console.log(`Saved backup JSON file to ${input}.backup`);
+
     // encounterDateValue grabs the correct date value based on whether the patient JSON is in mCODE v0.1 or v0.5
     const encounterDateValue = encounter.Encounter.TimePeriod.TimePeriodStart ? encounter.Encounter.TimePeriod.TimePeriodStart.Value : encounter.Encounter.TimePeriod.BeginDateTime.Value;
     const encounterDate = moment(encounterDateValue, 'D MMM YYYY HH:mm ZZ').startOf('day');
     today = moment().startOf('day');
     deltaDuration = moment.duration(today.diff(encounterDate));
 }
-
 
 const entries = {};
 patientEntries.forEach((entry, i) => {
@@ -102,10 +102,10 @@ patientEntries.forEach((entry, i) => {
         if (orderedOutput && isDate) {
             entry.key = key;
             entry.value = value;
-            if(entries[entry.entryId]){
+            if (entries[entry.entryId]) {
                 entries[entry.entryId].push(entry);
-            }else{
-                entries[entry.entryId]=[entry];
+            } else {
+                entries[entry.entryId] = [entry];
             }
         } else if (output && isDate) {
             log(key, value);
@@ -140,23 +140,23 @@ function log(key, value) {
 
 function flattenOrderedOutput(entries) {
     let returnEntries = [];
-    Object.keys(entries).forEach((entryListIndex)=>{
+    Object.keys(entries).forEach((entryListIndex) => {
         let total = [];
         let metadata = [];
-        entries[entryListIndex].forEach((entry)=>{
-            if(entry.key.toLowerCase().split(".").indexOf("metadata")>-1){
+        entries[entryListIndex].forEach((entry) => {
+            if (entry.key.toLowerCase().split(".").indexOf("metadata") > -1) {
                 metadata.push(entry);
-            }else{
+            } else {
                 // pretty much everything has "Value" tacked to the end, so we lop it off
                 const valueCheck = entry.key.split(".");
-                valueCheck.splice(valueCheck.indexOf("Value"),1);
+                valueCheck.splice(valueCheck.indexOf("Value"), 1);
                 entry.key = valueCheck.join('.');
                 total.push(entry);
             }
         })
-        if(total.length>0) {
+        if (total.length > 0) {
             returnEntries = returnEntries.concat(total);
-        }else if(metadata.length>0 && showMeta){
+        } else if (metadata.length > 0 && showMeta) {
             returnEntries.push(metadata[0])
         }
     })
