@@ -831,16 +831,32 @@ class PatientRecord {
     getSurgeriesPlannedForCondition(condition) {
         const surgeriesForCondition = this.getSurgeriesForCondition(condition);
         return surgeriesForCondition.filter((cond) => {
+            // Case 1: Status is active: 
             // Looking for active request status code - should be based on http://hl7.org/fhir/STU3/valueset-request-status.html
-            return cond.status === "active";
+            const isActive = cond.status === "active";
+            // Case 2: ExpectedPerformanceDate is after "right now"
+            const now = moment()
+            let condStartTime = new moment(cond.occurrenceTime, "D MMM YYYY");
+            if (!condStartTime.isValid()) condStartTime = new moment(cond.occurrenceTime.timePeriodStart, "D MMM YYYY");
+            const isForthcoming = condStartTime > now
+            // If either case is true, we want this element
+            return isActive || isForthcoming;
         })
     }
 
     getSurgeriesPreviouslyPerformedForCondition(condition) {
         const surgeriesForCondition = this.getSurgeriesForCondition(condition);
         return surgeriesForCondition.filter((cond) => {
+            // Case 1: Status is completed: 
             // Looking for completed request status code - should be based on http://hl7.org/fhir/STU3/valueset-request-status.html
-            return cond.status === "completed";
+            const isCompleted = cond.status === "completed";
+            // Case 2: ExpectedPerformanceDate is before "right now"
+            const now = moment()
+            let condStartTime = new moment(cond.occurrenceTime, "D MMM YYYY");
+            if (!condStartTime.isValid()) condStartTime = new moment(cond.occurrenceTime.timePeriodStart, "D MMM YYYY");
+            const hasPassed = condStartTime < now
+            // If either case is true, we want this element
+            return isCompleted || hasPassed;
         });
     }
 
