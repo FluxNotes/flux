@@ -1,8 +1,5 @@
 import * as types from '../actions/types';
 import _ from 'lodash';
-
-import filterTreatmentData from '../mcode-pilot/utils/filterTreatmentData';
-
 import defaultState from './initial.json';
 import getProps from '../mcode-pilot/utils/recordToProps';
 export default function mcode(state = defaultState, action) {
@@ -50,31 +47,22 @@ export default function mcode(state = defaultState, action) {
         });
 
         return { ...state };
-    } else if (action.type === types.PROCESS_SIMILAR_PATIENT_OUTCOMES || action.type === types.SELECT_TREATMENTS) {
+    } else if (action.type === types.SELECT_TREATMENTS) {
         const newState = {
             ...state
         };
-
-        if (action.type === types.SELECT_TREATMENTS) {
-            newState[action.treatmentType] = action.treatments;
-        }
-
-        const {
-            totalPatients,
-            totalSimilarPatients,
-            similarPatientTreatments,
-            includedTreatmentData,
-            comparedTreatmentData
-        } = filterTreatmentData(newState.similarPatientProps, newState.includedTreatments, newState.comparedTreatments);
-
+        newState[action.treatmentType] = action.treatments;
+        return newState;
+    } else if(action.type === types.UPDATE_PATIENT_OUTCOMES) {
         return {
-            ...newState,
-            totalPatients,
-            totalSimilarPatients,
-            similarPatientTreatments,
-            includedTreatmentData,
-            comparedTreatmentData
+            ...state,
+            totalPatients: action.data.totalPatients,
+            totalSimilarPatients: action.data.totalSimilarPatients,
+            similarPatientTreatments: action.data.similarPatientTreatments,
+            includedTreatmentData: action.data.includedTreatmentData,
+            comparedTreatmentData: action.data.comparedTreatmentData
         };
+
     }
 
     return state;
