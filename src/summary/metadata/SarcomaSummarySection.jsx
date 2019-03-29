@@ -207,7 +207,7 @@ export default class SarcomaSummarySection extends MetadataSection {
                                     const numMeds = activeTreatmentSummaryJson.medications.length;
                                     const medsAsStrings = activeTreatmentSummaryJson.medications.map(m => m.medication);
                                     // If there's more than one element, make sure the last element includes an &
-                                    if (numMeds > 1) medsAsStrings.splice(numMeds - 1, 1, `& ${medsAsStrings[numMeds - 1]}`);
+                                    if (numMeds > 1) medsAsStrings.splice(numMeds - 1, 1, ` & ${medsAsStrings[numMeds - 1]}`);
                                     // Join all but the final medication by commas, and then append the last one (the & is included if needed above)
                                     const formattedMedsString = medsAsStrings.slice(0, numMeds - 1).join(', ') + medsAsStrings[numMeds - 1];
                                     treatmentSummaryValue += ` ${formattedMedsString}`
