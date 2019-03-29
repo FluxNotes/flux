@@ -11,7 +11,7 @@ class SingleChoiceButton extends Component {
         className += (this.props.isSelected) ? "selected " : "";
 
         return (
-            <ChoiceButton 
+            <ChoiceButton
                 variant="raised"
                 key={this.props.buttonKey}
                 label={this.props.buttonText}
@@ -28,7 +28,7 @@ class SingleChoiceButton extends Component {
     }
 }
 
-SingleChoiceButton.proptypes = {
+SingleChoiceButton.propTypes= {
     buttonKey: PropTypes.isRequired,
     buttonText: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,

@@ -20,7 +20,7 @@ export default class SearchBar extends Component {
     }
 }
 
-SearchBar.proptypes = {
+SearchBar.propTypes = {
     searchString: PropTypes.string,
     handleSearch: PropTypes.func.isRequired,
     label: PropTypes.string.isRequired,

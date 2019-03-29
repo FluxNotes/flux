@@ -69,11 +69,11 @@ class AnatomicalLocation {
   static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new AnatomicalLocation();
     if (asExtension) {
-      const match_1 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-AnatomicalLocationPrecoordinated-extension');
+      const match_1 = fhir['extension'].find(e => e.url==='http://example.com/fhir/StructureDefinition/shr-core-AnatomicalLocationPrecoordinated-extension');
       if (match_1 != null) {
         inst.anatomicalLocationPrecoordinated = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocationPrecoordinated', match_1, shrId, allEntries, mappedResources, referencesOut, true);
       }
-      const match_2 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-AnatomicalLocationStructured-extension');
+      const match_2 = fhir['extension'].find(e => e.url==='http://example.com/fhir/StructureDefinition/shr-core-AnatomicalLocationStructured-extension');
       if (match_2 != null) {
         inst.anatomicalLocationStructured = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocationStructured', match_2, shrId, allEntries, mappedResources, referencesOut, true);
       }

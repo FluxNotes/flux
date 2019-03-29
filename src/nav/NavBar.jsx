@@ -83,7 +83,7 @@ class NavBar extends Component {
     }
 }
 
-NavBar.proptypes = {
+NavBar.propTypes = {
     title: PropTypes.string.isRequired,
     supportLogin: PropTypes.bool.isRequired,
     menuItems: PropTypes.array

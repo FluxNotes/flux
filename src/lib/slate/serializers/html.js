@@ -27,14 +27,14 @@ const String = new Record({
 const TEXT_RULE = {
 
   deserialize(el) {
-    if (el.tagName == 'br') {
+    if (el.tagName==='br') {
       return {
         kind: 'text',
         text: '\n'
       }
     }
 
-    if (el.type == 'text') {
+    if (el.type==='text') {
       if (el.data && el.data.match(/<!--.*?-->/)) return
 
       return {
@@ -45,7 +45,7 @@ const TEXT_RULE = {
   },
 
   serialize(obj, children) {
-    if (obj.kind == 'string') {
+    if (obj.kind==='string') {
       return children
         .split('\n')
         .reduce((array, text, i) => {
@@ -100,7 +100,7 @@ class Html {
 
     // HACK: ensure for now that all top-level inline are wrapped into a block.
     nodes = nodes.reduce((memo, node, i, original) => {
-      if (node.kind == 'block') {
+      if (node.kind==='block') {
         memo.push(node)
         return memo
       }
@@ -112,7 +112,7 @@ class Html {
       }
 
       const { defaultBlockType } = this
-      const defaults = typeof defaultBlockType == 'string'
+      const defaults = typeof defaultBlockType==='string'
         ? { type: defaultBlockType }
         : defaultBlockType
 
@@ -203,7 +203,7 @@ class Html {
       if (ret === undefined) continue
       if (ret === null) return null
 
-      node = ret.kind == 'mark' ? this.deserializeMark(ret) : ret
+      node = ret.kind==='mark' ? this.deserializeMark(ret) : ret
       break
     }
 
@@ -221,11 +221,11 @@ class Html {
     const { type, data } = mark
 
     const applyMark = (node) => {
-      if (node.kind == 'mark') {
+      if (node.kind==='mark') {
         return this.deserializeMark(node)
       }
 
-      else if (node.kind == 'text') {
+      else if (node.kind==='text') {
         if (!node.ranges) node.ranges = [{ text: node.text }]
         node.ranges = node.ranges.map((range) => {
           range.marks = range.marks || []
@@ -276,7 +276,7 @@ class Html {
    */
 
   serializeNode = (node) => {
-    if (node.kind == 'text') {
+    if (node.kind==='text') {
       const ranges = node.getRanges()
       return ranges.map(this.serializeRange)
     }

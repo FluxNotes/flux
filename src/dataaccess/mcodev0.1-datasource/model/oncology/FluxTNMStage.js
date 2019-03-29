@@ -11,8 +11,8 @@ import EntryType from '../shr/base/EntryType';
 import PanelMembers from '../shr/base/PanelMembers';
 import FluxObservation from '../base/FluxObservation';
 import FluxMitoticRate from './FluxMitoticRate';
-import lookup from '../../../../lib/tnmstage_lookup.jsx';
-import staging from '../../../../lib/staging.jsx';
+import * as lookup from '../../../../lib/tnmstage_lookup.jsx';
+import * as staging from '../../../../lib/staging.jsx';
 import Lang from 'lodash';
 
 // FluxTNMStage class to hide codeableconcepts
@@ -35,9 +35,9 @@ class FluxTNMStage extends FluxObservation {
      *  This will return the displayText string from CodeableConcept value
      */
     get stage() {
-        if (Lang.isEmpty(this._observation.value))  { 
+        if (Lang.isEmpty(this._observation.value))  {
             return null;
-        } else { 
+        } else {
             return this._observation.value.coding[0].displayText.value;
         }
     }
@@ -88,7 +88,7 @@ class FluxTNMStage extends FluxObservation {
         }
         this._calculateStage();
     }
-    
+
     /**
      *  Getter for N_Stage
      *  This will return the displayText string from N_Stage
@@ -173,7 +173,7 @@ class FluxTNMStage extends FluxObservation {
     get relevantTime() {
         return this._observation._relevantTime.value;
     }
-    
+
     _calculateStage() {
         const t = this.t_Stage;
         const n = this.n_Stage;

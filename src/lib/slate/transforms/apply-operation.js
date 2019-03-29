@@ -94,7 +94,7 @@ function insertNode(state, operation) {
   const { path, index, node } = operation
   let { document } = state
   let parent = document.assertPath(path)
-  const isParent = document == parent
+  const isParent = document===parent
   parent = parent.insertNode(index, node)
   document = isParent ? parent : document.updateDescendant(parent)
   state = state.set('document', document)
@@ -120,10 +120,10 @@ function insertText(state, operation) {
   document = document.updateDescendant(node)
 
   // Update the selection
-  if (anchorKey == node.key && anchorOffset >= offset) {
+  if (anchorKey===node.key && anchorOffset >= offset) {
     selection = selection.moveAnchor(text.length)
   }
-  if (focusKey == node.key && focusOffset >= offset) {
+  if (focusKey===node.key && focusOffset >= offset) {
     selection = selection.moveFocus(text.length)
   }
 
@@ -151,19 +151,19 @@ function joinNode(state, operation) {
 
   // If the operation is deep, or the nodes are text nodes, it means we will be
   // merging two text nodes together, so we need to update the selection.
-  if (deep || second.kind == 'text') {
+  if (deep || second.kind==='text') {
     const { anchorKey, anchorOffset, focusKey, focusOffset } = selection
-    const firstText = first.kind == 'text' ? first : first.getLastText()
-    const secondText = second.kind == 'text' ? second : second.getFirstText()
+    const firstText = first.kind==='text' ? first : first.getLastText()
+    const secondText = second.kind==='text' ? second : second.getFirstText()
 
-    if (anchorKey == secondText.key) {
+    if (anchorKey===secondText.key) {
       selection = selection.merge({
         anchorKey: firstText.key,
         anchorOffset: anchorOffset + firstText.characters.size
       })
     }
 
-    if (focusKey == secondText.key) {
+    if (focusKey===secondText.key) {
       selection = selection.merge({
         focusKey: firstText.key,
         focusOffset: focusOffset + firstText.characters.size
@@ -296,7 +296,7 @@ function removeNode(state, operation) {
   // Remove the node from the document.
   let parent = document.getParent(node.key)
   const index = parent.nodes.indexOf(node)
-  const isParent = document == parent
+  const isParent = document===parent
   parent = parent.removeNode(index)
   document = isParent ? parent : document.updateDescendant(parent)
 
@@ -321,10 +321,10 @@ function removeText(state, operation) {
   let node = document.assertPath(path)
 
   // Update the selection
-  if (anchorKey == node.key && anchorOffset >= rangeOffset) {
+  if (anchorKey===node.key && anchorOffset >= rangeOffset) {
     selection = selection.moveAnchor(-length)
   }
-  if (focusKey == node.key && focusOffset >= rangeOffset) {
+  if (focusKey===node.key && focusOffset >= rangeOffset) {
     selection = selection.moveFocus(-length)
   }
 
@@ -432,7 +432,7 @@ function splitNode(state, operation) {
   let { document, selection } = state
 
   // If there's no offset, it's using the `count` instead.
-  if (offset == null) {
+  if (offset===null) {
     document = document.splitNodeAfter(path, count)
     state = state.set('document', document)
     return state
@@ -440,15 +440,15 @@ function splitNode(state, operation) {
 
   // Otherwise, split using the `offset`, but calculate a few things first.
   const node = document.assertPath(path)
-  const text = node.kind == 'text' ? node : node.getTextAtOffset(offset)
-  const textOffset = node.kind == 'text' ? offset : offset - node.getOffset(text.key)
+  const text = node.kind==='text' ? node : node.getTextAtOffset(offset)
+  const textOffset = node.kind==='text' ? offset : offset - node.getOffset(text.key)
   const { anchorKey, anchorOffset, focusKey, focusOffset } = selection
 
   document = document.splitNode(path, offset)
 
   // Determine whether we need to update the selection.
-  const splitAnchor = text.key == anchorKey && textOffset <= anchorOffset
-  const splitFocus = text.key == focusKey && textOffset <= focusOffset
+  const splitAnchor = text.key===anchorKey && textOffset <= anchorOffset
+  const splitFocus = text.key===focusKey && textOffset <= focusOffset
 
   // If either the anchor of focus was after the split, we need to update them.
   if (splitFocus || splitAnchor) {

@@ -52,7 +52,7 @@ function Plugin(options = {}) {
 
     // Since schema can only normalize the document, we avoid creating
     // a transform and normalize the selection if the document is the same
-    if (prevState && state.document == prevState.document) return state
+    if (prevState && state.document===prevState.document) return state
 
     const newState = state.transform()
       .normalize(schema)
@@ -148,7 +148,7 @@ function Plugin(options = {}) {
       (state.isCollapsed) &&
       // If the selection has marks, then we need to render it non-natively
       // because we need to create the new marks as well.
-      (state.selection.marks == null) &&
+      (state.selection.marks===null) &&
       // If the text node in question has no content, browsers might do weird
       // things so we need to insert it normally instead.
       (state.startText.text != '') &&
@@ -160,8 +160,8 @@ function Plugin(options = {}) {
       // the starting edge of a text node after another inline node. It will
       // have been automatically changed. So we can't render natively because
       // the cursor isn't technique in the right spot. (2016/12/01)
-      (!(pInline && !pInline.isVoid && startOffset == 0)) &&
-      (!(nInline && !nInline.isVoid && startOffset == startText.length)) &&
+      (!(pInline && !pInline.isVoid && startOffset===0)) &&
+      (!(nInline && !nInline.isVoid && startOffset===startText.length)) &&
       // If the
       (chars.equals(nextChars))
     )
@@ -290,7 +290,7 @@ function Plugin(options = {}) {
     // Set a `data-slate-fragment` attribute on a non-empty node, so it shows up
     // in the HTML, and can be used for intra-Slate pasting. If it's a text
     // node, wrap it in a `<span>` so we have something to set an attribute on.
-    if (attach.nodeType == 3) {
+    if (attach.nodeType===3) {
       const span = window.document.createElement('span')
       span.appendChild(attach)
       contents.appendChild(span)
@@ -363,10 +363,10 @@ function Plugin(options = {}) {
     // needs to account for the selection's content being deleted.
     if (
       isInternal &&
-      selection.endKey == target.endKey &&
+      selection.endKey===target.endKey &&
       selection.endOffset < target.endOffset
     ) {
-      target = target.move(selection.startKey == selection.endKey
+      target = target.move(selection.startKey===selection.endKey
         ? 0 - selection.endOffset - selection.startOffset
         : 0 - selection.endOffset)
     }
@@ -536,7 +536,7 @@ function Plugin(options = {}) {
 
     // If the current text node is empty, or we're inside a void parent, we're
     // going to need to handle the selection behavior.
-    if (startText.text == '' || hasVoidParent) {
+    if (startText.text==='' || hasVoidParent) {
       e.preventDefault()
       const previous = document.getPreviousText(startKey)
 
@@ -597,7 +597,7 @@ function Plugin(options = {}) {
 
     // If the current text node is empty, or we're inside a void parent, we're
     // going to need to handle the selection behavior.
-    if (startText.text == '' || hasVoidParent) {
+    if (startText.text==='' || hasVoidParent) {
       e.preventDefault()
       const next = document.getNextText(startKey)
 
@@ -620,7 +620,7 @@ function Plugin(options = {}) {
       const nextBlock = document.getClosestBlock(next.key)
       const nextInline = document.getClosestInline(next.key)
 
-      if (nextBlock == startBlock && nextInline) {
+      if (nextBlock===startBlock && nextInline) {
         const extendOrMove = data.isShift ? 'extend' : 'move'
         return state
           .transform()
@@ -919,7 +919,7 @@ function Plugin(options = {}) {
 
   const BLOCK_RENDER_RULE = {
     match: (node) => {
-      return node.kind == 'block'
+      return node.kind==='block'
     },
     render: (props) => {
       return (
@@ -949,7 +949,7 @@ function Plugin(options = {}) {
 
   const INLINE_RENDER_RULE = {
     match: (node) => {
-      return node.kind == 'inline'
+      return node.kind==='inline'
     },
     render: (props) => {
       return (

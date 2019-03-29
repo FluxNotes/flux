@@ -62,7 +62,7 @@ class NarrativeNameValuePairsVisualizer extends Visualizer {
     getSubsections() {
         const {patient, condition, conditionSection} = this.props;
 
-        if (patient == null || condition == null || conditionSection == null) {
+        if (patient===null || condition===null || conditionSection===null) {
             return [];
         }
 

@@ -151,7 +151,7 @@ export default class TargetedDataSubpanel extends Component {
     renderSections() {
         const { clinicalEvent, patient, condition, allowItemClick, isWide, actions, conditionMetadata, sectionsToDisplay } = this.props;
 
-        if (conditionMetadata == null) return null;
+        if (conditionMetadata===null) return null;
 
         return sectionsToDisplay.filter((section, i) => {
             return !section.clinicalEvents || section.clinicalEvents.includes(clinicalEvent);

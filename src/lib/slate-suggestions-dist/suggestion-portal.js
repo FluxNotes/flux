@@ -166,7 +166,7 @@ class SuggestionPortal extends React.Component {
         // If there is incoming data from a keydown, include that as next char
         if (incomingData !== undefined) { 
             nextChar = this.convertSlateDataObjectToCharacter(incomingData);
-            if (nextChar == null) return [];
+            if (nextChar===null) return [];
         }
 
         // Put together newText based on nextCharacter; change offset if char is -

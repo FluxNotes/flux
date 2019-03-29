@@ -436,12 +436,12 @@ Transforms.wrapInline = (transform, properties) => {
     after = selection
   }
 
-  else if (selection.startOffset == 0) {
+  else if (selection.startOffset===0) {
     const text = previous ? document.getNextText(previous.key) : document.getFirstText()
     after = selection.moveToRangeOf(text)
   }
 
-  else if (selection.startKey == selection.endKey) {
+  else if (selection.startKey===selection.endKey) {
     const text = document.getNextText(selection.startKey)
     after = selection.moveToRangeOf(text)
   }

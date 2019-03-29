@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ValueSetManager from '../../lib/ValueSetManager';
 import SingleChoiceButton from '../../forms/SingleChoiceButton';
-import toxicityLookup from '../../lib/toxicreaction_lookup';
+import * as toxicityLookup from '../../lib/toxicreaction_lookup';
 import Lang from 'lodash';
 import { Row, Col } from 'react-flexbox-grid';
 import Autosuggest from 'react-autosuggest';
@@ -130,8 +130,8 @@ class SearchableListForPlaceholder extends Component {
         );
     }
 
-    /* 
-     * Formatting function for AutoSuggest input bar to match background color 
+    /*
+     * Formatting function for AutoSuggest input bar to match background color
      */
     formatInput = inputProps => {
         let inputClassName = "";

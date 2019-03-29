@@ -25,7 +25,7 @@ import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx'; // pu
 import AuthoredDateTime from '../model/shr/base/AuthoredDateTime';
 import LastUpdated from '../model/shr/base/LastUpdated';
 import Reference from '../model/Reference';
-import mapper from '../lib/FHIRMapper';
+import * as mapper from '../lib/FHIRMapper';
 import Lang from 'lodash';
 import moment from 'moment';
 import { v4 } from 'uuid';

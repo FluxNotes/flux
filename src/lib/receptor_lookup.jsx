@@ -1,8 +1,8 @@
-import codeableConceptUtils from '../model/CodeableConceptUtils.jsx';
+import * as codeableConceptUtils from '../model/CodeableConceptUtils.jsx';
 
 const receptorValueOptions = [
     {
-        name: 'Positive', 
+        name: 'Positive',
         description: "Presence of hormone receptors in cancerous cells (for ER or PR) or high-levels of the growth-promoting protein (e.g. HER2)",
         code: "C1446409",
         codeSystem: "http://ncimeta.nci.nih.gov"
@@ -18,7 +18,7 @@ const receptorValueOptions = [
 
 const receptorTypeOptions = [
     {
-        name: 'Estrogen Receptor',  
+        name: 'Estrogen Receptor',
         description: "Estrogen receptor refers to a group of receptors which are activated by the hormone 17β-estradiol (estrogen). Two types of estrogen receptor exist: ER which is a member of the nuclear hormone family of intracellular receptors and the estrogen G protein coupled receptor GPR30 (GPER), which is a G-protein coupled receptor. This value refers to the nuclear hormone receptor ER.",
         code: "16112-5",
         codeSystem: "http://fhir.loinc.org"
@@ -43,17 +43,17 @@ const receptorTypeOptions = [
  * Will return CodeableConcept object with empty strings if not found
  * If value found in list, function will return CodeableConcept with value, codeSystem, and displayText
  */
-exports.getReceptorValueCodeableConcept = (possibleReceptorValue) => {
+export function getReceptorValueCodeableConcept(possibleReceptorValue){
     return codeableConceptUtils.getCodeableConceptFromOptions(possibleReceptorValue, receptorValueOptions);
 }
-exports.getReceptorTypeCodeableConcept = (possibleReceptorType) => {
+export function getReceptorTypeCodeableConcept(possibleReceptorType){
     return codeableConceptUtils.getCodeableConceptFromOptions(possibleReceptorType, receptorTypeOptions);
 }
 
-exports.getReceptorValueOptions = () => {
+export function getReceptorValueOptions(){
     return receptorValueOptions;
 }
 
-exports.getReceptorTypeOptions = () => {
+export function getReceptorTypeOptions(){
     return receptorTypeOptions;
 }

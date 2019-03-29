@@ -77,7 +77,7 @@ export class SlimApp extends Component {
     }
 }
 
-SlimApp.proptypes = {
+SlimApp.propTypes = {
     shortcutConfigurations: PropTypes.object.isRequired,
     shortcuts: PropTypes.array.isRequired,
     display: PropTypes.string.isRequired

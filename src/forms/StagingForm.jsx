@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Divider from 'material-ui/Divider';
 import Button from '../elements/Button';
-import staging from '../lib/staging';
-import stagingLookup from '../lib/tnmstage_lookup';
+import * as staging from '../lib/staging';
+import * as stagingLookup from '../lib/tnmstage_lookup';
 import './StagingForm.css';
 
 function titlecase(label) {
@@ -44,7 +44,7 @@ class StagingForm extends Component {
     let newValue = this.state.metastasisValues[i].name;
     this.props.updateValue("M", newValue);
   }
-  
+
   render() {
     return (
        <div>
@@ -63,7 +63,7 @@ class StagingForm extends Component {
                 return (
                   <div key={t.name} className="tooltip-staging-form">
                      <span id={t.name} className={buttonClass}>{t.description}</span>
-                      <Button 
+                      <Button
                           variant="raised"
                           className="btn tumor-size"
                           key={i}
@@ -90,7 +90,7 @@ class StagingForm extends Component {
                 return (
                   <div key={n.name} className="tooltip-staging-form">
                      <span id={n.name} className={buttonClass}>{n.description}</span>
-                      <Button 
+                      <Button
                           variant="raised"
                           className="btn node"
                           key={i}
@@ -117,7 +117,7 @@ class StagingForm extends Component {
                 return (
                   <div key={m.name} className="tooltip-staging-form">
                    <span id={m.name} className={buttonClass}>{m.description}</span>
-                    <Button 
+                    <Button
                         variant="raised"
                         className="btn metastasis"
                         key={i}
@@ -146,7 +146,7 @@ class StagingForm extends Component {
 }
 
 
-StagingForm.proptypes = { 
+StagingForm.propTypes= {
     updateValue: PropTypes.func.isRequired,
     object: PropTypes.object.isRequired
 }

@@ -99,11 +99,11 @@ class ActionTaken {
   static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new ActionTaken();
     if (asExtension) {
-      const match_1 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-CommentOrDescription-extension');
+      const match_1 = fhir['extension'].find(e => e.url==='http://example.com/fhir/StructureDefinition/shr-core-CommentOrDescription-extension');
       if (match_1 != null) {
         inst.commentOrDescription = FHIRHelper.createInstanceFromFHIR('shr.core.CommentOrDescription', match_1, shrId, allEntries, mappedResources, referencesOut, true);
       }
-      const match_2 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-ActionStatement-extension');
+      const match_2 = fhir['extension'].find(e => e.url==='http://example.com/fhir/StructureDefinition/shr-base-ActionStatement-extension');
       if (match_2 != null) {
         inst.actionStatement = FHIRHelper.createInstanceFromFHIR('shr.base.ActionStatement', match_2, shrId, allEntries, mappedResources, referencesOut, true);
       }

@@ -14,7 +14,7 @@ class DeceasedForm extends Component {
         const dateOfDeathInterface = (
             <div>
                 <h4 className="header-spacing">Date of Death<span className="helper-text"> mm/dd/yyyy</span></h4>
-                <DatePicker 
+                <DatePicker
                     id="date-of-death"
                     handleDateChange={this.changeDate}
                     dateToSet={null}
@@ -29,7 +29,7 @@ class DeceasedForm extends Component {
                     The date of the patient's death.
                 </p>
             </div>
-            
+
         );
 
         return (
@@ -59,7 +59,7 @@ class DeceasedForm extends Component {
     }
 }
 
-DeceasedForm.proptypes = { 
+DeceasedForm.propTypes= { 
     updateValue: PropTypes.func.isRequired,
     object: PropTypes.object.isRequired
 }

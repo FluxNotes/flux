@@ -1,6 +1,6 @@
 import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
-import lookup from '../../lib/receptor_lookup.jsx';
+import * as  lookup from '../../lib/receptor_lookup.jsx';
 import TumorMarker from './TumorMarker';
 import Reference from '../Reference';
 import SpecificFocusOfFinding from '../shr/base/SpecificFocusOfFinding';
@@ -33,7 +33,7 @@ class FluxTumorMarker {
     set metadata(metadata) {
         this._tumorMarker.metadata = metadata;
     }
-    
+
     get relevantTime() {
         if (!this._tumorMarker.relevantTime) return null;
         return this._tumorMarker.relevantTime.value;
@@ -43,27 +43,27 @@ class FluxTumorMarker {
         this._tumorMarker.relevantTime = relevantTime;
     }
 
-    get findingResult() { 
+    get findingResult() {
         if (!this._tumorMarker.findingResult) return null;
         return this._tumorMarker.findingResult;
     }
 
-    set findingResult(findingResult) { 
+    set findingResult(findingResult) {
         this._tumorMarker.findingResult = findingResult;
     }
 
-    get findingStatus() { 
+    get findingStatus() {
         if (!this._tumorMarker.findingStatus) return null;
         return this._tumorMarker.findingStatus;
     }
 
-    set findingStatus(findingStatus) { 
+    set findingStatus(findingStatus) {
         this._tumorMarker.findingStatus = findingStatus;
     }
 
 
     // Returns a human-readable display text string
-    get receptorType() { 
+    get receptorType() {
         if (!this._tumorMarker.findingTopicCode || !this._tumorMarker.findingTopicCode.value) return null;
         return this._tumorMarker.findingTopicCode.value.coding[0].displayText.value;
     }
@@ -80,7 +80,7 @@ class FluxTumorMarker {
             this.receptorType = receptorType;
         }
     }
-    
+
     /**
      * Getter for shr.oncology.ReceptorType
      */

@@ -66,8 +66,8 @@ class Selection extends new Record(DEFAULTS) {
 
   get isCollapsed() {
     return (
-      this.anchorKey == this.focusKey &&
-      this.anchorOffset == this.focusOffset
+      this.anchorKey===this.focusKey &&
+      this.anchorOffset===this.focusOffset
     )
   }
 
@@ -88,7 +88,7 @@ class Selection extends new Record(DEFAULTS) {
    */
 
   get isForward() {
-    return this.isBackward == null ? null : !this.isBackward
+    return this.isBackward===null ? null : !this.isBackward
   }
 
   /**
@@ -162,7 +162,7 @@ class Selection extends new Record(DEFAULTS) {
     // PERF: Do a check for a `0` offset first since it's quickest.
     if (this.anchorOffset != 0) return false
     const first = getFirst(node)
-    return this.anchorKey == first.key
+    return this.anchorKey===first.key
   }
 
   /**
@@ -174,7 +174,7 @@ class Selection extends new Record(DEFAULTS) {
 
   hasAnchorAtEndOf(node) {
     const last = getLast(node)
-    return this.anchorKey == last.key && this.anchorOffset == last.length
+    return this.anchorKey===last.key && this.anchorOffset===last.length
   }
 
   /**
@@ -203,8 +203,8 @@ class Selection extends new Record(DEFAULTS) {
    */
 
   hasAnchorIn(node) {
-    return node.kind == 'text'
-      ? node.key == this.anchorKey
+    return node.kind==='text'
+      ? node.key===this.anchorKey
       : node.hasDescendant(this.anchorKey)
   }
 
@@ -217,7 +217,7 @@ class Selection extends new Record(DEFAULTS) {
 
   hasFocusAtEndOf(node) {
     const last = getLast(node)
-    return this.focusKey == last.key && this.focusOffset == last.length
+    return this.focusKey===last.key && this.focusOffset===last.length
   }
 
   /**
@@ -230,7 +230,7 @@ class Selection extends new Record(DEFAULTS) {
   hasFocusAtStartOf(node) {
     if (this.focusOffset != 0) return false
     const first = getFirst(node)
-    return this.focusKey == first.key
+    return this.focusKey===first.key
   }
 
   /**
@@ -259,8 +259,8 @@ class Selection extends new Record(DEFAULTS) {
    */
 
   hasFocusIn(node) {
-    return node.kind == 'text'
-      ? node.key == this.focusKey
+    return node.kind==='text'
+      ? node.key===this.focusKey
       : node.hasDescendant(this.focusKey)
   }
 
@@ -339,7 +339,7 @@ class Selection extends new Record(DEFAULTS) {
       anchorOffset: this.focusOffset,
       focusKey: this.anchorKey,
       focusOffset: this.anchorOffset,
-      isBackward: this.isBackward == null ? null : !this.isBackward,
+      isBackward: this.isBackward===null ? null : !this.isBackward,
     })
   }
 
@@ -355,7 +355,7 @@ class Selection extends new Record(DEFAULTS) {
     const anchorOffset = this.anchorOffset + n
     return this.merge({
       anchorOffset,
-      isBackward: anchorKey == focusKey
+      isBackward: anchorKey===focusKey
         ? anchorOffset > focusOffset
         : isBackward
     })
@@ -373,7 +373,7 @@ class Selection extends new Record(DEFAULTS) {
     const focusOffset = this.focusOffset + n
     return this.merge({
       focusOffset,
-      isBackward: focusKey == anchorKey
+      isBackward: focusKey===anchorKey
         ? anchorOffset > focusOffset
         : isBackward
     })
@@ -392,9 +392,9 @@ class Selection extends new Record(DEFAULTS) {
     return this.merge({
       anchorKey: key,
       anchorOffset: offset,
-      isBackward: key == focusKey
+      isBackward: key===focusKey
         ? offset > focusOffset
-        : key == anchorKey ? isBackward : null
+        : key===anchorKey ? isBackward : null
     })
   }
 
@@ -411,9 +411,9 @@ class Selection extends new Record(DEFAULTS) {
     return this.merge({
       focusKey: key,
       focusOffset: offset,
-      isBackward: key == anchorKey
+      isBackward: key===anchorKey
         ? anchorOffset > offset
-        : key == focusKey ? isBackward : null
+        : key===focusKey ? isBackward : null
     })
   }
 
@@ -427,7 +427,7 @@ class Selection extends new Record(DEFAULTS) {
   moveAnchorOffsetTo(anchorOffset) {
     return this.merge({
       anchorOffset,
-      isBackward: this.anchorKey == this.focusKey
+      isBackward: this.anchorKey===this.focusKey
         ? anchorOffset > this.focusOffset
         : this.isBackward
     })
@@ -443,7 +443,7 @@ class Selection extends new Record(DEFAULTS) {
   moveFocusOffsetTo(focusOffset) {
     return this.merge({
       focusOffset,
-      isBackward: this.anchorKey == this.focusKey
+      isBackward: this.anchorKey===this.focusKey
         ? this.anchorOffset > focusOffset
         : this.isBackward
     })
@@ -560,8 +560,8 @@ class Selection extends new Record(DEFAULTS) {
     // If the selection isn't formed yet or is malformed, ensure that it is
     // properly zeroed out.
     if (
-      anchorKey == null ||
-      focusKey == null ||
+      anchorKey===null ||
+      focusKey===null ||
       !node.hasDescendant(anchorKey) ||
       !node.hasDescendant(focusKey)
     ) {
@@ -597,7 +597,7 @@ class Selection extends new Record(DEFAULTS) {
     }
 
     // If `isBackward` is not set, derive it.
-    if (isBackward == null) {
+    if (isBackward===null) {
       if (anchorNode.key === focusNode.key) {
         isBackward = anchorOffset > focusOffset
       } else {
@@ -827,7 +827,7 @@ ALIAS_METHODS.forEach(([ alias, method ]) => {
  */
 
 function getFirst(node) {
-  return node.kind == 'text' ? node : node.getFirstText()
+  return node.kind==='text' ? node : node.getFirstText()
 }
 
 /**
@@ -838,7 +838,7 @@ function getFirst(node) {
  */
 
 function getLast(node) {
-  return node.kind == 'text' ? node : node.getLastText()
+  return node.kind==='text' ? node : node.getLastText()
 }
 
 /**

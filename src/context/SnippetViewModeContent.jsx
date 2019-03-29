@@ -37,7 +37,7 @@ export default class SnippetViewModeContent extends Component {
     }
 }
 
-SnippetViewModeContent.proptypes = {
+SnippetViewModeContent.propTypes = {
     onClick: PropTypes.func.isRequired,
     setInsertingTemplate: PropTypes.func.isRequired,
 }

@@ -97,11 +97,11 @@ class Race {
   static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new Race();
     if (asExtension) {
-      const match_1 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-RaceCode-extension');
+      const match_1 = fhir['extension'].find(e => e.url==='http://example.com/fhir/StructureDefinition/shr-entity-RaceCode-extension');
       if (match_1 != null) {
         inst.raceCode = FHIRHelper.createInstanceFromFHIR('shr.entity.RaceCode', match_1, shrId, allEntries, mappedResources, referencesOut, true);
       }
-      const match_2 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-RaceDetail-extension');
+      const match_2 = fhir['extension'].find(e => e.url==='http://example.com/fhir/StructureDefinition/shr-entity-RaceDetail-extension');
       if (match_2 != null) {
         inst.raceDetail = FHIRHelper.createInstanceFromFHIR('shr.entity.RaceDetail', match_2, shrId, allEntries, mappedResources, referencesOut, true);
       }

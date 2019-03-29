@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 import Lang from 'lodash';
 import RangeChart from './RangeChart';
-import MedicationInformationService from '../lib/MedicationInformationService';
+import * as MedicationInformationService from '../lib/MedicationInformationService';
 import './MedicationRangeChartVisualizer.css';
-import FormatMedicationChange from './FormatMedicationChange';
+import * as FormatMedicationChange from './FormatMedicationChange';
 import Visualizer from './Visualizer';
 
 /*
@@ -50,7 +50,7 @@ class MedicationRangeChartVisualizer extends Visualizer {
     getSubsections() {
         const {patient, condition, conditionSection} = this.props;
 
-        if (patient == null || condition == null || conditionSection == null) {
+        if (patient===null || condition===null || conditionSection===null) {
             return [];
         }
 
@@ -70,7 +70,7 @@ class MedicationRangeChartVisualizer extends Visualizer {
 
     renderedSubsection(subsection, index) {
         const items = subsection.data_cache;
-        
+
         if (items.length === 0) return <h2 key={index}>None</h2>;
         const rows = items.map((med, i) => this.renderMedication(med, i));
         return rows;
@@ -288,7 +288,7 @@ renderMedicationNarrowView = (med, i) => {
     const lowerValue = rangeValues ? rangeValues.lowerValue : null;
     const upperValue = rangeValues ? rangeValues.upperValue : null;
     const typicalValue = rangeValues ? rangeValues.typicalValue : null;
-    
+
     // Only want want the number part of the value, not the unit
     const dosageValue = med.medication.amountPerDose ? med.medication.amountPerDose.value : null;
     const dosageUnit = med.medication.amountPerDose ? med.medication.amountPerDose.units : null;
@@ -347,8 +347,8 @@ renderMedicationNarrowView = (med, i) => {
                 </div>}
         </Grid>
         </div>);
-   
-}    
+
+}
 
     render() {
         const subsections = this.getSubsections();

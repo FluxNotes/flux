@@ -90,9 +90,9 @@ class Placeholder extends React.Component {
     const { children, className } = this.props
     let { style } = this.props
 
-    if (typeof children === 'string' && style == null && className == null) {
+    if (typeof children === 'string' && style===null && className===null) {
       style = { opacity: '0.333' }
-    } else if (style == null) {
+    } else if (style===null) {
       style = {}
     }
 

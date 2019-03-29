@@ -1,4 +1,4 @@
-import lookup from '../../lib/progression_lookup.jsx';
+import * as lookup from '../../lib/progression_lookup.jsx';
 import CancerProgression from './CancerProgression';
 import FluxEntry from '../base/FluxEntry';
 import FluxCancerProgressionEvidence from './FluxCancerProgressionEvidence';

@@ -70,7 +70,7 @@ class Document extends new Record(DEFAULTS) {
    */
 
   get isEmpty() {
-    return this.text == ''
+    return this.text===''
   }
 
   /**

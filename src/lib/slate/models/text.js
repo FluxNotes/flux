@@ -98,7 +98,7 @@ class Text extends new Record(DEFAULTS) {
    */
 
   get isEmpty() {
-    return this.text == ''
+    return this.text===''
   }
 
   /**
@@ -153,7 +153,7 @@ class Text extends new Record(DEFAULTS) {
   getDecorations(decorators) {
     const node = this
     let { characters } = node
-    if (characters.size == 0) return characters
+    if (characters.size===0) return characters
 
     for (const decorator of decorators) {
       const decorateds = decorator(node)
@@ -205,7 +205,7 @@ class Text extends new Record(DEFAULTS) {
    */
 
   getMarksAtIndex(index) {
-    if (index == 0) return Mark.createSet()
+    if (index===0) return Mark.createSet()
     const { characters } = this
     const char = characters.get(index - 1)
     if (!char) return Mark.createSet()
@@ -220,7 +220,7 @@ class Text extends new Record(DEFAULTS) {
    */
 
   getNode(key) {
-    return this.key == key
+    return this.key===key
       ? this
       : null
   }
@@ -241,7 +241,7 @@ class Text extends new Record(DEFAULTS) {
     let prevRange
 
     // If there are no characters, return one empty range.
-    if (characters.size == 0) {
+    if (characters.size===0) {
       ranges.push({})
     }
 
@@ -251,7 +251,7 @@ class Text extends new Record(DEFAULTS) {
         const { marks, text } = char
 
         // The first one can always just be created.
-        if (i == 0) {
+        if (i===0) {
           prevChar = char
           prevRange = { text, marks }
           ranges.push(prevRange)

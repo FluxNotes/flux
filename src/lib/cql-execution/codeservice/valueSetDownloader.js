@@ -10,7 +10,7 @@ if (process.argv.length < 3) {
 }
 
 let vsacUser, vsacPass;
-if (process.argv.length == 5) {
+if (process.argv.length===5) {
     [vsacUser, vsacPass] = process.argv.slice(3);
 }
 

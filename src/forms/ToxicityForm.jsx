@@ -4,7 +4,7 @@ import SingleChoiceButton from './SingleChoiceButton';
 import Autosuggest from 'react-autosuggest';
 import {Row, Col} from 'react-flexbox-grid';
 import Divider from 'material-ui/Divider';
-import toxicityLookup from '../lib/toxicreaction_lookup';
+import * as toxicityLookup from '../lib/toxicreaction_lookup';
 import FluxToxicAdverseDrugReaction from '../model/adverse/FluxToxicAdverseDrugReaction';
 import Lang from 'lodash'
 import Collection from 'lodash'
@@ -247,7 +247,7 @@ class ToxicityForm extends Component {
         return (
             <div key={attribution.name} className="tooltip-toxicity-form">
                 <span id={attribution.name} className={tooltipClass}>{attribution.description}</span>
-                <SingleChoiceButton 
+                <SingleChoiceButton
                         buttonKey={i}
                         buttonText={attribution.name}
                         onClick={ (e) => this.handleAttributionSelection(attribution, isSelected)}
@@ -283,7 +283,7 @@ class ToxicityForm extends Component {
                     return (
                         <div key={adverseEvent.name} className="tooltip-toxicity-form">
                             <span id={adverseEvent.name} className={tooltipClass}>{adverseEvent.description}</span>
-                            <SingleChoiceButton 
+                            <SingleChoiceButton
                                     buttonKey={i}
                                     buttonText={adverseEvent.name}
                                     onClick={ (e) => this.handleAdverseEventSelection(adverseEvent.name)}
@@ -383,7 +383,7 @@ class ToxicityForm extends Component {
     }
 }
 
-ToxicityForm.proptypes = {
+ToxicityForm.propTypes = {
     updateValue: PropTypes.func.isRequired,
     object: PropTypes.object.isRequired,
     gradesToDisplay: PropTypes.array,

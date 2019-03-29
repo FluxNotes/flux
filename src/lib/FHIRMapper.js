@@ -7,8 +7,12 @@ const mapOptions = {
 }
 
 
-exports.mapToEntryTypes = (entry) => {
+function mapToEntryTypes(entry){
     // TODO: Support returning multiple entry types from a single FHIR entry
-    const entryType = mapOptions[entry.resource.resourceType]; 
+    const entryType = mapOptions[entry.resource.resourceType];
     return Lang.isUndefined(entryType) ? [null] : [entryType];
 };
+
+export {
+  mapToEntryTypes 
+}

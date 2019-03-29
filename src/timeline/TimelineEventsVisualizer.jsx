@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Legend from './TimelineLegend';
 import HoverItem from './HoverItem';
-import Timeline from 'react-calendar-timeline';
+import Timeline from 'react-calendar-timeline/lib';
 import containerResizeDetector from 'react-calendar-timeline/lib/resize-detector/container';
 import Item from './Item';
 import Button from '../elements/Button';
@@ -95,7 +95,7 @@ class TimelineEventsVisualizer extends Visualizer {
                 onMouseEnter: (e) => this.enterItemHover(e, id),
                 onMouseLeave: (e) => this.leaveItemHover(e),
 
-                // hold 2 view 
+                // hold 2 view
                 onTouchStart: (e) => this.enterItemHover(e, id),
                 onTouchEnd: (e) => {
                     // Opens action menu after hover item disappears

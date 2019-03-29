@@ -131,7 +131,7 @@ export default class CreatorBase extends EntryShortcut {
         this.isSet[name] = (value != null);
         const patientSetMethod = voa["patientSetMethod"];
         const setMethod = voa["setMethod"];
-        if (value == null && voa.default) {
+        if (value===null && voa.default) {
             value = voa.default;
             if (value === "$today") {
                 value = new moment().format('D MMM YYYY');

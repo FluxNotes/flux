@@ -1,8 +1,8 @@
-import codeableConceptUtils from '../model/CodeableConceptUtils.jsx';
+import * as codeableConceptUtils from '../model/CodeableConceptUtils.jsx';
 
 const cancerOptions = [
     {
-        name: 'Invasive ductal carcinoma of breast', 
+        name: 'Invasive ductal carcinoma of breast',
         description: "Invasive ductal carcinoma of breast",
         code: "408643008",
         codeSystem: "http://snomed.info/sct"
@@ -19,6 +19,6 @@ const cancerOptions = [
  * Will return CodeableConcept object with empty strings if not found
  * If value found in list, function will return CodeableConcept with value, codeSystem, and displayText
  */
-exports.getCancerCodeableConcept = (possibleSpecificType) => {
+export function getCancerCodeableConcept(possibleSpecificType){
     return codeableConceptUtils.getCodeableConceptFromOptions(possibleSpecificType, cancerOptions);
 }

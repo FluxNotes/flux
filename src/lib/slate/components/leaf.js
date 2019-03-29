@@ -136,12 +136,12 @@ class Leaf extends React.Component {
 
     // COMPAT: If the text is empty and it's the only child, we need to render a
     // <br/> to get the block to have the proper height.
-    if (text == '' && parent.kind == 'block' && parent.text == '') return <br />
+    if (text==='' && parent.kind==='block' && parent.text==='') return <br />
 
     // COMPAT: If the text is empty otherwise, it's because it's on the edge of
     // an inline void node, so we render a zero-width space so that the
     // selection can be inserted next to it still.
-    if (text == '') {
+    if (text==='') {
       // COMPAT: In Chrome, zero-width space produces graphics glitches, so use
       // hair space in place of it. (2017/02/12)
       const space = IS_FIREFOX ? '\u200B' : '\u200A'
@@ -152,9 +152,9 @@ class Leaf extends React.Component {
     // so we need to add an extra trailing new lines to prevent that.
     const lastText = block.getLastText()
     const lastChar = text.charAt(text.length - 1)
-    const isLastText = node == lastText
-    const isLastRange = index == ranges.size - 1
-    if (isLastText && isLastRange && lastChar == '\n') return `${text}\n`
+    const isLastText = node===lastText
+    const isLastRange = index===ranges.size - 1
+    if (isLastText && isLastRange && lastChar==='\n') return `${text}\n`
 
     // Otherwise, just return the text.
     return text

@@ -31,7 +31,7 @@ class ContextPortal extends React.Component {
         const { openedPortal } = nextProps;
 
         if (openedPortal !== null && openedPortal !== this.portalId) return false;
-        
+
         return true;
     }
 
@@ -42,7 +42,7 @@ class ContextPortal extends React.Component {
         this.adjustPosition();
     }
     /*
-     * Updates state when context updates 
+     * Updates state when context updates
      */
     componentWillReceiveProps = (nextProps) => {
         if (nextProps.contexts !== this.props.contexts) {
@@ -82,7 +82,7 @@ class ContextPortal extends React.Component {
         if (openedPortal === this.portalId) {
             onChange(onSelected(state, null));
         }
-        this.setState({ active: false, justActive: false }); // TEST: menu: null, 
+        this.setState({ active: false, justActive: false }); // TEST: menu: null,
     }
     /*
      * Only trigger keydown if the portal wasn't just activated
@@ -105,7 +105,7 @@ class ContextPortal extends React.Component {
         if (keyCode === DOWN_ARROW_KEY || keyCode === UP_ARROW_KEY) {
             const height = this.refs.contextPortal.offsetHeight;
             const numberOfElementsVisible = Math.floor(height/32);
-            const positionChange = (keyCode === DOWN_ARROW_KEY) ? 1 : -1; 
+            const positionChange = (keyCode === DOWN_ARROW_KEY) ? 1 : -1;
             this.changeMenuPosition(positionChange)
             // newIndex - (numberOfElementsVisible - 1) forces the scrolling to happen once your reach the bottom of the list in view.
             // 32 is the height of each suggestion in the list, 10 allows for the margin
@@ -118,11 +118,11 @@ class ContextPortal extends React.Component {
     /*
      * Change the menu position based on the amount of places to move
      */
-    changeMenuPosition = (change) => { 
+    changeMenuPosition = (change) => {
         // this will allow wrap around to the end of the list.
         const changePlusOriginalLength = change + this.props.contexts.length;
         const changeAfterWrapping = (this.state.selectedIndex + changePlusOriginalLength) % this.props.contexts.length;
-        this.setState({ 
+        this.setState({
             selectedIndex: changeAfterWrapping
         })
     }
@@ -171,14 +171,14 @@ class ContextPortal extends React.Component {
             selectedIndex: selectedIndex
         });
     }
-    
+
     handleCalendarSelect = (date) => {
         this.closePortal();
         const context = { key: 'set-date-id', context: `${date.format("MM/DD/YYYY")}`, object: date };
         const state = this.props.onSelected(this.props.state, context);
         this.props.onChange(state);
     }
-    
+
     renderListOptions = () => {
         const { contexts } = this.props;
         return (
@@ -199,9 +199,9 @@ class ContextPortal extends React.Component {
             </ul>
         );
     }
-    
+
     renderCalendar = () => {
-        // NOTE: If setTimeout doesn't seem to be setting the focus correctly, try creating a separate component 
+        // NOTE: If setTimeout doesn't seem to be setting the focus correctly, try creating a separate component
         // that extends Calendar and has componentDidMount to set focus
         return (
             <Calendar
@@ -211,7 +211,7 @@ class ContextPortal extends React.Component {
             />
         );
     }
-    
+
     /*
      * View of the current menu
      */
@@ -222,7 +222,7 @@ class ContextPortal extends React.Component {
         let type;
         let className = "context-portal";
         if (Lang.isNull(contexts)) return null;
-        
+
         if (Lang.isArray(contexts)) {
             type = TYPE_LIST;
             className += " scrollable";
@@ -231,13 +231,13 @@ class ContextPortal extends React.Component {
         } else {
             console.error("unknown picker type: " + contexts);
         }
-    
+
         return (
-            <Portal 
-                closeOnEsc 
-                closeOnOutsideClick 
-                isOpened={openedPortal === this.portalId} 
-                onOpen={this.onOpen} 
+            <Portal
+                closeOnEsc
+                closeOnOutsideClick
+                isOpened={openedPortal === this.portalId}
+                onOpen={this.onOpen}
                 onClose={this.onClose}
             >
                 <div className={className} ref="contextPortal">
@@ -248,7 +248,7 @@ class ContextPortal extends React.Component {
     }
 }
 
-ContextPortal.proptypes = { 
+ContextPortal.propTypes = { 
     capture: PropTypes.object.isRequired,
     callback: PropTypes.object.isRequired,
     contextManager: PropTypes.object.isRequired,

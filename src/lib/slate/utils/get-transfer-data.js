@@ -55,7 +55,7 @@ function getTransferData(transfer) {
   // Get and normalize files if they exist.
   if (transfer.items && transfer.items.length) {
     files = Array.from(transfer.items)
-      .map(item => item.kind == 'file' ? item.getAsFile() : null)
+      .map(item => item.kind==='file' ? item.getAsFile() : null)
       .filter(exists => exists)
   } else if (transfer.files && transfer.files.length) {
     files = Array.from(transfer.files)

@@ -11,15 +11,15 @@
 function normalizeNodeAndOffset(node, offset) {
   // If it's an element node, its offset refers to the index of its children
   // including comment nodes, so try to find the right text child node.
-  if (node.nodeType == 1 && node.childNodes.length) {
-    const isLast = offset == node.childNodes.length
+  if (node.nodeType===1 && node.childNodes.length) {
+    const isLast = offset===node.childNodes.length
     const direction = isLast ? 'backward' : 'forward'
     const index = isLast ? offset - 1 : offset
     node = getEditableChild(node, index, direction)
 
     // If the node has children, traverse until we have a leaf node. Leaf nodes
     // can be either text nodes, or other void DOM nodes.
-    while (node.nodeType == 1 && node.childNodes.length) {
+    while (node.nodeType===1 && node.childNodes.length) {
       const i = isLast ? node.childNodes.length - 1 : 0
       node = getEditableChild(node, i, direction)
     }
@@ -52,9 +52,9 @@ function getEditableChild(parent, index, direction) {
   // While the child is a comment node, or an element node with no children,
   // keep iterating to find a sibling non-void, non-comment node.
   while (
-    (child.nodeType == 8) ||
-    (child.nodeType == 1 && child.childNodes.length == 0) ||
-    (child.nodeType == 1 && child.getAttribute('contenteditable') == 'false')
+    (child.nodeType===8) ||
+    (child.nodeType===1 && child.childNodes.length===0) ||
+    (child.nodeType===1 && child.getAttribute('contenteditable')==='false')
   ) {
     if (triedForward && triedBackward) break
 
@@ -73,8 +73,8 @@ function getEditableChild(parent, index, direction) {
     }
 
     child = childNodes[i]
-    if (direction == 'forward') i++
-    if (direction == 'backward') i--
+    if (direction==='forward') i++
+    if (direction==='backward') i--
   }
 
   return child || null

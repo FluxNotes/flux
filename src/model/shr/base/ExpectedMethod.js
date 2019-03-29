@@ -98,7 +98,7 @@ class ExpectedMethod {
   static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new ExpectedMethod();
     if (asExtension) {
-      const match_1 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-Method-extension');
+      const match_1 = fhir['extension'].find(e => e.url==='http://example.com/fhir/StructureDefinition/shr-base-Method-extension');
       if (match_1 != null) {
         inst.method = FHIRHelper.createInstanceFromFHIR('shr.base.Method', match_1, shrId, allEntries, mappedResources, referencesOut, true);
       }

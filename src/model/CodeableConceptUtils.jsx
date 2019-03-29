@@ -8,7 +8,7 @@ import DisplayText from '../model/shr/core/DisplayText';
 /*
  *  Converts a tuple with the properties value, codeSystem, and displayText into a CodeableConcept object
  */
-exports.getCodeableConceptFromTuple = (tuple) => {
+function getCodeableConceptFromTuple(tuple) {
     let codeableConcept = new CodeableConcept();
 
     let coding = new Coding();
@@ -34,7 +34,7 @@ exports.getCodeableConceptFromTuple = (tuple) => {
  * possibleValue is a string
  * options is a list of objects with properties name, codeSystem, code
  */
-exports.getCodeableConceptFromOptions = (possibleValue, options) => {
+function getCodeableConceptFromOptions(possibleValue, options){
     let tuple = {
         value: "",
         codeSystem: "",
@@ -52,5 +52,11 @@ exports.getCodeableConceptFromOptions = (possibleValue, options) => {
             };
         }
     }
-    return exports.getCodeableConceptFromTuple(tuple);
+    return getCodeableConceptFromTuple(tuple);
+}
+
+
+export {
+  getCodeableConceptFromTuple,
+  getCodeableConceptFromOptions
 }

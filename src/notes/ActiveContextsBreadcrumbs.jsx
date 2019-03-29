@@ -56,7 +56,7 @@ class ActiveContextsBreadcrumbs extends React.Component {
 
 }
 
-ActiveContextsBreadcrumbs.proptypes = {
+ActiveContextsBreadcrumbs.propTypes = {
     contextManager: PropTypes.object.isRequired
 };
 

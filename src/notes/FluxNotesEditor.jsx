@@ -1763,7 +1763,7 @@ class FluxNotesEditor extends React.Component {
             }
         }
 
-        if (this.props.patient == null) {
+        if (this.props.patient===null) {
             return "";
         } else {
             return (

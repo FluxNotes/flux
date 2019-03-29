@@ -4,14 +4,14 @@ import ChoiceButton from '../elements/ChoiceButton';
 
 import "./MultiChoiceButton.css"
 
-class MultiChoiceButton extends Component {  
+class MultiChoiceButton extends Component {
     render() {
         let className = "multi-choice-button ";
         className += (this.props.className) ? `${this.props.className} ` : "";
         className += (this.props.isSelected) ? "selected " : "";
 
-        return ( 
-            <ChoiceButton 
+        return (
+            <ChoiceButton
                 variant="raised"
                 key={this.props.buttonKey}
                 label={this.props.buttonText}
@@ -24,7 +24,7 @@ class MultiChoiceButton extends Component {
     }
 }
 
-MultiChoiceButton.proptypes = { 
+MultiChoiceButton.propTypes= { 
     buttonKey: PropTypes.isRequired,
     buttonText: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,

@@ -34,12 +34,12 @@ export default class ContextOptions extends Component {
         this.setState({ tooltipVisibility: 'visible' })
     }
 
-    renderGroup = (groupObj, i, parentContext) => { 
+    renderGroup = (groupObj, i, parentContext) => {
         return (
             <div key={`group-${i}`}>
                 {/* Use group name if available */}
                 {!Lang.isUndefined(groupObj.groupName) &&
-                    <div 
+                    <div
                         className="context-options-header"
                         title={groupObj.groupName}
                     >
@@ -135,7 +135,7 @@ export default class ContextOptions extends Component {
         if (totalShown === 0) {
             return null;
         }
-        
+
         const validShortcutMetadata = validShortcuts
             .map((shortcutId) => this.props.shortcutManager.getShortcutMetadata(shortcutId));
 
@@ -145,7 +145,7 @@ export default class ContextOptions extends Component {
             // or, it needs to meet two criteria: 1. Does this group have some active elements to display
             || ( groupList.length > 0
                 // 2.Its referenced as a parent shortcut by >=1 active shortcuts who themselves have no group name
-                && validShortcutMetadata.filter((shortcutMetadata, i) => { 
+                && validShortcutMetadata.filter((shortcutMetadata, i) => {
                     if (Lang.isUndefined(shortcutMetadata)) return false
                     return shortcutMetadata["knownParentContexts"] === context.metadata.id && Lang.isUndefined(shortcutMetadata["shortcutGroupName"])
                 }).length !== 0
@@ -157,11 +157,11 @@ export default class ContextOptions extends Component {
             >
                 <div className='context-options-list'>
                     {/* Group child shortcuts with parentContext as header if this group doesn't have a groupName */}
-                    {(isCurrentContextAGroupName) && 
-                        <div 
+                    {(isCurrentContextAGroupName) &&
+                        <div
                             className={`context-options-header`}
                             title={context.getLabel()}
-                        > 
+                        >
                             {context.getLabel()}
                         </div>
                     }
@@ -183,7 +183,7 @@ function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-ContextOptions.proptypes = {
+ContextOptions.propTypes = {
     context: PropTypes.object,
     contextManager: PropTypes.object.isRequired,
     handleClick: PropTypes.func.isRequired,

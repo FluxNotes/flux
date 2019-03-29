@@ -5,7 +5,7 @@ import SingleChoiceButton from './SingleChoiceButton';
 import MultiChoiceButton from './MultiChoiceButton';
 import Lang from 'lodash';
 import moment from 'moment';
-import progressionLookup from '../lib/progression_lookup';
+import * as progressionLookup from '../lib/progression_lookup';
 import DatePicker from '../forms/DatePicker';
 import './ProgressionForm.css';
 
@@ -92,7 +92,7 @@ class ProgressionForm extends Component {
         return (
             <div key={statusName} className="tooltip-progression-form">
                 <span id={statusName} className={tooltipClass}>{statusDescription}</span>
-                <SingleChoiceButton 
+                <SingleChoiceButton
                         buttonKey={i}
                         buttonText={statusName}
                         onClick={(e) => this.handleStatusSelection(e, i)}
@@ -136,7 +136,7 @@ class ProgressionForm extends Component {
                         dateToSet={clinicallyRelevantTime}
                     />
                 </div>
-                
+
             );
             referenceDateDescription = (
                 <div>
@@ -153,7 +153,7 @@ class ProgressionForm extends Component {
             <div>
                 <h1>Disease Status</h1>
                 <Divider className="divider"/>
-                
+
                 {/*Interface here*/}
                 <h4 className="header-spacing">Status<span className="helper-text"> Choose one</span></h4>
                 <div className="btn-group-status-progression">
@@ -178,7 +178,7 @@ class ProgressionForm extends Component {
                 {/*Definitions of dataelements*/}
                 <h4 className="header-spacing">Definitions</h4>
                 <Divider className="divider"/>
-                
+
                 <h4 className="header-spacing">Disease Status</h4>
                 <p className="data-element-description">
                     {progressionLookup.getDescription("progression")}
@@ -204,7 +204,7 @@ class ProgressionForm extends Component {
     }
 }
 
-ProgressionForm.proptypes = {
+ProgressionForm.propTypes= {
     updateValue: PropTypes.func.isRequired,
     object: PropTypes.object.isRequired,
     referenceDateEnabled: PropTypes.bool.isRequired

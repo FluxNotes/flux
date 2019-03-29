@@ -5,12 +5,12 @@ import BreastMainTreatmentTry3Ella from '../BreastMainTreatmentTry3Ella.json';
 import GistAdjuvantIhanos from '../GistAdjuvantIhanos.json';
 import curationPatient from '../sample_curation_output.json';
 import PatientRecord from '../../patient/PatientRecord.jsx';
-import EntryMapper from './EntryMapper.js';
+import * as EntryMapper from './EntryMapper.js';
 
 class HardCodedMcodeV01DataSource extends IDataSource {
-    constructor() { 
+    constructor() {
         super();
-        this._gestalt = { 
+        this._gestalt = {
             create: {
                 async: false,
                 sync: false
@@ -30,7 +30,7 @@ class HardCodedMcodeV01DataSource extends IDataSource {
         };
     }
 
-    getGestalt() { 
+    getGestalt() {
         return this._gestalt;
     }
 
@@ -41,7 +41,7 @@ class HardCodedMcodeV01DataSource extends IDataSource {
         } else if (BreastMainTreatmentTry3Ella[0]["ShrId"] === id) {
             patientJSON = BreastMainTreatmentTry3Ella;
         } else if (curationPatient[0]["ShrId"].Value === id) {
-            patientJSON = curationPatient; 
+            patientJSON = curationPatient;
         } else if (GistAdjuvantIhanos[0]['ShrId'] === id) {
             patientJSON = GistAdjuvantIhanos;
         }
@@ -59,7 +59,7 @@ class HardCodedMcodeV01DataSource extends IDataSource {
     newPatient() {
         console.log("creating new patients is not implemented in hard-coded read only patient data source.");
     }
-    
+
     savePatient(patient) {
         console.log("saving of patients is not implemented in hard-coded read only patient data source. Updated Patient record ", patient);
     }

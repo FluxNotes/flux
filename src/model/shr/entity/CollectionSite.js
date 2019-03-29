@@ -98,7 +98,7 @@ class CollectionSite {
   static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new CollectionSite();
     if (asExtension) {
-      const match_1 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-AnatomicalLocation-extension');
+      const match_1 = fhir['extension'].find(e => e.url==='http://example.com/fhir/StructureDefinition/shr-core-AnatomicalLocation-extension');
       if (match_1 != null) {
         inst.anatomicalLocation = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocation', match_1, shrId, allEntries, mappedResources, referencesOut, true);
       }

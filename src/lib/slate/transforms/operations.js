@@ -372,7 +372,7 @@ Transforms.setSelectionOperation = (transform, properties, options = {}) => {
   // create a dictionary of the previous values for all of the properties that
   // are being changed, for the inverse operation.
   for (const k in properties) {
-    if (!options.snapshot && properties[k] == selection[k]) continue
+    if (!options.snapshot && properties[k]===selection[k]) continue
     props[k] = properties[k]
     prevProps[k] = selection[k]
   }
@@ -388,7 +388,7 @@ Transforms.setSelectionOperation = (transform, properties, options = {}) => {
 
   if (
     selection.marks &&
-    properties.marks == selection.marks &&
+    properties.marks===selection.marks &&
     moved
   ) {
     props.marks = null

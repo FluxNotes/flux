@@ -1,27 +1,27 @@
-import codeableConceptUtils from '../model/CodeableConceptUtils.jsx';
+import * as codeableConceptUtils from '../model/CodeableConceptUtils.jsx';
 
-// List of medications 
+// List of medications
 // (Note: this is currently used only by the note parser to look up active medications when parsing a #stop medication note)
 // Add more medications here as needed
 const medications = [
     {
-        name: 'ibuprofen 600mg tablet', 
+        name: 'ibuprofen 600mg tablet',
         description: "",
         code: "316077",
         codeSystem: ""
     }
-];    
+];
 
-exports.getCodeableConceptFromName = (name) => {
+export function getCodeableConceptFromName(name){
     return codeableConceptUtils.getCodeableConceptFromOptions(name, medications);
 }
 
-exports.getRangeValues = (medication, units) => {
+export function getRangeValues(medication, units){
     if (typeof(medication) !== 'string') {return null;}
 
     if (!units) return null;
     const switchKey = medication + "_" + units;
-    
+
     switch(switchKey) {
         case "42512_10^9/L":
             return {
@@ -107,7 +107,7 @@ exports.getRangeValues = (medication, units) => {
                 upperValue: 1,
                 typicalValue: 1
             }
-            
+
         default: {
             console.warn(switchKey);
             return null;
@@ -115,4 +115,3 @@ exports.getRangeValues = (medication, units) => {
 
     }
 }
-

@@ -71,7 +71,7 @@ class AdverseEventCondition {
   static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new AdverseEventCondition();
     if (asExtension) {
-      const match_1 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-ConditionPresentAssertion-extension');
+      const match_1 = fhir['extension'].find(e => e.url==='http://example.com/fhir/StructureDefinition/shr-base-ConditionPresentAssertion-extension');
       if (match_1 != null) {
         inst.conditionPresentAssertion = FHIRHelper.createInstanceFromFHIR('shr.base.ConditionPresentAssertion', match_1, shrId, allEntries, mappedResources, referencesOut, true);
       }

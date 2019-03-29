@@ -38,7 +38,7 @@ export default class TabularListVisualizer extends Visualizer {
     // Get a list of subsections to display given the current condition section
     getSubsections() {
         const { patient, condition, conditionSection } = this.props;
-        if (patient == null || condition == null || conditionSection == null) return [];
+        if (patient===null || condition===null || conditionSection===null) return [];
         return conditionSection.data.map((subsection) => {
             return subsection;
         });
@@ -192,7 +192,7 @@ export default class TabularListVisualizer extends Visualizer {
 
     renderedPostTableList(itemsFunction, subsectionName, subsectionActions, arrayIndex) {
         const {patient, condition} = this.props;
-        if (patient == null || condition == null || _.isUndefined(itemsFunction)) return [];
+        if (patient===null || condition===null || _.isUndefined(itemsFunction)) return [];
         const list = itemsFunction(patient, condition);
         return list.map((element, index) => {
             const elementId = `post-item-${index}`;

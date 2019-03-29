@@ -107,8 +107,8 @@ class EditorToolbar extends React.Component {
             </div>
         )
     }
-    renderCopyButton = () => { 
-        if (this.props.patient == null) {
+    renderCopyButton = () => {
+        if (this.props.patient===null) {
             return (
                 <span id="copy-button" style={{cursor:'pointer'}}>
                     <i className="fa fa-files-o" aria-label="copy button" onClick={(e) => this.handleCopyClick(e)}></i>
@@ -118,11 +118,11 @@ class EditorToolbar extends React.Component {
             return null;
         }
     }
-    renderLoadingNotification = () => { 
+    renderLoadingNotification = () => {
         return (
             <div id="loading-notification">
                 <span className="loading-breadcrumb-separator">|</span>
-                <p id="loading-text"> 
+                <p id="loading-text">
                     NLP Processing...
                 </p>
             </div>
@@ -153,14 +153,14 @@ class EditorToolbar extends React.Component {
                 {this.renderBlockButton('numbered-list', 'fa-list-ol')}
                 <hr className="toolbar-breadcrumbs-separator"/>
                 {breadcrumbs}
-                { this.props.loadingTimeWarrantsWarning && this.renderLoadingNotification()}    
+                { this.props.loadingTimeWarrantsWarning && this.renderLoadingNotification()}
                 {/* {this.renderCopyButton()} */}
             </div>
         )
     }
 }
 
-EditorToolbar.proptypes = { 
+EditorToolbar.propTypes = { 
     contextManager: PropTypes.object.isRequired,
     isReadOnly: PropTypes.bool.isRequired,
     onBlockCheck: PropTypes.func.isRequired,

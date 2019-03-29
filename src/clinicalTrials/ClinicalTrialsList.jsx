@@ -1,4 +1,4 @@
-import CQLExecutionEngine from '../lib/cql-execution/CQLExecutionEngine.js';
+import * as CQLExecutionEngine from '../lib/cql-execution/CQLExecutionEngine.js';
 import PALLAScql from '../lib/cql-execution/example/cql/PALLASEligibility.json';
 import PATINAcql from '../lib/cql-execution/example/cql/PatinaEligibility.json';
 import PALLAS_eligiblePatient from '../lib/cql-execution/example/patients/PALLASPatient.json';
@@ -116,7 +116,7 @@ class ClinicalTrialsList {
         let clinicalTrials = this.clinicalTrials.filter((trial) => {
             return trial.name.toUpperCase() === name.toUpperCase();
         });
-        
+
         if (clinicalTrials.length === 0) {
             return null;
         }

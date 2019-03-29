@@ -1,4 +1,4 @@
-import codeableConceptUtils from '../model/CodeableConceptUtils.jsx';
+import * as codeableConceptUtils from '../model/CodeableConceptUtils.jsx';
 
 const typeOptions = [
     {
