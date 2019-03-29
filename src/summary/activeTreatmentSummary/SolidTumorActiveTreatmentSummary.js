@@ -37,13 +37,13 @@ class SolidTumorActiveTreatmentSummary extends IActiveTreatmentSummary {
         if (!currentConditionEntry instanceof FluxSolidTumorCancer) return null;
         let activeTreatment = {};
         // Get all relevant medications
-        const activeNonOTCMeds = this._getActiveNonOTCMeds(patient, currentConditionEntry);
+        const activeNonOTCMeds = this._getActiveNonOTCMedsForCondition(patient, currentConditionEntry);
         const patientHasActiveNonOTCMeds = activeNonOTCMeds && activeNonOTCMeds.length > 0;
         // 
-        const allPlannedSurgeries = this._getAllSurgeriesPlanned(patient, currentConditionEntry);
+        const allPlannedSurgeries = this._getAllSurgeriesPlannedForCondition(patient, currentConditionEntry);
         const patientHasSurgeryPlanned = allPlannedSurgeries && allPlannedSurgeries.length > 0;
         // 
-        const allSurgeriesPreviouslyPerformed = this._getAllSurgeriesPreviouslyPerformed(patient, currentConditionEntry);
+        const allSurgeriesPreviouslyPerformed = this._getAllSurgeriesPreviouslyPerformedForCondition(patient, currentConditionEntry);
         const patientHasSurgicalHistory = allSurgeriesPreviouslyPerformed && allSurgeriesPreviouslyPerformed.length > 0;
         if (patientHasActiveNonOTCMeds) { 
             activeTreatment.medications = activeNonOTCMeds;
@@ -84,19 +84,19 @@ class SolidTumorActiveTreatmentSummary extends IActiveTreatmentSummary {
         return activeTreatment;
     }
 
-    _getActiveNonOTCMeds(patient, currentConditionEntry) {
+    _getActiveNonOTCMedsForCondition(patient, currentConditionEntry) {
         const allMedsForCondition = patient.getActiveMedicationsForCondition(currentConditionEntry);
         return _.filter(allMedsForCondition, (med) => {
             return !med.overTheCounter;
         });
     }
 
-    _getAllSurgeriesPlanned(patient, currentConditionEntry) { 
+    _getAllSurgeriesPlannedForCondition(patient, currentConditionEntry) { 
         const allSurgeriesPlanned = patient.getSurgeriesPlannedForCondition(currentConditionEntry);
         return allSurgeriesPlanned;
     }
 
-    _getAllSurgeriesPreviouslyPerformed(patient, currentConditionEntry) {
+    _getAllSurgeriesPreviouslyPerformedForCondition(patient, currentConditionEntry) {
         const allSurgeriesPreviouslyPerformed = patient.getSurgeriesPreviouslyPerformedForCondition(currentConditionEntry);
         return allSurgeriesPreviouslyPerformed
     }
