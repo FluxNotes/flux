@@ -330,9 +330,9 @@ export default class TreatmentOptionsOutcomes extends Component {
                         <FontAwesome name="caret-right" /> {includedTreatmentData[0].displayName} alone
                     </div>
 
-                    {comparedTreatmentData.map((treatment, i) =>
+                    {/* {comparedTreatmentData.map((treatment, i) =>
                         <div className="interaction-combined" key={i}>+ {treatment.displayName}</div>
-                    )}
+                    )} */}
                 </div>
             </div>
         );
