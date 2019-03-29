@@ -1230,7 +1230,7 @@
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/base/AuthoredDateTime"
                 },
-                "Value": "12 April 2010"
+                "Value": "12 Apr 2010"
             }
         },
         "FindingTopicCode": {
@@ -1371,7 +1371,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/Onset"
             },
-            "Value": "12 April 2010"
+            "Value": "12 Apr 2010"
         }
     },
     {

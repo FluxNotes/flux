@@ -22,6 +22,7 @@ if (typeof input === 'undefined') {
     program.help();
 }
 const output = program.output;
+const showMeta = false;
 const orderedOutput = program.orderedOutput;
 const patientEntries = JSON.parse(fs.readFileSync(input, 'utf8'));
 let encounter;
@@ -124,11 +125,14 @@ if (orderedOutput) {
     })
 }
 
-const resultJSON = JSON.stringify(patientEntries, null, 4);
-fs.writeFile(input, resultJSON, 'utf8', (err) => {
-    if (err) throw err;
-    console.log('DONE');
-});
+if (encounter) {
+    const resultJSON = JSON.stringify(patientEntries, null, 4);
+    fs.writeFile(input, resultJSON, 'utf8', (err) => {
+        if (err) throw err;
+        console.log('DONE');
+    });
+}
+
 
 function log(key, value) {
     console.log(`\t\t${key}: ${value}`);
@@ -143,13 +147,16 @@ function flattenOrderedOutput(entries) {
             if(entry.key.toLowerCase().split(".").indexOf("metadata")>-1){
                 metadata.push(entry);
             }else{
-                console.log(entry);
+                // pretty much everything has "Value" tacked to the end, so we lop it off
+                const valueCheck = entry.key.split(".");
+                valueCheck.splice(valueCheck.indexOf("Value"),1);
+                entry.key = valueCheck.join('.');
                 total.push(entry);
             }
         })
         if(total.length>0) {
             returnEntries = returnEntries.concat(total);
-        }else if(metadata.length>0){
+        }else if(metadata.length>0 && showMeta){
             returnEntries.push(metadata[0])
         }
     })
@@ -158,8 +165,8 @@ function flattenOrderedOutput(entries) {
 
 function logInOrder(id, type, key, value) {
     key = type + '.' + key;
-    key = key.padStart(key.length + 10 - id.length);
-    value = value.padStart(80 - key.length - id.length);
+    key = key.padStart(key.length + 5 - id.length);
+    value = value.padStart(80 - key.length - id.length + value.length);
     console.log(`[${id}] ${key}: ${value}`);
 }
 
