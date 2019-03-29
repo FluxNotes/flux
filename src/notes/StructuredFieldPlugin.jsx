@@ -65,9 +65,11 @@ function StructuredFieldPlugin(opts) {
         const previousNode = state.document.getPreviousSibling(state.selection.anchorKey);
 
         if (e.key === 'Backspace' && previousNode) {
+            const previousNodeShortcut = previousNode.data.get('shortcut');
             if (previousNode.type === 'structured_field'
-                && !((previousNode.data.get('shortcut') instanceof InsertValue) && previousNode.data.get('shortcut').metadata.isEditable)
-                && state.selection.anchorOffset === 0 && state.selection.isCollapsed) {
+                && !(previousNodeShortcut instanceof InsertValue && previousNodeShortcut.metadata.isEditable)
+                && state.selection.anchorOffset === 0
+                && state.selection.isCollapsed) {
                 let transform = state.transform();
                 transform = transform.removeNodeByKey(previousNode.key);
                 let newState = transform.apply();
@@ -82,7 +84,7 @@ function StructuredFieldPlugin(opts) {
             }
         } else if (e.keyCode === 39 && parentNode) {
             if ((parentNode.type === 'structured_field')
-                && !((shortcut instanceof InsertValue) && shortcut.metadata.isEditable)) {
+                && !(shortcut instanceof InsertValue && shortcut.metadata.isEditable)) {
                 let transform = state.transform();
                 transform = transform.collapseToStartOfNextText();
                 let newState = transform.apply();
@@ -109,15 +111,18 @@ function StructuredFieldPlugin(opts) {
             }
         }
 
-        if (shortcut) {
-            // If there is a shortcut that is not an editable inserter shortcut, return state to cause zero changes
-            // to editor when typing inside.
-            if (!((shortcut instanceof InsertValue) && shortcut.metadata.isEditable)) return state;
-            // If it is an editable inserter shortcut, continue through onKeyDown to allow splitting and editing shortcuts.
-        } else {
-            // If no shortcut, continue return to continue through slate's calls to update state.
+        // There are two special cases we care about catching before splitting and editing shortcuts:
+        // 1. If no shortcut, return to continue through slate's calls to update state.
+        if (!shortcut) {
             return;
+        } else {
+            // 2. If there is a shortcut that is not an editable inserter shortcut (e.g. a non-editable inserter, a creator, etc),
+            // return state to cause zero changes to editor when typing inside.
+            if (!(shortcut instanceof InsertValue && shortcut.metadata.isEditable)) {
+                return state;
+            }
         }
+        // If it is an editable inserter shortcut, continue through onKeyDown to allow splitting and editing shortcuts.
 
         // Arrow keys, shift, escape, tab, numlock, page up/down, etc
         let ignoredKeys = [8, 9, 12, 16, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 93, 144, 145];
