@@ -57,6 +57,10 @@ patientEntries.forEach((entry, i) => {
     let isDate;
     const entryId = flattenedEntry.EntryId
     const entryType = flattenedEntry["EntryType.Value"].split('/').slice(-1)[0];
+    let specificFocusOfFinding = flattenedEntry["SpecificFocusOfFinding.Value._EntryId"];
+    if (!specificFocusOfFinding) specificFocusOfFinding = flattenedEntry["Reason.0.Value._EntryId"];
+    let findingTopicCode = flattenedEntry["FindingTopicCode.Value.Coding.0.DisplayText.Value"];
+    if (!findingTopicCode) findingTopicCode = flattenedEntry["ProcedureCode.Value.Coding.0.DisplayText.Value"]; 
     if (output && !orderedOutput) {
         console.log(entryId + '\t' + entryType);
     }
@@ -102,6 +106,8 @@ patientEntries.forEach((entry, i) => {
         if (orderedOutput && isDate) {
             entry.key = key;
             entry.value = value;
+            entry.specificFocusOfFinding = specificFocusOfFinding;
+            entry.findingTopicCode = findingTopicCode;
             if (entries[entry.entryId]) {
                 entries[entry.entryId].push(entry);
             } else {
@@ -120,8 +126,9 @@ patientEntries.forEach((entry, i) => {
 if (orderedOutput) {
     const newEntries = flattenOrderedOutput(entries);
     newEntries.sort(sortByDate);
+    logInOrder("Id", undefined, "Entry Type", "Date", "Ref", "Topic");
     newEntries.forEach((e) => {
-        logInOrder(e.entryId, e.entryType, e.key, e.value);
+        logInOrder(e.entryId, e.entryType, e.key, e.value, e.specificFocusOfFinding ? e.specificFocusOfFinding : "", e.findingTopicCode ? e.findingTopicCode : "");
     })
 }
 
@@ -163,11 +170,14 @@ function flattenOrderedOutput(entries) {
     return returnEntries;
 }
 
-function logInOrder(id, type, key, value) {
-    key = type + '.' + key;
-    key = key.padStart(key.length + 5 - id.length);
-    value = value.padStart(80 - key.length - id.length + value.length);
-    console.log(`[${id}] ${key}: ${value}`);
+function logInOrder(id, type, key, value, specificFocusOfFinding, findingTopicCode) {
+    if (type) key = type + '.' + key;
+    if (findingTopicCode.length > 30) findingTopicCode = findingTopicCode.substring(0, 28) + "..";
+    findingTopicCode = findingTopicCode.padStart(findingTopicCode.length + 5 - id.length);
+    key = key.padStart(key.length + 35 - id.length - findingTopicCode.length);
+    value = value.padStart(100 - key.length - id.length - findingTopicCode.length + value.length);
+    specificFocusOfFinding = specificFocusOfFinding.padStart(125 - value.length - key.length - id.length - findingTopicCode.length + specificFocusOfFinding.length);
+    console.log(`${id} ${findingTopicCode} ${key} ${value} ${specificFocusOfFinding}`);
 }
 
 function sortByDate(a, b) {
