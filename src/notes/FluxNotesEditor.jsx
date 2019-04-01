@@ -820,7 +820,6 @@ class FluxNotesEditor extends React.Component {
         // This means user either clicked the OK or Cancel button on the pick list options panel
         if (this.props.noteAssistantMode === 'pick-list-options-panel' && nextProps.noteAssistantMode === 'context-tray') {
             this.adjustActiveContexts(this.state.state.selection, this.state.state);
-            this.props.contextManager.clearNonActiveContexts();
             this.props.setNoteViewerEditable(true);
             // If the user clicks cancel button, change editor state back to what it was before they clicked the template
             if (nextProps.shouldRevertTemplate) {

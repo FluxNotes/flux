@@ -214,15 +214,6 @@ class ContextManager {
         this.activeContexts = [];
         this.contextUpdated();
     }
-
-    // Clears all non active contexts from this.contexts
-    // Only used after picking options from template
-    // When choosing options, many unncessary contexts get added
-    clearNonActiveContexts() {
-        this.contexts = this.contexts.filter((context) => {
-            return this.activeContexts.includes(context);
-        });
-    }
 }
 
 export default ContextManager;
