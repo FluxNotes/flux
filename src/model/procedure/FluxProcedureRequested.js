@@ -45,6 +45,15 @@ class FluxProcedureRequested extends FluxEntry {
     }
 
     /*
+     *  Getter for statusCodeSystem
+     *  Returns statusCodeSystem string or null if there is none
+     */
+    get statusCodeSystem() {
+        if (!this._procedureRequested.status || !this._procedureRequested.status.value.coding[0].codeSystem) return null;
+        return this._procedureRequested.status.value.coding[0].codeSystem.value;
+    }
+
+    /*
      *  Getter for procedure name
      *  Returns procedure name string
      */
@@ -59,6 +68,15 @@ class FluxProcedureRequested extends FluxEntry {
     get code() {
         if (!this._procedureRequested.procedureCode) return null;
         return this._procedureRequested.procedureCode.value.coding[0].code.value;
+    }
+
+    /*
+     *  Getter for the codesystem associated with the procedure code
+     *  Returns procedure code string
+     */
+    get codeSystem() {
+        if (!this._procedureRequested.procedureCode) return null;
+        return this._procedureRequested.procedureCode.value.coding[0].codeSystem.value;
     }
 
     /*

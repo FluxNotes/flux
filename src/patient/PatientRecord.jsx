@@ -822,23 +822,23 @@ class PatientRecord {
 
     getSurgeriesForCondition(condition) {
         const allProceduresForCondition = this.getProceduresForCondition(condition);
-        return allProceduresForCondition.filter((cond) => {
-            // Looking for Surgery code - should be based on http://ncimeta.nci.nih.govs
-            return cond.code === "C0851238";
+        return allProceduresForCondition.filter((procedure) => {
+            // Looking for Surgery code - should be based on http://ncimeta.nci.nih.gov
+            return procedure.code === "C0851238" && procedure.codeSystem === "http://ncimeta.nci.nih.gov"; 
         });
     }
 
     getSurgeriesPlannedForCondition(condition) {
         const surgeriesForCondition = this.getSurgeriesForCondition(condition);
-        return surgeriesForCondition.filter((cond) => {
+        return surgeriesForCondition.filter((surgery) => {
             // Case 1: Status is active: 
             // Looking for active request status code - should be based on http://hl7.org/fhir/STU3/valueset-request-status.html
-            const isActive = cond.status === "active";
+            const isActive = surgery.status === "active" && surgery.statusCodeSystem === "http://hl7.org/fhir/STU3/valueset-request-status.html";
             // Case 2: ExpectedPerformanceDate is after "right now"
             const now = moment()
-            let condStartTime = new moment(cond.occurrenceTime, "D MMM YYYY");
-            if (!condStartTime.isValid()) condStartTime = new moment(cond.occurrenceTime.timePeriodStart, "D MMM YYYY");
-            const isForthcoming = condStartTime > now
+            let surgeryStartTime = new moment(surgery.occurrenceTime, "D MMM YYYY");
+            if (!surgeryStartTime.isValid()) surgeryStartTime = new moment(surgery.occurrenceTime.timePeriodStart, "D MMM YYYY");
+            const isForthcoming = surgeryStartTime > now
             // If either case is true, we want this element
             return isActive || isForthcoming;
         })
@@ -846,15 +846,15 @@ class PatientRecord {
 
     getSurgeriesPreviouslyPerformedForCondition(condition) {
         const surgeriesForCondition = this.getSurgeriesForCondition(condition);
-        return surgeriesForCondition.filter((cond) => {
+        return surgeriesForCondition.filter((surgery) => {
             // Case 1: Status is completed: 
             // Looking for completed request status code - should be based on http://hl7.org/fhir/STU3/valueset-request-status.html
-            const isCompleted = cond.status === "completed";
+            const isCompleted = surgery.status === "completed" && surgery.statusCodeSystem === "http://hl7.org/fhir/STU3/valueset-request-status.html";
             // Case 2: ExpectedPerformanceDate is before "right now"
             const now = moment()
-            let condStartTime = new moment(cond.occurrenceTime, "D MMM YYYY");
-            if (!condStartTime.isValid()) condStartTime = new moment(cond.occurrenceTime.timePeriodStart, "D MMM YYYY");
-            const hasPassed = condStartTime < now
+            let surgeryStartTime = new moment(surgery.occurrenceTime, "D MMM YYYY");
+            if (!surgeryStartTime.isValid()) surgeryStartTime = new moment(surgery.occurrenceTime.timePeriodStart, "D MMM YYYY");
+            const hasPassed = surgeryStartTime < now
             // If either case is true, we want this element
             return isCompleted || hasPassed;
         });
