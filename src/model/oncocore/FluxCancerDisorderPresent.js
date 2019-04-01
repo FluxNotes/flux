@@ -45,60 +45,60 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
         }
         else if (this.isCancerType("Invasive ductal carcinoma of breast")) {
             hpiText += this.buildHpiNarrativeForBreastCancer(patient);
-        } 
-        return hpiText;             
+        }
+        return hpiText;
     }
-    
+
     buildHpiNarrativeForFluxGastrointestinalStromalTumor(patient) {
         let hpiText = "";
 
-         // Staging
-         const staging = this.getMostRecentStaging();
-         if (staging) {
-             if (staging.stage) {
-                 hpiText += ` Stage ${staging.stage}`;
-             }
-             if (!Lang.isUndefined(staging.t_Stage) && !Lang.isNull(staging.t_Stage)) {
-                 hpiText += ` ${staging.t_Stage}`;
-             }
-             if (!Lang.isUndefined(staging.n_Stage) && !Lang.isNull(staging.n_Stage)) {
-                 hpiText += ` ${staging.n_Stage}`;
-             }
-             if (!Lang.isUndefined(staging.m_Stage) && !Lang.isNull(staging.m_Stage) && staging.m_Stage !== 'M0') { // don't show m if it is 0
-                 hpiText += ` ${staging.m_Stage}`;
-             }
-             if (staging.mitoticRate) {
-                 hpiText += `. Mitotic rate ${staging.mitoticRate}`;
-             }
-             hpiText += '.';
-         }
- 
-         // Tumor Size and HistologicGrade
-         const tumorSize = this.getObservationsOfType(FluxTumorDimensions);
-         const histologicGrade = this.getObservationsOfType(FluxCancerHistologicGrade);
-         if (tumorSize.length > 0) {
-             hpiText += ` Primary tumor size ${tumorSize[tumorSize.length - 1].quantity.number} ${tumorSize[tumorSize.length - 1].quantity.unit}.`;
-         }
-         if (histologicGrade.length > 0) {
-             hpiText += ` ${histologicGrade[0].grade}.`;
-         }
- 
-         // genetics
-         const geneticpanels = patient.getGastrointestinalStromalTumorCancerGeneticAnalysisPanelsChronologicalOrder();
-         //const geneticspanelMostRecent = geneticpanels[geneticpanels.length - 1];
-         if (geneticpanels && geneticpanels.length > 0) {
-             const panel = geneticpanels.pop();
-             hpiText += " " + panel.members.map((item) => {
-                 const v = item.value === 'Positive' ? '+' : '-';
-                 return item.abbreviatedName + v;
-             }).join(",");
-         }
- 
-         hpiText = this.buildEventNarrative(hpiText, patient, this.code);
-         
-         return hpiText;
+        // Staging
+        const staging = this.getMostRecentStaging();
+        if (staging) {
+            if (staging.stage) {
+                hpiText += ` Stage ${staging.stage}`;
+            }
+            if (!Lang.isUndefined(staging.t_Stage) && !Lang.isNull(staging.t_Stage)) {
+                hpiText += ` ${staging.t_Stage}`;
+            }
+            if (!Lang.isUndefined(staging.n_Stage) && !Lang.isNull(staging.n_Stage)) {
+                hpiText += ` ${staging.n_Stage}`;
+            }
+            if (!Lang.isUndefined(staging.m_Stage) && !Lang.isNull(staging.m_Stage) && staging.m_Stage !== 'M0') { // don't show m if it is 0
+                hpiText += ` ${staging.m_Stage}`;
+            }
+            if (staging.mitoticRate) {
+                hpiText += `. Mitotic rate ${staging.mitoticRate}`;
+            }
+            hpiText += '.';
+        }
+
+        // Tumor Size and HistologicGrade
+        const tumorSize = this.getObservationsOfType(FluxTumorDimensions);
+        const histologicGrade = this.getObservationsOfType(FluxCancerHistologicGrade);
+        if (tumorSize.length > 0) {
+            hpiText += ` Primary tumor size ${tumorSize[tumorSize.length - 1].quantity.number} ${tumorSize[tumorSize.length - 1].quantity.unit}.`;
+        }
+        if (histologicGrade.length > 0) {
+            hpiText += ` ${histologicGrade[0].grade}.`;
+        }
+
+        // genetics
+        const geneticpanels = patient.getGastrointestinalStromalTumorCancerGeneticAnalysisPanelsChronologicalOrder();
+        //const geneticspanelMostRecent = geneticpanels[geneticpanels.length - 1];
+        if (geneticpanels && geneticpanels.length > 0) {
+            const panel = geneticpanels.pop();
+            hpiText += " " + panel.members.map((item) => {
+                const v = item.value === 'Positive' ? '+' : '-';
+                return item.abbreviatedName + v;
+            }).join(",");
+        }
+
+        hpiText = this.buildEventNarrative(hpiText, patient, this.code);
+
+        return hpiText;
     }
- 
+
     buildHpiNarrativeForBreastCancer(patient) {
         let hpiText = "";
 
@@ -138,7 +138,7 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
         }
 
         hpiText = this.buildEventNarrative(hpiText, patient, this.code);
-        
+
         return hpiText;
     }
 
@@ -154,7 +154,7 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
             if (Lang.isEmpty(mutation)) return undefined;
             return mutation.value;
         }
-        
+
         return null;
     }
 
@@ -174,14 +174,14 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
         if (this.isCancerType("Invasive ductal carcinoma of breast")) {
             return this._getMostRecentReceptorStatus('Progesterone Receptor');
         }
-        
+
         return null;
     }
     getMostRecentHER2ReceptorStatus() {
         if (this.isCancerType("Invasive ductal carcinoma of breast")) {
             return this._getMostRecentReceptorStatus('HER2 Receptor');
         }
-        
+
         return null;
     }
 
@@ -247,12 +247,12 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
 
     getMostRecentClinicalStaging(sinceDate = null) {
         let stagingList = this._patientRecord.getEntriesOfType(FluxTNMClinicalStageGroup);
-        if (stagingList.length === 0) return null; 
+        if (stagingList.length === 0) return null;
         // Sort to get the most recent
         const sortedStagingList = stagingList.sort(this._stageTimeSorter);
         const length = sortedStagingList.length;
         let s = (sortedStagingList[length - 1]);
-        if (Lang.isNull(sinceDate)) return s; 
+        if (Lang.isNull(sinceDate)) return s;
         const startTime = new moment(s.occurrenceTime, "D MMM YYYY");
         if (startTime < sinceDate) {
             return null;
@@ -263,11 +263,11 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
 
     getMostRecentPathologicStaging(sinceDate = null) {
         let stagingList = this._patientRecord.getEntriesOfType(FluxTNMPathologicStageGroup);
-        if (stagingList.length === 0) return null; 
+        if (stagingList.length === 0) return null;
         const sortedStagingList = stagingList.sort(this._stageTimeSorter);
         const length = sortedStagingList.length;
         let s = (sortedStagingList[length - 1]);
-        if (Lang.isNull(sinceDate)) return s; 
+        if (Lang.isNull(sinceDate)) return s;
         const startTime = new moment(s.relevantTime, "D MMM YYYY");
         if (startTime < sinceDate) {
             return null;
@@ -278,11 +278,11 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
 
     getMostRecentStaging(sinceDate = null) {
         let stagingList = this._patientRecord.getEntriesOfType(FluxTNMStageGroup);
-        if (stagingList.length === 0) return null; 
+        if (stagingList.length === 0) return null;
         const sortedStagingList = stagingList.sort(this._stageTimeSorter);
         const length = sortedStagingList.length;
         let s = (sortedStagingList[length - 1]);
-        if (Lang.isNull(sinceDate)) return s; 
+        if (Lang.isNull(sinceDate)) return s;
         const startTime = new moment(s.relevantTime, "D MMM YYYY");
         if (startTime < sinceDate) {
             return null;
@@ -291,14 +291,14 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
         }
     }
 
-    getMostRecentTumorMarkers(sinceDate = null) { 
+    getMostRecentTumorMarkers(sinceDate = null) {
         let tumorMarkersList = this._patientRecord.getEntriesOfType(FluxTumorMarker);
         // If we have none, return null
-        if (tumorMarkersList.length === 0) return null; 
+        if (tumorMarkersList.length === 0) return null;
         const sortedTumorMarkersList = tumorMarkersList
             .sort(this._stageTimeSorter);
         // If we have no sinceDate, return them all sorted
-        if (Lang.isNull(sinceDate)) return sortedTumorMarkersList; 
+        if (Lang.isNull(sinceDate)) return sortedTumorMarkersList;
         const filteredSortedTumorMarkerList = sortedTumorMarkersList.filter(tm => new moment(tm.relevantTime, "D MMM YYYY") < sinceDate);
         if (filteredSortedTumorMarkerList.length === 0) return null;
         return filteredSortedTumorMarkerList;
@@ -306,7 +306,7 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
 
     // Pass in cancer name and return true/false
     isCancerType(cancerName) {
-        const code = lookup.getCancerCodeableConcept(cancerName);      
+        const code = lookup.getCancerCodeableConcept(cancerName);
 
         return (this.code === code.coding[0].code.code);
     }
