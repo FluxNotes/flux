@@ -98,6 +98,7 @@
     "eject": "react-scripts eject",
     "parse": "babel-node --presets es2015,react --plugins transform-class-properties,transform-es2015-destructuring,transform-object-rest-spread ./src/noteparser/app.js",
     "patient-date-update": "node ./src/patient-date-updater/app.js",
+    "patient-date-list": "node ./src/patient-date-updater/app.js -O",
     "test-ci": "react-scripts test --env=jsdom --coverage",
     "test": "run-script-os",
     "test:win32": "yarn test-backend:win32",

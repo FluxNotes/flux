@@ -36,7 +36,11 @@ export default function getProps(patient, condition) {
             "grade": {
                 "display": "grade",
                 "valueType": "int",
-                "value": condition.getMostRecentHistologicalGrade().getGradeAsSimpleNumber()
+                "value": (() => {
+                    const grade = condition.getMostRecentHistologicalGrade();
+                    if (!grade) return null;
+                    return grade.getGradeAsSimpleNumber();             
+                })()
             },
             "stage": {
                 "display": "stage",

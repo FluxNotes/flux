@@ -10,7 +10,7 @@ import thunk from 'redux-thunk'
 import PatientRecord from '../../../src/patient/PatientRecord';
 import TestPatient2 from '../../TestPatient2.json';
 import EntryMapper from '../../../src/dataaccess/mcodev0.1-datasource/EntryMapper';
-import FluxBreastCancerDisorderPresent from '../../../src/model/brca/FluxBreastCancerDisorderPresent';
+import FluxCancerDisorderPresent from '../../../src/model/oncocore/FluxCancerDisorderPresent';
 
 const mockStore = configureMockStore([thunk]);
 
@@ -19,7 +19,7 @@ describe('actions', () => {
 
     const mcodePatientJson = EntryMapper.mapEntries(TestPatient2);
     const testPatientObj = new PatientRecord(mcodePatientJson);
-    const fluxCondition = testPatientObj.getEntriesOfType(FluxBreastCancerDisorderPresent)[0];
+    const fluxCondition = testPatientObj.getEntriesOfType(FluxCancerDisorderPresent)[0];
 
     it('should create an action to initialize options', () => {
         const patient=testPatientObj;

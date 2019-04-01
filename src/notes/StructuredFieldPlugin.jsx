@@ -63,11 +63,13 @@ function StructuredFieldPlugin(opts) {
         // If the previous node is not an inserter,
         // delete the full node when hitting backspace right before it, as it is not editable.
         const previousNode = state.document.getPreviousSibling(state.selection.anchorKey);
-        
+
         if (e.key === 'Backspace' && previousNode) {
+            const previousNodeShortcut = previousNode.data.get('shortcut');
             if (previousNode.type === 'structured_field'
-                && !(previousNode.data.get('shortcut') instanceof InsertValue)
-                && state.selection.anchorOffset === 0 && state.selection.isCollapsed) {
+                && !(previousNodeShortcut instanceof InsertValue && previousNodeShortcut.metadata.isEditable)
+                && state.selection.anchorOffset === 0
+                && state.selection.isCollapsed) {
                 let transform = state.transform();
                 transform = transform.removeNodeByKey(previousNode.key);
                 let newState = transform.apply();
@@ -81,7 +83,8 @@ function StructuredFieldPlugin(opts) {
                 return newState;
             }
         } else if (e.keyCode === 39 && parentNode) {
-            if ((parentNode.type === 'structured_field') && !(shortcut instanceof InsertValue)) {
+            if ((parentNode.type === 'structured_field')
+                && !(shortcut instanceof InsertValue && shortcut.metadata.isEditable)) {
                 let transform = state.transform();
                 transform = transform.collapseToStartOfNextText();
                 let newState = transform.apply();
@@ -108,7 +111,18 @@ function StructuredFieldPlugin(opts) {
             }
         }
 
-        if (!(shortcut instanceof InsertValue)) return;
+        // There are two special cases we care about catching before splitting and editing shortcuts:
+        // 1. If no shortcut, return to continue through slate's calls to update state.
+        if (!shortcut) {
+            return;
+        } else {
+            // 2. If there is a shortcut that is not an editable inserter shortcut (e.g. a non-editable inserter, a creator, etc),
+            // return state to cause zero changes to editor when typing inside.
+            if (!(shortcut instanceof InsertValue && shortcut.metadata.isEditable)) {
+                return state;
+            }
+        }
+        // If it is an editable inserter shortcut, continue through onKeyDown to allow splitting and editing shortcuts.
 
         // Arrow keys, shift, escape, tab, numlock, page up/down, etc
         let ignoredKeys = [8, 9, 12, 16, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 93, 144, 145];
@@ -221,7 +235,7 @@ function StructuredFieldPlugin(opts) {
             structured_field: props => {
                 const shortcut = props.node.get('data').get('shortcut');
                 if (shortcut instanceof InsertValue) {
-                    return <span className='structured-field-inserter' {...props.attributes}>{props.children}{safariSpacing}</span>;
+                    return <span contentEditable={shortcut.metadata.isEditable ? '' : false} className='structured-field-inserter' {...props.attributes}>{props.children}</span>;
                 } else {
                     return <span contentEditable={false} className='structured-field-creator' {...props.attributes}>{props.children}{safariSpacing}</span>;
                 }
@@ -229,7 +243,7 @@ function StructuredFieldPlugin(opts) {
             bolded_structured_field: props => {
                 const shortcut = props.node.get('data').get('shortcut');
                 if (shortcut instanceof InsertValue) {
-                    return <span className='structured-field-inserter structured-field-bolded' {...props.attributes}>{props.children}{safariSpacing}</span>;
+                    return <span contentEditable={shortcut.metadata.isEditable ? '' : false} className='structured-field-inserter structured-field-bolded' {...props.attributes}>{props.children}{safariSpacing}</span>;
                 } else {
                     return <span contentEditable={false} className='structured-field-creator structured-field-bolded' {...props.attributes}>{props.children}</span>;
                 }
@@ -237,7 +251,7 @@ function StructuredFieldPlugin(opts) {
             structured_field_selected_search_result: props => {
                 const shortcut = props.node.get('data').get('shortcut');
                 if (shortcut instanceof InsertValue) {
-                    return <span className='structured-field-inserter structured-field-selected-search-result' {...props.attributes}>{props.children}{safariSpacing}</span>;
+                    return <span contentEditable={shortcut.metadata.isEditable ? '' : false} className='structured-field-inserter structured-field-selected-search-result' {...props.attributes}>{props.children}{safariSpacing}</span>;
                 } else {
                     return <span contentEditable={false} className='structured-field-creator structured-field-selected-search-result' {...props.attributes}>{props.children}</span>;
                 }
@@ -245,7 +259,7 @@ function StructuredFieldPlugin(opts) {
             structured_field_search_result: props => {
                 const shortcut = props.node.get('data').get('shortcut');
                 if (shortcut instanceof InsertValue) {
-                    return <span className='structured-field-inserter structured-field-search-result' {...props.attributes}>{props.children}{safariSpacing}</span>;
+                    return <span contentEditable={shortcut.metadata.isEditable ? '' : false} className='structured-field-inserter structured-field-search-result' {...props.attributes}>{props.children}{safariSpacing}</span>;
                 } else {
                     return <span contentEditable={false} className='structured-field-creator structured-field-search-result' {...props.attributes}>{props.children}</span>;
                 }

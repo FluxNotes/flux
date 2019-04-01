@@ -445,7 +445,7 @@
     },
     {
         "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/brca/BreastCancerDisorderPresent"
+            "Value": "http://standardhealthrecord.org/spec/oncocore/CancerDisorderPresent"
         },
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
         "EntryId": "8",
@@ -457,13 +457,13 @@
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
                 },
-                "Value": "18 Dec 2017"
+                "Value": "18 Dec 2018"
             },
             "AuthoredDateTime": {
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/base/AuthoredDateTime"
                 },
-                "Value": "18 Dec 2017"
+                "Value": "18 Dec 2018"
             }
         },
         "FindingTopicCode": {
@@ -1230,7 +1230,7 @@
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/base/AuthoredDateTime"
                 },
-                "Value": "12 April 2010"
+                "Value": "12 Apr 2010"
             }
         },
         "FindingTopicCode": {
@@ -1371,7 +1371,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/Onset"
             },
-            "Value": "12 April 2010"
+            "Value": "12 Apr 2010"
         }
     },
     {
@@ -2309,7 +2309,7 @@
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/BeginDateTime"
                     },
-                    "Value": "31 Jul 2018 16:00 -0400"
+                    "Value": "25 Dec 2018 16:00 -0400"
                 }
             },
             "Status": {
@@ -2385,7 +2385,7 @@
             "Value": "http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested"
         },
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
-        "EntryId": "33",
+        "EntryId": "50",
         "Metadata": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/Metadata"
@@ -2415,7 +2415,7 @@
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/BeginDateTime"
                     },
-                    "Value": "3 Jul 2018 16:00 -0400"
+                    "Value": "21 Dec 2018 16:00 -0400"
                 }
             },
             "Status": {
@@ -2500,13 +2500,13 @@
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
                 },
-                "Value": "21 May 2018"
+                "Value": "25 Dec 2018"
             },
             "AuthoredDateTime": {
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/base/AuthoredDateTime"
                 },
-                "Value": "21 May 2018"
+                "Value": "25 Dec 2018"
             }
         },
         "Encounter": {
@@ -2521,7 +2521,7 @@
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/BeginDateTime"
                     },
-                    "Value": "19 Jul 2018 18:00 -0400"
+                    "Value": "31 Dec 2018 18:00 -0400"
                 }
             },
             "Status": {
@@ -5447,13 +5447,13 @@
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
                 },
-                "Value": "18 Dec 2017"
+                "Value": "18 Dec 2018"
             },
             "AuthoredDateTime": {
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/base/AuthoredDateTime"
                 },
-                "Value": "18 Dec 2017"
+                "Value": "18 Dec 2018"
             }
         },
         "FindingResult": {
@@ -5540,7 +5540,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             },
-            "Value": "18 Dec 2017"
+            "Value": "18 Dec 2018"
         }
     },
     {
@@ -5557,13 +5557,13 @@
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
                 },
-                "Value": "18 Dec 2017"
+                "Value": "18 Dec 2018"
             },
             "AuthoredDateTime": {
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/base/AuthoredDateTime"
                 },
-                "Value": "18 Dec 2017"
+                "Value": "18 Dec 2018"
             }
         },
         "FindingResult": {
@@ -5682,7 +5682,7 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             },
-            "Value": "18 Dec 2017"
+            "Value": "18 Dec 2018"
         }
     },
     {

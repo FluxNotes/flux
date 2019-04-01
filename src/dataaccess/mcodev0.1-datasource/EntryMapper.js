@@ -133,7 +133,6 @@ import AllergyIntoleranceReaction from '../../model/shr/allergy/AllergyIntoleran
 import Severity from '../../model/shr/base/Severity';
 import Manifestation from '../../model/shr/allergy/Manifestation';
 import FluxBreastCancerV01 from './model/oncology/FluxBreastCancer';
-import BreastCancerDisorderPresent from '../../model/brca/BreastCancerDisorderPresent';
 import AnatomicalLocationStructured from '../../model/shr/core/AnatomicalLocationStructured';
 import AnatomicalLocationOrLandmarkCode from '../../model/shr/core/AnatomicalLocationOrLandmarkCode';
 import Laterality from '../../model/shr/core/Laterality';
@@ -531,15 +530,10 @@ exports.mapEntries = (v01Json) => {
             v05Json.push(entry.toJSON());
         } else if (entry instanceof FluxGastrointestinalStromalTumorV01) {
             const newCondition = mapCancerDisorder(entry, CancerDisorderPresent);
-
-            const entryJSON = newCondition.toJSON();
-            entryJSON.EntryType.Value = 'http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor';
-            v05Json.push(entryJSON);
+            v05Json.push(newCondition.toJSON());
         } else if (entry instanceof FluxBreastCancerV01) {
-            const newCondition = mapCancerDisorder(entry, BreastCancerDisorderPresent);
-
-            const entryJSON = newCondition.toJSON();
-            v05Json.push(entryJSON);
+            const newCondition = mapCancerDisorder(entry, CancerDisorderPresent);
+            v05Json.push(newCondition.toJSON());
         } else if (entry instanceof FluxConditionPresentAssertionV01) {
             const newCondition = new ConditionPresentAssertion();
 
