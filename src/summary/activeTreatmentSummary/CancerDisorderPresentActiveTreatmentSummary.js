@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import IActiveTreatmentSummary from './IActiveTreatmentSummary';
-import FluxSolidTumorCancer from '../../model/oncology/FluxSolidTumorCancer';
+import FluxCancerDisorderPresent from '../../model/oncology/FluxCancerDisorderPresent';
 
-class SolidTumorActiveTreatmentSummary extends IActiveTreatmentSummary {
+class CancerDisorderPresentActiveTreatmentSummary extends IActiveTreatmentSummary {
     constructor() { 
         super()
         this._possibleActiveTreatmentOptions = { 
@@ -34,7 +34,7 @@ class SolidTumorActiveTreatmentSummary extends IActiveTreatmentSummary {
 
     getActiveTreatmentSummary(patient, currentConditionEntry) { 
         // If the condition isn't a cancer, return null - this algorithm cannot provide information about 
-        if (!currentConditionEntry instanceof FluxSolidTumorCancer) return null;
+        if (!currentConditionEntry instanceof FluxCancerDisorderPresent) return null;
         let activeTreatment = {};
         // Get all relevant medications
         const activeNonOTCMeds = this._getActiveNonOTCMedsForCondition(patient, currentConditionEntry);
@@ -102,4 +102,4 @@ class SolidTumorActiveTreatmentSummary extends IActiveTreatmentSummary {
     }
 }
 
-export default SolidTumorActiveTreatmentSummary;
+export default CancerDisorderPresentActiveTreatmentSummary;
