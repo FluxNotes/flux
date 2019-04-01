@@ -443,6 +443,7 @@
     "id": "OncologyHistoryInserter",
     "getData": {"object": "$parentValueObject", "method": "buildHpiNarrative"},
     "isContext": false,
+    "isEditable": true,
     "stringTriggers": [{"name": "@ONCOHIST", "description": "Insert patient's oncology history"}],
     "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/oncocore/CancerDisorderPresent"],
     "knownParentContexts": "ConditionInserter"
