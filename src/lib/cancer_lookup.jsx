@@ -6,6 +6,12 @@ const cancerOptions = [
         description: "Invasive ductal carcinoma of breast",
         code: "408643008",
         codeSystem: "http://snomed.info/sct"
+    },
+    {
+        name: 'Gastrointestinal stromal tumor', 
+        description: "Gastrointestinal stromal tumor",
+        code: "420120006",
+        codeSystem: "http://snomed.info/sct"
     }];
 
 /*

@@ -1,6 +1,8 @@
 import { getNamespaceAndName } from '../json-helper';
-import FluxBreastCancerDisorderPresent from './FluxBreastCancerDisorderPresent';
 import BrcaObjectFactory from './BrcaObjectFactory';
+
+// there are currently no Flux wrapper classes in the brca namespace
+// this factory is left for future convenience in case any are added in the future
 
 export default class FluxBrcaObjectFactory {
     static createInstance(json, type, patientRecord) {
@@ -10,7 +12,6 @@ export default class FluxBrcaObjectFactory {
         }
         // returns Flux wrapper class if found, otherwise use BrcaObjectFactory
         switch (elementName) {
-            case 'BreastCancerDisorderPresent': return new FluxBreastCancerDisorderPresent(json, patientRecord);
             default: return BrcaObjectFactory.createInstance(json, type, patientRecord);
         }
     }

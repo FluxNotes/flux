@@ -1,6 +1,6 @@
 import FluxObjectFactory from '../model/FluxObjectFactory';
 import FluxAllergyIntolerance from '../model/allergy/FluxAllergyIntolerance';
-import FluxBreastCancerDisorderPresent from '../model/brca/FluxBreastCancerDisorderPresent';
+import FluxCancerDisorderPresent from '../model/oncocore/FluxCancerDisorderPresent';
 import FluxBreastCancerGeneticAnalysisPanel from '../model/oncology/FluxBreastCancerGeneticAnalysisPanel';
 import FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel from '../model/oncology/FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel';
 import FluxClinicalNote from '../model/core/FluxClinicalNote';
@@ -481,11 +481,6 @@ class PatientRecord {
         return result;
     }
 
-    getLastBreastCancerCondition() {
-        let result = this.getEntriesOfType(FluxBreastCancerDisorderPresent);
-        return result[result.length - 1];
-    }
-
     // Add initial unsigned note to patient record
     addClinicalNote(signedOn, subject, hospital, createdBy, signedBy, content, signed) {
 
@@ -826,8 +821,10 @@ class PatientRecord {
     }
 
     getMostRecentTumorMarkers(condition) {
-        // Display ER, PR, HER2 if Breast Cancer Condition
-        if (condition instanceof FluxBreastCancerDisorderPresent) {
+        if (!(condition instanceof FluxCancerDisorderPresent)) return null;
+
+        if (condition.isCancerType('Invasive ductal carcinoma of breast')) {
+            // Display ER, PR, HER2 if Breast Cancer Condition
             const receptorStatuses = [];
             const er = condition.getMostRecentERReceptorStatus();
             const pr = condition.getMostRecentPRReceptorStatus();
@@ -841,20 +838,21 @@ class PatientRecord {
             // TODO: We might want to look at how we check for the isUnsigned property since these are 3 different entries(same for determining source)
             // for now using first receptor status in array
             return receptorStatuses;
-        } else {
+        } else if (condition.isCancerType('Gastrointestinal stromal tumor')) {
             // for GIST, KIT and PDGFRA are mutually excusive. only show positive ones
             const panels = this.getGastrointestinalStromalTumorCancerGeneticAnalysisPanelsChronologicalOrder();
             if (!panels || panels.length === 0) return null;
             const panel = panels.pop();
             return  panel.members.filter(item => item.value === 'Positive');
         }
+
+        return null;
     }
 
     getPathologyReportsChronologicalOrder() {
         let reports = this.getPathologyReports();
 
         return reports;
-
     }
 
     getPathologyReports() {
