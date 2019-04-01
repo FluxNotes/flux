@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import IActiveTreatmentSummary from './IActiveTreatmentSummary';
-import FluxCancerDisorderPresent from '../../model/oncology/FluxCancerDisorderPresent';
+import FluxCancerDisorderPresent from '../../model/oncocore/FluxCancerDisorderPresent';
 
 class CancerDisorderPresentActiveTreatmentSummary extends IActiveTreatmentSummary {
     constructor() { 
