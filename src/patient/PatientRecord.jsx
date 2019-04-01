@@ -653,6 +653,17 @@ class PatientRecord {
             return med.isActiveBetween(sixMonthsAgo, today);
         });
     }
+    
+    getActiveMedicationsForCondition(condition) {
+        let medications = this.getActiveMedications();
+        const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
+        medications = medications.filter((med) => {
+            return med instanceof FluxMedicationRequested && med.reasons.some((r) => {
+                return r.value.entryId && r.value.entryId === conditionEntryId;
+            });
+        });
+        return medications;
+    }
 
     getActiveMedicationsChronologicalOrder() {
         return this.getActiveMedicationsReverseChronologicalOrder().reverse();
@@ -805,6 +816,47 @@ class PatientRecord {
 
         return imagingProcedures.filter(p => {
             return p.reasons && p.reasons.some(r => r.value.entryId && r.value.entryId === conditionEntryId);
+        });
+    }
+    
+
+    getSurgeriesForCondition(condition) {
+        const allProceduresForCondition = this.getProceduresForCondition(condition);
+        return allProceduresForCondition.filter((procedure) => {
+            // Looking for Surgery code - should be based on http://ncimeta.nci.nih.gov
+            return procedure.code === "C0851238" && procedure.codeSystem === "http://ncimeta.nci.nih.gov"; 
+        });
+    }
+
+    getSurgeriesPlannedForCondition(condition) {
+        const surgeriesForCondition = this.getSurgeriesForCondition(condition);
+        return surgeriesForCondition.filter((surgery) => {
+            // Case 1: Status is active: 
+            // Looking for active request status code - should be based on http://hl7.org/fhir/STU3/valueset-request-status.html
+            const isActive = surgery.status === "active" && surgery.statusCodeSystem === "http://hl7.org/fhir/STU3/valueset-request-status.html";
+            // Case 2: ExpectedPerformanceDate is after "right now"
+            const now = moment()
+            let surgeryStartTime = new moment(surgery.occurrenceTime, "D MMM YYYY");
+            if (!surgeryStartTime.isValid()) surgeryStartTime = new moment(surgery.occurrenceTime.timePeriodStart, "D MMM YYYY");
+            const isForthcoming = surgeryStartTime > now
+            // If either case is true, we want this element
+            return isActive || isForthcoming;
+        })
+    }
+
+    getSurgeriesPreviouslyPerformedForCondition(condition) {
+        const surgeriesForCondition = this.getSurgeriesForCondition(condition);
+        return surgeriesForCondition.filter((surgery) => {
+            // Case 1: Status is completed: 
+            // Looking for completed request status code - should be based on http://hl7.org/fhir/STU3/valueset-request-status.html
+            const isCompleted = surgery.status === "completed" && surgery.statusCodeSystem === "http://hl7.org/fhir/STU3/valueset-request-status.html";
+            // Case 2: ExpectedPerformanceDate is before "right now"
+            const now = moment()
+            let surgeryStartTime = new moment(surgery.occurrenceTime, "D MMM YYYY");
+            if (!surgeryStartTime.isValid()) surgeryStartTime = new moment(surgery.occurrenceTime.timePeriodStart, "D MMM YYYY");
+            const hasPassed = surgeryStartTime < now
+            // If either case is true, we want this element
+            return isCompleted || hasPassed;
         });
     }
 

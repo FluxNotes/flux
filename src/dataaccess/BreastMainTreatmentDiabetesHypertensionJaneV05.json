@@ -704,6 +704,12 @@
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             },
                             "Value": "completed"
+                        },
+                        "CodeSystem": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            },
+                            "Value": "http://hl7.org/fhir/STU3/valueset-request-status.html"
                         }
                     }
                 ],
@@ -891,6 +897,12 @@
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             },
                             "Value": "completed"
+                        },
+                        "CodeSystem": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            },
+                            "Value": "http://hl7.org/fhir/STU3/valueset-request-status.html"
                         }
                     }
                 ],
@@ -1078,6 +1090,12 @@
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             },
                             "Value": "completed"
+                        },
+                        "CodeSystem": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            },
+                            "Value": "http://hl7.org/fhir/STU3/valueset-request-status.html"
                         }
                     }
                 ],
@@ -1593,6 +1611,12 @@
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             },
                             "Value": "completed"
+                        },
+                        "CodeSystem": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                            },
+                            "Value": "http://hl7.org/fhir/STU3/valueset-request-status.html"
                         }
                     }
                 ],
@@ -2330,6 +2354,12 @@
                                     "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                                 },
                                 "Value": "active"
+                            },
+                            "CodeSystem": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                },
+                                "Value": "http://hl7.org/fhir/STU3/valueset-request-status.html"
                             }
                         }
                     ],
@@ -2436,6 +2466,12 @@
                                     "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                                 },
                                 "Value": "active"
+                            },
+                            "CodeSystem": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                },
+                                "Value": "http://hl7.org/fhir/STU3/valueset-request-status.html"
                             }
                         }
                     ],
@@ -2542,6 +2578,12 @@
                                     "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                                 },
                                 "Value": "active"
+                            },
+                            "CodeSystem": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                },
+                                "Value": "http://hl7.org/fhir/STU3/valueset-request-status.html"
                             }
                         }
                     ],

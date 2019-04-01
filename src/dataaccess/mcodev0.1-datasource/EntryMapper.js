@@ -15,6 +15,7 @@ import CodeableConceptV01 from './model/shr/core/CodeableConcept';
 import CodeableConcept from '../../model/shr/core/CodeableConcept';
 import Coding from '../../model/shr/core/Coding';
 import Code from '../../model/shr/core/Code';
+import CodeSystem from '../../model/shr/core/CodeSystem';
 import DisplayText from '../../model/shr/core/DisplayText';
 import DateOfBirth from '../../model/shr/entity/DateOfBirth';
 import Ethnicity from '../../model/shr/entity/Ethnicity';
@@ -378,8 +379,12 @@ const mapClinicalStatus = (clinicalStatus) => {
 
 const mapStatus = (status) => {
     const newStatus = new Status();
-
     newStatus.value = mapCodingToCodeableConcept(status.value);
+    // Since v0.1 doesn't have a defined codesystem for Statuses, we will manually add one here
+    if (!newStatus.value.coding[0].codeSystem) {
+        newStatus.value.coding[0].codeSystem = new CodeSystem();
+        newStatus.value.coding[0].codeSystem.value = "http://hl7.org/fhir/STU3/valueset-request-status.html"
+    }
 
     return newStatus;
 };
