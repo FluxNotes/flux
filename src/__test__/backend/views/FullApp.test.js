@@ -147,7 +147,7 @@ describe('3 TargetedDataControl', function() {
         // Clicking the non-default note display button changes the state
         const narrativeIcon = wrapper.find('.right-icons').find(Button).find('#narrative');
         narrativeIcon.simulate('click');
-        expect(wrapper.state('chosenVisualizer'))
+        expect(wrapper.state('defaultVisualizer'))
             .to.eq('narrative');
     });
 });
