@@ -22,6 +22,9 @@ export default class NoteParser {
             this.contextManager.setIsBlock1BeforeBlock2(() => {
                 return true;
             });
+            this.contextManager.setGetContextsBeforeSelection(() => {
+                return true;
+            });
         } else {
             this.contextManager = contextManager;
         }

@@ -63,6 +63,7 @@ class FluxNotesEditor extends React.Component {
         this.updateErrors = this.props.updateErrors;
 
         this.contextManager.setIsBlock1BeforeBlock2(this.isBlock1BeforeBlock2.bind(this));
+        this.contextManager.setGetContextsBeforeSelection(this.getContextsBeforeSelection.bind(this));
 
         this.didFocusChange = false;
         this.editorHasFocus = false;
@@ -292,7 +293,7 @@ class FluxNotesEditor extends React.Component {
         return this.insertPlaceholder(suggestion.value, transformBeforeInsert).apply();
     }
 
-    insertShortcut = (shortcutC, shortcutTrigger, text, transform = undefined, updatePatient = true, source) => {
+    insertShortcut = (shortcutC, shortcutTrigger, text, transform = undefined, updatePatient = true, source, initialContextPosition = -1) => {
         if (Lang.isUndefined(transform)) {
             transform = this.state.state.transform();
         }
@@ -303,16 +304,18 @@ class FluxNotesEditor extends React.Component {
         }
 
         let shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger, text, updatePatient, source);
+        shortcut.initialContextPosition = initialContextPosition;
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions() && text.length === 0) {
             return this.openPortalToSelectValueForShortcut(shortcut, false, transform);
         }
         return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus();
     }
 
-    updateExistingShortcut = (shortcut, transform = undefined) => {
+    updateExistingShortcut = (shortcut, transform = undefined, initialContextPosition = -1) => {
         if (Lang.isUndefined(transform)) {
             transform = this.state.state.transform();
         }
+        shortcut.initialContextPosition = initialContextPosition;
         return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus();
     }
 
@@ -335,7 +338,7 @@ class FluxNotesEditor extends React.Component {
             return this.insertPlaceholder(matches.before[0], transform).insertText(characterToAppend);
         }
 
-        return this.insertShortcut(def, matches.before[0], "", transform, true, true, 'typed').insertText(characterToAppend);
+        return this.insertShortcut(def, matches.before[0], "", transform, true, 'typed').insertText(characterToAppend);
     }
 
     getTextCursorPosition = () => {
@@ -533,6 +536,38 @@ class FluxNotesEditor extends React.Component {
         }).delete()
 
         this.insertTextWithStructuredPhrases(data.newText, nextState, true, "dictation");
+    }
+
+    getContextsBeforeSelection(state = this.state.state) {
+        return this._getShortcutsUpToKey(state, state.selection.anchorKey); // Get all contexts up to where the cursor is
+    }
+
+    _getShortcutsUpToKey(state, key) {
+        const allNodes = this._getAllNodes(state.document.toJSON().nodes);
+        const inlinesUntilSelection = [];
+
+        // Find all shortcuts up until the selection
+        allNodes.some(n => {
+            if (n.type === 'structured_field') inlinesUntilSelection.push(n);
+            return n.key === key;
+        });
+
+        // Return a list of context shortcuts
+        return inlinesUntilSelection
+            .map(i => i.data.shortcut)
+            .filter(s => s.isContext());
+    }
+
+    _getAllNodes(nodes) {
+        // Get all the nodes in the Slate document as a flattened array
+        let allNodes = [];
+        nodes.forEach(node => {
+            allNodes.push(node);
+            if (node.nodes) {
+                allNodes = allNodes.concat(this._getAllNodes(node.nodes));
+            }
+        });
+        return allNodes;
     }
 
     isBlock1BeforeBlock2(key1, offset1, key2, offset2, state) {
@@ -785,7 +820,6 @@ class FluxNotesEditor extends React.Component {
         // This means user either clicked the OK or Cancel button on the pick list options panel
         if (this.props.noteAssistantMode === 'pick-list-options-panel' && nextProps.noteAssistantMode === 'context-tray') {
             this.adjustActiveContexts(this.state.state.selection, this.state.state);
-            this.props.contextManager.clearNonActiveContexts();
             this.props.setNoteViewerEditable(true);
             // If the user clicks cancel button, change editor state back to what it was before they clicked the template
             if (nextProps.shouldRevertTemplate) {
@@ -1395,11 +1429,14 @@ class FluxNotesEditor extends React.Component {
                     after = "";
                 }
 
+                // Update the context position based on selection
+                const shortcutsUntilSelection = this.getContextsBeforeSelection(transform.state);
                 if (arrayOfPickLists && this.noteParser.isPickList(trigger) && !trigger.selectedValue) {
-                    transform = this.updateExistingShortcut(arrayOfPickLists[pickListCount].shortcut, transform);
+                    transform = this.updateExistingShortcut(arrayOfPickLists[pickListCount].shortcut, transform, shortcutsUntilSelection.length);
                     pickListCount++;
                 } else {
-                    transform = this.insertShortcut(trigger.definition, trigger.trigger, after, transform, updatePatient, source);
+                    transform = this.insertShortcut(trigger.definition, trigger.trigger, after, transform, updatePatient, source, shortcutsUntilSelection.length);
+                    this.adjustActiveContexts(transform.state.selection, transform.state); // Updates active contexts based on cursor position
                 }
             });
         }

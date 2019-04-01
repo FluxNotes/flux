@@ -290,7 +290,7 @@ export default class TreatmentOptionsOutcomes extends Component {
     }
 
     renderOutcomesIcons = () => {
-        const { includedTreatmentData, comparedTreatmentData } = this.props;
+        const { includedTreatmentData, /* comparedTreatmentData */ } = this.props;
         const { timescaleToggle } = this.state;
         if (includedTreatmentData.length === 0) return <div className="note">No included treatment chosen.</div>;
 

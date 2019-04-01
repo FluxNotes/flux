@@ -41,6 +41,10 @@ class ContextManager {
         this.activeContexts = contextsToKeep;
     }
 
+    setGetContextsBeforeSelection(getContextsBeforeSelection) {
+        this.getContextsBeforeSelection = getContextsBeforeSelection;
+    }
+
     setIsBlock1BeforeBlock2(isBlock1BeforeBlock2) {
         this.isBlock1BeforeBlock2 = isBlock1BeforeBlock2;
     }
@@ -150,27 +154,15 @@ class ContextManager {
 
     addShortcutToContext(shortcut) {
         if (!shortcut.getKey()) return; // if the key hasn't been set for a shortcut yet then it shouldn't be added
-        //console.log("adding shortcut to context: " + shortcut.getShortcutType());
-        const numContexts = this.contexts.length;
-        let index = -1;
-        for (var i = 0; i < numContexts; i++) {
-            // check if current selection (first block key is null) is after the context. If yes, we have our
-            // insertion point
-            if (!this.isBlock1BeforeBlock2(null, 0, this.contexts[i].getKey(), 0)) {
-                index = i;
-                break;
-            }
-        }
-        if (index === -1) {
-            /*  Changed this from push to unshift to fix context ordering when loading in a note.
-             *  This seems to work since the cursor is always at the beginning when loading in a note.
-             *  Also tested copy and pasting and normal insertion of shortcuts into the note and those actions do not seem to be affected.
-             *  If unintended consequences are found in the future, this change can be reversed and we can find a new solution.
-             */  
-            this.contexts.unshift(shortcut);
+
+        let insertionIndex = this.contexts.length;
+        if (shortcut.initialContextPosition === -1) {
+            // If we have not specified the position, insert it after the last context before the cursor location
+            insertionIndex -= this.getContextsBeforeSelection().length;
         } else {
-            this.contexts.splice(index, 0, shortcut);
+            insertionIndex -= shortcut.initialContextPosition;
         }
+        this.contexts.splice(insertionIndex, 0, shortcut);
 
         //when adding a new shortcut to context, we assume cursor ends up after it so its active
         this.activeContexts.unshift(shortcut);
@@ -221,15 +213,6 @@ class ContextManager {
         this.contexts = [];
         this.activeContexts = [];
         this.contextUpdated();
-    }
-
-    // Clears all non active contexts from this.contexts
-    // Only used after picking options from template
-    // When choosing options, many unncessary contexts get added
-    clearNonActiveContexts() {
-        this.contexts = this.contexts.filter((context) => {
-            return this.activeContexts.includes(context);
-        });
     }
 }
 
