@@ -4,6 +4,7 @@ import React from 'react';
 import Slate from '../lib/slate';
 import Lang from 'lodash';
 import getWindow from 'get-window';
+import CreatorChild from '../shortcuts/CreatorChild';
 
 function createOpts(opts) {
     opts = opts || {};
