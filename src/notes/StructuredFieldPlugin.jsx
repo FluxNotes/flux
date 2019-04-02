@@ -4,6 +4,7 @@ import React from 'react';
 import Slate from '../lib/slate';
 import Lang from 'lodash';
 import getWindow from 'get-window';
+import CreatorChild from '../shortcuts/CreatorChild';
 
 function createOpts(opts) {
     opts = opts || {};
@@ -213,6 +214,10 @@ function StructuredFieldPlugin(opts) {
                 if (shortcut instanceof Placeholder) {
                     opts.structuredFieldMapManager.removePlaceholder(shortcut);
                 }
+                if (shortcut instanceof CreatorChild) {
+                    const transform = updateParentContextShortcut(state.transform(), shortcut);
+                    result = transform.apply();
+                }
                 keyToShortcutMap.delete(key);
                 idToShortcutMap.delete(shortcut.uniqueId);
                 const updatedShortcutKeys = idToKeysMap.get(shortcut.uniqueId).filter(k => k !== key);
@@ -237,7 +242,8 @@ function StructuredFieldPlugin(opts) {
                 if (shortcut instanceof InsertValue) {
                     return <span contentEditable={shortcut.metadata.isEditable ? '' : false} className='structured-field-inserter' {...props.attributes}>{props.children}</span>;
                 } else {
-                    return <span contentEditable={false} className='structured-field-creator' {...props.attributes}>{props.children}{safariSpacing}</span>;
+                    const sfClass = `structured-field-creator${shortcut.isComplete ? "" : "-incomplete"}`;
+                    return <span contentEditable={false} className={sfClass} {...props.attributes}>{props.children}{safariSpacing}</span>;
                 }
             },
             bolded_structured_field: props => {
@@ -631,6 +637,18 @@ function StructuredFieldPlugin(opts) {
     };
 }
 
+function updateParentContextShortcut(transform, shortcut) {
+    const shortcutParent = shortcut.parentContext;
+    if (shortcutParent && shortcutParent.valueObjectAttributes && shortcutParent.isChildRequired(shortcut)) {
+        transform = transform.setNodeByKey(shortcutParent.getKey(), {
+            data: {
+                shortcut: shortcutParent
+            }
+        });
+    }
+    return transform;
+}
+
 /**
  * Insert a new structured field
  *
@@ -654,6 +672,7 @@ function insertStructuredField(opts, transform, shortcut) {
             transform = transform.insertInline(sf);
         }
     });
+    transform = updateParentContextShortcut(transform, shortcut);
     return [transform, ""];
 }
 

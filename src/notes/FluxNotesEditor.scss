@@ -144,6 +144,10 @@
         .structured-field-creator {
             background-color: rgba(0, 0, 0, 0);
             border-bottom: 1.5px dashed $shr-context-line;
+
+            &-incomplete {
+                border-bottom: 1.5px dashed $missing-data-red;
+            }
         }
         
         div:last-child {
