@@ -125,4 +125,9 @@ export default class CreatorChild extends Shortcut {
         //throw new Error("getShortcutType on CreatorChild called.");
         //return "#" + this.metadata.stringTriggers[0].name;
     }
+
+    get isComplete() {
+        const parentAttributeValue = this.parentContext.getAttributeValue(this.metadata.parentAttribute);
+        return !Lang.isNull(parentAttributeValue);
+    }
 }

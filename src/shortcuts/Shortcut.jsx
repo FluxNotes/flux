@@ -148,6 +148,10 @@ class Shortcut extends Context {
             }
         }
     }
+    get isComplete() {
+        console.error("isComplete getter not implemented by " + this.constructor.name);
+        return true;
+    }
 }
 
 export default Shortcut;
