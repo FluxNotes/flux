@@ -162,4 +162,9 @@ export default class CreatorChild extends Shortcut {
     getId() {
         return this.metadata["id"];
     }
+
+    get isComplete() {
+        const parentAttributeValue = this.parentContext.getAttributeValue(this.metadata.parentAttribute);
+        return !Lang.isNull(parentAttributeValue);
+    }
 }
