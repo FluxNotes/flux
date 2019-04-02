@@ -1,3 +1,4 @@
+/* eslint-disable */
 
 import Mark from './mark'
 import { List, Record, Set } from 'immutable'

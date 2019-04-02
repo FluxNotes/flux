@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 import * as types from '../actions/types';
 import defaultState from './initial.json';
 import getProps from '../mcode-pilot/utils/recordToProps';

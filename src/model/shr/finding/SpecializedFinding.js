@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { setPropertiesFromJSON } from '../../json-helper';
 
 import Finding from '../base/Finding';

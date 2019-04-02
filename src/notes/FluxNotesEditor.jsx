@@ -219,6 +219,7 @@ class FluxNotesEditor extends React.Component {
 
     // Reset the editor to the initial state when the app is first constructed.
     resetEditorState() {
+        // eslint-disable-next-line
         this.state = {
             state: initialState,
             openedPortal: null,

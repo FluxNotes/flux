@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Reference from './Reference';
 import Entry from './shr/base/Entry';
 import ShrId from './shr/base/ShrId';

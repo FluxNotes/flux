@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { getNamespaceAndName, getNamespaceAndNameFromFHIR, uuid } from '../../json-helper';
 import Encounter from './Encounter';
 import EncounterClass from './EncounterClass';

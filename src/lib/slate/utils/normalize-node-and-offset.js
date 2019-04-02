@@ -1,3 +1,4 @@
+/* eslint-disable */
 
 /**
  * From a DOM selection's `node` and `offset`, normalize so that it always

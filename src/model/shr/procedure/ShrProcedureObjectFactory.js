@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { getNamespaceAndName, getNamespaceAndNameFromFHIR, uuid } from '../../json-helper';
 import ProcedureCode from './ProcedureCode';
 import ProcedurePerformed from './ProcedurePerformed';

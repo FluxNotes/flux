@@ -1,3 +1,4 @@
+/* eslint-disable */
 
 import normalizeNodeAndOffset from './normalize-node-and-offset'
 import findClosestNode from './find-closest-node'

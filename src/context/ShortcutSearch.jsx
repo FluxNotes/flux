@@ -5,14 +5,13 @@ import TextField from 'material-ui/TextField';
 import './ShortcutSearch.css'
 
 export default class ShortcutSearch extends Component {
-    render () {
+    render() {
         return (
             <div id="shortcut-search">
                 <div className="shortcut-search-container">
                     <TextField
                         className="shortcut-search-text"
                         label="Search shortcuts"
-                        value={this.props.searchString}
                         onChange={(event) => this.props.handleSearch(event.target.value)}
                     />
                 </div>
@@ -22,8 +21,5 @@ export default class ShortcutSearch extends Component {
 }
 
 ShortcutSearch.propTypes = {
-    context: PropTypes.object,
-    contextManager: PropTypes.object.isRequired,
-    handleClick: PropTypes.func.isRequired,
-    shortcutManager: PropTypes.object.isRequired,
+    handleSearch: PropTypes.func.isRequired,
 }

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 import ActionPerformed from '../base/ActionPerformed';

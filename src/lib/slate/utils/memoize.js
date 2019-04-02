@@ -1,3 +1,4 @@
+/* eslint-disable */
 
 import Map from 'es6-map'
 import IS_DEV from '../constants/is-dev'

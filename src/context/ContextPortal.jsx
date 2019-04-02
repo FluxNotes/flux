@@ -252,13 +252,13 @@ ContextPortal.propTypes = {
     capture: PropTypes.object.isRequired,
     callback: PropTypes.object.isRequired,
     contextManager: PropTypes.object.isRequired,
-    contexts: PropTypes.object,
+    contexts: PropTypes.array,
     getPosition: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
-    openedPortal: PropTypes.string.isRequired,
+    openedPortal: PropTypes.string,
     onSelected: PropTypes.func.isRequired,
     state: PropTypes.object.isRequired,
     trigger: PropTypes.string.isRequired,
 }
 
-export default ContextPortal
+export default ContextPortal;

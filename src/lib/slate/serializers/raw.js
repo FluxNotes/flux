@@ -1,3 +1,4 @@
+/* eslint-disable */
 
 import Block from '../models/block'
 import Character from '../models/character'

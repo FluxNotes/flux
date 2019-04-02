@@ -29,12 +29,12 @@ class SingleChoiceButton extends Component {
 }
 
 SingleChoiceButton.propTypes= {
-    buttonKey: PropTypes.isRequired,
+    buttonKey: PropTypes.number.isRequired,
     buttonText: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
     className: PropTypes.string,
     marginSize: PropTypes.string.isRequired,
-    isDisabled: PropTypes.bool.isRequired,
+    isDisabled: PropTypes.bool,
 }
 
 export default SingleChoiceButton;

@@ -1,3 +1,4 @@
+/* eslint-disable */
 
 import Debug from 'debug'
 import warn from '../utils/warn'

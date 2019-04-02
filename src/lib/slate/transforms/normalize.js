@@ -1,3 +1,4 @@
+/* eslint-disable */
 
 import Normalize from '../utils/normalize'
 import Schema from '../models/schema'

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { getNamespaceAndName, getNamespaceAndNameFromFHIR, uuid } from '../../json-helper';
 import Coverage from './Coverage';
 import InsuranceMemberId from './InsuranceMemberId';

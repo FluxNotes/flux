@@ -1,3 +1,4 @@
+/* eslint-disable */
 
 import warn from '../utils/warn'
 import { Record } from 'immutable'

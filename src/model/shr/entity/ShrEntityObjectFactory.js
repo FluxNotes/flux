@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { getNamespaceAndName, getNamespaceAndNameFromFHIR, uuid } from '../../json-helper';
 import EntityOrRole from './EntityOrRole';
 import Entity from './Entity';

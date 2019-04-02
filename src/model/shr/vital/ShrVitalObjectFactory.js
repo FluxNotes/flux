@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { getNamespaceAndName } from '../../json-helper';
 import SystolicPressure from './SystolicPressure';
 import DiastolicPressure from './DiastolicPressure';

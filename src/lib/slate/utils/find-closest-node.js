@@ -1,3 +1,4 @@
+/* eslint-disable */
 
 /**
  * Find the closest ancestor of a DOM `element` that matches a given selector.

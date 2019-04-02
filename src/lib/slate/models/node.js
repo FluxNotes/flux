@@ -1,3 +1,4 @@
+/* eslint-disable */
 
 import Document from './document'
 import Normalize from '../utils/normalize'

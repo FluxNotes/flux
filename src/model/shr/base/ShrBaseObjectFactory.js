@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { getNamespaceAndName, getNamespaceAndNameFromFHIR, uuid } from '../../json-helper';
 import InformationItem from './InformationItem';
 import Metadata from './Metadata';

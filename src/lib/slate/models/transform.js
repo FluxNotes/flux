@@ -1,3 +1,4 @@
+/* eslint-disable */
 
 import Debug from 'debug'
 import Transforms from '../transforms'

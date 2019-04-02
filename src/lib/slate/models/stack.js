@@ -1,3 +1,4 @@
+/* eslint-disable */
 
 import CorePlugin from '../plugins/core'
 import Debug from 'debug'
@@ -127,7 +128,7 @@ class Stack extends new Record(DEFAULTS) {
     for (const plugin of this.plugins) {
       if (!plugin.renderPortal) continue
       const portal = plugin.renderPortal(state, editor)
-      if (portal===null) continue
+      if (portal==null) continue
       portals.push(portal)
     }
 
@@ -149,14 +150,14 @@ for (const method of EVENT_HANDLER_METHODS) {
   Stack.prototype[method] = function (state, editor, ...args) {
     debug(method)
 
-    if (method==='onChange') {
+    if (method=='onChange') {
       state = this.onBeforeChange(state, editor)
     }
 
     for (const plugin of this.plugins) {
       if (!plugin[method]) continue
       const next = plugin[method](...args, state, editor)
-      if (next===null) continue
+      if (next == null) continue
       assertState(next)
       return next
     }
@@ -181,7 +182,7 @@ for (const method of STATE_ACCUMULATOR_METHODS) {
     for (const plugin of this.plugins) {
       if (!plugin[method]) continue
       const next = plugin[method](...args, state, editor)
-      if (next===null) continue
+      if (next == null) continue
       assertState(next)
       state = next
     }
@@ -212,7 +213,7 @@ function resolveSchema(plugins) {
   let rules = []
 
   for (const plugin of plugins) {
-    if (plugin.schema===null) continue
+    if (plugin.schema == null) continue
     const schema = Schema.create(plugin.schema)
     rules = rules.concat(schema.rules)
   }

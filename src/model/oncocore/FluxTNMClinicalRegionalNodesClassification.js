@@ -1,5 +1,4 @@
 import TNMClinicalRegionalNodesClassification from './TNMClinicalRegionalNodesClassification';
-import FindingResult from '../shr/base/FindingResult';
 import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
 import FluxTNMStagePanelMember from './FluxTNMStagePanelMember';

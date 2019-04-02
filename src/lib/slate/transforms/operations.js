@@ -1,3 +1,4 @@
+/* eslint-disable */
 
 import Normalize from '../utils/normalize'
 

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react'
 import Portal from 'react-portal'
 import position from './caret-position'

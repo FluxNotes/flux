@@ -1,3 +1,4 @@
+/* eslint-disable */
 // Acquire from http://jsfiddle.net/gliheng/vbucs/12/
 function position($node, offsetx, offsety) {
     offsetx = offsetx || 0

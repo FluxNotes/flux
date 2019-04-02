@@ -1,3 +1,4 @@
+/* eslint-disable */
 
 import React from 'react'
 import isReactComponent from '../utils/is-react-component'

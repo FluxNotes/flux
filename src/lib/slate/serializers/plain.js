@@ -1,3 +1,4 @@
+/* eslint-disable */
 
 import Raw from '../serializers/raw'
 

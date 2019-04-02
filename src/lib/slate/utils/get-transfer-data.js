@@ -1,3 +1,4 @@
+/* eslint-disable */
 
 import Base64 from '../serializers/base-64'
 import TYPES from '../constants/types'

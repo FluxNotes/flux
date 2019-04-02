@@ -211,15 +211,15 @@ export default class LandingPage extends Component {
                 <div className="landing-partners-banner">Partner Organizations</div>
 
                 <div className="landing-partners">
-                    <a href="https://www.allianceforclinicaltrialsinoncology.org/" alt="Alliance Site" target="_blank">
+                    <a href="https://www.allianceforclinicaltrialsinoncology.org/" alt="Alliance Site" target="_blank" rel="noopener noreferrer">
                         <img src="./logos/Alliance.png" alt="Alliance Logo" className="landing-partners-logo alliance" />
                     </a>
 
-                    <a href="https://www.asco.org/" alt="ASCO Site" target="_blank">
+                    <a href="https://www.asco.org/" alt="ASCO Site" target="_blank" rel="noopener noreferrer">
                         <img src="./logos/ASCO.png" alt="ASCO Logo" className="landing-partners-logo asco" />
                     </a>
 
-                    <a href="https://www.mitre.org/" alt="MITRE Site" target="_blank">
+                    <a href="https://www.mitre.org/" alt="MITRE Site" target="_blank" rel="noopener noreferrer">
                         <img src="./logos/MITRE.png" alt="MITRE Logo" className="landing-partners-logo mitre" />
                     </a>
                 </div>

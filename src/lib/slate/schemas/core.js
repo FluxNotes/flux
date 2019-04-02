@@ -1,3 +1,4 @@
+/* eslint-disable */
 
 import Schema from '../models/schema'
 import Text from '../models/text'
