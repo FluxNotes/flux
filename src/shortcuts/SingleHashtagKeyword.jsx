@@ -21,4 +21,12 @@ export default class SingleHashtagKeyword extends EntryShortcut {
     get isComplete() {
         return this.parentContext && this.hasChildren();
     }
+
+    get isComplete() {
+        return !this.hasRequiredAndIncompleteVOA();
+    }
+
+    isChildRequired(child) {;
+        return this.valueObjectAttributes[child.metadata.parentAttribute].isRequired;
+    }
 }
