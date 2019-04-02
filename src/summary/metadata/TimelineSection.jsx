@@ -108,10 +108,10 @@ export default class TimelineSection extends MetadataSection {
 
         const items = [];
         meds.forEach((med) => {
-            const ept = med.expectedPerformanceTime;
-            if (Lang.isNull(ept)) return;
-            const startTime = new moment(med.expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
-            let endTime = new moment(med.expectedPerformanceTime.timePeriodEnd, "D MMM YYYY");
+            const startDate = med.startDate;
+            if (Lang.isNull(startDate)) return;
+            const startTime = new moment(med.startDate, "D MMM YYYY");
+            let endTime = new moment(med.endDate, "D MMM YYYY");
             if (!endTime.isValid()) {
                 endTime = new moment();
             }

@@ -590,7 +590,7 @@ class PatientRecord {
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         medications = medications.filter((med) => {
             return med instanceof FluxMedicationRequested && med.reasons.some((r) => {
-                return r.value.entryId && r.value.entryId === conditionEntryId;
+                return r.value.entryId && this._entryIdsMatch(r.value.entryId, conditionEntryId);
             });
         });
         return medications;
@@ -686,7 +686,7 @@ class PatientRecord {
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         medications = medications.filter((med) => {
             return med instanceof FluxMedicationRequested && med.reasons.some((r) => {
-                return r.value.entryId && r.value.entryId === conditionEntryId;
+                return r.value.entryId && this._entryIdsMatch(r.value.entryId, conditionEntryId);
             });
         });
         return medications;
@@ -697,7 +697,7 @@ class PatientRecord {
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         return medications.filter((med) => {
             return med instanceof FluxMedicationRequested && med.reasons.some((r) => {
-                return r.value.entryId && r.value.entryId === conditionEntryId;
+                return r.value.entryId && this._entryIdsMatch(r.value.entryId, conditionEntryId);
             });
         });
     }
@@ -966,6 +966,16 @@ class PatientRecord {
         }
     }
 
+    _entryIdsMatch(entryId1, entryId2) {
+        if (!entryId1 || !entryId2) return false;
+
+        // entryId could either be just a string or wrapped in an object. 
+        // the spec says it should be a shr.base.EntryId but we'll be a little lax here to minimize changes
+        const lhs = entryId1.id || entryId1;
+        const rhs = entryId2.id || entryId2;
+        return lhs === rhs;
+    }
+
     _medChangesTimeSorter(a, b) {
         const a_time = a.metadata.authoredDateTime.dateTime;
         const b_time = b.metadata.authoredDateTime.dateTime;
@@ -981,8 +991,8 @@ class PatientRecord {
     }
 
     _reverseMedsTimeSorter(a, b) {
-        const a_startTime = new moment(a.expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
-        const b_startTime = new moment(b.expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
+        const a_startTime = new moment(a.startDate, "D MMM YYYY");
+        const b_startTime = new moment(b.startDate, "D MMM YYYY");
         if (a_startTime < b_startTime) {
             return 1;
         }

@@ -52,7 +52,16 @@ class FluxMedicationRequested extends FluxEntry {
      *  Returns object containing timePeriodStart value
      */
     get startDate() {
-        return this.expectedPerformanceTime.timePeriodStart || null;
+        if (this.expectedPerformanceTime) return this.expectedPerformanceTime.timePeriodStart;
+
+        // fallback to statementDateTime in case expectedPerformanceTime isn't provided
+        // statementDateTime maps to dateWritten in FHIR and is required by the argonaut profile, 
+        //   so we expect it to always be present
+        // both statementDateTime and expectedPerformanceTime.timePeriodStart have a value of type dateTime
+        // so they should be interchangeable for our purposes
+        if (this._medicationRequested.statementDateTime) return this._medicationRequested.statementDateTime;
+
+        return null;
     }
 
     /**
@@ -72,7 +81,8 @@ class FluxMedicationRequested extends FluxEntry {
     }
 
     get endDate() {
-        return this.expectedPerformanceTime.timePeriodEnd || null;
+        if (!this.expectedPerformanceTime) return null;
+        return this.expectedPerformanceTime.timePeriodEnd;
     }
 
     set endDate(date) {
@@ -89,20 +99,16 @@ class FluxMedicationRequested extends FluxEntry {
     }
 
     isActiveAsOf(date) {
-        const expectedPerformanceTime = this.expectedPerformanceTime;
-        if (!expectedPerformanceTime || !(this._medicationRequested.expectedPerformanceTime.value instanceof TimePeriod)) return null;
-        const start = new moment(expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
-        const end = new moment(expectedPerformanceTime.timePeriodEnd, "D MMM YYYY");
+        const start = new moment(this.startDate, "D MMM YYYY");
+        const end = new moment(this.endDate, "D MMM YYYY");
         if (start && start > date) return false;
         if (end && end < date) return false;
         return true;
     }
 
     isActiveBetween(lowerDate, upperDate) {
-        const expectedPerformanceTime = this.expectedPerformanceTime;
-        if (!expectedPerformanceTime || !(this._medicationRequested.expectedPerformanceTime.value instanceof TimePeriod)) return null;
-        const start = new moment(expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
-        const end = new moment(expectedPerformanceTime.timePeriodEnd, "D MMM YYYY");
+        const start = new moment(this.startDate, "D MMM YYYY");
+        const end = new moment(this.endDate, "D MMM YYYY");
         
         // If the start date is in the future
         if (start && start > upperDate) return false;
@@ -175,9 +181,11 @@ class FluxMedicationRequested extends FluxEntry {
      *  Returns object with value and units
      */
     get timingOfDoses() {
-        if (!this._medicationRequested.dosage) return null;
+        if (!this._medicationRequested.dosage
+            || !this._medicationRequested.dosage.timingOfDoses) return null;
         let timingOfDoses = this._medicationRequested.dosage.timingOfDoses;
-        if (timingOfDoses.timing.recurrencePattern && timingOfDoses.timing.recurrencePattern instanceof RecurrencePattern) {
+        if (timingOfDoses.timing
+            && timingOfDoses.timing.recurrencePattern instanceof RecurrencePattern) {
             let units;
             if (timingOfDoses.timing.recurrencePattern.recurrenceInterval.duration.units.value.code.value === 'd') {
                 units = 'per day';
@@ -225,7 +233,14 @@ class FluxMedicationRequested extends FluxEntry {
      * Returns date as a string
      */
     get whenPrescribed() {
-        return this._medicationRequested.metadata.authoredDateTime.dateTime;
+        if (this._medicationRequested.metadata
+            && this._medicationRequested.metadata.authoredDateTime) {
+            return this._medicationRequested.metadata.authoredDateTime.dateTime;
+        }
+        if (this._medicationRequested.statementDateTime) {
+            return this._medicationRequested.statementDateTime.dateTime;
+        }
+        return null;
     }
 
     /*
@@ -251,11 +266,19 @@ class FluxMedicationRequested extends FluxEntry {
     }
 
     get asNeededIndicator() {
+        if (!this._medicationRequested.dosage 
+            || !this._medicationRequested.dosage.asNeededIndicator) {
+            return null;
+        }
         return this._medicationRequested.dosage.asNeededIndicator.value;
     }
 
     get doseInstructionsText() {
-        return this._medicationRequested.dosage.dosageInstructionsText ? this._medicationRequested.dosage.dosageInstructionsText.value : null;
+        if (!this._medicationRequested.dosage 
+            || !this._medicationRequested.dosage.dosageInstructionsText) {
+            return null;
+        }
+        return this._medicationRequested.dosage.dosageInstructionsText.value;
     }
 
     /**

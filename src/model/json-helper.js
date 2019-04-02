@@ -66,7 +66,7 @@ export function getNamespaceAndNameFromFHIR(fhir, type) {
     }
   } else if (!fhir['resourceType'] && !type) {
     // it's not a FHIR resource, so it's likely a general purpose FHIR data type
-    return getGeneralPurposeFHIRType(fhir);
+    return FHIRHelper.getGeneralPurposeFHIRType(fhir);
   }
 
   // Get the type from the JSON if we can
@@ -89,47 +89,6 @@ export function getNamespaceAndNameFromFHIR(fhir, type) {
   const namespace = mappingStringArray.join('.');
   return { namespace, elementName };
 }
-
-// https://www.hl7.org/fhir/DSTU2/datatypes.html
-const FHIR_GENERAL_PURPOSE_TYPES = {
-  'Attachment': ['contentType', 'language', 'data', 'url', 'size', 'hash', 'title', 'creation'],
-  'Coding': ['system', 'version', 'code', 'display', 'userSelected'],
-  'CodeableConcept': ['coding', 'text'],
-  'Quantity': ['value', 'comparator', 'unit', 'system', 'code'],
-  'Range': ['low', 'high'],
-  'Ratio': ['numerator', 'denominator'],
-  'Period': ['start', 'end'],
-  'SampledData': ['origin', 'period', 'factor', 'lowerLimit', 'upperLimit', 'dimensions', 'data'],
-  'Identifier': ['use', 'type', 'system', 'value', 'period', 'assigner'],
-  'HumanName': ['use', 'text', 'family', 'given', 'prefix', 'suffix', 'period'],
-  'Address': ['use', 'type', 'text', 'line', 'city', 'district', 'state', 'postalCode', 'country', 'period'],
-  'ContactPoint': ['system', 'value', 'use', 'rank', 'period'],
-  'Timing': ['event', 'repeat', 'code'],
-  'Signature': ['type', 'when', 'whoUri', 'whoReference', 'contentType', 'blob'],
-  'Annotation': ['authorReference', 'authorString', 'time', 'text']
-};
-
-function getGeneralPurposeFHIRType(fhir) {
-  // the good news is that these do not have much overlap in their field names
-
-  for (const typeName in FHIR_GENERAL_PURPOSE_TYPES) {
-    // if all fields in the given fhir object are fields from a general purpose type, then this object is an instance of that type
-    // ignore extension and modifierExtension
-    const fieldsInDefinition = FHIR_GENERAL_PURPOSE_TYPES[typeName];
-    const fieldsInInstance = Object.keys(fhir).filter(f => f !== 'extension' && f !== 'modifierExtension');
-
-    const isMatch = fieldsInInstance.every(f => fieldsInDefinition.includes(f));
-
-    if (isMatch) {
-      // luckily all these types map to shr.core
-      return { namespace: 'shr.core', elementName: typeName };
-    }
-  }
-
-  // didn't find a match, so we have no idea what this object is
-  throw new Error(`Couldn't find type for FHIR: ${JSON.stringify(fhir)}`); 
-}
-
 
 /**
  * Given a (presumably) blank instance of an ES6 class representing an element, and JSON that adheres to the
@@ -236,6 +195,76 @@ function createInstance(key, value) {
   return value;
 }
 
+const FHIR_GENERAL_PURPOSE_TYPES = {
+  'Attachment': {
+    fields: ['contentType', 'language', 'data', 'url', 'size', 'hash', 'title', 'creation'],
+    mapsTo: { namespace: 'shr.core', elementName: 'Media' }
+  },
+  'Coding': {
+    fields: ['system', 'version', 'code', 'display', 'userSelected'],
+    mapsTo: { namespace: 'shr.core', elementName: 'Coding' }
+  },
+  'CodeableConcept': {
+    fields: ['coding', 'text'],
+    mapsTo: { namespace: 'shr.core', elementName: 'CodeableConcept' }
+  },
+  'Quantity': {
+    fields: ['value', 'comparator', 'unit', 'system', 'code'],
+    mapsTo: { namespace: 'shr.core', elementName: 'Quantity' }
+  },
+  'Range': {
+    fields: ['low', 'high'],
+    mapsTo: { namespace: 'shr.core', elementName: 'Range' }
+  },
+  'Ratio': {
+    fields: ['numerator', 'denominator'],
+    mapsTo: { namespace: 'shr.core', elementName: 'Ratio' }
+  },
+  'Period': {
+    fields: ['start', 'end'],
+    mapsTo: { namespace: 'shr.core', elementName: 'TimePeriod' }
+  },
+  'SampledData': {
+    fields: ['origin', 'period', 'factor', 'lowerLimit', 'upperLimit', 'dimensions', 'data'],
+    mapsTo: { namespace: 'shr.core', elementName: 'SampledData' }
+  },
+  'Identifier': {
+    fields: ['use', 'type', 'system', 'value', 'period', 'assigner'],
+    mapsTo: { namespace: 'shr.core', elementName: 'Identifier' }
+  },
+  'HumanName': {
+    fields: ['use', 'text', 'family', 'given', 'prefix', 'suffix', 'period'],
+    mapsTo: { namespace: 'shr.core', elementName: 'HumanName' }
+  },
+  'Address': {
+    fields: ['use', 'type', 'text', 'line', 'city', 'district', 'state', 'postalCode', 'country', 'period'],
+    mapsTo: { namespace: 'shr.core', elementName: 'Address' }
+  },
+  'ContactPoint': {
+    fields: ['system', 'value', 'use', 'rank', 'period'],
+    mapsTo: { namespace: 'shr.core', elementName: 'ContactPoint' }
+  },
+  'Timing': {
+    fields: ['event', 'repeat', 'code'],
+    mapsTo: { namespace: 'shr.core', elementName: 'Timing' }
+  },
+  'Signature': {
+    fields: ['type', 'when', 'whoUri', 'whoReference', 'contentType', 'blob'],
+    mapsTo: { namespace: 'shr.core', elementName: 'Signature' }
+  },
+  'Annotation': {
+    fields: ['authorReference', 'authorString', 'time', 'text'],
+    mapsTo: { namespace: 'shr.core', elementName: 'Annotation' }
+  },
+
+  // references may not be the best fit here but it works
+  'Reference': {
+    fields: ['reference', 'type', 'identifier', 'display'],
+    mapsTo: { namespace: '', elementName: 'Reference' }
+   }
+};
+
+
 /**
  * Wrapper object to contain multiple functions, so that generated classes don't have to pre-determine which functions to specifically import.
  */
@@ -290,6 +319,28 @@ export const FHIRHelper = {
    */
   conformsToProfile: function(fhirEntry = {}, targetProfile = '') {
     return fhirEntry.resource && fhirEntry.resource.meta && fhirEntry.resource.meta.profile && fhirEntry.resource.meta.profile.some(p => p === targetProfile);
+  },
+
+  getGeneralPurposeFHIRType: function (fhir) {
+    // https://www.hl7.org/fhir/DSTU2/datatypes.html
+    // the good news is that these do not have much overlap in their field names
+
+    for (const typeName in FHIR_GENERAL_PURPOSE_TYPES) {
+      // if all fields in the given fhir object are fields from a general purpose type, then this object is an instance of that type
+      // ignore extension and modifierExtension
+      const definition = FHIR_GENERAL_PURPOSE_TYPES[typeName]
+      const fieldsInDefinition = definition['fields'];
+      const fieldsInInstance = Object.keys(fhir).filter(f => f !== 'extension' && f !== 'modifierExtension');
+
+      const isMatch = fieldsInInstance.every(f => fieldsInDefinition.includes(f));
+
+      if (isMatch) {
+        return definition['mapsTo'];
+      }
+    }
+
+    // didn't find a match, so we have no idea what this object is
+    throw new Error(`Couldn't find type for FHIR: ${JSON.stringify(fhir)}`); 
   },
 
   /**

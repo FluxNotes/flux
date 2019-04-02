@@ -73,7 +73,27 @@ class Reason {
     if (asExtension) {
     }
     if (!asExtension && fhir != null) {
-      inst.value = FHIRHelper.createInstanceFromFHIR(null, fhir, shrId, allEntries, mappedResources, referencesOut);
+
+      if (typeof fhir === 'string') {
+        inst.value = fhir;
+      } else if (typeof fhir === 'object') {
+        const { elementName } = FHIRHelper.getGeneralPurposeFHIRType(fhir);
+
+        if (elementName === 'CodeableConcept') {
+          inst.value = FHIRHelper.createInstanceFromFHIR('shr.core.CodeableConcept', fhir, shrId, allEntries, mappedResources, referencesOut);
+        }
+
+        if (elementName === 'Reference') {
+          const entryId = fhir['reference'];
+          if (!mappedResources[entryId]) {
+            const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
+            if (referencedEntry) {
+              mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR(null, referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
+            }
+          }
+          inst.value = FHIRHelper.createReference(mappedResources[entryId], referencesOut);
+        }
+      }
     }
     return inst;
   }

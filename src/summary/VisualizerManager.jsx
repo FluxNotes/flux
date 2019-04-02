@@ -78,8 +78,7 @@ export default class VisualizerManager {
             const dose = med.medication.amountPerDose ? `${med.medication.amountPerDose.value} ${med.medication.amountPerDose.units}` : "";
             const medicationChange = this.formatMedicationChange(med.medicationChange);
             const endDate = this.getEndDate(med);
-            const { doseInstructionsText } = med.medication;
-            let timing;
+            let timing = null;
 
             if (med.medication.timingOfDoses) {
                 if (!Lang.isNull(med.medication.timingOfDoses.units)) {
@@ -87,8 +86,10 @@ export default class VisualizerManager {
                 } else {
                     timing = med.medication.timingOfDoses.value;
                 }
-            } else {
-                timing = "";
+            }
+
+            if (timing && med.medication.asNeededIndicator) {
+                timing += ' as needed';
             }
 
             // isUnsigned is false by default
@@ -98,7 +99,6 @@ export default class VisualizerManager {
                 isUnsigned = med.medicationChange.isUnsigned;
                 source = med.medicationChange.source;
             }
-            const asNeeded = med.medication.asNeededIndicator ? ' as needed' : '';
 
             return [
                 {
@@ -115,10 +115,10 @@ export default class VisualizerManager {
                     value: dose,
                 },
                 {
-                    value: (timing || doseInstructionsText) + asNeeded,
+                    value: timing,
                 },
                 {
-                    value: med.medication.expectedPerformanceTime.timePeriodStart,
+                    value: med.medication.startDate,
                 },
                 {
                     value: {
@@ -138,7 +138,7 @@ export default class VisualizerManager {
 
     // Returns today's date if the medication has just been stopped
     getEndDate = (med) => {
-        let endDate = med.medication.expectedPerformanceTime.timePeriodEnd;
+        let endDate = med.medication.endDate;
         if (med.medicationChange && med.medicationChange.type === "stop") {
             endDate = med.medicationChange.date;
         }
