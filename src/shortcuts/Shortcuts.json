@@ -107,7 +107,7 @@
     "name": "disease status",
     "getData": null,
     "valueObject": "http://standardhealthrecord.org/spec/oncocore/CancerProgression",
-    "valueObjectAttributes": [  {"name":"status", "attribute":"status", "isSettable":"true", "setMethod": "status", "childShortcut": "ProgressionStatusCreator"},
+    "valueObjectAttributes": [  {"name":"status", "attribute":"status", "isSettable":"true", "setMethod": "status", "childShortcut": "ProgressionStatusCreator", "isRequired": true},
                                 {"name":"reasons", "attribute":"evidence[]", "isSettable":"true", "setMethod": "evidence", "childShortcut": "ProgressionReasonsCreator"},
                                 {"name":"referenceDate", "childShortcut": "ProgressionReferenceDateCreator"},
                                 {"name":"referenceDateDate", "attribute":"referenceDate", "isSettable":"true", "setMethod": "referenceDate" },
