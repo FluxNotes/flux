@@ -272,6 +272,13 @@ class ShortcutManager {
                     } else {
                         addTriggerForCurrentShortcut.bind(this)(triggers, item);
                     }
+                    if (item.label) {
+                        // Add a string trigger for incomplete placeholder
+                        addTriggerForCurrentShortcut.bind(this)({
+                            name: item.label,
+                            description: 'Incomplete placeholder for ' + item.label
+                        }, item);
+                    }
                 }
                 if (keywords) {
                     this.keywordsPerShortcut[item.id] = [];
