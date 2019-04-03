@@ -147,14 +147,14 @@ export default class TreatmentOptionsOutcomes extends Component {
                 <div className="flex flex-4 flex-padding flex-center top-side-effects">
                     <div>
 
-                        {this.state.sideEffectSelection==="leading"?topSideEffects.map(({ sideEffect, occurrences }, i) =>
+                        {this.state.sideEffectSelection === "leading" ? topSideEffects.map(({ sideEffect, occurrences }, i) =>
                             <div key={i} className="side-effect">
                                 {`${sideEffect} `}
                                 ({Math.floor(occurrences / totalPatients * 100)}%)
                             </div>
                         )
-                        :
-                        <div>{sideEffects.effects[this.state.sideEffectSelection]?Math.floor(sideEffects.effects[this.state.sideEffectSelection]/totalPatients * 100):0}%</div>}
+                            :
+                            <div>{sideEffects.effects[this.state.sideEffectSelection] ? Math.floor(sideEffects.effects[this.state.sideEffectSelection] / totalPatients * 100) : 0}%</div>}
                     </div>
                 </div>
             </div>
@@ -197,7 +197,7 @@ export default class TreatmentOptionsOutcomes extends Component {
                             </MenuItem>
                             {this.state.sideEffects.map((effect) => {
                                 return (
-                                    <MenuItem 
+                                    <MenuItem
                                         value={effect}
                                         key={effect}
                                     >
