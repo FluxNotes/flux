@@ -122,7 +122,8 @@ export default class TimelineSection extends MetadataSection {
             if (!med.amountPerDose) {
                 dosage = "not specified";
             } else {
-                dosage = med.amountPerDose.value + " " + med.amountPerDose.units + " " + (med.timingOfDoses.value || med.doseInstructionsText) + " " + (med.timingOfDoses.units ? med.timingOfDoses.units : "");
+                const timingOfDoses = med.timingOfDoses || {};
+                dosage = med.amountPerDose.value + " " + med.amountPerDose.units + " " + (timingOfDoses.value || med.doseInstructionsText) + " " + (timingOfDoses.units || "");
             }
 
             const source = this.determineSource(patient, med);

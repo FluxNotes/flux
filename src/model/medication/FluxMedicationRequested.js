@@ -206,10 +206,7 @@ class FluxMedicationRequested extends FluxEntry {
             }
         }
 
-        return {
-            value: null,
-            units: null
-        };
+        return null;
     }
 
     /*

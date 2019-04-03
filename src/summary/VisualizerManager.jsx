@@ -86,6 +86,8 @@ export default class VisualizerManager {
                 } else {
                     timing = med.medication.timingOfDoses.value;
                 }
+            } else if (med.medication.doseInstructionsText) {
+                timing = med.medication.doseInstructionsText;
             }
 
             if (timing && med.medication.asNeededIndicator) {
