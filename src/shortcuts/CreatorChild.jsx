@@ -160,7 +160,10 @@ export default class CreatorChild extends Shortcut {
     }
 
     get isComplete() {
-        const parentAttributeValue = this.parentContext.getAttributeValue(this.metadata.parentAttribute);
-        return !Lang.isNull(parentAttributeValue);
+        if (this.parentContext) {
+            const parentAttributeValue = this.parentContext.getAttributeValue(this.metadata.parentAttribute);
+            return !Lang.isNull(parentAttributeValue);
+        }
+        return true;
     }
 }
