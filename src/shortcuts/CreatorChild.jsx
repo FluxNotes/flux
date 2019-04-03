@@ -42,10 +42,21 @@ export default class CreatorChild extends Shortcut {
                 }
             }
         }
-        if (!found || !picker) {
+        if (trigger === this.metadata.label) {
+            // Set text to the label value (placeholder)
+            this.text = this._getTriggerWithoutPrefix(trigger);
+        } else if (!found || !picker) {
             this.setText(trigger, updatePatient);
             this.clearValueSelectionOptions();
         }
+    }
+
+    _getTriggerWithoutPrefix(trigger) {
+        const prefix = this.getPrefixCharacter();
+        if (trigger.startsWith(prefix)) {
+            return trigger.substring(prefix.length);
+        }
+        return trigger;
     }
 
     onBeforeDeleted() {
@@ -93,12 +104,8 @@ export default class CreatorChild extends Shortcut {
     }
 
     setText(text, updatePatient = true) {
-        const prefix = this.getPrefixCharacter();
-        if (text.startsWith(prefix)) {
-            text = text.substring(prefix.length);
-        }
-        this.text = text;
-        let value = text;
+        this.text = this._getTriggerWithoutPrefix(text);
+        let value = this.text;
         if (this.metadata.picker === 'date-id') {
             value = moment(text, 'MM-DD-YYYY').format('D MMM YYYY');
         }
@@ -129,7 +136,11 @@ export default class CreatorChild extends Shortcut {
     get isComplete() {
         if (this.parentContext) {
             const parentAttributeValue = this.parentContext.getAttributeValue(this.metadata.parentAttribute);
-            return !Lang.isNull(parentAttributeValue);
+            if (Lang.isArray(parentAttributeValue)) {
+                // For creators that support multiple options, incomplete if there are none specified
+                return !Lang.isEmpty(parentAttributeValue);
+            }
+            return !!parentAttributeValue; // If parent attribute is defined, shortcut is complete, else it is incomplete
         }
         return true;
     }
