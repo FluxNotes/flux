@@ -1,4 +1,4 @@
-#condition-summary-section { 
+#condition-summary-section {
     text-align: left;
     overflow-x: hidden;
  }
@@ -40,12 +40,10 @@ tr.existing-note-entry td:last-child {
 
 #condition-summary-section h2.section-header{
     /*font-weight: bold;*/
-    color: #333;
+    /*color: #333;*/
 }
 
 .icons {
     float: right;
     padding: 10px;
 }
-
-

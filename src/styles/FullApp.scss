@@ -1,7 +1,7 @@
 @import './variables';
 
 .FullApp-content {
-    &.loading-background { 
+    &.loading-background {
         background: grey;
     }
     min-height: 100vh;
@@ -26,7 +26,7 @@
     }
 
     .divider {
-        margin: 20px 0px !important;
+        margin: 30px 0px 20px 0px !important;
         clear: both;
     }
 
@@ -38,14 +38,14 @@
 
     h2 {
         margin: 0px;
-        font-size: .9rem;
-        font-weight: lighter;
+        font-size: $size-l;
+        font-weight: $weight-semibold;
     }
 
     h3 {
         margin: 2px 0;
-        font-size: 0.7rem;
-        font-weight: 400;
+        font-size: $size-m;
+        font-weight: $weight-regular;
     }
 
     ::-webkit-scrollbar-track {

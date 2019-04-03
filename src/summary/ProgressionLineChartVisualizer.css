@@ -1,22 +1,14 @@
-.progression-line-chart-subsection { 
-    padding: 10px 0;
-}
-
-.progression-line-chart-subsection .sub-section-heading h2.sub-section-name { 
+.progression-line-chart-subsection {
+  padding: 10px 0; }
+  .progression-line-chart-subsection .sub-section-heading h2.sub-section-name {
     margin: 10px 0;
-    font-weight: bold;  
-}
-
-.progression-line-chart-subsection .recharts-tooltip-wrapper { 
-    font-size: 13px;
-}
-
-.progression-line-chart-subsection .recharts-text { 
-    font-size: 11px;
-}
-.progression-line-chart-subsection .disease-status-tooltip { 
+    font-weight: 400; }
+  .progression-line-chart-subsection .recharts-tooltip-wrapper {
+    font-size: 0.875rem; }
+  .progression-line-chart-subsection .recharts-text {
+    font-size: 0.75rem; }
+  .progression-line-chart-subsection .disease-status-tooltip {
     padding: 10px;
-    background-color: rgb(255, 255, 255);
-    border: 1px solid rgb(204, 204, 204);
-    max-width: 200px;
-}
+    background-color: white;
+    border: 1px solid #cccccc;
+    max-width: 200px; }

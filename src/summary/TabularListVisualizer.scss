@@ -1,21 +1,28 @@
 @import '../styles/variables';
 
-$font-size: 0.8rem;
 
 .tabular-list {
     margin-bottom: 20px;
 
     table {
         border-collapse: collapse;
-        width: 98%;
+        width: auto;
         margin-top: 10px;
         margin-bottom: 30px !important;
-        font-size: $font-size;
+        font-size: $size-m;
     }
 
     .list-subsection-header {
         color: $body-gray !important;
-        font-weight: 600;
+        font-weight: $weight-semibold;
+    }
+
+    .no-entries {
+        //padding-top: 20px;
+        padding: 20px 0px 10px 0px;
+        font-size: $size-l;
+        font-weight: $weight-regular;
+        color: $state;
     }
 
     tr {
@@ -23,9 +30,11 @@ $font-size: 0.8rem;
     }
 
     td {
-        padding: 8px 10px;
+        padding: 6px 50px 6px 10px;
         border: 0;
         color: $body-gray;
+        font-size: $size-m;
+        line-height: 1.25rem;
         font-family: "Open Sans", Arial, sans-serif;
     }
 
@@ -34,7 +43,7 @@ $font-size: 0.8rem;
         padding: 0;
 
         li {
-            font-size: $font-size;
+            font-size: $size-m;
             text-decoration: underline #0182D7;
             cursor: pointer;
         }
@@ -70,11 +79,11 @@ $font-size: 0.8rem;
     }
 
     .list-column-heading {
-        color: #000;
+        color: $body-gray;
         background-color: $background;
-        padding: 8px 10px;
-        border-bottom: 1px solid lightgray;
-        font-weight: 600 !important;
+        padding: 1px 50px 2px 10px;
+        border-bottom: 1px solid $line-gray;
+        font-weight: $weight-semibold !important;
         font-family: "Open Sans", Arial, sans-serif;
         text-align: left;
     }
@@ -100,8 +109,20 @@ $font-size: 0.8rem;
     }
 }
 
+.tabular-list .multi-column {
+
+    table {
+        width: 98%;
+    }
+
+    tr {
+        //width: 100%;
+    }
+}
+
+
 tr, td {
-    font-size: $font-size;
+    font-size: $size-m;
 }
 
 h2.subsection {
@@ -113,7 +134,7 @@ h2.subsection {
 
     span {
         background:$background;
-        font-size: $font-size;
+        font-size: $size-m;
         padding-right: 10px;
     }
 

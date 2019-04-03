@@ -1,13 +1,14 @@
 @import '../styles/variables';
 
-$font-size: 0.8rem;
 
 .expanded-tables-visualizer {
     margin-bottom: 30px;
+    max-width: 840px;
 
     .expanded-table {
         margin-right: 20px;
-        font-size: $font-size;
+        font-size: $size-m;
+
 
         &:first-child {
             margin-top: 10px;
@@ -26,10 +27,10 @@ $font-size: 0.8rem;
         }
 
         &-header {
-            font-weight: 600;
+            font-weight: $weight-semibold;
             height: inherit;
             padding: 8px 10px;
-            margin-bottom: 1px;
+            margin-bottom: 2px;
 
             .row {
                 div:first-child {

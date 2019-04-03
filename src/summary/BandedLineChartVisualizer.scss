@@ -1,10 +1,13 @@
+@import '../styles/variables';
+
 .line-chart-subsection {
     .subsection-heading {
         h2 {
             margin: 10px 0;
 
             .subsection-name {
-                font-weight: bold; 
+                font-weight: $weight-regular;
+                font-size: $size-m;
             }
             .subsection-icons {
                 margin-left: 5px;
@@ -18,12 +21,12 @@
     }
 
     .recharts-responsive-container {
-        .recharts-tooltip-wrapper { 
-            font-size: 13px;
+        .recharts-tooltip-wrapper {
+            font-size: $size-m;
         }
 
-        .recharts-text { 
-            font-size: 14px;
+        .recharts-text {
+            font-size: $size-s;
         }
 
         .hide-line {

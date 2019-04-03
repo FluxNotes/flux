@@ -3,7 +3,7 @@ body {
   padding: 0;
   height: 100%;
   font-family: "Open Sans", Arial, sans-serif;
-  color: #555;
+  color: #3F3F3F;
 }
 
 ::-webkit-scrollbar {
@@ -29,7 +29,7 @@ body {
         overflow: hidden;
     }
 } */
-  
+
 /* This line is needed so that users are able to scroll in IE on the landing page */
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) and (max-height: 525px), (max-width: 1160px) {
     body {

@@ -46,7 +46,7 @@ export default class TabularListVisualizer extends Visualizer {
 
     renderedSubsections(subsections) {
         if (subsections.length === 0) return null;
-  
+
         let isSingleColumn = this.props.conditionSection.isWide !== undefined ? !this.props.conditionSection.isWide : !this.props.isWide;
 
         const numColumns = (subsections[0].data_cache.length === 0) ? 1 : subsections[0].data_cache[0].length;
@@ -94,7 +94,7 @@ export default class TabularListVisualizer extends Visualizer {
         // Display the data in 2 columns. The first column displays the first half
         // of the sections in one table and the second column displays the second half of the sections in a second table
         return (
-            <Row start="xs">
+            <Row start="xs" className="multi-column">
                 <Col sm={6}>
                     {renderedFirstHalf}
                 </Col>
@@ -145,7 +145,7 @@ export default class TabularListVisualizer extends Visualizer {
         }
 
         if (list.length <= 0) {
-            return <div key={subsectionindex}>{subsectionNameHTML}<h2 style={{paddingTop: '10px'}}>None</h2></div>;
+            return <div key={subsectionindex}>{subsectionNameHTML}<h2 className="no-entries">None</h2></div>;
         }
 
         let headings = null;
@@ -170,7 +170,7 @@ export default class TabularListVisualizer extends Visualizer {
 
                 <TabularListVisualizerTable
                     headers={headings}
-                    rows={this.renderedListItems(subsectionindex, list, numberOfHeadings, subsectionName, subsectionActions, transformedSubsection.formatFunction)} 
+                    rows={this.renderedListItems(subsectionindex, list, numberOfHeadings, subsectionName, subsectionActions, transformedSubsection.formatFunction)}
                 />
                 <ul>
                     {this.renderedPostTableList(transformedSubsection.postTableList, subsectionName, subsectionActions, -1)}
@@ -232,7 +232,8 @@ export default class TabularListVisualizer extends Visualizer {
         const renderedColumns = [];
 
         const numColumns = row.length;
-        const colSize = (100 / numColumns) + "%";
+        //const colSize = (100 / numColumns) + "%";
+const colSize = "auto";
 
         if (subsectionActions.length > 0  || this.props.actions.length > 0) {
             rowClass += " has-action-menu";
@@ -367,9 +368,9 @@ export default class TabularListVisualizer extends Visualizer {
             this.closeInsertionMenu(callback);
         }
         let isSigned = true;
-        
+
         isSigned = !element.isUnsigned || true;
-        
+
         return (
             <VisualizerMenu
                 allowItemClick={this.props.allowItemClick}

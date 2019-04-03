@@ -1,18 +1,21 @@
 // Style specification adopted from
-// https://github.com/standardhealth/shr_design/blob/master/design/fluxnotes_deliverables/shr_fluxnotes_styles_v2.pdf
+// https://github.com/standardhealth/shr_design/blob/master/design/fluxnotes_deliverables/shr_fluxnotes_styles_v4.pdf
 
+// Colors
 $background: #FFFFFF;
 $contrast-gray: #F9F9F9;
 $feature-gray: #F0F0F0;
 $line-gray: #DDDDDD;
 $body-gray: #3F3F3F;
-$state: #AAAAAA;
+$state: #767676;
 $warning-red: #C80B0B;
+$warbubg-red-text: #BA2121;
 $missing-data-red: #EC9696;
 $interface-blue: #028DEA;
-$shr-context-dark: #0084B8;
-$shr-context-line: #5EBFFF;
-$shr-context-light: #E5F7FF;
+$interface-blue-text: #0079CA;
+$shr-context-dark: #298085;
+$shr-context-line: #55C9CE;
+$shr-context-light: #DAF7F8;
 
 // Custom variables
 $highlight-yellow: rgb(255, 255, 3);
@@ -32,3 +35,12 @@ $icons-green: #427E84;
 $icons-blue: #378EE3;
 $icons-red: #EA7E73;
 $icons-teal: #48BDBD;
+
+// Typography
+$weight-semibold: 600;
+$weight-regular: 400;
+
+$size-l: 1rem;
+$size-m: 0.875rem;
+$size-s: 0.75rem;
+$size-xs: 0.625rem;
