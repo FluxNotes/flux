@@ -267,10 +267,17 @@ class ShortcutManager {
                     this.triggersPerShortcut[item.id] = [];
                     if (Lang.isArray(triggers)) {
                         triggers.forEach((trigger) => { 
-                            addTriggerForCurrentShortcut.bind(this)(trigger, item);    
+                            addTriggerForCurrentShortcut.bind(this)(trigger, item);
                         });
                     } else {
                         addTriggerForCurrentShortcut.bind(this)(triggers, item);
+                    }
+                    if (item.label) {
+                        // Add a string trigger for incomplete placeholder
+                        addTriggerForCurrentShortcut.bind(this)({
+                            name: item.label,
+                            description: 'Incomplete placeholder for ' + item.label
+                        }, item);
                     }
                 }
                 if (keywords) { 
