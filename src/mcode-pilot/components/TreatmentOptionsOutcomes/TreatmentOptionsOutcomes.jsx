@@ -27,7 +27,6 @@ export default class TreatmentOptionsOutcomes extends Component {
 
     componentDidMount() {
         document.addEventListener('click', this.closePoppers);
-
     }
 
     componentWillUnmount() {
@@ -146,7 +145,6 @@ export default class TreatmentOptionsOutcomes extends Component {
 
                 <div className="flex flex-4 flex-padding flex-center top-side-effects">
                     <div>
-
                         {this.state.sideEffectSelection === "leading" ? topSideEffects.map(({ sideEffect, occurrences }, i) =>
                             <div key={i} className="side-effect">
                                 {`${sideEffect} `}
