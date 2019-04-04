@@ -91,8 +91,11 @@ class MedicationRangeChartVisualizer extends Visualizer {
     }
 
     renderMedicationDosage = (lowerValue, upperValue, dosageValue, dosageUnit, timingValue, timingUnit, asNeededIndicator, doseInstructionsText) => {
-        // Determining if timingUnit has a value. Set if empty string if null.
+        // we don't want to render "null" so replace nulls here with empty string
         if (timingUnit == null) timingUnit = '';
+        if (dosageUnit == null) dosageUnit = '';
+        if (dosageValue == null) dosageValue = '';
+
         //Determining if asNeededIndicator is true. Set empty string if false, set string as needed if true.
         const asNeededString = asNeededIndicator ? 'as needed' : '';
 
@@ -122,7 +125,7 @@ class MedicationRangeChartVisualizer extends Visualizer {
                     {`${dosageValue} `}
                 </span>
                 <span className="medication-dosage-info">
-                    {`${dosageUnit} ${timingValue || doseInstructionsText} ${timingUnit} ${asNeededString}`}
+                    {`${dosageUnit} ${timingValue || doseInstructionsText || ''} ${timingUnit} ${asNeededString}`}
                 </span>
             </div>);
     }

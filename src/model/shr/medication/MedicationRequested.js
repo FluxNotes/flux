@@ -262,6 +262,21 @@ class MedicationRequested extends ActionRequested {
     this.substitutionAllowed = substitutionAllowed; return this;
   }
 
+  // StatementDateTime added manually. this is present in newer versions of the spec
+  // this will become a shr.core.StatementDateTime, for now just make it a shr.core.BeginDateTime
+  // since both only contain a value of type dateTime
+  get statementDateTime() {
+    return this._statementDateTime;
+  }
+
+  set statementDateTime(statementDateTime) {
+    this._statementDateTime = statementDateTime;
+  }
+
+  withStatementDateTime(statementDateTime) {
+    this.statementDateTime = statementDateTime; return this;
+  }
+
   /**
    * Deserializes JSON data to an instance of the MedicationRequested class.
    * The JSON must be valid against the MedicationRequested JSON schema, although this is not validated by the function.
@@ -353,6 +368,9 @@ class MedicationRequested extends ActionRequested {
     }
     if (this.substitutionAllowed != null) {
       inst['SubstitutionAllowed'] = typeof this.substitutionAllowed.toJSON === 'function' ? this.substitutionAllowed.toJSON() : this.substitutionAllowed;
+    }
+    if (this.statementDateTime != null) {
+      inst['StatementDateTime'] = typeof this.statementDateTime.toJSON === 'function' ? this.statementDateTime.toJSON() : this.statementDateTime;
     }
     return inst;
   }
@@ -448,8 +466,17 @@ class MedicationRequested extends ActionRequested {
       const inst_reason = FHIRHelper.createInstanceFromFHIR('shr.base.Reason', fhir['reasonCodeableConcept'], shrId, allEntries, mappedResources, referencesOut, false);
       inst.reason.push(inst_reason);
     }
+    // reasonReference added manually since it doesn't seem to be in the spec
+    if (fhir['reasonReference'] != null) {
+      inst.reason = inst.reason || [];
+      const inst_reason = FHIRHelper.createInstanceFromFHIR('shr.base.Reason', fhir['reasonReference'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.reason.push(inst_reason);
+    }
     if (fhir['note'] != null) {
       inst.performerInstructions = FHIRHelper.createInstanceFromFHIR('shr.base.PerformerInstructions', fhir['note'], shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['dateWritten'] != null) {
+      inst.statementDateTime = FHIRHelper.createInstanceFromFHIR('shr.core.BeginDateTime', fhir['dateWritten'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['medicationReference'] != null) {
       const entryId = fhir['medicationReference']['reference'];
@@ -460,6 +487,10 @@ class MedicationRequested extends ActionRequested {
         }
       }
       inst.medication = mappedResources[entryId];
+    }
+    if (fhir['medicationCodeableConcept'] != null) {
+      inst.medication = FHIRHelper.createInstanceFromFHIR('shr.entity.Medication', {}, shrId, allEntries, mappedResources, referencesOut);
+      inst.medication.type = FHIRHelper.createInstanceFromFHIR('shr.core.Type', fhir['medicationCodeableConcept'], shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['dosageInstruction'] != null && fhir['dosageInstruction'][0] != null) {
       if (fhir['dosageInstruction'][0]['text'] != null) {
