@@ -6,8 +6,8 @@ import _ from 'lodash';
 import BarChart from '../../visualizations/BarChart/BarChart';
 import TableLegend from '../../visualizations/TableLegend/TableLegend';
 import TreatmentsPopover from '../TreatmentsPopover/TreatmentsPopover';
-import Select from 'material-ui/Select';
-import MenuItem from 'material-ui/Menu/MenuItem';
+import Select from '../../../elements/Select';
+import MenuItem from '../../../elements/MenuItem';
 
 
 import './TreatmentOptionsOutcomes.css';
@@ -184,11 +184,12 @@ export default class TreatmentOptionsOutcomes extends Component {
 
                 <div className="flex-4 flex-padding">
                     <div className="header-title">Reporting severe side effects</div>
-                    <div>
+                    <div id="ccp-table-select">
                         <Select
                             value={this.state.sideEffectSelection}
                             onChange={this.handleChangeEffect}
                             name="sideEffect"
+                            className="custom-select"
                         >
                             <MenuItem value="leading">
                                 <em>leading cause</em>
