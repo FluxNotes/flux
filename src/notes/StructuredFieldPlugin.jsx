@@ -636,7 +636,7 @@ function StructuredFieldPlugin(opts) {
 
 function updateParentContextShortcut(transform, shortcut) {
     const shortcutParent = shortcut.parentContext;
-    if (shortcutParent && shortcutParent.valueObjectAttributes && shortcutParent.isChildRequired(shortcut)) {
+    if (shortcutParent && shortcutParent.valueObjectAttributes) {
         transform = transform.setNodeByKey(shortcutParent.getKey(), {
             data: {
                 shortcut: shortcutParent
