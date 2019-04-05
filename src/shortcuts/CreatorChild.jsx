@@ -45,6 +45,7 @@ export default class CreatorChild extends Shortcut {
         if (trigger === this.metadata.label) {
             // Set text to the label value (placeholder)
             this.text = this._getTriggerWithoutPrefix(trigger);
+            this.parentContext.setAttributeIsSetByLabel(this.metadata.parentAttribute, true);
         } else if (!found || !picker) {
             this.setText(trigger, updatePatient);
             this.clearValueSelectionOptions();
@@ -71,8 +72,9 @@ export default class CreatorChild extends Shortcut {
                 });
                 this.parentContext.setAttributeValue(parentAttributeName, newList, false);
             } else {
-                this.parentContext.setAttributeValue(this.metadata.parentAttribute, null, false);
+                this.parentContext.setAttributeValue(parentAttributeName, null, false);
             }
+            this.parentContext.setAttributeIsSetByLabel(parentAttributeName, false);
             this.parentContext.removeChild(this);
         }
         return result;
