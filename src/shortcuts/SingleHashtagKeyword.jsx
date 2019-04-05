@@ -23,10 +23,6 @@ export default class SingleHashtagKeyword extends EntryShortcut {
     }
 
     get isComplete() {
-        return !this.hasRequiredAndIncompleteVOA();
-    }
-
-    isChildRequired(child) {;
-        return this.valueObjectAttributes[child.metadata.parentAttribute].isRequired;
+        return this.hasChildren();
     }
 }
