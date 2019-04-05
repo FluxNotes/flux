@@ -144,8 +144,12 @@ class Shortcut extends Context {
         return this._source;
     }
 
+    hasChildren() {
+        return this.children.length > 0;
+    }
+
     get isComplete() {
-        console.error("isComplete getter not implemented by " + this.constructor.name);
+        console.warn("isComplete getter not implemented by " + this.constructor.name);
         return true;
     }
 }
