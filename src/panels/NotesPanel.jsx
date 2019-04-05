@@ -275,7 +275,12 @@ export default class NotesPanel extends Component {
     }
 
     renderSignButton = () => {
-        const signNoteDisabledClass = this.props.isAppBlurred ? 'content-disabled' : '';
+        const { isAppBlurred, structuredFieldMapManager } = this.props;
+
+        // containsIncompleteShortcuts searches the list of shortcuts in the note for an incomplete shortcut
+        const containsIncompleteShortcuts = [...structuredFieldMapManager.keyToShortcutMap.values()].some(shortcut => !shortcut.isComplete);
+        const signNoteDisabledClass = containsIncompleteShortcuts || isAppBlurred ? 'content-disabled' : '';
+
         return (
             <div id="finish-sign-component">
                 <Button 
