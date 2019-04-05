@@ -29,6 +29,7 @@ export default class SingleHashtagKeyword extends EntryShortcut {
         this.valueObjectAttributes = {};
         this.values = {};
         this.isSet = {};
+        this.isSetByLabel = {};
         metadataVOA.forEach((attrib) => {
             this.isSet[attrib.name] = false;
             if (Lang.isUndefined(attrib["attribute"])) {
@@ -135,6 +136,14 @@ export default class SingleHashtagKeyword extends EntryShortcut {
     
     getAttributeIsSet(name) {
         return this.isSet[name];
+    }
+
+    getAttributeIsSetByLabel(name) {
+        return this.isSetByLabel[name];
+    }
+
+    setAttributeIsSetByLabel(name, val) {
+        this.isSetByLabel[name] = val;
     }
 
     isAttributeSupported(name) {
