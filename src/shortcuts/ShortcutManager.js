@@ -334,7 +334,10 @@ class ShortcutManager {
                 isSet = context.getAttributeIsSet(parentAttribute);
                 isSettable = Lang.isUndefined(voa.isSettable) ? false : (voa.isSettable === "true");
                 if (isSettable) { // if is settable and not set, then we want to include the shortcut
-                    if (context.getAttributeIsSetByLabel(parentAttribute)) return false; // If attribute was set by label then we should not include the shortcut
+                    if (typeof context.getAttributeIsSetByLabel === 'function') {
+                        if (context.getAttributeIsSetByLabel(parentAttribute)) return false; // If attribute was set by label then we should not include the shortcut
+                    }
+
                     if (Lang.isArray(value)) return value.length < this.triggersPerShortcut[shortcutId].length;
                     return (!isSet);
                 } else {
