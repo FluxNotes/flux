@@ -82,7 +82,6 @@ export default class ContextOptions extends Component {
     render() {
         let context = this.props.context;
         if (Lang.isUndefined(context)) {
-            // patient
             context = this.props.contextManager.getPatientContext();
         }
 
@@ -95,15 +94,21 @@ export default class ContextOptions extends Component {
         // });
 
         // build our list of filtered triggers (only filter if we will be showing search bar)
-        let triggers = [];
+        const triggers = [];
         // count = 0;
         validShortcuts.forEach((shortcut, i) => {
-            let groupName = this.props.shortcutManager.getShortcutGroupName(shortcut);
-            this.props.shortcutManager.getTriggersForShortcut(shortcut, context).forEach((trigger, j) => {
+            const groupName = this.props.shortcutManager.getShortcutGroupName(shortcut);
+            this.props.shortcutManager.getTriggersWithoutLabelForShortcut(shortcut, context).forEach((trigger) => {
                 // If there's a search string to filter on, filter
                 if (this.props.searchString.length === 0 || trigger.name.toLowerCase().indexOf(this.props.searchString.toLowerCase()) !== -1) {
-                    let triggerDescription = !Lang.isNull(trigger.description) ? trigger.description : '';
-                    triggers.push({"name": trigger.name, "description": triggerDescription, "group": i, "groupName": groupName });
+                    const triggerDescription = !Lang.isNull(trigger.description) ? trigger.description : '';
+
+                    triggers.push({
+                        groupName,
+                        name: trigger.name,
+                        description: triggerDescription,
+                        group: i,
+                    });
                     // count++;
                 }
             });
