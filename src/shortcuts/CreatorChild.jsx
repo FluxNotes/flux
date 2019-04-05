@@ -51,6 +51,7 @@ export default class CreatorChild extends Shortcut {
         if (trigger === this.metadata.label) {
             // Set text to the label value (placeholder)
             this.text = this._getTriggerWithoutPrefix(trigger);
+            this.parentContext.setAttributeIsSetByLabel(this.metadata.parentAttribute, true);
         } else if (!found || !picker) {
             this.setText(trigger, updatePatient);
             this.clearValueSelectionOptions();
@@ -68,9 +69,9 @@ export default class CreatorChild extends Shortcut {
     onBeforeDeleted() {
         let result = super.onBeforeDeleted();
         if (result && !Lang.isUndefined(this.parentContext)) {
+            const parentAttributeName = this.metadata.parentAttribute;
             if (this.metadata["subtype"] && this.metadata["subtype"] === "list") {
                 //console.log("onBeforeDeleted of a list item");
-                const parentAttributeName = this.metadata.parentAttribute;
                 let currentList = this.parentContext.getAttributeValue(parentAttributeName);
                 let oneToDelete = this.text;
                 let newList = currentList.filter((item) => {
@@ -78,8 +79,9 @@ export default class CreatorChild extends Shortcut {
                 });
                 this.parentContext.setAttributeValue(parentAttributeName, newList, false);
             } else {
-                this.parentContext.setAttributeValue(this.metadata.parentAttribute, null, false);
+                this.parentContext.setAttributeValue(parentAttributeName, null, false);
             }
+            this.parentContext.setAttributeIsSetByLabel(parentAttributeName, false);
             this.parentContext.removeChild(this);
         }
         return result;
