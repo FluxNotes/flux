@@ -307,7 +307,7 @@ class ShortcutManager {
 
     getValidChildShortcutsInContext(context, recurse = false) {
         const currentContextId = context.getId();
-    
+
         // Let's get all child shortcuts registered in shortcuts metadata via the current context
         // They can be registered in 2 ways:
         //      as a childShortcut on valueObjectAttributes
@@ -334,6 +334,7 @@ class ShortcutManager {
                 isSet = context.getAttributeIsSet(parentAttribute);
                 isSettable = Lang.isUndefined(voa.isSettable) ? false : (voa.isSettable === "true");
                 if (isSettable) { // if is settable and not set, then we want to include the shortcut
+                    if (context.getAttributeIsSetByLabel(parentAttribute)) return false; // If attribute was set by label then we should not include the shortcut
                     if (Lang.isArray(value)) return value.length < this.triggersPerShortcut[shortcutId].length;
                     return (!isSet);
                 } else {
@@ -353,10 +354,10 @@ class ShortcutManager {
         }
         return result;
     }
-    
+
     // context is optional
     getTriggersForShortcut(shortcutId, context) {
-        if (Lang.isUndefined(this.shortcuts[shortcutId]["stringTriggers"])) { 
+        if (Lang.isUndefined(this.shortcuts[shortcutId]["stringTriggers"])) {
             return [];
         } else if (!Lang.isUndefined(context)) {
             const currentContextId = context.getId();
@@ -371,6 +372,7 @@ class ShortcutManager {
             if (isSettable) { // if is settable and not set, then we want to include the shortcut
                 if (value !== null && Lang.isArray(value)) {
                     let list = this.triggersPerShortcut[shortcutId];
+
                     list = list.filter((item) => {
                         return !value.includes(item.name.substring(1));
                     });
