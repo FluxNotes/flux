@@ -170,6 +170,10 @@ class FluxMedicationRequested extends FluxEntry {
         this._medicationRequested.dosage.doseAmount.value.number.decimal = amount;
     }
 
+    get dose() {
+        return this.amountPerDose ? this.amountPerDose.value : null;
+    }
+
     /*
      *  Getter for timingOfDoses
      *  Returns object with value and units
