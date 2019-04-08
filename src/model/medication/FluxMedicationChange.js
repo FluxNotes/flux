@@ -124,6 +124,12 @@ class FluxMedicationChange extends FluxEntry {
         }
     }
 
+    get afterDosage() {
+        if (!this._medicationChange.medicationAfterChange) return this.medAfterDoseAmount || null;
+        const medAfter = this._patientRecord.getEntryFromReference(this.medicationAfterChange.value);
+        return medAfter.dose;
+    }
+
     // Clones medicationBefore and sets medicationAfter to cloned object
     // Sets endDate for medicationBefore and sets startDate for medAfter
     // Adds medicationAfter to patient
