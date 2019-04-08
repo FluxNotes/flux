@@ -148,6 +148,22 @@ class Shortcut extends Context {
         return this.children.length > 0;
     }
 
+    hasParentContext() { 
+        return !Lang.isEmpty(this.parentContext);
+    }
+
+    hasValueObjectAttributes() { 
+        return !Lang.isEmpty(this.valueObjectAttributes);
+    }
+
+    setAttributeIsSetByLabel(name, val) { 
+        if (!this.hasParentContext) {
+            console.error(`trying to set an attribute on a shortcut ${this}, but there is no parent context.`)
+        } else { 
+            this.parentContext.setAttributeIsSetByLabel(name, val)
+        }
+    }
+
     get isComplete() {
         console.warn("isComplete getter not implemented by " + this.constructor.name);
         return true;
