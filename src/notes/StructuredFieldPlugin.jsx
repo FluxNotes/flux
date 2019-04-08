@@ -239,7 +239,8 @@ function StructuredFieldPlugin(opts) {
             structured_field: props => {
                 const shortcut = props.node.get('data').get('shortcut');
                 if (shortcut instanceof InsertValue) {
-                    return <span contentEditable={shortcut.metadata.isEditable ? '' : false} className='structured-field-inserter' {...props.attributes}>{props.children}</span>;
+                    const sfClass = `structured-field-inserter${shortcut.isComplete ? "" : "-incomplete"}`;
+                    return <span contentEditable={shortcut.metadata.isEditable ? '' : false} className={sfClass} {...props.attributes}>{props.children}</span>;
                 } else {
                     const sfClass = `structured-field-creator${shortcut.isComplete ? "" : "-incomplete"}`;
                     return <span contentEditable={false} className={sfClass} {...props.attributes}>{props.children}{safariSpacing}</span>;
