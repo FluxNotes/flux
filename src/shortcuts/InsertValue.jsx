@@ -264,4 +264,11 @@ export default class InsertValue extends Shortcut {
         }
         return result;
     }
+
+    get isComplete() {
+        if (this.text === this.metadata.stringTriggers[0].name) {
+            return false;
+        }
+        return true;
+    }
 }
