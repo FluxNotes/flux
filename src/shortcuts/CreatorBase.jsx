@@ -29,6 +29,7 @@ export default class CreatorBase extends EntryShortcut {
         this.valueObjectAttributes = {};
         this.values = {};
         this.isSet = {};
+        this.isSetByLabel = {};
         metadataVOA.forEach((attrib) => {
             this.isSet[attrib.name] = false;
             if (Lang.isUndefined(attrib["attribute"])) {
@@ -109,6 +110,14 @@ export default class CreatorBase extends EntryShortcut {
 
     getAttributeIsSet(name) {
         return this.isSet[name];
+    }
+
+    getAttributeIsSetByLabel(name) {
+        return this.isSetByLabel[name];
+    }
+
+    setAttributeIsSetByLabel(name, val) {
+        this.isSetByLabel[name] = val;
     }
 
     isAttributeSupported(name) {
@@ -294,5 +303,9 @@ export default class CreatorBase extends EntryShortcut {
 
     getPrefixCharacter() {
         return "#";
+    }
+
+    get isComplete() {
+        return this.hasChildren();
     }
 }

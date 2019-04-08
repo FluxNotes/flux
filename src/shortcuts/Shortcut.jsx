@@ -159,7 +159,7 @@ class Shortcut extends Context {
     setAttributeIsSetByLabel(name, val) { 
         if (!this.hasParentContext) {
             console.error(`trying to set an attribute on a shortcut ${this}, but there is no parent context.`)
-        } else { 
+        } else {
             this.parentContext.setAttributeIsSetByLabel(name, val)
         }
     }
