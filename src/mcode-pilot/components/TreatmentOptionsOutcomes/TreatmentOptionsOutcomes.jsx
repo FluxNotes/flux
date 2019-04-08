@@ -20,7 +20,7 @@ export default class TreatmentOptionsOutcomes extends Component {
             comparedOpen: false,
             outcomesToggle: "table",
             timescaleToggle: 5,
-            sideEffectSelection: "leading",
+            sideEffectSelection: "most common",
             sideEffects: []
         };
     }
@@ -145,7 +145,7 @@ export default class TreatmentOptionsOutcomes extends Component {
 
                 <div className="flex flex-4 flex-padding flex-center top-side-effects">
                     <div>
-                        {this.state.sideEffectSelection === "leading" ? topSideEffects.map(({ sideEffect, occurrences }, i) =>
+                        {this.state.sideEffectSelection === "most common" ? topSideEffects.map(({ sideEffect, occurrences }, i) =>
                             <div key={i} className="side-effect">
                                 {`${sideEffect} `}
                                 ({Math.floor(occurrences / totalPatients * 100)}%)
@@ -183,7 +183,7 @@ export default class TreatmentOptionsOutcomes extends Component {
                 </div>
 
                 <div className="flex-4 flex-padding">
-                    <div className="header-title">Reporting severe side effects</div>
+                    <div className="header-title">Side Effects</div>
                     <div id="ccp-table-select">
                         <Select
                             value={this.state.sideEffectSelection}
@@ -191,8 +191,8 @@ export default class TreatmentOptionsOutcomes extends Component {
                             name="sideEffect"
                             className="custom-select"
                         >
-                            <MenuItem value="leading">
-                                <em>leading cause</em>
+                            <MenuItem value="most common">
+                                <em>most common</em>
                             </MenuItem>
                             {this.state.sideEffects.map((effect) => {
                                 return (

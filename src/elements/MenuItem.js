@@ -10,9 +10,6 @@ const styles = {
     color: "#555",
     '&:hover': {
         backgroundColor: variable.state
-    },
-    '&:focus': {
-        backgroundColor: "red"
     }
   }
 
