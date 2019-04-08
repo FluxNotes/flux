@@ -1145,8 +1145,8 @@ describe('6 FluxNotesEditor', function() {
         notesPanelWrapper.setState({ updatedEditorNote });
 
 
-        expect(notesPanelWrapper.find('.structured-field-creator')).to.have.length(1);
-        expect(notesPanelWrapper.find('.structured-field-creator').text()).to.contain('deceased');        
+        expect(notesPanelWrapper.find('.structured-field-creator-incomplete')).to.have.length(1);
+        expect(notesPanelWrapper.find('.structured-field-creator-incomplete').text()).to.contain('deceased');        
 
         const deceasedChild = notesPanelWrapper.find('.context-tray').find('div.context-options-header[title="Date"]');
         expect(deceasedChild).to.have.lengthOf(1);
