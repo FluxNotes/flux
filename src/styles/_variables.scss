@@ -32,3 +32,8 @@ $icons-green: #427E84;
 $icons-blue: #378EE3;
 $icons-red: #EA7E73;
 $icons-teal: #48BDBD;
+
+:export {
+    state: $state;
+    bodyGray: $body-gray;
+}

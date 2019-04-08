@@ -6,9 +6,11 @@ import _ from 'lodash';
 import BarChart from '../../visualizations/BarChart/BarChart';
 import TableLegend from '../../visualizations/TableLegend/TableLegend';
 import TreatmentsPopover from '../TreatmentsPopover/TreatmentsPopover';
+import Select from '../../../elements/Select';
+import MenuItem from '../../../elements/MenuItem';
+
 
 import './TreatmentOptionsOutcomes.css';
-
 export default class TreatmentOptionsOutcomes extends Component {
     constructor(props) {
         super(props);
@@ -17,7 +19,9 @@ export default class TreatmentOptionsOutcomes extends Component {
             includedOpen: false,
             comparedOpen: false,
             outcomesToggle: "table",
-            timescaleToggle: 5
+            timescaleToggle: 5,
+            sideEffectSelection: "Most Common",
+            sideEffects: []
         };
     }
 
@@ -27,6 +31,11 @@ export default class TreatmentOptionsOutcomes extends Component {
 
     componentWillUnmount() {
         document.removeEventListener('click', this.closePoppers);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const sideEffects = this.gatherSideEffects(nextProps.comparedTreatmentData, nextProps.includedTreatmentData);
+        this.setState({ sideEffects });
     }
 
     closePoppers = ({ target }) => {
@@ -70,7 +79,11 @@ export default class TreatmentOptionsOutcomes extends Component {
     }
 
     handleToggleTimescale = (time) => {
-        this.setState({ timescaleToggle: time});
+        this.setState({ timescaleToggle: time });
+    }
+
+    handleChangeEffect = (effect) => {
+        this.setState({ sideEffectSelection: effect.target.value });
     }
 
     toggleTreatment = (treatmentType) => (event, selected) => {
@@ -87,6 +100,16 @@ export default class TreatmentOptionsOutcomes extends Component {
         } else if (!this.props[key].includes(treatment)) {
             this.props.selectTreatments(key, [...this.props[key], treatment]);
         }
+    }
+
+    gatherSideEffects = (comparedTreatmentData, includedTreatmentData) => {
+        const allTreatmentData = [...includedTreatmentData, ...comparedTreatmentData];
+        const allEffects = allTreatmentData.map((e) => (Object.keys(e.sideEffects.effects)));
+        const result = allEffects.reduce((p, c) => {
+            // concat the arrays, filter out duplicate entries
+            return p.concat(c.filter((cx) => { return p.indexOf(cx) < 0 }));
+        }, []);
+        return result;
     }
 
     renderBarChart = (row, compareRow, survivalRate) => {
@@ -106,10 +129,9 @@ export default class TreatmentOptionsOutcomes extends Component {
         if (row == null || row.length === 0) return null;
 
         const { displayName, totalPatients, sideEffects } = row;
-        const topSideEffects = Object.keys(sideEffects.effects).map((sideEffect) => ({
-            sideEffect, occurrences: sideEffects.effects[sideEffect]
-        })).sort((a, b) => b.occurrences - a.occurrences).slice(0, 2);
-
+        const topSideEffects = Object.keys(sideEffects.effects).map((sideEffect) => {
+            return { sideEffect, occurrences: sideEffects.effects[sideEffect] }
+        }).sort((a, b) => b.occurrences - a.occurrences).slice(0, 2);
         return (
             <div className="table-row flex">
                 <div className="flex-2 flex-padding treatment-name">{displayName}</div>
@@ -123,12 +145,14 @@ export default class TreatmentOptionsOutcomes extends Component {
 
                 <div className="flex flex-4 flex-padding flex-center top-side-effects">
                     <div>
-                        {topSideEffects.map(({ sideEffect, occurrences }, i) =>
+                        {this.state.sideEffectSelection === "Most Common" ? topSideEffects.map(({ sideEffect, occurrences }, i) =>
                             <div key={i} className="side-effect">
                                 {`${sideEffect} `}
                                 ({Math.floor(occurrences / totalPatients * 100)}%)
                             </div>
-                        )}
+                        )
+                            :
+                            <div>{sideEffects.effects[this.state.sideEffectSelection] ? Math.floor(sideEffects.effects[this.state.sideEffectSelection] / totalPatients * 100) : 0}%</div>}
                     </div>
                 </div>
             </div>
@@ -159,8 +183,29 @@ export default class TreatmentOptionsOutcomes extends Component {
                 </div>
 
                 <div className="flex-4 flex-padding">
-                    <div className="header-title">Reporting severe side effects</div>
-                    <div>leading cause</div>
+                    <div className="header-title">Side Effects</div>
+                    <div id="ccp-table-select">
+                        <Select
+                            value={this.state.sideEffectSelection}
+                            onChange={this.handleChangeEffect}
+                            name="sideEffect"
+                            className="custom-select"
+                        >
+                            <MenuItem value="Most Common">
+                                <em>Most Common</em>
+                            </MenuItem>
+                            {this.state.sideEffects.map((effect) => {
+                                return (
+                                    <MenuItem
+                                        value={effect}
+                                        key={effect}
+                                    >
+                                        {effect}
+                                    </MenuItem>
+                                )
+                            })}
+                        </Select>
+                    </div>
                 </div>
             </div>
         );
@@ -169,9 +214,9 @@ export default class TreatmentOptionsOutcomes extends Component {
     renderTableIcon() {
         return (
             <svg height="20" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0.75 0.75H15.25V15.25H0.75V0.75Z" strokeWidth="1.5"/>
-                <path d="M8 0.5V15.5" strokeWidth="1.5"/>
-                <path d="M0.5 8H15.5" strokeWidth="1.5"/>
+                <path d="M0.75 0.75H15.25V15.25H0.75V0.75Z" strokeWidth="1.5" />
+                <path d="M8 0.5V15.5" strokeWidth="1.5" />
+                <path d="M0.5 8H15.5" strokeWidth="1.5" />
             </svg>
         );
     }
@@ -179,8 +224,8 @@ export default class TreatmentOptionsOutcomes extends Component {
     renderIconsIcon() {
         return (
             <svg height="20" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5.97674 5.67948L6.07668 10.25H0.75V0.75H15.25V4.91309H6.72656H5.95998L5.97674 5.67948Z" strokeWidth="1.5"/>
-                <path d="M9.02326 12.3205L8.92332 7.75H15.25V16.25H0.75V13.0869H8.27344H9.04002L9.02326 12.3205Z" strokeWidth="1.5"/>
+                <path d="M5.97674 5.67948L6.07668 10.25H0.75V0.75H15.25V4.91309H6.72656H5.95998L5.97674 5.67948Z" strokeWidth="1.5" />
+                <path d="M9.02326 12.3205L8.92332 7.75H15.25V16.25H0.75V13.0869H8.27344H9.04002L9.02326 12.3205Z" strokeWidth="1.5" />
             </svg>
         );
     }
@@ -229,7 +274,6 @@ export default class TreatmentOptionsOutcomes extends Component {
             comparedTreatmentData
         } = this.props;
         const noIncludedRow = includedTreatmentData.length === 0;
-
         return (
             <div>
                 {this.renderHeader()}
