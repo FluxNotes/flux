@@ -161,7 +161,7 @@ class Shortcut extends Context {
     }
 
     setAttributeIsSetByLabel(name, val) { 
-        if (!this.hasParentContext) {
+        if (!this.hasParentContext()) {
             console.error(`trying to set an attribute on a shortcut ${this}, but there is no parent context.`)
         } else {
             this.parentContext.setAttributeIsSetByLabel(name, val)
@@ -169,7 +169,6 @@ class Shortcut extends Context {
     }
 
     get isComplete() {
-        console.warn("isComplete getter not implemented by " + this.constructor.name);
         return true;
     }
 }
