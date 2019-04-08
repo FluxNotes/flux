@@ -117,7 +117,6 @@ export default class CreatorIntermediary extends Shortcut {
     }
 
     hasValueObjectAttributes() {
-        console.log('this.metadata: ', this.metadata);
         return !Lang.isEmpty(this.metadata["valueObjectAttributes"]);
     }
 
