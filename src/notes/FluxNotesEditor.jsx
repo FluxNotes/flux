@@ -274,7 +274,13 @@ class FluxNotesEditor extends React.Component {
         const {state} = this.state;
         const shortcut = this.props.newCurrentShortcut(null, suggestion.value.name, undefined, true, "auto-complete");
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
-            return this.openPortalToSelectValueForShortcut(shortcut, true, state.transform()).apply();
+            console.log(shortcut)
+            shortcut.setText(shortcut.initiatingTrigger);
+            this.contextManager.removeShortcutFromContext(shortcut);
+            this.contextManager.contextUpdated();
+            const transformBeforeInsert = this.suggestionDeleteExistingTransform(state.transform(), shortcut.getPrefixCharacter());
+            const transform = this.insertStructuredFieldTransform(transformBeforeInsert, shortcut).collapseToStartOfNextText().focus();
+            return this.openPortalToSelectValueForShortcut(shortcut, false, transform).apply();
         } else {
             const transformBeforeInsert = this.suggestionDeleteExistingTransform(state.transform(), shortcut.getPrefixCharacter());
             const transformAfterInsert = this.insertStructuredFieldTransform(transformBeforeInsert, shortcut).collapseToStartOfNextText().focus();
@@ -390,8 +396,10 @@ class FluxNotesEditor extends React.Component {
     // called from portal when an item is selected (selection is not null) or if portal is closed without
     // selection (selection is null)
     onPortalSelection = (state, selection) => {
+        console.log("here2")
+        console.log('selection ', selection)
         let shortcut = this.selectingForShortcut;
-
+        console.log(shortcut)
         this.selectingForShortcut = null;
         this.setState({
             openedPortal: null,
@@ -402,6 +410,20 @@ class FluxNotesEditor extends React.Component {
             shortcut.onBeforeDeleted();
             return state;
         }
+       /*  console.log(this.state.state.transform())
+        shortcut.clearValueSelectionOptions();
+        shortcut.setText(selection.context);
+        if (shortcut.isContext()) {
+            shortcut.setValueObject(selection.object);
+        }
+        this.contextManager.contextUpdated(); */
+        let transform;
+       /*  if (this.state.needToDelete) {
+            transform = this.suggestionDeleteExistingTransform(null, shortcut.getPrefixCharacter());
+        } else {
+            transform = this.state.state.transform();
+        } */
+        transform = this.state.state.transform();
 
         shortcut.clearValueSelectionOptions();
         shortcut.setText(selection.context);
@@ -409,14 +431,9 @@ class FluxNotesEditor extends React.Component {
             shortcut.setValueObject(selection.object);
         }
         this.contextManager.contextUpdated();
-        let transform;
-        if (this.state.needToDelete) {
-            transform = this.suggestionDeleteExistingTransform(null, shortcut.getPrefixCharacter());
-        } else {
-            transform = this.state.state.transform();
-        }
-
-        return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus().apply();
+        transform = this.resetShortcutData(shortcut, transform);
+        return transform.apply();
+       // return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus().apply();
     }
 
     // consider reusing this method to replace code in choseSuggestedShortcut function
