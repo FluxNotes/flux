@@ -20,7 +20,7 @@ export default class TreatmentOptionsOutcomes extends Component {
             comparedOpen: false,
             outcomesToggle: "table",
             timescaleToggle: 5,
-            sideEffectSelection: "most common",
+            sideEffectSelection: "Most Common",
             sideEffects: []
         };
     }
@@ -145,7 +145,7 @@ export default class TreatmentOptionsOutcomes extends Component {
 
                 <div className="flex flex-4 flex-padding flex-center top-side-effects">
                     <div>
-                        {this.state.sideEffectSelection === "most common" ? topSideEffects.map(({ sideEffect, occurrences }, i) =>
+                        {this.state.sideEffectSelection === "Most Common" ? topSideEffects.map(({ sideEffect, occurrences }, i) =>
                             <div key={i} className="side-effect">
                                 {`${sideEffect} `}
                                 ({Math.floor(occurrences / totalPatients * 100)}%)
@@ -191,8 +191,8 @@ export default class TreatmentOptionsOutcomes extends Component {
                             name="sideEffect"
                             className="custom-select"
                         >
-                            <MenuItem value="most common">
-                                <em>most common</em>
+                            <MenuItem value="Most Common">
+                                <em>Most Common</em>
                             </MenuItem>
                             {this.state.sideEffects.map((effect) => {
                                 return (
