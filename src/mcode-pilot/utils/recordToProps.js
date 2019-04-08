@@ -4,7 +4,6 @@ import FluxTumorDimensions from '../../dataaccess/mcodev0.1-datasource/model/onc
 export default function getProps(patient, condition) {
 
     const tumorMarkers = patient.getMostRecentTumorMarkers(condition);
-
     const propDict = {
         // demographics
         "demographic": {
@@ -40,12 +39,14 @@ export default function getProps(patient, condition) {
                     const grade = condition.getMostRecentHistologicalGrade();
                     if (!grade) return null;
                     return grade.getGradeAsSimpleNumber();             
-                })()
+                })(),
+                "reference": condition.getMostRecentHistologicalGrade()
             },
             "stage": {
                 "display": "stage",
                 "valueType": "string",
-                "value": _safeGet(condition.getMostRecentClinicalStaging(), "stage")
+                "value": _safeGet(condition.getMostRecentClinicalStaging(), "stage"),
+                "reference": condition.getMostRecentClinicalStaging()
             },
             "size": {
                 "display": "size (mm)",
@@ -53,7 +54,8 @@ export default function getProps(patient, condition) {
                 "value": (() => {
                     const quantity = _safeGet(condition.getMostRecentLabResultOfEachType().find(e => { return e.constructor.name === FluxTumorDimensions.name }), "quantity")
                     return _safeGet(quantity, "number");
-                })()
+                })(),
+                "reference": condition.getMostRecentLabResultOfEachType().find(e => { return e.constructor.name === FluxTumorDimensions.name })
             }
         },
         "medical history": {
@@ -61,7 +63,8 @@ export default function getProps(patient, condition) {
                 "display": "ECOG Score",
                 "valueType": "range",
                 "range": 1,
-                "value": _safeGet(condition.getMostRecentECOGPerformanceStatus(), "value")
+                "value": _safeGet(condition.getMostRecentECOGPerformanceStatus(), "value"),
+                "reference": condition.getMostRecentECOGPerformanceStatus()
             }
         }
     }
@@ -72,7 +75,8 @@ export default function getProps(patient, condition) {
             propDict.pathology[e.receptorType.split(' ').join('')] = {
                 "display": e.receptorType,
                 "valueType": "string",
-                "value": _.lowerCase(e.status)
+                "value": _.lowerCase(e.status),
+                "reference": e
             }
         });
     }
@@ -108,6 +112,11 @@ function _mapProp(propDict) {
                     selected: false,
                     displayText: option.display
                 };
+
+                if(option.reference) {
+                    propEntry.reference = option.reference;
+                }
+
                 if (option.valueType === "range") {
                     propEntry.minValue = (option.value >= option.range) ? option.value - option.range : 0;
                     propEntry.maxValue = option.value + option.range
