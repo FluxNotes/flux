@@ -119,4 +119,13 @@ export default class CreatorIntermediary extends Shortcut {
     getPrefixCharacter() {
         return "#";
     }
+
+    hasValueObjectAttributes() {
+        console.log('this.metadata: ', this.metadata);
+        return !Lang.isEmpty(this.metadata["valueObjectAttributes"]);
+    }
+
+    get isComplete() {
+        return this.hasChildren();
+    }
 }
