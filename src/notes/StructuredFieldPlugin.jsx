@@ -4,7 +4,6 @@ import React from 'react';
 import Slate from '../lib/slate';
 import Lang from 'lodash';
 import getWindow from 'get-window';
-import CreatorChild from '../shortcuts/CreatorChild';
 
 function createOpts(opts) {
     opts = opts || {};
@@ -214,7 +213,7 @@ function StructuredFieldPlugin(opts) {
                 if (shortcut instanceof Placeholder) {
                     opts.structuredFieldMapManager.removePlaceholder(shortcut);
                 }
-                if (shortcut instanceof CreatorChild) {
+                if (shortcut.hasParentContext()) {
                     const transform = updateParentContextShortcut(state.transform(), shortcut);
                     result = transform.apply();
                 }
@@ -639,7 +638,7 @@ function StructuredFieldPlugin(opts) {
 
 function updateParentContextShortcut(transform, shortcut) {
     const shortcutParent = shortcut.parentContext;
-    if (shortcutParent && shortcutParent.valueObjectAttributes) {
+    if (shortcutParent && shortcutParent.hasValueObjectAttributes()) {
         transform = transform.setNodeByKey(shortcutParent.getKey(), {
             data: {
                 shortcut: shortcutParent
