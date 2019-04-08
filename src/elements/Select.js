@@ -1,6 +1,5 @@
 import { withStyles } from 'material-ui/styles';
 import Select from 'material-ui/Select';
-import React from 'react';
 
 const styles = {
   root: {
