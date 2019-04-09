@@ -268,7 +268,6 @@ class FluxNotesEditor extends React.Component {
         const {state} = this.state;
         const shortcut = this.props.newCurrentShortcut(null, suggestion.value.name, undefined, true, "auto-complete");
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
-            console.log(shortcut)
             shortcut.setText(shortcut.initiatingTrigger);
             const transformBeforeInsert = this.suggestionDeleteExistingTransform(state.transform(), shortcut.getPrefixCharacter());
             const transform = this.insertStructuredFieldTransform(transformBeforeInsert, shortcut).collapseToStartOfNextText().focus();
@@ -305,11 +304,20 @@ class FluxNotesEditor extends React.Component {
         }
 
         let shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger, text, updatePatient, source);
+        if (text === "" && shortcut.needToSelectValueFromMultipleOptions()) {
+            shortcut.setText(shortcutTrigger);
+        }
         shortcut.initialContextPosition = initialContextPosition;
+
+        this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().apply();
+        if (shortcut.isComplete === false) {
+            this.contextManager.removeShortcutFromContext(shortcut);
+            this.contextManager.contextUpdated();
+        }
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions() && (Lang.isNull(text) || text.length === 0)) {
             return this.openPortalToSelectValueForShortcut(shortcut, false, transform);
         }
-        return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus();
+        return transform;
     }
 
     updateExistingShortcut = (shortcut, transform = undefined, initialContextPosition = -1) => {
@@ -333,12 +341,10 @@ class FluxNotesEditor extends React.Component {
     autoReplaceTransform(def, transform, e, data, matches) {
         // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
         const characterToAppend = e.data ? e.data : String.fromCharCode(data.code);
-
         // if text starts with '<', insert placeholder
         if (matches.before[0].startsWith("<")) {
             return this.insertPlaceholder(matches.before[0], transform).insertText(characterToAppend);
         }
-
         return this.insertShortcut(def, matches.before[0], "", transform, true, 'typed').insertText(characterToAppend);
     }
 
@@ -390,10 +396,7 @@ class FluxNotesEditor extends React.Component {
     // called from portal when an item is selected (selection is not null) or if portal is closed without
     // selection (selection is null)
     onPortalSelection = (state, selection) => {
-        console.log("here2")
-        console.log('selection ', selection)
         let shortcut = this.selectingForShortcut;
-        console.log(shortcut)
         this.selectingForShortcut = null;
         this.setState({
             openedPortal: null,
@@ -404,19 +407,7 @@ class FluxNotesEditor extends React.Component {
             shortcut.onBeforeDeleted();
             return state;
         }
-       /*  console.log(this.state.state.transform())
-        shortcut.clearValueSelectionOptions();
-        shortcut.setText(selection.context);
-        if (shortcut.isContext()) {
-            shortcut.setValueObject(selection.object);
-        }
-        this.contextManager.contextUpdated(); */
         let transform;
-       /*  if (this.state.needToDelete) {
-            transform = this.suggestionDeleteExistingTransform(null, shortcut.getPrefixCharacter());
-        } else {
-            transform = this.state.state.transform();
-        } */
         transform = this.state.state.transform();
 
         shortcut.clearValueSelectionOptions();
@@ -424,11 +415,11 @@ class FluxNotesEditor extends React.Component {
         if (shortcut.isContext()) {
             shortcut.setValueObject(selection.object);
         }
-        this.contextManager.addShortcutToContext(shortcut); 
+        this.contextManager.addShortcutToContext(shortcut);
         this.contextManager.contextUpdated();
         transform = this.resetShortcutData(shortcut, transform);
         return transform.apply();
-       // return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus().apply();
+        // return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus().apply();
     }
 
     // consider reusing this method to replace code in choseSuggestedShortcut function
