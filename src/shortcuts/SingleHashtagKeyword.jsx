@@ -1,5 +1,4 @@
 import EntryShortcut from './EntryShortcut';
-import Lang from 'lodash';
 export default class SingleHashtagKeyword extends EntryShortcut {
     constructor(onUpdate, metadata, patient, shortcutData) {
         super(metadata);
