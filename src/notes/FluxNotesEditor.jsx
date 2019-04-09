@@ -429,6 +429,7 @@ class FluxNotesEditor extends React.Component {
         if (shortcut.isContext()) {
             shortcut.setValueObject(selection.object);
         }
+        this.contextManager.addShortcutToContext(shortcut); 
         this.contextManager.contextUpdated();
         transform = this.resetShortcutData(shortcut, transform);
         return transform.apply();
