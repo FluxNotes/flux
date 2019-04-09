@@ -7,29 +7,31 @@
         .note-description-detail {
             margin: 0;
         }
-       
+
         .note-description-detail-name {
             text-align: left;
             padding-bottom:2px;
-            color: #919191;
-            font-size: .7rem;
+            color: $state;
+            font-size: $size-s;
             margin: 0;
         }
-    
+
        .note-description-detail-value {
             text-align: left;
             padding-top:0;
-            font-size: .8rem;
+            color: $body-gray;
+            font-size: $size-s;
             margin: 0;
         }
-    
+
         p.note-name {
             text-align: left;
             padding-top:0;
-            font-size: 0.8rem;
+            font-size: $size-s;
             margin: 0px;
             padding-left: 0.5rem;
-            font-weight: bold;
+            color: $body-gray;
+            font-weight: $weight-semibold;
             &:hover {
                 cursor: pointer;
             }
@@ -38,7 +40,7 @@
                 margin-right: 5px;
                 margin-bottom: -1px;
             }
-            
+
         }
         #text-field-container {
             margin: 0px 0px 0px 10px;
@@ -55,17 +57,17 @@
             margin-top: 0px !important;
             text-transform: none !important;
         }
-        
+
         .close-note-btn:hover {
             background: #E6E6E6 !important;
         }
 
         .note-description-divider {
-            margin: 20px 0px !important;
+            margin: 20px 0px 10px 0px!important;
             clear: both;
         }
     }
-    
+
     .MyEditor-root {
         font-family: 'Georgia', serif;
 
@@ -74,7 +76,7 @@
         }
 
         .toolbar-menu {
-            padding: 1px 0 17px 5px;
+            padding: 1px 0 10px 5px;
             margin-bottom: 20px;
             border-bottom: 1px solid #ddd;
 
@@ -103,17 +105,17 @@
             &-bolded {
                 font-weight: bold;
             }
-        
+
             // Inserter values are grayed out
             &-inserter {
                 color: $state;
                 display: inline;
             }
-        
+
             &-creator {
                 border-bottom: 1px solid $shr-context-line;
             }
-        
+
             &-search-result {
                 background-color: $highlight-yellow;
             }
@@ -122,30 +124,30 @@
             }
         }
         // ******** Special editor marks use this
-        .search-result-regular-highlight { 
+        .search-result-regular-highlight {
             background-color: $highlight-yellow;
         }
-        .search-result-selected-highlight { 
+        .search-result-selected-highlight {
             background-color: $highlight-selected-yellow;
         }
     }
-    
+
     .editor-content {
         /* 96px is the height of the Patient Control Panel, 20px is the height of the top margin of post encounter view
-        content and a little extra for potential scroll bars, 130px accounts for the editor header and editor toolbar 
+        content and a little extra for potential scroll bars, 130px accounts for the editor header and editor toolbar
         plus margins, 76px is the height of the sign button, 20px is the margin on the sign button */
         height: calc(100vh - 96px - 20px - 130px - 76px - 20px) !important;
         overflow-y: auto;
         overflow-x: hidden;
         text-align: left;
     }
-    
-    .in-progress-note { 
+
+    .in-progress-note {
         .structured-field-creator {
             background-color: rgba(0, 0, 0, 0);
             border-bottom: 1.5px dashed $shr-context-line;
         }
-        
+
         div:last-child {
             padding-bottom: 2px;
         }
@@ -153,11 +155,11 @@
     .placeholder {
         background-color: #dddddd;
     }
-    
-    @media only screen and (max-width: 1024px) { 
+
+    @media only screen and (max-width: 1024px) {
         .editor-content {
             /* 117px is the height of the Patient Control Panel, 20px is the height of the top margin of post encounter view
-            content and a little extra for potential scroll bars, 130px accounts for the editor header and editor toolbar 
+            content and a little extra for potential scroll bars, 130px accounts for the editor header and editor toolbar
             plus margins, 76px is the height of the sign button, 20px is the margin on the sign button */
             height: calc(100vh - 117px - 20px - 130px - 76px - 20px) !important;
         }
@@ -186,10 +188,10 @@
     line-height: 140%;
 }
 
-// TODO: Move this code into the suggestion portal code 
+// TODO: Move this code into the suggestion portal code
 //
 // ******** suggestion-portal.js uses this
-.suggestion-portal { 
+.suggestion-portal {
     position: absolute;
     box-sizing: border-box;
     border-radius: 2px;
@@ -214,7 +216,7 @@
         padding: 7px 10px;
     }
 
-    li { 
+    li {
         padding: 5px 10px;
         min-width: 75px;
         max-width: 300px

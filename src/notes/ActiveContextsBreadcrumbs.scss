@@ -1,0 +1,51 @@
+@import '../styles/variables';
+
+.toolbar-breadcrumbs-container {
+    color: $state;
+    font-size: $size-m;
+    font-style: italic;
+    display: inline-block;
+    vertical-align: bottom;
+    max-width: calc(100% -  315px);
+}
+
+.breadcrumbs-container:after {
+    content:"...";
+    background-color: white;
+    color: transparent;
+    position: relative;
+    z-index: 2;
+}
+
+.breadcrumbs-container {
+    margin-right: 1px;
+    vertical-align: bottom;
+    direction: rtl;
+    display: inline-block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    position: relative;
+    z-index: 3;
+}
+
+.breadcrumbs-container:before {
+    content:"...";
+    background-color: white;
+    position: absolute;
+    left: 0;
+    z-index: 1;
+}
+
+.breadcrumbs {
+    display: inline-block;
+}
+
+.breadcrumb {
+    display: inline;
+}
+
+.breadcrumb-separator {
+    display: inline;
+    padding: 0px 10px;
+}

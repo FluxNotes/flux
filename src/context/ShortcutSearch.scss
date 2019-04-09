@@ -1,9 +1,12 @@
 @import "../styles/variables";
 
 #shortcut-search {
-    margin: 15px 0 5px 0;
+    padding:  0 $note-assistant-overhang 15px $note-assistant-overhang;
     background-color: $background;
+    font-size: $size-m;
+    color: $state;
     text-align: left;
+    border-bottom: 1px solid $line-gray;
 }
 
 .shortcut-search-container {
@@ -12,5 +15,6 @@
 }
 
 .shortcut-search-text {
-    font-size: 0.8em;
+    font-size: $size-m;
+    color: $state;
 }

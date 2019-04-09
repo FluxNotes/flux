@@ -1,0 +1,36 @@
+@import "../styles/variables";
+
+
+.context-tray {
+    margin: 20px 0;
+    color: $body-gray;
+
+    .view-mode-section-item {
+    margin: 3px 0;
+    font-size: $size-m;
+    color: $state;
+    cursor: pointer;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    }
+
+    .view-mode-section-item:hover,
+    .view-mode-section-item.selected {
+        font-weight: $weight-semibold;
+        color: $body-gray;
+    }
+
+    .view-mode-section-menu {
+        padding: 5px 0px 5px 0px+$note-assistant-overhang;
+        border-bottom: 1px solid $line-gray;
+    }
+
+    .view-mode-section-item-disabled {
+       margin: 3px 0px 3px 26px;
+       font-size: $size-m;
+       text-overflow: ellipsis;
+       overflow: hidden;
+       white-space: nowrap;
+   }
+}

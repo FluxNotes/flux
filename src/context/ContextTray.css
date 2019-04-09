@@ -1,31 +1,24 @@
 .context-tray {
-    margin: 20px 0;
-    color: #888;
-}
-
-.context-tray .view-mode-section-item {
+  margin: 20px 0;
+  color: #3F3F3F; }
+  .context-tray .view-mode-section-item {
     margin: 3px 0;
-    font-size: 0.9em;
+    font-size: 0.875rem;
+    color: #767676;
     cursor: pointer;
     text-overflow: ellipsis;
     overflow: hidden;
-    white-space: nowrap;
-}
-
-.context-tray .view-mode-section-item:hover,
-.context-tray .view-mode-section-item.selected {
-    font-weight: bold;
-    color: #333;
-}
-
-.context-tray .view-mode-section-menu {
-    border-bottom: 3px solid #eee;
-}
-
-.context-tray .view-mode-section-item-disabled {
+    white-space: nowrap; }
+  .context-tray .view-mode-section-item:hover,
+  .context-tray .view-mode-section-item.selected {
+    font-weight: 600;
+    color: #3F3F3F; }
+  .context-tray .view-mode-section-menu {
+    padding: 5px 0px 5px 5px;
+    border-bottom: 1px solid #DDDDDD; }
+  .context-tray .view-mode-section-item-disabled {
     margin: 3px 0px 3px 26px;
-    font-size: 0.9em;
+    font-size: 0.875rem;
     text-overflow: ellipsis;
     overflow: hidden;
-    white-space: nowrap;
-}
+    white-space: nowrap; }

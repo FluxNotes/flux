@@ -1,46 +1,41 @@
 .context-option {
-    margin: 5px 0 5px 0px;
-    cursor: pointer;
-    font-size: 0.9em;
-    color: #555
-}
+  margin: 1px 0;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: #3F3F3F; }
 
-.context-option:last-of-type { 
-    margin-bottom: 0;
-}
+.context-option:last-of-type {
+  margin-bottom: 0; }
 
 .context-option:hover {
-    color: #555;
-    font-weight: bold;
-}
+  color: #3F3F3F;
+  font-weight: 600; }
+
+.context-options-section {
+  padding-left: 5px; }
 
 .context-options-list {
-    overflow-y: hidden;
-    overflow-x: hidden;
-    font-weight: normal;
-}
+  overflow-y: hidden;
+  overflow-x: hidden;
+  font-weight: 400; }
 
 .hidden {
-    display: none;
-}
+  display: none; }
 
 /*
 * Tooltip Styling
 */
+.context-panel-tooltip .rc-tooltip-inner {
+  width: 150px;
+  min-height: 22px;
+  text-align: center;
+  border-radius: 6px; }
 
-.context-panel-tooltip .rc-tooltip-inner{
-    width: 150px;
-    min-height: 22px;
-    text-align: center;
-    border-radius: 6px;
-}
-
-.context-panel-tooltip .large .rc-tooltip-inner{
-    width: 220px;
-}
+.context-panel-tooltip .large .rc-tooltip-inner {
+  width: 220px; }
 
 .context-options-header {
-    margin-top: 15px;
-    font-style: italic;
-    font-size: 0.9em;
-}
+  margin-top: 0.75rem;
+  font-style: italic;
+  font-size: 0.875rem;
+  color: #767676; }

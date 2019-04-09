@@ -1,0 +1,55 @@
+@import "../styles/variables";
+
+.context-option {
+    margin: 1px 0;
+    cursor: pointer;
+    font-size: $size-m;
+    color: $body-gray;
+}
+
+.context-option:last-of-type {
+    margin-bottom: 0;
+}
+
+.context-option:hover {
+    color: $body-gray;
+    font-weight: $weight-semibold;
+}
+
+.context-options-section {
+    padding-left: $note-assistant-overhang;
+}
+
+.context-options-list {
+    overflow-y: hidden;
+    overflow-x: hidden;
+    font-weight: $weight-regular;
+}
+
+.hidden {
+    display: none;
+}
+
+/*
+* Tooltip Styling
+*/
+
+.context-panel-tooltip{
+    .rc-tooltip-inner{
+        width: 150px;
+        min-height: 22px;
+        text-align: center;
+        border-radius: 6px;
+    }
+
+    .large .rc-tooltip-inner{
+        width: 220px;
+    }
+}
+
+.context-options-header {
+    margin-top: $size-s;
+    font-style: italic;
+    font-size: $size-m;
+    color: $state;
+}
