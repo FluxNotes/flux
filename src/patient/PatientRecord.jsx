@@ -59,6 +59,7 @@ class PatientRecord {
         let result = item, i;
         for (i = 0; i < attributePath.length; i++) {
             result = result[attributePath[i]];
+            if (result === null) return null;
         }
         return result;
     }
