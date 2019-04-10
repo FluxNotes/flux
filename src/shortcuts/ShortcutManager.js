@@ -276,7 +276,8 @@ class ShortcutManager {
                         // Add a string trigger for incomplete placeholder
                         addTriggerForCurrentShortcut.bind(this)({
                             name: item.label,
-                            description: 'Incomplete placeholder for ' + item.label
+                            description: 'Incomplete placeholder for ' + item.label,
+                            picker: true
                         }, item);
                     }
                 }
