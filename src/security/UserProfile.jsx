@@ -15,7 +15,7 @@ class UserProfile {
         if (org) {
             this.organizationFromSHRJSON(org.partOf);
             const name = org.organizationName.value;
-            const typeCode = org.type.value.coding[0].code.value;
+            const typeCode = org.type.value.coding[0].code;
             if (typeCode === 'prov') {
                 this._provider = name;
             } else if (typeCode === 'dept') {
