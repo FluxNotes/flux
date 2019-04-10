@@ -1,6 +1,6 @@
 .context-tray {
   margin: 20px 0;
-  color: #3F3F3F; }
+  color: #4F4F4F; }
   .context-tray .view-mode-section-item {
     margin: 3px 0;
     font-size: 0.875rem;
@@ -12,7 +12,7 @@
   .context-tray .view-mode-section-item:hover,
   .context-tray .view-mode-section-item.selected {
     font-weight: 600;
-    color: #3F3F3F; }
+    color: #4F4F4F; }
   .context-tray .view-mode-section-menu {
     padding: 5px 0px 5px 5px;
     border-bottom: 1px solid #DDDDDD; }

@@ -61,7 +61,7 @@
             td {
                 padding: 8px 10px;
                 border: 0;
-                color: $body-gray;
+                color: $body-black;
                 font-family: "Open Sans", Arial, sans-serif;
             }
 
@@ -107,6 +107,7 @@
 
             &.list-missing {
                 border-bottom: 1px solid $missing-data-red;
+                color: $state;
             }
 
             &.list-unsigned {

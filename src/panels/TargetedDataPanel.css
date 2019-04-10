@@ -26,12 +26,13 @@
   align-items: center;
   justify-content: center;
   background-color: #fff;
-  border-radius: 5px;
+  border-radius: 4px;
   border: 1px solid #DDDDDD;
   cursor: pointer; }
 
 .minimap-children .minimap-title {
   text-align: center;
+  color: #4F4F4F;
   font-size: 0.625rem; }
 
 .minimap-title-hidden {
@@ -42,6 +43,12 @@
   font-size: 0.625rem;
   display: block;
   visibility: hidden; }
+
+.edit-button {
+  border-radius: 3px;
+  border: 1px solid #767676 !important;
+  color: #0079CA;
+  margin-bottom: 5px; }
 
 .targeted-data-subpanel-no-minimap {
   margin-left: 20px;

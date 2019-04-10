@@ -32,7 +32,7 @@
     td {
         padding: 6px 50px 6px 10px;
         border: 0;
-        color: $body-gray;
+        color: $body-black;
         font-size: $size-m;
         line-height: 1.25rem;
         font-family: "Open Sans", Arial, sans-serif;
@@ -62,6 +62,7 @@
     span {
         &.list-missing {
             border-bottom: 1px solid $missing-data-red;
+            color: $state;
         }
 
         &.list-unsigned span {

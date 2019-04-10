@@ -58,6 +58,7 @@ $note-assistant-width-3: 160px;
         width: inherit;
         margin-right: 5px;
         .previous-notes-label {
+            color: $state;
             font-weight: $weight-semibold;
             font-size: $size-s;
             margin: 10px;
@@ -116,6 +117,11 @@ $note-assistant-width-3: 160px;
                 background-color: $highlight-selected-yellow;
             }
             &.in-progress-note {
+                border-width: 1px;
+                border-style: dashed;
+                .in-progress-text {
+                    font-weight: $weight-semibold;
+                }
                 .in-progress-note-date {
                     padding-bottom: 5px;
                     font-weight: $weight-semibold;
@@ -123,15 +129,18 @@ $note-assistant-width-3: 160px;
                 .in-progress-note-subject {
                     padding-bottom: 5px;
                     border-bottom: 1px solid $line-gray;
+                    color: $state;
                 }
 
                 .in-progress-note-author {
                     padding-top: 5px;
                     padding-bottom: 1px;
+                    color: $state;
                 }
 
                 .existing-note-metadata {
                     margin-bottom: 5px;
+                    color: $state;
                 }
             }
             &.existing-note {
@@ -143,22 +152,18 @@ $note-assistant-width-3: 160px;
                 .existing-note-subject {
                     padding-bottom: 10px;
                     border-bottom: 1px solid $line-gray;
+                    color: $state;
                 }
 
                 .existing-note-author {
                     padding-top: 5px;
                     padding-bottom: 1px;
+                    color: $state;
                 }
 
                 .existing-note-metadata {
                     margin-bottom: 5px;
-                }
-            }
-            &.in-progress-note {
-                border-width: 1px;
-                border-style: dashed;
-                .in-progress-text {
-                    font-weight: $weight-semibold;
+                    color: $state;
                 }
             }
         }

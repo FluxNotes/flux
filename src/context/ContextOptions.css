@@ -2,13 +2,13 @@
   margin: 1px 0;
   cursor: pointer;
   font-size: 0.875rem;
-  color: #3F3F3F; }
+  color: #4F4F4F; }
 
 .context-option:last-of-type {
   margin-bottom: 0; }
 
 .context-option:hover {
-  color: #3F3F3F;
+  color: #232323;
   font-weight: 600; }
 
 .context-options-section {

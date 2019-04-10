@@ -32,13 +32,14 @@
     align-items: center;
     justify-content: center;
     background-color: #fff;
-    border-radius: 5px;
+    border-radius: 4px;
     border: 1px solid $line-gray;
     cursor: pointer;
 }
 
 .minimap-children .minimap-title {
     text-align: center;
+    color: $body-gray;
     font-size: $size-xs;
 }
 
@@ -50,6 +51,13 @@
     font-size: $size-xs;
     display: block;
     visibility: hidden;
+}
+
+.edit-button {
+    border-radius: 3px;
+	border: 1px solid $state !important;
+    color: $interface-blue-text;
+    margin-bottom: 5px;
 }
 
 .targeted-data-subpanel-no-minimap {

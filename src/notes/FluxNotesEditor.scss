@@ -11,7 +11,7 @@
         .note-description-detail-name {
             text-align: left;
             padding-bottom:2px;
-            color: $state;
+            color: $body-gray;
             font-size: $size-s;
             margin: 0;
         }
@@ -19,7 +19,7 @@
        .note-description-detail-value {
             text-align: left;
             padding-top:0;
-            color: $body-gray;
+            color: $body-black;
             font-size: $size-s;
             margin: 0;
         }
@@ -30,7 +30,7 @@
             font-size: $size-s;
             margin: 0px;
             padding-left: 0.5rem;
-            color: $body-gray;
+            color: $body-black;
             font-weight: $weight-semibold;
             &:hover {
                 cursor: pointer;
@@ -86,7 +86,7 @@
             }
 
             .button[data-active="true"] {
-                color: black;
+                color: $body-black;
             }
         }
 
