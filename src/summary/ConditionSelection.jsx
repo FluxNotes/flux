@@ -44,7 +44,6 @@ class ConditionSelection extends Component {
                 <h3 className="label">Condition</h3>
                 <Select
                     className="condition-select"
-                    variant
                     classes={{
                         "selectMenu": "condition-select-menu",
                     }}
