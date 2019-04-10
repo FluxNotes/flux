@@ -266,7 +266,7 @@ class PatientRecord {
 
     // returns sorted list of encounters
     getEncountersChronologicalOrder(){
-        let encounters = this.getEntriesOfType(FluxConsultRequested);
+        const encounters = this.getEntriesOfType(FluxConsultRequested);
         encounters.sort(this._encounterTimeSorter);
         return encounters;
     }
@@ -279,19 +279,24 @@ class PatientRecord {
         return nextEncounter.reasons.map((r) => { return r.value; }).join(',');
     }
 
-    getPreviousEncounter() {
-        let encounters = this.getEncountersChronologicalOrder();
+    getPreviousEncountersChronologicalOrder(sinceDate = '') {
+        const encounters = this.getEncountersChronologicalOrder();
 
         // filter out any encounters happening before the specified moment argument
-        const now = new moment();
+        const sinceMoment = Lang.isEmpty(sinceDate) ? new moment() : new moment(sinceDate);
         return encounters.filter((encounter) => {
             const encounterStartTime = new moment(encounter.expectedPerformanceTime, "D MMM YYYY HH:mm Z");
-            return encounterStartTime.isBefore(now, "second");
-        }).pop();
+            return encounterStartTime.isBefore(sinceMoment, "second");
+        });
+    }
+
+    getPreviousEncounter(sinceDate='') {
+        const encounters = this.getPreviousEncountersChronologicalOrder(sinceDate);
+        return encounters.pop()
     }
 
     getPreviousEncounterDateAsString() {
-        let encounter = this.getPreviousEncounter();
+        const encounter = this.getPreviousEncounter();
         return new moment(encounter.expectedPerformanceTime, "D MMM YYYY").format("D MMM YYYY");
     }
 

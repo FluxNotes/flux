@@ -108,6 +108,7 @@ class FluxClinicalNote {
         clinicalNoteJSON.EntryType = this.entryInfo.entryType.toJSON();
         clinicalNoteJSON.PersonOfRecord = this.entryInfo.personOfRecord;
         clinicalNoteJSON.signedOn = this.signedOn;
+        clinicalNoteJSON.signedBy = this.signedBy;
         clinicalNoteJSON.subject = this.subject;
         clinicalNoteJSON.hospital = this.hospital;
         clinicalNoteJSON.createdBy = this.createdBy;
