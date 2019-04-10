@@ -89,7 +89,7 @@ export default class CreatorChild extends Shortcut {
             return this.metadata.picker;
         } else {
             return this.getValueSet(this.metadata.picker).map((item) => {
-                return {"key": item.id, "context": item.name, "object": item};
+                return {"key": item.id || item.code, "context": item.name, "object": item};
             });
         }
     }
