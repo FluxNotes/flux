@@ -26,6 +26,7 @@ import NoteParser from '../noteparser/NoteParser';
 import './FluxNotesEditor.css';
 import { setTimeout } from 'timers';
 import NoteContentIndexer from '../patientControl/NoteContentIndexer';
+import InsertValue from '../shortcuts/InsertValue';
 
 // This forces the initial block to be inline instead of a paragraph. When insert structured field, prevents adding new lines
 const initialState = Slate.Plain.deserialize('');
@@ -307,15 +308,14 @@ class FluxNotesEditor extends React.Component {
         if (!this.shortcutTriggerCheck(shortcutC, shortcutTrigger)) {
             return this.insertPlainText(transform, shortcutTrigger);
         }
-
         let shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger, text, updatePatient, source);
         if(text === "" && shortcut.needToSelectValueFromMultipleOptions()){
             shortcut.setText(shortcutTrigger);
         }
         shortcut.initialContextPosition = initialContextPosition;
-
+        
         this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().apply();
-        if(shortcut.isComplete == false){
+        if(shortcut instanceof InsertValue && shortcut.isComplete === false){
             this.contextManager.removeShortcutFromContext(shortcut);
             this.contextManager.contextUpdated();
         }
