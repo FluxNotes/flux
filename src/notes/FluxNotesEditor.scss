@@ -56,6 +56,15 @@
             padding: 0px !important;
             margin-top: 0px !important;
             text-transform: none !important;
+            color: $body-black;
+            font-weight: $weight-regular;
+            border: 1px solid $line-gray;
+            border-radius: 3px;
+
+            .close-x {
+                color: $interface-blue;
+                margin-right: 5px;
+            }
         }
 
         .close-note-btn:hover {

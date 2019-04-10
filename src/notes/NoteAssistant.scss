@@ -40,6 +40,8 @@ $note-assistant-width-3: 160px;
             width: 50% !important;
             display: inline-block !important;
             background-color: $background !important;
+            box-shadow: none;
+            border: 1px solid $line-gray;
         }
 
         .toggle-button-selected {
@@ -48,8 +50,24 @@ $note-assistant-width-3: 160px;
 
         .toggle-button-disabled {
             // Shouldn't be line gray cannonically, but it is the best one for now.
-            background-color: $line-gray !important;
+            // feature gray is probably better (DR).
+            background-color: $feature-gray !important;
+            border-color: $feature-gray;
         }
+
+        .first-button {
+            border-radius: 4px 0px 0px 4px;
+        }
+
+        .inside-button{
+            border-radius: 0px;
+            margin: 0px -1px;
+        }
+
+        .last-button{
+            border-radius: 0px 4px 4px 0px;
+        }
+
     }
 
     /* Notes */
@@ -191,6 +209,9 @@ $note-assistant-width-3: 160px;
             margin-bottom: 10px;
             text-transform: none;
             background-color: $background;
+            border: 1px solid $line-gray;
+            border-radius: 3px;
+
             &:hover {
                 background-color: $feature-gray;
             }

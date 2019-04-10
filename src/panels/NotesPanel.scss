@@ -1,3 +1,5 @@
+@import '../styles/variables';
+
 #finish-sign-component {
     position: fixed;
     bottom: 0px;
@@ -13,8 +15,10 @@
         display: inline-block;
         min-width: 90%;
         margin: 10px;
+        border: 1px solid $line-gray;
+        border-radius: 3px;
     }
 }
-.panel-content.note-assistant-panel { 
+.panel-content.note-assistant-panel {
     padding: 0px !important;
 }

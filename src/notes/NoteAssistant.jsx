@@ -133,16 +133,16 @@ export default class NoteAssistant extends Component {
     }
 
     setInsertingTemplate = (insertingTemplate) => {
-        this.setState({ insertingTemplate }); 
+        this.setState({ insertingTemplate });
         this.props.updateShowTemplateView(false);
     }
 
     onPointOfCareButtonClicked() {
         this.notes_btn_classname = "toggle-button";
-        this.notes_stroke = "#666666";
+        this.notes_stroke = "#AAAAAA";
         this.notes_disabled = false;
         this.context_btn_classname = "toggle-button";
-        this.context_fill = "#666666";
+        this.context_fill = "#AAAAAA";
         this.context_disabled = false;
         this.poc_btn_classname = 'toggle-button-selected';
         this.poc_stroke = "#FFFFFF";
@@ -155,24 +155,24 @@ export default class NoteAssistant extends Component {
         this.notes_stroke = "#FFFFFF";
         this.notes_disabled = false;
         this.context_btn_classname = "toggle-button";
-        this.context_fill = "#666666";
+        this.context_fill = "#AAAAAA";
         this.context_disabled = false;
         this.poc_btn_classname = 'toggle-button';
-        this.poc_stroke = "#666666";
-        this.poc_fill = "#FFFFFF"
+        this.poc_stroke = "#AAAAAA";
+        this.poc_fill = "#AAAAAA"
         this.poc_disabled = false;
     }
 
     onContextToggleButtonClicked() {
         this.notes_btn_classname = "toggle-button";
-        this.notes_stroke = "#666666";
+        this.notes_stroke = "#AAAAAA";
         this.notes_disabled = false;
         this.context_btn_classname = "toggle-button-selected"
         this.context_fill = "#FFFFFF";
         this.context_disabled = false;
         this.poc_btn_classname = 'toggle-button';
-        this.poc_stroke = "#666666";
-        this.poc_fill = "#FFFFFF"
+        this.poc_stroke = "#AAAAAA";
+        this.poc_fill = "#AAAAAA"
         this.poc_disabled = false;
     }
 
@@ -185,7 +185,7 @@ export default class NoteAssistant extends Component {
         this.context_fill = "#FFFFFF";
         this.poc_btn_classname = 'toggle-button-disabled';
         this.poc_stroke = "#FFFFFF";
-        this.poc_fill = "#666666"
+        this.poc_fill = "#FFFFFF"
         this.poc_disabled = true;
     }
 
@@ -198,7 +198,7 @@ export default class NoteAssistant extends Component {
         this.context_fill = "#FFFFFF";
         this.poc_btn_classname = 'toggle-button-disabled';
         this.poc_stroke = "#FFFFFF";
-        this.poc_fill = "#666666"
+        this.poc_fill = "#FFFFFF"
         this.poc_disabled = true;
     }
 
@@ -211,7 +211,7 @@ export default class NoteAssistant extends Component {
     handleOnNewNoteButtonClick = () => {
         this.props.openNewNote();
         this.toggleView("context-tray");
-  
+
     }
 
     // Gets called when clicking on one of the notes in the clinical notes view
@@ -406,7 +406,7 @@ export default class NoteAssistant extends Component {
     renderDeleteNoteButton = () => {
         return (
             <div id="delete-note-container">
-                <Button variant="raised" id="delete-note-button" onClick={this.deleteSelectedNote}>
+                <Button variant="flat" id="delete-note-button" onClick={this.deleteSelectedNote}>
                     <FontAwesome name="trash" id="trash-icon" />
                     <span>Delete Note</span>
                 </Button>
@@ -429,12 +429,12 @@ export default class NoteAssistant extends Component {
             && this.props.highlightedSearchSuggestion.valueTitle !== "Subsection"
             && Lang.isEqual(this.props.highlightedSearchSuggestion.note.entryInfo.entryId, item.entryInfo.entryId)
             && Lang.includes(this.state.highlightedNoteIds, item.entryInfo.entryId)) ? "highlighted-result" : "";
-         
+
         return (
-         
-            <div 
-                ref={item.entryInfo.entryId} 
-                className={`note existing-note ${selectedClassName} ${searchedForClassName} ${highlighedSearchSuggestionClassName}`} 
+
+            <div
+                ref={item.entryInfo.entryId}
+                className={`note existing-note ${selectedClassName} ${searchedForClassName} ${highlighedSearchSuggestionClassName}`}
                 key={i}
                 onClick={() => {
                     this.openNote(false, item)
@@ -445,7 +445,7 @@ export default class NoteAssistant extends Component {
                 <div className="existing-note-author">{item.createdBy}</div>
 
                 {this.renderMetaDataText(item)}
-               
+
             </div>
         );
     }
@@ -526,14 +526,14 @@ export default class NoteAssistant extends Component {
                 <MaterialButton
                     variant="raised"
                     id="notes-btn"
-                    className={"toggle-button " + this.notes_btn_classname}
+                    className={"toggle-button first-button " + this.notes_btn_classname}
                     disabled={this.notes_disabled}
                     onClick={() => {
                         this.toggleView("clinical-notes")
                     }}>
-                    <svg viewBox="0 0 19 17">
+                    <svg viewBox="0 0 19 19">
                         <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-                            <g id="Group-Copy" transform="translate(0.003906, 0.007812)" stroke={this.notes_stroke}
+                            <g id="Group-Copy" transform="translate(0, 2)" stroke={this.notes_stroke}
                                 strokeWidth="1.62">
                                 <path
                                     d="M1.1248514,1.1248514 L1.1248514,9.91423446 L6.40096349,15.2473495 L17.6880469,15.2473495 L17.6880469,1.1248514 L1.1248514,1.1248514 Z"
@@ -548,33 +548,29 @@ export default class NoteAssistant extends Component {
                 <MaterialButton
                     variant="raised"
                     id="context-btn"
-                    className={"toggle-button " + this.context_btn_classname}
+                    className={"toggle-button inside-button " + this.context_btn_classname}
                     disabled={this.context_disabled}
                     onClick={() => {
                         this.toggleView("context-tray")
                     }}>
-                    <svg viewBox="0 0 15 16">
-                        <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd"
-                            fontFamily="OpenSans-Semibold, Open Sans" fontSize="19" fontWeight="500"
-                            letterSpacing="0.172221214">
-                            <text id="@-copy" fill={this.context_fill}>
-                                <tspan x="-0.844039108" y="16.2245462">@</tspan>
-                            </text>
+                    <svg viewBox="0 0 32 32" fill="none">
+                        <g id="tray - shortcuts selected" transform="translate(0, 2)" fill={this.context_fill}>
+                            <path id="@ copy 7" fill-rule="evenodd" clip-rule="evenodd" d="M30.1787 12.8908C30.1787 14.5666 29.915 16.0988 29.3877 17.4875C28.8603 18.8762 28.1191 19.9572 27.1641 20.7307C26.209 21.5041 25.1045 21.8908 23.8506 21.8908C22.9248 21.8908 22.1221 21.6447 21.4424 21.1526C20.7627 20.6604 20.3057 19.9924 20.0713 19.1487H19.8604C19.2861 20.0627 18.5772 20.7483 17.7334 21.2053C16.8896 21.6623 15.9404 21.8908 14.8857 21.8908C12.9756 21.8908 11.4727 21.2756 10.377 20.0451C9.28124 18.8147 8.7334 17.1506 8.7334 15.0529C8.7334 12.6389 9.45995 10.6789 10.9131 9.17307C12.3662 7.6672 14.3174 6.91428 16.7666 6.91428C17.6572 6.91428 18.6445 6.99338 19.7285 7.15158C20.8125 7.30978 21.7764 7.52951 22.6201 7.81076L22.2334 15.9846V16.4065C22.2334 18.2815 22.8428 19.219 24.0615 19.219C24.9873 19.219 25.7227 18.6213 26.2676 17.426C26.8125 16.2307 27.085 14.7073 27.085 12.8557C27.085 10.8518 26.6748 9.09104 25.8545 7.57346C25.0342 6.05587 23.8682 4.88694 22.3564 4.06662C20.8447 3.2463 19.1104 2.83615 17.1533 2.83615C14.6572 2.83615 12.4863 3.35177 10.6406 4.38303C8.79491 5.41428 7.38575 6.8879 6.41309 8.80392C5.44042 10.7199 4.9541 12.9436 4.9541 15.4748C4.9541 18.8733 5.8623 21.4865 7.67871 23.3147C9.49513 25.1428 12.1025 26.0569 15.501 26.0569C18.0908 26.0569 20.792 25.5295 23.6045 24.4748V27.3576C21.1435 28.3655 18.4658 28.8694 15.5713 28.8694C11.2353 28.8694 7.8545 27.7004 5.42871 25.3625C3.00292 23.0246 1.79004 19.7639 1.79004 15.5803C1.79004 12.5217 2.44628 9.80003 3.75879 7.41525C5.0713 5.03048 6.89061 3.2053 9.2168 1.93967C11.543 0.674035 14.1767 0.0412292 17.1182 0.0412292C19.6611 0.0412292 21.9258 0.568568 23.9121 1.62326C25.8984 2.67795 27.4394 4.18087 28.5352 6.13205C29.6309 8.08323 30.1787 10.3361 30.1787 12.8908ZM12.1084 15.1233C12.1084 17.8537 13.1807 19.219 15.3252 19.219C17.5869 19.219 18.8232 17.5022 19.0342 14.0686L19.2451 9.8674C18.5068 9.66818 17.7158 9.56857 16.8721 9.56857C15.3721 9.56857 14.2031 10.0666 13.3652 11.0627C12.5273 12.0588 12.1084 13.4123 12.1084 15.1233Z"/>
                         </g>
                     </svg>
                 </MaterialButton>
                 <MaterialButton
                     variant="raised"
                     id="poc-btn"
-                    className={"toggle-button " + this.poc_btn_classname}
+                    className={"toggle-button last-button " + this.poc_btn_classname}
                     disabled={this.poc_disabled}
                     onClick={() => {
                         this.toggleView("poc")
                     }}>
-                    <svg viewBox="0 -2 19 17">
+                    <svg viewBox="0 -2 19 19">
                         <g id="icon-export" stroke={this.poc_stroke} strokeWidth="1" fill="none" fillRule="evenodd">
-                            <g id="Artboard" transform="translate(-151.000000, -186.000000)" stroke={this.poc_stroke}>
-                                <g id="tray---POC-selected" transform="translate(151.000000, 186.000000)">
+                            <g id="Artboard" stroke={this.poc_stroke}>
+                                <g id="tray---POC-selected" transform="translate(0, 1)">
                                     <g id="Group">
                                         <rect id="Rectangle-Copy" fillRule="nonzero" x="10.5" y="0.5" width="8" height="3.28571429"></rect>
                                         <rect id="Rectangle-Copy-2" fill={this.poc_stroke} fillRule="nonzero" x="0.5" y="0.5" width="8" height="3.28571429"></rect>
