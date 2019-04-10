@@ -404,7 +404,15 @@ class PatientRecord {
 
     getActiveConditions() {
         return this.getConditionsChronologicalOrder().filter((c) => {
-            return (c.clinicalStatus === 'active' || c.clinicalStatus === 'recurrence');
+            // Condition is considered active if:
+            // Status is 'active' or 'recurrence'
+            // Active Medications or Planned Procedures for condition
+            return (
+                c.clinicalStatus === 'active'
+                || c.clinicalStatus === 'recurrence'
+                || this.getActiveMedicationsForCondition(c).length > 0
+                || this.getProceduresPlannedForCondition(c).length > 0
+            );
         });
     }
 
@@ -803,6 +811,10 @@ class PatientRecord {
         });
     }
 
+    getProceduresPlannedForCondition(condition) {
+        return this.getProceduresForCondition(condition).filter(this._isProcedureActiveOrPlanned);
+    }
+
     getProceduresForConditionChronologicalOrder(condition) {
         let procedures = this.getProceduresForCondition(condition);
         procedures.sort(this._proceduresTimeSorter);
@@ -830,19 +842,7 @@ class PatientRecord {
     }
 
     getSurgeriesPlannedForCondition(condition) {
-        const surgeriesForCondition = this.getSurgeriesForCondition(condition);
-        return surgeriesForCondition.filter((surgery) => {
-            // Case 1: Status is active: 
-            // Looking for active request status code - should be based on http://hl7.org/fhir/STU3/valueset-request-status.html
-            const isActive = surgery.status === "active" && surgery.statusCodeSystem === "http://hl7.org/fhir/STU3/valueset-request-status.html";
-            // Case 2: ExpectedPerformanceDate is after "right now"
-            const now = moment()
-            let surgeryStartTime = new moment(surgery.occurrenceTime, "D MMM YYYY");
-            if (!surgeryStartTime.isValid()) surgeryStartTime = new moment(surgery.occurrenceTime.timePeriodStart, "D MMM YYYY");
-            const isForthcoming = surgeryStartTime > now
-            // If either case is true, we want this element
-            return isActive || isForthcoming;
-        })
+        return this.getSurgeriesForCondition(condition).filter(this._isProcedureActiveOrPlanned);
     }
 
     getSurgeriesPreviouslyPerformedForCondition(condition) {
@@ -1061,6 +1061,22 @@ class PatientRecord {
             return -1;
         }
         return 0;
+    }
+
+    // Checks if procedure is active or planned for the future
+    _isProcedureActiveOrPlanned(p) {
+        // Case 1: Status is active:
+        // Looking for active request status code - should be based on http://hl7.org/fhir/STU3/valueset-request-status.html
+        const isActive = p.status === 'active' && p.statusCodeSystem === 'http://hl7.org/fhir/STU3/valueset-request-status.html';
+
+        // Case 2: ExpectedPerformanceDate is after "right now"
+        const now = moment();
+        let procedureStartTime = new moment(p.occurrenceTime, 'D MMM YYYY');
+        if (!procedureStartTime.isValid()) procedureStartTime = new moment(p.occurrenceTime.timePeriodStart, 'D MMM YYYY');
+        const isForthcoming = procedureStartTime > now;
+
+        // If either case is true, we want this element
+        return isActive || isForthcoming;
     }
 
     _keyEventsTimeSorter(a, b) {
