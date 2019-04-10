@@ -655,6 +655,8 @@ describe('6 FluxNotesEditor', function() {
 
         expect(notesPanelWrapper.find('.structured-field-inserter')).to.have.length(1);
         expect(notesPanelWrapper.find('.structured-field-inserter').text()).to.contain('Invasive ductal carcinoma of breast');
+    
+        expect(notesPanelWrapper.find('.structured-field-inserter-incomplete')).to.have.length(0);
     });
 
     it('6.4 Typing an inserterShortcut that is not currently valid in the editor does not result in a structured data insertion ', () => {
@@ -1013,6 +1015,84 @@ describe('6 FluxNotesEditor', function() {
         for (let index = 0; index < arrayOfExpectedStructuredDataCreators.length; index++) {
             expect(editorContent.text()).to.contain(arrayOfExpectedStructuredDataCreators[index]);
         }
+    })
+
+    it('6.5.3 Typing @condition without select value should result in an incomplete shortcut', () => {
+        // Set up Managers that are needed by FluxNotesEditor
+        let patient = new PatientRecord(mcodePatientJson);
+        const contextManager = new ContextManager(patient, () => {});
+        const shortcutManager = new ShortcutManager();
+        const structuredFieldMapManager = new StructuredFieldMapManager();
+        const searchIndex = new SearchIndex();
+
+        // Mock function to create a new shortcut and set text on shortcut. Allows Editor to update correctly.
+        let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
+            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, patient, shortcutData, this.handleShortcutUpdate);
+            newShortcut.initialize(contextManager, shortcutType, updatePatient, shortcutData);
+            return newShortcut;
+        }
+
+        const wrapper = mount(<FluxNotesEditor
+            arrayOfPickLists={[]}
+            changeShortcutType={() => {}}
+            closeNote={() => {}}
+            contextManager={contextManager}
+            contextTrayItemToInsert={() => {}}
+            currentViewMode={''}
+            errors={[]}
+            handleUpdateEditorWithNote={jest.fn()}
+            handleUpdateArrayOfPickLists={jest.fn()}
+            isNoteViewerEditable={true}
+            isNoteViewerVisible={true}
+            itemInserted={jest.fn()}
+            newCurrentShortcut={mockNewCurrentShortcut}
+            noteAssistantMode={''}
+            openNoteSearchSuggestions={jest.fn()}
+            openSourceNoteEntryId={''}
+            patient={patient}
+            saveNote={jest.fn()}
+            searchIndex={searchIndex}
+            selectedNote={{}}
+            selectedPickListOptions={jest.fn()}
+            setForceRefresh={jest.fn()}
+            setLayout={jest.fn()}
+            setNoteViewerEditable={jest.fn()}
+            setNoteViewerVisible={jest.fn()}
+            setOpenSourceNoteEntryId={jest.fn()}
+            setUndoTemplateInsertion={jest.fn()}
+            shortcutKey={{}}
+            shortcutManager={shortcutManager}
+            shortcutType={{}}
+            shouldEditorContentUpdate={true}
+            shouldRevertTemplate={jest.fn()}
+            shouldUpdateShortcutType={jest.fn()}
+            structuredFieldMapManager={structuredFieldMapManager}
+            summaryItemToInsert={''}
+            summaryItemToInsertSource={''}
+            updateErrors={jest.fn()}
+            updatedEditorNote={{ content: '' }}
+            updateLocalDocumentText={jest.fn()}
+            updateSelectedNote={jest.fn()}
+            updateNoteAssistantMode={jest.fn()}
+            updateContextTrayItemToInsert={jest.fn()}
+            searchSuggestions={[]}
+        />);
+        expect(wrapper).to.exist;
+        // wrapper.find('.editor-content').simulate('click'); //goes into on change
+
+        const arrayOfStructuredDataToEnter = ["@condition"];
+        const entryId = patient.addClinicalNote('', '', '', '', '', arrayOfStructuredDataToEnter.join(' '), false);
+        const updatedEditorNote = patient.getEntryById(entryId);
+        // Set updatedEditorNote props because this triggers that a change is coming in to the editor and inserts text with structured phrases.
+        wrapper.setProps({ updatedEditorNote });
+
+        // Check structured phrases inserters
+        const structuredFieldInserter = wrapper.find('.structured-field-inserter');
+        expect(structuredFieldInserter).to.have.lengthOf(0)
+    
+        const incompleteStructuredFieldInserter = wrapper.find('.structured-field-inserter-incomplete');
+        expect(incompleteStructuredFieldInserter).to.have.lengthOf(1);
+        expect(incompleteStructuredFieldInserter.at(0).text()).to.contain(arrayOfStructuredDataToEnter[0]);
     })
 
     it('6.6 Typing a date in the editor results in a structured data insertion ', () => {
