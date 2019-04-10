@@ -302,7 +302,6 @@ class FluxNotesEditor extends React.Component {
         if (!this.shortcutTriggerCheck(shortcutC, shortcutTrigger)) {
             return this.insertPlainText(transform, shortcutTrigger);
         }
-
         let shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger, text, updatePatient, source);
         if (text === "" && shortcut.needToSelectValueFromMultipleOptions()) {
             shortcut.setText(shortcutTrigger);
