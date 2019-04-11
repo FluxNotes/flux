@@ -1,11 +1,10 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import 'fhirclient';
-
 import AppManager from '../apps/AppManager';
 import WithTracker from '../components/WithTracker';
 
-const apps = AppManager.getSupportedApps();
+const apps = new AppManager().getSupportedApps();
 const base = AppManager.config.basename || ''
 let pathName = (path) => {
   if(path.startsWith('/') && base !== '/'){

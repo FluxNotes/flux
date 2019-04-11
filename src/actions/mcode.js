@@ -1,5 +1,5 @@
 import * as types from './types';
-import AppManager from '../apps/AppManager'
+import {ConfigManagerInstance} from '../config/ConfigManager'
 // ------------------------- SIMILAR PATIENT OPTIONS ----------------------- //
 
 function initializeSimilarPatientProps(patient, condition) {
@@ -44,9 +44,9 @@ function updatePatientOutcomes(data) {
 function processSimilarPatientOutcomes() {
   return (dispatch, getState) => {
     const {similarPatientProps, includedTreatments, comparedTreatments} = getState().mcode
-    const service = AppManager.getService('outcomes')
+    const service = ConfigManagerInstance.get('outcomes');
     console.log(service);
-    console.log(AppManager.config);
+    console.log(ConfigManagerInstance.config);
     return service.processSimilarPatientOutcomes(similarPatientProps, includedTreatments, comparedTreatments).then((results) =>{
       dispatch(updatePatientOutcomes({
          totalPatients: results.totalPatients,
