@@ -9,7 +9,7 @@ export default class ConfigManager {
         if (conf) {
             this.config = {...this.config,
                 ...conf
-            }
+            };
         }
     }
 
@@ -29,7 +29,7 @@ export default class ConfigManager {
             value = context[part];
             context = value;
         }
-        return value || defaultValue
+        return value || defaultValue;
     }
 }
 const instance = new ConfigManager();

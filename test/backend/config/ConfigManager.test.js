@@ -1,10 +1,10 @@
 import ConfigManager from '../../../src/config/ConfigManager';
-import {expect} from 'chai'
+import {expect} from 'chai';
 const nock = require('nock');
 
 describe("ConfigManager", function () {
     it('should aquire defaults from global.CONFIG object if available', function () {
-        global.CONFIG = {foo:"bar"}
+        global.CONFIG = {foo:"bar"};
         let cm = new ConfigManager();
 
         expect(cm.config)
@@ -15,15 +15,15 @@ describe("ConfigManager", function () {
       let config = {foo: 'BAR'};
       const scope = nock('http://localhost/')
         .get('/config.json')
-        .reply(200, config)
+        .reply(200, config);
 
-        global.CONFIG = {}
+        global.CONFIG = {};
         let cm = new ConfigManager();
         expect(cm.config)
             .to.deep.equal(global.CONFIG);
         cm.loadConfiguration("/config.json").then(()=> {
         expect(cm.config)
             .to.deep.equal(config);
-        })
+        });
     });
 });
