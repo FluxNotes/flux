@@ -479,13 +479,9 @@ class FluxNotesEditor extends React.Component {
         const anchorNode = state.document.getNode(selection.anchorKey);
         let transform = state.transform();
         const shortcut = focusNode.data.get('shortcut');
-        const useFocusKey = selection.isExpanded && selection.isBackward;
-        const selectionKey = useFocusKey ? selection.focusKey : selection.anchorKey;
-
         const previousNode = state.document.getPreviousSibling(state.selection.anchorKey);
         if (previousNode){
             const previousNodeShortcut = previousNode.data.get('shortcut');
-            console.log(previousNodeShortcut)
             if (previousNode.type === "structured_field" && previousNodeShortcut.isComplete === false 
                 && previousNodeShortcut instanceof InsertValue
                 && state.selection.anchorOffset === 0
@@ -493,7 +489,6 @@ class FluxNotesEditor extends React.Component {
                 return this.openPortalToSelectValueForShortcut(previousNodeShortcut, false, transform).apply();
             }
         }
-        //const previousNodeShortcut = previousNode.data.get('shortcut');
 
         if (shortcut && focusNode.type === "structured_field" && shortcut.isComplete === false) {
             return this.openPortalToSelectValueForShortcut(shortcut, false, transform).apply();
