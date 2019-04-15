@@ -308,7 +308,7 @@ class FluxNotesEditor extends React.Component {
         }
         shortcut.initialContextPosition = initialContextPosition;
 
-        transform = this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().apply();
+        transform = this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText();
         if (shortcut.isComplete === false) {
             this.contextManager.removeShortcutFromContext(shortcut);
             this.contextManager.contextUpdated();
