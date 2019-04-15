@@ -200,13 +200,14 @@ $note-assistant-width-3: 160px;
     #delete-note-container {
         background: $background;
         display: flex;
-        justify-content: center;
+        justify-content: left;
         position: absolute;
         bottom: 0;
         width: $note-assistant-width-1;
         #delete-note-button {
             padding: 10px;
             margin-bottom: 10px;
+            margin-left: $note-assistant-overhang;
             text-transform: none;
             background-color: $background;
             border: 1px solid $line-gray;

@@ -7,7 +7,7 @@
   color: #4F4F4F; }
   .context-tray .view-mode-section-item {
     margin: 3px 0;
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     color: #767676;
     cursor: pointer;
     text-overflow: ellipsis;
@@ -22,7 +22,7 @@
     border-bottom: 1px solid #DDDDDD; }
   .context-tray .view-mode-section-item-disabled {
     margin: 3px 0px 3px 26px;
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap; }

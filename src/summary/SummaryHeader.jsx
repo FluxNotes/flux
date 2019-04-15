@@ -63,7 +63,7 @@ class SummaryHeader extends Component {
         const dateOfBirthString = (dateOfBirth) ? `${dateOfBirth} (${age})` : '?';
         const administrativeSexString = (administrativeSex) ? administrativeSex : '?';
         //{address ? address.city.value : ""}, {address ? address.state.value : ""}
-        const locationString = (address) ? `${address.city.value}, ${address.state.value}` : '?'; 
+        const locationString = (address) ? `${address.city.value}, ${address.state.value}` : '?';
         return (
             <div id="summary-header">
                 <div className="avatar">
@@ -73,8 +73,8 @@ class SummaryHeader extends Component {
                         style={{
                             marginLeft: "auto",
                             marginRight: "auto",
-                            width: "80px",
-                            height: "80px"
+                            width: "76px",
+                            height: "76px"
                         }}
                     />
                 </div>

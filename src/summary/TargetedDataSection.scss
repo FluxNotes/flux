@@ -7,7 +7,7 @@
     justify-content: space-between;
     font-weight: $weight-semibold;
     color: $body-black;
-    margin-bottom: 10px;
+    margin-bottom: 14px;
 }
 
 .section-header {
@@ -28,7 +28,7 @@
         font-weight: normal;
         flex: 1;
         padding-right: 10px;
-        margin-left: 20px;
+        margin-left: 10px;
 
         &.encounter {
             text-overflow: inherit;
@@ -56,6 +56,10 @@
 .right-icons {
     margin-right: 10px;
     display: flex;
+
+    .small-btn {
+        margin-left: 10px !important;
+    }
 }
 
 .criterion-summary {

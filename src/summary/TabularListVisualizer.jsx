@@ -55,7 +55,7 @@ export default class TabularListVisualizer extends Visualizer {
         // easily if we get feedback that people don't like this.
         if (isSingleColumn || numColumns > 2 || subsections.length === 1) {
             return subsections.map((subsection, index) => {
-                return this.renderedSubsection(subsection, index);
+                return this.renderedSubsection(subsection, index, true);
             });
         }
 
@@ -85,16 +85,16 @@ export default class TabularListVisualizer extends Visualizer {
 
         let ind = 0;
         const renderedFirstHalf = firstHalfSections.map((subsection) => {
-            return this.renderedSubsection(subsection, ind++);
+            return this.renderedSubsection(subsection, ind++, isSingleColumn);
         });
         const renderedSecondHalf = secondHalfSections.map((subsection) => {
-            return this.renderedSubsection(subsection, ind++);
+            return this.renderedSubsection(subsection, ind++, isSingleColumn);
         });
 
         // Display the data in 2 columns. The first column displays the first half
         // of the sections in one table and the second column displays the second half of the sections in a second table
         return (
-            <Row start="xs" className="multi-column">
+            <Row start="xs">
                 <Col sm={6}>
                     {renderedFirstHalf}
                 </Col>
@@ -107,7 +107,7 @@ export default class TabularListVisualizer extends Visualizer {
     }
 
     // Render each subsection as a table of values
-    renderedSubsection(transformedSubsection, subsectionindex) {
+    renderedSubsection(transformedSubsection, subsectionindex, isSingleColumn) {
 
         const list = transformedSubsection.data_cache;
 
@@ -163,8 +163,11 @@ export default class TabularListVisualizer extends Visualizer {
             subsectionActions = transformedSubsection.actions;
         }
 
+        let singleColumnStatus = "multi-column";
+        if (isSingleColumn) singleColumnStatus = "single-column";
+
         return (
-            <div key={subsectionindex}>
+            <div key={subsectionindex} className={singleColumnStatus}>
                 {preTableCount}
                 {subsectionNameHTML}
 
@@ -232,8 +235,8 @@ export default class TabularListVisualizer extends Visualizer {
         const renderedColumns = [];
 
         const numColumns = row.length;
-        //const colSize = (100 / numColumns) + "%";
-const colSize = "auto";
+        const colSize = (100 / numColumns) + "%";
+//const colSize = "auto";
 
         if (subsectionActions.length > 0  || this.props.actions.length > 0) {
             rowClass += " has-action-menu";

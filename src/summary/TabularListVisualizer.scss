@@ -108,19 +108,19 @@
     .selected {
         background-color: $highlight-selected-yellow !important;
     }
-}
 
-.tabular-list .multi-column {
-
-    table {
-        width: 98%;
+    .multi-column {
+        table {
+            width: 98%;
+        }
     }
 
-    tr {
-        //width: 100%;
+    .single-column {
+        td {
+            width: auto !important;
+        }
     }
 }
-
 
 tr, td {
     font-size: $size-m;

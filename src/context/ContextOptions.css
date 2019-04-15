@@ -5,7 +5,7 @@
 .context-option {
   margin: 1px 0;
   cursor: pointer;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   color: #4F4F4F; }
 
 .context-option:last-of-type {
@@ -41,5 +41,5 @@
 .context-options-header {
   margin-top: 0.75rem;
   font-style: italic;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   color: #767676; }
