@@ -386,7 +386,7 @@ class FluxNotesEditor extends React.Component {
         return this.lastPosition;
     }
 
-    openPortalToSelectValueForShortcut(shortcut, needToDelete, transform) {
+     openPortalToSelectValueForShortcut(shortcut, needToDelete, transform) {
         let portalOptions = shortcut.getValueSelectionOptions();
 
         this.setState({
@@ -484,6 +484,7 @@ class FluxNotesEditor extends React.Component {
             const previousNodeShortcut = previousNode.data.get('shortcut');
             if (previousNode.type === "structured_field" && previousNodeShortcut.isComplete === false 
                 && previousNodeShortcut instanceof InsertValue
+                && state.openedPortal === null
                 && state.selection.anchorOffset === 0
                 && state.selection.isCollapsed) {
                 return this.openPortalToSelectValueForShortcut(previousNodeShortcut, false, transform).apply();
