@@ -24,7 +24,6 @@ const SIDE_EFFECT_NAMES = {
 
 // This function will eventually be replaced with an API that returns the same data in the same format
 export default function filterTreatmentData(similarPatientProps, includedTreatments, comparedTreatments) {
-    console.log(similarPatientProps)
     const totalPatients = transformedTreatmentData.length;
     const similarPatients = transformedTreatmentData.filter(treatmentDataPatient => isSimilarPatient(treatmentDataPatient, similarPatientProps));
     const totalSimilarPatients = similarPatients.length;
