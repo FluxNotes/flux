@@ -4,6 +4,7 @@ import FluxTumorDimensions from '../../dataaccess/mcodev0.1-datasource/model/onc
 export default function getProps(patient, condition) {
 
     const tumorMarkers = patient.getMostRecentTumorMarkers(condition);
+    console.log(condition.getMostRecentClinicalStaging());
     const propDict = {
         // demographics
         "demographic": {
@@ -46,6 +47,24 @@ export default function getProps(patient, condition) {
                 "display": "stage",
                 "valueType": "string",
                 "value": _safeGet(condition.getMostRecentClinicalStaging(), "stage"),
+                "reference": condition.getMostRecentClinicalStaging()
+            },
+            "stage_t": {
+                "display": "primary tumor",
+                "valueType": "string",
+                "value": _safeGet(condition.getMostRecentClinicalStaging(),"t_Stage"),
+                "reference": condition.getMostRecentClinicalStaging()
+            },
+            "stage_n": {
+                "display": "regional lymph nodes",
+                "valueType": "string",
+                "value": _safeGet(condition.getMostRecentClinicalStaging(),"n_Stage"),
+                "reference": condition.getMostRecentClinicalStaging()
+            },
+            "stage_m": {
+                "display": "distant metastasis",
+                "valueType": "string",
+                "value": _safeGet(condition.getMostRecentClinicalStaging(),"m_Stage"),
                 "reference": condition.getMostRecentClinicalStaging()
             },
             "size": {
