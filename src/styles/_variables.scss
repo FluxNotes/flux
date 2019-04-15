@@ -48,3 +48,8 @@ $size-xs: 0.625rem;
 
 // Note assistant helpers
 $note-assistant-overhang: 5px;
+
+:export {
+    state: $state;
+    bodyGray: $body-gray;
+}

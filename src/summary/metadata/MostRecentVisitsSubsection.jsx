@@ -9,7 +9,7 @@ export default class MostRecentVisitsSubsection extends MetadataSection {
                 {
                     name: "Date of Last Visit with You",
                     value: (patient, currentConditionEntry, user) => {
-                        const encounters = patient.getEncountersChronologicalOrder();
+                        const encounters = patient.getPreviousEncountersChronologicalOrder();
                         const filteredEncounters = encounters.filter(e => e.practitioner === user.getUserName());
 
                         if (filteredEncounters.length === 0) return { value: null, isUnsigned: false };
@@ -24,7 +24,7 @@ export default class MostRecentVisitsSubsection extends MetadataSection {
                 {
                     name: "Date of Last Visit Here",
                     value: (patient, currentConditionEntry, user) => {
-                        const encounters = patient.getEncountersChronologicalOrder();
+                        const encounters = patient.getPreviousEncountersChronologicalOrder();
                         const filteredEncounters = encounters.filter(e => e.provider === user.provider);
 
                         if (filteredEncounters.length === 0) return { value: null, isUnsigned: false };
@@ -39,7 +39,7 @@ export default class MostRecentVisitsSubsection extends MetadataSection {
                 {
                     name: "Who Last Visited Here",
                     value: (patient, currentConditionEntry, user) => {
-                        const encounters = patient.getEncountersChronologicalOrder();
+                        const encounters = patient.getPreviousEncountersChronologicalOrder();
                         const filteredEncounters = encounters.filter(e => e.provider === user.provider);
 
                         if (filteredEncounters.length === 0) return { value: null, isUnsigned: false };

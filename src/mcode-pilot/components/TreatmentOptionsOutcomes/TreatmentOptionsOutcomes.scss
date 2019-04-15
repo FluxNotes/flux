@@ -188,3 +188,10 @@
     .flex-padding { padding: 0 20px; }
     .flex-center { align-items: center; }
 }
+#ccp-table-select {
+    .custom-select {
+        &:after { 
+            background-color: $shr-context-dark;
+        } 
+    }
+}

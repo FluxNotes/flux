@@ -175,7 +175,7 @@ export default class NotesPanel extends Component {
     openNewNote = () => {
         // Create info to be set for new note
         const signedOn = new moment().format("D MMM YYYY");
-        const hospital = "Dana Farber";
+        const hospital = "MCI";
         const clinician = this.props.loginUsername;
         const subject = `${new moment().format("YYYYDDMM-hhmm")}`;
         const content = "";

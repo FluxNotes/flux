@@ -45,6 +45,7 @@ export default function(responses, patientId, resourceMapper = null) {
     });
     
     allObjects.push(...referencesOut);
-    const json = allObjects.filter(o => o).map(o => o.toJSON());
+    const uniqueObjects = Array.from(new Set(allObjects)); // there may be some duplicates between the referencesOut and allObjects
+    const json = uniqueObjects.filter(o => o).map(o => o.toJSON());
     return new PatientRecord(json);
 }

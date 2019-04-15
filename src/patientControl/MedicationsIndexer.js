@@ -11,7 +11,7 @@ class MedicationsIndexer extends BaseIndexer {
                 section,
                 subsection: "",
                 valueTitle: `Dosage`,
-                value: `${item.medication.amountPerDose.value} ${item.medication.amountPerDose.units}`,
+                value: item.medication.amountPerDose ? `${item.medication.amountPerDose.value} ${item.medication.amountPerDose.units}` : null,
                 onHighlight
             });
 
@@ -29,7 +29,7 @@ class MedicationsIndexer extends BaseIndexer {
                 section,
                 subsection: "",
                 valueTitle: `Timing`,
-                value: item.medication.timingOfDoses.value || item.medication.doseInstructionsText,
+                value: item.medication.timingOfDoses ? item.medication.timingOfDoses.value : item.medication.doseInstructionsText,
                 onHighlight
             });
 

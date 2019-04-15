@@ -7614,7 +7614,7 @@
         "content": "REASON FOR VISIT:\nMed Onc Consult\n\nHISTORY OF PRESENT ILLNESS:\n@name[[Ihanos Tnfinity6]] is a @age[[57]] year old white @gender[[Male]] presenting with abdominal pain. He has been feeling sharp pains in his stomach. CT scan showed large upper abdominal mass that seemed to be rising from gastric wall. 6cm along greatest curvature. Underwent endoscopic biopsy.\n\nASSESSMENT:\nEndoscopic biopsy which was non-deterministic.\n\nPLAN:\nOrder CT-guided biopsy.",
         "EntryId": "5110",
         "signedOn": "18 Jul 2016",
-        "hospital": "Hospital X",
+        "hospital": "MCI",
         "signedBy": "Dr. Mona341 Brown483",
         "createdBy": "Dr. Mona341 Brown483",
         "EntryType": {
@@ -7774,7 +7774,7 @@
         "content": "REASON FOR VISIT:\nFollow-up\n\nONCOLOGY HISTORY:\n@name[[Ihanos Tnfinity6]] is a @age[[57]] year old white @gender[[Male]] presenting with abdominal pain. He has been feeling sharp pains in his stomach. CT scan showed large upper abdominal mass that seemed to be rising from gastric wall. 6cm along greatest curvature. Underwent endoscopic biopsy which was non-deterministic.\n\nHISTORY OF PRESENT ILLNESS:\nCT-guided biopsy peformed.\n\nASSESSMENT:\nCT-guided biopsy revealed GIST with 15 mitosis/50 hpf. Surgical consult w/ Dr. Cheung564.\n\nPLAN:\nScheduling for surgery.",
         "EntryId": "5160",
         "signedOn": "03 Aug 2016",
-        "hospital": "Hospital X",
+        "hospital": "MCI",
         "signedBy": "Dr. Mona341 Brown483",
         "createdBy": "Dr. Mona341 Brown483",
         "EntryType": {
@@ -7800,7 +7800,7 @@
         "content": "REASON FOR VISIT:\nSurgery\n\nONCOLOGY HISTORY:\n@name[[Ihanos Tnfinity6]] is a @age[[57]] year old white @gender[[Male]] presenting with abdominal pain. He has been feeling sharp pains in his stomach. CT scan showed large upper abdominal mass that seemed to be rising from gastric wall. 6cm along greatest curvature. Underwent endoscopic biopsy which was non-deterministic. CT-guided biopsy revealed GIST with 15 mitosis/50 hpf.\n\nHISTORY OF PRESENT ILLNESS:\nSurgery to remove GIST from stomach.\n\nASSESSMENT:\nconfirmed GIST. 20 mitoses/50 HPF. Surgical margins negative. Final tumor size 8cm.",
         "EntryId": "5200",
         "signedOn": "22 Aug 2016",
-        "hospital": "Hospital X",
+        "hospital": "MCI",
         "signedBy": "Dr. Cheung564",
         "createdBy": "Dr. Cheung564",
         "EntryType": {
@@ -7826,7 +7826,7 @@
         "content": "REASON FOR VISIT:\nFollow-up for @Condition[[{\"text\":\"Gastrointestinal stromal tumor\",\"entryId\":\"8\"}]]\n\nONCOLOGY HISTORY:\n@name[[Ihanos Tnfinity6]] is a @age[[57]] year old white @gender[[Male]] presenting with abdominal pain. He has been feeling sharp pains in his stomach. CT scan showed large upper abdominal mass that seemed to be rising from gastric wall. 6cm along greatest curvature. Underwent endoscopic biopsy which was non-deterministic. CT-guided biopsy revealed GIST with 15 mitosis/50 hpf.\n\nHISTORY OF PRESENT ILLNESS:\nSurgery confirmed GIST. 20 mitoses/50 HPF. Surgical margins negative. Final tumor size 8cm.\n\nASSESSMENT:\nSurgery successful.\n\nPLAN:\nDetermined to have high risk GIST. Primary KIT exon 11 mutation at the 557/558 position. Placed on Imatinib 400 mg/day starting on 16 May. Plan for 3 years total of adjuvant therapy.",
         "EntryId": "5250",
         "signedOn": "30 Sep 2016",
-        "hospital": "Hospital X",
+        "hospital": "MCI",
         "signedBy": "Dr. Mona341 Brown483",
         "createdBy": "Dr. Mona341 Brown483",
         "EntryType": {
@@ -7986,7 +7986,7 @@
         "content": "REASON FOR VISIT:\nFollow-up for @Condition[[{\"text\":\"Gastrointestinal stromal tumor\",\"entryId\":\"8\"}]]\n\nONCOLOGY HISTORY:\n@name[[Ihanos Tnfinity6]] is a @age[[57]] year old white @gender[[Male]] presenting with abdominal pain. He has been feeling sharp pains in his stomach. CT scan showed large upper abdominal mass that seemed to be rising from gastric wall. 6cm along greatest curvature. Underwent endoscopic biopsy which was non-deterministic. CT-guided biopsy revealed GIST with 15 mitosis/50 hpf. Surgery confirmed GIST. 20 mitoses/50 HPF. Surgical margins negative. Final tumor size 8cm. Adjuvant imatinib starting 16 May 2016.\n\nHISTORY OF PRESENT ILLNESS:\nExperiencing mild headaches.\n\nASSESSMENT:\n#toxicity[[{\"entryId\":\"5320\"}]] #headache #grade 2. #disease status[[{\"entryId\":\"5330\"}]] #complete resection\n\nPLAN:\nContinue imatinib. Take ibuprofen as needed for headaches. Follow-up in a month.",
         "EntryId": "5310",
         "signedOn": "30 Oct 2016",
-        "hospital": "Hospital X",
+        "hospital": "MCI",
         "signedBy": "Dr. Mona341 Brown483",
         "createdBy": "Dr. Mona341 Brown483",
         "EntryType": {
@@ -8667,7 +8667,7 @@
         "content": "REASON FOR VISIT:\nFollow-up for @Condition[[{\"text\":\"Gastrointestinal stromal tumor\",\"entryId\":\"8\"}]]\n\nONCOLOGY HISTORY:\n@name[[Ihanos Tnfinity6]] is a @age[[57]] year old white @gender[[Male]] presenting with abdominal pain. He has been feeling sharp pains in his stomach. CT scan showed large upper abdominal mass that seemed to be rising from gastric wall. 6cm along greatest curvature. Underwent endoscopic biopsy which was non-deterministic. CT-guided biopsy revealed GIST with 15 mitosis/50 hpf. Surgery confirmed GIST. 20 mitoses/50 HPF. Surgical margins negative. Final tumor size 8cm. Adjuvant imatinib starting 16 May 2016.\n\nHISTORY OF PRESENT ILLNESS:\nExperiencing mild headaches and skin rashes.\n\nASSESSMENT:\n#toxicity[[{\"entryId\":\"5420\"}]] #headache #grade 2. #toxicity[[{\"entryId\":\"5425\"}]] #Rash maculo-papular #grade 2. #disease status[[{\"entryId\":\"5430\"}]] #complete response\n\nPLAN:\nContinue imatinib. Take ibuprofen as needed for headaches. Use hydrocortizone as needed for rashses. Follow-up in a month.",
         "EntryId": "5410",
         "signedOn": "03 Dec 2016",
-        "hospital": "Hospital X",
+        "hospital": "MCI",
         "signedBy": "Dr. Mona341 Brown483",
         "createdBy": "Dr. Mona341 Brown483",
         "EntryType": {
@@ -9486,7 +9486,7 @@
         "content": "REASON FOR VISIT:\nFollow-up for @Condition[[{\"text\":\"Gastrointestinal stromal tumor\",\"entryId\":\"8\"}]]\n\nONCOLOGY HISTORY:\n@name[[Ihanos Tnfinity6]] is a @age[[57]] year old white @gender[[Male]] presenting with abdominal pain. He has been feeling sharp pains in his stomach. CT scan showed large upper abdominal mass that seemed to be rising from gastric wall. 6cm along greatest curvature. Underwent endoscopic biopsy which was non-deterministic. CT-guided biopsy revealed GIST with 15 mitosis/50 hpf. Surgery confirmed GIST. 20 mitoses/50 HPF. Surgical margins negative. Final tumor size 8cm. Adjuvant imatinib starting 16 May 2016.\n\nHISTORY OF PRESENT ILLNESS:\nExperiencing mild headaches still but ibuprofen helps. Experiencing mild skin rashes but hydrocortisone helps.\n\nASSESSMENT:\n#toxicity[[{\"entryId\":\"5520\"}]] #headache #grade 2. #toxicity[[{\"entryId\":\"5525\"}]] #Rash maculo-papular #grade 2. #disease status[[{\"entryId\":\"5530\"}]] #complete response\n\nPLAN:\nContinue imatinib. Take ibuprofen as needed for headaches and use hyrdrocortizone for rashes. Follow-up in 3 months.",
         "EntryId": "5510",
         "signedOn": "08 Mar 2017",
-        "hospital": "Hospital X",
+        "hospital": "MCI",
         "signedBy": "Dr. Mona341 Brown483",
         "createdBy": "Dr. Mona341 Brown483",
         "EntryType": {
@@ -10074,7 +10074,7 @@
         "content": "REASON FOR VISIT:\nFollow-up for @Condition[[{\"text\":\"Gastrointestinal stromal tumor\",\"entryId\":\"8\"}]]\n\nONCOLOGY HISTORY:\n@name[[Ihanos Tnfinity6]] is a @age[[57]] year old white @gender[[Male]] presenting with abdominal pain. He has been feeling sharp pains in his stomach. CT scan showed large upper abdominal mass that seemed to be rising from gastric wall. 6cm along greatest curvature. Underwent endoscopic biopsy which was non-deterministic. CT-guided biopsy revealed GIST with 15 mitosis/50 hpf. Surgery confirmed GIST. 20 mitoses/50 HPF. Surgical margins negative. Final tumor size 8cm. Adjuvant imatinib starting 16 May 2016.\n\nHISTORY OF PRESENT ILLNESS:\nExperiencing mild headaches and skin rashes.\n\nASSESSMENT:\n#toxicity[[{\"entryId\":\"5620\"}]] #headache #grade 2. #toxicity[[{\"entryId\":\"5625\"}]] #Rash maculo-papular #grade 2. #disease status[[{\"entryId\":\"5630\"}]] #complete response\n\nPLAN:\nContinue imatinib. Take ibuprofen as needed for headaches and use hyrdrocortizone for rashes. Follow-up in 6 months.",
         "EntryId": "5610",
         "signedOn": "08 Jun 2017",
-        "hospital": "Hospital X",
+        "hospital": "MCI",
         "signedBy": "Dr. Mona341 Brown483",
         "createdBy": "Dr. Mona341 Brown483",
         "EntryType": {
@@ -10662,7 +10662,7 @@
         "content": "REASON FOR VISIT:\nFollow-up for @Condition[[{\"text\":\"Gastrointestinal stromal tumor\",\"entryId\":\"8\"}]]\n\nONCOLOGY HISTORY:\n@name[[Ihanos Tnfinity6]] is a @age[[57]] year old white @gender[[Male]] presenting with abdominal pain. He has been feeling sharp pains in his stomach. CT scan showed large upper abdominal mass that seemed to be rising from gastric wall. 6cm along greatest curvature. Underwent endoscopic biopsy which was non-deterministic. CT-guided biopsy revealed GIST with 15 mitosis/50 hpf. Surgery confirmed GIST. 20 mitoses/50 HPF. Surgical margins negative. Final tumor size 8cm. Adjuvant imatinib starting 16 May 2016.\n\nHISTORY OF PRESENT ILLNESS:\nExperiencing mild headaches and skin rashes.\n\nASSESSMENT:\n#toxicity[[{\"entryId\":\"5720\"}]] #headache #grade 2. #toxicity[[{\"entryId\":\"5725\"}]] #Rash maculo-papular #grade 2. #disease status[[{\"entryId\":\"5730\"}]] #complete response\n\nPLAN:\nContinue imatinib. Take ibuprofen as needed for headaches and use hyrdrocortizone for rashes. Follow-up in 6 months.",
         "EntryId": "5710",
         "signedOn": "28 Nov 2017",
-        "hospital": "Hospital X",
+        "hospital": "MCI",
         "signedBy": "Dr. Mona341 Brown483",
         "createdBy": "Dr. Mona341 Brown483",
         "EntryType": {
@@ -11250,7 +11250,7 @@
         "content": "REASON FOR VISIT:\nFollow-up for @Condition[[{\"text\":\"Gastrointestinal stromal tumor\",\"entryId\":\"8\"}]]\n\nONCOLOGY HISTORY:\n@name[[Ihanos Tnfinity6]] is a @age[[57]] year old white @gender[[Male]] presenting with abdominal pain. He has been feeling sharp pains in his stomach. CT scan showed large upper abdominal mass that seemed to be rising from gastric wall. 6cm along greatest curvature. Underwent endoscopic biopsy which was non-deterministic. CT-guided biopsy revealed GIST with 15 mitosis/50 hpf. Surgery confirmed GIST. 20 mitoses/50 HPF. Surgical margins negative. Final tumor size 8cm. Adjuvant imatinib starting 16 May 2016.\n\nHISTORY OF PRESENT ILLNESS:\nExperiencing mild headaches and skin rashes.\n\nASSESSMENT:\n#toxicity[[{\"entryId\":\"5820\"}]] #headache #grade 2. #toxicity[[{\"entryId\":\"5825\"}]] #Rash maculo-papular #grade 2. #disease status[[{\"entryId\":\"5830\"}]] #complete response\n\nPLAN:\nContinue imatinib. Take ibuprofen as needed for headaches and use hyrdrocortizone for rashes. Follow-up in 6 months.",
         "EntryId": "5810",
         "signedOn": "08 Jun 2018",
-        "hospital": "Hospital X",
+        "hospital": "MCI",
         "signedBy": "Dr. Mona341 Brown483",
         "createdBy": "Dr. Mona341 Brown483",
         "EntryType": {
@@ -11838,7 +11838,7 @@
         "content": "REASON FOR VISIT:\nFollow-up for @Condition[[{\"text\":\"Gastrointestinal stromal tumor\",\"entryId\":\"8\"}]]\n\nONCOLOGY HISTORY:\n@name[[Ihanos Tnfinity6]] is a @age[[57]] year old white @gender[[Male]] presenting with abdominal pain. He has been feeling sharp pains in his stomach. CT scan showed large upper abdominal mass that seemed to be rising from gastric wall. 6cm along greatest curvature. Underwent endoscopic biopsy which was non-deterministic. CT-guided biopsy revealed GIST with 15 mitosis/50 hpf. Surgery confirmed GIST. 20 mitoses/50 HPF. Surgical margins negative. Final tumor size 8cm. Adjuvant imatinib starting 16 May 2016.\n\nHISTORY OF PRESENT ILLNESS:\nExperiencing mild headaches and skin rashes.\n\nASSESSMENT:\n#toxicity[[{\"entryId\":\"5920\"}]] #headache #grade 2.  #toxicity[[{\"entryId\":\"6060\"}]] #diarrhea #grade 2. #toxicity[[{\"entryId\":\"6061\"}]] #fatigue #grade 2. #toxicity[[{\"entryId\":\"5925\"}]] #Rash maculo-papular #grade 2. #disease status[[{\"entryId\":\"5930\"}]] #complete response\n\nPLAN:\nContinue imatinib. Take ibuprofen as needed for headaches and use hyrdrocortizone for rashes. Follow-up in 6 months.  ",
         "EntryId": "5910",
         "signedOn": "01 Dec 2018",
-        "hospital": "Hospital X",
+        "hospital": "MCI",
         "signedBy": "Dr. Mona341 Brown483",
         "createdBy": "Dr. Mona341 Brown483",
         "EntryType": {

@@ -1,3 +1,7 @@
+:export {
+  state: #767676;
+  bodyGray: #4F4F4F; }
+
 .toolbar-breadcrumbs-container {
   color: #767676;
   font-size: 0.875rem;
