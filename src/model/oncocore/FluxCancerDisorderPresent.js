@@ -55,6 +55,7 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
         // Staging
         const staging = this.getMostRecentStaging();
         if (staging) {
+            hpiText += "-";
             if (staging.stage) {
                 hpiText += ` Stage ${staging.stage}`;
             }
@@ -71,31 +72,37 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
                 hpiText += `. Mitotic rate ${staging.mitoticRate}`;
             }
             hpiText += '.';
+            hpiText += "\r\n";
         }
 
         // Tumor Size and HistologicGrade
         const tumorSize = this.getObservationsOfType(FluxTumorDimensions);
         const histologicGrade = this.getObservationsOfType(FluxCancerHistologicGrade);
         if (tumorSize.length > 0) {
+            hpiText += "-";
             hpiText += ` Primary tumor size ${tumorSize[tumorSize.length - 1].quantity.number} ${tumorSize[tumorSize.length - 1].quantity.unit}.`;
+            hpiText += "\r\n";
         }
         if (histologicGrade.length > 0) {
+            hpiText += "-";
             hpiText += ` ${histologicGrade[0].grade}.`;
+            hpiText += "\r\n";
         }
-
+        
         // genetics
         const geneticpanels = patient.getGastrointestinalStromalTumorCancerGeneticAnalysisPanelsChronologicalOrder();
         //const geneticspanelMostRecent = geneticpanels[geneticpanels.length - 1];
         if (geneticpanels && geneticpanels.length > 0) {
+            hpiText += "-";
             const panel = geneticpanels.pop();
             hpiText += " " + panel.members.map((item) => {
                 const v = item.value === 'Positive' ? '+' : '-';
                 return item.abbreviatedName + v;
-            }).join(",");
+            }).join("\r\n - ");
         }
 
+        // Other Events
         hpiText = this.buildEventNarrative(hpiText, patient, this.code);
-
         return hpiText;
     }
 
