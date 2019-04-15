@@ -787,7 +787,7 @@ describe('6 FluxNotesEditor', function() {
             updateContextTrayItemToInsert={jest.fn()}
             searchSuggestions={[]}
         />);
-        
+
         expect(wrapper).to.exist;
         // wrapper.find('.editor-content').simulate('click'); //goes into on change
 
@@ -799,7 +799,7 @@ describe('6 FluxNotesEditor', function() {
         const updatedEditorNote = patient.getEntryById(entryId);
         // Set updatedEditorNote props because this triggers that a change is coming in to the editor and inserts text with structured phrases.       
         wrapper.setProps({ updatedEditorNote });
-       
+
         // Check structured phrases inserters
         const structuredFieldInserter = wrapper.find('.structured-field-inserter');
         expect(structuredFieldInserter).to.have.lengthOf(arrayOfExpectedStructuredDataInserters.length)
