@@ -314,7 +314,7 @@ class FluxNotesEditor extends React.Component {
         }
         shortcut.initialContextPosition = initialContextPosition;
         
-        this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().apply();
+        transform = this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().apply();
         if(shortcut instanceof InsertValue && shortcut.isComplete === false){
             this.contextManager.removeShortcutFromContext(shortcut);
             this.contextManager.contextUpdated();
@@ -424,7 +424,6 @@ class FluxNotesEditor extends React.Component {
         }
         transform = this.resetShortcutData(shortcut, transform);
         return transform.apply();
-       // return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus().apply();
     }
 
     // consider reusing this method to replace code in choseSuggestedShortcut function
