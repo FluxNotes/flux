@@ -4,7 +4,6 @@ import FluxTumorDimensions from '../../dataaccess/mcodev0.1-datasource/model/onc
 export default function getProps(patient, condition) {
 
     const tumorMarkers = patient.getMostRecentTumorMarkers(condition);
-    console.log(condition.getMostRecentClinicalStaging());
     const propDict = {
         // demographics
         "demographic": {
