@@ -49,19 +49,19 @@ export default function getProps(patient, condition) {
                 "value": _safeGet(condition.getMostRecentClinicalStaging(), "stage"),
                 "reference": condition.getMostRecentClinicalStaging()
             },
-            "stage_t": {
+            "t_stage": {
                 "display": "primary tumor",
                 "valueType": "string",
                 "value": _safeGet(condition.getMostRecentClinicalStaging(),"t_Stage"),
                 "reference": condition.getMostRecentClinicalStaging()
             },
-            "stage_n": {
+            "n_stage": {
                 "display": "regional lymph nodes",
                 "valueType": "string",
                 "value": _safeGet(condition.getMostRecentClinicalStaging(),"n_Stage"),
                 "reference": condition.getMostRecentClinicalStaging()
             },
-            "stage_m": {
+            "m_stage": {
                 "display": "distant metastasis",
                 "valueType": "string",
                 "value": _safeGet(condition.getMostRecentClinicalStaging(),"m_Stage"),
