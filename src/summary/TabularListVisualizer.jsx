@@ -55,7 +55,7 @@ export default class TabularListVisualizer extends Visualizer {
         // easily if we get feedback that people don't like this.
         if (isSingleColumn || numColumns > 2 || subsections.length === 1) {
             return subsections.map((subsection, index) => {
-                return this.renderedSubsection(subsection, index, true);
+                return this.renderedSubsection(subsection, index, true, subsections.length === 1);
             });
         }
 
@@ -85,10 +85,10 @@ export default class TabularListVisualizer extends Visualizer {
 
         let ind = 0;
         const renderedFirstHalf = firstHalfSections.map((subsection) => {
-            return this.renderedSubsection(subsection, ind++, isSingleColumn);
+            return this.renderedSubsection(subsection, ind++, false, subsections.length === 1);
         });
         const renderedSecondHalf = secondHalfSections.map((subsection) => {
-            return this.renderedSubsection(subsection, ind++, isSingleColumn);
+            return this.renderedSubsection(subsection, ind++, false, subsections.lenth === 1);
         });
 
         // Display the data in 2 columns. The first column displays the first half
@@ -107,7 +107,7 @@ export default class TabularListVisualizer extends Visualizer {
     }
 
     // Render each subsection as a table of values
-    renderedSubsection(transformedSubsection, subsectionindex, isSingleColumn) {
+    renderedSubsection(transformedSubsection, subsectionindex, isSingleColumn, isSingleSection) {
 
         const list = transformedSubsection.data_cache;
 
@@ -163,11 +163,14 @@ export default class TabularListVisualizer extends Visualizer {
             subsectionActions = transformedSubsection.actions;
         }
 
-        let singleColumnStatus = "multi-column";
-        if (isSingleColumn) singleColumnStatus = "single-column";
+        let classes = "multi-column";
+        if (isSingleColumn) classes = "single-column";
+
+        if (isSingleSection) classes = classes + ' single-section';
+        else classes = classes + ' multi-section';
 
         return (
-            <div key={subsectionindex} className={singleColumnStatus}>
+            <div key={subsectionindex} className={classes}>
                 {preTableCount}
                 {subsectionNameHTML}
 
