@@ -490,12 +490,17 @@ class FluxNotesEditor extends React.Component {
                 && this.state.justClosed === false
                 && state.selection.anchorOffset === 0
                 && state.selection.isCollapsed) {
-                    return this.openPortalToSelectValueForShortcut(previousNodeShortcut, false, transform).apply();
+                    transform = this.openPortalToSelectValueForShortcut(previousNodeShortcut, false, transform);
+                    this.setState({ state: transform.apply() });
+                    return;
             }
         } 
 
         if (shortcut && focusNode.type === "structured_field" && shortcut.isComplete === false) {
-            return this.openPortalToSelectValueForShortcut(shortcut, false, transform).apply();
+            transform = transform.collapseToStartOfNextText().focus();
+            transform = this.openPortalToSelectValueForShortcut(shortcut, false, transform);
+            this.setState({ state: transform.apply() });
+            return;
         }
        
         // If the selections do not match, collapse selection to the anchor to properly update
