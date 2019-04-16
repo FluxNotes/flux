@@ -223,6 +223,7 @@ class FluxNotesEditor extends React.Component {
         this.state = {
             state: initialState,
             openedPortal: null,
+            justClosed: false,
             portalOptions: null,
             isEditingNoteName: false,
             isFetchingAsyncData: false,
@@ -386,7 +387,7 @@ class FluxNotesEditor extends React.Component {
         return this.lastPosition;
     }
 
-     openPortalToSelectValueForShortcut(shortcut, needToDelete, transform) {
+    openPortalToSelectValueForShortcut(shortcut, needToDelete, transform) {
         let portalOptions = shortcut.getValueSelectionOptions();
 
         this.setState({
@@ -405,6 +406,7 @@ class FluxNotesEditor extends React.Component {
         this.selectingForShortcut = null;
         this.setState({ 
             openedPortal: null,
+            justClosed: true,
             portalOptions: null, 
         });
         if (Lang.isNull(selection)) {
@@ -484,12 +486,13 @@ class FluxNotesEditor extends React.Component {
             const previousNodeShortcut = previousNode.data.get('shortcut');
             if (previousNode.type === "structured_field" && previousNodeShortcut.isComplete === false 
                 && previousNodeShortcut instanceof InsertValue
-                && state.openedPortal === null
+                && this.state.openedPortal === null 
+                && this.state.justClosed === false
                 && state.selection.anchorOffset === 0
                 && state.selection.isCollapsed) {
-                return this.openPortalToSelectValueForShortcut(previousNodeShortcut, false, transform).apply();
+                    return this.openPortalToSelectValueForShortcut(previousNodeShortcut, false, transform).apply();
             }
-        }
+        } 
 
         if (shortcut && focusNode.type === "structured_field" && shortcut.isComplete === false) {
             return this.openPortalToSelectValueForShortcut(shortcut, false, transform).apply();
@@ -505,6 +508,9 @@ class FluxNotesEditor extends React.Component {
             transform = transform.collapseToStartOf(anchorNode);
         }
 
+        if(this.state.justClosed === true) {
+            this.setState({ justClosed: false})
+        }
         this.setState({ state: transform.apply() });
     }
 
