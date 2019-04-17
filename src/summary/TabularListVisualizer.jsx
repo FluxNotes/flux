@@ -55,7 +55,8 @@ export default class TabularListVisualizer extends Visualizer {
         // easily if we get feedback that people don't like this.
         if (isSingleColumn || numColumns > 2 || subsections.length === 1) {
             return subsections.map((subsection, index) => {
-                return this.renderedSubsection(subsection, index, true, subsections.length === 1);
+                const singleColumnLayout = true;
+                return this.renderedSubsection(subsection, index, singleColumnLayout, subsections.length === 1);
             });
         }
 
@@ -163,11 +164,8 @@ export default class TabularListVisualizer extends Visualizer {
             subsectionActions = transformedSubsection.actions;
         }
 
-        let classes = "multi-column";
-        if (isSingleColumn) classes = "single-column";
-
-        if (isSingleSection) classes = classes + ' single-section';
-        else classes = classes + ' multi-section';
+        let classes = (isSingleColumn) ? "single-column" : "multi-column";
+        classes += (isSingleSection) ? " single-section" : " multi-section";
 
         return (
             <div key={subsectionindex} className={classes}>
