@@ -172,7 +172,7 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
             hpiText += panel.members.map((item) => {
                 const v = item.value === 'Positive' ? '+' : '-';
                 return " " + item.abbreviatedName + v;
-            }).join("\r\n -");
+            }).join("\r\n-");
             hpiText += "\r\n"
         }
         return hpiText;
