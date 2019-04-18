@@ -155,11 +155,11 @@ function isSimilarPatient(treatmentDataPatient, similarPatientProps) {
                     return false;
                 } else if (option === 'stage' && (!diseaseStatus.stage || _.lowerCase(diseaseStatus.stage) !== _.lowerCase(value))) {
                     return false;
-                } else if (option === 't_stage' && (!diseaseStatus.t_stage || _.lowerCase(diseaseStatus.t_stage) !== _.lowerCase(value))) { // no data available
+                } else if (option === 't_stage' && (!diseaseStatus.tnm.t || _.lowerCase(diseaseStatus.tnm.t) !== _.lowerCase(value))) { // no data available
                     return false;
-                } else if (option === 'n_stage' && (!diseaseStatus.n_stage || _.lowerCase(diseaseStatus.n_stage) !== _.lowerCase(value))) { // no data available
+                } else if (option === 'n_stage' && (!diseaseStatus.tnm.n || _.lowerCase(diseaseStatus.tnm.n) !== _.lowerCase(value))) { // no data available
                     return false;
-                } else if (option === 'm_stage' && (!diseaseStatus.m_stage || _.lowerCase(diseaseStatus.m_stage) !== _.lowerCase(value))) { // no data available
+                } else if (option === 'm_stage' && (!diseaseStatus.tnm.m || _.lowerCase(diseaseStatus.tnm.m) !== _.lowerCase(value))) { // no data available
                     return false;
                 } else if (option === 'grade' && (!diseaseStatus.grade || diseaseStatus.grade !== value)) {
                     return false;
