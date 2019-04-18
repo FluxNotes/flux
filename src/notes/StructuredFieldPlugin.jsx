@@ -646,14 +646,19 @@ function insertStructuredField(opts, transform, shortcut) {
 
     // Create the structured-field node
     const sfs = createStructuredField(opts, shortcut);
-    sfs.forEach((sf, i) => {
+    sfs.forEach((sf) => {
         shortcut.setKey(sf.key);
         if (sf.kind === 'block') {
             transform = transform.insertBlock(sf);
         } else {
+            const previousText = state.document.getPreviousText(sf.key);
+
+            // If previous node text doesn't end with a space when inserting a shortcut, insert a space
+            if (!previousText.text.endsWith(' ')) transform = transform.insertText(' ');
             transform = transform.insertInline(sf);
         }
     });
+
     return [transform, ""];
 }
 
