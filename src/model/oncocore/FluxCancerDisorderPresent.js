@@ -84,6 +84,7 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
         // Laterality
         if (this.laterality) {
             hpiText += ` Breast cancer diagnosed in ${this.laterality} breast.`;
+            hpiText += "\r\n"
         }
 
         // Staging
@@ -116,12 +117,11 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
         return hpiText;
     }
 
-    _buildHpiNarrativeForStaging = () => {
+    _buildHpiNarrativeForStaging() {
         let hpiText = "";
         // Staging
         const staging = this.getMostRecentStaging();
         if (staging) {
-            console.log('staging: ', staging);
             hpiText += "-";
             if (staging.stage) {
                 hpiText += ` Stage ${staging.stage}`;
@@ -144,7 +144,7 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
         return hpiText;
     }
 
-    _buildHpiNarrativeForTumorSize = () => {
+    _buildHpiNarrativeForTumorSize() {
         let hpiText = "";
         const tumorSize = this.getObservationsOfType(FluxTumorDimensions);
         // if (tumorSize.length > 0) {
@@ -158,7 +158,7 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
         return hpiText;
     }
     
-    _buildHpiNarrativeForHistologicalGrade = () => {
+    _buildHpiNarrativeForHistologicalGrade() {
         let hpiText = "";
         const histologicGrade = this.getObservationsOfType(FluxCancerHistologicGrade);
         // if (histologicGrade.length > 0) {
