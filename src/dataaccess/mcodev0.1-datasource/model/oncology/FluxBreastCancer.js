@@ -1,9 +1,7 @@
 import FluxEstrogenReceptorStatus from './FluxEstrogenReceptorStatus';
 import FluxHER2ReceptorStatus from './FluxHER2ReceptorStatus';
-import FluxHistologicGrade from './FluxHistologicGrade';
 import FluxProgesteroneReceptorStatus from './FluxProgesteroneReceptorStatus';
 import FluxSolidTumorCancer from './FluxSolidTumorCancer';
-import FluxTumorDimensions from '../oncology/FluxTumorDimensions';
 import CancerDisorder from '../mcode/CancerDisorder';
 
 class FluxBreastCancer extends FluxSolidTumorCancer {

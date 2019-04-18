@@ -323,13 +323,18 @@ class FluxConditionPresentAssertion extends FluxEntry {
     }
 
     buildInitialPatientDiagnosisPreamble(patient) {
-        // Initial patient introduction section
+        let hpiText = "";
         const name = patient.getName();
         const age = patient.getAge();
         const gender = patient.getGender();
-
-        let hpiText = `${name} is a ${age} year old ${gender}.`;
+        // Basic age, name, gender
+        hpiText += '-';
+        hpiText += ` ${name} is a ${age} year old ${gender}.`;
+        hpiText += "\r\n";
+        // Information about Diagnosis
+        hpiText += '-';
         hpiText += ` Patient was diagnosed with ${this.type} on ${this.diagnosisDate}.`;
+        hpiText += "\r\n";
 
         return hpiText;
     }

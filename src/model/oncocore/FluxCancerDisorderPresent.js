@@ -54,72 +54,34 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
 
     buildHpiNarrativeForFluxGastrointestinalStromalTumor(patient) {
         let hpiText = "";
-
         // Staging
-        hpiText += this._buildHpiNarrativeForStaging()
-
+        hpiText += this._buildHpiNarrativeForStaging();
         // Tumor Size
         hpiText += this._buildHpiNarrativeForTumorSize();
         // HistologicGrade
         hpiText += this._buildHpiNarrativeForHistologicalGrade();
-        
-        
         // genetics
-        const geneticpanels = patient.getGastrointestinalStromalTumorCancerGeneticAnalysisPanelsChronologicalOrder();
-        //const geneticspanelMostRecent = geneticpanels[geneticpanels.length - 1];
-        if (geneticpanels && geneticpanels.length > 0) {
-            hpiText += "-";
-            const panel = geneticpanels.pop();
-            hpiText += " " + panel.members.map((item) => {
-                const v = item.value === 'Positive' ? '+' : '-';
-                return item.abbreviatedName + v;
-            }).join("\r\n - ");
-        }
+        hpiText += this._buildHpiNarrativeForGISTGeneticPanels(patient);
         return hpiText;
     }
 
     buildHpiNarrativeForBreastCancer(patient) {
         let hpiText = "";
-
         // Laterality
-        if (this.laterality) {
-            hpiText += ` Breast cancer diagnosed in ${this.laterality} breast.`;
-            hpiText += "\r\n"
-        }
-
+        hpiText += this._buildHpiNarrativeForLaterality();
         // Staging
-        hpiText += this._buildHpiNarrativeForStaging()
-
-        // // Staging
-        // const staging = this.getMostRecentStaging();
-        // if (staging && staging.stage) {
-        //     hpiText += ` Stage ${staging.stage} ${staging.t_Stage} ${staging.n_Stage} ${staging.m_Stage} disease.`;
-        // }
-
+        hpiText += this._buildHpiNarrativeForStaging();
         // Tumor Size
         hpiText += this._buildHpiNarrativeForTumorSize();
         // HistologicGrade
         hpiText += this._buildHpiNarrativeForHistologicalGrade();
-
         // ER, PR, HER2
-        const erStatus = this.getMostRecentERReceptorStatus();
-        const prStatus = this.getMostRecentPRReceptorStatus();
-        const her2Status = this.getMostRecentHER2ReceptorStatus();
-        if (erStatus) {
-            hpiText += ` Estrogen receptor was ${erStatus.status}.`;
-        }
-        if (prStatus) {
-            hpiText += ` Progesteron receptor was ${prStatus.status}.`;
-        }
-        if (her2Status) {
-            hpiText += ` HER2 was ${her2Status.status}.`;
-        }
+        hpiText += this._buildHpiNarrativeForReceptors();
         return hpiText;
     }
 
     _buildHpiNarrativeForStaging() {
         let hpiText = "";
-        // Staging
         const staging = this.getMostRecentStaging();
         if (staging) {
             hpiText += "-";
@@ -138,8 +100,7 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
             if (staging.mitoticRate) {
                 hpiText += `. Mitotic rate ${staging.mitoticRate}`;
             }
-            hpiText += '.';
-            hpiText += "\r\n";
+            hpiText += ".\r\n";
         }
         return hpiText;
     }
@@ -148,26 +109,71 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
         let hpiText = "";
         const tumorSize = this.getObservationsOfType(FluxTumorDimensions);
         // if (tumorSize.length > 0) {
-        //     hpiText += ` Primary tumor size ${tumorSize[0].quantity.number} ${tumorSize[0].quantity.unit}.`;
-        // }
-        if (tumorSize.length > 0) {
+            //     hpiText += ` Primary tumor size ${tumorSize[0].quantity.number} ${tumorSize[0].quantity.unit}.`;
+            // }
+            if (tumorSize.length > 0) {
             hpiText += "-";
-            hpiText += ` Primary tumor size ${tumorSize[tumorSize.length - 1].quantity.number} ${tumorSize[tumorSize.length - 1].quantity.unit}.`;
-            hpiText += "\r\n";
+            hpiText += ` Primary tumor size ${tumorSize[tumorSize.length - 1].quantity.number} ${tumorSize[tumorSize.length - 1].quantity.unit}`;
+            hpiText += ".\r\n";
+        }
+        return hpiText;
+    }
+
+    _buildHpiNarrativeForHistologicalGrade() {
+        let hpiText = "";
+        const histologicGrade = this.getObservationsOfType(FluxCancerHistologicGrade);
+        if (histologicGrade.length > 0) {
+            hpiText += "-";
+            hpiText += ` ${histologicGrade[0].grade}`;
+            hpiText += ".\r\n";
         }
         return hpiText;
     }
     
-    _buildHpiNarrativeForHistologicalGrade() {
+    _buildHpiNarrativeForLaterality() {
         let hpiText = "";
-        const histologicGrade = this.getObservationsOfType(FluxCancerHistologicGrade);
-        // if (histologicGrade.length > 0) {
-        //     hpiText += ` Histological grade ${histologicGrade[0].grade}.`;
-        // }
-        if (histologicGrade.length > 0) {
+        if (this.laterality) {
             hpiText += "-";
-            hpiText += ` ${histologicGrade[0].grade}.`;
-            hpiText += "\r\n";
+            hpiText += ` Breast cancer diagnosed in ${this.laterality} breast.`;
+            hpiText += "\r\n"
+        }
+        return hpiText;
+    }
+
+    _buildHpiNarrativeForReceptors() {
+        let hpiText = "";
+        const erStatus = this.getMostRecentERReceptorStatus();
+        const prStatus = this.getMostRecentPRReceptorStatus();
+        const her2Status = this.getMostRecentHER2ReceptorStatus();
+        if (erStatus) {
+            hpiText += "-";
+            hpiText += ` Estrogen receptor was ${erStatus.status}`;
+            hpiText += ".\r\n";
+        }
+        if (prStatus) {
+            hpiText += "-";
+            hpiText += ` Progesteron receptor was ${prStatus.status}`;
+            hpiText += ".\r\n";
+        }
+        if (her2Status) {
+            hpiText += "-";
+            hpiText += ` HER2 was ${her2Status.status}`;
+            hpiText += ".\r\n";
+        }
+        return hpiText;
+    }
+    
+    _buildHpiNarrativeForGISTGeneticPanels(patient) {
+        let hpiText = "";
+        const geneticpanels = patient.getGastrointestinalStromalTumorCancerGeneticAnalysisPanelsChronologicalOrder();
+        if (geneticpanels && geneticpanels.length > 0) {
+            hpiText += "-";
+            const panel = geneticpanels.pop();
+            hpiText += panel.members.map((item) => {
+                const v = item.value === 'Positive' ? '+' : '-';
+                return " " + item.abbreviatedName + v;
+            }).join("\r\n -");
+            hpiText += "\r\n"
         }
         return hpiText;
     }
