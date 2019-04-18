@@ -1,7 +1,7 @@
-var fs = require('fs');
+const fs = require('fs');
 const path = require('path');
 
-var dataModel = require('./transformedDataModel.json');
+const dataModel = require('./transformedDataModel.json');
 
 function recursiveFill(obj, patient) {
     // TODO: Patient generation functionality?  Ability to update already present fields?
