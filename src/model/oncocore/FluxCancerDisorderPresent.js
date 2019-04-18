@@ -155,6 +155,7 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
             hpiText += ` Primary tumor size ${tumorSize[tumorSize.length - 1].quantity.number} ${tumorSize[tumorSize.length - 1].quantity.unit}.`;
             hpiText += "\r\n";
         }
+        return hpiText;
     }
     
     _buildHpiNarrativeForHistologicalGrade = () => {
@@ -168,6 +169,7 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
             hpiText += ` ${histologicGrade[0].grade}.`;
             hpiText += "\r\n";
         }
+        return hpiText;
     }
 
     // migrated from FluxGastrointestinalStromalTumor
