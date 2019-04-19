@@ -27,8 +27,8 @@ function recursiveFill(obj, patient) {
 
 function modelParse(property) {
     if (property.type === "choice") {
+        const r = Math.random();
         let sum = 0;
-        let r = Math.random();
         let weight = property.weight;
         if (weight === "uniform") {
             weight = false;
@@ -42,7 +42,7 @@ function modelParse(property) {
     } else if (property.type === "multi-choice") {
         weight = (property.weight === "uniform") ? new Array(property.values.length).fill(1 / property.values.length) : property.weight;
         let r;
-        let returnSet = [];
+        const returnSet = [];
         const defaultValue = property.values.filter((e) => { return e.startsWith("!") });
         for (let i = 0; i < property.values.length; i++) {
             r = Math.random();
