@@ -149,11 +149,11 @@ function isSimilarPatient(treatmentDataPatient, similarPatientProps) {
                 } else if (option === 'gender' && value !== _.lowerCase(gender)) {
                     return false;
                 // pathology
-                } else if (option === 'ER' && (!tumorMarkers.er || _.lowerCase(tumorMarkers.er) !== _.lowerCase(value))) {
+                } else if (option === 'EstrogenReceptor' && (!tumorMarkers.er || _.lowerCase(tumorMarkers.er) !== _.lowerCase(value))) {
                     return false;
-                } else if (option === 'PR' && (!tumorMarkers.pr || _.lowerCase(tumorMarkers.pr) !== _.lowerCase(value))) {
+                } else if (option === 'ProgesteroneReceptor' && (!tumorMarkers.pr || _.lowerCase(tumorMarkers.pr) !== _.lowerCase(value))) {
                     return false;
-                } else if (option === 'HER2' && (!tumorMarkers.her2 || _.lowerCase(tumorMarkers.her2) !== _.lowerCase(value))) {
+                } else if (option === 'HER2Receptor' && (!tumorMarkers.her2 || _.lowerCase(tumorMarkers.her2) !== _.lowerCase(value))) {
                     return false;
                 } else if (option === 'stage' && (!diseaseStatus.stage || _.lowerCase(diseaseStatus.stage) !== _.lowerCase(value))) {
                     return false;
@@ -185,3 +185,5 @@ function isSimilarPatient(treatmentDataPatient, similarPatientProps) {
 
     return true;
 }
+
+
