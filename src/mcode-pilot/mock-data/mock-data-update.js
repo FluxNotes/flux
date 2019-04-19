@@ -9,8 +9,7 @@ function recursiveFill(obj, patient) {
         const property = obj[e];
         if (property.type) {
             // top level property
-            let patientProperty = patient[e]
-
+            let patientProperty = patient[e];
             if (patientProperty === undefined || patientProperty === null) {
                 // the section doesn't exist, create it
                 patient[e] = modelParse(property);
@@ -23,8 +22,7 @@ function recursiveFill(obj, patient) {
             // recurse down the json
             recursiveFill(property, patient[e]);
         }
-    })
-
+    });
 }
 
 function modelParse(property) {
@@ -36,11 +34,10 @@ function modelParse(property) {
             weight = false;
         }
         for (let i = 0; i < property.values.length; i++) {
-            sum += weight ? weight[i] : 1 / property.values.length
+            sum += weight ? weight[i] : 1 / property.values.length;
             if (r <= sum) {
                 return property.values[i];
             }
-
         }
     } else if (property.type === "multi-choice") {
         weight = (property.weight === "uniform") ? new Array(property.values.length).fill(1 / property.values.length) : property.weight;
@@ -54,7 +51,6 @@ function modelParse(property) {
                 if (!returnValue.startsWith("!")) {
                     returnSet.push(returnValue);
                 }
-
             }
         }
         if (returnSet.length === 0) {
