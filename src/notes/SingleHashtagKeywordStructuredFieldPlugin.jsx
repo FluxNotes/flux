@@ -13,7 +13,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
     const structuredFieldMapManager = opts.structuredFieldMapManager;
     function onBeforeInput(e, data, editorState) {
         // short circuit if character typed is not a space
-        if (e.data !== ' ') return;
+        // if (e.data !== ' ') return;
 
         // Insert text and replace relevant keywords in results
         const curTransform = editorState.transform().insertText(e.data);
