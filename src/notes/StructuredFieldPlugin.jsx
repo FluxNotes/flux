@@ -654,7 +654,7 @@ function insertStructuredField(opts, transform, shortcut) {
             const previousText = state.document.getPreviousText(sf.key);
 
             // If previous node text doesn't end with a space when inserting a shortcut, insert a space
-            if (!previousText.text.endsWith(' ')) transform = transform.insertText(' ');
+            if (previousText.key !== '0' && !previousText.text.endsWith(' ')) transform = transform.insertText(' ');
             transform = transform.insertInline(sf);
         }
     });

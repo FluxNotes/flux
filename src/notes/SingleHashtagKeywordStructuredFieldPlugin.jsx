@@ -12,6 +12,9 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
     const insertStructuredFieldTransform = opts.insertStructuredFieldTransform;
     const structuredFieldMapManager = opts.structuredFieldMapManager;
     function onBeforeInput(e, data, editorState) {
+        // short circuit if character typed is not a space
+        if (e.data !== ' ') return;
+
         // Insert text and replace relevant keywords in results
         const curTransform = editorState.transform().insertText(e.data);
         const curNode = curTransform.state.endBlock;
@@ -40,14 +43,14 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
                 // Scan text to find any necessary replacements 
                 let keywords = getKeywordsBasedOnShortcutClass(keywordClass);
                 const prefix = shortcutManager.getShortcutPrefix(keywordClass);
-                
+
                 // Copy keywords and add prefix to so that instances of keywords with prefixes are also replaced
                 const keywordsWithPrefix = Lang.cloneDeep(keywords);
-                keywordsWithPrefix.forEach(keywordWithPrefix => {
+                keywordsWithPrefix.forEach((keywordWithPrefix) => {
                     if (prefix) keywordWithPrefix.name = `${prefix}${keywordWithPrefix.name}`;
                 });
+
                 keywords = keywords.concat(keywordsWithPrefix);
-              
 
                 // Sort keywords based on length -- we want to match longest options first
                 keywords.sort(_sortKeywordByNameLength);
@@ -60,7 +63,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
                     let keywordRange;
                     if (curNode.nodes) {
                         for (const childNode of curNode.nodes) {
-                            if(childNode.type !== 'structured_field'){
+                            if (childNode.type !== 'structured_field') {
                                 keywordRange = getRangeForKeyword(childNode, keywordText);
                             }
                             if (keywordRange) break;
@@ -68,12 +71,17 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
                     } else {
                         keywordRange = getRangeForKeyword(curNode, keywordText);
                     }
+
                     // Remove keyword from block, using first character as the prefix
                     curTransform = curTransform.select(keywordRange).delete();
-                    
+                    const currentNode = curTransform.state.document.getNode(curTransform.state.selection.anchorKey);
+
+                    // If there is no space before the keyword, insert a space
+                    if (!currentNode.text.substring(1).endsWith(' ')) curTransform = curTransform.insertText(' ');
+
                     // Add shortcut to text; update curNode and curText
-                    curTransform = insertStructuredFieldTransform(curTransform, newKeywordShortcut)
-                    curNode = curTransform.state.endBlock
+                    curTransform = insertStructuredFieldTransform(curTransform, newKeywordShortcut);
+                    curNode = curTransform.state.endBlock;
                 }
             }
         }
@@ -81,10 +89,10 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
         // If operations have been done, put selection at the end of recent insertion
         const isNewOperations = curTransform.operations.length > startingNumberOfOperations
         if (isNewOperations) {
-            curTransform = curTransform.collapseToEndOf(curNode).focus()
+            curTransform = curTransform.collapseToEndOf(curNode).focus();
         }
 
-        return [curTransform, isNewOperations]
+        return [curTransform, isNewOperations];
     }
 
     // Get the slate Range of the freeText associated with a given keywordText
