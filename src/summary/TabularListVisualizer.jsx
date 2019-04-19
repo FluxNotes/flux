@@ -46,7 +46,7 @@ export default class TabularListVisualizer extends Visualizer {
 
     renderedSubsections(subsections) {
         if (subsections.length === 0) return null;
-  
+
         let isSingleColumn = this.props.conditionSection.isWide !== undefined ? !this.props.conditionSection.isWide : !this.props.isWide;
 
         const numColumns = (subsections[0].data_cache.length === 0) ? 1 : subsections[0].data_cache[0].length;
@@ -55,7 +55,8 @@ export default class TabularListVisualizer extends Visualizer {
         // easily if we get feedback that people don't like this.
         if (isSingleColumn || numColumns > 2 || subsections.length === 1) {
             return subsections.map((subsection, index) => {
-                return this.renderedSubsection(subsection, index);
+                const singleColumnLayout = true;
+                return this.renderedSubsection(subsection, index, singleColumnLayout, subsections.length === 1);
             });
         }
 
@@ -85,10 +86,10 @@ export default class TabularListVisualizer extends Visualizer {
 
         let ind = 0;
         const renderedFirstHalf = firstHalfSections.map((subsection) => {
-            return this.renderedSubsection(subsection, ind++);
+            return this.renderedSubsection(subsection, ind++, false, subsections.length === 1);
         });
         const renderedSecondHalf = secondHalfSections.map((subsection) => {
-            return this.renderedSubsection(subsection, ind++);
+            return this.renderedSubsection(subsection, ind++, false, subsections.lenth === 1);
         });
 
         // Display the data in 2 columns. The first column displays the first half
@@ -107,7 +108,7 @@ export default class TabularListVisualizer extends Visualizer {
     }
 
     // Render each subsection as a table of values
-    renderedSubsection(transformedSubsection, subsectionindex) {
+    renderedSubsection(transformedSubsection, subsectionindex, isSingleColumn, isSingleSection) {
 
         const list = transformedSubsection.data_cache;
 
@@ -145,7 +146,7 @@ export default class TabularListVisualizer extends Visualizer {
         }
 
         if (list.length <= 0) {
-            return <div key={subsectionindex}>{subsectionNameHTML}<h2 style={{paddingTop: '10px'}}>None</h2></div>;
+            return <div key={subsectionindex}>{subsectionNameHTML}<h2 className="no-entries">None</h2></div>;
         }
 
         let headings = null;
@@ -163,14 +164,17 @@ export default class TabularListVisualizer extends Visualizer {
             subsectionActions = transformedSubsection.actions;
         }
 
+        let classes = (isSingleColumn) ? "single-column" : "multi-column";
+        classes += (isSingleSection) ? " single-section" : " multi-section";
+
         return (
-            <div key={subsectionindex}>
+            <div key={subsectionindex} className={classes}>
                 {preTableCount}
                 {subsectionNameHTML}
 
                 <TabularListVisualizerTable
                     headers={headings}
-                    rows={this.renderedListItems(subsectionindex, list, numberOfHeadings, subsectionName, subsectionActions, transformedSubsection.formatFunction)} 
+                    rows={this.renderedListItems(subsectionindex, list, numberOfHeadings, subsectionName, subsectionActions, transformedSubsection.formatFunction)}
                 />
                 <ul>
                     {this.renderedPostTableList(transformedSubsection.postTableList, subsectionName, subsectionActions, -1)}
@@ -233,6 +237,7 @@ export default class TabularListVisualizer extends Visualizer {
 
         const numColumns = row.length;
         const colSize = (100 / numColumns) + "%";
+//const colSize = "auto";
 
         if (subsectionActions.length > 0  || this.props.actions.length > 0) {
             rowClass += " has-action-menu";
@@ -367,9 +372,9 @@ export default class TabularListVisualizer extends Visualizer {
             this.closeInsertionMenu(callback);
         }
         let isSigned = true;
-        
+
         isSigned = !element.isUnsigned || true;
-        
+
         return (
             <VisualizerMenu
                 allowItemClick={this.props.allowItemClick}

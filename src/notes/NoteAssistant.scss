@@ -1,30 +1,31 @@
 @import '../styles/variables';
 
-$note-assitant-width-1: 175px;
-$note-assitant-width-2: 170px;
-$note-assitant-width-3: 160px; 
+$note-assistant-width-1: 175px;
+$note-assistant-width-2: 170px;
+$note-assistant-width-3: 160px;
+
 
 /* Wrapper */
 .note-assistant-wrapper {
     display: flex;
     flex-direction: column;
-    width: $note-assitant-width-1;
+    width: $note-assistant-width-1;
     margin-left: auto;
     min-height: 400px !important;
-    
+
     .note-assistant-content-wrapper {
         margin-top: 5px;
         overflow-y: auto;
         overflow-x: hidden;
-        /* 92px is the height of the on large screens Patient Control Panel, 
+        /* 92px is the height of the on large screens Patient Control Panel,
            20px is the height of the top margin of post encounter view content and a little extra for potential scroll bars
            5px is the height of the container's top margin
            42px is the height of the toggle buttons
            60px is the height of the delete button and action buttons
         */
-        max-height: calc(100vh - 92px - 20px - 5px - 42px - 60px); 
+        max-height: calc(100vh - 92px - 20px - 5px - 42px - 60px);
     }
-    
+
     .toggle-buttons-container {
         display: flex !important;
         margin-right: auto;
@@ -39,30 +40,49 @@ $note-assitant-width-3: 160px;
             width: 50% !important;
             display: inline-block !important;
             background-color: $background !important;
+            box-shadow: none;
+            border: 1px solid $line-gray;
         }
-        
+
         .toggle-button-selected {
             background-color: $interface-blue !important;
         }
-        
+
         .toggle-button-disabled {
-            // Shouldn't be line gray cannonically, but it is the best one for now. 
-            background-color: $line-gray !important;
+            // Shouldn't be line gray cannonically, but it is the best one for now.
+            // feature gray is probably better (DR).
+            background-color: $feature-gray !important;
+            border-color: $feature-gray;
         }
+
+        .first-button {
+            border-radius: 4px 0px 0px 4px;
+        }
+
+        .inside-button{
+            border-radius: 0px;
+            margin: 0px -1px;
+        }
+
+        .last-button{
+            border-radius: 0px 4px 4px 0px;
+        }
+
     }
-    
+
     /* Notes */
     .clinical-notes-panel {
         margin-left: auto;
         width: inherit;
         margin-right: 5px;
         .previous-notes-label {
-            font-weight: bold;
-            font-size: 0.8em;
+            color: $state;
+            font-weight: $weight-semibold;
+            font-size: $size-s;
             margin: 10px;
             max-width: 184px;
         }
-        .note { 
+        .note {
             position: relative;
             width: inherit;
             max-width: 150px;
@@ -72,7 +92,7 @@ $note-assitant-width-3: 160px;
             border: 1px solid $line-gray;
             border-radius: 5px 0 5px 5px;
             & > * {
-                font-size: 0.8rem;
+                font-size: $size-s;
                 color: $body-gray;
             }
             &:hover {
@@ -98,7 +118,7 @@ $note-assitant-width-3: 160px;
                     background: $feature-gray;
                 }
                 .note-new-text {
-                    font-size: 1.1rem;
+                    font-size: 0.875rem;
                     .fa {
                         padding-right: 10px;
                     }
@@ -115,50 +135,57 @@ $note-assitant-width-3: 160px;
                 background-color: $highlight-selected-yellow;
             }
             &.in-progress-note {
+                border-width: 1px;
+                border-style: dashed;
+                .in-progress-text {
+                    font-weight: $weight-semibold;
+                }
                 .in-progress-note-date {
                     padding-bottom: 5px;
-                    font-weight: bold;
+                    font-weight: $weight-semibold;
                 }
                 .in-progress-note-subject {
                     padding-bottom: 5px;
+                    border-bottom: 1px solid $line-gray;
+                    color: $state;
                 }
-                
+
                 .in-progress-note-author {
-                    padding-bottom: 5px;
+                    padding-top: 5px;
+                    padding-bottom: 1px;
+                    color: $state;
                 }
 
                 .existing-note-metadata {
                     margin-bottom: 5px;
-                }               
+                    color: $state;
+                }
             }
-            &.existing-note {         
+            &.existing-note {
                 .existing-note-date {
                     padding-bottom: 5px;
-                    font-weight: bold;
+                    font-weight: $weight-semibold;
                 }
-                
+
                 .existing-note-subject {
                     padding-bottom: 10px;
                     border-bottom: 1px solid $line-gray;
+                    color: $state;
                 }
-                
+
                 .existing-note-author {
                     padding-top: 5px;
+                    padding-bottom: 1px;
+                    color: $state;
                 }
 
                 .existing-note-metadata {
                     margin-bottom: 5px;
-                }
-            }   
-            &.in-progress-note {
-                border-width: 2px;
-                border-style: dashed;
-                .in-progress-text {
-                    font-weight: bold;
+                    color: $state;
                 }
             }
         }
-        
+
         .more-notes-btn {
             background-color: $background !important;
             padding: 10px !important;
@@ -166,22 +193,26 @@ $note-assitant-width-3: 160px;
             max-width: 184px;
             &:hover {
                 background: $feature-gray !important;
-            }    
+            }
         }
     }
-    
+
     #delete-note-container {
         background: $background;
         display: flex;
-        justify-content: center;
+        justify-content: left;
         position: absolute;
         bottom: 0;
-        width: $note-assitant-width-1;
+        width: $note-assistant-width-1;
         #delete-note-button {
             padding: 10px;
             margin-bottom: 10px;
+            margin-left: $note-assistant-overhang;
             text-transform: none;
             background-color: $background;
+            border: 1px solid $line-gray;
+            border-radius: 3px;
+
             &:hover {
                 background-color: $feature-gray;
             }
@@ -191,44 +222,44 @@ $note-assitant-width-3: 160px;
             }
         }
     }
-    
+
     /* Sort */
     .sort-label {
         margin-left: 10px;
         font-size: 0.8em;
     }
-    
+
     .sort-selection {
         margin-bottom: 20px;
         max-width: 184px;
     }
-    
+
     .sort-select {
         width: 90%;
         max-width: 200px;
         margin-left: 10px;
     }
-    
+
     .sort-selection .sort-select {
         font-size: 0.8em;
     }
-    
+
     li.sort-item:hover {
         background-color: $interface-blue;
         color: $background;
-    }  
+    }
 }
 
 @media only screen and (min-width: 1200px) and (max-width: 1300px) {
     .note-assistant-wrapper {
-        width: $note-assitant-width-2;
-        #delete-note-container { 
-            width: $note-assitant-width-2;
+        width: $note-assistant-width-2;
+        #delete-note-container {
+            width: $note-assistant-width-2;
         }
     }
 }
 
-@media only screen and (max-width: 1200px) { 
+@media only screen and (max-width: 1200px) {
     .note-assistant-wrapper {
         /* 117px is the height of the on large screens Patient Control Panel, 20px is the height of the top margin of post encounter view content and a little extra for potential scroll bars*/
         max-height: calc(100vh - 117px - 20px);
@@ -237,9 +268,9 @@ $note-assitant-width-3: 160px;
 
 @media only screen and (min-width: 577px) and (max-width: 768px) {
     .note-assistant-wrapper {
-        width: $note-assitant-width-3;
-        #delete-note-container { 
-            width: $note-assitant-width-3;
+        width: $note-assistant-width-3;
+        #delete-note-container {
+            width: $note-assistant-width-3;
         }
      }
 }

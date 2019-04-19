@@ -1,11 +1,13 @@
+@import "../styles/variables";
+
 .template {
-  margin: 5px 0 5px 0px;
-  font-size: 0.9em;
-  color: #888;
+  margin: 5px 0 5px $note-assistant-overhang;
+  font-size: $size-m;
+  color: $body-gray;
   cursor: pointer;
-  
+
   &:hover {
-    color: #555;
-    font-weight: bold;
+    color: $body-gray;
+    font-weight: $weight-semibold;
   }
 }

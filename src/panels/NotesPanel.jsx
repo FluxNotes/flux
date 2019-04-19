@@ -55,7 +55,7 @@ export default class NotesPanel extends Component {
             const metadata = this.props.shortcutManager.getMetadataForTrigger(`#${data.phrase}`);
             if (Lang.isUndefined(metadata)) return "No structured phrase named '" + data.phrase + "' found.";
             const structuredPhrase = createSentenceFromStructuredData(
-                metadata["structuredPhrase"], 
+                metadata["structuredPhrase"],
                 (name) => {
                     const foundItem = data.fields.find((item) => item.name === name);
                     if (Lang.isUndefined(foundItem)) return undefined;
@@ -74,10 +74,10 @@ export default class NotesPanel extends Component {
         this.setState({ showTemplateView });
     }
 
-    updateLocalDocumentText = (text) => {      
+    updateLocalDocumentText = (text) => {
         if (text) {
             this.setState({showTemplateView: false});
-        } 
+        }
         this.setState({ localDocumentText: text });
     }
 
@@ -164,7 +164,7 @@ export default class NotesPanel extends Component {
             selectedNote: null,
             currentlyEditingEntryId: -1
         });
-        
+
         this.props.setNoteClosed(true);
         this.props.setLayout('right-collapsed');
         this.props.setNoteViewerVisible(false);
@@ -197,11 +197,11 @@ export default class NotesPanel extends Component {
     openExistingNote = (isInProgress, note) => {
         this.openNote(note, isInProgress);
         this.setState({ showTemplateView: false });
-       
+
     }
 
     openNote = (note, isInProgress) => {
-     
+
         // Saves the current note and resets localDocumentText before opening the next note.
         this.saveNote(this.state.localDocumentText);
 
@@ -221,7 +221,7 @@ export default class NotesPanel extends Component {
         }
     }
 
-    // Removes a note from patient object if the note is unsigned 
+    // Removes a note from patient object if the note is unsigned
     deleteSelectedNote = () => {
         this.closeNote(this.state.localDocumentText);
         if (this.state.selectedNote && !this.state.selectedNote.signed) {
@@ -278,11 +278,11 @@ export default class NotesPanel extends Component {
         const signNoteDisabledClass = this.props.isAppBlurred ? 'content-disabled' : '';
         return (
             <div id="finish-sign-component">
-                <Button 
-                    variant="raised" 
+                <Button
+                    variant="flat"
                     classes={{
                         root: `btn-finish ${signNoteDisabledClass}`
-                    }} 
+                    }}
                     onClick={() => {
                         this.handleSignButtonClick();
                     }}
@@ -447,7 +447,7 @@ export default class NotesPanel extends Component {
                     searchSelectedItem={this.props.searchSelectedItem}
                     selectedNote={this.state.selectedNote}
                     setHighlightedSearchSuggestion={this.setHighlightedSearchSuggestion}
-                    setLayout={this.props.setLayout} 
+                    setLayout={this.props.setLayout}
                     setNoteClosed={this.props.setNoteClosed}
                     setNoteViewerEditable={this.props.setNoteViewerEditable}
                     setNoteViewerVisible={this.props.setNoteViewerVisible}

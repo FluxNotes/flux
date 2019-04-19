@@ -53,15 +53,15 @@ export default class TargetedDataPanel extends Component {
     moveToSubsectionFromSearch(suggestion) {
         this.moveToSubsection(suggestion.section, suggestion.subsection);
     }
-    
+
     getConditionMetadata(condition = this.props.appState.condition) {
         const { loginUser } = this.props;
         const patient = this.props.appState.patient;
         return this.props.summaryMetadata.getMetadata(  this.props.preferenceManager,
                                                         patient,
-                                                        condition, 
-                                                        loginUser.getRoleType(), 
-                                                        loginUser.getRole(), 
+                                                        condition,
+                                                        loginUser.getRoleType(),
+                                                        loginUser.getRole(),
                                                         loginUser.getSpecialty());
     }
 
@@ -126,18 +126,18 @@ export default class TargetedDataPanel extends Component {
                                     loginUser={this.props.loginUser}
                                     moveToSubsectionFromSearch={this.moveToSubsectionFromSearch.bind(this)}
                                     preferenceManager={this.props.preferenceManager}
-                                    patient={this.props.appState.patient} 
+                                    patient={this.props.appState.patient}
                                     setForceRefresh={this.props.setForceRefresh}
                                     sectionsToDisplay={sectionsToDisplay}
                                     searchIndex={this.props.searchIndex}
                                     searchSuggestions={this.props.searchSuggestions}
-                                    setHighlightedSearchSuggestion={this.props.setHighlightedSearchSuggestion}        
+                                    setHighlightedSearchSuggestion={this.props.setHighlightedSearchSuggestion}
                                 />
                             </div>
                         </div>
                     </Minimap>
                 </div>
-            );    
+            );
         } else {
             return (
                 <div className="targeted-data-panel">
@@ -156,17 +156,17 @@ export default class TargetedDataPanel extends Component {
                                 loginUser={this.props.loginUser}
                                 moveToSubsectionFromSearch={this.moveToSubsectionFromSearch.bind(this)}
                                 preferenceManager={this.props.preferenceManager}
-                                patient={this.props.appState.patient} 
-                                setForceRefresh={this.props.setForceRefresh}                                                              
+                                patient={this.props.appState.patient}
+                                setForceRefresh={this.props.setForceRefresh}
                                 sectionsToDisplay={sectionsToDisplay}
                                 searchIndex={this.props.searchIndex}
                                 searchSuggestions={this.props.searchSuggestions}
-                                setHighlightedSearchSuggestion={this.props.setHighlightedSearchSuggestion}        
+                                setHighlightedSearchSuggestion={this.props.setHighlightedSearchSuggestion}
                             />
                         </div>
                     </div>
                 </div>
-            );    
+            );
         }
     }
 }

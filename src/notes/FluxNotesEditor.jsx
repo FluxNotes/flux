@@ -81,7 +81,7 @@ class FluxNotesEditor extends React.Component {
 
         // Set the initial state when the app is first constructed.
         this.resetEditorState();
-        
+
         // setup structured field plugin
         const structuredFieldPluginOptions = {
             contextManager: this.contextManager,
@@ -98,7 +98,7 @@ class FluxNotesEditor extends React.Component {
         });
         this.structuredFieldPlugin = StructuredFieldPlugin(structuredFieldPluginOptions);
         this.plugins.push(this.structuredFieldPlugin)
-        
+
         // setup single hashtag structured field plugin
         const singleHashtagKeywordStructuredFieldPluginOptions = {
             shortcutManager: this.props.shortcutManager,
@@ -124,10 +124,10 @@ class FluxNotesEditor extends React.Component {
         };
         this.NLPHashtagPlugin = NLPHashtagPlugin(NLPHashtagPluginOptions);
         this.plugins.push(this.NLPHashtagPlugin)
-        
+
         // Track all the indexes needed for suggestions portals
         this.suggestionPortalSearchIndexes = [];
-        
+
         // setup creator suggestions plugin (autocomplete)
         const creatorSuggestionPortalSearchIndex = new SuggestionPortalShortcutSearchIndex([], '#', this.props.shortcutManager);
         this.contextManager.subscribe(creatorSuggestionPortalSearchIndex, creatorSuggestionPortalSearchIndex.updateIndex)
@@ -139,7 +139,7 @@ class FluxNotesEditor extends React.Component {
             trigger: '#',
         });
         this.plugins.push(this.suggestionsPluginCreators)
-        
+
         // setup inserter suggestions plugin (autocomplete)
         const inserterSuggestionPortalSearchIndex = new SuggestionPortalShortcutSearchIndex([], '@', this.props.shortcutManager);
         this.contextManager.subscribe(inserterSuggestionPortalSearchIndex, inserterSuggestionPortalSearchIndex.updateIndex)
@@ -153,7 +153,7 @@ class FluxNotesEditor extends React.Component {
         this.plugins.push(this.suggestionsPluginInserters)
 
         // Setup suggestions plugin
-        const placeholderSuggestionPortalSearchIndex = new SuggestionPortalPlaceholderSearchIndex([], '<', this.props.shortcutManager);        
+        const placeholderSuggestionPortalSearchIndex = new SuggestionPortalPlaceholderSearchIndex([], '<', this.props.shortcutManager);
         this.contextManager.subscribe(placeholderSuggestionPortalSearchIndex, placeholderSuggestionPortalSearchIndex.updateIndex)
         this.suggestionPortalSearchIndexes.push(placeholderSuggestionPortalSearchIndex)
         this.suggestionsPluginPlaceholders = SuggestionsPlugin({
@@ -232,8 +232,8 @@ class FluxNotesEditor extends React.Component {
     }
 
 
-    updateFetchingStatus = (isFetchingAsyncData) => { 
-        if (!isFetchingAsyncData) { 
+    updateFetchingStatus = (isFetchingAsyncData) => {
+        if (!isFetchingAsyncData) {
             // If we're not fetching, clear any lagging timers;
             if (this.state.fetchTimeout !== null) clearTimeout(this.state.fetchTimeout._id)
             this.setState({
@@ -242,7 +242,7 @@ class FluxNotesEditor extends React.Component {
                 // Clear fetch timer
                 fetchTimeout: null,
             });
-        } else { 
+        } else {
             // If we are fetching, set a timer that will display a loading animation in the editor after trigger
             this.setState({
                 fetchTimeout: setTimeout (() => {
@@ -251,7 +251,7 @@ class FluxNotesEditor extends React.Component {
                         loadingTimeWarrantsWarning: true
                     });
                 }, 10),
-            })  
+            })
         }
     }
 
@@ -342,7 +342,7 @@ class FluxNotesEditor extends React.Component {
     }
 
     getTextCursorPosition = () => {
-        const positioningUsingSlateNodes = () => { 
+        const positioningUsingSlateNodes = () => {
             const pos = {};
             const parentNode = this.state.state.document.getParent(this.state.state.selection.startKey);
             const el = Slate.findDOMNode(parentNode);
@@ -359,9 +359,9 @@ class FluxNotesEditor extends React.Component {
         }
 
         if (!this.editorHasFocus) {
-            if (this.lastPosition.top === 0 && this.lastPosition.left === 0) {   
+            if (this.lastPosition.top === 0 && this.lastPosition.left === 0) {
                 this.lastPosition = positioningUsingSlateNodes();
-            } 
+            }
         } else {
             const pos = position();
             // If position is calculated to be 0, 0, use our old method of calculating position.
@@ -392,9 +392,9 @@ class FluxNotesEditor extends React.Component {
         let shortcut = this.selectingForShortcut;
 
         this.selectingForShortcut = null;
-        this.setState({ 
+        this.setState({
             openedPortal: null,
-            portalOptions: null, 
+            portalOptions: null,
         });
         if (Lang.isNull(selection)) {
             // Removes the shortcut from its parent
@@ -435,13 +435,13 @@ class FluxNotesEditor extends React.Component {
                 anchorOffset = text.length;
             }
         }
-        
+
         const indexOfPrefixInText = text.indexOf(prefixCharacter)
-        if (indexOfPrefixInText === -1) { 
+        if (indexOfPrefixInText === -1) {
             // If the prefix character and the text don't match up, error
             console.error(`In suggestionDeleteExistingTransform: prefix character ${prefixCharacter} not found in current text ${text}`)
             return transform
-        } else { 
+        } else {
             const charactersToDelete = anchorOffset - indexOfPrefixInText;
             return transform
                 .deleteBackward(charactersToDelete);
@@ -860,18 +860,18 @@ class FluxNotesEditor extends React.Component {
             .concat(document.getInlinesByTypeAsArray('structured_field_selected_search_result'));
     }
 
-    regularHighlightPlainText = (transform, range) => { 
+    regularHighlightPlainText = (transform, range) => {
         return transform.select(range).removeMark('selected-highlight').addMark('regular-highlight').deselect();
     }
-    
-    selectedHighlightPlainText = (transform, range) => { 
+
+    selectedHighlightPlainText = (transform, range) => {
         return transform.select(range).removeMark('regular-highlight').addMark('selected-highlight').deselect();
     }
-    
-    unhighlightPlainText = (transform, range) => { 
+
+    unhighlightPlainText = (transform, range) => {
         return transform.select(range).removeMark('regular-highlight').removeMark('selected-highlight').deselect();
     }
-    
+
     unhighlightAllPlaintext = (transform) => {
         const {document} = this.state.state;
 
@@ -884,23 +884,23 @@ class FluxNotesEditor extends React.Component {
             isBackward: false
         };
         return this.unhighlightPlainText(transform, fullDocRange);
-    }    
-    
-    regularHighlightStructuredField = (transform, sf) => { 
+    }
+
+    regularHighlightStructuredField = (transform, sf) => {
         // TODO: handle highlighting of placeholder text
         if (!(sf instanceof Placeholder)) return transform.setNodeByKey(sf.key, "structured_field_search_result");
     }
-    
-    selectedHighlightStructuredField = (transform, sf) => { 
+
+    selectedHighlightStructuredField = (transform, sf) => {
         // TODO: handle highlighting of placeholder text
         if (!(sf instanceof Placeholder)) return transform.setNodeByKey(sf.key, "structured_field_selected_search_result");
     }
 
-    unhighlightStructuredField = (transform, sf) => { 
+    unhighlightStructuredField = (transform, sf) => {
         // TODO: handle highlighting of placeholder text
         if (!(sf instanceof Placeholder)) return transform.setNodeByKey(sf.key, "structured_field");
     }
-    
+
     unhighlightAllStructuredFields = (transform) => {
         this.getSearchResultInlines(transform.state.document).forEach(inline => {
             transform = this.unhighlightStructuredField(transform, inline);
@@ -912,26 +912,26 @@ class FluxNotesEditor extends React.Component {
         let transform = this.state.state.transform();
         transform = this.unhighlightAllStructuredFields(transform);
         transform = this.unhighlightAllPlaintext(transform);
-        this.setState({ 
-            state: transform.blur().apply() 
+        this.setState({
+            state: transform.blur().apply()
         });
     }
 
-    highlightCurrentHighlightedSearchSuggestion = (newHighlightedSearchSuggestion, prevTransform=undefined) => { 
+    highlightCurrentHighlightedSearchSuggestion = (newHighlightedSearchSuggestion, prevTransform=undefined) => {
         const {document} = this.state.state;
         let transform = Lang.isUndefined(prevTransform) ? this.state.state.transform() : prevTransform;
-        if (!Lang.isNull(newHighlightedSearchSuggestion)){ 
+        if (!Lang.isNull(newHighlightedSearchSuggestion)){
             // Highlight matching plaintext
             //
-            // Need a way of matching a specific instance of that match; we give each match 
-            // an identifier -- the order its in; that is 'n' where this is the nth phrase we've 
+            // Need a way of matching a specific instance of that match; we give each match
+            // an identifier -- the order its in; that is 'n' where this is the nth phrase we've
             // seen that matches the current search text
             let indexOfCurrentMatch = 0
             document.getTexts().forEach(textNode => {
                 const regex = new RegExp(newHighlightedSearchSuggestion.inputValue, "gi");
                 let match = regex.exec(textNode.text)
                 while (match) {
-                    if (indexOfCurrentMatch === newHighlightedSearchSuggestion.indexOfMatch) { 
+                    if (indexOfCurrentMatch === newHighlightedSearchSuggestion.indexOfMatch) {
                         const offset = match.index;
                         const range = {
                             anchorKey: textNode.key,
@@ -942,15 +942,15 @@ class FluxNotesEditor extends React.Component {
                             isBackward: false,
                         };
                         transform = this.selectedHighlightPlainText(transform, range);
-                    } else { 
-                        
+                    } else {
+
                     }
                     match = regex.exec(textNode.text);
                     indexOfCurrentMatch += 1;
                 }
             });
-            // Need a way of matching a specific instance of that match; we give each match 
-            // an identifier -- the order its in; that is 'n' where this is the nth phrase we've 
+            // Need a way of matching a specific instance of that match; we give each match
+            // an identifier -- the order its in; that is 'n' where this is the nth phrase we've
             // seen that matches the current search text
             indexOfCurrentMatch = 0
             this.getSearchResultInlines(this.state.state.document).forEach(inline => {
@@ -964,18 +964,18 @@ class FluxNotesEditor extends React.Component {
                 }
             });
         }
-        this.setState({ 
+        this.setState({
             state: transform.blur().apply()
         });
     }
-    
+
     // update the styling of our editor based on the previously highlighted search suggestion's current relevance
-    // N.B. Don't apply the changes yet; we want to accumulate all the transform changes in a single place 
+    // N.B. Don't apply the changes yet; we want to accumulate all the transform changes in a single place
     // so we get the highlighting of the newly selected element as well
-    updateHighlightingOfPreviouslyHighlightedSearchSuggestion = (prevHighlightedSuggestion, newSearchSuggestions) => { 
+    updateHighlightingOfPreviouslyHighlightedSearchSuggestion = (prevHighlightedSuggestion, newSearchSuggestions) => {
         const {document} = this.state.state;
         let transform = this.state.state.transform();
-        if (newSearchSuggestions.includes(prevHighlightedSuggestion)) { 
+        if (newSearchSuggestions.includes(prevHighlightedSuggestion)) {
             // If the old suggestion is still relevant, we should use regular highlighting
             // regular highlighting of plaintext
             document.getTexts().forEach(textNode => {
@@ -1000,7 +1000,7 @@ class FluxNotesEditor extends React.Component {
                 const shortcut = inline.get('data').get('shortcut');
                 if (shortcut.getText().toLowerCase().includes(prevHighlightedSuggestion.inputValue.toLowerCase())) {
                     transform = this.regularHighlightStructuredField(transform, inline);
-                } 
+                }
             });
         }
         return transform
@@ -1056,8 +1056,8 @@ class FluxNotesEditor extends React.Component {
         });
 
         // Use a pronounced highlight for the selected suggestion in the dropdown
-        this.setState({ 
-            state: transform.blur().apply() 
+        this.setState({
+            state: transform.blur().apply()
         });
     }
 
@@ -1127,7 +1127,7 @@ class FluxNotesEditor extends React.Component {
         let listItemEndIndex = text.indexOf('</li>');
 
         // No styles to be added.
-        if (boldStartIndex === -1 && boldEndIndex === -1 
+        if (boldStartIndex === -1 && boldEndIndex === -1
             && italicStartIndex === -1 && italicEndIndex === -1
             && underlinedStartIndex === -1 && underlinedEndIndex === -1
             && unorderedListStartIndex === -1 && unorderedListEndIndex === -1
@@ -1169,7 +1169,7 @@ class FluxNotesEditor extends React.Component {
         } else if (firstStyle.name === 'orderedListEndIndex') {
             this.endList(transform, text, orderedListStartIndex, orderedListEndIndex, 'numbered-list');
         } else if (firstStyle.name === 'listItemStartIndex' || firstStyle.name === 'listItemEndIndex') {
-            const currentList = styleMarkings.find(a => 
+            const currentList = styleMarkings.find(a =>
                 a.value > -1 &&
                 (a.name === 'orderedListStartIndex' || a.name === 'orderedListEndIndex'
                 || a.name === 'unorderedListStartIndex' || a.name === 'unorderedListEndIndex'))
@@ -1288,7 +1288,7 @@ class FluxNotesEditor extends React.Component {
             startOffset = wordOffset;
         } else {
             // No HTML style tag present so set startIndex to the beginning of the string and leave startOffset as 0 since no word to remove.
-            startIndex = 0; 
+            startIndex = 0;
         }
 
         let endOffset = 0; // This represents how many characters to cut off from the text string at the endIndex.
@@ -1408,7 +1408,7 @@ class FluxNotesEditor extends React.Component {
                 //     transform = this.insertPlainText(transform, ' ');
                 // }
 
-                // Deals with @condition phrases inserted via data summary panel buttons. 
+                // Deals with @condition phrases inserted via data summary panel buttons.
                 if (remainder.startsWith("[[")) {
                     end = remainder.indexOf("]]");
                     after = remainder.substring(2, end);
@@ -1719,7 +1719,7 @@ class FluxNotesEditor extends React.Component {
     }
 
     // Renders the noteDescription of the editor
-    renderNoteDescriptionContent = () => { 
+    renderNoteDescriptionContent = () => {
         // Preset note header information
         let noteTitle = "New Note";
         let date;
@@ -1770,7 +1770,7 @@ class FluxNotesEditor extends React.Component {
                         </Col>
                         <Col xs={3}>
                             <Button
-                                variant="raised"
+                                variant="flat"
                                 className="close-note-btn"
                                 disabled={this.context_disabled}
                                 onClick={this.closeNote}
@@ -1781,10 +1781,7 @@ class FluxNotesEditor extends React.Component {
                             >
                                 <FontAwesome
                                     name="times"
-                                    style={{
-                                        color: "red",
-                                        marginRight: "5px"
-                                    }}
+                                    className="close-x"
                                 />
                                 <span>
                                     Close
@@ -1799,8 +1796,8 @@ class FluxNotesEditor extends React.Component {
         }
     }
 
-    editNoteTitleButton = () => { 
-        return ( 
+    editNoteTitleButton = () => {
+        return (
             <svg width="15px" height="15px" viewBox="0 0 17 16" version="1.1" xmlns="http://www.w3.org/2000/svg" id="edit-note-name-btn">
                 <title>Click to edit note title</title>
                 <defs></defs>
@@ -1818,13 +1815,13 @@ class FluxNotesEditor extends React.Component {
             </svg>
         );
     }
-    
+
     render = () => {
         const CreatorsPortal = this.suggestionsPluginCreators.SuggestionPortal;
         const InsertersPortal = this.suggestionsPluginInserters.SuggestionPortal;
         const PlaceholdersPortal = this.suggestionsPluginPlaceholders.SuggestionPortal;
         const disabledEditorClassName = this.props.isAppBlurred ? 'content-disabled' : '';
-        
+
         let errorDisplay = "";
         if (this.props.errors && this.props.errors.length > 0) {
             errorDisplay = (
@@ -1852,7 +1849,7 @@ class FluxNotesEditor extends React.Component {
          * Render the editor, toolbar, dropdown and description for note
          */
 
-       
+
         return (
             <div id="clinical-notes" className={`dashboard-panel ${disabledEditorClassName}`}>
                 {this.renderNoteDescriptionContent()}

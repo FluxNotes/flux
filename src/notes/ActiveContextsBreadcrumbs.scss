@@ -1,6 +1,8 @@
+@import '../styles/variables';
+
 .toolbar-breadcrumbs-container {
-    color: #ccc;
-    font-size: 0.8em;
+    color: $state;
+    font-size: $size-m;
     font-style: italic;
     display: inline-block;
     vertical-align: bottom;

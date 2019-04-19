@@ -37,6 +37,13 @@ yarn-error.log*
 /src/patientControl/SearchSuggestion.css
 /src/summary/TargetedDataSection.css
 /src/styles/FullApp.css
+/src/lib/react-minimap/react-minimap.css
+/src/context/ContextOptions.css
+/src/context/ContextTray.css
+/src/notes/ActiveContextsBreadcrumbs.css
+/src/panels/TargetedDataPanel.css
+/src/summary/ProgressionLineChartVisualizer.css
+
 
 #Visual Paradigm Project Files
 *.vpp.bak*

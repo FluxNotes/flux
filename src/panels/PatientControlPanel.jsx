@@ -10,24 +10,24 @@ import SummaryHeader from '../summary/SummaryHeader';
 import './PatientControlPanel.css';
 
 class PatientControlPanel extends Component {
-    constructor(props) { 
+    constructor(props) {
         super(props);
-        this.defaultLogoObject = { 
+        this.defaultLogoObject = {
             path: 'fluxnotes_logo_color.png',
             altText: 'Flux Notes logo',
             width: '30px',
             height: '40px'
         };
     }
-    
+
     getLogoObject = () => {
         const { logoObject } = this.props;
         return Object.assign({}, this.defaultLogoObject, logoObject);
     }
 
-    renderFluxNotesLogo = () => { 
+    renderFluxNotesLogo = () => {
         const login = (this.props.supportLogin) ? this.props.loginUsername : "";
-        const logoObject = this.getLogoObject(); 
+        const logoObject = this.getLogoObject();
         return (
             <div>
                 <img src={logoObject.path} height={logoObject.height} width={logoObject.width} alt={logoObject.altText} />
@@ -40,14 +40,14 @@ class PatientControlPanel extends Component {
     }
 
     // Render the patient-summary information iff we have a patient
-    renderSummaryHeader = () => { 
+    renderSummaryHeader = () => {
         const { patient } = this.props;
         const patientConditions = patient ? patient.getConditions() : [];
 
-        if (Lang.isEmpty(patient)) { 
+        if (Lang.isEmpty(patient)) {
             return;
-        } else { 
-            return ( 
+        } else {
+            return (
                 <SummaryHeader
                     address={patient.getCurrentHomeAddress()}
                     administrativeSex={patient.getGender()}
@@ -67,13 +67,13 @@ class PatientControlPanel extends Component {
         }
     }
 
-    // Render renderConditionSelectAndSearch iff we have a patient to render 
-    renderConditionSelectAndSearch = () => { 
+    // Render renderConditionSelectAndSearch iff we have a patient to render
+    renderConditionSelectAndSearch = () => {
         const { patient } = this.props;
         const patientConditions = patient ? patient.getConditions() : [];
-        if (Lang.isEmpty(patient)) { 
+        if (Lang.isEmpty(patient)) {
             return;
-        } else { 
+        } else {
             return (
                 <Row bottom="xs" className="vertical-divider">
                     <Col xs={12} lg={6}>

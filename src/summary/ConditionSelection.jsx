@@ -41,7 +41,7 @@ class ConditionSelection extends Component {
     render() {
         return (
             <div id="condition-selection">
-                <h3>Condition</h3>
+                <h3 className="label">Condition</h3>
                 <Select
                     className="condition-select"
                     classes={{

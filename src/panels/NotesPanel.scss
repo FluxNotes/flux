@@ -1,3 +1,5 @@
+@import '../styles/variables';
+
 #finish-sign-component {
     position: fixed;
     bottom: 0px;
@@ -6,15 +8,17 @@
     text-align: left;
     z-index: 5;
     display: flex;
-    justify-content: center;
+    justify-content: left;
     .btn-finish {
         background-color: #FFFFFF;
         text-transform: none;
         display: inline-block;
         min-width: 90%;
-        margin: 10px;
+        margin: 10px 30px 10px 30px;
+        border: 1px solid $line-gray;
+        border-radius: 3px;
     }
 }
-.panel-content.note-assistant-panel { 
+.panel-content.note-assistant-panel {
     padding: 0px !important;
 }

@@ -113,7 +113,7 @@ class ProgressionLineChartVisualizer extends Visualizer {
         } else { // case where there is only a diagnosis date
             let date = processedPotentialDiagnosisDates[0].date;
             let buffer = 2600000000; // equivalent of about a month
-            return [date - buffer, date + buffer]; 
+            return [date - buffer, date + buffer];
         }
     }
 
@@ -208,7 +208,7 @@ class ProgressionLineChartVisualizer extends Visualizer {
         });
         // Get yAxisInfo
         const yAxisDomain = [ -1.25, 3 ];
-        const yTicks = [ -1, 0, 1, 2, 3 ];
+        const yTicks = [ -1, 0, 1, 2, 3.25 ];
         // Get xAxisInfo
         const xAxisDomain = this.getXAxisDomain(processedData, processedPotentialDiagnosisDates);
         const xTicks = this.getXAxisTicks(xAxisDomain, processedPotentialDiagnosisDates, this.props.isWide);
@@ -219,19 +219,21 @@ class ProgressionLineChartVisualizer extends Visualizer {
             >
                 <LineChart
                     data={processedData}
-                    margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
+                    margin={{ top: 10, right: 30, left: 30, bottom: 5 }}
                 >
                     <XAxis
                         dataKey={this.xVarNumberField}
                         type="number"
                         domain={xAxisDomain}
                         ticks={xTicks}
+                        tickMargin={5}
                         tickFormatter={this.dateFormat}
                     />
                     <YAxis
                         dataKey={this.yVarField}
                         domain={yAxisDomain}
                         ticks={yTicks}
+                        tickMargin={5}
                         tickFormatter={(val) => { return this.valueToProgressionMap[val.toString()]}}
                     />
                     <Tooltip
