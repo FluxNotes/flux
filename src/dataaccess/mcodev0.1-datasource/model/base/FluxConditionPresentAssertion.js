@@ -323,13 +323,18 @@ class FluxConditionPresentAssertion extends FluxEntry {
     }
 
     buildInitialPatientDiagnosisPreamble(patient) {
-        // Initial patient introduction section
+        let hpiText = "";
         const name = patient.getName();
         const age = patient.getAge();
         const gender = patient.getGender();
-
-        let hpiText = `${name} is a ${age} year old ${gender}.`;
+        // Basic age, name, gender
+        hpiText += '-';
+        hpiText += ` ${name} is a ${age} year old ${gender}.`;
+        hpiText += "\r\n";
+        // Information about Diagnosis
+        hpiText += '-';
         hpiText += ` Patient was diagnosed with ${this.type} on ${this.diagnosisDate}.`;
+        hpiText += "\r\n";
 
         return hpiText;
     }
@@ -363,13 +368,13 @@ class FluxConditionPresentAssertion extends FluxEntry {
         });
         
         const procedureTemplates = {
-            range: 'Patient underwent {0} from {1} to {2}',
-            single: 'Patient underwent {0} on {1}'
+            range: '- Patient underwent {0} from {1} to {2}',
+            single: '- Patient underwent {0} on {1}'
         };
         const medicationTemplates = {
-            range: 'Patient took {0} from {1} to {2}.',
-            single: 'Patient started {0} on {1}.',
-            single_plan_stop: 'Patient started {0} on {1}. Planned until {2}.'
+            range: '- Patient took {0} from {1} to {2}.',
+            single: '- Patient started {0} on {1}.',
+            single_plan_stop: '- Patient started {0} on {1}. Planned until {2}.'
         };
         const today = new moment();
         events.forEach((event) => {
@@ -420,7 +425,7 @@ class FluxConditionPresentAssertion extends FluxEntry {
                 }
                 case FluxCancerProgression: {
                     if (event.asOfDate && event.status) {
-                        hpiText += `\r\nAs of ${event.asOfDate}, disease is ${event.status}`;
+                        hpiText += `\r\n- As of ${event.asOfDate}, disease is ${event.status}`;
                         if (event.evidence && event.evidence.length > 0) {
                             hpiText += ` based on ${event.evidence.join(', ')}.`;
                         } else {
@@ -431,7 +436,7 @@ class FluxConditionPresentAssertion extends FluxEntry {
                 }
                 case FluxObservation: {
                     if (event.quantity && event.quantity.number && event.quantity.unit) {
-                        hpiText += `\r\nPatient had a ${event.name} lab result of ${event.quantity.number} ${event.quantity.unit} on ${event.relevantTime}.`;
+                        hpiText += `\r\n- Patient had a ${event.name} lab result of ${event.quantity.number} ${event.quantity.unit} on ${event.relevantTime}.`;
                     }
                     break;
                 }

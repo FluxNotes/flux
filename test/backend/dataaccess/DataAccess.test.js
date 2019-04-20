@@ -11,6 +11,8 @@ import EntryMapper from '../../../src/dataaccess/mcodev0.1-datasource/EntryMappe
 const mcodePatientJson = EntryMapper.mapEntries(BreastMainTreatmentDebra);
 // reference hard coded Patient
 const referenceHardCodedPatient = new PatientRecord(mcodePatientJson);
+// reference person of record
+const referencePatient = referenceHardCodedPatient.getPatient();
 
 // Data Access with hard coded read only data source
 const hardCodedReadOnlyDataAccess = new DataAccess("HardCodedMcodeV01DataSource");
@@ -18,9 +20,6 @@ const hardCodedReadOnlyDataAccess = new DataAccess("HardCodedMcodeV01DataSource"
 const hardCodedPatientObj = hardCodedReadOnlyDataAccess.getPatient(DataAccess.DEMO_PATIENT_ID);
 // The patient record entry -- should be an shr object
 const hardCodedPatientPatient = hardCodedPatientObj.getPatient();
-
-// reference person of record
-const referencePatient = referenceHardCodedPatient.getPatient();
 
 // new data access with new patient only data source
 const newPatientOnlyDataAccess = new DataAccess("NewPatientOnlyDataSource");
