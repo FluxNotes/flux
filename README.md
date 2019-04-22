@@ -116,3 +116,22 @@ To use the REST API to retrieve application data, you need to clone the shr-node
 While the server is running, you can access a version of the Flux Application that uses the REST API by navigating to `/p2`.
 
 NOTE: The REST API is still in development and will continue to change. Processes for changing the API and its implementations are outlined in the respective repositories, which can be found at the Standard Health Record Collaborative GitHub project, [here](https://github.com/standardhealth).
+
+## Mock Data Update
+
+This script will update the mock data in the mcdoe-pilot folder to be compliant with the [transformedDataModel](/src/mcode-pilot/mock-data/transformedDataModel.json).  The mock data updater can be executed with the following command:
+
+```bash
+yarn mock-date-update
+```
+
+Running the script will alter the mock patients so they match the `transformedDataModel`, which is a `JSON` file that defines the structure of a mock patient.  The script will only add new properties to the patients, it will not remove or change existing ones.  To add a new property to the patients, simply add a new property to the model and then run the script.  The model takes three types of properties:
+
+`choice` - Chooses a single value from a list at random
+`date` - Chooses a year from between a range and then appends a random month
+`multi-choice` - Chooses multiple values from a list at random, can return with an empty list
+`range` - Chooses a number from between the provided bounds
+
+`date` and `range` assume a uniform distribution, but `choice` and `multi-choice` can be given a list of weights that correspond to each choice to provide a weighted selection.   All types are given a `values` property which defines either the numerical range that they can choose from, represented as an array with two members and used for `date` and `range`, or an array of values to select from, used for `choice` and `multi-choice`.  For `choice` and `multi-choice`, the weight array is matched with the value array by index, so the value at `values[0]` will have weight `weight[0]`.  Since `choice` only selects a single value, the probabilities in `choice` need to add up to 1.  The `multi-choice` type weights do not have this restriction.  Probabilities should be represented as a decimal number between 0 and 1.
+
+The structure of the model is directly reflected in the mock patients.  The patients will copy any nesting and key values present in the model.
