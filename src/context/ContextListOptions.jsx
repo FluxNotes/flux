@@ -1,31 +1,36 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 import ContextItem from './ContextItem'
 
 class ContextListOptions extends React.Component {
     render() {
         const { contexts, state } = this.props;
-        // TO DO FIX THIS SCROLL CLASS
         return (
-            // <span className="scrollable">
-                <ul>
-                    {contexts.map((context, index) => {
-                        return <ContextItem
-                            key={context.key}
-                            index={index}
-                            context={context}
-                            selectedIndex={this.props.selectedIndex}
-                            setSelectedIndex={this.props.setSelectedIndex}
-                            onSelected={this.props.onSelected}
-                            closePortal={this.props.closePortal}
-                            state={state}
-                        />
-                    })}
-                </ul>
-            // </span>
+            <ul>
+                {contexts.map((context, index) => {
+                    return <ContextItem
+                        key={context.key}
+                        index={index}
+                        context={context}
+                        selectedIndex={this.props.selectedIndex}
+                        setSelectedIndex={this.props.setSelectedIndex}
+                        onSelected={this.props.onSelected}
+                        closePortal={this.props.closePortal}
+                        state={state}
+                    />
+                })}
+            </ul>
         );
     }
 }
 
-// TO DO ADD PROPTYPES
+ContextListOptions.proptypes = {
+    closePortal: PropTypes.func,
+    contexts: PropTypes.object.isRequired,
+    onSelected: PropTypes.func.isRequired,
+    selectedIndex: PropTypes.number.isRequired,
+    setSelectedIndex: PropTypes.func.isRequired,
+    state: PropTypes.object.isRequired,
+}
 
 export default ContextListOptions;

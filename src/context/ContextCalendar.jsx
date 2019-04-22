@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 import Calendar from 'rc-calendar';
 
 class ContextCalendar extends React.Component {
@@ -19,6 +20,13 @@ class ContextCalendar extends React.Component {
     }
 }
 
-// TO DO ADD PROPTYPES
+ContextCalendar.proptypes = {
+    closePortal: PropTypes.func.isRequired,
+    contexts: PropTypes.object,
+    onSelected: PropTypes.func.isRequired,
+    selectedIndex: PropTypes.number,
+    setSelectedIndex: PropTypes.func,
+    state: PropTypes.object,
+}
 
 export default ContextCalendar;

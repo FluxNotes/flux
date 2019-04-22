@@ -4,6 +4,7 @@ import Portal from 'react-portal'
 import Lang from 'lodash'
 import './ContextPortal.css';
 import 'rc-calendar/assets/index.css';
+import ContextCalendar from './ContextCalendar';
 
 const UP_ARROW_KEY = 38
 const DOWN_ARROW_KEY = 40
@@ -175,15 +176,17 @@ class ContextPortal extends React.Component {
         const { contexts, openedPortal, shortcut } = this.props;
 
         let portalContents = '';
+        let className = 'context-portal';
         if (shortcut) {
             const CompletionComponent = shortcut.completionComponent;
+            if (!Lang.isEqual(CompletionComponent, ContextCalendar)) className += ' scrollable';
             portalContents = (
                 <CompletionComponent
+                    closePortal={this.closePortal}
                     contexts={contexts}
+                    onSelected={this.props.onSelected}
                     selectedIndex={this.state.selectedIndex}
                     setSelectedIndex={this.setSelectedIndex}
-                    onSelected={this.props.onSelected}
-                    closePortal={this.closePortal}
                     state={this.props.state}
                 />
             );
@@ -197,7 +200,7 @@ class ContextPortal extends React.Component {
                 onOpen={this.onOpen} 
                 onClose={this.onClose}
             >
-                <div className="context-portal" ref="contextPortal">
+                <div className={className} ref="contextPortal">
                     {portalContents}
                 </div>
             </Portal>
@@ -214,6 +217,7 @@ ContextPortal.proptypes = {
     onChange: PropTypes.func.isRequired,
     openedPortal: PropTypes.string.isRequired,
     onSelected: PropTypes.func.isRequired,
+    shortcut: PropTypes.object.isRequired,
     state: PropTypes.object.isRequired,
     trigger: PropTypes.string.isRequired,
 }
