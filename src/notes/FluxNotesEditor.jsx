@@ -423,7 +423,7 @@ class FluxNotesEditor extends React.Component {
             this.contextManager.contextUpdated();
         }
         transform = this.resetShortcutData(shortcut, transform);
-        return transform.apply();
+        this.setState({ state: transform.apply() });
     }
 
     // consider reusing this method to replace code in choseSuggestedShortcut function
@@ -495,7 +495,6 @@ class FluxNotesEditor extends React.Component {
 
     getNoteText = (state) => {
         const documentText = this.structuredFieldPlugin.convertToText(state.document);
-
         return documentText;
     }
 
@@ -1924,6 +1923,7 @@ class FluxNotesEditor extends React.Component {
                         onChange={this.onChange}
                         openedPortal={this.state.openedPortal}
                         onSelected={this.onPortalSelection}
+                        shortcut={this.selectingForShortcut}
                         state={this.state.state}
                         trigger={"@"}
                     />
