@@ -201,7 +201,6 @@ export default class NotesPanel extends Component {
     }
 
     openNote = (note, isInProgress) => {
-
         // Saves the current note and resets localDocumentText before opening the next note.
         this.saveNote(this.state.localDocumentText);
 
@@ -294,10 +293,8 @@ export default class NotesPanel extends Component {
     }
 
     renderNotesPanelContent() {
-
         // If isNoteViewerVisible is true, render the flux notes editor and the note assistant
         if (this.props.isNoteViewerVisible) {
-
             // If note viewer is editable and a note is selected, render the sign note button
             if (this.props.isNoteViewerEditable && this.state.selectedNote) {
                 if (this.state.noteAssistantMode === 'poc') {
