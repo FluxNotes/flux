@@ -114,7 +114,6 @@ function generateSimilarPatientTreatments(similarPatients) {
 
 function isSimilarPatient(treatmentDataPatient, similarPatientProps) {
     const categoryKeys = Object.keys(similarPatientProps);
-
     for (let i = 0; i < categoryKeys.length; i++) {
         let category = categoryKeys[i];
         const { options } = similarPatientProps[category];
@@ -128,7 +127,6 @@ function isSimilarPatient(treatmentDataPatient, similarPatientProps) {
                 // demographics
                 const { demographics, diseaseStatus, tumorMarkers, treatments } = treatmentDataPatient;
                 const { race, gender, birthDate } = demographics;
-
                 if (option === 'age') {
                     const [birthYear] = birthDate.split('-').map((value) => parseInt(value, 10));
                     const age = (new Date()).getFullYear() - birthYear;
@@ -149,13 +147,19 @@ function isSimilarPatient(treatmentDataPatient, similarPatientProps) {
                 } else if (option === 'gender' && value !== _.lowerCase(gender)) {
                     return false;
                 // pathology
-                } else if (option === 'EstrogenReceptor' && (!tumorMarkers.er || _.lowerCase(tumorMarkers.er) !== _.lowerCase(value))) {
+                } else if (option === 'ER' && (!tumorMarkers.er || _.lowerCase(tumorMarkers.er) !== _.lowerCase(value))) {
                     return false;
-                } else if (option === 'ProgesteroneReceptor' && (!tumorMarkers.pr || _.lowerCase(tumorMarkers.pr) !== _.lowerCase(value))) {
+                } else if (option === 'PR' && (!tumorMarkers.pr || _.lowerCase(tumorMarkers.pr) !== _.lowerCase(value))) {
                     return false;
-                } else if (option === 'HER2Receptor' && (!tumorMarkers.her2 || _.lowerCase(tumorMarkers.her2) !== _.lowerCase(value))) {
+                } else if (option === 'HER2' && (!tumorMarkers.her2 || _.lowerCase(tumorMarkers.her2) !== _.lowerCase(value))) {
                     return false;
                 } else if (option === 'stage' && (!diseaseStatus.stage || _.lowerCase(diseaseStatus.stage) !== _.lowerCase(value))) {
+                    return false;
+                } else if (option === 't_stage' && (!diseaseStatus.tnm.t || _.lowerCase(diseaseStatus.tnm.t) !== _.lowerCase(value))) { // no data available
+                    return false;
+                } else if (option === 'n_stage' && (!diseaseStatus.tnm.n || _.lowerCase(diseaseStatus.tnm.n) !== _.lowerCase(value))) { // no data available
+                    return false;
+                } else if (option === 'm_stage' && (!diseaseStatus.tnm.m || _.lowerCase(diseaseStatus.tnm.m) !== _.lowerCase(value))) { // no data available
                     return false;
                 } else if (option === 'grade' && (!diseaseStatus.grade || diseaseStatus.grade !== value)) {
                     return false;
