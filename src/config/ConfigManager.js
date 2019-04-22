@@ -2,7 +2,7 @@ import axios from 'axios';
 export default class ConfigManager {
 
     constructor(config = {}) {
-        this.config = global.CONFIG ? { ...global.CONFIG } : {};
+        this.config = global.CONFIG ? { ...global.CONFIG , ...config} : {...config};
     }
 
     addConfiguration(conf) {
