@@ -77,7 +77,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
                     const currentNode = curTransform.state.document.getNode(curTransform.state.selection.anchorKey);
 
                     // If there is no space before the keyword, insert a space
-                    if (!currentNode.text.substring(1).endsWith(' ')) curTransform = curTransform.insertText(' ');
+                    if (!currentNode.text.slice(0, -1).endsWith(' ')) curTransform = curTransform.insertText(' ');
 
                     // Add shortcut to text; update curNode and curText
                     curTransform = insertStructuredFieldTransform(curTransform, newKeywordShortcut);
