@@ -208,7 +208,7 @@ class ContextPortal extends React.Component {
     }
 }
 
-ContextPortal.proptypes = { 
+ContextPortal.propTypes = { 
     capture: PropTypes.object.isRequired,
     callback: PropTypes.object.isRequired,
     contextManager: PropTypes.object.isRequired,

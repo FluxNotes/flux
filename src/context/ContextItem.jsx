@@ -39,7 +39,7 @@ class ContextItem extends React.Component {
     }
 }
 
-ContextItem.propstype = { 
+ContextItem.propTypes = { 
     index: PropTypes.number.isRequired,
     context: PropTypes.object,
     selectedIndex: PropTypes.number.isRequired,

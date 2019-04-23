@@ -24,7 +24,7 @@ class ContextListOptions extends React.Component {
     }
 }
 
-ContextListOptions.proptypes = {
+ContextListOptions.propTypes = {
     closePortal: PropTypes.func,
     contexts: PropTypes.object.isRequired,
     onSelected: PropTypes.func.isRequired,
