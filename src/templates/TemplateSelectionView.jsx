@@ -35,19 +35,18 @@ export default class TemplateSelectionView extends Component {
     render() {
         return (
             <div id="template-option-container">
-                <div>
+                <div id="new-note-container">
                     <TemplateOption
                         title="Blank Note"
                         author=""
                         content=""
                     />
                 </div>
-                <div>
+                <div id="template-search-container">
                     SEARCH GOES HERE
                 </div>
-                <div className="available-templates-container">
+                <div id="available-templates-container">
                     {this.templates.map((template) => { 
-                        console.log('template: ', template);
                         return (
                             <TemplateOption
                                 key={template.name}

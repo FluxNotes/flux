@@ -3,7 +3,13 @@
   bodyGray: #4F4F4F; }
 
 #template-option-container {
-  padding: 20px; }
-  #template-option-container .available-templates-container {
+  padding: 20px;
+  text-align: left; }
+  #template-option-container #new-note-container {
+    margin: 1em; }
+  #template-option-container #template-search-container {
+    margin: 1em; }
+  #template-option-container #available-templates-container {
+    margin: 1em;
     display: flex;
     flex-wrap: wrap; }
