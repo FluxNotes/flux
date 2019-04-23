@@ -27,6 +27,7 @@ import './FluxNotesEditor.css';
 import { setTimeout } from 'timers';
 import NoteContentIndexer from '../patientControl/NoteContentIndexer';
 import InsertValue from '../shortcuts/InsertValue';
+import ReopenContextPortalPlugin from './ReopenContextPortalPlugin';
 
 // This forces the initial block to be inline instead of a paragraph. When insert structured field, prevents adding new lines
 const initialState = Slate.Plain.deserialize('');
@@ -82,6 +83,10 @@ class FluxNotesEditor extends React.Component {
 
         // Set the initial state when the app is first constructed.
         this.resetEditorState();
+
+        this.plugins.push(ReopenContextPortalPlugin({
+            openPortal: this.openPortalToSelectValueForShortcut.bind(this)
+        }));
         
         // setup structured field plugin
         const structuredFieldPluginOptions = {
@@ -480,28 +485,6 @@ class FluxNotesEditor extends React.Component {
         const focusNode = state.document.getParent(selection.focusKey);
         const anchorNode = state.document.getNode(selection.anchorKey);
         let transform = state.transform();
-        const shortcut = focusNode.data.get('shortcut');
-        const previousNode = state.document.getPreviousSibling(state.selection.anchorKey);
-        if (previousNode){
-            const previousNodeShortcut = previousNode.data.get('shortcut');
-            if (previousNode.type === "structured_field" && previousNodeShortcut.isComplete === false 
-                && previousNodeShortcut instanceof InsertValue
-                && this.state.openedPortal === null 
-                && this.state.justClosed === false
-                && state.selection.anchorOffset === 0
-                && state.selection.isCollapsed) {
-                    transform = this.openPortalToSelectValueForShortcut(previousNodeShortcut, false, transform);
-                    this.setState({ state: transform.apply() });
-                    return;
-            }
-        } 
-
-        if (shortcut && focusNode.type === "structured_field" && shortcut.isComplete === false) {
-            transform = transform.collapseToStartOfNextText().focus();
-            transform = this.openPortalToSelectValueForShortcut(shortcut, false, transform);
-            this.setState({ state: transform.apply() });
-            return;
-        }
        
         // If the selections do not match, collapse selection to the anchor to properly update
         if (
