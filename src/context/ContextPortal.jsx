@@ -70,6 +70,8 @@ class ContextPortal extends React.Component {
      * When the portal opens, set flags appropriately and a decay timer for justActive
      */
     onOpen = (portal) => {
+        // FIXME: Currently a workaround to force the editor to blur by inserting and deleting some text in the editor
+        // when the ContextPortal opens.
         this.props.onChange(this.props.state.transform().insertText(' ').blur().deleteBackward(1).apply())
         this.setState({ menu: portal.firstChild, active: true, justActive: true })
         setTimeout(function(){ this.setState({ justActive: false }) }.bind(this), 100);
