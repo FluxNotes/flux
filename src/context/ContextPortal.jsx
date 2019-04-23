@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 import PropTypes from 'prop-types';
 import Portal from 'react-portal'
-import Lang from 'lodash'
+import Lang from 'lodash';
 import './ContextPortal.css';
 import 'rc-calendar/assets/index.css';
 import ContextCalendar from './ContextCalendar';

@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 import PropTypes from 'prop-types';
-import ContextItem from './ContextItem'
+import ContextItem from './ContextItem';
 
 class ContextListOptions extends React.Component {
     render() {

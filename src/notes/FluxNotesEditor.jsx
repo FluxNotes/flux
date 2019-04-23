@@ -4,8 +4,8 @@ import Slate from '../lib/slate';
 import Lang from 'lodash';
 import FontAwesome from 'react-fontawesome';
 import ContextPortal from '../context/ContextPortal';
-import SuggestionPortalShortcutSearchIndex from './SuggestionPortalShortcutSearchIndex'
-import SuggestionPortalPlaceholderSearchIndex from './SuggestionPortalPlaceholderSearchIndex'
+import SuggestionPortalShortcutSearchIndex from './SuggestionPortalShortcutSearchIndex';
+import SuggestionPortalPlaceholderSearchIndex from './SuggestionPortalPlaceholderSearchIndex';
 // versions 0.20.3-0.20.7 of Slate seem to have an issue.
 // when we change the selection and give focus in our key handlers, Slate changes the selection including
 // focus and then immediately takes focus away. Not an issue in 0.20.2 and older. package.json currently
@@ -19,7 +19,7 @@ import AutoReplace from 'slate-auto-replace'
 import SuggestionsPlugin from '../lib/slate-suggestions-dist'
 import position from '../lib/slate-suggestions-dist/caret-position';
 import StructuredFieldPlugin from './StructuredFieldPlugin';
-import SingleHashtagKeywordStructuredFieldPlugin from './SingleHashtagKeywordStructuredFieldPlugin'
+import SingleHashtagKeywordStructuredFieldPlugin from './SingleHashtagKeywordStructuredFieldPlugin';
 import NLPHashtagPlugin from './NLPHashtagPlugin';
 import Placeholder from '../shortcuts/Placeholder';
 import NoteParser from '../noteparser/NoteParser';
