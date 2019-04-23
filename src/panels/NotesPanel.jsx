@@ -4,6 +4,7 @@ import {Row, Col} from 'react-flexbox-grid';
 import moment from 'moment';
 import Lang from 'lodash';
 
+import TemplateSelectionView from '../templates/TemplateSelectionView';
 import FluxNotesEditor from '../notes/FluxNotesEditor';
 import Button from '../elements/Button';
 import NoteAssistant from '../notes/NoteAssistant';
@@ -272,27 +273,17 @@ export default class NotesPanel extends Component {
     changeShortcutType = (shortcutKey, shouldUpdateShortcutType, shortcutType) => {
         this.setState({ shortcutKey, shouldUpdateShortcutType, shortcutType });
     }
-
-    renderSignButton = () => {
-        const signNoteDisabledClass = this.props.isAppBlurred ? 'content-disabled' : '';
-        return (
-            <div id="finish-sign-component">
-                <Button
-                    variant="flat"
-                    classes={{
-                        root: `btn-finish ${signNoteDisabledClass}`
-                    }}
-                    onClick={() => {
-                        this.handleSignButtonClick();
-                    }}
-                >
-                    Sign note
-                </Button>
-            </div>
-        );
-    }
-
+    
     renderNotesPanelContent() {
+        if (this.state.showTemplateView) { 
+            return ( 
+                <Row center="xs">
+                    <Col sm={12}>
+                        {this.renderTemplateView()}
+                    </Col>
+                </Row>
+            )
+        }
         // If isNoteViewerVisible is true, render the flux notes editor and the note assistant
         if (this.props.isNoteViewerVisible) {
             // If note viewer is editable and a note is selected, render the sign note button
@@ -315,7 +306,6 @@ export default class NotesPanel extends Component {
                                     ref={(poc) => { this.pointOfCare = poc; }} />
                             </Row>
                         </div>
-
                     );
                 } else {
                     return (
@@ -347,7 +337,6 @@ export default class NotesPanel extends Component {
                     </div>
                 );
             }
-
             // Else just render the note assistant
         } else {
             return (
@@ -358,6 +347,34 @@ export default class NotesPanel extends Component {
                 </Row>
             );
         }
+    }
+
+    renderTemplateView = () => { 
+        return ( 
+            <div>
+                <TemplateSelectionView
+                />
+            </div>
+        )
+    }
+
+    renderSignButton = () => {
+        const signNoteDisabledClass = this.props.isAppBlurred ? 'content-disabled' : '';
+        return (
+            <div id="finish-sign-component">
+                <Button
+                    variant="flat"
+                    classes={{
+                        root: `btn-finish ${signNoteDisabledClass}`
+                    }}
+                    onClick={() => {
+                        this.handleSignButtonClick();
+                    }}
+                >
+                    Sign note
+                </Button>
+            </div>
+        );
     }
 
     renderFluxNotesEditor() {

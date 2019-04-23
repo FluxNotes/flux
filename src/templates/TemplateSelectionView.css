@@ -1,0 +1,9 @@
+:export {
+  state: #767676;
+  bodyGray: #4F4F4F; }
+
+#template-option-container {
+  padding: 20px; }
+  #template-option-container .available-templates-container {
+    display: flex;
+    flex-wrap: wrap; }
