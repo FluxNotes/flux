@@ -30,7 +30,11 @@ export default class InsertValue extends Shortcut {
             else this.setText(text);
         }
 
-        if (this.needToSelectValueFromMultipleOptions() && shortcutData.length > 0) {
+        // If the shortcut data is the content of the trigger, we have an incomplete shortcut
+        // Set the text to be equal to the trigger so we don't try to parse JSON that isn't there
+        if (shortcutData === trigger.substring(1)) {
+            this.text = trigger;
+        } else if (this.needToSelectValueFromMultipleOptions() && shortcutData.length > 0) {
             // Parse shortcutData and find value object by entryId
             const shortcutDataObj = JSON.parse(shortcutData);
             this.text = shortcutDataObj.text;
