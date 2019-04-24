@@ -74,10 +74,10 @@ class ContextPortal extends React.Component {
      * Call onSelected with null context to indicate nothing selected and just clean up state
      */
     onClose = () => {
-        const { onChange, openedPortal, onSelected, state } = this.props;
+        const { openedPortal, onSelected, state } = this.props;
 
         if (openedPortal === this.portalId) {
-            onChange(onSelected(state, null));
+            onSelected(state, null);
         }
         this.setState({ active: false, justActive: false }); // TEST: menu: null, 
     }
@@ -212,12 +212,11 @@ ContextPortal.propTypes = {
     capture: PropTypes.object.isRequired,
     callback: PropTypes.object.isRequired,
     contextManager: PropTypes.object.isRequired,
-    contexts: PropTypes.object,
+    contexts: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
     getPosition: PropTypes.func.isRequired,
-    onChange: PropTypes.func.isRequired,
-    openedPortal: PropTypes.string.isRequired,
+    openedPortal: PropTypes.string,
     onSelected: PropTypes.func.isRequired,
-    shortcut: PropTypes.object.isRequired,
+    shortcut: PropTypes.object,
     state: PropTypes.object.isRequired,
     trigger: PropTypes.string.isRequired,
 }

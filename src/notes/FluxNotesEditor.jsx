@@ -1920,7 +1920,6 @@ class FluxNotesEditor extends React.Component {
                         contextManager={this.contextManager}
                         contexts={this.state.portalOptions}
                         getPosition={this.getTextCursorPosition}
-                        onChange={this.onChange}
                         openedPortal={this.state.openedPortal}
                         onSelected={this.onPortalSelection}
                         shortcut={this.selectingForShortcut}

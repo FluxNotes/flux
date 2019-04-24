@@ -45,7 +45,6 @@ ContextItem.propTypes = {
     selectedIndex: PropTypes.number.isRequired,
     setSelectedIndex: PropTypes.func.isRequired,
     onSelected: PropTypes.func.isRequired,
-    onChange: PropTypes.func.isRequired,
     closePortal: PropTypes.func.isRequired,
     state: PropTypes.object.isRequired,
 }

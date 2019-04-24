@@ -22,7 +22,7 @@ class ContextCalendar extends React.Component {
 
 ContextCalendar.propTypes = {
     closePortal: PropTypes.func.isRequired,
-    contexts: PropTypes.object,
+    contexts: PropTypes.string,
     onSelected: PropTypes.func.isRequired,
     selectedIndex: PropTypes.number,
     setSelectedIndex: PropTypes.func,
