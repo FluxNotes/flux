@@ -1,0 +1,77 @@
+@import '../../../styles/variables';
+
+.treatment-options-outcomes-table {
+    &__header {
+        display: flex;
+        align-items: flex-end;
+        margin-bottom: 10px;
+
+        .user-icon {
+            text-align: center;
+            font-size: 1.5em;
+            color: $state;
+        }
+
+        .header-title {
+            font-weight: 600;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+
+            #ccp-table-select .custom-select:after {
+                background-color: $shr-context-dark;
+            }
+        }
+    }
+
+    &__table {
+        .included-treatments,
+        .compared-treatments {
+            padding: 5px 10px;
+            margin-bottom: 20px;
+
+            .treatments-title {
+                font-weight: bold;
+            }
+
+            .select-treatments {
+                display: inline-block;
+                position: relative;
+                cursor: pointer;
+                margin-left: 20px;
+
+                .popover-text {
+                    color: $shr-context-dark;
+                    font-weight: bold;
+                    font-size: 0.9em;
+                }
+            }
+        }
+
+        .included-treatments {
+            background-color: $shr-context-light;
+            border: 1px solid $feature-gray;
+        }
+
+        .table-row {
+            height: 50px;
+            align-items: center;
+
+            &.helper-text {
+                font-style: italic;
+            }
+
+            .total-patients {
+                text-align: center;
+            }
+        }
+    }
+
+    .flex { display: flex; }
+    .flex-1 { flex: 1; }
+    .flex-2 { flex: 2; }
+    .flex-3 { flex: 3; }
+    .flex-4 { flex: 4; }
+    .flex-6 { flex: 6; }
+    .flex-padding { padding: 0 20px; }
+    .flex-center { align-items: center; }
+}

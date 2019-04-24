@@ -3,9 +3,9 @@
     "totalPatients": 0,
     "totalSimilarPatients": 0,
     "similarPatientTreatments": [],
-    "includedTreatments": ["surgery", "radiation"],
+    "includedTreatments": ["radiation"],
     "includedTreatmentData": [],
-    "comparedTreatments": ["chemotherapy", "hormonal"],
+    "comparedTreatments": ["chemotherapy", "hormonal", "surgery"],
     "comparedTreatmentData": [],
     "similarPatientProps": {
        "demographic": {
