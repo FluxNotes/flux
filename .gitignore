@@ -46,6 +46,7 @@ yarn-error.log*
 /src/summary/ProgressionLineChartVisualizer.css
 /src/dashboard/PointOfCareDashboard.css
 /src/dashboard/CompassAppDashboard.css
+/src/templates/*.css
 
 
 #Visual Paradigm Project Files
