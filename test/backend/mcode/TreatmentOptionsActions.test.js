@@ -11,8 +11,9 @@ import PatientRecord from '../../../src/patient/PatientRecord';
 import TestPatient2 from '../../TestPatient2.json';
 import EntryMapper from '../../../src/dataaccess/mcodev0.1-datasource/EntryMapper';
 import FluxCancerDisorderPresent from '../../../src/model/oncocore/FluxCancerDisorderPresent';
-
+require('../../testHelper')
 const mockStore = configureMockStore([thunk]);
+
 
 
 describe('actions', () => {

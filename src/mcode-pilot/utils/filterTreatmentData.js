@@ -60,7 +60,6 @@ function initializeTreatmentData(displayName) {
 
 function generateTreatmentData(similarPatients, treatments, includedTreatments) {
     if (similarPatients.length === 0) return [];
-
     let treatmentData = [];
     treatments.forEach(treatment => {
         const filteredPatients = similarPatients.filter(patient => isSame(patient.treatments, treatment));
@@ -96,7 +95,6 @@ function generateTreatmentData(similarPatients, treatments, includedTreatments) 
             treatmentData.push(row);
         }
     });
-
     return treatmentData;
 }
 
@@ -147,11 +145,11 @@ function isSimilarPatient(treatmentDataPatient, similarPatientProps) {
                 } else if (option === 'gender' && value !== _.lowerCase(gender)) {
                     return false;
                 // pathology
-                } else if (option === 'ER' && (!tumorMarkers.er || _.lowerCase(tumorMarkers.er) !== _.lowerCase(value))) {
+                } else if (option === 'EstrogenReceptor' && (!tumorMarkers.er || _.lowerCase(tumorMarkers.er) !== _.lowerCase(value))) {
                     return false;
-                } else if (option === 'PR' && (!tumorMarkers.pr || _.lowerCase(tumorMarkers.pr) !== _.lowerCase(value))) {
+                } else if (option === 'ProgesteroneReceptor' && (!tumorMarkers.pr || _.lowerCase(tumorMarkers.pr) !== _.lowerCase(value))) {
                     return false;
-                } else if (option === 'HER2' && (!tumorMarkers.her2 || _.lowerCase(tumorMarkers.her2) !== _.lowerCase(value))) {
+                } else if (option === 'HER2Receptor' && (!tumorMarkers.her2 || _.lowerCase(tumorMarkers.her2) !== _.lowerCase(value))) {
                     return false;
                 } else if (option === 'stage' && (!diseaseStatus.stage || _.lowerCase(diseaseStatus.stage) !== _.lowerCase(value))) {
                     return false;

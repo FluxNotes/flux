@@ -2,7 +2,7 @@ import React from 'react';
 import { expect } from 'chai';
 import '../../../src/model/init';
 
-import * as types from '../../../src/actions/types'
+import * as types from '../../../src/actions/types';
 import reducer from '../../../src/reducers/mcode';
 import defaultState from '../../../src/reducers/initial';
 import PatientRecord from '../../../src/patient/PatientRecord';
@@ -18,9 +18,9 @@ describe('Reducer function', ()=>{
 
     it('should return initial state on empty args', ()=>{
         expect(reducer(undefined,{})).to.eql(defaultState);
-    })
+    });
     describe('initialization of patient props', ()=>{
-        const type = types.INITIALIZE_SIMILAR_PATIENT_PROPS
+        const type = types.INITIALIZE_SIMILAR_PATIENT_PROPS;
         const mcodePatientJson = EntryMapper.mapEntries(TestPatient2);
         const testPatientObj = new PatientRecord(mcodePatientJson);
     
@@ -38,7 +38,7 @@ describe('Reducer function', ()=>{
 
 
             expect(demographics.race.value).to.eql(testPatientRecord.race);
-            expect(demographics.gender.value).to.eql(_.lowerCase(testPatientRecord.gender))
+            expect(demographics.gender.value).to.eql(_.lowerCase(testPatientRecord.gender));
             expect(demographics.age.minValue).to.eql(testPatientObj.getAge()-10);
             expect(demographics.age.maxValue).to.eql(testPatientObj.getAge()+10);
             expect(demographics.diagnosedAge.minValue).to.equal(testPatientObj.getAgeAsOf(new Date(fluxCondition.diagnosisDate))-10);
@@ -60,7 +60,7 @@ describe('Reducer function', ()=>{
             category: "testing",
             key: "test1",
             selected: false
-        }
+        };
         const newState = reducer(selectState,action);
         it("unselects chosen option", ()=>{
             expect(newState.similarPatientProps.testing.options.test1.selected).to.equal(false);
@@ -82,7 +82,7 @@ describe('Reducer function', ()=>{
             category: "testing",
             key: "test1",
             selected: true
-        }
+        };
         const newState = reducer(selectState,action);
         it("selects chosen option", ()=>{
             expect(newState.similarPatientProps.testing.options.test1.selected).to.equal(true);
@@ -103,7 +103,7 @@ describe('Reducer function', ()=>{
             type:type,
             category: "testing",
             selected: true
-        }
+        };
 
         const newState = reducer(selectState,action);
         it("selects all options when they are all false", ()=>{
@@ -120,7 +120,7 @@ describe('Reducer function', ()=>{
             expect(newState.similarPatientProps.testing2.selected).to.eql(false);
             expect(newState.similarPatientProps.testing2.options.test1.selected).to.eql(false);
         });
-    })
+    });
 
     describe("unselect all options in a category", ()=>{
         const selectState = stateObjects.unselectAllInCategory;
@@ -129,7 +129,7 @@ describe('Reducer function', ()=>{
             type:type,
             category: "testing",
             selected: false
-        }
+        };
 
         const newState = reducer(selectState,action);
         it("unselects all options when they are all true", ()=>{
@@ -145,7 +145,7 @@ describe('Reducer function', ()=>{
             expect(newState.similarPatientProps.testing2.selected).to.eql(true);
             expect(newState.similarPatientProps.testing2.options.test1.selected).to.eql(true);
         });
-    })
+    });
 
     describe("select all options in category when not every one is false", ()=>{
         const selectState = stateObjects.selectAllInCategoryFalse;
@@ -154,7 +154,7 @@ describe('Reducer function', ()=>{
             type:type,
             category: "testing",
             selected: true
-        }
+        };
 
         const newState = reducer(selectState,action);
         it("selects all options when they are all false", ()=>{
@@ -169,11 +169,11 @@ describe('Reducer function', ()=>{
 
     describe("select all options", ()=>{
         const selectState = stateObjects.selectAllOptions;
-        const type = types.SELECT_ALL_SIMILAR_PATIENT_OPTIONS
+        const type = types.SELECT_ALL_SIMILAR_PATIENT_OPTIONS;
         const action = {
             type:type,
             selected:true
-        }
+        };
         const newState = reducer(selectState,action).similarPatientProps;
         it("selects every category", ()=>{
             const allCategories = checkAllSelected(newState, false, true);
@@ -182,16 +182,16 @@ describe('Reducer function', ()=>{
         it("selects every option", ()=>{
             const allOptions = checkAllSelected(newState, true, true);
             expect(allOptions).to.eql(true);
-        })
-    })
+        });
+    });
 
     describe("unselect all options", ()=>{
         const selectState = stateObjects.unselectAllOptions;
-        const type = types.SELECT_ALL_SIMILAR_PATIENT_OPTIONS
+        const type = types.SELECT_ALL_SIMILAR_PATIENT_OPTIONS;
         const action = {
             type:type,
             selected:false
-        }
+        };
         const newState = reducer(selectState,action).similarPatientProps;
         it("unselects every category", ()=>{
             const allCategories = checkAllSelected(newState, false, false);
@@ -200,8 +200,8 @@ describe('Reducer function', ()=>{
         it("unselects every option", ()=>{
             const allOptions = checkAllSelected(newState, true, false);
             expect(allOptions).to.eql(true);
-        })
-    })
+        });
+    });
 
     /**
      * Small helper function that cleans up some clutter when checking
@@ -220,7 +220,7 @@ describe('Reducer function', ()=>{
             const all = Object.keys(state).reduce((i,element)=>{
                 return i&&checkAllSelected(state[element].options, false, selection);
             },true);
-            return all
+            return all;
         }
     }
-})
+});

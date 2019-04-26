@@ -1,6 +1,5 @@
 import * as types from './types';
-import {default as config} from '../config'
-
+import ServiceManager from '../config/ServiceManager';
 // ------------------------- SIMILAR PATIENT OPTIONS ----------------------- //
 
 function initializeSimilarPatientProps(patient, condition) {
@@ -45,7 +44,8 @@ function updatePatientOutcomes(data) {
 function processSimilarPatientOutcomes() {
   return (dispatch, getState) => {
     const {similarPatientProps, includedTreatments, comparedTreatments} = getState().mcode;
-    return config.OutcomesService.processSimilarPatientOutcomes(similarPatientProps, includedTreatments, comparedTreatments).then((results) =>{
+    const service = new ServiceManager().getService('outcomes');
+    return service.processSimilarPatientOutcomes(similarPatientProps, includedTreatments, comparedTreatments).then((results) =>{
       dispatch(updatePatientOutcomes({
          totalPatients: results.totalPatients,
          totalSimilarPatients: results.totalSimilarPatients,
