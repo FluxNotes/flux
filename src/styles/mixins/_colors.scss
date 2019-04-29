@@ -1,0 +1,17 @@
+@import '../variables';
+
+$colorMap: (
+    color-1: $icons-purple,
+    color-2: $icons-green,
+    color-3: $icons-blue,
+    color-4: $icons-red,
+    color-5: $icons-teal
+);
+
+@mixin index-colors($attribute: 'color', $prefix: '-', $opacity: 1) {
+    @each $color-index, $color in $colorMap {
+        &#{$prefix}#{$color-index} {
+            #{$attribute}: rgba($color, $opacity);
+        }
+    }
+}

@@ -1,0 +1,103 @@
+@import '../../../styles/mixins/colors';
+
+.treatment-options-outcomes-icons {
+    display: flex;
+    margin: 40px 0;
+
+    &.note {
+        font-style: italic;
+    }
+
+    .icons-survival-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: 10px;
+        width: 120px;
+        font-weight: 100;
+    }
+
+    .icons-interaction {
+        min-width: 300px;
+
+        .interaction-selection {
+            position: relative;
+            font-size: 1em;
+            margin: 0 0 5px 8px;
+
+            .treatment-name-group {
+                cursor: pointer;
+
+                &.index { @include index-colors; }
+
+                .treatment-name {
+                    font-size: 1.2em;
+
+                    &.selected {
+                        font-weight: 600;
+                    }
+                }
+            }
+
+            .interaction-display {
+                margin: 5px 0 15px 12px;
+                padding-bottom: 10px;
+                font-size: 1.1em;
+                font-weight: 600;
+                border-bottom: 2px solid;
+
+                &.index { @include index-colors('border-color'); }
+
+                div {
+                    margin: 5px 0;
+                }
+
+                .additional-survive-group {
+                    .additional-survive {
+                        margin-right: 5px;
+                        font-size: 1.2em;
+
+                        &.index { @include index-colors; }
+                    }
+                }
+
+                .side-effects-group {
+                    .side-effects-list {
+                        margin-left: 40px;
+                        font-weight: 500;
+
+                        .list-item {
+                            display: flex;
+                            align-items: center;
+                            margin: 0;
+                            padding: 0 10px;
+
+                            &:nth-child(odd) {
+                                &.index { @include index-colors('background-color', '-', 0.1); }
+                            }
+
+                            .item-name {
+                                flex: 2;
+                            }
+
+                            .item-effect {
+                                flex: 1;
+                                text-align: right;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .interaction-included {
+            margin-bottom: 20px;
+        }
+
+        .selected-icon {
+            position: absolute;
+            top: 6px;
+            left: -15px;
+        }
+    }
+}
