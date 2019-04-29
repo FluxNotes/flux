@@ -22,10 +22,9 @@ export default class TemplateOption extends Component {
     }
 
     handleTemplateSelection = (e) => {
-        const { insertTemplate, content, setInsertingTemplate } = this.props;
+        const { insertTemplate, content } = this.props;
         e.preventDefault(); 
         insertTemplate(content);
-        setInsertingTemplate(true);
     }
 
     render() {

@@ -34,12 +34,13 @@ export default class TemplateSelectionView extends Component {
 
     // Insert the content of the template as you would a shortcut
     insertTemplate = (content) => {
-        this.props.updateContextTrayItemToInsert(content);
-        this.props.updateShowTemplateView(false);
+        const { updateContextTrayItemToInsert, updateShowTemplateView, setInsertingTemplate } = this.props;
+        updateContextTrayItemToInsert(content);
+        updateShowTemplateView(false);
+        setInsertingTemplate(true);
     }
 
     render() {
-        const { setInsertingTemplate } = this.props;
         return (
             <div id="template-option-container">
                 <div id="new-note-container">
@@ -48,7 +49,6 @@ export default class TemplateSelectionView extends Component {
                         author=""
                         content=""
                         insertTemplate={this.insertTemplate}
-                        setInsertingTemplate={setInsertingTemplate}
                     />
                 </div>
                 <div id="template-search-container">
@@ -63,7 +63,6 @@ export default class TemplateSelectionView extends Component {
                                 content={template.content}
                                 title={template.name}
                                 insertTemplate={this.insertTemplate}
-                                setInsertingTemplate={setInsertingTemplate}
                             />
                         ); 
                     })}

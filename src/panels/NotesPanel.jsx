@@ -43,9 +43,10 @@ export default class NotesPanel extends Component {
     }
 
     componentWillReceiveProps = (nextProps) => {
-        // Logic to handle switching notes
+        // If the note we're about to have open is different...
         if (!Lang.isNull(nextProps.openClinicalNote) && this.props.openClinicalNote !== nextProps.openClinicalNote) {
-            if (!Lang.isNull(this.props.openClinicalNote)) {
+            // If our current note isn't null, and we aren't trying to insert a tempalte, celar the contextTray Item to insert
+            if (!Lang.isNull(this.props.openClinicalNote) && !this.state.showTemplateView) {
                 this.updateContextTrayItemToInsert(null);
             }
             this.saveNote(this.state.localDocumentText);
@@ -54,7 +55,6 @@ export default class NotesPanel extends Component {
     }
 
     setInsertingTemplate = (insertingTemplate) => {
-        console.log('setInsertingTemplate: ');
         this.setState({ insertingTemplate });
         this.updateShowTemplateView(false);
     }
@@ -87,7 +87,7 @@ export default class NotesPanel extends Component {
 
     updateLocalDocumentText = (text) => {
         if (text) {
-            this.setState({showTemplateView: false});
+            this.updateShowTemplateView(false);
         }
         this.setState({ localDocumentText: text });
     }
@@ -102,7 +102,7 @@ export default class NotesPanel extends Component {
 
     updateContextTrayItemToInsert = (contextTrayItem) => {
         this.setState({ contextTrayItemToInsert: contextTrayItem });
-        this.setState({showTemplateView: false});
+        this.updateShowTemplateView(false)
     }
 
     updateSelectedPickListOptions = (selectedPickListOptions) => {
@@ -153,14 +153,10 @@ export default class NotesPanel extends Component {
         }
     }
 
-    updateExistingNote = (noteContent) => {
-        this.updateNote(this.state.currentlyEditingEntryId, noteContent);
-    }
-
     // Save a note
     saveNote = (noteContent) => {
         if (this.state.currentlyEditingEntryId !== -1) {
-            this.updateExistingNote(noteContent);
+            this.updateNote(this.state.currentlyEditingEntryId, noteContent);
         }
     }
 
@@ -184,7 +180,6 @@ export default class NotesPanel extends Component {
 
     // Create and open a blank note
     openNewNote = () => {
-        console.log('openNewNote:');
         // Create info to be set for new note
         const signedOn = new moment().format("D MMM YYYY");
         const hospital = "MCI";
@@ -201,14 +196,13 @@ export default class NotesPanel extends Component {
         });
 
         this.openNote(newNote);
-        this.setState({ showTemplateView: true });
+        this.updateShowTemplateView(true);
     }
 
     // Open an existing note
     openExistingNote = (note) => {
         this.openNote(note);
-        this.setState({ showTemplateView: false });
-
+        this.updateShowTemplateView(false);
     }
 
     openNote = (note) => {
@@ -271,7 +265,6 @@ export default class NotesPanel extends Component {
     }
     
     renderNotesPanelContent() {
-        console.log('this.state.showTemplateView: ', this.state.showTemplateView);
         if (this.state.showTemplateView) { 
             // If we're supposed to show the template view, pull that up first
             return ( 
