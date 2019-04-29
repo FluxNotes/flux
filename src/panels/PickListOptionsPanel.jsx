@@ -21,6 +21,7 @@ export default class PickListOptionsPanel extends Component {
         });
         // triggerSelections are the selections made by the user for each pick List
         // pushing the trigger value first so that order of shortcuts remain the same
+        console.log('this.arrayOfPickLists: ', this.arrayOfPickLists);
         let triggerSelections = this.arrayOfPickLists.map((pickList) => {
             return {
                 trigger: pickList.trigger,

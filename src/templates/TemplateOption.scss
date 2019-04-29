@@ -5,6 +5,7 @@
     width: inherit;
     text-align: left;
     width: 150px;
+    height: 100px;
     padding: 0.5em 1em;
     margin: 1em 1em 1em 0;
     background: $background;
@@ -32,11 +33,13 @@
         padding-bottom: 5px;
         border-bottom: 1px solid $line-gray;
         color: $state;
+        text-overflow: ellipsis;
     }
 
     .template-author {
         padding-top: 5px;
         padding-bottom: 1px;
         color: $state;
+        text-overflow: ellipsis;
     }
 }

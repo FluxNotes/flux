@@ -21,16 +21,23 @@ export default class TemplateOption extends Component {
         }
     }
 
+    handleTemplateSelection = (e) => {
+        const { insertTemplate, content, setInsertingTemplate } = this.props;
+        e.preventDefault(); 
+        insertTemplate(content);
+        setInsertingTemplate(true);
+    }
+
     render() {
         const { title } = this.props;
         return (
-            <button className="template-option">
+            <div className="template-option" onClick={this.handleTemplateSelection}>
                 <div className="template-title">
                     {title}
                 </div>
                 {this.renderDesignedBy()}
                 <TemplateOptionPreviewButton/>
-            </button>
+            </div>
         );
     }
 }

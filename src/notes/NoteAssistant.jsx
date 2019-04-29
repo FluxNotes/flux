@@ -19,10 +19,6 @@ export default class NoteAssistant extends Component {
         // this.maxNotesToDisplay = 100;
         this.state = {
             sortIndex: 0,
-            // insertingTemplate indicates whether a shortcut or template is being inserted
-            // false indicates a shortcut is being inserted
-            // true indicates a template is being inserted
-            insertingTemplate: false,
             searchResultNoteId: null,
             highlightedNoteIds: []
         };
@@ -63,7 +59,7 @@ export default class NoteAssistant extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.searchSelectedItem) {
             const newNote = nextProps.searchSelectedItem;
-            this.openNote(!newNote.signed, newNote)
+            this.openNote(newNote)
             this.props.setSearchSelectedItem(null);
         }
         if (nextProps.updatedEditorNote && this.refs[nextProps.updatedEditorNote.entryInfo.entryId]) {
@@ -133,11 +129,6 @@ export default class NoteAssistant extends Component {
         this.props.updateNoteAssistantMode(mode);
     }
 
-    setInsertingTemplate = (insertingTemplate) => {
-        this.setState({ insertingTemplate });
-        this.props.updateShowTemplateView(false);
-    }
-
     onPointOfCareButtonClicked() {
         this.notes_btn_classname = "";
         this.context_btn_classname = "";
@@ -176,17 +167,17 @@ export default class NoteAssistant extends Component {
     // Gets called when clicking on the "new note" button
     handleOnNewNoteButtonClick = () => {
         this.props.openNewNote();
-        this.toggleView("context-tray");
     }
 
     // Gets called when clicking on one of the notes in the clinical notes view
-    openNote = (isInProgressNote, note) => {
-        this.props.openExistingNote(isInProgressNote, note);
-        // If the note selected is an In-Progress note, switch to the context tray else use the clinical-notes view
-        if (isInProgressNote) {
+    openNote = (note) => {
+        this.props.openExistingNote(note);
+        if (note && !note.signed) {
+            // If the note selected is an In-Progress note (not signed), switch to the context tray 
             this.toggleView("context-tray");
         } else {
             this.toggleView("clinical-notes");
+            // else use the clinical-notes view
         }
     }
 
@@ -214,7 +205,7 @@ export default class NoteAssistant extends Component {
     }
 
     onSearchSuggestionClicked = (suggestion) => {
-        this.openNote(!suggestion.note.signed, suggestion.note);
+        this.openNote(suggestion.note);
     }
 
     // Render the content for the Note Assistant panel
@@ -238,7 +229,7 @@ export default class NoteAssistant extends Component {
                             contextManager={this.props.contextManager}
                             onShortcutClicked={this.props.updateContextTrayItemToInsert}
                             patient={this.props.patient}
-                            setInsertingTemplate={this.setInsertingTemplate}
+                            setInsertingTemplate={this.props.setInsertingTemplate}
                             shortcutManager={this.props.shortcutManager}
                             showTemplateView={this.props.showTemplateView}
                             updateShowTemplateView={this.props.updateShowTemplateView}
@@ -282,8 +273,8 @@ export default class NoteAssistant extends Component {
             <PickListOptionsPanel
                 arrayOfPickLists={this.props.arrayOfPickLists}
                 contextManager={this.props.contextManager}
-                insertingTemplate={this.state.insertingTemplate}
-                setInsertingTemplate={this.setInsertingTemplate}
+                insertingTemplate={this.props.insertingTemplate}
+                setInsertingTemplate={this.props.setInsertingTemplate}
                 updateContextTrayItemToInsert={this.props.updateContextTrayItemToInsert}
                 updateSelectedPickListOptions={this.props.updateSelectedPickListOptions}
                 updateNoteAssistantMode={this.props.updateNoteAssistantMode}
@@ -320,7 +311,7 @@ export default class NoteAssistant extends Component {
 
         return (
             <div ref={note.entryInfo.entryId} className={`note in-progress-note${selected ? " selected" : ""}${searchedFor ? " search-result" : ""}`} key={i} onClick={() => {
-                this.openNote(true, note)
+                this.openNote(note)
             }}>
                 <div className="in-progress-text">In progress note</div>
                 <div className="in-progress-note-date">{note.entryInfo.creationTime.value}</div>
@@ -401,7 +392,7 @@ export default class NoteAssistant extends Component {
                 className={`note existing-note ${selectedClassName} ${searchedForClassName} ${highlighedSearchSuggestionClassName}`}
                 key={i}
                 onClick={() => {
-                    this.openNote(false, item)
+                    this.openNote(item)
                 }}
             >
                 <div className="existing-note-date">{item.signedOn}</div>

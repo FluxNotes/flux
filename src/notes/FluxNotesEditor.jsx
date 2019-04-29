@@ -740,6 +740,14 @@ class FluxNotesEditor extends React.Component {
         });
     }
 
+    componentDidMount = () => {
+        if (this.props.shouldEditorContentUpdate && !Lang.isNull(this.props.contextTrayItemToInsert) && this.props.contextTrayItemToInsert.length > 0) {
+            // When the user selects a template, insert the contextTrayItem
+            this.insertContextTrayItem(this.props.contextTrayItemToInsert);
+            // And save the state of the editor before it is inserted in case they want to cancel
+            this.previousState = initialState;
+        }
+    }
 
     // This gets called before the component receives new properties
     componentWillReceiveProps = (nextProps) => {
@@ -770,6 +778,7 @@ class FluxNotesEditor extends React.Component {
         // Check if the updatedEditorNote property has been updated
         if (nextProps.shouldEditorContentUpdate && this.props.updatedEditorNote !== nextProps.updatedEditorNote && !Lang.isNull(nextProps.updatedEditorNote)) {
             if (this.props.noteAssistantMode === 'pick-list-options-panel') {
+                console.log("Trying to revert a template in FluxNotesEditor")
                 this.revertTemplate();
             }
 
@@ -1100,11 +1109,12 @@ class FluxNotesEditor extends React.Component {
     }
 
     revertTemplate = () => {
+        // TODO: Should delete the note
         this.props.changeShortcutType(null, false, null);
-        this.setState({ state: this.previousState }, () => {
-            this.props.setUndoTemplateInsertion(false);
-            this.refs.editor.focus();
-        });
+        this.props.deleteSelectedNote();
+        // this.setState({ state: this.previousState }, () => {
+        //     this.props.setUndoTemplateInsertion(false);
+        // });
     }
 
     insertNewLine = (transform) => {
