@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import TemplateOption from "./TemplateOption";
 import "./TemplateSelectionView.css";
+import { Button } from 'material-ui';
 
 export default class TemplateSelectionView extends Component {
     constructor (props) {
@@ -41,6 +42,13 @@ export default class TemplateSelectionView extends Component {
         // But we should be inserting content from them
         setInsertingTemplate(true);
     }
+    
+    cancelTemplate = () => {
+        const { updateShowTemplateView, deleteSelectedNote } = this.props;
+        // We should not be showing templates anymore
+        updateShowTemplateView(false);
+        deleteSelectedNote();
+    }
 
     render() {
         return (
@@ -69,12 +77,18 @@ export default class TemplateSelectionView extends Component {
                         ); 
                     })}
                 </div>
+                <Button 
+                    onClick={this.cancelTemplate}
+                >
+                    Cancel
+                </Button>
             </div>
         );
     }
 }
 
 TemplateSelectionView.propTypes = {
+    deleteSelectedNote: PropTypes.func.isRequired,
     setInsertingTemplate: PropTypes.func.isRequired,
     updateContextTrayItemToInsert: PropTypes.func.isRequired,
     updateShowTemplateView: PropTypes.func.isRequired,

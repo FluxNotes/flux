@@ -343,6 +343,7 @@ export default class NotesPanel extends Component {
         return ( 
             <div>
                 <TemplateSelectionView
+                    deleteSelectedNote={this.deleteSelectedNote}
                     setInsertingTemplate={this.setInsertingTemplate}
                     updateContextTrayItemToInsert={this.updateContextTrayItemToInsert}
                     updateShowTemplateView={this.updateShowTemplateView}
