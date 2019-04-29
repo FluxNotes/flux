@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import TemplateOption from "./TemplateOption";
 import "./TemplateSelectionView.css";
 
-
 export default class TemplateSelectionView extends Component {
     constructor (props) {
         super(props);
@@ -29,14 +28,17 @@ export default class TemplateSelectionView extends Component {
                 author: 'Dr. Mona341 Brown483',
                 content: 'FOLLOW UP:\nPatient is showing signs of @condition @ONCOHIST @condition @ONCOHIST\n\nMEDICATIONS:\n@medication\n\nProcedures:\n@procedure'
             }
-        ]
+        ];
     }
 
     // Insert the content of the template as you would a shortcut
     insertTemplate = (content) => {
         const { updateContextTrayItemToInsert, updateShowTemplateView, setInsertingTemplate } = this.props;
+        // We should communicate to the contextTray that "content" should be inserted
         updateContextTrayItemToInsert(content);
+        // We should not be showing templates anymore
         updateShowTemplateView(false);
+        // But we should be inserting content from them
         setInsertingTemplate(true);
     }
 
@@ -73,5 +75,7 @@ export default class TemplateSelectionView extends Component {
 }
 
 TemplateSelectionView.propTypes = {
-    
+    setInsertingTemplate: PropTypes.func.isRequired,
+    updateContextTrayItemToInsert: PropTypes.func.isRequired,
+    updateShowTemplateView: PropTypes.func.isRequired,
 }

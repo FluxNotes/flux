@@ -5,9 +5,16 @@ import Lang from 'lodash';
 import "./TemplateOption.css";
 
 export default class TemplateOption extends Component {
+    // Prevent default event behavior, then insert this option's content via the insertTemplateFn
+    handleTemplateSelection = (e) => {
+        e.preventDefault();
+        const { insertTemplate, content } = this.props;
+        insertTemplate(content);
+    }
+
     renderDesignedBy() {
         const { author } = this.props;
-        if (Lang.isEmpty(author)) { 
+        if (Lang.isEmpty(author)) {
             return null;
         } else { 
             return (
@@ -19,12 +26,6 @@ export default class TemplateOption extends Component {
                 </div>
             );
         }
-    }
-
-    handleTemplateSelection = (e) => {
-        const { insertTemplate, content } = this.props;
-        e.preventDefault(); 
-        insertTemplate(content);
     }
 
     render() {
@@ -42,7 +43,8 @@ export default class TemplateOption extends Component {
 }
 
 TemplateOption.propTypes = {
-    content: PropTypes.string.isRequired,
     author: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+    insertTemplate: PropTypes.func.isRequired,
     title: PropTypes.string.isRequired,
 }
