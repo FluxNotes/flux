@@ -429,7 +429,7 @@ class FluxConditionPresentAssertion extends FluxEntry {
         const medicationTemplates = {
             range: '- {0} from {1} to {2}',
             single: '- {0} started {1}',
-            single_plan_stop: '- {0} started {1} Stopping {2}'
+            single_plan_stop: '- {0} started {1}, stopping {2}'
         };
         const today = new moment();
         events.forEach((event) => {
