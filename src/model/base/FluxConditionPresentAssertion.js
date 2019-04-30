@@ -483,8 +483,6 @@ class FluxConditionPresentAssertion extends FluxEntry {
                         hpiText += `\r\n- ${event.status} as of ${event.asOfDate}`;
                         if (event.evidence && event.evidence.length > 0) {
                             hpiText += ` based on ${event.evidence.join(', ')}`;
-                        // } else {
-                        //     hpiText += '.';
                         }
                     }
                     break;
