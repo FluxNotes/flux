@@ -384,11 +384,11 @@ class FluxConditionPresentAssertion extends FluxEntry {
         const gender = patient.getGender();
         // Basic age, name, gender
         hpiText += '-';
-        hpiText += ` ${name} is a ${age} year old ${gender}.`;
+        hpiText += ` ${name} is a ${age} year old ${gender}`;
         hpiText += "\r\n";
         // Information about Diagnosis
         hpiText += '-';
-        hpiText += ` Patient was diagnosed with ${this.type} on ${this.diagnosisDate}.`;
+        hpiText += ` ${this.type} diagnosed ${this.diagnosisDate}`;
         hpiText += "\r\n";
 
         return hpiText;
@@ -423,13 +423,13 @@ class FluxConditionPresentAssertion extends FluxEntry {
         });
         
         const procedureTemplates = {
-            range: '- Patient underwent {0} from {1} to {2}',
-            single: '- Patient underwent {0} on {1}'
+            range: '- {0} from {1} to {2}',
+            single: '- {0} on {1}'
         };
         const medicationTemplates = {
-            range: '- Patient took {0} from {1} to {2}.',
-            single: '- Patient started {0} on {1}.',
-            single_plan_stop: '- Patient started {0} on {1}. Planned until {2}.'
+            range: '- {0} from {1} to {2}',
+            single: '- {0} started {1}',
+            single_plan_stop: '- {0} started {1} Stopping {2}'
         };
         const today = new moment();
         events.forEach((event) => {
@@ -480,18 +480,18 @@ class FluxConditionPresentAssertion extends FluxEntry {
                 }
                 case FluxCancerProgression: {
                     if (event.asOfDate && event.status) {
-                        hpiText += `\r\n- As of ${event.asOfDate}, disease is ${event.status}`;
+                        hpiText += `\r\n- ${event.status} as of ${event.asOfDate}`;
                         if (event.evidence && event.evidence.length > 0) {
-                            hpiText += ` based on ${event.evidence.join(', ')}.`;
-                        } else {
-                            hpiText += '.';
+                            hpiText += ` based on ${event.evidence.join(', ')}`;
+                        // } else {
+                        //     hpiText += '.';
                         }
                     }
                     break;
                 }
                 case FluxObservation: {
                     if (event.quantity && event.quantity.number && event.quantity.unit) {
-                        hpiText += `\r\n- Patient had a ${event.name} lab result of ${event.quantity.number} ${event.quantity.unit} on ${event.relevantTime}.`;
+                        hpiText += `\r\n- ${event.name}: ${event.quantity.number} ${event.quantity.unit} on ${event.relevantTime}`;
                     }
                     break;
                 }

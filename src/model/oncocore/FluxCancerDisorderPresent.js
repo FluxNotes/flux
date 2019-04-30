@@ -100,7 +100,7 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
             if (staging.mitoticRate) {
                 hpiText += `. Mitotic rate ${staging.mitoticRate}`;
             }
-            hpiText += ".\r\n";
+            hpiText += "\r\n";
         }
         return hpiText;
     }
@@ -113,8 +113,8 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
             // }
             if (tumorSize.length > 0) {
             hpiText += "-";
-            hpiText += ` Primary tumor size ${tumorSize[tumorSize.length - 1].quantity.number} ${tumorSize[tumorSize.length - 1].quantity.unit}`;
-            hpiText += ".\r\n";
+            hpiText += ` Tumor size ${tumorSize[tumorSize.length - 1].quantity.number} ${tumorSize[tumorSize.length - 1].quantity.unit}`;
+            hpiText += "\r\n";
         }
         return hpiText;
     }
@@ -125,7 +125,7 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
         if (histologicGrade.length > 0) {
             hpiText += "-";
             hpiText += ` ${histologicGrade[0].grade}`;
-            hpiText += ".\r\n";
+            hpiText += "\r\n";
         }
         return hpiText;
     }
@@ -134,7 +134,7 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
         let hpiText = "";
         if (this.laterality) {
             hpiText += "-";
-            hpiText += ` Breast cancer diagnosed in ${this.laterality} breast.`;
+            hpiText += ` Laterality ${this.laterality}`;
             hpiText += "\r\n"
         }
         return hpiText;
@@ -147,18 +147,18 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
         const her2Status = this.getMostRecentHER2ReceptorStatus();
         if (erStatus) {
             hpiText += "-";
-            hpiText += ` Estrogen receptor was ${erStatus.status}`;
-            hpiText += ".\r\n";
+            hpiText += ` ER ${erStatus.status}`;
+            hpiText += "\r\n";
         }
         if (prStatus) {
             hpiText += "-";
-            hpiText += ` Progesteron receptor was ${prStatus.status}`;
-            hpiText += ".\r\n";
+            hpiText += ` PR ${prStatus.status}`;
+            hpiText += "\r\n";
         }
         if (her2Status) {
             hpiText += "-";
-            hpiText += ` HER2 was ${her2Status.status}`;
-            hpiText += ".\r\n";
+            hpiText += ` HER2 ${her2Status.status}`;
+            hpiText += "\r\n";
         }
         return hpiText;
     }
