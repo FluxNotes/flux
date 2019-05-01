@@ -245,6 +245,16 @@
         shortcuts: []
     },
     {
+        path: '/poc',
+        display: 'Flux Notes™',
+        app: "PointOfCareApp",
+        isExact: true,
+        dataSource: 'HardCodedMcodeV01DataSource',
+        patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7f',
+        clinicianId: '1234567891',
+        shortcuts: []
+    },
+    {
         path: '/p2',
         display: 'Flux Notes™',
         app: "FullApp",
