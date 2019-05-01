@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import FluxTumorDimensions from '../../dataaccess/mcodev0.1-datasource/model/oncology/FluxTumorDimensions';
+import FluxTumorDimensions from '../../model/tumor/FluxTumorDimensions';
 
 export default function getProps(patient, condition) {
 
@@ -70,7 +70,7 @@ export default function getProps(patient, condition) {
                 "display": "size (mm)",
                 "valueType": "int",
                 "value": (() => {
-                    const quantity = _safeGet(condition.getMostRecentLabResultOfEachType().find(e => { return e.constructor.name === FluxTumorDimensions.name }), "quantity")
+                    const quantity = _safeGet(_safeGet(condition.getObservationsOfTypeChronologicalOrder(FluxTumorDimensions), 0),'quantity');
                     return _safeGet(quantity, "number");
                 })(),
                 "reference": condition.getMostRecentLabResultOfEachType().find(e => { return e.constructor.name === FluxTumorDimensions.name })
