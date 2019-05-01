@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import TemplateOption from "./TemplateOption";
 import "./TemplateSelectionView.css";
 import { Button } from 'material-ui';
+import Lang from 'lodash';
 
 export default class TemplateSelectionView extends Component {
     constructor (props) {
@@ -39,8 +40,8 @@ export default class TemplateSelectionView extends Component {
         updateContextTrayItemToInsert(content);
         // We should not be showing templates anymore
         updateShowTemplateView(false);
-        // But we should be inserting content from them
-        setInsertingTemplate(true);
+        // But if we had actual content to insert, we should go into insertingTemplateMode
+        if (!Lang.isEmpty(content)) setInsertingTemplate(true);
     }
     
     cancelTemplate = () => {

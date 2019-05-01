@@ -50,7 +50,7 @@ export default class ShortcutViewModeContent extends Component {
     }
 
     handleShortcutClick = (shortcut) => {
-        this.props.onShortcutClicked(shortcut); // + shortcut.substring(0, 1)); no longer need trailing @ or #
+        this.props.onClick(shortcut); // + shortcut.substring(0, 1)); no longer need trailing @ or #
     }
 
     // Get all contexts being used in the editor
@@ -129,7 +129,7 @@ export default class ShortcutViewModeContent extends Component {
 
 ShortcutViewModeContent.proptypes = {
     contextManager: PropTypes.object.isRequired,
-    onShortcutClicked: PropTypes.func.isRequired,
+    onClick: PropTypes.func.isRequired,
     patient: PropTypes.object.isRequired,
     shortcutManager: PropTypes.object.isRequired,
 }

@@ -227,7 +227,7 @@ export default class NoteAssistant extends Component {
                     <div>
                         <ContextTray
                             contextManager={this.props.contextManager}
-                            onShortcutClicked={this.props.updateContextTrayItemToInsert}
+                            updateContextTrayItemToInsert={this.props.updateContextTrayItemToInsert}
                             patient={this.props.patient}
                             setInsertingTemplate={this.props.setInsertingTemplate}
                             shortcutManager={this.props.shortcutManager}
