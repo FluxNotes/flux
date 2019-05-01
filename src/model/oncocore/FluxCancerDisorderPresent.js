@@ -49,6 +49,11 @@ class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
         // Other Events
         hpiText = this.buildEventNarrative(hpiText, patient, this.code);
 
+        // Remove the final trailing newline, as the HPI list is complete.
+        if (hpiText.slice(-2) === '\r\n') {
+            hpiText = hpiText.slice(0, -2);
+        }
+
         return hpiText;
     }
 
