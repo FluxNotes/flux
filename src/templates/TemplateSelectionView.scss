@@ -14,4 +14,15 @@
         display: flex;
         flex-wrap: wrap;
     }
+    #cancel-btn { 
+        position: fixed;
+        bottom: 0;
+        margin: 1em;
+        border: 1px solid $line-gray;
+        background-color: $background;
+        min-width: 160px;
+        &:hover { 
+            background-color: $feature-gray;
+        }
+    }
 }

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import TemplateOption from "./TemplateOption";
 import "./TemplateSelectionView.css";
-import { Button } from 'material-ui';
+import Button from '../elements/Button';
 import Lang from 'lodash';
 
 export default class TemplateSelectionView extends Component {
@@ -78,8 +78,9 @@ export default class TemplateSelectionView extends Component {
                         ); 
                     })}
                 </div>
-                <Button 
+                <Button
                     onClick={this.cancelTemplate}
+                    id="cancel-btn"
                 >
                     Cancel
                 </Button>
