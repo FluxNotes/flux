@@ -176,8 +176,8 @@ export default class NoteAssistant extends Component {
             // If the note selected is an In-Progress note (not signed), switch to the context tray 
             this.toggleView("context-tray");
         } else {
-            this.toggleView("clinical-notes");
             // else use the clinical-notes view
+            this.toggleView("clinical-notes");
         }
     }
 

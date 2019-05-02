@@ -1109,7 +1109,6 @@ class FluxNotesEditor extends React.Component {
     }
 
     revertTemplate = () => {
-        // TODO: Should delete the note
         this.props.changeShortcutType(null, false, null);
         this.props.deleteSelectedNote();
         // this.setState({ state: this.previousState }, () => {

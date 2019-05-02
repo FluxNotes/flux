@@ -45,10 +45,12 @@ export default class NotesPanel extends Component {
     componentWillReceiveProps = (nextProps) => {
         // If the note we're about to have open is different...
         if (!Lang.isNull(nextProps.openClinicalNote) && this.props.openClinicalNote !== nextProps.openClinicalNote) {
-            // If our current note isn't null, and we aren't trying to insert a tempalte, celar the contextTray Item to insert
+            // If our current note isn't null, and we aren't trying to insert a template, 
             if (!Lang.isNull(this.props.openClinicalNote) && !this.state.showTemplateView) {
+                // Then clear the contextTray Item to insert
                 this.updateContextTrayItemToInsert(null);
             }
+            // Always save the note and handle updates with new content
             this.saveNote(this.state.localDocumentText);
             this.handleUpdateEditorWithNote(nextProps.openClinicalNote);
         }
