@@ -102,7 +102,7 @@ export default class NotesPanel extends Component {
 
     updateContextTrayItemToInsert = (contextTrayItem) => {
         this.setState({ contextTrayItemToInsert: contextTrayItem });
-        this.updateShowTemplateView(false)
+        this.updateShowTemplateView(false);
     }
 
     updateSelectedPickListOptions = (selectedPickListOptions) => {
@@ -222,7 +222,6 @@ export default class NotesPanel extends Component {
             // Clear all shortcuts from the current mapManager
             this.props.structuredFieldMapManager.clearStructuredFieldMap();
             this.props.patient.removeClinicalNote(this.state.selectedNote);
-
         } else {
             console.error('Tried to remove a note that is signed')
         }
@@ -349,7 +348,7 @@ export default class NotesPanel extends Component {
                     updateShowTemplateView={this.updateShowTemplateView}
                 />
             </div>
-        )
+        );
     }
 
     renderSignButton = () => {
