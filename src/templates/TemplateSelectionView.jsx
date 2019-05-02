@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import TemplateOption from "./TemplateOption";
-import "./TemplateSelectionView.css";
 import Button from '../elements/Button';
+import SearchBar from '../elements/SearchBar';
+import "./TemplateSelectionView.css";
 import Lang from 'lodash';
+import Fuse from 'fuse.js';
 
 export default class TemplateSelectionView extends Component {
     constructor (props) {
@@ -31,6 +33,32 @@ export default class TemplateSelectionView extends Component {
                 content: 'FOLLOW UP:\nPatient is showing signs of @condition @ONCOHIST @condition @ONCOHIST\n\nMEDICATIONS:\n@medication\n\nProcedures:\n@procedure'
             }
         ];
+        // TODO: Make the generation of this fuse dynamic once templates are moved into app/user preferences
+        const fuseOptions = {
+            shouldSort: true,
+            tokenize: true,
+            findAllMatches: true,
+            threshold: 0.3,
+            location: 0,
+            distance: 19,
+            maxPatternLength: 32,
+            minMatchCharLength: 1,
+            keys: [
+                "name"
+                // TODO: Evaluate adding other buttons 
+            ]
+        };
+        this.templateFuse = new Fuse(this.templates,fuseOptions)
+        // This is the value used  when controlling the search component
+        this.state = {
+            templateFilterString: ""
+        };
+    }
+
+    updateTemplateFilterString = (templateFilterString) => { 
+        this.setState({
+            templateFilterString
+        });
     }
 
     // Insert the content of the template as you would a shortcut
@@ -43,12 +71,22 @@ export default class TemplateSelectionView extends Component {
         // But if we had actual content to insert, we should go into insertingTemplateMode
         if (!Lang.isEmpty(content)) setInsertingTemplate(true);
     }
-    
+
     cancelTemplate = () => {
         const { updateShowTemplateView, deleteSelectedNote } = this.props;
         // We should not be showing templates anymore
         updateShowTemplateView(false);
         deleteSelectedNote();
+    }
+
+    getTemplatesToDisplay() { 
+        if (Lang.isEmpty(this.state.templateFilterString)) {
+            // if there's no search string, return everything
+            return this.templates;
+        } else {
+            // Else, use our Fuse to search for relevant templates
+            return this.templateFuse.search(this.state.templateFilterString);
+        }
     }
 
     render() {
@@ -63,10 +101,14 @@ export default class TemplateSelectionView extends Component {
                     />
                 </div>
                 <div id="template-search-container">
-                    SEARCH GOES HERE
+                    <SearchBar
+                        label="Search templates..."
+                        searchString={this.state.templateFilterString}
+                        handleSearch={this.updateTemplateFilterString}
+                    />
                 </div>
                 <div id="available-templates-container">
-                    {this.templates.map((template) => { 
+                    {this.getTemplatesToDisplay().map((template) => { 
                         return (
                             <TemplateOption
                                 key={template.name}

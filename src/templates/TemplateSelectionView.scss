@@ -4,13 +4,14 @@
     padding: 20px;
     text-align: left;
     #new-note-container {
-        margin: 1em;
+        margin: $template-selection-view-margin;
     }
     #template-search-container {
-        margin: 1em;
+        margin: $template-selection-view-margin;
+        width: 60%;
     }
     #available-templates-container {
-        margin: 1em;
+        margin: $template-selection-view-margin;
         display: flex;
         flex-wrap: wrap;
     }

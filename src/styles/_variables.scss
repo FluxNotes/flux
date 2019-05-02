@@ -52,6 +52,9 @@ $size-xs: 0.6875rem; // 11 px
 // Note assistant spacing variables
 $note-assistant-overhang: 5px;
 
+// Template selection view spacing
+$template-selection-view-margin: 1em;
+
 :export {
     state: $state;
     bodyGray: $body-gray;

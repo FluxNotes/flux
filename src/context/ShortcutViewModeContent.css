@@ -1,4 +1,13 @@
+:export {
+  state: #767676;
+  bodyGray: #4F4F4F; }
+
 .condition-contexts,
 .section-active {
-    margin-left: 5px;
-}
+  margin-left: 5px; }
+
+#shortcut-search-container {
+  width: 100%;
+  padding: 0 5px 15px 5px;
+  border-bottom: 1px solid #DDDDDD;
+  background-color: #FFFFFF; }

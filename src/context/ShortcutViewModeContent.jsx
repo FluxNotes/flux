@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Lang from 'lodash';
 
 import ContextOptions from './ContextOptions';
-import ShortcutSearch from './ShortcutSearch';
+import SearchBar from '../elements/SearchBar';
 import './ShortcutViewModeContent.css';
 
 export default class ShortcutViewModeContent extends Component {
@@ -111,10 +111,13 @@ export default class ShortcutViewModeContent extends Component {
         const activeContexts = this.getActiveContexts();
         return (
             <div>
-                <ShortcutSearch
-                    currentSearchString={this.state.searchString}
-                    handleSearch={this.handleSearch}
+                <div id="shortcut-search-container">
+                    <SearchBar
+                        currentSearchString={this.state.searchString}
+                        handleSearch={this.handleSearch}
+                        label="Search shortcuts"
                     />
+                </div>
                 {this.renderAllActiveContexts(activeContexts)}
                 <ContextOptions
                     searchString={this.state.searchString}

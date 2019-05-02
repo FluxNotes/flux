@@ -17,12 +17,14 @@ yarn-error.log*
 
 # sass outputs
 # *.css // Add once project has completely converted to SASS
-/src/context/ShortcutSearch.css
+/src/context/SearchBar.css
 /src/context/ContextOptions.css
 /src/context/ContextTray.css
 /src/dashboard/CompassAppDashboard.css
 /src/dashboard/PointOfCareDashboard.css
 /src/context/SnippetViewModeContent.css
+/src/context/ShortcutViewModeContent.css
+/src/elements/SearchBar.css
 /src/forms/SingleChoiceButton.css
 /src/forms/MultiChoiceButton.css
 /src/lib/react-minimap/react-minimap.css
