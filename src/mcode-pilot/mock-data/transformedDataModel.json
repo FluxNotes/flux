@@ -11,8 +11,8 @@
         "isAlive": {"type": "choice", "values": [true, false], "weight": [0.8, 0.2]},
         "survivalMonths": {"type": "range", "values": [3,80], "weight": "uniform"},
         "tnm": {
-            "t": {"type": "choice", "values": ["TX", "T0", "T1", "T2", "T3", "T4"], 
-                                    "weight": [0.05, 0.4,  0.1,   0.15,  0.2,  0.1]},
+            "t": {"type": "choice", "values": ["TX", "T0", "T1", "T2", "T3", "T4", "T1c"], 
+                                    "weight": [0.05, 0.4,  0.1,   0.10,  0.15,  0.1, 0.1]},
             "n": {"type": "choice", "values": ["NX", "N0", "N1", "N2", "N3"], 
                                     "weight": [0.05, 0.5,  0.2,   0.15,  0.1]},
             "m": {"type": "choice", "values": ["MX", "M0", "M1"], 

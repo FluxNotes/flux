@@ -12,9 +12,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -42,9 +42,9 @@
 				"isAlive": true,
 				"survivalMonths": 42,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -73,9 +73,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -104,9 +104,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "MX"
+					"m": "MX",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -135,9 +135,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -165,9 +165,9 @@
 				"isAlive": true,
 				"survivalMonths": 9,
 				"tnm": {
-					"t": "T2",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -196,9 +196,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -226,9 +226,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -257,9 +257,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T3",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -287,9 +287,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -314,9 +314,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -346,9 +346,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T1",
 					"n": "N3",
-					"m": "M1"
+					"m": "M1",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -377,9 +377,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -408,9 +408,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -438,9 +438,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T4",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -468,9 +468,9 @@
 				"isAlive": true,
 				"survivalMonths": 20,
 				"tnm": {
-					"t": "T3",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -498,9 +498,9 @@
 				"isAlive": true,
 				"survivalMonths": 26,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -528,9 +528,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T2",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -559,9 +559,9 @@
 				"isAlive": false,
 				"survivalMonths": 39,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -587,9 +587,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -618,9 +618,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T2",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -649,9 +649,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -679,9 +679,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -710,9 +710,9 @@
 				"isAlive": true,
 				"survivalMonths": 3,
 				"tnm": {
-					"t": "T3",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -741,9 +741,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -773,9 +773,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -803,9 +803,9 @@
 				"isAlive": false,
 				"survivalMonths": 44,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "MX"
+					"m": "MX",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -835,9 +835,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T3",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -865,9 +865,9 @@
 				"isAlive": true,
 				"survivalMonths": 22,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "MX"
+					"m": "MX",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -896,9 +896,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -926,9 +926,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -956,9 +956,9 @@
 				"isAlive": true,
 				"survivalMonths": 51,
 				"tnm": {
-					"t": "T1",
 					"n": "N2",
-					"m": "M1"
+					"m": "M1",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -985,9 +985,9 @@
 				"isAlive": true,
 				"survivalMonths": 6,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -1014,9 +1014,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -1045,9 +1045,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T0",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -1075,9 +1075,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -1107,9 +1107,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -1137,9 +1137,9 @@
 				"isAlive": true,
 				"survivalMonths": 12,
 				"tnm": {
-					"t": "T2",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -1168,9 +1168,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T4",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -1199,9 +1199,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -1231,9 +1231,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T3",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -1261,9 +1261,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -1291,9 +1291,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T4",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -1351,9 +1351,9 @@
 				"isAlive": true,
 				"survivalMonths": 16,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -1382,9 +1382,9 @@
 				"isAlive": true,
 				"survivalMonths": 9,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -1409,9 +1409,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -1440,9 +1440,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "MX"
+					"m": "MX",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -1471,9 +1471,9 @@
 				"isAlive": true,
 				"survivalMonths": 37,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -1501,9 +1501,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -1531,9 +1531,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -1561,9 +1561,9 @@
 				"isAlive": false,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -1592,9 +1592,9 @@
 				"isAlive": true,
 				"survivalMonths": 54,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -1623,9 +1623,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -1653,9 +1653,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -1683,9 +1683,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -1715,9 +1715,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -1745,9 +1745,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T3",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -1776,9 +1776,9 @@
 				"isAlive": false,
 				"survivalMonths": 32,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -1805,9 +1805,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -1835,9 +1835,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T2",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -1864,9 +1864,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T3",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -1895,9 +1895,9 @@
 				"isAlive": true,
 				"survivalMonths": 17,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -1924,9 +1924,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -1956,9 +1956,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T0",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -1985,9 +1985,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -2015,9 +2015,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -2046,9 +2046,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T2",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -2078,9 +2078,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -2109,9 +2109,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -2139,9 +2139,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -2171,9 +2171,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -2201,9 +2201,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -2231,9 +2231,9 @@
 				"isAlive": true,
 				"survivalMonths": 46,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -2261,9 +2261,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -2291,9 +2291,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T1",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -2321,9 +2321,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -2351,9 +2351,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -2382,9 +2382,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -2412,9 +2412,9 @@
 				"isAlive": true,
 				"survivalMonths": 34,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -2444,9 +2444,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -2474,9 +2474,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T3",
 					"n": "N2",
-					"m": "M1"
+					"m": "M1",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -2504,9 +2504,9 @@
 				"isAlive": true,
 				"survivalMonths": 44,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -2533,9 +2533,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T4",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -2563,9 +2563,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T1",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -2593,9 +2593,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -2624,9 +2624,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -2654,9 +2654,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T2",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -2684,9 +2684,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -2715,9 +2715,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -2746,9 +2746,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -2777,9 +2777,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -2808,9 +2808,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -2839,9 +2839,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -2871,9 +2871,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T2",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -2900,9 +2900,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T3",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -2929,9 +2929,9 @@
 				"isAlive": true,
 				"survivalMonths": 48,
 				"tnm": {
-					"t": "T2",
 					"n": "N1",
-					"m": "M1"
+					"m": "M1",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -2959,9 +2959,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -2989,9 +2989,9 @@
 				"isAlive": true,
 				"survivalMonths": 54,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -3019,9 +3019,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -3049,9 +3049,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -3080,9 +3080,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -3111,9 +3111,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M1"
+					"m": "M1",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -3170,9 +3170,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -3200,9 +3200,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -3230,9 +3230,9 @@
 				"isAlive": true,
 				"survivalMonths": 41,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -3259,9 +3259,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -3286,9 +3286,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T3",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -3316,9 +3316,9 @@
 				"isAlive": false,
 				"survivalMonths": 42,
 				"tnm": {
-					"t": "T2",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -3346,9 +3346,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -3375,9 +3375,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -3404,9 +3404,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -3434,9 +3434,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T4",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -3466,9 +3466,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T4",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -3495,9 +3495,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T2",
 					"n": "N1",
-					"m": "M1"
+					"m": "M1",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -3526,9 +3526,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -3555,9 +3555,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T1",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -3586,9 +3586,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T1",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -3615,9 +3615,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -3643,9 +3643,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -3675,9 +3675,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -3705,9 +3705,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -3735,9 +3735,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T1",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -3764,9 +3764,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -3793,9 +3793,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -3823,9 +3823,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M1"
+					"m": "M1",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -3854,9 +3854,9 @@
 				"isAlive": true,
 				"survivalMonths": 6,
 				"tnm": {
-					"t": "T2",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -3885,9 +3885,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T0",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -3916,9 +3916,9 @@
 				"isAlive": true,
 				"survivalMonths": 45,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -3946,9 +3946,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -3976,9 +3976,9 @@
 				"isAlive": true,
 				"survivalMonths": 10,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -4006,9 +4006,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T2",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -4036,9 +4036,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T4",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -4067,9 +4067,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -4097,9 +4097,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "MX"
+					"m": "MX",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -4128,9 +4128,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -4159,9 +4159,9 @@
 				"isAlive": true,
 				"survivalMonths": 35,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -4190,9 +4190,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -4220,9 +4220,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -4252,9 +4252,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -4283,9 +4283,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -4315,9 +4315,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T2",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -4344,9 +4344,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T3",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -4405,9 +4405,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M1"
+					"m": "M1",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -4436,9 +4436,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M1"
+					"m": "M1",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -4466,9 +4466,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -4496,9 +4496,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "MX"
+					"m": "MX",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -4527,9 +4527,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T4",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -4559,9 +4559,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -4591,9 +4591,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -4652,9 +4652,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -4683,9 +4683,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -4715,9 +4715,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T2",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -4745,9 +4745,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -4776,9 +4776,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -4806,9 +4806,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T1",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -4865,9 +4865,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -4892,9 +4892,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -4922,9 +4922,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T0",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -4951,9 +4951,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T3",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -4981,9 +4981,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -5010,9 +5010,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -5041,9 +5041,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T4",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -5071,9 +5071,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -5102,9 +5102,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -5133,9 +5133,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -5164,9 +5164,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -5196,9 +5196,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -5228,9 +5228,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T4",
 					"n": "NX",
-					"m": "M1"
+					"m": "M1",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -5260,9 +5260,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -5292,9 +5292,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T3",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -5322,9 +5322,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -5353,9 +5353,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T2",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -5383,9 +5383,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T2",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -5413,9 +5413,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -5440,9 +5440,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T3",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -5501,9 +5501,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -5532,9 +5532,9 @@
 				"isAlive": true,
 				"survivalMonths": 33,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -5563,9 +5563,9 @@
 				"isAlive": true,
 				"survivalMonths": 7,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -5592,9 +5592,9 @@
 				"isAlive": true,
 				"survivalMonths": 55,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -5654,9 +5654,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -5684,9 +5684,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T2",
 					"n": "N3",
-					"m": "MX"
+					"m": "MX",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -5714,9 +5714,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T1",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -5746,9 +5746,9 @@
 				"isAlive": false,
 				"survivalMonths": 14,
 				"tnm": {
-					"t": "T4",
 					"n": "N2",
-					"m": "M1"
+					"m": "M1",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -5776,9 +5776,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T3",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -5807,9 +5807,9 @@
 				"isAlive": true,
 				"survivalMonths": 55,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -5838,9 +5838,9 @@
 				"isAlive": true,
 				"survivalMonths": 33,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -5867,9 +5867,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T1",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -5899,9 +5899,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -5960,9 +5960,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T2",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -5992,9 +5992,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -6022,9 +6022,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -6053,9 +6053,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -6084,9 +6084,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -6144,9 +6144,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -6206,9 +6206,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T2",
 					"n": "N3",
-					"m": "MX"
+					"m": "MX",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -6237,9 +6237,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -6268,9 +6268,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -6298,9 +6298,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -6328,9 +6328,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -6357,9 +6357,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T3",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -6387,9 +6387,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -6418,9 +6418,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -6449,9 +6449,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T1",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -6480,9 +6480,9 @@
 				"isAlive": false,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -6510,9 +6510,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -6541,9 +6541,9 @@
 				"isAlive": true,
 				"survivalMonths": 55,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -6572,9 +6572,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -6603,9 +6603,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -6633,9 +6633,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -6660,9 +6660,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T3",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -6691,9 +6691,9 @@
 				"isAlive": false,
 				"survivalMonths": 46,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -6722,9 +6722,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -6752,9 +6752,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -6784,9 +6784,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -6814,9 +6814,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -6844,9 +6844,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -6875,9 +6875,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T3",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -6904,9 +6904,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T4",
 					"n": "N2",
-					"m": "M1"
+					"m": "M1",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -6935,9 +6935,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -6966,9 +6966,9 @@
 				"isAlive": true,
 				"survivalMonths": 50,
 				"tnm": {
-					"t": "T3",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -6998,9 +6998,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -7058,9 +7058,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -7087,9 +7087,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -7117,9 +7117,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -7147,9 +7147,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -7179,9 +7179,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T2",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -7242,9 +7242,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -7275,9 +7275,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -7302,9 +7302,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -7334,9 +7334,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -7365,9 +7365,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -7395,9 +7395,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T1",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -7426,9 +7426,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -7457,9 +7457,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T4",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -7487,9 +7487,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -7517,9 +7517,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T1",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -7547,9 +7547,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T4",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -7576,9 +7576,9 @@
 				"isAlive": true,
 				"survivalMonths": 22,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -7607,9 +7607,9 @@
 				"isAlive": false,
 				"survivalMonths": 54,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -7637,9 +7637,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -7667,9 +7667,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -7699,9 +7699,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -7731,9 +7731,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -7760,9 +7760,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -7789,9 +7789,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T2",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -7821,9 +7821,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -7850,9 +7850,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -7881,9 +7881,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M1"
+					"m": "M1",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -7910,9 +7910,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -7940,9 +7940,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -7970,9 +7970,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -8001,9 +8001,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -8031,9 +8031,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T2",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -8061,9 +8061,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T2",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -8093,9 +8093,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -8123,9 +8123,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T4",
 					"n": "N2",
-					"m": "M1"
+					"m": "M1",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -8155,9 +8155,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -8185,9 +8185,9 @@
 				"isAlive": true,
 				"survivalMonths": 21,
 				"tnm": {
-					"t": "T2",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -8217,9 +8217,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -8249,9 +8249,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M1"
+					"m": "M1",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -8309,9 +8309,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -8372,9 +8372,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -8403,9 +8403,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T3",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -8433,9 +8433,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -8463,9 +8463,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -8493,9 +8493,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T2",
 					"n": "N2",
-					"m": "MX"
+					"m": "MX",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -8523,9 +8523,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -8555,9 +8555,9 @@
 				"isAlive": true,
 				"survivalMonths": 55,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M1"
+					"m": "M1",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -8585,9 +8585,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T4",
 					"n": "N1",
-					"m": "M1"
+					"m": "M1",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -8612,9 +8612,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T3",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -8644,9 +8644,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -8707,9 +8707,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -8736,9 +8736,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -8768,9 +8768,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -8798,9 +8798,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "MX"
+					"m": "MX",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -8830,9 +8830,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -8862,9 +8862,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -8893,9 +8893,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -8923,9 +8923,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -8954,9 +8954,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T2",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -8984,9 +8984,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -9015,9 +9015,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T1",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -9044,9 +9044,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -9076,9 +9076,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -9106,9 +9106,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -9137,9 +9137,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T3",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -9166,9 +9166,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "NX",
-					"m": "MX"
+					"m": "MX",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -9196,9 +9196,9 @@
 				"isAlive": true,
 				"survivalMonths": 29,
 				"tnm": {
-					"t": "T3",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -9226,9 +9226,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -9257,9 +9257,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T2",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -9287,9 +9287,9 @@
 				"isAlive": true,
 				"survivalMonths": 52,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -9318,9 +9318,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -9350,9 +9350,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -9380,9 +9380,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -9410,9 +9410,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -9440,9 +9440,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -9471,9 +9471,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -9502,9 +9502,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -9563,9 +9563,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -9593,9 +9593,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -9623,9 +9623,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -9652,9 +9652,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T1",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -9684,9 +9684,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -9744,9 +9744,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -9775,9 +9775,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -9805,9 +9805,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -9834,9 +9834,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -9865,9 +9865,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T4",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -9896,9 +9896,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "MX"
+					"m": "MX",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -9928,9 +9928,9 @@
 				"isAlive": true,
 				"survivalMonths": 40,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -9989,9 +9989,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -10020,9 +10020,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T3",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -10051,9 +10051,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -10082,9 +10082,9 @@
 				"isAlive": true,
 				"survivalMonths": 11,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -10113,9 +10113,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T2",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -10142,9 +10142,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -10172,9 +10172,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "MX"
+					"m": "MX",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -10203,9 +10203,9 @@
 				"isAlive": true,
 				"survivalMonths": 6,
 				"tnm": {
-					"t": "T1",
 					"n": "N1",
-					"m": "MX"
+					"m": "MX",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -10263,9 +10263,9 @@
 				"isAlive": true,
 				"survivalMonths": 27,
 				"tnm": {
-					"t": "T1",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -10293,9 +10293,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T4",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -10323,9 +10323,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -10352,9 +10352,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -10382,9 +10382,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -10413,9 +10413,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -10443,9 +10443,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T1",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -10473,9 +10473,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T4",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -10504,9 +10504,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T4",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -10534,9 +10534,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -10564,9 +10564,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -10593,9 +10593,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T4",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -10625,9 +10625,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -10656,9 +10656,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -10686,9 +10686,9 @@
 				"isAlive": true,
 				"survivalMonths": 24,
 				"tnm": {
-					"t": "T3",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -10716,9 +10716,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -10746,9 +10746,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "MX"
+					"m": "MX",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -10777,9 +10777,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -10808,9 +10808,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -10840,9 +10840,9 @@
 				"isAlive": true,
 				"survivalMonths": 41,
 				"tnm": {
-					"t": "T1",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -10870,9 +10870,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T3",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -10900,9 +10900,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -10932,9 +10932,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T1",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -10961,9 +10961,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T2",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -10991,9 +10991,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T3",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -11022,9 +11022,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T4",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -11082,9 +11082,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -11112,9 +11112,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "MX"
+					"m": "MX",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -11144,9 +11144,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -11175,9 +11175,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -11205,9 +11205,9 @@
 				"isAlive": true,
 				"survivalMonths": 29,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -11294,9 +11294,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -11325,9 +11325,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -11355,9 +11355,9 @@
 				"isAlive": true,
 				"survivalMonths": 13,
 				"tnm": {
-					"t": "T2",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -11387,9 +11387,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T4",
 					"n": "N3",
-					"m": "MX"
+					"m": "MX",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -11418,9 +11418,9 @@
 				"isAlive": true,
 				"survivalMonths": 13,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -11448,9 +11448,9 @@
 				"isAlive": true,
 				"survivalMonths": 48,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -11477,9 +11477,9 @@
 				"isAlive": true,
 				"survivalMonths": 21,
 				"tnm": {
-					"t": "T1",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -11535,9 +11535,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T1",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -11566,9 +11566,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -11629,9 +11629,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -11660,9 +11660,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "MX"
+					"m": "MX",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -11692,9 +11692,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T3",
 					"n": "N1",
-					"m": "M1"
+					"m": "M1",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -11723,9 +11723,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -11753,9 +11753,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T0",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -11784,9 +11784,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -11814,9 +11814,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -11845,9 +11845,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -11876,9 +11876,9 @@
 				"isAlive": true,
 				"survivalMonths": 25,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "MX"
+					"m": "MX",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -11907,9 +11907,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -11937,9 +11937,9 @@
 				"isAlive": false,
 				"survivalMonths": 15,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -11969,9 +11969,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -11999,9 +11999,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T3",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -12029,9 +12029,9 @@
 				"isAlive": true,
 				"survivalMonths": 45,
 				"tnm": {
-					"t": "T4",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -12090,9 +12090,9 @@
 				"isAlive": false,
 				"survivalMonths": 32,
 				"tnm": {
-					"t": "T3",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -12119,9 +12119,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -12150,9 +12150,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -12181,9 +12181,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T3",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -12240,9 +12240,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T3",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -12270,9 +12270,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T2",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -12301,9 +12301,9 @@
 				"isAlive": true,
 				"survivalMonths": 25,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -12332,9 +12332,9 @@
 				"isAlive": true,
 				"survivalMonths": 13,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -12362,9 +12362,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T3",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -12393,9 +12393,9 @@
 				"isAlive": true,
 				"survivalMonths": 29,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -12449,9 +12449,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -12479,9 +12479,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -12509,9 +12509,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -12540,9 +12540,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -12569,9 +12569,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -12599,9 +12599,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -12630,9 +12630,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -12661,9 +12661,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -12692,9 +12692,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T3",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -12724,9 +12724,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -12755,9 +12755,9 @@
 				"isAlive": false,
 				"survivalMonths": 42,
 				"tnm": {
-					"t": "T2",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -12788,9 +12788,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -12819,9 +12819,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -12851,9 +12851,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T3",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -12881,9 +12881,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T2",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -12912,9 +12912,9 @@
 				"isAlive": false,
 				"survivalMonths": 20,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M1"
+					"m": "M1",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -12942,9 +12942,9 @@
 				"isAlive": true,
 				"survivalMonths": 47,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -12971,9 +12971,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -13002,9 +13002,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -13032,9 +13032,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -13063,9 +13063,9 @@
 				"isAlive": true,
 				"survivalMonths": 46,
 				"tnm": {
-					"t": "T3",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -13093,9 +13093,9 @@
 				"isAlive": true,
 				"survivalMonths": 33,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -13123,9 +13123,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -13155,9 +13155,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -13185,9 +13185,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -13216,9 +13216,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T2",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -13246,9 +13246,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T2",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -13277,9 +13277,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T2",
 					"n": "N1",
-					"m": "MX"
+					"m": "MX",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -13308,9 +13308,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -13337,9 +13337,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -13369,9 +13369,9 @@
 				"isAlive": true,
 				"survivalMonths": 45,
 				"tnm": {
-					"t": "T4",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -13399,9 +13399,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -13430,9 +13430,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -13460,9 +13460,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T1",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -13491,9 +13491,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -13520,9 +13520,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -13550,9 +13550,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -13580,9 +13580,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -13610,9 +13610,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T2",
 					"n": "N1",
-					"m": "M1"
+					"m": "M1",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -13642,9 +13642,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "MX"
+					"m": "MX",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -13672,9 +13672,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -13703,9 +13703,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T3",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -13730,9 +13730,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -13760,9 +13760,9 @@
 				"isAlive": true,
 				"survivalMonths": 57,
 				"tnm": {
-					"t": "T4",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -13790,9 +13790,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -13819,9 +13819,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -13850,9 +13850,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -13881,9 +13881,9 @@
 				"isAlive": true,
 				"survivalMonths": 55,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -13912,9 +13912,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -13943,9 +13943,9 @@
 				"isAlive": true,
 				"survivalMonths": 18,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -13975,9 +13975,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T3",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -14004,9 +14004,9 @@
 				"isAlive": true,
 				"survivalMonths": 30,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -14064,9 +14064,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T1",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -14095,9 +14095,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T2",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -14126,9 +14126,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -14155,9 +14155,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T1",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -14184,9 +14184,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T2",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -14213,9 +14213,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -14274,9 +14274,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -14305,9 +14305,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T3",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -14335,9 +14335,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -14365,9 +14365,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -14396,9 +14396,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T1",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -14427,9 +14427,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -14459,9 +14459,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -14490,9 +14490,9 @@
 				"isAlive": true,
 				"survivalMonths": 37,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -14520,9 +14520,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -14550,9 +14550,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -14580,9 +14580,9 @@
 				"isAlive": true,
 				"survivalMonths": 5,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -14611,9 +14611,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T4",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -14643,9 +14643,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -14674,9 +14674,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -14704,9 +14704,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T2",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -14734,9 +14734,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -14763,9 +14763,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -14794,9 +14794,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -14825,9 +14825,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T2",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -14855,9 +14855,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -14886,9 +14886,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -14916,9 +14916,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -14943,9 +14943,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -14974,9 +14974,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -15005,9 +15005,9 @@
 				"isAlive": true,
 				"survivalMonths": 3,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -15035,9 +15035,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -15066,9 +15066,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -15097,9 +15097,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -15129,9 +15129,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -15158,9 +15158,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T2",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -15189,9 +15189,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -15221,9 +15221,9 @@
 				"isAlive": true,
 				"survivalMonths": 28,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -15251,9 +15251,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -15282,9 +15282,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -15344,9 +15344,9 @@
 				"isAlive": false,
 				"survivalMonths": 8,
 				"tnm": {
-					"t": "T4",
 					"n": "N2",
-					"m": "M1"
+					"m": "M1",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -15375,9 +15375,9 @@
 				"isAlive": true,
 				"survivalMonths": 23,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -15407,9 +15407,9 @@
 				"isAlive": true,
 				"survivalMonths": 18,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "MX"
+					"m": "MX",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -15438,9 +15438,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -15469,9 +15469,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -15499,9 +15499,9 @@
 				"isAlive": true,
 				"survivalMonths": 16,
 				"tnm": {
-					"t": "T4",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -15531,9 +15531,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T3",
 					"n": "N3",
-					"m": "M1"
+					"m": "M1",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -15563,9 +15563,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T3",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -15594,9 +15594,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -15623,9 +15623,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -15653,9 +15653,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -15714,9 +15714,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T2",
 					"n": "N1",
-					"m": "MX"
+					"m": "MX",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -15744,9 +15744,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -15775,9 +15775,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T0",
 					"n": "NX",
-					"m": "M1"
+					"m": "M1",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -15806,9 +15806,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T4",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -15837,9 +15837,9 @@
 				"isAlive": false,
 				"survivalMonths": 2,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -15866,9 +15866,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T4",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -15896,9 +15896,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -15926,9 +15926,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -15957,9 +15957,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -15989,9 +15989,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -16020,9 +16020,9 @@
 				"isAlive": true,
 				"survivalMonths": 41,
 				"tnm": {
-					"t": "T1",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -16050,9 +16050,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T2",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -16079,9 +16079,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -16110,9 +16110,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T0",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -16140,9 +16140,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -16171,9 +16171,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "MX"
+					"m": "MX",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -16202,9 +16202,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -16232,9 +16232,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -16263,9 +16263,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -16292,9 +16292,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T4",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -16322,9 +16322,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T1",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -16352,9 +16352,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -16383,9 +16383,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -16412,9 +16412,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T4",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -16442,9 +16442,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -16474,9 +16474,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -16505,9 +16505,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -16536,9 +16536,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T0",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -16565,9 +16565,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -16596,9 +16596,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -16625,9 +16625,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -16656,9 +16656,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -16686,9 +16686,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T3",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -16716,9 +16716,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -16748,9 +16748,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -16779,9 +16779,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T3",
 					"n": "N2",
-					"m": "M1"
+					"m": "M1",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -16810,9 +16810,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -16839,9 +16839,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T4",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -16869,9 +16869,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T0",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -16900,9 +16900,9 @@
 				"isAlive": true,
 				"survivalMonths": 56,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -16932,9 +16932,9 @@
 				"isAlive": true,
 				"survivalMonths": 51,
 				"tnm": {
-					"t": "T4",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -16962,9 +16962,9 @@
 				"isAlive": true,
 				"survivalMonths": 54,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -16991,9 +16991,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M1"
+					"m": "M1",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -17021,9 +17021,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M1"
+					"m": "M1",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -17050,9 +17050,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -17081,9 +17081,9 @@
 				"isAlive": false,
 				"survivalMonths": 13,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -17111,9 +17111,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -17140,9 +17140,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -17170,9 +17170,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M1"
+					"m": "M1",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -17199,9 +17199,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -17230,9 +17230,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -17259,9 +17259,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T3",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -17288,9 +17288,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T4",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -17319,9 +17319,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -17351,9 +17351,9 @@
 				"isAlive": true,
 				"survivalMonths": 6,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -17381,9 +17381,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -17412,9 +17412,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -17443,9 +17443,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M1"
+					"m": "M1",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -17474,9 +17474,9 @@
 				"isAlive": true,
 				"survivalMonths": 12,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -17505,9 +17505,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T2",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -17535,9 +17535,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T2",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -17567,9 +17567,9 @@
 				"isAlive": false,
 				"survivalMonths": 19,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -17598,9 +17598,9 @@
 				"isAlive": true,
 				"survivalMonths": 53,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -17630,9 +17630,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -17660,9 +17660,9 @@
 				"isAlive": false,
 				"survivalMonths": 45,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -17724,9 +17724,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T3",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -17754,9 +17754,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -17784,9 +17784,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -17813,9 +17813,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T2",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -17843,9 +17843,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M1"
+					"m": "M1",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -17874,9 +17874,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -17934,9 +17934,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -17963,9 +17963,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -17993,9 +17993,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -18025,9 +18025,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T2",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -18056,9 +18056,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T3",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -18085,9 +18085,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -18118,9 +18118,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T3",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -18149,9 +18149,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -18179,9 +18179,9 @@
 				"isAlive": true,
 				"survivalMonths": 21,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -18208,9 +18208,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -18239,9 +18239,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -18270,9 +18270,9 @@
 				"isAlive": true,
 				"survivalMonths": 24,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -18300,9 +18300,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -18329,9 +18329,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -18359,9 +18359,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -18420,9 +18420,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -18511,9 +18511,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -18542,9 +18542,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T2",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -18573,9 +18573,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -18602,9 +18602,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -18634,9 +18634,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -18664,9 +18664,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -18693,9 +18693,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T3",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -18723,9 +18723,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -18754,9 +18754,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "MX"
+					"m": "MX",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -18786,9 +18786,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T2",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -18817,9 +18817,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -18847,9 +18847,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -18880,9 +18880,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -18910,9 +18910,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -18942,9 +18942,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -18972,9 +18972,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -19002,9 +19002,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -19034,9 +19034,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T3",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -19065,9 +19065,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T3",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -19097,9 +19097,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T2",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -19127,9 +19127,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -19158,9 +19158,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -19189,9 +19189,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T3",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -19219,9 +19219,9 @@
 				"isAlive": true,
 				"survivalMonths": 7,
 				"tnm": {
-					"t": "T2",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -19249,9 +19249,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -19279,9 +19279,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -19309,9 +19309,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T2",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -19339,9 +19339,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -19366,9 +19366,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -19397,9 +19397,9 @@
 				"isAlive": true,
 				"survivalMonths": 33,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -19458,9 +19458,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T1",
 					"n": "N1",
-					"m": "M1"
+					"m": "M1",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -19491,9 +19491,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -19521,9 +19521,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -19548,9 +19548,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -19581,9 +19581,9 @@
 				"isAlive": false,
 				"survivalMonths": 49,
 				"tnm": {
-					"t": "T3",
 					"n": "N1",
-					"m": "MX"
+					"m": "MX",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -19611,9 +19611,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -19643,9 +19643,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T4",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -19674,9 +19674,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -19704,9 +19704,9 @@
 				"isAlive": true,
 				"survivalMonths": 26,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -19733,9 +19733,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T2",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -19764,9 +19764,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T2",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -19795,9 +19795,9 @@
 				"isAlive": true,
 				"survivalMonths": 6,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -19827,9 +19827,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -19858,9 +19858,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T4",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -19888,9 +19888,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -19919,9 +19919,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M1"
+					"m": "M1",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -19946,9 +19946,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -19975,9 +19975,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T4",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -20005,9 +20005,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T4",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -20036,9 +20036,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T3",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -20067,9 +20067,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -20099,9 +20099,9 @@
 				"isAlive": true,
 				"survivalMonths": 26,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "MX"
+					"m": "MX",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -20129,9 +20129,9 @@
 				"isAlive": true,
 				"survivalMonths": 37,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -20191,9 +20191,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -20252,9 +20252,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -20283,9 +20283,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -20315,9 +20315,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -20346,9 +20346,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -20376,9 +20376,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T2",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -20406,9 +20406,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -20434,9 +20434,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -20465,9 +20465,9 @@
 				"isAlive": true,
 				"survivalMonths": 28,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -20495,9 +20495,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -20525,9 +20525,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -20555,9 +20555,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T2",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -20617,9 +20617,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -20647,9 +20647,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -20677,9 +20677,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -20706,9 +20706,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T4",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -20736,9 +20736,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -20765,9 +20765,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -20794,9 +20794,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T4",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -20824,9 +20824,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -20854,9 +20854,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -20884,9 +20884,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T2",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -20915,9 +20915,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -20946,9 +20946,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -20976,9 +20976,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T2",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -21007,9 +21007,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -21038,9 +21038,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -21068,9 +21068,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T3",
 					"n": "NX",
-					"m": "M1"
+					"m": "M1",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -21130,9 +21130,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -21162,9 +21162,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -21194,9 +21194,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T2",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -21224,9 +21224,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T3",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -21255,9 +21255,9 @@
 				"isAlive": true,
 				"survivalMonths": 37,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -21285,9 +21285,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T2",
 					"n": "N3",
-					"m": "M1"
+					"m": "M1",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -21315,9 +21315,9 @@
 				"isAlive": true,
 				"survivalMonths": 51,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -21347,9 +21347,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -21379,9 +21379,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -21410,9 +21410,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -21441,9 +21441,9 @@
 				"isAlive": true,
 				"survivalMonths": 37,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -21471,9 +21471,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -21501,9 +21501,9 @@
 				"isAlive": true,
 				"survivalMonths": 25,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -21560,9 +21560,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T2",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -21591,9 +21591,9 @@
 				"isAlive": true,
 				"survivalMonths": 58,
 				"tnm": {
-					"t": "T3",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -21651,9 +21651,9 @@
 				"isAlive": true,
 				"survivalMonths": 29,
 				"tnm": {
-					"t": "T1",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -21682,9 +21682,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -21711,9 +21711,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T3",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -21741,9 +21741,9 @@
 				"isAlive": true,
 				"survivalMonths": 7,
 				"tnm": {
-					"t": "T0",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -21773,9 +21773,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T3",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -21804,9 +21804,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -21867,9 +21867,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -21899,9 +21899,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -21929,9 +21929,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T3",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -21959,9 +21959,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -21989,9 +21989,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -22020,9 +22020,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -22049,9 +22049,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -22079,9 +22079,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M1"
+					"m": "M1",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -22110,9 +22110,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "MX"
+					"m": "MX",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -22140,9 +22140,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -22170,9 +22170,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -22199,9 +22199,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T2",
 					"n": "N3",
-					"m": "M1"
+					"m": "M1",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -22229,9 +22229,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T2",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -22260,9 +22260,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -22290,9 +22290,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T4",
 					"n": "N1",
-					"m": "M1"
+					"m": "M1",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -22319,9 +22319,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "MX"
+					"m": "MX",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -22349,9 +22349,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -22381,9 +22381,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -22411,9 +22411,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -22443,9 +22443,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -22473,9 +22473,9 @@
 				"isAlive": true,
 				"survivalMonths": 20,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -22503,9 +22503,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T3",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -22533,9 +22533,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -22562,9 +22562,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -22592,9 +22592,9 @@
 				"isAlive": true,
 				"survivalMonths": 35,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -22624,9 +22624,9 @@
 				"isAlive": true,
 				"survivalMonths": 52,
 				"tnm": {
-					"t": "T4",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -22655,9 +22655,9 @@
 				"isAlive": true,
 				"survivalMonths": 42,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -22686,9 +22686,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T4",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -22717,9 +22717,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -22748,9 +22748,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -22779,9 +22779,9 @@
 				"isAlive": false,
 				"survivalMonths": 15,
 				"tnm": {
-					"t": "T3",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -22841,9 +22841,9 @@
 				"isAlive": true,
 				"survivalMonths": 58,
 				"tnm": {
-					"t": "T3",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -22872,9 +22872,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -22903,9 +22903,9 @@
 				"isAlive": true,
 				"survivalMonths": 21,
 				"tnm": {
-					"t": "T2",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -22933,9 +22933,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -22964,9 +22964,9 @@
 				"isAlive": true,
 				"survivalMonths": 37,
 				"tnm": {
-					"t": "T3",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -22991,9 +22991,9 @@
 				"isAlive": true,
 				"survivalMonths": 56,
 				"tnm": {
-					"t": "T0",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -23021,9 +23021,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -23051,9 +23051,9 @@
 				"isAlive": true,
 				"survivalMonths": 55,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -23081,9 +23081,9 @@
 				"isAlive": true,
 				"survivalMonths": 11,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -23108,9 +23108,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -23201,9 +23201,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -23232,9 +23232,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -23262,9 +23262,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -23292,9 +23292,9 @@
 				"isAlive": true,
 				"survivalMonths": 25,
 				"tnm": {
-					"t": "T1",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -23321,9 +23321,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T3",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -23351,9 +23351,9 @@
 				"isAlive": true,
 				"survivalMonths": 50,
 				"tnm": {
-					"t": "T3",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -23382,9 +23382,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -23413,9 +23413,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -23443,9 +23443,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -23473,9 +23473,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -23504,9 +23504,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -23535,9 +23535,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -23566,9 +23566,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -23598,9 +23598,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M1"
+					"m": "M1",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -23628,9 +23628,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -23658,9 +23658,9 @@
 				"isAlive": true,
 				"survivalMonths": 18,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -23689,9 +23689,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T2",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -23719,9 +23719,9 @@
 				"isAlive": true,
 				"survivalMonths": 21,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -23751,9 +23751,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "MX"
+					"m": "MX",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -23782,9 +23782,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -23812,9 +23812,9 @@
 				"isAlive": false,
 				"survivalMonths": 35,
 				"tnm": {
-					"t": "T2",
 					"n": "N1",
-					"m": "M1"
+					"m": "M1",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -23842,9 +23842,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -23872,9 +23872,9 @@
 				"isAlive": true,
 				"survivalMonths": 17,
 				"tnm": {
-					"t": "T3",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -23902,9 +23902,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -23932,9 +23932,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -23962,9 +23962,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -23993,9 +23993,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -24023,9 +24023,9 @@
 				"isAlive": false,
 				"survivalMonths": 8,
 				"tnm": {
-					"t": "T2",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -24054,9 +24054,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -24084,9 +24084,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -24114,9 +24114,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T4",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -24144,9 +24144,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T4",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -24177,9 +24177,9 @@
 				"isAlive": true,
 				"survivalMonths": 3,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -24206,9 +24206,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T3",
 					"n": "N2",
-					"m": "M1"
+					"m": "M1",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -24238,9 +24238,9 @@
 				"isAlive": true,
 				"survivalMonths": 56,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -24268,9 +24268,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -24298,9 +24298,9 @@
 				"isAlive": true,
 				"survivalMonths": 58,
 				"tnm": {
-					"t": "T3",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -24328,9 +24328,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -24359,9 +24359,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T3",
 					"n": "N2",
-					"m": "M1"
+					"m": "M1",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -24389,9 +24389,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -24420,9 +24420,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T3",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -24451,9 +24451,9 @@
 				"isAlive": true,
 				"survivalMonths": 45,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -24481,9 +24481,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -24511,9 +24511,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -24542,9 +24542,9 @@
 				"isAlive": true,
 				"survivalMonths": 57,
 				"tnm": {
-					"t": "T3",
 					"n": "N2",
-					"m": "M1"
+					"m": "M1",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -24601,9 +24601,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -24633,9 +24633,9 @@
 				"isAlive": true,
 				"survivalMonths": 28,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -24693,9 +24693,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -24723,9 +24723,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -24753,9 +24753,9 @@
 				"isAlive": false,
 				"survivalMonths": 18,
 				"tnm": {
-					"t": "T1",
 					"n": "N2",
-					"m": "M1"
+					"m": "M1",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -24784,9 +24784,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -24814,9 +24814,9 @@
 				"isAlive": true,
 				"survivalMonths": 23,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -24845,9 +24845,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -24875,9 +24875,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T3",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -24906,9 +24906,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -24935,9 +24935,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -24966,9 +24966,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T4",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -24996,9 +24996,9 @@
 				"isAlive": true,
 				"survivalMonths": 46,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -25025,9 +25025,9 @@
 				"isAlive": true,
 				"survivalMonths": 44,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -25057,9 +25057,9 @@
 				"isAlive": true,
 				"survivalMonths": 8,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -25088,9 +25088,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -25119,9 +25119,9 @@
 				"isAlive": true,
 				"survivalMonths": 29,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -25149,9 +25149,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T3",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -25180,9 +25180,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T0",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -25208,9 +25208,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -25239,9 +25239,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -25268,9 +25268,9 @@
 				"isAlive": false,
 				"survivalMonths": 7,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -25299,9 +25299,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -25330,9 +25330,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T0",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -25360,9 +25360,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -25392,9 +25392,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T2",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -25422,9 +25422,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -25452,9 +25452,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T1",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -25482,9 +25482,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T3",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -25513,9 +25513,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T4",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -25544,9 +25544,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -25574,9 +25574,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -25604,9 +25604,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "MX"
+					"m": "MX",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -25634,9 +25634,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -25664,9 +25664,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -25694,9 +25694,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -25726,9 +25726,9 @@
 				"isAlive": true,
 				"survivalMonths": 45,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -25756,9 +25756,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -25787,9 +25787,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T1",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -25816,9 +25816,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T4",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -25846,9 +25846,9 @@
 				"isAlive": true,
 				"survivalMonths": 20,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -25876,9 +25876,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -25903,9 +25903,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -25935,9 +25935,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -25966,9 +25966,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T2",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -25997,9 +25997,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -26027,9 +26027,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T3",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -26057,9 +26057,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T2",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -26087,9 +26087,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -26118,9 +26118,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -26150,9 +26150,9 @@
 				"isAlive": false,
 				"survivalMonths": 30,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -26179,9 +26179,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -26209,9 +26209,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -26239,9 +26239,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -26271,9 +26271,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -26301,9 +26301,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -26330,9 +26330,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -26361,9 +26361,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -26392,9 +26392,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -26423,9 +26423,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -26453,9 +26453,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -26484,9 +26484,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T3",
 					"n": "N3",
-					"m": "MX"
+					"m": "MX",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -26515,9 +26515,9 @@
 				"isAlive": false,
 				"survivalMonths": 14,
 				"tnm": {
-					"t": "T0",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -26545,9 +26545,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -26575,9 +26575,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -26605,9 +26605,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -26637,9 +26637,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T2",
 					"n": "N3",
-					"m": "MX"
+					"m": "MX",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -26668,9 +26668,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T4",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -26697,9 +26697,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T1",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -26729,9 +26729,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -26759,9 +26759,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -26788,9 +26788,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T2",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -26820,9 +26820,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T3",
 					"n": "N2",
-					"m": "MX"
+					"m": "MX",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -26852,9 +26852,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -26882,9 +26882,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -26912,9 +26912,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -26942,9 +26942,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -26972,9 +26972,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T2",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -27003,9 +27003,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -27033,9 +27033,9 @@
 				"isAlive": false,
 				"survivalMonths": 42,
 				"tnm": {
-					"t": "T2",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -27064,9 +27064,9 @@
 				"isAlive": true,
 				"survivalMonths": 67,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -27094,9 +27094,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -27123,9 +27123,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T3",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -27153,9 +27153,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -27182,9 +27182,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T2",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -27212,9 +27212,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T3",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -27243,9 +27243,9 @@
 				"isAlive": true,
 				"survivalMonths": 59,
 				"tnm": {
-					"t": "T4",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -27273,9 +27273,9 @@
 				"isAlive": true,
 				"survivalMonths": 48,
 				"tnm": {
-					"t": "T2",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -27300,9 +27300,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -27331,9 +27331,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -27361,9 +27361,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -27391,9 +27391,9 @@
 				"isAlive": true,
 				"survivalMonths": 71,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -27420,9 +27420,9 @@
 				"isAlive": true,
 				"survivalMonths": 16,
 				"tnm": {
-					"t": "T3",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T3"
 				}
 			},
 			"treatments": [
@@ -27450,9 +27450,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T3",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -27482,9 +27482,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [
@@ -27512,9 +27512,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -27543,9 +27543,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T3",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -27573,9 +27573,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T3",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -27604,9 +27604,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -27634,9 +27634,9 @@
 				"isAlive": true,
 				"survivalMonths": 69,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "MX"
+					"m": "MX",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -27664,9 +27664,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T3",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -27694,9 +27694,9 @@
 				"isAlive": true,
 				"survivalMonths": 14,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -27723,9 +27723,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -27753,9 +27753,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -27783,9 +27783,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T4",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -27813,9 +27813,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -27845,9 +27845,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T2",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -27875,9 +27875,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M1"
+					"m": "M1",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -27906,9 +27906,9 @@
 				"isAlive": true,
 				"survivalMonths": 63,
 				"tnm": {
-					"t": "T1",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -27938,9 +27938,9 @@
 				"isAlive": true,
 				"survivalMonths": 64,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1"
 				}
 			},
 			"treatments": [
@@ -27968,9 +27968,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T3",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -28000,9 +28000,9 @@
 				"isAlive": true,
 				"survivalMonths": 66,
 				"tnm": {
-					"t": "T0",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -28031,9 +28031,9 @@
 				"isAlive": true,
 				"survivalMonths": 65,
 				"tnm": {
-					"t": "T0",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T4"
 				}
 			},
 			"treatments": [
@@ -28061,9 +28061,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -28093,9 +28093,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -28124,9 +28124,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T0",
 					"n": "N3",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -28184,9 +28184,9 @@
 				"isAlive": true,
 				"survivalMonths": 60,
 				"tnm": {
-					"t": "T1",
 					"n": "N2",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -28215,9 +28215,9 @@
 				"isAlive": true,
 				"survivalMonths": 7,
 				"tnm": {
-					"t": "T0",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -28246,9 +28246,9 @@
 				"isAlive": true,
 				"survivalMonths": 68,
 				"tnm": {
-					"t": "T3",
 					"n": "N1",
-					"m": "M1"
+					"m": "M1",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -28276,9 +28276,9 @@
 				"isAlive": true,
 				"survivalMonths": 70,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T1c"
 				}
 			},
 			"treatments": [
@@ -28305,9 +28305,9 @@
 				"isAlive": true,
 				"survivalMonths": 35,
 				"tnm": {
-					"t": "T2",
 					"n": "N1",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -28336,9 +28336,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T1",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "T2"
 				}
 			},
 			"treatments": [
@@ -28368,9 +28368,9 @@
 				"isAlive": true,
 				"survivalMonths": 62,
 				"tnm": {
-					"t": "T3",
 					"n": "NX",
-					"m": "M0"
+					"m": "M0",
+					"t": "T0"
 				}
 			},
 			"treatments": [
@@ -28399,9 +28399,9 @@
 				"isAlive": true,
 				"survivalMonths": 61,
 				"tnm": {
-					"t": "T2",
 					"n": "N0",
-					"m": "M0"
+					"m": "M0",
+					"t": "TX"
 				}
 			},
 			"treatments": [

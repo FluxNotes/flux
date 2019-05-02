@@ -5620,7 +5620,7 @@
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/Number"
                     },
-                    "Value": 2
+                    "Value": 20
                 },
                 "Units": {
                     "EntryType": {
@@ -5634,7 +5634,7 @@
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             },
-                            "Value": "cm"
+                            "Value": "mm"
                         }
                     }
                 }
@@ -6221,7 +6221,7 @@
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                             },
-                            "Value": "IIA"
+                            "Value": "IA"
                         }
                     }
                 ]
@@ -6433,7 +6433,7 @@
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                             },
-                            "Value": "T3"
+                            "Value": "T1c"
                         }
                     }
                 ]
