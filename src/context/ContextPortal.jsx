@@ -110,7 +110,6 @@ class ContextPortal extends React.Component {
             // newIndex - (numberOfElementsVisible - 1) forces the scrolling to happen once your reach the bottom of the list in view.
             // 32 is the height of each suggestion in the list, 10 allows for the margin
             this.refs.contextPortal.scrollTop = (this.state.selectedIndex - (numberOfElementsVisible - 1)) * 32 + 10;
-            console.log('this.refs.contextPortal: ', this.refs.contextPortal);
         } else if (keyCode === ENTER_KEY) {
             this.setState({ active: false, justActive: false });
             this.props.onChange(this.props.onSelected(this.props.state, this.props.contexts[this.state.selectedIndex]));
