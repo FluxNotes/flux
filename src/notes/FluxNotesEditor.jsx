@@ -741,7 +741,7 @@ class FluxNotesEditor extends React.Component {
     }
 
     componentDidMount = () => {
-        if (this.props.shouldEditorContentUpdate && !Lang.isNull(this.props.contextTrayItemToInsert) && this.props.contextTrayItemToInsert.length > 0) {
+        if (this.props.shouldEditorContentUpdate && !Lang.isEmpty(this.props.contextTrayItemToInsert) && this.props.contextTrayItemToInsert.length > 0) {
             // When the user selects a template, insert the contextTrayItem
             this.insertContextTrayItem(this.props.contextTrayItemToInsert);
             // And save the state of the editor before it is inserted in case they want to cancel

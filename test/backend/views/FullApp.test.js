@@ -243,24 +243,46 @@ describe('5 FullApp', function() {
        //expect(conditionName.exists()).to.equal(true);
        //expect(conditionName.text()).to.equal('Fracture');
     });
-    it('5.2 Clicking "New Note" button in pre-encounter mode changes layout and displays the note editor', () => {
+    it('5.2 Clicking "New Note" button in pre-encounter mode changes layout and displays the template selection screen', () => {
         const wrapper = mount(<FullApp 
             display='Flux Notes'
             dataSource='HardCodedMcodeV01DataSource'
             patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
         const e1 = wrapper.find('div.editor-content');
         expect(e1.exists()).to.equal(false);
-    
-        const newNoteButton = wrapper.find('.note-new');
-    
+
         // Click on new note button to open the editor
+        const newNoteButton = wrapper.find('.note-new');
         newNoteButton.at(0).props().onClick();
         wrapper.update();
+
+        //const editor = wrapper.find("div[data-slate-editor='true']");
+        const e2 = wrapper.find('#template-option-container');
+        expect(e2.exists()).to.equal(true);
+    });
+    it('5.3 Clicking "New Note" button in pre-encounter mode changes layout, and selecting a blank note should display the editor', () => {
+        const wrapper = mount(<FullApp
+            display='Flux Notes'
+            dataSource='HardCodedMcodeV01DataSource'
+            patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
+        const e1 = wrapper.find('div.editor-content');
+        expect(e1.exists()).to.equal(false);
+
+        // Click on new note button to open the editor
+        const newNoteButton = wrapper.find('.note-new');
+        newNoteButton.at(0).simulate("click");
+        wrapper.update();
+
+        // Click on new note button to open the editor
+        const blankNoteButton = wrapper.find('#new-note-container .template-option');
+        blankNoteButton.at(0).simulate("click");
+        wrapper.update();
+
         //const editor = wrapper.find("div[data-slate-editor='true']");
         const e2 = wrapper.find('div.editor-content');
         expect(e2.exists()).to.equal(true);
     });
-    it('5.3 Clicking clinical notes toggle button in Note Assistant switches view to clinical notes', () => {
+    it('5.4 Clicking clinical notes toggle button in Note Assistant switches view to clinical notes', () => {
         const wrapper = mount(<FullApp 
             display='Flux Notes'
             dataSource='HardCodedMcodeV01DataSource'
@@ -268,7 +290,12 @@ describe('5 FullApp', function() {
 
         // Click on new note button to open the editor
         const newNoteButton = wrapper.find('.note-new');
-        newNoteButton.at(0).props().onClick();
+        newNoteButton.at(0).simulate("click");
+        wrapper.update();
+
+        // Click on new note button to open the editor
+        const blankNoteButton = wrapper.find('#new-note-container .template-option');
+        blankNoteButton.at(0).simulate("click");
         wrapper.update();
 
         // no new note button now
@@ -280,21 +307,26 @@ describe('5 FullApp', function() {
         expect(clinicalNotesButton.exists()).to.equal(true);
         clinicalNotesButton.at(0).props().onClick();
         wrapper.update();
-
+        
         // do we have new note button available?
         const newNoteButton3 = wrapper.find('.note-new');
         expect(newNoteButton3.exists()).to.equal(true);
     });
-    it('5.4 Clicking context toggle button in Note Assistant switches view to context tray', () => {
+    it('5.5 Clicking context toggle button in Note Assistant switches view to context tray', () => {
         const wrapper = mount(<FullApp 
             display='Flux Notes'
             dataSource='HardCodedMcodeV01DataSource'
             patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />,
             { attachTo: document.body });
 
-        // Mimic post-encounter view
+        // Click on new note button to open the editor
         const newNoteButton = wrapper.find('.note-new');
-        newNoteButton.at(0).props().onClick();
+        newNoteButton.at(0).simulate("click");
+        wrapper.update();
+
+        // Click on new note button to open the editor
+        const blankNoteButton = wrapper.find('#new-note-container .template-option');
+        blankNoteButton.at(0).simulate("click");
         wrapper.update();
 
         // Select clinical notes
@@ -306,7 +338,7 @@ describe('5 FullApp', function() {
         const contextButton = wrapper.find('#context-btn');
         contextButton.at(0).props().onClick();
         wrapper.update();
-
+        
         // context tray should be showing
         const contextTray = wrapper.find('.context-tray');
         expect(contextTray.exists()).to.equal(true);
@@ -1303,23 +1335,31 @@ describe('6 FluxNotesEditor', function() {
             searchSuggestions={[]}
         />);
 
+        // Go back to the notes-tray - for whatever reason the editor is open by default; click this btn to shift to notes-tray
         const clinicalNotesButton = notesPanelWrapper.find('#notes-btn');
         expect(clinicalNotesButton.exists()).to.equal(true);
         clinicalNotesButton.at(0).props().onClick();
         notesPanelWrapper.update();
 
-        const inProgressNotes = notesPanelWrapper.find('.note.in-progress-note');
-    
         // There are no unsigned notes on the patient's record initially
+        const inProgressNotes = notesPanelWrapper.find('.note.in-progress-note');
         expect(inProgressNotes).to.have.length(0);
-    
+
+        // Click on new note button to open the editor
         const newNoteButton = notesPanelWrapper.find('.note-new');
-        newNoteButton.at(0).props().onClick();
+        newNoteButton.at(0).simulate("click");
+        notesPanelWrapper.update();
+
+        // Click on new note button to open the editor
+        const blankNoteButton = notesPanelWrapper.find('#new-note-container .template-option');
+        blankNoteButton.at(0).simulate("click");
         notesPanelWrapper.update();
     
+        // Return to the notes-tray so we can inspect the inprogress notes!
         clinicalNotesButton.at(0).props().onClick();
         notesPanelWrapper.update();
     
+        // Confirm that we now have a note in progress, where before we didn't
         const inProgressNotesAfter = notesPanelWrapper.find('.note.in-progress-note');
         expect(inProgressNotesAfter).to.have.length(1);
     });
