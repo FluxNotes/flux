@@ -5,11 +5,12 @@
     color: $state;
     text-align: left;
     position: relative;
-    display: inline-block;
+    display: inline-flex;
+    align-items: flex-end;
     width: 100%;
     .search-icon {
-        display: inline-block;
         margin-right: 5px;
+        padding-bottom: 10px;
     }
     .search-text {
         // This should be the width of the search-bars container, minus the size of the icon

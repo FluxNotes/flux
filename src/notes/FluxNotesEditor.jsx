@@ -1785,7 +1785,6 @@ class FluxNotesEditor extends React.Component {
                                 onClick={this.closeNote}
                                 style={{
                                     float: "right",
-                                    lineHeight: "2.1rem"
                                 }}
                             >
                                 <FontAwesome
