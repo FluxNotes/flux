@@ -772,7 +772,7 @@ function updateStructuredField(opts, transform, shortcut) {
 
     allKeysForShortcut.forEach((key, i) => {
         const shortcutNode = transform.state.document.getNode(key);
-        transform = deleteNode(shortcutNode, transform, i === allKeysForShortcut.length - 1);
+        if (shortcutNode) transform = deleteNode(shortcutNode, transform, i === allKeysForShortcut.length - 1);
     });
     // Clear key map after deleting
     idToKeysMap.delete(shortcut.uniqueId);

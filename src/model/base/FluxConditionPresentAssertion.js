@@ -374,6 +374,11 @@ class FluxConditionPresentAssertion extends FluxEntry {
 
         hpiText = this.buildEventNarrative(hpiText, patient, this.code);
 
+        // Remove the final trailing newline, as the HPI list is complete.
+        if (hpiText.slice(-2) === '\r\n') {
+            hpiText = hpiText.slice(0, -2);
+        }
+
         return hpiText;
     }
 
@@ -436,13 +441,13 @@ class FluxConditionPresentAssertion extends FluxEntry {
             switch (event.constructor) {
                 case FluxProcedureRequested: {
                     if (event.occurrenceTime.timePeriodStart) {
-                        let procedureText = '\r\n' + procedureTemplates['range'];
+                        let procedureText = procedureTemplates['range'];
                         procedureText = procedureText.replace('{0}', event.name);
                         procedureText = procedureText.replace('{1}', event.occurrenceTime.timePeriodStart);
                         procedureText = procedureText.replace('{2}', event.occurrenceTime.timePeriodEnd);
                         hpiText += procedureText;
                     } else {
-                        let procedureText = '\r\n' + procedureTemplates['single'];
+                        let procedureText = procedureTemplates['single'];
                         procedureText = procedureText.replace('{0}', event.name);
                         procedureText = procedureText.replace('{1}', event.occurrenceTime);
                         hpiText += procedureText;
@@ -452,22 +457,24 @@ class FluxConditionPresentAssertion extends FluxEntry {
                     } else {
                         hpiText += ".";
                     }
+                    hpiText += '\r\n';
                     break;
                 }
                 case FluxMedicationRequested: {
                     const active = event.isActiveAsOf(today);
                     if (!active) {
-                        let medicationText = '\r\n' + medicationTemplates['range'];
+                        let medicationText = medicationTemplates['range'];
                         medicationText = medicationText.replace('{0}', event.medication);
                         medicationText = medicationText.replace('{1}', event.expectedPerformanceTime.timePeriodStart);
                         medicationText = medicationText.replace('{2}', event.expectedPerformanceTime.timePeriodEnd);
                         hpiText += medicationText;
+                        hpiText += '\r\n';
                     } else {
                         let medicationText;
                         if (event.expectedPerformanceTime.timePeriodEnd) {
-                            medicationText = '\r\n' + medicationTemplates['single_plan_stop'];
+                            medicationText = medicationTemplates['single_plan_stop'];
                         } else {
-                            medicationText = '\r\n' + medicationTemplates['single'];
+                            medicationText = medicationTemplates['single'];
                         }
                         medicationText = medicationText.replace('{0}', event.medication);
                         medicationText = medicationText.replace('{1}', event.expectedPerformanceTime.timePeriodStart);
@@ -475,21 +482,24 @@ class FluxConditionPresentAssertion extends FluxEntry {
                             medicationText = medicationText.replace('{2}', event.expectedPerformanceTime.timePeriodEnd);
                         }
                         hpiText += medicationText;
+                        hpiText += '\r\n';
                     }
                     break;
                 }
                 case FluxCancerProgression: {
                     if (event.asOfDate && event.status) {
-                        hpiText += `\r\n- ${event.status} as of ${event.asOfDate}`;
+                        hpiText += `- ${event.status} as of ${event.asOfDate}`;
                         if (event.evidence && event.evidence.length > 0) {
                             hpiText += ` based on ${event.evidence.join(', ')}`;
                         }
+                        hpiText += '\r\n';
                     }
                     break;
                 }
                 case FluxObservation: {
                     if (event.quantity && event.quantity.number && event.quantity.unit) {
-                        hpiText += `\r\n- ${event.name}: ${event.quantity.number} ${event.quantity.unit} on ${event.relevantTime}`;
+                        hpiText += `- ${event.name}: ${event.quantity.number} ${event.quantity.unit} on ${event.relevantTime}`;
+                        hpiText += '\r\n';
                     }
                     break;
                 }
