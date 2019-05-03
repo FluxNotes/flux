@@ -120,12 +120,14 @@ export default class TemplateSelectionView extends Component {
                         ); 
                     })}
                 </div>
-                <Button
-                    onClick={this.cancelTemplate}
-                    id="cancel-btn"
-                >
-                    Cancel
-                </Button>
+                <div id="cancel-btn-container">
+                    <Button
+                        onClick={this.cancelTemplate}
+                        id="cancel-btn"
+                    >
+                        Cancel
+                    </Button>
+                </div>
             </div>
         );
     }

@@ -1,8 +1,14 @@
 @import '../styles/variables';
 
+$cancel-button-height: 65px;
+
 #template-option-container {
-    padding: 20px;
     text-align: left;
+    /* 92x is the height of the on large screens Patient Control Panel, 15px is the height of the top margin of post encounter view content and a little extra for potential scroll bars*/
+    max-height: calc(100vh - 92px - 15px - #{$cancel-button-height});
+    // The bottom of the page has an odd padding; this accounts for that.
+    // margin-bottom: $cancel-button-height - 5px;
+    overflow-y: auto;
     #new-note-container {
         margin: $template-selection-view-margin;
     }
@@ -11,20 +17,31 @@
         width: 60%;
     }
     #available-templates-container {
-        margin: $template-selection-view-margin;
+        margin: $template-selection-view-margin $template-selection-view-margin 0 $template-selection-view-margin;
         display: flex;
         flex-wrap: wrap;
     }
-    #cancel-btn { 
+    #cancel-btn-container {
+        width: 100%;
+        background: $background;
         position: fixed;
         bottom: 0;
-        margin: 1em;
-        padding: 10px;
-        border: 1px solid $line-gray;
-        background-color: $background;
-        min-width: 160px;
-        &:hover { 
-            background-color: $feature-gray;
+        height: $cancel-button-height;
+        #cancel-btn {
+            margin: 1em;
+            padding: 10px;
+            border: 1px solid $line-gray;
+            background-color: $background;
+            min-width: 160px;
+            &:hover { 
+                background-color: $feature-gray;
+            }
         }
+    }
+}
+@media only screen and (max-width: 1200px) {
+    #template-option-container {
+        /* 117px is the height of the on large screens Patient Control Panel, 20px is the height of the top margin of post encounter view content and a little extra for potential scroll bars*/
+        max-height: calc(100vh - 117px - 15px - #{$cancel-button-height});
     }
 }
