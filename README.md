@@ -8,6 +8,8 @@ In addition, a no-patient version of the above concept has been created for situ
 
 ## Getting Started
 
+* If you are using a Mac, follow our [guide](https://github.com/FluxNotes/flux/wiki/Setup-a-new-Mac-for-Development) for setting up your Mac for Flux Notes development
+
 * Ensure that the following are installed: 
 
     - [Git](https://git-scm.com/downloads);
