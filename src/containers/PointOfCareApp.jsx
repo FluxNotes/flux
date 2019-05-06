@@ -24,7 +24,7 @@ import SearchIndex from '../patientControl/SearchIndex';
 import LoadingAnimation from '../loading/LoadingAnimation';
 import LoadingError from '../loading/LoadingError';
 
-import '../styles/PointOfCareApp.css'; // change me?
+import '../styles/PointOfCareApp.css';
 
 const theme = createMuiTheme({
     palette: {
@@ -340,7 +340,6 @@ export class PointOfCareApp extends Component {
     }
 }
 
-// TO-DO: CHECK THESE THESE
 PointOfCareApp.propTypes = {
     dataSource: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,

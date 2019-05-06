@@ -49,7 +49,6 @@ export default class PointOfCareDashboard extends Component {
     }
 }
 
-// TO-DO: CHECK ME
 PointOfCareDashboard.propTypes = {
     actions: PropTypes.array.isRequired,
     appState: PropTypes.object.isRequired,
