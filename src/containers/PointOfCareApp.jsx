@@ -256,7 +256,7 @@ export class PointOfCareApp extends Component {
     render() {
         return (
             <MuiThemeProvider theme={theme}>
-                <div className={(this.state.loading || this.state.loadingErrorObject) ? "FullApp-content loading-background" : "FullApp-content"}>
+                <div className={(this.state.loading || this.state.loadingErrorObject) ? "PointOfCareApp-content loading-background" : "PointOfCareApp-content"}>
                     <Grid fluid>
                         <Row center="xs">
                             <Col sm={12}>
