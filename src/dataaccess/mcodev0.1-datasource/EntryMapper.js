@@ -155,7 +155,6 @@ import NumberOfRefillsAllowed from '../../model/shr/medication/NumberOfRefillsAl
 import FluxPathologyReportV01 from './model/finding/FluxPathologyReport';
 import FluxPathologyReport from '../../model/finding/FluxPathologyReport';
 import MCODEV01ObjectFactory from './model/FluxObjectFactory';
-import ConsultRequested from '../../model/shr/encounter/ConsultRequested';
 import Encounter from '../../model/shr/encounter/Encounter';
 import RequestIntent from '../../model/shr/base/RequestIntent';
 import PossibleCause from '../../model/shr/adverse/PossibleCause';
@@ -168,6 +167,7 @@ import Patient from '../../model/shr/entity/Patient';
 import ParticipationPeriod from '../../model/shr/base/ParticipationPeriod';
 import Text from '../../model/shr/core/Text.js';
 import ConditionOrDiagnosisCode from '../../model/shr/base/ConditionOrDiagnosisCode.js';
+import FluxConsultRequested from '../../model/encounter/FluxConsultRequested.js';
 
 const mapEntryInfo = (entryInfo, entry) => {
     const newEntry = new Entry();
@@ -580,13 +580,14 @@ exports.mapEntries = (v01Json) => {
 
             v05Json.push(newAllergyIntolerance.toJSON());
         } else if (entry instanceof FluxConsultRequestedV01) {
-            const newConsultRequested = new ConsultRequested();
+            const newConsultRequested = new FluxConsultRequested();
 
-            mapEntryInfo(entry.entryInfo, newConsultRequested);
-            newConsultRequested.encounter = mapEncounter(entry._consultRequested.encounter);
-            newConsultRequested.reason = entry._consultRequested.reason.map(r => mapPassThrough(r, Reason));
-            newConsultRequested.requestIntent = mapRequestIntent(entry._consultRequested.requestIntent);
-            if (entry._consultRequested.expectedPerformer) newConsultRequested.expectedPerformer = mapPassThrough(entry._consultRequested.expectedPerformer, ExpectedPerformer);
+            mapEntryInfo(entry.entryInfo, newConsultRequested._consultRequested);
+            newConsultRequested._consultRequested.encounter = mapEncounter(entry._consultRequested.encounter);
+            newConsultRequested._consultRequested.reason = entry._consultRequested.reason.map(r => mapPassThrough(r, Reason));
+            newConsultRequested._consultRequested.requestIntent = mapRequestIntent(entry._consultRequested.requestIntent);
+            if (entry._consultRequested.expectedPerformer) newConsultRequested._consultRequested.expectedPerformer = mapPassThrough(entry._consultRequested.expectedPerformer, ExpectedPerformer);
+            if (entry._resultingClinicalNote) newConsultRequested._resultingClinicalNote = mapReference(entry._resultingClinicalNote);
 
             v05Json.push(newConsultRequested.toJSON());
         } else if (entry instanceof FluxHistologicGradeV01) {

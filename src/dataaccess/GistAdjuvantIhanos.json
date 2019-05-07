@@ -7166,6 +7166,13 @@
                     }
                 }
             }
+        },
+        "ResultingClinicalNote": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "5000",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
+            }
         }
     },
     {
@@ -7299,6 +7306,13 @@
                         }
                     }
                 }
+            }
+        },
+        "ResultingClinicalNote": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "5250",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
             }
         }
     },
@@ -7604,6 +7618,13 @@
                         }
                     }
                 }
+            }
+        },
+        "ResultingClinicalNote": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "5110",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
             }
         }
     },
