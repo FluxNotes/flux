@@ -1405,7 +1405,6 @@ class FluxNotesEditor extends React.Component {
         if (!Lang.isUndefined(remainder)) {
             remainder = remainder.split('<div>').join('');
         }
-
         const triggers = this.noteParser.getListOfTriggersFromText(textToBeInserted)[0];
         let pickListCount = 0;
 
@@ -1521,7 +1520,6 @@ class FluxNotesEditor extends React.Component {
                 let shortcut = this.props.shortcutManager.createShortcut(pickList.definition, pickList.trigger, this.props.patient, '', false);
                 shortcut.setSource("pick list/template");
                 shortcut.initialize(this.props.contextManager, pickList.trigger, false);
-
                 shortcutOptions = shortcut.getValueSelectionOptions();
                 localArrayOfPickListsWithOptions.push(
                     {

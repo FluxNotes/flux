@@ -691,7 +691,13 @@ function createStructuredField(opts, shortcut) {
     let nodes = [Slate.Text.createFromString(String(shortcut.getText()))];
     const isInserter = shortcut instanceof InsertValue;
     if (isInserter) {
-        const lines = String(shortcut.getText()).split(/\n\r|\r\n|\r|\n/g);
+        let lines;
+        if(Lang.isNull(shortcut.getText())){
+            lines = String(shortcut.getResultText()).split(/\n\r|\r\n|\r|\n/g);
+        }
+        else {
+            lines = String(shortcut.getText()).split(/\n\r|\r\n|\r|\n/g);
+        }
         let textNodes = [];
         let inlines = [];
         lines.forEach((line, i) => {

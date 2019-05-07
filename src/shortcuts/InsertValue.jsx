@@ -182,7 +182,8 @@ export default class InsertValue extends Shortcut {
     }
 
     getLabel() {
-        return this.getOriginalText() ? this.getOriginalText() : this.getText();
+        let display = this.getText() ? this.getText() : this.getResultText();
+        return this.getOriginalText() ? this.getOriginalText() : display;
     }
 
     getId() {
@@ -190,17 +191,24 @@ export default class InsertValue extends Shortcut {
     }
 
     getText() {
-        return this.text ? this.text : this.initiatingTrigger;
+        return this.text;
     }
 
     getArrayOfText() {
         return Lang.isArray(this.text) ? this.text : [];
     }
 
+
     getResultText(displayText = null) {
         let text = displayText || this.text; // Use provided text to override shortcut text
-        if (typeof text === "string" && text.startsWith(this.getPrefixCharacter())) {
+        if(Lang.isNull(text)) {
+            text = this.initiatingTrigger;
+        }
+        else if (typeof text === "string" && text.startsWith(this.getPrefixCharacter())) {
             text = text.substring(1);
+        }
+        if(text === this.initiatingTrigger){
+            return `${text}`;
         }
         // If this.valueObject exists, put the entryId of the valueObject in the result text
         if (this.valueObject) {
@@ -212,6 +220,7 @@ export default class InsertValue extends Shortcut {
             };
             return `${this.initiatingTrigger}[[${JSON.stringify(shortcutDataObj)}]]`;
         }
+      
         return `${this.initiatingTrigger}[[${text}]]`;
     }
 
