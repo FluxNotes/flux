@@ -78,6 +78,10 @@ export default class NoteAssistant extends Component {
         }
     }
 
+    componentWillUnmount() {
+        this.props.searchIndex.removeDataBySection('Clinical Notes');
+    }
+
     isScrolledIntoView(elem){
         let el = elem;
         var rect = el.getBoundingClientRect(), top = rect.top, height = rect.height;

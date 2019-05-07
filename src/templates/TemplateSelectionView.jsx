@@ -45,7 +45,7 @@ export default class TemplateSelectionView extends Component {
             minMatchCharLength: 1,
             keys: [
                 "name"
-                // TODO: Evaluate adding other buttons 
+                // TODO: Evaluate adding other keys
             ]
         };
         this.templateFuse = new Fuse(this.templates,fuseOptions)
