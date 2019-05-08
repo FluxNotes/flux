@@ -2,6 +2,7 @@ import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
 import CreationTime from '../shr/core/CreationTime';
 import LastUpdated from '../shr/base/LastUpdated';
+import Reference from '../Reference';
 import moment from 'moment';
 import Lang from 'lodash';
 
@@ -26,6 +27,10 @@ class FluxClinicalNote {
         // Ensures even empty strings result in content definition
         if (json.content || json.content === "") this._content = json.content;
         if (!Lang.isUndefined(json.signed)) this._signed = json.signed;
+        if (json.DocumentedEncounter) {
+            const { _ShrId, _EntryId, _EntryType } = json.DocumentedEncounter;
+            this._documentedEncounter = new Reference(_ShrId, _EntryId, _EntryType);
+        }
     }
     /**
      * Getter for entry information (shr.base.Entry)
@@ -102,7 +107,8 @@ class FluxClinicalNote {
     }
 
     toJSON() {
-        let clinicalNoteJSON = {};
+        const clinicalNoteJSON = {};
+
         clinicalNoteJSON.ShrId = this.entryInfo.shrId;
         clinicalNoteJSON.EntryId = this.entryInfo.entryId;
         clinicalNoteJSON.EntryType = this.entryInfo.entryType.toJSON();
@@ -116,6 +122,8 @@ class FluxClinicalNote {
         clinicalNoteJSON.CreationTime = this.entryInfo.creationTime;
         clinicalNoteJSON.LastUpdated = this.entryInfo.lastUpdated;
         clinicalNoteJSON.signed = this.signed;
+        if (this._documentedEncounter) clinicalNoteJSON.DocumentedEncounter = this._documentedEncounter.toJSON();
+
         return clinicalNoteJSON;
     }
 }
