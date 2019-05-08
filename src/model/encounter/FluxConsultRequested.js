@@ -94,6 +94,16 @@ class FluxConsultRequested {
         }
     }
 
+    // returns resulting clinical note reference
+    get resultingClinicalNote() {
+        return this._resultingClinicalNote;
+    }
+
+    // sets resulting clinical note reference
+    set resultingClinicalNote(clinicalNote) {
+        this._resultingClinicalNote = clinicalNote;
+    }
+
     toJSON() {
         const json = this._consultRequested.toJSON();
 

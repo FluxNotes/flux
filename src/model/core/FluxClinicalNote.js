@@ -32,6 +32,7 @@ class FluxClinicalNote {
             this._documentedEncounter = new Reference(_ShrId, _EntryId, _EntryType);
         }
     }
+
     /**
      * Getter for entry information (shr.base.Entry)
      */
@@ -44,6 +45,14 @@ class FluxClinicalNote {
      */
     set entryInfo(entryVal) {
         this._entryInfo = entryVal;
+    }
+
+    get metadata() {
+        return this._metadata;
+    }
+
+    set metadata(metadata) {
+        this._metadata = metadata;
     }
     
     get signedOn() {
@@ -106,22 +115,33 @@ class FluxClinicalNote {
         this._signed = val;
     }
 
-    toJSON() {
-        const clinicalNoteJSON = {};
+    // returns documented encounter reference
+    get documentedEncounter() {
+        return this._documentedEncounter;
+    }
 
-        clinicalNoteJSON.ShrId = this.entryInfo.shrId;
-        clinicalNoteJSON.EntryId = this.entryInfo.entryId;
-        clinicalNoteJSON.EntryType = this.entryInfo.entryType;
-        clinicalNoteJSON.PersonOfRecord = this.entryInfo.personOfRecord;
-        clinicalNoteJSON.signedOn = this.signedOn;
-        clinicalNoteJSON.signedBy = this.signedBy;
-        clinicalNoteJSON.subject = this.subject;
-        clinicalNoteJSON.hospital = this.hospital;
-        clinicalNoteJSON.createdBy = this.createdBy;
-        clinicalNoteJSON.content = this.content;
-        clinicalNoteJSON.CreationTime = this.entryInfo.creationTime;
-        clinicalNoteJSON.LastUpdated = this.entryInfo.lastUpdated;
-        clinicalNoteJSON.signed = this.signed;
+    // sets documented encounter reference
+    set documentedEncounter(encounter) {
+        this._documentedEncounter = encounter;
+    }
+
+    toJSON() {
+        const clinicalNoteJSON = {
+            ShrId: this.entryInfo.shrId,
+            EntryId: this.entryInfo.entryId,
+            EntryType: this.entryInfo.entryType,
+            PersonOfRecord: this.entryInfo.personOfRecord,
+            signedOn: this.signedOn,
+            signedBy: this.signedBy,
+            subject: this.subject,
+            hospital: this.hospital,
+            createdBy: this.createdBy,
+            content: this.content,
+            CreationTime: this.entryInfo.creationTime,
+            LastUpdated: this.entryInfo.lastUpdated,
+            signed: this.signed,
+        };
+
         if (this._documentedEncounter) clinicalNoteJSON.DocumentedEncounter = this._documentedEncounter.toJSON();
 
         return clinicalNoteJSON;

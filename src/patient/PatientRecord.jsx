@@ -253,7 +253,7 @@ class PatientRecord {
     }
 
     // return the soonest upcoming encounter. Includes encounters happening later today.
-    getNextEncounter(){
+    getNextEncounter() {
         let encounters = this.getEncountersChronologicalOrder();
 
         // filter out any encounters happening after the specified moment argument
@@ -262,6 +262,32 @@ class PatientRecord {
             const encounterStartTime = new moment(encounter.expectedPerformanceTime, "D MMM YYYY HH:mm Z");
             return encounterStartTime.isAfter(now, "second");
         })[0];
+    }
+
+    // return the closest encounter by absolute time(past or future)
+    getClosestEncounter() {
+        const encounters = this.getEntriesOfType(FluxConsultRequested).filter(e => !e.resultingClinicalNote);
+        if (encounters.length === 0) return null;
+
+        // Find the shortest absolute difference in time between today and encounter dates
+        const today = moment().startOf('day');
+        let encounterDate = moment(encounters[0].expectedPerformanceTime, 'D MMM YYYY HH:mm ZZ').startOf('day');
+        let minDelta = Math.abs(today.diff(encounterDate));
+        let closestEncounter = encounters[0];
+
+        // Loop through rest of encounters and find small difference
+        for (let i = 1; i < encounters.length; i++) {
+            const encounter = encounters[i];
+
+            let encounterDate = moment(encounter.expectedPerformanceTime, 'D MMM YYYY HH:mm ZZ').startOf('day');
+            const delta = Math.abs(today.diff(encounterDate));
+            if (delta < minDelta) {
+                minDelta = delta;
+                closestEncounter = encounter;
+            }
+        }
+
+        return closestEncounter;
     }
 
     // returns sorted list of encounters
@@ -497,25 +523,36 @@ class PatientRecord {
 
     // Add initial unsigned note to patient record
     addClinicalNote(signedOn, subject, hospital, createdBy, signedBy, content, signed) {
+        const clinicalNoteJson = {
+            signedOn,
+            subject,
+            hospital,
+            createdBy,
+            signedBy,
+            content,
+            signed,
+        };
 
-        // Generate the clinical note json from passed in values
-        let clinicalNote = new FluxClinicalNote(
-            {
-                "signedOn": signedOn,
-                "subject": subject,
-                "hospital": hospital,
-                "createdBy": createdBy,
-                "signedBy": signedBy,
-                "content": content,
-                "signed": signed
-            }
-        );
+        const clinicalNote = new FluxClinicalNote(clinicalNoteJson);
+        this.addEntryToPatientWithPatientFocalSubject(clinicalNote, null);
 
-        return this.addEntryToPatientWithPatientFocalSubject(clinicalNote, null).entryInfo.entryId;
+        // Get closest encounter and link to new note
+        const closestEncounter = this.getClosestEncounter();
+        if (closestEncounter) {
+            clinicalNote.documentedEncounter = this.createEntryReferenceTo(closestEncounter);
+            closestEncounter.resultingClinicalNote = this.createEntryReferenceTo(clinicalNote);
+        }
+
+        return clinicalNote.entryInfo.entryId;
     }
 
     // Remove a given clinical note from a patient record
     removeClinicalNote(note) {
+        // Remove linkage to encounter before removing note
+        if (note.documentedEncounter) {
+            this.getEntryFromReference(note.documentedEncounter).resultingClinicalNote = null;
+        }
+
         this.removeEntryFromPatient(note);
     }
 
