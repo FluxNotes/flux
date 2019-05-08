@@ -50,6 +50,21 @@ export default class NotesPanel extends Component {
                 // Then clear the contextTray Item to insert
                 this.updateContextTrayItemToInsert(null);
             }
+            // We need these three cases as an if-else because we don't want to be saving notes after deletion;
+            if (!Lang.isNull(this.props.openClinicalNote) && this.state.noteAssistantMode === "pick-list-options-panel") {
+                // If our current note isn't null, and we were in the process of selecting pick-list values
+                // We should return to ClinicalNotes mode for our note assistance
+                console.log("current note isn't null and we were trying to insert a template");
+                this.updateNoteAssistantMode("clinical-notes");
+            } else if (!Lang.isNull(this.props.openClinicalNote) && Lang.isEmpty(this.props.openClinicalNote.content) && this.state.showTemplateView) {
+                // If we have a note, and it's content is empty, and we're in templateView
+                // We have already clicked new note and we're picking a template
+                // - We want to remove this blank note and stop picking a template
+                console.log("current note is blank and we were picking a template");
+                this.updateShowTemplateView(false);
+            // } else {
+            //     // In all other cases, save our note before changing to the new openClinicalNotex
+            }
             // Always save the note and handle updates with new content
             this.saveNote(this.state.localDocumentText);
             this.handleUpdateEditorWithNote(nextProps.openClinicalNote);
