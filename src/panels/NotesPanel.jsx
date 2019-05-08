@@ -45,25 +45,19 @@ export default class NotesPanel extends Component {
     componentWillReceiveProps = (nextProps) => {
         // If the note we're about to have open is different...
         if (!Lang.isNull(nextProps.openClinicalNote) && this.props.openClinicalNote !== nextProps.openClinicalNote) {
-            // If our current note isn't null, and we aren't trying to insert a template, 
             if (!Lang.isNull(this.props.openClinicalNote) && !this.state.showTemplateView) {
-                // Then clear the contextTray Item to insert
+                // If our current note isn't null, and we aren't trying to insert a template, 
+                // - Then clear the contextTray Item to insert
                 this.updateContextTrayItemToInsert(null);
             }
-            // We need these three cases as an if-else because we don't want to be saving notes after deletion;
             if (!Lang.isNull(this.props.openClinicalNote) && this.state.noteAssistantMode === "pick-list-options-panel") {
                 // If our current note isn't null, and we were in the process of selecting pick-list values
-                // We should return to ClinicalNotes mode for our note assistance
-                console.log("current note isn't null and we were trying to insert a template");
+                // - We should return to ClinicalNotes mode for note assistance
                 this.updateNoteAssistantMode("clinical-notes");
-            } else if (!Lang.isNull(this.props.openClinicalNote) && Lang.isEmpty(this.props.openClinicalNote.content) && this.state.showTemplateView) {
-                // If we have a note, and it's content is empty, and we're in templateView
-                // We have already clicked new note and we're picking a template
-                // - We want to remove this blank note and stop picking a template
-                console.log("current note is blank and we were picking a template");
+            } else if (!Lang.isNull(this.props.openClinicalNote) && this.state.showTemplateView && nextProps.openClinicalNote.signed) {
+                // If our current note isn't null, we're in templateView, and our next note is signed
+                // - We want to stop picking a template, so we can see our newly selected note
                 this.updateShowTemplateView(false);
-            // } else {
-            //     // In all other cases, save our note before changing to the new openClinicalNotex
             }
             // Always save the note and handle updates with new content
             this.saveNote(this.state.localDocumentText);
