@@ -182,7 +182,7 @@ export default class InsertValue extends Shortcut {
     }
 
     getLabel() {
-        let display = this.getText() ? this.getText() : this.getResultText();
+        let display = this.getText() ? this.getText() : this.getDisplayText();
         return this.getOriginalText() ? this.getOriginalText() : display;
     }
 
@@ -199,7 +199,7 @@ export default class InsertValue extends Shortcut {
     }
 
 
-    getResultText(displayText = null) {
+    getDisplayText(displayText = null) {
         let text = displayText || this.text; // Use provided text to override shortcut text
         if(Lang.isNull(text)) {
             text = this.initiatingTrigger;

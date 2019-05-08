@@ -341,9 +341,9 @@ function StructuredFieldPlugin(opts) {
                 const shortcut = node.data.shortcut;
                 if (shortcut instanceof InsertValue) {
                     // Inserters have characters as their children. Use characters to get current text in the node.
-                    result += shortcut.getResultText(node.nodes[0].characters.map(c => c.text).join(''));
+                    result += shortcut.getDisplayText(node.nodes[0].characters.map(c => c.text).join(''));
                 } else {
-                    result += shortcut.getResultText();
+                    result += shortcut.getDisplayText();
                 }
             } else if (node.type === 'placeholder') {
                 result += node.data.placeholder.getResultText();
@@ -520,7 +520,7 @@ function StructuredFieldPlugin(opts) {
         this.onCopy(event, data, state, editor); // doesn't change state
         const window = getWindow(event.target);
 
-        // Once the fake cut content has successfully been added to the clipboard,
+        // Once the fake cut content has successfully been added to the cl\]pboard,
         // delete the content in the current selection.
         let next;
         window.requestAnimationFrame(() => {
@@ -693,7 +693,7 @@ function createStructuredField(opts, shortcut) {
     if (isInserter) {
         let lines;
         if(Lang.isNull(shortcut.getText())){
-            lines = String(shortcut.getResultText()).split(/\n\r|\r\n|\r|\n/g);
+            lines = String(shortcut.getDisplayText()).split(/\n\r|\r\n|\r|\n/g);
         }
         else {
             lines = String(shortcut.getText()).split(/\n\r|\r\n|\r|\n/g);
