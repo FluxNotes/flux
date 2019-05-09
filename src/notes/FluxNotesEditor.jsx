@@ -1743,14 +1743,14 @@ class FluxNotesEditor extends React.Component {
             noteTitle = this.props.selectedNote.subject;
             source = this.props.selectedNote.hospital;
 
-            if(this.props.selectedNote.signed) {
+            if (this.props.selectedNote.signed) {
                 signed = true;
                 date = this.props.selectedNote.signedOn;
                 clinicianName = this.props.selectedNote.signedBy;
                 authorString = "Signed by: ";
                 dateString = "Signed date: "
             } else {
-                date = this.props.selectedNote.entryInfo.creationTime.value;
+                date = this.props.selectedNote.createdOn;
                 clinicianName = this.props.selectedNote.createdBy;
                 authorString = "Created by: ";
                 dateString = "Created date: ";
