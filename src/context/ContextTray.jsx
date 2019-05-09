@@ -22,13 +22,6 @@ export default class ContextTray extends Component {
         };
     }
 
-    // componentWillReceiveProps = (nextProps) => {
-    //     // If show template view is true, set the view to template view, otherwise check if current view is template view. If the view is currently a template go to shortcut view, else leave the view as is
-    //     // (ex. if in placeholder view, stay in placeholder view)
-    //     const viewMode = nextProps.showTemplateView ? this.TEMPLATE_VIEW : (this.state.viewMode === this.TEMPLATE_VIEW ? this.SHORTCUT_VIEW : this.state.viewMode);
-    //     this.setState ({ viewMode });
-    // }
-
     handleSnippetSectionClick = () => {
         this.setState({
             viewMode: this.SNIPPET_VIEW
