@@ -42,18 +42,36 @@ $note-assistant-width-3: 160px;
             background-color: $background !important;
             box-shadow: none;
             border: 1px solid $line-gray;
+            .colored-fill {
+                fill: $icons-gray;
+            }
+            g {
+                stroke: $icons-gray;
+            }
+            // For selected toggle buttons
+            &.selected {
+                background-color: $interface-blue !important;
+                .colored-fill {
+                    fill: $background;
+                }
+                g {
+                    stroke: $background;
+                }
+            }
+            // For disabled toggle buttns
+            &.disabled {
+                // feature gray is probably better (DR).
+                background-color: $feature-gray !important;
+                border-color: $feature-gray;
+                .colored-fill {
+                    fill: $icons-gray;
+                }
+                g {
+                    stroke: $icons-gray;
+                }
+            }
         }
 
-        .toggle-button-selected {
-            background-color: $interface-blue !important;
-        }
-
-        .toggle-button-disabled {
-            // Shouldn't be line gray cannonically, but it is the best one for now.
-            // feature gray is probably better (DR).
-            background-color: $feature-gray !important;
-            border-color: $feature-gray;
-        }
 
         .first-button {
             border-radius: 4px 0px 0px 4px;

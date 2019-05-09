@@ -1,0 +1,13 @@
+@import '../styles/variables.scss';
+
+.condition-contexts,
+.section-active {
+    margin-left: 5px;
+}
+
+#shortcut-search-container {
+    width: 100%;
+    padding:  0 $note-assistant-overhang 15px $note-assistant-overhang;
+    border-bottom: 1px solid $line-gray;
+    background-color: $background;
+}

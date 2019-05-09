@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Lang from 'lodash';
 
 import ContextOptions from './ContextOptions';
-import ShortcutSearch from './ShortcutSearch';
+import SearchBar from '../elements/SearchBar';
 import './ShortcutViewModeContent.css';
 
 export default class ShortcutViewModeContent extends Component {
@@ -50,7 +50,7 @@ export default class ShortcutViewModeContent extends Component {
     }
 
     handleShortcutClick = (shortcut) => {
-        this.props.onShortcutClicked(shortcut); // + shortcut.substring(0, 1)); no longer need trailing @ or #
+        this.props.onClick(shortcut); // + shortcut.substring(0, 1)); no longer need trailing @ or #
     }
 
     // Get all contexts being used in the editor
@@ -111,10 +111,13 @@ export default class ShortcutViewModeContent extends Component {
         const activeContexts = this.getActiveContexts();
         return (
             <div>
-                <ShortcutSearch
-                    currentSearchString={this.state.searchString}
-                    handleSearch={this.handleSearch}
+                <div id="shortcut-search-container">
+                    <SearchBar
+                        currentSearchString={this.state.searchString}
+                        handleSearch={this.handleSearch}
+                        label="Search shortcuts"
                     />
+                </div>
                 {this.renderAllActiveContexts(activeContexts)}
                 <ContextOptions
                     searchString={this.state.searchString}
@@ -129,7 +132,7 @@ export default class ShortcutViewModeContent extends Component {
 
 ShortcutViewModeContent.proptypes = {
     contextManager: PropTypes.object.isRequired,
-    onShortcutClicked: PropTypes.func.isRequired,
+    onClick: PropTypes.func.isRequired,
     patient: PropTypes.object.isRequired,
     shortcutManager: PropTypes.object.isRequired,
 }
