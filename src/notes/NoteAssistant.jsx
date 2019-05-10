@@ -105,13 +105,13 @@ export default class NoteAssistant extends Component {
         let b_date;
 
         if (Lang.isUndefined(a.signedOn) || Lang.isNull(a.signedOn)) {
-            a_date = a.entryInfo.creationTime.value;
+            a_date = a.createdOn;
         } else {
             a_date = a.signedOn;
         }
 
         if (Lang.isUndefined(b.signedOn) || Lang.isNull(b.signedOn)) {
-            b_date = b.entryInfo.creationTime.value;
+            b_date = b.createdOn;
         } else {
             b_date = b.signedOn;
         }
@@ -318,7 +318,7 @@ export default class NoteAssistant extends Component {
                 this.openNote(note)
             }}>
                 <div className="in-progress-text">In progress note</div>
-                <div className="in-progress-note-date">{note.entryInfo.creationTime.value}</div>
+                <div className="in-progress-note-date">{note.createdOn}</div>
                 <div className="in-progress-note-subject">{note.subject}</div>
                 <div className="in-progress-note-author">{note.createdBy}</div>
                 {this.renderMetaDataText(note, 30)}

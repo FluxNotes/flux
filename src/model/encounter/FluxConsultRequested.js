@@ -1,27 +1,33 @@
 import ConsultRequested from '../shr/encounter/ConsultRequested';
+import Reference from '../Reference';
 import Lang from 'lodash';
 
 class FluxConsultRequested {
     constructor(json) {
-        if (json["ReferralDate"]) {
-            this._referralDate = json["ReferralDate"].value;
-        }
+        if (json) {
+            if (json["ReferralDate"]) {
+                this._referralDate = json["ReferralDate"].value;
+            }
 
-        // Clone the json first otherwise the backend test fails
-        const clonedJSON = Lang.cloneDeep(json);
-        delete clonedJSON.ReferralDate;
-        this._consultRequested = ConsultRequested.fromJSON(clonedJSON);
+            if (json.ResultingClinicalNote) {
+                const { _ShrId, _EntryId, _EntryType } = json.ResultingClinicalNote;
+                this._resultingClinicalNote = new Reference(_ShrId, _EntryId, _EntryType);
+            }
+
+            // Clone the json first otherwise the backend test fails
+            const clonedJSON = Lang.cloneDeep(json);
+            delete clonedJSON.ReferralDate;
+            delete clonedJSON.ResultingClinicalNote;
+            this._consultRequested = ConsultRequested.fromJSON(clonedJSON);
+        } else {
+            this._consultRequested = new ConsultRequested();
+        }
     }
 
     get ReferralDate() {
         return this._referralDate;
     }
 
-    /**
-     *  Setter for evidence
-     *  The method is expecting an array of reason strings
-     *  The method will lookup the corresponding coding/codesystem and set the evidence array
-     */
     set referralDate(date) {
         this._referralDate = date;
     }
@@ -40,7 +46,7 @@ class FluxConsultRequested {
 
     get practitioner() {
         if (this._consultRequested.expectedPerformer)
-            return this._consultRequested.expectedPerformer.value.person.name; 
+            return this._consultRequested.expectedPerformer.value.person.name;
         return null;
     }
 
@@ -88,8 +94,22 @@ class FluxConsultRequested {
         }
     }
 
+    // returns resulting clinical note reference
+    get resultingClinicalNote() {
+        return this._resultingClinicalNote;
+    }
+
+    // sets resulting clinical note reference
+    set resultingClinicalNote(clinicalNote) {
+        this._resultingClinicalNote = clinicalNote;
+    }
+
     toJSON() {
-        return this._consultRequested.toJSON();
+        const json = this._consultRequested.toJSON();
+
+        if (this._resultingClinicalNote) json.ResultingClinicalNote = this._resultingClinicalNote.toJSON();
+
+        return json;
     }
 }
 

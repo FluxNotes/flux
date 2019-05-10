@@ -155,7 +155,6 @@ import NumberOfRefillsAllowed from '../../model/shr/medication/NumberOfRefillsAl
 import FluxPathologyReportV01 from './model/finding/FluxPathologyReport';
 import FluxPathologyReport from '../../model/finding/FluxPathologyReport';
 import MCODEV01ObjectFactory from './model/FluxObjectFactory';
-import ConsultRequested from '../../model/shr/encounter/ConsultRequested';
 import Encounter from '../../model/shr/encounter/Encounter';
 import RequestIntent from '../../model/shr/base/RequestIntent';
 import PossibleCause from '../../model/shr/adverse/PossibleCause';
@@ -168,6 +167,8 @@ import Patient from '../../model/shr/entity/Patient';
 import ParticipationPeriod from '../../model/shr/base/ParticipationPeriod';
 import Text from '../../model/shr/core/Text.js';
 import ConditionOrDiagnosisCode from '../../model/shr/base/ConditionOrDiagnosisCode.js';
+import FluxConsultRequested from '../../model/encounter/FluxConsultRequested.js';
+import FluxClinicalNote from '../../model/core/FluxClinicalNote.js';
 
 const mapEntryInfo = (entryInfo, entry) => {
     const newEntry = new Entry();
@@ -531,7 +532,22 @@ exports.mapEntries = (v01Json) => {
             if (entry._person.maritalStatus) newPerson._person.maritalStatus = mapPassThrough(entry._person.maritalStatus, MaritalStatus);
             newPerson._person.race = mapPassThrough(entry._person.race, Race);
             v05Json.push(newPerson._person.toJSON());
-        } else if (entry instanceof FluxPatientIdentifierV01 || entry instanceof FluxClinicalNoteV01) {
+        } else if (entry instanceof FluxClinicalNoteV01) {
+            const newClinicalNote = new FluxClinicalNote();
+
+            mapEntryInfo(entry.entryInfo, newClinicalNote);
+            newClinicalNote.signedOn = entry.signedOn;
+            newClinicalNote.signedBy = entry.signedBy;
+            newClinicalNote.subject = entry.subject;
+            newClinicalNote.hospital = entry.hospital;
+            newClinicalNote.createdBy = entry.createdBy;
+            newClinicalNote.content = entry.content;
+            newClinicalNote.signed = entry.signed;
+            newClinicalNote._createdOn = entry.createdOn;
+            if (entry._documentedEncounter) newClinicalNote.documentedEncounter = mapReference(entry._documentedEncounter);
+
+            v05Json.push(newClinicalNote.toJSON());
+        } else if (entry instanceof FluxPatientIdentifierV01) {
             v05Json.push(entry.toJSON());
         } else if (entry instanceof FluxGastrointestinalStromalTumorV01) {
             const newCondition = mapCancerDisorder(entry, CancerDisorderPresent);
@@ -580,13 +596,14 @@ exports.mapEntries = (v01Json) => {
 
             v05Json.push(newAllergyIntolerance.toJSON());
         } else if (entry instanceof FluxConsultRequestedV01) {
-            const newConsultRequested = new ConsultRequested();
+            const newConsultRequested = new FluxConsultRequested();
 
-            mapEntryInfo(entry.entryInfo, newConsultRequested);
-            newConsultRequested.encounter = mapEncounter(entry._consultRequested.encounter);
-            newConsultRequested.reason = entry._consultRequested.reason.map(r => mapPassThrough(r, Reason));
-            newConsultRequested.requestIntent = mapRequestIntent(entry._consultRequested.requestIntent);
-            if (entry._consultRequested.expectedPerformer) newConsultRequested.expectedPerformer = mapPassThrough(entry._consultRequested.expectedPerformer, ExpectedPerformer);
+            mapEntryInfo(entry.entryInfo, newConsultRequested._consultRequested);
+            newConsultRequested._consultRequested.encounter = mapEncounter(entry._consultRequested.encounter);
+            newConsultRequested._consultRequested.reason = entry._consultRequested.reason.map(r => mapPassThrough(r, Reason));
+            newConsultRequested._consultRequested.requestIntent = mapRequestIntent(entry._consultRequested.requestIntent);
+            if (entry._consultRequested.expectedPerformer) newConsultRequested._consultRequested.expectedPerformer = mapPassThrough(entry._consultRequested.expectedPerformer, ExpectedPerformer);
+            if (entry._resultingClinicalNote) newConsultRequested._resultingClinicalNote = mapReference(entry._resultingClinicalNote);
 
             v05Json.push(newConsultRequested.toJSON());
         } else if (entry instanceof FluxHistologicGradeV01) {

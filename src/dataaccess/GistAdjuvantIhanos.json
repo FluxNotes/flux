@@ -7166,6 +7166,13 @@
                     }
                 }
             }
+        },
+        "ResultingClinicalNote": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "5000",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
+            }
         }
     },
     {
@@ -7300,6 +7307,13 @@
                     }
                 }
             }
+        },
+        "ResultingClinicalNote": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "5250",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
+            }
         }
     },
     {
@@ -7325,6 +7339,13 @@
             "Value": "01 Jul 2016",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "DocumentedEncounter": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "3000",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested"
             }
         }
     },
@@ -7605,6 +7626,13 @@
                     }
                 }
             }
+        },
+        "ResultingClinicalNote": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "5110",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
+            }
         }
     },
     {
@@ -7630,6 +7658,13 @@
             "Value": "18 Jul 2016",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "DocumentedEncounter": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "5100",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested"
             }
         }
     },
@@ -7680,7 +7715,7 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
                 },
                 "TimePeriodStart": {
-                    "Value": "19 Mar 2016 9:50 -0500",
+                    "Value": "03 Aug 2016 9:50 -0500",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
                     }
@@ -7765,6 +7800,13 @@
                     }
                 }
             }
+        },
+        "ResultingClinicalNote": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "5160",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
+            }
         }
     },
     {
@@ -7790,6 +7832,13 @@
             "Value": "03 Aug 2016",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "DocumentedEncounter": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "5150",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested"
             }
         }
     },
@@ -7843,6 +7892,13 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
+        },
+        "DocumentedEncounter": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "3010",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested"
+            }
         }
     },
     {
@@ -7892,7 +7948,7 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
                 },
                 "TimePeriodStart": {
-                    "Value": "15 June 2016 9:20 -0500",
+                    "Value": "30 Oct 2016 9:20 -0500",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
                     }
@@ -7977,6 +8033,13 @@
                     }
                 }
             }
+        },
+        "ResultingClinicalNote": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "5310",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
+            }
         }
     },
     {
@@ -8002,6 +8065,13 @@
             "Value": "30 Oct 2016",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "DocumentedEncounter": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "5300",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested"
             }
         }
     },
@@ -8573,7 +8643,7 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
                 },
                 "TimePeriodStart": {
-                    "Value": "19 Jul 2016 9:20 -0500",
+                    "Value": "03 Dec 2016 9:20 -0500",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
                     }
@@ -8658,6 +8728,13 @@
                     }
                 }
             }
+        },
+        "ResultingClinicalNote": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "5410",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
+            }
         }
     },
     {
@@ -8683,6 +8760,13 @@
             "Value": "03 Dec 2016",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "DocumentedEncounter": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "5400",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested"
             }
         }
     },
@@ -9392,7 +9476,7 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
                 },
                 "TimePeriodStart": {
-                    "Value": "22 Oct 2016 9:30 -0500",
+                    "Value": "08 Mar 2017 9:30 -0500",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
                     }
@@ -9477,6 +9561,13 @@
                     }
                 }
             }
+        },
+        "ResultingClinicalNote": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "5510",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
+            }
         }
     },
     {
@@ -9502,6 +9593,13 @@
             "Value": "08 Mar 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "DocumentedEncounter": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "5500",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested"
             }
         }
     },
@@ -9980,7 +10078,7 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
                 },
                 "TimePeriodStart": {
-                    "Value": "8 Jun 2017 10:20 -0400",
+                    "Value": "08 Jun 2017 10:20 -0400",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
                     }
@@ -10065,6 +10163,13 @@
                     }
                 }
             }
+        },
+        "ResultingClinicalNote": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "5610",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
+            }
         }
     },
     {
@@ -10090,6 +10195,13 @@
             "Value": "08 Jun 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "DocumentedEncounter": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "5600",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested"
             }
         }
     },
@@ -10653,6 +10765,13 @@
                     }
                 }
             }
+        },
+        "ResultingClinicalNote": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "5710",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
+            }
         }
     },
     {
@@ -10678,6 +10797,13 @@
             "Value": "28 Nov 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "DocumentedEncounter": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "5700",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested"
             }
         }
     },
@@ -11156,7 +11282,7 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
                 },
                 "TimePeriodStart": {
-                    "Value": "22 Jan 2018 9:00 -0500",
+                    "Value": "08 Jun 2018 9:00 -0500",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
                     }
@@ -11241,6 +11367,13 @@
                     }
                 }
             }
+        },
+        "ResultingClinicalNote": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "5810",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
+            }
         }
     },
     {
@@ -11266,6 +11399,13 @@
             "Value": "08 Jun 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "DocumentedEncounter": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "5800",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested"
             }
         }
     },
@@ -11744,7 +11884,7 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
                 },
                 "TimePeriodStart": {
-                    "Value": "1 Dec 2018 14:45 -0500",
+                    "Value": "01 Dec 2018 14:45 -0500",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
                     }
@@ -11829,6 +11969,13 @@
                     }
                 }
             }
+        },
+        "ResultingClinicalNote": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "5910",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
+            }
         }
     },
     {
@@ -11854,6 +12001,13 @@
             "Value": "01 Dec 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "DocumentedEncounter": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+            "_EntryId": "5900",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested"
             }
         }
     },
