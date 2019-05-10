@@ -8,8 +8,10 @@ import './SimilarPatientsSelector.css';
 export default class SimilarPatientsSelector extends Component {
     render() {
         const {
+            patient,
             similarPatientProps,
             selectSimilarPatientOption,
+            selectSimilarPatientOptionRange,
             selectAllCategorySimilarPatientOptions,
             selectAllSimilarPatientOptions
         } = this.props;
@@ -31,15 +33,18 @@ export default class SimilarPatientsSelector extends Component {
                 </div>
 
                 <div className="similar-patients-selector__options">
-                    {Object.keys(similarPatientProps).map((option) => {
+                    {Object.keys(similarPatientProps).map(option => {
                         return (
                             <OptionsCheckboxList
                                 key={option}
+                                category={option}
+                                patientAge={patient.getAge()}
                                 options={similarPatientProps[option]}
                                 setSelected={(key, selected) => selectSimilarPatientOption(option, key, selected)}
-                                setAllSelected={(selected) => selectAllCategorySimilarPatientOptions(option, selected)}
+                                setAllSelected={selected => selectAllCategorySimilarPatientOptions(option, selected)}
+                                selectSimilarPatientOptionRange={selectSimilarPatientOptionRange}
                             />
-                        )
+                        );
                     })}
                 </div>
             </div>
@@ -52,6 +57,7 @@ SimilarPatientsSelector.propTypes = {
     condition: PropTypes.object.isRequired,
     similarPatientProps: PropTypes.object.isRequired,
     selectSimilarPatientOption: PropTypes.func.isRequired,
+    selectSimilarPatientOptionRange: PropTypes.func.isRequired,
     selectAllCategorySimilarPatientOptions: PropTypes.func.isRequired,
     selectAllSimilarPatientOptions: PropTypes.func.isRequired
 };

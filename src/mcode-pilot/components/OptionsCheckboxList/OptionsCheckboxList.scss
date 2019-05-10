@@ -34,6 +34,19 @@
             &__title {
                color: $body-gray;
             }
+
+            &__selection {
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .range {
+                margin-left: -10px;
+                color: $interface-blue-text;
+                font-size: 0.875rem;
+                font-weight: 400;
+                cursor: pointer;
+            }
         }
     }
 

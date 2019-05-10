@@ -1,0 +1,51 @@
+@import '../../../styles/variables';
+
+.options-range-selector {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    min-width: 300px;
+    min-height: 100px;
+    z-index: 1;
+    padding: 5px 10px;
+
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid $feature-gray;
+        padding: 5px;
+
+        .title {
+            .name {
+               font-weight: 600;
+            }
+
+            .unit {
+                color: lighten($body-gray, 10%);
+            }
+        }
+
+        .reset-range {
+            font-size: 0.9em;
+            color: $interface-blue-text;
+            cursor: pointer;
+
+            &:hover {
+                color: darken($interface-blue-text, 10%);
+            }
+        }
+    }
+
+    .selector {
+        margin: 40px 0;
+    }
+}
+
+.rc-slider-tooltip-placement-top {
+    z-index: 1;
+}
+
+.rc-slider-tooltip-hidden {
+    display: block !important;
+}

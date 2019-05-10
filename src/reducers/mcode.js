@@ -1,11 +1,13 @@
-import * as types from '../actions/types';
 import _ from 'lodash';
+
+import * as types from '../actions/types';
 import defaultState from './initial.json';
 import getProps from '../mcode-pilot/utils/recordToProps';
+
 export default function mcode(state = defaultState, action) {
     if (action.type === types.INITIALIZE_SIMILAR_PATIENT_PROPS) {
         const { patient, condition } = action;
-        state.similarPatientProps={ ...getProps(patient,condition)};
+        state.similarPatientProps = { ...getProps(patient, condition) };
         return { ...state };
     } else if (action.type === types.SELECT_SIMILAR_PATIENT_OPTION) {
         const { category, key, selected } = action;
@@ -19,6 +21,15 @@ export default function mcode(state = defaultState, action) {
             )
         };
 
+        return { ...state };
+    } else if (action.type === types.SELECT_SIMILAR_PATIENT_OPTION_RANGE) {
+        const { category, key, minValue, maxValue } = action;
+        state.similarPatientProps = { ...state.similarPatientProps };
+        state.similarPatientProps[category].options[key] = {
+            ...state.similarPatientProps[category].options[key],
+            minValue,
+            maxValue
+        };
         return { ...state };
     } else if (action.type === types.SELECT_ALL_CATEGORY_SIMILAR_PATIENT_OPTIONS) {
         state.similarPatientProps = { ...state.similarPatientProps };
@@ -48,9 +59,7 @@ export default function mcode(state = defaultState, action) {
 
         return { ...state };
     } else if (action.type === types.SELECT_TREATMENTS) {
-        const newState = {
-            ...state
-        };
+        const newState = { ...state };
         newState[action.treatmentType] = action.treatments;
         return newState;
     } else if(action.type === types.UPDATE_PATIENT_OUTCOMES) {
