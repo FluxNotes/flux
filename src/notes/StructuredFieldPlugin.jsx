@@ -340,6 +340,7 @@ function StructuredFieldPlugin(opts) {
             } else if (node.type === 'structured_field') {
                 const shortcut = node.data.shortcut;
                 if (shortcut instanceof InsertValue) {
+                    
                     // Inserters have characters as their children. Use characters to get current text in the node.
                     result += shortcut.getDisplayText(node.nodes[0].characters.map(c => c.text).join(''));
                 } else {
@@ -775,10 +776,11 @@ function updateStructuredField(opts, transform, shortcut) {
     }
 
     const newShortcut = opts.createShortcut(shortcut.metadata, shortcut.initiatingTrigger, shortcut.getText(), true, shortcut.getSource());
-
     allKeysForShortcut.forEach((key, i) => {
         const shortcutNode = transform.state.document.getNode(key);
-        if (shortcutNode) transform = deleteNode(shortcutNode, transform, i === allKeysForShortcut.length - 1);
+        if(shortcutNode){
+            transform = deleteNode(shortcutNode, transform, i === allKeysForShortcut.length - 1);
+        }
     });
     // Clear key map after deleting
     idToKeysMap.delete(shortcut.uniqueId);

@@ -26,7 +26,9 @@ export default class InsertValue extends Shortcut {
         if (Lang.isArray(text)) {
             this.flagForTextSelection(text);
         } else {
-            if (shortcutData.length > 0) this.setText(shortcutData);
+            if(shortcutData){
+                if (shortcutData.length > 0) this.setText(shortcutData);
+            }
             else this.setText(text);
         }
 
