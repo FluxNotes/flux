@@ -59,8 +59,13 @@ export default class OptionsRangeSelector extends Component {
                         onChange={value => this.handleChange(value)}
                         marks={{ [patientAge]: patientAge }}
                         step={1}
+                        getTooltipContainer={() => document.querySelector(".selector")}
                         tipFormatter={value => `${value}`}
-                        tipProps={{ placement: 'top', visible: true }} />
+                        tipProps={{
+                            placement: 'top',
+                            visible: true,
+                            getTooltipContainer: () => document.querySelector(".selector")
+                        }} />
                 </div>
             </Paper>
         );

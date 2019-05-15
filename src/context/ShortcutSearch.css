@@ -1,0 +1,19 @@
+:export {
+  state: #767676;
+  bodyGray: #4F4F4F; }
+
+#shortcut-search {
+  padding: 0 5px 15px 5px;
+  background-color: #FFFFFF;
+  font-size: 0.8125rem;
+  color: #767676;
+  text-align: left;
+  border-bottom: 1px solid #DDDDDD; }
+
+.shortcut-search-container {
+  position: relative;
+  display: inline-block; }
+
+.shortcut-search-text {
+  font-size: 0.8125rem;
+  color: #767676; }
