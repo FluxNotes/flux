@@ -9,23 +9,27 @@ export default function getProps(patient, condition) {
         "demographic": {
             "age": {
                 "display": "age",
+                "mcodeElement": "shr.core.DateOfBirth", // note the implied calculation required here
                 "valueType": "range",
                 "range": 10,
                 "value": patient.getAge()
             },
             "diagnosedAge": {
                 "display": "age at diagnosis",
+                "mcodeElement": "shr.core.DateOfDiagnosis", // note the implied calculation required here as well
                 "valueType": "range",
                 "range": 10,
                 "value": patient.getAgeAsOf(new Date(condition.diagnosisDate))
             },
             "race": {
                 "display": "race",
+                "mcodeElement": "shr.core.Race",
                 "valueType": "string",
                 "value": patient.patient.race
             },
             "gender": {
                 "display": "gender",
+                "mcodeElement": "shr.core.BirthSex",
                 "valueType": "string",
                 "value": _.lowerCase(patient.patient.gender)
             }
@@ -34,6 +38,7 @@ export default function getProps(patient, condition) {
         "pathology": {
             "grade": {
                 "display": "grade",
+                "mcodeElement": "onco.core.CancerHistologicGrade", // note: not part of mCODE 0.9 IG but it is part of the defined spec
                 "valueType": "int",
                 "value": (() => {
                     const grade = condition.getMostRecentHistologicalGrade();
@@ -44,30 +49,37 @@ export default function getProps(patient, condition) {
             },
             "stage": {
                 "display": "stage",
+                "mcodeElement": "onco.core.TNMClinicalStageGroup", 
+                // NOTE: the section is titled pathology but all the fields referenced in it are clinical, not pathologic
+                // (all sample data in the fixtures is clinical staging)
                 "valueType": "string",
                 "value": _safeGet(condition.getMostRecentClinicalStaging(), "stage"),
                 "reference": condition.getMostRecentClinicalStaging()
             },
             "t_stage": {
                 "display": "primary tumor",
+                "mcodeElement": "onco.core.TNMClinicalPrimaryTumorCategory",
                 "valueType": "string",
                 "value": _safeGet(condition.getMostRecentClinicalStaging(),"t_Stage"),
                 "reference": condition.getMostRecentClinicalStaging()
             },
             "n_stage": {
                 "display": "regional lymph nodes",
+                "mcodeElement": "onco.core.TNMClinicalRegionalNodesCategory",
                 "valueType": "string",
                 "value": _safeGet(condition.getMostRecentClinicalStaging(),"n_Stage"),
                 "reference": condition.getMostRecentClinicalStaging()
             },
             "m_stage": {
                 "display": "distant metastasis",
+                "mcodeElement": "onco.core.TNMClinicalDistantMetastasesCategory",
                 "valueType": "string",
                 "value": _safeGet(condition.getMostRecentClinicalStaging(),"m_Stage"),
                 "reference": condition.getMostRecentClinicalStaging()
             },
             "size": {
                 "display": "size (mm)",
+                "mcodeElement": "onco.core.TumorDimensions", // note: not part of mCODE 0.9 IG but it is part of the defined spec
                 "valueType": "int",
                 "value": (() => {
                     const quantity = _safeGet(_safeGet(condition.getObservationsOfTypeChronologicalOrder(FluxTumorDimensions), 0),'quantity');
@@ -79,6 +91,7 @@ export default function getProps(patient, condition) {
         "medical history": {
             "ECOG": {
                 "display": "ECOG Score",
+                "mcodeElement": "shr.core.ECOGPerformanceStatus",
                 "valueType": "range",
                 "range": 1,
                 "value": _safeGet(condition.getMostRecentECOGPerformanceStatus(), "value"),
@@ -92,6 +105,7 @@ export default function getProps(patient, condition) {
             if (!e.receptorType) return;
             propDict.pathology[e.receptorType.split(' ').join('')] = {
                 "display": e.receptorType,
+                "mcodeElement": "onco.core.TumorMarkerTest", 
                 "valueType": "string",
                 "value": _.lowerCase(e.status),
                 "reference": e
