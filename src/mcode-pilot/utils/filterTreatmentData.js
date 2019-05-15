@@ -119,20 +119,22 @@ function isSimilarPatient(treatmentDataPatient, similarPatientProps) {
         for (let j = 0; j < optionKeys.length; j++) {
             const option = optionKeys[j];
             if (options[option].selected) {
-                const { minValue, maxValue } = options[option];
+                const { minValue, maxValue, mcodeElement, reference } = options[option];
                 const value = _.lowerCase(options[option].value);
 
                 // demographics
                 const { demographics, diseaseStatus, tumorMarkers, treatments } = treatmentDataPatient;
                 const { race, gender, birthDate } = demographics;
-                if (option === 'age') {
+                if (mcodeElement === 'shr.core.DateOfBirth') {
+                    // age
                     const [birthYear] = birthDate.split('-').map((value) => parseInt(value, 10));
                     const age = (new Date()).getFullYear() - birthYear;
 
                     if (age < minValue || age > maxValue) {
                         return false;
                     }
-                } else if (option === 'diagnosedAge') {
+                } else if (mcodeElement === 'shr.core.DateOfDiagnosis') {
+                    // age at diagnosis
                     const [birthYear] = birthDate.split('-').map((value) => parseInt(value, 10));
                     const [dxYear] = diseaseStatus.diagnosisDate.split('-').map((value) => parseInt(value, 10));
                     const dxAge = dxYear - birthYear;
@@ -140,26 +142,32 @@ function isSimilarPatient(treatmentDataPatient, similarPatientProps) {
                     if (dxAge < minValue || dxAge > maxValue) {
                         return false;
                     }
-                } else if (option === 'race' && value !== _.lowerCase(race)) {
+                } else if (mcodeElement === 'shr.core.Race' && value !== _.lowerCase(race)) {
                     return false;
-                } else if (option === 'gender' && value !== _.lowerCase(gender)) {
+                } else if (mcodeElement === 'shr.core.BirthSex' && value !== _.lowerCase(gender)) {
                     return false;
                 // pathology
-                } else if (option === 'EstrogenReceptor' && (!tumorMarkers.er || _.lowerCase(tumorMarkers.er) !== _.lowerCase(value))) {
+                } else if (mcodeElement === 'onco.core.TumorMarkerTest') {
+                    const receptorType = reference._tumorMarker._findingTopicCode.codeableConcept.coding[0].code.value;  
+                    if (receptorType === '16112-5' && (!tumorMarkers.er || _.lowerCase(tumorMarkers.er) !== _.lowerCase(value))) {
+                        // LOINC 16112-5 == Estrogen Receptor
+                        return false;
+                    } else if (receptorType === '16113-3' && (!tumorMarkers.pr || _.lowerCase(tumorMarkers.pr) !== _.lowerCase(value))) {
+                        // LOINC 16113-3 == Progesterone Receptor
+                        return false;
+                    } else if (receptorType === '48676-1' && (!tumorMarkers.her2 || _.lowerCase(tumorMarkers.her2) !== _.lowerCase(value))) {
+                        // LOINC 48676-1 == HER2 Receptor
+                        return false;
+                    }
+                } else if (mcodeElement === 'onco.core.TNMClinicalStageGroup' && (!diseaseStatus.stage || _.lowerCase(diseaseStatus.stage) !== _.lowerCase(value))) {
                     return false;
-                } else if (option === 'ProgesteroneReceptor' && (!tumorMarkers.pr || _.lowerCase(tumorMarkers.pr) !== _.lowerCase(value))) {
+                } else if (mcodeElement === 'onco.core.TNMClinicalPrimaryTumorCategory' && (!diseaseStatus.tnm.t || _.lowerCase(diseaseStatus.tnm.t) !== _.lowerCase(value))) { // no data available
                     return false;
-                } else if (option === 'HER2Receptor' && (!tumorMarkers.her2 || _.lowerCase(tumorMarkers.her2) !== _.lowerCase(value))) {
+                } else if (mcodeElement === 'onco.core.TNMClinicalRegionalNodesCategory' && (!diseaseStatus.tnm.n || _.lowerCase(diseaseStatus.tnm.n) !== _.lowerCase(value))) { // no data available
                     return false;
-                } else if (option === 'stage' && (!diseaseStatus.stage || _.lowerCase(diseaseStatus.stage) !== _.lowerCase(value))) {
+                } else if (mcodeElement === 'onco.core.TNMClinicalDistantMetastasesCategory' && (!diseaseStatus.tnm.m || _.lowerCase(diseaseStatus.tnm.m) !== _.lowerCase(value))) { // no data available
                     return false;
-                } else if (option === 't_stage' && (!diseaseStatus.tnm.t || _.lowerCase(diseaseStatus.tnm.t) !== _.lowerCase(value))) { // no data available
-                    return false;
-                } else if (option === 'n_stage' && (!diseaseStatus.tnm.n || _.lowerCase(diseaseStatus.tnm.n) !== _.lowerCase(value))) { // no data available
-                    return false;
-                } else if (option === 'm_stage' && (!diseaseStatus.tnm.m || _.lowerCase(diseaseStatus.tnm.m) !== _.lowerCase(value))) { // no data available
-                    return false;
-                } else if (option === 'grade' && (!diseaseStatus.grade || diseaseStatus.grade !== value)) {
+                } else if (mcodeElement === 'onco.core.CancerHistologicGrade' && (!diseaseStatus.grade || diseaseStatus.grade !== value)) {
                     return false;
                 // treatment history
                 } else if (option === 'receivedRadTherapy') {

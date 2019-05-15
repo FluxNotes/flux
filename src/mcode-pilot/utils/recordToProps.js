@@ -148,6 +148,9 @@ function _mapProp(propDict) {
                 if(option.reference) {
                     propEntry.reference = option.reference;
                 }
+                if(option.mcodeElement) {
+                    propEntry.mcodeElement = option.mcodeElement;
+                }
 
                 if (option.valueType === "range") {
                     propEntry.minValue = (option.value >= option.range) ? option.value - option.range : 0;
