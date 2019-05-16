@@ -123,7 +123,7 @@ function isSimilarPatient(treatmentDataPatient, similarPatientProps) {
                 const value = _.lowerCase(options[option].value);
 
                 // demographics
-                const { demographics, diseaseStatus, tumorMarkers, treatments } = treatmentDataPatient;
+                const { demographics, diseaseStatus, tumorMarkers } = treatmentDataPatient;
                 const { race, gender, birthDate } = demographics;
                 if (mcodeElement === 'shr.core.DateOfBirth') {
                     // age
@@ -169,25 +169,6 @@ function isSimilarPatient(treatmentDataPatient, similarPatientProps) {
                     return false;
                 } else if (mcodeElement === 'onco.core.CancerHistologicGrade' && (!diseaseStatus.grade || diseaseStatus.grade !== value)) {
                     return false;
-                // treatment history
-                } else if (option === 'receivedRadTherapy') {
-                    let hadTreatmentOption = value === 'yes';
-                    let hadTreatment = treatments.includes('radiation');
-                    if ((!hadTreatmentOption && hadTreatment) || (hadTreatmentOption && !hadTreatment)) {
-                        return false;
-                    }
-                } else if (option === 'receivedChemo') {
-                    let hadTreatmentOption = value === 'yes';
-                    let hadTreatment = treatments.includes('chemo') || treatments.includes('chemotherapy');
-                    if ((!hadTreatmentOption && hadTreatment) || (hadTreatmentOption && !hadTreatment)) {
-                        return false;
-                    }
-                } else if (option === 'hadSurgery') {
-                    let hadTreatmentOption = value === 'yes';
-                    let hadTreatment = treatments.includes('surgery');
-                    if ((!hadTreatmentOption && hadTreatment) || (hadTreatmentOption && !hadTreatment)) {
-                        return false;
-                    }
                 }
             }
         }
