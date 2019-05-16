@@ -21,6 +21,7 @@
 
     .right-border-box {
         margin-top: 15px;
+        margin-left: 80px;
         border-right: 2px dashed #ddd;
 
         .fitted-panel {
@@ -32,13 +33,9 @@
             min-height: 400px !important;
         }
 
-        // adjustments to TDP/minimap to account for POC nav bar
+        // adjustments to minimap to account for POC nav bar
         .minimap-children-wrapper {
             margin-left: 80px;
-        }
-
-        .minimap-container {
-            margin-left: 180px;
         }
     }
 

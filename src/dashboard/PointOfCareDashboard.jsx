@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import TargetedDataPanel from '../panels/TargetedDataPanel';
+import PointOfCarePanel from '../panels/PointOfCarePanel';
 import Button from '../elements/Button';
 import './PointOfCareDashboard.css';
 
@@ -114,19 +115,18 @@ export default class PointOfCareDashboard extends Component {
     }
 
     render() {
-        const targetedDataPanelStyles = {
+        const panelStyles = {
             "width": '100%',
             "WebkitTransition": "width .5s", /* Safari */
             "transition": "width .5s",
         };
-
-        // point of care panel will be the POC component
+        const PanelComponent = this.state.showPOC ? PointOfCarePanel : TargetedDataPanel;
 
         return (
             <div id="point-of-care-dashboard-content" style={{display: "flex"}}>
                 {this.renderSidebar()}
-                <div className="right-border-box" style={targetedDataPanelStyles}>
-                    <TargetedDataPanel
+                <div className="right-border-box" style={panelStyles}>
+                    <PanelComponent
                         actions={this.props.actions}
                         forceRefresh={this.props.forceRefresh}
                         appState={this.props.appState}
