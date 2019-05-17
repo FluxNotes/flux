@@ -749,6 +749,12 @@ class FluxNotesEditor extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        // Clear structured field map manager and contexts before unmounting
+        this.structuredFieldMapManager.clearStructuredFieldMap();
+        this.contextManager.clearContexts();
+    }
+
     // This gets called before the component receives new properties
     componentWillReceiveProps = (nextProps) => {
         // Only update text if the shouldEditorContentUpdate is true. For example, this will be false if the user is inserting a template
