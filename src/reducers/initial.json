@@ -74,27 +74,6 @@
              }
           }
        },
-       "treatmentHistory": {
-          "selected": false,
-          "displayText": "treatment history",
-          "options": {
-             "hadSurgery": {
-                "selected": false,
-                "displayText": "had surgery",
-                "value": "yes"
-             },
-             "receivedRadTherapy": {
-                "selected": false,
-                "displayText": "received radiation therapy",
-                "value": "yes"
-             },
-             "receivedChemo": {
-                "selected": false,
-                "displayText": "received chemotherapy",
-                "value": "yes"
-             }
-          }
-       },
        "genetics": {
           "selected": false,
           "displayText": "genetics",
