@@ -23,6 +23,9 @@ import PreferenceManager from '../preferences/PreferenceManager';
 import SearchIndex from '../patientControl/SearchIndex';
 import LoadingAnimation from '../loading/LoadingAnimation';
 import LoadingError from '../loading/LoadingError';
+import ShortcutManager from '../shortcuts/ShortcutManager';
+import StructuredFieldMapManager from '../shortcuts/StructuredFieldMapManager';
+import ContextManager from '../context/ContextManager';
 
 import '../styles/PointOfCareApp.css';
 
@@ -66,6 +69,8 @@ export class PointOfCareApp extends Component {
         this.summaryMetadata = new SummaryMetadata(this.setForceRefresh);
         this.securityManager = new SecurityManager();
         this.searchIndex = new SearchIndex();
+        this.shortcutManager = new ShortcutManager(this.props.shortcuts);
+        this.structuredFieldMapManager = new StructuredFieldMapManager();
 
         this.state = {
             clinicalEvent: "pre-encounter",
@@ -96,9 +101,10 @@ export class PointOfCareApp extends Component {
 
     loadPatient(patientId) {
         const DAGestalt = this.dataAccess.getGestalt();
-        if (DAGestalt.read.async) {
-            this.dataAccess.getPatient(patientId, (patient, error) => {
-                if (!Lang.isEmpty(error)) console.error(error);
+        if (DAGestalt.read.async) { 
+            this.dataAccess.getPatient(patientId, (patient, error) => { 
+                this.contextManager = new ContextManager(patient, this.onContextUpdate);
+                if (!Lang.isEmpty(error)) console.error(error)
                 this.setState({
                     patient,
                     loading: false,
@@ -109,6 +115,7 @@ export class PointOfCareApp extends Component {
             // Else, assume sync
             try {
                 let patient = this.dataAccess.getPatient(patientId);
+                this.contextManager = new ContextManager(patient, this.onContextUpdate);
                 this.setState({
                     patient,
                     loading: false
@@ -288,6 +295,9 @@ export class PointOfCareApp extends Component {
                                     <PointOfCareDashboard
                                         // App default settings
                                         actions={[]}
+                                        shortcutManager={this.shortcutManager}
+                                        structuredFieldMapManager={this.structuredFieldMapManager}
+                                        contextManager={this.contextManager}
                                         forceRefresh={this.state.forceRefresh}
                                         appState={this.state}
                                         dataAccess={this.dataAccess}

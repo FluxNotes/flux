@@ -107,7 +107,7 @@ export default class PointOfCareDashboard extends Component {
             "WebkitTransition": "width .5s", /* Safari */
             "transition": "width .5s",
         };
-
+    
         return (
             <div className="right-border-box" style={targetedDataPanelStyles}>
                 <TargetedDataPanel
@@ -143,7 +143,9 @@ export default class PointOfCareDashboard extends Component {
 
         return (
             <div className="right-border-box point-of-care-container" style={PointOfCarePanelStyles}>
-                <PointOfCarePanel />
+                <PointOfCarePanel
+                appState={this.props.appState}
+                structuredFieldMapManager={this.props.structuredFieldMapManager} />
             </div>
         );
     }
@@ -161,6 +163,7 @@ export default class PointOfCareDashboard extends Component {
 PointOfCareDashboard.propTypes = {
     actions: PropTypes.array.isRequired,
     appState: PropTypes.object.isRequired,
+    contextManager: PropTypes.object.isRequired,
     dataAccess: PropTypes.object.isRequired,
     forceRefresh: PropTypes.bool,
     loginUser: PropTypes.object.isRequired,
@@ -169,8 +172,10 @@ PointOfCareDashboard.propTypes = {
     setForceRefresh: PropTypes.func.isRequired,
     setFullAppStateWithCallback: PropTypes.func.isRequired,
     setSearchSelectedItem: PropTypes.func.isRequired,
+    shortcutManager: PropTypes.object.isRequired,
     summaryMetadata: PropTypes.object.isRequired,
     searchIndex: PropTypes.object.isRequired,
+    structuredFieldMapManager: PropTypes.object.isRequired,
     searchSuggestions: PropTypes.array,
-    highlightedSearchSuggestion: PropTypes.object
+    highlightedSearchSuggestion: PropTypes.object,
 };
