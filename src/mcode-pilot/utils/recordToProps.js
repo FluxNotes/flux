@@ -150,7 +150,7 @@ function _mapProp(propDict) {
                 if (option.reference) {
                     propEntry.reference = option.reference;
                 }
-                if(option.mcodeElement) {
+                if (option.mcodeElement) {
                     propEntry.mcodeElement = option.mcodeElement;
                 }
 
@@ -163,9 +163,10 @@ function _mapProp(propDict) {
                     propEntry.maxValue = option.value + option.range;
                     propEntry.defaultMinValue = (option.value >= option.range) ? option.value - option.range : 0;
                     propEntry.defaultMaxValue = option.value + option.range;
-                } else {
-                    propEntry.value = option.value;
                 }
+
+                propEntry.value = option.value;
+
                 potentialCategory.options[prop] = propEntry;
             }
         }

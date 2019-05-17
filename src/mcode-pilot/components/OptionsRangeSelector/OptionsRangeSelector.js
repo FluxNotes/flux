@@ -35,7 +35,7 @@ export default class OptionsRangeSelector extends Component {
     }
 
     render() {
-        const { name, unit, patientAge } = this.props;
+        const { name, unit, value } = this.props;
         const { minValue, maxValue } = this.state;
 
         return (
@@ -57,7 +57,7 @@ export default class OptionsRangeSelector extends Component {
                         value={[minValue, maxValue]}
                         defaultValue={[minValue, maxValue]}
                         onChange={value => this.handleChange(value)}
-                        marks={{ [patientAge]: patientAge }}
+                        marks={{ [value]: value }}
                         step={1}
                         getTooltipContainer={() => document.querySelector(".selector")}
                         tipFormatter={value => `${value}`}
@@ -79,7 +79,6 @@ OptionsRangeSelector.propTypes = {
     max: PropTypes.number.isRequired,
     defaultMin: PropTypes.number.isRequired,
     defaultMax: PropTypes.number.isRequired,
-    patientAge: PropTypes.number.isRequired,
     category: PropTypes.string.isRequired,
     keyy: PropTypes.string.isRequired,
     selectSimilarPatientOptionRange: PropTypes.func.isRequired

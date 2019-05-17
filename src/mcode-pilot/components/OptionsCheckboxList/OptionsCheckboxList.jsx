@@ -36,7 +36,7 @@ export default class OptionsCheckboxList extends Component {
     }
 
     renderOptions = () => {
-        const { category, patientAge, selectSimilarPatientOptionRange } = this.props;
+        const { category, selectSimilarPatientOptionRange } = this.props;
         const { options } = this.props.options;
         const { openRangeSelector } = this.state;
 
@@ -85,7 +85,6 @@ export default class OptionsCheckboxList extends Component {
                                                 max={maxValue}
                                                 defaultMin={defaultMinValue}
                                                 defaultMax={defaultMaxValue}
-                                                patientAge={patientAge}
                                                 category={category}
                                                 keyy={key}
                                                 selectSimilarPatientOptionRange={selectSimilarPatientOptionRange}
@@ -152,7 +151,6 @@ export default class OptionsCheckboxList extends Component {
 OptionsCheckboxList.propTypes = {
     category: PropTypes.string.isRequired,
     options: PropTypes.object.isRequired,
-    patientAge: PropTypes.number.isRequired,
     setSelected: PropTypes.func.isRequired,
     setAllSelected: PropTypes.func.isRequired,
     selectSimilarPatientOptionRange: PropTypes.func.isRequired
