@@ -103,46 +103,56 @@ export default class PointOfCareDashboard extends Component {
     }
 
     renderTdp() {
-        return (
-            <TargetedDataPanel
-                actions={this.props.actions}
-                forceRefresh={this.props.forceRefresh}
-                appState={this.props.appState}
-                highlightedSearchSuggestion={this.props.highlightedSearchSuggestion}
-                isNoteViewerEditable={false}
-                isTargetedDataSubpanelVisible={true}
-                isWide={true}
-                loginUser={this.props.loginUser}
-                preferenceManager={this.props.preferenceManager}
-                summaryMetadata={this.props.summaryMetadata}
-                setForceRefresh={this.props.setForceRefresh}
-                targetedDataPanelSize={'100%'}
-                ref={(tdp) => { this.targetedDataPanel = tdp; }}
-                searchIndex={this.props.searchIndex}
-                searchSuggestions={this.props.searchSuggestions}
-                setHighlightedSearchSuggestion={this.props.setHighlightedSearchSuggestion}
-                isAppBlurred={this.props.isAppBlurred}
-                setAppBlur={this.props.setAppBlur}
-            />
-        );
-    }
-
-    renderPoc() {
-        return <PointOfCarePanel />;
-    }
-
-    render() {
-        const panelStyles = {
+        const targetedDataPanelStyles = {
             "WebkitTransition": "width .5s", /* Safari */
             "transition": "width .5s",
         };
 
         return (
+            <div className="right-border-box" style={targetedDataPanelStyles}>
+                <TargetedDataPanel
+                    actions={this.props.actions}
+                    forceRefresh={this.props.forceRefresh}
+                    appState={this.props.appState}
+                    highlightedSearchSuggestion={this.props.highlightedSearchSuggestion}
+                    isNoteViewerEditable={false}
+                    isTargetedDataSubpanelVisible={true}
+                    isWide={true}
+                    loginUser={this.props.loginUser}
+                    preferenceManager={this.props.preferenceManager}
+                    summaryMetadata={this.props.summaryMetadata}
+                    setForceRefresh={this.props.setForceRefresh}
+                    targetedDataPanelSize={'100%'}
+                    ref={(tdp) => { this.targetedDataPanel = tdp; }}
+                    searchIndex={this.props.searchIndex}
+                    searchSuggestions={this.props.searchSuggestions}
+                    setHighlightedSearchSuggestion={this.props.setHighlightedSearchSuggestion}
+                    isAppBlurred={this.props.isAppBlurred}
+                    setAppBlur={this.props.setAppBlur}
+                />
+            </div>
+        );
+    }
+
+    renderPoc() {
+        const PointOfCarePanelStyles = {
+            "width": "100%",
+            "WebkitTransition": "width .5s", /* Safari */
+            "transition": "width .5s",
+        };
+
+        return (
+            <div className="right-border-box point-of-care-container" style={PointOfCarePanelStyles}>
+                <PointOfCarePanel />
+            </div>
+        );
+    }
+
+    render() {
+        return (
             <div id="point-of-care-dashboard-content">
                 {this.renderSidebar()}
-                <div className="right-border-box" style={panelStyles}>
-                    {this.state.showPOC ? this.renderPoc() : this.renderTdp() }
-                </div>
+                {this.state.showPOC ? this.renderPoc() : this.renderTdp() }
             </div>
         );
     }
