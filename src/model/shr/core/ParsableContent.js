@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { setPropertiesFromJSON, uuid } from '../../json-helper';
 
 import EmbeddedContent from './EmbeddedContent';

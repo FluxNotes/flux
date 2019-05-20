@@ -24,10 +24,10 @@ export default class FluxTNMStageGroup extends FluxEntry {
         this._tnmStageGroup.metadata = metadata;
     }
 
-    get stageComponents() {
-        const stageComponentsAsString = this._tnmStageGroup.panelMembers.observation.reduce((accumulatedString, o) => {
+    get stageComponents() { 
+        const stageComponentsAsString = this._tnmStageGroup.panelMembers.observation.reduce((accumulatedString, o) => { 
             const entry = this._patientRecord.getEntryFromReference(o)
-            if (entry instanceof FluxTNMStagePanelMember) {
+            if (entry instanceof FluxTNMStagePanelMember) { 
                 accumulatedString += entry.value
             }
             return accumulatedString
@@ -40,9 +40,9 @@ export default class FluxTNMStageGroup extends FluxEntry {
      *  This will return the displayText string from CodeableConcept value
      */
     get stage() {
-        if (!this._tnmStageGroup.findingResult || !this._tnmStageGroup.findingResult.value) {
+        if (!this._tnmStageGroup.findingResult || !this._tnmStageGroup.findingResult.value) { 
             return null;
-        } else {
+        } else { 
             return this._tnmStageGroup.findingResult.value.coding[0].displayText.value;
         }
     }
@@ -91,7 +91,7 @@ export default class FluxTNMStageGroup extends FluxEntry {
         }
         this._calculateStage();
     }
-
+    
     /**
      *  Getter for N_Stage
      *  This will return the displayText string from N_Stage
@@ -184,7 +184,7 @@ export default class FluxTNMStageGroup extends FluxEntry {
     get relevantTime() {
         return this._tnmStageGroup._relevantTime.value;
     }
-
+    
     _calculateStage() {
         const t = this.t_Stage;
         const n = this.n_Stage;

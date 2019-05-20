@@ -44,7 +44,11 @@ class FluxPerson {
     }
 
     get race() {
-        return this._person.race ? this._person.race.raceCode.value.coding[0].code.value : null;
+        if (this._person.race) {
+            return this._person.race.raceCode.value.coding[0].code.value;
+        }
+
+        return null;
     }
 
     get gender() {

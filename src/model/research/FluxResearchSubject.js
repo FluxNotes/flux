@@ -12,7 +12,7 @@ import ParticipationPeriod from '../shr/base/ParticipationPeriod';
 import BeginDateTime from '../shr/core/BeginDateTime';
 import EndDateTime from '../shr/core/EndDateTime';
 import Lang from 'lodash';
-import * as  lookup from '../../lib/clinicaltrial_lookup.jsx';
+import * as lookup from '../../lib/clinicaltrial_lookup.jsx';
 
 class FluxResearchSubject extends FluxEntry {
     constructor(json) {
@@ -65,12 +65,12 @@ class FluxResearchSubject extends FluxEntry {
         if (!this._researchSubject.study.title) {
             this._researchSubject.study.title = new Title();
         }
-        this._researchSubject.study.title.value = title;
+        this._researchSubject.study.title.value = title; 
     }
     /**
      *  Getter for detail
      *  This will return the displayText value from the CommentOrDescription object
-     */
+     */    
     get details() {
         if (this._researchSubject.study && this._researchSubject.study.commentOrDescription) {
             return this._researchSubject.study.commentOrDescription.value;
@@ -88,9 +88,9 @@ class FluxResearchSubject extends FluxEntry {
         if (Lang.isNull(description)) return;
         this._createStudyIfNeeded();
         let commentOrDescriptionObj = new CommentOrDescription();
-        commentOrDescriptionObj.value = description;
+        commentOrDescriptionObj.value = description; 
         this._researchSubject.study.commentOrDescription = commentOrDescriptionObj;
-    }
+    }    
 
     /**
      *  Getter for identifier
@@ -116,7 +116,7 @@ class FluxResearchSubject extends FluxEntry {
         if (!this._researchSubject.participationPeriod || !this._researchSubject.participationPeriod.timePeriod || !this._researchSubject.participationPeriod.timePeriod.beginDateTime) return null;
         return this._researchSubject.participationPeriod.timePeriod.beginDateTime.value;
     }
-
+  
     set enrollmentDate(val) {
 /*        if (Lang.isNull(val)) {
             if (this._researchSubject.participationPeriod && this._researchSubject.participationPeriod.timePeriod) {
@@ -135,12 +135,12 @@ class FluxResearchSubject extends FluxEntry {
         }
         this._researchSubject.participationPeriod.timePeriod.beginDateTime.value = val;
     }
-
+  
     get endDate() {
         if (!this._researchSubject.participationPeriod || !this._researchSubject.participationPeriod.timePeriod || !this._researchSubject.participationPeriod.timePeriod.endDateTime) return null;
         return this._researchSubject.participationPeriod.timePeriod.endDateTime.value;
     }
-
+  
     set endDate(val) {
 /*        if (Lang.isNull(val)) {
             if (this._researchSubject.participationPeriod && this._researchSubject.participationPeriod.timePeriod) {

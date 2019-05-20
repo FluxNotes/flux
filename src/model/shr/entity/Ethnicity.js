@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 /**
@@ -100,11 +99,11 @@ class Ethnicity {
   static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new Ethnicity();
     if (asExtension) {
-      const match_1 = fhir['extension'].find(e => e.url==='http://example.com/fhir/StructureDefinition/shr-entity-EthnicityCode-extension');
+      const match_1 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-EthnicityCode-extension');
       if (match_1 != null) {
         inst.ethnicityCode = FHIRHelper.createInstanceFromFHIR('shr.entity.EthnicityCode', match_1, shrId, allEntries, mappedResources, referencesOut, true);
       }
-      const match_2 = fhir['extension'].find(e => e.url==='http://example.com/fhir/StructureDefinition/shr-entity-EthnicityDetail-extension');
+      const match_2 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-EthnicityDetail-extension');
       if (match_2 != null) {
         inst.ethnicityDetail = FHIRHelper.createInstanceFromFHIR('shr.entity.EthnicityDetail', match_2, shrId, allEntries, mappedResources, referencesOut, true);
       }

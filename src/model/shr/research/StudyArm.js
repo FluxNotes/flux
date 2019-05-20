@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 /**
@@ -128,15 +127,15 @@ class StudyArm {
   static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new StudyArm();
     if (asExtension) {
-      const match_1 = fhir['extension'].find(e => e.url==='http://example.com/fhir/StructureDefinition/shr-core-Title-extension');
+      const match_1 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-Title-extension');
       if (match_1 != null) {
         inst.title = FHIRHelper.createInstanceFromFHIR('shr.core.Title', match_1, shrId, allEntries, mappedResources, referencesOut, true);
       }
-      const match_2 = fhir['extension'].find(e => e.url==='http://example.com/fhir/StructureDefinition/shr-core-Type-extension');
+      const match_2 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-Type-extension');
       if (match_2 != null) {
         inst.type = FHIRHelper.createInstanceFromFHIR('shr.core.Type', match_2, shrId, allEntries, mappedResources, referencesOut, true);
       }
-      const match_4 = fhir['extension'].find(e => e.url==='http://example.com/fhir/StructureDefinition/shr-core-CommentOrDescription-extension');
+      const match_4 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-CommentOrDescription-extension');
       if (match_4 != null) {
         inst.commentOrDescription = FHIRHelper.createInstanceFromFHIR('shr.core.CommentOrDescription', match_4, shrId, allEntries, mappedResources, referencesOut, true);
       }

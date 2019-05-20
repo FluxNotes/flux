@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 import PresenceAssertion from './PresenceAssertion';

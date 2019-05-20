@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 /**
@@ -128,15 +127,15 @@ class Diagnosis {
   static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new Diagnosis();
     if (asExtension) {
-      const match_1 = fhir['extension'].find(e => e.url==='http://example.com/fhir/StructureDefinition/shr-encounter-DiagnosisCode-extension');
+      const match_1 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-encounter-DiagnosisCode-extension');
       if (match_1 != null) {
         inst.diagnosisCode = FHIRHelper.createInstanceFromFHIR('shr.encounter.DiagnosisCode', match_1, shrId, allEntries, mappedResources, referencesOut, true);
       }
-      const match_2 = fhir['extension'].find(e => e.url==='http://example.com/fhir/StructureDefinition/shr-core-PriorityRank-extension');
+      const match_2 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-PriorityRank-extension');
       if (match_2 != null) {
         inst.priorityRank = FHIRHelper.createInstanceFromFHIR('shr.core.PriorityRank', match_2, shrId, allEntries, mappedResources, referencesOut, true);
       }
-      const match_3 = fhir['extension'].find(e => e.url==='http://example.com/fhir/StructureDefinition/shr-core-Type-extension');
+      const match_3 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-Type-extension');
       if (match_3 != null) {
         inst.type = FHIRHelper.createInstanceFromFHIR('shr.core.Type', match_3, shrId, allEntries, mappedResources, referencesOut, true);
       }

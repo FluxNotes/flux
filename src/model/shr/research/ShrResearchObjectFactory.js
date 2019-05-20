@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { getNamespaceAndName, getNamespaceAndNameFromFHIR, uuid } from '../../json-helper';
 import Study from './Study';
 import Enrollment from './Enrollment';

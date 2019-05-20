@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 /**
@@ -72,11 +71,11 @@ class RecurrenceRange {
   static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new RecurrenceRange();
     if (asExtension) {
-      const match_1 = fhir['extension'].find(e => e.url==='http://example.com/fhir/StructureDefinition/shr-core-TimePeriod-extension');
+      const match_1 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-TimePeriod-extension');
       if (match_1 != null) {
         inst.timePeriod = FHIRHelper.createInstanceFromFHIR('shr.core.TimePeriod', match_1, shrId, allEntries, mappedResources, referencesOut, true);
       }
-      const match_2 = fhir['extension'].find(e => e.url==='http://example.com/fhir/StructureDefinition/shr-core-NumberOfRepeats-extension');
+      const match_2 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-NumberOfRepeats-extension');
       if (match_2 != null) {
         inst.numberOfRepeats = FHIRHelper.createInstanceFromFHIR('shr.core.NumberOfRepeats', match_2, shrId, allEntries, mappedResources, referencesOut, true);
       }

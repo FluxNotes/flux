@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { setPropertiesFromJSON } from '../../json-helper';
 
 import AbsenceAssertion from '../base/AbsenceAssertion';

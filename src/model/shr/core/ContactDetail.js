@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 /**
@@ -98,11 +97,11 @@ class ContactDetail {
   static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new ContactDetail();
     if (asExtension) {
-      const match_1 = fhir['extension'].find(e => e.url==='http://example.com/fhir/StructureDefinition/shr-core-HumanName-extension');
+      const match_1 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-HumanName-extension');
       if (match_1 != null) {
         inst.humanName = FHIRHelper.createInstanceFromFHIR('shr.core.HumanName', match_1, shrId, allEntries, mappedResources, referencesOut, true);
       }
-      const match_2 = fhir['extension'].find(e => e.url==='http://example.com/fhir/StructureDefinition/shr-core-ContactPoint-extension');
+      const match_2 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-ContactPoint-extension');
       if (match_2 != null) {
         inst.contactPoint = FHIRHelper.createInstanceFromFHIR('shr.core.ContactPoint', match_2, shrId, allEntries, mappedResources, referencesOut, true);
       }

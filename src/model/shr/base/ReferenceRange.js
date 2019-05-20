@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 /**
@@ -154,19 +153,19 @@ class ReferenceRange {
   static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new ReferenceRange();
     if (asExtension) {
-      const match_1 = fhir['extension'].find(e => e.url==='http://example.com/fhir/StructureDefinition/shr-core-Range-extension');
+      const match_1 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-Range-extension');
       if (match_1 != null) {
         inst.range = FHIRHelper.createInstanceFromFHIR('shr.core.Range', match_1, shrId, allEntries, mappedResources, referencesOut, true);
       }
-      const match_2 = fhir['extension'].find(e => e.url==='http://example.com/fhir/StructureDefinition/shr-core-Type-extension');
+      const match_2 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-Type-extension');
       if (match_2 != null) {
         inst.type = FHIRHelper.createInstanceFromFHIR('shr.core.Type', match_2, shrId, allEntries, mappedResources, referencesOut, true);
       }
-      const match_4 = fhir['extension'].find(e => e.url==='http://example.com/fhir/StructureDefinition/shr-base-ApplicableSubpopulation-extension');
+      const match_4 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-ApplicableSubpopulation-extension');
       if (match_4 != null) {
         inst.applicableSubpopulation = FHIRHelper.createInstanceFromFHIR('shr.base.ApplicableSubpopulation', match_4, shrId, allEntries, mappedResources, referencesOut, true);
       }
-      const match_5 = fhir['extension'].find(e => e.url==='http://example.com/fhir/StructureDefinition/shr-base-ApplicableAgeRange-extension');
+      const match_5 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-ApplicableAgeRange-extension');
       if (match_5 != null) {
         inst.applicableAgeRange = FHIRHelper.createInstanceFromFHIR('shr.base.ApplicableAgeRange', match_5, shrId, allEntries, mappedResources, referencesOut, true);
       }

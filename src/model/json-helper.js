@@ -1,4 +1,3 @@
-/* eslint-disable */
 import Reference from './Reference';
 import Entry from './shr/base/Entry';
 import ShrId from './shr/base/ShrId';
@@ -60,7 +59,7 @@ export function getNamespaceAndName(json={}, type) {
 export function getNamespaceAndNameFromFHIR(fhir, type) {
   // Special case for primitives
   if (typeof fhir !== 'object') {
-    if (type===null) {
+    if (type == null) {
       return { namespace: 'primitive', elementName: typeof fhir };
     } else if (type.indexOf('.') === -1) {
       return { namespace: 'primitive', elementName: type };
@@ -178,7 +177,7 @@ function createInstance(key, value) {
   if (Array.isArray(value)) {
     return value.map(v => createInstance(key, v));
   }
-  if (value===null) return null;
+  if (value == null) return null;
   if (typeof value === 'object') {
     if (value._ShrId && value._EntryId && value._EntryType) {
       // It's a reference, so just return the reference
@@ -188,7 +187,7 @@ function createInstance(key, value) {
       // because in SHR, a 'code' really is *just* a string.  The JSON schema probably needs to be adjusted.
       return value.code;
     }
-    if (OBJECT_FACTORY===null) {
+    if (OBJECT_FACTORY == null) {
       throw new Error(`SHR ES6 module is not initialized.  Import 'init' before using the ES6 factories and classes`);
     }
     return OBJECT_FACTORY.createInstance(value, key);
@@ -283,7 +282,7 @@ export const FHIRHelper = {
     if (Array.isArray(value)) {
       return value.map(v => FHIRHelper.createInstanceFromFHIR(key, v, shrId, allEntries, mappedResources, referencesOut, asExtension));
     }
-    if (OBJECT_FACTORY===null) {
+    if (OBJECT_FACTORY == null) {
       throw new Error(`SHR ES6 module is not initialized.  Import 'init' before using the ES6 factories and classes`);
     }
     return OBJECT_FACTORY.createInstanceFromFHIR(value, key, shrId, allEntries, mappedResources, referencesOut, asExtension);
@@ -359,7 +358,7 @@ export const FHIRHelper = {
 export function uuid() {
   // source: https://stackoverflow.com/a/2117523
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-    var r = Math.random() * 16 | 0, v = c==='x' ? r : (r & 0x3 | 0x8);
+    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
     return v.toString(16);
   });
 }

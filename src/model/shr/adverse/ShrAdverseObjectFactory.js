@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { getNamespaceAndName, getNamespaceAndNameFromFHIR, uuid } from '../../json-helper';
 import Seriousness from './Seriousness';
 import AdverseEvent from './AdverseEvent';

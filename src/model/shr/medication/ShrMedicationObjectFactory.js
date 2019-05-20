@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { getNamespaceAndName, getNamespaceAndNameFromFHIR, uuid } from '../../json-helper';
 import AdditionalDosageInstruction from './AdditionalDosageInstruction';
 import DosageMethod from './DosageMethod';

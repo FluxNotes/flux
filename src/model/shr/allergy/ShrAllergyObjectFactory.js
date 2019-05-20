@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { getNamespaceAndName, getNamespaceAndNameFromFHIR, uuid } from '../../json-helper';
 import AllergyIntolerance from './AllergyIntolerance';
 import SubstanceCategory from './SubstanceCategory';

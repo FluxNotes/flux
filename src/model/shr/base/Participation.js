@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 /**
@@ -154,19 +153,19 @@ class Participation {
   static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new Participation();
     if (asExtension) {
-      const match_1 = fhir['extension'].find(e => e.url==='http://example.com/fhir/StructureDefinition/shr-base-Participant-extension');
+      const match_1 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-Participant-extension');
       if (match_1 != null) {
         inst.participant = FHIRHelper.createInstanceFromFHIR('shr.base.Participant', match_1, shrId, allEntries, mappedResources, referencesOut, true);
       }
-      const match_2 = fhir['extension'].find(e => e.url==='http://example.com/fhir/StructureDefinition/shr-base-ParticipationType-extension');
+      const match_2 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-ParticipationType-extension');
       if (match_2 != null) {
         inst.participationType = FHIRHelper.createInstanceFromFHIR('shr.base.ParticipationType', match_2, shrId, allEntries, mappedResources, referencesOut, true);
       }
-      const match_3 = fhir['extension'].find(e => e.url==='http://example.com/fhir/StructureDefinition/shr-base-ParticipationPeriod-extension');
+      const match_3 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-ParticipationPeriod-extension');
       if (match_3 != null) {
         inst.participationPeriod = FHIRHelper.createInstanceFromFHIR('shr.base.ParticipationPeriod', match_3, shrId, allEntries, mappedResources, referencesOut, true);
       }
-      const match_4 = fhir['extension'].find(e => e.url==='http://example.com/fhir/StructureDefinition/shr-core-OnBehalfOf-extension');
+      const match_4 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-OnBehalfOf-extension');
       if (match_4 != null) {
         inst.onBehalfOf = FHIRHelper.createInstanceFromFHIR('shr.core.OnBehalfOf', match_4, shrId, allEntries, mappedResources, referencesOut, true);
       }

@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { setPropertiesFromJSON } from '../../json-helper';
 
 import Observation from '../base/Observation';
