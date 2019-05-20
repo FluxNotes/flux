@@ -7,14 +7,13 @@
     .poc-nav-bar {
         display: flex;
         flex-direction: column;
-        justify-content: space-evenly;
-        align-items: center;
+        justify-content: center;
         flex-basis: 92px;
         height: calc(100vh - 85px);
         background-color: $tab-bar-blue;
 
         button {
-            padding: 10px 0px;
+            padding: 75px 0px;
         }
     }
 
