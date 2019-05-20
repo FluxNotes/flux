@@ -311,8 +311,8 @@ export default class TargetedDataSection extends Component {
                                     onChange={() => this.updateFilterValue(filter, subsection.name)}
                                     value={filter.name}
                                     className="checkbox" />
-                        }
-                        label={label}
+                            }
+                            label={label}
                         />
                     );
                     if (filterValue) {
@@ -353,11 +353,11 @@ export default class TargetedDataSection extends Component {
             <div>
                 {keys.map(key => {
                     return (<FormControl component="fieldset" key={key}>
-                                <FormLabel component="legend">{key}</FormLabel>
-                                <FormGroup>
-                                    {criteriaGroups[key]}
-                                </FormGroup>
-                            </FormControl>);
+                        <FormLabel component="legend">{key}</FormLabel>
+                        <FormGroup>
+                            {criteriaGroups[key]}
+                        </FormGroup>
+                    </FormControl>);
                 })}
             </div>
         );

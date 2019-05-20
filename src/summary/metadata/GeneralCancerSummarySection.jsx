@@ -69,48 +69,48 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                             name: "Name",
                             value: (patient, currentConditionEntry) => {
                                 return  {   value: currentConditionEntry.type,
-                                            isUnsigned: patient.isUnsigned(currentConditionEntry),
-                                            source: this.determineSource(patient, currentConditionEntry),
-                                            shortcutData: {
-                                                shortcut: '@condition',
-                                                entryId: currentConditionEntry.entryInfo.entryId,
-                                            }
-                                        };
+                                    isUnsigned: patient.isUnsigned(currentConditionEntry),
+                                    source: this.determineSource(patient, currentConditionEntry),
+                                    shortcutData: {
+                                        shortcut: '@condition',
+                                        entryId: currentConditionEntry.entryInfo.entryId,
+                                    }
+                                };
                             },
                         },
                         {
                             name: "Age at Diagnosis",
                             value: (patient, currentConditionEntry) => {
                                 return {    value: "" + patient.getAgeAsOf(new Date(condition.getDiagnosisDate())),
-                                            isUnsigned: patient.isUnsigned(currentConditionEntry),
-                                            source: this.determineSource(patient, currentConditionEntry),
-                                        };
+                                    isUnsigned: patient.isUnsigned(currentConditionEntry),
+                                    source: this.determineSource(patient, currentConditionEntry),
+                                };
                             }
                         },
                         {
                             name: "Clinical Status",
                             value: (patient, currentConditionEntry) => {
                                 return  {   value: currentConditionEntry.clinicalStatus,
-                                            isUnsigned: patient.isUnsigned(currentConditionEntry),
-                                            source: this.determineSource(patient, currentConditionEntry)
-                                        };
+                                    isUnsigned: patient.isUnsigned(currentConditionEntry),
+                                    source: this.determineSource(patient, currentConditionEntry)
+                                };
                             }
                         },
                         {
                             name: "Site",
                             value: (patient, currentConditionEntry) => {
                                 return  {   value: currentConditionEntry.bodySite,
-                                            isUnsigned: patient.isUnsigned(currentConditionEntry),
-                                            source: this.determineSource(patient, currentConditionEntry)
-                                        };
+                                    isUnsigned: patient.isUnsigned(currentConditionEntry),
+                                    source: this.determineSource(patient, currentConditionEntry)
+                                };
                             },
                         },
                         {
                             name: "Laterality",
                             value: (patient, currentConditionEntry) => {
                                 return {    value: currentConditionEntry.laterality,
-                                            isUnsigned: patient.isUnsigned(currentConditionEntry),
-                                            source: this.determineSource(patient, currentConditionEntry)
+                                    isUnsigned: patient.isUnsigned(currentConditionEntry),
+                                    source: this.determineSource(patient, currentConditionEntry)
                                 };
                             }
                         },
@@ -120,9 +120,9 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                                 let histologicalType = currentConditionEntry.getMostRecentHistologicType();
                                 if (!histologicalType) return null;
                                 return  {   value: histologicalType.type,
-                                            isUnsigned: patient.isUnsigned(histologicalType),
-                                            source: this.determineSource(patient, histologicalType)
-                                        };
+                                    isUnsigned: patient.isUnsigned(histologicalType),
+                                    source: this.determineSource(patient, histologicalType)
+                                };
                             }
                         },
                         {
@@ -131,9 +131,9 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                                 let histologicalGrade = currentConditionEntry.getMostRecentHistologicalGrade();
                                 if (!histologicalGrade) return null;
                                 return  {   value: histologicalGrade.grade,
-                                            isUnsigned: patient.isUnsigned(histologicalGrade),
-                                            source: this.determineSource(patient, histologicalGrade)
-                                        };
+                                    isUnsigned: patient.isUnsigned(histologicalGrade),
+                                    source: this.determineSource(patient, histologicalGrade)
+                                };
                             }
                         },
                     ]
@@ -153,9 +153,9 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                                     return null;
                                 } else {
                                     return  {   value: p.status,
-                                                isUnsigned: patient.isUnsigned(p),
-                                                source: this.determineSource(patient, p)
-                                            };
+                                        isUnsigned: patient.isUnsigned(p),
+                                        source: this.determineSource(patient, p)
+                                    };
                                 }
                             }
                         },
@@ -167,9 +167,9 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                                     return null;
                                 } else {
                                     return  {   value: p.asOfDate,
-                                                isUnsigned: patient.isUnsigned(p),
-                                                source: this.determineSource(patient, p)
-                                            };
+                                        isUnsigned: patient.isUnsigned(p),
+                                        source: this.determineSource(patient, p)
+                                    };
                                 }
                             }
                         },
@@ -181,11 +181,11 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                                     return null;
                                 } else {
                                     return  {   value: p.evidence.map(function (ev) {
-                                                        return ev;
-                                                    }).join(', '),
-                                                isUnsigned: patient.isUnsigned(p),
-                                                source: this.determineSource(patient, p)
-                                            };
+                                        return ev;
+                                    }).join(', '),
+                                    isUnsigned: patient.isUnsigned(p),
+                                    source: this.determineSource(patient, p)
+                                    };
                                 }
                             }
                         }
@@ -248,9 +248,9 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                                 const k = currentConditionEntry.getMostRecentKarnofskyPerformanceStatus();
                                 if (!k) return null;
                                 return {    value: k,
-                                            isUnsigned: patient.isUnsigned(k),
-                                            source: this.determineSource(patient, k)
-                                        };
+                                    isUnsigned: patient.isUnsigned(k),
+                                    source: this.determineSource(patient, k)
+                                };
                             }
                         },
                         {
@@ -259,9 +259,9 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                                 const e = currentConditionEntry.getMostRecentECOGPerformanceStatus();
                                 if (!e) return null;
                                 return {    value: e,
-                                            isUnsigned: patient.isUnsigned(e),
-                                            source: this.determineSource(patient, e)
-                                        };
+                                    isUnsigned: patient.isUnsigned(e),
+                                    source: this.determineSource(patient, e)
+                                };
                             }
                         }
                     ]

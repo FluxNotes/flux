@@ -40,8 +40,8 @@ export default class ProceduresSection extends MetadataSection {
                 );
             }
             result.push({   value: p.expectedPerformer,
-                            isUnsigned: patient.isUnsigned(p),
-                            source:  this.determineSource(patient, p) });
+                isUnsigned: patient.isUnsigned(p),
+                source:  this.determineSource(patient, p) });
 
             return result;
         });

@@ -36,12 +36,12 @@ export default class VisitReasonPreEncounterSection extends MetadataSection {
                                     };
                                 }
                                 return {
-                                        value: patient.getNextEncounterReasonAsText(),
-                                        isUnsigned: patient.isUnsigned(nextEncounter),
-                                        source: this.determineSource(patient, nextEncounter),
-                                        shortcutData: {
-                                            shortcut: '@reason for next visit',
-                                        }
+                                    value: patient.getNextEncounterReasonAsText(),
+                                    isUnsigned: patient.isUnsigned(nextEncounter),
+                                    source: this.determineSource(patient, nextEncounter),
+                                    shortcutData: {
+                                        shortcut: '@reason for next visit',
+                                    }
                                 };
                             },
                         }

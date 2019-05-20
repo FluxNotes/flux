@@ -16,9 +16,9 @@ export default class MostRecentVisitsSubsection extends MetadataSection {
                         const mostRecentFilteredEncounter = filteredEncounters.slice(-1)[0];
                         const expectedPerformanceTime = new moment(mostRecentFilteredEncounter.expectedPerformanceTime, 'D MMM YYYY').format('D MMM YYYY');
                         return  {   value: expectedPerformanceTime,
-                                    isUnsigned: patient.isUnsigned(mostRecentFilteredEncounter),
-                                    source: this.determineSource(patient, mostRecentFilteredEncounter)
-                                };
+                            isUnsigned: patient.isUnsigned(mostRecentFilteredEncounter),
+                            source: this.determineSource(patient, mostRecentFilteredEncounter)
+                        };
                     }
                 },
                 {
@@ -31,9 +31,9 @@ export default class MostRecentVisitsSubsection extends MetadataSection {
                         const mostRecentFilteredEncounter = filteredEncounters.slice(-1)[0];
                         const expectedPerformanceTime = new moment(mostRecentFilteredEncounter.expectedPerformanceTime, 'D MMM YYYY').format('D MMM YYYY');
                         return  {   value: expectedPerformanceTime,
-                                    isUnsigned: patient.isUnsigned(mostRecentFilteredEncounter),
-                                    source: this.determineSource(patient, mostRecentFilteredEncounter)
-                                };
+                            isUnsigned: patient.isUnsigned(mostRecentFilteredEncounter),
+                            source: this.determineSource(patient, mostRecentFilteredEncounter)
+                        };
                     }
                 },
                 {
@@ -45,9 +45,9 @@ export default class MostRecentVisitsSubsection extends MetadataSection {
                         if (filteredEncounters.length === 0) return { value: null, isUnsigned: false };
                         const mostRecentFilteredEncounter = filteredEncounters.slice(-1)[0];
                         return  {   value: mostRecentFilteredEncounter.practitioner,
-                                    isUnsigned: patient.isUnsigned(mostRecentFilteredEncounter),
-                                    source: this.determineSource(patient, mostRecentFilteredEncounter)
-                                };
+                            isUnsigned: patient.isUnsigned(mostRecentFilteredEncounter),
+                            source: this.determineSource(patient, mostRecentFilteredEncounter)
+                        };
                     }
                 }
             ]

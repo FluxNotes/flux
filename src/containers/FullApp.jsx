@@ -41,16 +41,16 @@ function getModalStyle() {
     const left = 50;
 
     return {
-      top: `${top}%`,
-      left: `${left}%`,
-      transform: `translate(-${top}%, -${left}%)`,
-      position: 'absolute',
-      width: 400,
-      backgroundColor: 'white',
-      boxShadow: 'black',
-      padding: 8,
+        top: `${top}%`,
+        left: `${left}%`,
+        transform: `translate(-${top}%, -${left}%)`,
+        position: 'absolute',
+        width: 400,
+        backgroundColor: 'white',
+        boxShadow: 'black',
+        padding: 8,
     };
-  }
+}
 
 export class FullApp extends Component {
     constructor(props) {
@@ -525,7 +525,7 @@ export class FullApp extends Component {
                             open={this.state.isModalOpen}
                             onClose={this.handleModalClose}
                             onClick={this.handleModalClose}
-                            >
+                        >
                             <div style={getModalStyle()} >
                                 <Typography id="modal-title">
                                     {this.state.modalTitle}
@@ -542,7 +542,7 @@ export class FullApp extends Component {
                             onClose={this.handleSnackbarClose}
                             open={this.state.snackbarOpen}
                             message={this.state.snackbarMessage}
-                            />
+                        />
                     </Grid>
                 </div>
             </MuiThemeProvider>
@@ -564,16 +564,16 @@ FullApp.propTypes = {
 
 // these props are used for dispatching actions
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
+    return bindActionCreators({
     // TODO: add actions
-  }, dispatch);
+    }, dispatch);
 }
 
 // these props come from the application's state when it is started
 function mapStateToProps(state) {
-  return {
+    return {
     // TODO: add state
-  };
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FullApp);

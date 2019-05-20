@@ -22,40 +22,40 @@ export default class DefaultCompassAppMetadata extends MetadataSection {
                                     name: "Name",
                                     value: (patient, currentConditionEntry) => {
                                         return  {   value: currentConditionEntry.type,
-                                                    isUnsigned: patient.isUnsigned(currentConditionEntry),
-                                                    source: this.determineSource(patient, currentConditionEntry),
-                                                    shortcutData: {
-                                                        shortcut: '@condition',
-                                                        entryId: currentConditionEntry.entryInfo.entryId,
-                                                    }
-                                                };
+                                            isUnsigned: patient.isUnsigned(currentConditionEntry),
+                                            source: this.determineSource(patient, currentConditionEntry),
+                                            shortcutData: {
+                                                shortcut: '@condition',
+                                                entryId: currentConditionEntry.entryInfo.entryId,
+                                            }
+                                        };
                                     },
                                 },
                                 {
                                     name: "Diagnosis Date",
                                     value: (patient, currentConditionEntry) => {
                                         return  {   value: currentConditionEntry.diagnosisDate,
-                                                    isUnsigned: patient.isUnsigned(currentConditionEntry),
-                                                    source: this.determineSource(patient, currentConditionEntry)
-                                                };
+                                            isUnsigned: patient.isUnsigned(currentConditionEntry),
+                                            source: this.determineSource(patient, currentConditionEntry)
+                                        };
                                     }
                                 },
                                 {
                                     name: "Where",
                                     value: (patient, currentConditionEntry) => {
                                         return  {   value: currentConditionEntry.bodySite,
-                                                    isUnsigned: patient.isUnsigned(currentConditionEntry),
-                                                    source: this.determineSource(patient, currentConditionEntry)
-                                                };
+                                            isUnsigned: patient.isUnsigned(currentConditionEntry),
+                                            source: this.determineSource(patient, currentConditionEntry)
+                                        };
                                     }
                                 },
                                 {
                                     name: "Clinical Status",
                                     value: (patient, currentConditionEntry) => {
                                         return  {   value: currentConditionEntry.clinicalStatus,
-                                                    isUnsigned: patient.isUnsigned(currentConditionEntry),
-                                                    source: this.determineSource(patient, currentConditionEntry)
-                                                };
+                                            isUnsigned: patient.isUnsigned(currentConditionEntry),
+                                            source: this.determineSource(patient, currentConditionEntry)
+                                        };
                                     }
                                 }
                             ]

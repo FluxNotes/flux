@@ -9,9 +9,9 @@ export default class KeyDatesSubsection extends MetadataSection {
                     name: "Diagnosis",
                     value: (patient, currentConditionEntry) => {
                         return  {   value: currentConditionEntry.diagnosisDate,
-                                    isUnsigned: patient.isUnsigned(currentConditionEntry),
-                                    source: this.determineSource(patient, currentConditionEntry)
-                                };
+                            isUnsigned: patient.isUnsigned(currentConditionEntry),
+                            source: this.determineSource(patient, currentConditionEntry)
+                        };
                     }
                 },
                 {
@@ -21,9 +21,9 @@ export default class KeyDatesSubsection extends MetadataSection {
                             return null;
                         } else {
                             return  {   value: "N/A",
-                                        isUnsigned: patient.isUnsigned(currentConditionEntry),
-                                        source: this.determineSource(patient, currentConditionEntry)
-                                    };
+                                isUnsigned: patient.isUnsigned(currentConditionEntry),
+                                source: this.determineSource(patient, currentConditionEntry)
+                            };
                         } // TODO: actually get date once we know where it is in SHR
                     }
                 }

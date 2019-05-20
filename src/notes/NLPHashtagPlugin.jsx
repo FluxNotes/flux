@@ -179,7 +179,7 @@ function NLPHashtagPlugin(opts) {
         return Collection.reduce(phrases, (result, value, key) => {
             // Value should be an array of phrases of type 'key' (e.g. of type 'ATTRIBUTION')
             return result.concat(value);
-          }, []).sort(sortPhrasesInReverseOrderOfAppearance)
+        }, []).sort(sortPhrasesInReverseOrderOfAppearance)
     }
 
     // Given a list of phrases, parse them and insert them all in reverse order, changing editor state accordingly.
@@ -260,7 +260,7 @@ function NLPHashtagPlugin(opts) {
                 failedToProcessNLPEngineResponse
             )
             .catch(handleNLPEngineError);
-        }
+    }
 
     // Everytime a change is made to the editor, check to see if NLP should be parsed
     function onChange (editorState, editor) {

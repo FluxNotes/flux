@@ -50,7 +50,7 @@ class DeceasedForm extends Component {
                 </p>
                 <p className="data-element-description">
                     Based on your selections below, the copy button at the bottom will copy a <a
-                    href="deceasedSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
+                        href="deceasedSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
                 </p>
 
                 {dateOfDeathDescription}

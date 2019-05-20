@@ -93,11 +93,11 @@ class ProgressionForm extends Component {
             <div key={statusName} className="tooltip-progression-form">
                 <span id={statusName} className={tooltipClass}>{statusDescription}</span>
                 <SingleChoiceButton
-                        buttonKey={i}
-                        buttonText={statusName}
-                        onClick={(e) => this.handleStatusSelection(e, i)}
-                        isSelected={this.props.object.status === this.state.statusOptions[i].name}
-                        marginSize={marginSize}
+                    buttonKey={i}
+                    buttonText={statusName}
+                    onClick={(e) => this.handleStatusSelection(e, i)}
+                    isSelected={this.props.object.status === this.state.statusOptions[i].name}
+                    marginSize={marginSize}
                 />
             </div>
         );
@@ -115,10 +115,10 @@ class ProgressionForm extends Component {
             <div key={reasonName} className="tooltip-progression-form">
                 <span id={reasonName} className={tooltipClass}>{reasonDescription}</span>
                 <MultiChoiceButton
-                        buttonKey={i}
-                        buttonText={reasonName}
-                        onClick={(e) => this.handleReasonSelection(reason, i)}
-                        isSelected={this.state.reasonButtonsActiveState[i]}
+                    buttonKey={i}
+                    buttonText={reasonName}
+                    onClick={(e) => this.handleReasonSelection(reason, i)}
+                    isSelected={this.state.reasonButtonsActiveState[i]}
                 />
             </div>
         )
@@ -185,7 +185,7 @@ class ProgressionForm extends Component {
                 </p>
                 <p className="data-element-description">
                     Based on your selections below, the copy button at the bottom will copy a <a
-                    href="diseaseStatusSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
+                        href="diseaseStatusSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
                 </p>
 
                 <h4 className="header-spacing">Status</h4>

@@ -65,7 +65,7 @@ export default class TabularListVisualizer extends Visualizer {
         // for the second half of sections
         let numRows = 0;
         subsections.forEach((subsection) => {
-           numRows += subsection.data_cache.length + 1;
+            numRows += subsection.data_cache.length + 1;
         });
 
         let halfRows = numRows / 2;
@@ -237,7 +237,7 @@ export default class TabularListVisualizer extends Visualizer {
 
         const numColumns = row.length;
         const colSize = (100 / numColumns) + "%";
-//const colSize = "auto";
+        //const colSize = "auto";
 
         if (subsectionActions.length > 0  || this.props.actions.length > 0) {
             rowClass += " has-action-menu";

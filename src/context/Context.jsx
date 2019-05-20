@@ -1,23 +1,23 @@
 import Lang from 'lodash';
 
 export default class Context {
-	constructor() {
+    constructor() {
         this.children = [];
         this._initialContextPosition = -1; // Where to insert the context relative to the others on creation
-	}
+    }
 
-	initialize(contextManager, trigger = undefined, updatePatient = true) {
+    initialize(contextManager, trigger = undefined, updatePatient = true) {
         this.contextManager = contextManager;
         this.isInContext = false;
-	}
+    }
 
     getId() {
         throw new Error("implement getId in all Context implementations. not done in " + constructor.name);
     }
 
-	getValidChildShortcuts(recurse = false) {
-		return [];
-	}
+    getValidChildShortcuts(recurse = false) {
+        return [];
+    }
 
     addChild(shortcut) {
         this.children.push(shortcut);
@@ -37,54 +37,54 @@ export default class Context {
         return (this.children.length > 0);
     }
 
-	getChildren() {
-		return this.children;
-	}
+    getChildren() {
+        return this.children;
+    }
 
-	getLabel() {
-		throw new Error("Invalid context. " + this.constructor.name);
-	}
+    getLabel() {
+        throw new Error("Invalid context. " + this.constructor.name);
+    }
 
-	getValueObject() {
-		return this.valueObject;
-	}
+    getValueObject() {
+        return this.valueObject;
+    }
 
-	setValueObject(valueObject) {
-		this.valueObject = valueObject;
+    setValueObject(valueObject) {
+        this.valueObject = valueObject;
     }
 
     isAttributeSupported(name) {
         return false;
-	}
+    }
 
-	getAttributeValue(name) {
-		throw new Error("[getAttributeValue]Unsupported attribute " + name + " for context shortcut " + this.constructor.name);
-	}
+    getAttributeValue(name) {
+        throw new Error("[getAttributeValue]Unsupported attribute " + name + " for context shortcut " + this.constructor.name);
+    }
 
-	setAttributeValue(name, value, publishChanges, updatePatient = true) {
-		throw new Error("[setAttributeValue]Unsupported attribute " + name + " for context shortcut " + this.constructor.name);
-	}
+    setAttributeValue(name, value, publishChanges, updatePatient = true) {
+        throw new Error("[setAttributeValue]Unsupported attribute " + name + " for context shortcut " + this.constructor.name);
+    }
 
     shouldBeInContext() {
         return true;
     }
 
-	onValueChange(name, handleValueChange) {
-		let l = this.valueChangeHandlers[name];
-		if (Lang.isUndefined(l) || Lang.isNull(l)) {
-			l = [];
-			this.valueChangeHandlers[name] = l;
-		}
-		l.push(handleValueChange);
-	}
+    onValueChange(name, handleValueChange) {
+        let l = this.valueChangeHandlers[name];
+        if (Lang.isUndefined(l) || Lang.isNull(l)) {
+            l = [];
+            this.valueChangeHandlers[name] = l;
+        }
+        l.push(handleValueChange);
+    }
 
-	notifyValueChangeHandlers(name) {
-		let l = this.valueChangeHandlers[name];
+    notifyValueChangeHandlers(name) {
+        let l = this.valueChangeHandlers[name];
         if (Lang.isUndefined(l)) return;
-		l.forEach((h) => {
-			h(this.getAttributeValue(name));
-		});
-	}
+        l.forEach((h) => {
+            h(this.getAttributeValue(name));
+        });
+    }
 
     updateContextStatus() {
         if (this.contextManager) {
@@ -106,14 +106,14 @@ export default class Context {
 
     setKey(key) {
         this.key = key;
-		if (this.isContext() && this.contextManager) {
+        if (this.isContext() && this.contextManager) {
             this.contextManager.addShortcutToContext(this);
             this.isInContext = true;
-		}
+        }
     }
 
-	isContext() {
-		return true;
+    isContext() {
+        return true;
     }
 
     isGlobalContext() {

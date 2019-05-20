@@ -1772,7 +1772,7 @@ class FluxNotesEditor extends React.Component {
                     <Row start="xs">
                         <Col xs={9}>
                             <Row>
-                            {this.renderNoteNameEditor(noteTitle, signed)}
+                                {this.renderNoteNameEditor(noteTitle, signed)}
                             </Row>
                             <Row>
                                 <Col xs={7}>

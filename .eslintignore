@@ -1,7 +1,7 @@
 src/lib/slate/*
 src/lib/slate-suggestions-dist/*
-src/model/shr/*
-src/model/oncocore/*
-src/model/brca/*
-src/model/tumor/*
-src/model/json-helper.js
+src/model/*
+src/dataaccess/mcodev0.1-datasource/model/*
+src/__test__/*
+src/lib/cql-execution/*
+src/lib/FHIRMapper.js

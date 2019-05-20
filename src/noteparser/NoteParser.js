@@ -84,7 +84,7 @@ export default class NoteParser {
     // This method takes in a trigger. If the trigger is a pick list (a shortcut that has multiple options) return true, otherwise return false
     isPickList(trigger) {
         // Note: only pick list triggers have an itemKey in getData
-       return (trigger.definition.getData && trigger.definition.getData.itemKey);
+        return (trigger.definition.getData && trigger.definition.getData.itemKey);
     }
 
     getListOfTriggersFromText(note) {
@@ -122,7 +122,7 @@ export default class NoteParser {
                 let possibleValue = substr.substring(match[0].length);
                 let selectedValue = null;
 
-                 // Check if the shortcut is an inserter (check for '[['). If it is, grab the selected value
+                // Check if the shortcut is an inserter (check for '[['). If it is, grab the selected value
                 if (possibleValue.startsWith("[[")) {
                     let posOfEndBrackets = possibleValue.indexOf("]]");
                     selectedValue = possibleValue.substring(2, posOfEndBrackets);
@@ -187,12 +187,12 @@ export default class NoteParser {
 
     // Given keywordsObjects representing potential keyword values and text, find the first keywordObject who appears in our text
     scanTextForAnyKeywordObjects(text, keywordObjects) {
-		for (const keywordObj of keywordObjects) {
-			if (text.toLowerCase().indexOf(keywordObj.name.toLowerCase()) !== -1) {
-				return keywordObj
-			}
+        for (const keywordObj of keywordObjects) {
+            if (text.toLowerCase().indexOf(keywordObj.name.toLowerCase()) !== -1) {
+                return keywordObj
+            }
         }
-	}
+    }
 
     // Given a keywordShortcutClass, get all of the associated keywords
     getKeywordsBasedOnKeywordShortcutClass(keywordShortcutClass) {

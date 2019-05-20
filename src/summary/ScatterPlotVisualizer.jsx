@@ -351,7 +351,7 @@ class ScatterPlotVisualizer extends Visualizer {
         );
     }
     render() {
-       // const { patient, condition, conditionSection } = this.props;
+        // const { patient, condition, conditionSection } = this.props;
 
         return (
             <div>

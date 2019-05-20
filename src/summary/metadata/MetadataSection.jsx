@@ -43,10 +43,10 @@ export default class MetadataSection {
             when = null;
         }
         return  {   value: val,
-                    isUnsigned: unsigned,
-                    source: source,
-                    when: when
-                };
+            isUnsigned: unsigned,
+            source: source,
+            when: when
+        };
     }
 
     determineSource = (patient, entry) => {

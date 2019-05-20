@@ -125,7 +125,7 @@ export default class SummaryMetadata {
         });
         if (!Lang.isUndefined(stringKey)) this.addCachedMetadata(stringKey, metadata);
         // cache the metadata but only if condition is not null because we force default in that case
-//        if (prioritizedKeyList[keyIndex] !== 'default') this.addCachedMetadata(prioritizedKeyList[keyIndex], metadata);
+        //        if (prioritizedKeyList[keyIndex] !== 'default') this.addCachedMetadata(prioritizedKeyList[keyIndex], metadata);
         return metadata;
     }
 

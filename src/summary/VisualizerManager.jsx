@@ -61,8 +61,8 @@ export default class VisualizerManager {
         newsection.data_cache = itemList.map((labResult) => {
             const displayValue = labResult.displayValue ? labResult.displayValue : `${labResult[subsection.name]} ${labResult["unit"]}`
             return  [   {   value: labResult["start_time"] },
-                        {   value: displayValue }
-                    ];
+                {   value: displayValue }
+            ];
         })
         newsection.formatFunction = this.formatLabResult.bind(this, goodband);
         return newsection;
@@ -203,7 +203,7 @@ export default class VisualizerManager {
         list = items.map((item, i) => {
             const itemValue = (Lang.isNull(item.value)) ? null : (Lang.isFunction(item.value) ? item.value(patient, condition, this.user) : item.value);
             return [    { value: item.name, isInsertable: false},
-                        { value: itemValue || null}]
+                { value: itemValue || null}]
         });
 
         // need to eliminate when value is an array as came from value of a name/value pair. In that case the value array
@@ -249,28 +249,28 @@ export default class VisualizerManager {
 
     getIndexer(dataType) {
         switch(dataType) {
-            case "NameValuePairs":
-            case "NarrativeOnly":
-                return new NameValuePairsIndexer();
-            case "Columns":
-                return new ColumnsIndexer();
-            case "Events":
-                return new EventsIndexer();
-            case "Medications":
-                return new MedicationsIndexer();
-            case "ValueOverTime":
-                return new ValueOverTimeIndexer();
-            case "DiseaseStatusValues":
-                return new DiseaseStatusValuesIndexer();
-            case "ReviewOfSystemsValues":
-                return new ReviewOfSystemsValuesIndexer();
-            case "ClusterPoints":
-                return new ClusterPointsIndexer();
-            case "TreatmentOptions":
-                return new BaseIndexer();
-            default:
-                console.warn(`Targeted Data Panel data type '${dataType}' has no registered indexer.`);
-                return null;
+        case "NameValuePairs":
+        case "NarrativeOnly":
+            return new NameValuePairsIndexer();
+        case "Columns":
+            return new ColumnsIndexer();
+        case "Events":
+            return new EventsIndexer();
+        case "Medications":
+            return new MedicationsIndexer();
+        case "ValueOverTime":
+            return new ValueOverTimeIndexer();
+        case "DiseaseStatusValues":
+            return new DiseaseStatusValuesIndexer();
+        case "ReviewOfSystemsValues":
+            return new ReviewOfSystemsValuesIndexer();
+        case "ClusterPoints":
+            return new ClusterPointsIndexer();
+        case "TreatmentOptions":
+            return new BaseIndexer();
+        default:
+            console.warn(`Targeted Data Panel data type '${dataType}' has no registered indexer.`);
+            return null;
         }
     }
 
@@ -310,7 +310,7 @@ export default class VisualizerManager {
         return (
             <svg width="17px" height="15px" viewBox="0 0 17 15" version="1.1" xmlns="http://www.w3.org/2000/svg">
                 <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" strokeLinecap="square"
-                   opacity="0.8">
+                    opacity="0.8">
                     <g id="Group-3-Copy" transform="translate(0.567421, 0.048197)" stroke={strokeColor} strokeWidth="2">
                         <path d="M1.03162221,1 L7.83111001,1" id="Line-4"></path>
                         <path d="M1.03162221,7 L15.1251513,7" id="Line-4-Copy"></path>
@@ -331,7 +331,7 @@ export default class VisualizerManager {
                             d="M0.936953125,0.9428125 L0.936953125,15.8228125 L15.8169531,15.8228125 L15.8169531,0.9428125 L0.936953125,0.9428125 Z"
                             id="Rectangle-3"></path>
                         <polyline id="Path-3" strokeLinejoin="round"
-                                  points="0.71875 11.0977783 5.125 6.69152832 9.5 11.2852783 12.34375 7.97277832 15.625 11.3477783"></polyline>
+                            points="0.71875 11.0977783 5.125 6.69152832 9.5 11.2852783 12.34375 7.97277832 15.625 11.3477783"></polyline>
                     </g>
                 </g>
             </svg>

@@ -46,7 +46,7 @@ const ms = [
 ];
 
 const table5thEdition = [
-  // N0 , N1 ,  N2  , N3
+    // N0 , N1 ,  N2  , N3
     [null, 'IIA', 'IIIA', 'IIIB'], // T0
     [null, 'IIA', 'IIIA', 'IIIB'], // T1
     ['IIA', 'IIB', 'IIIA', 'IIIB'], // T2
@@ -74,7 +74,7 @@ const ns6thEdition = [
     {name: 'N3', description: "Metastasis in ipsilateral infraclavicular lymph node(s) with or without axillary lymph node involvement, or in clinically apparent ipsilateral internal mammary lymph node(s) and in the presence of clinically evident axiillary lymph node metastasis; or metastasis in ipsilateral supraclavicular lymph node(s) with or without axillary or internal mammary node involvement"}
 ];
 const table6thEdition = [
-  // N0 , N1 ,  N2  , N3
+    // N0 , N1 ,  N2  , N3
     ['0', null, null, 'IIIC'], // Tis
     [null, 'IIA', 'IIIA', 'IIIC'], // T0
     ['I', 'IIA', 'IIIA', 'IIIC'], // T1
@@ -180,7 +180,7 @@ const ns7thEdition = [
     }
 ];
 const table7thEdition = [
-  // N0 , N1mi , N1 ,  N2  , N3
+    // N0 , N1mi , N1 ,  N2  , N3
     ['0', null, null, null, 'IIIC'], // Tis
     ['0', 'IB', 'IIA', 'IIIA', 'IIIC'], // T0
     ['IA', 'IB', 'IIA', 'IIIA', 'IIIC'], // T1
@@ -289,14 +289,14 @@ export function getDescription(dataElement){
 
 export function getTsForEdition(ed){
     switch (Number(ed)) {
-        case 5:
-            return ts5thEdition;
-        case 6:
-            return ts6thEdition;
-        case 7:
-            return ts7thEdition;
-        default:
-            return [];
+    case 5:
+        return ts5thEdition;
+    case 6:
+        return ts6thEdition;
+    case 7:
+        return ts7thEdition;
+    default:
+        return [];
     }
 }
 
@@ -312,14 +312,14 @@ export function getTsNamesForEdition(ed){
 
 export function getNsForEdition(ed){
     switch (Number(ed)) {
-        case 5:
-            return ns5thEdition;
-        case 6:
-            return ns6thEdition;
-        case 7:
-            return ns7thEdition;
-        default:
-            return [];
+    case 5:
+        return ns5thEdition;
+    case 6:
+        return ns6thEdition;
+    case 7:
+        return ns7thEdition;
+    default:
+        return [];
     }
 }
 
@@ -335,12 +335,12 @@ export function getNsNamesForEdition(ed){
 
 export function getMsForEdition(ed){
     switch (Number(ed)) {
-        case 5:
-        case 6:
-        case 7:
-            return ms;
-        default:
-            return [];
+    case 5:
+    case 6:
+    case 7:
+        return ms;
+    default:
+        return [];
     }
 }
 
@@ -355,14 +355,14 @@ export function getMsNamesForEdition(ed){
 
 export function getTableForEdition(ed){
     switch (ed) {
-        case 5:
-            return table5thEdition;
-        case 6:
-            return table6thEdition;
-        case 7:
-            return table7thEdition;
-        default:
-            return [];
+    case 5:
+        return table5thEdition;
+    case 6:
+        return table6thEdition;
+    case 7:
+        return table7thEdition;
+    default:
+        return [];
     }
 }
 

@@ -53,14 +53,14 @@ export default class ClinicalTrialsSection extends MetadataSection {
     }
 
     getItemListToDisplayMissingCriteria = () => {
-       let trialsList = new ClinicalTrialsList();
+        let trialsList = new ClinicalTrialsList();
         if (this.trialDisplayMissingCriteria !== "") {
             this.missingEligibleTrialData = trialsList.getMissingCriteriaListTrialEligibility(this.trialDisplayMissingCriteria);
             return this.missingEligibleTrialData.map((data) => {
                 return [{value : data}]
             });
-       }
-       return [];
+        }
+        return [];
     }
 
     getMissingCriteriaDisplay = () => {
@@ -106,9 +106,9 @@ export default class ClinicalTrialsSection extends MetadataSection {
         let eligibleTrials = [];
         clinicalTrialsAndCriteriaList.forEach((trial) => {
             eligibleTrials.push([   { value: trial.info.name },
-                                    { value: (trial.numSatisfiedCriteria + " of " + trial.numTotalCriteria) },
-                                    { value: trial.info.studyStartDate },
-                                    { value: trial.info.description }
+                { value: (trial.numSatisfiedCriteria + " of " + trial.numTotalCriteria) },
+                { value: trial.info.studyStartDate },
+                { value: trial.info.description }
             ]);
         });
         this.eligibleTrials = eligibleTrials;

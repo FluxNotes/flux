@@ -42,7 +42,7 @@ class ProgressionLineChartVisualizer extends Visualizer {
             // 'Inevaluable'
             "C3858734": null,
         };
-         this.valueToProgressionMap = {
+        this.valueToProgressionMap = {
             // 'Complete Response'
             "-1" : 'Complete Response',
             // 'Complete Resection'
@@ -247,7 +247,7 @@ class ProgressionLineChartVisualizer extends Visualizer {
                         yAxisId={0}
                         dot={this.renderDot}
                     />
-                     <Line
+                    <Line
                         type="monotone"
                         dataKey="diagnosis_date"
                         stroke="none"
@@ -265,7 +265,7 @@ class ProgressionLineChartVisualizer extends Visualizer {
                         );
                     })}
                 </LineChart>
-           </ResponsiveContainer >
+            </ResponsiveContainer >
         );
     }
 

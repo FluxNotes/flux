@@ -31,13 +31,13 @@ export default class TabularListVisualizerTable extends Component {
                     <TableFooter>
                         <TableRow>
                             <TablePagination
-                              colSpan={3}
-                              count={rows.length}
-                              rowsPerPage={10}
-                              page={page}
-                              onChangePage={(event, page) => this.setState({ page })}
-                              rowsPerPageOptions={[]}
-                              onChangeRowsPerPage={() => null}
+                                colSpan={3}
+                                count={rows.length}
+                                rowsPerPage={10}
+                                page={page}
+                                onChangePage={(event, page) => this.setState({ page })}
+                                rowsPerPageOptions={[]}
+                                onChangeRowsPerPage={() => null}
                             />
                         </TableRow>
                     </TableFooter>

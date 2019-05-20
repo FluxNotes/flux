@@ -9,7 +9,7 @@ function createOpts(opts) {
     opts = opts || {};
     opts.typeStructuredField = opts.typeStructuredField || 'structured_field';
     opts.typePlaceholder = opts.typePlaceholder || 'placeholder';
-	return opts;
+    return opts;
 }
 
 function stopEventPropagation(e) {
@@ -603,10 +603,10 @@ function StructuredFieldPlugin(opts) {
         editor.onChange(transform);
     }
 
-	/*  style for placeholder assumes an 18pt font due to the rendering of a <BR> for an empty text node. Placeholder
+    /*  style for placeholder assumes an 18pt font due to the rendering of a <BR> for an empty text node. Placeholder
 		positioning needs to go up 1 line to overlap with that BR so user can click on placeholder message and get
 		a cursor. see style top value of -18px  */
-	return {
+    return {
         clearStructuredFieldMap,
         onKeyDown,
         onChange,

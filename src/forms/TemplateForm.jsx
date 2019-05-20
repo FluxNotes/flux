@@ -11,7 +11,7 @@ export default class TemplateForm extends Component {
 
     render() {
         return (
-           <div>
+            <div>
                 <h1>{this.props.heading}</h1>
 
                 {this.props.templates.map((template, index) => {

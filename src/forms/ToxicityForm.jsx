@@ -248,11 +248,11 @@ class ToxicityForm extends Component {
             <div key={attribution.name} className="tooltip-toxicity-form">
                 <span id={attribution.name} className={tooltipClass}>{attribution.description}</span>
                 <SingleChoiceButton
-                        buttonKey={i}
-                        buttonText={attribution.name}
-                        onClick={ (e) => this.handleAttributionSelection(attribution, isSelected)}
-                        isSelected={isSelected}
-                        marginSize={marginSize}
+                    buttonKey={i}
+                    buttonText={attribution.name}
+                    onClick={ (e) => this.handleAttributionSelection(attribution, isSelected)}
+                    isSelected={isSelected}
+                    marginSize={marginSize}
                 />
             </div>
         )
@@ -273,27 +273,27 @@ class ToxicityForm extends Component {
                 return toxicityLookup.findAdverseEvent(adverseEvent);
             });
             topAdverseEventSection = (
-            <div className="btn-group-adverse-event">
-                {topAdverseEventObjects.map((adverseEvent, i) => {
-                    if (adverseEvent.description === null) {
-                        return "";
-                    }
-                    const tooltipClass = (adverseEvent.description.length > 100) ? "tooltiptext large" : "tooltiptext";
-                    const isSelected = this.currentlySelectedAdverseEvent(adverseEvent);
-                    return (
-                        <div key={adverseEvent.name} className="tooltip-toxicity-form">
-                            <span id={adverseEvent.name} className={tooltipClass}>{adverseEvent.description}</span>
-                            <SingleChoiceButton
+                <div className="btn-group-adverse-event">
+                    {topAdverseEventObjects.map((adverseEvent, i) => {
+                        if (adverseEvent.description === null) {
+                            return "";
+                        }
+                        const tooltipClass = (adverseEvent.description.length > 100) ? "tooltiptext large" : "tooltiptext";
+                        const isSelected = this.currentlySelectedAdverseEvent(adverseEvent);
+                        return (
+                            <div key={adverseEvent.name} className="tooltip-toxicity-form">
+                                <span id={adverseEvent.name} className={tooltipClass}>{adverseEvent.description}</span>
+                                <SingleChoiceButton
                                     buttonKey={i}
                                     buttonText={adverseEvent.name}
                                     onClick={ (e) => this.handleAdverseEventSelection(adverseEvent.name)}
                                     isSelected={isSelected}
                                     marginSize={marginSize}
-                            />
-                        </div>
-                    )
-                })}
-            </div>
+                                />
+                            </div>
+                        )
+                    })}
+                </div>
             )
         }
 

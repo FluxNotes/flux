@@ -287,8 +287,8 @@ export default class UpdaterBase extends EntryShortcut {
             });
             this.setValueObject(this.object);
         }
-		return this.valueObject;
-	}
+        return this.valueObject;
+    }
 
     updatePatient(patient, contextManager, clinicalNote) {
         let idComplete = true;
@@ -355,8 +355,8 @@ export default class UpdaterBase extends EntryShortcut {
         this.setValueObject(this.object);
 
         if (this.isContext()) this.updateContextStatus();
-//        if (this.onUpdate) this.onUpdate(this);
-/*        if (publishChanges) {
+        //        if (this.onUpdate) this.onUpdate(this);
+        /*        if (publishChanges) {
             this.notifyValueChangeHandlers(name);
         }*/
 

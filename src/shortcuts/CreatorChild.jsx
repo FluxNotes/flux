@@ -35,7 +35,7 @@ export default class CreatorChild extends Shortcut {
         //console.log(trigger);
         /*        const triggerNoPrefix = trigger.substring(1);
          console.log("trigger no prefix = " + triggerNoPrefix);*/
-         //console.log(this.metadata.stringTriggers);
+        //console.log(this.metadata.stringTriggers);
         if (this.metadata.stringTriggers) {
             for (var i = 0; i < this.metadata.stringTriggers.length; i++) {
                 //console.log("  is string trigger? " + this.metadata.stringTriggers[i].name);

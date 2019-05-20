@@ -21,9 +21,9 @@ export default class ImagingSection extends MetadataSection {
 
         return imagingProcedures.map(p => {
             const result = [{
-                    value: p.name,
-                    isUnsigned: patient.isUnsigned(p),
-                    source: this.determineSource(patient, p),
+                value: p.name,
+                isUnsigned: patient.isUnsigned(p),
+                source: this.determineSource(patient, p),
             }];
 
             if (typeof p.occurrenceTime !== 'string') {

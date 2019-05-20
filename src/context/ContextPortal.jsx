@@ -17,8 +17,8 @@ class ContextPortal extends React.Component {
      * Adds a keydown listener when the component initally gets mounted
      */
     componentDidMount = () => {
-         document.addEventListener('keydown', this.handleKeydownCP);
-         this.adjustPosition()
+        document.addEventListener('keydown', this.handleKeydownCP);
+        this.adjustPosition()
     }
     /*
      * Removes a keydown listener when the component initally gets unmounted

@@ -34,7 +34,7 @@ export class TreatmentOptionsVisualizer extends Component {
         if (nextProps.similarPatientProps !== this.props.similarPatientProps ||
             nextProps.includedTreatments !== this.props.includedTreatments ||
             nextProps.comparedTreatments !== this.props.comparedTreatments
-          ) {
+        ) {
             this.props.processSimilarPatientOutcomes();
         }
     }

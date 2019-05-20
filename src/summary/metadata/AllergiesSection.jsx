@@ -26,8 +26,8 @@ export default class AllergiesSection extends MetadataSection {
         const allergies = patient.getAllergyIntolerancesSortedBySeverity();
         return allergies.map((a) => {
             return [    { value: a.name },
-                        { value: a.severity },
-                        { value: a.manifestation }];
+                { value: a.severity },
+                { value: a.manifestation }];
         });
     }
 

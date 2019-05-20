@@ -48,17 +48,17 @@ export default class ClinicianDashboard extends Component {
     // Updates the layout value based on the current clinical event
     changeLayoutBasedOnClinicalEvent = (clinicalEvent) => {
         switch (clinicalEvent) {
-            case "pre-encounter":
-                this.props.setLayout("right-collapsed");
-                break;
-            case "encounter":
-                this.props.setLayout("left-collapsed");
-                break;
-            case "post-encounter":
-                this.props.setLayout("split");
-                break;
-            default:
-                this.props.setLayout('');
+        case "pre-encounter":
+            this.props.setLayout("right-collapsed");
+            break;
+        case "encounter":
+            this.props.setLayout("left-collapsed");
+            break;
+        case "post-encounter":
+            this.props.setLayout("split");
+            break;
+        default:
+            this.props.setLayout('');
         }
     }
 
@@ -67,21 +67,21 @@ export default class ClinicianDashboard extends Component {
         let newTargetedDataPanelSize = "";
         let newNotesPanelSize = "";
         switch (currentLayout) {
-            case "left-collapsed":
-                newTargetedDataPanelSize = "25%";
-                newNotesPanelSize = "75%";
-                break;
-            case "right-collapsed":
-                newTargetedDataPanelSize = "75%";
-                newNotesPanelSize = "25%";
-                break;
-            case "split":
-                newTargetedDataPanelSize = "40%";
-                newNotesPanelSize = "60%";
-                break;
-            default:
-                newTargetedDataPanelSize = "40%";
-                newNotesPanelSize = "60%";
+        case "left-collapsed":
+            newTargetedDataPanelSize = "25%";
+            newNotesPanelSize = "75%";
+            break;
+        case "right-collapsed":
+            newTargetedDataPanelSize = "75%";
+            newNotesPanelSize = "25%";
+            break;
+        case "split":
+            newTargetedDataPanelSize = "40%";
+            newNotesPanelSize = "60%";
+            break;
+        default:
+            newTargetedDataPanelSize = "40%";
+            newNotesPanelSize = "60%";
         }
 
         this.setState({
@@ -93,53 +93,53 @@ export default class ClinicianDashboard extends Component {
     // Based on currentClinicalEvent, determines if a note should be viewed
     noteViewerBasedOnClinicalEvent = (currentClinicalEvent) => {
         switch (currentClinicalEvent) {
-            case "pre-encounter":
-                this.props.setNoteViewerVisible(false);
-                break;
-            case "encounter":
-                this.props.setNoteViewerVisible(true);
-                break;
-            case "post-encounter":
-                this.props.setNoteViewerVisible(true);
-                break;
-            default:
-                console.warn(`The task provided, ${currentClinicalEvent}, does not have a defined noteViewerBasedOnClinicalEvent value.`);
-                this.props.setNoteViewerVisible(false);
-                return;
+        case "pre-encounter":
+            this.props.setNoteViewerVisible(false);
+            break;
+        case "encounter":
+            this.props.setNoteViewerVisible(true);
+            break;
+        case "post-encounter":
+            this.props.setNoteViewerVisible(true);
+            break;
+        default:
+            console.warn(`The task provided, ${currentClinicalEvent}, does not have a defined noteViewerBasedOnClinicalEvent value.`);
+            this.props.setNoteViewerVisible(false);
+            return;
         }
     }
 
     // Based on currentClinicalEvent, determines if a note should be editable
     noteEditableBasedOnClinicalEvent = (currentClinicalEvent) => {
         switch (currentClinicalEvent) {
-            case "pre-encounter":
-                this.props.setNoteViewerEditable(false);
-                break;
-            case "encounter":
-                this.props.setNoteViewerEditable(true);
-                break;
-            case "post-encounter":
-                this.props.setNoteViewerEditable(true);
-                break;
-            default:
-                console.warn(`The task provided, ${currentClinicalEvent}, does not have a defined noteEditableBasedOnClinicalEvent value.`);
-                this.props.setNoteViewerEditable(false);
-                return;
+        case "pre-encounter":
+            this.props.setNoteViewerEditable(false);
+            break;
+        case "encounter":
+            this.props.setNoteViewerEditable(true);
+            break;
+        case "post-encounter":
+            this.props.setNoteViewerEditable(true);
+            break;
+        default:
+            console.warn(`The task provided, ${currentClinicalEvent}, does not have a defined noteEditableBasedOnClinicalEvent value.`);
+            this.props.setNoteViewerEditable(false);
+            return;
         }
     }
 
     // Based on currentLayout, determines if the targetedDataSubpanel should be visible.
     isTargetedDataSubpanelVisible = (currentLayout) => {
         switch (currentLayout) {
-            case "left-collapsed":
-                return false;
-            case "right-collapsed":
-                return true;
-            case "split":
-                return true;
-            default:
-                // console.warn(`The layout provided, ${currentLayout}, does not have a defined isTargetedDataSubpanelVisibile value.`);
-                return true;
+        case "left-collapsed":
+            return false;
+        case "right-collapsed":
+            return true;
+        case "split":
+            return true;
+        default:
+            // console.warn(`The layout provided, ${currentLayout}, does not have a defined isTargetedDataSubpanelVisibile value.`);
+            return true;
         }
     }
 

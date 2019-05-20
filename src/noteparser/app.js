@@ -8,15 +8,15 @@ import NoteParser from './NoteParser';
 
 let input;
 program
-  .usage('<path-to-clinical-notes> [options]')
-  .option('-l, --log-level <level>', 'the console log level <fatal,error,warn,info,debug,trace> (default: info)', /^(fatal|error|warn|info|debug|trace)$/i, 'info')
-  .option('-m, --log-mode <mode>', 'the console log mode <short,long,json,off> (default: short)', /^(short|long|json|off)$/i, 'short')
-  .option('-o, --out <out>', 'the path to the output folder (default: ./out)', './out')
-  .arguments('<path-to-clinical-notes>')
-  .action(function (pathToClinicalNotes) {
-    input = pathToClinicalNotes;
-  })
-  .parse(process.argv);
+    .usage('<path-to-clinical-notes> [options]')
+    .option('-l, --log-level <level>', 'the console log level <fatal,error,warn,info,debug,trace> (default: info)', /^(fatal|error|warn|info|debug|trace)$/i, 'info')
+    .option('-m, --log-mode <mode>', 'the console log mode <short,long,json,off> (default: short)', /^(short|long|json|off)$/i, 'short')
+    .option('-o, --out <out>', 'the path to the output folder (default: ./out)', './out')
+    .arguments('<path-to-clinical-notes>')
+    .action(function (pathToClinicalNotes) {
+        input = pathToClinicalNotes;
+    })
+    .parse(process.argv);
 
 // Check that input folder is specified
 if (typeof input === 'undefined') {

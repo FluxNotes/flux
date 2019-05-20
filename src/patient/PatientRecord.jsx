@@ -72,7 +72,7 @@ class PatientRecord {
 
     _loadJSON(shrJson) {
         return shrJson.map((entry) => {
-			return FluxObjectFactory.createInstance(entry, undefined, this);
+            return FluxObjectFactory.createInstance(entry, undefined, this);
         });
     }
 
@@ -88,24 +88,24 @@ class PatientRecord {
         return false;
     }
 
-	fromFHIR(fhirJson) {
-		// loop through each FHIR entry
-		// map to correct SHR entryTypes
-		// call ShrObjectFactory to create instances of SHR Object Model
+    fromFHIR(fhirJson) {
+        // loop through each FHIR entry
+        // map to correct SHR entryTypes
+        // call ShrObjectFactory to create instances of SHR Object Model
         // call fromFHIR method on entry from Object
         let nextEntryId = 0;
-		fhirJson.entry.forEach((entry) => {
-			const entryTypes =  mapper.mapToEntryTypes(entry);
-			entryTypes.forEach((entryType) => {
-				if (!Lang.isNull(entryType)) {
+        fhirJson.entry.forEach((entry) => {
+            const entryTypes =  mapper.mapToEntryTypes(entry);
+            entryTypes.forEach((entryType) => {
+                if (!Lang.isNull(entryType)) {
                     const shrObj = FluxObjectFactory.createInstance({}, entryType);
                     shrObj.fromFHIR(entry);
                     shrObj.entryInfo.entryId = nextEntryId;
                     nextEntryId += 1;
-					this.entries.push(shrObj);
-				}
-			});
-		});
+                    this.entries.push(shrObj);
+                }
+            });
+        });
 
         this.patient = this.getPatient();
         this._calculateNextEntryId();
@@ -774,10 +774,10 @@ class PatientRecord {
 
             if (medAfterChange && medBeforeChange) {
                 eitherChangeIsRelated = medBeforeChange.reasons.some((r) => {
-                        return r.value.entryId && r.value.entryId === conditionEntryId;
-                    }) || medAfterChange.reasons.some((r) => {
-                        return r.value.entryId && r.value.entryId === conditionEntryId;
-                    });
+                    return r.value.entryId && r.value.entryId === conditionEntryId;
+                }) || medAfterChange.reasons.some((r) => {
+                    return r.value.entryId && r.value.entryId === conditionEntryId;
+                });
             } else if (medBeforeChange){
                 eitherChangeIsRelated = medBeforeChange.reasons.some((r) => {
                     return r.value.entryId && r.value.entryId === conditionEntryId;
@@ -848,8 +848,8 @@ class PatientRecord {
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         return this.entries.filter((item) => {
             return item instanceof FluxProcedureRequested && item.reasons && item.reasons.some((r) => {
-                    return r.value.entryId && r.value.entryId === conditionEntryId;
-                });
+                return r.value.entryId && r.value.entryId === conditionEntryId;
+            });
         });
     }
 
@@ -1159,31 +1159,31 @@ class PatientRecord {
         let a_severity, b_severity;
 
         switch (a.severity) {
-            case "Severe": {
-                a_severity = 1;
-                break;
-            }
-            case "Moderate": {
-                a_severity = 0;
-                break;
-            }
-            default: {
-                a_severity = -1;
-            }
+        case "Severe": {
+            a_severity = 1;
+            break;
+        }
+        case "Moderate": {
+            a_severity = 0;
+            break;
+        }
+        default: {
+            a_severity = -1;
+        }
         }
 
         switch (b.severity) {
-            case "Severe": {
-                b_severity = 1;
-                break;
-            }
-            case "Moderate": {
-                b_severity = 0;
-                break;
-            }
-            default: {
-                b_severity = -1;
-            }
+        case "Severe": {
+            b_severity = 1;
+            break;
+        }
+        case "Moderate": {
+            b_severity = 0;
+            break;
+        }
+        default: {
+            b_severity = -1;
+        }
         }
 
         if (a_severity > b_severity) return -1;

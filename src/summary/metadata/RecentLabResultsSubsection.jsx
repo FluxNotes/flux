@@ -24,9 +24,9 @@ export default class RecentLabResultsSubsection extends MetadataSection {
             const value = `${l.quantity.number} ${l.quantity.unit} (${l.relevantTime})`;
             const name = `${l.name}`;
             return {    name: name,
-                        value: {value},
-                        shortcut: null
-                };
+                value: {value},
+                shortcut: null
+            };
         });
     }
 }

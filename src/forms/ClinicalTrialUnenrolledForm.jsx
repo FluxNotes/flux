@@ -68,8 +68,8 @@ class ClinicalTrialUnenrolledForm extends Component {
     renderEndDatePicker = () => {
         return (
             <DatePicker id="end-date" className='clinical-trial-dates'
-                        handleDateChange={this.handleEndDateChange}
-                        dateToSet={null}
+                handleDateChange={this.handleEndDateChange}
+                dateToSet={null}
             />
         );
     }
@@ -108,7 +108,7 @@ class ClinicalTrialUnenrolledForm extends Component {
                 </p>
                 <p className="data-element-description">
                     Based on your selections below, the copy button at the bottom will copy a <a
-                    href="clinicalTrialUnenrolledSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
+                        href="clinicalTrialUnenrolledSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
                 </p>
 
                 <h4 className="header-spacing">Trial</h4>

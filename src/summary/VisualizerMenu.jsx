@@ -23,9 +23,9 @@ export default class VisualizerMenu extends Component {
     arrayConvertArrayToObject = (a) => {
         if (Lang.isArray(a.value)) {
             return {    value: a.value[0],
-                        isUnsigned: a.value[1],
-                        source: a.value[2],
-                        shortcutData: a.value[3] };
+                isUnsigned: a.value[1],
+                source: a.value[2],
+                shortcutData: a.value[3] };
         } else if(Lang.isObject(a.value)) {
             return a.value;
         } else {

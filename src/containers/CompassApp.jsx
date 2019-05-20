@@ -39,16 +39,16 @@ function getModalStyle() {
     const left = 50;
 
     return {
-      top: `${top}%`,
-      left: `${left}%`,
-      transform: `translate(-${top}%, -${left}%)`,
-      position: 'absolute',
-      width: 400,
-      backgroundColor: 'white',
-      boxShadow: 'black',
-      padding: 8,
+        top: `${top}%`,
+        left: `${left}%`,
+        transform: `translate(-${top}%, -${left}%)`,
+        position: 'absolute',
+        width: 400,
+        backgroundColor: 'white',
+        boxShadow: 'black',
+        padding: 8,
     };
-  }
+}
 
 export class CompassApp extends Component {
     constructor(props) {
@@ -63,7 +63,7 @@ export class CompassApp extends Component {
             this.dataAccess = new DataAccess(this.props.dataSource);
         }
 
-//        this.summaryMetadata = new SummaryMetadata(this.setForceRefresh);
+        //        this.summaryMetadata = new SummaryMetadata(this.setForceRefresh);
         this.summaryMetadata = new CompassAppSummaryMetadata(this.setForceRefresh);
         this.securityManager = new SecurityManager();
         this.searchIndex = new SearchIndex();
@@ -354,16 +354,16 @@ CompassApp.propTypes = {
 
 // these props are used for dispatching actions
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
+    return bindActionCreators({
     // TODO: add actions
-  }, dispatch);
+    }, dispatch);
 }
 
 // these props come from the application's state when it is started
 function mapStateToProps(state) {
-  return {
+    return {
     // TODO: add state
-  };
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CompassApp);

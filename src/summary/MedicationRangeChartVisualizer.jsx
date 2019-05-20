@@ -253,32 +253,32 @@ class MedicationRangeChartVisualizer extends Visualizer {
                         </Row>
                     </div>
                     {(med.medicationChange && med.medicationChange.type === 'stop') ? <div /> :
-                    <div className="medication-item-content">
-                        <Row around='xs'>
-                            <Col md={3}>
-                                {this.renderMedicationDosage(lowerValue, upperValue, dosageValue, dosageUnit, timingValue, timingUnit, asNeededIndicator, doseInstructionsText)}
-                            </Col>
-                            <Col md={4}>
-                                <div className="medication-range-chart-container">
-                                    <RangeChart
-                                        lowerValue={lowerValue}
-                                        upperValue={upperValue}
-                                        typicalValue={typicalValue}
-                                        value={dosageValue}
-                                        unit={dosageUnit}
-                                        name={name}
-                                        isWide={true}
-                                    />
-                                </div>
-                            </Col>
-                            <Col md={5}>
-                                {this.renderMedicationInfo(med)}
-                            </Col>
-                        </Row>
-                    </div>}
+                        <div className="medication-item-content">
+                            <Row around='xs'>
+                                <Col md={3}>
+                                    {this.renderMedicationDosage(lowerValue, upperValue, dosageValue, dosageUnit, timingValue, timingUnit, asNeededIndicator, doseInstructionsText)}
+                                </Col>
+                                <Col md={4}>
+                                    <div className="medication-range-chart-container">
+                                        <RangeChart
+                                            lowerValue={lowerValue}
+                                            upperValue={upperValue}
+                                            typicalValue={typicalValue}
+                                            value={dosageValue}
+                                            unit={dosageUnit}
+                                            name={name}
+                                            isWide={true}
+                                        />
+                                    </div>
+                                </Col>
+                                <Col md={5}>
+                                    {this.renderMedicationInfo(med)}
+                                </Col>
+                            </Row>
+                        </div>}
                 </Grid>
             </div>)
-}
+    }
 
 renderMedicationNarrowView = (med, i) => {
     // Grab range values based on medication
@@ -318,47 +318,47 @@ renderMedicationNarrowView = (med, i) => {
                 </div>
                 {/* Additional information for current medication */}
                 {(med.medicationChange && med.medicationChange.type === 'stop') ? <div /> :
-                <div className="medication-item-content">
-                    <Row between="xs">
-                        <Col sm={4}>
-                            {this.renderMedicationDosage(lowerValue, upperValue, dosageValue, dosageUnit, timingValue, timingUnit, asNeededIndicator, doseInstructionsText)}
-                        </Col>
-                        <Col sm={8}>
-                            <div className="medication-range-chart-container">
-                                <RangeChart
-                                    lowerValue={lowerValue}
-                                    upperValue={upperValue}
-                                    typicalValue={typicalValue}
-                                    value={dosageValue}
-                                    unit={dosageUnit}
-                                    name={name}
-                                    chartXCoordinate={20}
-                                    chartYCoordinate={18}
-                                    isWide={false}
-                                />
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row between="xs" top="xs">
-                        <Col sm={12}>
-                            {this.renderMedicationInfo(med)}
-                        </Col>
-                    </Row>
-                </div>}
-        </Grid>
+                    <div className="medication-item-content">
+                        <Row between="xs">
+                            <Col sm={4}>
+                                {this.renderMedicationDosage(lowerValue, upperValue, dosageValue, dosageUnit, timingValue, timingUnit, asNeededIndicator, doseInstructionsText)}
+                            </Col>
+                            <Col sm={8}>
+                                <div className="medication-range-chart-container">
+                                    <RangeChart
+                                        lowerValue={lowerValue}
+                                        upperValue={upperValue}
+                                        typicalValue={typicalValue}
+                                        value={dosageValue}
+                                        unit={dosageUnit}
+                                        name={name}
+                                        chartXCoordinate={20}
+                                        chartYCoordinate={18}
+                                        isWide={false}
+                                    />
+                                </div>
+                            </Col>
+                        </Row>
+                        <Row between="xs" top="xs">
+                            <Col sm={12}>
+                                {this.renderMedicationInfo(med)}
+                            </Col>
+                        </Row>
+                    </div>}
+            </Grid>
         </div>);
 
 }
 
-    render() {
-        const subsections = this.getSubsections();
+render() {
+    const subsections = this.getSubsections();
 
-        return (
-            <div className="medication-visualizer-wrapper">
-                {this.renderedSubsections(subsections)}
-            </div>
-        );
-    }
+    return (
+        <div className="medication-visualizer-wrapper">
+            {this.renderedSubsections(subsections)}
+        </div>
+    );
+}
 }
 
 MedicationRangeChartVisualizer.propTypes = {
