@@ -177,7 +177,7 @@ export default class NoteAssistant extends Component {
     openNote = (note) => {
         this.props.openExistingNote(note);
         if (note && !note.signed) {
-            // If the note selected is an In-Progress note (not signed), switch to the context tray 
+            // If the note selected is an In-Progress note (not signed), switch to the context tray
             this.toggleView("context-tray");
         } else {
             // else use the clinical-notes view

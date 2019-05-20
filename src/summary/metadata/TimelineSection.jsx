@@ -244,7 +244,7 @@ export default class TimelineSection extends MetadataSection {
 
             for (let i = 0; i < existingItemsInGroup.length; i++) {
                 const existingItem = existingItemsInGroup[i];
-                // endTime not always guarentted; perform our check conditionally here 
+                // endTime not always guarentted; perform our check conditionally here
                 const doesEndTimeConflictWithExistingItem = (endTime ? endTime < existingItem.end_time && endTime >= existingItem.start_time : false);
                 const doesStartTimeConflictWithExistingItem = startTime < existingItem.end_time && startTime >= existingItem.start_time;
                 const doesNewCoverOld = endTime ? startTime <= existingItem.start_time && endTime >= existingItem.end_time : false;

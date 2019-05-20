@@ -22,7 +22,7 @@ export default class ProceduresSection extends MetadataSection {
             // Ensure that each array for a given data type (e.g. Procedures in this case) contains the same number of elements (e.g. here it is 2 elements).
             // Or add to the end of the array, that looks okay too
             let result = [
-                {   value: p.name, 
+                {   value: p.name,
                     isUnsigned: patient.isUnsigned(p),
                     source:  this.determineSource(patient, p),
                     shortcutData: {

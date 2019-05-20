@@ -34,17 +34,17 @@ export default class ClinicalTrialsSection extends MetadataSection {
                             whenToDisplay: {
                                 valueExists: true,
                                 existingValueSigned: "either",
-                                editableNoteOpen: "either", 
+                                editableNoteOpen: "either",
                                 displayForColumns: [0, 1]
                             }
                         }
                     ]
                 },
-                {   nameFunction: this.getMissingCriteriaSubsectionName, 
+                {   nameFunction: this.getMissingCriteriaSubsectionName,
                     itemsFunction: this.getItemListToDisplayMissingCriteria,
                     displayFunction: this.getMissingCriteriaDisplay
                 }
-            ]   
+            ]
         };
     }
 
@@ -79,24 +79,24 @@ export default class ClinicalTrialsSection extends MetadataSection {
             }).map((c, i) => {
                 return [
                     {
-                        value: c.title, 
-                        isUnsigned: patient.isUnsigned(c), 
+                        value: c.title,
+                        isUnsigned: patient.isUnsigned(c),
                         source: c.sourceClinicalNoteReference
                     },
                     {
                         value: (c.status === 'Candidate') ? 'N/A' : c.enrollmentDate,
-                        isUnsigned: patient.isUnsigned(c), 
+                        isUnsigned: patient.isUnsigned(c),
                         source: c.sourceClinicalNoteReference
                     },
                     {
-                        value: (c.status === 'Candidate' || c.status === 'Enrolled' || c.status === 'Active') ? 'N/A' : c.endDate, 
-                        isUnsigned: patient.isUnsigned(c), 
+                        value: (c.status === 'Candidate' || c.status === 'Enrolled' || c.status === 'Active') ? 'N/A' : c.endDate,
+                        isUnsigned: patient.isUnsigned(c),
                         source: c.sourceClinicalNoteReference
                     },
                     {
                         value: c.details
                     }
-                ]; 
+                ];
             });
         }
     }
@@ -105,9 +105,9 @@ export default class ClinicalTrialsSection extends MetadataSection {
         let clinicalTrialsAndCriteriaList = patient.getEligibleClinicalTrials(currentConditionEntry, this.getItemListForEnrolledClinicalTrials(patient, currentConditionEntry));
         let eligibleTrials = [];
         clinicalTrialsAndCriteriaList.forEach((trial) => {
-            eligibleTrials.push([   { value: trial.info.name }, 
-                                    { value: (trial.numSatisfiedCriteria + " of " + trial.numTotalCriteria) }, 
-                                    { value: trial.info.studyStartDate }, 
+            eligibleTrials.push([   { value: trial.info.name },
+                                    { value: (trial.numSatisfiedCriteria + " of " + trial.numTotalCriteria) },
+                                    { value: trial.info.studyStartDate },
                                     { value: trial.info.description }
             ]);
         });

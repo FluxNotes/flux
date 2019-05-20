@@ -6,8 +6,8 @@
 // prog.evidence = ['pathology', 'imaging'];
 // prog.status = 'Responding';
 
-// describe('getStatus()', function() { 
-//     it('should return "Responding"', function() { 
+// describe('getStatus()', function() {
+//     it('should return "Responding"', function() {
 //         expect(prog.status)
 //             .to.be.a('string')
 //             .eql('Responding');

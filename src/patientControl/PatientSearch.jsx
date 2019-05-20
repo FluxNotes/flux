@@ -10,8 +10,8 @@ function escapeRegExp(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
 }
 
-class PatientSearch extends React.Component { 
-    constructor(props) { 
+class PatientSearch extends React.Component {
+    constructor(props) {
         super(props)
         const patient = props.patient;
         this.firstName = patient.getName() ? patient.getName().split(' ')[0] : "";
@@ -31,9 +31,9 @@ class PatientSearch extends React.Component {
     }
 
     // Creates a regex based on out input value and what we want to search on
-    createRegexForSearching = (inputValue) => { 
+    createRegexForSearching = (inputValue) => {
         //  Establish some common variables for our regex
-        const spaceOrNewlineOrPeriod = '(?:[^\\S\\n]|\\.)'; 
+        const spaceOrNewlineOrPeriod = '(?:[^\\S\\n]|\\.)';
         const possibleTrigger = '(?:#|@|\\S*\\[\\[|\\]\\]){0,1}';
         const escapedInput = `${escapeRegExp(inputValue)}`
         // combines for our pattern; adds capture group for snapshot of information
@@ -75,8 +75,8 @@ class PatientSearch extends React.Component {
                     contentSnapshot: this.getNoteContentWithoutStyle(result.value),
                     source: "clinicalNote",
                     // Need a way of matching not only with the structuredPhrase, but also with the
-                    // specific instance of that match; we give each matched structured phrase 
-                    // an identifier -- the order its in; that is 'n' where this is the nth phrase we've 
+                    // specific instance of that match; we give each matched structured phrase
+                    // an identifier -- the order its in; that is 'n' where this is the nth phrase we've
                     // seen that matches the current search text
                     indexOfMatch: result.indexOfMatch,
                     section: result.section,
@@ -109,7 +109,7 @@ class PatientSearch extends React.Component {
     }
 
     // Teach Autosuggest how to calculate the input value for every given suggestion.
-    getSuggestionValue = suggestion => { 
+    getSuggestionValue = suggestion => {
         return this.state.value;
     }
 
@@ -123,7 +123,7 @@ class PatientSearch extends React.Component {
             value: newValue
         });
     };
-  
+
     // Autosuggest will call this function every time you need to update suggestions.
     // You already implemented this logic above, so just use it.
     onSuggestionsFetchRequested = ({ value }) => {
@@ -132,7 +132,7 @@ class PatientSearch extends React.Component {
         });
         this.debounceGetSuggestions(value);
     };
-  
+
     // Autosuggest will call this function every time you need to clear suggestions.
     onSuggestionsClearRequested = () => {
         this.props.setSearchSuggestions([]);
@@ -142,7 +142,7 @@ class PatientSearch extends React.Component {
             openNoteSuggestions: []
         });
     };
-  
+
 
     // Will be called every time suggestion is selected via mouse or keyboard.
     onSuggestionSelected = (event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) => {
@@ -157,7 +157,7 @@ class PatientSearch extends React.Component {
     onSuggestionHighlighted = ({suggestion}) => {
         const { highlightedSearchSuggestion, setHighlightedSearchSuggestion } = this.props;
 
-        if (highlightedSearchSuggestion && highlightedSearchSuggestion.onHighlight) { 
+        if (highlightedSearchSuggestion && highlightedSearchSuggestion.onHighlight) {
             highlightedSearchSuggestion.onHighlight(highlightedSearchSuggestion, true);
         }
         if (!Lang.isNull(suggestion) && suggestion.onHighlight) {
@@ -174,7 +174,7 @@ class PatientSearch extends React.Component {
 
     // Defines how to render the suggestion
     renderSuggestion = (suggestion) => {
-        return <SearchSuggestion 
+        return <SearchSuggestion
             suggestion={suggestion}
         />
     }
@@ -190,7 +190,7 @@ class PatientSearch extends React.Component {
         );
     }
 
-    render () { 
+    render () {
         const { value, suggestions } = this.state;
 
         const inputProps = {
@@ -198,7 +198,7 @@ class PatientSearch extends React.Component {
             value,
             onChange: this.onChange
         };
-      
+
         return (
             <div id="patient-search">
                 <Autosuggest

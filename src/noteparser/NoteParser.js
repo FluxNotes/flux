@@ -57,29 +57,29 @@ export default class NoteParser {
     handleShortcutUpdate = (s) => {
         s.updatePatient(this.patient, this.contextManager, null);
     }
-    
-    createShortcut(triggerOrKeywordObject) {     
+
+    createShortcut(triggerOrKeywordObject) {
         const triggerOrKeywordText = (Lang.isUndefined(triggerOrKeywordObject.trigger)) ? triggerOrKeywordObject.keyword : triggerOrKeywordObject.trigger
         const shortcut = this.shortcutManager.createShortcut(
-            triggerOrKeywordObject.definition, triggerOrKeywordText, this.patient, 
+            triggerOrKeywordObject.definition, triggerOrKeywordText, this.patient,
             triggerOrKeywordObject.selectedValue, this.handleShortcutUpdate);
         shortcut.setSource("parsed note");
         shortcut.initialize(this.contextManager, triggerOrKeywordText, true, triggerOrKeywordObject.selectedValue);
-     
+
         if (shortcut instanceof CreatorBase || shortcut instanceof SingleHashtagKeyword || shortcut instanceof UpdaterBase) {
             shortcut.updatePatient(this.patient, this.contextManager, null);
         }
-        
-        if (shortcut instanceof InsertValue ) {          
-            const object = shortcut.createObjectForParsing(triggerOrKeywordObject.selectedValue, this.contextManager);       
+
+        if (shortcut instanceof InsertValue ) {
+            const object = shortcut.createObjectForParsing(triggerOrKeywordObject.selectedValue, this.contextManager);
             this.patient.addEntryToPatient(object);
             shortcut.setValueObject(object);
         }
-               
+
         shortcut.setKey("1");
-        
+
         return shortcut;
-    }    
+    }
 
     // This method takes in a trigger. If the trigger is a pick list (a shortcut that has multiple options) return true, otherwise return false
     isPickList(trigger) {
@@ -125,7 +125,7 @@ export default class NoteParser {
                  // Check if the shortcut is an inserter (check for '[['). If it is, grab the selected value
                 if (possibleValue.startsWith("[[")) {
                     let posOfEndBrackets = possibleValue.indexOf("]]");
-                    selectedValue = possibleValue.substring(2, posOfEndBrackets);                 
+                    selectedValue = possibleValue.substring(2, posOfEndBrackets);
                 }
                 matches.push({trigger: match[0], definition: this.shortcutManager.getMetadataForTrigger(match[0]), selectedValue: selectedValue});
             }
@@ -157,26 +157,26 @@ export default class NoteParser {
     }
 
     // Given a note, create a list of all keywords found in the note and their definitions
-    getAllKeywordsFromText (note) { 
+    getAllKeywordsFromText (note) {
         const keywordsFoundInText = [];
-        // Get currently active singleHashtagShortcuts 
+        // Get currently active singleHashtagShortcuts
         const listOfSingleHashtagKeywordShortcuts = this.contextManager.getActiveSingleHashtagKeywordShortcuts(this.shortcutManager);
         if (Lang.isUndefined(listOfSingleHashtagKeywordShortcuts)) return [];
-        // For each singleHashtagShortcut 
-        for (const singleHashtagShortcut of listOfSingleHashtagKeywordShortcuts) { 
-            // Get all types of keywords 
+        // For each singleHashtagShortcut
+        for (const singleHashtagShortcut of listOfSingleHashtagKeywordShortcuts) {
+            // Get all types of keywords
             const keywordClassesForShortcut = this.getAllKeywordClassesForSingleHashtagKeywordShortcut(singleHashtagShortcut)
-            // For each type of keywords 
-            for (const curKeywordClass of keywordClassesForShortcut) { 
+            // For each type of keywords
+            for (const curKeywordClass of keywordClassesForShortcut) {
                 // get all keywordObjects for that type of keyword (representing all possibble values of that keyword)
                 const keywordObjects = this.getKeywordsBasedOnKeywordShortcutClass(curKeywordClass)
-                // scan text for any of those keywordObject Values 
+                // scan text for any of those keywordObject Values
                 const foundKeyword = this.scanTextForAnyKeywordObjects(note, keywordObjects)
-                if (foundKeyword) { 
+                if (foundKeyword) {
                     // if keyword in text, add to our list of found keywords
                     const keywordText = foundKeyword.name.toLowerCase()
                     keywordsFoundInText.push({
-                        keyword: keywordText, 
+                        keyword: keywordText,
                         definition: this.shortcutManager.getMetadataForTrigger(keywordText)
                     });
                 }
@@ -186,28 +186,28 @@ export default class NoteParser {
     }
 
     // Given keywordsObjects representing potential keyword values and text, find the first keywordObject who appears in our text
-    scanTextForAnyKeywordObjects(text, keywordObjects) { 
-		for (const keywordObj of keywordObjects) { 
-			if (text.toLowerCase().indexOf(keywordObj.name.toLowerCase()) !== -1) { 
+    scanTextForAnyKeywordObjects(text, keywordObjects) {
+		for (const keywordObj of keywordObjects) {
+			if (text.toLowerCase().indexOf(keywordObj.name.toLowerCase()) !== -1) {
 				return keywordObj
 			}
         }
 	}
 
     // Given a keywordShortcutClass, get all of the associated keywords
-    getKeywordsBasedOnKeywordShortcutClass(keywordShortcutClass) { 
+    getKeywordsBasedOnKeywordShortcutClass(keywordShortcutClass) {
         return this.shortcutManager.getKeywordsForShortcut(keywordShortcutClass)
     }
 
-    // Given a singleHashtagKeywordShortcut, return all possible child keywordClasses 
-    getAllKeywordClassesForSingleHashtagKeywordShortcut(singleHashtagKeywordShortcut) { 
+    // Given a singleHashtagKeywordShortcut, return all possible child keywordClasses
+    getAllKeywordClassesForSingleHashtagKeywordShortcut(singleHashtagKeywordShortcut) {
         return this.shortcutManager.getValidChildShortcutsInContext(singleHashtagKeywordShortcut)
     }
-    
-    parse(note) {         
-        this.note = note; 
+
+    parse(note) {
+        this.note = note;
         const result = this.getListOfTriggersFromText(note);
-        const structuredPhrases = result[0];      
+        const structuredPhrases = result[0];
         structuredPhrases.map(this.createShortcut.bind(this));
         const foundKeywords = this.getAllKeywordsFromText(note);
         foundKeywords.map(this.createShortcut.bind(this));

@@ -123,7 +123,7 @@ export default class UpdaterBase extends EntryShortcut {
         }
         return result;
     }
-    
+
     getAttributeIsSet(name) {
         return this.isSet[name];
     }
@@ -289,7 +289,7 @@ export default class UpdaterBase extends EntryShortcut {
         }
 		return this.valueObject;
 	}
-    
+
     updatePatient(patient, contextManager, clinicalNote) {
         let idComplete = true;
         this.idAttributes.forEach((idAttrib) => {

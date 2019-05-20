@@ -244,7 +244,7 @@ describe('5 FullApp', function() {
        //expect(conditionName.text()).to.equal('Fracture');
     });
     it('5.2 Clicking "New Note" button in pre-encounter mode changes layout and displays the template selection screen', () => {
-        const wrapper = mount(<FullApp 
+        const wrapper = mount(<FullApp
             display='Flux Notes'
             dataSource='HardCodedMcodeV01DataSource'
             patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
@@ -283,7 +283,7 @@ describe('5 FullApp', function() {
         expect(e2.exists()).to.equal(true);
     });
     it('5.4 Clicking clinical notes toggle button in Note Assistant switches view to clinical notes', () => {
-        const wrapper = mount(<FullApp 
+        const wrapper = mount(<FullApp
             display='Flux Notes'
             dataSource='HardCodedMcodeV01DataSource'
             patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
@@ -307,13 +307,13 @@ describe('5 FullApp', function() {
         expect(clinicalNotesButton.exists()).to.equal(true);
         clinicalNotesButton.at(0).props().onClick();
         wrapper.update();
-        
+
         // do we have new note button available?
         const newNoteButton3 = wrapper.find('.note-new');
         expect(newNoteButton3.exists()).to.equal(true);
     });
     it('5.5 Clicking context toggle button in Note Assistant switches view to context tray', () => {
-        const wrapper = mount(<FullApp 
+        const wrapper = mount(<FullApp
             display='Flux Notes'
             dataSource='HardCodedMcodeV01DataSource'
             patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />,
@@ -338,7 +338,7 @@ describe('5 FullApp', function() {
         const contextButton = wrapper.find('#context-btn');
         contextButton.at(0).props().onClick();
         wrapper.update();
-        
+
         // context tray should be showing
         const contextTray = wrapper.find('.context-tray');
         expect(contextTray.exists()).to.equal(true);
@@ -1354,11 +1354,11 @@ describe('6 FluxNotesEditor', function() {
         const blankNoteButton = notesPanelWrapper.find('#new-note-container .template-option');
         blankNoteButton.at(0).simulate("click");
         notesPanelWrapper.update();
-    
+
         // Return to the notes-tray so we can inspect the inprogress notes!
         clinicalNotesButton.at(0).props().onClick();
         notesPanelWrapper.update();
-    
+
         // Confirm that we now have a note in progress, where before we didn't
         const inProgressNotesAfter = notesPanelWrapper.find('.note.in-progress-note');
         expect(inProgressNotesAfter).to.have.length(1);

@@ -51,7 +51,7 @@ export default function getProps(patient, condition) {
             },
             "stage": {
                 "display": "stage",
-                "mcodeElement": "onco.core.TNMClinicalStageGroup", 
+                "mcodeElement": "onco.core.TNMClinicalStageGroup",
                 // NOTE: the section is titled pathology but all the fields referenced in it are clinical, not pathologic
                 // (all sample data in the fixtures is clinical staging)
                 "valueType": "string",
@@ -107,7 +107,7 @@ export default function getProps(patient, condition) {
             if (!e.receptorType) return;
             propDict.pathology[e.receptorType.split(' ').join('')] = {
                 "display": e.receptorType,
-                "mcodeElement": "onco.core.TumorMarkerTest", 
+                "mcodeElement": "onco.core.TumorMarkerTest",
                 "valueType": "string",
                 "value": _.lowerCase(e.status),
                 "reference": e

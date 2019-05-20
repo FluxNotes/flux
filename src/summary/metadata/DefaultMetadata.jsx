@@ -27,8 +27,8 @@ export default class DefaultMetadata extends MetadataSection {
                                 {
                                     name: "Name",
                                     value: (patient, currentConditionEntry) => {
-                                        return  {   value: currentConditionEntry.type, 
-                                                    isUnsigned: patient.isUnsigned(currentConditionEntry), 
+                                        return  {   value: currentConditionEntry.type,
+                                                    isUnsigned: patient.isUnsigned(currentConditionEntry),
                                                     source: this.determineSource(patient, currentConditionEntry),
                                                     shortcutData: {
                                                         shortcut: '@condition',
@@ -40,8 +40,8 @@ export default class DefaultMetadata extends MetadataSection {
                                 {
                                     name: "Diagnosis Date",
                                     value: (patient, currentConditionEntry) => {
-                                        return  {   value: currentConditionEntry.diagnosisDate, 
-                                                    isUnsigned: patient.isUnsigned(currentConditionEntry), 
+                                        return  {   value: currentConditionEntry.diagnosisDate,
+                                                    isUnsigned: patient.isUnsigned(currentConditionEntry),
                                                     source: this.determineSource(patient, currentConditionEntry)
                                                 };
                                     }
@@ -49,8 +49,8 @@ export default class DefaultMetadata extends MetadataSection {
                                 {
                                     name: "Where",
                                     value: (patient, currentConditionEntry) => {
-                                        return  {   value: currentConditionEntry.bodySite, 
-                                                    isUnsigned: patient.isUnsigned(currentConditionEntry), 
+                                        return  {   value: currentConditionEntry.bodySite,
+                                                    isUnsigned: patient.isUnsigned(currentConditionEntry),
                                                     source: this.determineSource(patient, currentConditionEntry)
                                                 };
                                     }
@@ -58,8 +58,8 @@ export default class DefaultMetadata extends MetadataSection {
                                 {
                                     name: "Clinical Status",
                                     value: (patient, currentConditionEntry) => {
-                                        return  {   value: currentConditionEntry.clinicalStatus, 
-                                                    isUnsigned: patient.isUnsigned(currentConditionEntry), 
+                                        return  {   value: currentConditionEntry.clinicalStatus,
+                                                    isUnsigned: patient.isUnsigned(currentConditionEntry),
                                                     source: this.determineSource(patient, currentConditionEntry)
                                                 };
                                     }

@@ -10,7 +10,7 @@ class FluxBRCA1Variant extends FluxObservation {
     get entryInfo() {
         return this._brca1Variant.entryInfo;
     }
-    
+
     get abbreviatedName() {
         return 'BRCA1';
     }

@@ -5,7 +5,7 @@ import TextField from 'material-ui/TextField';
 import './SearchBar.css'
 
 export default class SearchBar extends Component {
-    render () { 
+    render () {
         return (
             <div id="search-container">
                 <span className="fa fa-search search-icon"></span>

@@ -18,7 +18,7 @@ export default class SingleHashtagKeyword extends EntryShortcut {
             this.object = patient.getEntryById(dataObj.entryId);
             // We want to try and get this object -- if there is none, make a new one
             this.isObjectNew = !this.object;
-            if (!this.object) { 
+            if (!this.object) {
                 this.object = FluxObjectFactory.createInstance({}, this.metadata["valueObject"], patient);
             }
         }
@@ -106,7 +106,7 @@ export default class SingleHashtagKeyword extends EntryShortcut {
         this.removeFromPatient();
         return result;
     }
-    
+
     getAttributeIsSet(name) {
         return this.isSet[name];
     }
@@ -256,7 +256,7 @@ export default class SingleHashtagKeyword extends EntryShortcut {
         }
         return null;
     }
-    
+
     removeFromPatient() {
         if (this.isObjectNew) return;
         const undoUpdatePatientSpecList = this.metadata["undoUpdatePatient"];
@@ -268,7 +268,7 @@ export default class SingleHashtagKeyword extends EntryShortcut {
             this.patient.removeEntryFromPatient(this.object);
         }
     }
-    
+
     updatePatient(patient, contextManager, clinicalNote) {
         if (this.isObjectNew) {
             const updatePatientSpecList = this.metadata["updatePatient"];

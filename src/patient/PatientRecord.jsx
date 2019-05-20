@@ -704,7 +704,7 @@ class PatientRecord {
             return med.isActiveBetween(sixMonthsAgo, today);
         });
     }
-    
+
     getActiveMedicationsForCondition(condition) {
         let medications = this.getActiveMedications();
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
@@ -873,13 +873,13 @@ class PatientRecord {
             return p.reasons && p.reasons.some(r => r.value.entryId && r.value.entryId === conditionEntryId);
         });
     }
-    
+
 
     getSurgeriesForCondition(condition) {
         const allProceduresForCondition = this.getProceduresForCondition(condition);
         return allProceduresForCondition.filter((procedure) => {
             // Looking for Surgery code - should be based on http://ncimeta.nci.nih.gov
-            return procedure.code === "C0851238" && procedure.codeSystem === "http://ncimeta.nci.nih.gov"; 
+            return procedure.code === "C0851238" && procedure.codeSystem === "http://ncimeta.nci.nih.gov";
         });
     }
 
@@ -890,7 +890,7 @@ class PatientRecord {
     getSurgeriesPreviouslyPerformedForCondition(condition) {
         const surgeriesForCondition = this.getSurgeriesForCondition(condition);
         return surgeriesForCondition.filter((surgery) => {
-            // Case 1: Status is completed: 
+            // Case 1: Status is completed:
             // Looking for completed request status code - should be based on http://hl7.org/fhir/STU3/valueset-request-status.html
             const isCompleted = surgery.status === "completed" && surgery.statusCodeSystem === "http://hl7.org/fhir/STU3/valueset-request-status.html";
             // Case 2: ExpectedPerformanceDate is before "right now"
@@ -1012,7 +1012,7 @@ class PatientRecord {
     _entryIdsMatch(entryId1, entryId2) {
         if (!entryId1 || !entryId2) return false;
 
-        // entryId could either be just a string or wrapped in an object. 
+        // entryId could either be just a string or wrapped in an object.
         // the spec says it should be a shr.base.EntryId but we'll be a little lax here to minimize changes
         const lhs = entryId1.id || entryId1;
         const rhs = entryId2.id || entryId2;

@@ -50,7 +50,7 @@ class DatePicker extends Component {
     }
 }
 
-DatePicker.propTypes= { 
+DatePicker.propTypes= {
     dateToSet: PropTypes.string,
     handleDateChange: PropTypes.func.isRequired,
     id: PropTypes.string,

@@ -36,7 +36,7 @@ class DataCaptureForm extends Component {
             currentShortcutType = this.props.currentShortcut.getShortcutType()
         }
         if (this.state.value === "") {
-        } else if (this.state.value === "staging" && this.state.value === currentShortcutType) {            
+        } else if (this.state.value === "staging" && this.state.value === currentShortcutType) {
             content = this.props.currentShortcut.getForm();
         } else if (this.state.value === "progression" && this.state.value === currentShortcutType) {
             content = this.props.currentShortcut.getForm();
@@ -45,7 +45,7 @@ class DataCaptureForm extends Component {
         } else if (this.state.value === "staging" || this.state.value === "progression" || this.state.value === "toxicity") {
             console.log('We might want to figure out how to change currentShortcut from this position')
             content = <p>Nothing to show</p>
-        } else { 
+        } else {
             content = <p>Nothing to show</p>
         }
 

@@ -4,7 +4,7 @@ class FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel {
     constructor(json) {
         this._gastrointestinalStromalTumorCancerGeneticAnalysisPanel = Observation.fromJSON(json);
     }
-    
+
     get entryInfo() {
         return this._gastrointestinalStromalTumorCancerGeneticAnalysisPanel.entryInfo;
     }
@@ -12,7 +12,7 @@ class FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel {
     get relevantTime() {
         return this._gastrointestinalStromalTumorCancerGeneticAnalysisPanel.relevantTime.value;
     }
-    
+
     get members() {
         return this._gastrointestinalStromalTumorCancerGeneticAnalysisPanel.panelMembers.observation;
     }

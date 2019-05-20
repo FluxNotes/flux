@@ -16,11 +16,11 @@ class Legend extends Component {
     }
 }
 
-Legend.propTypes = { 
-    items: PropTypes.arrayOf(PropTypes.shape({ 
+Legend.propTypes = {
+    items: PropTypes.arrayOf(PropTypes.shape({
         icon: PropTypes.string,
         description: PropTypes.string
     })),
-} 
+}
 
 export default Legend;

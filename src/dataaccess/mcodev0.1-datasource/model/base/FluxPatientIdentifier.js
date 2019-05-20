@@ -34,7 +34,7 @@ class FluxPatientIdentifier {
     set entryInfo(entryVal) {
         this._entryInfo = entryVal;
     }
-    
+
     get organization() {
         return this._organization;
     }

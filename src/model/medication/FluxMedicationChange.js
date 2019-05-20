@@ -76,11 +76,11 @@ class FluxMedicationChange extends FluxEntry {
         if (!this._medicationChange.medicationAfterChange || this._medicationChange.medicationAfterChange.length === 0) return null;
         return this._medicationChange.medicationAfterChange[0];
     }
-    /** 
+    /**
      * Get the type of medication change
      * Returns type as a string
      */
-    get type() { 
+    get type() {
         // Return code
         return this._medicationChange.category.value.coding[0].code.value;
     }

@@ -4,7 +4,7 @@ class FluxPDGFRAVariant {
     constructor(json) {
         this._pdgfraVariant = Observation.fromJSON(json);
     }
-    
+
     get abbreviatedName() {
         return 'PDGFRA';
     }

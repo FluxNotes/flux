@@ -480,7 +480,7 @@ export const clinicalTrialEnrollmentJSON = {
     "Status": {
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/core/Status"
-        }, 
+        },
         "Value": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
@@ -554,7 +554,7 @@ export const clinicalTrialEnrollmentMinimalJSON = {
     "Status": {
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/core/Status"
-        }, 
+        },
         "Value": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
@@ -628,7 +628,7 @@ export const clinicalTrialUnenrolledJSON = {
     "Status": {
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/core/Status"
-        }, 
+        },
         "Value": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
@@ -767,7 +767,7 @@ export const stopMedicationJSON = {
         },
         "Value": "completed"
     }
-    
+
 }
 
 export const reduceMedicationJSON = {

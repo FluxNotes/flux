@@ -20,7 +20,7 @@ export default class NLPHashtag extends Shortcut {
             this.object = patient.getEntryById(dataObj.entryId);
             // We want to try and get this object -- if there is none, make a new one
             this.isObjectNew = !this.object;
-            if (!this.object) { 
+            if (!this.object) {
                 this.object = FluxObjectFactory.createInstance({}, this.metadata["valueObject"]);
             }
         }
@@ -66,7 +66,7 @@ export default class NLPHashtag extends Shortcut {
         if (!Lang.isUndefined(this.parentContext)) {
             this.parentContext.addChild(this);
         }
-        
+
         // defaulting
         const metadataVOA = this.metadata["valueObjectAttributes"];
         metadataVOA.forEach((attrib) => {
@@ -165,7 +165,7 @@ export default class NLPHashtag extends Shortcut {
         }
         return result;
     }
-    
+
     getAttributeIsSet(name) {
         return this.isSet[name];
     }
@@ -306,7 +306,7 @@ export default class NLPHashtag extends Shortcut {
         }
         return null;
     }
-    
+
     removeFromPatient() {
         if (this.isObjectNew) return;
         const undoUpdatePatientSpecList = this.metadata["undoUpdatePatient"];
@@ -318,7 +318,7 @@ export default class NLPHashtag extends Shortcut {
             this.patient.removeEntryFromPatient(this.object);
         }
     }
-    
+
     updatePatient(patient, contextManager, clinicalNote) {
         if (this.isObjectNew) {
             const updatePatientSpecList = this.metadata["updatePatient"];

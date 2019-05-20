@@ -36,5 +36,5 @@ export default class LaunchPage extends Component {
             </div>
         )
     }
-    
+
 }

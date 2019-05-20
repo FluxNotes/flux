@@ -3,21 +3,21 @@ import PropTypes from 'prop-types';
 import _ from 'lodash'
 
 
-export default class Visualizer extends Component { 
-    // Get the data off of the props that we're looking at right now 
-    _getDataCacheFromProps = (someProps) => { 
+export default class Visualizer extends Component {
+    // Get the data off of the props that we're looking at right now
+    _getDataCacheFromProps = (someProps) => {
         // NOTE: Don't use this.props -- sometimes we want to look at incoming props ala shouldComponentUpdate
         const data = someProps.conditionSection.data.map((dataElement) => dataElement.data_cache);
         return data;
     }
 
-    _hasSuggestionForSection(suggestions, sectionName) { 
+    _hasSuggestionForSection(suggestions, sectionName) {
         return _.find(suggestions, (suggestion) => suggestion.section === sectionName);
     }
 
     shouldComponentUpdate(nextProps, nextState) {
         // Reasons to update:
-        // - The highlighted suggestion is or was in this section 
+        // - The highlighted suggestion is or was in this section
         // - The searchSuggestions contains has changed and does/did contain a suggestion in this section
         // - There is a change to the dataCache of this section
         // - A note has been signed -- our representation of the data should reflect it's signedness
@@ -30,32 +30,32 @@ export default class Visualizer extends Component {
         // - Local state has changed
         const updatedSectionName = nextProps.conditionSection.name
 
-        // Case 1: Highligted Suggestion Changed and is relevant for this seection  -- based on object, so we'll make a local copy in case te object is mutated 
+        // Case 1: Highligted Suggestion Changed and is relevant for this seection  -- based on object, so we'll make a local copy in case te object is mutated
         const currentHighlightedSuggestionSection = !_.isNull(this.props.highlightedSearchSuggestion) ? this.props.highlightedSearchSuggestion.section : null;
         const nextHighlightedSuggestionSection = !_.isNull(nextProps.highlightedSearchSuggestion) ? nextProps.highlightedSearchSuggestion.section : null;
-        //  Have the highlighedItems changed, and is either the old/new in this section? 
+        //  Have the highlighedItems changed, and is either the old/new in this section?
         const relevantChangesToHighlightedSrc = !_.isEqual(this.props.highlightedSearchSuggestion, nextProps.highlightedSearchSuggestion)
             && (currentHighlightedSuggestionSection === updatedSectionName || nextHighlightedSuggestionSection === updatedSectionName);
         // Short circuit if true -- cannot change the search menu and other relevant data, so no need to continue checking for the sake of updating local data
         if (relevantChangesToHighlightedSrc) return relevantChangesToHighlightedSrc;
 
 
-        //  Case 2: Search Suggestions relevant to the TDP change -- based on object, so we'll make a local copy in case te object is mutated 
+        //  Case 2: Search Suggestions relevant to the TDP change -- based on object, so we'll make a local copy in case te object is mutated
         const previousTDPSuggestions = this.props.tdpSearchSuggestions;
         const nextTDPSuggestions = nextProps.tdpSearchSuggestions;
-        // Do we have any TDP new suggestions, and are any of them in this section? 
+        // Do we have any TDP new suggestions, and are any of them in this section?
         const relevantChangesToTDPSuggestions = !_.isEqual(previousTDPSuggestions, nextTDPSuggestions)
             && (this._hasSuggestionForSection(nextTDPSuggestions, updatedSectionName) || this._hasSuggestionForSection(previousTDPSuggestions, updatedSectionName))
         // Short circuit if true -- cannot change the search menu and other relevant data, so no need to continue checking for the sake of updating local data
         if (relevantChangesToTDPSuggestions) return relevantChangesToTDPSuggestions
 
 
-        // Case 3: Data that this visualizer cares about changes -- based on object, so we'll make a local copy in case te object is mutated 
+        // Case 3: Data that this visualizer cares about changes -- based on object, so we'll make a local copy in case te object is mutated
         //  - this is defined in the conditionSection prop; the data gets extracted above
         const nextDataCache = this._getDataCacheFromProps(nextProps);
         const changesToRelevantData = !_.isEqual(this._oldDataCache, nextDataCache)
         // Update local DataCache if there's a difference in the data
-        if (changesToRelevantData) { 
+        if (changesToRelevantData) {
             this._oldDataCache = nextDataCache;
         }
 
@@ -109,7 +109,7 @@ export default class Visualizer extends Component {
             || changesToSectionsDisplayed
             || changesToState;
     }
-} 
+}
 
 Visualizer.propTypes = {
     actions: PropTypes.array,

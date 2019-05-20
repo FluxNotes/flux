@@ -4,7 +4,7 @@ import Lang from 'lodash';
 import _ from 'lodash';
 
 class SuggestionPortalShortcutSearchIndex extends SuggestionPortalSearchIndex  {
-    constructor(list, initialChar, shortcutManager) { 
+    constructor(list, initialChar, shortcutManager) {
         super(list, initialChar, shortcutManager)
         this.currentlyValidShortcutObjs = [];
     }
@@ -25,13 +25,13 @@ class SuggestionPortalShortcutSearchIndex extends SuggestionPortalSearchIndex  {
             // ActiveContexts is sorted from most recent to least recent
             // We want shortcuts for the most recent shortcuts to have the smallest bonus score, so as to appear earlier
             let scoreBonusBasedOnContext = _.findIndex(activeContexts, (context) => {
-                // Quirk: We want global contexts to all be treated equally, regardless of incidence. 
+                // Quirk: We want global contexts to all be treated equally, regardless of incidence.
                 return context.getId() === shortcutObj.parentId && !context.isGlobalContext();
             });
 
             if (scoreBonusBasedOnContext === -1)  {
                 // no matching context means it's in the parent context or is a global context
-                // we want those to come last; they get the biggest bonus 
+                // we want those to come last; they get the biggest bonus
                 scoreBonusBasedOnContext = activeContexts.length
             }
             triggers.forEach((trigger) => {
@@ -43,13 +43,13 @@ class SuggestionPortalShortcutSearchIndex extends SuggestionPortalSearchIndex  {
                         value: trigger,
                         suggestion: triggerNoPrefix,
                         knownParentContexts: shortcutMetadata.knownParentContexts,
-                        scoreBonusBasedOnContext 
+                        scoreBonusBasedOnContext
                     });
                 }
             });
         });
 
-        this.shortcutsFuse = new Fuse(relevantShortcutsFormattedForSearch, this.fuseOptions); 
+        this.shortcutsFuse = new Fuse(relevantShortcutsFormattedForSearch, this.fuseOptions);
     }
 };
 

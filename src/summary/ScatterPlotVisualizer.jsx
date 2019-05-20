@@ -38,7 +38,7 @@ class ScatterPlotVisualizer extends Visualizer {
         data.deceased.forEach(function (item) {
             dead.push([categoryList.indexOf(item[0]) + (Math.random() * 50 + 30) / 100 - .5, item[1]]);
         })
-    
+
 
         return [alive, dead];
     }

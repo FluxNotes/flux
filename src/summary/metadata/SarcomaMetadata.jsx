@@ -26,7 +26,7 @@ import HeartRateSubsection from './HeartRateSubsection';
 export default class SarcomaMetadata extends MetadataSection {
     getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
         return { // sarcoma
-            sections: this.buildMetadataSections(preferencesManager, patient, condition, roleType, role, specialty, 
+            sections: this.buildMetadataSections(preferencesManager, patient, condition, roleType, role, specialty,
                 VisitReasonPreEncounterSection,
                 VisitReasonPostEncounterSection,
                 SarcomaSummarySection,
@@ -34,7 +34,7 @@ export default class SarcomaMetadata extends MetadataSection {
                 MedicationsSection,
                 AllergiesSection,
                 ProceduresSection,
-                ImagingSection,               
+                ImagingSection,
                 DiseaseStatusSection,
                 {
                     name: "Vitals",

@@ -6,8 +6,8 @@
 // study.title = 'PATINA';
 // study.identifier = '123';
 
-// describe('getTitle()', function() { 
-//     it('should return "PATINA"', function() { 
+// describe('getTitle()', function() {
+//     it('should return "PATINA"', function() {
 //         expect(study.title)
 //             .to.be.a('string')
 //             .eql('PATINA');
@@ -23,8 +23,8 @@
 //     });
 // });
 
-// describe('getIdentifier()', function() { 
-//     it('should return "123"', function() { 
+// describe('getIdentifier()', function() {
+//     it('should return "123"', function() {
 //         expect(study.identifier)
 //             .to.be.a('string')
 //             .eql('123');

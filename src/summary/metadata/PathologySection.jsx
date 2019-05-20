@@ -35,9 +35,9 @@ export default class PathologySection extends MetadataSection {
                                 const list = patient.getPathologyReportsChronologicalOrder();
                                 if (list.length === 0) return null;
                                 const report = list.pop();
-                           
+
                                 return  {  value: report.relevantTime,
-                                           isUnsigned: patient.isUnsigned(report), 
+                                           isUnsigned: patient.isUnsigned(report),
                                            source: this.determineSource(patient, report)
                                 }
                             }
@@ -48,9 +48,9 @@ export default class PathologySection extends MetadataSection {
                                 const list = patient.getPathologyReportsChronologicalOrder();
                                 if (list.length === 0) return null;
                                 const report = list.pop();
-                               
+
                                 return  {  value: report.author,
-                                           isUnsigned: patient.isUnsigned(report), 
+                                           isUnsigned: patient.isUnsigned(report),
                                            source: this.determineSource(patient, report)
                                 }
                             }
@@ -115,8 +115,8 @@ export default class PathologySection extends MetadataSection {
                         if (Lang.isNull(er)) {
                             return null;
                         } else {
-                            return  {   value: er.status, 
-                                        isUnsigned: patient.isUnsigned(er), 
+                            return  {   value: er.status,
+                                        isUnsigned: patient.isUnsigned(er),
                                         source: this.determineSource(patient, er)
                                     };
                         }
@@ -129,8 +129,8 @@ export default class PathologySection extends MetadataSection {
                         if (Lang.isNull(pr)) {
                             return null;
                         } else {
-                            return  {   value: pr.status, 
-                                        isUnsigned: patient.isUnsigned(pr), 
+                            return  {   value: pr.status,
+                                        isUnsigned: patient.isUnsigned(pr),
                                         source: this.determineSource(patient, pr)
                                     };
                         }
@@ -143,8 +143,8 @@ export default class PathologySection extends MetadataSection {
                         if (Lang.isNull(her2)) {
                             return null;
                         } else {
-                            return  {   value: her2.status, 
-                                        isUnsigned: patient.isUnsigned(her2), 
+                            return  {   value: her2.status,
+                                        isUnsigned: patient.isUnsigned(her2),
                                         source: this.determineSource(patient, her2)
                                     };
                         }

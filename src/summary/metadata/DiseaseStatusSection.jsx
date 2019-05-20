@@ -36,7 +36,7 @@ export default class DiseaseStatusSection extends MetadataSection {
 
         const potentialDiagnosisDates = condition.getPotentialDiagnosisDates()
         return {
-            progressions: processedProgressions, 
+            progressions: processedProgressions,
             potentialDiagnosisDates: potentialDiagnosisDates,
         };
     }

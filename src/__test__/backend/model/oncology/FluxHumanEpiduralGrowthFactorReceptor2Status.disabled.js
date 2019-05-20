@@ -5,8 +5,8 @@
 // let her2status = new FluxHumanEpiduralGrowthFactorReceptor2Status();
 // her2status.status = 'Positive';
 
-// describe('getStatus()', function() { 
-//     it('should return "Positive"', function() { 
+// describe('getStatus()', function() {
+//     it('should return "Positive"', function() {
 //         expect(her2status.status)
 //             .to.be.a('string')
 //             .eql('Positive');

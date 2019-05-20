@@ -160,7 +160,7 @@ class EditorToolbar extends React.Component {
     }
 }
 
-EditorToolbar.propTypes = { 
+EditorToolbar.propTypes = {
     contextManager: PropTypes.object.isRequired,
     isReadOnly: PropTypes.bool.isRequired,
     onBlockCheck: PropTypes.func.isRequired,

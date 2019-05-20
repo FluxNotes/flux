@@ -4,7 +4,7 @@ class FluxBreastCancerGeneticAnalysisPanel {
     constructor(json) {
         this._breastCancerGeneticAnalysisPanel = BreastCancerGeneticAnalysisPanel.fromJSON(json);
     }
-    
+
     get entryInfo() {
         return this._breastCancerGeneticAnalysisPanel.entryInfo;
     }
@@ -12,7 +12,7 @@ class FluxBreastCancerGeneticAnalysisPanel {
     get relevantTime() {
         return this._breastCancerGeneticAnalysisPanel.relevantTime.value;
     }
-    
+
     get members() {
         return this._breastCancerGeneticAnalysisPanel.panelMembers.observation;
     }

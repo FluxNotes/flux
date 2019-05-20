@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { CircularProgress, Fade, Paper, Typography } from 'material-ui';
 
-class LoadingAnimation extends Component { 
-    render() { 
+class LoadingAnimation extends Component {
+    render() {
         const { loading, timeoutDuration } = this.props;
         return (
             <Fade in={loading} timeout={timeoutDuration}>
@@ -26,7 +26,7 @@ class LoadingAnimation extends Component {
                     >
                         Loading Data
                     </Typography>
-                        
+
                     <CircularProgress
                         style={{
                             'height': '80px',

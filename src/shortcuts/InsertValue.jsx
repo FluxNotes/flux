@@ -96,8 +96,8 @@ export default class InsertValue extends Shortcut {
             args = args.map((arg) => {
                 if (arg === "$selectedValue") {
                     return selectedValue;
-                }                
-                return arg;            
+                }
+                return arg;
             });
 
             result = contextManager.getPatient()[callSpec["method"]](...args);
@@ -115,7 +115,7 @@ export default class InsertValue extends Shortcut {
                             date: item[dateLabel]
                         };
                     });
-                } 
+                }
                 // NOTE: We left this in in case we needed to add the listItems functionality back into shortcuts.json
                 // At the time of commenting we had modified the only instances of this 'getData' format from Shortcuts.json, @all medications' and '@active medications'
                 // else {
@@ -163,7 +163,7 @@ export default class InsertValue extends Shortcut {
      * Determines the text to display for this particular inserter shortcut. Some shortcuts
      * will return a string value, but others can returns a list of possible options for the
      * user to select from. Each item in that list must be a javascript object like this:
-     *   {  key: <identifier for item>, 
+     *   {  key: <identifier for item>,
      context: <label or title to display to user>,
      object: <full SHR data object represented>
      }
@@ -243,7 +243,7 @@ export default class InsertValue extends Shortcut {
         this.valueObject = valueObject;
         const parentAttribute = this.metadata["parentAttribute"];
 
-        // Check parent of shortcut and setAttributeValue 
+        // Check parent of shortcut and setAttributeValue
         if (parentAttribute && (this.parentContext instanceof CreatorBase || this.parentContext instanceof SingleHashtagKeyword) && this.parentContext.isAttributeSupported(parentAttribute)) {
             this.parentContext.setAttributeValue(parentAttribute, this.valueObject);
         }

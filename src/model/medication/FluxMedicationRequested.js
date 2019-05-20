@@ -55,7 +55,7 @@ class FluxMedicationRequested extends FluxEntry {
         if (this.expectedPerformanceTime) return this.expectedPerformanceTime.timePeriodStart;
 
         // fallback to statementDateTime in case expectedPerformanceTime isn't provided
-        // statementDateTime maps to dateWritten in FHIR and is required by the argonaut profile, 
+        // statementDateTime maps to dateWritten in FHIR and is required by the argonaut profile,
         //   so we expect it to always be present
         // both statementDateTime and expectedPerformanceTime.timePeriodStart have a value of type dateTime
         // so they should be interchangeable for our purposes
@@ -109,7 +109,7 @@ class FluxMedicationRequested extends FluxEntry {
     isActiveBetween(lowerDate, upperDate) {
         const start = new moment(this.startDate, "D MMM YYYY");
         const end = new moment(this.endDate, "D MMM YYYY");
-        
+
         // If the start date is in the future
         if (start && start > upperDate) return false;
 
@@ -263,7 +263,7 @@ class FluxMedicationRequested extends FluxEntry {
     }
 
     get asNeededIndicator() {
-        if (!this._medicationRequested.dosage 
+        if (!this._medicationRequested.dosage
             || !this._medicationRequested.dosage.asNeededIndicator) {
             return null;
         }
@@ -271,7 +271,7 @@ class FluxMedicationRequested extends FluxEntry {
     }
 
     get doseInstructionsText() {
-        if (!this._medicationRequested.dosage 
+        if (!this._medicationRequested.dosage
             || !this._medicationRequested.dosage.dosageInstructionsText) {
             return null;
         }

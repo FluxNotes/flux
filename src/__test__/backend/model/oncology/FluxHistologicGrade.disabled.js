@@ -13,7 +13,7 @@
 
 // let grade = new FluxHistologicGrade(gradeJson);
 
-// describe('getGrade()', function() { 
+// describe('getGrade()', function() {
 //     it('should return "High grade or poorly differentiated"', function() {
 //         expect(grade.grade)
 //             .to.be.a('string')

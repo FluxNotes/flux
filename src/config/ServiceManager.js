@@ -16,7 +16,7 @@ export default class ServiceManager {
         for (const key of keys) {
             let serviceConfig = this.services[key];
             if (typeof serviceConfig === 'string') {
-                let type = SERVICES[serviceConfig]; 
+                let type = SERVICES[serviceConfig];
                 this.services[key] = new type();
             } else if (serviceConfig && serviceConfig.name) {
                 let type = SERVICES[serviceConfig.name];

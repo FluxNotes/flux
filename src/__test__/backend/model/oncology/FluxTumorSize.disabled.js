@@ -14,7 +14,7 @@
 
 // let tumorSize = new FluxTumorSize(tumorJson);
 
-// describe('getQuantity()', function() { 
+// describe('getQuantity()', function() {
 //     it('should return an object with value and unit', function() {
 //         const expectedQuantity = {
 //             value: 30.0,

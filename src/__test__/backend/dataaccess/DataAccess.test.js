@@ -7,6 +7,7 @@ import PatientRecord from '../../../patient/PatientRecord';
 import Moment from 'moment';
 import {expect} from 'chai';
 import * as EntryMapper from '../../../dataaccess/mcodev0.1-datasource/EntryMapper';
+import util from 'util';
 
 const mcodePatientJson = EntryMapper.mapEntries(BreastMainTreatmentDebra);
 // reference hard coded Patient
@@ -30,7 +31,6 @@ const newPatientEntries = newPatient.entries;
 // Data Access with REST API
 const restApiDataAccess = new DataAccess("RestApiDataSource");
 const newPatientRest = restApiDataAccess.newPatient();
-import util from 'util';
 
 // Data Access with FHIR
 /*const fhirApiDataAccess = new DataAccess("FHIRApiDataSource");

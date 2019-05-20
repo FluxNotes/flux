@@ -322,7 +322,7 @@ export default class FillPlaceholder extends Component {
                         <span>
                             {this.createFillFieldForPlaceholder(attribute, value, entryIndex)}
                         </span>
-                    </Grid>                   
+                    </Grid>
                     {nextButton}
                 </Grid>
             );

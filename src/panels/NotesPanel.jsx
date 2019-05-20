@@ -46,7 +46,7 @@ export default class NotesPanel extends Component {
         // If the note we're about to have open is different...
         if (!Lang.isNull(nextProps.openClinicalNote) && this.props.openClinicalNote !== nextProps.openClinicalNote) {
             if (!Lang.isNull(this.props.openClinicalNote) && !this.state.showTemplateView) {
-                // If our current note isn't null, and we aren't trying to insert a template, 
+                // If our current note isn't null, and we aren't trying to insert a template,
                 // - Then clear the contextTray Item to insert
                 this.updateContextTrayItemToInsert(null);
             }
@@ -273,11 +273,11 @@ export default class NotesPanel extends Component {
     changeShortcutType = (shortcutKey, shouldUpdateShortcutType, shortcutType) => {
         this.setState({ shortcutKey, shouldUpdateShortcutType, shortcutType });
     }
-    
+
     renderNotesPanelContent() {
-        if (this.state.showTemplateView) { 
+        if (this.state.showTemplateView) {
             // If we're supposed to show the template view, pull that up first
-            return ( 
+            return (
                 <Row center="xs">
                     <Col sm={12}>
                         {this.renderTemplateView()}
@@ -349,8 +349,8 @@ export default class NotesPanel extends Component {
         }
     }
 
-    renderTemplateView = () => { 
-        return ( 
+    renderTemplateView = () => {
+        return (
             <div>
                 <TemplateSelectionView
                     deleteSelectedNote={this.deleteSelectedNote}

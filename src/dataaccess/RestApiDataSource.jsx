@@ -3,10 +3,10 @@ import PatientRecord from '../patient/PatientRecord';
 import PatientApi from 'shr_rest_client';
 
 class RestApiDataSource extends IDataSource {
-    constructor() { 
+    constructor() {
         super();
         this.api = new PatientApi.DefaultApi();
-        this._gestalt = { 
+        this._gestalt = {
             create: {
                 async: false,
                 sync: false
@@ -26,16 +26,16 @@ class RestApiDataSource extends IDataSource {
         };
     }
 
-    getGestalt() { 
+    getGestalt() {
         return this._gestalt
     }
 
     getPatient(id, callback) {
         // Asynchronous call
-        // return this.api.getPatientById(id, (error, data, response) => { 
-        //     if (error) { 
+        // return this.api.getPatientById(id, (error, data, response) => {
+        //     if (error) {
         //         callback(null, error)
-        //     } else { 
+        //     } else {
         //         callback(new PatientRecord(response.text));
         //     }
         // });
@@ -49,11 +49,11 @@ class RestApiDataSource extends IDataSource {
     getListOfPatients() {
         console.error("listing of patients is not implemented in restapidataSource.");
     }
-    
+
     newPatient() {
         console.error("creating a new patient is not implemented in restapidataSource.");
     }
-    
+
     savePatient(patient) {
         if (patient) {
             let entriesJSON = patient.entries.map(entry => {

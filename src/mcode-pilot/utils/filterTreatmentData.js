@@ -148,7 +148,7 @@ function isSimilarPatient(treatmentDataPatient, similarPatientProps) {
                     return false;
                 // pathology
                 } else if (mcodeElement === 'onco.core.TumorMarkerTest') {
-                    const receptorType = reference._tumorMarker._findingTopicCode.codeableConcept.coding[0].code.value;  
+                    const receptorType = reference._tumorMarker._findingTopicCode.codeableConcept.coding[0].code.value;
                     if (receptorType === '16112-5' && (!tumorMarkers.er || _.lowerCase(tumorMarkers.er) !== _.lowerCase(value))) {
                         // LOINC 16112-5 == Estrogen Receptor
                         return false;

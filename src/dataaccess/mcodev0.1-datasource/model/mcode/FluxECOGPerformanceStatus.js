@@ -11,7 +11,7 @@ class FluxECOGPerformanceStatus extends FluxEntry {
     get entryInfo() {
         return this._entry.entryInfo;
     }
-    
+
 }
 
 export default FluxECOGPerformanceStatus;

@@ -151,7 +151,7 @@ export default class LandingPage extends Component {
                         <div className="landing-get-involved-info-description">
                             Support the collection of high quality real-world data (RWD) to enable clinical oncology
                             research. Contact us to learn more about the project, or about piloting Flux Notes™ in a
-                            clinical setting. Help grow Flux Notes™ by committing to the <a href="https://github.com/standardhealth/flux" 
+                            clinical setting. Help grow Flux Notes™ by committing to the <a href="https://github.com/standardhealth/flux"
                             alt="Flux Notes Repository">repository</a> today.
                         </div>
                     </div>

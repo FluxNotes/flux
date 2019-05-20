@@ -36,7 +36,7 @@
 // let proc1 = new FluxProcedure(procedureJson1);
 // let proc2 = new FluxProcedure(procedureJson2);
 
-// describe('getOccurrenceTime()', function() { 
+// describe('getOccurrenceTime()', function() {
 //     it('should return a string', function() {
 //         expect(proc1.occurrenceTime)
 //             .to.be.a('string')

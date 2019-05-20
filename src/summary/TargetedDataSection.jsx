@@ -61,14 +61,14 @@ export default class TargetedDataSection extends Component {
 
     componentDidMount() {
         this.getNameSuffix(this.props.section)
-    } 
+    }
 
     componentWillMount() {
         const {section} = this.props;
         if (section.nameSuffix) {
             this.setState({ sectionNameSuffix: section.nameSuffix });
         }
-    } 
+    }
 
     componentWillReceiveProps = (nextProps) => {
         this.getNameSuffix(nextProps.section);
@@ -178,7 +178,7 @@ export default class TargetedDataSection extends Component {
     getNameSuffix =  (section) => {
         if(section.nameSuffixFunction) {
             const result = section.nameSuffixFunction(section);
-        
+
             if (Lang.isObject(result) && !Lang.isUndefined(result.then)){
                 result.then( suffix => {
                     this.setState({
@@ -189,7 +189,7 @@ export default class TargetedDataSection extends Component {
                 this.setState({ sectionNameSuffix: result });
             }
         }
-    } 
+    }
 
     renderVisualizationOptions = (options) => {
         if (options.length > 1) {
@@ -218,19 +218,19 @@ export default class TargetedDataSection extends Component {
     updateFilterValue = (filter, subsectionName) => {
         const { section } = this.props;
         const { filters } = this.state;
-      
+
         // Update subsection data to reflect changed filter value
- 
-        // Get the current filter value 
+
+        // Get the current filter value
         const currentVal = this.getFilterValue(filter, subsectionName);
         // Update the filter value in preference manager
         this.props.preferenceManager.setPreference(`${section.name}-${subsectionName}-${filter.id}`,  !currentVal);
-      
+
 
         // Update state to also reflect changed filter value
         const selectedFilter = filters[`${section.name}-${subsectionName}`].find(f => f.name === filter.name);
         selectedFilter.value = !currentVal;
- 
+
         // Set state and re-index data to properly search currently visible data
         this.setState({ filters });
         const subsections = section === null ? [] : section.data;
@@ -239,14 +239,14 @@ export default class TargetedDataSection extends Component {
         });
         this.getAndIndexSectionData(section);
     }
- 
+
     getFilterValue = (filter, subsectionName) => {
         const { section } = this.props;
         const subsectionFilters = this.props.preferenceManager.getPreference(`${section.name}-${subsectionName}-${filter.id}`);
         if(Lang.isNull(subsectionFilters)) return true;
-        return subsectionFilters;   
-        
-    }  
+        return subsectionFilters;
+
+    }
 
     renderFilters = (patient, condition) => {
         let totalNumFilters = 0;
@@ -303,10 +303,10 @@ export default class TargetedDataSection extends Component {
                     if (!Lang.isNull(propertyValue)) label += `: ${propertyValue}`;
                     const filterValue = this.getFilterValue(filter, subsection.name);
                     criteriaCheckboxes.push(
-                        <FormControlLabel 
+                        <FormControlLabel
                             key={filter.name}
                             control={
-                                <Checkbox 
+                                <Checkbox
                                     checked={filterValue}
                                     onChange={() => this.updateFilterValue(filter, subsection.name)}
                                     value={filter.name}
@@ -322,7 +322,7 @@ export default class TargetedDataSection extends Component {
                                 label={label}
                                 onDelete={() => this.updateFilterValue(filter, subsection.name)}
                             >
-                            </Chip>);    
+                            </Chip>);
                     }
                 });
             });
@@ -357,7 +357,7 @@ export default class TargetedDataSection extends Component {
                                 <FormGroup>
                                     {criteriaGroups[key]}
                                 </FormGroup>
-                            </FormControl>);   
+                            </FormControl>);
                 })}
             </div>
         );
@@ -464,7 +464,7 @@ export default class TargetedDataSection extends Component {
         const notFiltered = !Lang.isUndefined(section.notFiltered) && section.notFiltered;
 
         const viz = this.getAndIndexSectionData(section);
-        
+
         let highlightClass;
         if (!Lang.isUndefined(this.tdpSearchSuggestions)) {
             const matchingSection = this.tdpSearchSuggestions.find(s => {

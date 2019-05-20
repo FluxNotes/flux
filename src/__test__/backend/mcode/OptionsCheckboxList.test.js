@@ -17,7 +17,7 @@ describe("CheckboxList", () => {
       }
       return checkboxList;
     }
-  
+
     beforeEach(() => {
       props = {
         options: undefined,
@@ -26,7 +26,7 @@ describe("CheckboxList", () => {
       };
       checkboxList = undefined;
     });
-    
+
     describe("when there is one option", () => {
         beforeEach(() => {
           props.setSelected = jest.fn();
@@ -43,7 +43,7 @@ describe("CheckboxList", () => {
           };
           checkboxList = checkbox();
         });
-      
+
         it("renders header and option checkbox", () => {
             const divs = checkboxList.find("input");
             expect(divs.length).to.equal(2);
@@ -93,7 +93,7 @@ describe("CheckboxList", () => {
           };
           checkboxList = checkbox();
         });
-      
+
         it("renders header and option checkboxes", () => {
             const divs = checkboxList.find("input");
             expect(divs.length).to.equal(4);

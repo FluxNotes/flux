@@ -20,12 +20,12 @@ export default class AllergiesSection extends MetadataSection {
             ]
         };
     }
-    
+
     getItemListForAllergies = (patient, currentConditionEntry) => {
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
         const allergies = patient.getAllergyIntolerancesSortedBySeverity();
         return allergies.map((a) => {
-            return [    { value: a.name }, 
+            return [    { value: a.name },
                         { value: a.severity },
                         { value: a.manifestation }];
         });

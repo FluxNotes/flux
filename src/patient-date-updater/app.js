@@ -60,7 +60,7 @@ patientEntries.forEach((entry, i) => {
     let specificFocusOfFinding = flattenedEntry["SpecificFocusOfFinding.Value._EntryId"];
     if (!specificFocusOfFinding) specificFocusOfFinding = flattenedEntry["Reason.0.Value._EntryId"];
     let findingTopicCode = flattenedEntry["FindingTopicCode.Value.Coding.0.DisplayText.Value"];
-    if (!findingTopicCode) findingTopicCode = flattenedEntry["ProcedureCode.Value.Coding.0.DisplayText.Value"]; 
+    if (!findingTopicCode) findingTopicCode = flattenedEntry["ProcedureCode.Value.Coding.0.DisplayText.Value"];
     if (output && !orderedOutput) {
         console.log(entryId + '\t' + entryType);
     }

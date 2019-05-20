@@ -5,8 +5,8 @@
 // let prstatus = new FluxProgesteroneReceptorStatus();
 // prstatus.status = 'Positive';
 
-// describe('getStatus()', function() { 
-//     it('should return "Positive"', function() { 
+// describe('getStatus()', function() {
+//     it('should return "Positive"', function() {
 //         expect(prstatus.status)
 //             .to.be.a('string')
 //             .eql('Positive');

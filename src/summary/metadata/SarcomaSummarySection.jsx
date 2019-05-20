@@ -82,8 +82,8 @@ export default class SarcomaSummarySection extends MetadataSection {
                         {
                             name: "Name",
                             value: (patient, currentConditionEntry) => {
-                                return  {   value: currentConditionEntry.type, 
-                                            isUnsigned: patient.isUnsigned(currentConditionEntry), 
+                                return  {   value: currentConditionEntry.type,
+                                            isUnsigned: patient.isUnsigned(currentConditionEntry),
                                             source: this.determineSource(patient, currentConditionEntry),
                                             shortcutData: {
                                                 shortcut: '@condition',
@@ -106,8 +106,8 @@ export default class SarcomaSummarySection extends MetadataSection {
                             value: (patient, currentConditionEntry) => {
                                 let status = currentConditionEntry.clinicalStatus;
                                 if (status) {
-                                    return  {   value: this.toFirstLetterCapital(status), 
-                                                isUnsigned: patient.isUnsigned(currentConditionEntry), 
+                                    return  {   value: this.toFirstLetterCapital(status),
+                                                isUnsigned: patient.isUnsigned(currentConditionEntry),
                                                 source: this.determineSource(patient, currentConditionEntry)
                                             };
                                 } else {
@@ -121,8 +121,8 @@ export default class SarcomaSummarySection extends MetadataSection {
                             value: (patient, currentConditionEntry) => {
                                 let s = currentConditionEntry.getMostRecentStaging();
                                 if (s && s.stage && s.stage.length > 0) {
-                                    return  {   value: s.stage, 
-                                                isUnsigned: patient.isUnsigned(s), 
+                                    return  {   value: s.stage,
+                                                isUnsigned: patient.isUnsigned(s),
                                                 source: this.determineSource(patient, s)
                                             };
                                 } else {
@@ -137,8 +137,8 @@ export default class SarcomaSummarySection extends MetadataSection {
                                 if (Lang.isNull(p) || !p.status) {
                                     return null;
                                 } else {
-                                    return  {   value: p.status, 
-                                                isUnsigned: patient.isUnsigned(p), 
+                                    return  {   value: p.status,
+                                                isUnsigned: patient.isUnsigned(p),
                                                 source: this.determineSource(patient, p)
                                             };
                                 }
@@ -151,8 +151,8 @@ export default class SarcomaSummarySection extends MetadataSection {
                                 if (Lang.isNull(p) || !p.status) {
                                     return null;
                                 } else {
-                                    return  {   value: p.asOfDate, 
-                                                isUnsigned: patient.isUnsigned(p), 
+                                    return  {   value: p.asOfDate,
+                                                isUnsigned: patient.isUnsigned(p),
                                                 source: this.determineSource(patient, p)
                                             };
                                 }
@@ -167,8 +167,8 @@ export default class SarcomaSummarySection extends MetadataSection {
                                 } else {
                                     return  {   value: p.evidence.map(function (ev) {
                                                         return ev;
-                                                    }).join(', '), 
-                                                isUnsigned: patient.isUnsigned(p), 
+                                                    }).join(', '),
+                                                isUnsigned: patient.isUnsigned(p),
                                                 source: this.determineSource(patient, p)
                                             };
                                 }
@@ -186,24 +186,24 @@ export default class SarcomaSummarySection extends MetadataSection {
                                                 }).map((item) => {
                                                     const v = item.value === 'Positive' ? '+' : '-';
                                                     return item.abbreviatedName + v;
-                                                }).join(","), 
-                                            isUnsigned: patient.isUnsigned(panel), 
+                                                }).join(","),
+                                            isUnsigned: patient.isUnsigned(panel),
                                             source: this.determineSource(patient, panel)
                                         };
                             }
                         },
-                        { 
+                        {
                             name: "Active Treatment Summary",
                             value: (patient, currentConditionEntry) => {
                                 const activeTreatmentSummaryObject = ActiveTreatmentSummaryObjectFactory.createInstance(patient, currentConditionEntry);
                                 const activeTreatmentSummaryJson = activeTreatmentSummaryObject.getActiveTreatmentSummary(patient, currentConditionEntry);
                                 // If there is no activeTreatmentSummaryJSON, or if the JSON has an undefineddisplayText
-                                // Then return null 
+                                // Then return null
                                 if (Lang.isNull(activeTreatmentSummaryJson) || Lang.isUndefined(activeTreatmentSummaryJson.displayText)) return null;
                                 // Always use the displayText provided back from the summaryObject
                                 let treatmentSummaryValue = activeTreatmentSummaryJson.displayText;
-                                // If there are medications, gather them into a single string 
-                                if (activeTreatmentSummaryJson.medications) { 
+                                // If there are medications, gather them into a single string
+                                if (activeTreatmentSummaryJson.medications) {
                                     const numMeds = activeTreatmentSummaryJson.medications.length;
                                     const medsAsStrings = activeTreatmentSummaryJson.medications.map(m => m.medication);
                                     // If there's more than one element, make sure the last element includes an &
@@ -234,11 +234,11 @@ export default class SarcomaSummarySection extends MetadataSection {
         const conditions = patient.getActiveConditions();
         return conditions.map((c, i) => {
             return [
-                {    value: c.type, 
+                {    value: c.type,
                      isUnsigned: patient.isUnsigned(c),
                      source: this.determineSource(patient, c),
                      shortcut: subsection.shortcut
-                }, 
+                },
                 {   value: c.diagnosisDate
                 },
                 {   value: c.bodySite

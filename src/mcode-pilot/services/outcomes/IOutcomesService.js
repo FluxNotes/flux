@@ -28,7 +28,7 @@ export default class IOutcomesService {
   @return {Object}  returns the calcualted outcome data
     includedTreatmentData -- the outcomes for the intial incldued treatments
     comparedTreatmentData -- the outcomes for the compared incldued treatments
-    totalPatients:  -- total number of patients in the 
+    totalPatients:  -- total number of patients in the
     totalSimilarPatients: total number of patients that match the cohort filtering criteria
     similarPatientTreatments, -- treatments that matched the similar patients [{key: String, name: String}]
 

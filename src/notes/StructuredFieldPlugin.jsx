@@ -675,7 +675,7 @@ function insertStructuredFieldAtRange(opts, transform, shortcut, range) {
             transform = transform.insertInlineAtRange(range, sf);
         }
     });
-    
+
     return [transform, ""]
 }
 

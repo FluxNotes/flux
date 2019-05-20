@@ -32,7 +32,7 @@ export default class VisualizerMenu extends Component {
             return a;
         }
     }
-    
+
     // Renders a menu for an element with its associated meny items.
     render() {
         const filteredActions = this.filterActions(this.props.unfilteredActions);

@@ -55,7 +55,7 @@ export default class TemplateSelectionView extends Component {
         };
     }
 
-    updateTemplateFilterString = (templateFilterString) => { 
+    updateTemplateFilterString = (templateFilterString) => {
         this.setState({
             templateFilterString
         });
@@ -79,7 +79,7 @@ export default class TemplateSelectionView extends Component {
         deleteSelectedNote();
     }
 
-    getTemplatesToDisplay() { 
+    getTemplatesToDisplay() {
         if (Lang.isEmpty(this.state.templateFilterString)) {
             // if there's no search string, return everything
             return this.templates;
@@ -108,7 +108,7 @@ export default class TemplateSelectionView extends Component {
                     />
                 </div>
                 <div id="available-templates-container">
-                    {this.getTemplatesToDisplay().map((template) => { 
+                    {this.getTemplatesToDisplay().map((template) => {
                         return (
                             <TemplateOption
                                 key={template.name}
@@ -117,7 +117,7 @@ export default class TemplateSelectionView extends Component {
                                 title={template.name}
                                 insertTemplate={this.insertTemplate}
                             />
-                        ); 
+                        );
                     })}
                 </div>
                 <div id="cancel-btn-container">

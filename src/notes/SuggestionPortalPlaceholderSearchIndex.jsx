@@ -3,11 +3,11 @@ import Fuse from 'fuse.js';
 import Lang from 'lodash';
 
 class SuggestionPortalPlaceholderSearchIndex extends SuggestionPortalSearchIndex  {
-    constructor(list, initialChar, shortcutManager) { 
+    constructor(list, initialChar, shortcutManager) {
         super(list, initialChar, shortcutManager)
         this.currentlyValidPlaceholders = [];
     }
-    updateIndex = (contextManager) => { 
+    updateIndex = (contextManager) => {
         const placeholders = this.shortcutManager.getAllPlaceholderShortcuts();
         // If shortcuts haven't updated, we don't need to update our fuse index
         if (Lang.isEqual(placeholders, this.currentlyValidPlaceholders)) return
@@ -26,7 +26,7 @@ class SuggestionPortalPlaceholderSearchIndex extends SuggestionPortalSearchIndex
             });
         });
 
-        this.shortcutsFuse = new Fuse(relevantShortcuts, this.fuseOptions); 
+        this.shortcutsFuse = new Fuse(relevantShortcuts, this.fuseOptions);
     }
 };
 

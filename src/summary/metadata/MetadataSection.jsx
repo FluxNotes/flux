@@ -21,7 +21,7 @@ export default class MetadataSection {
     buildMetadataSection(preferencesManager, patient, condition, roleType, role, specialty, section) {
         if (!Lang.isFunction(section)) return section;
         let obj = new section(this.setForceRefresh);
-        return obj.getMetadata(preferencesManager, patient, condition, roleType, role, specialty);    
+        return obj.getMetadata(preferencesManager, patient, condition, roleType, role, specialty);
     }
 
     toFirstLetterCapital = (text) => {
@@ -42,8 +42,8 @@ export default class MetadataSection {
             source = null;
             when = null;
         }
-        return  {   value: val, 
-                    isUnsigned: unsigned, 
+        return  {   value: val,
+                    isUnsigned: unsigned,
                     source: source,
                     when: when
                 };
@@ -56,13 +56,13 @@ export default class MetadataSection {
                 note: entry.sourceClinicalNoteReference,
             };
         }
-        
+
         else if (entry.value instanceof Media) {
             return {
                 link: entry.value.resourceLocation.uri
             };
         }
-       
+
         let result = "";
         if (entry.author && entry.informant && entry.author === entry.informant) {
             result += "Recorded and informed by " + entry.author;
@@ -86,6 +86,6 @@ export default class MetadataSection {
         }
 
         return {sourceMessage:result};
-    
+
     }
 }

@@ -494,7 +494,7 @@ test('Clicking "#enrollment", "#date" and choosing a date inserts "#enrollment #
     await t
         .click(shortcutsButton);
 
-    // In shortcuts, click on #enrollment 
+    // In shortcuts, click on #enrollment
     await t
         .click(clinicalTrialButton);
 
@@ -757,7 +757,7 @@ test('Clicking "@condition" and choosing multiple conditions does not allow user
         .click(conditionButton);
 
     const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
-    
+
     await t
         .click(invasiveButton);
 
@@ -979,7 +979,7 @@ test('Clicking on an in-progress note in post encounter mode loads the note in t
     const clinicalNotesButton = Selector('#notes-btn');
     // const newNoteButton = Selector('.note-new');
     const inProgressNotes = Selector('.in-progress-note');
-    
+
     // Enter some text in the editor
     await t
         .typeText(editor, "This is a note.");
@@ -990,7 +990,7 @@ test('Clicking on an in-progress note in post encounter mode loads the note in t
 
     // Click on the new note button to create an in-progress note and toggle back to clinical notes view
     await t
-        .click(newNoteButton)    
+        .click(newNoteButton)
 
     await t
         .click(clinicalNotesButton);
@@ -1036,7 +1036,7 @@ test('Clicking on an in-progress note shows the sign note button', async t => {
     const editor = Selector("div[data-slate-editor='true']");
     const clinicalNotesButton = Selector('#notes-btn');
     const newNoteButton = Selector('.note-new');
-    const signButton = Selector('.btn_finish');  
+    const signButton = Selector('.btn_finish');
 
     // Click on the clinical notes button to switch to clinical notes view
     await t
@@ -1044,7 +1044,7 @@ test('Clicking on an in-progress note shows the sign note button', async t => {
 
     // Click on the new note button to create an in-progress note and toggle back to clinical notes view
     await t
-        .click(newNoteButton)   
+        .click(newNoteButton)
 
     await t
         .click(clinicalNotesButton);
@@ -1064,7 +1064,7 @@ test('Clicking on the sign note button moves the note from in progress notes to 
     const newNoteButton = Selector('.note-new');
     const inProgressNotes = Selector('.in-progress-note');
     const signNoteButton = Selector('.btn_finish');
-   
+
 
     // Click clinical notes button
     await t
@@ -1072,8 +1072,8 @@ test('Clicking on the sign note button moves the note from in progress notes to 
 
     // Click "New note" button
     await t
-        .click(newNoteButton)    
-     
+        .click(newNoteButton)
+
     await t
         .click(clinicalNotesButton);
 

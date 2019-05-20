@@ -9,7 +9,7 @@ class FluxObservation extends FluxEntry {
         super(json);
         this._entry = this._observation = Observation.fromJSON(json);
     }
-    
+
     get entryInfo() {
         return this._observation.entryInfo;
     }
@@ -30,29 +30,29 @@ class FluxObservation extends FluxEntry {
         }
     }
 
-    get name() { 
-        if (this._observation.findingTopicCode.value.coding.length > 0) { 
+    get name() {
+        if (this._observation.findingTopicCode.value.coding.length > 0) {
             return this._observation.findingTopicCode.value.coding[0].displayText.value;
-        } else { 
+        } else {
             return null;
-        }        
+        }
     }
 
-    get codeableConceptCode() { 
-        if (this._observation.findingTopicCode 
-            && this._observation.findingTopicCode.value.coding 
+    get codeableConceptCode() {
+        if (this._observation.findingTopicCode
+            && this._observation.findingTopicCode.value.coding
             && this._observation.findingTopicCode.value.coding.length > 0
-            && this._observation.findingTopicCode.value.coding[0].code) { 
+            && this._observation.findingTopicCode.value.coding[0].code) {
             return this._observation.findingTopicCode.value.coding[0].code.value;
-        } else { 
+        } else {
             return null;
-        } 
+        }
     }
 
-    get relevantTime() { 
-        if (this._observation.relevantTime) { 
+    get relevantTime() {
+        if (this._observation.relevantTime) {
             return this._observation.relevantTime.value;
-        } else { 
+        } else {
             return null;
         }
     }

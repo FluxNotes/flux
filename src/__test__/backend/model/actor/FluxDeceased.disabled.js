@@ -5,8 +5,8 @@
 // let deceased = new FluxDeceased();
 // deceased.dateOfDeath = '11 Nov 2017';
 
-// describe('getDateOfDeath()', function() { 
-//     it('should return "11 Nov 2017"', function() { 
+// describe('getDateOfDeath()', function() {
+//     it('should return "11 Nov 2017"', function() {
 //         expect(deceased.dateOfDeath)
 //             .to.be.a('string')
 //             .eql('11 Nov 2017');

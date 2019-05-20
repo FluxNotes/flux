@@ -4,7 +4,7 @@ import "./TemplateOptionPreviewButton.css"
 
 export default class TemplateOptionPreviewButton extends Component {
     render() {
-        return ( 
+        return (
             <div className="template-preview-button">
                 <RemoveRedEye/>
             </div>

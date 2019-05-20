@@ -14,7 +14,7 @@
 
 // let test = new FluxTest(testJson);
 
-// describe('getQuantity()', function() { 
+// describe('getQuantity()', function() {
 //     it('should return null when value is null', function() {
 //         let test2 = new FluxTest();
 //         expect(test2.quantity)

@@ -1,11 +1,11 @@
 
-// Reliable online csv to json converter (free) 
+// Reliable online csv to json converter (free)
 // http://www.convertcsv.com/csv-to-json.htm
 // Others
 // http://www.cparker15.com/code/utilities/csv-to-json/
 //http://www.zenovations.com/misc/convertcsv/
 
-/* old 
+/* old
 	var prostate_data2 = [
 	  {
 	    "Disease":"http://snomed.info/sct/420120006",
@@ -35,7 +35,7 @@
 	  },
 //*/
 
-var treatmentData = 
+var treatmentData =
 [
   {
     "Disease":"http://snomed.info/sct/420120006",

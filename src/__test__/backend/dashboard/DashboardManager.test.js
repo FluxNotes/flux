@@ -5,7 +5,7 @@ import {expect} from 'chai'
 const emptyDashboardManager = new DashboardManager([]);
 const dashboardManager = new DashboardManager();
 
-describe("getPossibleSuperRoles", function () { 
+describe("getPossibleSuperRoles", function () {
     it('should return an empty list if there are no defined superRoles', function () {
         const allRoles = emptyDashboardManager.getPossibleSuperRoles();
         expect(allRoles)
@@ -13,10 +13,10 @@ describe("getPossibleSuperRoles", function () {
             .and.to.be.empty;
     });
 
-    it('should return a list containing Clinician and Patient as default superRoles', function () { 
+    it('should return a list containing Clinician and Patient as default superRoles', function () {
         const expectedRoles = ['Clinician', 'Patient'];
         const actualRoles = dashboardManager.getPossibleSuperRoles();
-        expect(actualRoles).
-            to.have.same.members(expectedRoles);
+        expect(actualRoles)
+            .to.have.same.members(expectedRoles);
     })
 });

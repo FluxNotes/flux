@@ -97,8 +97,8 @@ export class CompassApp extends Component {
 
     loadPatient(patientId) {
         const DAGestalt = this.dataAccess.getGestalt();
-        if (DAGestalt.read.async) { 
-            this.dataAccess.getPatient(patientId, (patient, error) => { 
+        if (DAGestalt.read.async) {
+            this.dataAccess.getPatient(patientId, (patient, error) => {
                 if (!Lang.isEmpty(error)) console.error(error)
                 this.setState({
                     patient,
@@ -106,7 +106,7 @@ export class CompassApp extends Component {
                     loadingError: error
                 });
             });
-        } else if (DAGestalt.read.sync) { 
+        } else if (DAGestalt.read.sync) {
             // Else, assume sync
             try {
                 let patient = this.dataAccess.getPatient(patientId);
@@ -121,11 +121,11 @@ export class CompassApp extends Component {
                     loadingErrorObject: error
                 });
             }
-        } else { 
+        } else {
             const supportedError = Error("Data Source does not support sync or async types read operations -- current gestalt is " + JSON.stringify(DAGestalt))
             console.error(supportedError)
             this.setState({
-                loading: false, 
+                loading: false,
                 loadingErrorObject: supportedError
             });
         }
@@ -133,7 +133,7 @@ export class CompassApp extends Component {
 
     componentDidMount = () => {
         document.title = this.props.display;
-        // If we have a custom logoObject, we should update our favicons 
+        // If we have a custom logoObject, we should update our favicons
         if (!Lang.isEmpty(this.props.logoObject)) {
             const icons = document.querySelectorAll('link[rel="icon"]');
             for (const icon of icons) {

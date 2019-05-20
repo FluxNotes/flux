@@ -9,8 +9,8 @@ import 'fhirclient';
 const nock = require('nock');
 
 const fhirClient = FHIR.client({
-    // note that mocking out the endpoint is made much easier 
-    // if there is no proxy between here and the endpoint 
+    // note that mocking out the endpoint is made much easier
+    // if there is no proxy between here and the endpoint
     // (either no proxy at all, or the no_proxy environment variable is set)
     serviceUrl: 'http://localhost/fhir',
     patientId: '1078857'
@@ -43,12 +43,12 @@ describe('SMART on FHIR data source', function() {
         // 1) mock out the smart sequence so that the real smart client is configured appropriately
         // 2) put a pre-configured client in the expected location
         // TODO: get this working with the original smart client
-        window.FHIR = { 
+        window.FHIR = {
             oauth2: {
                 ready: function(callback) {
                     callback(fhirClient);
                 }
-            } 
+            }
         }
     });
 

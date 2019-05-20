@@ -34,13 +34,13 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
         // To track if additional operations are done later
         const startingNumberOfOperations = curTransform.operations.length;
 
-        // get all shortcuts relevant for this block key 
+        // get all shortcuts relevant for this block key
         const relevantSingleHashtagKeywordMappings = getRelevantSingleHashtagKeywordMappings(listOfSingleHashtagKeywordShortcutMappings, state, curKey);
         if (relevantSingleHashtagKeywordMappings.length !== 0) {
-            // Get all relevant keywordShortcuts, 
+            // Get all relevant keywordShortcuts,
             const listOfKeywordShortcutClasses = findRelevantKeywordShortcutClasses(listOfSingleHashtagKeywordShortcutMappings).reduce((accumulator, listOfKeywordsForShortcut) => accumulator.concat(listOfKeywordsForShortcut));
             for (const keywordClass of listOfKeywordShortcutClasses) {
-                // Scan text to find any necessary replacements 
+                // Scan text to find any necessary replacements
                 let keywords = getKeywordsBasedOnShortcutClass(keywordClass);
                 const prefix = shortcutManager.getShortcutPrefix(keywordClass);
 
@@ -160,7 +160,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
         });
     }
 
-    // Sort keywords based on name length 
+    // Sort keywords based on name length
     function _sortKeywordByNameLength(keywordA, keywordB) {
         return keywordB.name.length - keywordA.name.length;
     }
@@ -172,7 +172,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 
     // Given a list of singlehashtagkeyword shortcuts mappings, get all of the relevant keywords
     function findRelevantKeywordShortcutClasses(listOfSingleHashtagKeywordShortcutMappings) {
-        // Returns a list 
+        // Returns a list
         return listOfSingleHashtagKeywordShortcutMappings.map((mapping) => {
             // We know the mapping is a single k-v pair, just get all the keys, use the first
             const keys = Object.keys(mapping)

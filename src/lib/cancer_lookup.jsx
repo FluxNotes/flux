@@ -8,7 +8,7 @@ const cancerOptions = [
         codeSystem: "http://snomed.info/sct"
     },
     {
-        name: 'Gastrointestinal stromal tumor', 
+        name: 'Gastrointestinal stromal tumor',
         description: "Gastrointestinal stromal tumor",
         code: "420120006",
         codeSystem: "http://snomed.info/sct"

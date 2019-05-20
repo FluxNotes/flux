@@ -14,5 +14,5 @@ function mapToEntryTypes(entry){
 };
 
 export {
-  mapToEntryTypes 
+  mapToEntryTypes
 }

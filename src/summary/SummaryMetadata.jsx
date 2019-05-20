@@ -82,8 +82,8 @@ export default class SummaryMetadata {
             if (this.doesCachedMetadataExist(stringKey)) {
                 return this.getCachedMetadata(stringKey);
             }
-    
-            // loop over potential metadata matches until we find a match 
+
+            // loop over potential metadata matches until we find a match
             this.hardCodedMetadata.forEach((potentialMetadata) => {
                 if (Lang.isUndefined(metadataDefinition) && potentialMetadata.enabled) {
                     const className = potentialMetadata.type; // the type is AlwaysMatcher, FunctionMatcher, StringMatcher, or any other subclass of Matcher
@@ -99,7 +99,7 @@ export default class SummaryMetadata {
                 }
             });
         }
-        
+
         // no match found
         if (!metadataDefinition) {
             console.error("No metadata available for ", condition, roleType, role, specialty);

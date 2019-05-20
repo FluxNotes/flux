@@ -17,7 +17,7 @@ export default class FluxMedicationObjectFactory {
             case 'MedicationChange': return new FluxMedicationChange(json, patientRecord);
             case 'MedicationAfterChange': return new FluxMedicationAfterChange(json);
             case 'MedicationBeforeChange': return new FluxMedicationBeforeChange(json);
-            
+
             default: return ShrMedicationObjectFactory.createInstance(json, type);
         }
     }

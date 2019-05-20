@@ -14,7 +14,7 @@ class PatientContext extends Context {
 		super();
 		this.patient = patient;
 	}
-	
+
 	getValidChildShortcuts(recurse = false) {
 		/*let result = [  NameInserter, DateOfBirthInserter, AgeInserter, GenderInserter, PatientInserter, ConditionInserter, ClinicalTrialCreator, DeceasedCreator ];
 		if (recurse) {
@@ -23,9 +23,9 @@ class PatientContext extends Context {
 			});
 		}
 		return result;*/
-        
+
 	}
-	
+
 	getLabel() {
 		return "Patient";
 	}

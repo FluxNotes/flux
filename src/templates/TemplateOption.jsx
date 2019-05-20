@@ -16,7 +16,7 @@ export default class TemplateOption extends Component {
         const { author } = this.props;
         if (Lang.isEmpty(author)) {
             return null;
-        } else { 
+        } else {
             return (
                 <div className="template-author">
                     Authored By

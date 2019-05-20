@@ -8,7 +8,7 @@ import Visualizer from './Visualizer';
 import './ExpandedTableVisualizer.css';
 
 /*
- A list of expanded tables for each ROS. The date is automatically shown and 
+ A list of expanded tables for each ROS. The date is automatically shown and
  can be expanded to show the ROS questions for that date.
  */
 export default class ExpandedTableVisualizer extends Visualizer {

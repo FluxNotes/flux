@@ -3,7 +3,7 @@ import moment from 'moment';
 
 // Creates a sentance from structured data
 // Sentence is styled with structured data underlines if isStyled is true
-// If not it is a string with # designating the structured data 
+// If not it is a string with # designating the structured data
 export function createSentenceFromStructuredData(structuredPhraseTemplate, getAttributeValue, textIfNoData, isStyled, isSigned = false) {
     let last = 0, valueName, value1Name, value2Name, value, value2;
     let start = structuredPhraseTemplate.indexOf('${'), end;
@@ -12,7 +12,7 @@ export function createSentenceFromStructuredData(structuredPhraseTemplate, getAt
     let isConditional, isConditionalWithStructuredDataValues, textIsStructuredData;
     let conditional, start1, start2, end1, end2, before, middle, after;
     let styleClassName, styleClassNameMissingValue;
-    
+
     // Check if the note is signed or not and return the appropriate class for styling
     if (isSigned) {
         styleClassName = 'placeholder-data-signed';
@@ -21,12 +21,12 @@ export function createSentenceFromStructuredData(structuredPhraseTemplate, getAt
         styleClassName = 'placeholder-data';
         styleClassNameMissingValue = 'placeholder-data-missing';
     }
-  
+
     while (start !== -1) {
         if (last !== start) {
             result += structuredPhraseTemplate.substring(last, start);
         }
-        end = structuredPhraseTemplate.indexOf('}', start + 2); 
+        end = structuredPhraseTemplate.indexOf('}', start + 2);
         valueName = structuredPhraseTemplate.substring(start + 2, end);
         isConditional = valueName.startsWith('%');
         isConditionalWithStructuredDataValues = valueName.startsWith('&');
@@ -67,7 +67,7 @@ export function createSentenceFromStructuredData(structuredPhraseTemplate, getAt
             value2Name = conditional.substring(start2 + 2, end2);
             after = conditional.substring(end2 + 1);
             value2 = getAttributeValue(value2Name);
-            
+
             if (Lang.isNull(value2) || Lang.isUndefined(value2) || value2 === '' || (Lang.isArray(value2) && value2.length === 0)) {
             } else {
                 if (value2 instanceof moment) value2 = value2.format('MM/DD/YYYY');
@@ -97,7 +97,7 @@ export function createSentenceFromStructuredData(structuredPhraseTemplate, getAt
             value = getAttributeValue(valueName);
             if (Lang.isNull(value) || value === '' || (Lang.isArray(value) && value.length === 0)) {
                 if (isStyled) {
-                    result += `<span class=${styleClassNameMissingValue}>#${valueName}</span>`;    
+                    result += `<span class=${styleClassNameMissingValue}>#${valueName}</span>`;
                 } else {
                     result += `#${valueName}`;
                 }

@@ -2,7 +2,7 @@ import FluxObservation from '../base/FluxObservation';
 import Lang from 'lodash';
 
 class FluxPathologyReport extends FluxObservation {
-    
+
      /*
      *  Getter for Members
      *  Return array of observations within the pathology report
@@ -10,7 +10,7 @@ class FluxPathologyReport extends FluxObservation {
     get members() {
         if (Lang.isUndefined(this._observation.panelMembers)) return [];
         return this._observation.panelMembers.observation;
-    } 
+    }
 
      /*
      *  Getter for value

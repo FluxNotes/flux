@@ -6,12 +6,12 @@ import '../../../model/init';
 
 import PatientRecord from '../../../patient/PatientRecord';
 import TestPatient from '../../TestPatient.json';
-const testPatientShrId = '123456'
 
 import PatientSearch from '../../../patientControl/PatientSearch'
 import SearchIndex from '../../../patientControl/SearchIndex';
 import NotesIndexer from '../../../patientControl/NotesIndexer';
 import * as EntryMapper from '../../../dataaccess/mcodev0.1-datasource/EntryMapper';
+const testPatientShrId = '123456'
 
 Enzyme.configure({ adapter: new Adapter() });
 

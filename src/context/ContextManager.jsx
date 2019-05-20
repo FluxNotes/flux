@@ -11,10 +11,10 @@ class ContextManager {
         this.onContextUpdate = onContextUpdate;
         this.subscribers = [];
     }
-    
-    subscribe = (subscriber, callback) => {     
+
+    subscribe = (subscriber, callback) => {
         const isAlreadyASubscriber = Collection.includes(this.subscribers, subscriber);
-        if (!isAlreadyASubscriber) { 
+        if (!isAlreadyASubscriber) {
             this.subscribers.push({
                 subscriber,
                 callback,
@@ -56,9 +56,9 @@ class ContextManager {
     getActiveContexts() {
         return this.activeContexts;
     }
-    
-    getActiveSingleHashtagKeywordShortcuts(shortcutManager) { 
-        return this.getActiveContexts().reduce((listOfSingleHashtagKeywordShortcuts, currentActiveShortcut) => { 
+
+    getActiveSingleHashtagKeywordShortcuts(shortcutManager) {
+        return this.getActiveContexts().reduce((listOfSingleHashtagKeywordShortcuts, currentActiveShortcut) => {
 
             if (shortcutManager.isShortcutInstanceOfSingleHashtagKeyword(currentActiveShortcut)) {
                 listOfSingleHashtagKeywordShortcuts.push(currentActiveShortcut);
@@ -67,8 +67,8 @@ class ContextManager {
         }, [])
     }
 
-    // Returns objects corresponding to all currently valid shortcuts, 
-    // Ordering them from the most recently active context down to the patient context 
+    // Returns objects corresponding to all currently valid shortcuts,
+    // Ordering them from the most recently active context down to the patient context
     // ShortcutObjects have an 'id': a string associated to their unique shortcut id
     // and they have a 'parentId': a string associated with their parent context, if they have one other than patientContext
     getCurrentlyValidShortcuts(shortcutManager) {
@@ -82,13 +82,13 @@ class ContextManager {
             const shortcutId = shortcut.getId();
             childIds.forEach((childId) => {
                 // DP added this to the loop
-                if (Lang.isUndefined(result.find((shortcutObject) => shortcutObject.id === childId))) { 
+                if (Lang.isUndefined(result.find((shortcutObject) => shortcutObject.id === childId))) {
                     const childObj = {
                         id: childId,
                         parentId: shortcutId,
                     }
-                    result.push(childObj);  
-                } 
+                    result.push(childObj);
+                }
             });
         });
         // Make sure we add all the patientContext shortcuts
@@ -123,7 +123,7 @@ class ContextManager {
     contextUpdated = () => {
         this.onContextUpdate();
         // After updating, update all subscribers
-        for (const subscriberObj of this.subscribers) { 
+        for (const subscriberObj of this.subscribers) {
             const { callback } = subscriberObj;
             callback(this);
         }

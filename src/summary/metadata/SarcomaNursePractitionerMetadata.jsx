@@ -31,10 +31,10 @@ export default class SarcomaNursePractitionerMetadata extends MetadataSection {
                 SarcomaSummarySection,
                 ActiveConditionsSection,
                 MedicationsSection,
-                AllergiesSection,  
+                AllergiesSection,
                 ProceduresSection,
                 ImagingSection,
-                DiseaseStatusSection,                   
+                DiseaseStatusSection,
                 {
                     name: "Vitals",
                     shortName: "Vitals",
@@ -46,7 +46,7 @@ export default class SarcomaNursePractitionerMetadata extends MetadataSection {
                         WeightSubsection,
                         HeartRateSubsection
                     ]
-                },                 
+                },
                 {
                     name: "Labs",
                     shortName: "Labs",

@@ -23,7 +23,7 @@
 
 // let med = new FluxMedicationPrescription(medicationJson);
 
-// describe('getRequestedPerformanceTime()', function() { 
+// describe('getRequestedPerformanceTime()', function() {
 //     it('should return an object with timePeriodStart and timePeriodEnd', function() {
 //         const expectedRequestedPerformanceTime = {
 //             timePeriodStart: "10 FEB 2012",
@@ -43,7 +43,7 @@
 //     });
 // });
 
-// describe('getAmountPerDose()', function() { 
+// describe('getAmountPerDose()', function() {
 //     it('should return an object with value and units', function() {
 //         const expectedAmountPerDose = {
 //             value: 60,
@@ -55,7 +55,7 @@
 //     });
 // });
 
-// describe('getTimingOfDoses()', function() { 
+// describe('getTimingOfDoses()', function() {
 //     it('should return an object with value and units', function() {
 //         const expectedTimingOfDoses = {
 //             value: 6,

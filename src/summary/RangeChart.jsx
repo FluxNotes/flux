@@ -32,7 +32,7 @@ class RangeChart extends Component {
         let upperValueXPixels = null;
         let valueXPixels = null;
         let typicalValueTextXPixels = null;
-        let lowerValueTextXPixels = null; 
+        let lowerValueTextXPixels = null;
         let upperValueTextXPixels = null;
         let dotColor = '#AAA';
         let radius, strokeWidth;
@@ -73,7 +73,7 @@ class RangeChart extends Component {
                 if (!Lang.isNull(this.props.typicalValue)) {
                     typicalValueXPixels = middle;
                 }
-    
+
                 // calculate location of value dot
                 if (!Lang.isNull(this.props.value)) {
 
@@ -134,7 +134,7 @@ class RangeChart extends Component {
                             radius = 7;
                         }
                     }
-                } 
+                }
             }
         }
 
@@ -159,7 +159,7 @@ class RangeChart extends Component {
 
             // range has two different values
             else {
-                lowerValueTextXPixels = lowerValueXPixels - lowerValueCharLength * 3; 
+                lowerValueTextXPixels = lowerValueXPixels - lowerValueCharLength * 3;
                 upperValueTextXPixels = upperValueXPixels - upperValueCharLength * 3;
 
                 // if there is a typical value, check if they overlap
@@ -192,7 +192,7 @@ class RangeChart extends Component {
         if (!Lang.isNull(typicalValueXPixels)) {
             svgForTypicalTick = <line x1={typicalValueXPixels} y1="43" x2={typicalValueXPixels} y2="57" stroke="#979797" strokeWidth="1" />;
             if (!Lang.isNull(typicalValueTextXPixels)) {
-                svgForTypicalText = <text x={typicalValueTextXPixels} y="70" fontFamily="sans-serif" fontSize="10px" fill="#3F3F3F">{this.props.typicalValue}</text>;      
+                svgForTypicalText = <text x={typicalValueTextXPixels} y="70" fontFamily="sans-serif" fontSize="10px" fill="#3F3F3F">{this.props.typicalValue}</text>;
             }
         }
 

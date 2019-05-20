@@ -92,7 +92,7 @@ class ShortcutViewer extends Component {
     }
 }
 
-ShortcutViewer.propTypes = { 
+ShortcutViewer.propTypes = {
     currentShortcut: PropTypes.object,
     onShortcutUpdate: PropTypes.func.isRequired
 }

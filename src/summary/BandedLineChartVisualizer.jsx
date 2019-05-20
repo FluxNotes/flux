@@ -24,7 +24,7 @@ class BandedLineChartVisualizer extends Visualizer {
         const shownLineCharts = subsections.map((subsection, i) => subsection.displayChartLine);
 
         // this.updateState = true;
-        // This var will be used 
+        // This var will be used
         this.state = {
             chartWidth: 600,
             chartHeight: 250,
@@ -57,7 +57,7 @@ class BandedLineChartVisualizer extends Visualizer {
     }
 
     // Gets the min/max values of the numeric representation of xVar
-    // Assumes processed data array 
+    // Assumes processed data array
     getMinMax = (processedData, xVarNumber) => {
         // Iterate once to avoid 2x iteration by calling min and max separately
         return Collection.reduce(processedData, (rangeValues, dataObj) => {
@@ -72,7 +72,7 @@ class BandedLineChartVisualizer extends Visualizer {
         }, [processedData[0][xVarNumber], processedData[0][xVarNumber]]);
     }
 
-    // Use min/max info to build ticks for the 
+    // Use min/max info to build ticks for the
     // Assumes processed data
     getTicks = (processedData, xVarNumber) => {
         if (!processedData || !processedData.length) {
@@ -91,7 +91,7 @@ class BandedLineChartVisualizer extends Visualizer {
         return "Date: " + this.dateFormat(xVarNumber);
     }
 
-    // Based on a unit, return a function that formats a yVar (quantatative) value for tooltips 
+    // Based on a unit, return a function that formats a yVar (quantatative) value for tooltips
     createYVarFormatFunctionWithUnit = (unit) => {
         return (value) => {
             return `${value} ${unit}`;
@@ -142,7 +142,7 @@ class BandedLineChartVisualizer extends Visualizer {
         }
         const yUnit = processedData[0].unit;
         const series = processedData[0].series || [subsection.name];
-        // Min/Max for rendering 
+        // Min/Max for rendering
         const [, yMax] = this.getMinMax(processedData, yVar)
 
         let renderedBands = null;
@@ -193,7 +193,7 @@ class BandedLineChartVisualizer extends Visualizer {
             >
                 <div className="subsection-heading">
                     <h2>
-                        <span className="subsection-name"> 
+                        <span className="subsection-name">
                             <span>{`${yVar}`}</span><span>{` (${yUnit})`}</span>
                         </span>
                         {/* COMMENT THIS BACK IN FOR ABILITY TO TOGGLE THE LINE */}
@@ -252,17 +252,17 @@ class BandedLineChartVisualizer extends Visualizer {
 
     // Given the range and the color, render the band
     renderBand(y1, y2, yMax, color, key) {
-        if (y2 === "max") { 
+        if (y2 === "max") {
             // If reference area has no upper limit, draw it only if patient data would be captured by it
-            if (yMax > y1) { 
+            if (yMax > y1) {
                 // Draw refence area large enough to capture max dataelement if it's greater than the y1 (bottom of referenceArea)
                 return (
                     <ReferenceArea key={key} y1={y1} y2={yMax} fill={color} fillOpacity="0.1" alwaysShow/>
                 );
-            } else { 
+            } else {
                 // Else  draw nothing -- no relevant values would be captured by that rectangle
             }
-        } else { 
+        } else {
             // Otherwise, draw as usual
             return (
                 <ReferenceArea key={key} y1={y1} y2={y2} fill={color} fillOpacity="0.1" alwaysShow/>

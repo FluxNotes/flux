@@ -2,7 +2,7 @@ import MetadataSection from "./MetadataSection";
 import Lang from 'lodash'
 
 export default class LabTestSubsection extends MetadataSection {
-    getTestsForSubSection = (patient, currentConditionEntry, subsection) => { 
+    getTestsForSubSection = (patient, currentConditionEntry, subsection) => {
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
         const labResults = currentConditionEntry.getLabResultsChronologicalOrder();
         const labs = labResults.filter((lab, i) => {
