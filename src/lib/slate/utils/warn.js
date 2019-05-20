@@ -1,4 +1,3 @@
-/* eslint-disable */
 
 import IS_DEV from '../constants/is-dev'
 

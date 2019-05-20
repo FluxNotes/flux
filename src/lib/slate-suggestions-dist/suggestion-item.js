@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from 'react'
 
 class SuggestionItem extends React.Component {

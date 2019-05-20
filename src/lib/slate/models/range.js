@@ -1,4 +1,3 @@
-/* eslint-disable */
 
 import Character from './character'
 import Mark from './mark'

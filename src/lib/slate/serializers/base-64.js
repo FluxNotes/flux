@@ -1,4 +1,3 @@
-/* eslint-disable */
 
 import Raw from './raw'
 

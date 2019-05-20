@@ -1,4 +1,3 @@
-/* eslint-disable */
 
 import Debug from 'debug'
 import React from 'react'
@@ -54,7 +53,7 @@ class Node extends React.Component {
     super(props)
     const { node, schema } = props
     this.state = {}
-    this.state.Component = node.kind==='text' ? null : node.getComponent(schema)
+    this.state.Component = node.kind == 'text' ? null : node.getComponent(schema)
   }
 
   /**
@@ -67,7 +66,7 @@ class Node extends React.Component {
   debug = (message, ...args) => {
     const { node } = this.props
     const { key, kind, type } = node
-    const id = kind==='text' ? `${key} (${kind})` : `${key} (${type})`
+    const id = kind == 'text' ? `${key} (${kind})` : `${key} (${type})`
     debug(message, `${id}`, ...args)
   }
 
@@ -78,8 +77,8 @@ class Node extends React.Component {
    */
 
   componentWillReceiveProps = (props) => {
-    if (props.node.kind==='text') return
-    if (props.node===this.props.node) return
+    if (props.node.kind == 'text') return
+    if (props.node == this.props.node) return
     const Component = props.node.getComponent(props.schema)
     this.setState({ Component })
   }
@@ -123,7 +122,7 @@ class Node extends React.Component {
 
     // If the node is a text node, re-render if the current decorations have
     // changed, even if the content of the text node itself hasn't.
-    if (nextProps.node.kind==='text' && nextProps.schema.hasDecorators) {
+    if (nextProps.node.kind == 'text' && nextProps.schema.hasDecorators) {
       const nextDecorators = nextProps.state.document.getDescendantDecorators(nextProps.node.key, nextProps.schema)
       const decorators = props.state.document.getDescendantDecorators(props.node.key, props.schema)
       const nextRanges = nextProps.node.getRanges(nextDecorators)
@@ -133,10 +132,10 @@ class Node extends React.Component {
 
     // If the node is a text node, and its parent is a block node, and it was
     // the last child of the block, re-render to cleanup extra `<br/>` or `\n`.
-    if (nextProps.node.kind==='text' && nextProps.parent.kind==='block') {
+    if (nextProps.node.kind == 'text' && nextProps.parent.kind == 'block') {
       const last = props.parent.nodes.last()
       const nextLast = nextProps.parent.nodes.last()
-      if (props.node===last && nextProps.node != nextLast) return true
+      if (props.node == last && nextProps.node != nextLast) return true
     }
 
     // Otherwise, don't update.
@@ -175,7 +174,7 @@ class Node extends React.Component {
 
     // If this isn't a block, or it's a wrapping block, abort.
     if (node.kind != 'block') return
-    if (node.nodes.first().kind==='block') return
+    if (node.nodes.first().kind == 'block') return
 
     // If the selection is blurred, or this block doesn't contain it, abort.
     if (selection.isBlurred) return
@@ -220,7 +219,7 @@ class Node extends React.Component {
 
     this.debug('render', { props })
 
-    return node.kind==='text'
+    return node.kind == 'text'
       ? this.renderText()
       : this.renderElement()
   }
@@ -238,7 +237,7 @@ class Node extends React.Component {
       <Node
         key={child.key}
         node={child}
-        block={node.kind==='block' ? node : block}
+        block={node.kind == 'block' ? node : block}
         parent={node}
         editor={editor}
         readOnly={readOnly}
@@ -268,9 +267,9 @@ class Node extends React.Component {
 
     // If it's a block node with inline children, add the proper `dir` attribute
     // for text direction.
-    if (node.kind==='block' && node.nodes.first().kind != 'block') {
+    if (node.kind == 'block' && node.nodes.first().kind != 'block') {
       const direction = node.getTextDirection()
-      if (direction==='rtl') attributes.dir = 'rtl'
+      if (direction == 'rtl') attributes.dir = 'rtl'
     }
 
     const element = (

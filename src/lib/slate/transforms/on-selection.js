@@ -1,4 +1,3 @@
-/* eslint-disable */
 
 import warn from '../utils/warn'
 
@@ -172,7 +171,7 @@ PREFIXES.forEach((prefix) => {
     'End',
   ]
 
-  if (prefix==='moveTo') {
+  if (prefix == 'moveTo') {
     edges.push('Range')
   }
 
@@ -181,7 +180,7 @@ PREFIXES.forEach((prefix) => {
       KINDS.forEach((kind) => {
         const get = `get${direction}${kind}`
         const getAtRange = `get${kind}sAtRange`
-        const index = direction==='Next' ? 'last' : 'first'
+        const index = direction == 'Next' ? 'last' : 'first'
         const method = `${prefix}${edge}Of`
         const name = `${method}${direction}${kind}`
 

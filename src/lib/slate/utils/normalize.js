@@ -1,4 +1,3 @@
-/* eslint-disable */
 
 import Block from '../models/block'
 import Document from '../models/document'
@@ -59,7 +58,7 @@ function inline(value) {
  */
 
 function key(value) {
-  if (typeOf(value)==='string') return value
+  if (typeOf(value) == 'string') return value
 
   warn('An object was passed to a Node method instead of a `key` string. This was previously supported, but is being deprecated because it can have a negative impact on performance. The object in question was:', value)
   if (value instanceof Block) return value.key
@@ -107,7 +106,7 @@ function markProperties(value = {}) {
 
     case 'object':
       for (const k in value) {
-        if (k==='data') {
+        if (k == 'data') {
           if (value[k] !== undefined) ret[k] = Data.create(value[k])
         } else {
           ret[k] = value[k]
@@ -140,7 +139,7 @@ function nodeProperties(value = {}) {
     case 'object':
       if (value.isVoid !== undefined) ret.isVoid = !!value.isVoid
       for (const k in value) {
-        if (k==='data') {
+        if (k == 'data') {
           if (value[k] !== undefined) ret[k] = Data.create(value[k])
         } else {
           ret[k] = value[k]

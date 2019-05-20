@@ -1,4 +1,3 @@
-/* eslint-disable */
 
 import Document from './document'
 import Normalize from '../utils/normalize'
@@ -191,12 +190,12 @@ const Node = {
   getAncestors(key) {
     key = Normalize.key(key)
 
-    if (key===this.key) return List()
+    if (key == this.key) return List()
     if (this.hasChild(key)) return List([this])
 
     let ancestors
     this.nodes.find((node) => {
-      if (node.kind==='text') return false
+      if (node.kind == 'text') return false
       ancestors = node.getAncestors(key)
       return ancestors
     })
@@ -283,7 +282,7 @@ const Node = {
     return this.nodes.reduce((array, node) => {
       if (node.kind != 'block') {
         return array
-      } else if (node.isLeafBlock() && node.type===type) {
+      } else if (node.isLeafBlock() && node.type == type) {
         array.push(node)
         return array
       } else {
@@ -311,7 +310,7 @@ const Node = {
 
   getCharactersAsArray() {
     return this.nodes.reduce((arr, node) => {
-      return node.kind==='text'
+      return node.kind == 'text'
         ? arr.concat(node.characters.toArray())
         : arr.concat(node.getCharactersAsArray())
     }, [])
@@ -357,7 +356,7 @@ const Node = {
 
   getChild(key) {
     key = Normalize.key(key)
-    return this.nodes.find(node => node.key===key)
+    return this.nodes.find(node => node.key == key)
   },
 
   /**
@@ -387,7 +386,7 @@ const Node = {
    */
 
   getClosestBlock(key) {
-    return this.getClosest(key, parent => parent.kind==='block')
+    return this.getClosest(key, parent => parent.kind == 'block')
   },
 
   /**
@@ -398,7 +397,7 @@ const Node = {
    */
 
   getClosestInline(key) {
-    return this.getClosest(key, parent => parent.kind==='inline')
+    return this.getClosest(key, parent => parent.kind == 'inline')
   },
 
   /**
@@ -424,8 +423,8 @@ const Node = {
     one = Normalize.key(one)
     two = Normalize.key(two)
 
-    if (one===this.key) return this
-    if (two===this.key) return this
+    if (one == this.key) return this
+    if (two == this.key) return this
 
     this.assertDescendant(one)
     this.assertDescendant(two)
@@ -562,7 +561,7 @@ const Node = {
     let descendantFound = null
 
     const found = this.nodes.find((node) => {
-      if (node.kind==='text') return true
+      if (node.kind == 'text') return true
       descendantFound = node.getFirstText()
       return descendantFound
     })
@@ -591,14 +590,14 @@ const Node = {
     node = node.splitBlockAtRange(start, Infinity)
 
     const next = node.getNextText(startKey)
-    const end = startKey===endKey
+    const end = startKey == endKey
       ? range.collapseToStartOf(next).move(endOffset - startOffset)
       : range.collapseToEnd()
     node = node.splitBlockAtRange(end, Infinity)
 
     // Get the start and end nodes.
     const startNode = node.getNextSibling(node.getFurthestAncestor(startKey).key)
-    const endNode = startKey===endKey
+    const endNode = startKey == endKey
       ? node.getFurthestAncestor(next.key)
       : node.getFurthestAncestor(endKey)
 
@@ -638,7 +637,7 @@ const Node = {
    */
 
   getFurthestBlock(key) {
-    return this.getFurthest(key, node => node.kind==='block')
+    return this.getFurthest(key, node => node.kind == 'block')
   },
 
   /**
@@ -649,7 +648,7 @@ const Node = {
    */
 
   getFurthestInline(key) {
-    return this.getFurthest(key, node => node.kind==='inline')
+    return this.getFurthest(key, node => node.kind == 'inline')
   },
 
   /**
@@ -662,8 +661,8 @@ const Node = {
   getFurthestAncestor(key) {
     key = Normalize.key(key)
     return this.nodes.find((node) => {
-      if (node.key===key) return true
-      if (node.kind==='text') return false
+      if (node.key == key) return true
+      if (node.kind == 'text') return false
       return node.hasDescendant(key)
     })
   },
@@ -713,7 +712,7 @@ const Node = {
     let array = []
 
     this.nodes.forEach((child) => {
-      if (child.kind==='text') return
+      if (child.kind == 'text') return
       if (child.isLeafInline()) {
         array.push(child)
       } else {
@@ -772,9 +771,9 @@ const Node = {
 
   getInlinesByTypeAsArray(type) {
     return this.nodes.reduce((inlines, node) => {
-      if (node.kind==='text') {
+      if (node.kind == 'text') {
         return inlines
-      } else if (node.isLeafInline() && node.type===type) {
+      } else if (node.isLeafInline() && node.type == type) {
         inlines.push(node)
         return inlines
       } else {
@@ -809,7 +808,7 @@ const Node = {
     let descendantFound = null
 
     const found = this.nodes.findLast((node) => {
-      if (node.kind==='text') return true
+      if (node.kind == 'text') return true
       descendantFound = node.getLastText()
       return descendantFound
     })
@@ -887,7 +886,7 @@ const Node = {
     const { startKey, startOffset } = range
 
     // If the range is collapsed at the start of the node, check the previous.
-    if (range.isCollapsed && startOffset===0) {
+    if (range.isCollapsed && startOffset == 0) {
       const previous = this.getPreviousText(startKey)
       if (!previous || !previous.length) return []
       const char = previous.characters.get(previous.length - 1)
@@ -942,8 +941,8 @@ const Node = {
 
   getMarksByTypeAsArray(type) {
     return this.nodes.reduce((array, node) => {
-      return node.kind==='text'
-        ? array.concat(node.getMarksAsArray().filter(m => m.type===type))
+      return node.kind == 'text'
+        ? array.concat(node.getMarksAsArray().filter(m => m.type == type))
         : array.concat(node.getMarksByTypeAsArray(type))
     }, [])
   },
@@ -959,7 +958,7 @@ const Node = {
     const child = this.assertDescendant(key)
     let last
 
-    if (child.kind==='block') {
+    if (child.kind == 'block') {
       last = child.getLastText()
     } else {
       const block = this.getClosestBlock(key)
@@ -984,9 +983,9 @@ const Node = {
 
     const parent = this.getParent(key)
     const after = parent.nodes
-      .skipUntil(child => child.key===key)
+      .skipUntil(child => child.key == key)
 
-    if (after.size===0) {
+    if (after.size == 0) {
       throw new Error(`Could not find a child node with key "${key}".`)
     }
     return after.get(1)
@@ -1002,7 +1001,7 @@ const Node = {
   getNextText(key) {
     key = Normalize.key(key)
     return this.getTexts()
-      .skipUntil(text => text.key===key)
+      .skipUntil(text => text.key == key)
       .get(1)
   },
 
@@ -1015,7 +1014,7 @@ const Node = {
 
   getNode(key) {
     key = Normalize.key(key)
-    return this.key===key ? this : this.getDescendant(key)
+    return this.key == key ? this : this.getDescendant(key)
   },
 
   /**
@@ -1031,7 +1030,7 @@ const Node = {
     // Calculate the offset of the nodes before the highest child.
     const child = this.getFurthestAncestor(key)
     const offset = this.nodes
-      .takeUntil(n => n===child)
+      .takeUntil(n => n == child)
       .reduce((memo, n) => memo + n.length, 0)
 
     // Recurse if need be.
@@ -1071,7 +1070,7 @@ const Node = {
     let node = null
 
     this.nodes.find((child) => {
-      if (child.kind==='text') {
+      if (child.kind == 'text') {
         return false
       } else {
         node = child.getParent(key)
@@ -1114,7 +1113,7 @@ const Node = {
     const child = this.assertDescendant(key)
     let first
 
-    if (child.kind==='block') {
+    if (child.kind == 'block') {
       first = child.getFirstText()
     } else {
       const block = this.getClosestBlock(key)
@@ -1138,9 +1137,9 @@ const Node = {
     key = Normalize.key(key)
     const parent = this.getParent(key)
     const before = parent.nodes
-      .takeUntil(child => child.key===key)
+      .takeUntil(child => child.key == key)
 
-    if (before.size===parent.nodes.size) {
+    if (before.size == parent.nodes.size) {
       throw new Error(`Could not find a child node with key "${key}".`)
     }
 
@@ -1157,7 +1156,7 @@ const Node = {
   getPreviousText(key) {
     key = Normalize.key(key)
     return this.getTexts()
-      .takeUntil(text => text.key===key)
+      .takeUntil(text => text.key == key)
       .last()
   },
 
@@ -1182,8 +1181,8 @@ const Node = {
 
   getTextAtOffset(offset) {
     // PERF: Add a few shortcuts for the obvious cases.
-    if (offset===0) return this.getFirstText()
-    if (offset===this.length) return this.getLastText()
+    if (offset == 0) return this.getFirstText()
+    if (offset == this.length) return this.getLastText()
     if (offset < 0 || offset > this.length) return null
 
     let length = 0
@@ -1204,7 +1203,7 @@ const Node = {
 
   getTextDirection() {
     const dir = direction(this.text)
-    return dir==='neutral' ? undefined : dir
+    return dir == 'neutral' ? undefined : dir
   },
 
   /**
@@ -1228,7 +1227,7 @@ const Node = {
     let array = []
 
     this.nodes.forEach((node) => {
-      if (node.kind==='text') {
+      if (node.kind == 'text') {
         array.push(node)
       } else {
         array = array.concat(node.getTextsAsArray())
@@ -1264,7 +1263,7 @@ const Node = {
 
     // PERF: the most common case is when the range is in a single text node,
     // where we can avoid a lot of iterating of the tree.
-    if (startKey===endKey) return [startText]
+    if (startKey == endKey) return [startText]
 
     const endText = this.getDescendant(endKey)
     const texts = this.getTextsAsArray()
@@ -1352,7 +1351,7 @@ const Node = {
 
   isLeafBlock() {
     return (
-      this.kind==='block' &&
+      this.kind == 'block' &&
       this.nodes.every(n => n.kind != 'block')
     )
   },
@@ -1365,7 +1364,7 @@ const Node = {
 
   isLeafInline() {
     return (
-      this.kind==='inline' &&
+      this.kind == 'inline' &&
       this.nodes.every(n => n.kind != 'inline')
     )
   },
@@ -1386,10 +1385,10 @@ const Node = {
     const { deep = false } = options
     let node = this
     let parent = node.getParent(second.key)
-    const isParent = node===parent
+    const isParent = node == parent
     const index = parent.nodes.indexOf(second)
 
-    if (second.kind==='text') {
+    if (second.kind == 'text') {
       let { characters } = first
       characters = characters.concat(second.characters)
       first = first.set('characters', characters)
@@ -1447,7 +1446,7 @@ const Node = {
       let ret = node
       if (ret.kind != 'text') ret = ret.mapDescendants(iterator)
       ret = iterator(ret, i, this.nodes)
-      if (ret===node) return
+      if (ret == node) return
 
       const index = nodes.indexOf(node)
       nodes = nodes.set(index, ret)
@@ -1482,7 +1481,7 @@ const Node = {
     if (!parent) throw new Error(`Could not find a descendant node with key "${key}".`)
 
     const index = parent.nodes.findIndex(n => n.key === key)
-    const isParent = node===parent
+    const isParent = node == parent
     const nodes = parent.nodes.splice(index, 1)
 
     parent = parent.set('nodes', nodes)
@@ -1518,7 +1517,7 @@ const Node = {
     let offset = startOffset
     let h = 0
 
-    while (parent && parent.kind==='block' && h < height) {
+    while (parent && parent.kind == 'block' && h < height) {
       offset += parent.getOffset(node.key)
       node = parent
       parent = base.getClosestBlock(parent.key)
@@ -1541,7 +1540,7 @@ const Node = {
     let base = this
     const node = base.assertPath(path)
     let parent = base.getParent(node.key)
-    const isParent = base===parent
+    const isParent = base == parent
     const index = parent.nodes.indexOf(node)
 
     let child = node
@@ -1554,8 +1553,8 @@ const Node = {
     }
 
     while (child && child != parent) {
-      if (child.kind==='text') {
-        const i = node.kind==='text' ? offset : offset - node.getOffset(child.key)
+      if (child.kind == 'text') {
+        const i = node.kind == 'text' ? offset : offset - node.getOffset(child.key)
         const { characters } = child
         const oneChars = characters.take(i)
         const twoChars = characters.skip(i)
@@ -1566,12 +1565,12 @@ const Node = {
       else {
         const { nodes } = child
 
-        // Try to preserve the nodes list to preserve reference of one===node to avoid re-render
+        // Try to preserve the nodes list to preserve reference of one == node to avoid re-render
         // When spliting at the end of a text node, the first node is preserved
-        let oneNodes = nodes.takeUntil(n => n.key===one.key)
-        oneNodes = (oneNodes.size===(nodes.size - 1) && one===nodes.last()) ? nodes : oneNodes.push(one)
+        let oneNodes = nodes.takeUntil(n => n.key == one.key)
+        oneNodes = (oneNodes.size == (nodes.size - 1) && one == nodes.last()) ? nodes : oneNodes.push(one)
 
-        const twoNodes = nodes.skipUntil(n => n.key===one.key).rest().unshift(two)
+        const twoNodes = nodes.skipUntil(n => n.key == one.key).rest().unshift(two)
         one = child.set('nodes', oneNodes)
         two = child.set('nodes', twoNodes).regenerateKey()
       }
@@ -1602,7 +1601,7 @@ const Node = {
     const { nodes } = node
 
     let parent = base.getParent(node.key)
-    const isParent = base===parent
+    const isParent = base == parent
 
     const oneNodes = nodes.take(count)
     const twoNodes = nodes.skip(count)
@@ -1691,7 +1690,7 @@ const Node = {
   decorateTexts(decorator) {
     warn('The `Node.decorateTexts(decorator) method is deprecated.')
     return this.mapDescendants((child) => {
-      return child.kind==='text'
+      return child.kind == 'text'
         ? child.decorateCharacters(decorator)
         : child
     })

@@ -1,4 +1,3 @@
-/* eslint-disable */
 
 /**
  * Find the deepest descendant of a DOM `element`.

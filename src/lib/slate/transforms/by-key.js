@@ -1,4 +1,3 @@
-/* eslint-disable */
 
 import Normalize from '../utils/normalize'
 import SCHEMA from '../schemas/core'

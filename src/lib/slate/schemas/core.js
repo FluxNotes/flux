@@ -1,4 +1,3 @@
-/* eslint-disable */
 
 import Schema from '../models/schema'
 import Text from '../models/text'
@@ -28,7 +27,7 @@ const rules = [
 
   {
     match: (node) => {
-      return node.kind==='document'
+      return node.kind == 'document'
     },
     validate: (document) => {
       const invalids = document.nodes.filter(n => n.kind != 'block')
@@ -49,7 +48,7 @@ const rules = [
 
   {
     match: (node) => {
-      return node.kind==='block'
+      return node.kind == 'block'
     },
     validate: (block) => {
       const invalids = block.nodes.filter((n) => {
@@ -73,7 +72,7 @@ const rules = [
 
   {
     match: (object) => {
-      return object.kind==='inline'
+      return object.kind == 'inline'
     },
     validate: (inline) => {
       const invalids = inline.nodes.filter(n => n.kind != 'inline' && n.kind != 'text')
@@ -94,10 +93,10 @@ const rules = [
 
   {
     match: (object) => {
-      return object.kind==='block' || object.kind==='inline'
+      return object.kind == 'block' || object.kind == 'inline'
     },
     validate: (node) => {
-      return node.nodes.size===0
+      return node.nodes.size == 0
     },
     normalize: (transform, node) => {
       const text = Text.create()
@@ -114,7 +113,7 @@ const rules = [
   {
     match: (object) => {
       return (
-        (object.kind==='inline' || object.kind==='block') &&
+        (object.kind == 'inline' || object.kind == 'block') &&
         (object.isVoid)
       )
     },
@@ -146,16 +145,16 @@ const rules = [
 
   {
     match: (object) => {
-      return object.kind==='block'
+      return object.kind == 'block'
     },
     validate: (block) => {
-      const invalids = block.nodes.filter(n => n.kind==='inline' && n.text==='')
+      const invalids = block.nodes.filter(n => n.kind == 'inline' && n.text == '')
       return invalids.size ? invalids : null
     },
     normalize: (transform, block, invalids) => {
       // If all of the block's nodes are invalid, insert an empty text node so
       // that the selection will be preserved when they are all removed.
-      if (block.nodes.size===invalids.size) {
+      if (block.nodes.size == invalids.size) {
         const text = Text.create()
         transform.insertNodeByKey(block.key, 1, text, OPTS)
       }
@@ -175,7 +174,7 @@ const rules = [
 
   {
     match: (object) => {
-      return object.kind==='block' || object.kind==='inline'
+      return object.kind == 'block' || object.kind == 'inline'
     },
     validate: (node) => {
       const invalids = node.nodes.reduce((list, child, index) => {
@@ -185,7 +184,7 @@ const rules = [
         const next = node.nodes.get(index + 1)
         // We don't test if "prev" is inline, since it has already been processed in the loop
         const insertBefore = !prev
-        const insertAfter = !next || (next.kind==='inline')
+        const insertAfter = !next || (next.kind == 'inline')
 
         if (insertAfter || insertBefore) {
           list = list.push({ insertAfter, insertBefore, index })
@@ -222,7 +221,7 @@ const rules = [
 
   {
     match: (object) => {
-      return object.kind==='block' || object.kind==='inline'
+      return object.kind == 'block' || object.kind == 'inline'
     },
     validate: (node) => {
       const invalids = node.nodes
@@ -254,7 +253,7 @@ const rules = [
 
   {
     match: (object) => {
-      return object.kind==='block' || object.kind==='inline'
+      return object.kind == 'block' || object.kind == 'inline'
     },
     validate: (node) => {
       const { nodes } = node
@@ -268,13 +267,13 @@ const rules = [
         const next = nodes.get(i + 1)
 
         // If it's the first node, and the next is a void, preserve it.
-        if (!prev && next.kind==='inline') return
+        if (!prev && next.kind == 'inline') return
 
         // It it's the last node, and the previous is an inline, preserve it.
-        if (!next && prev.kind==='inline') return
+        if (!next && prev.kind == 'inline') return
 
         // If it's surrounded by inlines, preserve it.
-        if (next && prev && next.kind==='inline' && prev.kind==='inline') return
+        if (next && prev && next.kind == 'inline' && prev.kind == 'inline') return
 
         // Otherwise, remove it.
         return true

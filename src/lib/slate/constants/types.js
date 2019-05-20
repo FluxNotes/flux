@@ -1,4 +1,3 @@
-/* eslint-disable */
 
 /**
  * Slate-specific data transfer types.

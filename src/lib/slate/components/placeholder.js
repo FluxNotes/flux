@@ -1,4 +1,3 @@
-/* eslint-disable */
 
 import React from 'react'
 import Types from 'prop-types'
@@ -68,7 +67,7 @@ class Placeholder extends React.Component {
 
     if (firstOnly) {
       if (parent.nodes.size > 1) return false
-      if (parent.nodes.first() == node) return true
+      if (parent.nodes.first() === node) return true
       return false
     } else {
       return true
@@ -91,9 +90,9 @@ class Placeholder extends React.Component {
     const { children, className } = this.props
     let { style } = this.props
 
-    if (typeof children == 'string' && style==null && className==null) {
+    if (typeof children === 'string' && style == null && className == null) {
       style = { opacity: '0.333' }
-    } else if (style==null) {
+    } else if (style == null) {
       style = {}
     }
 

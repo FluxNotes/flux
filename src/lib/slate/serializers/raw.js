@@ -1,4 +1,3 @@
-/* eslint-disable */
 
 import Block from '../models/block'
 import Character from '../models/character'
@@ -547,7 +546,7 @@ const Raw = {
    */
 
   tersifyState(object) {
-    if (object.selection===null) {
+    if (object.selection == null) {
       return object.document
     }
 
@@ -569,7 +568,7 @@ const Raw = {
     ret.kind = object.kind
     if (object.key) ret.key = object.key
 
-    if (object.ranges.length===1 && object.ranges[0].marks===null) {
+    if (object.ranges.length == 1 && object.ranges[0].marks == null) {
       ret.text = object.ranges[0].text
     } else {
       ret.ranges = object.ranges

@@ -1,4 +1,3 @@
-/* eslint-disable */
 
 import Data from './data'
 import memoize from '../utils/memoize'

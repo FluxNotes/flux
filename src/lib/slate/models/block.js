@@ -1,4 +1,3 @@
-/* eslint-disable */
 
 /**
  * Prevent circular dependencies.
@@ -58,7 +57,7 @@ class Block extends new Record(DEFAULTS) {
     properties.isVoid = !!properties.isVoid
     properties.nodes = Block.createList(properties.nodes)
 
-    if (properties.nodes.size===0) {
+    if (properties.nodes.size == 0) {
       properties.nodes = properties.nodes.push(Text.create())
     }
 
@@ -94,7 +93,7 @@ class Block extends new Record(DEFAULTS) {
    */
 
   get isEmpty() {
-    return this.text===''
+    return this.text == ''
   }
 
   /**

@@ -1,4 +1,3 @@
-/* eslint-disable */
 
 import OffsetKey from './offset-key'
 

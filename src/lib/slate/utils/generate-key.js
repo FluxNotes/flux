@@ -1,4 +1,3 @@
-/* eslint-disable */
 
 /**
  * An auto-incrementing index for generating keys.

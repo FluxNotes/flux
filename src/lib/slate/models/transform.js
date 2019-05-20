@@ -1,4 +1,3 @@
-/* eslint-disable */
 
 import Debug from 'debug'
 import Transforms from '../transforms'
@@ -69,7 +68,7 @@ class Transform {
 
     // If there's a previous save point, determine if the new operations should
     // be merged into the previous ones.
-    if (previous && merge===null) {
+    if (previous && merge == null) {
       merge = (
         isOnlySelections(operations) ||
         isContiguousInserts(operations, previous) ||
@@ -78,7 +77,7 @@ class Transform {
     }
 
     // If the save flag isn't set, determine whether we should save.
-    if (save===null) {
+    if (save == null) {
       save = !isOnlySelections(operations)
     }
 
@@ -111,7 +110,7 @@ Object.keys(Transforms).forEach((type) => {
  */
 
 function isOnlySelections(operations) {
-  return operations.every(op => op.type==='set_selection')
+  return operations.every(op => op.type == 'set_selection')
 }
 
 /**
@@ -127,8 +126,8 @@ function isContiguousInserts(operations, previous) {
   const prevEdits = previous.filter(op => op.type != 'set_selection')
   if (!edits.length || !prevEdits.length) return false
 
-  const onlyInserts = edits.every(op => op.type==='insert_text')
-  const prevOnlyInserts = prevEdits.every(op => op.type==='insert_text')
+  const onlyInserts = edits.every(op => op.type == 'insert_text')
+  const prevOnlyInserts = prevEdits.every(op => op.type == 'insert_text')
   if (!onlyInserts || !prevOnlyInserts) return false
 
   const first = edits[0]
@@ -152,8 +151,8 @@ function isContiguousRemoves(operations, previous) {
   const prevEdits = previous.filter(op => op.type != 'set_selection')
   if (!edits.length || !prevEdits.length) return false
 
-  const onlyRemoves = edits.every(op => op.type==='remove_text')
-  const prevOnlyRemoves = prevEdits.every(op => op.type==='remove_text')
+  const onlyRemoves = edits.every(op => op.type == 'remove_text')
+  const prevOnlyRemoves = prevEdits.every(op => op.type == 'remove_text')
   if (!onlyRemoves || !prevOnlyRemoves) return false
 
   const first = edits[0]

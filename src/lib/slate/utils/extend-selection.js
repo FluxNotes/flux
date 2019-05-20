@@ -1,4 +1,3 @@
-/* eslint-disable */
 
 /**
  * Extends the given selection to a given node and offset

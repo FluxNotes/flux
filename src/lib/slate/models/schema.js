@@ -1,4 +1,3 @@
-/* eslint-disable */
 
 import React from 'react'
 import isReactComponent from '../utils/is-react-component'
@@ -174,14 +173,14 @@ function normalizeNodes(nodes) {
   for (const key in nodes) {
     let rule = nodes[key]
 
-    if (typeOf(rule)==='function' || isReactComponent(rule)) {
+    if (typeOf(rule) == 'function' || isReactComponent(rule)) {
       rule = { render: rule }
     }
 
     rule.match = (object) => {
       return (
-        (object.kind==='block' || object.kind==='inline') &&
-        object.type===key
+        (object.kind == 'block' || object.kind == 'inline') &&
+        object.type == key
       )
     }
 
@@ -209,7 +208,7 @@ function normalizeMarks(marks) {
     }
 
     rule.render = normalizeMarkComponent(rule.render)
-    rule.match = object => object.kind==='mark' && object.type===key
+    rule.match = object => object.kind == 'mark' && object.type == key
     rules.push(rule)
   }
 

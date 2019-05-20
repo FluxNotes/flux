@@ -1,4 +1,3 @@
-/* eslint-disable */
 
 /**
  * Is in development?

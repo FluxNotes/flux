@@ -1,4 +1,3 @@
-/* eslint-disable */
 
 import CorePlugin from '../plugins/core'
 import Debug from 'debug'
@@ -128,7 +127,7 @@ class Stack extends new Record(DEFAULTS) {
     for (const plugin of this.plugins) {
       if (!plugin.renderPortal) continue
       const portal = plugin.renderPortal(state, editor)
-      if (portal==null) continue
+      if (portal == null) continue
       portals.push(portal)
     }
 
@@ -150,7 +149,7 @@ for (const method of EVENT_HANDLER_METHODS) {
   Stack.prototype[method] = function (state, editor, ...args) {
     debug(method)
 
-    if (method=='onChange') {
+    if (method == 'onChange') {
       state = this.onBeforeChange(state, editor)
     }
 

@@ -1,4 +1,3 @@
-/* eslint-disable */
 
 import Normalize from '../utils/normalize'
 import Schema from '../models/schema'
@@ -111,7 +110,7 @@ Transforms.normalizeSelection = (transform) => {
  */
 
 function normalizeNodeAndChildren(transform, node, schema) {
-  if (node.kind==='text') {
+  if (node.kind == 'text') {
     normalizeNode(transform, node, schema)
     return
   }
@@ -172,7 +171,7 @@ function normalizeNodeAndChildren(transform, node, schema) {
 function refindNode(transform, node) {
   const { state } = transform
   const { document } = state
-  return node.kind==='document'
+  return node.kind == 'document'
     ? document
     : document.getDescendant(node.key)
 }
@@ -228,7 +227,7 @@ function normalizeNode(transform, node, schema) {
 function assertSchema(schema) {
   if (schema instanceof Schema) {
     return
-  } else if (schema===null) {
+  } else if (schema == null) {
     throw new Error('You must pass a `schema` object.')
   } else {
     throw new Error(`You passed an invalid \`schema\` object: ${schema}.`)

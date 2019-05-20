@@ -1,4 +1,3 @@
-/* eslint-disable */
 
 /**
  * Check if an `object` is a React component.
