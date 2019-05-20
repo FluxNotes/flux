@@ -12,6 +12,7 @@ import TreatmentOptionsOutcomes from '../../components/TreatmentOptionsOutcomes/
 import {
     initializeSimilarPatientProps,
     selectSimilarPatientOption,
+    selectSimilarPatientOptionRange,
     selectAllCategorySimilarPatientOptions,
     selectAllSimilarPatientOptions,
     processSimilarPatientOutcomes,
@@ -39,7 +40,7 @@ export class TreatmentOptionsVisualizer extends Component {
     }
 
     _renderedSimilarPatientsSubtitle(numPatients) {
-        return ( 
+        return (
             <div>
                 <span className="bold">{numPatients}</span> patients
             </div>
@@ -59,6 +60,7 @@ export class TreatmentOptionsVisualizer extends Component {
             comparedTreatments,
             comparedTreatmentData,
             selectSimilarPatientOption,
+            selectSimilarPatientOptionRange,
             selectAllSimilarPatientOptions,
             selectAllCategorySimilarPatientOptions,
             selectTreatments
@@ -78,6 +80,7 @@ export class TreatmentOptionsVisualizer extends Component {
                         condition={condition}
                         similarPatientProps={similarPatientProps}
                         selectSimilarPatientOption={selectSimilarPatientOption}
+                        selectSimilarPatientOptionRange={selectSimilarPatientOptionRange}
                         selectAllCategorySimilarPatientOptions={selectAllCategorySimilarPatientOptions}
                         selectAllSimilarPatientOptions={selectAllSimilarPatientOptions}
                     />
@@ -109,6 +112,7 @@ TreatmentOptionsVisualizer.propTypes = {
     comparedTreatmentData: PropTypes.array.isRequired,
     initializeSimilarPatientProps: PropTypes.func.isRequired,
     selectSimilarPatientOption: PropTypes.func.isRequired,
+    selectSimilarPatientOptionRange: PropTypes.func.isRequired,
     selectAllCategorySimilarPatientOptions: PropTypes.func.isRequired,
     selectAllSimilarPatientOptions: PropTypes.func.isRequired,
     processSimilarPatientOutcomes: PropTypes.func.isRequired,
@@ -119,6 +123,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         initializeSimilarPatientProps,
         selectSimilarPatientOption,
+        selectSimilarPatientOptionRange,
         selectAllCategorySimilarPatientOptions,
         selectAllSimilarPatientOptions,
         processSimilarPatientOutcomes,

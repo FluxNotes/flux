@@ -12,14 +12,16 @@ export default function getProps(patient, condition) {
                 "mcodeElement": "shr.core.DateOfBirth", // note the implied calculation required here
                 "valueType": "range",
                 "range": 10,
-                "value": patient.getAge()
+                "value": patient.getAge(),
+                "unit": "years"
             },
             "diagnosedAge": {
                 "display": "age at diagnosis",
                 "mcodeElement": "shr.core.DateOfDiagnosis", // note the implied calculation required here as well
                 "valueType": "range",
                 "range": 10,
-                "value": patient.getAgeAsOf(new Date(condition.diagnosisDate))
+                "value": patient.getAgeAsOf(new Date(condition.diagnosisDate)),
+                "unit": "years"
             },
             "race": {
                 "display": "race",
@@ -43,7 +45,7 @@ export default function getProps(patient, condition) {
                 "value": (() => {
                     const grade = condition.getMostRecentHistologicalGrade();
                     if (!grade) return null;
-                    return grade.getGradeAsSimpleNumber();             
+                    return grade.getGradeAsSimpleNumber();
                 })(),
                 "reference": condition.getMostRecentHistologicalGrade()
             },
@@ -137,7 +139,7 @@ function _mapProp(propDict) {
         // values
         for (const prop of Object.keys(propDict[key])) {
             const option = propDict[key][prop];
-            // drops option boxes that don't have 
+            // drops option boxes that don't have
             // a value from the patient record
             if (option.value) {
                 let propEntry = {
@@ -145,19 +147,26 @@ function _mapProp(propDict) {
                     displayText: option.display
                 };
 
-                if(option.reference) {
+                if (option.reference) {
                     propEntry.reference = option.reference;
                 }
-                if(option.mcodeElement) {
+                if (option.mcodeElement) {
                     propEntry.mcodeElement = option.mcodeElement;
+                }
+
+                if (option.unit) {
+                    propEntry.unit = option.unit;
                 }
 
                 if (option.valueType === "range") {
                     propEntry.minValue = (option.value >= option.range) ? option.value - option.range : 0;
-                    propEntry.maxValue = option.value + option.range
-                } else {
-                    propEntry.value = option.value;
+                    propEntry.maxValue = option.value + option.range;
+                    propEntry.defaultMinValue = (option.value >= option.range) ? option.value - option.range : 0;
+                    propEntry.defaultMaxValue = option.value + option.range;
                 }
+
+                propEntry.value = option.value;
+
                 potentialCategory.options[prop] = propEntry;
             }
         }
@@ -165,5 +174,5 @@ function _mapProp(propDict) {
             similarPatientProps[key] = potentialCategory;
         }
     }
-    return similarPatientProps
+    return similarPatientProps;
 }
