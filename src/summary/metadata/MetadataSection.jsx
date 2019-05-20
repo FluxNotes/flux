@@ -1,6 +1,6 @@
 import Encounter from '../../model/shr/encounter/Encounter';
 import moment from 'moment';
-import Lang from 'lodash'
+import Lang from 'lodash';
 import Media from '../../model/shr/core/Media';
 
 export default class MetadataSection {

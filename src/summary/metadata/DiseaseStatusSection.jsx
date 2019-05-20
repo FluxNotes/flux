@@ -1,5 +1,5 @@
 import MetadataSection from "./MetadataSection";
-import Lang from 'lodash'
+import Lang from 'lodash';
 
 export default class DiseaseStatusSection extends MetadataSection {
     getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
@@ -23,7 +23,7 @@ export default class DiseaseStatusSection extends MetadataSection {
 
         const processedProgressions = progressions.map((prog, i) => {
             const status = prog.status;
-            const code = prog.statusAsCode
+            const code = prog.statusAsCode;
             const start_time = prog.asOfDate;
             const evidence = prog.evidence.join(', ');
             return {
@@ -34,7 +34,7 @@ export default class DiseaseStatusSection extends MetadataSection {
             };
         });
 
-        const potentialDiagnosisDates = condition.getPotentialDiagnosisDates()
+        const potentialDiagnosisDates = condition.getPotentialDiagnosisDates();
         return {
             progressions: processedProgressions,
             potentialDiagnosisDates: potentialDiagnosisDates,

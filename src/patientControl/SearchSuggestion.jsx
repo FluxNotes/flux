@@ -50,7 +50,7 @@ class SearchSuggestion extends React.Component {
                 <span className="highlighted-input-value">{highlightedText}</span>
                 <span>{postText}</span>
             </div>
-        )
+        );
     }
 
     renderLabel = () => {

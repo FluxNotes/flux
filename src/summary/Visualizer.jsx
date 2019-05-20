@@ -1,6 +1,6 @@
 import {Component} from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash'
+import _ from 'lodash';
 
 
 export default class Visualizer extends Component {
@@ -28,7 +28,7 @@ export default class Visualizer extends Component {
         // - forceRefresh changes from false to true
         // - The sections to be displayed has changed
         // - Local state has changed
-        const updatedSectionName = nextProps.conditionSection.name
+        const updatedSectionName = nextProps.conditionSection.name;
 
         // Case 1: Highligted Suggestion Changed and is relevant for this seection  -- based on object, so we'll make a local copy in case te object is mutated
         const currentHighlightedSuggestionSection = !_.isNull(this.props.highlightedSearchSuggestion) ? this.props.highlightedSearchSuggestion.section : null;
@@ -45,15 +45,15 @@ export default class Visualizer extends Component {
         const nextTDPSuggestions = nextProps.tdpSearchSuggestions;
         // Do we have any TDP new suggestions, and are any of them in this section?
         const relevantChangesToTDPSuggestions = !_.isEqual(previousTDPSuggestions, nextTDPSuggestions)
-            && (this._hasSuggestionForSection(nextTDPSuggestions, updatedSectionName) || this._hasSuggestionForSection(previousTDPSuggestions, updatedSectionName))
+            && (this._hasSuggestionForSection(nextTDPSuggestions, updatedSectionName) || this._hasSuggestionForSection(previousTDPSuggestions, updatedSectionName));
         // Short circuit if true -- cannot change the search menu and other relevant data, so no need to continue checking for the sake of updating local data
-        if (relevantChangesToTDPSuggestions) return relevantChangesToTDPSuggestions
+        if (relevantChangesToTDPSuggestions) return relevantChangesToTDPSuggestions;
 
 
         // Case 3: Data that this visualizer cares about changes -- based on object, so we'll make a local copy in case te object is mutated
         //  - this is defined in the conditionSection prop; the data gets extracted above
         const nextDataCache = this._getDataCacheFromProps(nextProps);
-        const changesToRelevantData = !_.isEqual(this._oldDataCache, nextDataCache)
+        const changesToRelevantData = !_.isEqual(this._oldDataCache, nextDataCache);
         // Update local DataCache if there's a difference in the data
         if (changesToRelevantData) {
             this._oldDataCache = nextDataCache;
@@ -70,26 +70,26 @@ export default class Visualizer extends Component {
         }
 
         // Case 5: ClinicalEvent -- just a string so no need to maintain local copy
-        const changesToClinicalEvent = (this.props.clinicalEvent !== nextProps.clinicalEvent)
+        const changesToClinicalEvent = (this.props.clinicalEvent !== nextProps.clinicalEvent);
 
         // Case 6: isWide -- just a bool so no need to maintain local copy
         const changesToIsWide = (this.props.isWide !== nextProps.isWide);
 
         // Case 7: Condition string changes: need string representation -- based on object, so we'll make a local copy in case te object is mutated
         const newConditionCodeSystem = nextProps.condition.codeSystem;
-        const newConditionCode = nextProps.condition.code
+        const newConditionCode = nextProps.condition.code;
         // May not be human readable, but is a unique identifier and that's all we need here.
         const newConditionString = `${newConditionCodeSystem}${newConditionCode}`;
-        const changesToConditionString = (this._currentConditionString !== newConditionString)
+        const changesToConditionString = (this._currentConditionString !== newConditionString);
         if (changesToConditionString) {
-            this._currentConditionString = newConditionString
+            this._currentConditionString = newConditionString;
         }
 
         // Case 8: allowItemClick -- just a bool so no need to maintain local copy
         const changesToAllowItemClick = (this.props.allowItemClick !== nextProps.allowItemClick);
 
         // Case 9: forceRefresh -- just a bool so no need to maintain local copy
-        const changesToForceRefresh = (this.props.forceRefresh === false && nextProps.forceRefresh === true)
+        const changesToForceRefresh = (this.props.forceRefresh === false && nextProps.forceRefresh === true);
 
         // Case 10: Sections to display has changed
         const changesToSectionsDisplayed = !_.isEqual(this.props.sectionsToDisplay, nextProps.sectionsToDisplay);

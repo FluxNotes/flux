@@ -368,14 +368,14 @@ export function getTableForEdition(ed){
 
 export function isValidT(possibleT, edition=7){
     const possibleTValues = getTsForEdition(edition);
-    return possibleTValues.some((tValue) => {return tValue.name.toLowerCase() === possibleT.toLowerCase()});
+    return possibleTValues.some((tValue) => {return tValue.name.toLowerCase() === possibleT.toLowerCase();});
 }
 
 export function isValidN(possibleN, edition=7){
     const possibleNValues = getNsForEdition(edition);
-    return possibleNValues.some((nValue) => {return nValue.name.toLowerCase() === possibleN.toLowerCase()});
+    return possibleNValues.some((nValue) => {return nValue.name.toLowerCase() === possibleN.toLowerCase();});
 }
 export function isValidM(possibleM, edition=7){
     const possibleMValues = getMsForEdition(edition);
-    return possibleMValues.some((mValue) => {return mValue.name.toLowerCase() === possibleM.toLowerCase()});
+    return possibleMValues.some((mValue) => {return mValue.name.toLowerCase() === possibleM.toLowerCase();});
 }

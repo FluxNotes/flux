@@ -58,6 +58,6 @@ export default class LandingPageForm extends Component {
                     </ol>
                 </div>
             </div>
-        )
+        );
     }
 }

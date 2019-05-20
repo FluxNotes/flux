@@ -146,7 +146,7 @@ export default class NotesPanel extends Component {
     }
 
     handleUpdateArrayOfPickLists = (array) => {
-        this.setState({arrayOfPickLists: array})
+        this.setState({arrayOfPickLists: array});
     }
 
     updateNote = (entryId, noteContent) => {
@@ -234,7 +234,7 @@ export default class NotesPanel extends Component {
             this.props.structuredFieldMapManager.clearStructuredFieldMap();
             this.props.patient.removeClinicalNote(this.state.selectedNote);
         } else {
-            console.error('Tried to remove a note that is signed')
+            console.error('Tried to remove a note that is signed');
         }
     }
 
@@ -248,7 +248,7 @@ export default class NotesPanel extends Component {
         this.setState({selectedNote: tempNote});
         let inProg = this.props.patient.getInProgressNotes();
         inProg.forEach((a) => {
-            this.props.patient.removeClinicalNote(a)
+            this.props.patient.removeClinicalNote(a);
         });
         this.props.dataAccess.savePatient(this.props.patient);
         inProg.forEach((b) => {
@@ -283,7 +283,7 @@ export default class NotesPanel extends Component {
                         {this.renderTemplateView()}
                     </Col>
                 </Row>
-            )
+            );
         } else if (this.props.isNoteViewerVisible) {
             // If isNoteViewerVisible is true, render the flux notes editor and the note assistant
             if (this.props.isNoteViewerEditable && this.state.selectedNote) {

@@ -6,7 +6,7 @@ export default class StaticOutcomesService  extends IOutcomesService {
         return [{key: 'surgery', name: 'surgery'},
             {key: 'chemotherapy', name: 'chemotherapy'},
             {key: 'radiation', name: 'radiation'},
-            {key: 'hormonal', name: 'hormonal'}]
+            {key: 'hormonal', name: 'hormonal'}];
     }
 
     async processSimilarPatientOutcomes(similarPatientProps, includedTreatments, comparedTreatments) {

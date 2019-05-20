@@ -238,7 +238,7 @@ class MedicationRangeChartVisualizer extends Visualizer {
         const asNeededIndicator = med.medication.asNeededIndicator;
 
         return (
-            <div key={i} className="medication-item" ref={(parent) => { this.parent = parent }}>
+            <div key={i} className="medication-item" ref={(parent) => { this.parent = parent; }}>
                 <Grid fluid>
                     <div className="medication-item-heading">
                         <Row bottom="xs">
@@ -277,7 +277,7 @@ class MedicationRangeChartVisualizer extends Visualizer {
                             </Row>
                         </div>}
                 </Grid>
-            </div>)
+            </div>);
     }
 
 renderMedicationNarrowView = (med, i) => {
@@ -300,7 +300,7 @@ renderMedicationNarrowView = (med, i) => {
     const asNeededIndicator = med.medication.asNeededIndicator;
 
     return (
-        <div key={i} className="medication-item" ref={(parent) => { this.parent = parent }}>
+        <div key={i} className="medication-item" ref={(parent) => { this.parent = parent; }}>
             <Grid fluid>
                 <div className="medication-item-heading">
                     <Row top="xs">

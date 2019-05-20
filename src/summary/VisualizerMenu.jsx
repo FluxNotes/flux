@@ -74,7 +74,7 @@ export default class VisualizerMenu extends Component {
                                 {icon}
                                 <ListItemText className='narrative-inserter-menu-item' inset primary={text} />
                             </MenuItem>
-                        )
+                        );
                     })
                 }
             </Menu>
@@ -101,4 +101,4 @@ VisualizerMenu.propTypes = {
         PropTypes.string.isRequired]),
     subsectionName: PropTypes.string,
     unfilteredActions: PropTypes.array.isRequired
-}
+};

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import TargetedDataSubpanel from '../summary/TargetedDataSubpanel';
 import Minimap from '../lib/react-minimap/react-minimap.js';
-import '../lib/react-minimap/react-minimap.css'
+import '../lib/react-minimap/react-minimap.css';
 import './TargetedDataPanel.css';
 
 export default class TargetedDataPanel extends Component {
@@ -196,4 +196,4 @@ TargetedDataPanel.propTypes = {
     searchSuggestions: PropTypes.array,
     summaryMetadata: PropTypes.object.isRequired,
     targetedDataPanelSize: PropTypes.string.isRequired
-}
+};

@@ -164,7 +164,7 @@ class TimelineEventsVisualizer extends Visualizer {
         const onMenuItemClicked = (fn, element, item) => {
             const callback = () => {
                 fn(element, item);
-            }
+            };
             this.closeInsertionMenu(callback);
         };
         const element = {
@@ -401,7 +401,7 @@ class TimelineEventsVisualizer extends Visualizer {
                     items={legendItems}
                 />
             </div>
-        )
+        );
     }
 }
 

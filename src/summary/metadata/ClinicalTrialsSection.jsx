@@ -1,6 +1,6 @@
 import MetadataSection from "./MetadataSection";
 import ClinicalTrialsList from '../../clinicalTrials/ClinicalTrialsList.jsx';
-import Lang from 'lodash'
+import Lang from 'lodash';
 
 export default class ClinicalTrialsSection extends MetadataSection {
     constructor(setForceRefresh) {
@@ -57,7 +57,7 @@ export default class ClinicalTrialsSection extends MetadataSection {
         if (this.trialDisplayMissingCriteria !== "") {
             this.missingEligibleTrialData = trialsList.getMissingCriteriaListTrialEligibility(this.trialDisplayMissingCriteria);
             return this.missingEligibleTrialData.map((data) => {
-                return [{value : data}]
+                return [{value : data}];
             });
         }
         return [];

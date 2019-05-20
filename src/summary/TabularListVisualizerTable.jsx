@@ -50,4 +50,4 @@ export default class TabularListVisualizerTable extends Component {
 TabularListVisualizerTable.propTypes = {
     headers: PropTypes.object,
     rows: PropTypes.array
-}
+};

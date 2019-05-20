@@ -153,7 +153,7 @@ export class FullApp extends Component {
                     displayForColumns: [0]
                 }
             }
-        ]
+        ];
     }
 
     loadPatient(patientId) {
@@ -161,7 +161,7 @@ export class FullApp extends Component {
         if (DAGestalt.read.async) {
             this.dataAccess.getPatient(patientId, (patient, error) => {
                 this.contextManager = new ContextManager(patient, this.onContextUpdate);
-                if (error) console.error(error)
+                if (error) console.error(error);
                 this.setState({
                     patient,
                     loading: false,
@@ -178,15 +178,15 @@ export class FullApp extends Component {
                     loading: false
                 });
             } catch (error) {
-                console.error(error)
+                console.error(error);
                 this.setState({
                     loading: false,
                     loadingErrorObject: error
                 });
             }
         } else {
-            const supportedError = Error("Data Source does not support sync or async types read operations -- current gestalt is " + JSON.stringify(DAGestalt))
-            console.error(supportedError)
+            const supportedError = Error("Data Source does not support sync or async types read operations -- current gestalt is " + JSON.stringify(DAGestalt));
+            console.error(supportedError);
             this.setState({
                 loading: false,
                 loadingErrorObject: supportedError
@@ -206,7 +206,7 @@ export class FullApp extends Component {
 
     componentDidMount() {
         // Once the component has mounted, we can try to load the patient data
-        this.loadPatient(this.props.patientId)
+        this.loadPatient(this.props.patientId);
     }
 
     receive_command(commandType, data) {
@@ -239,7 +239,7 @@ export class FullApp extends Component {
     }
 
     setCondition = (condition) => {
-        this.setFullAppState('condition', condition)
+        this.setFullAppState('condition', condition);
     }
 
     setNoteViewerVisible = (value) => {
@@ -334,7 +334,7 @@ export class FullApp extends Component {
         }
 
         if (item.source.link) {
-            window.open(`${item.source.link}`)
+            window.open(`${item.source.link}`);
         }
 
         // if item.source.note is defined, open the referenced note
@@ -439,7 +439,7 @@ export class FullApp extends Component {
                         timeoutDuration={this.timeoutDuration}
                     />
                 </div>
-            )
+            );
         } else {
             return "";
         }

@@ -38,7 +38,7 @@ class LoadingAnimation extends Component {
                     />
                 </Paper>
             </Fade>
-        )
+        );
     }
 }
 

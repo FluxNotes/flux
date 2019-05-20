@@ -2,6 +2,7 @@
     "extends": "react-app",
     "rules": {
         "indent": ["warn", 4],
-        "no-trailing-spaces": "warn"
+        "no-trailing-spaces": "warn",
+        "semi": "warn"
     }
 }

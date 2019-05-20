@@ -2,12 +2,12 @@ import Lang from 'lodash';
 import Collection from 'lodash';
 import Shortcut from '../shortcuts/Shortcut';
 // import Slate from '../lib/slate'
-import { Selection } from '../lib/slate'
+import { Selection } from '../lib/slate';
 
-const DOMAIN = "http://parser.mitre.org"
-const PORT = "8551"
-const API_ROUTE = "/api/parse_sentence"
-const API_ENDPOINT = `${DOMAIN}:${PORT}${API_ROUTE}`
+const DOMAIN = "http://parser.mitre.org";
+const PORT = "8551";
+const API_ROUTE = "/api/parse_sentence";
+const API_ENDPOINT = `${DOMAIN}:${PORT}${API_ROUTE}`;
 
 function createOpts(opts) {
     opts = opts || {};
@@ -30,20 +30,20 @@ function NLPHashtagPlugin(opts) {
         '\\.',
         '\\?',
         '!',
-    ]
+    ];
     const phraseDelimiters = [
         ' '
-    ]
+    ];
     // '$' means this regexp only triggers when the phrase delimiter occurs at the end of the string.
-    const stopRegexp = new RegExp(`(${stopCharacters.join('|')})(${phraseDelimiters.join('|')})`, 'i')
-    const endOfSentenceRegexp = new RegExp(stopRegexp.source + `$`, 'i')
-    const NLPHashtagPhraseRegexp = new RegExp(`(.*)` + endOfSentenceRegexp.source, 'i')
+    const stopRegexp = new RegExp(`(${stopCharacters.join('|')})(${phraseDelimiters.join('|')})`, 'i');
+    const endOfSentenceRegexp = new RegExp(stopRegexp.source + `$`, 'i');
+    const NLPHashtagPhraseRegexp = new RegExp(`(.*)` + endOfSentenceRegexp.source, 'i');
     // Return the NLP hasgtag if there is one, else return nothing
     function getNLPHashtag() {
         // Check the activeContexts for anything that is an instance of NLPHashtag
         return Collection.find(contextManager.getActiveContexts(), ((shortcut, i) => {
             return shortcutManager.isShortcutInstanceOfNLPHashtag(shortcut);
-        }))
+        }));
     }
 
     // Get the slate Range based on the NLPphrase
@@ -56,7 +56,7 @@ function NLPHashtagPlugin(opts) {
             focusOffset: NLPphrase.orig_end,
             isFocused: false,
             isBackward: false,
-        }
+        };
     }
 
     // Get a text representation of the sentence following the NLPHashtag
@@ -72,7 +72,7 @@ function NLPHashtagPlugin(opts) {
             isFocused: false,
             isBackward: false,
         };
-        const relevantFragment = editorState.document.getFragmentAtRange(new Selection(relevantSelection))
+        const relevantFragment = editorState.document.getFragmentAtRange(new Selection(relevantSelection));
         // console.log(relevantFragment)
         // Need this list of nodes in a JSON representation.
         const textRepresentationOfNodes = convertToTextForNLPEngine(relevantFragment.nodes.map(node => node.toJSON()));
@@ -97,27 +97,27 @@ function NLPHashtagPlugin(opts) {
             } else if (Lang.isUndefined(node.type) && node.characters && node.characters.length === 0) {
                 // Zero-width element -- skip
             } else {
-                console.error(`Do not currently handle a case for type: ${node.type}`)
+                console.error(`Do not currently handle a case for type: ${node.type}`);
             }
-        })
-        return resultText
+        });
+        return resultText;
     }
 
     // Extracts the fully-formed phrase for an NLP shortcut if there is one, else return nothing
     function extractNLPHashtagFullPhrase(editorState, editor, NLPShortcut) {
         // Find the sentence that contains the NLP hashtag
-        const textRepresentation = getSentenceContainingNLPHashtag(editorState, NLPShortcut)
+        const textRepresentation = getSentenceContainingNLPHashtag(editorState, NLPShortcut);
         // Check if that sentence contains a stopCharacter followed by a finishedTokenSymbol
         const matches = textRepresentation.match(NLPHashtagPhraseRegexp);
         if (matches) {
-            return matches[0]
+            return matches[0];
         }
     }
 
     // Parse canonicalization to retrieve keyword
     function parseKeywordFromCanonicalizationBasedOnPhrase(canonicalization, NLPShortcutMetadata) {
-        const pathToCanonicalization = NLPShortcutMetadata["pathToCanonicalization"]
-        const prefixToPrepend = NLPShortcutMetadata["prefixForCanonicalization"]
+        const pathToCanonicalization = NLPShortcutMetadata["pathToCanonicalization"];
+        const prefixToPrepend = NLPShortcutMetadata["prefixForCanonicalization"];
         if (Lang.isUndefined(pathToCanonicalization)) {
             const err = {
                 name: "CanonicalizationParseError",
@@ -157,9 +157,9 @@ function NLPHashtagPlugin(opts) {
                 const NLPShortcut = createShortcut(null, NLPKeyword);
                 NLPShortcut.setSource("NLP Engine");
                 // get range for originalText
-                originalTextRange = getRangeBasedOnPhrase(nodeAfterNLPShortcut.key, phraseValue)
+                originalTextRange = getRangeBasedOnPhrase(nodeAfterNLPShortcut.key, phraseValue);
                 // Insert the structured field at this range;
-                editorTransform = insertStructuredFieldTransformAtRange(editorTransform, NLPShortcut, new Selection(originalTextRange))
+                editorTransform = insertStructuredFieldTransformAtRange(editorTransform, NLPShortcut, new Selection(originalTextRange));
             }
             return editorTransform.focus();
         }
@@ -179,19 +179,19 @@ function NLPHashtagPlugin(opts) {
         return Collection.reduce(phrases, (result, value, key) => {
             // Value should be an array of phrases of type 'key' (e.g. of type 'ATTRIBUTION')
             return result.concat(value);
-        }, []).sort(sortPhrasesInReverseOrderOfAppearance)
+        }, []).sort(sortPhrasesInReverseOrderOfAppearance);
     }
 
     // Given a list of phrases, parse them and insert them all in reverse order, changing editor state accordingly.
     function parsePhrases(phrases, NLPShortcut) {
         const editorState = getEditorState();
         let editorTransform = editorState.transform();
-        const phrasesInOrder = orderPhrasesForReverseInsertion(phrases)
+        const phrasesInOrder = orderPhrasesForReverseInsertion(phrases);
         // update editorTransform after parsing phrases
         editorTransform = parseArryOfPhrases(phrasesInOrder, editorTransform, NLPShortcut);
         // Update editorState if there were any actual changes
         if (editorTransform.operations.length > 0) {
-            setEditorState(editorTransform.focus().apply())
+            setEditorState(editorTransform.focus().apply());
         }
     }
 
@@ -199,55 +199,55 @@ function NLPHashtagPlugin(opts) {
     function processNLPEngineData(NLPShortcut, data) {
         if (!(NLPShortcut instanceof Shortcut) && typeof NLPShortcut === 'object' && NLPShortcut !== null && data === undefined) {
             // If we haven't bound a valid shortcut, and the first arg looks like data, we should define data as such
-            data = NLPShortcut
+            data = NLPShortcut;
         }
         isFetchingAsyncData = false;
-        updateFetchingStatus(isFetchingAsyncData)
+        updateFetchingStatus(isFetchingAsyncData);
         const phrases = data.phrases;
         if (!data.success) {
-            console.error('Engine Error: Response data from the NLP engine says an error occurred, provided this msg')
-            console.error(data.error)
-            return
+            console.error('Engine Error: Response data from the NLP engine says an error occurred, provided this msg');
+            console.error(data.error);
+            return;
         } else if (Lang.isEmpty(phrases)) {
             // Quit if phrases is empty
-            return
+            return;
         } else {
             // There should be some phrases we want to insert.
-            parsePhrases(phrases, NLPShortcut)
-            return
+            parsePhrases(phrases, NLPShortcut);
+            return;
         }
     }
 
     // Process the NLP HTTP Response so we can get the data we care about off of it
     function processNLPEngineResponse(res) {
         // console.log(res)
-        return res.json()
+        return res.json();
     }
 
     // Used when processNLPEngineResponse throws an error; handle gracefully and alert console to failure
     function failedToProcessNLPEngineResponse(error) {
         isFetchingAsyncData = false;
-        updateFetchingStatus(isFetchingAsyncData)
-        console.error('error in request here -- expected')
-        console.error(error)
+        updateFetchingStatus(isFetchingAsyncData);
+        console.error('error in request here -- expected');
+        console.error(error);
     }
 
     // Used when fetch throws an error; handle failure gracefully.
     function handleNLPEngineError(error) {
         isFetchingAsyncData = false;
-        updateFetchingStatus(isFetchingAsyncData)
-        console.error('Error in Processing Response -- Available error message is: ')
-        console.error(error)
+        updateFetchingStatus(isFetchingAsyncData);
+        console.error('Error in Processing Response -- Available error message is: ');
+        console.error(error);
     }
 
     // Sends off a request to the NLP endpoint
     function fetchNLPExtraction(NLPShortcut, NLPHashtagPhrase) {
         if (isFetchingAsyncData) {
-            return
+            return;
         }
         // Else, we want to fetch data
         isFetchingAsyncData = true;
-        updateFetchingStatus(isFetchingAsyncData)
+        updateFetchingStatus(isFetchingAsyncData);
         const NLPShortcutName = NLPShortcut.nlpTemplate;
         fetch(`${API_ENDPOINT}?template=${NLPShortcutName}&sentence=${NLPHashtagPhrase}`)
             .then(processNLPEngineResponse)
@@ -265,19 +265,19 @@ function NLPHashtagPlugin(opts) {
     // Everytime a change is made to the editor, check to see if NLP should be parsed
     function onChange (editorState, editor) {
         // Check the structuredFieldMapManager for NLP Hashtags
-        const NLPShortcut = getNLPHashtag()
+        const NLPShortcut = getNLPHashtag();
         // is there an NLP hashtag?
         if (!Lang.isUndefined(NLPShortcut)) {
             // Pull out NLP hashtag FullPhrase (one ending in a stop character) if there is one
-            const NLPHashtagPhrase = extractNLPHashtagFullPhrase(editorState, editor, NLPShortcut)
+            const NLPHashtagPhrase = extractNLPHashtagFullPhrase(editorState, editor, NLPShortcut);
             if (!Lang.isUndefined(NLPHashtagPhrase)) {
                 // send message out to NLPEndpoint
-                fetchNLPExtraction(NLPShortcut, NLPHashtagPhrase)
+                fetchNLPExtraction(NLPShortcut, NLPHashtagPhrase);
             } else {
-                return
+                return;
             }
         } else {
-            return
+            return;
         }
     }
 
@@ -286,4 +286,4 @@ function NLPHashtagPlugin(opts) {
     };
 }
 
-export default NLPHashtagPlugin
+export default NLPHashtagPlugin;

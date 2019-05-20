@@ -17,7 +17,7 @@ class StructuredFieldMapManager {
     }
 
     clearIdToShortcutMap() {
-        this._idToShortcutMap = new Map()
+        this._idToShortcutMap = new Map();
     }
 
     get keyToShortcutMap() {

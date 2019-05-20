@@ -1,5 +1,5 @@
-import Lang from 'lodash'
-import Collection from 'lodash'
+import Lang from 'lodash';
+import Collection from 'lodash';
 import PatientContext from './PatientContext';
 
 class ContextManager {
@@ -18,7 +18,7 @@ class ContextManager {
             this.subscribers.push({
                 subscriber,
                 callback,
-            })
+            });
         }
     }
 
@@ -63,8 +63,8 @@ class ContextManager {
             if (shortcutManager.isShortcutInstanceOfSingleHashtagKeyword(currentActiveShortcut)) {
                 listOfSingleHashtagKeywordShortcuts.push(currentActiveShortcut);
             }
-            return listOfSingleHashtagKeywordShortcuts
-        }, [])
+            return listOfSingleHashtagKeywordShortcuts;
+        }, []);
     }
 
     // Returns objects corresponding to all currently valid shortcuts,
@@ -86,7 +86,7 @@ class ContextManager {
                     const childObj = {
                         id: childId,
                         parentId: shortcutId,
-                    }
+                    };
                     result.push(childObj);
                 }
             });
@@ -95,7 +95,7 @@ class ContextManager {
         result = result.concat(shortcutManager.getValidChildShortcutsInContext(this.patientContext, true).map((shortcutId) => {
             return  {
                 id: shortcutId
-            }
+            };
         }));
         return result;
     }

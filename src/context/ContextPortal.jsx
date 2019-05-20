@@ -1,15 +1,15 @@
-import React from 'react'
+import React from 'react';
 import PropTypes from 'prop-types';
-import Portal from 'react-portal'
+import Portal from 'react-portal';
 import Calendar from 'rc-calendar';
-import ContextItem from './ContextItem'
-import Lang from 'lodash'
+import ContextItem from './ContextItem';
+import Lang from 'lodash';
 import './ContextPortal.css';
 import 'rc-calendar/assets/index.css';
 
-const UP_ARROW_KEY = 38
-const DOWN_ARROW_KEY = 40
-const ENTER_KEY = 13
+const UP_ARROW_KEY = 38;
+const DOWN_ARROW_KEY = 40;
+const ENTER_KEY = 13;
 //const RESULT_SIZE = 5
 
 class ContextPortal extends React.Component {
@@ -18,7 +18,7 @@ class ContextPortal extends React.Component {
      */
     componentDidMount = () => {
         document.addEventListener('keydown', this.handleKeydownCP);
-        this.adjustPosition()
+        this.adjustPosition();
     }
     /*
      * Removes a keydown listener when the component initally gets unmounted
@@ -63,15 +63,15 @@ class ContextPortal extends React.Component {
             selectedIndex: -1,
             active: false,
             justActive: false
-        }
+        };
         this.portalId = "ContextPortal";
     }
     /*
      * When the portal opens, set flags appropriately and a decay timer for justActive
      */
     onOpen = (portal) => {
-        this.setState({ menu: portal.firstChild, active: true, justActive: true })
-        setTimeout(function(){ this.setState({ justActive: false }) }.bind(this), 100);
+        this.setState({ menu: portal.firstChild, active: true, justActive: true });
+        setTimeout(function(){ this.setState({ justActive: false }); }.bind(this), 100);
     }
     /* Called when user hits esc or clicks outside of portal
      * Call onSelected with null context to indicate nothing selected and just clean up state
@@ -106,7 +106,7 @@ class ContextPortal extends React.Component {
             const height = this.refs.contextPortal.offsetHeight;
             const numberOfElementsVisible = Math.floor(height/32);
             const positionChange = (keyCode === DOWN_ARROW_KEY) ? 1 : -1;
-            this.changeMenuPosition(positionChange)
+            this.changeMenuPosition(positionChange);
             // newIndex - (numberOfElementsVisible - 1) forces the scrolling to happen once your reach the bottom of the list in view.
             // 32 is the height of each suggestion in the list, 10 allows for the margin
             this.refs.contextPortal.scrollTop = (this.state.selectedIndex - (numberOfElementsVisible - 1)) * 32 + 10;
@@ -124,20 +124,20 @@ class ContextPortal extends React.Component {
         const changeAfterWrapping = (this.state.selectedIndex + changePlusOriginalLength) % this.props.contexts.length;
         this.setState({
             selectedIndex: changeAfterWrapping
-        })
+        });
     }
     /*
      * Adjust the rendering position of the menu
      */
     adjustPosition = () => {
-        const { menu } = this.state
+        const { menu } = this.state;
         if (!menu || !menu.style) return;
         const rect = this.props.getPosition();
 
         if (!rect) {
             // TODO: No positioning to use. Removing style may not be correct.
             menu.removeAttribute('style');
-            menu.style.display = 'none'
+            menu.style.display = 'none';
         } else {
             menu.style.position = 'absolute';
             menu.style.width = 300;
@@ -158,7 +158,7 @@ class ContextPortal extends React.Component {
      * Close the menu portal if rendering
      */
     closePortal = () => {
-        const { menu } = this.state
+        const { menu } = this.state;
         if (Lang.isEmpty(menu)) return;
         menu.removeAttribute('style');
         return;
@@ -194,7 +194,7 @@ class ContextPortal extends React.Component {
                         onChange={this.props.onChange}
                         closePortal={this.closePortal}
                         state={this.props.state}
-                    />
+                    />;
                 })}
             </ul>
         );
@@ -207,7 +207,7 @@ class ContextPortal extends React.Component {
             <Calendar
                 showDateInput={false}
                 onSelect={this.handleCalendarSelect}
-                ref={input => input && setTimeout(() => {input.focus()}, 100)}
+                ref={input => input && setTimeout(() => {input.focus();}, 100)}
             />
         );
     }
@@ -244,7 +244,7 @@ class ContextPortal extends React.Component {
                     {type === TYPE_CALENDAR ? this.renderCalendar() : this.renderListOptions()}
                 </div>
             </Portal>
-        )
+        );
     }
 }
 
@@ -259,6 +259,6 @@ ContextPortal.propTypes = {
     onSelected: PropTypes.func.isRequired,
     state: PropTypes.object.isRequired,
     trigger: PropTypes.string.isRequired,
-}
+};
 
 export default ContextPortal;

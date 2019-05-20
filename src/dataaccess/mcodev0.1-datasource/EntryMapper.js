@@ -216,7 +216,7 @@ const mapCodingToCodeableConcept = (coding) => {
     codeableConcept.displayText.value = coding;
 
     return codeableConcept;
-}
+};
 
 const mapGender = (gender) => {
     const newGender = new AdministrativeGender();
@@ -224,7 +224,7 @@ const mapGender = (gender) => {
     newGender.value = mapCodingToCodeableConcept(gender.value);
 
     return newGender;
-}
+};
 
 const mapAnatomicalLocation = (anatomicalLocation) => {
     const newAnatomicalLocation = new AnatomicalLocation();
@@ -268,7 +268,7 @@ const mapDuration = (duration) => {
     newDuration.units = mapUnits(duration.units);
 
     return newDuration;
-}
+};
 
 const mapTimingOfDoses = (timingOfDoses) => {
     const newTimingOfDoses = new TimingOfDoses();
@@ -283,7 +283,7 @@ const mapTimingOfDoses = (timingOfDoses) => {
     }
 
     return newTimingOfDoses;
-}
+};
 
 const mapDosage = (dosage) => {
     const newDosage = new Dosage();
@@ -315,7 +315,7 @@ const mapTimePeriod = (timePeriod) => {
     }
 
     return newTimePeriod;
-}
+};
 
 const mapExpectedPerformanceTime = (expectedPerformanceTime) => {
     const newExpectedPerformanceTime = new ExpectedPerformanceTime();
@@ -384,7 +384,7 @@ const mapStatus = (status) => {
     // Since v0.1 doesn't have a defined codesystem for Statuses, we will manually add one here
     if (!newStatus.value.coding[0].codeSystem) {
         newStatus.value.coding[0].codeSystem = new CodeSystem();
-        newStatus.value.coding[0].codeSystem.value = "http://hl7.org/fhir/STU3/valueset-request-status.html"
+        newStatus.value.coding[0].codeSystem.value = "http://hl7.org/fhir/STU3/valueset-request-status.html";
     }
 
     return newStatus;
@@ -396,7 +396,7 @@ const mapRequestIntent = (requestIntent) => {
     newRequestIntent.value = mapCodingToCodeableConcept(requestIntent.value);
 
     return newRequestIntent;
-}
+};
 
 const mapAdverseReaction = (adverseReaction) => {
     const newAllergyIntoleranceReaction = new AllergyIntoleranceReaction();
@@ -490,7 +490,7 @@ const mapEvidence = (evidence) => {
     return evidence.map(e => {
         const newEvidence = new CancerProgressionEvidence();
         newEvidence.value = mapPassThrough(e._value, CodeableConcept);
-        return newEvidence
+        return newEvidence;
     });
 };
 

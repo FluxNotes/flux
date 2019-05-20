@@ -1,6 +1,6 @@
 import MetadataSection from "./MetadataSection";
 //import FluxNotesTreatmentOptionsRestClient from 'flux_notes_treatment_options_rest_client';
-import Lang from 'lodash'
+import Lang from 'lodash';
 import {treatmentData} from '../TreatmentData.js';
 //const ApiClient = new FluxNotesTreatmentOptionsRestClient.ApiClient();
 
@@ -12,7 +12,7 @@ export default class TreatmentOptionsSection extends MetadataSection {
                 if (Lang.isObject(section.data[0].data_cache) && !Lang.isUndefined(section.data[0].data_cache.then)) {
                     return section.data[0].data_cache.then ( result => {
                         return result.isDemo ? "(Demo)" : "";
-                    })
+                    });
                 }
                 else return section.data[0].data_cache.isDemo ? "(Demo)" : "";
             },
@@ -26,21 +26,21 @@ export default class TreatmentOptionsSection extends MetadataSection {
                     // filterFunction: this.getTreatmentCriteria
                     filters: [
                         { id:"ageAtDiagnosis", name: "Age at diagnosis", servicePropertyName: "ageAtDiagnosis", category: "Demographics", value: true,
-                            propertyValueFunction: (patient, condition) => { return patient.getAgeAsOf(new Date(condition.getDiagnosisDate())) } },
+                            propertyValueFunction: (patient, condition) => { return patient.getAgeAsOf(new Date(condition.getDiagnosisDate())); } },
                         { id:"gender",name: "Gender", servicePropertyName: "gender", category: "Demographics", value: true,
-                            propertyValueFunction: (patient, condition) => { return patient.getGender() } },
+                            propertyValueFunction: (patient, condition) => { return patient.getGender(); } },
                         { id:"race",name: "Race", servicePropertyName: "race", category: "Demographics", value: true,
-                            propertyValueFunction: (patient, condition) => { return this.toFirstLetterCapital(patient.getPatient().race) } },
+                            propertyValueFunction: (patient, condition) => { return this.toFirstLetterCapital(patient.getPatient().race); } },
                         { id:"kit",name: "KIT", servicePropertyName: "kit", category: "Genetics", value: true,
-                            propertyValueFunction: (patient, condition) => { return  condition.getGeneticMutationValue('KIT', patient) } },
+                            propertyValueFunction: (patient, condition) => { return  condition.getGeneticMutationValue('KIT', patient); } },
                         { id:"pdgfra", name: "PDGFRA", servicePropertyName: "pdgfra", category: "Genetics", value: true,
-                            propertyValueFunction: (patient, condition) => { return  condition.getGeneticMutationValue('PDGFRA', patient) } },
+                            propertyValueFunction: (patient, condition) => { return  condition.getGeneticMutationValue('PDGFRA', patient); } },
                         { id:"grade",name: "Grade", servicePropertyName: "dxGrade", category: "Pathology", value: true,
-                            propertyValueFunction: (patient, condition) => { return condition.getMostRecentHistologicalGrade().getGradeAsSimpleNumber() } },
+                            propertyValueFunction: (patient, condition) => { return condition.getMostRecentHistologicalGrade().getGradeAsSimpleNumber(); } },
                         { id:"stage",name: "Stage", servicePropertyName: "stage", category: "Pathology", value: !Lang.isNull(condition.getMostRecentStaging()),
-                            propertyValueFunction: (patient, condition) => { return condition.getMostRecentStaging() ? condition.getMostRecentStaging().stage : 'Missing data' } },
+                            propertyValueFunction: (patient, condition) => { return condition.getMostRecentStaging() ? condition.getMostRecentStaging().stage : 'Missing data'; } },
                         { id:"surgery",name: "Surgery", servicePropertyName: "surgery", category: "Past Treatment", value: true,
-                            propertyValueFunction: (patient, condition) => { return condition.hasPastTreatment('C0851238', patient) } }
+                            propertyValueFunction: (patient, condition) => { return condition.hasPastTreatment('C0851238', patient); } }
                     ],
                     itemsFunction: this.getTreatmentData
                 }

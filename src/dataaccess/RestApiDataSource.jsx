@@ -27,7 +27,7 @@ class RestApiDataSource extends IDataSource {
     }
 
     getGestalt() {
-        return this._gestalt
+        return this._gestalt;
     }
 
     getPatient(id, callback) {

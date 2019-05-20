@@ -121,7 +121,7 @@ class ProgressionForm extends Component {
                     isSelected={this.state.reasonButtonsActiveState[i]}
                 />
             </div>
-        )
+        );
     }
 
     render() {
@@ -159,7 +159,7 @@ class ProgressionForm extends Component {
                 <div className="btn-group-status-progression">
                     {
                         this.state.statusOptions.map((status, i) => {
-                            return this.renderStatusButtonGroup(status, i)
+                            return this.renderStatusButtonGroup(status, i);
                         })
                     }
                 </div>
@@ -168,7 +168,7 @@ class ProgressionForm extends Component {
                 <div className="btn-group-reason-progression">
                     {
                         this.state.reasonOptions.map((reason, i) => {
-                            return this.renderReasonButtonGroup(reason, i)
+                            return this.renderReasonButtonGroup(reason, i);
                         })
                     }
                 </div>
@@ -208,6 +208,6 @@ ProgressionForm.propTypes= {
     updateValue: PropTypes.func.isRequired,
     object: PropTypes.object.isRequired,
     referenceDateEnabled: PropTypes.bool.isRequired
-}
+};
 
 export default ProgressionForm;

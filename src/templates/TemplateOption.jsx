@@ -47,4 +47,4 @@ TemplateOption.propTypes = {
     content: PropTypes.string.isRequired,
     insertTemplate: PropTypes.func.isRequired,
     title: PropTypes.string.isRequired,
-}
+};

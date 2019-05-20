@@ -89,15 +89,15 @@ export default class ShortcutViewModeContent extends Component {
                         handleClick={(...args) => {
                             // Set the state with the new index
                             this.setState({currentContextIndex: uniqueIndex});
-                            return this.handleShortcutClick(...args)
+                            return this.handleShortcutClick(...args);
                         }}
                         ref={(optionsList) => {
-                            this[`context-option-${uniqueIndex}`] = optionsList
+                            this[`context-option-${uniqueIndex}`] = optionsList;
                         }}
                         shortcutManager={this.props.shortcutManager}
                     />
-                )
-            })
+                );
+            });
             // Render the options for the context:
             return (
                 <div>
@@ -134,4 +134,4 @@ ShortcutViewModeContent.propTypes= {
     contextManager: PropTypes.object.isRequired,
     onClick: PropTypes.func.isRequired,
     shortcutManager: PropTypes.object.isRequired,
-}
+};

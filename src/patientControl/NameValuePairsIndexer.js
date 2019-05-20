@@ -20,7 +20,7 @@ class NameValuePairsIndexer extends BaseIndexer {
                 value,
                 onHighlight
             });
-        })
+        });
     }
 }
 

@@ -287,7 +287,7 @@ export default class FillPlaceholder extends Component {
 
         if (attribute.type === 'checkboxes') {
             multiSelect =
-                <span className="multi-select"> (select multiple) </span>
+                <span className="multi-select"> (select multiple) </span>;
             if(!expanded) {
                 nextButton =
                 <Grid item xs={2}>
@@ -302,7 +302,7 @@ export default class FillPlaceholder extends Component {
                             Next
                         </span>
                     </Button>
-                </Grid>
+                </Grid>;
             }
         }
 

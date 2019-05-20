@@ -21,6 +21,6 @@ Legend.propTypes = {
         icon: PropTypes.string,
         description: PropTypes.string
     })),
-}
+};
 
 export default Legend;

@@ -5,7 +5,7 @@ import MostRecentVisitsSubsection from './MostRecentVisitsSubsection';
 import RecentLabResultsSubsection from './RecentLabResultsSubsection';
 import RecentToxicitiesSubsection from './RecentToxicitiesSubsection';
 import ActiveTreatmentSummaryObjectFactory from '../activeTreatmentSummary/ActiveTreatmentSummaryObjectFactory';
-import Lang from 'lodash'
+import Lang from 'lodash';
 import moment from 'moment';
 
 export default class SarcomaSummarySection extends MetadataSection {
@@ -210,14 +210,14 @@ export default class SarcomaSummarySection extends MetadataSection {
                                     if (numMeds > 1) medsAsStrings.splice(numMeds - 1, 1, ` & ${medsAsStrings[numMeds - 1]}`);
                                     // Join all but the final medication by commas, and then append the last one (the & is included if needed above)
                                     const formattedMedsString = medsAsStrings.slice(0, numMeds - 1).join(', ') + medsAsStrings[numMeds - 1];
-                                    treatmentSummaryValue += ` ${formattedMedsString}`
+                                    treatmentSummaryValue += ` ${formattedMedsString}`;
                                 }
                                 // TODO: Support chaining relevant procedures into treatment summary value
                                 return {
                                     value: treatmentSummaryValue,
                                     isUnsigned: false,
                                     source: null
-                                }
+                                };
                             }
                         }
                     ]

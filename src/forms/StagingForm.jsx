@@ -29,7 +29,7 @@ class StagingForm extends Component {
 
     _handleTumorSizeClick(e, i) {
         e.preventDefault();
-        let newValue = this.state.tumorValues[i].name
+        let newValue = this.state.tumorValues[i].name;
         this.props.updateValue("T", newValue);
     }
 
@@ -149,6 +149,6 @@ class StagingForm extends Component {
 StagingForm.propTypes= {
     updateValue: PropTypes.func.isRequired,
     object: PropTypes.object.isRequired
-}
+};
 
 export default StagingForm;

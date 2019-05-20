@@ -62,7 +62,7 @@ class ClinicalTrialEnrollmentForm extends Component {
                     marginSize={marginSize}
                 />
             </div>
-        )
+        );
     }
 
     renderEnrollmentDatePicker = () => {
@@ -88,7 +88,7 @@ class ClinicalTrialEnrollmentForm extends Component {
                 <div className="btn-group-trial-clinical-trial">
                     {
                         this.state.trials.map((trial, i) => {
-                            return this.renderTrialButtonGroup(trial, i)
+                            return this.renderTrialButtonGroup(trial, i);
                         })
                     }
                 </div>
@@ -121,13 +121,13 @@ class ClinicalTrialEnrollmentForm extends Component {
                     {enrollmentDateDescription}
                 </p>
             </div>
-        )
+        );
     }
 }
 
 ClinicalTrialEnrollmentForm.propTypes = {
     updateValue: PropTypes.func.isRequired,
     object: PropTypes.object.isRequired
-}
+};
 
 export default ClinicalTrialEnrollmentForm;

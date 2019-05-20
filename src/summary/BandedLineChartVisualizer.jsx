@@ -29,7 +29,7 @@ class BandedLineChartVisualizer extends Visualizer {
             chartWidth: 600,
             chartHeight: 250,
             shownLineCharts // charts that have the no line property set
-        }
+        };
     }
 
     // toggles the line on the chart from being hidden and shown
@@ -46,7 +46,7 @@ class BandedLineChartVisualizer extends Visualizer {
         const dataCopy = Lang.cloneDeep(data);
 
         Collection.map(dataCopy, (d) => {
-            d[xVarNumber] = Number(new Date(d[xVar]))
+            d[xVarNumber] = Number(new Date(d[xVar]));
         });
         return dataCopy;
     }
@@ -95,7 +95,7 @@ class BandedLineChartVisualizer extends Visualizer {
     createYVarFormatFunctionWithUnit = (unit) => {
         return (value) => {
             return `${value} ${unit}`;
-        }
+        };
     }
 
     renderIcons = (chartIndex, showLine) => {
@@ -143,7 +143,7 @@ class BandedLineChartVisualizer extends Visualizer {
         const yUnit = processedData[0].unit;
         const series = processedData[0].series || [subsection.name];
         // Min/Max for rendering
-        const [, yMax] = this.getMinMax(processedData, yVar)
+        const [, yMax] = this.getMinMax(processedData, yVar);
 
         let renderedBands = null;
 
@@ -224,7 +224,7 @@ class BandedLineChartVisualizer extends Visualizer {
                             formatter={this.createYVarFormatFunctionWithUnit(yUnit)}
                         />
                         {series.map(s => {
-                            return <Line type="monotone" key={s} dataKey={s} stroke="#295677" isAnimationActive={false} yAxisId={0} dot={this.renderDot}/>
+                            return <Line type="monotone" key={s} dataKey={s} stroke="#295677" isAnimationActive={false} yAxisId={0} dot={this.renderDot}/>;
                         })}
                         {renderedBands}
                     </LineChart>
@@ -235,7 +235,7 @@ class BandedLineChartVisualizer extends Visualizer {
 
     renderDot = (props) => {
         const highlightedData = this.props.tdpSearchSuggestions.find(s => {
-            const dotContent = props.payload.displayValue || `${props.payload[props.dataKey]} ${props.payload.unit}`
+            const dotContent = props.payload.displayValue || `${props.payload[props.dataKey]} ${props.payload.unit}`;
             const dotValue = `${props.payload.start_time}: ${dotContent}`;
             const dataKey = props.payload.displayValue ? s.subsection : props.dataKey;
             return s.valueTitle === dataKey && s.contentSnapshot === dotValue;

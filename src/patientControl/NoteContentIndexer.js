@@ -1,4 +1,4 @@
-import BaseIndexer from './BaseIndexer'
+import BaseIndexer from './BaseIndexer';
 
 class NoteContentIndexer extends BaseIndexer {
     indexData(section, subsection, note, searchIndex, onHighlight, onClick) {
@@ -26,7 +26,7 @@ class NoteContentIndexer extends BaseIndexer {
             value: this.getNoteContentWithoutStyle(note.content),
             onHighlight,
             onClick
-        })
+        });
 
         searchIndex.addSearchableData({
             id: `${notesSectionId}_${notesSubsectionId}_source_${entryId}`,

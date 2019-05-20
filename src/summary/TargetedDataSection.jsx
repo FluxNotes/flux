@@ -60,7 +60,7 @@ export default class TargetedDataSection extends Component {
     }
 
     componentDidMount() {
-        this.getNameSuffix(this.props.section)
+        this.getNameSuffix(this.props.section);
     }
 
     componentWillMount() {
@@ -511,4 +511,4 @@ TargetedDataSection.propTypes = {
     searchIndex: PropTypes.object.isRequired,
     searchSuggestions: PropTypes.array,
     highlightedSearchSuggestion: PropTypes.object,
-}
+};

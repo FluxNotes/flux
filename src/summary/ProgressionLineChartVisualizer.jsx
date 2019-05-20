@@ -60,7 +60,7 @@ class ProgressionLineChartVisualizer extends Visualizer {
 
     // Single function translating date strings to numbers
     dateToNumber = (date) => {
-        return Number(new Date(date))
+        return Number(new Date(date));
     }
 
     // Turns dates into numeric representations for graphing
@@ -70,11 +70,11 @@ class ProgressionLineChartVisualizer extends Visualizer {
             const numberBasedOnCode = this.codeToValueMap[code];
 
             // 1. Translate time strings into millisecond representations, storing in a new key:value pair
-            d[this.xVarNumberField]  = this.dateToNumber(d[this.xVarField])
+            d[this.xVarNumberField]  = this.dateToNumber(d[this.xVarField]);
             // 2. Translate progression status values into numeric representations, inplace
             d[this.yVarField] = numberBasedOnCode;
             return d;
-        })
+        });
     }
 
     // Updates diagnosis objects s.t. they store dates in a numeric format
@@ -234,7 +234,7 @@ class ProgressionLineChartVisualizer extends Visualizer {
                         domain={yAxisDomain}
                         ticks={yTicks}
                         tickMargin={5}
-                        tickFormatter={(val) => { return this.valueToProgressionMap[val.toString()]}}
+                        tickFormatter={(val) => { return this.valueToProgressionMap[val.toString()];}}
                     />
                     <Tooltip
                         content={this.diseaseStatusTooltipFunction}

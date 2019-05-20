@@ -62,7 +62,7 @@ class ClinicalTrialUnenrolledForm extends Component {
                     marginSize={marginSize}
                 />
             </div>
-        )
+        );
     }
 
     renderEndDatePicker = () => {
@@ -88,7 +88,7 @@ class ClinicalTrialUnenrolledForm extends Component {
                 <div className="btn-group-trial-clinical-trial">
                     {
                         this.state.trials.map((trial, i) => {
-                            return this.renderTrialButtonGroup(trial, i)
+                            return this.renderTrialButtonGroup(trial, i);
                         })
                     }
                 </div>
@@ -121,13 +121,13 @@ class ClinicalTrialUnenrolledForm extends Component {
                     {endDateDescription}
                 </p>
             </div>
-        )
+        );
     }
 }
 
 ClinicalTrialUnenrolledForm.propTypes= {
     updateValue: PropTypes.func.isRequired,
     object: PropTypes.object.isRequired
-}
+};
 
 export default ClinicalTrialUnenrolledForm;

@@ -117,7 +117,7 @@ TreatmentOptionsVisualizer.propTypes = {
     selectAllSimilarPatientOptions: PropTypes.func.isRequired,
     processSimilarPatientOutcomes: PropTypes.func.isRequired,
     selectTreatments: PropTypes.func.isRequired
-}
+};
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({

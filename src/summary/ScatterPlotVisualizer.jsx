@@ -16,7 +16,7 @@ class ScatterPlotVisualizer extends Visualizer {
             chartWidth: "600px",
             chartHeight: "30px",
             loading: false,
-        }
+        };
     }
 
     componentWillReceiveProps = (nextProps) => {
@@ -33,11 +33,11 @@ class ScatterPlotVisualizer extends Visualizer {
         let alive = [], dead = [];
         data.alive.forEach(function (item) {
             alive.push([categoryList.indexOf(item[0]) + (Math.random() * 50 + 30) / 100 - .5, item[1]]);
-        })
+        });
 
         data.deceased.forEach(function (item) {
             dead.push([categoryList.indexOf(item[0]) + (Math.random() * 50 + 30) / 100 - .5, item[1]]);
-        })
+        });
 
 
         return [alive, dead];
@@ -120,7 +120,7 @@ class ScatterPlotVisualizer extends Visualizer {
                                 parsedData.data[series].forEach((data) => {
                                     if (data[0] === this.value)
                                         sum += 1;
-                                })
+                                });
                             });
                             return '<span><font color = "#3AA7F0">' + sum + '</font >' +
                                 '<br>' + this.value;

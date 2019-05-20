@@ -82,7 +82,7 @@ class SearchableListForPlaceholder extends Component {
         return inputLength === 0 ? [] : this.state.adverseEventOptions.filter((event) => {
             const nameNoSpaces = (Lang.isEmpty(event.nameNoSpaces)) ? "" : event.nameNoSpaces;
             const descriptionNoSpaces = (Lang.isEmpty(event.descriptionNoSpaces)) ? "" : event.descriptionNoSpaces;
-            return (nameNoSpaces.toLowerCase().indexOf(inputValue) >= 0 || descriptionNoSpaces.toLowerCase().indexOf(inputValue) >= 0)
+            return (nameNoSpaces.toLowerCase().indexOf(inputValue) >= 0 || descriptionNoSpaces.toLowerCase().indexOf(inputValue) >= 0);
         }).slice(0, 7);
     }
 
@@ -182,7 +182,7 @@ class SearchableListForPlaceholder extends Component {
                                     marginSize={marginSize}
                                 />
                             </div>
-                        )
+                        );
                     })}
                 </div>
             );

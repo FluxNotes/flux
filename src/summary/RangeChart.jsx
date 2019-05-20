@@ -217,9 +217,9 @@ class RangeChart extends Component {
         let svgForDataPointBorder = null;
         if (!Lang.isNull(valueXPixels)) {
             if (!Lang.isNull(radius) && !Lang.isNull(strokeWidth)) {
-                svgForDataPointBorder = <circle cx={valueXPixels} cy="50" r={radius} strokeWidth={strokeWidth} stroke={dotColor} fill="#FFF" />
+                svgForDataPointBorder = <circle cx={valueXPixels} cy="50" r={radius} strokeWidth={strokeWidth} stroke={dotColor} fill="#FFF" />;
             }
-            svgForDataPoint = <circle cx={valueXPixels} cy="50" r="4" strokeWidth="3" fill={dotColor} />
+            svgForDataPoint = <circle cx={valueXPixels} cy="50" r="4" strokeWidth="3" fill={dotColor} />;
         }
 
         // set svg viewbox dimensions

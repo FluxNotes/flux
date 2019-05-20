@@ -24,7 +24,7 @@ class Shortcut extends Context {
     }
 
     getPrefixCharacter() {
-        throw new TypeError("Primitive shortcut has no prefix character")
+        throw new TypeError("Primitive shortcut has no prefix character");
     }
 
     // Slim App
@@ -33,7 +33,7 @@ class Shortcut extends Context {
     }
 
     getShortcutType() {
-        throw new TypeError("Base Shortcut has no type")
+        throw new TypeError("Base Shortcut has no type");
     }
 
     getText() {

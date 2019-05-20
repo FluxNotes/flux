@@ -55,7 +55,7 @@ patientEntries.forEach((entry, i) => {
     const flattenedEntry = flatten(entry);
     let change = false;
     let isDate;
-    const entryId = flattenedEntry.EntryId
+    const entryId = flattenedEntry.EntryId;
     const entryType = flattenedEntry["EntryType.Value"].split('/').slice(-1)[0];
     let specificFocusOfFinding = flattenedEntry["SpecificFocusOfFinding.Value._EntryId"];
     if (!specificFocusOfFinding) specificFocusOfFinding = flattenedEntry["Reason.0.Value._EntryId"];
@@ -66,7 +66,7 @@ patientEntries.forEach((entry, i) => {
     }
 
     for (const key in flattenedEntry) {
-        const entry = { entryId: entryId, entryType: entryType }
+        const entry = { entryId: entryId, entryType: entryType };
         const value = flattenedEntry[key];
         isDate = false;
         /*
@@ -129,7 +129,7 @@ if (orderedOutput) {
     logInOrder("Id", undefined, "Entry Type", "Date", "Ref", "Topic");
     newEntries.forEach((e) => {
         logInOrder(e.entryId, e.entryType, e.key, e.value, e.specificFocusOfFinding ? e.specificFocusOfFinding : "", e.findingTopicCode ? e.findingTopicCode : "");
-    })
+    });
 }
 
 if (encounter) {
@@ -160,13 +160,13 @@ function flattenOrderedOutput(entries) {
                 entry.key = valueCheck.join('.');
                 total.push(entry);
             }
-        })
+        });
         if (total.length > 0) {
             returnEntries = returnEntries.concat(total);
         } else if (metadata.length > 0 && showMeta) {
-            returnEntries.push(metadata[0])
+            returnEntries.push(metadata[0]);
         }
-    })
+    });
     return returnEntries;
 }
 

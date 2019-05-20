@@ -283,7 +283,7 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                     isUnsigned: patient.isUnsigned(receptor),
                     source: this.determineSource(patient, receptor),
                 }
-            }
+            };
         });
     }
 }

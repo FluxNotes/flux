@@ -59,11 +59,11 @@ export default class VisualizerManager {
         newsection.nameSuffix = typicalRange;
         newsection.headings = ["Date", "Value"];
         newsection.data_cache = itemList.map((labResult) => {
-            const displayValue = labResult.displayValue ? labResult.displayValue : `${labResult[subsection.name]} ${labResult["unit"]}`
+            const displayValue = labResult.displayValue ? labResult.displayValue : `${labResult[subsection.name]} ${labResult["unit"]}`;
             return  [   {   value: labResult["start_time"] },
                 {   value: displayValue }
             ];
-        })
+        });
         newsection.formatFunction = this.formatLabResult.bind(this, goodband);
         return newsection;
     }
@@ -203,7 +203,7 @@ export default class VisualizerManager {
         list = items.map((item, i) => {
             const itemValue = (Lang.isNull(item.value)) ? null : (Lang.isFunction(item.value) ? item.value(patient, condition, this.user) : item.value);
             return [    { value: item.name, isInsertable: false},
-                { value: itemValue || null}]
+                { value: itemValue || null}];
         });
 
         // need to eliminate when value is an array as came from value of a name/value pair. In that case the value array
@@ -241,7 +241,7 @@ export default class VisualizerManager {
 
     getVisualizer(dataType, visualizerType) {
         let result = this.visualizers.filter((viz) => {
-            return (viz.dataType === dataType && viz.visualizerType === visualizerType)
+            return (viz.dataType === dataType && viz.visualizerType === visualizerType);
         });
         if (Lang.isNull(result) || result.length !== 1) return null;
         return result[0];

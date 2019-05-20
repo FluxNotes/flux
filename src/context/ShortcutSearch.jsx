@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TextField from 'material-ui/TextField';
 
-import './ShortcutSearch.css'
+import './ShortcutSearch.css';
 
 export default class ShortcutSearch extends Component {
     render() {
@@ -22,4 +22,4 @@ export default class ShortcutSearch extends Component {
 
 ShortcutSearch.propTypes = {
     handleSearch: PropTypes.func.isRequired,
-}
+};

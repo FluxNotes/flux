@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TextField from 'material-ui/TextField';
 
-import './SearchBar.css'
+import './SearchBar.css';
 
 export default class SearchBar extends Component {
     render () {
@@ -24,4 +24,4 @@ SearchBar.propTypes = {
     searchString: PropTypes.string,
     handleSearch: PropTypes.func.isRequired,
     label: PropTypes.string.isRequired,
-}
+};

@@ -4,7 +4,7 @@ import FluxCancerDisorderPresent from '../../model/oncocore/FluxCancerDisorderPr
 
 class CancerDisorderPresentActiveTreatmentSummary extends IActiveTreatmentSummary {
     constructor() {
-        super()
+        super();
         this._possibleActiveTreatmentOptions = {
             "adjuvant": {
                 type: "adjuvant",
@@ -29,7 +29,7 @@ class CancerDisorderPresentActiveTreatmentSummary extends IActiveTreatmentSummar
                 displayText: "Medication",
                 medications: []
             }
-        }
+        };
     }
 
     getActiveTreatmentSummary(patient, currentConditionEntry) {
@@ -98,7 +98,7 @@ class CancerDisorderPresentActiveTreatmentSummary extends IActiveTreatmentSummar
 
     _getAllSurgeriesPreviouslyPerformedForCondition(patient, currentConditionEntry) {
         const allSurgeriesPreviouslyPerformed = patient.getSurgeriesPreviouslyPerformedForCondition(currentConditionEntry);
-        return allSurgeriesPreviouslyPerformed
+        return allSurgeriesPreviouslyPerformed;
     }
 }
 

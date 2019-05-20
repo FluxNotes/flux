@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import PropTypes from 'prop-types';
 import './ActiveContextsBreadcrumbs.css';
 
@@ -22,7 +22,7 @@ class ActiveContextsBreadcrumbs extends React.Component {
                         >
                             <span className="breadcrumb">{breadcrumb}</span>
                         </div>
-                    )
+                    );
                 }
                 else {
                     return (
@@ -33,14 +33,14 @@ class ActiveContextsBreadcrumbs extends React.Component {
                             <span className="breadcrumb">{breadcrumb}</span>
                             <span className="breadcrumb-separator">|</span>
                         </div>
-                    )
+                    );
                 }
-            })
+            });
             return (
                 <div className="breadcrumbs-container">
                     {contextOptions}
                 </div>
-            )
+            );
         }
     }
 
@@ -51,7 +51,7 @@ class ActiveContextsBreadcrumbs extends React.Component {
             <div className="toolbar-breadcrumbs-container">
                 {this.renderActiveContexts(activeContexts)}
             </div>
-        )
+        );
     }
 
 }

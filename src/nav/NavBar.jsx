@@ -20,7 +20,7 @@ const styles = {
 
 const drawerThemeForPosition = createMuiTheme({
     overrides: { MuiDrawer: { paper: { top: '64px' }}}
-})
+});
 
 class NavBar extends Component {
     constructor(props) {
@@ -30,7 +30,7 @@ class NavBar extends Component {
     }
 
     toggleDrawer = () => {
-        this.setState({ open: !this.state.open })
+        this.setState({ open: !this.state.open });
     }
 
     render() {
@@ -87,6 +87,6 @@ NavBar.propTypes = {
     title: PropTypes.string.isRequired,
     supportLogin: PropTypes.bool.isRequired,
     menuItems: PropTypes.array
-}
+};
 
 export default withStyles(styles)(NavBar);

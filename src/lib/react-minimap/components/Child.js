@@ -23,7 +23,7 @@ export default class Child extends Component {
 
         this.state = {
             visible: currentPreference,
-        }
+        };
     }
 
     componentWillReceiveProps = (nextProps) => {

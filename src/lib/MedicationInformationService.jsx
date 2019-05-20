@@ -100,13 +100,13 @@ export function getRangeValues(medication, units){
             lowerValue: 0,
             upperValue: 1,
             typicalValue: 1
-        }
+        };
     case "C0715002_tablet":
         return {
             lowerValue: 0,
             upperValue: 1,
             typicalValue: 1
-        }
+        };
 
     default: {
         console.warn(switchKey);

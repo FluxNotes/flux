@@ -48,7 +48,7 @@ export default class TemplateSelectionView extends Component {
                 // TODO: Evaluate adding other keys
             ]
         };
-        this.templateFuse = new Fuse(this.templates,fuseOptions)
+        this.templateFuse = new Fuse(this.templates,fuseOptions);
         // This is the value used  when controlling the search component
         this.state = {
             templateFilterString: ""
@@ -138,4 +138,4 @@ TemplateSelectionView.propTypes = {
     setInsertingTemplate: PropTypes.func.isRequired,
     updateContextTrayItemToInsert: PropTypes.func.isRequired,
     updateShowTemplateView: PropTypes.func.isRequired,
-}
+};

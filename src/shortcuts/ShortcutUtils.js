@@ -87,7 +87,7 @@ export function createSentenceFromStructuredData(structuredPhraseTemplate, getAt
                 result += after;
             }
         } else if (textIsStructuredData) { // case where the text should be underlined but is not a conditional or a fill in value (i.e. disease status, toxicity, etc)
-            valueName = structuredPhraseTemplate.substring(start + 3, end)
+            valueName = structuredPhraseTemplate.substring(start + 3, end);
             if (isStyled) {
                 result += `<span class=${styleClassName}>${valueName}</span>`;
             } else {

@@ -55,7 +55,7 @@ class ClinicalTrialsList {
         case "clinicalTrialEnrollment":
             return "Clinical trial enrollment includes the title of a clinical trial and an enrollment date.";
         case "clinicalTrialUnenrolled":
-            return "Unenrolling from a clinical trial includes the title of a clinical trial and an end date."
+            return "Unenrolling from a clinical trial includes the title of a clinical trial and an end date.";
         case "trialEnrollment":
             return "Clinical trial the patient is enrolled in.";
         case "trialUnenrolled":

@@ -120,4 +120,4 @@ ContextTray.propTypes = {
     shortcutManager: PropTypes.object.isRequired,
     showTemplateView: PropTypes.bool.isRequired,
     updateShowTemplateView: PropTypes.func.isRequired
-}
+};

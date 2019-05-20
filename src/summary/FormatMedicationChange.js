@@ -23,7 +23,7 @@ export function stringForMedicationChangeType(changeType){
     case "stop":
         return 'Stopped';
     default:
-        console.error('Unsupported medication change type used in medication: ' + changeType)
+        console.error('Unsupported medication change type used in medication: ' + changeType);
         return `${changeType}`;
     }
 };

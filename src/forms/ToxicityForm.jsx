@@ -6,8 +6,8 @@ import {Row, Col} from 'react-flexbox-grid';
 import Divider from 'material-ui/Divider';
 import * as toxicityLookup from '../lib/toxicreaction_lookup';
 import FluxToxicAdverseDrugReaction from '../model/adverse/FluxToxicAdverseDrugReaction';
-import Lang from 'lodash'
-import Collection from 'lodash'
+import Lang from 'lodash';
+import Collection from 'lodash';
 import './ToxicityForm.css';
 
 function titlecase(label) {
@@ -40,7 +40,7 @@ class ToxicityForm extends Component {
     resetPotentialToxicity = () => {
         this.setState({
             searchText: ""
-        })
+        });
     }
 
     /*
@@ -118,9 +118,9 @@ class ToxicityForm extends Component {
             searchText: newValue,
         });
         if (toxicityLookup.isValidAdverseEvent(newValue)) {
-            this.handleAdverseEventSelection(newValue)
+            this.handleAdverseEventSelection(newValue);
         } else if (!toxicityLookup.isValidAdverseEvent(newValue) && toxicityLookup.isValidAdverseEvent(this.props.object.adverseEvent)) {
-            this.handleAdverseEventSelection(null)
+            this.handleAdverseEventSelection(null);
         }
     }
 
@@ -134,7 +134,7 @@ class ToxicityForm extends Component {
         return inputLength === 0 ? [] : this.state.adverseEventOptions.filter((event) => {
             const nameNoSpaces = (Lang.isEmpty(event.nameNoSpaces)) ? "" : event.nameNoSpaces;
             const descriptionNoSpaces = (Lang.isEmpty(event.descriptionNoSpaces)) ? "" : event.descriptionNoSpaces;
-            return (nameNoSpaces.toLowerCase().indexOf(inputValue) >= 0 || descriptionNoSpaces.toLowerCase().indexOf(inputValue) >= 0)
+            return (nameNoSpaces.toLowerCase().indexOf(inputValue) >= 0 || descriptionNoSpaces.toLowerCase().indexOf(inputValue) >= 0);
         }).slice(0, 7);
     }
 
@@ -190,13 +190,13 @@ class ToxicityForm extends Component {
         const currentGradeLevel = grade.name;
         const isDisabled = !toxicityLookup.isValidGradeForAdverseEvent(grade.name, adverseEventName);
 
-        const isSelected = !Lang.isEmpty(this.props.object) && !Lang.isEmpty(this.props.object.adverseEvent) && this.props.object.seriousness === grade.name
+        const isSelected = !Lang.isEmpty(this.props.object) && !Lang.isEmpty(this.props.object.adverseEvent) && this.props.object.seriousness === grade.name;
         let gradeMenuClass = "grade-menu-item";
 
         if (isDisabled) {
-            gradeMenuClass += " disabled"
+            gradeMenuClass += " disabled";
         } else if (isSelected) {
-            gradeMenuClass += " selected"
+            gradeMenuClass += " selected";
         }
 
         let gradeDescription = "";
@@ -212,7 +212,7 @@ class ToxicityForm extends Component {
                 elemCopy.name = elemCopy.name.toLowerCase();
                 return elemCopy;
             });
-            const currentAdverseEvent = Collection.find(adverseEventOptionsLowerCase, {name: adverseEventNameLowerCase})
+            const currentAdverseEvent = Collection.find(adverseEventOptionsLowerCase, {name: adverseEventNameLowerCase});
             gradeDescription = currentAdverseEvent[currentGradeLevel];
         }
 
@@ -223,7 +223,7 @@ class ToxicityForm extends Component {
                 // onHover
                 onClick={(e) => {
                     if (!isDisabled) {
-                        return this.handleGradeSelection(e, grade.name, isSelected)
+                        return this.handleGradeSelection(e, grade.name, isSelected);
                     }
                 }}
             >
@@ -234,7 +234,7 @@ class ToxicityForm extends Component {
                     {gradeDescription}
                 </div>
             </div>
-        )
+        );
     }
 
     /*
@@ -255,7 +255,7 @@ class ToxicityForm extends Component {
                     marginSize={marginSize}
                 />
             </div>
-        )
+        );
     }
 
     render() {
@@ -291,13 +291,13 @@ class ToxicityForm extends Component {
                                     marginSize={marginSize}
                                 />
                             </div>
-                        )
+                        );
                     })}
                 </div>
-            )
+            );
         }
 
-        let gradesToDisplay = this.state.gradeOptions
+        let gradesToDisplay = this.state.gradeOptions;
         if (!Lang.isUndefined(this.props.gradesToDisplay)) {
             gradesToDisplay = this.state.gradeOptions.filter((g, i) => {
                 return (this.props.gradesToDisplay.includes(i+1));
@@ -331,7 +331,7 @@ class ToxicityForm extends Component {
                     {
                         gradesToDisplay.map((grade, i) => {
                             if (Lang.isUndefined(potentialToxicity.adverseEvent)) {
-                                return this.renderGradeMenuItem(grade)
+                                return this.renderGradeMenuItem(grade);
                             } else {
                                 return this.renderGradeMenuItem(grade, potentialToxicity.adverseEvent);
                             }
@@ -389,6 +389,6 @@ ToxicityForm.propTypes = {
     gradesToDisplay: PropTypes.array,
     gradesPrompt: PropTypes.string,
     topAdverseEvents: PropTypes.array
-}
+};
 
 export default ToxicityForm;

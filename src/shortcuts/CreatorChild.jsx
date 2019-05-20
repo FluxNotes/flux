@@ -64,7 +64,7 @@ export default class CreatorChild extends Shortcut {
                 let currentList = this.parentContext.getAttributeValue(parentAttributeName);
                 let oneToDelete = this.text;
                 let newList = currentList.filter((item) => {
-                    return item !== oneToDelete
+                    return item !== oneToDelete;
                 });
                 this.parentContext.setAttributeValue(parentAttributeName, newList, false);
             } else {

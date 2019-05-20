@@ -17,7 +17,7 @@ class SuggestionPortalSearchIndex {
             keys: [
                 "suggestion"
             ]
-        }
+        };
         this.shortcutsFuse = new Fuse([], this.fuseOptions);
     }
 
@@ -56,8 +56,8 @@ class SuggestionPortalSearchIndex {
                 suggestionObj.data = {
                     score: 0.1,
                     matches: [],
-                }
-                return suggestionObj
+                };
+                return suggestionObj;
             });
         }
 
@@ -75,7 +75,7 @@ class SuggestionPortalSearchIndex {
             };
         }).sort(this.sortSuggestionsAlphabetically).slice(0,maxLength);;
 
-        return resultFormatted
+        return resultFormatted;
     }
 }
 

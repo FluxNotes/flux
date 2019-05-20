@@ -1,5 +1,5 @@
 import MetadataSection from "./MetadataSection";
-import Lang from 'lodash'
+import Lang from 'lodash';
 
 export default class LabTestSubsection extends MetadataSection {
     getTestsForSubSection = (patient, currentConditionEntry, subsection) => {

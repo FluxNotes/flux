@@ -2,11 +2,11 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import ChoiceButton from '../elements/ChoiceButton';
 
-import "./SingleChoiceButton.css"
+import "./SingleChoiceButton.css";
 
 class SingleChoiceButton extends Component {
     render() {
-        let className = "single-choice-button "
+        let className = "single-choice-button ";
         className += (this.props.className) ? `${this.props.className} ` : "";
         className += (this.props.isSelected) ? "selected " : "";
 
@@ -35,6 +35,6 @@ SingleChoiceButton.propTypes= {
     className: PropTypes.string,
     marginSize: PropTypes.string.isRequired,
     isDisabled: PropTypes.bool,
-}
+};
 
 export default SingleChoiceButton;

@@ -49,6 +49,6 @@ ContextItem.propstype = {
     onChange: PropTypes.func.isRequired,
     closePortal: PropTypes.func.isRequired,
     state: PropTypes.object.isRequired,
-}
+};
 
-export default ContextItem
+export default ContextItem;

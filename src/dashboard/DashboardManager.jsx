@@ -1,4 +1,4 @@
-import Collection from 'lodash'
+import Collection from 'lodash';
 import ClinicianDashboard from './ClinicianDashboard';
 const PatientDashboard = ClinicianDashboard;
 
@@ -27,7 +27,7 @@ class DashboardManager {
             if (currentSuperRoleName) {
                 accumulator.push(currentSuperRoleName);
             }
-            return accumulator
+            return accumulator;
         }, []);
     }
 

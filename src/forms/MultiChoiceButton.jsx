@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import ChoiceButton from '../elements/ChoiceButton';
 
-import "./MultiChoiceButton.css"
+import "./MultiChoiceButton.css";
 
 class MultiChoiceButton extends Component {
     render() {
@@ -31,6 +31,6 @@ MultiChoiceButton.propTypes= {
     className: PropTypes.string,
     marginSize: PropTypes.string.isRequired,
     isDisabled: PropTypes.bool,
-}
+};
 
 export default MultiChoiceButton;

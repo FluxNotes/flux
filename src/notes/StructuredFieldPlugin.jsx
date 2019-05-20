@@ -204,7 +204,7 @@ function StructuredFieldPlugin(opts) {
             });
         }
         // Sort the keys in reverse order of creation -- new keys are always > old keys
-        deletedKeys.sort((a, b) => b - a)
+        deletedKeys.sort((a, b) => b - a);
         var shortcut;
         let result = state;
         deletedKeys.forEach((key) => {
@@ -280,7 +280,7 @@ function StructuredFieldPlugin(opts) {
         rules: [
             {
                 match: (node) => {
-                    return node.kind === 'block' && node.type === 'inline'
+                    return node.kind === 'block' && node.type === 'inline';
                 },
                 render: (props) => {
                     return (
@@ -471,7 +471,7 @@ function StructuredFieldPlugin(opts) {
             body.removeChild(div);
             native.removeAllRanges();
             native.addRange(range);
-        })
+        });
         return state;
     }
 
@@ -518,7 +518,7 @@ function StructuredFieldPlugin(opts) {
 
     function onCut(event, data, state, editor) {
         this.onCopy(event, data, state, editor); // doesn't change state
-        const window = getWindow(event.target)
+        const window = getWindow(event.target);
 
         // Once the fake cut content has successfully been added to the clipboard,
         // delete the content in the current selection.
@@ -676,7 +676,7 @@ function insertStructuredFieldAtRange(opts, transform, shortcut, range) {
         }
     });
 
-    return [transform, ""]
+    return [transform, ""];
 }
 
 /**

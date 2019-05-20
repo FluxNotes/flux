@@ -1,8 +1,8 @@
 import React from 'react';
 import _ from 'lodash';
-import PropTypes from 'prop-types'
-import Child from './components/Child'
-import './react-minimap.css'
+import PropTypes from 'prop-types';
+import Child from './components/Child';
+import './react-minimap.css';
 import Lang from 'lodash';
 
 export class Minimap extends React.Component {
@@ -32,13 +32,13 @@ export class Minimap extends React.Component {
   constructor(props) {
       super(props);
       this.heightOfEditButton = 20;
-      this.down = this.down.bind(this)
-      this.move = this.move.bind(this)
-      this.synchronize = this.synchronize.bind(this)
-      this.init = this.init.bind(this)
-      this.up = this.up.bind(this)
+      this.down = this.down.bind(this);
+      this.move = this.move.bind(this);
+      this.synchronize = this.synchronize.bind(this);
+      this.init = this.init.bind(this);
+      this.up = this.up.bind(this);
 
-      this.resize = _.throttle(this.synchronize, 100)
+      this.resize = _.throttle(this.synchronize, 100);
 
       this.state = {
           children: null,
@@ -48,19 +48,19 @@ export class Minimap extends React.Component {
           inEditMode: false,
       };
 
-      this.downState = false
-      this.initState = false
+      this.downState = false;
+      this.initState = false;
   }
 
   componentDidMount() {
-      const {onMountCenterOnX, onMountCenterOnY} = this.props
+      const {onMountCenterOnX, onMountCenterOnY} = this.props;
       setTimeout(() => this.synchronize({centerOnX: onMountCenterOnX, centerOnY:onMountCenterOnY}));
       window.addEventListener( "resize", this.resize);
-      this.init()
+      this.init();
   }
 
   componentWillUnmount() {
-      window.removeEventListener("resize", this.resize)
+      window.removeEventListener("resize", this.resize);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -73,10 +73,10 @@ export class Minimap extends React.Component {
 
   componentDidUpdate() {
       if (this.initState) {
-          this.initState = false
+          this.initState = false;
       } else {
-          this.initState = true
-          this.init()
+          this.initState = true;
+          this.init();
       }
   }
 
@@ -86,7 +86,7 @@ export class Minimap extends React.Component {
       const {scrollWidth, scrollHeight, scrollTop, scrollLeft} = this.source;
       const sourceRect = this.source.getBoundingClientRect();
 
-      let {width, height} = this.props
+      let {width, height} = this.props;
       height = (this.props.isFullHeight) ? sourceRect.height : this.props.height;
       height -= (this.heightOfEditButton + 6);
 
@@ -95,22 +95,22 @@ export class Minimap extends React.Component {
 
       if (keepAspectRatio) {
           if (ratioX < ratioY) {
-              ratioY = ratioX
-              height = Math.round( scrollHeight / (scrollWidth / width) )
+              ratioY = ratioX;
+              height = Math.round( scrollHeight / (scrollWidth / width) );
           } else {
-              ratioX = ratioY
-              width = Math.round( scrollWidth / (scrollHeight / height) )
+              ratioX = ratioY;
+              width = Math.round( scrollWidth / (scrollHeight / height) );
           }
       }
 
-      const nodes = this.ref.querySelectorAll(this.props.selector)
+      const nodes = this.ref.querySelectorAll(this.props.selector);
       let diff = 0;
       this.setState({
           ...this.state,
           height,
           width,
           children: _.map(nodes, (node, key) => {
-              const {width, height, left, top} = node.getBoundingClientRect()
+              const {width, height, left, top} = node.getBoundingClientRect();
 
               const wM = width * ratioX;
               let hM = Math.round(height * ratioY);
@@ -138,9 +138,9 @@ export class Minimap extends React.Component {
                       preferenceManager={this.props.preferenceManager}
                       conditionURL={this.props.conditionURL}
                   />
-              )
+              );
           })
-      })
+      });
   }
 
   moveToSection(sectionName) {
@@ -149,7 +149,7 @@ export class Minimap extends React.Component {
       if (!sectionNodes || sectionNodes.length === 0) return `Section '${sectionName}' not found.`;
 
       if (Lang.isUndefined(this.x) || Lang.isUndefined(this.y)) {
-          this.x = 0
+          this.x = 0;
           this.y = 0;
       }
       sectionNodes[0].scrollIntoView();
@@ -161,7 +161,7 @@ export class Minimap extends React.Component {
       var docViewTop = this.ref.clientTop; //this.ref.scrollTop;
       var docViewBottom = docViewTop + overall_div.clientHeight; //this.ref.clientHeight; //scrollHeight
 
-      const { height, top} = elem.getBoundingClientRect()
+      const { height, top} = elem.getBoundingClientRect();
       var elemTop = top;
       var elemBottom = elemTop + height;
       return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
@@ -187,23 +187,23 @@ export class Minimap extends React.Component {
 
   down( e ) {
       if (!this.state.inEditMode) {
-          const pos = this.minimap.getBoundingClientRect()
+          const pos = this.minimap.getBoundingClientRect();
 
           this.x = Math.round( pos.left + this.l + this.w / 2 );
           this.y = Math.round( pos.top + this.t + this.h / 2 );
 
-          this.downState = true
+          this.downState = true;
           this.move( e );
       }
   }
 
   up() {
-      this.downState = false
+      this.downState = false;
   }
 
   move( e ) {
       if (this.downState === false)
-          return
+          return;
 
       let event;
 
@@ -221,7 +221,7 @@ export class Minimap extends React.Component {
   }
 
   scrollTo(x, y) {
-      const {width, height} = this.state
+      const {width, height} = this.state;
 
       let dx = x - this.x;
       let dy = y - this.y;
@@ -245,8 +245,8 @@ export class Minimap extends React.Component {
       this.t += dy;
 
       // Sanity checks:
-      this.l = (this.l < 0 ? 0 : this.l)
-      this.t = (this.t < 0 ? 0 : this.t)
+      this.l = (this.l < 0 ? 0 : this.l);
+      this.t = (this.t < 0 ? 0 : this.t);
 
       const coefX = width / this.source.scrollWidth;
       const coefY = height / this.source.scrollHeight;
@@ -260,9 +260,9 @@ export class Minimap extends React.Component {
   }
 
   synchronize(options) {
-      const {width, height} = this.state
+      const {width, height} = this.state;
 
-      const rect = this.source.getBoundingClientRect()
+      const rect = this.source.getBoundingClientRect();
 
       const dims = [ rect.width, rect.height ];
       const scroll = [ this.source.scrollLeft, this.source.scrollTop ];
@@ -282,11 +282,11 @@ export class Minimap extends React.Component {
 
       if (options !== undefined) {
           if (options.centerOnX === true) {
-              this.source.scrollLeft  = this.source.scrollWidth / 2 - dims[ 0 ]  / 2
+              this.source.scrollLeft  = this.source.scrollWidth / 2 - dims[ 0 ]  / 2;
           }
 
           if (options.centerOnY === true) {
-              this.source.scrollTop  = this.source.scrollHeight / 2 - dims[ 1 ]  / 2
+              this.source.scrollTop  = this.source.scrollHeight / 2 - dims[ 1 ]  / 2;
           }
       }
 
@@ -307,7 +307,7 @@ export class Minimap extends React.Component {
                   }}
               />
           )
-      })
+      });
   }
 
   editMinimapSections = () => {
@@ -366,4 +366,4 @@ export class Minimap extends React.Component {
   }
 }
 
-export default Minimap
+export default Minimap;

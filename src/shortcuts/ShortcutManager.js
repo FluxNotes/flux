@@ -262,7 +262,7 @@ class ShortcutManager {
                 this.shortcutDefinitions.push(item);
                 // build up trigger to shortcut mapping
                 const triggers = item["stringTriggers"];
-                const keywords = item["keywords"]
+                const keywords = item["keywords"];
                 if (triggers) {
                     this.triggersPerShortcut[item.id] = [];
                     if (Lang.isArray(triggers)) {
@@ -407,7 +407,7 @@ class ShortcutManager {
     }
 
     getShortcutMetadata(shortcutId) {
-        return this.shortcuts[shortcutId]
+        return this.shortcuts[shortcutId];
     }
 
     getShortcutPrefix(shortcutId) {
@@ -426,7 +426,7 @@ class ShortcutManager {
     }
 
     isShortcutInstanceOfNLPHashtag(shortcut) {
-        return shortcut instanceof NLPHashtag
+        return shortcut instanceof NLPHashtag;
     }
 }
 

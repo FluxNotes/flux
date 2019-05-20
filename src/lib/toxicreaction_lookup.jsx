@@ -34,7 +34,7 @@ const attributionOptions = [
         code: '#Unknown',
         codeSystem: 'https://www.meddra.org/'
     }
-]
+];
 
 const gradeOptions = [
     {
@@ -67,7 +67,7 @@ const gradeOptions = [
         code: "C1559081",
         codeSystem: "http://ncimeta.nci.nih.gov"
     }
-]
+];
 
 // V4.0 CTCAE info from CTCAE_4.03_2010-06-14.xls
 const adverseEventOptions = [
@@ -8761,7 +8761,7 @@ const adverseEventOptions = [
         "Grade 5": "Death",
         "description": null
     }
-]
+];
 
 /*
  * Return the description for corresponding data tox elements
@@ -8810,7 +8810,7 @@ export function getAdverseEventOptions(){
  * Finds the index of a possible attribution; returns -1 if it's invalid
  */
 export function findAttributionIndex(possibleAttribution){
-    return attributionOptions.findIndex((attribution) => { return attribution.name.toLowerCase() === possibleAttribution.toLowerCase()});
+    return attributionOptions.findIndex((attribution) => { return attribution.name.toLowerCase() === possibleAttribution.toLowerCase();});
 }
 
 export function findAttribution(possibleAttribution){
@@ -8832,7 +8832,7 @@ export function getAttributionCodeableConcept(possibleAttribution){
  * Finds the index of a possible grade; returns -1 if it's invalid
  */
 export function findGradeIndex(possibleGrade){
-    return gradeOptions.findIndex((grade) => { return grade.name.toLowerCase() === possibleGrade.toLowerCase()});
+    return gradeOptions.findIndex((grade) => { return grade.name.toLowerCase() === possibleGrade.toLowerCase();});
 }
 
 export function findGrade(possibleGrade){
@@ -8855,7 +8855,7 @@ export function getAdverseEventGradeCodeableConcept(possibleGrade){
  */
 export function findAdverseEventIndex(possibleAdverseEvent){
     if (Lang.isNull(possibleAdverseEvent)) return -1;
-    return adverseEventOptions.findIndex((adverseEvent) => { return adverseEvent.name.toLowerCase() === possibleAdverseEvent.toLowerCase()});
+    return adverseEventOptions.findIndex((adverseEvent) => { return adverseEvent.name.toLowerCase() === possibleAdverseEvent.toLowerCase();});
 }
 
 export function findAdverseEvent(possibleAdverseEvent){
@@ -8896,7 +8896,7 @@ export function isValidGrade(possibleGrade){
         // A null grade isn't valid
         return false;
     }
-    return gradeOptions.some((grade) => { return grade.name.toLowerCase() === possibleGrade.toLowerCase()});
+    return gradeOptions.some((grade) => { return grade.name.toLowerCase() === possibleGrade.toLowerCase();});
 }
 
 /*
@@ -8905,7 +8905,7 @@ export function isValidGrade(possibleGrade){
 export function isValidAdverseEvent(possibleAdverseEvent){
     if(Lang.isEmpty(possibleAdverseEvent)) { return false; }
     return adverseEventOptions.some((adverseEvent) => {
-        return adverseEvent.name.toLowerCase() === possibleAdverseEvent.toLowerCase()
+        return adverseEvent.name.toLowerCase() === possibleAdverseEvent.toLowerCase();
     });
 }
 
@@ -8924,8 +8924,8 @@ export function isValidGradeForAdverseEvent(possibleGrade, possibleAdverseEvent)
     // If they are both
     if (isValidGrade(possibleGrade) && isValidAdverseEvent(possibleAdverseEvent)) {
         // Find the object
-        const adverseEventInLookup = Collection.find(adverseEventOptions, (adverseEvent) => { return adverseEvent.name.toLowerCase() === possibleAdverseEvent.toLowerCase()});
-        return !Lang.isNull(adverseEventInLookup[possibleGrade])
+        const adverseEventInLookup = Collection.find(adverseEventOptions, (adverseEvent) => { return adverseEvent.name.toLowerCase() === possibleAdverseEvent.toLowerCase();});
+        return !Lang.isNull(adverseEventInLookup[possibleGrade]);
     } else {
         return false;
     }

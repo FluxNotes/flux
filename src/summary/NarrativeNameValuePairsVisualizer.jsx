@@ -16,7 +16,7 @@ class NarrativeNameValuePairsVisualizer extends Visualizer {
             snippetDisplayingMenu: null,
             positionTop: 0, // Just so the popover can be spotted more easily
             positionLeft: 0, // Same as above
-        }
+        };
     }
 
     /**
@@ -202,9 +202,9 @@ class NarrativeNameValuePairsVisualizer extends Visualizer {
         const onMenuItemClicked = (fn, element, item) => {
             const callback = () => {
                 fn(element, item);
-            }
+            };
             this.closeInsertionMenu(callback);
-        }
+        };
         let isSigned = true;
         const checkSnippetUnsigned = Lang.isUndefined(snippet.unsigned) ? isSigned : !snippet.unsigned;
         isSigned = Lang.isArray(snippet.value) ? !snippet.value.isUnsigned : checkSnippetUnsigned;
@@ -286,7 +286,7 @@ class NarrativeNameValuePairsVisualizer extends Visualizer {
                 if (this.props.actions.length > 0) {
                     className += " has-action-menu";
                 }
-                const snippetId = `${snippet.item.name}-${index}`
+                const snippetId = `${snippet.item.name}-${index}`;
                 content.push(
                     <span key={snippetId}>
                         <span

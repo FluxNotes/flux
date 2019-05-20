@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import Paper from 'material-ui/Paper';
 import Lang from 'lodash';
-import PatientSearch from '../patientControl/PatientSearch'
+import PatientSearch from '../patientControl/PatientSearch';
 import ConditionSelection from '../summary/ConditionSelection';
 
 import SummaryHeader from '../summary/SummaryHeader';

@@ -18,6 +18,6 @@ class HoverItem extends Component {
 HoverItem.propTypes = {
     title: PropTypes.string,
     text: PropTypes.string
-}
+};
 
 export default HoverItem;

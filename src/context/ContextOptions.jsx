@@ -4,7 +4,7 @@ import Lang from 'lodash';
 import Tooltip from 'rc-tooltip';
 
 import 'rc-tooltip/assets/bootstrap.css';
-import './ContextOptions.css'
+import './ContextOptions.css';
 
 export default class ContextOptions extends Component {
     constructor(props) {
@@ -13,7 +13,7 @@ export default class ContextOptions extends Component {
         this.state = {
             searchString: '',
             tooltipVisibility: 'visible'
-        }
+        };
     }
 
     handleClick = (e, i) => {
@@ -27,11 +27,11 @@ export default class ContextOptions extends Component {
     }
 
     mouseLeave = () => {
-        this.setState({ tooltipVisibility: 'hidden' })
+        this.setState({ tooltipVisibility: 'hidden' });
     }
 
     mouseEnter = () => {
-        this.setState({ tooltipVisibility: 'visible' })
+        this.setState({ tooltipVisibility: 'visible' });
     }
 
     renderGroup = (groupObj, i, parentContext) => {
@@ -50,7 +50,7 @@ export default class ContextOptions extends Component {
                 <div key={i}>
                     {groupObj.triggers.map((trigger, i) => {
                         const largeTrigger = trigger.description.length > 100;
-                        const text = <span>{trigger.description}</span>
+                        const text = <span>{trigger.description}</span>;
                         return (
                             <Tooltip
                                 key={trigger.name}
@@ -146,8 +146,8 @@ export default class ContextOptions extends Component {
             || ( groupList.length > 0
                 // 2.Its referenced as a parent shortcut by >=1 active shortcuts who themselves have no group name
                 && validShortcutMetadata.filter((shortcutMetadata, i) => {
-                    if (Lang.isUndefined(shortcutMetadata)) return false
-                    return shortcutMetadata["knownParentContexts"] === context.metadata.id && Lang.isUndefined(shortcutMetadata["shortcutGroupName"])
+                    if (Lang.isUndefined(shortcutMetadata)) return false;
+                    return shortcutMetadata["knownParentContexts"] === context.metadata.id && Lang.isUndefined(shortcutMetadata["shortcutGroupName"]);
                 }).length !== 0
             )
         );
@@ -167,11 +167,11 @@ export default class ContextOptions extends Component {
                     }
                     {/* Render all shortcuts with no groupNames */}
                     {groupList.filter((groupObj, i) => Lang.isUndefined(groupObj.groupName)).map((groupObj, i) => {
-                        return this.renderGroup(groupObj, i, context)
+                        return this.renderGroup(groupObj, i, context);
                     })}
                     {/* Render all the shortcuts with gropuNames */}
                     {groupList.filter((groupObj, i) => !Lang.isUndefined(groupObj.groupName)).map((groupObj, i) => {
-                        return this.renderGroup(groupObj, i, context)
+                        return this.renderGroup(groupObj, i, context);
                     })}
                 </div>
             </section>
@@ -188,4 +188,4 @@ ContextOptions.propTypes = {
     contextManager: PropTypes.object.isRequired,
     handleClick: PropTypes.func.isRequired,
     shortcutManager: PropTypes.object.isRequired,
-}
+};

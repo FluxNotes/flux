@@ -22,7 +22,7 @@ export default class TabularListVisualizer extends Visualizer {
             elementToDisplayMenu: null,
             positionTop: 0,  // Just so the menu can be spotted more easily
             positionLeft: 0, // Same as above
-        }
+        };
     }
 
     render() {
@@ -257,7 +257,7 @@ export default class TabularListVisualizer extends Visualizer {
     }
 
     renderColumn = (row, subsectionindex, itemIndex, subsectionName, subsectionActions, formatFunction, col, colIndex, colSize) => {
-        const columnId = `${subsectionindex}-${itemIndex}-item-${colIndex}`
+        const columnId = `${subsectionindex}-${itemIndex}-item-${colIndex}`;
         const isInsertable = _.isUndefined(col.isInsertable) ? true : col.isInsertable;
         let columnItem = null;
         const when = (col.value ? (col.value.when || null) : null);
@@ -339,7 +339,7 @@ export default class TabularListVisualizer extends Visualizer {
         }
 
         if (!_.isNull(colText) && !_.isUndefined(colText) && colText.length > 100) {
-            const text = <span>{longElementText}</span>
+            const text = <span>{longElementText}</span>;
             columnItem = (
                 <Tooltip
                     key={columnId}
@@ -354,7 +354,7 @@ export default class TabularListVisualizer extends Visualizer {
                 >
                     {columnItem}
                 </Tooltip>
-            )
+            );
         }
         return columnItem;
     }
@@ -368,9 +368,9 @@ export default class TabularListVisualizer extends Visualizer {
         const onMenuItemClicked = (fn, element, item) => {
             const callback = () => {
                 fn(element, item);
-            }
+            };
             this.closeInsertionMenu(callback);
-        }
+        };
         let isSigned = true;
 
         isSigned = !element.isUnsigned || true;

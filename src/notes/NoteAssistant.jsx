@@ -59,7 +59,7 @@ export default class NoteAssistant extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.searchSelectedItem) {
             const newNote = nextProps.searchSelectedItem;
-            this.openNote(newNote)
+            this.openNote(newNote);
             this.props.setSearchSelectedItem(null);
         }
         if (nextProps.updatedEditorNote && this.refs[nextProps.updatedEditorNote.entryInfo.entryId]) {
@@ -91,7 +91,7 @@ export default class NoteAssistant extends Component {
             rect = el.getBoundingClientRect();
             if ((top > rect.bottom || top < rect.top)) return false;
             // Check if the element is out of view due to a container scrolling
-            if (bottom < rect.top || bottom > rect.bottom) return false
+            if (bottom < rect.top || bottom > rect.bottom) return false;
             el = el.parentNode;
         } while (el !== document.body);
         // Check its within the document viewport
@@ -147,7 +147,7 @@ export default class NoteAssistant extends Component {
 
     onContextToggleButtonClicked() {
         this.notes_btn_classname = "";
-        this.context_btn_classname = "selected"
+        this.context_btn_classname = "selected";
         this.poc_btn_classname = "";
     }
 
@@ -224,7 +224,7 @@ export default class NoteAssistant extends Component {
             return (
                 <div>
                 </div>
-            )
+            );
             // Render the context tray
         case "context-tray":
             return (
@@ -315,7 +315,7 @@ export default class NoteAssistant extends Component {
 
         return (
             <div ref={note.entryInfo.entryId} className={`note in-progress-note${selected ? " selected" : ""}${searchedFor ? " search-result" : ""}`} key={i} onClick={() => {
-                this.openNote(note)
+                this.openNote(note);
             }}>
                 <div className="in-progress-text">In progress note</div>
                 <div className="in-progress-note-date">{note.createdOn}</div>
@@ -396,7 +396,7 @@ export default class NoteAssistant extends Component {
                 className={`note existing-note ${selectedClassName} ${searchedForClassName} ${highlighedSearchSuggestionClassName}`}
                 key={i}
                 onClick={() => {
-                    this.openNote(item)
+                    this.openNote(item);
                 }}
             >
                 <div className="existing-note-date">{item.signedOn}</div>
@@ -487,7 +487,7 @@ export default class NoteAssistant extends Component {
                     className={"toggle-button first-button " + this.notes_btn_classname}
                     disabled={this.notes_btn_classname === "disabled"}
                     onClick={() => {
-                        this.toggleView("clinical-notes")
+                        this.toggleView("clinical-notes");
                     }}>
                     <svg viewBox="0 0 19 19">
                         <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
@@ -508,7 +508,7 @@ export default class NoteAssistant extends Component {
                     className={"toggle-button inside-button " + this.context_btn_classname}
                     disabled={this.context_btn_classname === "disabled"}
                     onClick={() => {
-                        this.toggleView("context-tray")
+                        this.toggleView("context-tray");
                     }}>
                     <svg viewBox="0 0 32 32" fill="none">
                         <g id="tray - shortcuts selected" transform="translate(0, 2)" className="colored-fill">
@@ -521,7 +521,7 @@ export default class NoteAssistant extends Component {
                     className={"toggle-button last-button " + this.poc_btn_classname}
                     disabled={this.poc_btn_classname === "disabled"}
                     onClick={() => {
-                        this.toggleView("poc")
+                        this.toggleView("poc");
                     }}>
                     <svg viewBox="0 -2 19 19">
                         <g id="icon-export" strokeWidth="1" fill="none" fillRule="evenodd">

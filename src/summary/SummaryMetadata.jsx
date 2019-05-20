@@ -1,4 +1,4 @@
-import Lang from 'lodash'
+import Lang from 'lodash';
 import BreastCancerMetadata from './metadata/BreastCancerMetadata';
 import DefaultMetadata from './metadata/DefaultMetadata';
 import SarcomaMetadata from './metadata/SarcomaMetadata';

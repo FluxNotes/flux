@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import PropTypes from 'prop-types';
 import 'font-awesome/css/font-awesome.min.css';
 import './EditorToolbar.css';
@@ -19,7 +19,7 @@ class EditorToolbar extends React.Component {
     }
 
     handleBlockUpdate = (type) => {
-        return this.props.onBlockUpdate(type)
+        return this.props.onBlockUpdate(type);
     }
 
     handleCopyClick = (type) => {
@@ -33,7 +33,7 @@ class EditorToolbar extends React.Component {
 
         // Only handle click if not in read only mode
         if (!this.props.isReadOnly) {
-            e.preventDefault()
+            e.preventDefault();
             this.handleMarkUpdate(type);
         }
     }
@@ -45,7 +45,7 @@ class EditorToolbar extends React.Component {
 
         // Only handle click if not in read only mode
         if(!this.props.isReadOnly) {
-            e.preventDefault()
+            e.preventDefault();
             this.handleBlockUpdate(type);
         }
     }
@@ -63,14 +63,14 @@ class EditorToolbar extends React.Component {
             cursorStyle = "pointer";
         }
 
-        const isActive = this.handleMarkCheck(type)
-        const onMouseDown = e => this.onClickMark(e, type)
+        const isActive = this.handleMarkCheck(type);
+        const onMouseDown = e => this.onClickMark(e, type);
 
         return (
             <span className="button" style={{cursor:cursorStyle}} onMouseDown={onMouseDown} data-active={isActive}>
                 <i className={"fa fa-fw " + icon} aria-label={"Make text " + type}></i>
             </span>
-        )
+        );
     }
     /**
      * Render a block-toggling toolbar button.
@@ -84,14 +84,14 @@ class EditorToolbar extends React.Component {
         } else {
             cursorStyle = "pointer";
         }
-        const isActive = this.handleBlockCheck(type + '-item')
-        const onMouseDown = e => this.onClickBlock(e, type)
+        const isActive = this.handleBlockCheck(type + '-item');
+        const onMouseDown = e => this.onClickBlock(e, type);
 
         return (
             <span className="button" style={{cursor:cursorStyle}} onMouseDown={onMouseDown} data-active={isActive}>
                 <i className={"fa fa-fw " + icon} aria-label={"Make text " + type}></i>
             </span>
-        )
+        );
     }
     /**
      * Render the toolbar.
@@ -105,7 +105,7 @@ class EditorToolbar extends React.Component {
                 {this.renderBlockButton('bulleted-list', 'fa-list')}
                 {this.renderBlockButton('numbered-list', 'fa-list-ol')}
             </div>
-        )
+        );
     }
     renderCopyButton = () => {
         if (this.props.patient===null) {
@@ -156,7 +156,7 @@ class EditorToolbar extends React.Component {
                 { this.props.loadingTimeWarrantsWarning && this.renderLoadingNotification()}
                 {/* {this.renderCopyButton()} */}
             </div>
-        )
+        );
     }
 }
 

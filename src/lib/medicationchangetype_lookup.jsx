@@ -7,4 +7,4 @@ const typeOptions = [
         code: "stop",
         codeSystem: "http://ncimeta.nci.nih.gov"
     }
-]
+];

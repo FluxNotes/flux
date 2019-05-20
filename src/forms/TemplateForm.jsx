@@ -36,4 +36,4 @@ TemplateForm.propTypes= {
     heading: PropTypes.string.isRequired,
     patient: PropTypes.object.isRequired,
     templates: PropTypes.array.isRequired,
-}
+};

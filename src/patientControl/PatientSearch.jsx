@@ -4,7 +4,7 @@ import Autosuggest from 'react-autosuggest';
 import SearchSuggestion from './SearchSuggestion.jsx';
 import Lang from 'lodash';
 import { CircularProgress } from 'material-ui';
-import './PatientSearch.css'
+import './PatientSearch.css';
 
 function escapeRegExp(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
@@ -12,7 +12,7 @@ function escapeRegExp(text) {
 
 class PatientSearch extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
         const patient = props.patient;
         this.firstName = patient.getName() ? patient.getName().split(' ')[0] : "";
         this.debounceGetSuggestions = Lang.debounce(this.getSuggestions, 500);
@@ -35,7 +35,7 @@ class PatientSearch extends React.Component {
         //  Establish some common variables for our regex
         const spaceOrNewlineOrPeriod = '(?:[^\\S\\n]|\\.)';
         const possibleTrigger = '(?:#|@|\\S*\\[\\[|\\]\\]){0,1}';
-        const escapedInput = `${escapeRegExp(inputValue)}`
+        const escapedInput = `${escapeRegExp(inputValue)}`;
         // combines for our pattern; adds capture group for snapshot of information
         const inputPattern = `(?:${spaceOrNewlineOrPeriod}${possibleTrigger}${escapedInput}|^${possibleTrigger}${escapedInput})`;
         const regex = new RegExp(inputPattern, "gim");
@@ -85,7 +85,7 @@ class PatientSearch extends React.Component {
                     onClick: result.onClick,
                     score: result.score,
                     indices: result.indices
-                }
+                };
             } else {
                 suggestion = {
                     id: result.id,
@@ -100,7 +100,7 @@ class PatientSearch extends React.Component {
                     score: result.score,
                     field: result.field,
                     date: result.date
-                }
+                };
             }
             suggestions.push(suggestion);
         });
@@ -176,7 +176,7 @@ class PatientSearch extends React.Component {
     renderSuggestion = (suggestion) => {
         return <SearchSuggestion
             suggestion={suggestion}
-        />
+        />;
     }
 
     // Customize the input component to include the search icon

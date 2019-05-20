@@ -18,7 +18,7 @@ import VisitReasonPostEncounterSection from './VisitReasonPostEncounterSection';
 import VisitReasonPreEncounterSection from './VisitReasonPreEncounterSection';
 import WhiteBloodCellCountSubsection from './WhiteBloodCellCountSubsection';
 import moment from 'moment';
-import Lang from 'lodash'
+import Lang from 'lodash';
 
 export default class BreastCancerMetadata extends MetadataSection {
     getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {

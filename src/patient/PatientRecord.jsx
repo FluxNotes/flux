@@ -236,7 +236,7 @@ class PatientRecord {
 
     getMRN() {
         let list = this.entries.filter((item) => {
-            return item instanceof FluxPatientIdentifier && item.identifierType === "MRN"
+            return item instanceof FluxPatientIdentifier && item.identifierType === "MRN";
         });
         let identifierEntry = PatientRecord.getMostRecentEntryFromList(list);
         if (Lang.isNull(identifierEntry)) return null;
@@ -318,7 +318,7 @@ class PatientRecord {
 
     getPreviousEncounter(sinceDate='') {
         const encounters = this.getPreviousEncountersChronologicalOrder(sinceDate);
-        return encounters.pop()
+        return encounters.pop();
     }
 
     getPreviousEncounterDateAsString() {
@@ -346,7 +346,7 @@ class PatientRecord {
         // Try to find an encounter with a performance time of today
         return _.find(encounters, (encounter) => {
             return new moment(encounter.expectedPerformanceTime, "D MMM YYYY").format("D MMM YYYY") === today;
-        }) !== undefined
+        }) !== undefined;
     }
 
     getReviewOfSystems() {
@@ -510,7 +510,7 @@ class PatientRecord {
                 result += "\r\n";
             }
             if (allergy instanceof FluxNoKnownAllergy) {
-                result += allergy.noKnownAllergy
+                result += allergy.noKnownAllergy;
             } else if (allergy instanceof FluxAllergyIntolerance) {
                 result += allergy.name;
             } else {
@@ -623,7 +623,7 @@ class PatientRecord {
             }
         });
 
-        return strResult
+        return strResult;
     }
 
     getMedicationsChronologicalOrder() {
@@ -894,10 +894,10 @@ class PatientRecord {
             // Looking for completed request status code - should be based on http://hl7.org/fhir/STU3/valueset-request-status.html
             const isCompleted = surgery.status === "completed" && surgery.statusCodeSystem === "http://hl7.org/fhir/STU3/valueset-request-status.html";
             // Case 2: ExpectedPerformanceDate is before "right now"
-            const now = moment()
+            const now = moment();
             let surgeryStartTime = new moment(surgery.occurrenceTime, "D MMM YYYY");
             if (!surgeryStartTime.isValid()) surgeryStartTime = new moment(surgery.occurrenceTime.timePeriodStart, "D MMM YYYY");
-            const hasPassed = surgeryStartTime < now
+            const hasPassed = surgeryStartTime < now;
             // If either case is true, we want this element
             return isCompleted || hasPassed;
         });
@@ -953,7 +953,7 @@ class PatientRecord {
     getPathologyReports() {
         var result = this.getEntriesOfType(FluxPathologyReport);
 
-        return result
+        return result;
     }
 
     getProgressions() {
@@ -1194,7 +1194,7 @@ class PatientRecord {
     // generic methods
     getEntriesIncludingType(type) {
         return this.entries.filter((item) => {
-            return item instanceof type
+            return item instanceof type;
         });
     }
 
@@ -1258,12 +1258,12 @@ class PatientRecord {
     static getMostRecentEntryFromList(list) {
         if (list.length === 0) return null;
         if (list.length === 1) return list[0];
-        list = list.filter(e => e.metadata)
+        list = list.filter(e => e.metadata);
         let maxDate = Math.max.apply(null, list.map(function (o) {
             return new Date(o.metadata.lastUpdated.instant);
         }));
         let result = list.filter((item) => {
-            return new Date(item.metadata.lastUpdated.instant).getTime() === new Date(maxDate).getTime()
+            return new Date(item.metadata.lastUpdated.instant).getTime() === new Date(maxDate).getTime();
         });
         if (Lang.isUndefined(result) || Lang.isNull(result) || result.length === 0) {
             return null;

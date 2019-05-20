@@ -37,7 +37,7 @@ const statusOptions = [
         code: "C3858734",
         codeSystem: "http://ncimeta.nci.nih.gov"
     }
-]
+];
 
 const reasonOptions = [
     {
@@ -70,7 +70,7 @@ const reasonOptions = [
         code: "C0005516",
         codeSystem: "http://ncimeta.nci.nih.gov"
     }
-]
+];
 
 export function getDescription(dataElement){
     switch(dataElement) {
@@ -79,9 +79,9 @@ export function getDescription(dataElement){
     case "status":
         return "Based on on the patient data available to the clinician at the time of evaluation.";
     case "reason":
-        return "Rationale for the choice of status."
+        return "Rationale for the choice of status.";
     case "referenceDate":
-        return "The date of the event that disease status is being assessed relative to."
+        return "The date of the event that disease status is being assessed relative to.";
     default:
         return null;
     }
@@ -96,15 +96,15 @@ export function getReasonOptions(){
 }
 
 export function isValidStatus(possibleStatus) {
-    return statusOptions.some((status) => { return status.name.toLowerCase() === possibleStatus.toLowerCase()})
+    return statusOptions.some((status) => { return status.name.toLowerCase() === possibleStatus.toLowerCase();});
 }
 
 export function isValidReason(possibleReason){
-    return reasonOptions.some((reason) => { return reason.name.toLowerCase() === possibleReason.toLowerCase()})
+    return reasonOptions.some((reason) => { return reason.name.toLowerCase() === possibleReason.toLowerCase();});
 }
 
 export function findStatusIndex(possibleStatus) {
-    return statusOptions.findIndex((status) => { return status.name.toLowerCase() === possibleStatus.toLowerCase()})
+    return statusOptions.findIndex((status) => { return status.name.toLowerCase() === possibleStatus.toLowerCase();});
 }
 
 export function findStatus(possibleStatus){
@@ -123,7 +123,7 @@ export function getStatusCodeableConcept(possibleStatus){
 }
 
 export function findReasonIndex(possibleReason){
-    return reasonOptions.findIndex((reason) => { return reason.name.toLowerCase() === possibleReason.toLowerCase()})
+    return reasonOptions.findIndex((reason) => { return reason.name.toLowerCase() === possibleReason.toLowerCase();});
 }
 
 export function findReason(possibleReason){

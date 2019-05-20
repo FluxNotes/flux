@@ -41,7 +41,7 @@ export default class ClinicianDashboard extends Component {
             this.noteEditableBasedOnClinicalEvent(nextProps.appState.clinicalEvent);
         }
         if (nextProps.appState.layout !== this.props.appState.layout) {
-            this.initializePanelSizesBasedOnLayout(nextProps.appState.layout)
+            this.initializePanelSizesBasedOnLayout(nextProps.appState.layout);
         }
     }
 

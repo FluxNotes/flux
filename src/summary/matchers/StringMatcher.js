@@ -1,5 +1,5 @@
 import Matcher from './Matcher';
-import Lang from 'lodash'
+import Lang from 'lodash';
 
 class StringMatcher extends Matcher {
     // returns an array of strings which are keys to find the metadata for summary in priority order (1st one should be used first). List should always end with DefautMetadata

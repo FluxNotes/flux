@@ -16,7 +16,7 @@ class DatePicker extends Component {
         this.state = {
             selectedDate: null,
             isDisabled: false
-        }
+        };
     }
 
     // When user selects a date via the date picker, the date is passed back up to the parent component
@@ -46,7 +46,7 @@ class DatePicker extends Component {
                 format={DATE_FORMAT}
                 placeholder={formattedDateToSet}
             />
-        )
+        );
     }
 }
 
@@ -55,6 +55,6 @@ DatePicker.propTypes= {
     handleDateChange: PropTypes.func.isRequired,
     id: PropTypes.string,
     className: PropTypes.string
-}
+};
 
 export default DatePicker;

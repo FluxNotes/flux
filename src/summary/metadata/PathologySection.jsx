@@ -1,7 +1,7 @@
 import MetadataSection from "./MetadataSection";
 import FluxTumorDimensions from '../../model/tumor/FluxTumorDimensions';
 import FluxTumorMargins from '../../model/tumor/FluxTumorMargins';
-import Lang from 'lodash'
+import Lang from 'lodash';
 import FluxCancerDisorderPresent from "../../model/oncocore/FluxCancerDisorderPresent";
 
 export default class PathologySection extends MetadataSection {
@@ -39,7 +39,7 @@ export default class PathologySection extends MetadataSection {
                                 return  {  value: report.relevantTime,
                                     isUnsigned: patient.isUnsigned(report),
                                     source: this.determineSource(patient, report)
-                                }
+                                };
                             }
                         },
                         {
@@ -52,7 +52,7 @@ export default class PathologySection extends MetadataSection {
                                 return  {  value: report.author,
                                     isUnsigned: patient.isUnsigned(report),
                                     source: this.determineSource(patient, report)
-                                }
+                                };
                             }
                         },
                         {

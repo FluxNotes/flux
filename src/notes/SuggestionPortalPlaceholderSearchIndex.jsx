@@ -4,13 +4,13 @@ import Lang from 'lodash';
 
 class SuggestionPortalPlaceholderSearchIndex extends SuggestionPortalSearchIndex  {
     constructor(list, initialChar, shortcutManager) {
-        super(list, initialChar, shortcutManager)
+        super(list, initialChar, shortcutManager);
         this.currentlyValidPlaceholders = [];
     }
     updateIndex = (contextManager) => {
         const placeholders = this.shortcutManager.getAllPlaceholderShortcuts();
         // If shortcuts haven't updated, we don't need to update our fuse index
-        if (Lang.isEqual(placeholders, this.currentlyValidPlaceholders)) return
+        if (Lang.isEqual(placeholders, this.currentlyValidPlaceholders)) return;
         this.currentlyValidPlaceholders = placeholders;
         const relevantShortcuts = [];
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import './SnippetViewModeContent.css'
+import './SnippetViewModeContent.css';
 
 export default class SnippetViewModeContent extends Component {
 
@@ -40,4 +40,4 @@ export default class SnippetViewModeContent extends Component {
 SnippetViewModeContent.propTypes = {
     onClick: PropTypes.func.isRequired,
     setInsertingTemplate: PropTypes.func.isRequired,
-}
+};

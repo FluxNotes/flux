@@ -17,7 +17,7 @@ export default class PickListOptionsPanel extends Component {
                 trigger: pickList.trigger + `_${i}`,
                 options: pickList.options,
                 shortcut: pickList.shortcut
-            }
+            };
         });
         // triggerSelections are the selections made by the user for each pick List
         // pushing the trigger value first so that order of shortcuts remain the same
@@ -46,11 +46,11 @@ export default class PickListOptionsPanel extends Component {
     }
 
     mouseLeave = () => {
-        this.setState({ tooltipVisibility: 'hidden' })
+        this.setState({ tooltipVisibility: 'hidden' });
     }
 
     mouseEnter = () => {
-        this.setState({ tooltipVisibility: 'visible' })
+        this.setState({ tooltipVisibility: 'visible' });
     }
 
     // Switch view (i.e clinical notes view or context tray)
@@ -84,7 +84,7 @@ export default class PickListOptionsPanel extends Component {
                 trigger: triggerSelection.trigger.slice(0, underScoreIndex),
                 selectedOption: selectedOption,
                 shortcut: triggerSelection.shortcut
-            }
+            };
         });
 
         this.props.updateSelectedPickListOptions(triggerSelections);
@@ -147,7 +147,7 @@ export default class PickListOptionsPanel extends Component {
                         {shortcutName}
                         {this.renderShortcutOptions(shortcut, i)}
                     </div>
-                )
+                );
             })
         );
     }
@@ -187,7 +187,7 @@ export default class PickListOptionsPanel extends Component {
                                 </div>
                             </Tooltip>
                         </div>
-                    )
+                    );
                 })
 
             );
