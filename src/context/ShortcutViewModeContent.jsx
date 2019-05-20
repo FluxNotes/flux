@@ -133,6 +133,5 @@ export default class ShortcutViewModeContent extends Component {
 ShortcutViewModeContent.propTypes= {
     contextManager: PropTypes.object.isRequired,
     onClick: PropTypes.func.isRequired,
-    patient: PropTypes.object.isRequired,
     shortcutManager: PropTypes.object.isRequired,
 }
