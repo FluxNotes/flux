@@ -2,17 +2,15 @@
 
 #point-of-care-dashboard-content {
     display: flex;
+    margin-left: -12px;
 
     .poc-nav-bar {
-        position: absolute;
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
         align-items: center;
-        width: 80px;
-        height: calc(100vh - 92px - 20px + 22px);
+        flex-basis: 92px;
         background-color: $tab-bar-blue;
-        margin-left: -12px;
 
         button {
             padding: 10px 0px;
@@ -20,8 +18,7 @@
     }
 
     .right-border-box {
-        margin-top: 15px;
-        margin-left: 80px;
+        margin: 15px 0px 5px;
         border-right: 2px dashed #ddd;
 
         .fitted-panel {
@@ -29,13 +26,16 @@
             overflow-x: hidden;
             text-align: left;
             /* 106px is the height of the on large screens Patient Control Panel, 20px is the height of the top margin of post encounter view content and a little extra for potential scroll bars*/
-            max-height: calc(100vh - 92px - 20px);
+            max-height: calc(100vh - 92px - 12px);
             min-height: 400px !important;
+            /* have to manually calculate the width due to the sidebar: 92 for the sidebar, 80 for the minimap, and 42 for additional padding */
+            width: calc(100vw - 92px - 80px - 42px);
+            padding-left: 10px;
         }
 
-        // adjustments to minimap to account for POC nav bar
+        /* adjustments to minimap to account for POC nav bar */
         .minimap-children-wrapper {
-            margin-left: 80px;
+            margin-left: 92px;
         }
     }
 
@@ -45,8 +45,9 @@
 }
 
 @media only screen and (max-width: 1200px) { 
-    #compass-app-dashboard-content .fitted-panel {
-        /* 117px is the height of the on large screens Patient Control Panel, 20px is the height of the top margin of post encounter view content and a little extra for potential scroll bars*/
-        max-height: calc(100vh - 117px - 20px);
+    #point-of-care-dashboard-content .fitted-panel {
+        /* 117px is the height of the on large screens Patient Control Panel, 20px is the height of the top margin of post encounter view content and a little extra for potential scroll bars */
+        /* add back 10px for the top margin */
+        max-height: calc(100vh - 117px - 20px + 10px) !important;
     }
 }

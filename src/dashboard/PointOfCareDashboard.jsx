@@ -104,14 +104,13 @@ export default class PointOfCareDashboard extends Component {
 
     render() {
         const panelStyles = {
-            "width": '100%',
             "WebkitTransition": "width .5s", /* Safari */
             "transition": "width .5s",
         };
         const PanelComponent = this.state.showPOC ? PointOfCarePanel : TargetedDataPanel;
 
         return (
-            <div id="point-of-care-dashboard-content" style={{display: "flex"}}>
+            <div id="point-of-care-dashboard-content">
                 {this.renderSidebar()}
                 <div className="right-border-box" style={panelStyles}>
                     <PanelComponent
