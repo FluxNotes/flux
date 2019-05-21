@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import PointOfCare from '../notes/PointOfCare';
 import StructuredFieldMapManager from '../shortcuts/StructuredFieldMapManager';
-import Placeholder from '../shortcuts/Placeholder';
 import ShortcutManager from '../shortcuts/ShortcutManager';
 import ContextManager from '../context/ContextManager';
 
