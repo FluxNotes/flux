@@ -200,9 +200,8 @@ export default class InsertValue extends Shortcut {
         return Lang.isArray(this.text) ? this.text : [];
     }
 
-
-    getDisplayText(displayText = null) {
-        let text = displayText || this.text; // Use provided text to override shortcut text
+    serialize() {
+        let text = this.text; 
         if(Lang.isNull(text)) {
             text = this.initiatingTrigger;
         }
@@ -224,6 +223,10 @@ export default class InsertValue extends Shortcut {
         }
       
         return `${this.initiatingTrigger}[[${text}]]`;
+    }
+
+    getDisplayText() {
+        return Lang.isNull(this.text) ? this.initiatingTrigger : this.text;
     }
 
     createObjectForParsing(selectedValue, contextManager) {

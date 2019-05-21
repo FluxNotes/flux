@@ -339,13 +339,10 @@ function StructuredFieldPlugin(opts) {
                 }
             } else if (node.type === 'structured_field') {
                 const shortcut = node.data.shortcut;
-                if (shortcut instanceof InsertValue) {
+                console.log(shortcut.serialize())
+                result += shortcut.serialize();
                     
-                    // Inserters have characters as their children. Use characters to get current text in the node.
-                    result += shortcut.getDisplayText(node.nodes[0].characters.map(c => c.text).join(''));
-                } else {
-                    result += shortcut.getDisplayText();
-                }
+                    
             } else if (node.type === 'placeholder') {
                 result += node.data.placeholder.getResultText();
             } else if (node.type === 'bulleted-list') {
@@ -693,12 +690,14 @@ function createStructuredField(opts, shortcut) {
     const isInserter = shortcut instanceof InsertValue;
     if (isInserter) {
         let lines;
-        if(Lang.isNull(shortcut.getText())){
+        lines = String(shortcut.getDisplayText()).split(/\n\r|\r\n|\r|\n/g);
+
+       /*  if(Lang.isNull(shortcut.getText())){
             lines = String(shortcut.getDisplayText()).split(/\n\r|\r\n|\r|\n/g);
         }
         else {
             lines = String(shortcut.getText()).split(/\n\r|\r\n|\r|\n/g);
-        }
+        } */
         let textNodes = [];
         let inlines = [];
         lines.forEach((line, i) => {

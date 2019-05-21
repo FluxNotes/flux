@@ -44,6 +44,10 @@ class Shortcut extends Context {
         return this.getText();
     }
 
+    serialize() {
+        return this.getText();
+    }
+
     getLabel() {
         throw new Error("Invalid context. " + this.constructor.name);
     }

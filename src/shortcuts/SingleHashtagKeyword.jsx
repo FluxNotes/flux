@@ -173,9 +173,13 @@ export default class SingleHashtagKeyword extends EntryShortcut {
         return this.metadata["name"];
     }
 
-    getResultText() {
+    serialize() {
         if (Lang.isUndefined(this.object.entryInfo)) return this.getText();
         return `${this.initiatingTrigger}[[{"entryId":${this.object.entryInfo.entryId}}]]`;
+    }
+
+    getDisplayText() {
+        return this.initiatingTrigger;
     }
 
     getId() {
