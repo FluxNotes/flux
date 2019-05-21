@@ -278,4 +278,8 @@ export default class InsertValue extends Shortcut {
     get completionComponent() {
         return ContextListOptions;
     }
+
+    get completionComponent() {
+        return ContextListOptions;
+    }
 }
