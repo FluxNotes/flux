@@ -207,8 +207,8 @@ class ProgressionLineChartVisualizer extends Visualizer {
             });
         });
         // Get yAxisInfo
-        const yAxisDomain = [ -1.25, 3 ];
-        const yTicks = [ -1, 0, 1, 2, 3.25 ];
+        const yAxisDomain = [ -1.25, 3.25 ];
+        const yTicks = [ -1, 0, 1, 2, 3 ];
         // Get xAxisInfo
         const xAxisDomain = this.getXAxisDomain(processedData, processedPotentialDiagnosisDates);
         const xTicks = this.getXAxisTicks(xAxisDomain, processedPotentialDiagnosisDates, this.props.isWide);
