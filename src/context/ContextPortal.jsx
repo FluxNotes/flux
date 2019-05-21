@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Portal from 'react-portal';
-import Calendar from 'rc-calendar';
-import ContextItem from './ContextItem';
 import Lang from 'lodash';
 import './ContextPortal.css';
 import 'rc-calendar/assets/index.css';
+import ContextCalendar from './ContextCalendar';
 
 const UP_ARROW_KEY = 38;
 const DOWN_ARROW_KEY = 40;
@@ -29,9 +28,7 @@ class ContextPortal extends React.Component {
 
     shouldComponentUpdate = (nextProps, nextState) => {
         const { openedPortal } = nextProps;
-
         if (openedPortal !== null && openedPortal !== this.portalId) return false;
-
         return true;
     }
 
@@ -63,8 +60,8 @@ class ContextPortal extends React.Component {
             selectedIndex: -1,
             active: false,
             justActive: false
-        };
-        this.portalId = "ContextPortal";
+        }
+        this.portalId = 'ContextPortal';
     }
     /*
      * When the portal opens, set flags appropriately and a decay timer for justActive
@@ -77,10 +74,10 @@ class ContextPortal extends React.Component {
      * Call onSelected with null context to indicate nothing selected and just clean up state
      */
     onClose = () => {
-        const { onChange, openedPortal, onSelected, state } = this.props;
+        const { openedPortal, onSelected, state } = this.props;
 
         if (openedPortal === this.portalId) {
-            onChange(onSelected(state, null));
+            onSelected(state, null);
         }
         this.setState({ active: false, justActive: false }); // TEST: menu: null,
     }
@@ -112,7 +109,7 @@ class ContextPortal extends React.Component {
             this.refs.contextPortal.scrollTop = (this.state.selectedIndex - (numberOfElementsVisible - 1)) * 32 + 10;
         } else if (keyCode === ENTER_KEY) {
             this.setState({ active: false, justActive: false });
-            this.props.onChange(this.props.onSelected(this.props.state, this.props.contexts[this.state.selectedIndex]));
+            this.props.onSelected(this.props.state, this.props.contexts[this.state.selectedIndex]);
         }
     }
     /*
@@ -171,95 +168,55 @@ class ContextPortal extends React.Component {
             selectedIndex: selectedIndex
         });
     }
-
-    handleCalendarSelect = (date) => {
-        this.closePortal();
-        const context = { key: 'set-date-id', context: `${date.format("MM/DD/YYYY")}`, object: date };
-        const state = this.props.onSelected(this.props.state, context);
-        this.props.onChange(state);
-    }
-
-    renderListOptions = () => {
-        const { contexts } = this.props;
-        return (
-            <ul>
-                {contexts.map((context, index) => {
-                    return <ContextItem
-                        key={context.key}
-                        index={index}
-                        context={context}
-                        selectedIndex={this.state.selectedIndex}
-                        setSelectedIndex={this.setSelectedIndex}
-                        onSelected={this.props.onSelected}
-                        onChange={this.props.onChange}
-                        closePortal={this.closePortal}
-                        state={this.props.state}
-                    />;
-                })}
-            </ul>
-        );
-    }
-
-    renderCalendar = () => {
-        // NOTE: If setTimeout doesn't seem to be setting the focus correctly, try creating a separate component
-        // that extends Calendar and has componentDidMount to set focus
-        return (
-            <Calendar
-                showDateInput={false}
-                onSelect={this.handleCalendarSelect}
-                ref={input => input && setTimeout(() => { input.focus(); }, 100)}
-            />
-        );
-    }
-
+    
     /*
      * View of the current menu
      */
     render = () => {
-        const TYPE_LIST = 0;
-        const TYPE_CALENDAR = 1;
-        const { contexts, openedPortal } = this.props;
-        let type;
-        let className = "context-portal";
-        if (Lang.isNull(contexts)) return null;
+        const { contexts, openedPortal, shortcut } = this.props;
 
-        if (Lang.isArray(contexts)) {
-            type = TYPE_LIST;
-            className += " scrollable";
-        } else if (contexts === "date-id") {
-            type = TYPE_CALENDAR;
-        } else {
-            console.error("unknown picker type: " + contexts);
+        let portalContents = '';
+        let className = 'context-portal';
+        if (shortcut) {
+            const CompletionComponent = shortcut.completionComponent;
+            if (!Lang.isEqual(CompletionComponent, ContextCalendar)) className += ' scrollable';
+            portalContents = (
+                <CompletionComponent
+                    closePortal={this.closePortal}
+                    contexts={contexts}
+                    onSelected={this.props.onSelected}
+                    selectedIndex={this.state.selectedIndex}
+                    setSelectedIndex={this.setSelectedIndex}
+                    state={this.props.state}
+                />
+            );
         }
 
         return (
             <Portal
-                closeOnEsc
-                closeOnOutsideClick
-                isOpened={openedPortal === this.portalId}
-                onOpen={this.onOpen}
+                closeOnEsc 
+                closeOnOutsideClick 
+                isOpened={openedPortal === this.portalId} 
+                onOpen={this.onOpen} 
                 onClose={this.onClose}
             >
                 <div className={className} ref="contextPortal">
-                    {type === TYPE_CALENDAR ? this.renderCalendar() : this.renderListOptions()}
+                    {portalContents}
                 </div>
             </Portal>
         );
     }
 }
 
-ContextPortal.propTypes = {
+ContextPortal.propTypes = { 
     capture: PropTypes.object.isRequired,
     callback: PropTypes.object.isRequired,
     contextManager: PropTypes.object.isRequired,
-    contexts: PropTypes.oneOfType([
-        PropTypes.array,
-        PropTypes.string,
-    ]),
+    contexts: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
     getPosition: PropTypes.func.isRequired,
-    onChange: PropTypes.func.isRequired,
     openedPortal: PropTypes.string,
     onSelected: PropTypes.func.isRequired,
+    shortcut: PropTypes.object,
     state: PropTypes.object.isRequired,
     trigger: PropTypes.string.isRequired,
 };
