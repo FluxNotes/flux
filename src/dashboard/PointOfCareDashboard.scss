@@ -1,17 +1,51 @@
-#point-of-care-dashboard-content {
-    margin-top: 15px;
+@import '../styles/variables';
 
-    .fitted-panel {
-        overflow-y: auto;
-        overflow-x: hidden;
-        text-align: left;
-        /* 106px is the height of the on large screens Patient Control Panel, 20px is the height of the top margin of post encounter view content and a little extra for potential scroll bars*/
-        max-height: calc(100vh - 92px - 20px);
-        min-height: 400px !important;
+#point-of-care-dashboard-content {
+    display: flex;
+    margin-left: -12px;
+
+    .poc-nav-bar {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex-basis: 92px;
+        height: calc(100vh - 85px);
+        background-color: $tab-bar-blue;
+
+        button {
+            padding: 75px 0px;
+        }
     }
 
     .right-border-box {
+        margin: 15px 10px 5px;
         border-right: 2px dashed #ddd;
+
+        &.point-of-care-container {
+            overflow-y: auto;
+            overflow-x: hidden;
+            text-align: left;
+            /* 106px is the height of the on large screens Patient Control Panel, 20px is the height of the top margin of post encounter view content and a little extra for potential scroll bars*/
+            max-height: calc(100vh - 92px - 15px);
+            min-height: 400px !important;
+            margin-right: -2px;
+        }
+
+        .fitted-panel {
+            overflow-y: auto;
+            overflow-x: hidden;
+            text-align: left;
+            /* 106px is the height of the on large screens Patient Control Panel, 20px is the height of the top margin of post encounter view content and a little extra for potential scroll bars*/
+            max-height: calc(100vh - 92px - 15px);
+            min-height: 400px !important;
+            /* have to manually calculate the width due to the sidebar: 92 for the sidebar, 80 for the minimap and 42 for additional padding */
+            width: calc(100vw - 92px - 80px - 42px);
+        }
+
+        /* adjustments to minimap to account for POC nav bar */
+        .minimap-children-wrapper {
+            margin-left: 92px;
+        }
     }
 
     .full-panel {
@@ -20,8 +54,17 @@
 }
 
 @media only screen and (max-width: 1200px) { 
-    #compass-app-dashboard-content .fitted-panel {
-        /* 117px is the height of the on large screens Patient Control Panel, 20px is the height of the top margin of post encounter view content and a little extra for potential scroll bars*/
-        max-height: calc(100vh - 117px - 20px);
+    #point-of-care-dashboard-content .fitted-panel {
+        /* 117px is the height of the on large screens Patient Control Panel, 20px is the height of the top margin of post encounter view content and a little extra for potential scroll bars */
+        /* add back 10px for the top margin */
+        max-height: calc(100vh - 117px - 20px + 10px) !important;
+    }
+
+    #point-of-care-dashboard-content .point-of-care-container {
+        max-height: calc(100vh - 117px - 20px + 10px) !important;
+    }
+
+    #point-of-care-dashboard-content .poc-nav-bar {
+        height: calc(100vh - 107px) !important;
     }
 }

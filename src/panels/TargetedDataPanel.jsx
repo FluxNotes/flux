@@ -10,8 +10,11 @@ export default class TargetedDataPanel extends Component {
     constructor(props) {
         super(props);
 
+        const conditionMetadata = this.getConditionMetadata(props.appState.condition);
+        const sectionsToDisplay = this.getSectionsToDisplay(conditionMetadata, props.appState.condition);
+
         this.state = {
-            sectionsToDisplay: []
+            sectionsToDisplay: sectionsToDisplay
         };
     }
 
@@ -74,7 +77,8 @@ export default class TargetedDataPanel extends Component {
                 this.props.preferenceManager.setPreference('visibleSections', preferenceManagerVisibleSettings);
             }
             let currentSectionVisible = true;
-            const settingName = `${section.name}-${condition.codeURL}`;
+            const conditionURL = condition ? condition.codeURL : '';
+            const settingName = `${section.name}-${conditionURL}`;
             if (!_.isNull(preferenceManagerVisibleSettings) && !_.isUndefined(preferenceManagerVisibleSettings[settingName])) {
                 currentSectionVisible = preferenceManagerVisibleSettings[settingName];
             }
