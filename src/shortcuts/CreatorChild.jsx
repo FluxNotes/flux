@@ -2,6 +2,7 @@ import Shortcut from './Shortcut';
 import ValueSetManager from '../lib/ValueSetManager';
 import moment from 'moment';
 import Lang from 'lodash';
+import ContextCalendar from '../context/ContextCalendar';
 
 export default class CreatorChild extends Shortcut {
     constructor(onUpdate, metadata) {
@@ -155,5 +156,11 @@ export default class CreatorChild extends Shortcut {
     get isComplete() {
         const parentAttributeValue = this.parentContext.getAttributeValue(this.metadata.parentAttribute);
         return !Lang.isNull(parentAttributeValue);
+    }
+
+    get completionComponent() {
+        if (this.metadata.picker === 'date-id') {
+            return ContextCalendar;
+        }
     }
 }
