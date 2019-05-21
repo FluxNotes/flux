@@ -74,10 +74,10 @@ class ContextPortal extends React.Component {
      * Call onSelected with null context to indicate nothing selected and just clean up state
      */
     onClose = () => {
-        const { onChange, openedPortal, onSelected, state } = this.props;
+        const { openedPortal, onSelected, state } = this.props;
 
         if (openedPortal === this.portalId) {
-            onChange(onSelected(state, null));
+            onSelected(state, null);
         }
         this.setState({ active: false, justActive: false }); // TEST: menu: null,
     }
@@ -109,7 +109,7 @@ class ContextPortal extends React.Component {
             this.refs.contextPortal.scrollTop = (this.state.selectedIndex - (numberOfElementsVisible - 1)) * 32 + 10;
         } else if (keyCode === ENTER_KEY) {
             this.setState({ active: false, justActive: false });
-            this.props.onChange(this.props.onSelected(this.props.state, this.props.contexts[this.state.selectedIndex]));
+            this.props.onSelected(this.props.state, this.props.contexts[this.state.selectedIndex]);
         }
     }
     /*
@@ -187,7 +187,6 @@ class ContextPortal extends React.Component {
                     onSelected={this.props.onSelected}
                     selectedIndex={this.state.selectedIndex}
                     setSelectedIndex={this.setSelectedIndex}
-                    onChange={this.props.onChange}
                     state={this.props.state}
                 />
             );
@@ -195,10 +194,10 @@ class ContextPortal extends React.Component {
 
         return (
             <Portal
-                closeOnEsc
-                closeOnOutsideClick
-                isOpened={openedPortal === this.portalId}
-                onOpen={this.onOpen}
+                closeOnEsc 
+                closeOnOutsideClick 
+                isOpened={openedPortal === this.portalId} 
+                onOpen={this.onOpen} 
                 onClose={this.onClose}
             >
                 <div className={className} ref="contextPortal">
@@ -209,7 +208,7 @@ class ContextPortal extends React.Component {
     }
 }
 
-ContextPortal.propTypes = {
+ContextPortal.propTypes = { 
     capture: PropTypes.object.isRequired,
     callback: PropTypes.object.isRequired,
     contextManager: PropTypes.object.isRequired,
