@@ -72,8 +72,8 @@ const reasonOptions = [
     }
 ];
 
-export function getDescription(dataElement){
-    switch(dataElement) {
+export function getDescription(dataElement) {
+    switch (dataElement) {
     case "progression":
         return "Determination of disease status is based on a number of complex variables which include objective measures like tumor growth, symptomatic criteria, patient reports information, and subjective evaluations.";
     case "status":
@@ -87,27 +87,27 @@ export function getDescription(dataElement){
     }
 }
 
-export function getStatusOptions(){
+export function getStatusOptions() {
     return statusOptions;
 }
 
-export function getReasonOptions(){
+export function getReasonOptions() {
     return reasonOptions;
 }
 
 export function isValidStatus(possibleStatus) {
-    return statusOptions.some((status) => { return status.name.toLowerCase() === possibleStatus.toLowerCase();});
+    return statusOptions.some((status) => { return status.name.toLowerCase() === possibleStatus.toLowerCase(); });
 }
 
-export function isValidReason(possibleReason){
-    return reasonOptions.some((reason) => { return reason.name.toLowerCase() === possibleReason.toLowerCase();});
+export function isValidReason(possibleReason) {
+    return reasonOptions.some((reason) => { return reason.name.toLowerCase() === possibleReason.toLowerCase(); });
 }
 
 export function findStatusIndex(possibleStatus) {
-    return statusOptions.findIndex((status) => { return status.name.toLowerCase() === possibleStatus.toLowerCase();});
+    return statusOptions.findIndex((status) => { return status.name.toLowerCase() === possibleStatus.toLowerCase(); });
 }
 
-export function findStatus(possibleStatus){
+export function findStatus(possibleStatus) {
     const index = findStatusIndex(possibleStatus);
     if (index === -1) return null;
     return statusOptions[index];
@@ -118,15 +118,15 @@ export function findStatus(possibleStatus){
  * Will return CodeableConcept object with empty strings if not found
  * If value found in list, function will return CodeableConcept with value, codeSystem, and displayText
  */
-export function getStatusCodeableConcept(possibleStatus){
+export function getStatusCodeableConcept(possibleStatus) {
     return codeableConceptUtils.getCodeableConceptFromOptions(possibleStatus, statusOptions);
 }
 
-export function findReasonIndex(possibleReason){
-    return reasonOptions.findIndex((reason) => { return reason.name.toLowerCase() === possibleReason.toLowerCase();});
+export function findReasonIndex(possibleReason) {
+    return reasonOptions.findIndex((reason) => { return reason.name.toLowerCase() === possibleReason.toLowerCase(); });
 }
 
-export function findReason(possibleReason){
+export function findReason(possibleReason) {
     const index = findReasonIndex(possibleReason);
     if (index === -1) return null;
     return reasonOptions[index];
@@ -137,6 +137,6 @@ export function findReason(possibleReason){
  * Will return CodeableConcept object with empty strings if not found
  * If evidence found in list, function will return CodeableConcept with value, codeSystem, and displayText
  */
-export function getEvidenceCodeableConcept(possibleReason){
+export function getEvidenceCodeableConcept(possibleReason) {
     return codeableConceptUtils.getCodeableConceptFromOptions(possibleReason, reasonOptions);
 }

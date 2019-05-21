@@ -284,7 +284,7 @@ export default class SingleHashtagKeyword extends EntryShortcut {
                         if (Lang.isObject(result)) this.object = result;
                     }
                 });
-                if (Lang.isNull(result)){
+                if (Lang.isNull(result)) {
                     this.isObjectNew = false;
                     return;
                 }

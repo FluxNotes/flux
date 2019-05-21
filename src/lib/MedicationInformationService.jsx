@@ -12,17 +12,17 @@ const medications = [
     }
 ];
 
-export function getCodeableConceptFromName(name){
+export function getCodeableConceptFromName(name) {
     return codeableConceptUtils.getCodeableConceptFromOptions(name, medications);
 }
 
-export function getRangeValues(medication, units){
-    if (typeof(medication) !== 'string') {return null;}
+export function getRangeValues(medication, units) {
+    if (typeof(medication) !== 'string') { return null; }
 
     if (!units) return null;
     const switchKey = medication + "_" + units;
 
-    switch(switchKey) {
+    switch (switchKey) {
     case "42512_10^9/L":
         return {
             lowerValue: 1,

@@ -193,7 +193,7 @@ export default class CreatorBase extends EntryShortcut {
             if (argSpec === "$valueObject") return this.object;
             if (argSpec === "$parentValueObject") {
 
-                if(!this.parentContext){
+                if (!this.parentContext) {
                     return null;
                 }
                 return this.parentContext.getValueObject();

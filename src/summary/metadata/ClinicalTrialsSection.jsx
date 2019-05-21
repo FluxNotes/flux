@@ -57,7 +57,7 @@ export default class ClinicalTrialsSection extends MetadataSection {
         if (this.trialDisplayMissingCriteria !== "") {
             this.missingEligibleTrialData = trialsList.getMissingCriteriaListTrialEligibility(this.trialDisplayMissingCriteria);
             return this.missingEligibleTrialData.map((data) => {
-                return [{value : data}];
+                return [{value: data}];
             });
         }
         return [];

@@ -288,13 +288,13 @@ export default class FillPlaceholder extends Component {
         if (attribute.type === 'checkboxes') {
             multiSelect =
                 <span className="multi-select"> (select multiple) </span>;
-            if(!expanded) {
+            if (!expanded) {
                 nextButton =
                 <Grid item xs={2}>
                     <Button
                         variant="raised"
                         classes={{
-                            root:"poc-next-item-btn"
+                            root: "poc-next-item-btn"
                         }}
                         onClick={expanded ? null : this.nextField.bind(this, entryIndex)}
                     >

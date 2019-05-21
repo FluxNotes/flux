@@ -70,7 +70,7 @@ export default class NoteParser {
             shortcut.updatePatient(this.patient, this.contextManager, null);
         }
 
-        if (shortcut instanceof InsertValue ) {
+        if (shortcut instanceof InsertValue) {
             const object = shortcut.createObjectForParsing(triggerOrKeywordObject.selectedValue, this.contextManager);
             this.patient.addEntryToPatient(object);
             shortcut.setValueObject(object);

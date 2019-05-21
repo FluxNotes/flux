@@ -19,6 +19,6 @@ const cancerOptions = [
  * Will return CodeableConcept object with empty strings if not found
  * If value found in list, function will return CodeableConcept with value, codeSystem, and displayText
  */
-export function getCancerCodeableConcept(possibleSpecificType){
+export function getCancerCodeableConcept(possibleSpecificType) {
     return codeableConceptUtils.getCodeableConceptFromOptions(possibleSpecificType, cancerOptions);
 }

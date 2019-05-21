@@ -44,7 +44,7 @@ class EditorToolbar extends React.Component {
     onClickBlock = (e, type) => {
 
         // Only handle click if not in read only mode
-        if(!this.props.isReadOnly) {
+        if (!this.props.isReadOnly) {
             e.preventDefault();
             this.handleBlockUpdate(type);
         }
@@ -67,7 +67,7 @@ class EditorToolbar extends React.Component {
         const onMouseDown = e => this.onClickMark(e, type);
 
         return (
-            <span className="button" style={{cursor:cursorStyle}} onMouseDown={onMouseDown} data-active={isActive}>
+            <span className="button" style={{cursor: cursorStyle}} onMouseDown={onMouseDown} data-active={isActive}>
                 <i className={"fa fa-fw " + icon} aria-label={"Make text " + type}></i>
             </span>
         );
@@ -88,7 +88,7 @@ class EditorToolbar extends React.Component {
         const onMouseDown = e => this.onClickBlock(e, type);
 
         return (
-            <span className="button" style={{cursor:cursorStyle}} onMouseDown={onMouseDown} data-active={isActive}>
+            <span className="button" style={{cursor: cursorStyle}} onMouseDown={onMouseDown} data-active={isActive}>
                 <i className={"fa fa-fw " + icon} aria-label={"Make text " + type}></i>
             </span>
         );
@@ -110,7 +110,7 @@ class EditorToolbar extends React.Component {
     renderCopyButton = () => {
         if (this.props.patient===null) {
             return (
-                <span id="copy-button" style={{cursor:'pointer'}}>
+                <span id="copy-button" style={{cursor: 'pointer'}}>
                     <i className="fa fa-files-o" aria-label="copy button" onClick={(e) => this.handleCopyClick(e)}></i>
                 </span>
             );

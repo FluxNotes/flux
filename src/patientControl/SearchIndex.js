@@ -32,7 +32,7 @@ class SearchIndex {
     }
 
     removeDataBySection(section) {
-        for(let id in this._index.documentStore.docs) {
+        for (let id in this._index.documentStore.docs) {
             if (this._index.documentStore.getDoc(id).section === section) {
                 this.removeDataByRef(id);
             }

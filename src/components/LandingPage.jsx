@@ -254,7 +254,7 @@ export default class LandingPage extends Component {
     }
 
     RareDiseasesIcon() {
-        return(
+        return (
             <svg viewBox="0 0 55 54" xmlns="http://www.w3.org/2000/svg">
                 <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                     <g transform="translate(-373.000000, -494.000000)">

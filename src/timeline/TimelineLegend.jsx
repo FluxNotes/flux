@@ -4,7 +4,7 @@ import './TimelineLegend.css';
 
 class Legend extends Component {
     render() {
-        return(
+        return (
             <div className="legend">
                 {this.props.items.map((item, i) => {
                     return (

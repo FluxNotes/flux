@@ -85,7 +85,7 @@ export default class MetadataSection {
             result += (result.length > 0 ? " c" : "C") + "linically recognized on " + new moment(entry.diagnosisDate, 'D MMM YYYY').format('D MMM YYYY');
         }
 
-        return {sourceMessage:result};
+        return {sourceMessage: result};
 
     }
 }

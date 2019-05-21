@@ -11,7 +11,7 @@ export default class IOutcomesService {
     key and display name.
     @example [{key: 'chemo', name: 'Chemotherapy'}]
   */
-    getSupportedTreatments(){
+    getSupportedTreatments() {
         throw new Error("getSupportedTreatments not implemented by " + this.constructor.name);
     }
 
@@ -44,7 +44,7 @@ export default class IOutcomesService {
     }
 
   */
-    processSimilarPatientOutcomes(similarPatientProps, includedTreatments, comparedTreatments){
+    processSimilarPatientOutcomes(similarPatientProps, includedTreatments, comparedTreatments) {
         throw new Error("processSimilarPatientOutcomes not implemented by " + this.constructor.name);
     }
 

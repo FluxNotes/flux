@@ -27,8 +27,8 @@ export default class DiseaseStatusSection extends MetadataSection {
             const start_time = prog.asOfDate;
             const evidence = prog.evidence.join(', ');
             return {
-                "start_time" : start_time,
-                "disease_status_code" : code,
+                "start_time": start_time,
+                "disease_status_code": code,
                 "disease_status_string": status,
                 "evidence": evidence,
             };

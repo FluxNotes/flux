@@ -111,7 +111,7 @@ export default class ContextOptions extends Component {
 
         // lets create a list of groups with associated shortcut triggers for each
         let groupList = [];
-        let currentGroup = { group: "", triggers:[] };
+        let currentGroup = { group: "", triggers: [] };
         let countToShow = 0;
         let totalShown = 0;
         triggers.forEach((trigger, i) => {
@@ -143,7 +143,7 @@ export default class ContextOptions extends Component {
             // Does the context not have metadata -- if so it's the parent context and it's a groupName
             Lang.isUndefined(context.metadata)
             // or, it needs to meet two criteria: 1. Does this group have some active elements to display
-            || ( groupList.length > 0
+            || (groupList.length > 0
                 // 2.Its referenced as a parent shortcut by >=1 active shortcuts who themselves have no group name
                 && validShortcutMetadata.filter((shortcutMetadata, i) => {
                     if (Lang.isUndefined(shortcutMetadata)) return false;

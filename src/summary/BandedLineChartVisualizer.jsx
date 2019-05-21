@@ -102,7 +102,7 @@ class BandedLineChartVisualizer extends Visualizer {
         const chartIcon = this.props.visualizerManager.renderIcon('chart', showLine);
         const scatterplotIcon = this.props.visualizerManager.renderIcon('scatterplot', !showLine);
 
-        return(
+        return (
             <span className="subsection-icons">
                 <Button className="small-btn" onClick={() => this.toggleLine(chartIndex, showLine)}>
                     {scatterplotIcon}
@@ -127,7 +127,7 @@ class BandedLineChartVisualizer extends Visualizer {
         // process dates into numbers for graphing
         const processedData = this.processForGraphing(data, xVar, xVarNumber);
         if (Lang.isUndefined(processedData) || processedData.length === 0) {
-            return(
+            return (
                 <div key={yVar}>
                     <div className="subsection-heading">
                         <h2>

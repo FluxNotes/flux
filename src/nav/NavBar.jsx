@@ -35,7 +35,7 @@ class NavBar extends Component {
 
     render() {
         const classes = this.props.classes;
-        const login = (this.props.supportLogin) ? (<Button style={{ color: "#17263f" }}>Dr.  Brown483 logged in</Button> ) : "";
+        const login = (this.props.supportLogin) ? (<Button style={{ color: "#17263f" }}>Dr.  Brown483 logged in</Button>) : "";
         const showMenu = (this.props.menuItems && this.props.menuItems.length > 0);
         let menuItemComponents = "";
 
@@ -59,7 +59,7 @@ class NavBar extends Component {
 
                         <Typography
                             type="title"
-                            style={{color:"#17263f", fontFamily: '"Open Sans", Arial, sans-serif'}}
+                            style={{color: "#17263f", fontFamily: '"Open Sans", Arial, sans-serif'}}
                             className={classes.flex}>
                             {this.props.title}
                         </Typography>

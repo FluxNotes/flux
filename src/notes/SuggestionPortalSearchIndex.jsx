@@ -27,16 +27,16 @@ class SuggestionPortalSearchIndex {
     }
 
     sortSuggestionsAlphabetically = (a, b) => {
-        if(a.data.score > b.data.score) {
+        if (a.data.score > b.data.score) {
             return 1;
         }
-        if(a.data.score < b.data.score){
+        if (a.data.score < b.data.score) {
             return -1;
         }
-        if(a.suggestion.toLowerCase() > b.suggestion.toLowerCase()){
+        if (a.suggestion.toLowerCase() > b.suggestion.toLowerCase()) {
             return 1;
         }
-        if(a.suggestion.toLowerCase() < b.suggestion.toLowerCase()){
+        if (a.suggestion.toLowerCase() < b.suggestion.toLowerCase()) {
             return -1;
         }
         return 0;
@@ -73,7 +73,7 @@ class SuggestionPortalSearchIndex {
                     matches: result.matches,
                 },
             };
-        }).sort(this.sortSuggestionsAlphabetically).slice(0,maxLength);;
+        }).sort(this.sortSuggestionsAlphabetically).slice(0,maxLength);
 
         return resultFormatted;
     }

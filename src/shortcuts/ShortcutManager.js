@@ -41,7 +41,7 @@ function addTriggerForCurrentShortcut(triggerObject, currentShortcut) {
             }
         }
         if (prefix) {
-            list = list.map((t) => { return { "name": prefix + t.name, "description":t.description }; });
+            list = list.map((t) => { return { "name": prefix + t.name, "description": t.description }; });
         }
         list.forEach((triggerObject) => {
             addTriggerForCurrentShortcut.bind(this)(triggerObject, currentShortcut);
@@ -80,7 +80,7 @@ function addKeywordsForCurrentShortcut(keywordObject, currentShortcut) {
             }
         }
         if (prefix) {
-            list = list.map((t) => { return { "name": prefix + t.name, "description":t.description }; });
+            list = list.map((t) => { return { "name": prefix + t.name, "description": t.description }; });
         }
         list.forEach((triggerObject) => {
             addKeywordsForCurrentShortcut.bind(this)(triggerObject, currentShortcut);
@@ -187,7 +187,7 @@ class ShortcutManager {
             if (!disabled && (shortcutList.length === 0 || shortcutList.includes(item["id"]))) {
                 this.shortcuts[item["id"]] = item;
                 // In addition to regular id's, we want to make sure NLPId's map onto the shortcuts as well
-                if(item["idForNLPEngine"]) {
+                if (item["idForNLPEngine"]) {
                     this.shortcuts[item["idForNLPEngine"]] = item;
                 }
 

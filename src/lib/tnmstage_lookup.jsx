@@ -25,13 +25,13 @@ const ms = [
         name: 'M0',
         description: 'No clinical or radiographic evidence of distant metastases',
         codeSystem: "urn:oid:2.16.840.1.113883.6.96",
-        code:"433581000124101"
+        code: "433581000124101"
     },
     {
         name: 'M1',
         description: 'Distant detectable metastases as determined by classic clinical and radiographic means and/or histologically proven larger than 0.2 mm',
         codeSystem: "urn:oid:2.16.840.1.113883.6.96",
-        code:"436331000124104"
+        code: "436331000124104"
     }
     // {
     //     name: "M1a",
@@ -92,19 +92,19 @@ const ts7thEdition = [
         name: 'Tis',
         description: "Carcinoma in situ",
         codeSystem: "urn:oid:2.16.840.1.113883.6.96",
-        code:"44401000"
+        code: "44401000"
     },
     {
         name: 'T0',
         description: "No evidence of primary tumor",
         codeSystem: "urn:oid:2.16.840.1.113883.6.96",
-        code:"433371000124106"
+        code: "433371000124106"
     },
     {
         name: 'T1',
         description: "Tumor ≤ 1 mm in greatest dimension",
         codeSystem: "urn:oid:2.16.840.1.113883.6.96",
-        code:"369895002"
+        code: "369895002"
     },
     // We are currently not using these
     // {
@@ -131,19 +131,19 @@ const ts7thEdition = [
         name: 'T2',
         description: "20 < Tumor ≤ 50 mm in greatest dimension",
         codeSystem: "urn:oid:2.16.840.1.113883.6.96",
-        code:"369900003"
+        code: "369900003"
     },
     {
         name: 'T3',
         description: "Tumor > 50 mm in greatest dimension",
         codeSystem: "urn:oid:2.16.840.1.113883.6.96",
-        code:"369901004"
+        code: "369901004"
     },
     {
         name: 'T4',
         description: "Tumor of any size with direct extension to the chest wall and/or to the skin (ulceration or skin nodules)",
         codeSystem: "urn:oid:2.16.840.1.113883.6.96",
-        code:"433401000124109"
+        code: "433401000124109"
     }
 ];
 // const ns7thEdition = ['N0', 'N1mi', 'N1', 'N2', 'N3'];
@@ -152,7 +152,7 @@ const ns7thEdition = [
         name: 'N0',
         description: "No regional lymph node metastases",
         codeSystem: "urn:oid:2.16.840.1.113883.6.96",
-        code:"436311000124105"
+        code: "436311000124105"
     },
     {
         name: 'N1mi',
@@ -164,19 +164,19 @@ const ns7thEdition = [
         name: 'N1',
         description: "Micrometastases; or metastases in 1–3 axillary lymph nodes; and/or in internal mammary nodes with metastases detected by sentinel lymph node biopsy but not clinically detected",
         codeSystem: "urn:oid:2.16.840.1.113883.6.96",
-        code:"433511000124108"
+        code: "433511000124108"
     },
     {
         name: 'N2',
         description: "Metastases in 4–9 axillary lymph nodes; or in clinically detected internal mammary lymph nodes in the absence of axillary lymph node metastases",
         codeSystem: "urn:oid:2.16.840.1.113883.6.96",
-        code:"433551000124109"
+        code: "433551000124109"
     },
     {
         name: 'N3',
         description: "Metastases in 10 or more axillary lymph nodes; or in infraclavicular (level III axillary) lymph nodes; or in clinically detected ipsilateral internal mammary lymph nodes in the presence of one or more positive level I, II axillary lymph nodes; or in more than three axillary lymph nodes and in internal mammary lymph nodes with micrometastases or macrometastases detected by sentinel lymph node biopsy but not clinically detected; or in ipsilateral supraclavicular lymph nodes",
         codeSystem: "urn:oid:2.16.840.1.113883.6.96",
-        code:"433431000124101"
+        code: "433431000124101"
     }
 ];
 const table7thEdition = [
@@ -194,42 +194,42 @@ const stageOptions = [
     {
         name: "IA",
         codeSystem: "urn:oid:2.16.840.1.113883.6.96",
-        code:"46333007"
+        code: "46333007"
     },
     {
         name: "IB",
         codeSystem: "urn:oid:2.16.840.1.113883.6.96",
-        code:"786005"
+        code: "786005"
     },
     {
         name: "IIA",
         codeSystem: "urn:oid:2.16.840.1.113883.6.96",
-        code:"52774001"
+        code: "52774001"
     },
     {
         name: "IIB",
         codeSystem: "urn:oid:2.16.840.1.113883.6.96",
-        code:"17816005"
+        code: "17816005"
     },
     {
         name: "IIIA",
         codeSystem: "urn:oid:2.16.840.1.113883.6.96",
-        code:"73082003"
+        code: "73082003"
     },
     {
         name: "IIIB",
         codeSystem: "urn:oid:2.16.840.1.113883.6.96",
-        code:"64062008"
+        code: "64062008"
     },
     {
         name: "IIIC",
         codeSystem: "urn:oid:2.16.840.1.113883.6.96",
-        code:"48105005"
+        code: "48105005"
     },
     {
         name: "IV",
         codeSystem: "urn:oid:2.16.840.1.113883.6.96",
-        code:"2640006"
+        code: "2640006"
     }
 ];
 
@@ -238,7 +238,7 @@ const stageOptions = [
  *  Will return CodeableConcept object with empty strings if not found
  *  If stage found in list, function will return CodeableConcept with value, codeSystem, and displayText
  */
-export function getStagingCodeableConcept(possibleStage){
+export function getStagingCodeableConcept(possibleStage) {
     return codeableConceptUtils.getCodeableConceptFromOptions(possibleStage, stageOptions);
 }
 
@@ -247,7 +247,7 @@ export function getStagingCodeableConcept(possibleStage){
  *  Will return CodeableConcept object with empty strings if not found
  *  If tStage found in list, function will return CodeableConcept with value, codeSystem, and displayText
  */
-export function getTStageCodeableConcept(possibleTStage){
+export function getTStageCodeableConcept(possibleTStage) {
     return codeableConceptUtils.getCodeableConceptFromOptions(possibleTStage, ts7thEdition);
 }
 
@@ -256,7 +256,7 @@ export function getTStageCodeableConcept(possibleTStage){
  *  Will return CodeableConcept object with empty strings if not found
  *  If nStage found in list, function will return CodeableConcept with value, codeSystem, and displayText
  */
-export function getNStageCodeableConcept(possibleNStage){
+export function getNStageCodeableConcept(possibleNStage) {
     return codeableConceptUtils.getCodeableConceptFromOptions(possibleNStage, ns7thEdition);
 }
 
@@ -265,13 +265,13 @@ export function getNStageCodeableConcept(possibleNStage){
  *  Will return CodeableConcept object with empty strings if not found
  *  If mStage found in list, function will return CodeableConcept with value, codeSystem, and displayText
  */
-export function getMStageCodeableConcept(possibleMStage){
+export function getMStageCodeableConcept(possibleMStage) {
     return codeableConceptUtils.getCodeableConceptFromOptions(possibleMStage, ms);
 }
 
-export function getDescription(dataElement){
-    if(typeof(dataElement) !== 'string') {return null;}
-    switch(dataElement.toLowerCase()) {
+export function getDescription(dataElement) {
+    if (typeof(dataElement) !== 'string') { return null; }
+    switch (dataElement.toLowerCase()) {
     case "tnmstage":
         return "The stage of a cancer, assessed according to the standard established by American Joint Committee on Cancer (AJCC). TNM Stage Grouping categorizes the progression of cancer using the Roman Numeral system.";
     case "tumorsize":
@@ -287,7 +287,7 @@ export function getDescription(dataElement){
     }
 }
 
-export function getTsForEdition(ed){
+export function getTsForEdition(ed) {
     switch (Number(ed)) {
     case 5:
         return ts5thEdition;
@@ -301,7 +301,7 @@ export function getTsForEdition(ed){
 }
 
 // Returns just the names of the T values(without the tool tip text)
-export function getTsNamesForEdition(ed){
+export function getTsNamesForEdition(ed) {
     const ts = getTsForEdition(ed);
     let names = [];
     ts.forEach((t) => {
@@ -310,7 +310,7 @@ export function getTsNamesForEdition(ed){
     return names;
 }
 
-export function getNsForEdition(ed){
+export function getNsForEdition(ed) {
     switch (Number(ed)) {
     case 5:
         return ns5thEdition;
@@ -324,7 +324,7 @@ export function getNsForEdition(ed){
 }
 
 // Returns just the names of the N values(without the tool tip text)
-export function getNsNamesForEdition(ed){
+export function getNsNamesForEdition(ed) {
     const ns = getNsForEdition(ed);
     let names = [];
     ns.forEach((n) => {
@@ -333,7 +333,7 @@ export function getNsNamesForEdition(ed){
     return names;
 }
 
-export function getMsForEdition(ed){
+export function getMsForEdition(ed) {
     switch (Number(ed)) {
     case 5:
     case 6:
@@ -344,7 +344,7 @@ export function getMsForEdition(ed){
     }
 }
 
-export function getMsNamesForEdition(ed){
+export function getMsNamesForEdition(ed) {
     const ms = getMsForEdition(ed);
     let names = [];
     ms.forEach((m) => {
@@ -353,7 +353,7 @@ export function getMsNamesForEdition(ed){
     return names;
 }
 
-export function getTableForEdition(ed){
+export function getTableForEdition(ed) {
     switch (ed) {
     case 5:
         return table5thEdition;
@@ -366,16 +366,16 @@ export function getTableForEdition(ed){
     }
 }
 
-export function isValidT(possibleT, edition=7){
+export function isValidT(possibleT, edition=7) {
     const possibleTValues = getTsForEdition(edition);
-    return possibleTValues.some((tValue) => {return tValue.name.toLowerCase() === possibleT.toLowerCase();});
+    return possibleTValues.some((tValue) => { return tValue.name.toLowerCase() === possibleT.toLowerCase(); });
 }
 
-export function isValidN(possibleN, edition=7){
+export function isValidN(possibleN, edition=7) {
     const possibleNValues = getNsForEdition(edition);
-    return possibleNValues.some((nValue) => {return nValue.name.toLowerCase() === possibleN.toLowerCase();});
+    return possibleNValues.some((nValue) => { return nValue.name.toLowerCase() === possibleN.toLowerCase(); });
 }
-export function isValidM(possibleM, edition=7){
+export function isValidM(possibleM, edition=7) {
     const possibleMValues = getMsForEdition(edition);
-    return possibleMValues.some((mValue) => {return mValue.name.toLowerCase() === possibleM.toLowerCase();});
+    return possibleMValues.some((mValue) => { return mValue.name.toLowerCase() === possibleM.toLowerCase(); });
 }

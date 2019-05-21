@@ -24,7 +24,7 @@ export default class PickListOptionsPanel extends Component {
         let triggerSelections = this.arrayOfPickLists.map((pickList) => {
             return {
                 trigger: pickList.trigger,
-                shortcut:  pickList.shortcut
+                shortcut: pickList.shortcut
             };
         });
 

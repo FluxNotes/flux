@@ -67,7 +67,7 @@ export default class TargetedDataSubpanel extends Component {
                 currentEntry._patientRecord = null;
                 accumulator.push({
                     srcIndex: currentIndex,
-                    patientRecordCopy : copyOfPatientRecord
+                    patientRecordCopy: copyOfPatientRecord
                 });
             }
             return accumulator;

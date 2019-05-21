@@ -936,7 +936,7 @@ class FluxNotesEditor extends React.Component {
     highlightCurrentHighlightedSearchSuggestion = (newHighlightedSearchSuggestion, prevTransform=undefined) => {
         const {document} = this.state.state;
         let transform = Lang.isUndefined(prevTransform) ? this.state.state.transform() : prevTransform;
-        if (!Lang.isNull(newHighlightedSearchSuggestion)){
+        if (!Lang.isNull(newHighlightedSearchSuggestion)) {
             // Highlight matching plaintext
             //
             // Need a way of matching a specific instance of that match; we give each match
@@ -1268,7 +1268,7 @@ class FluxNotesEditor extends React.Component {
         }
         let after = '';
         let structuredFieldToFollow = false;
-        while(liStartIndex !== -1 || liEndIndex !== -1) {
+        while (liStartIndex !== -1 || liEndIndex !== -1) {
             let { calculatedStartIndex, calculatedEndIndex, startOffset, endOffset } = this.getOffsets(listText, liStartIndex, liEndIndex, 4);
             let before = listText.substring(0, calculatedStartIndex);
             let during = listText.substring(calculatedStartIndex + startOffset, calculatedEndIndex);

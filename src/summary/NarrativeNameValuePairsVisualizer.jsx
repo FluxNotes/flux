@@ -100,7 +100,7 @@ class NarrativeNameValuePairsVisualizer extends Visualizer {
             return item.name + ": " + (Lang.isObject(item.value) ? item.value.value : item.value);
         };
         let _addListItemToResult = (listItem) => {
-            if (!first) result.push( { text: ', ', type: 'plain' });
+            if (!first) result.push({ text: ', ', type: 'plain' });
             value = _addNameValueToNarrative(listItem);
             type = "narrative-structured-data";
             result.push({
@@ -115,20 +115,20 @@ class NarrativeNameValuePairsVisualizer extends Visualizer {
             if (first) first = false;
         };
         while (pos !== -1) {
-            result.push( { text: template.substring(start, pos), type: 'plain'} );
+            result.push({ text: template.substring(start, pos), type: 'plain'});
             endpos = template.indexOf("}", pos);
             valueSpec = template.substring(pos + 2, endpos);
             index = valueSpec.indexOf(".");
             if (index === -1) {
                 subsectionName = valueSpec;
-                if(Lang.isUndefined(subsections[subsectionName])) {
-                    result.push( { text: valueSpec, type: 'narrative-missing-data' } );
+                if (Lang.isUndefined(subsections[subsectionName])) {
+                    result.push({ text: valueSpec, type: 'narrative-missing-data' });
                 } else {
                     list = this.getList(subsections[subsectionName]);
                     if (Lang.isEmpty(list) || Lang.isNull(list)) {
                         value = "missing";
                         type = "narrative-missing-data";
-                        result.push( { text: value, type: type } );
+                        result.push({ text: value, type: type });
                         // add an else-if here? and 'subsections' should contain the unsigned-ness
                     } else {
                         first = true;
@@ -161,7 +161,7 @@ class NarrativeNameValuePairsVisualizer extends Visualizer {
                     value = "missing";
                     type = "narrative-missing-data";
                 }
-                result.push( { text: value, type: type, item: item } );
+                result.push({ text: value, type: type, item: item });
             }
             //result.push( { text: value, type: type } );
             start = endpos + 1;
@@ -171,7 +171,7 @@ class NarrativeNameValuePairsVisualizer extends Visualizer {
                 pos = -1;
             }
         }
-        if (start < len) result.push( { text: template.substring(start), type: 'plain' } );
+        if (start < len) result.push({ text: template.substring(start), type: 'plain' });
         return result;
     }
 

@@ -1,8 +1,15 @@
 {
     "extends": "react-app",
     "rules": {
+        "arrow-spacing": "warn",
+        "block-spacing": "warn",
+        "key-spacing": "warn",
+        "keyword-spacing": "warn",
         "indent": ["warn", 4],
         "no-trailing-spaces": "warn",
-        "semi": "warn"
+        "semi": "warn",
+        "semi-spacing": "warn",
+        "space-before-blocks": "warn",
+        "space-in-parens": "warn"
     }
 }

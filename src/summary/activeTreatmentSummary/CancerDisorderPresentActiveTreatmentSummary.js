@@ -62,7 +62,7 @@ class CancerDisorderPresentActiveTreatmentSummary extends IActiveTreatmentSummar
                     activeTreatment = { ...this._possibleActiveTreatmentOptions["adjuvant"], ...activeTreatment};
                 } else {
                     // TODO: Define treatment summary based on a description of the current medications
-                    activeTreatment = { ...this._possibleActiveTreatmentOptions["medication"], ...activeTreatment};;
+                    activeTreatment = { ...this._possibleActiveTreatmentOptions["medication"], ...activeTreatment};
                 }
             }
         } else {

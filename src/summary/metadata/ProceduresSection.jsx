@@ -24,7 +24,7 @@ export default class ProceduresSection extends MetadataSection {
             let result = [
                 {   value: p.name,
                     isUnsigned: patient.isUnsigned(p),
-                    source:  this.determineSource(patient, p),
+                    source: this.determineSource(patient, p),
                     shortcutData: {
                         shortcut: '@procedure',
                         entryId: p.entryInfo.entryId,
@@ -41,7 +41,7 @@ export default class ProceduresSection extends MetadataSection {
             }
             result.push({   value: p.expectedPerformer,
                 isUnsigned: patient.isUnsigned(p),
-                source:  this.determineSource(patient, p) });
+                source: this.determineSource(patient, p) });
 
             return result;
         });

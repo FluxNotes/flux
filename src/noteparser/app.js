@@ -61,7 +61,7 @@ let iterateAllFilesDeep = (start, perFileFunc) => {
                 if (err) {
                     return console.error(err);
                 }
-                files.forEach( function(file, index) {
+                files.forEach(function(file, index) {
                     iterateAllFilesDeep(path.join(start, file), perFileFunc);
                 });
             });

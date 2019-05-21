@@ -130,7 +130,7 @@ PatientControlPanel.propTypes = {
     clinicalEvent: PropTypes.string.isRequired,
     isAppBlurred: PropTypes.bool,
     layout: PropTypes.string,
-    logoObject:  PropTypes.shape({
+    logoObject: PropTypes.shape({
         path: PropTypes.string.isRequired,
         altText: PropTypes.string.isRequired,
         width: PropTypes.string,

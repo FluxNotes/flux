@@ -44,17 +44,17 @@ class ProgressionLineChartVisualizer extends Visualizer {
         };
         this.valueToProgressionMap = {
             // 'Complete Response'
-            "-1" : 'Complete Response',
+            "-1": 'Complete Response',
             // 'Complete Resection'
-            "0" : 'Complete Resection',
+            "0": 'Complete Resection',
             // 'Responding'
-            "1" : 'Responding',
+            "1": 'Responding',
             // 'Stable'
-            "2" : 'Stable',
+            "2": 'Stable',
             // 'Progressing'
-            "3" : 'Progressing',
+            "3": 'Progressing',
             // 'Inevaluable'
-            "null" : 'Inevaluable',
+            "null": 'Inevaluable',
         };
     }
 
@@ -202,7 +202,7 @@ class ProgressionLineChartVisualizer extends Visualizer {
                 evidence: "",
                 start_time: this.dateFormat(diagnosisDate.date),
                 start_time_number: diagnosisDate.date,
-                diagnosis_date : diagnosisDate.date,
+                diagnosis_date: diagnosisDate.date,
                 label: `ref_${i}`
             });
         });
@@ -234,7 +234,7 @@ class ProgressionLineChartVisualizer extends Visualizer {
                         domain={yAxisDomain}
                         ticks={yTicks}
                         tickMargin={5}
-                        tickFormatter={(val) => { return this.valueToProgressionMap[val.toString()];}}
+                        tickFormatter={(val) => { return this.valueToProgressionMap[val.toString()]; }}
                     />
                     <Tooltip
                         content={this.diseaseStatusTooltipFunction}

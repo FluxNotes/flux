@@ -44,6 +44,6 @@ const clinicalTrialStatusOptions = [
  * Will return CodeableConcept object with empty strings if not found
  * If value found in list, function will return CodeableConcept with value, codeSystem, and displayText
  */
-export function getStatusCodeableConcept(possibleStatus){
+export function getStatusCodeableConcept(possibleStatus) {
     return codeableConceptUtils.getCodeableConceptFromOptions(possibleStatus, clinicalTrialStatusOptions);
 }

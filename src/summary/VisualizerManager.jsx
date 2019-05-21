@@ -248,7 +248,7 @@ export default class VisualizerManager {
     }
 
     getIndexer(dataType) {
-        switch(dataType) {
+        switch (dataType) {
         case "NameValuePairs":
         case "NarrativeOnly":
             return new NameValuePairsIndexer();

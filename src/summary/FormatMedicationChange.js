@@ -2,7 +2,7 @@
      * Formats the medicationChange date for display
      * returns a string for displaying the medChange date
      */
-export function stringForMedicationChangeDate(date){
+export function stringForMedicationChangeDate(date) {
     return ` on ${date}`;
 };
 
@@ -10,7 +10,7 @@ export function stringForMedicationChangeDate(date){
      * Formats the medicationChange type for display
      * returns a string for displaying the medChange type
      */
-export function stringForMedicationChangeType(changeType){
+export function stringForMedicationChangeType(changeType) {
     switch (changeType) {
     case "reduced":
         return 'Reduced';
@@ -32,7 +32,7 @@ export function stringForMedicationChangeType(changeType){
      * Formats the medicationChange prior medication for display
      * returns a string for displaying information re: prior medication
      */
-export function stringForMedicationChangePriorAmount(changeType, medBefore){
+export function stringForMedicationChangePriorAmount(changeType, medBefore) {
     switch (changeType) {
     case "reduced":
         return ` from ${medBefore.amountPerDose.value}${medBefore.amountPerDose.units} `;
@@ -49,6 +49,6 @@ export function stringForMedicationChangePriorAmount(changeType, medBefore){
     }
 };
 
-export function stringForMedicationStoppedDosageBefore(medBefore){
+export function stringForMedicationStoppedDosageBefore(medBefore) {
     return ` (dose was ${medBefore.amountPerDose.value}${medBefore.amountPerDose.units})`;
 };

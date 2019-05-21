@@ -71,7 +71,7 @@ class ContextPortal extends React.Component {
      */
     onOpen = (portal) => {
         this.setState({ menu: portal.firstChild, active: true, justActive: true });
-        setTimeout(function(){ this.setState({ justActive: false }); }.bind(this), 100);
+        setTimeout(function() { this.setState({ justActive: false }); }.bind(this), 100);
     }
     /* Called when user hits esc or clicks outside of portal
      * Call onSelected with null context to indicate nothing selected and just clean up state
@@ -207,7 +207,7 @@ class ContextPortal extends React.Component {
             <Calendar
                 showDateInput={false}
                 onSelect={this.handleCalendarSelect}
-                ref={input => input && setTimeout(() => {input.focus();}, 100)}
+                ref={input => input && setTimeout(() => { input.focus(); }, 100)}
             />
         );
     }

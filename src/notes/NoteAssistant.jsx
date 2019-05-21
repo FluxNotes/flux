@@ -82,7 +82,7 @@ export default class NoteAssistant extends Component {
         this.props.searchIndex.removeDataBySection('Clinical Notes');
     }
 
-    isScrolledIntoView(elem){
+    isScrolledIntoView(elem) {
         let el = elem;
         var rect = el.getBoundingClientRect(), top = rect.top, height = rect.height;
         el = el.parentNode;
@@ -192,7 +192,7 @@ export default class NoteAssistant extends Component {
 
     onSearchSuggestionHighlighted = (suggestion, shouldReset=false) => {
         this.toggleView('clinical-notes');
-        if(shouldReset) {
+        if (shouldReset) {
             this.setState({
                 searchResultNoteId: null
             });

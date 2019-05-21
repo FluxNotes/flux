@@ -5,7 +5,7 @@ import StaticOutcomesService from '../mcode-pilot/services/outcomes/StaticOutcom
 
 
 const SERVICES = {
-    'StaticOutcomesService' :  StaticOutcomesService
+    'StaticOutcomesService': StaticOutcomesService
 };
 
 export default class ServiceManager {

@@ -507,7 +507,7 @@ const mapAnnotation = (annotation) => {
  *  Instantiates mCODE v0.1 entry objects
  *  Loops through all mCODE v0.1 entries and maps to Flux Notes Object Model classes
  */
-export function mapEntries(v01Json){
+export function mapEntries(v01Json) {
     const entries = v01Json.map(entry => MCODEV01ObjectFactory.createInstance(entry));
     const v05Json = [];
     entries.forEach(entry => {

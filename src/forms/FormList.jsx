@@ -56,7 +56,7 @@ class FormList extends Component {
                                     disableTypography={true}
                                     onTouchTap={ (e) => {
                                         this._onTouchTap(e, shortcutName);
-                                        this._newShortcut(e, i, shortcutName);}
+                                        this._newShortcut(e, i, shortcutName); }
                                     }
                                 />
                             </ListItem>

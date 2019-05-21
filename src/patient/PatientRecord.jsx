@@ -77,8 +77,8 @@ class PatientRecord {
     }
 
     // Returns true if the entry is unsigned, false otherwise
-    isUnsigned(entry){
-        if(Lang.isNull(entry)) return false;
+    isUnsigned(entry) {
+        if (Lang.isNull(entry)) return false;
 
         if (entry.entryInfo.sourceClinicalNote) {
             let clinicalNote = this.getEntryFromReference(entry.entryInfo.sourceClinicalNote);
@@ -112,11 +112,11 @@ class PatientRecord {
     }
 
     // Finds an existing entry with the same entryId and replaces it with updatedEntry
-    updateExistingEntry(updatedEntry){
-        var found = this.entries.find(function(element){
+    updateExistingEntry(updatedEntry) {
+        var found = this.entries.find(function(element) {
             return Lang.isEqual(element.entryInfo.entryId, updatedEntry.entryInfo.entryId);
         });
-        if(!Lang.isUndefined(found)){
+        if (!Lang.isUndefined(found)) {
             var index = this.entries.indexOf(found);
             this.entries[index] = updatedEntry;
         }
@@ -128,7 +128,7 @@ class PatientRecord {
             if (!(element instanceof FluxResearchSubject)) return false;
             return element.title === entry.title;
         });
-        if(!Lang.isUndefined(found)) {
+        if (!Lang.isUndefined(found)) {
             found.status = 'Completed';
             return found;
         } else {
@@ -136,7 +136,7 @@ class PatientRecord {
         }
     }
 
-    reAddEntryToPatient(entry){
+    reAddEntryToPatient(entry) {
         this.entries.push(entry);
     }
 
@@ -291,7 +291,7 @@ class PatientRecord {
     }
 
     // returns sorted list of encounters
-    getEncountersChronologicalOrder(){
+    getEncountersChronologicalOrder() {
         const encounters = this.getEntriesOfType(FluxConsultRequested);
         encounters.sort(this._encounterTimeSorter);
         return encounters;
@@ -413,7 +413,7 @@ class PatientRecord {
         return clinicalTrialsAndCriteriaList;
     }
 
-    getEnrolledClinicalTrials(){
+    getEnrolledClinicalTrials() {
         let clinicalTrialList = new ClinicalTrialsList();
         let result = this.getEntriesOfType(FluxResearchSubject);
 
@@ -560,7 +560,7 @@ class PatientRecord {
         return this.getEntriesOfType(FluxClinicalNote);
     }
 
-    getInProgressNotes(){
+    getInProgressNotes() {
         let notes = this.getNotes();
         return notes.filter((inprog) => {
             return inprog.signed === false;
@@ -778,7 +778,7 @@ class PatientRecord {
                 }) || medAfterChange.reasons.some((r) => {
                     return r.value.entryId && r.value.entryId === conditionEntryId;
                 });
-            } else if (medBeforeChange){
+            } else if (medBeforeChange) {
                 eitherChangeIsRelated = medBeforeChange.reasons.some((r) => {
                     return r.value.entryId && r.value.entryId === conditionEntryId;
                 });
@@ -1289,13 +1289,13 @@ class PatientRecord {
             const relevantTime = new moment(heartRate.relevantTime, "D MMM YYYY").format("D MMM YYYY");
             return relevantTime === today;
         });
-        if (Lang.isUndefined(bloodPressure) && Lang.isUndefined(bodyTemperature) && Lang.isUndefined(bodyWeight) && Lang.isUndefined(heartRate)){
+        if (Lang.isUndefined(bloodPressure) && Lang.isUndefined(bodyTemperature) && Lang.isUndefined(bodyWeight) && Lang.isUndefined(heartRate)) {
             return "no vital signs taken today";
         }
         const results = (Lang.isUndefined(bloodPressure) ? "" : "Blood pressure is " + bloodPressure.value + ". ") +
                         (Lang.isUndefined(bodyTemperature) ? "" : "Temperature is " + bodyTemperature.value + " "+ bodyTemperature.units + ". ") +
                         (Lang.isUndefined(bodyWeight) ? "" : "Weight is " + bodyWeight.value + " " + bodyWeight.units + ". ") +
-                        (Lang.isUndefined(heartRate) ? "" : "Heart rate is " + heartRate.value + heartRate.units + ".");;
+                        (Lang.isUndefined(heartRate) ? "" : "Heart rate is " + heartRate.value + heartRate.units + ".");
         return results;
     }
 

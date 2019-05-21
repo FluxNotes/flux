@@ -43,17 +43,17 @@ const receptorTypeOptions = [
  * Will return CodeableConcept object with empty strings if not found
  * If value found in list, function will return CodeableConcept with value, codeSystem, and displayText
  */
-export function getReceptorValueCodeableConcept(possibleReceptorValue){
+export function getReceptorValueCodeableConcept(possibleReceptorValue) {
     return codeableConceptUtils.getCodeableConceptFromOptions(possibleReceptorValue, receptorValueOptions);
 }
-export function getReceptorTypeCodeableConcept(possibleReceptorType){
+export function getReceptorTypeCodeableConcept(possibleReceptorType) {
     return codeableConceptUtils.getCodeableConceptFromOptions(possibleReceptorType, receptorTypeOptions);
 }
 
-export function getReceptorValueOptions(){
+export function getReceptorValueOptions() {
     return receptorValueOptions;
 }
 
-export function getReceptorTypeOptions(){
+export function getReceptorTypeOptions() {
     return receptorTypeOptions;
 }

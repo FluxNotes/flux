@@ -176,11 +176,11 @@ export default class TargetedDataSection extends Component {
     }
 
     getNameSuffix =  (section) => {
-        if(section.nameSuffixFunction) {
+        if (section.nameSuffixFunction) {
             const result = section.nameSuffixFunction(section);
 
-            if (Lang.isObject(result) && !Lang.isUndefined(result.then)){
-                result.then( suffix => {
+            if (Lang.isObject(result) && !Lang.isUndefined(result.then)) {
+                result.then(suffix => {
                     this.setState({
                         sectionNameSuffix: suffix
                     });
@@ -243,7 +243,7 @@ export default class TargetedDataSection extends Component {
     getFilterValue = (filter, subsectionName) => {
         const { section } = this.props;
         const subsectionFilters = this.props.preferenceManager.getPreference(`${section.name}-${subsectionName}-${filter.id}`);
-        if(Lang.isNull(subsectionFilters)) return true;
+        if (Lang.isNull(subsectionFilters)) return true;
         return subsectionFilters;
 
     }

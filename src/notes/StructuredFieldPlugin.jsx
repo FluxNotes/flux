@@ -76,7 +76,7 @@ function StructuredFieldPlugin(opts) {
                 return newState;
             }
         } else if (e.keyCode === 37 && previousNode) {
-            if(previousNode.type === 'structured_field') {
+            if (previousNode.type === 'structured_field') {
                 let transform = state.transform();
                 transform = transform.collapseToStart(previousNode);
                 let newState = transform.apply();
@@ -623,10 +623,10 @@ function StructuredFieldPlugin(opts) {
         },
 
         transforms: {
-            insertStructuredField:      	insertStructuredField.bind(null, opts),
-            updateStructuredField:          updateStructuredField.bind(null, opts),
-            insertPlaceholder:              insertPlaceholder.bind(null, opts),
-            insertStructuredFieldAtRange:   insertStructuredFieldAtRange.bind(null, opts)
+            insertStructuredField: insertStructuredField.bind(null, opts),
+            updateStructuredField: updateStructuredField.bind(null, opts),
+            insertPlaceholder: insertPlaceholder.bind(null, opts),
+            insertStructuredFieldAtRange: insertStructuredFieldAtRange.bind(null, opts)
         }
     };
 }

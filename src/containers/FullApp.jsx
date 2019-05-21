@@ -319,7 +319,7 @@ export class FullApp extends Component {
 
     nameSourceAction = (element) => {
         if (element.source) {
-            return (element.source.note ? "Open Source Note" :   (element.source.link ?  "View Source Attachment" : ( element.source.sourceMessage !== "" ? "View Source" : "No Source information")));
+            return (element.source.note ? "Open Source Note" :   (element.source.link ?  "View Source Attachment" : (element.source.sourceMessage !== "" ? "View Source" : "No Source information")));
         }
         return "No source information";
     }
@@ -364,7 +364,7 @@ export class FullApp extends Component {
             // calls to this method from the buttons on a ListType pass in 'item' as an array.
             if (Lang.isArray(item) && arrayIndex >= 0) {
                 // If the object to insert has an associated shortcut, is will be an object like {name: x, shortcut: z}
-                if(Lang.isObject(item[arrayIndex])){
+                if (Lang.isObject(item[arrayIndex])) {
                     newStateValues = { summaryItemToInsert: `${item[arrayIndex].shortcut}[[${item[arrayIndex].name}]]` };
                 } else {
                     newStateValues = { summaryItemToInsert: item[arrayIndex] };
