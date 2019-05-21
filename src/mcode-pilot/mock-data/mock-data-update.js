@@ -40,7 +40,7 @@ function modelParse(property) {
             }
         }
     } else if (property.type === "multi-choice") {
-        weight = (property.weight === "uniform") ? new Array(property.values.length).fill(1 / property.values.length) : property.weight;
+        const weight = (property.weight === "uniform") ? new Array(property.values.length).fill(1 / property.values.length) : property.weight;
         let r;
         const returnSet = [];
         const defaultValue = property.values.filter((e) => { return e.startsWith("!"); });
