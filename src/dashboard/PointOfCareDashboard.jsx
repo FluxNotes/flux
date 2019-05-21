@@ -90,7 +90,7 @@ export default class PointOfCareDashboard extends Component {
     }
 
     renderSidebar() {
-        return(
+        return (
             <div className="poc-nav-bar">
                 <Button onClick={() => this.togglePOC(false)}>
                     {this.renderTdpIcon()}
