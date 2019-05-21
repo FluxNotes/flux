@@ -2,6 +2,7 @@ import Shortcut from './Shortcut';
 import Lang from 'lodash';
 import CreatorBase from './CreatorBase';
 import SingleHashtagKeyword from './SingleHashtagKeyword';
+import ContextListOptions from '../context/ContextListOptions';
 
 export default class InsertValue extends Shortcut {
     constructor(onUpdate, metadata, patient, shortcutData) {
@@ -272,5 +273,9 @@ export default class InsertValue extends Shortcut {
 
     get isComplete() {
         return this.getDisplayText() !== this.metadata.stringTriggers[0].name;
+    }
+
+    get completionComponent() {
+        return ContextListOptions;
     }
 }
