@@ -1866,6 +1866,7 @@ class FluxNotesEditor extends React.Component {
                         onSelected={this.onPortalSelection}
                         shortcut={this.selectingForShortcut}
                         state={this.state.state}
+                        onChange={this.onChange}
                         trigger={"@"}
                     />
                 </div>
