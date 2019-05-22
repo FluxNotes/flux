@@ -252,7 +252,10 @@ ContextPortal.propTypes = {
     capture: PropTypes.object.isRequired,
     callback: PropTypes.object.isRequired,
     contextManager: PropTypes.object.isRequired,
-    contexts: PropTypes.array,
+    contexts: PropTypes.oneOfType([
+        PropTypes.array,
+        PropTypes.string,
+    ]),
     getPosition: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
     openedPortal: PropTypes.string,

@@ -33,7 +33,7 @@ SingleChoiceButton.propTypes= {
     buttonText: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
     className: PropTypes.string,
-    marginSize: PropTypes.string.isRequired,
+    marginSize: PropTypes.string,
     isDisabled: PropTypes.bool,
 };
 
