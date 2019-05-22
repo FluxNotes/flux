@@ -144,8 +144,8 @@ export default class PointOfCareDashboard extends Component {
         return (
             <div className="right-border-box point-of-care-container" style={PointOfCarePanelStyles}>
                 <PointOfCarePanel
-                appState={this.props.appState}
-                structuredFieldMapManager={this.props.structuredFieldMapManager} />
+                    appState={this.props.appState}
+                    structuredFieldMapManager={this.props.structuredFieldMapManager} />
             </div>
         );
     }

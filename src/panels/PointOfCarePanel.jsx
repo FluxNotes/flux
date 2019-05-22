@@ -23,8 +23,8 @@ export default class PointOfCarePanel extends Component {
         return (
             <div id="point-of-care-dashboard-content" style={{display: "flex"}}>
                 <PointOfCare
-                structuredFieldMapManager={structuredFieldMapManager}
-                isAppBlurred={this.props.isAppBlurred}
+                    structuredFieldMapManager={structuredFieldMapManager}
+                    isAppBlurred={this.props.isAppBlurred}
                 />
             </div>
         );
