@@ -200,8 +200,9 @@ export default class InsertValue extends Shortcut {
         return Lang.isArray(this.text) ? this.text : [];
     }
 
-    serialize() {
-        let text = this.text; 
+    serialize(displayText) {
+        // TODO: Refactor to no longer need displayText as a parameter. This variable should only use this.text.
+        let text = displayText || this.text; // Use provided text to override shortcut text
         if(Lang.isNull(text)) {
             text = this.initiatingTrigger;
         }

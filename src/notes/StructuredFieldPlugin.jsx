@@ -339,10 +339,9 @@ function StructuredFieldPlugin(opts) {
                 }
             } else if (node.type === 'structured_field') {
                 const shortcut = node.data.shortcut;
-                console.log(shortcut.serialize())
-                result += shortcut.serialize();
-                    
-                    
+                // TODO: Refactor to not need slate node text passed as an argument. This is currently used to reload the correct text on edited shortcuts. Refactor should result in no arguments passed.
+                const textToSerialize = (shortcut instanceof InsertValue && shortcut.metadata.isEditable) ? node.nodes[0].characters.map(c => c.text).join('') : undefined;
+                result += shortcut.serialize(textToSerialize);
             } else if (node.type === 'placeholder') {
                 result += node.data.placeholder.getResultText();
             } else if (node.type === 'bulleted-list') {
@@ -518,7 +517,7 @@ function StructuredFieldPlugin(opts) {
         this.onCopy(event, data, state, editor); // doesn't change state
         const window = getWindow(event.target);
 
-        // Once the fake cut content has successfully been added to the cl\]pboard,
+        // Once the fake cut content has successfully been added to the clipboard,
         // delete the content in the current selection.
         let next;
         window.requestAnimationFrame(() => {
@@ -691,13 +690,6 @@ function createStructuredField(opts, shortcut) {
     if (isInserter) {
         let lines;
         lines = String(shortcut.getDisplayText()).split(/\n\r|\r\n|\r|\n/g);
-
-       /*  if(Lang.isNull(shortcut.getText())){
-            lines = String(shortcut.getDisplayText()).split(/\n\r|\r\n|\r|\n/g);
-        }
-        else {
-            lines = String(shortcut.getText()).split(/\n\r|\r\n|\r|\n/g);
-        } */
         let textNodes = [];
         let inlines = [];
         lines.forEach((line, i) => {
