@@ -6,7 +6,7 @@ class ContextCalendar extends React.Component {
     handleDateSelect = (date) => {
         this.props.closePortal();
         const context = { key: 'set-date-id', context: `${date.format('MM/DD/YYYY')}`, object: date };
-        this.props.onSelected(this.props.state, context);
+        this.props.onChange(this.props.onSelected(this.props.state, context));
     }
 
     render() {
