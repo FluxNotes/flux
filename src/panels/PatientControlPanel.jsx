@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import Paper from 'material-ui/Paper';
 import Lang from 'lodash';
-import PatientSearch from '../patientControl/PatientSearch'
+import PatientSearch from '../patientControl/PatientSearch';
 import ConditionSelection from '../summary/ConditionSelection';
 
 import SummaryHeader from '../summary/SummaryHeader';
@@ -130,7 +130,7 @@ PatientControlPanel.propTypes = {
     clinicalEvent: PropTypes.string.isRequired,
     isAppBlurred: PropTypes.bool,
     layout: PropTypes.string,
-    logoObject:  PropTypes.shape({
+    logoObject: PropTypes.shape({
         path: PropTypes.string.isRequired,
         altText: PropTypes.string.isRequired,
         width: PropTypes.string,

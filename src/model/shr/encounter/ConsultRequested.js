@@ -1,4 +1,4 @@
-import { setPropertiesFromJSON, createInstanceFromFHIR } from '../../json-helper';
+import { setPropertiesFromJSON } from '../../json-helper';
 
 import ActionRequested from '../base/ActionRequested';
 
@@ -370,64 +370,6 @@ class ConsultRequested extends ActionRequested {
     if (this.reason != null) {
       inst['reasonCode'] = inst['reasonCode'] || [];
       inst['reasonCode'] = inst['reasonCode'].concat(this.reason.map(f => typeof f.toFHIR === 'function' ? f.toFHIR() : f));
-    }
-    return inst;
-  }
-
-  /**
-   * Deserializes FHIR JSON data to an instance of the ConsultRequested class.
-   * The FHIR must be valid against the ConsultRequested FHIR profile, although this is not validated by the function.
-   * @param {object} fhir - the FHIR JSON data to deserialize
-   * @param {boolean} asExtension - Whether the provided instance is an extension
-   * @returns {ConsultRequested} An instance of ConsultRequested populated with the FHIR data
-   */
-  static fromFHIR(fhir, asExtension = false) {
-    const inst = new ConsultRequested();
-    if (fhir['extension'] != null) {
-      const match = fhir['extension'].find(e => e.url === 'http://example.com/fhir/StructureDefinition/shr-base-ExpectedMethod-extension');
-      if (match != null) {
-        inst.expectedMethod = createInstanceFromFHIR('shr.base.ExpectedMethod', match, true);
-      }
-    }
-    if (fhir['status'] != null) {
-      inst.status = createInstanceFromFHIR('shr.core.Status', fhir['status']);
-    }
-    if (fhir['intent'] != null) {
-      inst.requestIntent = createInstanceFromFHIR('shr.base.RequestIntent', fhir['intent']);
-    }
-    if (fhir['priority'] != null) {
-      inst.priorityRank = createInstanceFromFHIR('shr.core.PriorityRank', fhir['priority']);
-    }
-    if (fhir['category'] != null) {
-      inst.category = createInstanceFromFHIR('shr.core.Category', fhir['category']);
-    }
-    if (fhir['code'] != null) {
-      inst.topicCode = createInstanceFromFHIR('shr.base.TopicCode', fhir['code']);
-    }
-    if (fhir['subject'] != null) {
-      inst.patient = createInstanceFromFHIR('shr.entity.Patient', fhir['subject']);
-    }
-    if (fhir['context'] != null) {
-      inst.encounter = createInstanceFromFHIR('shr.encounter.Encounter', fhir['context']);
-    }
-    if (fhir['occurrenceDateTime'] != null) {
-      inst.expectedPerformanceTime = createInstanceFromFHIR('shr.base.ExpectedPerformanceTime', fhir['occurrenceDateTime']);
-    }
-    if (fhir['occurrencePeriod'] != null) {
-      inst.expectedPerformanceTime = createInstanceFromFHIR('shr.base.ExpectedPerformanceTime', fhir['occurrencePeriod']);
-    }
-    if (fhir['occurrenceTiming'] != null) {
-      inst.expectedPerformanceTime = createInstanceFromFHIR('shr.base.ExpectedPerformanceTime', fhir['occurrenceTiming']);
-    }
-    if (fhir['performerType'] != null) {
-      inst.expectedPerformerType = createInstanceFromFHIR('shr.base.ExpectedPerformerType', fhir['performerType']);
-    }
-    if (fhir['performer'] != null) {
-      inst.expectedPerformer = createInstanceFromFHIR('shr.base.ExpectedPerformer', fhir['performer']);
-    }
-    if (fhir['reasonCode'] != null) {
-      inst.reason = inst.reason || [];
-      inst.reason = inst.reason.concat(fhir['reasonCode'].map(f => createInstanceFromFHIR('shr.base.Reason', f)));
     }
     return inst;
   }

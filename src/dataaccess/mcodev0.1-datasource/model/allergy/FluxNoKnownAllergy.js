@@ -4,11 +4,11 @@ class FluxNoKnownAllergy {
     constructor(json) {
         this._noKnownAllergy = NoKnownAllergy.fromJSON(json);
     }
-    
+
     get entryInfo() {
         return this._noKnownAllergy.entryInfo;
     }
-    
+
     /*
      *  Getter for no known allergy
      *  Returns displayText string for no known allergy

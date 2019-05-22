@@ -9,7 +9,7 @@ function createOpts(opts) {
     opts = opts || {};
     opts.typeStructuredField = opts.typeStructuredField || 'structured_field';
     opts.typePlaceholder = opts.typePlaceholder || 'placeholder';
-	return opts;
+    return opts;
 }
 
 function stopEventPropagation(e) {
@@ -76,7 +76,7 @@ function StructuredFieldPlugin(opts) {
                 return newState;
             }
         } else if (e.keyCode === 37 && previousNode) {
-            if(previousNode.type === 'structured_field') {
+            if (previousNode.type === 'structured_field') {
                 let transform = state.transform();
                 transform = transform.collapseToStart(previousNode);
                 let newState = transform.apply();
@@ -204,7 +204,7 @@ function StructuredFieldPlugin(opts) {
             });
         }
         // Sort the keys in reverse order of creation -- new keys are always > old keys
-        deletedKeys.sort((a, b) => b - a)
+        deletedKeys.sort((a, b) => b - a);
         var shortcut;
         let result = state;
         deletedKeys.forEach((key) => {
@@ -280,7 +280,7 @@ function StructuredFieldPlugin(opts) {
         rules: [
             {
                 match: (node) => {
-                    return node.kind === 'block' && node.type === 'inline'
+                    return node.kind === 'block' && node.type === 'inline';
                 },
                 render: (props) => {
                     return (
@@ -471,7 +471,7 @@ function StructuredFieldPlugin(opts) {
             body.removeChild(div);
             native.removeAllRanges();
             native.addRange(range);
-        })
+        });
         return state;
     }
 
@@ -518,7 +518,7 @@ function StructuredFieldPlugin(opts) {
 
     function onCut(event, data, state, editor) {
         this.onCopy(event, data, state, editor); // doesn't change state
-        const window = getWindow(event.target)
+        const window = getWindow(event.target);
 
         // Once the fake cut content has successfully been added to the clipboard,
         // delete the content in the current selection.
@@ -603,10 +603,10 @@ function StructuredFieldPlugin(opts) {
         editor.onChange(transform);
     }
 
-	/*  style for placeholder assumes an 18pt font due to the rendering of a <BR> for an empty text node. Placeholder
+    /*  style for placeholder assumes an 18pt font due to the rendering of a <BR> for an empty text node. Placeholder
 		positioning needs to go up 1 line to overlap with that BR so user can click on placeholder message and get
 		a cursor. see style top value of -18px  */
-	return {
+    return {
         clearStructuredFieldMap,
         onKeyDown,
         onChange,
@@ -623,10 +623,10 @@ function StructuredFieldPlugin(opts) {
         },
 
         transforms: {
-            insertStructuredField:      	insertStructuredField.bind(null, opts),
-            updateStructuredField:          updateStructuredField.bind(null, opts),
-            insertPlaceholder:              insertPlaceholder.bind(null, opts),
-            insertStructuredFieldAtRange:   insertStructuredFieldAtRange.bind(null, opts)
+            insertStructuredField: insertStructuredField.bind(null, opts),
+            updateStructuredField: updateStructuredField.bind(null, opts),
+            insertPlaceholder: insertPlaceholder.bind(null, opts),
+            insertStructuredFieldAtRange: insertStructuredFieldAtRange.bind(null, opts)
         }
     };
 }
@@ -675,8 +675,8 @@ function insertStructuredFieldAtRange(opts, transform, shortcut, range) {
             transform = transform.insertInlineAtRange(range, sf);
         }
     });
-    
-    return [transform, ""]
+
+    return [transform, ""];
 }
 
 /**

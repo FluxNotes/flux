@@ -24,12 +24,12 @@ class BandedLineChartVisualizer extends Visualizer {
         const shownLineCharts = subsections.map((subsection, i) => subsection.displayChartLine);
 
         // this.updateState = true;
-        // This var will be used 
+        // This var will be used
         this.state = {
             chartWidth: 600,
             chartHeight: 250,
             shownLineCharts // charts that have the no line property set
-        }
+        };
     }
 
     // toggles the line on the chart from being hidden and shown
@@ -46,7 +46,7 @@ class BandedLineChartVisualizer extends Visualizer {
         const dataCopy = Lang.cloneDeep(data);
 
         Collection.map(dataCopy, (d) => {
-            d[xVarNumber] = Number(new Date(d[xVar]))
+            d[xVarNumber] = Number(new Date(d[xVar]));
         });
         return dataCopy;
     }
@@ -57,7 +57,7 @@ class BandedLineChartVisualizer extends Visualizer {
     }
 
     // Gets the min/max values of the numeric representation of xVar
-    // Assumes processed data array 
+    // Assumes processed data array
     getMinMax = (processedData, xVarNumber) => {
         // Iterate once to avoid 2x iteration by calling min and max separately
         return Collection.reduce(processedData, (rangeValues, dataObj) => {
@@ -72,7 +72,7 @@ class BandedLineChartVisualizer extends Visualizer {
         }, [processedData[0][xVarNumber], processedData[0][xVarNumber]]);
     }
 
-    // Use min/max info to build ticks for the 
+    // Use min/max info to build ticks for the
     // Assumes processed data
     getTicks = (processedData, xVarNumber) => {
         if (!processedData || !processedData.length) {
@@ -91,19 +91,19 @@ class BandedLineChartVisualizer extends Visualizer {
         return "Date: " + this.dateFormat(xVarNumber);
     }
 
-    // Based on a unit, return a function that formats a yVar (quantatative) value for tooltips 
+    // Based on a unit, return a function that formats a yVar (quantatative) value for tooltips
     createYVarFormatFunctionWithUnit = (unit) => {
         return (value) => {
             return `${value} ${unit}`;
-        }
+        };
     }
 
     renderIcons = (chartIndex, showLine) => {
         const chartIcon = this.props.visualizerManager.renderIcon('chart', showLine);
         const scatterplotIcon = this.props.visualizerManager.renderIcon('scatterplot', !showLine);
 
-        return(
-             <span className="subsection-icons">
+        return (
+            <span className="subsection-icons">
                 <Button className="small-btn" onClick={() => this.toggleLine(chartIndex, showLine)}>
                     {scatterplotIcon}
                 </Button>
@@ -127,7 +127,7 @@ class BandedLineChartVisualizer extends Visualizer {
         // process dates into numbers for graphing
         const processedData = this.processForGraphing(data, xVar, xVarNumber);
         if (Lang.isUndefined(processedData) || processedData.length === 0) {
-            return(
+            return (
                 <div key={yVar}>
                     <div className="subsection-heading">
                         <h2>
@@ -142,8 +142,8 @@ class BandedLineChartVisualizer extends Visualizer {
         }
         const yUnit = processedData[0].unit;
         const series = processedData[0].series || [subsection.name];
-        // Min/Max for rendering 
-        const [, yMax] = this.getMinMax(processedData, yVar)
+        // Min/Max for rendering
+        const [, yMax] = this.getMinMax(processedData, yVar);
 
         let renderedBands = null;
 
@@ -156,20 +156,20 @@ class BandedLineChartVisualizer extends Visualizer {
                 let color = null;
 
                 switch (band.assessment) {
-                    case 'bad':
-                        color = "red";
-                        break;
+                case 'bad':
+                    color = "red";
+                    break;
 
-                    case 'average':
-                        color = "yellow";
-                        break;
+                case 'average':
+                    color = "yellow";
+                    break;
 
-                    case 'good':
-                        color = "green";
-                        break;
+                case 'good':
+                    color = "green";
+                    break;
 
-                    default:
-                        console.log("Type of band is not recognized. Please check summary metadata");
+                default:
+                    console.log("Type of band is not recognized. Please check summary metadata");
                 }
 
                 bands.push({
@@ -193,7 +193,7 @@ class BandedLineChartVisualizer extends Visualizer {
             >
                 <div className="subsection-heading">
                     <h2>
-                        <span className="subsection-name"> 
+                        <span className="subsection-name">
                             <span>{`${yVar}`}</span><span>{` (${yUnit})`}</span>
                         </span>
                         {/* COMMENT THIS BACK IN FOR ABILITY TO TOGGLE THE LINE */}
@@ -224,7 +224,7 @@ class BandedLineChartVisualizer extends Visualizer {
                             formatter={this.createYVarFormatFunctionWithUnit(yUnit)}
                         />
                         {series.map(s => {
-                            return <Line type="monotone" key={s} dataKey={s} stroke="#295677" isAnimationActive={false} yAxisId={0} dot={this.renderDot}/>
+                            return <Line type="monotone" key={s} dataKey={s} stroke="#295677" isAnimationActive={false} yAxisId={0} dot={this.renderDot}/>;
                         })}
                         {renderedBands}
                     </LineChart>
@@ -235,7 +235,7 @@ class BandedLineChartVisualizer extends Visualizer {
 
     renderDot = (props) => {
         const highlightedData = this.props.tdpSearchSuggestions.find(s => {
-            const dotContent = props.payload.displayValue || `${props.payload[props.dataKey]} ${props.payload.unit}`
+            const dotContent = props.payload.displayValue || `${props.payload[props.dataKey]} ${props.payload.unit}`;
             const dotValue = `${props.payload.start_time}: ${dotContent}`;
             const dataKey = props.payload.displayValue ? s.subsection : props.dataKey;
             return s.valueTitle === dataKey && s.contentSnapshot === dotValue;
@@ -252,17 +252,17 @@ class BandedLineChartVisualizer extends Visualizer {
 
     // Given the range and the color, render the band
     renderBand(y1, y2, yMax, color, key) {
-        if (y2 === "max") { 
+        if (y2 === "max") {
             // If reference area has no upper limit, draw it only if patient data would be captured by it
-            if (yMax > y1) { 
+            if (yMax > y1) {
                 // Draw refence area large enough to capture max dataelement if it's greater than the y1 (bottom of referenceArea)
                 return (
                     <ReferenceArea key={key} y1={y1} y2={yMax} fill={color} fillOpacity="0.1" alwaysShow/>
                 );
-            } else { 
+            } else {
                 // Else  draw nothing -- no relevant values would be captured by that rectangle
             }
-        } else { 
+        } else {
             // Otherwise, draw as usual
             return (
                 <ReferenceArea key={key} y1={y1} y2={y2} fill={color} fillOpacity="0.1" alwaysShow/>

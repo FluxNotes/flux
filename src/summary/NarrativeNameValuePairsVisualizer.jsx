@@ -10,13 +10,13 @@ import Visualizer from './Visualizer';
  */
 class NarrativeNameValuePairsVisualizer extends Visualizer {
     // Initialize values for insertion popups
-    constructor(props) { 
+    constructor(props) {
         super(props);
         this.state = {
             snippetDisplayingMenu: null,
             positionTop: 0, // Just so the popover can be spotted more easily
             positionLeft: 0, // Same as above
-        }
+        };
     }
 
     /**
@@ -41,8 +41,8 @@ class NarrativeNameValuePairsVisualizer extends Visualizer {
                 list = this.getList(subsections[subsectionName]);
 
                 return (Lang.isNull(list) || Lang.isEmpty(list));
-            } 
-            
+            }
+
             const valueName = data.substring(index + 1);
 
             subsectionName = data.substring(0, index);
@@ -58,11 +58,11 @@ class NarrativeNameValuePairsVisualizer extends Visualizer {
         return allNull ? sentenceObject.dataMissingTemplate : sentenceObject.defaultTemplate;
     }
 
-    // create a map of subsection name to its metadata 
+    // create a map of subsection name to its metadata
     getSubsections() {
         const {patient, condition, conditionSection} = this.props;
 
-        if (patient == null || condition == null || conditionSection == null) {
+        if (patient===null || condition===null || conditionSection===null) {
             return [];
         }
 
@@ -79,7 +79,7 @@ class NarrativeNameValuePairsVisualizer extends Visualizer {
     getList(subsection) {
         return subsection.data_cache;
     }
-            
+
     /* returns a list of snippets of the narrative. Each snippet object has the following attributes:
         text: the text to display
         type: plain, missing, or structured-data
@@ -100,7 +100,7 @@ class NarrativeNameValuePairsVisualizer extends Visualizer {
             return item.name + ": " + (Lang.isObject(item.value) ? item.value.value : item.value);
         };
         let _addListItemToResult = (listItem) => {
-            if (!first) result.push( { text: ', ', type: 'plain' });
+            if (!first) result.push({ text: ', ', type: 'plain' });
             value = _addNameValueToNarrative(listItem);
             type = "narrative-structured-data";
             result.push({
@@ -115,20 +115,20 @@ class NarrativeNameValuePairsVisualizer extends Visualizer {
             if (first) first = false;
         };
         while (pos !== -1) {
-            result.push( { text: template.substring(start, pos), type: 'plain'} );
+            result.push({ text: template.substring(start, pos), type: 'plain'});
             endpos = template.indexOf("}", pos);
             valueSpec = template.substring(pos + 2, endpos);
             index = valueSpec.indexOf(".");
             if (index === -1) {
                 subsectionName = valueSpec;
-                if(Lang.isUndefined(subsections[subsectionName])) {
-                    result.push( { text: valueSpec, type: 'narrative-missing-data' } );
+                if (Lang.isUndefined(subsections[subsectionName])) {
+                    result.push({ text: valueSpec, type: 'narrative-missing-data' });
                 } else {
                     list = this.getList(subsections[subsectionName]);
                     if (Lang.isEmpty(list) || Lang.isNull(list)) {
                         value = "missing";
                         type = "narrative-missing-data";
-                        result.push( { text: value, type: type } );
+                        result.push({ text: value, type: type });
                         // add an else-if here? and 'subsections' should contain the unsigned-ness
                     } else {
                         first = true;
@@ -161,7 +161,7 @@ class NarrativeNameValuePairsVisualizer extends Visualizer {
                     value = "missing";
                     type = "narrative-missing-data";
                 }
-                result.push( { text: value, type: type, item: item } );
+                result.push({ text: value, type: type, item: item });
             }
             //result.push( { text: value, type: type } );
             start = endpos + 1;
@@ -171,7 +171,7 @@ class NarrativeNameValuePairsVisualizer extends Visualizer {
                 pos = -1;
             }
         }
-        if (start < len) result.push( { text: template.substring(start), type: 'plain' } );
+        if (start < len) result.push({ text: template.substring(start), type: 'plain' });
         return result;
     }
 
@@ -202,9 +202,9 @@ class NarrativeNameValuePairsVisualizer extends Visualizer {
         const onMenuItemClicked = (fn, element, item) => {
             const callback = () => {
                 fn(element, item);
-            }
+            };
             this.closeInsertionMenu(callback);
-        }
+        };
         let isSigned = true;
         const checkSnippetUnsigned = Lang.isUndefined(snippet.unsigned) ? isSigned : !snippet.unsigned;
         isSigned = Lang.isArray(snippet.value) ? !snippet.value.isUnsigned : checkSnippetUnsigned;
@@ -239,14 +239,14 @@ class NarrativeNameValuePairsVisualizer extends Visualizer {
     }
 
     // Opens the insertion menu for the given snippet id, based on cursor location
-    openInsertionMenu = (event, snippetId) => { 
+    openInsertionMenu = (event, snippetId) => {
         // Get menu coordinates
         let x = event.clientX;  // Get the horizontal coordinate of mouse
         x += 4;                // push menu a little to the right
         let y = event.clientY;  // Get the vertical coordinate of mouse
         y += 7;                // push a little to the bottom of cursor
 
-        this.setState({ 
+        this.setState({
             snippetDisplayingMenu: snippetId,
             positionLeft: x,
             positionTop: y,
@@ -254,10 +254,10 @@ class NarrativeNameValuePairsVisualizer extends Visualizer {
     }
 
     // Closes the insertion menu
-    closeInsertionMenu = (callback) => { 
-        if (callback) { 
+    closeInsertionMenu = (callback) => {
+        if (callback) {
             this.setState({ snippetDisplayingMenu: null }, callback);
-        } else { 
+        } else {
             this.setState({ snippetDisplayingMenu: null });
         }
     }
@@ -286,11 +286,11 @@ class NarrativeNameValuePairsVisualizer extends Visualizer {
                 if (this.props.actions.length > 0) {
                     className += " has-action-menu";
                 }
-                const snippetId = `${snippet.item.name}-${index}`
+                const snippetId = `${snippet.item.name}-${index}`;
                 content.push(
                     <span key={snippetId}>
-                        <span 
-                            className={className} 
+                        <span
+                            className={className}
                             onClick={(event) => this.openInsertionMenu(event, snippetId)}
                         >
                             {snippet.text}
@@ -303,8 +303,8 @@ class NarrativeNameValuePairsVisualizer extends Visualizer {
             } else {
                 content.push(<span key={index}>{snippet.text}</span>);
             }
-        }); 
-        
+        });
+
         // return HTML to render
         return (
             <div className="narrative-subsections">

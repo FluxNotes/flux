@@ -1,6 +1,6 @@
 import Encounter from '../../model/shr/encounter/Encounter';
 import moment from 'moment';
-import Lang from 'lodash'
+import Lang from 'lodash';
 import Media from '../../model/shr/core/Media';
 
 export default class MetadataSection {
@@ -21,7 +21,7 @@ export default class MetadataSection {
     buildMetadataSection(preferencesManager, patient, condition, roleType, role, specialty, section) {
         if (!Lang.isFunction(section)) return section;
         let obj = new section(this.setForceRefresh);
-        return obj.getMetadata(preferencesManager, patient, condition, roleType, role, specialty);    
+        return obj.getMetadata(preferencesManager, patient, condition, roleType, role, specialty);
     }
 
     toFirstLetterCapital = (text) => {
@@ -42,11 +42,11 @@ export default class MetadataSection {
             source = null;
             when = null;
         }
-        return  {   value: val, 
-                    isUnsigned: unsigned, 
-                    source: source,
-                    when: when
-                };
+        return  {   value: val,
+            isUnsigned: unsigned,
+            source: source,
+            when: when
+        };
     }
 
     determineSource = (patient, entry) => {
@@ -56,13 +56,13 @@ export default class MetadataSection {
                 note: entry.sourceClinicalNoteReference,
             };
         }
-        
+
         else if (entry.value instanceof Media) {
             return {
                 link: entry.value.resourceLocation.uri
             };
         }
-       
+
         let result = "";
         if (entry.author && entry.informant && entry.author === entry.informant) {
             result += "Recorded and informed by " + entry.author;
@@ -85,7 +85,7 @@ export default class MetadataSection {
             result += (result.length > 0 ? " c" : "C") + "linically recognized on " + new moment(entry.diagnosisDate, 'D MMM YYYY').format('D MMM YYYY');
         }
 
-        return {sourceMessage:result};
-    
+        return {sourceMessage: result};
+
     }
 }

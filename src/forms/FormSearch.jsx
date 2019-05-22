@@ -12,11 +12,11 @@ class FormSearch extends Component {
 
         this.underlineStyle = {
             borderColor: "#17263f",
-        }
+        };
     }
 
     handleSearch(searchValue) {
-        console.log()
+        console.log();
     }
 
     render() {
@@ -35,7 +35,7 @@ class FormSearch extends Component {
                     />
                 </div>
             </div>
-        )
+        );
     }
 }
 

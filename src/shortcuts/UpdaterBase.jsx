@@ -123,7 +123,7 @@ export default class UpdaterBase extends EntryShortcut {
         }
         return result;
     }
-    
+
     getAttributeIsSet(name) {
         return this.isSet[name];
     }
@@ -151,7 +151,7 @@ export default class UpdaterBase extends EntryShortcut {
         const voa = this.valueObjectAttributes[name];
         if (Lang.isUndefined(voa)) throw new Error("Unknown attribute '" + name + "' for structured phrase '" + this.getText() + "'"); //this.text
         this.isSet[name] = (value != null);
-        if (value == null && voa.default) {
+        if (value===null && voa.default) {
             value = voa.default;
             if (value === "$today") {
                 value = new moment().format('D MMM YYYY');
@@ -172,7 +172,7 @@ export default class UpdaterBase extends EntryShortcut {
         this.isSet[name] = (value != null);
         const patientSetMethod = voa["patientSetMethod"];
         const setMethod = voa["setMethod"];
-        if (value == null && voa.default) {
+        if (value===null && voa.default) {
             value = voa.default;
             if (value === "$today") {
                 value = new moment().format('D MMM YYYY');
@@ -287,9 +287,9 @@ export default class UpdaterBase extends EntryShortcut {
             });
             this.setValueObject(this.object);
         }
-		return this.valueObject;
-	}
-    
+        return this.valueObject;
+    }
+
     updatePatient(patient, contextManager, clinicalNote) {
         let idComplete = true;
         this.idAttributes.forEach((idAttrib) => {
@@ -355,8 +355,8 @@ export default class UpdaterBase extends EntryShortcut {
         this.setValueObject(this.object);
 
         if (this.isContext()) this.updateContextStatus();
-//        if (this.onUpdate) this.onUpdate(this);
-/*        if (publishChanges) {
+        //        if (this.onUpdate) this.onUpdate(this);
+        /*        if (publishChanges) {
             this.notifyValueChangeHandlers(name);
         }*/
 

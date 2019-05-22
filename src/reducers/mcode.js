@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 import * as types from '../actions/types';
 import defaultState from './initial.json';
 import getProps from '../mcode-pilot/utils/recordToProps';
@@ -62,7 +60,7 @@ export default function mcode(state = defaultState, action) {
         const newState = { ...state };
         newState[action.treatmentType] = action.treatments;
         return newState;
-    } else if(action.type === types.UPDATE_PATIENT_OUTCOMES) {
+    } else if (action.type === types.UPDATE_PATIENT_OUTCOMES) {
         return {
             ...state,
             totalPatients: action.data.totalPatients,

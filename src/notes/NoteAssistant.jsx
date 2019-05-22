@@ -59,7 +59,7 @@ export default class NoteAssistant extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.searchSelectedItem) {
             const newNote = nextProps.searchSelectedItem;
-            this.openNote(newNote)
+            this.openNote(newNote);
             this.props.setSearchSelectedItem(null);
         }
         if (nextProps.updatedEditorNote && this.refs[nextProps.updatedEditorNote.entryInfo.entryId]) {
@@ -82,20 +82,20 @@ export default class NoteAssistant extends Component {
         this.props.searchIndex.removeDataBySection('Clinical Notes');
     }
 
-    isScrolledIntoView(elem){
+    isScrolledIntoView(elem) {
         let el = elem;
         var rect = el.getBoundingClientRect(), top = rect.top, height = rect.height;
         el = el.parentNode;
         let bottom = top + height;
-      do {
-        rect = el.getBoundingClientRect();
-        if ((top > rect.bottom || top < rect.top)) return false;
-        // Check if the element is out of view due to a container scrolling
-        if (bottom < rect.top || bottom > rect.bottom) return false
-        el = el.parentNode;
-      } while (el !== document.body);
-      // Check its within the document viewport
-      return top <= document.documentElement.clientHeight;
+        do {
+            rect = el.getBoundingClientRect();
+            if ((top > rect.bottom || top < rect.top)) return false;
+            // Check if the element is out of view due to a container scrolling
+            if (bottom < rect.top || bottom > rect.bottom) return false;
+            el = el.parentNode;
+        } while (el !== document.body);
+        // Check its within the document viewport
+        return top <= document.documentElement.clientHeight;
     }
 
 
@@ -147,7 +147,7 @@ export default class NoteAssistant extends Component {
 
     onContextToggleButtonClicked() {
         this.notes_btn_classname = "";
-        this.context_btn_classname = "selected"
+        this.context_btn_classname = "selected";
         this.poc_btn_classname = "";
     }
 
@@ -177,7 +177,7 @@ export default class NoteAssistant extends Component {
     openNote = (note) => {
         this.props.openExistingNote(note);
         if (note && !note.signed) {
-            // If the note selected is an In-Progress note (not signed), switch to the context tray 
+            // If the note selected is an In-Progress note (not signed), switch to the context tray
             this.toggleView("context-tray");
         } else {
             // else use the clinical-notes view
@@ -192,7 +192,7 @@ export default class NoteAssistant extends Component {
 
     onSearchSuggestionHighlighted = (suggestion, shouldReset=false) => {
         this.toggleView('clinical-notes');
-        if(shouldReset) {
+        if (shouldReset) {
             this.setState({
                 searchResultNoteId: null
             });
@@ -217,58 +217,58 @@ export default class NoteAssistant extends Component {
         const allNotes = this.props.patient.getNotes();
         const numberOfPreviousSignedNotes = Lang.filter(allNotes, o => o.signed).length;
         const notesIndexer = new NotesIndexer();
-         // Temporarily disabling opening source note on click
+        // Temporarily disabling opening source note on click
         notesIndexer.indexData('Clinical Notes', '', allNotes, this.props.searchIndex, this.onSearchSuggestionHighlighted, null); //this.onSearchSuggestionClicked
         switch (noteAssistantMode) {
-            case "poc":
-                return (
-                    <div>
-                    </div>
-                )
+        case "poc":
+            return (
+                <div>
+                </div>
+            );
             // Render the context tray
-            case "context-tray":
-                return (
-                    <div>
-                        <ContextTray
-                            contextManager={this.props.contextManager}
-                            updateContextTrayItemToInsert={this.props.updateContextTrayItemToInsert}
-                            patient={this.props.patient}
-                            setInsertingTemplate={this.props.setInsertingTemplate}
-                            shortcutManager={this.props.shortcutManager}
-                            showTemplateView={this.props.showTemplateView}
-                            updateShowTemplateView={this.props.updateShowTemplateView}
-                        />
-                        {this.props.isNoteViewerEditable ? this.renderDeleteNoteButton() : null}
-                    </div>
-                );
+        case "context-tray":
+            return (
+                <div>
+                    <ContextTray
+                        contextManager={this.props.contextManager}
+                        updateContextTrayItemToInsert={this.props.updateContextTrayItemToInsert}
+                        patient={this.props.patient}
+                        setInsertingTemplate={this.props.setInsertingTemplate}
+                        shortcutManager={this.props.shortcutManager}
+                        showTemplateView={this.props.showTemplateView}
+                        updateShowTemplateView={this.props.updateShowTemplateView}
+                    />
+                    {this.props.isNoteViewerEditable ? this.renderDeleteNoteButton() : null}
+                </div>
+            );
 
             // Render the clinical notes view which includes new note button, resume note button,
             // number of previous notes label, sort selection, and preview of previous notes
-            case "clinical-notes":
-                return (
-                    <div className="clinical-notes-panel">
-                        {this.renderNewNote()}
-                        <div id="in-progress-note-list">
-                            {this.renderInProgressNotes()}
-                        </div>
-
-                        <div className="previous-notes-label">{numberOfPreviousSignedNotes} previous notes</div>
-                        <div id="signed-note-list">
-                            {/*TODO: Complete and enable sort selection/more-notes button*/}
-                            {/*this.renderSortSelection()*/}
-                            {this.renderNotes()}
-                            {/*this.renderMoreNotesButton()*/}
-                        </div>
+        case "clinical-notes":
+            return (
+                <div className="clinical-notes-panel">
+                    {this.renderNewNote()}
+                    <div id="in-progress-note-list">
+                        {this.renderInProgressNotes()}
                     </div>
-                );
+
+                    <div className="previous-notes-label">{numberOfPreviousSignedNotes} previous notes</div>
+                    <div id="signed-note-list">
+                        {/*TODO: Complete and enable sort selection/more-notes button*/}
+                        {/*this.renderSortSelection()*/}
+                        {this.renderNotes()}
+                        {/*this.renderMoreNotesButton()*/}
+                    </div>
+                </div>
+            );
 
             // Render the pick list options panel which allows users to select options for the pick lists
-            case "pick-list-options-panel": {
-                return this.renderPickListOptions();
-            }
-            default:
-                console.error(`note assistant mode ${noteAssistantMode} is not a valid mode`);
-                return "";
+        case "pick-list-options-panel": {
+            return this.renderPickListOptions();
+        }
+        default:
+            console.error(`note assistant mode ${noteAssistantMode} is not a valid mode`);
+            return "";
         }
     }
 
@@ -315,7 +315,7 @@ export default class NoteAssistant extends Component {
 
         return (
             <div ref={note.entryInfo.entryId} className={`note in-progress-note${selected ? " selected" : ""}${searchedFor ? " search-result" : ""}`} key={i} onClick={() => {
-                this.openNote(note)
+                this.openNote(note);
             }}>
                 <div className="in-progress-text">In progress note</div>
                 <div className="in-progress-note-date">{note.createdOn}</div>
@@ -396,7 +396,7 @@ export default class NoteAssistant extends Component {
                 className={`note existing-note ${selectedClassName} ${searchedForClassName} ${highlighedSearchSuggestionClassName}`}
                 key={i}
                 onClick={() => {
-                    this.openNote(item)
+                    this.openNote(item);
                 }}
             >
                 <div className="existing-note-date">{item.signedOn}</div>
@@ -487,7 +487,7 @@ export default class NoteAssistant extends Component {
                     className={"toggle-button first-button " + this.notes_btn_classname}
                     disabled={this.notes_btn_classname === "disabled"}
                     onClick={() => {
-                        this.toggleView("clinical-notes")
+                        this.toggleView("clinical-notes");
                     }}>
                     <svg viewBox="0 0 19 19">
                         <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
@@ -508,7 +508,7 @@ export default class NoteAssistant extends Component {
                     className={"toggle-button inside-button " + this.context_btn_classname}
                     disabled={this.context_btn_classname === "disabled"}
                     onClick={() => {
-                        this.toggleView("context-tray")
+                        this.toggleView("context-tray");
                     }}>
                     <svg viewBox="0 0 32 32" fill="none">
                         <g id="tray - shortcuts selected" transform="translate(0, 2)" className="colored-fill">
@@ -521,7 +521,7 @@ export default class NoteAssistant extends Component {
                     className={"toggle-button last-button " + this.poc_btn_classname}
                     disabled={this.poc_btn_classname === "disabled"}
                     onClick={() => {
-                        this.toggleView("poc")
+                        this.toggleView("poc");
                     }}>
                     <svg viewBox="0 -2 19 19">
                         <g id="icon-export" strokeWidth="1" fill="none" fillRule="evenodd">

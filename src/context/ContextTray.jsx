@@ -57,7 +57,7 @@ export default class ContextTray extends Component {
                                 viewMode === this.SNIPPET_VIEW
                                     ? " selected"
                                     : ""
-                                }`}
+                            }`}
                             onClick={this.handleSnippetSectionClick}
                         >
                             Snippets
@@ -68,7 +68,7 @@ export default class ContextTray extends Component {
                                 viewMode === this.SHORTCUT_VIEW
                                     ? " selected"
                                     : ""
-                                }`}
+                            }`}
                             onClick={this.handleShortcutSectionClick}
                         >
                             Shortcuts
@@ -79,7 +79,7 @@ export default class ContextTray extends Component {
                                 viewMode === this.PLACEHOLDER_VIEW
                                     ? " selected"
                                     : ""
-                                }`}
+                            }`}
                             onClick={this.handlePlaceholderSectionClick}
                         >
                             Placeholders
@@ -120,4 +120,4 @@ ContextTray.propTypes = {
     shortcutManager: PropTypes.object.isRequired,
     showTemplateView: PropTypes.bool.isRequired,
     updateShowTemplateView: PropTypes.func.isRequired
-}
+};

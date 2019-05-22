@@ -50,15 +50,15 @@ class FluxQuestionAnswer {
     get author() {
         if (this._questionAnswer.entryInfo.recordedBy) {
             return this._questionAnswer.entryInfo.recordedBy.value;
-        } 
-        return null;       
+        }
+        return null;
     }
 
     get relevantTime() {
         if (this._questionAnswer.relevantTime) {
             return this._questionAnswer.relevantTime.value;
-        } 
-        return null;      
+        }
+        return null;
     }
 
     toJSON() {

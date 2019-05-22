@@ -1,5 +1,5 @@
 import MetadataSection from "./MetadataSection";
-import Lang from 'lodash'
+import Lang from 'lodash';
 
 export default class VisitReasonPreEncounterSection extends MetadataSection {
     getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
@@ -36,12 +36,12 @@ export default class VisitReasonPreEncounterSection extends MetadataSection {
                                     };
                                 }
                                 return {
-                                        value: patient.getNextEncounterReasonAsText(), 
-                                        isUnsigned: patient.isUnsigned(nextEncounter), 
-                                        source: this.determineSource(patient, nextEncounter),
-                                        shortcutData: {
-                                            shortcut: '@reason for next visit',
-                                        }
+                                    value: patient.getNextEncounterReasonAsText(),
+                                    isUnsigned: patient.isUnsigned(nextEncounter),
+                                    source: this.determineSource(patient, nextEncounter),
+                                    shortcutData: {
+                                        shortcut: '@reason for next visit',
+                                    }
                                 };
                             },
                         }

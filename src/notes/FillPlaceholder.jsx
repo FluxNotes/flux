@@ -78,7 +78,7 @@ export default class FillPlaceholder extends Component {
             // original implementation to determine if we should add a new entry or not for a multiple-entry placeholder
             // if first field of the last entry has a value, we add a new one else we use it
             let lastEntryIndex = placeholder.entryShortcuts.length - 1;
-/*            const valFirstField = placeholder.getAttributeValue(data.fields[0].name, lastEntryIndex);
+            /*            const valFirstField = placeholder.getAttributeValue(data.fields[0].name, lastEntryIndex);
             if (Lang.isUndefined(valFirstField) || Lang.isNull(valFirstField) || valFirstField.length === 0) {
                 entryIndex = lastEntryIndex;
             } else {
@@ -287,14 +287,14 @@ export default class FillPlaceholder extends Component {
 
         if (attribute.type === 'checkboxes') {
             multiSelect =
-                <span className="multi-select"> (select multiple) </span>
-            if(!expanded) {
+                <span className="multi-select"> (select multiple) </span>;
+            if (!expanded) {
                 nextButton =
                 <Grid item xs={2}>
                     <Button
                         variant="raised"
                         classes={{
-                            root:"poc-next-item-btn"
+                            root: "poc-next-item-btn"
                         }}
                         onClick={expanded ? null : this.nextField.bind(this, entryIndex)}
                     >
@@ -302,7 +302,7 @@ export default class FillPlaceholder extends Component {
                             Next
                         </span>
                     </Button>
-                </Grid>
+                </Grid>;
             }
         }
 
@@ -322,7 +322,7 @@ export default class FillPlaceholder extends Component {
                         <span>
                             {this.createFillFieldForPlaceholder(attribute, value, entryIndex)}
                         </span>
-                    </Grid>                   
+                    </Grid>
                     {nextButton}
                 </Grid>
             );

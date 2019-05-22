@@ -151,8 +151,8 @@ export default class LandingPage extends Component {
                         <div className="landing-get-involved-info-description">
                             Support the collection of high quality real-world data (RWD) to enable clinical oncology
                             research. Contact us to learn more about the project, or about piloting Flux Notes™ in a
-                            clinical setting. Help grow Flux Notes™ by committing to the <a href="https://github.com/standardhealth/flux" 
-                            alt="Flux Notes Repository">repository</a> today.
+                            clinical setting. Help grow Flux Notes™ by committing to the <a href="https://github.com/standardhealth/flux"
+                                alt="Flux Notes Repository">repository</a> today.
                         </div>
                     </div>
 
@@ -211,21 +211,21 @@ export default class LandingPage extends Component {
                 <div className="landing-partners-banner">Partner Organizations</div>
 
                 <div className="landing-partners">
-                    <a href="https://www.allianceforclinicaltrialsinoncology.org/" alt="Alliance Site" target="_blank">
+                    <a href="https://www.allianceforclinicaltrialsinoncology.org/" alt="Alliance Site" target="_blank" rel="noopener noreferrer">
                         <img src="./logos/Alliance.png" alt="Alliance Logo" className="landing-partners-logo alliance" />
                     </a>
 
-                    <a href="https://www.asco.org/" alt="ASCO Site" target="_blank">
+                    <a href="https://www.asco.org/" alt="ASCO Site" target="_blank" rel="noopener noreferrer">
                         <img src="./logos/ASCO.png" alt="ASCO Logo" className="landing-partners-logo asco" />
                     </a>
 
-                    <a href="https://www.mitre.org/" alt="MITRE Site" target="_blank">
+                    <a href="https://www.mitre.org/" alt="MITRE Site" target="_blank" rel="noopener noreferrer">
                         <img src="./logos/MITRE.png" alt="MITRE Logo" className="landing-partners-logo mitre" />
                     </a>
                 </div>
 
             </div>
-        )
+        );
     }
 
     EfficacyResearchIcon() {
@@ -254,7 +254,7 @@ export default class LandingPage extends Component {
     }
 
     RareDiseasesIcon() {
-        return(
+        return (
             <svg viewBox="0 0 55 54" xmlns="http://www.w3.org/2000/svg">
                 <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                     <g transform="translate(-373.000000, -494.000000)">

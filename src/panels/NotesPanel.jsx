@@ -46,7 +46,7 @@ export default class NotesPanel extends Component {
         // If the note we're about to have open is different...
         if (!Lang.isNull(nextProps.openClinicalNote) && this.props.openClinicalNote !== nextProps.openClinicalNote) {
             if (!Lang.isNull(this.props.openClinicalNote) && !this.state.showTemplateView) {
-                // If our current note isn't null, and we aren't trying to insert a template, 
+                // If our current note isn't null, and we aren't trying to insert a template,
                 // - Then clear the contextTray Item to insert
                 this.updateContextTrayItemToInsert(null);
             }
@@ -146,7 +146,7 @@ export default class NotesPanel extends Component {
     }
 
     handleUpdateArrayOfPickLists = (array) => {
-        this.setState({arrayOfPickLists: array})
+        this.setState({arrayOfPickLists: array});
     }
 
     updateNote = (entryId, noteContent) => {
@@ -234,7 +234,7 @@ export default class NotesPanel extends Component {
             this.props.structuredFieldMapManager.clearStructuredFieldMap();
             this.props.patient.removeClinicalNote(this.state.selectedNote);
         } else {
-            console.error('Tried to remove a note that is signed')
+            console.error('Tried to remove a note that is signed');
         }
     }
 
@@ -248,7 +248,7 @@ export default class NotesPanel extends Component {
         this.setState({selectedNote: tempNote});
         let inProg = this.props.patient.getInProgressNotes();
         inProg.forEach((a) => {
-            this.props.patient.removeClinicalNote(a)
+            this.props.patient.removeClinicalNote(a);
         });
         this.props.dataAccess.savePatient(this.props.patient);
         inProg.forEach((b) => {
@@ -273,17 +273,17 @@ export default class NotesPanel extends Component {
     changeShortcutType = (shortcutKey, shouldUpdateShortcutType, shortcutType) => {
         this.setState({ shortcutKey, shouldUpdateShortcutType, shortcutType });
     }
-    
+
     renderNotesPanelContent() {
-        if (this.state.showTemplateView) { 
+        if (this.state.showTemplateView) {
             // If we're supposed to show the template view, pull that up first
-            return ( 
+            return (
                 <Row center="xs">
                     <Col sm={12}>
                         {this.renderTemplateView()}
                     </Col>
                 </Row>
-            )
+            );
         } else if (this.props.isNoteViewerVisible) {
             // If isNoteViewerVisible is true, render the flux notes editor and the note assistant
             if (this.props.isNoteViewerEditable && this.state.selectedNote) {
@@ -349,8 +349,8 @@ export default class NotesPanel extends Component {
         }
     }
 
-    renderTemplateView = () => { 
-        return ( 
+    renderTemplateView = () => {
+        return (
             <div>
                 <TemplateSelectionView
                     deleteSelectedNote={this.deleteSelectedNote}

@@ -13,7 +13,7 @@ class ValueOverTimeIndexer extends BaseIndexer {
                 subsection,
                 valueTitle: subsection,
                 value: `${item.start_time}: ${value}`
-            })
+            });
         });
     }
 }

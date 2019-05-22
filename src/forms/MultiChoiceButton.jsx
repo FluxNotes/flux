@@ -2,16 +2,16 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import ChoiceButton from '../elements/ChoiceButton';
 
-import "./MultiChoiceButton.css"
+import "./MultiChoiceButton.css";
 
-class MultiChoiceButton extends Component {  
+class MultiChoiceButton extends Component {
     render() {
         let className = "multi-choice-button ";
         className += (this.props.className) ? `${this.props.className} ` : "";
         className += (this.props.isSelected) ? "selected " : "";
 
-        return ( 
-            <ChoiceButton 
+        return (
+            <ChoiceButton
                 variant="raised"
                 key={this.props.buttonKey}
                 label={this.props.buttonText}
@@ -24,13 +24,13 @@ class MultiChoiceButton extends Component {
     }
 }
 
-MultiChoiceButton.proptypes = { 
-    buttonKey: PropTypes.isRequired,
+MultiChoiceButton.propTypes= {
+    buttonKey: PropTypes.number.isRequired,
     buttonText: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
     className: PropTypes.string,
     marginSize: PropTypes.string.isRequired,
-    isDisabled: PropTypes.bool.isRequired,
-}
+    isDisabled: PropTypes.bool,
+};
 
 export default MultiChoiceButton;

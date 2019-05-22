@@ -5,7 +5,7 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/Menu/MenuItem';
 import Divider from 'material-ui/Divider';
 // Lodash component
-import Lang from 'lodash'
+import Lang from 'lodash';
 // Styling
 import './DataCaptureForm.css';
 
@@ -33,20 +33,20 @@ class DataCaptureForm extends Component {
         const isCurrentShortcut = (!Lang.isNull(this.props.currentShortcut));
         let currentShortcutType = "";
         if (isCurrentShortcut) {
-            currentShortcutType = this.props.currentShortcut.getShortcutType()
+            currentShortcutType = this.props.currentShortcut.getShortcutType();
         }
         if (this.state.value === "") {
-        } else if (this.state.value === "staging" && this.state.value === currentShortcutType) {            
+        } else if (this.state.value === "staging" && this.state.value === currentShortcutType) {
             content = this.props.currentShortcut.getForm();
         } else if (this.state.value === "progression" && this.state.value === currentShortcutType) {
             content = this.props.currentShortcut.getForm();
         } else if (this.state.value === "toxicity" && this.state.value === currentShortcutType) {
             content = this.props.currentShortcut.getForm();
         } else if (this.state.value === "staging" || this.state.value === "progression" || this.state.value === "toxicity") {
-            console.log('We might want to figure out how to change currentShortcut from this position')
-            content = <p>Nothing to show</p>
-        } else { 
-            content = <p>Nothing to show</p>
+            console.log('We might want to figure out how to change currentShortcut from this position');
+            content = <p>Nothing to show</p>;
+        } else {
+            content = <p>Nothing to show</p>;
         }
 
         return (

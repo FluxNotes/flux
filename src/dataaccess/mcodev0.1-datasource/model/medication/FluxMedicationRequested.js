@@ -10,7 +10,7 @@ import Timing from '../shr/core/Timing';
 import ExpectedPerformanceTime from '../shr/base/ExpectedPerformanceTime';
 import Type from '../shr/core/Type';
 import moment from 'moment';
-import lookup from '../../../../lib/MedicationInformationService.jsx';
+import * as lookup from '../../../../lib/MedicationInformationService.jsx';
 
 class FluxMedicationRequested {
     constructor(json) {
@@ -99,7 +99,7 @@ class FluxMedicationRequested {
         if (!expectedPerformanceTime || !(this._medicationRequested.expectedPerformanceTime.value instanceof TimePeriod)) return null;
         const start = new moment(expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
         const end = new moment(expectedPerformanceTime.timePeriodEnd, "D MMM YYYY");
-        
+
         // If the start date is in the future
         if (start && start > upperDate) return false;
 

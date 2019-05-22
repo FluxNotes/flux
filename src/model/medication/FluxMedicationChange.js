@@ -4,7 +4,7 @@ import FluxMedicationBeforeChange from './FluxMedicationBeforeChange';
 import FluxMedicationAfterChange from './FluxMedicationAfterChange';
 import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
-import codeableConceptUtils from '../CodeableConceptUtils.jsx';
+import * as codeableConceptUtils from '../CodeableConceptUtils.jsx';
 import Lang from 'lodash';
 import moment from 'moment';
 import Category from '../shr/core/Category';
@@ -76,11 +76,11 @@ class FluxMedicationChange extends FluxEntry {
         if (!this._medicationChange.medicationAfterChange || this._medicationChange.medicationAfterChange.length === 0) return null;
         return this._medicationChange.medicationAfterChange[0];
     }
-    /** 
+    /**
      * Get the type of medication change
      * Returns type as a string
      */
-    get type() { 
+    get type() {
         // Return code
         return this._medicationChange.category.value.coding[0].code.value;
     }

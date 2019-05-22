@@ -50,7 +50,7 @@ export default class CreatorIntermediary extends Shortcut {
         this.parentContext.removeChild(this);
         return result;
     }
-    
+
     getAttributeIsSet(name) {
         const voaList = this.metadata["valueObjectAttributes"];
         let result = voaList.filter(function (item) {

@@ -20,10 +20,10 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
         const curNode = curTransform.state.endBlock;
 
         // Apply transform operations if there were matches; else nothing
-        const [newTransform, isTransformNew] = replaceAllRelevantKeywordsInBlock(curNode, curTransform, curTransform.state)
+        const [newTransform, isTransformNew] = replaceAllRelevantKeywordsInBlock(curNode, curTransform, curTransform.state);
         if (isTransformNew) {
-            e.preventDefault()
-            return newTransform.apply()
+            e.preventDefault();
+            return newTransform.apply();
         }
     }
 
@@ -34,13 +34,13 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
         // To track if additional operations are done later
         const startingNumberOfOperations = curTransform.operations.length;
 
-        // get all shortcuts relevant for this block key 
+        // get all shortcuts relevant for this block key
         const relevantSingleHashtagKeywordMappings = getRelevantSingleHashtagKeywordMappings(listOfSingleHashtagKeywordShortcutMappings, state, curKey);
         if (relevantSingleHashtagKeywordMappings.length !== 0) {
-            // Get all relevant keywordShortcuts, 
+            // Get all relevant keywordShortcuts,
             const listOfKeywordShortcutClasses = findRelevantKeywordShortcutClasses(listOfSingleHashtagKeywordShortcutMappings).reduce((accumulator, listOfKeywordsForShortcut) => accumulator.concat(listOfKeywordsForShortcut));
             for (const keywordClass of listOfKeywordShortcutClasses) {
-                // Scan text to find any necessary replacements 
+                // Scan text to find any necessary replacements
                 let keywords = getKeywordsBasedOnShortcutClass(keywordClass);
                 const prefix = shortcutManager.getShortcutPrefix(keywordClass);
 
@@ -54,7 +54,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 
                 // Sort keywords based on length -- we want to match longest options first
                 keywords.sort(_sortKeywordByNameLength);
-                const keywordInClosetBlock = scanTextForKeywordObject(curNode, keywords)
+                const keywordInClosetBlock = scanTextForKeywordObject(curNode, keywords);
                 if (!Lang.isUndefined(keywordInClosetBlock)) {
                     const keywordText = keywordInClosetBlock.name.toLowerCase();
                     const newKeywordShortcut = createShortcut(null, keywordText);
@@ -87,7 +87,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
         }
 
         // If operations have been done, put selection at the end of recent insertion
-        const isNewOperations = curTransform.operations.length > startingNumberOfOperations
+        const isNewOperations = curTransform.operations.length > startingNumberOfOperations;
         if (isNewOperations) {
             curTransform = curTransform.collapseToEndOf(curNode).focus();
         }
@@ -115,16 +115,16 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
                 focusOffset: focusOffset,
                 isFocused: isFocused,
                 isBackward: isBackward,
-            }
+            };
         }
     }
 
     // Given block-node's text & keywordObjects asso. w/ a SingleHashtagKeywordShortcut , return first keyword found in that text (if any)
     function scanTextForKeywordObject(curNode, keywordObjects) {
         let curNodeText = [];
-        if(curNode.nodes){
-            for(const childNode of curNode.nodes){
-                if(childNode.type !== 'structured_field')
+        if (curNode.nodes) {
+            for (const childNode of curNode.nodes) {
+                if (childNode.type !== 'structured_field')
                     curNodeText.push(childNode.text);
             }
         }
@@ -134,9 +134,9 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
         const textToMatch = text.toLowerCase();
         // We only want to match if there is a 'phrase finishing' character at the end of the text
         for (const keywordObj of keywordObjects) {
-            const keywordTextToMatch = new RegExp(keywordObj.name.toLowerCase() + trailingCharacterRegex.source)
+            const keywordTextToMatch = new RegExp(keywordObj.name.toLowerCase() + trailingCharacterRegex.source);
             if (textToMatch.search(keywordTextToMatch) !== -1) {
-                return keywordObj
+                return keywordObj;
             }
         }
     }
@@ -160,25 +160,25 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
         });
     }
 
-    // Sort keywords based on name length 
+    // Sort keywords based on name length
     function _sortKeywordByNameLength(keywordA, keywordB) {
         return keywordB.name.length - keywordA.name.length;
     }
 
     // Given a keywordShortcutClass, get all of the associated keywords
     function getKeywordsBasedOnShortcutClass(keywordShortcutClass) {
-        return shortcutManager.getKeywordsForShortcut(keywordShortcutClass)
+        return shortcutManager.getKeywordsForShortcut(keywordShortcutClass);
     }
 
     // Given a list of singlehashtagkeyword shortcuts mappings, get all of the relevant keywords
     function findRelevantKeywordShortcutClasses(listOfSingleHashtagKeywordShortcutMappings) {
-        // Returns a list 
+        // Returns a list
         return listOfSingleHashtagKeywordShortcutMappings.map((mapping) => {
             // We know the mapping is a single k-v pair, just get all the keys, use the first
-            const keys = Object.keys(mapping)
-            const shortcut = mapping[keys[0]]
-            return shortcutManager.getValidChildShortcutsInContext(shortcut)
-        })
+            const keys = Object.keys(mapping);
+            const shortcut = mapping[keys[0]];
+            return shortcutManager.getValidChildShortcutsInContext(shortcut);
+        });
     }
 
     // Get a slateKey:shortcut mapping of all active single hashtag keyword shortcuts
@@ -190,9 +190,9 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
             if (shortcutManager.isShortcutInstanceOfSingleHashtagKeyword(shortcut)) {
                 const mapping = {};
                 mapping[key] = shortcut;
-                listOfSingleHashtagKeywordShortcutMappings.push(mapping)
+                listOfSingleHashtagKeywordShortcutMappings.push(mapping);
             }
-        })
+        });
         return listOfSingleHashtagKeywordShortcutMappings;
     }
 
@@ -205,4 +205,4 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
     };
 }
 
-export default SingleHashtagKeywordStructuredFieldPlugin
+export default SingleHashtagKeywordStructuredFieldPlugin;

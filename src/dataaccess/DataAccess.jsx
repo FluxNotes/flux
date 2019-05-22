@@ -3,7 +3,7 @@ import NewPatientOnlyDataSource from './NewPatientOnlyDataSource';
 import RestApiDataSource from './RestApiDataSource';
 import FHIRApiDataSource from './FHIRApiDataSource';
 import HardCodedMcodeV05DataSource from './HardCodedMcodeV05DataSource';
-import McodeV05SmartOnFhirDataSource from './McodeV05SmartOnFhirDataSource'
+import McodeV05SmartOnFhirDataSource from './McodeV05SmartOnFhirDataSource';
 import HardCodedMcodeV01DataSource from './mcodev0.1-datasource/HardCodedMcodeV01DataSource';
 import GenericSmartOnFhirDstu2DataSource from './GenericSmartOnFhirDstu2DataSource';
 

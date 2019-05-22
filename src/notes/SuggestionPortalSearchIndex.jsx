@@ -1,8 +1,8 @@
 import Fuse from 'fuse.js';
 import Lang from 'lodash';
 
-class SuggestionPortalSearchIndex { 
-    constructor(list, initialChar, shortcutManager) { 
+class SuggestionPortalSearchIndex {
+    constructor(list, initialChar, shortcutManager) {
         this.initialChar = initialChar;
         this.shortcutManager = shortcutManager;
         // Metdata common to all suggestionSearchIndexs
@@ -17,28 +17,28 @@ class SuggestionPortalSearchIndex {
             keys: [
                 "suggestion"
             ]
-        }
+        };
         this.shortcutsFuse = new Fuse([], this.fuseOptions);
     }
 
     // Takes a contextmanager and uses the current context to update it's current shortcutsFuse Index
-    updateIndex = (contextManager) =>  { 
+    updateIndex = (contextManager) =>  {
         // Every kind of suggestion portal index is going to be different, so we don't have a common way of building an index.
     }
 
     sortSuggestionsAlphabetically = (a, b) => {
-        if(a.data.score > b.data.score) {
+        if (a.data.score > b.data.score) {
             return 1;
         }
-        if(a.data.score < b.data.score){
+        if (a.data.score < b.data.score) {
             return -1;
-        } 
-        if(a.suggestion.toLowerCase() > b.suggestion.toLowerCase()){
+        }
+        if (a.suggestion.toLowerCase() > b.suggestion.toLowerCase()) {
             return 1;
-        } 
-        if(a.suggestion.toLowerCase() < b.suggestion.toLowerCase()){
+        }
+        if (a.suggestion.toLowerCase() < b.suggestion.toLowerCase()) {
             return -1;
-        } 
+        }
         return 0;
     }
 
@@ -48,7 +48,7 @@ class SuggestionPortalSearchIndex {
         const maxLength = 25;
         const searchTextLowercase = searchText.toLowerCase();
         let results = this.shortcutsFuse.search(searchTextLowercase);
-        
+
         // If there are no results, if the searchText is empty, and if the list being searched on is nonempty
         // return a list of shortcutsFuseOptions formatted with this extra data field
         if (results.length === 0 && Lang.isEmpty(searchText)) {
@@ -56,13 +56,13 @@ class SuggestionPortalSearchIndex {
                 suggestionObj.data = {
                     score: 0.1,
                     matches: [],
-                }
-                return suggestionObj
+                };
+                return suggestionObj;
             });
         }
 
 
-        const resultFormatted = results.map((result) => { 
+        const resultFormatted = results.map((result) => {
             return {
                 key: result.item.key,
                 value: result.item.value,
@@ -73,9 +73,9 @@ class SuggestionPortalSearchIndex {
                     matches: result.matches,
                 },
             };
-        }).sort(this.sortSuggestionsAlphabetically).slice(0,maxLength);;
+        }).sort(this.sortSuggestionsAlphabetically).slice(0,maxLength);
 
-        return resultFormatted
+        return resultFormatted;
     }
 }
 

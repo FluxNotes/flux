@@ -11,7 +11,7 @@ const demoUsers = [
         id: "1234567890",
         resourceType: "Doctor",
         practitionerRole: [
-            {   
+            {
                 role: {
                     coding: [
                         { code: 'doctor', display: 'Doctor'}
@@ -50,7 +50,7 @@ const demoUsers = [
                             ]
                         }
                     },
-                    activeFlag: true    
+                    activeFlag: true
                 }
             }
         }
@@ -63,7 +63,7 @@ const demoUsers = [
         id: "1234567891",
         resourceType: "Doctor",
         practitionerRole: [
-            {   
+            {
                 role: {
                     coding: [
                         { code: 'nurse', display: 'Nurse'}
@@ -102,7 +102,7 @@ const demoUsers = [
                             ]
                         }
                     },
-                    activeFlag: true    
+                    activeFlag: true
                 }
             }
         }
@@ -110,7 +110,7 @@ const demoUsers = [
 ];
 
 // Security Manager will handle all security related functionality of the app (authentication, authorization, etc)
-class SecurityManager {    
+class SecurityManager {
 
     getUserProfile(user) {
         return new UserProfile(user);

@@ -2,16 +2,16 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import ChoiceButton from '../elements/ChoiceButton';
 
-import "./SingleChoiceButton.css"
+import "./SingleChoiceButton.css";
 
 class SingleChoiceButton extends Component {
     render() {
-        let className = "single-choice-button "
+        let className = "single-choice-button ";
         className += (this.props.className) ? `${this.props.className} ` : "";
         className += (this.props.isSelected) ? "selected " : "";
 
         return (
-            <ChoiceButton 
+            <ChoiceButton
                 variant="raised"
                 key={this.props.buttonKey}
                 label={this.props.buttonText}
@@ -28,13 +28,13 @@ class SingleChoiceButton extends Component {
     }
 }
 
-SingleChoiceButton.proptypes = {
-    buttonKey: PropTypes.isRequired,
+SingleChoiceButton.propTypes= {
+    buttonKey: PropTypes.number.isRequired,
     buttonText: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
     className: PropTypes.string,
-    marginSize: PropTypes.string.isRequired,
-    isDisabled: PropTypes.bool.isRequired,
-}
+    marginSize: PropTypes.string,
+    isDisabled: PropTypes.bool,
+};
 
 export default SingleChoiceButton;

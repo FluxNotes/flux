@@ -14,7 +14,7 @@ class Shortcut extends Context {
         this.valueChangeHandlers = {};
         this.uniqueId = v4();
     }
-    
+
     initialize(contextManager, trigger = undefined, updatePatient = true) {
         super.initialize(contextManager, trigger, updatePatient);
     }
@@ -24,18 +24,18 @@ class Shortcut extends Context {
     }
 
     getPrefixCharacter() {
-        throw new TypeError("Primitive shortcut has no prefix character")
-    }
-    
-    // Slim App
-    getAsString () { 
-        return "#null"; 
+        throw new TypeError("Primitive shortcut has no prefix character");
     }
 
-    getShortcutType() { 
-        throw new TypeError("Base Shortcut has no type")
+    // Slim App
+    getAsString () {
+        return "#null";
     }
-    
+
+    getShortcutType() {
+        throw new TypeError("Base Shortcut has no type");
+    }
+
     getText() {
         return this.getShortcutType();
     }
@@ -46,16 +46,16 @@ class Shortcut extends Context {
 
     getLabel() {
         throw new Error("Invalid context. " + this.constructor.name);
-    }   
-        
+    }
+
     updatePatient(patient, contextManager) {
         throw new Error("update patient not implemented for " + this.constructor.name);
     }
-    
+
     validateInCurrentContext(contextManager) {
         return []; // no errors
     }
-    
+
     //options is array of {key: item.entryId, context: item.specificType.coding[0].displayText, object: item, date: item.<name of the object that holds the date. Varies for each shortcut>}
     flagForTextSelection(options) {
         // Sort the options by time if options is an array
@@ -78,15 +78,15 @@ class Shortcut extends Context {
         }
         return 0;
     }
-    
+
     getValueSelectionOptions() {
         return this.optionsToSelectFrom;
     }
-    
+
     needToSelectValueFromMultipleOptions() {
         return !Lang.isNull(this.optionsToSelectFrom);
     }
-    
+
     clearValueSelectionOptions() {
         this.optionsToSelectFrom = null;
     }
@@ -95,7 +95,7 @@ class Shortcut extends Context {
     isContext() {
         return false;
     }
-    
+
     onBeforeDeleted() {
         if (this.isContext() && this.hasChildren()) {
             return false;

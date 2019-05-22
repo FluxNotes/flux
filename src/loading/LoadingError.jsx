@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Typography, Fade, Paper } from 'material-ui';
 
-class LoadingError extends Component { 
-    render() { 
+class LoadingError extends Component {
+    render() {
         const { isSomeError, timeoutDuration, loadingErrorObject } = this.props;
-        return ( 
+        return (
             <Fade in={isSomeError} timeout={timeoutDuration}>
                 <Paper
                     style={{
@@ -33,17 +33,17 @@ class LoadingError extends Component {
                             'padding': '0 10px 15px 10px'
                         }}
                     >
-                        There was a problem loading data from the current data source: 
+                        There was a problem loading data from the current data source:
                     </Typography>
                     {/* If there is a loading error, log the message here */}
-                    {loadingErrorObject && 
+                    {loadingErrorObject &&
                         <Typography
                             variant="body2"
                             style={{
                                 'padding': '0 10px 15px 10px'
                             }}
                         >
-                            {loadingErrorObject.message} 
+                            {loadingErrorObject.message}
                         </Typography>
                     }
                 </Paper>

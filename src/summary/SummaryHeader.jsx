@@ -80,15 +80,15 @@ class SummaryHeader extends Component {
                 </div>
                 <div className="patient-info item">
                     <div className="patient-name-number">
-                      <span className="patient-name">{patientName}</span>
-                      { mrn && <span className="patient-mrn">({mrn})</span> }
+                        <span className="patient-name">{patientName}</span>
+                        { mrn && <span className="patient-mrn">({mrn})</span> }
                     </div>
                     <div className="patient-item">DOB: <span className="no-wrap">{dateOfBirthString}</span></div>
                     <div className="patient-item">Admin. Sex:  <span>{administrativeSexString}</span></div>
                     <div className="patient-item">Location: <span>{locationString}</span></div>
                 </div>
-{/* TODO: Remove below content, or place patient description back inside an appropriate grid-row-col */}
-{/*                <Grid className="FullApp-content" fluid>
+                {/* TODO: Remove below content, or place patient description back inside an appropriate grid-row-col */}
+                {/*                <Grid className="FullApp-content" fluid>
                     <Row middle="xs">
                         <Col sm={12}>
                             <div className="view item">
@@ -145,7 +145,7 @@ SummaryHeader.propTypes = {
             value: PropTypes.string
         }),
         state: PropTypes.shape({
-            value: PropTypes.state
+            value: PropTypes.string
         })
     }),
     layout: PropTypes.string,

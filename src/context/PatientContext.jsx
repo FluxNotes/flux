@@ -10,25 +10,25 @@ import ClinicalTrialCreator from '../shortcuts/ClinicalTrialCreator';
 */
 
 class PatientContext extends Context {
-	constructor(patient) {
-		super();
-		this.patient = patient;
-	}
-	
-	getValidChildShortcuts(recurse = false) {
-		/*let result = [  NameInserter, DateOfBirthInserter, AgeInserter, GenderInserter, PatientInserter, ConditionInserter, ClinicalTrialCreator, DeceasedCreator ];
+    constructor(patient) {
+        super();
+        this.patient = patient;
+    }
+
+    getValidChildShortcuts(recurse = false) {
+        /*let result = [  NameInserter, DateOfBirthInserter, AgeInserter, GenderInserter, PatientInserter, ConditionInserter, ClinicalTrialCreator, DeceasedCreator ];
 		if (recurse) {
 			this.getChildren().forEach((subcontext) => {
 				result = result.concat(subcontext.getValidChildShortcuts(true));
 			});
 		}
 		return result;*/
-        
-	}
-	
-	getLabel() {
-		return "Patient";
-	}
+
+    }
+
+    getLabel() {
+        return "Patient";
+    }
     getId() {
         return "Patient";
     }

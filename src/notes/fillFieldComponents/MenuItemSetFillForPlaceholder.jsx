@@ -18,7 +18,7 @@ class MenuItemSetFillForPlaceholder extends Component {
 
         this.state = {
             optionsToDisplay: this._options,
-        }
+        };
     }
 
     componentWillMount = () => {
@@ -131,4 +131,4 @@ MenuItemSetFillForPlaceholder.propTypes = {
     baseField: PropTypes.string,
     baseValue: PropTypes.string,
     updateValue: PropTypes.func.isRequired,
-}
+};

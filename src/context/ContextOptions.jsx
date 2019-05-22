@@ -4,7 +4,7 @@ import Lang from 'lodash';
 import Tooltip from 'rc-tooltip';
 
 import 'rc-tooltip/assets/bootstrap.css';
-import './ContextOptions.css'
+import './ContextOptions.css';
 
 export default class ContextOptions extends Component {
     constructor(props) {
@@ -13,7 +13,7 @@ export default class ContextOptions extends Component {
         this.state = {
             searchString: '',
             tooltipVisibility: 'visible'
-        }
+        };
     }
 
     handleClick = (e, i) => {
@@ -27,19 +27,19 @@ export default class ContextOptions extends Component {
     }
 
     mouseLeave = () => {
-        this.setState({ tooltipVisibility: 'hidden' })
+        this.setState({ tooltipVisibility: 'hidden' });
     }
 
     mouseEnter = () => {
-        this.setState({ tooltipVisibility: 'visible' })
+        this.setState({ tooltipVisibility: 'visible' });
     }
 
-    renderGroup = (groupObj, i, parentContext) => { 
+    renderGroup = (groupObj, i, parentContext) => {
         return (
             <div key={`group-${i}`}>
                 {/* Use group name if available */}
                 {!Lang.isUndefined(groupObj.groupName) &&
-                    <div 
+                    <div
                         className="context-options-header"
                         title={groupObj.groupName}
                     >
@@ -50,7 +50,7 @@ export default class ContextOptions extends Component {
                 <div key={i}>
                     {groupObj.triggers.map((trigger, i) => {
                         const largeTrigger = trigger.description.length > 100;
-                        const text = <span>{trigger.description}</span>
+                        const text = <span>{trigger.description}</span>;
                         return (
                             <Tooltip
                                 key={trigger.name}
@@ -111,7 +111,7 @@ export default class ContextOptions extends Component {
 
         // lets create a list of groups with associated shortcut triggers for each
         let groupList = [];
-        let currentGroup = { group: "", triggers:[] };
+        let currentGroup = { group: "", triggers: [] };
         let countToShow = 0;
         let totalShown = 0;
         triggers.forEach((trigger, i) => {
@@ -135,7 +135,7 @@ export default class ContextOptions extends Component {
         if (totalShown === 0) {
             return null;
         }
-        
+
         const validShortcutMetadata = validShortcuts
             .map((shortcutId) => this.props.shortcutManager.getShortcutMetadata(shortcutId));
 
@@ -143,11 +143,11 @@ export default class ContextOptions extends Component {
             // Does the context not have metadata -- if so it's the parent context and it's a groupName
             Lang.isUndefined(context.metadata)
             // or, it needs to meet two criteria: 1. Does this group have some active elements to display
-            || ( groupList.length > 0
+            || (groupList.length > 0
                 // 2.Its referenced as a parent shortcut by >=1 active shortcuts who themselves have no group name
-                && validShortcutMetadata.filter((shortcutMetadata, i) => { 
-                    if (Lang.isUndefined(shortcutMetadata)) return false
-                    return shortcutMetadata["knownParentContexts"] === context.metadata.id && Lang.isUndefined(shortcutMetadata["shortcutGroupName"])
+                && validShortcutMetadata.filter((shortcutMetadata, i) => {
+                    if (Lang.isUndefined(shortcutMetadata)) return false;
+                    return shortcutMetadata["knownParentContexts"] === context.metadata.id && Lang.isUndefined(shortcutMetadata["shortcutGroupName"]);
                 }).length !== 0
             )
         );
@@ -157,21 +157,21 @@ export default class ContextOptions extends Component {
             >
                 <div className='context-options-list'>
                     {/* Group child shortcuts with parentContext as header if this group doesn't have a groupName */}
-                    {(isCurrentContextAGroupName) && 
-                        <div 
+                    {(isCurrentContextAGroupName) &&
+                        <div
                             className={`context-options-header`}
                             title={context.getLabel()}
-                        > 
+                        >
                             {context.getLabel()}
                         </div>
                     }
                     {/* Render all shortcuts with no groupNames */}
                     {groupList.filter((groupObj, i) => Lang.isUndefined(groupObj.groupName)).map((groupObj, i) => {
-                        return this.renderGroup(groupObj, i, context)
+                        return this.renderGroup(groupObj, i, context);
                     })}
                     {/* Render all the shortcuts with gropuNames */}
                     {groupList.filter((groupObj, i) => !Lang.isUndefined(groupObj.groupName)).map((groupObj, i) => {
-                        return this.renderGroup(groupObj, i, context)
+                        return this.renderGroup(groupObj, i, context);
                     })}
                 </div>
             </section>
@@ -183,9 +183,9 @@ function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-ContextOptions.proptypes = {
+ContextOptions.propTypes = {
     context: PropTypes.object,
     contextManager: PropTypes.object.isRequired,
     handleClick: PropTypes.func.isRequired,
     shortcutManager: PropTypes.object.isRequired,
-}
+};

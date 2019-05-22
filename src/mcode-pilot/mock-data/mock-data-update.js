@@ -40,10 +40,10 @@ function modelParse(property) {
             }
         }
     } else if (property.type === "multi-choice") {
-        weight = (property.weight === "uniform") ? new Array(property.values.length).fill(1 / property.values.length) : property.weight;
+        const weight = (property.weight === "uniform") ? new Array(property.values.length).fill(1 / property.values.length) : property.weight;
         let r;
         const returnSet = [];
-        const defaultValue = property.values.filter((e) => { return e.startsWith("!") });
+        const defaultValue = property.values.filter((e) => { return e.startsWith("!"); });
         for (let i = 0; i < property.values.length; i++) {
             r = Math.random();
             if (r <= weight[i]) {
@@ -54,7 +54,7 @@ function modelParse(property) {
             }
         }
         if (returnSet.length === 0) {
-            return defaultValue.map((e) => { return e.substring(1) });
+            return defaultValue.map((e) => { return e.substring(1); });
         }
         return returnSet;
     } else if (property.type === "date") {
@@ -86,7 +86,7 @@ fs.readFile(path.resolve(__dirname, 'mock-data.json'), 'utf8', function readFile
         const transformedData = obj.transformedData;
         transformedData.forEach((patient) => {
             recursiveFill(dataModel, patient, null);
-        })
+        });
         const json = JSON.stringify(obj, null, "\t");
 
         fs.writeFile(path.resolve(__dirname, 'mock-data.json'), json, 'utf8', (err) => {

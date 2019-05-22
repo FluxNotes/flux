@@ -2,7 +2,7 @@ import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
 import FluxObservation from '../base/FluxObservation';
 import Observation from '../shr/base/Observation';
-import lookup from '../../../../lib/receptor_lookup.jsx';
+import * as lookup from '../../../../lib/receptor_lookup.jsx';
 
 // FluxEstrogenReceptorStatus class to hide codeableconcepts
 class FluxEstrogenReceptorStatus extends FluxObservation {
@@ -16,13 +16,13 @@ class FluxEstrogenReceptorStatus extends FluxObservation {
             this._observation.entryInfo = entry;
         }
     }
-    
+
     /**
      * Getter for shr.oncology.ReceptorType
      */
     get status() {
         if (!this._observation.value) return null;
-        return this._observation.value.coding[0].displayText.value; 
+        return this._observation.value.coding[0].displayText.value;
     }
 
     /**

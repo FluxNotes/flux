@@ -32,7 +32,7 @@ class FluxConditionPresentAssertion extends FluxEntry {
     }
 
     get codeURL() {
-        return this.codeSystem + "/" + this.code; 
+        return this.codeSystem + "/" + this.code;
     }
 
     get type() {
@@ -58,13 +58,13 @@ class FluxConditionPresentAssertion extends FluxEntry {
             return this._displayTextOrCode(this._condition.anatomicalLocation[0].anatomicalLocationOrLandmarkCode.value.coding[0]);
         }
     }
-    
+
     get clinicalStatus() {
         return this._condition.clinicalStatus ? this._condition.clinicalStatus.value : null;
     }
-    
+
     get laterality() {
-        if (    !this._condition.anatomicalLocation || 
+        if (    !this._condition.anatomicalLocation ||
                 this._condition.anatomicalLocation.length < 1 ||
                 !this._condition.anatomicalLocation[0].laterality ||
                 !this._condition.anatomicalLocation[0].laterality.value) return null;

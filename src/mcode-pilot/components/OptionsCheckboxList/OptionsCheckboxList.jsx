@@ -154,4 +154,4 @@ OptionsCheckboxList.propTypes = {
     setSelected: PropTypes.func.isRequired,
     setAllSelected: PropTypes.func.isRequired,
     selectSimilarPatientOptionRange: PropTypes.func.isRequired
-}
+};

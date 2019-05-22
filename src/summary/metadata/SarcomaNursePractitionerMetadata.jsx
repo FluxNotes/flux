@@ -31,10 +31,10 @@ export default class SarcomaNursePractitionerMetadata extends MetadataSection {
                 SarcomaSummarySection,
                 ActiveConditionsSection,
                 MedicationsSection,
-                AllergiesSection,  
+                AllergiesSection,
                 ProceduresSection,
                 ImagingSection,
-                DiseaseStatusSection,                   
+                DiseaseStatusSection,
                 {
                     name: "Vitals",
                     shortName: "Vitals",
@@ -46,7 +46,7 @@ export default class SarcomaNursePractitionerMetadata extends MetadataSection {
                         WeightSubsection,
                         HeartRateSubsection
                     ]
-                },                 
+                },
                 {
                     name: "Labs",
                     shortName: "Labs",
@@ -82,14 +82,14 @@ export default class SarcomaNursePractitionerMetadata extends MetadataSection {
                                         if (!panels || panels.length === 0) return null;
                                         const panel = panels.pop();
                                         return  {   value: panel.members.filter((item) => {
-                                                            return (item.value === 'Positive');
-                                                        }).map((item) => {
-                                                            const v = item.value === 'Positive' ? '+' : '-';
-                                                            return item.abbreviatedName + v;
-                                                        }).join(","),
-                                                    isUnsigned: patient.isUnsigned(panel),
-                                                    source: this.determineSource(patient, panel)
-                                                };
+                                            return (item.value === 'Positive');
+                                        }).map((item) => {
+                                            const v = item.value === 'Positive' ? '+' : '-';
+                                            return item.abbreviatedName + v;
+                                        }).join(","),
+                                        isUnsigned: patient.isUnsigned(panel),
+                                        source: this.determineSource(patient, panel)
+                                        };
                                     }
                                 }
                             ]

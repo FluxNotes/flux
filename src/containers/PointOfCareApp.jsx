@@ -39,16 +39,16 @@ function getModalStyle() {
     const left = 50;
 
     return {
-      top: `${top}%`,
-      left: `${left}%`,
-      transform: `translate(-${top}%, -${left}%)`,
-      position: 'absolute',
-      width: 400,
-      backgroundColor: 'white',
-      boxShadow: 'black',
-      padding: 8,
+        top: `${top}%`,
+        left: `${left}%`,
+        transform: `translate(-${top}%, -${left}%)`,
+        position: 'absolute',
+        width: 400,
+        backgroundColor: 'white',
+        boxShadow: 'black',
+        padding: 8,
     };
-  }
+}
 
 export class PointOfCareApp extends Component {
     constructor(props) {
@@ -96,16 +96,16 @@ export class PointOfCareApp extends Component {
 
     loadPatient(patientId) {
         const DAGestalt = this.dataAccess.getGestalt();
-        if (DAGestalt.read.async) { 
-            this.dataAccess.getPatient(patientId, (patient, error) => { 
-                if (!Lang.isEmpty(error)) console.error(error)
+        if (DAGestalt.read.async) {
+            this.dataAccess.getPatient(patientId, (patient, error) => {
+                if (!Lang.isEmpty(error)) console.error(error);
                 this.setState({
                     patient,
                     loading: false,
                     loadingError: error
                 });
             });
-        } else if (DAGestalt.read.sync) { 
+        } else if (DAGestalt.read.sync) {
             // Else, assume sync
             try {
                 let patient = this.dataAccess.getPatient(patientId);
@@ -114,17 +114,17 @@ export class PointOfCareApp extends Component {
                     loading: false
                 });
             } catch (error) {
-                console.error(error)
+                console.error(error);
                 this.setState({
                     loading: false,
                     loadingErrorObject: error
                 });
             }
-        } else { 
-            const supportedError = Error("Data Source does not support sync or async types read operations -- current gestalt is " + JSON.stringify(DAGestalt))
-            console.error(supportedError)
+        } else {
+            const supportedError = Error("Data Source does not support sync or async types read operations -- current gestalt is " + JSON.stringify(DAGestalt));
+            console.error(supportedError);
             this.setState({
-                loading: false, 
+                loading: false,
                 loadingErrorObject: supportedError
             });
         }
@@ -132,7 +132,7 @@ export class PointOfCareApp extends Component {
 
     componentDidMount = () => {
         document.title = this.props.display;
-        // If we have a custom logoObject, we should update our favicons 
+        // If we have a custom logoObject, we should update our favicons
         if (!Lang.isEmpty(this.props.logoObject)) {
             const icons = document.querySelectorAll('link[rel="icon"]');
             for (const icon of icons) {
@@ -172,7 +172,7 @@ export class PointOfCareApp extends Component {
     }
 
     setCondition = (condition) => {
-        this.setFullAppState('condition', condition)
+        this.setFullAppState('condition', condition);
     }
 
     setLayout = (layoutView) => {
@@ -221,7 +221,7 @@ export class PointOfCareApp extends Component {
     }
 
     setSearchSuggestions = (suggestions) => {
-        this.setState({ searchSuggestions: suggestions })
+        this.setState({ searchSuggestions: suggestions });
     }
 
     setAppBlur = (isAppBlurred) => {
@@ -247,7 +247,7 @@ export class PointOfCareApp extends Component {
                         timeoutDuration={this.timeoutDuration}
                     />
                 </div>
-            )
+            );
         } else {
             return "";
         }
@@ -353,16 +353,16 @@ PointOfCareApp.propTypes = {
 
 // these props are used for dispatching actions
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
+    return bindActionCreators({
     // TODO: add actions
-  }, dispatch);
+    }, dispatch);
 }
 
 // these props come from the application's state when it is started
 function mapStateToProps(state) {
-  return {
+    return {
     // TODO: add state
-  };
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PointOfCareApp);

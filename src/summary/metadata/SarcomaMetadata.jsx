@@ -26,7 +26,7 @@ import HeartRateSubsection from './HeartRateSubsection';
 export default class SarcomaMetadata extends MetadataSection {
     getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
         return { // sarcoma
-            sections: this.buildMetadataSections(preferencesManager, patient, condition, roleType, role, specialty, 
+            sections: this.buildMetadataSections(preferencesManager, patient, condition, roleType, role, specialty,
                 VisitReasonPreEncounterSection,
                 VisitReasonPostEncounterSection,
                 SarcomaSummarySection,
@@ -34,7 +34,7 @@ export default class SarcomaMetadata extends MetadataSection {
                 MedicationsSection,
                 AllergiesSection,
                 ProceduresSection,
-                ImagingSection,               
+                ImagingSection,
                 DiseaseStatusSection,
                 {
                     name: "Vitals",
@@ -83,14 +83,14 @@ export default class SarcomaMetadata extends MetadataSection {
                                         if (!panels || panels.length === 0) return null;
                                         const panel = panels.pop();
                                         return  {   value: panel.members.filter((item) => {
-                                                            return (item.value === 'Positive');
-                                                        }).map((item) => {
-                                                            const v = item.value === 'Positive' ? '+' : '-';
-                                                            return item.abbreviatedName + v;
-                                                        }).join(","),
-                                                    isUnsigned: patient.isUnsigned(panel),
-                                                    source: this.determineSource(patient, panel)
-                                                };
+                                            return (item.value === 'Positive');
+                                        }).map((item) => {
+                                            const v = item.value === 'Positive' ? '+' : '-';
+                                            return item.abbreviatedName + v;
+                                        }).join(","),
+                                        isUnsigned: patient.isUnsigned(panel),
+                                        source: this.determineSource(patient, panel)
+                                        };
                                     }
                                 }
                             ]

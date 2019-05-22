@@ -11,7 +11,7 @@ import FluxECOGPerformanceStatus from '../oncocore/FluxECOGPerformanceStatus';
 import FluxTNMStageGroup from '../oncocore/FluxTNMStageGroup';
 import FluxTumorMarker from '../oncocore/FluxTumorMarker';
 import FluxTNMPathologicStageGroup from '../oncocore/FluxTNMPathologicStageGroup';
-import lookup from '../../lib/cancer_lookup';
+import * as lookup from '../../lib/cancer_lookup';
 
 class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
     constructor(json, type, patientRecord) {

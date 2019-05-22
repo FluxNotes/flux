@@ -50,19 +50,19 @@ class SearchSuggestion extends React.Component {
                 <span className="highlighted-input-value">{highlightedText}</span>
                 <span>{postText}</span>
             </div>
-        )
+        );
     }
 
     renderLabel = () => {
         const { suggestion } = this.props;
-   
+
         let suggestionLabel = '';
         if (suggestion.source === 'structuredData') {
             const subsection = suggestion.subsection.length > 0 ? ` > ${suggestion.subsection}` : '';
             suggestionLabel = (
                 <div className="suggestion-label">
                     <span className={"label-content"}>{suggestion.section + subsection}</span>
-                </div> 
+                </div>
             );
         } else if (suggestion.source === 'clinicalNote') {
             const date = <span>{suggestion.date + ` `}</span>;
@@ -82,7 +82,7 @@ class SearchSuggestion extends React.Component {
         return suggestionLabel;
     }
 
-    render() { 
+    render() {
         return (
             <div className="suggestion-item">
                 {this.renderLabel()}
@@ -90,7 +90,7 @@ class SearchSuggestion extends React.Component {
             </div>
         );
     }
-    
+
 }
 
 SearchSuggestion.propTypes = {

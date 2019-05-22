@@ -4,8 +4,8 @@ import Slate from '../lib/slate';
 import Lang from 'lodash';
 import FontAwesome from 'react-fontawesome';
 import ContextPortal from '../context/ContextPortal';
-import SuggestionPortalShortcutSearchIndex from './SuggestionPortalShortcutSearchIndex'
-import SuggestionPortalPlaceholderSearchIndex from './SuggestionPortalPlaceholderSearchIndex'
+import SuggestionPortalShortcutSearchIndex from './SuggestionPortalShortcutSearchIndex';
+import SuggestionPortalPlaceholderSearchIndex from './SuggestionPortalPlaceholderSearchIndex';
 // versions 0.20.3-0.20.7 of Slate seem to have an issue.
 // when we change the selection and give focus in our key handlers, Slate changes the selection including
 // focus and then immediately takes focus away. Not an issue in 0.20.2 and older. package.json currently
@@ -15,11 +15,11 @@ import {Row, Col} from 'react-flexbox-grid';
 import EditorToolbar from './EditorToolbar';
 import Button from '../elements/Button';
 import {TextField, Divider} from 'material-ui';
-import AutoReplace from 'slate-auto-replace'
-import SuggestionsPlugin from '../lib/slate-suggestions-dist'
+import AutoReplace from 'slate-auto-replace';
+import SuggestionsPlugin from '../lib/slate-suggestions-dist';
 import position from '../lib/slate-suggestions-dist/caret-position';
 import StructuredFieldPlugin from './StructuredFieldPlugin';
-import SingleHashtagKeywordStructuredFieldPlugin from './SingleHashtagKeywordStructuredFieldPlugin'
+import SingleHashtagKeywordStructuredFieldPlugin from './SingleHashtagKeywordStructuredFieldPlugin';
 import NLPHashtagPlugin from './NLPHashtagPlugin';
 import Placeholder from '../shortcuts/Placeholder';
 import NoteParser from '../noteparser/NoteParser';
@@ -52,7 +52,7 @@ const structuredFieldTypes = [
         name: 'typeStructuredField',
         value: 'structured_field'
     }
-]
+];
 
 class FluxNotesEditor extends React.Component {
     constructor(props) {
@@ -97,7 +97,7 @@ class FluxNotesEditor extends React.Component {
             structuredFieldPluginOptions[typeName] = typeValue;
         });
         this.structuredFieldPlugin = StructuredFieldPlugin(structuredFieldPluginOptions);
-        this.plugins.push(this.structuredFieldPlugin)
+        this.plugins.push(this.structuredFieldPlugin);
 
         // setup single hashtag structured field plugin
         const singleHashtagKeywordStructuredFieldPluginOptions = {
@@ -107,7 +107,7 @@ class FluxNotesEditor extends React.Component {
             insertStructuredFieldTransform: this.insertStructuredFieldTransform,
         };
         this.singleHashtagKeywordStructuredFieldPlugin = SingleHashtagKeywordStructuredFieldPlugin(singleHashtagKeywordStructuredFieldPluginOptions);
-        this.plugins.push(this.singleHashtagKeywordStructuredFieldPlugin)
+        this.plugins.push(this.singleHashtagKeywordStructuredFieldPlugin);
 
         // setup NLPHashtagPlugin
         const NLPHashtagPluginOptions = {
@@ -118,44 +118,44 @@ class FluxNotesEditor extends React.Component {
             insertStructuredFieldTransformAtRange: this.insertStructuredFieldTransformAtRange,
             getEditorState: () => this.state.state,
             setEditorState: (state) => {
-                this.setState({state})
+                this.setState({state});
             },
             updateFetchingStatus: this.updateFetchingStatus,
         };
         this.NLPHashtagPlugin = NLPHashtagPlugin(NLPHashtagPluginOptions);
-        this.plugins.push(this.NLPHashtagPlugin)
+        this.plugins.push(this.NLPHashtagPlugin);
 
         // Track all the indexes needed for suggestions portals
         this.suggestionPortalSearchIndexes = [];
 
         // setup creator suggestions plugin (autocomplete)
         const creatorSuggestionPortalSearchIndex = new SuggestionPortalShortcutSearchIndex([], '#', this.props.shortcutManager);
-        this.contextManager.subscribe(creatorSuggestionPortalSearchIndex, creatorSuggestionPortalSearchIndex.updateIndex)
-        this.suggestionPortalSearchIndexes.push(creatorSuggestionPortalSearchIndex)
+        this.contextManager.subscribe(creatorSuggestionPortalSearchIndex, creatorSuggestionPortalSearchIndex.updateIndex);
+        this.suggestionPortalSearchIndexes.push(creatorSuggestionPortalSearchIndex);
         this.suggestionsPluginCreators = SuggestionsPlugin({
             capture: /#([\w\s\-,]*)/,
             onEnter: this.choseSuggestedShortcut.bind(this),
             suggestions: creatorSuggestionPortalSearchIndex.search,
             trigger: '#',
         });
-        this.plugins.push(this.suggestionsPluginCreators)
+        this.plugins.push(this.suggestionsPluginCreators);
 
         // setup inserter suggestions plugin (autocomplete)
         const inserterSuggestionPortalSearchIndex = new SuggestionPortalShortcutSearchIndex([], '@', this.props.shortcutManager);
-        this.contextManager.subscribe(inserterSuggestionPortalSearchIndex, inserterSuggestionPortalSearchIndex.updateIndex)
-        this.suggestionPortalSearchIndexes.push(inserterSuggestionPortalSearchIndex)
+        this.contextManager.subscribe(inserterSuggestionPortalSearchIndex, inserterSuggestionPortalSearchIndex.updateIndex);
+        this.suggestionPortalSearchIndexes.push(inserterSuggestionPortalSearchIndex);
         this.suggestionsPluginInserters = SuggestionsPlugin({
             capture: /@([\w\s\-,]*)/,
             onEnter: this.choseSuggestedShortcut.bind(this),
             suggestions: inserterSuggestionPortalSearchIndex.search,
             trigger: '@',
         });
-        this.plugins.push(this.suggestionsPluginInserters)
+        this.plugins.push(this.suggestionsPluginInserters);
 
         // Setup suggestions plugin
         const placeholderSuggestionPortalSearchIndex = new SuggestionPortalPlaceholderSearchIndex([], '<', this.props.shortcutManager);
-        this.contextManager.subscribe(placeholderSuggestionPortalSearchIndex, placeholderSuggestionPortalSearchIndex.updateIndex)
-        this.suggestionPortalSearchIndexes.push(placeholderSuggestionPortalSearchIndex)
+        this.contextManager.subscribe(placeholderSuggestionPortalSearchIndex, placeholderSuggestionPortalSearchIndex.updateIndex);
+        this.suggestionPortalSearchIndexes.push(placeholderSuggestionPortalSearchIndex);
         this.suggestionsPluginPlaceholders = SuggestionsPlugin({
             capture: /<([\w\s\-,>]*)/,
             onEnter: this.choseSuggestedPlaceholder.bind(this),
@@ -219,6 +219,7 @@ class FluxNotesEditor extends React.Component {
 
     // Reset the editor to the initial state when the app is first constructed.
     resetEditorState() {
+        // eslint-disable-next-line
         this.state = {
             state: initialState,
             openedPortal: null,
@@ -235,7 +236,7 @@ class FluxNotesEditor extends React.Component {
     updateFetchingStatus = (isFetchingAsyncData) => {
         if (!isFetchingAsyncData) {
             // If we're not fetching, clear any lagging timers;
-            if (this.state.fetchTimeout !== null) clearTimeout(this.state.fetchTimeout._id)
+            if (this.state.fetchTimeout !== null) clearTimeout(this.state.fetchTimeout._id);
             this.setState({
                 // Make sure loadingTimeWarrantsWarning is false;
                 loadingTimeWarrantsWarning: false,
@@ -251,7 +252,7 @@ class FluxNotesEditor extends React.Component {
                         loadingTimeWarrantsWarning: true
                     });
                 }, 10),
-            })
+            });
         }
     }
 
@@ -356,7 +357,7 @@ class FluxNotesEditor extends React.Component {
                 }
             }
             return pos;
-        }
+        };
 
         if (!this.editorHasFocus) {
             if (this.lastPosition.top === 0 && this.lastPosition.left === 0) {
@@ -427,7 +428,7 @@ class FluxNotesEditor extends React.Component {
         let {anchorText, anchorOffset} = state;
         let anchorKey = state.anchorBlock.key;
         // All the text in this block
-        let text = anchorText.text
+        let text = anchorText.text;
         if (text.length === 0) {
             const block = state.document.getPreviousSibling(anchorKey);
             if (block) {
@@ -436,11 +437,11 @@ class FluxNotesEditor extends React.Component {
             }
         }
 
-        const indexOfPrefixInText = text.indexOf(prefixCharacter)
+        const indexOfPrefixInText = text.indexOf(prefixCharacter);
         if (indexOfPrefixInText === -1) {
             // If the prefix character and the text don't match up, error
-            console.error(`In suggestionDeleteExistingTransform: prefix character ${prefixCharacter} not found in current text ${text}`)
-            return transform
+            console.error(`In suggestionDeleteExistingTransform: prefix character ${prefixCharacter} not found in current text ${text}`);
+            return transform;
         } else {
             const charactersToDelete = anchorOffset - indexOfPrefixInText;
             return transform
@@ -525,7 +526,7 @@ class FluxNotesEditor extends React.Component {
                 focusKey: this.state.state.selection.focusKey,
                 focusOffset: this.state.state.selection.focusOffset,
                 newText: str
-            }
+            };
         }
         // Create an updated state with the text replaced.
         var nextState = this.state.state.transform().select({
@@ -533,7 +534,7 @@ class FluxNotesEditor extends React.Component {
             anchorOffset: data.anchorOffset,
             focusKey: data.focusKey,
             focusOffset: data.focusOffset
-        }).delete()
+        }).delete();
 
         this.insertTextWithStructuredPhrases(data.newText, nextState, true, "dictation");
     }
@@ -784,7 +785,7 @@ class FluxNotesEditor extends React.Component {
         // Check if the updatedEditorNote property has been updated
         if (nextProps.shouldEditorContentUpdate && this.props.updatedEditorNote !== nextProps.updatedEditorNote && !Lang.isNull(nextProps.updatedEditorNote)) {
             if (this.props.noteAssistantMode === 'pick-list-options-panel') {
-                console.log("Trying to revert a template in FluxNotesEditor")
+                console.log("Trying to revert a template in FluxNotesEditor");
                 this.revertTemplate();
             }
 
@@ -864,7 +865,7 @@ class FluxNotesEditor extends React.Component {
             const nextSection = nextProps.highlightedSearchSuggestion ? nextProps.highlightedSearchSuggestion.section : null;
             if (currentSection === 'Open Note' || nextSection === 'Open Note') {
                 // Get a transform with any previously highlighted results removed
-                let transform = this.updateHighlightingOfPreviouslyHighlightedSearchSuggestion(this.props.highlightedSearchSuggestion, nextProps.searchSuggestions)
+                let transform = this.updateHighlightingOfPreviouslyHighlightedSearchSuggestion(this.props.highlightedSearchSuggestion, nextProps.searchSuggestions);
                 this.highlightCurrentHighlightedSearchSuggestion(nextProps.highlightedSearchSuggestion, transform);
             }
         }
@@ -935,16 +936,16 @@ class FluxNotesEditor extends React.Component {
     highlightCurrentHighlightedSearchSuggestion = (newHighlightedSearchSuggestion, prevTransform=undefined) => {
         const {document} = this.state.state;
         let transform = Lang.isUndefined(prevTransform) ? this.state.state.transform() : prevTransform;
-        if (!Lang.isNull(newHighlightedSearchSuggestion)){
+        if (!Lang.isNull(newHighlightedSearchSuggestion)) {
             // Highlight matching plaintext
             //
             // Need a way of matching a specific instance of that match; we give each match
             // an identifier -- the order its in; that is 'n' where this is the nth phrase we've
             // seen that matches the current search text
-            let indexOfCurrentMatch = 0
+            let indexOfCurrentMatch = 0;
             document.getTexts().forEach(textNode => {
                 const regex = new RegExp(newHighlightedSearchSuggestion.inputValue, "gi");
-                let match = regex.exec(textNode.text)
+                let match = regex.exec(textNode.text);
                 while (match) {
                     if (indexOfCurrentMatch === newHighlightedSearchSuggestion.indexOfMatch) {
                         const offset = match.index;
@@ -967,7 +968,7 @@ class FluxNotesEditor extends React.Component {
             // Need a way of matching a specific instance of that match; we give each match
             // an identifier -- the order its in; that is 'n' where this is the nth phrase we've
             // seen that matches the current search text
-            indexOfCurrentMatch = 0
+            indexOfCurrentMatch = 0;
             this.getSearchResultInlines(this.state.state.document).forEach(inline => {
                 const shortcut = inline.get('data').get('shortcut');
                 // TODO: handle highlighting of placeholder text -- should happen in the highlight fn
@@ -995,7 +996,7 @@ class FluxNotesEditor extends React.Component {
             // regular highlighting of plaintext
             document.getTexts().forEach(textNode => {
                 const regex = new RegExp(prevHighlightedSuggestion.inputValue, "gi");
-                let match = regex.exec(textNode.text)
+                let match = regex.exec(textNode.text);
                 while (match) {
                     const offset = match.index;
                     const range = {
@@ -1018,7 +1019,7 @@ class FluxNotesEditor extends React.Component {
                 }
             });
         }
-        return transform
+        return transform;
     }
 
 
@@ -1053,7 +1054,7 @@ class FluxNotesEditor extends React.Component {
             // Highlight matching plaintext
             document.getTexts().forEach(textNode => {
                 const regex = new RegExp(suggestion.inputValue, "gi");
-                let match = regex.exec(textNode.text)
+                let match = regex.exec(textNode.text);
                 while (match) {
                     const offset = match.index;
                     const range = {
@@ -1187,7 +1188,7 @@ class FluxNotesEditor extends React.Component {
             const currentList = styleMarkings.find(a =>
                 a.value > -1 &&
                 (a.name === 'orderedListStartIndex' || a.name === 'orderedListEndIndex'
-                || a.name === 'unorderedListStartIndex' || a.name === 'unorderedListEndIndex'))
+                || a.name === 'unorderedListStartIndex' || a.name === 'unorderedListEndIndex'));
             if (currentList.name === 'orderedListStartIndex' || currentList.name === 'orderedListEndIndex') {
                 this.insertListItem(transform, text, 'numbered-list');
             } else {
@@ -1267,7 +1268,7 @@ class FluxNotesEditor extends React.Component {
         }
         let after = '';
         let structuredFieldToFollow = false;
-        while(liStartIndex !== -1 || liEndIndex !== -1) {
+        while (liStartIndex !== -1 || liEndIndex !== -1) {
             let { calculatedStartIndex, calculatedEndIndex, startOffset, endOffset } = this.getOffsets(listText, liStartIndex, liEndIndex, 4);
             let before = listText.substring(0, calculatedStartIndex);
             let during = listText.substring(calculatedStartIndex + startOffset, calculatedEndIndex);
@@ -1369,7 +1370,7 @@ class FluxNotesEditor extends React.Component {
             if (this.placeholderCheck(placeholderText)) {
                 let remainder = text.slice(placeholderEndIndex + 1);
                 let end;
-                let after = ""
+                let after = "";
                 let returnStr = text.substring(placeholderEndIndex + 1);
                 if (remainder.startsWith("[[")) {
                     end = remainder.indexOf("]]");
@@ -1385,7 +1386,7 @@ class FluxNotesEditor extends React.Component {
         this.insertTextWithStyles(transform, text);
         // FIXME: Need a trailing character for replacing keywords -- insert temporarily and then delete
         transform.insertText(' ');
-        const [newTransform,] = this.singleHashtagKeywordStructuredFieldPlugin.utils.replaceAllRelevantKeywordsInBlock(transform.state.anchorBlock, transform, transform.state)
+        const [newTransform,] = this.singleHashtagKeywordStructuredFieldPlugin.utils.replaceAllRelevantKeywordsInBlock(transform.state.anchorBlock, transform, transform.state);
         return newTransform.deleteBackward(1).focus();
     }
 
@@ -1468,7 +1469,7 @@ class FluxNotesEditor extends React.Component {
 
                 if (shortcutKey) {
                     setTimeout(() => {
-                        this.scrollToData(state.document, shortcutKey)
+                        this.scrollToData(state.document, shortcutKey);
                         this.props.setOpenSourceNoteEntryId(null);
                     }, 0);
                 }
@@ -1528,7 +1529,7 @@ class FluxNotesEditor extends React.Component {
                         'options': shortcutOptions,
                         'shortcut': shortcut
                     }
-                )
+                );
             });
 
             this.props.handleUpdateArrayOfPickLists(localArrayOfPickListsWithOptions);
@@ -1560,7 +1561,7 @@ class FluxNotesEditor extends React.Component {
 
         // Check if shortcutTrigger is a shortcut trigger in the list of currently valid shortcuts
         return shortcuts.some((shortcutObj) => {
-            const shortcutId = shortcutObj.id
+            const shortcutId = shortcutObj.id;
             const triggers = this.props.shortcutManager.getTriggersForShortcut(shortcutId);
             return triggers.some((trigger) => {
                 return trigger.name.toLowerCase() === shortcutTrigger.toLowerCase();
@@ -1613,11 +1614,11 @@ class FluxNotesEditor extends React.Component {
      * Handle any changes to the current mark type.
      */
     handleMarkUpdate = (type) => {
-        let {state} = this.state
+        let {state} = this.state;
         state = state
             .transform()
             .toggleMark(type)
-            .apply()
+            .apply();
         this.setState({state});
     }
 
@@ -1632,31 +1633,31 @@ class FluxNotesEditor extends React.Component {
 
         // Handle list buttons.
         if (type === 'bulleted-list' || type === 'numbered-list') {
-            const isList = this.handleBlockCheck(type + '-item')
+            const isList = this.handleBlockCheck(type + '-item');
 
             const isType = state.blocks.some((block) => {
-                return !!document.getClosest(block.key, parent => parent.type === type)
+                return !!document.getClosest(block.key, parent => parent.type === type);
             });
 
             if (isList && isType) {
                 transform
                     .setBlock(DEFAULT_NODE)
                     .unwrapBlock('bulleted-list')
-                    .unwrapBlock('numbered-list')
+                    .unwrapBlock('numbered-list');
             } else if (isList) {
                 transform
                     .unwrapBlock(type === 'bulleted-list' ? 'numbered-list' : 'bulleted-list')
-                    .wrapBlock(type)
+                    .wrapBlock(type);
             } else {
                 transform
                     .setBlock(type + '-item')
-                    .wrapBlock(type)
+                    .wrapBlock(type);
             }
         } else {
             // We don't handle any other kinds of block style formatting right now, but if we did it would go here.
         }
 
-        state = transform.apply()
+        state = transform.apply();
         this.setState({state});
 
     }
@@ -1754,7 +1755,7 @@ class FluxNotesEditor extends React.Component {
                 date = this.props.selectedNote.signedOn;
                 clinicianName = this.props.selectedNote.signedBy;
                 authorString = "Signed by: ";
-                dateString = "Signed date: "
+                dateString = "Signed date: ";
             } else {
                 date = this.props.selectedNote.createdOn;
                 clinicianName = this.props.selectedNote.createdBy;
@@ -1763,7 +1764,7 @@ class FluxNotesEditor extends React.Component {
             }
         }
 
-        if (this.props.patient == null) {
+        if (this.props.patient===null) {
             return "";
         } else {
             return (
@@ -1771,7 +1772,7 @@ class FluxNotesEditor extends React.Component {
                     <Row start="xs">
                         <Col xs={9}>
                             <Row>
-                            {this.renderNoteNameEditor(noteTitle, signed)}
+                                {this.renderNoteNameEditor(noteTitle, signed)}
                             </Row>
                             <Row>
                                 <Col xs={7}>
@@ -1855,7 +1856,7 @@ class FluxNotesEditor extends React.Component {
             );
         }
 
-        const callback = {}
+        const callback = {};
         const editorClassName = (this.props.selectedNote && this.props.selectedNote.signed)
             ? "editor-panel"
             : "editor-panel in-progress-note";

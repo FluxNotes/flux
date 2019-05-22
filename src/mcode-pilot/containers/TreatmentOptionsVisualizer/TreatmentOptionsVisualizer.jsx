@@ -34,7 +34,7 @@ export class TreatmentOptionsVisualizer extends Component {
         if (nextProps.similarPatientProps !== this.props.similarPatientProps ||
             nextProps.includedTreatments !== this.props.includedTreatments ||
             nextProps.comparedTreatments !== this.props.comparedTreatments
-          ) {
+        ) {
             this.props.processSimilarPatientOutcomes();
         }
     }
@@ -117,7 +117,7 @@ TreatmentOptionsVisualizer.propTypes = {
     selectAllSimilarPatientOptions: PropTypes.func.isRequired,
     processSimilarPatientOutcomes: PropTypes.func.isRequired,
     selectTreatments: PropTypes.func.isRequired
-}
+};
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({

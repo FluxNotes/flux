@@ -4,7 +4,7 @@ import EntryType from '../shr/base/EntryType';
 import Reference from '../Reference';
 import AdverseEventCondition from '../shr/adverse/AdverseEventCondition';
 import Seriousness from '../shr/adverse/Seriousness';
-import lookup from '../../lib/toxicreaction_lookup.jsx';
+import * as lookup from '../../lib/toxicreaction_lookup.jsx';
 import Type from '../shr/core/Type';
 import CausalAttribution from '../shr/adverse/CausalAttribution';
 import CauseCategory from '../shr/adverse/CauseCategory';

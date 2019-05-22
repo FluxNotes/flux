@@ -8,7 +8,7 @@ import Visualizer from './Visualizer';
 import './ExpandedTableVisualizer.css';
 
 /*
- A list of expanded tables for each ROS. The date is automatically shown and 
+ A list of expanded tables for each ROS. The date is automatically shown and
  can be expanded to show the ROS questions for that date.
  */
 export default class ExpandedTableVisualizer extends Visualizer {
@@ -78,7 +78,7 @@ export default class ExpandedTableVisualizer extends Visualizer {
         const onMenuItemClicked = (fn, element, item) => {
             const callback = () => {
                 fn(element, item);
-            }
+            };
             this.closeInsertionMenu(callback);
         };
         const element = {
@@ -111,7 +111,7 @@ export default class ExpandedTableVisualizer extends Visualizer {
         // search highlighting logic
         this.props.tdpSearchSuggestions.forEach(s => {
             if (s.field === 'valueTitle' && s.valueTitle === question.name) {
-                nameClass = 'highlighted '
+                nameClass = 'highlighted ';
             } else if (s.field === 'value' && s.inputValue === question.value) {
                 valueClass = 'highlighted ';
             }
@@ -121,9 +121,9 @@ export default class ExpandedTableVisualizer extends Visualizer {
         if (!Lang.isNull(this.props.highlightedSearchSuggestion)) {
             if (this.props.highlightedSearchSuggestion.date === date && this.props.highlightedSearchSuggestion.valueTitle === question.name) {
                 if (this.props.highlightedSearchSuggestion.field === 'valueTitle') {
-                    nameClass += 'selected '
+                    nameClass += 'selected ';
                 } else if (this.props.highlightedSearchSuggestion.field === 'value') {
-                    valueClass += 'selected '
+                    valueClass += 'selected ';
                 }
             }
         }

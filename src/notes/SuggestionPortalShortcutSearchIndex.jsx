@@ -4,14 +4,14 @@ import Lang from 'lodash';
 import _ from 'lodash';
 
 class SuggestionPortalShortcutSearchIndex extends SuggestionPortalSearchIndex  {
-    constructor(list, initialChar, shortcutManager) { 
-        super(list, initialChar, shortcutManager)
+    constructor(list, initialChar, shortcutManager) {
+        super(list, initialChar, shortcutManager);
         this.currentlyValidShortcutObjs = [];
     }
     updateIndex = (contextManager) => {
         const allShortcutObjs = contextManager.getCurrentlyValidShortcuts(this.shortcutManager);
         // If shortcuts haven't updated, we don't need to update our fuse index
-        if (Lang.isEqual(allShortcutObjs, this.currentlyValidShortcutObjs)) return
+        if (Lang.isEqual(allShortcutObjs, this.currentlyValidShortcutObjs)) return;
         this.currentlyValidShortcutObjs = allShortcutObjs;
         // Let's compile a list of shortcuts we care about, formatted for searching
         const relevantShortcutsFormattedForSearch = [];
@@ -25,31 +25,31 @@ class SuggestionPortalShortcutSearchIndex extends SuggestionPortalSearchIndex  {
             // ActiveContexts is sorted from most recent to least recent
             // We want shortcuts for the most recent shortcuts to have the smallest bonus score, so as to appear earlier
             let scoreBonusBasedOnContext = _.findIndex(activeContexts, (context) => {
-                // Quirk: We want global contexts to all be treated equally, regardless of incidence. 
+                // Quirk: We want global contexts to all be treated equally, regardless of incidence.
                 return context.getId() === shortcutObj.parentId && !context.isGlobalContext();
             });
 
             if (scoreBonusBasedOnContext === -1)  {
                 // no matching context means it's in the parent context or is a global context
-                // we want those to come last; they get the biggest bonus 
-                scoreBonusBasedOnContext = activeContexts.length
+                // we want those to come last; they get the biggest bonus
+                scoreBonusBasedOnContext = activeContexts.length;
             }
             triggers.forEach((trigger) => {
                 const triggerPrefix = trigger.name.substring(0,1);
-                const triggerNoPrefix = trigger.name.substring(1)
+                const triggerNoPrefix = trigger.name.substring(1);
                 if (this.initialChar === triggerPrefix) {
                     relevantShortcutsFormattedForSearch.push({
                         key: triggerNoPrefix,
                         value: trigger,
                         suggestion: triggerNoPrefix,
                         knownParentContexts: shortcutMetadata.knownParentContexts,
-                        scoreBonusBasedOnContext 
+                        scoreBonusBasedOnContext
                     });
                 }
             });
         });
 
-        this.shortcutsFuse = new Fuse(relevantShortcutsFormattedForSearch, this.fuseOptions); 
+        this.shortcutsFuse = new Fuse(relevantShortcutsFormattedForSearch, this.fuseOptions);
     }
 };
 

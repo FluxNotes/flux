@@ -40,7 +40,7 @@ export default class TreatmentOptionsOutcomesTable extends Component {
         const allEffects = allTreatmentData.map((e) => (Object.keys(e.sideEffects.effects)));
         const result = allEffects.reduce((p, c) => {
             // concat the arrays, filter out duplicate entries
-            return p.concat(c.filter((cx) => { return p.indexOf(cx) < 0 }));
+            return p.concat(c.filter((cx) => { return p.indexOf(cx) < 0; }));
         }, []);
         return result;
     }
@@ -120,7 +120,7 @@ export default class TreatmentOptionsOutcomesTable extends Component {
 
         const { displayName, totalPatients, sideEffects } = row;
         const topSideEffects = Object.keys(sideEffects.effects).map((sideEffect) => {
-            return { sideEffect, occurrences: sideEffects.effects[sideEffect] }
+            return { sideEffect, occurrences: sideEffects.effects[sideEffect] };
         }).sort((a, b) => b.occurrences - a.occurrences).slice(0, 2);
 
         return (

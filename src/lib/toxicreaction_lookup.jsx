@@ -5,69 +5,69 @@ const codeableConceptUtils = require('../model/CodeableConceptUtils.jsx');
 // These options came from the values of CauseCategory, which is a CodeableConcept from AttributionCategoryVS
 const attributionOptions = [
     {
-        name: 'Treatment', 
+        name: 'Treatment',
         description: "Adverse event is attributed to a treatment.",
         code: '#Treatment',
         codeSystem: 'https://www.meddra.org/'
     },
     {
-        name: 'Disease',  
+        name: 'Disease',
         description: "Adverse event is attributed to the course of the disease",
         code: '#Disease',
         codeSystem: 'https://www.meddra.org/'
     },
     {
-        name: 'Error', 
+        name: 'Error',
         description: "Adverse event is attributed to a medical error",
         code: '#Error',
         codeSystem: 'https://www.meddra.org/'
     },
     {
-        name: 'Unrelated', 
+        name: 'Unrelated',
         description: "Adverse event is attributed to an cause unrelated to the treatment, disease, or medical error.",
         code: '#Unrelated',
         codeSystem: 'https://www.meddra.org/'
     },
     {
-        name: 'Unknown', 
+        name: 'Unknown',
         description: "The causal category of the adverse event is unknown",
         code: '#Unknown',
         codeSystem: 'https://www.meddra.org/'
     }
-]
+];
 
 const gradeOptions = [
     {
-        name: 'Grade 1', 
+        name: 'Grade 1',
         description: "Mild; asymptomatic or mild symptoms; clinical or diagnostic observations only; intervention not indicated.",
         code: "C1513302",
         codeSystem: "http://ncimeta.nci.nih.gov",
     },
     {
-        name: 'Grade 2', 
+        name: 'Grade 2',
         description: "Moderate; minimal, local or noninvasive intervention indicated; limiting age-appropriate instrumental activities of daily life.",
         code: "C1513374",
         codeSystem: "http://ncimeta.nci.nih.gov"
     },
     {
-        name: 'Grade 3', 
+        name: 'Grade 3',
         description: "Severe or medically significant but not immediately life-threatening; hospitalization or prolongation of hospitalization indicated; disabling; limiting self care ADL",
         code: "C1519275",
         codeSystem: "http://ncimeta.nci.nih.gov"
     },
     {
-        name: 'Grade 4', 
+        name: 'Grade 4',
         description: "Life-threatening consequences; urgent intervention indicated. ",
         code: "C1517874",
         codeSystem: "http://ncimeta.nci.nih.gov"
     },
     {
-        name: 'Grade 5', 
+        name: 'Grade 5',
         description: "Death related to adverse effect",
         code: "C1559081",
         codeSystem: "http://ncimeta.nci.nih.gov"
     }
-]
+];
 
 // V4.0 CTCAE info from CTCAE_4.03_2010-06-14.xls
 const adverseEventOptions = [
@@ -318,7 +318,7 @@ const adverseEventOptions = [
         "SOC": "Blood and lymphatic system disorders",
         "name": "Disseminated intravascular coagulation",
         "Grade 1": null,
-        "Grade 2": "Laboratory findings with no bleeding", 
+        "Grade 2": "Laboratory findings with no bleeding",
         "Grade 3": "Laboratory findings and bleeding",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
@@ -8761,60 +8761,60 @@ const adverseEventOptions = [
         "Grade 5": "Death",
         "description": null
     }
-]   
+];
 
-/* 
+/*
  * Return the description for corresponding data tox elements
- */ 
-exports.getDescription = (dataElement) => {
-    switch(dataElement) {
-    case "toxicity": 
+ */
+export function getDescription(dataElement) {
+    switch (dataElement) {
+    case "toxicity":
         return "Side effects to treatment, important for effective evaluation of disease and treatment, based on Common Terminology Criteria for Adverse Events (CTCAE) version 4.03 (June 14, 2010).";
     case "adverseEvent":
         return "Any unfavorable and unintended sign, symptom, or disease temporally associated with the use of a medical treatment or procedure that may or may not be considered related to the medical treatment or procedure.";
-    case "grade": 
+    case "grade":
         return "The severity of the adverse event. The CTCAE defines Grades 1 through 5 with unique clinical descriptions of severity for each adverse event.";
     case "attribution":
         return "The relationship of the event or cause to the adverse event.";
-    default: 
+    default:
         return null;
     }
 }
 
-exports.getAttributionOptions = () => {
+export function getAttributionOptions() {
     return attributionOptions;
 }
 
-exports.getGradeOptionsForAdverseEvent = (adverseEventName) => {
-    const adverseEvent = exports.findAdverseEvent(adverseEventName);
+export function getGradeOptionsForAdverseEvent (adverseEventName) {
+    const adverseEvent = findAdverseEvent(adverseEventName);
     return gradeOptions.filter((grade) => {
         return (!Lang.isNull(adverseEvent[grade.name]));
     });
 }
 
-exports.getGradeOptions = () => {
+export function getGradeOptions() {
     return gradeOptions;
 }
 
-exports.getAdverseEventOptionsForGrade = (currentGrade) => {
+export function getAdverseEventOptionsForGrade(currentGrade) {
     return adverseEventOptions.filter((adverseEvent) => {
         return !Lang.isNull(adverseEvent[currentGrade]);
     });
 }
 
-exports.getAdverseEventOptions = () => {
+export function getAdverseEventOptions() {
     return adverseEventOptions;
 }
 
 /*
  * Finds the index of a possible attribution; returns -1 if it's invalid
  */
-exports.findAttributionIndex = (possibleAttribution) => {
-    return attributionOptions.findIndex((attribution) => { return attribution.name.toLowerCase() === possibleAttribution.toLowerCase()});
+export function findAttributionIndex(possibleAttribution) {
+    return attributionOptions.findIndex((attribution) => { return attribution.name.toLowerCase() === possibleAttribution.toLowerCase(); });
 }
 
-exports.findAttribution = (possibleAttribution) => {
-    const index = exports.findAttributionIndex(possibleAttribution);
+export function findAttribution(possibleAttribution) {
+    const index = findAttributionIndex(possibleAttribution);
     if (index === -1) return null;
     return attributionOptions[index];
 }
@@ -8824,19 +8824,19 @@ exports.findAttribution = (possibleAttribution) => {
  * Will return CodeableConcept object with empty strings if not found
  * If attribution found in list, function will return CodeableConcept with value, codeSystem, and displayText
  */
-exports.getAttributionCodeableConcept = (possibleAttribution) => {
+export function getAttributionCodeableConcept(possibleAttribution) {
     return codeableConceptUtils.getCodeableConceptFromOptions(possibleAttribution, attributionOptions);
 }
 
-/* 
+/*
  * Finds the index of a possible grade; returns -1 if it's invalid
- */ 
-exports.findGradeIndex = (possibleGrade) => {
-    return gradeOptions.findIndex((grade) => { return grade.name.toLowerCase() === possibleGrade.toLowerCase()});
+ */
+export function findGradeIndex(possibleGrade) {
+    return gradeOptions.findIndex((grade) => { return grade.name.toLowerCase() === possibleGrade.toLowerCase(); });
 }
 
-exports.findGrade = (possibleGrade) => {
-    const index = exports.findGradeIndex(possibleGrade);
+export function findGrade(possibleGrade) {
+    const index = findGradeIndex(possibleGrade);
     if (index === -1) return null;
     return gradeOptions[index];
 }
@@ -8846,20 +8846,20 @@ exports.findGrade = (possibleGrade) => {
  * Will return CodeableConcept object with empty strings if not found
  * If adverse event grade found in list, function will return CodeableConcept with value, codeSystem, and displayText
  */
-exports.getAdverseEventGradeCodeableConcept = (possibleGrade) => {
+export function getAdverseEventGradeCodeableConcept(possibleGrade) {
     return codeableConceptUtils.getCodeableConceptFromOptions(possibleGrade, gradeOptions);
 }
 
-/* 
+/*
  * Finds the index of a possible adverseEvent; returns -1 if it's invalid
- */ 
-exports.findAdverseEventIndex = (possibleAdverseEvent) => {
+ */
+export function findAdverseEventIndex(possibleAdverseEvent) {
     if (Lang.isNull(possibleAdverseEvent)) return -1;
-    return adverseEventOptions.findIndex((adverseEvent) => { return adverseEvent.name.toLowerCase() === possibleAdverseEvent.toLowerCase()});
+    return adverseEventOptions.findIndex((adverseEvent) => { return adverseEvent.name.toLowerCase() === possibleAdverseEvent.toLowerCase(); });
 }
 
-exports.findAdverseEvent = (possibleAdverseEvent) => {
-    const index = exports.findAdverseEventIndex(possibleAdverseEvent);
+export function findAdverseEvent(possibleAdverseEvent) {
+    const index = findAdverseEventIndex(possibleAdverseEvent);
     if (index === -1) return null;
     return adverseEventOptions[index];
 }
@@ -8869,15 +8869,15 @@ exports.findAdverseEvent = (possibleAdverseEvent) => {
  * Will return CodeableConcept object with empty strings if not found
  * If adverse event found in list, function will return CodeableConcept with value, codeSystem, and displayText
  */
-exports.getAdverseEventCodeableConcept = (possibleAdverseEvent) => {
-    const adverseEvent = exports.findAdverseEvent(possibleAdverseEvent);
+export function getAdverseEventCodeableConcept(possibleAdverseEvent) {
+    const adverseEvent =findAdverseEvent(possibleAdverseEvent);
     let tuple = {
         value: "",
         codeSystem: "",
         displayText: ""
     };
 
-    if(!Lang.isNull(adverseEvent)) {
+    if (!Lang.isNull(adverseEvent)) {
         tuple = {
             value: `${adverseEvent['MedDRA v12.0 Code']}`,
             codeSystem: 'https://www.meddra.org/',
@@ -8888,44 +8888,44 @@ exports.getAdverseEventCodeableConcept = (possibleAdverseEvent) => {
     return codeableConceptUtils.getCodeableConceptFromTuple(tuple);
 }
 
-/* 
+/*
  * Determines if a possibleGrade is in the list of grades
- */ 
-exports.isValidGrade = (possibleGrade) => {
-    if(Lang.isUndefined(possibleGrade) || Lang.isNull(possibleGrade)) { 
+ */
+export function isValidGrade(possibleGrade) {
+    if (Lang.isUndefined(possibleGrade) || Lang.isNull(possibleGrade)) {
         // A null grade isn't valid
         return false;
     }
-    return gradeOptions.some((grade) => { return grade.name.toLowerCase() === possibleGrade.toLowerCase()});
+    return gradeOptions.some((grade) => { return grade.name.toLowerCase() === possibleGrade.toLowerCase(); });
 }
 
-/* 
+/*
  * Returns true if a possibleAdverseEvent is in the list of events; returns false otherwise
- */ 
-exports.isValidAdverseEvent = (possibleAdverseEvent) => {
-    if(Lang.isEmpty(possibleAdverseEvent)) { return false; }
-    return adverseEventOptions.some((adverseEvent) => { 
-        return adverseEvent.name.toLowerCase() === possibleAdverseEvent.toLowerCase()
+ */
+export function isValidAdverseEvent(possibleAdverseEvent) {
+    if (Lang.isEmpty(possibleAdverseEvent)) { return false; }
+    return adverseEventOptions.some((adverseEvent) => {
+        return adverseEvent.name.toLowerCase() === possibleAdverseEvent.toLowerCase();
     });
 }
 
-/* 
+/*
  * Returns true if a grade is defined for a given event; returns false otherwise
- */ 
-exports.isValidGradeForAdverseEvent = (possibleGrade, possibleAdverseEvent) => {
-    if(Lang.isUndefined(possibleGrade)) { 
+ */
+export function isValidGradeForAdverseEvent(possibleGrade, possibleAdverseEvent) {
+    if (Lang.isUndefined(possibleGrade)) {
         // A null grade isn't valid
         return false;
-    } else if (Lang.isUndefined(possibleAdverseEvent) || Lang.isNull(possibleAdverseEvent)) { 
+    } else if (Lang.isUndefined(possibleAdverseEvent) || Lang.isNull(possibleAdverseEvent)) {
         // Any grade is valid when there is no event
         return false;
     }
 
     // If they are both
-    if (exports.isValidGrade(possibleGrade) && exports.isValidAdverseEvent(possibleAdverseEvent)) { 
+    if (isValidGrade(possibleGrade) && isValidAdverseEvent(possibleAdverseEvent)) {
         // Find the object
-        const adverseEventInLookup = Collection.find(adverseEventOptions, (adverseEvent) => { return adverseEvent.name.toLowerCase() === possibleAdverseEvent.toLowerCase()});
-        return !Lang.isNull(adverseEventInLookup[possibleGrade])
+        const adverseEventInLookup = Collection.find(adverseEventOptions, (adverseEvent) => { return adverseEvent.name.toLowerCase() === possibleAdverseEvent.toLowerCase(); });
+        return !Lang.isNull(adverseEventInLookup[possibleGrade]);
     } else {
         return false;
     }

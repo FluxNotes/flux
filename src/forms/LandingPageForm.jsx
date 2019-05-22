@@ -29,7 +29,7 @@ export default class LandingPageForm extends Component {
                     </p>
 
                     <p>
-                        This application leverages the <a href="http://standardhealthrecord.org/" target="_blank">
+                        This application leverages the <a href="http://standardhealthrecord.org/" target="_blank" rel="noopener noreferrer">
                         SHR (Standard Health Record)</a> format for capturing data.
                     </p>
                 </div>
@@ -58,6 +58,6 @@ export default class LandingPageForm extends Component {
                     </ol>
                 </div>
             </div>
-        )
+        );
     }
 }

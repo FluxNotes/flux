@@ -9,7 +9,7 @@ import Lang from 'lodash';
 
 class FluxDeathInformation {
     constructor(json) {
-        this._deathInformation = DeathInformation.fromJSON(json);       
+        this._deathInformation = DeathInformation.fromJSON(json);
         if (!this._deathInformation.entryInfo) {
             let entry = new Entry();
             entry.entryType = new EntryType();
@@ -30,7 +30,7 @@ class FluxDeathInformation {
      *  This will return the date value
      */
     get dateOfDeath() {
-        if (Lang.isUndefined(this._deathInformation.dateOfDeath)) return null; 
+        if (Lang.isUndefined(this._deathInformation.dateOfDeath)) return null;
         return this._deathInformation.dateOfDeath.value;
     }
 

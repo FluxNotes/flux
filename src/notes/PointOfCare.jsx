@@ -11,15 +11,15 @@ export default class PointOfCare extends Component {
 
         this.fillPlaceholders = {};
         const result = structuredFieldMapManager.placeholders.map((placeholder, index) => (
-                <Row key={index}>
-                    <Col xs>
-                        <FillPlaceholder 
-                            placeholder={placeholder} 
-                            backgroundColor={(((index + 1) % 2) === 0) ? '#f8f8f8' : ''}
-                            ref={(fph) => { this.fillPlaceholders[placeholder.shortcutName] = fph; }} />
-                    </Col>
-                </Row>
-            ));
+            <Row key={index}>
+                <Col xs>
+                    <FillPlaceholder
+                        placeholder={placeholder}
+                        backgroundColor={(((index + 1) % 2) === 0) ? '#f8f8f8' : ''}
+                        ref={(fph) => { this.fillPlaceholders[placeholder.shortcutName] = fph; }} />
+                </Col>
+            </Row>
+        ));
 
         return (
             <div id="poc-panel" className={pocDisabledClass}>

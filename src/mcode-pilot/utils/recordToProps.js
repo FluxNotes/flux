@@ -51,7 +51,7 @@ export default function getProps(patient, condition) {
             },
             "stage": {
                 "display": "stage",
-                "mcodeElement": "onco.core.TNMClinicalStageGroup", 
+                "mcodeElement": "onco.core.TNMClinicalStageGroup",
                 // NOTE: the section is titled pathology but all the fields referenced in it are clinical, not pathologic
                 // (all sample data in the fixtures is clinical staging)
                 "valueType": "string",
@@ -87,7 +87,7 @@ export default function getProps(patient, condition) {
                     const quantity = _safeGet(_safeGet(condition.getObservationsOfTypeChronologicalOrder(FluxTumorDimensions), 0),'quantity');
                     return _safeGet(quantity, "number");
                 })(),
-                "reference": condition.getMostRecentLabResultOfEachType().find(e => { return e.constructor.name === FluxTumorDimensions.name })
+                "reference": condition.getMostRecentLabResultOfEachType().find(e => { return e.constructor.name === FluxTumorDimensions.name; })
             }
         },
         "medical history": {
@@ -100,18 +100,18 @@ export default function getProps(patient, condition) {
                 "reference": condition.getMostRecentECOGPerformanceStatus()
             }
         }
-    }
+    };
 
     if (tumorMarkers) {
         tumorMarkers.forEach((e) => {
             if (!e.receptorType) return;
             propDict.pathology[e.receptorType.split(' ').join('')] = {
                 "display": e.receptorType,
-                "mcodeElement": "onco.core.TumorMarkerTest", 
+                "mcodeElement": "onco.core.TumorMarkerTest",
                 "valueType": "string",
                 "value": _.lowerCase(e.status),
                 "reference": e
-            }
+            };
         });
     }
 
@@ -120,22 +120,22 @@ export default function getProps(patient, condition) {
 
 function _safeGet(object, property) {
     if (object !== null & object !== undefined && property in object) {
-        return object[property]
+        return object[property];
     } else {
-        return object
+        return object;
     }
 }
 
 // a map of similar patient props to the patient record
 function _mapProp(propDict) {
-    const similarPatientProps = {}
+    const similarPatientProps = {};
     // categories
     for (const key of Object.keys(propDict)) {
         const potentialCategory = {
             options: {},
             selected: false,
             displayText: key
-        }
+        };
         // values
         for (const prop of Object.keys(propDict[key])) {
             const option = propDict[key][prop];

@@ -18,7 +18,7 @@ import VisitReasonPostEncounterSection from './VisitReasonPostEncounterSection';
 import VisitReasonPreEncounterSection from './VisitReasonPreEncounterSection';
 import WhiteBloodCellCountSubsection from './WhiteBloodCellCountSubsection';
 import moment from 'moment';
-import Lang from 'lodash'
+import Lang from 'lodash';
 
 export default class BreastCancerMetadata extends MetadataSection {
     getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
@@ -108,22 +108,22 @@ export default class BreastCancerMetadata extends MetadataSection {
                                 {
                                     name: "Name",
                                     value: (patient, currentConditionEntry) => {
-                                        return {    value: currentConditionEntry.type, 
-                                                    isUnsigned: patient.isUnsigned(currentConditionEntry), 
-                                                    source: this.determineSource(patient, currentConditionEntry),
-                                                    shortcutData: {
-                                                        shortcut: '@condition',
-                                                        entryId: currentConditionEntry.entryInfo.entryId,
-                                                    }
+                                        return {    value: currentConditionEntry.type,
+                                            isUnsigned: patient.isUnsigned(currentConditionEntry),
+                                            source: this.determineSource(patient, currentConditionEntry),
+                                            shortcutData: {
+                                                shortcut: '@condition',
+                                                entryId: currentConditionEntry.entryInfo.entryId,
+                                            }
                                         };
                                     },
                                 },
                                 {
                                     name: "Laterality",
                                     value: (patient, currentConditionEntry) => {
-                                        return {    value: currentConditionEntry.laterality, 
-                                                    isUnsigned: patient.isUnsigned(currentConditionEntry), 
-                                                    source: this.determineSource(patient, currentConditionEntry)
+                                        return {    value: currentConditionEntry.laterality,
+                                            isUnsigned: patient.isUnsigned(currentConditionEntry),
+                                            source: this.determineSource(patient, currentConditionEntry)
                                         };
                                     }
                                 },
@@ -132,10 +132,10 @@ export default class BreastCancerMetadata extends MetadataSection {
                                     value: (patient, currentConditionEntry) => {
                                         let s = currentConditionEntry.getMostRecentStaging();
                                         if (s && s.stage && s.stage.length > 0) {
-                                            return  {   value: s.stage, 
-                                                        isUnsigned: patient.isUnsigned(s), 
-                                                        source: this.determineSource(patient, s)
-                                                    };
+                                            return  {   value: s.stage,
+                                                isUnsigned: patient.isUnsigned(s),
+                                                source: this.determineSource(patient, s)
+                                            };
                                         } else {
                                             return null;
                                         }
@@ -149,10 +149,10 @@ export default class BreastCancerMetadata extends MetadataSection {
                                         if (Lang.isNull(p) || !p.status) {
                                             return null;
                                         } else {
-                                            return  {   value: p.status, 
-                                                        isUnsigned: patient.isUnsigned(p), 
-                                                        source: this.determineSource(patient, p)
-                                                    };
+                                            return  {   value: p.status,
+                                                isUnsigned: patient.isUnsigned(p),
+                                                source: this.determineSource(patient, p)
+                                            };
                                         }
                                     }
                                 },
@@ -163,10 +163,10 @@ export default class BreastCancerMetadata extends MetadataSection {
                                         if (Lang.isNull(p) || !p.status) {
                                             return null;
                                         } else {
-                                            return  {   value: p.asOfDate, 
-                                                        isUnsigned: patient.isUnsigned(p), 
-                                                        source: this.determineSource(patient, p)
-                                                    };
+                                            return  {   value: p.asOfDate,
+                                                isUnsigned: patient.isUnsigned(p),
+                                                source: this.determineSource(patient, p)
+                                            };
                                         }
                                     }
                                 },
@@ -178,11 +178,11 @@ export default class BreastCancerMetadata extends MetadataSection {
                                             return null;
                                         } else {
                                             return  {   value: p.evidence.map(function (ev) {
-                                                                return ev;
-                                                            }).join(', '), 
-                                                        isUnsigned: patient.isUnsigned(p), 
-                                                        source: this.determineSource(patient, p)
-                                                    };
+                                                return ev;
+                                            }).join(', '),
+                                            isUnsigned: patient.isUnsigned(p),
+                                            source: this.determineSource(patient, p)
+                                            };
                                         }
                                     }
                                 }
@@ -230,10 +230,10 @@ export default class BreastCancerMetadata extends MetadataSection {
                                         if (Lang.isNull(er)) {
                                             return null;
                                         } else {
-                                            return  {   value: er.status, 
-                                                        isUnsigned: patient.isUnsigned(er),
-                                                        source: this.determineSource(patient, er)
-                                                    };
+                                            return  {   value: er.status,
+                                                isUnsigned: patient.isUnsigned(er),
+                                                source: this.determineSource(patient, er)
+                                            };
                                         }
                                     }
                                 },
@@ -244,10 +244,10 @@ export default class BreastCancerMetadata extends MetadataSection {
                                         if (Lang.isNull(pr)) {
                                             return null;
                                         } else {
-                                            return  {   value: pr.status, 
-                                                        isUnsigned: patient.isUnsigned(pr), 
-                                                        source: this.determineSource(patient, pr)
-                                                    };
+                                            return  {   value: pr.status,
+                                                isUnsigned: patient.isUnsigned(pr),
+                                                source: this.determineSource(patient, pr)
+                                            };
                                         }
                                     }
                                 },
@@ -258,10 +258,10 @@ export default class BreastCancerMetadata extends MetadataSection {
                                         if (Lang.isNull(her2)) {
                                             return null;
                                         } else {
-                                            return  {   value: her2.status, 
-                                                        isUnsigned: patient.isUnsigned(her2), 
-                                                        source: this.determineSource(patient, her2)
-                                                    };
+                                            return  {   value: her2.status,
+                                                isUnsigned: patient.isUnsigned(her2),
+                                                source: this.determineSource(patient, her2)
+                                            };
                                         }
                                     }
                                 }
@@ -316,12 +316,12 @@ export default class BreastCancerMetadata extends MetadataSection {
                                         if (!panels || panels.length === 0) return null;
                                         const panel = panels.pop();
                                         return  {   value: panel.members.map((item) => {
-                                                            const v = item.value === 'Positive' ? '+' : '-';
-                                                            return item.abbreviatedName + v;
-                                                        }).join(", "), 
-                                                    isUnsigned: patient.isUnsigned(panel), 
-                                                    source: this.determineSource(patient, panel)
-                                                };
+                                            const v = item.value === 'Positive' ? '+' : '-';
+                                            return item.abbreviatedName + v;
+                                        }).join(", "),
+                                        isUnsigned: patient.isUnsigned(panel),
+                                        source: this.determineSource(patient, panel)
+                                        };
                                     }
                                 }
                             ]

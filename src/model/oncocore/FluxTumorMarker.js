@@ -1,6 +1,6 @@
 import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
-import lookup from '../../lib/receptor_lookup.jsx';
+import * as lookup from '../../lib/receptor_lookup.jsx';
 import TumorMarker from './TumorMarker';
 import Reference from '../Reference';
 import SpecificFocusOfFinding from '../shr/base/SpecificFocusOfFinding';

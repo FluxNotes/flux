@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import PropTypes from 'prop-types';
 import 'font-awesome/css/font-awesome.min.css';
 import './EditorToolbar.css';
@@ -19,7 +19,7 @@ class EditorToolbar extends React.Component {
     }
 
     handleBlockUpdate = (type) => {
-        return this.props.onBlockUpdate(type)
+        return this.props.onBlockUpdate(type);
     }
 
     handleCopyClick = (type) => {
@@ -33,7 +33,7 @@ class EditorToolbar extends React.Component {
 
         // Only handle click if not in read only mode
         if (!this.props.isReadOnly) {
-            e.preventDefault()
+            e.preventDefault();
             this.handleMarkUpdate(type);
         }
     }
@@ -44,8 +44,8 @@ class EditorToolbar extends React.Component {
     onClickBlock = (e, type) => {
 
         // Only handle click if not in read only mode
-        if(!this.props.isReadOnly) {
-            e.preventDefault()
+        if (!this.props.isReadOnly) {
+            e.preventDefault();
             this.handleBlockUpdate(type);
         }
     }
@@ -63,14 +63,14 @@ class EditorToolbar extends React.Component {
             cursorStyle = "pointer";
         }
 
-        const isActive = this.handleMarkCheck(type)
-        const onMouseDown = e => this.onClickMark(e, type)
+        const isActive = this.handleMarkCheck(type);
+        const onMouseDown = e => this.onClickMark(e, type);
 
         return (
-            <span className="button" style={{cursor:cursorStyle}} onMouseDown={onMouseDown} data-active={isActive}>
+            <span className="button" style={{cursor: cursorStyle}} onMouseDown={onMouseDown} data-active={isActive}>
                 <i className={"fa fa-fw " + icon} aria-label={"Make text " + type}></i>
             </span>
-        )
+        );
     }
     /**
      * Render a block-toggling toolbar button.
@@ -84,14 +84,14 @@ class EditorToolbar extends React.Component {
         } else {
             cursorStyle = "pointer";
         }
-        const isActive = this.handleBlockCheck(type + '-item')
-        const onMouseDown = e => this.onClickBlock(e, type)
+        const isActive = this.handleBlockCheck(type + '-item');
+        const onMouseDown = e => this.onClickBlock(e, type);
 
         return (
-            <span className="button" style={{cursor:cursorStyle}} onMouseDown={onMouseDown} data-active={isActive}>
+            <span className="button" style={{cursor: cursorStyle}} onMouseDown={onMouseDown} data-active={isActive}>
                 <i className={"fa fa-fw " + icon} aria-label={"Make text " + type}></i>
             </span>
-        )
+        );
     }
     /**
      * Render the toolbar.
@@ -105,12 +105,12 @@ class EditorToolbar extends React.Component {
                 {this.renderBlockButton('bulleted-list', 'fa-list')}
                 {this.renderBlockButton('numbered-list', 'fa-list-ol')}
             </div>
-        )
+        );
     }
-    renderCopyButton = () => { 
-        if (this.props.patient == null) {
+    renderCopyButton = () => {
+        if (this.props.patient===null) {
             return (
-                <span id="copy-button" style={{cursor:'pointer'}}>
+                <span id="copy-button" style={{cursor: 'pointer'}}>
                     <i className="fa fa-files-o" aria-label="copy button" onClick={(e) => this.handleCopyClick(e)}></i>
                 </span>
             );
@@ -118,11 +118,11 @@ class EditorToolbar extends React.Component {
             return null;
         }
     }
-    renderLoadingNotification = () => { 
+    renderLoadingNotification = () => {
         return (
             <div id="loading-notification">
                 <span className="loading-breadcrumb-separator">|</span>
-                <p id="loading-text"> 
+                <p id="loading-text">
                     NLP Processing...
                 </p>
             </div>
@@ -153,14 +153,14 @@ class EditorToolbar extends React.Component {
                 {this.renderBlockButton('numbered-list', 'fa-list-ol')}
                 <hr className="toolbar-breadcrumbs-separator"/>
                 {breadcrumbs}
-                { this.props.loadingTimeWarrantsWarning && this.renderLoadingNotification()}    
+                { this.props.loadingTimeWarrantsWarning && this.renderLoadingNotification()}
                 {/* {this.renderCopyButton()} */}
             </div>
-        )
+        );
     }
 }
 
-EditorToolbar.proptypes = { 
+EditorToolbar.propTypes = {
     contextManager: PropTypes.object.isRequired,
     isReadOnly: PropTypes.bool.isRequired,
     onBlockCheck: PropTypes.func.isRequired,

@@ -160,7 +160,7 @@ function createInstance(key, value) {
   if (Array.isArray(value)) {
     return value.map(v => createInstance(key, v));
   }
-  if (value == null) return null;
+  if (value===null) return null;
   if (typeof value === 'object') {
     if (value._ShrId && value._EntryId && value._EntryType) {
       // It's a reference, so just return the reference
@@ -170,7 +170,7 @@ function createInstance(key, value) {
       // because in SHR, a 'code' really is *just* a string.  The JSON schema probably needs to be adjusted.
       return value.code;
     }
-    if (OBJECT_FACTORY == null) {
+    if (OBJECT_FACTORY===null) {
       throw new Error(`SHR ES6 module is not initialized.  Import 'init' before using the ES6 factories and classes`);
     }
     return OBJECT_FACTORY.createInstance(value, key);
@@ -191,7 +191,7 @@ export function createInstanceFromFHIR(key, value, asExtension=false) {
     return value.map(v => createInstanceFromFHIR(key, v));
   }
   if (typeof value === 'object') {
-    if (OBJECT_FACTORY == null) {
+    if (OBJECT_FACTORY===null) {
       throw new Error(`SHR ES6 module is not initialized.  Import 'init' before using the ES6 factories and classes`);
     }
     return OBJECT_FACTORY.createInstanceFromFHIR(value, key, asExtension);

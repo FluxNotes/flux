@@ -40,7 +40,7 @@ class MultiButtonSetFillFieldForPlaceholder extends Component {
                 <div className="btn-group-status-progression">
                     {
                         this._options.map((option, i) => {
-                            return this.renderButtonGroup(option, i)
+                            return this.renderButtonGroup(option, i);
                         })
                     }
                 </div>

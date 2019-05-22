@@ -39,18 +39,18 @@ const theme = createMuiTheme({
 function getModalStyle() {
     const top = 50;
     const left = 50;
-  
+
     return {
-      top: `${top}%`,
-      left: `${left}%`,
-      transform: `translate(-${top}%, -${left}%)`,
-      position: 'absolute',
-      width: 400,
-      backgroundColor: 'white',
-      boxShadow: 'black',
-      padding: 8,
+        top: `${top}%`,
+        left: `${left}%`,
+        transform: `translate(-${top}%, -${left}%)`,
+        position: 'absolute',
+        width: 400,
+        backgroundColor: 'white',
+        boxShadow: 'black',
+        padding: 8,
     };
-  }
+}
 
 export class FullApp extends Component {
     constructor(props) {
@@ -153,42 +153,42 @@ export class FullApp extends Component {
                     displayForColumns: [0]
                 }
             }
-        ]
+        ];
     }
 
     loadPatient(patientId) {
         const DAGestalt = this.dataAccess.getGestalt();
-        if (DAGestalt.read.async) { 
-            this.dataAccess.getPatient(patientId, (patient, error) => { 
+        if (DAGestalt.read.async) {
+            this.dataAccess.getPatient(patientId, (patient, error) => {
                 this.contextManager = new ContextManager(patient, this.onContextUpdate);
-                if (error) console.error(error)
-                this.setState({ 
-                    patient, 
+                if (error) console.error(error);
+                this.setState({
+                    patient,
                     loading: false,
                     loadingErrorObject: error
                 });
             });
-        } else if (DAGestalt.read.sync) { 
+        } else if (DAGestalt.read.sync) {
             // Else, assume sync
             try {
                 let patient = this.dataAccess.getPatient(patientId);
                 this.contextManager = new ContextManager(patient, this.onContextUpdate);
                 this.setState({
-                    patient, 
+                    patient,
                     loading: false
                 });
             } catch (error) {
-                console.error(error)
+                console.error(error);
                 this.setState({
-                    loading: false, 
+                    loading: false,
                     loadingErrorObject: error
                 });
             }
-        } else { 
-            const supportedError = Error("Data Source does not support sync or async types read operations -- current gestalt is " + JSON.stringify(DAGestalt))
-            console.error(supportedError)
+        } else {
+            const supportedError = Error("Data Source does not support sync or async types read operations -- current gestalt is " + JSON.stringify(DAGestalt));
+            console.error(supportedError);
             this.setState({
-                loading: false, 
+                loading: false,
                 loadingErrorObject: supportedError
             });
         }
@@ -204,9 +204,9 @@ export class FullApp extends Component {
         }
     }
 
-    componentDidMount() { 
+    componentDidMount() {
         // Once the component has mounted, we can try to load the patient data
-        this.loadPatient(this.props.patientId)
+        this.loadPatient(this.props.patientId);
     }
 
     receive_command(commandType, data) {
@@ -239,7 +239,7 @@ export class FullApp extends Component {
     }
 
     setCondition = (condition) => {
-        this.setFullAppState('condition', condition)
+        this.setFullAppState('condition', condition);
     }
 
     setNoteViewerVisible = (value) => {
@@ -302,7 +302,7 @@ export class FullApp extends Component {
     setOpenClinicalNote = (openClinicalNote) => {
         this.setState({
             openClinicalNote: openClinicalNote
-        }); 
+        });
     }
 
     setOpenSourceNoteEntryId = (openSourceNoteEntryId) => {
@@ -319,7 +319,7 @@ export class FullApp extends Component {
 
     nameSourceAction = (element) => {
         if (element.source) {
-            return (element.source.note ? "Open Source Note" :   (element.source.link ?  "View Source Attachment" : ( element.source.sourceMessage !== "" ? "View Source" : "No Source information")));
+            return (element.source.note ? "Open Source Note" :   (element.source.link ?  "View Source Attachment" : (element.source.sourceMessage !== "" ? "View Source" : "No Source information")));
         }
         return "No source information";
     }
@@ -334,7 +334,7 @@ export class FullApp extends Component {
         }
 
         if (item.source.link) {
-            window.open(`${item.source.link}`)
+            window.open(`${item.source.link}`);
         }
 
         // if item.source.note is defined, open the referenced note
@@ -364,7 +364,7 @@ export class FullApp extends Component {
             // calls to this method from the buttons on a ListType pass in 'item' as an array.
             if (Lang.isArray(item) && arrayIndex >= 0) {
                 // If the object to insert has an associated shortcut, is will be an object like {name: x, shortcut: z}
-                if(Lang.isObject(item[arrayIndex])){
+                if (Lang.isObject(item[arrayIndex])) {
                     newStateValues = { summaryItemToInsert: `${item[arrayIndex].shortcut}[[${item[arrayIndex].name}]]` };
                 } else {
                     newStateValues = { summaryItemToInsert: item[arrayIndex] };
@@ -406,13 +406,13 @@ export class FullApp extends Component {
 
     setSearchSuggestions = (suggestions) => {
         this.setState({
-            searchSuggestions: suggestions 
+            searchSuggestions: suggestions
         });
     }
 
     setHighlightedSearchSuggestion = (suggestion) => {
         this.setState({
-            highlightedSearchSuggestion: suggestion 
+            highlightedSearchSuggestion: suggestion
         });
     }
 
@@ -420,10 +420,10 @@ export class FullApp extends Component {
         this.setState({ isAppBlurred });
     }
 
-    renderLoadingInformation = () => { 
+    renderLoadingInformation = () => {
         // Note well: The renders below fade in or out based on state of the loading in the app
-        // We define a loading error as occuring when: 
-        // - The app has no patient 
+        // We define a loading error as occuring when:
+        // - The app has no patient
         // - The app is not loading
         const isSomeError = Lang.isEmpty(this.state.patient) && !this.state.loading;
         if (this.state.loading || isSomeError) { // don't render div if we aren't loading and we don't have an error
@@ -439,7 +439,7 @@ export class FullApp extends Component {
                         timeoutDuration={this.timeoutDuration}
                     />
                 </div>
-            )
+            );
         } else {
             return "";
         }
@@ -453,7 +453,7 @@ export class FullApp extends Component {
                 <div className={(this.state.loading || this.state.loadingErrorObject) ? "FullApp-content loading-background" : "FullApp-content"}>
                     <Grid fluid>
                         <Row center="xs">
-                            <Col sm={12}>    
+                            <Col sm={12}>
                                 <PatientControlPanel
                                     appTitle={this.props.display}
                                     clinicalEvent={this.state.clinicalEvent}
@@ -478,7 +478,7 @@ export class FullApp extends Component {
                         {this.renderLoadingInformation()}
                         <Fade in={!this.state.loading} timeout={this.timeoutDuration}>
                             <div>
-                                {!Lang.isNull(this.state.patient) && 
+                                {!Lang.isNull(this.state.patient) &&
                                     <CurrentDashboard
                                         // App default settings
                                         actions={this.actions}
@@ -519,13 +519,13 @@ export class FullApp extends Component {
                                 }
                             </div>
                         </Fade>
-                        <Modal 
+                        <Modal
                             aria-labelledby="simple-modal-title"
                             aria-describedby="simple-modal-description"
                             open={this.state.isModalOpen}
                             onClose={this.handleModalClose}
                             onClick={this.handleModalClose}
-                            >
+                        >
                             <div style={getModalStyle()} >
                                 <Typography id="modal-title">
                                     {this.state.modalTitle}
@@ -542,7 +542,7 @@ export class FullApp extends Component {
                             onClose={this.handleSnackbarClose}
                             open={this.state.snackbarOpen}
                             message={this.state.snackbarMessage}
-                            />
+                        />
                     </Grid>
                 </div>
             </MuiThemeProvider>
@@ -564,16 +564,16 @@ FullApp.propTypes = {
 
 // these props are used for dispatching actions
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
+    return bindActionCreators({
     // TODO: add actions
-  }, dispatch);
+    }, dispatch);
 }
 
 // these props come from the application's state when it is started
 function mapStateToProps(state) {
-  return {
+    return {
     // TODO: add state
-  };
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FullApp);

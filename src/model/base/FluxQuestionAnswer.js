@@ -45,7 +45,7 @@ class FluxQuestionAnswer {
     get relevantTime() {
         if (this._questionAnswer.relevantTime) {
             return this._questionAnswer.relevantTime.value;
-        } 
+        }
         return null;
     }
 

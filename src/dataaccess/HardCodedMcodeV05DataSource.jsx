@@ -3,9 +3,9 @@ import BreastMainTreatmentDiabetesHypertensionJaneV05 from './BreastMainTreatmen
 import PatientRecord from '../patient/PatientRecord.jsx';
 
 class HardCodedMcodeV05DataSource extends IDataSource {
-    constructor() { 
+    constructor() {
         super();
-        this._gestalt = { 
+        this._gestalt = {
             create: {
                 async: false,
                 sync: false
@@ -25,7 +25,7 @@ class HardCodedMcodeV05DataSource extends IDataSource {
         };
     }
 
-    getGestalt() { 
+    getGestalt() {
         return this._gestalt;
     }
 
@@ -47,7 +47,7 @@ class HardCodedMcodeV05DataSource extends IDataSource {
     newPatient() {
         console.log("creating new patients is not implemented in hard-coded read only patient data source.");
     }
-    
+
     savePatient(patient) {
         console.log("saving of patients is not implemented in hard-coded read only patient data source. Updated Patient record ", patient);
     }
