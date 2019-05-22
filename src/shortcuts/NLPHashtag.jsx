@@ -232,7 +232,11 @@ export default class NLPHashtag extends Shortcut {
         return this.metadata["name"];
     }
 
-    getResultText() {
+    getDisplayText() {
+        return this.initiatingTrigger;
+    }
+
+    serialize() {
         if (Lang.isUndefined(this.object.entryInfo)) return this.getText();
         return `${this.initiatingTrigger}[[{"entryId":${this.object.entryInfo.entryId}}]]`;
     }
