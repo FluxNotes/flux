@@ -309,7 +309,11 @@ class FluxNotesEditor extends React.Component {
         shortcut.initialContextPosition = initialContextPosition;
 
         transform = this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText();
+<<<<<<< HEAD
         if (shortcut.isComplete === false) {
+=======
+        if (shortcut instanceof InsertValue && shortcut.isComplete === false) {
+>>>>>>> 7d926b4f... es lint errors after rebase (heck yeah)
             this.contextManager.removeShortcutFromContext(shortcut);
             this.contextManager.contextUpdated();
         }
@@ -413,7 +417,7 @@ class FluxNotesEditor extends React.Component {
         shortcut.setText(selection.context);
         if (shortcut.isContext()) {
             shortcut.setValueObject(selection.object);
-            this.contextManager.addShortcutToContext(shortcut); 
+            this.contextManager.addShortcutToContext(shortcut);
             this.contextManager.contextUpdated();
         }
 
