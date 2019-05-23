@@ -71,9 +71,9 @@ const initialEditorState = {
 
 class FluxNotesEditor extends React.Component {
     openContextPortal = (portalComponent) => {
-        // Add plugins as needed: 
+        // Add plugins as needed:
         console.log('opening portal');
-        // Set some variable stored at the Editor level 
+        // Set some variable stored at the Editor level
         this.setState({
             contextPortalStateVariable: portalComponent
         }, () => {
@@ -82,28 +82,29 @@ class FluxNotesEditor extends React.Component {
             });
         });
     }
-    isPortalOpen = () => { 
+    isPortalOpen = () => {
         return !Lang.isEmpty(this.state.contextPortalStateVariable);
     }
     closeContextPortal = () => {
         console.log('closing portal');
         this.removePlugin({
-            onKeyDown: this.state.contextPortalStateVariable ? this.refs.portalComponent.onKeyDown : undefined
+            onKeyDown: this.refs.portalComponent ? this.refs.portalComponent.onKeyDown : undefined
         });
-        // Clean up some variables stored at the Editor level 
+        // Clean up some variables stored at the Editor level
         this.setState({
-            contextPortalStateVariable: null
+            contextPortalStateVariable: null,
+            openedPortal: null,
         });
     }
-    addPlugin = (plugin) => { 
+    addPlugin = (plugin) => {
         const pluginsClone = [...this.state.plugins]
         pluginsClone.unshift(plugin)
         this.setState({
             plugins: pluginsClone
         });
     }
-    removePlugin = (plugin) => { 
-        const indexOfPlugin = _.findIndex(this.state.plugins, (curPlugin) => { 
+    removePlugin = (plugin) => {
+        const indexOfPlugin = _.findIndex(this.state.plugins, (curPlugin) => {
             return _.isEqual(curPlugin, plugin);
         });
         if (indexOfPlugin === -1) return;
@@ -490,7 +491,10 @@ class FluxNotesEditor extends React.Component {
         }
 
         transform = this.resetShortcutData(shortcut, transform);
-        return transform.apply();
+        const newState = transform.apply();
+        this.setState({
+            state: newState
+        });
     }
 
     // consider reusing this method to replace code in choseSuggestedShortcut function
@@ -1937,7 +1941,7 @@ class FluxNotesEditor extends React.Component {
                     />
                     {this.state.contextPortalStateVariable && <this.state.contextPortalStateVariable
                         contextManager={this.contextManager}
-                        onSelected={(...args) => {this.setState({state:this.onPortalSelection});}}
+                        onSelected={this.onPortalSelection}
                         openedPortal={this.state.openedPortal}
                         contexts={this.state.portalOptions}
                         ref="portalComponent"
