@@ -340,7 +340,7 @@ function StructuredFieldPlugin(opts) {
             } else if (node.type === 'structured_field') {
                 const shortcut = node.data.shortcut;
                 // TODO: Refactor to not need slate node text passed as an argument. This is currently used to reload the correct text on edited shortcuts. Refactor should result in no arguments passed.
-                const textToSerialize = (shortcut instanceof InsertValue && shortcut.metadata.isEditable) ? node.nodes[0].characters.map(c => c.text).join('') : undefined;
+                const textToSerialize = (shortcut instanceof InsertValue) ? node.nodes[0].characters.map(c => c.text).join('') : undefined;
                 result += shortcut.serialize(textToSerialize);
             } else if (node.type === 'placeholder') {
                 result += node.data.placeholder.getResultText();
@@ -688,8 +688,7 @@ function createStructuredField(opts, shortcut) {
     let nodes = [Slate.Text.createFromString(String(shortcut.getText()))];
     const isInserter = shortcut instanceof InsertValue;
     if (isInserter) {
-        let lines;
-        lines = String(shortcut.getDisplayText()).split(/\n\r|\r\n|\r|\n/g);
+        const lines = String(shortcut.getDisplayText()).split(/\n\r|\r\n|\r|\n/g);
         let textNodes = [];
         let inlines = [];
         lines.forEach((line, i) => {
