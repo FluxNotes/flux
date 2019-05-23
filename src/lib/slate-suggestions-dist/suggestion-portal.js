@@ -98,6 +98,7 @@ class SuggestionPortal extends React.Component {
             // Else, determine character and update suggestions accordingly
             const newFilteredSuggestions  = this.getFilteredSuggestions(data);
             this.setSelectedIndex(0)
+            
             if (typeof newFilteredSuggestions.then === 'function') {
                 newFilteredSuggestions.then(newFilteredSuggestions => {
                     this.setCallbackSuggestion(newFilteredSuggestions, 0);
