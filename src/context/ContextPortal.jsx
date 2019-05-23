@@ -60,7 +60,7 @@ class ContextPortal extends React.Component {
             selectedIndex: -1,
             active: false,
             justActive: false
-        }
+        };
         this.portalId = 'ContextPortal';
     }
     /*
@@ -168,7 +168,7 @@ class ContextPortal extends React.Component {
             selectedIndex: selectedIndex
         });
     }
-    
+
     /*
      * View of the current menu
      */
@@ -195,10 +195,10 @@ class ContextPortal extends React.Component {
 
         return (
             <Portal
-                closeOnEsc 
-                closeOnOutsideClick 
-                isOpened={openedPortal === this.portalId} 
-                onOpen={this.onOpen} 
+                closeOnEsc
+                closeOnOutsideClick
+                isOpened={openedPortal === this.portalId}
+                onOpen={this.onOpen}
                 onClose={this.onClose}
             >
                 <div className={className} ref="contextPortal">
@@ -209,7 +209,7 @@ class ContextPortal extends React.Component {
     }
 }
 
-ContextPortal.propTypes = { 
+ContextPortal.propTypes = {
     capture: PropTypes.object.isRequired,
     callback: PropTypes.object.isRequired,
     contextManager: PropTypes.object.isRequired,
