@@ -5,8 +5,8 @@ import Calendar from 'rc-calendar';
 class ContextCalendar extends React.Component {
     handleDateSelect = (date) => {
         this.props.closePortal();
-        const context = { key: 'set-date-id', context: `${date.format('MM/DD/YYYY')}`, object: date };
-        this.props.onChange(this.props.onSelected(this.props.state, context));
+        // DO WE STILL NEED THIS?
+        // const context = { key: 'set-date-id', context: `${date.format('MM/DD/YYYY')}`, object: date };
     }
 
     render() {
@@ -14,7 +14,7 @@ class ContextCalendar extends React.Component {
             <Calendar
                 showDateInput={false}
                 onSelect={this.handleDateSelect}
-                ref={input => input && setTimeout(() => {input.focus()}, 100)}
+                ref={input => input && setTimeout(() => { input.focus(); }, 100)}
             />
         );
     }
@@ -27,6 +27,6 @@ ContextCalendar.propTypes = {
     selectedIndex: PropTypes.number,
     setSelectedIndex: PropTypes.func,
     state: PropTypes.object,
-}
+};
 
 export default ContextCalendar;
