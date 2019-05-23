@@ -88,11 +88,12 @@ class FluxNotesEditor extends React.Component {
     closeContextPortal = () => {
         console.log('closing portal');
         this.removePlugin({
-            onKeyDown: this.state.contextPortalStateVariable ? this.refs.portalComponent.onKeyDown : undefined
+            onKeyDown: this.refs.portalComponent ? this.refs.portalComponent.onKeyDown : undefined
         });
         // Clean up some variables stored at the Editor level 
         this.setState({
-            contextPortalStateVariable: null
+            contextPortalStateVariable: null,
+            openedPortal: null,
         });
     }
     addPlugin = (plugin) => { 
@@ -464,6 +465,7 @@ class FluxNotesEditor extends React.Component {
     // called from portal when an item is selected (selection is not null) or if portal is closed without
     // selection (selection is null)
     onPortalSelection = (state, selection) => {
+
         let shortcut = this.selectingForShortcut;
         this.selectingForShortcut = null;
         this.setState({
@@ -487,7 +489,10 @@ class FluxNotesEditor extends React.Component {
         }
 
         transform = this.resetShortcutData(shortcut, transform);
-        return transform.apply();
+        const newState = transform.apply();
+        this.setState({
+            state: newState
+        });
     }
 
     // consider reusing this method to replace code in choseSuggestedShortcut function
@@ -1934,7 +1939,7 @@ class FluxNotesEditor extends React.Component {
                     />
                     {this.state.contextPortalStateVariable && <this.state.contextPortalStateVariable
                         contextManager={this.contextManager}
-                        onSelected={(...args) => {this.setState({state:this.onPortalSelection});}}
+                        onSelected={this.onPortalSelection}
                         openedPortal={this.state.openedPortal}
                         contexts={this.state.portalOptions}
                         ref="portalComponent"
