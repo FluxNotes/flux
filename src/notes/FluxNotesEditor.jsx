@@ -305,13 +305,13 @@ class FluxNotesEditor extends React.Component {
             return this.insertPlainText(transform, shortcutTrigger);
         }
         let shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger, text, updatePatient, source);
-        if(text === "" && shortcut.needToSelectValueFromMultipleOptions()){
+        if (text === "" && shortcut.needToSelectValueFromMultipleOptions()) {
             shortcut.setText(shortcutTrigger);
         }
         shortcut.initialContextPosition = initialContextPosition;
-        
+
         transform = this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText();
-        if(shortcut instanceof InsertValue && shortcut.isComplete === false){
+        if (shortcut instanceof InsertValue && shortcut.isComplete === false) {
             this.contextManager.removeShortcutFromContext(shortcut);
             this.contextManager.contextUpdated();
         }
@@ -415,7 +415,7 @@ class FluxNotesEditor extends React.Component {
         shortcut.setText(selection.context);
         if (shortcut.isContext()) {
             shortcut.setValueObject(selection.object);
-            this.contextManager.addShortcutToContext(shortcut); 
+            this.contextManager.addShortcutToContext(shortcut);
             this.contextManager.contextUpdated();
         }
         transform = this.resetShortcutData(shortcut, transform);

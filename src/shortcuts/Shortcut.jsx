@@ -152,19 +152,19 @@ class Shortcut extends Context {
         return this.children.length > 0;
     }
 
-    hasParentContext() { 
+    hasParentContext() {
         return !Lang.isEmpty(this.parentContext);
     }
 
-    hasValueObjectAttributes() { 
+    hasValueObjectAttributes() {
         return !Lang.isEmpty(this.valueObjectAttributes);
     }
 
-    setAttributeIsSetByLabel(name, val) { 
+    setAttributeIsSetByLabel(name, val) {
         if (!this.hasParentContext()) {
-            console.error(`trying to set an attribute on a shortcut ${this}, but there is no parent context.`)
+            console.error(`trying to set an attribute on a shortcut ${this}, but there is no parent context.`);
         } else {
-            this.parentContext.setAttributeIsSetByLabel(name, val)
+            this.parentContext.setAttributeIsSetByLabel(name, val);
         }
     }
 
