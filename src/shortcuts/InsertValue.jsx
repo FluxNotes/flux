@@ -26,7 +26,9 @@ export default class InsertValue extends Shortcut {
         if (Lang.isArray(text)) {
             this.flagForTextSelection(text);
         } else {
-            if (shortcutData.length > 0) this.setText(shortcutData);
+            if (shortcutData) {
+                if (shortcutData.length > 0) this.setText(shortcutData);
+            }
             else this.setText(text);
         }
 
@@ -182,7 +184,8 @@ export default class InsertValue extends Shortcut {
     }
 
     getLabel() {
-        return this.getOriginalText() ? this.getOriginalText() : this.getText();
+        let display = this.getText() ? this.getText() : this.getDisplayText();
+        return this.getOriginalText() ? this.getOriginalText() : display;
     }
 
     getId() {
@@ -190,17 +193,24 @@ export default class InsertValue extends Shortcut {
     }
 
     getText() {
-        return this.text ? this.text : this.initiatingTrigger;
+        return this.text;
     }
 
     getArrayOfText() {
         return Lang.isArray(this.text) ? this.text : [];
     }
 
-    getResultText(displayText = null) {
+    serialize(displayText) {
+        // TODO: Refactor to no longer need displayText as a parameter. This variable should only use this.text.
         let text = displayText || this.text; // Use provided text to override shortcut text
-        if (typeof text === "string" && text.startsWith(this.getPrefixCharacter())) {
+        if (Lang.isNull(text)) {
+            text = this.initiatingTrigger;
+        }
+        else if (typeof text === "string" && text.startsWith(this.getPrefixCharacter())) {
             text = text.substring(1);
+        }
+        if (text === this.initiatingTrigger) {
+            return `${text}`;
         }
         // If this.valueObject exists, put the entryId of the valueObject in the result text
         if (this.valueObject) {
@@ -212,7 +222,12 @@ export default class InsertValue extends Shortcut {
             };
             return `${this.initiatingTrigger}[[${JSON.stringify(shortcutDataObj)}]]`;
         }
+
         return `${this.initiatingTrigger}[[${text}]]`;
+    }
+
+    getDisplayText() {
+        return Lang.isNull(this.text) ? this.initiatingTrigger : this.text;
     }
 
     createObjectForParsing(selectedValue, contextManager) {

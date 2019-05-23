@@ -125,8 +125,12 @@ export default class CreatorChild extends Shortcut {
         return this.text;
     }
 
-    getResultText() {
+    serialize() {
         return `${this.getPrefixCharacter()}${this.getText()}`;
+    }
+
+    getDisplayText() {
+        return this.text;
     }
 
 

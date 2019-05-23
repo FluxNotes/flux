@@ -339,12 +339,9 @@ function StructuredFieldPlugin(opts) {
                 }
             } else if (node.type === 'structured_field') {
                 const shortcut = node.data.shortcut;
-                if (shortcut instanceof InsertValue) {
-                    // Inserters have characters as their children. Use characters to get current text in the node.
-                    result += shortcut.getResultText(node.nodes[0].characters.map(c => c.text).join(''));
-                } else {
-                    result += shortcut.getResultText();
-                }
+                // TODO: Refactor to not need slate node text passed as an argument. This is currently used to reload the correct text on edited shortcuts. Refactor should result in no arguments passed.
+                const textToSerialize = (shortcut instanceof InsertValue) ? node.nodes[0].characters.map(c => c.text).join('') : undefined;
+                result += shortcut.serialize(textToSerialize);
             } else if (node.type === 'placeholder') {
                 result += node.data.placeholder.getResultText();
             } else if (node.type === 'bulleted-list') {
@@ -691,7 +688,7 @@ function createStructuredField(opts, shortcut) {
     let nodes = [Slate.Text.createFromString(String(shortcut.getText()))];
     const isInserter = shortcut instanceof InsertValue;
     if (isInserter) {
-        const lines = String(shortcut.getText()).split(/\n\r|\r\n|\r|\n/g);
+        const lines = String(shortcut.getDisplayText()).split(/\n\r|\r\n|\r|\n/g);
         let textNodes = [];
         let inlines = [];
         lines.forEach((line, i) => {
@@ -769,10 +766,11 @@ function updateStructuredField(opts, transform, shortcut) {
     }
 
     const newShortcut = opts.createShortcut(shortcut.metadata, shortcut.initiatingTrigger, shortcut.getText(), true, shortcut.getSource());
-
     allKeysForShortcut.forEach((key, i) => {
         const shortcutNode = transform.state.document.getNode(key);
-        if (shortcutNode) transform = deleteNode(shortcutNode, transform, i === allKeysForShortcut.length - 1);
+        if (shortcutNode) {
+            transform = deleteNode(shortcutNode, transform, i === allKeysForShortcut.length - 1);
+        }
     });
     // Clear key map after deleting
     idToKeysMap.delete(shortcut.uniqueId);

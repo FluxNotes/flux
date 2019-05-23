@@ -173,9 +173,13 @@ export default class CreatorBase extends EntryShortcut {
         return this.metadata["name"];
     }
 
-    getResultText() {
+    serialize() {
         if (Lang.isUndefined(this.object.entryInfo)) return this.getText();
         return `${this.initiatingTrigger}[[{"entryId":${this.getEntryId()}}]]`;
+    }
+
+    getDisplayText() {
+        return this.initiatingTrigger;
     }
 
     getId() {

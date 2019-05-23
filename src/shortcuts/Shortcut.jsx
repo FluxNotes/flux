@@ -40,7 +40,11 @@ class Shortcut extends Context {
         return this.getShortcutType();
     }
 
-    getResultText() {
+    getDisplayText() {
+        return this.getText();
+    }
+
+    serialize() {
         return this.getText();
     }
 
