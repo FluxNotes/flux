@@ -37,16 +37,13 @@ class ContextListOptions extends React.Component {
         // const { style } = this.state
         // if (!menu || !menu.style) return;
         const rect = this.props.getPosition();
-        console.log('rect: ', rect);
         const tempStyle = {};
         if (!rect) {
             tempStyle.display = 'none'
         } else {
             tempStyle.position = 'absolute';
             tempStyle.width = 320;
-            tempStyle.background = '#fff';
             tempStyle.display = 'block';
-            tempStyle.opacity = 1;
             if (window.innerHeight - rect.top < 230) {
                 tempStyle.bottom = `${window.innerHeight - rect.top - window.pageYOffset}px`;
                 tempStyle.left = `${rect.left + window.pageXOffset + 10}px`;
@@ -63,12 +60,32 @@ class ContextListOptions extends React.Component {
     /*
     * Change the menu position based on the amount of places to move
     */
-   changeMenuPosition = (change) => { 
+   changeMenuPosition = (change) => {
+       console.log('----------------------------changeMenuPosition')
        // this will allow wrap around to the end of the list.
         const changePlusOriginalLength = change + this.props.contexts.length;
-        const changeAfterWrapping = (this.state.selectedIndex + changePlusOriginalLength) % this.props.contexts.length;
+        const indexAfterWrapping = (this.state.selectedIndex + changePlusOriginalLength) % this.props.contexts.length;
+        
+        const portalElement = this.refs.contextPortal;
+        const portalList = portalElement.firstChild;
+        const activeElement = portalList.childNodes[indexAfterWrapping];
+        // console.log('this child? : ', this.refs.contextPortal.firstChild.childNodes[this.state.selectedIndex]);
+        // this.refs.contextPortal.scrollTop = this.refs.contextPortal (this.state.selectedIndex - (numberOfElementsVisible - 1)) * 32 + 10;
+        const portalHeight = portalElement.offsetHeight;
+        const portalScrollTop = portalElement.scrollTop;
+        const activeElementTop = activeElement.offsetTop;
+        const activeElementBottom = activeElement.offsetTop + activeElement.offsetHeight;
+        
+        // Need to ensure that the current element is within the scroll bounds 
+        if (activeElementBottom > (portalHeight + portalScrollTop)) { 
+            // Scroll isabove the activeElement; We want scrollTop + portalHeight === activeElementBottom; algebra 
+            portalElement.scrollTop = activeElementBottom - portalHeight;
+        } else if (activeElementTop < portalScrollTop) { 
+            // Scroll is below the activeElement; We want scrollTop === activeElementTop
+            portalElement.scrollTop = activeElementTop;
+        }
         this.setState({ 
-            selectedIndex: changeAfterWrapping
+            selectedIndex: indexAfterWrapping
         });
     }
     
@@ -83,11 +100,10 @@ class ContextListOptions extends React.Component {
             const numberOfElementsVisible = Math.floor(height/32);
             const positionChange = (keyCode === DOWN_ARROW_KEY) ? 1 : -1; 
             this.changeMenuPosition(positionChange)
-            // newIndex - (numberOfElementsVisible - 1) forces the scrolling to happen once your reach the bottom of the list in view.
-            // 32 is the height of each suggestion in the list, 10 allows for the margin
-            this.refs.contextPortal.scrollTop = (this.state.selectedIndex - (numberOfElementsVisible - 1)) * 32 + 10;
         } else if (keyCode === ENTER_KEY && this.state.selectedIndex !== -1) {
-            e.preventDefault()
+            e.preventDefault();
+            e.stopPropagation();
+            this.props.closePortal();
             this.props.onSelected(this.props.state, this.props.contexts[this.state.selectedIndex]);
         }
     }
