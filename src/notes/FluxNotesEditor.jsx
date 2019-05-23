@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Slate from '../lib/slate';
 import Lang from 'lodash';
+import _ from 'lodash';
 import FontAwesome from 'react-fontawesome';
 import CompletionPortal from  '../context/EditorPortal';
 import SuggestionPortalShortcutSearchIndex from './SuggestionPortalShortcutSearchIndex';
@@ -1844,7 +1845,7 @@ class FluxNotesEditor extends React.Component {
                         <Slate.Editor
                             className={editorClassName}
                             placeholder={'Enter your clinical note here or choose a template to start from...'}
-                            plugins={this.plugins}
+                            plugins={this.state.plugins}
                             readOnly={!this.props.isNoteViewerEditable}
                             state={this.state.state}
                             ref="editor"
