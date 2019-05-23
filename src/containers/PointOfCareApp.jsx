@@ -101,10 +101,10 @@ export class PointOfCareApp extends Component {
 
     loadPatient(patientId) {
         const DAGestalt = this.dataAccess.getGestalt();
-        if (DAGestalt.read.async) { 
-            this.dataAccess.getPatient(patientId, (patient, error) => { 
+        if (DAGestalt.read.async) {
+            this.dataAccess.getPatient(patientId, (patient, error) => {
                 this.contextManager = new ContextManager(patient, this.onContextUpdate);
-                if (!Lang.isEmpty(error)) console.error(error)
+                if (!Lang.isEmpty(error)) console.error(error);
                 this.setState({
                     patient,
                     loading: false,

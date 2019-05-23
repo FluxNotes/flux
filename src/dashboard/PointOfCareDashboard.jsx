@@ -107,7 +107,7 @@ export default class PointOfCareDashboard extends Component {
             "WebkitTransition": "width .5s", /* Safari */
             "transition": "width .5s",
         };
-    
+
         return (
             <div className="right-border-box" style={targetedDataPanelStyles}>
                 <TargetedDataPanel
