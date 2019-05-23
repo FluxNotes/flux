@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Slate from '../lib/slate';
 import Lang from 'lodash';
+import _ from 'lodash';
 import FontAwesome from 'react-fontawesome';
 import ContextPortal from '../context/ContextPortal';
 import SuggestionPortalShortcutSearchIndex from './SuggestionPortalShortcutSearchIndex';
@@ -21,6 +22,7 @@ import position from '../lib/slate-suggestions-dist/caret-position';
 import StructuredFieldPlugin from './StructuredFieldPlugin';
 import SingleHashtagKeywordStructuredFieldPlugin from './SingleHashtagKeywordStructuredFieldPlugin';
 import NLPHashtagPlugin from './NLPHashtagPlugin';
+import ContextPortalPlugin from './ContextPortalPlugin';
 import Placeholder from '../shortcuts/Placeholder';
 import NoteParser from '../noteparser/NoteParser';
 import './FluxNotesEditor.css';
@@ -68,6 +70,50 @@ const initialEditorState = {
 };
 
 class FluxNotesEditor extends React.Component {
+    openContextPortal = (portalComponent) => {
+        // Add plugins as needed: 
+        console.log('opening portal');
+        // Set some variable stored at the Editor level 
+        this.setState({
+            contextPortalStateVariable: portalComponent
+        }, () => {
+            this.addPlugin({
+                onKeyDown: this.refs.portalComponent.onKeyDown
+            });
+        });
+    }
+    isPortalOpen = () => { 
+        return !Lang.isEmpty(this.state.contextPortalStateVariable);
+    }
+    closeContextPortal = () => {
+        console.log('closing portal');
+        this.removePlugin({
+            onKeyDown: this.state.contextPortalStateVariable ? this.refs.portalComponent.onKeyDown : undefined
+        });
+        // Clean up some variables stored at the Editor level 
+        this.setState({
+            contextPortalStateVariable: null
+        });
+    }
+    addPlugin = (plugin) => { 
+        const pluginsClone = [...this.state.plugins]
+        pluginsClone.unshift(plugin)
+        this.setState({
+            plugins: pluginsClone
+        });
+    }
+    removePlugin = (plugin) => { 
+        const indexOfPlugin = _.findIndex(this.state.plugins, (curPlugin) => { 
+            return _.isEqual(curPlugin, plugin);
+        });
+        if (indexOfPlugin === -1) return;
+        const pluginsClone = [...this.state.plugins]
+        pluginsClone.splice(indexOfPlugin, 1)
+        this.setState({
+            plugins: pluginsClone
+        });
+    }
+
     constructor(props) {
         super(props);
 
@@ -91,6 +137,15 @@ class FluxNotesEditor extends React.Component {
         this.previousState = {};
 
         this.noteContentIndexer = new NoteContentIndexer();
+
+        // ContextPortalPluginOptions
+        const contextPortalPluginOptions = {
+            openPortal: this.openContextPortal,
+            closePortal: this.closeContextPortal,
+            isPortalOpen: this.isPortalOpen
+        }
+        this.contextPortalPlugin = ContextPortalPlugin(contextPortalPluginOptions);
+        this.plugins.push(this.contextPortalPlugin);
 
         // setup structured field plugin
         const structuredFieldPluginOptions = {
@@ -147,6 +202,7 @@ class FluxNotesEditor extends React.Component {
             onEnter: this.choseSuggestedShortcut.bind(this),
             suggestions: creatorSuggestionPortalSearchIndex.search,
             trigger: '#',
+            typesToIgnore: structuredFieldTypes.map((obj) => obj.value),
         });
         this.plugins.push(this.suggestionsPluginCreators);
 
@@ -159,6 +215,7 @@ class FluxNotesEditor extends React.Component {
             onEnter: this.choseSuggestedShortcut.bind(this),
             suggestions: inserterSuggestionPortalSearchIndex.search,
             trigger: '@',
+            typesToIgnore: structuredFieldTypes.map((obj) => obj.value),
         });
         this.plugins.push(this.suggestionsPluginInserters);
 
@@ -171,6 +228,7 @@ class FluxNotesEditor extends React.Component {
             onEnter: this.choseSuggestedPlaceholder.bind(this),
             suggestions: placeholderSuggestionPortalSearchIndex.search,
             trigger: '<',
+            typesToIgnore: structuredFieldTypes.map((obj) => obj.value),
         });
         this.plugins.push(this.suggestionsPluginPlaceholders);
 
@@ -223,7 +281,25 @@ class FluxNotesEditor extends React.Component {
                 }));
             }
         });
-        this.state = initialEditorState;
+
+        // Make sure to add the plugins in addition to everything already added to state by resetEditorState
+        this.state = {...this.state, plugins: this.plugins}
+    }
+
+    // Reset the editor to the initial state when the app is first constructed.
+    resetEditorState() {
+        // eslint-disable-next-line
+        this.state = {
+            state: initialState,
+            openedPortal: null,
+            portalOptions: null,
+            isEditingNoteName: false,
+            isFetchingAsyncData: false,
+            loadingTimeWarrantsWarning: false,
+            fetchTimeout: null,
+            shouldUpdateTemplateShortcuts: true,
+            plugins: this.plugins
+        };
     }
 
     updateFetchingStatus = (isFetchingAsyncData) => {
@@ -382,7 +458,7 @@ class FluxNotesEditor extends React.Component {
             needToDelete: needToDelete,
         });
         this.selectingForShortcut = shortcut;
-        return transform.blur();
+        return transform;
     }
 
     // called from portal when an item is selected (selection is not null) or if portal is closed without
@@ -1820,7 +1896,7 @@ class FluxNotesEditor extends React.Component {
                         <Slate.Editor
                             className={editorClassName}
                             placeholder={'Enter your clinical note here or choose a template to start from...'}
-                            plugins={this.plugins}
+                            plugins={this.state.plugins}
                             readOnly={!this.props.isNoteViewerEditable}
                             state={this.state.state}
                             ref="editor"
@@ -1856,11 +1932,13 @@ class FluxNotesEditor extends React.Component {
                         setOpenedPortal={this.setOpenedPortal}
                         state={this.state.state}
                     />
-                    <ContextPortal
-                        capture={/@([\w]*)/}
-                        callback={callback}
+                    {this.state.contextPortalStateVariable && <this.state.contextPortalStateVariable
                         contextManager={this.contextManager}
+                        onSelected={(...args) => {this.setState({state:this.onPortalSelection});}}
+                        openedPortal={this.state.openedPortal}
                         contexts={this.state.portalOptions}
+                        ref="portalComponent"
+                        closePortal={this.closeContextPortal}
                         getPosition={this.getTextCursorPosition}
                         openedPortal={this.state.openedPortal}
                         onSelected={this.onPortalSelection}
