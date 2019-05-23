@@ -155,5 +155,6 @@ export default class CreatorChild extends Shortcut {
         if (this.metadata.picker === 'date-id') {
             return ContextCalendar;
         }
+        return null;
     }
 }
