@@ -769,7 +769,7 @@ function updateStructuredField(opts, transform, shortcut) {
     const newShortcut = opts.createShortcut(shortcut.metadata, shortcut.initiatingTrigger, shortcut.getText(), true, shortcut.getSource());
     allKeysForShortcut.forEach((key, i) => {
         const shortcutNode = transform.state.document.getNode(key);
-        if(shortcutNode){
+        if (shortcutNode) {
             transform = deleteNode(shortcutNode, transform, i === allKeysForShortcut.length - 1);
         }
     });

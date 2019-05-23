@@ -26,7 +26,7 @@ export default class InsertValue extends Shortcut {
         if (Lang.isArray(text)) {
             this.flagForTextSelection(text);
         } else {
-            if(shortcutData){
+            if (shortcutData) {
                 if (shortcutData.length > 0) this.setText(shortcutData);
             }
             else this.setText(text);
@@ -203,13 +203,13 @@ export default class InsertValue extends Shortcut {
     serialize(displayText) {
         // TODO: Refactor to no longer need displayText as a parameter. This variable should only use this.text.
         let text = displayText || this.text; // Use provided text to override shortcut text
-        if(Lang.isNull(text)) {
+        if (Lang.isNull(text)) {
             text = this.initiatingTrigger;
         }
         else if (typeof text === "string" && text.startsWith(this.getPrefixCharacter())) {
             text = text.substring(1);
         }
-        if(text === this.initiatingTrigger){
+        if (text === this.initiatingTrigger) {
             return `${text}`;
         }
         // If this.valueObject exists, put the entryId of the valueObject in the result text
@@ -222,7 +222,7 @@ export default class InsertValue extends Shortcut {
             };
             return `${this.initiatingTrigger}[[${JSON.stringify(shortcutDataObj)}]]`;
         }
-      
+
         return `${this.initiatingTrigger}[[${text}]]`;
     }
 
