@@ -2,12 +2,12 @@ import _ from 'lodash';
 import FluxTumorDimensions from '../../model/tumor/FluxTumorDimensions';
 import FluxTNMClinicalPrimaryTumorClassification from '../../model/oncocore/FluxTNMClinicalPrimaryTumorClassification';
 import FluxTNMClinicalRegionalNodesClassification from '../../model/oncocore/FluxTNMClinicalRegionalNodesClassification';
-import FluxTNMClinicalDistantMetastasesClassification from '../../model/oncocore/FluxTNMClinicalDistantMetastasesClassification'
+import FluxTNMClinicalDistantMetastasesClassification from '../../model/oncocore/FluxTNMClinicalDistantMetastasesClassification';
 
 export default function getProps(patient, condition) {
 
     const tumorMarkers = patient.getMostRecentTumorMarkers(condition);
-    const tnminfo = processPanel(condition.getMostRecentClinicalStaging()._tnmStageGroup._panelMembers.observation, patient)
+    const tnminfo = processPanel(condition.getMostRecentClinicalStaging()._tnmStageGroup._panelMembers.observation, patient);
     const propDict = {
         // demographics
         "demographic": {
@@ -130,19 +130,17 @@ function _safeGet(object, property) {
     }
 }
 function processPanel(panelMembers, patient) {
-    const returnJson = {}
-    panelMembers.forEach((e)=>{
+    const returnJson = {};
+    panelMembers.forEach((e) => {
         const entry = patient.getEntryById(e._entryId);
-        if(entry instanceof FluxTNMClinicalPrimaryTumorClassification){
+        if (entry instanceof FluxTNMClinicalPrimaryTumorClassification) {
             returnJson.t = entry._tnmStagePanelMember.findingResult.value.coding[0];
-        }else if(entry instanceof FluxTNMClinicalRegionalNodesClassification){
+        } else if (entry instanceof FluxTNMClinicalRegionalNodesClassification) {
             returnJson.n = entry._tnmStagePanelMember.findingResult.value.coding[0];
-        }else if(entry instanceof FluxTNMClinicalDistantMetastasesClassification){
+        } else if (entry instanceof FluxTNMClinicalDistantMetastasesClassification) {
             returnJson.m = entry._tnmStagePanelMember.findingResult.value.coding[0];
         }
-
-        
-    })
+    });
     return returnJson;
 }
 

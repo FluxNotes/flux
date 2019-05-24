@@ -90,14 +90,14 @@ export default class TreatmentOptionsOutcomesTable extends Component {
         const key = `${treatmentType}Treatments`;
 
         if (!selected) {
-            const index = this.props[key].findIndex((element)=>{return (element.code?`${element.code},${element.codeSystem}`:element) === treatment});
+            const index = this.props[key].findIndex((element) => { return (element.code?`${element.code},${element.codeSystem}`:element) === treatment; });
             if (index !== -1) {
                 const treatments = this.props[key].slice();
                 treatments.splice(index, 1);
                 this.props.selectTreatments(key, treatments);
             }
         } else if (!this.props[key].includes(treatment)) {
-            const treatmentObject = similarTreatments.find((el)=>{return el.key === treatment})
+            const treatmentObject = similarTreatments.find((el) => { return el.key === treatment; });
             this.props.selectTreatments(key, [...this.props[key], treatmentObject.reference]);
         }
     }

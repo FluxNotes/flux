@@ -19,7 +19,7 @@ export default class TreatmentsPopover extends Component {
                                     <FormControlLabel
                                         control={
                                             <Checkbox
-                                                checked={selectedTreatments.some((e)=>{return `${e.code},${e.codeSystem}` === key})}
+                                                checked={selectedTreatments.some((e) => { return `${e.code},${e.codeSystem}` === key; })}
                                                 onChange={toggleTreatments}
                                                 value={key}
                                                 className="checkbox" />

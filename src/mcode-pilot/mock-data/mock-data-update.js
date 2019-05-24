@@ -13,7 +13,7 @@ function recursiveFill(obj, patient) {
             if (patientProperty === undefined || patientProperty === null) {
                 // the section doesn't exist, create it
                 patient[e] = modelParse(property);
-            } else if(replace){
+            } else if (replace) {
                 patient[e] = modelReplace(property, patientProperty);
             }
         } else {
@@ -45,18 +45,18 @@ function modelParse(property) {
         const weight = (property.weight === "uniform") ? new Array(property.values.length).fill(1 / property.values.length) : property.weight;
         let r;
         const returnSet = [];
-        const defaultValue = property.values.filter((e) => { return typeof e === 'string' && e.startsWith("!") });
+        const defaultValue = property.values.filter((e) => { return typeof e === 'string' && e.startsWith("!"); });
         for (let i = 0; i < property.values.length; i++) {
             r = Math.random();
             if (r <= weight[i]) {
                 let returnValue = property.values[i];
-                if(returnValue.type) {
+                if (returnValue.type) {
                     // choice is a choice itself
                     returnValue = modelParse(returnValue);
                 }
                 if (typeof returnValue === 'string' && returnValue.startsWith('!')) {
                     // ignore because its the default value, which only gets inserted when set is empty
-                }else{
+                } else {
                     returnSet.push(returnValue);
                 }
             }
@@ -82,24 +82,24 @@ function modelParse(property) {
 }
 
 function modelReplace(property, patientValue) {
-    if(typeof patientValue === "object") {
+    if (typeof patientValue === "object") {
         const result = [];
-        if(property.names && Array.isArray(patientValue)){
+        if (property.names && Array.isArray(patientValue)) {
             //array
-            patientValue.forEach((e)=>{
-                result.push(property.values[property.names.indexOf(e)])
-            })
-        }else if(property.names){
+            patientValue.forEach((e) => {
+                result.push(property.values[property.names.indexOf(e)]);
+            });
+        } else if (property.names) {
             // object
-            Object.keys(patientValue).forEach((e)=>{
+            Object.keys(patientValue).forEach((e) => {
                 const prop = property.values[property.names.indexOf(e)];
                 result.push(prop.values[prop.names.indexOf(patientValue[e])]);
-            })
+            });
         }
         return result;
-    }else if(property.names){
+    } else if (property.names) {
         return property.values[property.names.indexOf(patientValue)];
-    }else{
+    } else {
         return patientValue;
 
     }
