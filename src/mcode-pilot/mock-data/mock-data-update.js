@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const dataModel = require('./transformedDataModel.json');
-
+let replace = false;
 function recursiveFill(obj, patient) {
     // TODO: Patient generation functionality?  Ability to update already present fields?
     Object.keys(obj).forEach((e) => {
@@ -13,6 +13,8 @@ function recursiveFill(obj, patient) {
             if (patientProperty === undefined || patientProperty === null) {
                 // the section doesn't exist, create it
                 patient[e] = modelParse(property);
+            } else if(replace){
+                patient[e] = modelReplace(property, patientProperty);
             }
         } else {
             if (!patient[e]) {
@@ -43,12 +45,18 @@ function modelParse(property) {
         const weight = (property.weight === "uniform") ? new Array(property.values.length).fill(1 / property.values.length) : property.weight;
         let r;
         const returnSet = [];
-        const defaultValue = property.values.filter((e) => { return e.startsWith("!"); });
+        const defaultValue = property.values.filter((e) => { return typeof e === 'string' && e.startsWith("!") });
         for (let i = 0; i < property.values.length; i++) {
             r = Math.random();
             if (r <= weight[i]) {
-                const returnValue = property.values[i];
-                if (!returnValue.startsWith("!")) {
+                let returnValue = property.values[i];
+                if(returnValue.type) {
+                    // choice is a choice itself
+                    returnValue = modelParse(returnValue);
+                }
+                if (typeof returnValue === 'string' && returnValue.startsWith('!')) {
+                    // ignore because its the default value, which only gets inserted when set is empty
+                }else{
                     returnSet.push(returnValue);
                 }
             }
@@ -70,6 +78,30 @@ function modelParse(property) {
         const end = property.values[1];
         const value = start + Math.floor(Math.random() * (end - start));
         return value;
+    }
+}
+
+function modelReplace(property, patientValue) {
+    if(typeof patientValue === "object") {
+        const result = [];
+        if(property.names && Array.isArray(patientValue)){
+            //array
+            patientValue.forEach((e)=>{
+                result.push(property.values[property.names.indexOf(e)])
+            })
+        }else if(property.names){
+            // object
+            Object.keys(patientValue).forEach((e)=>{
+                const prop = property.values[property.names.indexOf(e)];
+                result.push(prop.values[prop.names.indexOf(patientValue[e])]);
+            })
+        }
+        return result;
+    }else if(property.names){
+        return property.values[property.names.indexOf(patientValue)];
+    }else{
+        return patientValue;
+
     }
 }
 

@@ -2,33 +2,114 @@
     "demographics":{
         "birthDate": {"type": "date", "values": [1920,1994], "weight": "uniform"},
         "gender": {"type": "choice", "values": ["male","female"], "weight": "uniform"},
-        "race": {"type": "choice", "values": ["White","Black","Unknown","Other unspecified (1991+)","Other (American Indian/AK Native; Asian/Pacific Islander)"],
-                                   "weight": [0.5,     0.2,    0.05,     0.01,                       0.24]}
+        "race": {"type": "choice", "values": [{"code":"2106-3", "codeSystem":"http://hl7.org/fhir/v3/Race", "displayName": "White", "codeSystemName":"cdc"},
+                                              {"code":"2054-5", "codeSystem":"http://hl7.org/fhir/v3/Race", "displayName": "Black", "codeSystemName":"cdc"},
+                                              {"code":"2028-9", "codeSystem":"http://hl7.org/fhir/v3/Race", "displayName": "Asian", "codeSystemName":"cdc"},
+                                              {"code":"2131-1", "codeSystem":"http://hl7.org/fhir/v3/Race", "displayName": "Other", "codeSystemName":"cdc"},
+                                              {"code":"2076-8", "codeSystem":"http://hl7.org/fhir/v3/Race", "displayName": "Native Hawaiian or Other Pacific Islander", "codeSystemName":"cdc"}],
+                                   "weight": [0.5,     0.2,    0.05,     0.1,                       0.14]}
     },
     "diseaseStatus": {
-        "disease": {"type": "choice", "values": ["http://snomed.info/sct/420120006"], "weight": "uniform"},
+        "disease": {"type": "choice", "values": [{"code":"420120006", "codeSystem":"http://snomed.info/sct", "displayName": "Gastrointestinal stromal tumor", "codeSystemName":"SNOMED"},
+                                                {"code":"408643008", "codeSystem":"http://snomed.info/sct", "displayName": "Invasive ductal carcinoma of breast", "codeSystemName":"SNOMED"}], "weight": "uniform", "names": ["http://snomed.info/sct/420120006","http://snomed.info/sct/408643008"]},
         "diagnosisDate": {"type": "date", "values": [2002, 2016], "weight": "uniform"},
         "isAlive": {"type": "choice", "values": [true, false], "weight": [0.8, 0.2]},
         "survivalMonths": {"type": "range", "values": [3,80], "weight": "uniform"},
-        "tnm": {
-            "t": {"type": "choice", "values": ["TX", "T0", "T1", "T2", "T3", "T4", "T1c"], 
-                                    "weight": [0.05, 0.4,  0.1,   0.10,  0.15,  0.1, 0.1]},
-            "n": {"type": "choice", "values": ["NX", "N0", "N1", "N2", "N3"], 
-                                    "weight": [0.05, 0.5,  0.2,   0.15,  0.1]},
-            "m": {"type": "choice", "values": ["MX", "M0", "M1"], 
-                                    "weight": [0.05, 0.85,  0.1]}
-        }
+        "tnm": { "type": "multi-choice", "values": [{"type": "choice", "values": [{"code":"67101007", "codeSystem":"http://snomed.info/sct", "displayName": "Tumor stage TX", "codeSystemName":"SNOMED"},
+            {"code":"58790005", "codeSystem":"http://snomed.info/sct", "displayName": "Tumor stage T0", "codeSystemName":"SNOMED"}, 
+            {"code":"23351008", "codeSystem":"http://snomed.info/sct", "displayName": "Tumor stage T1", "codeSystemName":"SNOMED"},  
+            {"code":"67673008", "codeSystem":"http://snomed.info/sct", "displayName": "Tumor stage T2", "codeSystemName":"SNOMED"}, 
+            {"code":"14410001", "codeSystem":"http://snomed.info/sct", "displayName": "Tumor stage T3", "codeSystemName":"SNOMED"}, 
+            {"code":"65565005", "codeSystem":"http://snomed.info/sct", "displayName": "Tumor stage T4", "codeSystemName":"SNOMED"}, 
+            {"code":"369918000", "codeSystem":"http://snomed.info/sct", "displayName": "Tumor stage T1c", "codeSystemName":"SNOMED"}], 
+            "weight": [0.05, 0.4,  0.1,   0.10,  0.15,  0.1, 0.1], "names": ["TX", "T0", "T1", "T2", "T3", "T4", "T1c"]}, 
+            {"type": "choice", "values": [{"code":"79420006", "codeSystem":"http://snomed.info/sct", "displayName": "NX stage", "codeSystemName":"SNOMED"}, 
+            {"code":"103802014", "codeSystem":"http://snomed.info/sct", "displayName": "N0 stage", "codeSystemName":"SNOMED"}, 
+            {"code":"53623008", "codeSystem":"http://snomed.info/sct", "displayName": "N1 stage", "codeSystemName":"SNOMED"}, 
+            {"code":"46059003", "codeSystem":"http://snomed.info/sct", "displayName": "N2 stage", "codeSystemName":"SNOMED"}, 
+            {"code": "5856006", "codeSystem":"http://snomed.info/sct", "displayName": "N3 stage", "codeSystemName":"SNOMED"}], 
+            "weight": [0.05, 0.5,  0.2,   0.15,  0.1], "names": ["NX", "N0", "N1", "N2", "N3"]},
+            {"type": "choice", "values": [{"code":"27167007", "codeSystem":"http://snomed.info/sct", "displayName": "MX stage", "codeSystemName":"SNOMED"}, 
+            {"code":"51703010", "codeSystem":"http://snomed.info/sct", "displayName": "M0 stage", "codeSystemName":"SNOMED"}, 
+            {"code":"55440008", "codeSystem":"http://snomed.info/sct", "displayName": "M1 stage", "codeSystemName":"SNOMED"}], 
+            "weight": [0.05, 0.85,  0.1], "names": ["MX", "M0", "M1"]}], "weight": [1,1,1], "names": ["t","n","m"]}
     },
     "treatments": {
-        "type":"multi-choice", "values": ["hormonal","radiation","surgery","chemotherapy","!noTreatment"], "weight": [0.2, 0.2, 0.5, 0.2, 0]
+        "type":"multi-choice", "values": [{"code":"169413002", "codeSystem":"http://snomed.info/sct", "displayName": "hormonal therapy", "codeSystemName":"SNOMED"},
+                                          {"code":"385798007", "codeSystem":"http://snomed.info/sct", "displayName": "radiation therapy", "codeSystemName":"SNOMED"},
+                                          {"code":"736770009", "codeSystem":"http://snomed.info/sct", "displayName": "surgery", "codeSystemName":"SNOMED"}, 
+                                          {"code":"385786002", "codeSystem":"http://snomed.info/sct", "displayName": "chemotherapy", "codeSystemName":"SNOMED"},
+                                          {"code":"0000-0000", "codeSystem":"http://example.fhir.org", "displayName": "none (actively monitoring)", "codeSystemName": "temp"}], "weight": [0.2, 0.2, 0.5, 0.2, 0], "names": ["hormonal", "radiation", "surgery", "chemotherapy","noTreatment"]
     },
     "sideEffects": {
-        "type": "multi-choice", "values": ["hotFlash","decLibido","fatigue","nauseaVomiting","anemia","bowelDys","erectileDys","weightLoss","urinaryDys"], 
-                                "weight": [0.1,        0.3,        0.5,       0.3,              0.07,  0.08,        0.3,        0.2,        0.1]
+        "type": "multi-choice", "values": [{"code":"439407002", "codeSystem":"http://snomed.info/sct", "displayName": "hot flash caused by medication", "codeSystemName":"SNOMED"},
+                                           {"code":"8357008", "codeSystem":"http://snomed.info/sct", "displayName": "reduced libido", "codeSystemName":"SNOMED"},
+                                           {"code":"84229001", "codeSystem":"http://snomed.info/sct", "displayName": "fatigue", "codeSystemName":"SNOMED"}, 
+                                           {"code":"73335002", "codeSystem":"http://snomed.info/sct", "displayName": "Nausea and vomiting", "codeSystemName":"SNOMED"},
+                                           {"code":"271737000", "codeSystem":"http://snomed.info/sct", "displayName": "anemia", "codeSystemName":"SNOMED"},
+                                           {"code":"235594008", "codeSystem":"http://snomed.info/sct", "displayName": "bowel dysfunction", "codeSystemName":"SNOMED"},
+                                           {"code":"397803000", "codeSystem":"http://snomed.info/sct", "displayName": "erectile dysfunction", "codeSystemName":"SNOMED"},
+                                           {"code":"89362005", "codeSystem":"http://snomed.info/sct", "displayName": "weight loss", "codeSystemName":"SNOMED"},
+                                           {"code":"165232002", "codeSystem":"http://snomed.info/sct", "displayName": "urinary incontinence","codeSystemName":"SNOMED"}], 
+                                "weight": [0.1,        0.3,        0.5,       0.3,              0.07,  0.08,        0.3,        0.2,        0.1], "names": ["hotFlash","decLibido","fatigue","nauseaVomiting","anemia","bowelDys","erectileDys","weightLoss","urinaryDys"]
     },
     "tumorMarkers": {
-        "er": {"type": "choice", "values": ["Positive", "Negative"], "weight": [0.8, 0.2]},
-        "pr": {"type": "choice", "values": ["Positive", "Negative"], "weight": [0.67, 0.33]},
-        "her2": {"type": "choice", "values": ["Positive", "Negative"], "weight": [0.2, 0.8]}
+        "type": "multi-choice", "values": [
+            {"type": "choice", "values": [
+                            {
+                                "code":"16112-5",
+                                "codeSystem":"http://fhir.loinc.org",
+                                "displayName": "Estrogen Receptor",
+                                "codeSystemName": "loinc",
+                                "value": {"code":"C0205160", "codeSystem": "http://ncimeta.nci.nih.gov", "displayName": "Positive", "codeSystemName":"nci"}
+                            },
+                            {
+                                "code":"16112-5",
+                                "codeSystem":"http://fhir.loinc.org",
+                                "displayName": "Estrogen Receptor",
+                                "codeSystemName": "loinc",
+                                "value": {"code":"C1446409", "codeSystem": "http://ncimeta.nci.nih.gov", "displayName": "Negative", "codeSystemName":"nci"}
+
+                            }
+            ], "weight": [0.8, 0.2], "names": ["Positive", "Negative"]
+            },
+            {"type": "choice", "values": [
+                {
+                    "code":"16113-3",
+                    "codeSystem":"http://fhir.loinc.org",
+                    "displayName": "Progesterone Receptor",
+                    "codeSystemName": "loinc",
+                    "value": {"code":"C0205160", "codeSystem": "http://ncimeta.nci.nih.gov", "displayName": "Positive", "codeSystemName":"nci"}
+                },
+                {
+                    "code":"16113-3",
+                    "codeSystem":"http://fhir.loinc.org",
+                    "displayName": "Progesterone Receptor",
+                    "codeSystemName": "loinc",
+                    "value": {"code":"C1446409", "codeSystem": "http://ncimeta.nci.nih.gov", "displayName": "Negative", "codeSystemName":"nci"}
+
+                }
+
+            ], "weight": [0.67, 0.33], "names": ["Positive", "Negative"]},
+            {"type": "choice", "values": [
+                {
+                    "code":"48676-1",
+                    "codeSystem":"http://fhir.loinc.org",
+                    "displayName": "HER2 Receptor",
+                    "codeSystemName": "loinc",
+                    "value": {"code":"C0205160", "codeSystem": "http://ncimeta.nci.nih.gov", "displayName": "Positive", "codeSystemName":"nci"}
+                },
+                {
+                    "code":"48676-1",
+                    "codeSystem":"http://fhir.loinc.org",
+                    "displayName": "HER2 Receptor",
+                    "codeSystemName": "loinc",
+                    "value": {"code":"C1446409", "codeSystem": "http://ncimeta.nci.nih.gov", "displayName": "Negative", "codeSystemName":"nci"}
+
+                }
+            ], "weight": [0.2, 0.8], "names": ["Positive", "Negative"]}
+
+        ],
+        "weight": [0.95, 0.95, 0.9], "names": ["er", "pr", "her2"]
     }
 }
