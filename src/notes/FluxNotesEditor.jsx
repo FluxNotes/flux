@@ -54,6 +54,17 @@ const structuredFieldTypes = [
     }
 ];
 
+const initialEditorState = {
+    state: initialState,
+    openedPortal: null,
+    portalOptions: null,
+    isEditingNoteName: false,
+    isFetchingAsyncData: false,
+    loadingTimeWarrantsWarning: false,
+    fetchTimeout: null,
+    shouldUpdateTemplateShortcuts: true,
+};
+
 class FluxNotesEditor extends React.Component {
     constructor(props) {
         super(props);
@@ -78,9 +89,6 @@ class FluxNotesEditor extends React.Component {
         this.previousState = {};
 
         this.noteContentIndexer = new NoteContentIndexer();
-
-        // Set the initial state when the app is first constructed.
-        this.resetEditorState();
 
         // setup structured field plugin
         const structuredFieldPluginOptions = {
@@ -215,23 +223,8 @@ class FluxNotesEditor extends React.Component {
                 }));
             }
         });
+        this.state = initialEditorState;
     }
-
-    // Reset the editor to the initial state when the app is first constructed.
-    resetEditorState() {
-        // eslint-disable-next-line
-        this.state = {
-            state: initialState,
-            openedPortal: null,
-            portalOptions: null,
-            isEditingNoteName: false,
-            isFetchingAsyncData: false,
-            loadingTimeWarrantsWarning: false,
-            fetchTimeout: null,
-            shouldUpdateTemplateShortcuts: true
-        };
-    }
-
 
     updateFetchingStatus = (isFetchingAsyncData) => {
         if (!isFetchingAsyncData) {
@@ -257,17 +250,19 @@ class FluxNotesEditor extends React.Component {
     }
 
     // Reset editor state and clear context
-    resetEditorAndContext() {
-        this.resetEditorState();
+    // cb is callback function that will be executed after editor state is reset
+    resetEditorAndContext(cb) {
+        this.setState(initialEditorState, () => {
+            // Calls parent function which resets updatedEditorNote to be null
+            this.props.handleUpdateEditorWithNote(null);
 
-        // Calls parent function which resets updatedEditorNote to be null
-        this.props.handleUpdateEditorWithNote(null);
+            // This clears error messages from the editor
+            this.structuredFieldMapManager.clearStructuredFieldMap();
 
-        // This clears error messages from the editor
-        this.structuredFieldMapManager.clearStructuredFieldMap();
-
-        // This clears the contexts so that the tray starts back at the patient context
-        this.contextManager.clearContexts();
+            // This clears the contexts so that the tray starts back at the patient context
+            this.contextManager.clearContexts();
+            cb();
+        });
     }
 
     choseSuggestedShortcut(suggestion) {
@@ -759,7 +754,6 @@ class FluxNotesEditor extends React.Component {
     // This gets called before the component receives new properties
     componentWillReceiveProps = (nextProps) => {
         // Only update text if the shouldEditorContentUpdate is true. For example, this will be false if the user is inserting a template
-
         // Check if the item to be inserted is updated
         if (nextProps.shouldEditorContentUpdate && this.props.summaryItemToInsert !== nextProps.summaryItemToInsert && nextProps.summaryItemToInsert.length > 0) {
             if (this.props.isNoteViewerEditable) {
@@ -795,19 +789,21 @@ class FluxNotesEditor extends React.Component {
                 this.resetEditorAndContext();
             }
 
-            // If the updated editor note is an pre-existing note on the patient record, then clear the editor and insert the
+            // If the updated editor note is a pre-existing note on the patient record, then clear the editor and insert the
             // content of the selected note into the editor and set the editor to read only
             else {
-                this.resetEditorAndContext();
-                this.insertTextWithStructuredPhrases(nextProps.updatedEditorNote.content, undefined, false, "loaded note");
+                this.resetEditorAndContext(() => {
+                    this.insertTextWithStructuredPhrases(nextProps.updatedEditorNote.content, undefined, false, 'loaded note');
 
-                // If the note is in progress, set isNoteViewerEditable to true. If the note is an existing note, set isNoteViewerEditable to false
-                if (nextProps.updatedEditorNote.signed) {
-                    this.props.setNoteViewerEditable(false);
-                } else {
-                    this.props.setNoteViewerEditable(true);
-                }
+                    // If the note is in progress, set isNoteViewerEditable to true. If the note is an existing note, set isNoteViewerEditable to false
+                    if (nextProps.updatedEditorNote.signed) {
+                        this.props.setNoteViewerEditable(false);
+                    } else {
+                        this.props.setNoteViewerEditable(true);
+                    }
+                });
             }
+
             this.props.searchIndex.removeDataBySection('Open Note');
             const sectionId = nextProps.updatedEditorNote.signed ? 'signed_notes' : 'in_progress_notes';
             this.props.searchIndex.addSearchableData({
@@ -825,11 +821,7 @@ class FluxNotesEditor extends React.Component {
 
         // Check if the current view mode changes
         if (nextProps.shouldEditorContentUpdate && this.props.currentViewMode !== nextProps.currentViewMode && !Lang.isNull(nextProps.currentViewMode)) {
-            this.resetEditorAndContext();
-            this.props.handleUpdateEditorWithNote(null);
-            this.structuredFieldMapManager.clearStructuredFieldMap();
-            this.contextManager.clearContexts();
-            this.props.updateSelectedNote(null);
+            this.resetEditorAndContext(() => { this.props.updateSelectedNote(null); });
         }
 
         // Check if mode is changing from 'pick-list-options-panel' to 'context-tray'
