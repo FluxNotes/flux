@@ -281,9 +281,6 @@ export default class InsertValue extends Shortcut {
     }
 
     get isComplete() {
-        if (this.text === this.metadata.stringTriggers[0].name) {
-            return false;
-        }
-        return true;
+        return this.getDisplayText() !== this.metadata.stringTriggers[0].name;
     }
 }
