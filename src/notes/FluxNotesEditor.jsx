@@ -272,7 +272,6 @@ class FluxNotesEditor extends React.Component {
         const {state} = this.state;
         const shortcut = this.props.newCurrentShortcut(null, suggestion.value.name, undefined, true, "auto-complete");
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
-            shortcut.setText(shortcut.initiatingTrigger);
             const transformBeforeInsert = this.suggestionDeleteExistingTransform(state.transform(), shortcut.getPrefixCharacter());
             const transform = this.insertStructuredFieldTransform(transformBeforeInsert, shortcut).collapseToStartOfNextText().focus();
             this.contextManager.removeShortcutFromContext(shortcut);
@@ -308,17 +307,10 @@ class FluxNotesEditor extends React.Component {
         }
 
         const shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger, text, updatePatient, source);
-        if (text === "" && shortcut.needToSelectValueFromMultipleOptions()) {
-            shortcut.setText(shortcutTrigger);
-        }
         shortcut.initialContextPosition = initialContextPosition;
 
         transform = this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText();
-<<<<<<< HEAD
-        if (shortcut.isComplete === false) {
-=======
         if (shortcut instanceof InsertValue && shortcut.isComplete === false) {
->>>>>>> 7d926b4f... es lint errors after rebase (heck yeah)
             this.contextManager.removeShortcutFromContext(shortcut);
             this.contextManager.contextUpdated();
         }
