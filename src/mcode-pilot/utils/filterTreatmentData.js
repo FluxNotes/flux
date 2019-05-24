@@ -2,26 +2,6 @@ import _ from 'lodash';
 import { transformedTreatmentData } from '../mock-data/mock-data.js';
 import { isSame, getCombinations } from './arrayOperations';
 
-const TREATMENT_NAMES = {
-    'noTreatment': 'none (actively monitoring)',
-    'chemotherapy': 'chemotherapy',
-    'hormonal': 'hormonal therapy',
-    'surgery': 'surgery',
-    'radiation': 'radiation therapy'
-};
-
-const SIDE_EFFECT_NAMES = {
-    'hotFlash': 'Hot Flashes',
-    'decLibido': 'Decreased Libido',
-    'fatigue': 'Fatigue',
-    'nauseaVomiting': 'Nausea/Vomiting',
-    'anemia': 'Anemia',
-    'bowelDys': 'Bowel Dysfunction',
-    'erectileDys': 'Erectile Dysfunction',
-    'weightLoss': 'Weight Loss',
-    'urinaryDys': 'Urinary Dysfunction'
-};
-
 // This function will eventually be replaced with an API that returns the same data in the same format
 export default function filterTreatmentData(similarPatientProps, includedTreatments, comparedTreatments) {
     const totalPatients = transformedTreatmentData.length;
@@ -33,7 +13,6 @@ export default function filterTreatmentData(similarPatientProps, includedTreatme
         treatments.length !== includedTreatments.length || !includedTreatments.every(treatment => treatments.includes(treatment))
     );
     const comparedTreatmentData = generateTreatmentData(similarPatients, comparedTreatmentCombinations, includedTreatments);
-
     return {
         totalPatients,
         totalSimilarPatients,
@@ -62,17 +41,19 @@ function generateTreatmentData(similarPatients, treatments, includedTreatments) 
     if (similarPatients.length === 0) return [];
     let treatmentData = [];
     treatments.forEach(treatment => {
-        const filteredPatients = similarPatients.filter(patient => isSame(patient.treatments, treatment));
+        const filteredPatients = similarPatients.filter(patient => isSame( patient.treatments.map((e)=>{return typeof e === 'object' ?e.code : e}), treatment.map(treat => {return treat.code} )));
+        
         let displayName =
             _.isArray(treatment)
                 ? (treatment === includedTreatments)
-                    ? treatment.map(name => TREATMENT_NAMES[name]).join(' & ')
+                    ? treatment.map(name => name.displayName).join(' & ')
                     : treatment.filter((treat) => {
                         return !includedTreatments.includes(treat);
-                    }).map(name => TREATMENT_NAMES[name]).join(' & ')
-                : TREATMENT_NAMES[treatment];
+                    }).map(name => name.displayName).join(' & ')
+                : treatment.displayName;
 
         let row = initializeTreatmentData(displayName);
+
         filteredPatients.forEach(patient => {
             row.totalPatients += 1;
 
@@ -80,11 +61,10 @@ function generateTreatmentData(similarPatients, treatments, includedTreatments) 
             if (survivalYears >= 1) row.oneYrSurvival += 1;
             if (survivalYears >= 3) row.threeYrSurvival += 1;
             if (survivalYears >= 5) row.fiveYrSurvival += 1;
-
             if (patient.sideEffects.length > 0) {
                 row.sideEffects.totalReporting += 1;
                 patient.sideEffects.forEach(sideEffectKey => {
-                    const sideEffect = SIDE_EFFECT_NAMES[sideEffectKey];
+                    const sideEffect = sideEffectKey.displayName;
                     if (!row.sideEffects.effects[sideEffect]) row.sideEffects.effects[sideEffect] = 0;
                     row.sideEffects.effects[sideEffect] += 1;
                 });
@@ -103,7 +83,13 @@ function generateSimilarPatientTreatments(similarPatients) {
 
     similarPatients.forEach(({ treatments }) => {
         treatments.forEach(treatment => {
-            similarPatientTreatments[treatment] = { key: treatment, name: TREATMENT_NAMES[treatment] };
+            if(typeof treatment === "object") {
+                
+                similarPatientTreatments[treatment.code] = { key: `${treatment.code},${treatment.codeSystem}`, name: treatment.displayName, reference: treatment};
+            }else{
+                similarPatientTreatments[treatment] = { key: treatment, name: treatment, reference: treatment };
+
+            }
         });
     });
 
@@ -124,6 +110,13 @@ function isSimilarPatient(treatmentDataPatient, similarPatientProps) {
 
                 // demographics
                 const { demographics, diseaseStatus, tumorMarkers } = treatmentDataPatient;
+
+                // label coded values
+                const tumorMarkersLabeled = {};
+                tumorMarkers.forEach((e)=>{
+                    tumorMarkersLabeled[e.code] = e;
+                });
+
                 const { race, gender, birthDate } = demographics;
                 if (mcodeElement === 'shr.core.DateOfBirth') {
                     // age
@@ -148,24 +141,21 @@ function isSimilarPatient(treatmentDataPatient, similarPatientProps) {
                     return false;
                 // pathology
                 } else if (mcodeElement === 'onco.core.TumorMarkerTest') {
-                    const receptorType = reference._tumorMarker._findingTopicCode.codeableConcept.coding[0].code.value;
-                    if (receptorType === '16112-5' && (!tumorMarkers.er || _.lowerCase(tumorMarkers.er) !== _.lowerCase(value))) {
+                    const receptorType = reference._tumorMarker._findingTopicCode.codeableConcept.coding[0].code.value;  
+                    if (receptorType === '16112-5' && (!tumorMarkersLabeled["16112-5"] || tumorMarkersLabeled["16112-5"].value.code !== reference.findingResult._value._coding[0]._code.code)) {
                         // LOINC 16112-5 == Estrogen Receptor
                         return false;
-                    } else if (receptorType === '16113-3' && (!tumorMarkers.pr || _.lowerCase(tumorMarkers.pr) !== _.lowerCase(value))) {
+                    } else if (receptorType === '16113-3' && (!tumorMarkersLabeled["16113-3"] || tumorMarkersLabeled["16113-3"].value.code !== reference.findingResult._value._coding[0]._code.code)) {
                         // LOINC 16113-3 == Progesterone Receptor
                         return false;
-                    } else if (receptorType === '48676-1' && (!tumorMarkers.her2 || _.lowerCase(tumorMarkers.her2) !== _.lowerCase(value))) {
+                    } else if (receptorType === '48676-1' && (!tumorMarkersLabeled["48676-1"] || tumorMarkersLabeled["48676-1"].value.code !==  reference.findingResult._value._coding[0]._code.code)) {
                         // LOINC 48676-1 == HER2 Receptor
                         return false;
                     }
                 } else if (mcodeElement === 'onco.core.TNMClinicalStageGroup' && (!diseaseStatus.stage || _.lowerCase(diseaseStatus.stage) !== _.lowerCase(value))) {
                     return false;
-                } else if (mcodeElement === 'onco.core.TNMClinicalPrimaryTumorCategory' && (!diseaseStatus.tnm.t || _.lowerCase(diseaseStatus.tnm.t) !== _.lowerCase(value))) { // no data available
-                    return false;
-                } else if (mcodeElement === 'onco.core.TNMClinicalRegionalNodesCategory' && (!diseaseStatus.tnm.n || _.lowerCase(diseaseStatus.tnm.n) !== _.lowerCase(value))) { // no data available
-                    return false;
-                } else if (mcodeElement === 'onco.core.TNMClinicalDistantMetastasesCategory' && (!diseaseStatus.tnm.m || _.lowerCase(diseaseStatus.tnm.m) !== _.lowerCase(value))) { // no data available
+                } else if ((mcodeElement === 'onco.core.TNMClinicalPrimaryTumorCategory' || mcodeElement === 'onco.core.TNMClinicalRegionalNodesCategory' || mcodeElement === 'onco.core.TNMClinicalDistantMetastasesCategory')
+                                        && (diseaseStatus.tnm.filter((e)=>{return (_.lowerCase(e.codeSystem) === _.lowerCase(reference.codeSystem.value) &&  _.lowerCase(e.code) === _.lowerCase(reference.code.value))}).length===0)) { // no data available
                     return false;
                 } else if (mcodeElement === 'onco.core.CancerHistologicGrade' && (!diseaseStatus.grade || diseaseStatus.grade !== value)) {
                     return false;

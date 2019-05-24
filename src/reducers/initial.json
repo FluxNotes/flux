@@ -2,9 +2,11 @@
     "totalPatients": 0,
     "totalSimilarPatients": 0,
     "similarPatientTreatments": [],
-    "includedTreatments": ["radiation"],
+    "includedTreatments": [{"code":"385798007", "codeSystem":"http://snomed.info/sct", "displayName": "radiation therapy", "codeSystemName":"SNOMED"}],
     "includedTreatmentData": [],
-    "comparedTreatments": ["chemotherapy", "hormonal", "surgery"],
+    "comparedTreatments": [{"code":"385786002", "codeSystem":"http://snomed.info/sct", "displayName": "chemotherapy", "codeSystemName":"SNOMED"}, 
+                           {"code":"169413002", "codeSystem":"http://snomed.info/sct", "displayName": "hormonal therapy", "codeSystemName":"SNOMED"}, 
+                           {"code":"736770009", "codeSystem":"http://snomed.info/sct", "displayName": "surgery", "codeSystemName":"SNOMED"}],
     "comparedTreatmentData": [],
     "similarPatientProps": {}
 }
