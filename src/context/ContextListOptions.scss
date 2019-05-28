@@ -1,0 +1,15 @@
+ul.context-list-options {
+    max-height: 250px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    background-color: #fff;
+    li:first-child { 
+        margin-top: 10px;
+    }
+    li:last-child { 
+        margin-bottom: 10px;
+    }
+}
