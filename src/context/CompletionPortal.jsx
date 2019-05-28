@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Portal from 'react-portal';
 import PropTypes from 'prop-types';
-import './CompletionPortal.css'
+import './CompletionPortal.css';
 
 class CompletionPortal extends Component {
     constructor(props) {
@@ -22,7 +22,7 @@ class CompletionPortal extends Component {
         const rect = this.props.getPosition();
         const tempStyle = {};
         if (!rect) {
-            tempStyle.display = 'none'
+            tempStyle.display = 'none';
         } else {
             tempStyle.position = 'absolute';
             tempStyle.width = 320;
@@ -37,12 +37,11 @@ class CompletionPortal extends Component {
         }
         this.setState({
             style: tempStyle
-        })
+        });
     }
 
 
     render () {
-        const CompletionComponent = this.props.completionComponent;
         const { style } = this.state;
         return (
             <Portal
@@ -62,6 +61,6 @@ class CompletionPortal extends Component {
 CompletionPortal.propTypes = {
     closePortal: PropTypes.func.isRequired,
     getPosition: PropTypes.func.isRequired,
-}
+};
 
 export default CompletionPortal;
