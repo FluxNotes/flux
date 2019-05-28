@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Slate from '../lib/slate';
 import Lang from 'lodash';
-import _ from 'lodash';
 import FontAwesome from 'react-fontawesome';
-// import ContextPortal from '../context/ContextPortal';
 import CompletionPortal from '../context/CompletionPortal';
 import SuggestionPortalShortcutSearchIndex from './SuggestionPortalShortcutSearchIndex';
 import SuggestionPortalPlaceholderSearchIndex from './SuggestionPortalPlaceholderSearchIndex';
@@ -72,17 +70,13 @@ const initialEditorState = {
 
 class FluxNotesEditor extends React.Component {
     openContextPortal = (portalComponent) => {
-        // Add plugins as needed: 
-        console.log('opening portal');
-        // Set some variable stored at the Editor level 
         this.setState({
             completionComponent: portalComponent
         });
     }
 
     closeContextPortal = () => {
-        console.log('closing portal');
-        // Clean up some variables stored at the Editor level 
+        // Clean up some variables stored at the Editor level
         this.setState({
             completionComponent: null,
             openedPortal: null,
@@ -122,7 +116,7 @@ class FluxNotesEditor extends React.Component {
             openPortal: this.openContextPortal,
             closePortal: this.closeContextPortal,
             getCompletionComponent: this.getCompletionComponent
-        }
+        };
         this.contextPortalPlugin = ContextPortalPlugin(contextPortalPluginOptions);
         this.plugins.push(this.contextPortalPlugin);
 
@@ -1849,11 +1843,10 @@ class FluxNotesEditor extends React.Component {
                 </div>
             );
         }
-
-        const callback = {};
         const editorClassName = (this.props.selectedNote && this.props.selectedNote.signed)
             ? "editor-panel"
             : "editor-panel in-progress-note";
+        // We use this variable a bit in the render logic, so let's pull it out
         const CompletionComponent = this.state.completionComponent;
         /**
          * Render the editor, toolbar, dropdown and description for note
@@ -1912,7 +1905,7 @@ class FluxNotesEditor extends React.Component {
                         setOpenedPortal={this.setOpenedPortal}
                         state={this.state.state}
                     />
-                    {CompletionComponent && 
+                    {CompletionComponent &&
                         <CompletionPortal
                             closePortal={this.closeContextPortal}
                             getPosition={this.getTextCursorPosition}
