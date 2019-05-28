@@ -75,44 +75,21 @@ class FluxNotesEditor extends React.Component {
         console.log('opening portal');
         // Set some variable stored at the Editor level
         this.setState({
-            contextPortalStateVariable: portalComponent
-        }, () => {
-            this.addPlugin({
-                onKeyDown: this.refs.portalComponent.onKeyDown
-            });
+            completionComponent: portalComponent
         });
     }
-    isPortalOpen = () => {
-        return !Lang.isEmpty(this.state.contextPortalStateVariable);
-    }
+
     closeContextPortal = () => {
         console.log('closing portal');
-        this.removePlugin({
-            onKeyDown: this.refs.portalComponent ? this.refs.portalComponent.onKeyDown : undefined
-        });
         // Clean up some variables stored at the Editor level
         this.setState({
-            contextPortalStateVariable: null,
+            completionComponent: null,
             openedPortal: null,
         });
     }
-    addPlugin = (plugin) => {
-        const pluginsClone = [...this.state.plugins]
-        pluginsClone.unshift(plugin)
-        this.setState({
-            plugins: pluginsClone
-        });
-    }
-    removePlugin = (plugin) => {
-        const indexOfPlugin = _.findIndex(this.state.plugins, (curPlugin) => {
-            return _.isEqual(curPlugin, plugin);
-        });
-        if (indexOfPlugin === -1) return;
-        const pluginsClone = [...this.state.plugins]
-        pluginsClone.splice(indexOfPlugin, 1)
-        this.setState({
-            plugins: pluginsClone
-        });
+
+    getCompletionComponent = () => {
+        return this.refs.completionComponent;
     }
 
     constructor(props) {
@@ -143,7 +120,7 @@ class FluxNotesEditor extends React.Component {
         const contextPortalPluginOptions = {
             openPortal: this.openContextPortal,
             closePortal: this.closeContextPortal,
-            isPortalOpen: this.isPortalOpen
+            getCompletionComponent: this.getCompletionComponent
         }
         this.contextPortalPlugin = ContextPortalPlugin(contextPortalPluginOptions);
         this.plugins.push(this.contextPortalPlugin);
@@ -287,7 +264,6 @@ class FluxNotesEditor extends React.Component {
         });
 
         // Make sure to add the plugins in addition to everything already added to state by resetEditorState
-        this.state = {...this.state, plugins: this.plugins}
     }
 
     // Reset the editor to the initial state when the app is first constructed.
@@ -302,7 +278,6 @@ class FluxNotesEditor extends React.Component {
             loadingTimeWarrantsWarning: false,
             fetchTimeout: null,
             shouldUpdateTemplateShortcuts: true,
-            plugins: this.plugins
         };
     }
 
@@ -1903,7 +1878,7 @@ class FluxNotesEditor extends React.Component {
                         <Slate.Editor
                             className={editorClassName}
                             placeholder={'Enter your clinical note here or choose a template to start from...'}
-                            plugins={this.state.plugins}
+                            plugins={this.plugins}
                             readOnly={!this.props.isNoteViewerEditable}
                             state={this.state.state}
                             ref="editor"
@@ -1939,13 +1914,13 @@ class FluxNotesEditor extends React.Component {
                         setOpenedPortal={this.setOpenedPortal}
                         state={this.state.state}
                     />
-                    {this.state.contextPortalStateVariable && <this.state.contextPortalStateVariable
+                    {this.state.completionComponent && <this.state.completionComponent
                         contextManager={this.contextManager}
                         onSelected={this.onPortalSelection}
                         openedPortal={this.state.openedPortal}
                         contexts={this.state.portalOptions}
-                        ref="portalComponent"
                         closePortal={this.closeContextPortal}
+                        ref="completionComponent"
                         getPosition={this.getTextCursorPosition}
                         openedPortal={this.state.openedPortal}
                         onSelected={this.onPortalSelection}
