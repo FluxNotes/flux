@@ -5,8 +5,8 @@ import Calendar from 'rc-calendar';
 class ContextCalendar extends React.Component {
     handleDateSelect = (date) => {
         this.props.closePortal();
-        // DO WE STILL NEED THIS?
-        // const context = { key: 'set-date-id', context: `${date.format('MM/DD/YYYY')}`, object: date };
+        const context = { key: 'set-date-id', context: `${date.format("MM/DD/YYYY")}`, object: date };
+        this.props.onChange(this.props.onSelected(this.props.state, context));
     }
 
     render() {
@@ -23,6 +23,7 @@ class ContextCalendar extends React.Component {
 ContextCalendar.propTypes = {
     closePortal: PropTypes.func.isRequired,
     contexts: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
     onSelected: PropTypes.func.isRequired,
     selectedIndex: PropTypes.number,
     setSelectedIndex: PropTypes.func,
