@@ -17,6 +17,7 @@ yarn-error.log*
 
 # sass outputs
 # *.css // Add once project has completely converted to SASS
+/src/context/CompletionPortal.css
 /src/context/ContextOptions.css
 /src/context/ContextItem.css
 /src/context/ContextListOptions.css
