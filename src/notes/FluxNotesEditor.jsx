@@ -4,7 +4,8 @@ import Slate from '../lib/slate';
 import Lang from 'lodash';
 import _ from 'lodash';
 import FontAwesome from 'react-fontawesome';
-import ContextPortal from '../context/ContextPortal';
+// import ContextPortal from '../context/ContextPortal';
+import CompletionPortal from '../context/CompletionPortal';
 import SuggestionPortalShortcutSearchIndex from './SuggestionPortalShortcutSearchIndex';
 import SuggestionPortalPlaceholderSearchIndex from './SuggestionPortalPlaceholderSearchIndex';
 // versions 0.20.3-0.20.7 of Slate seem to have an issue.
@@ -1853,11 +1854,10 @@ class FluxNotesEditor extends React.Component {
         const editorClassName = (this.props.selectedNote && this.props.selectedNote.signed)
             ? "editor-panel"
             : "editor-panel in-progress-note";
+        const CompletionComponent = this.state.completionComponent;
         /**
          * Render the editor, toolbar, dropdown and description for note
          */
-
-
         return (
             <div id="clinical-notes" className={`dashboard-panel ${disabledEditorClassName}`}>
                 {this.renderNoteDescriptionContent()}
@@ -1912,21 +1912,20 @@ class FluxNotesEditor extends React.Component {
                         setOpenedPortal={this.setOpenedPortal}
                         state={this.state.state}
                     />
-                    {this.state.completionComponent && <this.state.completionComponent
-                        contextManager={this.contextManager}
-                        onSelected={this.onPortalSelection}
-                        openedPortal={this.state.openedPortal}
-                        contexts={this.state.portalOptions}
-                        closePortal={this.closeContextPortal}
-                        ref="completionComponent"
-                        getPosition={this.getTextCursorPosition}
-                        openedPortal={this.state.openedPortal}
-                        onSelected={this.onPortalSelection}
-                        shortcut={this.selectingForShortcut}
-                        state={this.state.state}
-                        onChange={this.onChange}
-                        trigger={"@"}
-                    />}
+                    {CompletionComponent && 
+                        <CompletionPortal
+                            closePortal={this.closeContextPortal}
+                            getPosition={this.getTextCursorPosition}
+                        >
+                            <CompletionComponent
+                                ref="completionComponent"
+                                contexts={this.state.portalOptions}
+                                onSelected={this.onPortalSelection}
+                                closePortal={this.closeContextPortal}
+                                state={this.state.state}
+                            />
+                        </CompletionPortal>
+                    }
                 </div>
             </div>
         );
