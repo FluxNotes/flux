@@ -1951,7 +1951,7 @@ class FluxNotesEditor extends React.Component {
                         state={this.state.state}
                         onChange={this.onChange}
                         trigger={"@"}
-                    />
+                    />}
                 </div>
             </div>
         );
