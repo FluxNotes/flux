@@ -19,6 +19,7 @@ yarn-error.log*
 # *.css // Add once project has completely converted to SASS
 /src/context/ContextOptions.css
 /src/context/ContextItem.css
+/src/context/ContextListOptions.css
 /src/context/ContextTray.css
 /src/context/ShortcutViewModeContent.css
 /src/context/SnippetViewModeContent.css
