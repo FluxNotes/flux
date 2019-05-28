@@ -2,8 +2,6 @@ export default function ContextPortalPlugin(opts) {
 
     const onKeyDown = (...args) => { 
         const completionComponent = opts.getCompletionComponent();
-        console.log('completionComponent: ', completionComponent);
-        completionComponent && console.log('completionComponent.onKeyDown: ', completionComponent.onKeyDown);
         if (completionComponent && completionComponent.onKeyDown) {
             return completionComponent.onKeyDown(...args);
         }
