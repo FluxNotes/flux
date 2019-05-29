@@ -69,15 +69,19 @@ const initialEditorState = {
 };
 
 class FluxNotesEditor extends React.Component {
-    openContextPortal = (portalComponent) => {
+    openContextPortal = (completionComponentShortcut) => {
         this.setState({
-            completionComponent: portalComponent
+            completionComponentShortcut: completionComponentShortcut,
+            portalOptions: completionComponentShortcut.getValueSelectionOptions(),
+            completionComponent: completionComponentShortcut.completionComponent
         });
     }
 
     closeContextPortal = () => {
         // Clean up some variables stored at the Editor level
         this.setState({
+            completionComponentShortcut: null,
+            portalOptions: [],
             completionComponent: null,
             openedPortal: null,
         });
@@ -101,7 +105,6 @@ class FluxNotesEditor extends React.Component {
         this.editorHasFocus = false;
         this.lastPosition = { top: 0, left: 0 };
 
-        this.selectingForShortcut = null;
         this.onChange = this.onChange.bind(this);
         this.onSelectionChange = this.onSelectionChange.bind(this);
 
@@ -264,7 +267,7 @@ class FluxNotesEditor extends React.Component {
         this.state = {
             state: initialState,
             openedPortal: null,
-            portalOptions: null,
+            portalOptions: [],
             isEditingNoteName: false,
             isFetchingAsyncData: false,
             loadingTimeWarrantsWarning: false,
@@ -320,7 +323,7 @@ class FluxNotesEditor extends React.Component {
             const transform = this.insertStructuredFieldTransform(transformBeforeInsert, shortcut).collapseToStartOfNextText().focus();
             this.contextManager.removeShortcutFromContext(shortcut);
             this.contextManager.contextUpdated();
-            return this.openPortalToSelectValueForShortcut(shortcut, false, transform).apply();
+            return transform.apply();
         } else {
             const transformBeforeInsert = this.suggestionDeleteExistingTransform(state.transform(), shortcut.getPrefixCharacter());
             const transformAfterInsert = this.insertStructuredFieldTransform(transformBeforeInsert, shortcut).collapseToStartOfNextText().focus();
@@ -352,10 +355,6 @@ class FluxNotesEditor extends React.Component {
             this.contextManager.removeShortcutFromContext(shortcut);
             this.contextManager.contextUpdated();
         }
-        if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions() && (Lang.isNull(text) || text.length === 0)) {
-            return this.openPortalToSelectValueForShortcut(shortcut, false, transform);
-        }
-
         return transform;
     }
 
@@ -420,28 +419,14 @@ class FluxNotesEditor extends React.Component {
         return this.lastPosition;
     }
 
-    openPortalToSelectValueForShortcut(shortcut, needToDelete, transform) {
-        let portalOptions = shortcut.getValueSelectionOptions();
-
-        this.setState({
-            openedPortal: "ContextPortal",
-            portalOptions: portalOptions,
-            needToDelete: needToDelete,
-        });
-        this.selectingForShortcut = shortcut;
-        return transform;
-    }
-
     // called from portal when an item is selected (selection is not null) or if portal is closed without
     // selection (selection is null)
-    onPortalSelection = (state, selection) => {
-
-        let shortcut = this.selectingForShortcut;
-        this.selectingForShortcut = null;
-        this.setState({
-            openedPortal: null,
-            portalOptions: null,
-        });
+    onCompletionComponentValueSelection = (state, selection) => {
+        const shortcut = this.state.completionComponentShortcut;
+        // TODO: better name;
+        // Close context portal
+        this.closeContextPortal();
+        // TODO: Why is this happening?
         if (Lang.isNull(selection)) {
             // Removes the shortcut from its parent
             shortcut.onBeforeDeleted();
@@ -463,6 +448,8 @@ class FluxNotesEditor extends React.Component {
         this.setState({
             state: newState
         });
+        // Need to return state so we can use that to short circuit any plugins that rely on this change
+        return newState;
     }
 
     // consider reusing this method to replace code in choseSuggestedShortcut function
@@ -1913,7 +1900,7 @@ class FluxNotesEditor extends React.Component {
                             <CompletionComponent
                                 ref="completionComponent"
                                 contexts={this.state.portalOptions}
-                                onSelected={this.onPortalSelection}
+                                onSelected={this.onCompletionComponentValueSelection}
                                 closePortal={this.closeContextPortal}
                                 state={this.state.state}
                             />
