@@ -70,9 +70,11 @@ const initialEditorState = {
 
 class FluxNotesEditor extends React.Component {
     openContextPortal = (completionComponentShortcut) => {
+        // Always make sure we use an array here; doesn't always return an array from getValueSelectionOptions
+        const portalOptions = !Lang.isEmpty(completionComponentShortcut.getValueSelectionOptions()) ? completionComponentShortcut.getValueSelectionOptions() : [];
         this.setState({
             completionComponentShortcut: completionComponentShortcut,
-            portalOptions: completionComponentShortcut.getValueSelectionOptions(),
+            portalOptions: portalOptions,
             completionComponent: completionComponentShortcut.completionComponent
         });
     }
