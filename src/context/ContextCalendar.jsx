@@ -24,8 +24,6 @@ ContextCalendar.propTypes = {
     closePortal: PropTypes.func.isRequired,
     contexts: PropTypes.string,
     onSelected: PropTypes.func.isRequired,
-    selectedIndex: PropTypes.number,
-    setSelectedIndex: PropTypes.func,
     state: PropTypes.object,
 }
 
