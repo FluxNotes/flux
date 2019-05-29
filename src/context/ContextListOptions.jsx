@@ -31,7 +31,6 @@ class ContextListOptions extends React.Component {
     * Change the menu position based on the amount of places to move
     */
    changeMenuPosition = (change) => {
-       console.log('----------------------------changeMenuPosition');
        // this will allow wrap around to the end of the list.
        const changePlusOriginalLength = change + this.props.contexts.length;
        const indexAfterWrapping = (this.state.selectedIndex + changePlusOriginalLength) % this.props.contexts.length;
