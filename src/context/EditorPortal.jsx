@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Portal from 'react-portal';
 import PropTypes from 'prop-types';
-import './CompletionPortal.css';
+import './EditorPortal.css';
 
-class CompletionPortal extends Component {
+class EditorPortal extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -50,7 +50,7 @@ class CompletionPortal extends Component {
                 isOpened={true}
                 onClose={this.props.closePortal}
             >
-                <div style={style} className="completion-portal" ref="completionPortal">
+                <div style={style} className="completion-portal">
                     {this.props.children}
                 </div>
             </Portal>
@@ -58,9 +58,9 @@ class CompletionPortal extends Component {
     }
 }
 
-CompletionPortal.propTypes = {
+EditorPortal.propTypes = {
     closePortal: PropTypes.func.isRequired,
     getPosition: PropTypes.func.isRequired,
 };
 
-export default CompletionPortal;
+export default EditorPortal;
