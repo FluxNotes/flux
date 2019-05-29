@@ -12,10 +12,10 @@ export default function ContextPortalPlugin(opts) {
         const previousNode = (state.selection.focusOffset === 0) ? state.document.getPreviousSibling(state.selection.focusKey) : null;
         const previousNodeShortcut = previousNode ? previousNode.data.get('shortcut') : null;
         // IF we're right next to a shortcut, that shortcut has a completion component and is incomplete, then let's open that completionComponent
-        if (previousNodeShortcut && previousNodeShortcut.completionComponent && !previousNodeShortcut.isComplete) {
+        if (previousNodeShortcut && previousNodeShortcut.completionComponent) {
             // But only if the portal isn't already open
             if (!opts.getCompletionComponent()) {
-                opts.openPortal(previousNodeShortcut.completionComponent);
+                opts.openPortal(previousNodeShortcut);
             }
         } else if (opts.getCompletionComponent()) {
             // Else, we should close any portals that were open previously that shouldn't now be open

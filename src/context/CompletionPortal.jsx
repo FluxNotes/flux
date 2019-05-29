@@ -25,7 +25,7 @@ class CompletionPortal extends Component {
             tempStyle.display = 'none';
         } else {
             tempStyle.position = 'absolute';
-            tempStyle.width = 320;
+            tempStyle.maxWidth = 320;
             tempStyle.display = 'block';
             if (window.innerHeight - rect.top < 230) {
                 tempStyle.bottom = `${window.innerHeight - rect.top - window.pageYOffset}px`;
