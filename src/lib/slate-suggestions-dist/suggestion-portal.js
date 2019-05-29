@@ -75,36 +75,54 @@ class SuggestionPortal extends React.Component {
         } else { 
             // this will allow wrap around to the end of the list
             const changePlusOriginalLength = change + filteredSuggestions.length;
-            const changeAfterWrapping = (this.state.selectedIndex + changePlusOriginalLength) % filteredSuggestions.length;      
+            const changeAfterWrapping = (this.state.selectedIndex + changePlusOriginalLength) % filteredSuggestions.length;
             return changeAfterWrapping;
         }
+    }
+
+    updateScrollPosition = (newIndex) => {
+        const list = this.refs.suggestionPortal;
+        let newScrollTop = list.scrollTop;
+        // Relevant values for the list
+        const listHeight = list.offsetHeight;
+        const listScrollTop = list.scrollTop;
+        // Relevant values for the new active element
+        const activeElement = list.childNodes[0].childNodes[newIndex];
+        const activeElementTop = activeElement.offsetTop;
+        const activeElementBottom = activeElement.offsetTop + activeElement.offsetHeight;
+
+        // Need to ensure that the current element is within the scroll bounds
+        if (activeElementBottom > (listHeight + listScrollTop)) {
+            // Scroll isabove the activeElement; We want scrollTop + listHeight === activeElementBottom; algebra
+            newScrollTop = activeElementBottom - listHeight;
+        } else if (activeElementTop < listScrollTop) {
+            // Scroll is below the activeElement; We want scrollTop === activeElementTop
+            newScrollTop = activeElementTop;
+        }
+        this.refs.suggestionPortal.scrollTop = newScrollTop
     }
 
     // Use new key-presses to update the current suggestion
     onKeyDown = (keyCode, data) => {
         if (keyCode === DOWN_ARROW_KEY || keyCode === UP_ARROW_KEY) {
-            const height = this.refs.suggestionPortal.offsetHeight;
-            const numberOfElementsVisible = Math.floor(height/32);
             // If up/down, change position in list
             const filteredSuggestions  = this.getFilteredSuggestions();
-            const positionChange = (keyCode === DOWN_ARROW_KEY) ? +1 : -1; 
+            const positionChange = (keyCode === DOWN_ARROW_KEY) ? +1 : -1;
             const newIndex = this.getNewMenuPostion(positionChange);
-            this.setSelectedIndex(newIndex)
+            this.setSelectedIndex(newIndex);
             this.setCallbackSuggestion(filteredSuggestions, newIndex);
-            // newIndex - (numberOfElementsVisible - 1) forces the scrolling to happen once your reach the bottom of the list in view.
-            // 32 is the height of each suggestion in the list, 10 allows for the margin
-            this.refs.suggestionPortal.scrollTop = (newIndex - (numberOfElementsVisible - 1)) * 32 + 10;
+            this.updateScrollPosition(newIndex);
         } else {
             // Else, determine character and update suggestions accordingly
             const newFilteredSuggestions  = this.getFilteredSuggestions(data);
-            this.setSelectedIndex(0)
-            
+            this.setSelectedIndex(0);
+
             if (typeof newFilteredSuggestions.then === 'function') {
                 newFilteredSuggestions.then(newFilteredSuggestions => {
                     this.setCallbackSuggestion(newFilteredSuggestions, 0);
                 }).catch(() => {
                     this.setCallbackSuggestion([]);
-                })
+                });
             } else {
                 this.setCallbackSuggestion(newFilteredSuggestions, 0);
             }
