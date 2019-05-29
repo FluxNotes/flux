@@ -1,4 +1,4 @@
-export default function ContextPortalPlugin(opts) {
+export default function CompletionPortalPlugin(opts) {
 
     const onKeyDown = (...args) => {
         const completionComponent = opts.getCompletionComponent();
