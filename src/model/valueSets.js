@@ -1,3 +1,6 @@
+// GENERATED CODE
+// Manual modification is NOT RECOMMENDED as changes will be overwritten the next time the classes are generated.
+
 export const ALL_KNOWN_VALUE_SETS = {
   'http://example.com/shr/adverse/vs/SeriousnessVS': ['C1513302', 'C1513374', 'C1519275', 'C1517874', 'C1559081'],
   'http://example.com/shr/adverse/vs/AttributionCategoryVS': ['treatment', 'disease', 'error', 'unrelated', 'unknown'],

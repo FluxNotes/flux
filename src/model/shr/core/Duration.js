@@ -1,3 +1,6 @@
+// GENERATED CODE
+// Manual modification is NOT RECOMMENDED as changes will be overwritten the next time the class is generated.
+
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 import SimpleQuantity from './SimpleQuantity';
@@ -68,6 +71,7 @@ class Duration extends SimpleQuantity {
    * Deserializes FHIR JSON data to an instance of the Duration class.
    * The FHIR must be valid against the Duration FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} fhirType - the type of the FHIR object that was passed in, in case not otherwise identifiable from the object itself
    * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
    * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
    * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
@@ -75,14 +79,17 @@ class Duration extends SimpleQuantity {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Duration} An instance of Duration populated with the FHIR data
    */
-  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+  static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new Duration();
     for (const fhir_extension of fhir['extension'] || []) {
       if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-Number-extension') {
-        inst.number = FHIRHelper.createInstanceFromFHIR('shr.core.Number', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+        inst.number = FHIRHelper.createInstanceFromFHIR('shr.core.Number', fhir_extension, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
       }
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-Units-extension') {
-        inst.units = FHIRHelper.createInstanceFromFHIR('shr.core.Units', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-Units-extension' && fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-Units-extension') {
+        inst.units = FHIRHelper.createInstanceFromFHIR('shr.core.Units', fhir_extension, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
+        if (fhir_extension['valueCoding'] != null) {
+          inst.units.value = FHIRHelper.createInstanceFromFHIR('shr.core.Coding', fhir_extension['valueCoding'], 'Coding', shrId, allEntries, mappedResources, referencesOut, false);
+        }
       }
     }
     return inst;

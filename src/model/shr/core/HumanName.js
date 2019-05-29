@@ -1,3 +1,6 @@
+// GENERATED CODE
+// Manual modification is NOT RECOMMENDED as changes will be overwritten the next time the class is generated.
+
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 import PersonName from './PersonName';
@@ -108,6 +111,7 @@ class HumanName extends PersonName {
    * Deserializes FHIR JSON data to an instance of the HumanName class.
    * The FHIR must be valid against the HumanName FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} fhirType - the type of the FHIR object that was passed in, in case not otherwise identifiable from the object itself
    * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
    * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
    * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
@@ -115,38 +119,38 @@ class HumanName extends PersonName {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {HumanName} An instance of HumanName populated with the FHIR data
    */
-  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+  static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new HumanName();
     if (fhir['use'] != null) {
       inst.purpose = inst.purpose || [];
-      const inst_purpose = FHIRHelper.createInstanceFromFHIR('shr.core.Purpose', fhir['use'], shrId, allEntries, mappedResources, referencesOut, false);
+      const inst_purpose = FHIRHelper.createInstanceFromFHIR('shr.core.Purpose', fhir['use'], 'code', shrId, allEntries, mappedResources, referencesOut, false);
       inst.purpose.push(inst_purpose);
     }
     if (fhir['text'] != null) {
-      inst.nameAsText = FHIRHelper.createInstanceFromFHIR('shr.core.NameAsText', fhir['text'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.nameAsText = FHIRHelper.createInstanceFromFHIR('shr.core.NameAsText', fhir['text'], 'string', shrId, allEntries, mappedResources, referencesOut, false);
     }
     for (const fhir_family of fhir['family'] || []) {
       inst.familyName = inst.familyName || [];
-      const inst_familyName = FHIRHelper.createInstanceFromFHIR('shr.core.FamilyName', fhir_family, shrId, allEntries, mappedResources, referencesOut, false);
+      const inst_familyName = FHIRHelper.createInstanceFromFHIR('shr.core.FamilyName', fhir_family, 'string', shrId, allEntries, mappedResources, referencesOut, false);
       inst.familyName.push(inst_familyName);
     }
     for (const fhir_given of fhir['given'] || []) {
       inst.givenName = inst.givenName || [];
-      const inst_givenName = FHIRHelper.createInstanceFromFHIR('shr.core.GivenName', fhir_given, shrId, allEntries, mappedResources, referencesOut, false);
+      const inst_givenName = FHIRHelper.createInstanceFromFHIR('shr.core.GivenName', fhir_given, 'string', shrId, allEntries, mappedResources, referencesOut, false);
       inst.givenName.push(inst_givenName);
     }
     for (const fhir_prefix of fhir['prefix'] || []) {
       inst.prefix = inst.prefix || [];
-      const inst_prefix = FHIRHelper.createInstanceFromFHIR('shr.core.Prefix', fhir_prefix, shrId, allEntries, mappedResources, referencesOut, false);
+      const inst_prefix = FHIRHelper.createInstanceFromFHIR('shr.core.Prefix', fhir_prefix, 'string', shrId, allEntries, mappedResources, referencesOut, false);
       inst.prefix.push(inst_prefix);
     }
     for (const fhir_suffix of fhir['suffix'] || []) {
       inst.suffix = inst.suffix || [];
-      const inst_suffix = FHIRHelper.createInstanceFromFHIR('shr.core.Suffix', fhir_suffix, shrId, allEntries, mappedResources, referencesOut, false);
+      const inst_suffix = FHIRHelper.createInstanceFromFHIR('shr.core.Suffix', fhir_suffix, 'string', shrId, allEntries, mappedResources, referencesOut, false);
       inst.suffix.push(inst_suffix);
     }
     if (fhir['period'] != null) {
-      inst.effectiveTimePeriod = FHIRHelper.createInstanceFromFHIR('shr.core.EffectiveTimePeriod', fhir['period'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.effectiveTimePeriod = FHIRHelper.createInstanceFromFHIR('shr.core.EffectiveTimePeriod', fhir['period'], 'Period', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (asExtension) {
       inst.value = fhir['valueHumanName'];

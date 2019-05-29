@@ -1,3 +1,6 @@
+// GENERATED CODE
+// Manual modification is NOT RECOMMENDED as changes will be overwritten the next time the classes are generated.
+
 import { getNamespaceAndName, getNamespaceAndNameFromFHIR, uuid } from './json-helper';
 import ShrAdverseObjectFactory from './shr/adverse/ShrAdverseObjectFactory';
 import ShrAllergyObjectFactory from './shr/allergy/ShrAllergyObjectFactory';
@@ -45,26 +48,27 @@ export default class ObjectFactory {
 
   /**
    * Create an instance of a class from its FHIR representation.
+   * @param {string} shrType - The type of the element (e.g., 'shr.core.CodeableConcept').  This is only used if the type cannot be extracted from the JSON.
    * @param {Object} fhir - The element data in FHIR format (use `{}` and provide `type` for a blank instance)
-   * @param {string} [type] - The (optional) type of the element (e.g., 'http://standardhealthrecord.org/spec/shr/demographics/PersonOfRecord').  This is only used if the type cannot be extracted from the JSON.
+   * @param {string} fhirType - the type of the FHIR object that was passed in, in case not otherwise identifiable from the object itself
    * @returns {Object} An instance of the requested class populated with the provided data
    */
-  static createInstanceFromFHIR(fhir, type, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const { namespace } = getNamespaceAndNameFromFHIR(fhir, type);
+  static createInstanceFromFHIR(shrType, fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+    const { namespace } = getNamespaceAndNameFromFHIR(fhir, shrType);
     switch (namespace) {
-    case 'shr.adverse': return ShrAdverseObjectFactory.createInstanceFromFHIR(fhir, type, shrId, allEntries, mappedResources, referencesOut, asExtension);
-    case 'shr.allergy': return ShrAllergyObjectFactory.createInstanceFromFHIR(fhir, type, shrId, allEntries, mappedResources, referencesOut, asExtension);
-    case 'shr.base': return ShrBaseObjectFactory.createInstanceFromFHIR(fhir, type, shrId, allEntries, mappedResources, referencesOut, asExtension);
-    case 'brca': return BrcaObjectFactory.createInstanceFromFHIR(fhir, type, shrId, allEntries, mappedResources, referencesOut, asExtension);
-    case 'shr.core': return ShrCoreObjectFactory.createInstanceFromFHIR(fhir, type, shrId, allEntries, mappedResources, referencesOut, asExtension);
-    case 'shr.encounter': return ShrEncounterObjectFactory.createInstanceFromFHIR(fhir, type, shrId, allEntries, mappedResources, referencesOut, asExtension);
-    case 'shr.entity': return ShrEntityObjectFactory.createInstanceFromFHIR(fhir, type, shrId, allEntries, mappedResources, referencesOut, asExtension);
-    case 'shr.financial': return ShrFinancialObjectFactory.createInstanceFromFHIR(fhir, type, shrId, allEntries, mappedResources, referencesOut, asExtension);
-    case 'oncocore': return OncocoreObjectFactory.createInstanceFromFHIR(fhir, type, shrId, allEntries, mappedResources, referencesOut, asExtension);
-    case 'shr.medication': return ShrMedicationObjectFactory.createInstanceFromFHIR(fhir, type, shrId, allEntries, mappedResources, referencesOut, asExtension);
-    case 'shr.procedure': return ShrProcedureObjectFactory.createInstanceFromFHIR(fhir, type, shrId, allEntries, mappedResources, referencesOut, asExtension);
-    case 'shr.research': return ShrResearchObjectFactory.createInstanceFromFHIR(fhir, type, shrId, allEntries, mappedResources, referencesOut, asExtension);
-    case 'tumor': return TumorObjectFactory.createInstanceFromFHIR(fhir, type, shrId, allEntries, mappedResources, referencesOut, asExtension);
+    case 'shr.adverse': return ShrAdverseObjectFactory.createInstanceFromFHIR(shrType, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut, asExtension);
+    case 'shr.allergy': return ShrAllergyObjectFactory.createInstanceFromFHIR(shrType, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut, asExtension);
+    case 'shr.base': return ShrBaseObjectFactory.createInstanceFromFHIR(shrType, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut, asExtension);
+    case 'brca': return BrcaObjectFactory.createInstanceFromFHIR(shrType, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut, asExtension);
+    case 'shr.core': return ShrCoreObjectFactory.createInstanceFromFHIR(shrType, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut, asExtension);
+    case 'shr.encounter': return ShrEncounterObjectFactory.createInstanceFromFHIR(shrType, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut, asExtension);
+    case 'shr.entity': return ShrEntityObjectFactory.createInstanceFromFHIR(shrType, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut, asExtension);
+    case 'shr.financial': return ShrFinancialObjectFactory.createInstanceFromFHIR(shrType, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut, asExtension);
+    case 'oncocore': return OncocoreObjectFactory.createInstanceFromFHIR(shrType, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut, asExtension);
+    case 'shr.medication': return ShrMedicationObjectFactory.createInstanceFromFHIR(shrType, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut, asExtension);
+    case 'shr.procedure': return ShrProcedureObjectFactory.createInstanceFromFHIR(shrType, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut, asExtension);
+    case 'shr.research': return ShrResearchObjectFactory.createInstanceFromFHIR(shrType, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut, asExtension);
+    case 'tumor': return TumorObjectFactory.createInstanceFromFHIR(shrType, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut, asExtension);
     case 'primitive': return fhir;
     default: throw new Error(`Unsupported namespace: ${namespace}`);
     }

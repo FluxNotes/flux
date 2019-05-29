@@ -1,5 +1,6 @@
 import {setObjectFactory} from './json-helper';
-import FluxObjectFactory from './FluxObjectFactory';
+import ObjectFactory from './ObjectFactory';
+// import ClassRegistry from './ClassRegistry';
 
 /**
  * The init function initializes the ES helper functions with the necessary dependencies for creating
@@ -9,7 +10,11 @@ import FluxObjectFactory from './FluxObjectFactory';
  * any of the classes.
  */
 function init() {
-  setObjectFactory(FluxObjectFactory);
+  setObjectFactory(ObjectFactory);
+
+  // Overwrite any classes in the class registry as needed here:
+  // for example,
+  // ClassRegistry['namespace']['SomeClass'] = SomeClassExtended;
 }
 
 init();

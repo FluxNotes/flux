@@ -1,3 +1,6 @@
+// GENERATED CODE
+// Manual modification is NOT RECOMMENDED as changes will be overwritten the next time the class is generated.
+
 import { setPropertiesFromJSON, uuid } from '../../json-helper';
 
 /**
@@ -81,22 +84,6 @@ class Entry {
   }
 
   /**
-   * Get the SourceClinicalNote.
-   * @returns {SourceClinicalNote} The shr.base.SourceClinicalNote
-   */
-  get sourceClinicalNote() {
-    return this._sourceClinicalNote;
-  }
-
-  /**
-   * Set the SourceClinicalNote.
-   * @param {SourceClinicalNote} sourceClinicalNote - The shr.base.SourceClinicalNote
-   */
-  set sourceClinicalNote(sourceClinicalNote) {
-    this._sourceClinicalNote = sourceClinicalNote;
-  }
-
-  /**
    * Deserializes JSON data to an instance of the Entry class.
    * The JSON must be valid against the Entry JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
@@ -124,9 +111,6 @@ class Entry {
     if (this.entryType != null) {
       inst['EntryType'] = typeof this.entryType.toJSON === 'function' ? this.entryType.toJSON() : this.entryType;
     }
-    if (this.sourceClinicalNote != null) {
-      inst['SourceClinicalNote'] = typeof this.sourceClinicalNote.toJSON === 'function' ? this.sourceClinicalNote.toJSON() : this.sourceClinicalNote;
-    }
     return inst;
   }
 
@@ -134,6 +118,7 @@ class Entry {
    * Deserializes FHIR JSON data to an instance of the Entry class.
    * The FHIR must be valid against the Entry FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} fhirType - the type of the FHIR object that was passed in, in case not otherwise identifiable from the object itself
    * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
    * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
    * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
@@ -141,7 +126,7 @@ class Entry {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Entry} An instance of Entry populated with the FHIR data
    */
-  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+  static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new Entry();
     return inst;
   }

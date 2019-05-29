@@ -1,3 +1,6 @@
+// GENERATED CODE
+// Manual modification is NOT RECOMMENDED as changes will be overwritten the next time the class is generated.
+
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 /**
@@ -145,6 +148,7 @@ class LanguageUsed {
    * Deserializes FHIR JSON data to an instance of the LanguageUsed class.
    * The FHIR must be valid against the LanguageUsed FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} fhirType - the type of the FHIR object that was passed in, in case not otherwise identifiable from the object itself
    * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
    * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
    * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
@@ -152,24 +156,24 @@ class LanguageUsed {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {LanguageUsed} An instance of LanguageUsed populated with the FHIR data
    */
-  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+  static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new LanguageUsed();
     if (asExtension) {
-      const match_1 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-Language-extension');
-      if (match_1 != null) {
-        inst.language = FHIRHelper.createInstanceFromFHIR('shr.core.Language', match_1, shrId, allEntries, mappedResources, referencesOut, true);
-      }
-      const match_2 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-SpokenLanguageProficiency-extension');
-      if (match_2 != null) {
-        inst.spokenLanguageProficiency = FHIRHelper.createInstanceFromFHIR('shr.entity.SpokenLanguageProficiency', match_2, shrId, allEntries, mappedResources, referencesOut, true);
-      }
-      const match_3 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-WrittenLanguageProficiency-extension');
+      const match_3 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-Language-extension');
       if (match_3 != null) {
-        inst.writtenLanguageProficiency = FHIRHelper.createInstanceFromFHIR('shr.entity.WrittenLanguageProficiency', match_3, shrId, allEntries, mappedResources, referencesOut, true);
+        inst.language = FHIRHelper.createInstanceFromFHIR('shr.core.Language', match_3, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
       }
-      const match_4 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-LanguageQualifier-extension');
+      const match_4 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-SpokenLanguageProficiency-extension');
       if (match_4 != null) {
-        inst.languageQualifier = FHIRHelper.createInstanceFromFHIR('shr.entity.LanguageQualifier', match_4, shrId, allEntries, mappedResources, referencesOut, true);
+        inst.spokenLanguageProficiency = FHIRHelper.createInstanceFromFHIR('shr.entity.SpokenLanguageProficiency', match_4, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      const match_5 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-WrittenLanguageProficiency-extension');
+      if (match_5 != null) {
+        inst.writtenLanguageProficiency = FHIRHelper.createInstanceFromFHIR('shr.entity.WrittenLanguageProficiency', match_5, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      const match_6 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-LanguageQualifier-extension');
+      if (match_6 != null) {
+        inst.languageQualifier = FHIRHelper.createInstanceFromFHIR('shr.entity.LanguageQualifier', match_6, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
       }
     }
     return inst;

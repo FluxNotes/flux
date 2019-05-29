@@ -1,3 +1,6 @@
+// GENERATED CODE
+// Manual modification is NOT RECOMMENDED as changes will be overwritten the next time the class is generated.
+
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 import EmbeddedContent from './EmbeddedContent';
@@ -258,6 +261,7 @@ class Media extends EmbeddedContent {
    * Deserializes FHIR JSON data to an instance of the Media class.
    * The FHIR must be valid against the Media FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} fhirType - the type of the FHIR object that was passed in, in case not otherwise identifiable from the object itself
    * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
    * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
    * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
@@ -265,31 +269,31 @@ class Media extends EmbeddedContent {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Media} An instance of Media populated with the FHIR data
    */
-  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+  static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new Media();
     if (fhir['contentType'] != null) {
-      inst.contentType = FHIRHelper.createInstanceFromFHIR('shr.core.ContentType', fhir['contentType'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.contentType = FHIRHelper.createInstanceFromFHIR('shr.core.ContentType', fhir['contentType'], 'code', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['language'] != null) {
-      inst.language = FHIRHelper.createInstanceFromFHIR('shr.core.Language', fhir['language'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.language = FHIRHelper.createInstanceFromFHIR('shr.core.Language', fhir['language'], 'code', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['data'] != null) {
-      inst.binaryData = FHIRHelper.createInstanceFromFHIR('shr.core.BinaryData', fhir['data'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.binaryData = FHIRHelper.createInstanceFromFHIR('shr.core.BinaryData', fhir['data'], 'base64Binary', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['url'] != null) {
-      inst.resourceLocation = FHIRHelper.createInstanceFromFHIR('shr.core.ResourceLocation', fhir['url'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.resourceLocation = FHIRHelper.createInstanceFromFHIR('shr.core.ResourceLocation', fhir['url'], 'uri', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['size'] != null) {
-      inst.resourceSize = FHIRHelper.createInstanceFromFHIR('shr.core.ResourceSize', fhir['size'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.resourceSize = FHIRHelper.createInstanceFromFHIR('shr.core.ResourceSize', fhir['size'], 'unsignedInt', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['hash'] != null) {
-      inst.hash = FHIRHelper.createInstanceFromFHIR('shr.core.Hash', fhir['hash'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.hash = FHIRHelper.createInstanceFromFHIR('shr.core.Hash', fhir['hash'], 'base64Binary', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['title'] != null) {
-      inst.title = FHIRHelper.createInstanceFromFHIR('shr.core.Title', fhir['title'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.title = FHIRHelper.createInstanceFromFHIR('shr.core.Title', fhir['title'], 'string', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['creation'] != null) {
-      inst.creationTime = FHIRHelper.createInstanceFromFHIR('shr.core.CreationTime', fhir['creation'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.creationTime = FHIRHelper.createInstanceFromFHIR('shr.core.CreationTime', fhir['creation'], 'dateTime', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (asExtension) {
       inst.value = fhir['valueAttachment'];

@@ -1,3 +1,6 @@
+// GENERATED CODE
+// Manual modification is NOT RECOMMENDED as changes will be overwritten the next time the class is generated.
+
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 /**
@@ -88,6 +91,7 @@ class TelecomNumberOrAddress {
    * Deserializes FHIR JSON data to an instance of the TelecomNumberOrAddress class.
    * The FHIR must be valid against the TelecomNumberOrAddress FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} fhirType - the type of the FHIR object that was passed in, in case not otherwise identifiable from the object itself
    * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
    * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
    * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
@@ -95,7 +99,7 @@ class TelecomNumberOrAddress {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {TelecomNumberOrAddress} An instance of TelecomNumberOrAddress populated with the FHIR data
    */
-  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+  static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new TelecomNumberOrAddress();
     if (!asExtension && fhir != null) {
       inst.value = fhir;

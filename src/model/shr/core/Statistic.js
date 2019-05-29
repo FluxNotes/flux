@@ -1,3 +1,6 @@
+// GENERATED CODE
+// Manual modification is NOT RECOMMENDED as changes will be overwritten the next time the class is generated.
+
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 import Quantity from './Quantity';
@@ -73,6 +76,7 @@ class Statistic extends Quantity {
    * Deserializes FHIR JSON data to an instance of the Statistic class.
    * The FHIR must be valid against the Statistic FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} fhirType - the type of the FHIR object that was passed in, in case not otherwise identifiable from the object itself
    * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
    * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
    * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
@@ -80,33 +84,33 @@ class Statistic extends Quantity {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Statistic} An instance of Statistic populated with the FHIR data
    */
-  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+  static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new Statistic();
     for (const fhir_extension of fhir['extension'] || []) {
       if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-StatisticType-extension') {
-        inst.statisticType = FHIRHelper.createInstanceFromFHIR('shr.core.StatisticType', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+        inst.statisticType = FHIRHelper.createInstanceFromFHIR('shr.core.StatisticType', fhir_extension, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
       }
     }
     if (fhir['value'] != null) {
-      inst.number = FHIRHelper.createInstanceFromFHIR('shr.core.Number', fhir['value'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.number = FHIRHelper.createInstanceFromFHIR('shr.core.Number', fhir['value'], 'decimal', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['comparator'] != null) {
-      inst.comparator = FHIRHelper.createInstanceFromFHIR('shr.core.Comparator', fhir['comparator'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.comparator = FHIRHelper.createInstanceFromFHIR('shr.core.Comparator', fhir['comparator'], 'code', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['unit'] != null) {
-      inst.units = inst.units || FHIRHelper.createInstanceFromFHIR('shr.core.Units', {}, shrId);
-      inst.units.value = inst.units.value || FHIRHelper.createInstanceFromFHIR('shr.core.Coding', {}, shrId);
-      inst.units.value.displayText = FHIRHelper.createInstanceFromFHIR('shr.core.DisplayText', fhir['unit'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.units = inst.units || FHIRHelper.createInstanceFromFHIR('shr.core.Units', {}, null, shrId);
+      inst.units.value = inst.units.value || FHIRHelper.createInstanceFromFHIR('shr.core.Coding', {}, null, shrId);
+      inst.units.value.displayText = FHIRHelper.createInstanceFromFHIR('shr.core.DisplayText', fhir['unit'], 'string', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['system'] != null) {
-      inst.units = inst.units || FHIRHelper.createInstanceFromFHIR('shr.core.Units', {}, shrId);
-      inst.units.value = inst.units.value || FHIRHelper.createInstanceFromFHIR('shr.core.Coding', {}, shrId);
-      inst.units.value.codeSystem = FHIRHelper.createInstanceFromFHIR('shr.core.CodeSystem', fhir['system'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.units = inst.units || FHIRHelper.createInstanceFromFHIR('shr.core.Units', {}, null, shrId);
+      inst.units.value = inst.units.value || FHIRHelper.createInstanceFromFHIR('shr.core.Coding', {}, null, shrId);
+      inst.units.value.codeSystem = FHIRHelper.createInstanceFromFHIR('shr.core.CodeSystem', fhir['system'], 'uri', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['code'] != null) {
-      inst.units = inst.units || FHIRHelper.createInstanceFromFHIR('shr.core.Units', {}, shrId);
-      inst.units.value = inst.units.value || FHIRHelper.createInstanceFromFHIR('shr.core.Coding', {}, shrId);
-      inst.units.value.code = FHIRHelper.createInstanceFromFHIR('shr.core.Code', fhir['code'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.units = inst.units || FHIRHelper.createInstanceFromFHIR('shr.core.Units', {}, null, shrId);
+      inst.units.value = inst.units.value || FHIRHelper.createInstanceFromFHIR('shr.core.Coding', {}, null, shrId);
+      inst.units.value.code = FHIRHelper.createInstanceFromFHIR('shr.core.Code', fhir['code'], 'code', shrId, allEntries, mappedResources, referencesOut, false);
     }
     return inst;
   }

@@ -1,3 +1,6 @@
+// GENERATED CODE
+// Manual modification is NOT RECOMMENDED as changes will be overwritten the next time the class is generated.
+
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 /**
@@ -88,6 +91,7 @@ class CollectionSite {
    * Deserializes FHIR JSON data to an instance of the CollectionSite class.
    * The FHIR must be valid against the CollectionSite FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} fhirType - the type of the FHIR object that was passed in, in case not otherwise identifiable from the object itself
    * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
    * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
    * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
@@ -95,16 +99,16 @@ class CollectionSite {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {CollectionSite} An instance of CollectionSite populated with the FHIR data
    */
-  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+  static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const inst = new CollectionSite();
     if (asExtension) {
-      const match_1 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-AnatomicalLocation-extension');
-      if (match_1 != null) {
-        inst.anatomicalLocation = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocation', match_1, shrId, allEntries, mappedResources, referencesOut, true);
+      const match_3 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-AnatomicalLocation-extension');
+      if (match_3 != null) {
+        inst.anatomicalLocation = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocation', match_3, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
       }
     }
     if (!asExtension && fhir != null) {
-      inst.value = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocation', fhir, shrId, allEntries, mappedResources, referencesOut);
+      inst.value = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocation', fhir, fhirType, shrId, allEntries, mappedResources, referencesOut);
     }
     return inst;
   }
