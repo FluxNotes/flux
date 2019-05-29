@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Slate from '../lib/slate';
 import Lang from 'lodash';
 import FontAwesome from 'react-fontawesome';
-import EditorPortal from '../context/EditorPortal';
+import CompletionPortal from  '../context/EditorPortal';
 import SuggestionPortalShortcutSearchIndex from './SuggestionPortalShortcutSearchIndex';
 import SuggestionPortalPlaceholderSearchIndex from './SuggestionPortalPlaceholderSearchIndex';
 // versions 0.20.3-0.20.7 of Slate seem to have an issue.
@@ -22,6 +22,7 @@ import StructuredFieldPlugin from './StructuredFieldPlugin';
 import SingleHashtagKeywordStructuredFieldPlugin from './SingleHashtagKeywordStructuredFieldPlugin';
 import NLPHashtagPlugin from './NLPHashtagPlugin';
 import KeyboardShortcutsPlugin from './KeyboardShortcutsPlugin';
+import CompletionPortalPlugin from './CompletionPortalPlugin';
 import Placeholder from '../shortcuts/Placeholder';
 import NoteParser from '../noteparser/NoteParser';
 import './FluxNotesEditor.css';
@@ -69,7 +70,7 @@ const initialEditorState = {
 };
 
 class FluxNotesEditor extends React.Component {
-    openContextPortal = (completionComponentShortcut) => {
+    openCompletionPortal = (completionComponentShortcut) => {
         // Always make sure we use an array here; doesn't always return an array from getValueSelectionOptions
         const portalOptions = !Lang.isEmpty(completionComponentShortcut.getValueSelectionOptions()) ? completionComponentShortcut.getValueSelectionOptions() : [];
         this.setState({
@@ -79,7 +80,7 @@ class FluxNotesEditor extends React.Component {
         });
     }
 
-    closeContextPortal = () => {
+    closeCompletionPortal = () => {
         // Clean up some variables stored at the Editor level
         this.setState({
             completionComponentShortcut: null,
@@ -116,14 +117,14 @@ class FluxNotesEditor extends React.Component {
 
         this.noteContentIndexer = new NoteContentIndexer();
 
-        // ContextPortalPluginOptions
-        const contextPortalPluginOptions = {
-            openPortal: this.openContextPortal,
-            closePortal: this.closeContextPortal,
+        // CompletionPortalPluginOptions
+        const completionPortalPluginOptions = {
+            openPortal: this.openCompletionPortal,
+            closePortal: this.closeCompletionPortal,
             getCompletionComponent: this.getCompletionComponent
         };
-        this.contextPortalPlugin = ContextPortalPlugin(contextPortalPluginOptions);
-        this.plugins.push(this.contextPortalPlugin);
+        this.completionPortalPlugin = CompletionPortalPlugin(completionPortalPluginOptions);
+        this.plugins.push(this.completionPortalPlugin);
 
         // setup structured field plugin
         const structuredFieldPluginOptions = {
@@ -430,7 +431,7 @@ class FluxNotesEditor extends React.Component {
         const shortcut = this.state.completionComponentShortcut;
         // TODO: better name;
         // Close context portal
-        this.closeContextPortal();
+        this.closeCompletionPortal();
         // TODO: Why is this happening?
         if (Lang.isNull(selection)) {
             // Removes the shortcut from its parent
@@ -1898,18 +1899,18 @@ class FluxNotesEditor extends React.Component {
                         state={this.state.state}
                     />
                     {CompletionComponent &&
-                        <EditorPortal
-                            closePortal={this.closeContextPortal}
+                        <CompletionPortal
+                            closePortal={this.closeCompletionPortal}
                             getPosition={this.getTextCursorPosition}
                         >
                             <CompletionComponent
                                 ref="completionComponent"
                                 contexts={this.state.portalOptions}
                                 onSelected={this.onCompletionComponentValueSelection}
-                                closePortal={this.closeContextPortal}
+                                closePortal={this.closeCompletionPortal}
                                 state={this.state.state}
                             />
-                        </EditorPortal>
+                        </CompletionPortal>
                     }
                 </div>
             </div>
