@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ContextItem from './ContextItem';
+import Lang from 'lodash';
 import './ContextListOptions.css';
 
 const UP_ARROW_KEY = 38;
@@ -61,6 +62,7 @@ class ContextListOptions extends React.Component {
      * Navigate and interact with menu based on button presses
      */
     onKeyDown = (e, data, state, editor) => {
+        if (Lang.isEmpty(this.props.contexts)) return;
         const keyCode = e.which;
         if (keyCode === DOWN_ARROW_KEY || keyCode === UP_ARROW_KEY) {
             e.preventDefault();
@@ -68,15 +70,17 @@ class ContextListOptions extends React.Component {
             const positionChange = (keyCode === DOWN_ARROW_KEY) ? 1 : -1;
             this.changeMenuPosition(positionChange);
         } else if (keyCode === ENTER_KEY && this.state.selectedIndex !== -1) {
+            // NOTE: This operations might not work on SyntheticEvents which are populat in react
             e.preventDefault();
             e.stopPropagation();
-            this.props.closePortal();
-            this.props.onSelected(this.props.state, this.props.contexts[this.state.selectedIndex]);
+            // If a plugin returns a state, it short circuits future plugins
+            return this.props.onSelected(this.props.state, this.props.contexts[this.state.selectedIndex]);
         }
     }
 
     render() {
         const { contexts, state } = this.props;
+        if (Lang.isEmpty(contexts)) return null;
         return (
             <ul className="context-list-options" ref="contextListOptions">
                 {contexts.map((context, index) => {
