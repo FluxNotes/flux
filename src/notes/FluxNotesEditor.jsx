@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Slate from '../lib/slate';
 import Lang from 'lodash';
 import FontAwesome from 'react-fontawesome';
-import CompletionPortal from '../context/CompletionPortal';
+import EditorPortal from '../context/EditorPortal';
 import SuggestionPortalShortcutSearchIndex from './SuggestionPortalShortcutSearchIndex';
 import SuggestionPortalPlaceholderSearchIndex from './SuggestionPortalPlaceholderSearchIndex';
 // versions 0.20.3-0.20.7 of Slate seem to have an issue.
@@ -1898,7 +1898,7 @@ class FluxNotesEditor extends React.Component {
                         state={this.state.state}
                     />
                     {CompletionComponent &&
-                        <CompletionPortal
+                        <EditorPortal
                             closePortal={this.closeContextPortal}
                             getPosition={this.getTextCursorPosition}
                         >
@@ -1909,7 +1909,7 @@ class FluxNotesEditor extends React.Component {
                                 closePortal={this.closeContextPortal}
                                 state={this.state.state}
                             />
-                        </CompletionPortal>
+                        </EditorPortal>
                     }
                 </div>
             </div>
