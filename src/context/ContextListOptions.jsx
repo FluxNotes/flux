@@ -72,6 +72,7 @@ class ContextListOptions extends React.Component {
             // NOTE: This operations might not work on SyntheticEvents which are populat in react
             e.preventDefault();
             e.stopPropagation();
+            this.props.closePortal();
             // If a plugin returns a state, it short circuits future plugins
             return this.props.onSelected(this.props.state, this.props.contexts[this.state.selectedIndex]);
         }
