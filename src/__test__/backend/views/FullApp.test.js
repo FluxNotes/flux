@@ -923,7 +923,7 @@ describe('6 FluxNotesEditor', function() {
         }
     });
 
-    it("6.7 Typing '#deceased' in the editor results in a structured data insertion and the context panel updates", () => {
+    it("6.7 Clicking '#deceased' in the context tray results in a structured data insertion and the context panel updates", () => {
         let patient = new PatientRecord(mcodePatientJson);
         const contextManager = new ContextManager(patient, () => {});
         const structuredFieldMapManager = new StructuredFieldMapManager();
@@ -973,14 +973,10 @@ describe('6 FluxNotesEditor', function() {
         expect(fluxNotesEditor).to.have.lengthOf(1);
         expect(notesPanelWrapper.find(NoteAssistant)).to.have.lengthOf(1);
 
-        const arrayOfStructuredDataToEnter = ["#deceased "];
-        const entryId = patient.addClinicalNote('', '', '', '', '', arrayOfStructuredDataToEnter.join(' '), false);
-        const updatedEditorNote = patient.getEntryById(entryId);
-        // Set updatedEditorNote props because this triggers that a change is coming in to the editor and inserts text with structured phrases.
-        fluxNotesEditor.instance().onFocus();
-        //fluxNotesEditor.setProps({ updatedEditorNote });
-        notesPanelWrapper.setState({ updatedEditorNote });
-
+        const contextPanelElements = notesPanelWrapper.find('.context-options-list .context-option');
+        const deceasedButton = contextPanelElements.find({ children: '#deceased' });
+        expect(deceasedButton).to.have.lengthOf(1);
+        deceasedButton.simulate('click');
 
         expect(notesPanelWrapper.find('.structured-field-creator')).to.have.length(1);
         expect(notesPanelWrapper.find('.structured-field-creator').text()).to.contain('deceased');
