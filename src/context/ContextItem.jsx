@@ -4,7 +4,7 @@ import './ContextItem.css';
 
 class ContextItem extends React.Component {
     /*
-     * When an item is clicked, close the portal and update contextPortal accordingly
+     * When an item is clicked, close the portal and update current portal accordingly
      */
     onClick = (e) => {
         this.props.closePortal();
