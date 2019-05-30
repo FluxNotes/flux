@@ -1,6 +1,11 @@
 import {setObjectFactory} from './json-helper';
-import ObjectFactory from './ObjectFactory';
-// import ClassRegistry from './ClassRegistry';
+import FluxObjectFactory from './FluxObjectFactory';
+import ClassRegistry from './ClassRegistry';
+
+import EntryFix from './fluxExtensions/EntryFix';
+import EncounterFix from './fluxExtensions/EncounterFix';
+import CodingFix from './fluxExtensions/CodingFix';
+import CodeableConceptFix from './fluxExtensions/CodeableConceptFix';
 
 /**
  * The init function initializes the ES helper functions with the necessary dependencies for creating
@@ -10,11 +15,12 @@ import ObjectFactory from './ObjectFactory';
  * any of the classes.
  */
 function init() {
-  setObjectFactory(ObjectFactory);
+  setObjectFactory(FluxObjectFactory);
 
-  // Overwrite any classes in the class registry as needed here:
-  // for example,
-  // ClassRegistry['namespace']['SomeClass'] = SomeClassExtended;
+  ClassRegistry['shr.base']['Entry'] = EntryFix;
+  ClassRegistry['shr.encounter']['Encounter'] = EncounterFix;
+  ClassRegistry['shr.core']['Coding'] = CodingFix;
+  ClassRegistry['shr.core']['CodeableConcept'] = CodeableConceptFix;
 }
 
 init();

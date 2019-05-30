@@ -1,7 +1,8 @@
 import './model/init.js';
+import ClassRegistry from '../../model/ClassRegistry';
 import FluxPatientV01 from './model/entity/FluxPatient';
 import FluxPatient from '../../model/entity/FluxPatient';
-import Entry from '../../model/shr/base/Entry';
+const Entry = ClassRegistry['shr.base']['Entry'];
 import EntryType from '../../model/shr/base/EntryType';
 import Metadata from '../../model/shr/base/Metadata';
 import LastUpdated from '../../model/shr/base/LastUpdated';
@@ -155,7 +156,7 @@ import NumberOfRefillsAllowed from '../../model/shr/medication/NumberOfRefillsAl
 import FluxPathologyReportV01 from './model/finding/FluxPathologyReport';
 import FluxPathologyReport from '../../model/finding/FluxPathologyReport';
 import MCODEV01ObjectFactory from './model/FluxObjectFactory';
-import Encounter from '../../model/shr/encounter/Encounter';
+const Encounter = ClassRegistry['shr.encounter']['Encounter'];
 import RequestIntent from '../../model/shr/base/RequestIntent';
 import PossibleCause from '../../model/shr/adverse/PossibleCause';
 import ExpectedPerformer from '../../model/shr/base/ExpectedPerformer';

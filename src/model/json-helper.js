@@ -1,5 +1,5 @@
 import Reference from './Reference';
-import Entry from './shr/base/Entry';
+
 import ShrId from './shr/base/ShrId';
 import EntryId from './shr/base/EntryId';
 import EntryType from './shr/base/EntryType';
@@ -58,8 +58,12 @@ export function getNamespaceAndName(json={}, type) {
  */
 export function getNamespaceAndNameFromFHIR(fhir, type) {
   // Special case for primitives
-  if (typeof fhir !== 'object' && type != null && type.indexOf('.') === -1) {
-    return { namespace: 'primitive', elementName: type };
+  if (typeof fhir !== 'object') {
+    if (type == null) {
+      return { namespace: 'primitive', elementName: typeof fhir };
+    } else if (type.indexOf('.') === -1) {
+      return { namespace: 'primitive', elementName: type };
+    }
   }
   // Get the type from the JSON if we can
   if (fhir['meta'] && fhir['meta']['profile']) {
@@ -150,7 +154,7 @@ function findSetterForEntryProperty(inst, property) {
   if (entryInfoSetter) {
     // Now see if there is an existing entryInfo, and if not, set it to a new instance
     if (typeof inst.entryInfo === 'undefined') {
-      entryInfoSetter.call(inst, new Entry());
+      entryInfoSetter.call(inst, createInstance('http://standardhealthrecord.org/spec/shr/base/Entry', {}));
     }
     // Now find the setter for the property on the entry
     return findSetterForProperty(inst.entryInfo, property);
