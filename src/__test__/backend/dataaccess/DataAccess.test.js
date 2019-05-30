@@ -4,7 +4,7 @@ import hardCodedFHIRPatient from '../../../dataaccess/HardCodedFHIRPatient.json'
 import hardCodedConvertedFHIRPatient from '../../../dataaccess/HardCodedConvertedFHIRPatient.json';
 import PatientRecord from '../../../patient/PatientRecord';
 //import referenceHardCodedPatient from '../../../dataaccess/HardCodedPatient.json';
-import Moment from 'moment';
+import moment from 'moment';
 import {expect} from 'chai';
 import * as EntryMapper from '../../../dataaccess/mcodev0.1-datasource/EntryMapper';
 import util from 'util';
@@ -206,5 +206,53 @@ describe('use smart on fhir as data source with simple mock', function() {
 
     afterEach(() => {
         window.FHIR = oldWindowFhir;
+    });
+});
+
+describe('test multiple hardcoded read only data source', function() {
+    const hardcodedTabletV01DataSource = new DataAccess("HardcodedTabletMcodeV01DataSource");
+    const ihanosPatientRecord = hardcodedTabletV01DataSource.getPatient("788dcbc3-ed18-470c-89ef-35ff91854c7f");
+    const ellaPatientRecord = hardcodedTabletV01DataSource.getPatient("788dcbc3-ed18-470c-89ef-35ff91854c7e");
+    const ellaNewNoteContent = '@condition[[{"text":"Invasive ductal carcinoma of breast","entryId":"8"}]] <disease status>';
+    const ihanosNewNoteContent = '@condition[[{"text":"Gastrointestinal stromal tumor","entryId":"8"}]] <disease status> <toxicity>';
+
+    it('most recent note for Ella should be the note with placeholder <disease status>', function () {
+        // Get first in progress note
+        const notes = ellaPatientRecord.getInProgressNotes();
+
+        expect(notes)
+            .to.be.not.empty;
+        expect(notes[0].content)
+            .to.equal(ellaNewNoteContent);
+    });
+
+    it('most recent note for Ihanos should be the note with placeholders <disease status> and <toxicity>', function () {
+        // Get first in progress note
+        const notes = ihanosPatientRecord.getInProgressNotes();
+
+        expect(notes)
+            .to.be.not.empty;
+        expect(notes[0].content)
+            .to.equal(ihanosNewNoteContent);
+    });
+
+    it('get list of patients should return the hardcoded patients', function () {
+        const patientList = hardcodedTabletV01DataSource.getListOfPatients();
+        expect(patientList)
+            .to.be.an('array');
+        expect(patientList)
+            .to.deep.include(ihanosPatientRecord);
+        expect(patientList)
+            .to.deep.include(ellaPatientRecord);
+    });
+
+    it('new patient should return undefined', function () {
+        expect(hardcodedTabletV01DataSource.newPatient())
+            .to.be.undefined;
+    });
+
+    it('savePatient should return undefined', function () {
+        expect(hardcodedTabletV01DataSource.savePatient({}))
+            .to.be.undefined;
     });
 });
