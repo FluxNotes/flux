@@ -426,9 +426,6 @@ class FluxNotesEditor extends React.Component {
     // selection (selection is null)
     onCompletionComponentValueSelection = (state, selection) => {
         const shortcut = this.state.completionComponentShortcut;
-        // TODO: better name;
-        // Close context portal
-        this.closeCompletionPortal();
         // TODO: Why is this happening?
         if (Lang.isNull(selection)) {
             // Removes the shortcut from its parent
