@@ -14,7 +14,7 @@ class ContextCalendar extends React.Component {
             <Calendar
                 showDateInput={false}
                 onSelect={this.handleDateSelect}
-                ref={input => input && setTimeout(() => {input.focus()}, 100)}
+                ref={input => input && setTimeout(() => { input.focus(); }, 100)}
             />
         );
     }
@@ -24,6 +24,6 @@ ContextCalendar.propTypes = {
     closePortal: PropTypes.func.isRequired,
     onSelected: PropTypes.func.isRequired,
     state: PropTypes.object,
-}
+};
 
 export default ContextCalendar;
