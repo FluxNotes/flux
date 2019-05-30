@@ -76,7 +76,8 @@ class FluxNotesEditor extends React.Component {
         this.setState({
             completionComponentShortcut: completionComponentShortcut,
             portalOptions: portalOptions,
-            completionComponent: completionComponentShortcut.completionComponent
+            completionComponent: completionComponentShortcut.completionComponent,
+            openedPortal: "CompletionPortal",
         });
     }
 
