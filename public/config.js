@@ -249,7 +249,7 @@
         display: 'Flux Notes™',
         app: "PointOfCareApp",
         isExact: true,
-        dataSource: 'HardCodedMcodeV01DataSource',
+        dataSource: 'HardcodedTabletMcodeV01DataSource',
         patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7f',
         clinicianId: '1234567890',
         shortcuts: []
