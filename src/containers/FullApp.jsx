@@ -278,6 +278,8 @@ export class FullApp extends Component {
     newCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true, source) => {
 
         let newShortcut = this.shortcutManager.createShortcut(shortcutC, shortcutType, this.state.patient, shortcutData, this.handleShortcutUpdate);
+        console.log(newShortcut)
+        console.log(this.contextManager)
         newShortcut.setSource(source);
         const errors = newShortcut.validateInCurrentContext(this.contextManager);
         if (errors.length > 0) {

@@ -235,6 +235,10 @@ export class PointOfCareApp extends Component {
         this.setState({ isAppBlurred });
     }
 
+    onContextUpdate = () => {
+        this.setState({contextManager: this.contextManager});
+    }
+    
     renderLoadingInformation = () => {
         // Note well: The renders below fade in or out based on state of the loading in the app
         // We define a loading error as occuring when:
@@ -300,9 +304,11 @@ export class PointOfCareApp extends Component {
                                         contextManager={this.contextManager}
                                         forceRefresh={this.state.forceRefresh}
                                         appState={this.state}
+                                        onContextUpdate={this.onContextUpdate}
                                         dataAccess={this.dataAccess}
                                         highlightedSearchSuggestion={this.state.highlightedSearchSuggestion}
                                         loginUser={this.state.loginUser}
+                                        patient={this.state.patient}
                                         preferenceManager={this.preferenceManager}
                                         searchSelectedItem={this.state.searchSelectedItem}
                                         setForceRefresh={this.setForceRefresh}

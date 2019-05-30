@@ -105,6 +105,7 @@ class Placeholder {
     }
 
     getTextWithStylingToDisplayInNote(index = 0) {
+        console.log(this)
         let isSigned = this._clinicalNote.signed;
 
         if (this._numUpdates > 0 && this._entryShortcuts[index].hasData()) {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import TargetedDataPanel from '../panels/TargetedDataPanel';
-import PointOfCarePanel from '../panels/PointOfCarePanel';
+import PointOfCare from '../notes/PointOfCare';
 import Button from '../elements/Button';
 import './PointOfCareDashboard.css';
 
@@ -81,6 +81,56 @@ export default class PointOfCareDashboard extends Component {
         );
     }
 
+    getFirstInProgressNote() {
+        const notes = this.props.patient.getInProgressNotes();
+        return notes[0];
+    }
+
+    parseClinicalNoteForPlaceholders = (placeholderList, text) => {
+        const placeholderStartIndex = text.indexOf('<');
+        if (placeholderStartIndex >= 0) {
+            const placeholderEndIndex = text.indexOf('>', placeholderStartIndex);
+            const placeholderText = text.slice(placeholderStartIndex, placeholderEndIndex + 1);
+            if (this.placeholderCheck(placeholderText)) {
+                let remainder = text.slice(placeholderEndIndex + 1);
+                let end;
+                let after = "";
+                let returnStr = text.substring(placeholderEndIndex + 1);
+                if (remainder.startsWith("[[")) {
+                    end = remainder.indexOf("]]");
+                    after = remainder.substring(2, end);
+                    returnStr = remainder.substring(end + 2);
+                }
+                const placeholder = this.newPlaceholder(placeholderText, after);
+                placeholderList.push(placeholder);
+                return this.parseClinicalNoteForPlaceholders(placeholderList, returnStr);
+            }
+        }
+        return placeholderList;
+    }
+
+    placeholderCheck = (text) => {
+        const { shortcutManager } = this.props;
+
+        if (!text.startsWith("<") || !text.endsWith(">")) return false;
+        const placeholderShortcuts = shortcutManager.getAllPlaceholderShortcuts();
+        const remainderText = text.slice(1, -1).toLowerCase();
+
+        return placeholderShortcuts.some((placeholderShortcut) => {
+            const triggers = shortcutManager.getTriggersForShortcut(placeholderShortcut.id);
+
+            return triggers.some((trigger) => {
+                const triggerNoPrefix = trigger.name.slice(1);
+                return triggerNoPrefix.toLowerCase() === remainderText;
+            });
+        });
+    }
+
+    newPlaceholder = (placeholderText, data) => {
+        const shortcutName = "#" + placeholderText.substring(1, placeholderText.length-1); // strip off < and > and add #
+        return this.props.shortcutManager.createPlaceholder(shortcutName, placeholderText, data, this.contextManager, this.props.patient, this.props.selectedNote, this.props.setForceRefresh);
+    }
+
     renderPocIcon() {
         return this.state.showPOC ? this._selectedPocIcon() : this._unselectedPocIcon();
     }
@@ -141,11 +191,20 @@ export default class PointOfCareDashboard extends Component {
             "transition": "width .5s",
         };
 
+        const note = this.getFirstInProgressNote();
+        console.log(note)
+        let placeholderList;
+        if (note) {
+            placeholderList = this.parseClinicalNoteForPlaceholders([], note.content);
+        }
+        console.log(placeholderList)
+
+
         return (
             <div className="right-border-box point-of-care-container" style={PointOfCarePanelStyles}>
-                <PointOfCarePanel
-                    appState={this.props.appState}
-                    structuredFieldMapManager={this.props.structuredFieldMapManager} />
+                <PointOfCare
+                    placeholders={placeholderList}
+                    contextManager={this.props.contextManager} />
             </div>
         );
     }
@@ -167,6 +226,7 @@ PointOfCareDashboard.propTypes = {
     dataAccess: PropTypes.object.isRequired,
     forceRefresh: PropTypes.bool,
     loginUser: PropTypes.object.isRequired,
+    patient: PropTypes.object.isRequired,
     preferenceManager: PropTypes.object.isRequired,
     searchSelectedItem: PropTypes.object,
     setForceRefresh: PropTypes.func.isRequired,
