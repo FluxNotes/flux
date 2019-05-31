@@ -48,8 +48,7 @@ class HardcodedTabletMcodeV01DataSource extends IDataSource {
             patient = this._ellaPatient;
         } else if (GistAdjuvantIhanos[0]['ShrId'] === id) {
             patient = this._ihanosPatient;
-        }
-        else {
+        } else {
             console.error("loading of patients other than the hard-coded demo patient is not implemented in hard-coded read only data source.");
         }
         return patient;
