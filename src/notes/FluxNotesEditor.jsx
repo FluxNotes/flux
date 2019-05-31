@@ -250,7 +250,7 @@ class FluxNotesEditor extends React.Component {
     }
 
     // Reset editor state and clear context
-    // cb is callback function that will be executed after editor state is reset
+    // cb is an optional callback function that will be executed after editor state is reset
     resetEditorAndContext(cb) {
         this.setState(initialEditorState, () => {
             // Calls parent function which resets updatedEditorNote to be null
@@ -261,7 +261,7 @@ class FluxNotesEditor extends React.Component {
 
             // This clears the contexts so that the tray starts back at the patient context
             this.contextManager.clearContexts();
-            cb();
+            if (typeof cb === 'function') cb();
         });
     }
 
