@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.base.Metadata.
  */
@@ -190,7 +192,8 @@ class Metadata {
    * @returns {Metadata} An instance of Metadata populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Metadata();
+    const klass = ClassRegistry.get('shr.base', 'Metadata');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -239,7 +242,8 @@ class Metadata {
    * @returns {Metadata} An instance of Metadata populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Metadata();
+    const klass = ClassRegistry.get('shr.base', 'Metadata');
+    const inst = new klass();
     if (asExtension) {
       const match_3 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-VersionId-extension');
       if (match_3 != null) {

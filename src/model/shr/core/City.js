@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 import GeopoliticalLocation from './GeopoliticalLocation';
 
 /**
@@ -72,7 +74,8 @@ class City extends GeopoliticalLocation {
    * @returns {City} An instance of City populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new City();
+    const klass = ClassRegistry.get('shr.core', 'City');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -103,7 +106,8 @@ class City extends GeopoliticalLocation {
    * @returns {City} An instance of City populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new City();
+    const klass = ClassRegistry.get('shr.core', 'City');
+    const inst = new klass();
     if (!asExtension && fhir != null) {
       inst.value = fhir;
     }

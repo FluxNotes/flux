@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 import Quantity from './Quantity';
 
 /**
@@ -45,7 +47,8 @@ class Statistic extends Quantity {
    * @returns {Statistic} An instance of Statistic populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Statistic();
+    const klass = ClassRegistry.get('shr.core', 'Statistic');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -85,7 +88,8 @@ class Statistic extends Quantity {
    * @returns {Statistic} An instance of Statistic populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Statistic();
+    const klass = ClassRegistry.get('shr.core', 'Statistic');
+    const inst = new klass();
     for (const fhir_extension of fhir['extension'] || []) {
       if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-StatisticType-extension') {
         inst.statisticType = FHIRHelper.createInstanceFromFHIR('shr.core.StatisticType', fhir_extension, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);

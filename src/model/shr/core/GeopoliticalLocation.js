@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.core.GeopoliticalLocation.
  */
@@ -15,7 +17,8 @@ class GeopoliticalLocation {
    * @returns {GeopoliticalLocation} An instance of GeopoliticalLocation populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new GeopoliticalLocation();
+    const klass = ClassRegistry.get('shr.core', 'GeopoliticalLocation');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -43,7 +46,8 @@ class GeopoliticalLocation {
    * @returns {GeopoliticalLocation} An instance of GeopoliticalLocation populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new GeopoliticalLocation();
+    const klass = ClassRegistry.get('shr.core', 'GeopoliticalLocation');
+    const inst = new klass();
     return inst;
   }
 

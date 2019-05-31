@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.core.Origin.
  */
@@ -69,7 +71,8 @@ class Origin {
    * @returns {Origin} An instance of Origin populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Origin();
+    const klass = ClassRegistry.get('shr.core', 'Origin');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class Origin {
    * @returns {Origin} An instance of Origin populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Origin();
+    const klass = ClassRegistry.get('shr.core', 'Origin');
+    const inst = new klass();
     if (!asExtension && fhir != null) {
       inst.value = FHIRHelper.createInstanceFromFHIR('shr.core.SimpleQuantity', fhir, fhirType, shrId, allEntries, mappedResources, referencesOut);
     }

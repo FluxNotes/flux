@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.base.Observer.
  */
@@ -67,7 +69,8 @@ class Observer {
    * @returns {Observer} An instance of Observer populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Observer();
+    const klass = ClassRegistry.get('shr.base', 'Observer');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -101,7 +104,8 @@ class Observer {
    * @returns {Observer} An instance of Observer populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Observer();
+    const klass = ClassRegistry.get('shr.base', 'Observer');
+    const inst = new klass();
     return inst;
   }
 

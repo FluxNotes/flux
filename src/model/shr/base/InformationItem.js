@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.base.InformationItem.
  */
@@ -90,7 +92,8 @@ class InformationItem {
    * @returns {InformationItem} An instance of InformationItem populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new InformationItem();
+    const klass = ClassRegistry.get('shr.base', 'InformationItem');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -127,7 +130,8 @@ class InformationItem {
    * @returns {InformationItem} An instance of InformationItem populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new InformationItem();
+    const klass = ClassRegistry.get('shr.base', 'InformationItem');
+    const inst = new klass();
     if (fhir['meta'] != null) {
       if (fhir['meta']['versionId'] != null) {
         inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, null, shrId);

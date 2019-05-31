@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.entity.Qualification.
  */
@@ -92,7 +94,8 @@ class Qualification {
    * @returns {Qualification} An instance of Qualification populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Qualification();
+    const klass = ClassRegistry.get('shr.entity', 'Qualification');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -129,7 +132,8 @@ class Qualification {
    * @returns {Qualification} An instance of Qualification populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Qualification();
+    const klass = ClassRegistry.get('shr.entity', 'Qualification');
+    const inst = new klass();
     return inst;
   }
 

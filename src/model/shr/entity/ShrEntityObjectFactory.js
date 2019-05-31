@@ -19,7 +19,7 @@ export default class ShrEntityObjectFactory {
     if (namespace !== 'shr.entity') {
       throw new Error(`Unsupported type in ShrEntityObjectFactory: ${type}`);
     }
-    const klass = ClassRegistry['shr.entity'][elementName];
+    const klass = ClassRegistry.get('shr.entity', elementName);
     if (!klass) {
       throw new Error(`Unsupported type in ShrEntityObjectFactory: ${type}`);
     }
@@ -38,7 +38,7 @@ export default class ShrEntityObjectFactory {
     if (namespace !== 'shr.entity') {
       throw new Error(`Unsupported type in ShrEntityObjectFactory: ${shrType}`);
     }
-    const klass = ClassRegistry['shr.entity'][elementName];
+    const klass = ClassRegistry.get('shr.entity', elementName);
     if (!klass) {
       throw new Error(`Unsupported type in ShrEntityObjectFactory: ${shrType}`);
     }

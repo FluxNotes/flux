@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 import PersonName from './PersonName';
 
 /**
@@ -68,7 +70,8 @@ class HumanName extends PersonName {
    * @returns {HumanName} An instance of HumanName populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new HumanName();
+    const klass = ClassRegistry.get('shr.core', 'HumanName');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -120,7 +123,8 @@ class HumanName extends PersonName {
    * @returns {HumanName} An instance of HumanName populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new HumanName();
+    const klass = ClassRegistry.get('shr.core', 'HumanName');
+    const inst = new klass();
     if (fhir['use'] != null) {
       inst.purpose = inst.purpose || [];
       const inst_purpose = FHIRHelper.createInstanceFromFHIR('shr.core.Purpose', fhir['use'], 'code', shrId, allEntries, mappedResources, referencesOut, false);

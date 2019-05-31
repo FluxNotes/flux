@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.base.ConditionCause.
  */
@@ -42,7 +44,8 @@ class ConditionCause {
    * @returns {ConditionCause} An instance of ConditionCause populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new ConditionCause();
+    const klass = ClassRegistry.get('shr.base', 'ConditionCause');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -73,7 +76,8 @@ class ConditionCause {
    * @returns {ConditionCause} An instance of ConditionCause populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new ConditionCause();
+    const klass = ClassRegistry.get('shr.base', 'ConditionCause');
+    const inst = new klass();
     if (!asExtension && fhir != null) {
       inst.value = FHIRHelper.createInstanceFromFHIR(null, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut);
     }

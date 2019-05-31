@@ -19,7 +19,7 @@ export default class BrcaObjectFactory {
     if (namespace !== 'brca') {
       throw new Error(`Unsupported type in BrcaObjectFactory: ${type}`);
     }
-    const klass = ClassRegistry['brca'][elementName];
+    const klass = ClassRegistry.get('brca', elementName);
     if (!klass) {
       throw new Error(`Unsupported type in BrcaObjectFactory: ${type}`);
     }
@@ -38,7 +38,7 @@ export default class BrcaObjectFactory {
     if (namespace !== 'brca') {
       throw new Error(`Unsupported type in BrcaObjectFactory: ${shrType}`);
     }
-    const klass = ClassRegistry['brca'][elementName];
+    const klass = ClassRegistry.get('brca', elementName);
     if (!klass) {
       throw new Error(`Unsupported type in BrcaObjectFactory: ${shrType}`);
     }

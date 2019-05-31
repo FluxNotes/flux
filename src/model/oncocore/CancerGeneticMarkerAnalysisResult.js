@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../json-helper';
 
+import ClassRegistry from '../ClassRegistry';
+
 import GeneticMarkerAnalysisResult from './GeneticMarkerAnalysisResult';
 
 /**
@@ -95,7 +97,8 @@ class CancerGeneticMarkerAnalysisResult extends GeneticMarkerAnalysisResult {
    * @returns {CancerGeneticMarkerAnalysisResult} An instance of CancerGeneticMarkerAnalysisResult populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new CancerGeneticMarkerAnalysisResult();
+    const klass = ClassRegistry.get('oncocore', 'CancerGeneticMarkerAnalysisResult');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -205,7 +208,8 @@ class CancerGeneticMarkerAnalysisResult extends GeneticMarkerAnalysisResult {
    * @returns {CancerGeneticMarkerAnalysisResult} An instance of CancerGeneticMarkerAnalysisResult populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new CancerGeneticMarkerAnalysisResult();
+    const klass = ClassRegistry.get('oncocore', 'CancerGeneticMarkerAnalysisResult');
+    const inst = new klass();
     inst.entryInfo = FHIRHelper.createInstanceFromFHIR('shr.base.Entry', {}, null);
     inst.entryInfo.shrId = FHIRHelper.createInstanceFromFHIR('shr.base.ShrId', shrId, 'string');
     inst.entryInfo.entryId = FHIRHelper.createInstanceFromFHIR('shr.base.EntryId', fhir['id'] || uuid(), 'string');

@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.base.StageInformation.
  */
@@ -65,7 +67,8 @@ class StageInformation {
    * @returns {StageInformation} An instance of StageInformation populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new StageInformation();
+    const klass = ClassRegistry.get('shr.base', 'StageInformation');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -99,7 +102,8 @@ class StageInformation {
    * @returns {StageInformation} An instance of StageInformation populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new StageInformation();
+    const klass = ClassRegistry.get('shr.base', 'StageInformation');
+    const inst = new klass();
     return inst;
   }
 

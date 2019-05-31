@@ -19,7 +19,7 @@ export default class ShrCoreObjectFactory {
     if (namespace !== 'shr.core') {
       throw new Error(`Unsupported type in ShrCoreObjectFactory: ${type}`);
     }
-    const klass = ClassRegistry['shr.core'][elementName];
+    const klass = ClassRegistry.get('shr.core', elementName);
     if (!klass) {
       throw new Error(`Unsupported type in ShrCoreObjectFactory: ${type}`);
     }
@@ -38,7 +38,7 @@ export default class ShrCoreObjectFactory {
     if (namespace !== 'shr.core') {
       throw new Error(`Unsupported type in ShrCoreObjectFactory: ${shrType}`);
     }
-    const klass = ClassRegistry['shr.core'][elementName];
+    const klass = ClassRegistry.get('shr.core', elementName);
     if (!klass) {
       throw new Error(`Unsupported type in ShrCoreObjectFactory: ${shrType}`);
     }

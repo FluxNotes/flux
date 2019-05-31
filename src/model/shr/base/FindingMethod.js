@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.base.FindingMethod.
  */
@@ -69,7 +71,8 @@ class FindingMethod {
    * @returns {FindingMethod} An instance of FindingMethod populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new FindingMethod();
+    const klass = ClassRegistry.get('shr.base', 'FindingMethod');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class FindingMethod {
    * @returns {FindingMethod} An instance of FindingMethod populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new FindingMethod();
+    const klass = ClassRegistry.get('shr.base', 'FindingMethod');
+    const inst = new klass();
     if (asExtension) {
       inst.value = fhir['valueCodeableConcept'];
     }

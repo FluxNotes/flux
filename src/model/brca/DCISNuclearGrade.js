@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../json-helper';
 
+import ClassRegistry from '../ClassRegistry';
+
 import SimpleCodedLaboratoryObservation from '../shr/base/SimpleCodedLaboratoryObservation';
 
 /**
@@ -120,7 +122,8 @@ class DCISNuclearGrade extends SimpleCodedLaboratoryObservation {
    * @returns {DCISNuclearGrade} An instance of DCISNuclearGrade populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new DCISNuclearGrade();
+    const klass = ClassRegistry.get('brca', 'DCISNuclearGrade');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -212,7 +215,8 @@ class DCISNuclearGrade extends SimpleCodedLaboratoryObservation {
    * @returns {DCISNuclearGrade} An instance of DCISNuclearGrade populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new DCISNuclearGrade();
+    const klass = ClassRegistry.get('brca', 'DCISNuclearGrade');
+    const inst = new klass();
     inst.entryInfo = FHIRHelper.createInstanceFromFHIR('shr.base.Entry', {}, null);
     inst.entryInfo.shrId = FHIRHelper.createInstanceFromFHIR('shr.base.ShrId', shrId, 'string');
     inst.entryInfo.entryId = FHIRHelper.createInstanceFromFHIR('shr.base.EntryId', fhir['id'] || uuid(), 'string');

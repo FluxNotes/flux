@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.core.AnatomicalLocationStructured.
  */
@@ -192,7 +194,8 @@ class AnatomicalLocationStructured {
    * @returns {AnatomicalLocationStructured} An instance of AnatomicalLocationStructured populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new AnatomicalLocationStructured();
+    const klass = ClassRegistry.get('shr.core', 'AnatomicalLocationStructured');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -241,7 +244,8 @@ class AnatomicalLocationStructured {
    * @returns {AnatomicalLocationStructured} An instance of AnatomicalLocationStructured populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new AnatomicalLocationStructured();
+    const klass = ClassRegistry.get('shr.core', 'AnatomicalLocationStructured');
+    const inst = new klass();
     for (const fhir_extension of fhir['extension'] || []) {
       if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-DistanceFromLandmark-extension') {
         inst.distanceFromLandmark = FHIRHelper.createInstanceFromFHIR('shr.core.DistanceFromLandmark', fhir_extension, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);

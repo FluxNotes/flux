@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.entity.RelationshipToPersonOfRecord.
  */
@@ -69,7 +71,8 @@ class RelationshipToPersonOfRecord {
    * @returns {RelationshipToPersonOfRecord} An instance of RelationshipToPersonOfRecord populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new RelationshipToPersonOfRecord();
+    const klass = ClassRegistry.get('shr.entity', 'RelationshipToPersonOfRecord');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class RelationshipToPersonOfRecord {
    * @returns {RelationshipToPersonOfRecord} An instance of RelationshipToPersonOfRecord populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new RelationshipToPersonOfRecord();
+    const klass = ClassRegistry.get('shr.entity', 'RelationshipToPersonOfRecord');
+    const inst = new klass();
     if (asExtension) {
       inst.value = fhir['valueCodeableConcept'];
     }

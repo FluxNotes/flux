@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 import InformationItem from '../base/InformationItem';
 
 /**
@@ -245,7 +247,8 @@ class Encounter extends InformationItem {
    * @returns {Encounter} An instance of Encounter populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Encounter();
+    const klass = ClassRegistry.get('shr.encounter', 'Encounter');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -307,7 +310,8 @@ class Encounter extends InformationItem {
    * @returns {Encounter} An instance of Encounter populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Encounter();
+    const klass = ClassRegistry.get('shr.encounter', 'Encounter');
+    const inst = new klass();
     inst.entryInfo = FHIRHelper.createInstanceFromFHIR('shr.base.Entry', {}, null);
     inst.entryInfo.shrId = FHIRHelper.createInstanceFromFHIR('shr.base.ShrId', shrId, 'string');
     inst.entryInfo.entryId = FHIRHelper.createInstanceFromFHIR('shr.base.EntryId', fhir['id'] || uuid(), 'string');

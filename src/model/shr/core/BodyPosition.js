@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.core.BodyPosition.
  */
@@ -69,7 +71,8 @@ class BodyPosition {
    * @returns {BodyPosition} An instance of BodyPosition populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new BodyPosition();
+    const klass = ClassRegistry.get('shr.core', 'BodyPosition');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class BodyPosition {
    * @returns {BodyPosition} An instance of BodyPosition populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new BodyPosition();
+    const klass = ClassRegistry.get('shr.core', 'BodyPosition');
+    const inst = new klass();
     if (!asExtension && fhir != null) {
       inst.value = FHIRHelper.createInstanceFromFHIR('shr.core.CodeableConcept', fhir, fhirType, shrId, allEntries, mappedResources, referencesOut);
     }

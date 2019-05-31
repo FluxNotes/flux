@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.base.ParticipationType.
  */
@@ -69,7 +71,8 @@ class ParticipationType {
    * @returns {ParticipationType} An instance of ParticipationType populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new ParticipationType();
+    const klass = ClassRegistry.get('shr.base', 'ParticipationType');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class ParticipationType {
    * @returns {ParticipationType} An instance of ParticipationType populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new ParticipationType();
+    const klass = ClassRegistry.get('shr.base', 'ParticipationType');
+    const inst = new klass();
     if (asExtension) {
       inst.value = fhir['valueCodeableConcept'];
     }

@@ -11,7 +11,6 @@ import AuthoredDateTime from '../shr/base/AuthoredDateTime.js';
 import FindingResult from '../shr/base/FindingResult.js';
 
 import ClassRegistry from '../ClassRegistry';
-const Entry = ClassRegistry['shr.base']['Entry'];
 
 export default class FluxCancerProgression extends FluxEntry {
     constructor(json) {
@@ -19,6 +18,7 @@ export default class FluxCancerProgression extends FluxEntry {
 
         this._entry = this._cancerProgression = CancerProgression.fromJSON(json);
         if (!this._cancerProgression.entryInfo) {
+            const Entry = ClassRegistry.get('shr.base', 'Entry');
             let entry = new Entry();
             entry.entryType = new EntryType();
             entry.entryType.uri = 'http://standardhealthrecord.org/spec/oncocore/CancerProgression';

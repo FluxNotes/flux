@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.entity.PartOf.
  */
@@ -69,7 +71,8 @@ class PartOf {
    * @returns {PartOf} An instance of PartOf populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new PartOf();
+    const klass = ClassRegistry.get('shr.entity', 'PartOf');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class PartOf {
    * @returns {PartOf} An instance of PartOf populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new PartOf();
+    const klass = ClassRegistry.get('shr.entity', 'PartOf');
+    const inst = new klass();
     if (asExtension) {
       inst.value = fhir['valueReference'];
     }

@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../json-helper';
 
+import ClassRegistry from '../ClassRegistry';
+
 /**
  * Generated class for tumor.IsPrimaryTumor.
  */
@@ -69,7 +71,8 @@ class IsPrimaryTumor {
    * @returns {IsPrimaryTumor} An instance of IsPrimaryTumor populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new IsPrimaryTumor();
+    const klass = ClassRegistry.get('tumor', 'IsPrimaryTumor');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class IsPrimaryTumor {
    * @returns {IsPrimaryTumor} An instance of IsPrimaryTumor populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new IsPrimaryTumor();
+    const klass = ClassRegistry.get('tumor', 'IsPrimaryTumor');
+    const inst = new klass();
     if (asExtension) {
       inst.value = fhir['valueCodeableConcept'];
     }

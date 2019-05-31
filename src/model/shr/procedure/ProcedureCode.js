@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.procedure.ProcedureCode.
  */
@@ -69,7 +71,8 @@ class ProcedureCode {
    * @returns {ProcedureCode} An instance of ProcedureCode populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new ProcedureCode();
+    const klass = ClassRegistry.get('shr.procedure', 'ProcedureCode');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class ProcedureCode {
    * @returns {ProcedureCode} An instance of ProcedureCode populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new ProcedureCode();
+    const klass = ClassRegistry.get('shr.procedure', 'ProcedureCode');
+    const inst = new klass();
     if (asExtension) {
       inst.value = fhir['valueCodeableConcept'];
     }

@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.core.ContactDetail.
  */
@@ -65,7 +67,8 @@ class ContactDetail {
    * @returns {ContactDetail} An instance of ContactDetail populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new ContactDetail();
+    const klass = ClassRegistry.get('shr.core', 'ContactDetail');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -99,7 +102,8 @@ class ContactDetail {
    * @returns {ContactDetail} An instance of ContactDetail populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new ContactDetail();
+    const klass = ClassRegistry.get('shr.core', 'ContactDetail');
+    const inst = new klass();
     if (asExtension) {
       const match_3 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-HumanName-extension');
       if (match_3 != null) {

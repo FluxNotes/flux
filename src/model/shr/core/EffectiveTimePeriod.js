@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 import TimePeriod from './TimePeriod';
 
 /**
@@ -18,7 +20,8 @@ class EffectiveTimePeriod extends TimePeriod {
    * @returns {EffectiveTimePeriod} An instance of EffectiveTimePeriod populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new EffectiveTimePeriod();
+    const klass = ClassRegistry.get('shr.core', 'EffectiveTimePeriod');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -52,7 +55,8 @@ class EffectiveTimePeriod extends TimePeriod {
    * @returns {EffectiveTimePeriod} An instance of EffectiveTimePeriod populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new EffectiveTimePeriod();
+    const klass = ClassRegistry.get('shr.core', 'EffectiveTimePeriod');
+    const inst = new klass();
     if (fhir['start'] != null) {
       inst.beginDateTime = FHIRHelper.createInstanceFromFHIR('shr.core.BeginDateTime', fhir['start'], 'dateTime', shrId, allEntries, mappedResources, referencesOut, false);
     }

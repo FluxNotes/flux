@@ -19,7 +19,7 @@ export default class ShrMedicationObjectFactory {
     if (namespace !== 'shr.medication') {
       throw new Error(`Unsupported type in ShrMedicationObjectFactory: ${type}`);
     }
-    const klass = ClassRegistry['shr.medication'][elementName];
+    const klass = ClassRegistry.get('shr.medication', elementName);
     if (!klass) {
       throw new Error(`Unsupported type in ShrMedicationObjectFactory: ${type}`);
     }
@@ -38,7 +38,7 @@ export default class ShrMedicationObjectFactory {
     if (namespace !== 'shr.medication') {
       throw new Error(`Unsupported type in ShrMedicationObjectFactory: ${shrType}`);
     }
-    const klass = ClassRegistry['shr.medication'][elementName];
+    const klass = ClassRegistry.get('shr.medication', elementName);
     if (!klass) {
       throw new Error(`Unsupported type in ShrMedicationObjectFactory: ${shrType}`);
     }

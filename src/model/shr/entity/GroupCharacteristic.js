@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.entity.GroupCharacteristic.
  */
@@ -119,7 +121,8 @@ class GroupCharacteristic {
    * @returns {GroupCharacteristic} An instance of GroupCharacteristic populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new GroupCharacteristic();
+    const klass = ClassRegistry.get('shr.entity', 'GroupCharacteristic');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -159,7 +162,8 @@ class GroupCharacteristic {
    * @returns {GroupCharacteristic} An instance of GroupCharacteristic populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new GroupCharacteristic();
+    const klass = ClassRegistry.get('shr.entity', 'GroupCharacteristic');
+    const inst = new klass();
     return inst;
   }
 

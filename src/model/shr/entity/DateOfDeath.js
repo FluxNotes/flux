@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.entity.DateOfDeath.
  */
@@ -69,7 +71,8 @@ class DateOfDeath {
    * @returns {DateOfDeath} An instance of DateOfDeath populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new DateOfDeath();
+    const klass = ClassRegistry.get('shr.entity', 'DateOfDeath');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class DateOfDeath {
    * @returns {DateOfDeath} An instance of DateOfDeath populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new DateOfDeath();
+    const klass = ClassRegistry.get('shr.entity', 'DateOfDeath');
+    const inst = new klass();
     if (asExtension) {
       inst.value = fhir['valueDateTime'];
     }

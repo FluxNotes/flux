@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.base.ReferenceRange.
  */
@@ -115,7 +117,8 @@ class ReferenceRange {
    * @returns {ReferenceRange} An instance of ReferenceRange populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new ReferenceRange();
+    const klass = ClassRegistry.get('shr.base', 'ReferenceRange');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -155,7 +158,8 @@ class ReferenceRange {
    * @returns {ReferenceRange} An instance of ReferenceRange populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new ReferenceRange();
+    const klass = ClassRegistry.get('shr.base', 'ReferenceRange');
+    const inst = new klass();
     if (asExtension) {
       const match_3 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-Range-extension');
       if (match_3 != null) {

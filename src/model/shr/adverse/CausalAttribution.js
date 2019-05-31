@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.adverse.CausalAttribution.
  */
@@ -121,7 +123,8 @@ class CausalAttribution {
    * @returns {CausalAttribution} An instance of CausalAttribution populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new CausalAttribution();
+    const klass = ClassRegistry.get('shr.adverse', 'CausalAttribution');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -161,7 +164,8 @@ class CausalAttribution {
    * @returns {CausalAttribution} An instance of CausalAttribution populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new CausalAttribution();
+    const klass = ClassRegistry.get('shr.adverse', 'CausalAttribution');
+    const inst = new klass();
     if (asExtension) {
       const match_3 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-adverse-PossibleCause-extension');
       if (match_3 != null) {

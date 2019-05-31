@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../json-helper';
 
+import ClassRegistry from '../ClassRegistry';
+
 import CodedNonIndependentFinding from '../shr/base/CodedNonIndependentFinding';
 
 /**
@@ -43,7 +45,8 @@ class TumorMarginDescription extends CodedNonIndependentFinding {
    * @returns {TumorMarginDescription} An instance of TumorMarginDescription populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new TumorMarginDescription();
+    const klass = ClassRegistry.get('tumor', 'TumorMarginDescription');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -92,7 +95,8 @@ class TumorMarginDescription extends CodedNonIndependentFinding {
    * @returns {TumorMarginDescription} An instance of TumorMarginDescription populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new TumorMarginDescription();
+    const klass = ClassRegistry.get('tumor', 'TumorMarginDescription');
+    const inst = new klass();
     if (fhir['meta'] != null) {
       if (fhir['meta']['versionId'] != null) {
         inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, null, shrId);

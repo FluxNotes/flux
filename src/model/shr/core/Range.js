@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.core.Range.
  */
@@ -65,7 +67,8 @@ class Range {
    * @returns {Range} An instance of Range populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Range();
+    const klass = ClassRegistry.get('shr.core', 'Range');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -99,7 +102,8 @@ class Range {
    * @returns {Range} An instance of Range populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Range();
+    const klass = ClassRegistry.get('shr.core', 'Range');
+    const inst = new klass();
     if (fhir['low'] != null) {
       inst.lowerBound = FHIRHelper.createInstanceFromFHIR('shr.core.LowerBound', fhir['low'], 'Quantity', shrId, allEntries, mappedResources, referencesOut, false);
     }

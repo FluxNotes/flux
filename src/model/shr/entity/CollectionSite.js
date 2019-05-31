@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.entity.CollectionSite.
  */
@@ -69,7 +71,8 @@ class CollectionSite {
    * @returns {CollectionSite} An instance of CollectionSite populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new CollectionSite();
+    const klass = ClassRegistry.get('shr.entity', 'CollectionSite');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class CollectionSite {
    * @returns {CollectionSite} An instance of CollectionSite populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new CollectionSite();
+    const klass = ClassRegistry.get('shr.entity', 'CollectionSite');
+    const inst = new klass();
     if (asExtension) {
       const match_3 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-AnatomicalLocation-extension');
       if (match_3 != null) {

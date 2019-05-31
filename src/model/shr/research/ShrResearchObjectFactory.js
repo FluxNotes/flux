@@ -19,7 +19,7 @@ export default class ShrResearchObjectFactory {
     if (namespace !== 'shr.research') {
       throw new Error(`Unsupported type in ShrResearchObjectFactory: ${type}`);
     }
-    const klass = ClassRegistry['shr.research'][elementName];
+    const klass = ClassRegistry.get('shr.research', elementName);
     if (!klass) {
       throw new Error(`Unsupported type in ShrResearchObjectFactory: ${type}`);
     }
@@ -38,7 +38,7 @@ export default class ShrResearchObjectFactory {
     if (namespace !== 'shr.research') {
       throw new Error(`Unsupported type in ShrResearchObjectFactory: ${shrType}`);
     }
-    const klass = ClassRegistry['shr.research'][elementName];
+    const klass = ClassRegistry.get('shr.research', elementName);
     if (!klass) {
       throw new Error(`Unsupported type in ShrResearchObjectFactory: ${shrType}`);
     }

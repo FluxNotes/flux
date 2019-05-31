@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.base.EntryType.
  */
@@ -69,7 +71,8 @@ class EntryType {
    * @returns {EntryType} An instance of EntryType populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new EntryType();
+    const klass = ClassRegistry.get('shr.base', 'EntryType');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class EntryType {
    * @returns {EntryType} An instance of EntryType populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new EntryType();
+    const klass = ClassRegistry.get('shr.base', 'EntryType');
+    const inst = new klass();
     if (!asExtension && fhir != null) {
       inst.value = fhir;
     }

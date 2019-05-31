@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.medication.MaximumDosePerTimePeriod.
  */
@@ -69,7 +71,8 @@ class MaximumDosePerTimePeriod {
    * @returns {MaximumDosePerTimePeriod} An instance of MaximumDosePerTimePeriod populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new MaximumDosePerTimePeriod();
+    const klass = ClassRegistry.get('shr.medication', 'MaximumDosePerTimePeriod');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class MaximumDosePerTimePeriod {
    * @returns {MaximumDosePerTimePeriod} An instance of MaximumDosePerTimePeriod populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new MaximumDosePerTimePeriod();
+    const klass = ClassRegistry.get('shr.medication', 'MaximumDosePerTimePeriod');
+    const inst = new klass();
     if (!asExtension && fhir != null) {
       inst.value = FHIRHelper.createInstanceFromFHIR('shr.core.Ratio', fhir, fhirType, shrId, allEntries, mappedResources, referencesOut);
     }

@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 import Finding from '../base/Finding';
 
 /**
@@ -376,7 +378,8 @@ class AllergyIntolerance extends Finding {
    * @returns {AllergyIntolerance} An instance of AllergyIntolerance populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new AllergyIntolerance();
+    const klass = ClassRegistry.get('shr.allergy', 'AllergyIntolerance');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -459,7 +462,8 @@ class AllergyIntolerance extends Finding {
    * @returns {AllergyIntolerance} An instance of AllergyIntolerance populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new AllergyIntolerance();
+    const klass = ClassRegistry.get('shr.allergy', 'AllergyIntolerance');
+    const inst = new klass();
     inst.entryInfo = FHIRHelper.createInstanceFromFHIR('shr.base.Entry', {}, null);
     inst.entryInfo.shrId = FHIRHelper.createInstanceFromFHIR('shr.base.ShrId', shrId, 'string');
     inst.entryInfo.entryId = FHIRHelper.createInstanceFromFHIR('shr.base.EntryId', fhir['id'] || uuid(), 'string');

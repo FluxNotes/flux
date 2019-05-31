@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.procedure.InputFinding.
  */
@@ -69,7 +71,8 @@ class InputFinding {
    * @returns {InputFinding} An instance of InputFinding populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new InputFinding();
+    const klass = ClassRegistry.get('shr.procedure', 'InputFinding');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class InputFinding {
    * @returns {InputFinding} An instance of InputFinding populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new InputFinding();
+    const klass = ClassRegistry.get('shr.procedure', 'InputFinding');
+    const inst = new klass();
     if (!asExtension && fhir != null) {
       inst.value = FHIRHelper.createInstanceFromFHIR('shr.base.Observation', fhir, fhirType, shrId, allEntries, mappedResources, referencesOut);
     }

@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../json-helper';
 
+import ClassRegistry from '../ClassRegistry';
+
 import LaboratoryObservation from '../shr/base/LaboratoryObservation';
 
 /**
@@ -195,7 +197,8 @@ class TumorMarker extends LaboratoryObservation {
    * @returns {TumorMarker} An instance of TumorMarker populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new TumorMarker();
+    const klass = ClassRegistry.get('oncocore', 'TumorMarker');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -287,7 +290,8 @@ class TumorMarker extends LaboratoryObservation {
    * @returns {TumorMarker} An instance of TumorMarker populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new TumorMarker();
+    const klass = ClassRegistry.get('oncocore', 'TumorMarker');
+    const inst = new klass();
     inst.entryInfo = FHIRHelper.createInstanceFromFHIR('shr.base.Entry', {}, null);
     inst.entryInfo.shrId = FHIRHelper.createInstanceFromFHIR('shr.base.ShrId', shrId, 'string');
     inst.entryInfo.entryId = FHIRHelper.createInstanceFromFHIR('shr.base.EntryId', fhir['id'] || uuid(), 'string');

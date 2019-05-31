@@ -5,7 +5,7 @@ export default class CodeableConceptFix extends CodeableConcept {
   
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     if (typeof fhir === 'string') {
-      const inst = new CodeableConcept();
+      const inst = new CodeableConceptFix();
 
       inst.coding = inst.coding || [];
       const inst_coding = FHIRHelper.createInstanceFromFHIR('shr.core.Coding', fhir, 'Coding', shrId, allEntries, mappedResources, referencesOut, false);
@@ -15,7 +15,7 @@ export default class CodeableConceptFix extends CodeableConcept {
 
       return inst;
     } else {
-      return CodeableConcept.fromFHIR(fhir, fhirType, shrId, allEntries, mappedResources, referencesOut, asExtension);
+      return super.fromFHIR(fhir, fhirType, shrId, allEntries, mappedResources, referencesOut, asExtension);
     }
   }
 }

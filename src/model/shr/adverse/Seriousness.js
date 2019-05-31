@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.adverse.Seriousness.
  */
@@ -69,7 +71,8 @@ class Seriousness {
    * @returns {Seriousness} An instance of Seriousness populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Seriousness();
+    const klass = ClassRegistry.get('shr.adverse', 'Seriousness');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class Seriousness {
    * @returns {Seriousness} An instance of Seriousness populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Seriousness();
+    const klass = ClassRegistry.get('shr.adverse', 'Seriousness');
+    const inst = new klass();
     if (asExtension) {
       inst.value = fhir['valueCodeableConcept'];
     }

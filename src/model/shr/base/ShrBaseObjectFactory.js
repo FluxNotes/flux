@@ -19,7 +19,7 @@ export default class ShrBaseObjectFactory {
     if (namespace !== 'shr.base') {
       throw new Error(`Unsupported type in ShrBaseObjectFactory: ${type}`);
     }
-    const klass = ClassRegistry['shr.base'][elementName];
+    const klass = ClassRegistry.get('shr.base', elementName);
     if (!klass) {
       throw new Error(`Unsupported type in ShrBaseObjectFactory: ${type}`);
     }
@@ -38,7 +38,7 @@ export default class ShrBaseObjectFactory {
     if (namespace !== 'shr.base') {
       throw new Error(`Unsupported type in ShrBaseObjectFactory: ${shrType}`);
     }
-    const klass = ClassRegistry['shr.base'][elementName];
+    const klass = ClassRegistry.get('shr.base', elementName);
     if (!klass) {
       throw new Error(`Unsupported type in ShrBaseObjectFactory: ${shrType}`);
     }

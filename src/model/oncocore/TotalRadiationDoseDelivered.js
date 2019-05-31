@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../json-helper';
 
+import ClassRegistry from '../ClassRegistry';
+
 /**
  * Generated class for oncocore.TotalRadiationDoseDelivered.
  */
@@ -69,7 +71,8 @@ class TotalRadiationDoseDelivered {
    * @returns {TotalRadiationDoseDelivered} An instance of TotalRadiationDoseDelivered populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new TotalRadiationDoseDelivered();
+    const klass = ClassRegistry.get('oncocore', 'TotalRadiationDoseDelivered');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class TotalRadiationDoseDelivered {
    * @returns {TotalRadiationDoseDelivered} An instance of TotalRadiationDoseDelivered populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new TotalRadiationDoseDelivered();
+    const klass = ClassRegistry.get('oncocore', 'TotalRadiationDoseDelivered');
+    const inst = new klass();
     if (asExtension) {
       inst.value = fhir['valueQuantity'];
       inst.value = fhir['valueQuantity'];

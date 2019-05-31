@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.base.CommunicationMethod.
  */
@@ -69,7 +71,8 @@ class CommunicationMethod {
    * @returns {CommunicationMethod} An instance of CommunicationMethod populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new CommunicationMethod();
+    const klass = ClassRegistry.get('shr.base', 'CommunicationMethod');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class CommunicationMethod {
    * @returns {CommunicationMethod} An instance of CommunicationMethod populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new CommunicationMethod();
+    const klass = ClassRegistry.get('shr.base', 'CommunicationMethod');
+    const inst = new klass();
     if (asExtension) {
       inst.value = fhir['valueCodeableConcept'];
     }

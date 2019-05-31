@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../json-helper';
 
+import ClassRegistry from '../ClassRegistry';
+
 import SimpleLaboratoryObservation from '../shr/base/SimpleLaboratoryObservation';
 
 /**
@@ -145,7 +147,8 @@ class OncotypeDxInvasiveRecurrenceScore extends SimpleLaboratoryObservation {
    * @returns {OncotypeDxInvasiveRecurrenceScore} An instance of OncotypeDxInvasiveRecurrenceScore populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new OncotypeDxInvasiveRecurrenceScore();
+    const klass = ClassRegistry.get('brca', 'OncotypeDxInvasiveRecurrenceScore');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -237,7 +240,8 @@ class OncotypeDxInvasiveRecurrenceScore extends SimpleLaboratoryObservation {
    * @returns {OncotypeDxInvasiveRecurrenceScore} An instance of OncotypeDxInvasiveRecurrenceScore populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new OncotypeDxInvasiveRecurrenceScore();
+    const klass = ClassRegistry.get('brca', 'OncotypeDxInvasiveRecurrenceScore');
+    const inst = new klass();
     inst.entryInfo = FHIRHelper.createInstanceFromFHIR('shr.base.Entry', {}, null);
     inst.entryInfo.shrId = FHIRHelper.createInstanceFromFHIR('shr.base.ShrId', shrId, 'string');
     inst.entryInfo.entryId = FHIRHelper.createInstanceFromFHIR('shr.base.EntryId', fhir['id'] || uuid(), 'string');

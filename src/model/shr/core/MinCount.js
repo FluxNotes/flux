@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.core.MinCount.
  */
@@ -69,7 +71,8 @@ class MinCount {
    * @returns {MinCount} An instance of MinCount populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new MinCount();
+    const klass = ClassRegistry.get('shr.core', 'MinCount');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class MinCount {
    * @returns {MinCount} An instance of MinCount populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new MinCount();
+    const klass = ClassRegistry.get('shr.core', 'MinCount');
+    const inst = new klass();
     if (!asExtension && fhir != null) {
       inst.value = fhir;
     }

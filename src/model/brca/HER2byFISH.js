@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../json-helper';
 
+import ClassRegistry from '../ClassRegistry';
+
 import LaboratoryObservation from '../shr/base/LaboratoryObservation';
 
 /**
@@ -245,7 +247,8 @@ class HER2byFISH extends LaboratoryObservation {
    * @returns {HER2byFISH} An instance of HER2byFISH populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new HER2byFISH();
+    const klass = ClassRegistry.get('brca', 'HER2byFISH');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -337,7 +340,8 @@ class HER2byFISH extends LaboratoryObservation {
    * @returns {HER2byFISH} An instance of HER2byFISH populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new HER2byFISH();
+    const klass = ClassRegistry.get('brca', 'HER2byFISH');
+    const inst = new klass();
     inst.entryInfo = FHIRHelper.createInstanceFromFHIR('shr.base.Entry', {}, null);
     inst.entryInfo.shrId = FHIRHelper.createInstanceFromFHIR('shr.base.ShrId', shrId, 'string');
     inst.entryInfo.entryId = FHIRHelper.createInstanceFromFHIR('shr.base.EntryId', fhir['id'] || uuid(), 'string');

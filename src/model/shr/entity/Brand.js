@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.entity.Brand.
  */
@@ -67,7 +69,8 @@ class Brand {
    * @returns {Brand} An instance of Brand populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Brand();
+    const klass = ClassRegistry.get('shr.entity', 'Brand');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -101,7 +104,8 @@ class Brand {
    * @returns {Brand} An instance of Brand populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Brand();
+    const klass = ClassRegistry.get('shr.entity', 'Brand');
+    const inst = new klass();
     return inst;
   }
 

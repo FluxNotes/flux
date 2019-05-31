@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 import ActionStatement from './ActionStatement';
 
 /**
@@ -70,7 +72,8 @@ class ActionNotPerformed extends ActionStatement {
    * @returns {ActionNotPerformed} An instance of ActionNotPerformed populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new ActionNotPerformed();
+    const klass = ClassRegistry.get('shr.base', 'ActionNotPerformed');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -125,7 +128,8 @@ class ActionNotPerformed extends ActionStatement {
    * @returns {ActionNotPerformed} An instance of ActionNotPerformed populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new ActionNotPerformed();
+    const klass = ClassRegistry.get('shr.base', 'ActionNotPerformed');
+    const inst = new klass();
     if (fhir['meta'] != null) {
       if (fhir['meta']['versionId'] != null) {
         inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, null, shrId);

@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.entity.PassportInformation.
  */
@@ -94,7 +96,8 @@ class PassportInformation {
    * @returns {PassportInformation} An instance of PassportInformation populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new PassportInformation();
+    const klass = ClassRegistry.get('shr.entity', 'PassportInformation');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -131,7 +134,8 @@ class PassportInformation {
    * @returns {PassportInformation} An instance of PassportInformation populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new PassportInformation();
+    const klass = ClassRegistry.get('shr.entity', 'PassportInformation');
+    const inst = new klass();
     return inst;
   }
 

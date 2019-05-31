@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.procedure.UsingDeviceCode.
  */
@@ -69,7 +71,8 @@ class UsingDeviceCode {
    * @returns {UsingDeviceCode} An instance of UsingDeviceCode populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new UsingDeviceCode();
+    const klass = ClassRegistry.get('shr.procedure', 'UsingDeviceCode');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class UsingDeviceCode {
    * @returns {UsingDeviceCode} An instance of UsingDeviceCode populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new UsingDeviceCode();
+    const klass = ClassRegistry.get('shr.procedure', 'UsingDeviceCode');
+    const inst = new klass();
     if (asExtension) {
       inst.value = fhir['valueCodeableConcept'];
     }

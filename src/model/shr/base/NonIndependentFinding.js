@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 import InformationItem from './InformationItem';
 
 /**
@@ -120,7 +122,8 @@ class NonIndependentFinding extends InformationItem {
    * @returns {NonIndependentFinding} An instance of NonIndependentFinding populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new NonIndependentFinding();
+    const klass = ClassRegistry.get('shr.base', 'NonIndependentFinding');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -169,7 +172,8 @@ class NonIndependentFinding extends InformationItem {
    * @returns {NonIndependentFinding} An instance of NonIndependentFinding populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new NonIndependentFinding();
+    const klass = ClassRegistry.get('shr.base', 'NonIndependentFinding');
+    const inst = new klass();
     if (fhir['meta'] != null) {
       if (fhir['meta']['versionId'] != null) {
         inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, null, shrId);

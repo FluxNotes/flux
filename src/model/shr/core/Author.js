@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.core.Author.
  */
@@ -42,7 +44,8 @@ class Author {
    * @returns {Author} An instance of Author populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Author();
+    const klass = ClassRegistry.get('shr.core', 'Author');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -73,7 +76,8 @@ class Author {
    * @returns {Author} An instance of Author populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Author();
+    const klass = ClassRegistry.get('shr.core', 'Author');
+    const inst = new klass();
     if (!asExtension && fhir != null) {
       inst.value = FHIRHelper.createInstanceFromFHIR(null, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut);
     }

@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.entity.Capacity.
  */
@@ -69,7 +71,8 @@ class Capacity {
    * @returns {Capacity} An instance of Capacity populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Capacity();
+    const klass = ClassRegistry.get('shr.entity', 'Capacity');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class Capacity {
    * @returns {Capacity} An instance of Capacity populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Capacity();
+    const klass = ClassRegistry.get('shr.entity', 'Capacity');
+    const inst = new klass();
     if (asExtension) {
       inst.value = fhir['valueQuantity'];
     }

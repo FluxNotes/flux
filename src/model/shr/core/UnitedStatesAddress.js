@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 import Address from './Address';
 
 /**
@@ -72,7 +74,8 @@ class UnitedStatesAddress extends Address {
    * @returns {UnitedStatesAddress} An instance of UnitedStatesAddress populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new UnitedStatesAddress();
+    const klass = ClassRegistry.get('shr.core', 'UnitedStatesAddress');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -130,7 +133,8 @@ class UnitedStatesAddress extends Address {
    * @returns {UnitedStatesAddress} An instance of UnitedStatesAddress populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new UnitedStatesAddress();
+    const klass = ClassRegistry.get('shr.core', 'UnitedStatesAddress');
+    const inst = new klass();
     if (fhir['use'] != null) {
       inst.purpose = FHIRHelper.createInstanceFromFHIR('shr.core.Purpose', fhir['use'], 'code', shrId, allEntries, mappedResources, referencesOut, false);
     }

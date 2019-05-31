@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.core.CodeableConcept.
  */
@@ -65,7 +67,8 @@ class CodeableConcept {
    * @returns {CodeableConcept} An instance of CodeableConcept populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new CodeableConcept();
+    const klass = ClassRegistry.get('shr.core', 'CodeableConcept');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -99,7 +102,8 @@ class CodeableConcept {
    * @returns {CodeableConcept} An instance of CodeableConcept populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new CodeableConcept();
+    const klass = ClassRegistry.get('shr.core', 'CodeableConcept');
+    const inst = new klass();
     for (const fhir_coding of fhir['coding'] || []) {
       inst.coding = inst.coding || [];
       const inst_coding = FHIRHelper.createInstanceFromFHIR('shr.core.Coding', fhir_coding, 'Coding', shrId, allEntries, mappedResources, referencesOut, false);

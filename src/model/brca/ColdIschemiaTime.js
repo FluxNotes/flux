@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../json-helper';
 
+import ClassRegistry from '../ClassRegistry';
+
 /**
  * Generated class for brca.ColdIschemiaTime.
  */
@@ -69,7 +71,8 @@ class ColdIschemiaTime {
    * @returns {ColdIschemiaTime} An instance of ColdIschemiaTime populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new ColdIschemiaTime();
+    const klass = ClassRegistry.get('brca', 'ColdIschemiaTime');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class ColdIschemiaTime {
    * @returns {ColdIschemiaTime} An instance of ColdIschemiaTime populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new ColdIschemiaTime();
+    const klass = ClassRegistry.get('brca', 'ColdIschemiaTime');
+    const inst = new klass();
     if (asExtension) {
       inst.value = fhir['valuePeriod'];
     }

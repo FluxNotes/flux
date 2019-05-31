@@ -19,7 +19,7 @@ export default class OncocoreObjectFactory {
     if (namespace !== 'oncocore') {
       throw new Error(`Unsupported type in OncocoreObjectFactory: ${type}`);
     }
-    const klass = ClassRegistry['oncocore'][elementName];
+    const klass = ClassRegistry.get('oncocore', elementName);
     if (!klass) {
       throw new Error(`Unsupported type in OncocoreObjectFactory: ${type}`);
     }
@@ -38,7 +38,7 @@ export default class OncocoreObjectFactory {
     if (namespace !== 'oncocore') {
       throw new Error(`Unsupported type in OncocoreObjectFactory: ${shrType}`);
     }
-    const klass = ClassRegistry['oncocore'][elementName];
+    const klass = ClassRegistry.get('oncocore', elementName);
     if (!klass) {
       throw new Error(`Unsupported type in OncocoreObjectFactory: ${shrType}`);
     }

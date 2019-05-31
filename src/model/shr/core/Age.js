@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 import Quantity from './Quantity';
 
 /**
@@ -43,7 +45,8 @@ class Age extends Quantity {
    * @returns {Age} An instance of Age populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Age();
+    const klass = ClassRegistry.get('shr.core', 'Age');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -80,7 +83,8 @@ class Age extends Quantity {
    * @returns {Age} An instance of Age populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Age();
+    const klass = ClassRegistry.get('shr.core', 'Age');
+    const inst = new klass();
     if (fhir['value'] != null) {
       inst.number = FHIRHelper.createInstanceFromFHIR('shr.core.Number', fhir['value'], 'decimal', shrId, allEntries, mappedResources, referencesOut, false);
     }

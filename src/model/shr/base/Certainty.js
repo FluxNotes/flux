@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.base.Certainty.
  */
@@ -69,7 +71,8 @@ class Certainty {
    * @returns {Certainty} An instance of Certainty populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Certainty();
+    const klass = ClassRegistry.get('shr.base', 'Certainty');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class Certainty {
    * @returns {Certainty} An instance of Certainty populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Certainty();
+    const klass = ClassRegistry.get('shr.base', 'Certainty');
+    const inst = new klass();
     if (asExtension) {
       inst.value = fhir['valueCodeableConcept'];
     }

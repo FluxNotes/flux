@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.research.StudyArm.
  */
@@ -92,7 +94,8 @@ class StudyArm {
    * @returns {StudyArm} An instance of StudyArm populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new StudyArm();
+    const klass = ClassRegistry.get('shr.research', 'StudyArm');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -129,7 +132,8 @@ class StudyArm {
    * @returns {StudyArm} An instance of StudyArm populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new StudyArm();
+    const klass = ClassRegistry.get('shr.research', 'StudyArm');
+    const inst = new klass();
     if (asExtension) {
       const match_3 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-Title-extension');
       if (match_3 != null) {

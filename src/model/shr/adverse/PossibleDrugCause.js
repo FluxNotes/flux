@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 import PossibleCause from './PossibleCause';
 
 /**
@@ -45,7 +47,8 @@ class PossibleDrugCause extends PossibleCause {
    * @returns {PossibleDrugCause} An instance of PossibleDrugCause populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new PossibleDrugCause();
+    const klass = ClassRegistry.get('shr.adverse', 'PossibleDrugCause');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -76,7 +79,8 @@ class PossibleDrugCause extends PossibleCause {
    * @returns {PossibleDrugCause} An instance of PossibleDrugCause populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new PossibleDrugCause();
+    const klass = ClassRegistry.get('shr.adverse', 'PossibleDrugCause');
+    const inst = new klass();
     if (!asExtension && fhir != null) {
       inst.value = FHIRHelper.createInstanceFromFHIR(null, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut);
     }

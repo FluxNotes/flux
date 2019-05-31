@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.entity.MothersMaidenName.
  */
@@ -69,7 +71,8 @@ class MothersMaidenName {
    * @returns {MothersMaidenName} An instance of MothersMaidenName populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new MothersMaidenName();
+    const klass = ClassRegistry.get('shr.entity', 'MothersMaidenName');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class MothersMaidenName {
    * @returns {MothersMaidenName} An instance of MothersMaidenName populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new MothersMaidenName();
+    const klass = ClassRegistry.get('shr.entity', 'MothersMaidenName');
+    const inst = new klass();
     if (!asExtension && fhir != null) {
       inst.value = FHIRHelper.createInstanceFromFHIR('shr.core.HumanName', fhir, fhirType, shrId, allEntries, mappedResources, referencesOut);
     }

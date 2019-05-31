@@ -1,11 +1,5 @@
 import Reference from './Reference';
-
-import ShrId from './shr/base/ShrId';
-import EntryId from './shr/base/EntryId';
-import EntryType from './shr/base/EntryType';
-
 import { ALL_KNOWN_VALUE_SETS } from './valueSets';
-
 
 // A variable to hold the root ObjectFactory.  This can be set via the exported setObjectFactory function,
 // but should typically be set by importing the module's init file.
@@ -25,7 +19,7 @@ export function setObjectFactory(factory) {
 /**
  * Parses the JSON and/or type to return an object with the namespace and elementName.
  * @param {Object} json - The element data in JSON format (use `{}` and provide `type` for a blank instance)
- * @param {string} [type] - The (optional) type of the element (e.g., 'http://standardhealthrecord.org/spec/shr/demographics/PersonOfRecord').  This is only used if the type cannot be extracted from the JSON.
+ * @param {string} [type] - The (optional) type of the element (e.g., 'http://standardhealthrecord.org/spec/shr/base/Patient' or 'shr.base.Patient').  This is only used if the type cannot be extracted from the JSON.
  * @returns {{namespace: string, elementName: string}} An object representing the element
  */
 export function getNamespaceAndName(json={}, type) {
@@ -44,6 +38,12 @@ export function getNamespaceAndName(json={}, type) {
   if (uriMatch) {
     const namespace = uriMatch[1].split('/').join('.');
     const elementName = uriMatch[2];
+    return { namespace, elementName };
+  } else if (type.indexOf('.') !== -1) {
+    // assume it's of the form namespace.ClassName
+    const lastDot = type.lastIndexOf('.');
+    const namespace = type.slice(0, lastDot);
+    const elementName = type.slice(lastDot + 1); // don't include the dot
     return { namespace, elementName };
   }
   // No match, so throw an error
@@ -154,7 +154,8 @@ function findSetterForEntryProperty(inst, property) {
   if (entryInfoSetter) {
     // Now see if there is an existing entryInfo, and if not, set it to a new instance
     if (typeof inst.entryInfo === 'undefined') {
-      entryInfoSetter.call(inst, createInstance('http://standardhealthrecord.org/spec/shr/base/Entry', {}));
+      const newEntry = createInstance('shr.base.Entry', {});
+      entryInfoSetter.call(inst, newEntry);
     }
     // Now find the setter for the property on the entry
     return findSetterForProperty(inst.entryInfo, property);
@@ -229,11 +230,11 @@ export const FHIRHelper = {
   },
 
   createReferenceWithoutObject: function(shrId, entryId, entryType) {
-    return new Reference(
-      new ShrId().withValue(shrId),
-      new EntryId().withValue(entryId),
-      new EntryType().withValue(entryType)
-    );
+     return new Reference(
+      createInstance('shr.base.ShrId', { Value: shrId }),
+      createInstance('shr.base.EntryId', { Value: entryId }),
+      createInstance('shr.base.EntryType', { Value: entryType })
+     );
   },
 
   /**

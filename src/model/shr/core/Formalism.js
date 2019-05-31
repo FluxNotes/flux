@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.core.Formalism.
  */
@@ -69,7 +71,8 @@ class Formalism {
    * @returns {Formalism} An instance of Formalism populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Formalism();
+    const klass = ClassRegistry.get('shr.core', 'Formalism');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class Formalism {
    * @returns {Formalism} An instance of Formalism populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Formalism();
+    const klass = ClassRegistry.get('shr.core', 'Formalism');
+    const inst = new klass();
     if (!asExtension && fhir != null) {
       inst.value = FHIRHelper.createInstanceFromFHIR('shr.core.CodeableConcept', fhir, fhirType, shrId, allEntries, mappedResources, referencesOut);
     }

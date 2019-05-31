@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.medication.NumberOfRefillsAllowed.
  */
@@ -69,7 +71,8 @@ class NumberOfRefillsAllowed {
    * @returns {NumberOfRefillsAllowed} An instance of NumberOfRefillsAllowed populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new NumberOfRefillsAllowed();
+    const klass = ClassRegistry.get('shr.medication', 'NumberOfRefillsAllowed');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class NumberOfRefillsAllowed {
    * @returns {NumberOfRefillsAllowed} An instance of NumberOfRefillsAllowed populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new NumberOfRefillsAllowed();
+    const klass = ClassRegistry.get('shr.medication', 'NumberOfRefillsAllowed');
+    const inst = new klass();
     if (!asExtension && fhir != null) {
       inst.value = fhir;
     }

@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.core.CountPerInterval.
  */
@@ -65,7 +67,8 @@ class CountPerInterval {
    * @returns {CountPerInterval} An instance of CountPerInterval populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new CountPerInterval();
+    const klass = ClassRegistry.get('shr.core', 'CountPerInterval');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -99,7 +102,8 @@ class CountPerInterval {
    * @returns {CountPerInterval} An instance of CountPerInterval populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new CountPerInterval();
+    const klass = ClassRegistry.get('shr.core', 'CountPerInterval');
+    const inst = new klass();
     return inst;
   }
 

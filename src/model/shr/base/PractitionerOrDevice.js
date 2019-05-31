@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 import Requester from './Requester';
 
 /**
@@ -45,7 +47,8 @@ class PractitionerOrDevice extends Requester {
    * @returns {PractitionerOrDevice} An instance of PractitionerOrDevice populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new PractitionerOrDevice();
+    const klass = ClassRegistry.get('shr.base', 'PractitionerOrDevice');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -76,7 +79,8 @@ class PractitionerOrDevice extends Requester {
    * @returns {PractitionerOrDevice} An instance of PractitionerOrDevice populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new PractitionerOrDevice();
+    const klass = ClassRegistry.get('shr.base', 'PractitionerOrDevice');
+    const inst = new klass();
     if (!asExtension && fhir != null) {
       inst.value = FHIRHelper.createInstanceFromFHIR(null, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut);
     }

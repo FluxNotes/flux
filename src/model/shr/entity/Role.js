@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 import EntityOrRole from './EntityOrRole';
 
 /**
@@ -18,7 +20,8 @@ class Role extends EntityOrRole {
    * @returns {Role} An instance of Role populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Role();
+    const klass = ClassRegistry.get('shr.entity', 'Role');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -55,7 +58,8 @@ class Role extends EntityOrRole {
    * @returns {Role} An instance of Role populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Role();
+    const klass = ClassRegistry.get('shr.entity', 'Role');
+    const inst = new klass();
     if (fhir['meta'] != null) {
       if (fhir['meta']['versionId'] != null) {
         inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, null, shrId);

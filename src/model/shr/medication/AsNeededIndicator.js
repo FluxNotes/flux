@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.medication.AsNeededIndicator.
  */
@@ -42,7 +44,8 @@ class AsNeededIndicator {
    * @returns {AsNeededIndicator} An instance of AsNeededIndicator populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new AsNeededIndicator();
+    const klass = ClassRegistry.get('shr.medication', 'AsNeededIndicator');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -73,7 +76,8 @@ class AsNeededIndicator {
    * @returns {AsNeededIndicator} An instance of AsNeededIndicator populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new AsNeededIndicator();
+    const klass = ClassRegistry.get('shr.medication', 'AsNeededIndicator');
+    const inst = new klass();
     if (!asExtension && fhir != null) {
       inst.value = FHIRHelper.createInstanceFromFHIR(null, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut);
     }

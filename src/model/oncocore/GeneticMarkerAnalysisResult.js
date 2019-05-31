@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../json-helper';
 
+import ClassRegistry from '../ClassRegistry';
+
 import LaboratoryObservation from '../shr/base/LaboratoryObservation';
 
 /**
@@ -345,7 +347,8 @@ class GeneticMarkerAnalysisResult extends LaboratoryObservation {
    * @returns {GeneticMarkerAnalysisResult} An instance of GeneticMarkerAnalysisResult populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new GeneticMarkerAnalysisResult();
+    const klass = ClassRegistry.get('oncocore', 'GeneticMarkerAnalysisResult');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -454,7 +457,8 @@ class GeneticMarkerAnalysisResult extends LaboratoryObservation {
    * @returns {GeneticMarkerAnalysisResult} An instance of GeneticMarkerAnalysisResult populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new GeneticMarkerAnalysisResult();
+    const klass = ClassRegistry.get('oncocore', 'GeneticMarkerAnalysisResult');
+    const inst = new klass();
     if (fhir['meta'] != null) {
       if (fhir['meta']['versionId'] != null) {
         inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, null, shrId);

@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 import CodedNonIndependentFinding from '../base/CodedNonIndependentFinding';
 
 /**
@@ -70,7 +72,8 @@ class MedicationNonAdherenceReason extends CodedNonIndependentFinding {
    * @returns {MedicationNonAdherenceReason} An instance of MedicationNonAdherenceReason populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new MedicationNonAdherenceReason();
+    const klass = ClassRegistry.get('shr.medication', 'MedicationNonAdherenceReason');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -119,7 +122,8 @@ class MedicationNonAdherenceReason extends CodedNonIndependentFinding {
    * @returns {MedicationNonAdherenceReason} An instance of MedicationNonAdherenceReason populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new MedicationNonAdherenceReason();
+    const klass = ClassRegistry.get('shr.medication', 'MedicationNonAdherenceReason');
+    const inst = new klass();
     if (fhir['meta'] != null) {
       if (fhir['meta']['versionId'] != null) {
         inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, null, shrId);

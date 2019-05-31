@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.procedure.ImagingSubstance.
  */
@@ -69,7 +71,8 @@ class ImagingSubstance {
    * @returns {ImagingSubstance} An instance of ImagingSubstance populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new ImagingSubstance();
+    const klass = ClassRegistry.get('shr.procedure', 'ImagingSubstance');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class ImagingSubstance {
    * @returns {ImagingSubstance} An instance of ImagingSubstance populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new ImagingSubstance();
+    const klass = ClassRegistry.get('shr.procedure', 'ImagingSubstance');
+    const inst = new klass();
     if (asExtension) {
       inst.value = fhir['valueCodeableConcept'];
     }

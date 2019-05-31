@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.core.SampledData.
  */
@@ -198,7 +200,8 @@ class SampledData {
    * @returns {SampledData} An instance of SampledData populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new SampledData();
+    const klass = ClassRegistry.get('shr.core', 'SampledData');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -247,7 +250,8 @@ class SampledData {
    * @returns {SampledData} An instance of SampledData populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new SampledData();
+    const klass = ClassRegistry.get('shr.core', 'SampledData');
+    const inst = new klass();
     if (fhir['origin'] != null) {
       inst.origin = FHIRHelper.createInstanceFromFHIR('shr.core.Origin', fhir['origin'], 'Quantity', shrId, allEntries, mappedResources, referencesOut, false);
     }

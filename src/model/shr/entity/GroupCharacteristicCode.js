@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.entity.GroupCharacteristicCode.
  */
@@ -69,7 +71,8 @@ class GroupCharacteristicCode {
    * @returns {GroupCharacteristicCode} An instance of GroupCharacteristicCode populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new GroupCharacteristicCode();
+    const klass = ClassRegistry.get('shr.entity', 'GroupCharacteristicCode');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class GroupCharacteristicCode {
    * @returns {GroupCharacteristicCode} An instance of GroupCharacteristicCode populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new GroupCharacteristicCode();
+    const klass = ClassRegistry.get('shr.entity', 'GroupCharacteristicCode');
+    const inst = new klass();
     if (!asExtension && fhir != null) {
       inst.value = FHIRHelper.createInstanceFromFHIR('shr.core.CodeableConcept', fhir, fhirType, shrId, allEntries, mappedResources, referencesOut);
     }

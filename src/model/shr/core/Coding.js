@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.core.Coding.
  */
@@ -115,7 +117,8 @@ class Coding {
    * @returns {Coding} An instance of Coding populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Coding();
+    const klass = ClassRegistry.get('shr.core', 'Coding');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -155,7 +158,8 @@ class Coding {
    * @returns {Coding} An instance of Coding populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Coding();
+    const klass = ClassRegistry.get('shr.core', 'Coding');
+    const inst = new klass();
     if (fhir['system'] != null) {
       inst.codeSystem = FHIRHelper.createInstanceFromFHIR('shr.core.CodeSystem', fhir['system'], 'uri', shrId, allEntries, mappedResources, referencesOut, false);
     }

@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../json-helper';
 
+import ClassRegistry from '../ClassRegistry';
+
 import TNMStagePanelMember from './TNMStagePanelMember';
 
 /**
@@ -147,7 +149,8 @@ class TNMClinicalStageGroup extends TNMStagePanelMember {
    * @returns {TNMClinicalStageGroup} An instance of TNMClinicalStageGroup populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new TNMClinicalStageGroup();
+    const klass = ClassRegistry.get('oncocore', 'TNMClinicalStageGroup');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -242,7 +245,8 @@ class TNMClinicalStageGroup extends TNMStagePanelMember {
    * @returns {TNMClinicalStageGroup} An instance of TNMClinicalStageGroup populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new TNMClinicalStageGroup();
+    const klass = ClassRegistry.get('oncocore', 'TNMClinicalStageGroup');
+    const inst = new klass();
     inst.entryInfo = FHIRHelper.createInstanceFromFHIR('shr.base.Entry', {}, null);
     inst.entryInfo.shrId = FHIRHelper.createInstanceFromFHIR('shr.base.ShrId', shrId, 'string');
     inst.entryInfo.entryId = FHIRHelper.createInstanceFromFHIR('shr.base.EntryId', fhir['id'] || uuid(), 'string');

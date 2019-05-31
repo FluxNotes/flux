@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 import ProcedurePerformed from './ProcedurePerformed';
 
 /**
@@ -120,7 +122,8 @@ class LaboratoryProcedurePerformed extends ProcedurePerformed {
    * @returns {LaboratoryProcedurePerformed} An instance of LaboratoryProcedurePerformed populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new LaboratoryProcedurePerformed();
+    const klass = ClassRegistry.get('shr.procedure', 'LaboratoryProcedurePerformed');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -209,7 +212,8 @@ class LaboratoryProcedurePerformed extends ProcedurePerformed {
    * @returns {LaboratoryProcedurePerformed} An instance of LaboratoryProcedurePerformed populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new LaboratoryProcedurePerformed();
+    const klass = ClassRegistry.get('shr.procedure', 'LaboratoryProcedurePerformed');
+    const inst = new klass();
     inst.entryInfo = FHIRHelper.createInstanceFromFHIR('shr.base.Entry', {}, null);
     inst.entryInfo.shrId = FHIRHelper.createInstanceFromFHIR('shr.base.ShrId', shrId, 'string');
     inst.entryInfo.entryId = FHIRHelper.createInstanceFromFHIR('shr.base.EntryId', fhir['id'] || uuid(), 'string');

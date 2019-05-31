@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.entity.MemberParticipation.
  */
@@ -94,7 +96,8 @@ class MemberParticipation {
    * @returns {MemberParticipation} An instance of MemberParticipation populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new MemberParticipation();
+    const klass = ClassRegistry.get('shr.entity', 'MemberParticipation');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -131,7 +134,8 @@ class MemberParticipation {
    * @returns {MemberParticipation} An instance of MemberParticipation populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new MemberParticipation();
+    const klass = ClassRegistry.get('shr.entity', 'MemberParticipation');
+    const inst = new klass();
     return inst;
   }
 

@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.procedure.DirectSite.
  */
@@ -69,7 +71,8 @@ class DirectSite {
    * @returns {DirectSite} An instance of DirectSite populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new DirectSite();
+    const klass = ClassRegistry.get('shr.procedure', 'DirectSite');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class DirectSite {
    * @returns {DirectSite} An instance of DirectSite populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new DirectSite();
+    const klass = ClassRegistry.get('shr.procedure', 'DirectSite');
+    const inst = new klass();
     if (!asExtension && fhir != null) {
       inst.value = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocation', fhir, fhirType, shrId, allEntries, mappedResources, referencesOut);
     }

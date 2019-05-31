@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 import Name from './Name';
 
 /**
@@ -168,7 +170,8 @@ class PersonName extends Name {
    * @returns {PersonName} An instance of PersonName populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new PersonName();
+    const klass = ClassRegistry.get('shr.core', 'PersonName');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -220,7 +223,8 @@ class PersonName extends Name {
    * @returns {PersonName} An instance of PersonName populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new PersonName();
+    const klass = ClassRegistry.get('shr.core', 'PersonName');
+    const inst = new klass();
     return inst;
   }
 

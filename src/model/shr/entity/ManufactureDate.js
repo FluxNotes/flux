@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.entity.ManufactureDate.
  */
@@ -69,7 +71,8 @@ class ManufactureDate {
    * @returns {ManufactureDate} An instance of ManufactureDate populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new ManufactureDate();
+    const klass = ClassRegistry.get('shr.entity', 'ManufactureDate');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class ManufactureDate {
    * @returns {ManufactureDate} An instance of ManufactureDate populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new ManufactureDate();
+    const klass = ClassRegistry.get('shr.entity', 'ManufactureDate');
+    const inst = new klass();
     if (!asExtension && fhir != null) {
       inst.value = fhir;
     }

@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 import Entity from './Entity';
 
 /**
@@ -222,7 +224,8 @@ class Group extends Entity {
    * @returns {Group} An instance of Group populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Group();
+    const klass = ClassRegistry.get('shr.entity', 'Group');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -284,7 +287,8 @@ class Group extends Entity {
    * @returns {Group} An instance of Group populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Group();
+    const klass = ClassRegistry.get('shr.entity', 'Group');
+    const inst = new klass();
     inst.entryInfo = FHIRHelper.createInstanceFromFHIR('shr.base.Entry', {}, null);
     inst.entryInfo.shrId = FHIRHelper.createInstanceFromFHIR('shr.base.ShrId', shrId, 'string');
     inst.entryInfo.entryId = FHIRHelper.createInstanceFromFHIR('shr.base.EntryId', fhir['id'] || uuid(), 'string');

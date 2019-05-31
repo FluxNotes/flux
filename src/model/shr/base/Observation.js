@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 import Finding from './Finding';
 
 /**
@@ -295,7 +297,8 @@ class Observation extends Finding {
    * @returns {Observation} An instance of Observation populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Observation();
+    const klass = ClassRegistry.get('shr.base', 'Observation');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -384,7 +387,8 @@ class Observation extends Finding {
    * @returns {Observation} An instance of Observation populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Observation();
+    const klass = ClassRegistry.get('shr.base', 'Observation');
+    const inst = new klass();
     inst.entryInfo = FHIRHelper.createInstanceFromFHIR('shr.base.Entry', {}, null);
     inst.entryInfo.shrId = FHIRHelper.createInstanceFromFHIR('shr.base.ShrId', shrId, 'string');
     inst.entryInfo.entryId = FHIRHelper.createInstanceFromFHIR('shr.base.EntryId', fhir['id'] || uuid(), 'string');

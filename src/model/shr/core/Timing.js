@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.core.Timing.
  */
@@ -140,7 +142,8 @@ class Timing {
    * @returns {Timing} An instance of Timing populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Timing();
+    const klass = ClassRegistry.get('shr.core', 'Timing');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -183,7 +186,8 @@ class Timing {
    * @returns {Timing} An instance of Timing populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Timing();
+    const klass = ClassRegistry.get('shr.core', 'Timing');
+    const inst = new klass();
     for (const fhir_extension of fhir['extension'] || []) {
       if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-RecurrenceRange-extension') {
         inst.recurrenceRange = FHIRHelper.createInstanceFromFHIR('shr.core.RecurrenceRange', fhir_extension, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);

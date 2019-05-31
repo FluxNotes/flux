@@ -6,6 +6,8 @@ import EntryFix from './fluxExtensions/EntryFix';
 import EncounterFix from './fluxExtensions/EncounterFix';
 import CodingFix from './fluxExtensions/CodingFix';
 import CodeableConceptFix from './fluxExtensions/CodeableConceptFix';
+import ReasonFix from './fluxExtensions/ReasonFix';
+import MedicationRequestedFix from './fluxExtensions/MedicationRequestedFix';
 
 /**
  * The init function initializes the ES helper functions with the necessary dependencies for creating
@@ -17,10 +19,13 @@ import CodeableConceptFix from './fluxExtensions/CodeableConceptFix';
 function init() {
   setObjectFactory(FluxObjectFactory);
 
-  ClassRegistry['shr.base']['Entry'] = EntryFix;
-  ClassRegistry['shr.encounter']['Encounter'] = EncounterFix;
-  ClassRegistry['shr.core']['Coding'] = CodingFix;
-  ClassRegistry['shr.core']['CodeableConcept'] = CodeableConceptFix;
+  ClassRegistry.initialize();
+  ClassRegistry.set('shr.base', 'Entry', EntryFix);
+  ClassRegistry.set('shr.encounter', 'Encounter', EncounterFix);
+  ClassRegistry.set('shr.core', 'Coding', CodingFix);
+  ClassRegistry.set('shr.core', 'CodeableConcept', CodeableConceptFix);
+  ClassRegistry.set('shr.base', 'Reason', ReasonFix);
+  ClassRegistry.set('shr.medication', 'MedicationRequested', MedicationRequestedFix);
 }
 
 init();

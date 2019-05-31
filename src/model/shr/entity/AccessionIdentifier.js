@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 import Identifier from '../core/Identifier';
 
 /**
@@ -18,7 +20,8 @@ class AccessionIdentifier extends Identifier {
    * @returns {AccessionIdentifier} An instance of AccessionIdentifier populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new AccessionIdentifier();
+    const klass = ClassRegistry.get('shr.entity', 'AccessionIdentifier');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -61,7 +64,8 @@ class AccessionIdentifier extends Identifier {
    * @returns {AccessionIdentifier} An instance of AccessionIdentifier populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new AccessionIdentifier();
+    const klass = ClassRegistry.get('shr.entity', 'AccessionIdentifier');
+    const inst = new klass();
     if (fhir['use'] != null) {
       inst.purpose = FHIRHelper.createInstanceFromFHIR('shr.core.Purpose', fhir['use'], 'code', shrId, allEntries, mappedResources, referencesOut, false);
     }

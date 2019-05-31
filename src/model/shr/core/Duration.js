@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 import SimpleQuantity from './SimpleQuantity';
 
 /**
@@ -43,7 +45,8 @@ class Duration extends SimpleQuantity {
    * @returns {Duration} An instance of Duration populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Duration();
+    const klass = ClassRegistry.get('shr.core', 'Duration');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -80,7 +83,8 @@ class Duration extends SimpleQuantity {
    * @returns {Duration} An instance of Duration populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Duration();
+    const klass = ClassRegistry.get('shr.core', 'Duration');
+    const inst = new klass();
     for (const fhir_extension of fhir['extension'] || []) {
       if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-Number-extension') {
         inst.number = FHIRHelper.createInstanceFromFHIR('shr.core.Number', fhir_extension, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);

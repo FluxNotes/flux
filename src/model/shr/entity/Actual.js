@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.entity.Actual.
  */
@@ -69,7 +71,8 @@ class Actual {
    * @returns {Actual} An instance of Actual populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Actual();
+    const klass = ClassRegistry.get('shr.entity', 'Actual');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class Actual {
    * @returns {Actual} An instance of Actual populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Actual();
+    const klass = ClassRegistry.get('shr.entity', 'Actual');
+    const inst = new klass();
     if (!asExtension && fhir != null) {
       inst.value = fhir;
     }

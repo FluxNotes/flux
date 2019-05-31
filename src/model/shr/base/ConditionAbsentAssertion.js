@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 import AbsenceAssertion from './AbsenceAssertion';
 
 /**
@@ -95,7 +97,8 @@ class ConditionAbsentAssertion extends AbsenceAssertion {
    * @returns {ConditionAbsentAssertion} An instance of ConditionAbsentAssertion populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new ConditionAbsentAssertion();
+    const klass = ClassRegistry.get('shr.base', 'ConditionAbsentAssertion');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -166,7 +169,8 @@ class ConditionAbsentAssertion extends AbsenceAssertion {
    * @returns {ConditionAbsentAssertion} An instance of ConditionAbsentAssertion populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new ConditionAbsentAssertion();
+    const klass = ClassRegistry.get('shr.base', 'ConditionAbsentAssertion');
+    const inst = new klass();
     inst.entryInfo = FHIRHelper.createInstanceFromFHIR('shr.base.Entry', {}, null);
     inst.entryInfo.shrId = FHIRHelper.createInstanceFromFHIR('shr.base.ShrId', shrId, 'string');
     inst.entryInfo.entryId = FHIRHelper.createInstanceFromFHIR('shr.base.EntryId', fhir['id'] || uuid(), 'string');

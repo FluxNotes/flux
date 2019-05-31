@@ -2,8 +2,6 @@ import FluxEntry from '../base/FluxEntry';
 import MedicationChange from '../shr/medication/MedicationChange';
 import FluxMedicationBeforeChange from './FluxMedicationBeforeChange';
 import FluxMedicationAfterChange from './FluxMedicationAfterChange';
-import Entry from '../shr/base/Entry';
-import EntryType from '../shr/base/EntryType';
 import * as codeableConceptUtils from '../CodeableConceptUtils.jsx';
 import Lang from 'lodash';
 import moment from 'moment';
@@ -15,10 +13,7 @@ class FluxMedicationChange extends FluxEntry {
         this._entry = this._medicationChange = MedicationChange.fromJSON(json);
         this._patientRecord = patientRecord;
         if (!this._medicationChange.entryInfo) {
-            let entry = new Entry();
-            entry.entryType = new EntryType();
-            entry.entryType.uri = 'http://standardhealthrecord.org/spec/shr/medication/MedicationChange';
-            this._medicationChange.entryInfo = entry;
+            this._medicationChange.entryInfo = this._constructEntry('http://standardhealthrecord.org/spec/shr/medication/MedicationChange');
         }
     }
     /**

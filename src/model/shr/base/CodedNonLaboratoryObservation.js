@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 import NonLaboratoryObservation from './NonLaboratoryObservation';
 
 /**
@@ -93,7 +95,8 @@ class CodedNonLaboratoryObservation extends NonLaboratoryObservation {
    * @returns {CodedNonLaboratoryObservation} An instance of CodedNonLaboratoryObservation populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new CodedNonLaboratoryObservation();
+    const klass = ClassRegistry.get('shr.base', 'CodedNonLaboratoryObservation');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -182,7 +185,8 @@ class CodedNonLaboratoryObservation extends NonLaboratoryObservation {
    * @returns {CodedNonLaboratoryObservation} An instance of CodedNonLaboratoryObservation populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new CodedNonLaboratoryObservation();
+    const klass = ClassRegistry.get('shr.base', 'CodedNonLaboratoryObservation');
+    const inst = new klass();
     inst.entryInfo = FHIRHelper.createInstanceFromFHIR('shr.base.Entry', {}, null);
     inst.entryInfo.shrId = FHIRHelper.createInstanceFromFHIR('shr.base.ShrId', shrId, 'string');
     inst.entryInfo.entryId = FHIRHelper.createInstanceFromFHIR('shr.base.EntryId', fhir['id'] || uuid(), 'string');

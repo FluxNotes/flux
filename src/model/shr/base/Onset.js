@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.base.Onset.
  */
@@ -42,7 +44,8 @@ class Onset {
    * @returns {Onset} An instance of Onset populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Onset();
+    const klass = ClassRegistry.get('shr.base', 'Onset');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -73,7 +76,8 @@ class Onset {
    * @returns {Onset} An instance of Onset populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Onset();
+    const klass = ClassRegistry.get('shr.base', 'Onset');
+    const inst = new klass();
     if (asExtension) {
     }
     if (!asExtension && fhir != null) {

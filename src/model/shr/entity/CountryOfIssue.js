@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.entity.CountryOfIssue.
  */
@@ -69,7 +71,8 @@ class CountryOfIssue {
    * @returns {CountryOfIssue} An instance of CountryOfIssue populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new CountryOfIssue();
+    const klass = ClassRegistry.get('shr.entity', 'CountryOfIssue');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class CountryOfIssue {
    * @returns {CountryOfIssue} An instance of CountryOfIssue populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new CountryOfIssue();
+    const klass = ClassRegistry.get('shr.entity', 'CountryOfIssue');
+    const inst = new klass();
     if (!asExtension && fhir != null) {
       inst.value = FHIRHelper.createInstanceFromFHIR('shr.core.Country', fhir, fhirType, shrId, allEntries, mappedResources, referencesOut);
     }

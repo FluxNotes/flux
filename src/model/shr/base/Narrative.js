@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.base.Narrative.
  */
@@ -69,7 +71,8 @@ class Narrative {
    * @returns {Narrative} An instance of Narrative populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Narrative();
+    const klass = ClassRegistry.get('shr.base', 'Narrative');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -103,7 +106,8 @@ class Narrative {
    * @returns {Narrative} An instance of Narrative populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Narrative();
+    const klass = ClassRegistry.get('shr.base', 'Narrative');
+    const inst = new klass();
     if (fhir['status'] != null) {
       inst.narrativeQualifier = FHIRHelper.createInstanceFromFHIR('shr.base.NarrativeQualifier', fhir['status'], 'code', shrId, allEntries, mappedResources, referencesOut, false);
     }

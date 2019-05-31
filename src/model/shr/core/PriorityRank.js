@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.core.PriorityRank.
  */
@@ -42,7 +44,8 @@ class PriorityRank {
    * @returns {PriorityRank} An instance of PriorityRank populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new PriorityRank();
+    const klass = ClassRegistry.get('shr.core', 'PriorityRank');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -73,7 +76,8 @@ class PriorityRank {
    * @returns {PriorityRank} An instance of PriorityRank populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new PriorityRank();
+    const klass = ClassRegistry.get('shr.core', 'PriorityRank');
+    const inst = new klass();
     if (asExtension) {
     }
     if (!asExtension && fhir != null) {

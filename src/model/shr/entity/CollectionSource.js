@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.entity.CollectionSource.
  */
@@ -42,7 +44,8 @@ class CollectionSource {
    * @returns {CollectionSource} An instance of CollectionSource populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new CollectionSource();
+    const klass = ClassRegistry.get('shr.entity', 'CollectionSource');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -73,7 +76,8 @@ class CollectionSource {
    * @returns {CollectionSource} An instance of CollectionSource populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new CollectionSource();
+    const klass = ClassRegistry.get('shr.entity', 'CollectionSource');
+    const inst = new klass();
     if (!asExtension && fhir != null) {
       inst.value = FHIRHelper.createInstanceFromFHIR(null, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut);
     }

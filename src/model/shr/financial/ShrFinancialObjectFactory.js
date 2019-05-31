@@ -19,7 +19,7 @@ export default class ShrFinancialObjectFactory {
     if (namespace !== 'shr.financial') {
       throw new Error(`Unsupported type in ShrFinancialObjectFactory: ${type}`);
     }
-    const klass = ClassRegistry['shr.financial'][elementName];
+    const klass = ClassRegistry.get('shr.financial', elementName);
     if (!klass) {
       throw new Error(`Unsupported type in ShrFinancialObjectFactory: ${type}`);
     }
@@ -38,7 +38,7 @@ export default class ShrFinancialObjectFactory {
     if (namespace !== 'shr.financial') {
       throw new Error(`Unsupported type in ShrFinancialObjectFactory: ${shrType}`);
     }
-    const klass = ClassRegistry['shr.financial'][elementName];
+    const klass = ClassRegistry.get('shr.financial', elementName);
     if (!klass) {
       throw new Error(`Unsupported type in ShrFinancialObjectFactory: ${shrType}`);
     }

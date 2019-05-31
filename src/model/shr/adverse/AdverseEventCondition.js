@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.adverse.AdverseEventCondition.
  */
@@ -42,7 +44,8 @@ class AdverseEventCondition {
    * @returns {AdverseEventCondition} An instance of AdverseEventCondition populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new AdverseEventCondition();
+    const klass = ClassRegistry.get('shr.adverse', 'AdverseEventCondition');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -73,7 +76,8 @@ class AdverseEventCondition {
    * @returns {AdverseEventCondition} An instance of AdverseEventCondition populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new AdverseEventCondition();
+    const klass = ClassRegistry.get('shr.adverse', 'AdverseEventCondition');
+    const inst = new klass();
     if (asExtension) {
       const match_3 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-ConditionPresentAssertion-extension');
       if (match_3 != null) {

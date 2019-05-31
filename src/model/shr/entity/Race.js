@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.entity.Race.
  */
@@ -65,7 +67,8 @@ class Race {
    * @returns {Race} An instance of Race populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Race();
+    const klass = ClassRegistry.get('shr.entity', 'Race');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -99,7 +102,8 @@ class Race {
    * @returns {Race} An instance of Race populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Race();
+    const klass = ClassRegistry.get('shr.entity', 'Race');
+    const inst = new klass();
     if (asExtension) {
       const match_3 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-RaceCode-extension');
       if (match_3 != null) {

@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.core.Geoposition.
  */
@@ -94,7 +96,8 @@ class Geoposition {
    * @returns {Geoposition} An instance of Geoposition populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Geoposition();
+    const klass = ClassRegistry.get('shr.core', 'Geoposition');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -131,7 +134,8 @@ class Geoposition {
    * @returns {Geoposition} An instance of Geoposition populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Geoposition();
+    const klass = ClassRegistry.get('shr.core', 'Geoposition');
+    const inst = new klass();
     if (fhir['position'] != null) {
       if (fhir['position']['longitude'] != null) {
         inst.longitude = FHIRHelper.createInstanceFromFHIR('shr.core.Longitude', fhir['position']['longitude'], 'decimal', shrId, allEntries, mappedResources, referencesOut, false);

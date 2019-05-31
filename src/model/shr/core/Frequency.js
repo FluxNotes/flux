@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 import Ratio from './Ratio';
 
 /**
@@ -68,7 +70,8 @@ class Frequency extends Ratio {
    * @returns {Frequency} An instance of Frequency populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Frequency();
+    const klass = ClassRegistry.get('shr.core', 'Frequency');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -102,7 +105,8 @@ class Frequency extends Ratio {
    * @returns {Frequency} An instance of Frequency populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Frequency();
+    const klass = ClassRegistry.get('shr.core', 'Frequency');
+    const inst = new klass();
     if (fhir['numerator'] != null) {
       inst.numerator = FHIRHelper.createInstanceFromFHIR('shr.core.Numerator', fhir['numerator'], 'Quantity', shrId, allEntries, mappedResources, referencesOut, false);
     }

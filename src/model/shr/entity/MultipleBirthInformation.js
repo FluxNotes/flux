@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.entity.MultipleBirthInformation.
  */
@@ -67,7 +69,8 @@ class MultipleBirthInformation {
    * @returns {MultipleBirthInformation} An instance of MultipleBirthInformation populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new MultipleBirthInformation();
+    const klass = ClassRegistry.get('shr.entity', 'MultipleBirthInformation');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -101,7 +104,8 @@ class MultipleBirthInformation {
    * @returns {MultipleBirthInformation} An instance of MultipleBirthInformation populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new MultipleBirthInformation();
+    const klass = ClassRegistry.get('shr.entity', 'MultipleBirthInformation');
+    const inst = new klass();
     return inst;
   }
 

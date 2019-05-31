@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../json-helper';
 
+import ClassRegistry from '../ClassRegistry';
+
 /**
  * Generated class for oncocore.DNARegionName.
  */
@@ -69,7 +71,8 @@ class DNARegionName {
    * @returns {DNARegionName} An instance of DNARegionName populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new DNARegionName();
+    const klass = ClassRegistry.get('oncocore', 'DNARegionName');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class DNARegionName {
    * @returns {DNARegionName} An instance of DNARegionName populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new DNARegionName();
+    const klass = ClassRegistry.get('oncocore', 'DNARegionName');
+    const inst = new klass();
     if (!asExtension && fhir != null) {
       inst.value = fhir;
     }

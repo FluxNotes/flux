@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.adverse.PossibleCause.
  */
@@ -42,7 +44,8 @@ class PossibleCause {
    * @returns {PossibleCause} An instance of PossibleCause populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new PossibleCause();
+    const klass = ClassRegistry.get('shr.adverse', 'PossibleCause');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -73,7 +76,8 @@ class PossibleCause {
    * @returns {PossibleCause} An instance of PossibleCause populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new PossibleCause();
+    const klass = ClassRegistry.get('shr.adverse', 'PossibleCause');
+    const inst = new klass();
     if (asExtension) {
       inst.value = fhir['valueCodeableConcept'];
     }

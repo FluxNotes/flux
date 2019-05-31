@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.entity.Affiliation.
  */
@@ -69,7 +71,8 @@ class Affiliation {
    * @returns {Affiliation} An instance of Affiliation populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Affiliation();
+    const klass = ClassRegistry.get('shr.entity', 'Affiliation');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class Affiliation {
    * @returns {Affiliation} An instance of Affiliation populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Affiliation();
+    const klass = ClassRegistry.get('shr.entity', 'Affiliation');
+    const inst = new klass();
     if (!asExtension && fhir != null) {
       inst.value = FHIRHelper.createInstanceFromFHIR('shr.entity.Organization', fhir, fhirType, shrId, allEntries, mappedResources, referencesOut);
     }

@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 import Media from './Media';
 
 /**
@@ -18,7 +20,8 @@ class PhotographicImage extends Media {
    * @returns {PhotographicImage} An instance of PhotographicImage populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new PhotographicImage();
+    const klass = ClassRegistry.get('shr.core', 'PhotographicImage');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -70,7 +73,8 @@ class PhotographicImage extends Media {
    * @returns {PhotographicImage} An instance of PhotographicImage populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new PhotographicImage();
+    const klass = ClassRegistry.get('shr.core', 'PhotographicImage');
+    const inst = new klass();
     if (fhir['contentType'] != null) {
       inst.contentType = FHIRHelper.createInstanceFromFHIR('shr.core.ContentType', fhir['contentType'], 'code', shrId, allEntries, mappedResources, referencesOut, false);
     }

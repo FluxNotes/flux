@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.medication.DosageMethod.
  */
@@ -69,7 +71,8 @@ class DosageMethod {
    * @returns {DosageMethod} An instance of DosageMethod populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new DosageMethod();
+    const klass = ClassRegistry.get('shr.medication', 'DosageMethod');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class DosageMethod {
    * @returns {DosageMethod} An instance of DosageMethod populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new DosageMethod();
+    const klass = ClassRegistry.get('shr.medication', 'DosageMethod');
+    const inst = new klass();
     if (!asExtension && fhir != null) {
       inst.value = FHIRHelper.createInstanceFromFHIR('shr.core.CodeableConcept', fhir, fhirType, shrId, allEntries, mappedResources, referencesOut);
     }

@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 import EmbeddedContent from './EmbeddedContent';
 
 /**
@@ -72,7 +74,8 @@ class ParsableContent extends EmbeddedContent {
    * @returns {ParsableContent} An instance of ParsableContent populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new ParsableContent();
+    const klass = ClassRegistry.get('shr.core', 'ParsableContent');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -106,7 +109,8 @@ class ParsableContent extends EmbeddedContent {
    * @returns {ParsableContent} An instance of ParsableContent populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new ParsableContent();
+    const klass = ClassRegistry.get('shr.core', 'ParsableContent');
+    const inst = new klass();
     return inst;
   }
 

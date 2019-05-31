@@ -19,7 +19,7 @@ export default class ShrAdverseObjectFactory {
     if (namespace !== 'shr.adverse') {
       throw new Error(`Unsupported type in ShrAdverseObjectFactory: ${type}`);
     }
-    const klass = ClassRegistry['shr.adverse'][elementName];
+    const klass = ClassRegistry.get('shr.adverse', elementName);
     if (!klass) {
       throw new Error(`Unsupported type in ShrAdverseObjectFactory: ${type}`);
     }
@@ -38,7 +38,7 @@ export default class ShrAdverseObjectFactory {
     if (namespace !== 'shr.adverse') {
       throw new Error(`Unsupported type in ShrAdverseObjectFactory: ${shrType}`);
     }
-    const klass = ClassRegistry['shr.adverse'][elementName];
+    const klass = ClassRegistry.get('shr.adverse', elementName);
     if (!klass) {
       throw new Error(`Unsupported type in ShrAdverseObjectFactory: ${shrType}`);
     }

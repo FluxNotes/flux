@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.core.Annotation.
  */
@@ -96,7 +98,8 @@ class Annotation {
    * @returns {Annotation} An instance of Annotation populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Annotation();
+    const klass = ClassRegistry.get('shr.core', 'Annotation');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -133,7 +136,8 @@ class Annotation {
    * @returns {Annotation} An instance of Annotation populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Annotation();
+    const klass = ClassRegistry.get('shr.core', 'Annotation');
+    const inst = new klass();
     if (fhir['authorString'] != null) {
       inst.author = FHIRHelper.createInstanceFromFHIR('shr.core.Author', fhir['authorString'], 'string', shrId, allEntries, mappedResources, referencesOut, false);
     }

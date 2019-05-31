@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.entity.CollectionMethod.
  */
@@ -69,7 +71,8 @@ class CollectionMethod {
    * @returns {CollectionMethod} An instance of CollectionMethod populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new CollectionMethod();
+    const klass = ClassRegistry.get('shr.entity', 'CollectionMethod');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class CollectionMethod {
    * @returns {CollectionMethod} An instance of CollectionMethod populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new CollectionMethod();
+    const klass = ClassRegistry.get('shr.entity', 'CollectionMethod');
+    const inst = new klass();
     if (asExtension) {
       inst.value = fhir['valueCodeableConcept'];
     }

@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.core.Signature.
  */
@@ -175,7 +177,8 @@ class Signature {
    * @returns {Signature} An instance of Signature populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Signature();
+    const klass = ClassRegistry.get('shr.core', 'Signature');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -221,7 +224,8 @@ class Signature {
    * @returns {Signature} An instance of Signature populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Signature();
+    const klass = ClassRegistry.get('shr.core', 'Signature');
+    const inst = new klass();
     for (const fhir_extension of fhir['extension'] || []) {
       if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-OnBehalfOf-extension') {
         inst.onBehalfOf = FHIRHelper.createInstanceFromFHIR('shr.core.OnBehalfOf', fhir_extension, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);

@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.procedure.IndirectSiteCode.
  */
@@ -69,7 +71,8 @@ class IndirectSiteCode {
    * @returns {IndirectSiteCode} An instance of IndirectSiteCode populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new IndirectSiteCode();
+    const klass = ClassRegistry.get('shr.procedure', 'IndirectSiteCode');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class IndirectSiteCode {
    * @returns {IndirectSiteCode} An instance of IndirectSiteCode populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new IndirectSiteCode();
+    const klass = ClassRegistry.get('shr.procedure', 'IndirectSiteCode');
+    const inst = new klass();
     if (asExtension) {
       inst.value = fhir['valueCodeableConcept'];
     }

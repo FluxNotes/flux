@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.entity.VendorModelNumber.
  */
@@ -69,7 +71,8 @@ class VendorModelNumber {
    * @returns {VendorModelNumber} An instance of VendorModelNumber populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new VendorModelNumber();
+    const klass = ClassRegistry.get('shr.entity', 'VendorModelNumber');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class VendorModelNumber {
    * @returns {VendorModelNumber} An instance of VendorModelNumber populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new VendorModelNumber();
+    const klass = ClassRegistry.get('shr.entity', 'VendorModelNumber');
+    const inst = new klass();
     if (!asExtension && fhir != null) {
       inst.value = fhir;
     }

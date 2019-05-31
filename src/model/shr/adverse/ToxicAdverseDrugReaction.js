@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 import AdverseDrugReaction from './AdverseDrugReaction';
 
 /**
@@ -70,7 +72,8 @@ class ToxicAdverseDrugReaction extends AdverseDrugReaction {
    * @returns {ToxicAdverseDrugReaction} An instance of ToxicAdverseDrugReaction populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new ToxicAdverseDrugReaction();
+    const klass = ClassRegistry.get('shr.adverse', 'ToxicAdverseDrugReaction');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -138,7 +141,8 @@ class ToxicAdverseDrugReaction extends AdverseDrugReaction {
    * @returns {ToxicAdverseDrugReaction} An instance of ToxicAdverseDrugReaction populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new ToxicAdverseDrugReaction();
+    const klass = ClassRegistry.get('shr.adverse', 'ToxicAdverseDrugReaction');
+    const inst = new klass();
     inst.entryInfo = FHIRHelper.createInstanceFromFHIR('shr.base.Entry', {}, null);
     inst.entryInfo.shrId = FHIRHelper.createInstanceFromFHIR('shr.base.ShrId', shrId, 'string');
     inst.entryInfo.entryId = FHIRHelper.createInstanceFromFHIR('shr.base.EntryId', fhir['id'] || uuid(), 'string');

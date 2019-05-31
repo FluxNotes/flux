@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.core.Suffix.
  */
@@ -69,7 +71,8 @@ class Suffix {
    * @returns {Suffix} An instance of Suffix populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Suffix();
+    const klass = ClassRegistry.get('shr.core', 'Suffix');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class Suffix {
    * @returns {Suffix} An instance of Suffix populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Suffix();
+    const klass = ClassRegistry.get('shr.core', 'Suffix');
+    const inst = new klass();
     if (!asExtension && fhir != null) {
       inst.value = fhir;
     }

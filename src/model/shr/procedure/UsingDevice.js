@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.procedure.UsingDevice.
  */
@@ -69,7 +71,8 @@ class UsingDevice {
    * @returns {UsingDevice} An instance of UsingDevice populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new UsingDevice();
+    const klass = ClassRegistry.get('shr.procedure', 'UsingDevice');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class UsingDevice {
    * @returns {UsingDevice} An instance of UsingDevice populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new UsingDevice();
+    const klass = ClassRegistry.get('shr.procedure', 'UsingDevice');
+    const inst = new klass();
     if (asExtension) {
       inst.value = fhir['valueReference'];
     }

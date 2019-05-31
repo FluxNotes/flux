@@ -19,7 +19,7 @@ export default class ShrProcedureObjectFactory {
     if (namespace !== 'shr.procedure') {
       throw new Error(`Unsupported type in ShrProcedureObjectFactory: ${type}`);
     }
-    const klass = ClassRegistry['shr.procedure'][elementName];
+    const klass = ClassRegistry.get('shr.procedure', elementName);
     if (!klass) {
       throw new Error(`Unsupported type in ShrProcedureObjectFactory: ${type}`);
     }
@@ -38,7 +38,7 @@ export default class ShrProcedureObjectFactory {
     if (namespace !== 'shr.procedure') {
       throw new Error(`Unsupported type in ShrProcedureObjectFactory: ${shrType}`);
     }
-    const klass = ClassRegistry['shr.procedure'][elementName];
+    const klass = ClassRegistry.get('shr.procedure', elementName);
     if (!klass) {
       throw new Error(`Unsupported type in ShrProcedureObjectFactory: ${shrType}`);
     }

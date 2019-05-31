@@ -19,7 +19,7 @@ export default class ShrAllergyObjectFactory {
     if (namespace !== 'shr.allergy') {
       throw new Error(`Unsupported type in ShrAllergyObjectFactory: ${type}`);
     }
-    const klass = ClassRegistry['shr.allergy'][elementName];
+    const klass = ClassRegistry.get('shr.allergy', elementName);
     if (!klass) {
       throw new Error(`Unsupported type in ShrAllergyObjectFactory: ${type}`);
     }
@@ -38,7 +38,7 @@ export default class ShrAllergyObjectFactory {
     if (namespace !== 'shr.allergy') {
       throw new Error(`Unsupported type in ShrAllergyObjectFactory: ${shrType}`);
     }
-    const klass = ClassRegistry['shr.allergy'][elementName];
+    const klass = ClassRegistry.get('shr.allergy', elementName);
     if (!klass) {
       throw new Error(`Unsupported type in ShrAllergyObjectFactory: ${shrType}`);
     }

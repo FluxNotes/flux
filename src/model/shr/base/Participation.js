@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.base.Participation.
  */
@@ -115,7 +117,8 @@ class Participation {
    * @returns {Participation} An instance of Participation populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Participation();
+    const klass = ClassRegistry.get('shr.base', 'Participation');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -155,7 +158,8 @@ class Participation {
    * @returns {Participation} An instance of Participation populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Participation();
+    const klass = ClassRegistry.get('shr.base', 'Participation');
+    const inst = new klass();
     if (asExtension) {
       const match_3 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-Participant-extension');
       if (match_3 != null) {

@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
+import ClassRegistry from '../../ClassRegistry';
+
 /**
  * Generated class for shr.base.StageSummary.
  */
@@ -69,7 +71,8 @@ class StageSummary {
    * @returns {StageSummary} An instance of StageSummary populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new StageSummary();
+    const klass = ClassRegistry.get('shr.base', 'StageSummary');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -100,7 +103,8 @@ class StageSummary {
    * @returns {StageSummary} An instance of StageSummary populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new StageSummary();
+    const klass = ClassRegistry.get('shr.base', 'StageSummary');
+    const inst = new klass();
     if (!asExtension && fhir != null) {
       inst.value = FHIRHelper.createInstanceFromFHIR('shr.core.CodeableConcept', fhir, fhirType, shrId, allEntries, mappedResources, referencesOut);
     }

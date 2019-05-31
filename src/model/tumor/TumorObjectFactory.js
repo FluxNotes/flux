@@ -19,7 +19,7 @@ export default class TumorObjectFactory {
     if (namespace !== 'tumor') {
       throw new Error(`Unsupported type in TumorObjectFactory: ${type}`);
     }
-    const klass = ClassRegistry['tumor'][elementName];
+    const klass = ClassRegistry.get('tumor', elementName);
     if (!klass) {
       throw new Error(`Unsupported type in TumorObjectFactory: ${type}`);
     }
@@ -38,7 +38,7 @@ export default class TumorObjectFactory {
     if (namespace !== 'tumor') {
       throw new Error(`Unsupported type in TumorObjectFactory: ${shrType}`);
     }
-    const klass = ClassRegistry['tumor'][elementName];
+    const klass = ClassRegistry.get('tumor', elementName);
     if (!klass) {
       throw new Error(`Unsupported type in TumorObjectFactory: ${shrType}`);
     }

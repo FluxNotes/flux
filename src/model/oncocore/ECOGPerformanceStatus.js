@@ -3,6 +3,8 @@
 
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../json-helper';
 
+import ClassRegistry from '../ClassRegistry';
+
 import SimpleNonLaboratoryObservation from '../shr/base/SimpleNonLaboratoryObservation';
 
 /**
@@ -168,7 +170,8 @@ class ECOGPerformanceStatus extends SimpleNonLaboratoryObservation {
    * @returns {ECOGPerformanceStatus} An instance of ECOGPerformanceStatus populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new ECOGPerformanceStatus();
+    const klass = ClassRegistry.get('oncocore', 'ECOGPerformanceStatus');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -257,7 +260,8 @@ class ECOGPerformanceStatus extends SimpleNonLaboratoryObservation {
    * @returns {ECOGPerformanceStatus} An instance of ECOGPerformanceStatus populated with the FHIR data
    */
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new ECOGPerformanceStatus();
+    const klass = ClassRegistry.get('oncocore', 'ECOGPerformanceStatus');
+    const inst = new klass();
     inst.entryInfo = FHIRHelper.createInstanceFromFHIR('shr.base.Entry', {}, null);
     inst.entryInfo.shrId = FHIRHelper.createInstanceFromFHIR('shr.base.ShrId', shrId, 'string');
     inst.entryInfo.entryId = FHIRHelper.createInstanceFromFHIR('shr.base.EntryId', fhir['id'] || uuid(), 'string');
