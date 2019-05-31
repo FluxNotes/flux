@@ -6,8 +6,6 @@ import TimePeriod from '../shr/core/TimePeriod';
 import Title from '../shr/core/Title';
 import CommentOrDescription from '../shr/core/CommentOrDescription';
 import Identifier from '../shr/core/Identifier';
-import Entry from '../shr/base/Entry';
-import EntryType from '../shr/base/EntryType';
 import ParticipationPeriod from '../shr/base/ParticipationPeriod';
 import BeginDateTime from '../shr/core/BeginDateTime';
 import EndDateTime from '../shr/core/EndDateTime';
@@ -19,10 +17,7 @@ class FluxResearchSubject extends FluxEntry {
         super();
         this._entry = this._researchSubject = ResearchSubject.fromJSON(json);
         if (!this._researchSubject.entryInfo) {
-            let entry = new Entry();
-            entry.entryType = new EntryType();
-            entry.entryType.uri = 'http://standardhealthrecord.org/spec/shr/research/ResearchSubject';
-            this._researchSubject.entryInfo = entry;
+            this._researchSubject.entryInfo = this._constructEntry('http://standardhealthrecord.org/spec/shr/research/ResearchSubject');
         }
     }
 
@@ -45,9 +40,7 @@ class FluxResearchSubject extends FluxEntry {
     _createStudyIfNeeded() {
         if (!this._researchSubject.study) {
             this._researchSubject.study = new Study();
-            this._researchSubject.study.entryInfo = new Entry();
-            this._researchSubject.study.entryInfo.entryType = new EntryType();
-            this._researchSubject.study.entryInfo.entryType.uri = 'http://standardhealthrecord.org/spec/shr/research/Study';
+            this._researchSubject.study.entryInfo = this._constructEntry('http://standardhealthrecord.org/spec/shr/research/Study');
         }
     }
 

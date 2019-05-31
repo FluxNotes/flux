@@ -1,7 +1,5 @@
 import Medication from '../shr/entity/Medication';
 import RecurrencePattern from '../shr/core/RecurrencePattern';
-import Entry from '../shr/base/Entry';
-import EntryType from '../shr/base/EntryType';
 import TimePeriod from '../shr/core/TimePeriod';
 import BeginDateTime from '../shr/core/BeginDateTime';
 import EndDateTime from '../shr/core/EndDateTime';

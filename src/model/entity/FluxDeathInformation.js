@@ -1,18 +1,15 @@
+import FluxEntry from '../base/FluxEntry';
 import DeathInformation from '../shr/entity/DeathInformation';
 import DateOfDeath from '../shr/entity/DateOfDeath';
 import IsDeceased from '../shr/entity/IsDeceased';
-import Entry from '../shr/base/Entry';
-import EntryType from '../shr/base/EntryType';
 import Lang from 'lodash';
 
-class FluxDeathInformation {
+class FluxDeathInformation extends FluxEntry {
     constructor(json) {
+        super(json);
         this._deathInformation = DeathInformation.fromJSON(json);
         if (!this._deathInformation.entryInfo) {
-            let entry = new Entry();
-            entry.entryType = new EntryType();
-            entry.entryType.uri = 'http://standardhealthrecord.org/spec/shr/entity/DeathInformation';
-            this._deathInformation.entryInfo = entry;
+            this._deathInformation.entryInfo = this._constructEntry('http://standardhealthrecord.org/spec/shr/entity/DeathInformation');
         }
     }
 
