@@ -3,6 +3,7 @@ import ValueSetManager from '../lib/ValueSetManager';
 import moment from 'moment';
 import Lang from 'lodash';
 import ContextCalendar from '../context/ContextCalendar';
+import ContextListOptions from '../context/ContextListOptions';
 
 export default class CreatorChild extends Shortcut {
     constructor(onUpdate, metadata) {
@@ -155,6 +156,6 @@ export default class CreatorChild extends Shortcut {
         if (this.metadata.picker === 'date-id') {
             return ContextCalendar;
         }
-        return null;
+        return ContextListOptions;
     }
 }
