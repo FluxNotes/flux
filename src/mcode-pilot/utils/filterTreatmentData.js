@@ -45,10 +45,10 @@ function generateTreatmentData(similarPatients, treatments, includedTreatments) 
         let displayName =
             _.isArray(treatment)
                 ? (treatment === includedTreatments)
-                    ? treatment.map(name => name.displayName).join(' & ')
+                    ? treatment.map(codeableConcept => codeableConcept.displayName).join(' & ')
                     : treatment.filter((treat) => {
                         return !includedTreatments.includes(treat);
-                    }).map(name => name.displayName).join(' & ')
+                    }).map(codeableConcept => codeableConcept.displayName).join(' & ')
                 : treatment.displayName;
 
         let row = initializeTreatmentData(displayName);
@@ -83,7 +83,7 @@ function generateSimilarPatientTreatments(similarPatients) {
     similarPatients.forEach(({ treatments }) => {
         treatments.forEach(treatment => {
             if (typeof treatment === "object") {
-                similarPatientTreatments[treatment.code] = { key: `${treatment.code},${treatment.codeSystem}`, name: treatment.displayName, reference: treatment};
+                similarPatientTreatments[`${treatment.code},${treatment.codeSystem}`] = { key: `${treatment.code},${treatment.codeSystem}`, name: treatment.displayName, reference: treatment};
             } else {
                 similarPatientTreatments[treatment] = { key: treatment, name: treatment, reference: treatment };
 
@@ -140,14 +140,7 @@ function isSimilarPatient(treatmentDataPatient, similarPatientProps) {
                 // pathology
                 } else if (mcodeElement === 'onco.core.TumorMarkerTest') {
                     const receptorType = reference._tumorMarker._findingTopicCode.codeableConcept.coding[0].code.value;
-                    if (receptorType === '16112-5' && (!tumorMarkersLabeled["16112-5"] || tumorMarkersLabeled["16112-5"].value.code !== reference.findingResult._value._coding[0]._code.code)) {
-                        // LOINC 16112-5 == Estrogen Receptor
-                        return false;
-                    } else if (receptorType === '16113-3' && (!tumorMarkersLabeled["16113-3"] || tumorMarkersLabeled["16113-3"].value.code !== reference.findingResult._value._coding[0]._code.code)) {
-                        // LOINC 16113-3 == Progesterone Receptor
-                        return false;
-                    } else if (receptorType === '48676-1' && (!tumorMarkersLabeled["48676-1"] || tumorMarkersLabeled["48676-1"].value.code !==  reference.findingResult._value._coding[0]._code.code)) {
-                        // LOINC 48676-1 == HER2 Receptor
+                    if (receptorType && (!tumorMarkersLabeled[receptorType] || tumorMarkersLabeled[receptorType].value.code !== reference.findingResult._value._coding[0]._code.code)) {
                         return false;
                     }
                 } else if (mcodeElement === 'onco.core.TNMClinicalStageGroup' && (!diseaseStatus.stage || _.lowerCase(diseaseStatus.stage) !== _.lowerCase(value))) {
