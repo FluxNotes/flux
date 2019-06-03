@@ -50,8 +50,6 @@ function StructuredFieldPlugin(opts) {
     const createShortcut = opts.createShortcut;
 
     function onKeyDown(e, key, state, editor) {
-        if (opts.suppressKeysIntoEditor()) return;
-
         const { selection } = state;
 
         // We want to consider where the cursor is focused if an expanded selection
