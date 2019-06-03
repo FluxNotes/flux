@@ -126,23 +126,6 @@ class FluxNotesEditor extends React.Component {
         this.completionPortalPlugin = CompletionPortalPlugin(completionPortalPluginOptions);
         this.plugins.push(this.completionPortalPlugin);
 
-        // setup structured field plugin
-        const structuredFieldPluginOptions = {
-            contextManager: this.contextManager,
-            structuredFieldMapManager: this.structuredFieldMapManager,
-            updateErrors: this.updateErrors,
-            insertText: this.insertTextWithStructuredPhrases,
-            suppressKeysIntoEditor: this.getOpenedPortal,
-            createShortcut: this.props.newCurrentShortcut
-        };
-        structuredFieldTypes.forEach((type) => {
-            const typeName = type.name;
-            const typeValue = type.value;
-            structuredFieldPluginOptions[typeName] = typeValue;
-        });
-        this.structuredFieldPlugin = StructuredFieldPlugin(structuredFieldPluginOptions);
-        this.plugins.push(this.structuredFieldPlugin);
-
         // setup single hashtag structured field plugin
         const singleHashtagKeywordStructuredFieldPluginOptions = {
             shortcutManager: this.props.shortcutManager,
@@ -261,22 +244,22 @@ class FluxNotesEditor extends React.Component {
             }
         });
 
-        // Make sure to add the plugins in addition to everything already added to state by resetEditorState
-    }
-
-    // Reset the editor to the initial state when the app is first constructed.
-    resetEditorState() {
-        // eslint-disable-next-line
-        this.state = {
-            state: initialState,
-            openedPortal: null,
-            portalOptions: [],
-            isEditingNoteName: false,
-            isFetchingAsyncData: false,
-            loadingTimeWarrantsWarning: false,
-            fetchTimeout: null,
-            shouldUpdateTemplateShortcuts: true,
+        // setup structured field plugin
+        const structuredFieldPluginOptions = {
+            contextManager: this.contextManager,
+            structuredFieldMapManager: this.structuredFieldMapManager,
+            updateErrors: this.updateErrors,
+            insertText: this.insertTextWithStructuredPhrases,
+            suppressKeysIntoEditor: this.getOpenedPortal,
+            createShortcut: this.props.newCurrentShortcut
         };
+        structuredFieldTypes.forEach((type) => {
+            const typeName = type.name;
+            const typeValue = type.value;
+            structuredFieldPluginOptions[typeName] = typeValue;
+        });
+        this.structuredFieldPlugin = StructuredFieldPlugin(structuredFieldPluginOptions);
+        this.plugins.push(this.structuredFieldPlugin);
     }
 
     updateFetchingStatus = (isFetchingAsyncData) => {
