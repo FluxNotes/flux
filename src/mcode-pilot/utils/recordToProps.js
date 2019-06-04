@@ -7,7 +7,10 @@ import FluxTNMClinicalDistantMetastasesClassification from '../../model/oncocore
 export default function getProps(patient, condition) {
 
     const tumorMarkers = patient.getMostRecentTumorMarkers(condition);
-    const tnminfo = processPanel(condition.getMostRecentClinicalStaging()._tnmStageGroup._panelMembers.observation, patient);
+    let tnminfo;
+    if(condition.getMostRecentClinicalStaging()) {
+        tnminfo = processPanel(condition.getMostRecentClinicalStaging()._tnmStageGroup._panelMembers.observation, patient);
+    }
     const propDict = {
         // demographics
         "demographic": {
@@ -67,21 +70,21 @@ export default function getProps(patient, condition) {
                 "mcodeElement": "onco.core.TNMClinicalPrimaryTumorCategory",
                 "valueType": "string",
                 "value": _safeGet(condition.getMostRecentClinicalStaging(),"t_Stage"),
-                "reference": tnminfo.t
+                "reference": _safeGet(tnminfo,"t")
             },
             "n_stage": {
                 "display": "regional lymph nodes",
                 "mcodeElement": "onco.core.TNMClinicalRegionalNodesCategory",
                 "valueType": "string",
                 "value": _safeGet(condition.getMostRecentClinicalStaging(),"n_Stage"),
-                "reference": tnminfo.n
+                "reference": _safeGet(tnminfo,"n")
             },
             "m_stage": {
                 "display": "distant metastasis",
                 "mcodeElement": "onco.core.TNMClinicalDistantMetastasesCategory",
                 "valueType": "string",
                 "value": _safeGet(condition.getMostRecentClinicalStaging(),"m_Stage"),
-                "reference": tnminfo.m
+                "reference": _safeGet(tnminfo,"m")
             },
             "size": {
                 "display": "size (mm)",
