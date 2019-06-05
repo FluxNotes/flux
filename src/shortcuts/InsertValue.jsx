@@ -188,16 +188,20 @@ export default class InsertValue extends Shortcut {
         return this.getOriginalText() ? this.getOriginalText() : display;
     }
 
-    getId() {
-        return this.metadata["id"];
-    }
-
     getText() {
         return this.text;
     }
 
-    getArrayOfText() {
-        return Lang.isArray(this.text) ? this.text : [];
+    setText(text) {
+        this.text = text;
+    }
+
+    setOriginalText(text) {
+        this.originalText = text;
+    }
+
+    getOriginalText() {
+        return this.originalText;
     }
 
     serialize(displayText) {
@@ -240,18 +244,6 @@ export default class InsertValue extends Shortcut {
 
     setWasRemovedFromContext(value) {
         this.wasRemovedFromContext = value;
-    }
-
-    setText(text) {
-        this.text = text;
-    }
-
-    setOriginalText(text) {
-        this.originalText = text;
-    }
-
-    getOriginalText() {
-        return this.originalText;
     }
 
     setValueObject(valueObject) {

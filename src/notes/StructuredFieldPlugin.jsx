@@ -685,7 +685,6 @@ function insertStructuredFieldAtRange(opts, transform, shortcut, range) {
  * @return {State.Block}
  */
 function createStructuredField(opts, shortcut) {
-    let nodes = [Slate.Text.createFromString(String(shortcut.getText()))];
     const isInserter = shortcut instanceof InsertValue;
     if (isInserter) {
         const lines = String(shortcut.getDisplayText()).split(/\n\r|\r\n|\r|\n/g);
@@ -726,6 +725,7 @@ function createStructuredField(opts, shortcut) {
         return inlines;
     }
 
+    let nodes = [Slate.Text.createFromString(String(shortcut.getText()))];
     const properties = {
         type: opts.typeStructuredField,
         nodes: nodes,

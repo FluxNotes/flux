@@ -28,6 +28,8 @@ const sampleTextClinicalTrialUnenrolled = "Debra Hernandez672 is presenting with
 const sampleTextClinicalTrialUnenrolledMinimal = "Debra Hernandez672 is presenting with carcinoma of the breast.\n\n #unenrolled";
 const sampleTextStopMedication = "#stop medication @active medication[[{\"text\":\"ibuprofen 600mg tablet\",\"entryId\":\"2\"}]]";
 const sampleTextReduceMedication = "#reduce medication @active medication[[{\"text\":\"ibuprofen 600mg tablet\",\"entryId\":\"2\"}]] #to #2"
+const sampleWithPlaceholder = "test 1 2 3 test <disease status> after placeholder";
+const sampleShortcutAndPlaceholder = "test #disease status and also a <toxicity> placeholder";
 
 const expectedOutputEmpty = [[], []];
 const expectedOutputPlain = [[], []];
@@ -42,7 +44,8 @@ const expectedOutputClinicalTrialEnrollmentMinimal = [[ new FluxResearchSubject(
 const expectedOutputClinicalTrialUnenrolled = [[ new FluxResearchSubject(EntryMapper.mapEntries([clinicalTrialUnenrolledJSON])[0]) ], []];
 const expectedOutputStopMedication = [[ new FluxMedicationChange(EntryMapper.mapEntries([stopMedicationJSON])[0]) ], []];
 const expectedOutputReduceMedication = [[ new FluxMedicationChange(EntryMapper.mapEntries([reduceMedicationJSON])[0]) ], []];
-
+const expectedPlaceholderOutput = [[{ placeholder: '<disease status>', selectedValue: null }], []];
+const expectedShortcutAndPlaceholderOutput = [[{ trigger: '#disease status', selectedValue: null, isPickList: null }, { placeholder: '<toxicity>', selectedVaue: null } ], []];
 let noteParser;
 
 beforeEach(function() {
@@ -55,6 +58,27 @@ describe('getAllTriggersRegularExpression', function () {
         const expectedTriggers = noteParser.allStringTriggersRegExp;
         expect(noteParser.getAllTriggersRegularExpression())
             .to.eql(expectedTriggers);
+    });
+});
+
+describe('getListOfTriggersAndPlaceholdersFromText', function() {
+    it('get a single placeholder, no shortcuts', function() {
+        const result = noteParser.getListOfTriggersAndPlaceholdersFromText(sampleWithPlaceholder);
+        console.log(result);
+        expect(result).to.be.an('array')
+            .and.to.eql(expectedPlaceholderOutput);
+    });
+
+    it('get shortcut and placeholder', function() {
+        const result = noteParser.getListOfTriggersAndPlaceholdersFromText(sampleShortcutAndPlaceholder);
+        // remove definitions as they are just pulled from app metadata and massive so no point in matching them
+        result[0] = result[0].map((item) => {
+            delete item.definition;
+            return item;
+        });
+        console.log(util.inspect(result, {depth: null }));
+        expect(result).to.be.an('array')
+            .and.to.eql(expectedShortcutAndPlaceholderOutput);
     });
 });
 

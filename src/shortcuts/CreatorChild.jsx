@@ -139,27 +139,4 @@ export default class CreatorChild extends Shortcut {
         //throw new Error("getShortcutType on CreatorChild called.");
         //return "#" + this.metadata.stringTriggers[0].name;
     }
-
-    validateInCurrentContext(contextManager) {
-        let errors = [];
-        return errors;
-    }
-
-    static getStringTriggers() {
-        throw new Error("getStringTriggers on CreatorChild called.");
-        // if it's a function, we need to call it
-        //return this.metadata.stringTriggers;
-    }
-
-    static getTriggerRegExp() {
-        return new RegExp(this.metadata.regexpTrigger);
-    }
-
-    static getDescription() {
-        return this.metadata.description;
-    }
-
-    getId() {
-        return this.metadata["id"];
-    }
 }
