@@ -45,7 +45,7 @@ const expectedOutputClinicalTrialUnenrolled = [[ new FluxResearchSubject(EntryMa
 const expectedOutputStopMedication = [[ new FluxMedicationChange(EntryMapper.mapEntries([stopMedicationJSON])[0]) ], []];
 const expectedOutputReduceMedication = [[ new FluxMedicationChange(EntryMapper.mapEntries([reduceMedicationJSON])[0]) ], []];
 const expectedPlaceholderOutput = [[{ placeholder: '<disease status>', selectedValue: null }], []];
-const expectedShortcutAndPlaceholderOutput = [[{ trigger: '#disease status', selectedValue: null, isPickList: null }, { placeholder: '<toxicity>', selectedVaue: null } ], []];
+const expectedShortcutAndPlaceholderOutput = [[{ trigger: '#disease status', selectedValue: null, isPickList: null }, { placeholder: '<toxicity>', selectedValue: null } ], []];
 let noteParser;
 
 beforeEach(function() {
