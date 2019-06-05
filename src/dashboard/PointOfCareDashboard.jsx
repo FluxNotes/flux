@@ -5,6 +5,7 @@ import TargetedDataPanel from '../panels/TargetedDataPanel';
 import PointOfCare from '../notes/PointOfCare';
 import Button from '../elements/Button';
 import './PointOfCareDashboard.css';
+import InMemoryClinicalNote from '../notes/InMemoryClinicalNote';
 
 export default class PointOfCareDashboard extends Component {
     constructor(props) {
@@ -189,22 +190,18 @@ export default class PointOfCareDashboard extends Component {
             "width": "100%",
             "WebkitTransition": "width .5s", /* Safari */
             "transition": "width .5s",
-        };
-
+        };    
         const note = this.getFirstInProgressNote();
-        console.log(note)
+      
         let placeholderList;
         if (note) {
             placeholderList = this.parseClinicalNoteForPlaceholders([], note.content);
-        }
+        }      
+
         console.log(placeholderList)
-
-
         return (
             <div className="right-border-box point-of-care-container" style={PointOfCarePanelStyles}>
-                <PointOfCare
-                    placeholders={placeholderList}
-                    contextManager={this.props.contextManager} />
+                <PointOfCare placeholders={placeholderList}/>
             </div>
         );
     }

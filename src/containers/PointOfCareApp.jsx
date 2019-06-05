@@ -61,7 +61,7 @@ export class PointOfCareApp extends Component {
         this.timeoutDuration = 1000;
 
         if (Lang.isUndefined(this.props.dataSource)) {
-            this.dataAccess = new DataAccess("HardCodedReadOnlyDataSource");
+            this.dataAccess = new DataAccess("HardcodedTabletMcodeV01DataSource");
         } else {
             this.dataAccess = new DataAccess(this.props.dataSource);
         }
