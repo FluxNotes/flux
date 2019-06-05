@@ -64,7 +64,6 @@ describe('getAllTriggersRegularExpression', function () {
 describe('getListOfTriggersAndPlaceholdersFromText', function() {
     it('get a single placeholder, no shortcuts', function() {
         const result = noteParser.getListOfTriggersAndPlaceholdersFromText(sampleWithPlaceholder);
-        console.log(result);
         expect(result).to.be.an('array')
             .and.to.eql(expectedPlaceholderOutput);
     });
@@ -76,7 +75,6 @@ describe('getListOfTriggersAndPlaceholdersFromText', function() {
             delete item.definition;
             return item;
         });
-        console.log(util.inspect(result, {depth: null }));
         expect(result).to.be.an('array')
             .and.to.eql(expectedShortcutAndPlaceholderOutput);
     });
