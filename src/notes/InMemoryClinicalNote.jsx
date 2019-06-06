@@ -42,7 +42,7 @@ export default class InMemoryClinicalNote {
                         this._addTextNode(before);
                     }
                     remainder = remainder.substring(start + trigger.trigger.length);
-    
+
                     if (remainder.startsWith("[[")) {
                         end = remainder.indexOf("]]");
                         // after = remainder.substring(2, end);
@@ -56,7 +56,7 @@ export default class InMemoryClinicalNote {
                         // after = remainder.charAt(2).toUpperCase() + remainder.substring(3, end);
                         remainder = remainder.substring(end + 2);
                     }
-    
+
                     this._addShortcut(trigger);
                 }
 

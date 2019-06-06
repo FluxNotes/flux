@@ -82,17 +82,17 @@ export default class NoteParser {
     }
 
     /**
-     * 
+     *
      * @param {*} note text to parse which may contain structured phrases currently including @inserters, #creators, and <placeholders>.
      * @returns list with 2 elements:
      *          0: list of found triggers and placeholders each represented as an object as follows (in order found in text):
-     *              {   trigger: <found trigger string>, 
-     *                  definition: <metadata for shortcut>, 
-     *                  selectedValue: <found value information within [[]]>, 
+     *              {   trigger: <found trigger string>,
+     *                  definition: <metadata for shortcut>,
+     *                  selectedValue: <found value information within [[]]>,
      *                  isPickList: <true if need to pick value>}
-     *              {   placeholder: <found placeholder string>, 
+     *              {   placeholder: <found placeholder string>,
      *                  selectedValue: <found value information within [[]]>}
-     *          1: potential structured phrases found that don't match any registered structured phrases 
+     *          1: potential structured phrases found that don't match any registered structured phrases
      */
     getListOfTriggersAndPlaceholdersFromText(note) {
         let unrecognizedTriggers = [];
@@ -117,7 +117,7 @@ export default class NoteParser {
                 } else {
                     let possibleValue = note.substring(nextPos + 1);
                     let selectedValue = null;
-    
+
                     // Check if the shortcut is an inserter (check for '[['). If it is, grab the selected value
                     if (possibleValue.startsWith("[[")) {
                         let posOfEndBrackets = possibleValue.indexOf("]]");

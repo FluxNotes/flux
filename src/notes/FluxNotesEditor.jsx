@@ -1374,7 +1374,7 @@ class FluxNotesEditor extends React.Component {
         const inMemoryClinicalNote = new InMemoryClinicalNote(this.props.shortcutManager, this.props.contextManager);
         inMemoryClinicalNote.parse(textToBeInserted);
         const nodes = inMemoryClinicalNote.getNodes();
-        
+
         let pickListCount = 0;
 
         if (!Lang.isNull(nodes)) {
