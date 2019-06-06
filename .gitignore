@@ -21,6 +21,7 @@ yarn-error.log*
 /src/context/ContextOptions.css
 /src/context/ContextItem.css
 /src/context/ContextListOptions.css
+/src/context/ContextGetHelp.css
 /src/context/ContextTray.css
 /src/context/ShortcutViewModeContent.css
 /src/context/SnippetViewModeContent.css
