@@ -110,6 +110,7 @@ function insertNode(state, operation) {
  */
 
 function insertText(state, operation) {
+  // NOTE: This is the base-level insert Text operation that gets called anytime text gets added to the editor
   const { path, offset, text, marks } = operation
   let { document, selection } = state
   const { anchorKey, focusKey, anchorOffset, focusOffset } = selection
