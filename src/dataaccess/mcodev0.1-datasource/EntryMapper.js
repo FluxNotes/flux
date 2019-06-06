@@ -1,5 +1,4 @@
 import './model/init.js';
-import ClassRegistry from '../../model/ClassRegistry';
 import FluxPatientV01 from './model/entity/FluxPatient';
 import FluxPatient from '../../model/entity/FluxPatient';
 import EntryType from '../../model/shr/base/EntryType';
@@ -12,8 +11,6 @@ import Address from '../../model/shr/core/Address';
 import AdministrativeGender from '../../model/shr/entity/AdministrativeGender';
 import ContactPoint from '../../model/shr/core/ContactPoint';
 import CodeableConceptV01 from './model/shr/core/CodeableConcept';
-import CodeableConcept from '../../model/shr/core/CodeableConcept';
-import Coding from '../../model/shr/core/Coding';
 import Code from '../../model/shr/core/Code';
 import CodeSystem from '../../model/shr/core/CodeSystem';
 import DisplayText from '../../model/shr/core/DisplayText';
@@ -35,7 +32,6 @@ import ClinicalStatus from '../../model/shr/base/ClinicalStatus';
 import Onset from '../../model/shr/base/Onset';
 import CancerDisorderPresent from '../../model/oncocore/CancerDisorderPresent';
 import FluxMedicationRequestedV01 from './model/medication/FluxMedicationRequested';
-import MedicationRequested from '../../model/shr/medication/MedicationRequested';
 import Dosage from '../../model/shr/medication/Dosage';
 import DoseAmount from '../../model/shr/medication/DoseAmount';
 import SimpleQuantity from '../../model/shr/core/SimpleQuantity';
@@ -47,7 +43,6 @@ import RouteIntoBody from '../../model/shr/core/RouteIntoBody';
 import TimingOfDoses from '../../model/shr/medication/TimingOfDoses';
 import Medication from '../../model/shr/entity/Medication';
 import Status from '../../model/shr/core/Status';
-import Reason from '../../model/shr/base/Reason';
 import ExpectedPerformanceTime from '../../model/shr/base/ExpectedPerformanceTime';
 import TimePeriodV01 from './model/shr/core/TimePeriod';
 import TimePeriod from '../../model/shr/core/TimePeriod';
@@ -168,9 +163,14 @@ import Text from '../../model/shr/core/Text.js';
 import ConditionOrDiagnosisCode from '../../model/shr/base/ConditionOrDiagnosisCode.js';
 import FluxConsultRequested from '../../model/encounter/FluxConsultRequested.js';
 import FluxClinicalNote from '../../model/core/FluxClinicalNote.js';
+import ClassRegistry from '../../model/ClassRegistry';
 
 const Entry = ClassRegistry.get('shr.base', 'Entry');
 const Encounter = ClassRegistry.get('shr.encounter', 'Encounter');
+const Reason = ClassRegistry.get('shr.base', 'Reason');
+const MedicationRequested = ClassRegistry.get('shr.medication', 'MedicationRequested');
+const CodeableConcept = ClassRegistry.get('shr.core', 'CodeableConcept');
+const Coding = ClassRegistry.get('shr.core', 'Coding');
 
 const mapEntryInfo = (entryInfo, entry) => {
     const newEntry = new Entry();
