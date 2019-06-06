@@ -1069,7 +1069,7 @@ describe('6 FluxNotesEditor', function() {
         wrapper.setProps({ updatedEditorNote });
 
         // Check structured phrases
-        const structuredField = wrapper.find('.structured-field-creator');
+        const structuredField = wrapper.find('.structured-field-creator-incomplete');
         expect(structuredField).to.have.lengthOf(arrayOfExpectedStructuredData.length)
         for (let index = 0; index < arrayOfExpectedStructuredData.length; index++) {
             expect(structuredField.at(index).text()).to.contain(arrayOfExpectedStructuredData[index]);
