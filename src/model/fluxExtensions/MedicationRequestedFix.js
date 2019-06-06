@@ -1,6 +1,11 @@
 import MedicationRequested from '../shr/medication/MedicationRequested';
 import { FHIRHelper, uuid } from '../json-helper'; 
 
+/**
+ * This fix class adds the StatementDateTime field to the shr.medication.MedicationRequested class,
+ * plus adds a couple extra mappings to fromFHIR.
+ * The StatementDateTime field is part of mCODE 0.9, so once the classes are up to that version, these fixes should be unnecessary.
+ */
 export default class MedicationRequestedFix extends MedicationRequested {
 
   // StatementDateTime is present in newer versions of the spec

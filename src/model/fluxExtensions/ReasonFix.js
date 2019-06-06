@@ -1,6 +1,11 @@
 import Reason from '../shr/base/Reason';
 import { FHIRHelper, uuid } from '../json-helper'; 
 
+/**
+ * This fix class replaces the shr.base.Reason.fromFHIR function with a version that handles various different FHIR types correctly.
+ 
+ * See this bug for more information: https://github.com/standardhealth/shr-es6-export/issues/35
+ */ 
 export default class ReasonFix extends Reason {
 
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {

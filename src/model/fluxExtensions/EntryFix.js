@@ -1,5 +1,8 @@
 import Entry from '../shr/base/Entry';
 
+/**
+ * This fix class adds SourceClinicalNote fields to the shr.base.Entry classes.
+ */ 
 export default class EntryFix extends Entry {
   /**
    * Get the SourceClinicalNote.
