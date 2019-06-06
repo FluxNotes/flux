@@ -1891,6 +1891,7 @@ class FluxNotesEditor extends React.Component {
                                 contexts={this.state.portalOptions}
                                 onSelected={this.onCompletionComponentValueSelection}
                                 closePortal={this.closeCompletionPortal}
+                                shortcut={this.state.completionComponentShortcut}
                                 state={this.state.state}
                             />
                         </CompletionPortal>
