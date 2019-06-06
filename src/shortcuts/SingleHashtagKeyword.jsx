@@ -207,7 +207,6 @@ export default class SingleHashtagKeyword extends EntryShortcut {
                 if (!Lang.isUndefined(this.parentContext)) {
                     return this.parentContext.getValueObject();
                 } else {
-                    console.error("no parent context for " + this.getId());
                     return null;
                 }
             }
@@ -313,6 +312,6 @@ export default class SingleHashtagKeyword extends EntryShortcut {
     }
 
     get isComplete() {
-        return this.hasChildren();
+        return this.parentContext && this.hasChildren();
     }
 }

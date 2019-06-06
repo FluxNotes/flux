@@ -171,12 +171,15 @@ export default class CreatorChild extends Shortcut {
     get isComplete() {
         if (this.parentContext) {
             const parentAttributeValue = this.parentContext.getAttributeValue(this.metadata.parentAttribute);
+
             if (Lang.isArray(parentAttributeValue)) {
                 // For creators that support multiple options, incomplete if there are none specified
                 return !Lang.isEmpty(parentAttributeValue);
             }
+
             return !!parentAttributeValue; // If parent attribute is defined, shortcut is complete, else it is incomplete
         }
-        return true;
+
+        return false;
     }
 }
