@@ -1,5 +1,6 @@
 import Shortcut from './Shortcut';
 import Lang from 'lodash';
+import ContextGetHelp from '../context/ContextGetHelp';
 
 export default class CreatorIntermediary extends Shortcut {
     constructor(onUpdate, metadata) {
@@ -127,4 +128,10 @@ export default class CreatorIntermediary extends Shortcut {
     get isComplete() {
         return this.parentContext && this.hasChildren();
     }
-}
+
+    get completionComponent() {
+        if (!this.isComplete) {
+            return ContextGetHelp;
+        }
+        return null;
+    }
