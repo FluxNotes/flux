@@ -1379,7 +1379,6 @@ class FluxNotesEditor extends React.Component {
 
         if (!Lang.isNull(nodes)) {
             nodes.forEach((node) => {
-                console.log(node);
                 if (node.type === 'text') {
                     this.insertPlainText(transform, node.content);
                 } else if (node.type === 'shortcut') {
