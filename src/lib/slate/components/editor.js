@@ -147,6 +147,7 @@ class Editor extends React.Component {
    */
 
   componentWillReceiveProps = (props) => {
+    // NOTE: This is where new state gets observed and used to update the slate state model, and where new plugins get added to the execution stack
     let { stack } = this.state
 
     // If any plugin-related properties will change, create a new `Stack`.
