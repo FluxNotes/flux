@@ -44,15 +44,19 @@ class ContextGetHelp extends React.Component {
     }
 
     render() {
+        const initiatingTrigger = this.props.shortcut.initiatingTrigger.replace('#','');
         return (
             <ul className="context-get-help" ref="contextGetHelp">
                 <li
-                    className="context-menu-item"
+                    className="context-get-help-option"
                     data-active={this.state.getHelpSelected}
                     onClick={this.getHelpSelected()}
                     onMouseEnter={this.getHelpSelected()}
                 >
-                    <span>Get Help </span>
+                    <span className="context-get-help-text">
+                        <i>get help with {initiatingTrigger}</i>
+                        <span className="fa fa-angle-right"></span>
+                    </span>
                 </li>
             </ul>
         );
@@ -60,7 +64,8 @@ class ContextGetHelp extends React.Component {
 }
 
 ContextGetHelp.propTypes = {
-    closePortal: PropTypes.func.isRequired
+    closePortal: PropTypes.func.isRequired,
+    shortcut: PropTypes.object.isRequired
 };
 
 export default ContextGetHelp;
