@@ -19,6 +19,6 @@ export default class SingleHashtagKeyword extends EntryShortcut {
     }
 
     get isComplete() {
-        return this.hasChildren();
+        return this.parentContext && this.hasChildren();
     }
 }
