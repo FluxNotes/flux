@@ -442,6 +442,8 @@ class FluxNotesEditor extends React.Component {
         }
 
         transform = this.resetShortcutData(shortcut, transform);
+        transform = this.resetSubsequentShortcuts(shortcut, transform);
+
         const newState = transform.apply();
         this.setState({
             state: newState
@@ -485,8 +487,10 @@ class FluxNotesEditor extends React.Component {
     insertStructuredFieldTransform = (transform, shortcut) => {
         if (Lang.isNull(shortcut)) return transform.focus();
         const result = this.structuredFieldPlugin.transforms.insertStructuredField(transform, shortcut);
+        let resultTransform = result[0];
         this.scrollToAnchorElement();
-        return result[0];
+        resultTransform = this.resetSubsequentShortcuts(shortcut, resultTransform);
+        return resultTransform;
     }
 
     insertStructuredFieldTransformAtRange = (transform, shortcut, range) => {
@@ -671,6 +675,44 @@ class FluxNotesEditor extends React.Component {
 
         // Move to previous anchor block to not lose the valid selection
         transform = transform.moveToRangeOf(anchorBlock).collapseToEnd().focus();
+        return transform;
+    }
+
+    /**
+     * TODO Issues:
+     * - Deleting GIST gives error that toxicity depends on it
+     * - Where should we re-establish parent context?
+     * - As soon as you insert @condition, #toxicity is completed because there is a parent context.
+     *      - Maybe wait to establish parent context only if valid
+     * - Need to update children of shortcuts (not just contexts)
+     */
+    resetSubsequentShortcuts = (shortcut, transform) => {
+        if (shortcut.metadata.isGlobalContext) {
+            // Global - Re-render all shortcuts following
+            // TODO Potentially use isBlock1BeforeBlock2 to calculate "Following"?
+            const allContexts = this.props.contextManager.contexts; // TODO Should be a getter
+            allContexts.forEach(context => {
+                if (context.establishParentContext) context.establishParentContext(this.props.contextManager);
+                const key = context.getKey();
+                transform = transform.setNodeByKey(key, {
+                    data: {
+                        shortcut: context
+                    }
+                });
+            });
+        } else {
+            // Local context - re-render all shortcuts in the block (context)
+            const activeContexts = this.props.contextManager.getActiveContexts();
+            activeContexts.forEach(context => {
+                if (context.establishParentContext) context.establishParentContext(this.props.contextManager);
+                const key = context.getKey();
+                transform = transform.setNodeByKey(key, {
+                    data: {
+                        shortcut: context
+                    }
+                });
+            });
+        }
         return transform;
     }
 
