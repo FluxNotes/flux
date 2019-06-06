@@ -25,4 +25,11 @@ export default class SingleHashtagKeyword extends EntryShortcut {
     get isComplete() {
         return this.hasChildren();
     }
+
+    get completionComponent() {
+        if (!this.isComplete) {
+            return ContextGetHelp;
+        }
+        return null;
+    }
 }
