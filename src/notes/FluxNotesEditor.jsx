@@ -668,17 +668,20 @@ class FluxNotesEditor extends React.Component {
                 shortcut
             }
         });
-
         // Save anchor block to reset selection after updating shortcut text
-        const {anchorBlock} = transform.state;
+        const { anchorBlock } = transform.state;
 
         // Update text on the node
         const shortcutNode = transform.state.document.getNode(shortcut.getKey());
         transform = transform.moveToRangeOf(shortcutNode).insertText(shortcut.getDisplayText());
 
         // Move to previous anchor block to not lose the valid selection
-        transform = transform.moveToRangeOf(anchorBlock).collapseToEnd().focus();
-
+        transform = transform
+            .moveToRangeOf(anchorBlock)
+            .collapseToEnd()
+            .insertText(' ')    // FIXME: Hacky fix for issues with enter-key selection in the calendar component not focusing back in the editor post-insertion
+            .deleteBackward(1)  // FIXME: Hacky fix for issues with enter-key selection in the calendar component not focusing back in the editor post-insertion
+            .focus();
         return transform;
     }
 
