@@ -15,7 +15,7 @@ export default class InMemoryClinicalNote {
 
         // Open div tags don't trigger any action now, so just remove them.
         if (!Lang.isUndefined(remainder)) {
-            remainder = remainder.split('<div>').join('');
+            remainder = remainder.split('<div>').join('').split('</div>').join('\n');
         }
         const triggers = this.noteParser.getListOfTriggersAndPlaceholdersFromText(remainder)[0];
 
