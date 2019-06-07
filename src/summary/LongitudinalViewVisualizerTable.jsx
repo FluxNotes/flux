@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import Table, { TableHead, TableBody, TableFooter, TableCell, TableRow } from 'material-ui/Table';
+import Table, { TableHead, TableBody, TableCell, TableRow } from 'material-ui/Table';
 
 
 export default class LongitudinalViewVisualizerTable extends Component {
@@ -15,6 +14,7 @@ export default class LongitudinalViewVisualizerTable extends Component {
     createData(labName, unit, datesOrData, id = 0) { //datesOrData is dates if it's the first row of the table and data if not
         return { labName, unit, datesOrData, id }; //the names given here are the keys and the values passed into those parameters become the key's values
     }
+
 
     render() {
         //in place of 'Frozen yoghurt' will be the name of the lab (labs[id]?), 159 will be the unit (units[id]?, etc.), this.dates will be the data (or date if first row) (could be an array
