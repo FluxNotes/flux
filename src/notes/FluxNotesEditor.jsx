@@ -654,7 +654,7 @@ class FluxNotesEditor extends React.Component {
 
         // Update text on the node
         const shortcutNode = transform.state.document.getNode(shortcut.getKey());
-        transform = transform.moveToRangeOf(shortcutNode).insertText(shortcut.getText());
+        transform = transform.moveToRangeOf(shortcutNode).insertText(shortcut.getDisplayText());
 
         // Move to previous anchor block to not lose the valid selection
         transform = transform.moveToRangeOf(anchorBlock).collapseToEnd().focus();
@@ -965,10 +965,10 @@ class FluxNotesEditor extends React.Component {
             this.getSearchResultInlines(this.state.state.document).forEach(inline => {
                 const shortcut = inline.get('data').get('shortcut');
                 // TODO: handle highlighting of placeholder text -- should happen in the highlight fn
-                if (shortcut.getText().toLowerCase().includes(newHighlightedSearchSuggestion.inputValue.toLowerCase()) && newHighlightedSearchSuggestion.indexOfMatch === indexOfCurrentMatch) {
+                if (shortcut.getDisplayText().toLowerCase().includes(newHighlightedSearchSuggestion.inputValue.toLowerCase()) && newHighlightedSearchSuggestion.indexOfMatch === indexOfCurrentMatch) {
                     transform = this.selectedHighlightStructuredField(transform, inline);
                     indexOfCurrentMatch += 1;
-                } else if (shortcut.getText().toLowerCase().includes(newHighlightedSearchSuggestion.inputValue.toLowerCase())) {
+                } else if (shortcut.getDisplayText().toLowerCase().includes(newHighlightedSearchSuggestion.inputValue.toLowerCase())) {
                     indexOfCurrentMatch += 1;
                 }
             });
@@ -1007,7 +1007,7 @@ class FluxNotesEditor extends React.Component {
             // regular highlighting of structured fields
             this.getSearchResultInlines(this.state.state.document).forEach(inline => {
                 const shortcut = inline.get('data').get('shortcut');
-                if (shortcut.getText().toLowerCase().includes(prevHighlightedSuggestion.inputValue.toLowerCase())) {
+                if (shortcut.getDisplayText().toLowerCase().includes(prevHighlightedSuggestion.inputValue.toLowerCase())) {
                     transform = this.regularHighlightStructuredField(transform, inline);
                 }
             });
@@ -1037,7 +1037,7 @@ class FluxNotesEditor extends React.Component {
             this.state.state.document.getInlinesByTypeAsArray('structured_field').forEach(inline => {
                 const shortcut = inline.get('data').get('shortcut');
                 // Handle highlighting of placeholder text should happen in the highlight fn
-                if (shortcut.getText().toLowerCase().includes(suggestion.inputValue.toLowerCase())) {
+                if (shortcut.getDisplayText().toLowerCase().includes(suggestion.inputValue.toLowerCase())) {
                     transform = this.regularHighlightStructuredField(transform, inline);
                 } else {
                     transform = this.unhighlightStructuredField(transform, inline);
