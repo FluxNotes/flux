@@ -96,6 +96,8 @@ export default class NoteParser {
      */
     getListOfTriggersAndPlaceholdersFromText(note) {
         let unrecognizedTriggers = [];
+        let textInAngleBrackets;
+        const styleTags = ['<strong>', '</strong>', '<em>', '</em>', '<u>', '</u>', '<ul>', '</ul>', '<ol>', '</ol>', '<li>', '</li>'];
         const triggerChars = ['#', '@', '<'];
         let matches = [];
         let match, substr, nextPos, found;
@@ -115,15 +117,21 @@ export default class NoteParser {
                 if (nextPos === -1) { // not a template
                     nextPos = this.getNextTriggerIndex(note, triggerChars, hashPos + 1);
                 } else {
-                    let possibleValue = note.substring(nextPos + 1);
-                    let selectedValue = null;
+                    textInAngleBrackets = note.substring(hashPos, nextPos + 1).toLowerCase();
+                    if (styleTags.includes(textInAngleBrackets)) {
+                        // style
+                        matches.push({ style: textInAngleBrackets });
+                    } else {
+                        let possibleValue = note.substring(nextPos + 1);
+                        let selectedValue = null;
 
-                    // Check if the shortcut is an inserter (check for '[['). If it is, grab the selected value
-                    if (possibleValue.startsWith("[[")) {
-                        let posOfEndBrackets = possibleValue.indexOf("]]");
-                        selectedValue = possibleValue.substring(2, posOfEndBrackets);
+                        // Check if the shortcut is an inserter (check for '[['). If it is, grab the selected value
+                        if (possibleValue.startsWith("[[")) {
+                            let posOfEndBrackets = possibleValue.indexOf("]]");
+                            selectedValue = possibleValue.substring(2, posOfEndBrackets);
+                        }
+                        matches.push({placeholder: textInAngleBrackets, selectedValue });
                     }
-                    matches.push({placeholder: note.substring(hashPos, nextPos + 1), selectedValue });
                     nextPos = this.getNextTriggerIndex(note, triggerChars, nextPos + 1);
                     hashPos = nextPos;
                     continue;

@@ -35,6 +35,8 @@ export default class InMemoryClinicalNote {
                         remainder = remainder.substring(end + 2);
                     }
                     this._addPlaceholder(trigger);
+                } else if (trigger.style) {
+                    // do nothing
                 } else {
                     start = remainder.indexOf(trigger.trigger);
                     if (start > 0) {

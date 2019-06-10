@@ -1392,7 +1392,7 @@ class FluxNotesEditor extends React.Component {
                         this.adjustActiveContexts(transform.state.selection, transform.state); // Updates active contexts based on cursor position
                     }
                 } else if (node.type === 'placeholder') {
-                    this.insertPlaceholder(node.placeholder, transform, node.selectedValue);
+                    this.insertPlaceholder(node.placeholder.placeholder, transform, node.placeholder.selectedValue);
                 }
             });
         }
